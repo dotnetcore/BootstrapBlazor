@@ -14,7 +14,7 @@ export function init(id) {
         if (e.key === "Enter" || e.key === "NumpadEnter") {
             const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
             const shiftKey = e.shiftKey;
-            if (!shiftKey || !useShiftEnter) {
+            if (shiftKey && useShiftEnter) {
                 e.preventDefault();
             }
         }

@@ -98,6 +98,53 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
+    /// Gets or sets whether virtual scrolling is enabled. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the row height for virtual scrolling. Default is 33.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    /// <summary>
+    /// Gets or sets the default text for virtualized items. Default is null.
+    /// </summary>
+    [Parameter]
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，删除即可；Deprecated, just delete")]
+    public string? DefaultVirtualizeItemText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method when the clear button is clicked. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
     /// Gets the search icon string with default "icon search-icon" class.
     /// </summary>
     protected string? SearchIconString => CssBuilder.Default("icon search-icon")
@@ -125,7 +172,23 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// Gets the dropdown menu class string.
     /// </summary>
     protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
+        .AddClass("is-fixed-search", CheckFixedSearch())
+        .Build();
+
+    /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    protected string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
+    /// <summary>
+    /// Gets the SearchLoadingIcon icon class string.
+    /// </summary>
+    protected string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
         .Build();
 
     /// <summary>
@@ -150,4 +213,40 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task Hide() => InvokeVoidAsync("hide", Id);
+
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+
+    /// <summary>
+    /// Clears the search text.
+    /// </summary>
+    public void ClearSearchText() => SearchText = null;
+
+    /// <summary>
+    /// Clears the selected value.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task OnClearValue()
+    {
+        if (ShowSearch)
+        {
+            ClearSearchText();
+        }
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+        CurrentValue = default;
+    }
+
+    /// <summary>
+    /// Gets whether to show the search box.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool CheckFixedSearch() => ShowSearch && IsFixedSearch;
 }

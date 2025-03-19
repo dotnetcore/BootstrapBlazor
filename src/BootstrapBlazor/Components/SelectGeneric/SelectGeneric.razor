@@ -22,7 +22,7 @@
             }
             else
             {
-                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedRow.Text" @onchange="OnChange" readonly="@ReadonlyString" />
+                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedRow?.Text" @onchange="OnChange" readonly="@ReadonlyString" />
             }
             <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
         </div>

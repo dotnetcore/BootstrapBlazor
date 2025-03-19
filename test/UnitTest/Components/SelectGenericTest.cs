@@ -150,7 +150,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         var clearButton = cut.Find(".clear-icon");
         cut.InvokeAsync(() => clearButton.Click());
-        Assert.Empty(val);
+        Assert.Null(val);
 
         // 提高代码覆盖率
         var select = cut;
@@ -159,10 +159,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.Color, Color.Danger);
         });
 
-        var validPi = typeof(SelectGeneric<string>).GetProperty("IsValid", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var validPi = typeof(SelectGeneric<string>).BaseType!.GetProperty("IsValid", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         validPi.SetValue(select.Instance, true);
 
-        var pi = typeof(SelectGeneric<string>).GetProperty("ClearClassString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var pi = typeof(SelectGeneric<string>).BaseType!.GetProperty("ClearClassString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         val = pi.GetValue(select.Instance, null)!.ToString();
         Assert.Contains("text-success", val);
 
@@ -452,8 +452,8 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
 
         // 值为 null
-        // 候选项中无，导致默认选择第一个 Value 被更改为 true
-        Assert.True(cut.Instance.Value);
+        // 候选项中无，可为空值为 null
+        Assert.Null(cut.Instance.Value);
     }
 
     [Fact]
@@ -703,9 +703,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 点击 Clear 按钮
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
+        Assert.Null(cut.Instance.Value);
 
-        // UI 恢复 Test1
-        Assert.Equal("Test1", el.Value);
+        // UI 恢复 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         items = cut.FindAll(".dropdown-item");
@@ -761,9 +762,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 点击 Clear 按钮
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
+        Assert.Null(cut.Instance.Value);
 
-        // UI 恢复 Test1
-        Assert.Equal("All", el.Value);
+        // UI 恢复 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         Assert.True(query);
@@ -796,7 +798,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
 
         var input = cut.Find(".form-select");
-        Assert.Null(input.GetAttribute("value"));
+        Assert.Equal("3", input.GetAttribute("value"));
 
         var select = cut.Instance;
         Assert.Equal("3", select.Value);
@@ -807,40 +809,6 @@ public class SelectGenericTest : BootstrapBlazorTestBase
 
         input = cut.Find(".form-select");
         Assert.Equal("Test1", input.GetAttribute("value"));
-    }
-
-    [Fact]
-    public void IsVirtualize_DefaultVirtualizeItemText()
-    {
-        string? value = "3";
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
-        {
-            pb.Add(a => a.IsVirtualize, true);
-            pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
-            pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, new Action<string?>(item =>
-            {
-                value = item;
-            })));
-            pb.Add(a => a.OnQueryAsync, option =>
-            {
-                return Task.FromResult(new QueryData<SelectedItem<string>>()
-                {
-                    Items = new SelectedItem<string>[]
-                    {
-                        new("1", "Test1"),
-                        new("2", "Test2")
-                    },
-                    TotalCount = 2
-                });
-            });
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find(".form-select");
-            Assert.Equal("Test 3", input.GetAttribute("value"));
-        });
     }
 
     [Fact]
