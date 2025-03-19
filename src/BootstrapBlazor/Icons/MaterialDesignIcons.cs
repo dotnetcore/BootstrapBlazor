@@ -110,7 +110,7 @@ internal static class MaterialDesignIcons
 
         { ComponentIcons.MultiSelectDropdownIcon, "mdi mdi-chevron-up" },
         { ComponentIcons.MultiSelectCloseIcon, "mdi mdi-close" },
-        { ComponentIcons.MultiSelectClearIcon, "mdi mdi-trash-can-outline" },
+        { ComponentIcons.MultiSelectClearIcon, "mdi mdi-close-circle-outline" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "mdi mdi-chevron-up" },
 
