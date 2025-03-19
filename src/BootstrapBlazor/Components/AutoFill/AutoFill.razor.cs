@@ -174,32 +174,18 @@ public partial class AutoFill<TValue>
     private List<TValue> Rows => _filterItems ?? [.. Items];
 
     private int _totalCount;
-    private TValue? _itemsCache;
-    private ItemsProviderResult<TValue> _result;
 
     private async ValueTask<ItemsProviderResult<TValue>> LoadItems(ItemsProviderRequest request)
     {
-        // 有搜索条件时使用原生请求数量
-        // 有总数时请求剩余数量
         var count = _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
-        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count });
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = _searchText });
 
-        _itemsCache = default;
         _totalCount = data.TotalCount;
         var items = data.Items ?? [];
-        _result = new ItemsProviderResult<TValue>(items, _totalCount);
-        return _result;
+        return new ItemsProviderResult<TValue>(items, _totalCount);
     }
 
-    private List<TValue> GetVirtualItems()
-    {
-        var items = new List<TValue>();
-        if (Items != null)
-        {
-            items.AddRange(Items);
-        }
-        return items;
-    }
+    private string? _searchText;
 
     /// <summary>
     /// Triggers the filter method.
@@ -208,6 +194,14 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
+        if (OnQueryAsync != null)
+        {
+            _searchText = val;
+            await _virtualizeElement.RefreshDataAsync();
+            StateHasChanged();
+            return;
+        }
+
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
@@ -226,7 +220,7 @@ public partial class AutoFill<TValue>
             _filterItems = [.. items];
         }
 
-        if (DisplayCount != null)
+        if (!IsVirtualize && DisplayCount != null)
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
