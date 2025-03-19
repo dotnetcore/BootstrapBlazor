@@ -101,7 +101,6 @@ public class ITableColumnExtensionsTest
             HeaderTextWrap = true,
             HeaderTextTooltip = "test tooltip",
             ShowSearchWhenSelect = true,
-            IsFixedSearchWhenSelect = true,
             IsPopover = true,
             ShowCopyColumn = true,
             Step = "0.01",
@@ -166,7 +165,6 @@ public class ITableColumnExtensionsTest
         Assert.True(col.HeaderTextWrap);
         Assert.Equal("test tooltip", col.HeaderTextTooltip);
         Assert.True(col.ShowSearchWhenSelect);
-        Assert.True(col.IsFixedSearchWhenSelect);
         Assert.True(col.IsPopover);
         Assert.True(col.ShowCopyColumn);
         Assert.Equal("0.01", col.Step);
