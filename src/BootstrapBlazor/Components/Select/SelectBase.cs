@@ -171,7 +171,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <summary>
     /// Gets the dropdown menu class string.
     /// </summary>
-    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu shadow")
         .AddClass("is-fixed-search", CheckFixedSearch())
         .Build();
 
