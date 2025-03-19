@@ -62,6 +62,8 @@ public partial class LookupFilter : ILookup
     /// 获得 是否为 ShowSearch 呈现模式 默认为 false
     /// </summary>
     [Parameter]
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
     public bool IsFixedSearch { get; set; }
 
     [Inject]
