@@ -44,7 +44,6 @@ public sealed partial class Selects
     private bool _showSearch = true;
     private bool _showPopoverSearch = true;
     private bool _isShowSearchClearable = true;
-    private bool _isFixedSearch = true;
     private bool _isClearable = true;
     private string? _fooName;
 

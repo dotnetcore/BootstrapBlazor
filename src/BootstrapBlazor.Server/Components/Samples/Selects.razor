@@ -323,23 +323,17 @@
                     <Checkbox @bind-Value="@_isShowSearchClearable" />
                 </BootstrapInputGroup>
             </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
-                    <Checkbox @bind-Value="@_isFixedSearch" />
-                </BootstrapInputGroup>
-            </div>
         </div>
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items" ShowSearch="true"
-                    IsClearable="_isShowSearchClearable" IsFixedSearch="_isFixedSearch">
+                    IsClearable="_isShowSearchClearable">
             </Select>
         </div>
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="StringItems" ShowSearch="true"
-                    IsClearable="_isShowSearchClearable" IsFixedSearch="_isFixedSearch">
+                    IsClearable="_isShowSearchClearable">
             </Select>
         </div>
     </div>
@@ -442,12 +436,6 @@
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
-                    <Checkbox @bind-Value="@_isFixedSearch" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="IsClearable" />
                     <Checkbox @bind-Value="@_isClearable" />
                 </BootstrapInputGroup>
@@ -459,7 +447,7 @@
     <div class="row mb-3">
         <div class="col-6">
             <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1"
-                    ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable"></Select>
+                    ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
@@ -470,7 +458,7 @@
     <div class="row">
         <div class="col-6">
             <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
-                    ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable"></Select>
+                    ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
