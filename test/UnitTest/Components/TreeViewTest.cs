@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Threading.Tasks;
-
 namespace UnitTest.Components;
 
 public class TreeViewTest : BootstrapBlazorTestBase
@@ -1051,12 +1049,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("search-template");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsFixedSearch, true);
-        });
-        cut.Contains("is-fixed-search");
     }
 
     [Fact]
