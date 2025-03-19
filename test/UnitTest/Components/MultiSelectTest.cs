@@ -168,7 +168,8 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         Assert.Equal(2, values.Count);
 
         // 选中第四个
-        var item = cut.FindAll(".dropdown-menu .dropdown-item").Last();
+        var items = cut.FindAll(".dropdown-menu .dropdown-item");
+        var item = items[items.Count - 1];
         await cut.InvokeAsync(() => item.Click());
         values = cut.FindAll(".multi-select-items .multi-select-item");
         Assert.Equal(3, values.Count);
@@ -644,7 +645,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ClearableIcon, "icon-clear-test");
+            pb.Add(a => a.ClearIcon, "icon-clear-test");
         });
         Assert.DoesNotContain("fa-regular fa-circle-xmark", cut.Markup);
         Assert.Contains("icon-clear-test", cut.Markup);
