@@ -3209,7 +3209,8 @@
     "SelectsGenericDesc": "<p>请参考 <a href=\"https://github.com/dotnetcore/BootstrapBlazor/issues/4497?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">设计思路</a> 理解此功能。本例中通过选择下拉框选项，得到的值为 <code>Foo</code> 实例，右侧文本框内显示值为 <code>Foo</code> 属性 <code>Address</code> 值</p><p>本例中未设置 <code>ValueEqualityComparer</code> 以及 <code>CustomKeyAttribute</code> 参数，使用 <code>Foo</code> 属性 <code>Id</code> 的 <code>[Key]</code> 标签进行相等判定</p>",
     "SelectsOnInputChangedCallback": "编辑模式下输入文本转换为对应 Value 回调方法",
     "TextConvertToValueCallback": "编辑模式下输入文本变化时回调方法",
-    "SelectsIsEditable": "是否可编辑"
+    "SelectsIsEditable": "是否可编辑",
+    "SelectsIsVirtualize": "是否开启虚拟滚动"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",
