@@ -122,17 +122,16 @@
 .dropdown-menu {
     &.is-fixed-toolbar {
         --bb-dropdown-max-height: 330px;
+        --bb-dropdown-toolbar-height: 38px;
 
         .dropdown-menu-body {
-            max-height: calc(var(--bb-dropdown-max-height) - 48px);
-            overflow: auto;
+            max-height: calc(var(--bb-dropdown-max-height) - var(--bb-dropdown-toolbar-height));
         }
     }
 
     &.is-fixed-search.is-fixed-toolbar {
         .dropdown-menu-body {
-            max-height: calc(var(--bb-dropdown-max-height) - 117px);
-            overflow: auto;
+            max-height: calc(var(--bb-dropdown-max-height) - var(--bb-select-search-height) - var(--bb-dropdown-toolbar-height));
         }
     }
 

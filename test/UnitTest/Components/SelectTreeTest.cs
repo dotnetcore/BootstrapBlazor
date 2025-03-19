@@ -221,12 +221,6 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowResetSearchButton, true);
         });
         cut.Contains("tree-search-reset");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsFixedSearch, true);
-        });
-        cut.Contains("is-fixed-search");
     }
 
     private List<TreeViewItem<string>> BindItems { get; } =

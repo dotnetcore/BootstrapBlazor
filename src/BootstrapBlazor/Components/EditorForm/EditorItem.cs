@@ -165,6 +165,8 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>

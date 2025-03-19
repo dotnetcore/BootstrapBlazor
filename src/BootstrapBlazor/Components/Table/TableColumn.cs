@@ -411,6 +411,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
