@@ -375,6 +375,22 @@ public partial class MultiSelects
         },
         new()
         {
+            Name = "ShowSearch",
+            Description = Localizer["MultiSelectsAttribute_ShowSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsFixedSearch",
+            Description = Localizer["MultiSelectsAttribute_IsFixedSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowToolbar",
             Description = Localizer["MultiSelectsAttribute_ShowToolbar"],
             Type = "bool",
