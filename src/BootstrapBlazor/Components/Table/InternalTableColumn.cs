@@ -224,6 +224,8 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    [Obsolete("已弃用，请删除；Deprecated, please delete")]
+    [ExcludeFromCodeCoverage]
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
