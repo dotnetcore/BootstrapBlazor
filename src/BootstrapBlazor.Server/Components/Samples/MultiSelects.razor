@@ -321,6 +321,12 @@ private enum MultiSelectEnumFoo
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowToolbar" />
+                    <Checkbox @bind-Value="@_showToolbar" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="IsClearable" />
                     <Checkbox @bind-Value="@_isClearable" />
                 </BootstrapInputGroup>
@@ -332,7 +338,8 @@ private enum MultiSelectEnumFoo
     <div class="row mb-3">
         <div class="col-6">
             <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString1" OnQueryAsync="OnQueryAsync"
-                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
+                         ShowSearch="_showSearch" ShowToolbar="_showToolbar"
+                         IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
         <div class="col-6">
@@ -344,7 +351,8 @@ private enum MultiSelectEnumFoo
     <div class="row">
         <div class="col-6">
             <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString2" Items="VirtualItems"
-                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
+                         ShowSearch="_showSearch" ShowToolbar="_showToolbar"
+                         IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
         <div class="col-6">
