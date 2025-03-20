@@ -160,6 +160,10 @@ public partial class AutoFill<TValue>
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
+    private string? PlaceHolderStyleString => RowHeight > 50f
+        ? CssBuilder.Default().AddStyle("height", $"{RowHeight}px").Build()
+        : null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
