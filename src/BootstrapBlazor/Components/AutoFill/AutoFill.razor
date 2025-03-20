@@ -22,7 +22,7 @@
     {
         <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
     }
-    <ul class="dropdown-menu">
+    <div class="dropdown-menu">
         @if (IsVirtualize)
         {
             <div class="dropdown-menu-body dropdown-virtual">
@@ -41,7 +41,7 @@
         }
         else if (ShowNoDataTip && Rows.Count == 0)
         {
-            <li class="dropdown-item">@NoDataTip</li>
+            <div class="dropdown-item">@NoDataTip</div>
         }
         else
         {
@@ -52,12 +52,12 @@
                 }
             </div>
         }
-    </ul>
+    </div>
 </div>
 
 @code {
     RenderFragment<TValue> RenderRow => item =>
-    @<li @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
+    @<div @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
         @if (ItemTemplate != null)
         {
             @ItemTemplate(item)
@@ -66,7 +66,7 @@
         {
             <div>@GetDisplayText(item)</div>
         }
-    </li>;
+    </div>;
 
     RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
     @<div class="dropdown-item">
