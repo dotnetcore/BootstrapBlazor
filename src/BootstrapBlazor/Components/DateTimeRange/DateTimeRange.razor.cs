@@ -442,6 +442,7 @@ public partial class DateTimeRange
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
+        await InvokeVoidAsync("hide", Id);
     }
 
     /// <summary>
