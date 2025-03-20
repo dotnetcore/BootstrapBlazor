@@ -87,10 +87,9 @@
 
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
-        <div class="col-12">
-            <AutoFill @bind-Value="Model4" OnQueryAsync="OnQueryAsync" OnGetDisplayText="OnGetDisplayText" class="mb-3"
-                      IsSelectAllTextOnFocus="true" OnCustomFilter="OnCustomVirtulizeFilter"
-                      IsVirtualize="true" RowHeight="58f" IsClearable="_isClearable">
+        <div class="col-6">
+            <AutoFill @bind-Value="Model4" OnQueryAsync="OnQueryAsync" OnGetDisplayText="OnGetDisplayText"
+                      IsSelectAllTextOnFocus="true" IsVirtualize="true" RowHeight="58f" IsClearable="_isClearable">
                 <ItemTemplate>
                     <div class="d-flex">
                         <div>
@@ -103,19 +102,19 @@
                     </div>
                 </ItemTemplate>
             </AutoFill>
-            <section ignore>
-                @if (Model4 != null)
-                {
-                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
-                }
-            </section>
         </div>
     </div>
+    <section ignore>
+        @if (Model4 != null)
+        {
+            <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2"></EditorForm>
+        }
+    </section>
 
     <p class="code-label">2. 使用 Items 作为数据源</p>
-    <div class="row">
-        <div class="col-12">
-            <AutoFill @bind-Value="Model4" Items="Items4" OnGetDisplayText="OnGetDisplayText" class="mb-3"
+    <div class="row mb-3">
+        <div class="col-6">
+            <AutoFill @bind-Value="Model5" Items="Items5" OnGetDisplayText="OnGetDisplayText"
                       IsSelectAllTextOnFocus="true" OnCustomFilter="OnCustomVirtulizeFilter"
                       IsVirtualize="true" RowHeight="58f" IsClearable="_isClearable">
                 <ItemTemplate>
@@ -130,14 +129,14 @@
                     </div>
                 </ItemTemplate>
             </AutoFill>
-            <section ignore>
-                @if (Model4 != null)
-                {
-                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
-                }
-            </section>
         </div>
     </div>
+    <section ignore>
+        @if (Model5 != null)
+        {
+            <EditorForm Model="@Model5" RowType="RowType.Inline" ItemsPerRow="2"></EditorForm>
+        }
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
