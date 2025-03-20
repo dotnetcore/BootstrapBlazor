@@ -155,7 +155,7 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     {
         base.OnParametersSet();
 
-        Offset ??= "[0, 10]";
+        Offset ??= "[0, 6]";
     }
 
     /// <summary>
