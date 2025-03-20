@@ -19,7 +19,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-clearable", IsClearable)
-        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
@@ -104,14 +103,14 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
-    public float RowHeight { get; set; } = 33f;
+    public float RowHeight { get; set; } = 50f;
 
     /// <summary>
-    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
+    /// Gets or sets the overscan count for virtual scrolling. Default is 3.
     /// </summary>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
-    public int OverscanCount { get; set; } = 4;
+    public int OverscanCount { get; set; } = 3;
 
     /// <summary>
     /// Gets or sets the callback method for loading virtualized items.
@@ -161,6 +160,10 @@ public partial class AutoFill<TValue>
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
+    private string? PlaceHolderStyleString => RowHeight > 50f
+        ? CssBuilder.Default().AddStyle("height", $"{RowHeight}px").Build()
+        : null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -177,6 +180,14 @@ public partial class AutoFill<TValue>
         _displayText = GetDisplayText(Value);
         Items ??= [];
     }
+
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -197,6 +208,10 @@ public partial class AutoFill<TValue>
             await OnClearAsync();
         }
         CurrentValue = default;
+        _displayText = null;
+        _filterItems = null;
+        _searchText = null;
+
         if (OnQueryAsync != null)
         {
             await _virtualizeElement.RefreshDataAsync();
@@ -222,14 +237,13 @@ public partial class AutoFill<TValue>
 
     private List<TValue> Rows => _filterItems ?? [.. Items];
 
-    private int _totalCount;
-
     private async ValueTask<ItemsProviderResult<TValue>> LoadItems(ItemsProviderRequest request)
     {
-        var count = _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
-        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = _searchText });
+        _render = false;
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = request.Count, SearchText = _searchText });
+        _render = true;
 
-        _totalCount = data.TotalCount;
+        var _totalCount = data.TotalCount;
         var items = data.Items ?? [];
         return new ItemsProviderResult<TValue>(items, _totalCount);
     }

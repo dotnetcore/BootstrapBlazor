@@ -16,7 +16,6 @@ public partial class AutoComplete
     /// Gets the component style
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete")
-        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>

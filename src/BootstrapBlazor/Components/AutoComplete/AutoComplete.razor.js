@@ -16,6 +16,25 @@ export function init(id, invoke) {
     if (isPopover) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' });
     }
+    else {
+        const extraClass = input.getAttribute('data-bs-custom-class');
+        if (extraClass) {
+            menu.classList.add(...extraClass.split(' '))
+        }
+        const offset = input.getAttribute('data-bs-offset');
+        if (offset) {
+            const [x, y] = offset.split(',');
+            const xValue = parseFloat(x);
+            const yValue = parseFloat(y);
+
+            if (xValue > 0) {
+                menu.style.setProperty('margin-left', `${xValue}px`);
+            }
+            if (yValue > 0) {
+                menu.style.setProperty('margin-top', `${yValue}px`);
+            }
+        }
+    }
 
     // debounce
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');

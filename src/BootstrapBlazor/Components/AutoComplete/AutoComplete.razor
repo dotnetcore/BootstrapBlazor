@@ -23,23 +23,25 @@
 
 @code {
     RenderFragment RenderDropdown =>
-    @<ul class="dropdown-menu">
-        @foreach (var item in Rows)
-        {
-            <li @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
-                @if (ItemTemplate == null)
-                {
-                    <div>@item</div>
-                }
-                else
-                {
-                    @ItemTemplate(item)
-                }
-            </li>
-        }
-        @if (ShowNoDataTip && Rows.Count == 0)
-        {
-            <li class="dropdown-item">@NoDataTip</li>
-        }
-    </ul>;
+    @<div class="dropdown-menu">
+        <div class="dropdown-menu-body">
+            @foreach (var item in Rows)
+            {
+                <div @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
+                    @if (ItemTemplate == null)
+                    {
+                        <div>@item</div>
+                    }
+                    else
+                    {
+                        @ItemTemplate(item)
+                    }
+                </div>
+            }
+            @if (ShowNoDataTip && Rows.Count == 0)
+            {
+                <div class="dropdown-item">@NoDataTip</div>
+            }
+        </div>
+    </div>;
 }

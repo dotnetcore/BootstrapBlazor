@@ -22,6 +22,9 @@ partial class AutoFills
     [NotNull]
     private Foo Model4 { get; set; } = new();
 
+    [NotNull]
+    private Foo Model5 { get; set; } = new();
+
     private static string? OnGetDisplayText(Foo? foo) => foo?.Name;
 
     [NotNull]
@@ -35,6 +38,9 @@ partial class AutoFills
 
     [NotNull]
     private IEnumerable<Foo>? Items4 { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? Items5 { get; set; }
 
     [Inject]
     [NotNull]
@@ -58,6 +64,9 @@ partial class AutoFills
 
         Items4 = Foo.GenerateFoo(LocalizerFoo);
         Model4 = Items3.First();
+
+        Items5 = Foo.GenerateFoo(LocalizerFoo);
+        Model5 = Items3.First();
     }
 
     private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
@@ -68,7 +77,7 @@ partial class AutoFills
 
     private Task<IEnumerable<Foo>> OnCustomVirtulizeFilter(string searchText)
     {
-        var items = string.IsNullOrEmpty(searchText) ? Items4 : Items4.Where(i => i.Name!.Contains(searchText));
+        var items = string.IsNullOrEmpty(searchText) ? Items5 : Items5.Where(i => i.Name!.Contains(searchText));
         return Task.FromResult(items);
     }
 
