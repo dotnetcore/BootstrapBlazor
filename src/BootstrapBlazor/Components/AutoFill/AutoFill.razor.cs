@@ -19,7 +19,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-clearable", IsClearable)
-        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
