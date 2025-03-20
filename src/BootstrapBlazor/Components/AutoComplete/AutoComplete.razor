@@ -23,7 +23,7 @@
 
 @code {
     RenderFragment RenderDropdown =>
-    @<ul class="dropdown-menu shadow">
+    @<ul class="dropdown-menu">
         @foreach (var item in Rows)
         {
             <li @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
