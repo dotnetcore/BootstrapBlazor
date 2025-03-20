@@ -196,6 +196,10 @@ public partial class AutoFill<TValue>
             await OnClearAsync();
         }
         CurrentValue = default;
+        _displayText = null;
+        _filterItems = null;
+        _searchText = null;
+
         if (OnQueryAsync != null)
         {
             await _virtualizeElement.RefreshDataAsync();
