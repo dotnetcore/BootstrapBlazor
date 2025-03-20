@@ -204,7 +204,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     /// <summary>
-    /// 
+    /// Gets whether show the clear button.
     /// </summary>
     /// <returns></returns>
     protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
