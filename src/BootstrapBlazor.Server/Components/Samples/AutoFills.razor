@@ -9,7 +9,7 @@
     <section ignore>
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
-    <AutoFill @bind-Value="Model1" Items="Items1" class="mb-3"
+    <AutoFill @bind-Value="Model1" Items="Items1"
               IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" IsSelectAllTextOnFocus="true">
         <ItemTemplate>
             <div class="d-flex">
@@ -32,7 +32,7 @@
 <DemoBlock Title="@Localizer["CustomFilterTitle"]" Introduction="@Localizer["CustomFilterIntro"]" Name="CustomFilter">
     <section ignore>@((MarkupString)Localizer["CustomFilterDesc"].Value)</section>
     <AutoFill @bind-Value="Model2" Items="Items2" OnCustomFilter="OnCustomFilter"
-              OnGetDisplayText="OnGetDisplayText" class="mb-3">
+              OnGetDisplayText="OnGetDisplayText">
         <ItemTemplate>
             <div class="d-flex">
                 <div>
@@ -54,7 +54,7 @@
     <section ignore>
         @((MarkupString)@Localizer["ShowDropdownListOnFocusDesc"].Value)
     </section>
-    <AutoFill @bind-Value="Model3" Items="Items3" ShowDropdownListOnFocus="false" OnGetDisplayText="OnGetDisplayText" class="mb-3">
+    <AutoFill @bind-Value="Model3" Items="Items3" ShowDropdownListOnFocus="false" OnGetDisplayText="OnGetDisplayText">
         <ItemTemplate>
             <div class="d-flex">
                 <div>
