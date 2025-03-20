@@ -9,7 +9,8 @@
     <section ignore>
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
-    <AutoFill @bind-Value="Model1" Items="Items1" IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" class="mb-3" IsSelectAllTextOnFocus="true">
+    <AutoFill @bind-Value="Model1" Items="Items1" class="mb-3"
+              IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" IsSelectAllTextOnFocus="true">
         <ItemTemplate>
             <div class="d-flex">
                 <div>
@@ -69,6 +70,74 @@
     <section ignore>
         <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />
     </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IsVirtualizeTitle"]" Introduction="@Localizer["IsVirtualizeIntro"]" Name="IsVirtualize">
+    <section ignore>
+        <p>@((MarkupString)Localizer["IsVirtualizeDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row mb-3">
+        <div class="col-12">
+            <AutoFill @bind-Value="Model4" OnQueryAsync="OnQueryAsync" OnGetDisplayText="OnGetDisplayText" class="mb-3"
+                      IsSelectAllTextOnFocus="true" OnCustomFilter="OnCustomVirtulizeFilter"
+                      IsVirtualize="true" RowHeight="58f" IsClearable="_isClearable">
+                <ItemTemplate>
+                    <div class="d-flex">
+                        <div>
+                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                        </div>
+                        <div class="ps-2">
+                            <div>@context.Name</div>
+                            <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </AutoFill>
+            <section ignore>
+                @if (Model4 != null)
+                {
+                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                }
+            </section>
+        </div>
+    </div>
+
+    <p class="code-label">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-12">
+            <AutoFill @bind-Value="Model4" Items="Items4" OnGetDisplayText="OnGetDisplayText" class="mb-3"
+                      IsSelectAllTextOnFocus="true" OnCustomFilter="OnCustomVirtulizeFilter"
+                      IsVirtualize="true" RowHeight="58f" IsClearable="_isClearable">
+                <ItemTemplate>
+                    <div class="d-flex">
+                        <div>
+                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                        </div>
+                        <div class="ps-2">
+                            <div>@context.Name</div>
+                            <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </AutoFill>
+            <section ignore>
+                @if (Model4 != null)
+                {
+                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                }
+            </section>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -1,10 +1,5 @@
 .auto-complete {
     --bb-ac-padding-right: #{$bb-ac-padding-right};
-    --bb-ac-menu-top: #{$bb-ac-menu-top};
-    --bb-ac-menu-left: #{$bb-ac-menu-left};
-    --bb-ac-menu-right: #{$bb-ac-menu-right};
-    --bb-ac-menu-shadow: #{$bb-ac-menu-shadow};
-    --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
     --bb-select-append-width: #{$bb-select-append-width};
     --bb-select-append-color: #{$bb-select-append-color};
     position: relative;
@@ -15,11 +10,7 @@
     }
 
     .dropdown-menu {
-        top: var(--bb-ac-menu-top);
-        left: var(--bb-ac-menu-left);
-        right: var(--bb-ac-menu-right);
-        box-shadow: var(--bb-ac-menu-shadow);
-        max-height: var(--bb-ac-dropdown-max-height);
+        width: 100%;
     }
 
     .ac-loading {

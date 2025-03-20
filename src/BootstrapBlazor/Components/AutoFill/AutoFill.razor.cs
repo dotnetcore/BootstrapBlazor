@@ -3,105 +3,163 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoFill 组件
+/// AutoFill component
 /// </summary>
+/// <typeparam name="TValue">The type of the value.</typeparam>
 public partial class AutoFill<TValue>
 {
     /// <summary>
-    /// 获得 组件样式
+    /// Gets the component style.
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private List<TValue>? _filterItems;
-
     /// <summary>
-    /// 获得/设置 组件数据集合
+    /// Gets or sets the collection of items for the component.
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<TValue>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配数据时显示的数量 默认 null 未设置
+    /// Gets or sets the number of items to display when matching data. Default is null.
     /// </summary>
     [Parameter]
     [NotNull]
     public int? DisplayCount { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启模糊查询，默认为 false
+    /// Gets or sets whether to enable fuzzy search. Default is false.
     /// </summary>
     [Parameter]
     public bool IsLikeMatch { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配时是否忽略大小写，默认为 true
+    /// Gets or sets whether to ignore case when matching. Default is true.
     /// </summary>
     [Parameter]
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// Gets or sets whether to expand the dropdown candidate menu when focused. Default is true.
     /// </summary>
     [Parameter]
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
+    /// Gets or sets the method to get the display text from the model. Default is to use the ToString override method.
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<TValue?, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
-    /// 图标
+    /// Gets or sets the icon.
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 加载图标
+    /// Gets or sets the loading icon.
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义集合过滤规则
+    /// Gets or sets the custom collection filtering rules.
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
+    /// Gets or sets whether to show the no matching data option. Default is true.
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 候选项模板 默认 null
+    /// Gets or sets the candidate item template. Default is null.
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
     [ExcludeFromCodeCoverage]
     public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
 
+    /// <summary>
+    /// Gets or sets whether virtual scrolling is enabled. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the row height for virtual scrolling. Default is 33.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    /// <summary>
+    /// Gets or sets the callback method for loading virtualized items.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<VirtualizeQueryOption, Task<QueryData<TValue>>>? OnQueryAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method when the clear button is clicked. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    /// <summary>
-    /// 获得 获得焦点自动显示下拉框设置字符串
-    /// </summary>
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
     private string? _displayText;
+
+    private List<TValue>? _filterItems;
+
+    [NotNull]
+    private Virtualize<TValue>? _virtualizeElement = default;
+
+    /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -114,14 +172,41 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         _displayText = GetDisplayText(Value);
         Items ??= [];
     }
 
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
+
     /// <summary>
-    /// 鼠标点击候选项时回调此方法
+    /// Gets whether show the clear button.
     /// </summary>
+    /// <returns></returns>
+    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    private async Task OnClearValue()
+    {
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+        CurrentValue = default;
+        if (OnQueryAsync != null)
+        {
+            await _virtualizeElement.RefreshDataAsync();
+        }
+    }
+
+    /// <summary>
+    /// Callback method when a candidate item is clicked.
+    /// </summary>
+    /// <param name="val">The value of the clicked item.</param>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
@@ -135,23 +220,45 @@ public partial class AutoFill<TValue>
 
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
 
-    private List<TValue> Rows => _filterItems ?? Items.ToList();
+    private List<TValue> Rows => _filterItems ?? [.. Items];
+
+    private int _totalCount;
+
+    private async ValueTask<ItemsProviderResult<TValue>> LoadItems(ItemsProviderRequest request)
+    {
+        var count = _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = _searchText });
+
+        _totalCount = data.TotalCount;
+        var items = data.Items ?? [];
+        return new ItemsProviderResult<TValue>(items, _totalCount);
+    }
+
+    private string? _searchText;
 
     /// <summary>
-    /// TriggerFilter 方法
+    /// Triggers the filter method.
     /// </summary>
-    /// <param name="val"></param>
+    /// <param name="val">The value to filter by.</param>
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
+        if (OnQueryAsync != null)
+        {
+            _searchText = val;
+            await _virtualizeElement.RefreshDataAsync();
+            StateHasChanged();
+            return;
+        }
+
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
         else if (string.IsNullOrEmpty(val))
         {
-            _filterItems = Items.ToList();
+            _filterItems = [.. Items];
         }
         else
         {
@@ -159,20 +266,20 @@ public partial class AutoFill<TValue>
             var items = IsLikeMatch
                 ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
                 : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
 
-        if (DisplayCount != null)
+        if (!IsVirtualize && DisplayCount != null)
         {
-            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
+            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         StateHasChanged();
     }
 
     /// <summary>
-    /// TriggerOnChange 方法
+    /// Triggers the change method.
     /// </summary>
-    /// <param name="val"></param>
+    /// <param name="val">The value to change to.</param>
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
