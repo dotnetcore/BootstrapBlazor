@@ -375,6 +375,7 @@ public partial class DateTimeRange
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
+        await InvokeVoidAsync("hide", Id);
     }
 
     private Task OnStartDateChanged(DateTime value)
@@ -442,6 +443,7 @@ public partial class DateTimeRange
         {
             EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
+        await InvokeVoidAsync("hide", Id);
     }
 
     /// <summary>

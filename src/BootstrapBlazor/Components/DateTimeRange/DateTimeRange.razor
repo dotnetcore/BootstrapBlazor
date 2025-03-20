@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body" data-bb-dismiss=".picker-panel-link-btn">
+<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body">
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
@@ -37,13 +37,15 @@
                 {
                     <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
-                                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
+                                    ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                     ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     </DatePickerBody>
                 }
                 <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
                                 DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
-                                ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                                ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm"
+                                ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                 ShowLeftButtons="@_showLeftButtons" MaxValue="MaxValue" MinValue="MinValue">
                 </DatePickerBody>
             </CascadingValue>
