@@ -5010,7 +5010,6 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
                     builder.AddAttribute(33, "LookupService", new FooLookupService());
-                    builder.AddAttribute(34, "IsFixedSearchWhenSelect", true);
                     builder.CloseComponent();
                 });
             });
