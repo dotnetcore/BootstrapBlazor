@@ -64,7 +64,6 @@ public class InternalTableColumnTest
         SetValue("Order", 1);
         SetValue("Lookup", new SelectedItem[] { new("test", "Test") });
         SetValue("ShowSearchWhenSelect", true);
-        SetValue("IsFixedSearchWhenSelect", true);
         SetValue("IsPopover", true);
         SetValue("LookupStringComparison", StringComparison.Ordinal);
         SetValue("LookupServiceKey", "Test");
