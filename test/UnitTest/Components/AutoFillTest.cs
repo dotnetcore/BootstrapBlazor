@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
@@ -421,5 +422,68 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnGetDisplayText, f => f?.ToString());
         });
         cut.Contains("clear-icon");
+    }
+
+
+    [Fact]
+    public async Task Validate_Ok()
+    {
+        var valid = false;
+        var invalid = false;
+        var model = new MockModel() { Value = new Foo() { Name = "Test-Select1" } };
+        var items = new List<Foo>()
+        {
+            new() { Name = "test1" },
+            new() { Name = "test2" }
+        };
+        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        {
+            builder.Add(a => a.OnValidSubmit, context =>
+            {
+                valid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.Model, model);
+            builder.AddChildContent<AutoFill<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.Value, model.Value);
+                pb.Add(a => a.IsClearable, true);
+                pb.Add(a => a.OnGetDisplayText, f => f?.Name);
+                pb.Add(a => a.OnValueChanged, v =>
+                {
+                    model.Value = v;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Value", typeof(Foo)));
+            });
+        });
+
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(valid);
+        Assert.Equal("Test-Select1", model.Value.Name);
+
+        // 点击 Clear 按钮
+        var button = cut.Find(".clear-icon");
+        await cut.InvokeAsync(() => button.Click());
+
+        var form = cut.Find("form");
+        form.Submit();
+        Assert.True(invalid);
+    }
+
+    class MockModel
+    {
+        [Required]
+        public Foo? Value { get; set; }
     }
 }
