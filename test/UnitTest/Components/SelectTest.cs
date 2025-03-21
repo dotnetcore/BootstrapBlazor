@@ -761,6 +761,30 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void DefaultVirtualizeItemText_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "3");
+            pb.Add(a => a.IsVirtualize, true);
+        });
+
+        var input = cut.Find(".form-select");
+        Assert.Contains("value=\"3\"", input.OuterHtml);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultVirtualizeItemText, "Test3");
+        });
+        Assert.Contains("value=\"Test3\"", input.OuterHtml);
+    }
+
+    [Fact]
     public void IsVirtualize_Items()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
