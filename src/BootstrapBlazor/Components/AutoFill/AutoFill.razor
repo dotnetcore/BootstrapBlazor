@@ -34,7 +34,7 @@
                 else
                 {
                     <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
-                                Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
+                                Placeholder="RenderPlaceholderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
                     </Virtualize>
                 }
             </div>
@@ -68,7 +68,7 @@
         }
     </div>;
 
-    RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
+    RenderFragment<PlaceholderContext> RenderPlaceholderRow => context =>
     @<div class="dropdown-item" style="@PlaceHolderStyleString">
         <div class="is-ph"></div>
     </div>;
