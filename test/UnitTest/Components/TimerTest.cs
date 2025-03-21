@@ -132,13 +132,12 @@ public class TimerTest : BootstrapBlazorTestBase
         var downs = cut.FindAll(".time-spinner-arrow.fa-angle-down");
         await cut.InvokeAsync(() => downs[0].Click());
         await cut.InvokeAsync(() => cut.Find(".time-panel-btn.confirm").Click());
-        await Task.Delay(1000);
-        var buttons = cut.FindAll(".timer-buttons button");
+
         // pause
+        var buttons = cut.FindAll(".timer-buttons button");
         Assert.True(buttons[1].ClassList.Contains("btn-warning"));
         Assert.Equal("暂停", buttons[1].GetInnerText());
         await cut.InvokeAsync(() => buttons[1].Click());
-        await Task.Delay(500);
 
         // resume
         buttons = cut.FindAll(".timer-buttons button");
@@ -156,6 +155,5 @@ public class TimerTest : BootstrapBlazorTestBase
         downs = cut.FindAll(".time-spinner-arrow.fa-angle-down");
         await cut.InvokeAsync(() => downs[0].Click());
         await cut.InvokeAsync(() => cut.Find(".time-panel-btn.confirm").Click());
-        await Task.Delay(1000);
     }
 }
