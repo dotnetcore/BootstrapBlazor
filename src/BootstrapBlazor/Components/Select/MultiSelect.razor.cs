@@ -113,6 +113,12 @@ public partial class MultiSelect<TValue>
     public Func<IEnumerable<SelectedItem>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the default virtualize items text.
+    /// </summary>
+    [Parameter]
+    public string? DefaultVirtualizeItemText { get; set; }
+
+    /// <summary>
     /// 获得/设置 全选按钮显示文本
     /// </summary>
     [Parameter]
@@ -158,6 +164,7 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -167,7 +174,7 @@ public partial class MultiSelect<TValue>
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -195,15 +202,15 @@ public partial class MultiSelect<TValue>
         if (_lastSelectedValueString != _currentValue)
         {
             _lastSelectedValueString = _currentValue;
-            var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
             SelectedItems.Clear();
             if (IsVirtualize)
             {
-                SelectedItems.AddRange(list.Select(i => new SelectedItem(i, i)));
+                SelectedItems.AddRange(GetItemsByVirtualize());
             }
             else
             {
+                var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
             }
         }
@@ -231,6 +238,23 @@ public partial class MultiSelect<TValue>
         TriggerEditTag = nameof(TriggerEditTag),
         ToggleRow = nameof(ToggleRow)
     });
+
+    private List<SelectedItem> GetItemsByVirtualize()
+    {
+        var ret = new List<SelectedItem>();
+        var texts = new List<string>();
+        if (!string.IsNullOrEmpty(DefaultVirtualizeItemText))
+        {
+            texts.AddRange(DefaultVirtualizeItemText.Split(',', StringSplitOptions.RemoveEmptyEntries));
+        }
+        var values = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+        for (int i = 0; i < values.Count; i++)
+        {
+            var text = i < texts.Count ? texts[i] : values[i];
+            ret.Add(new SelectedItem(values[i], text));
+        }
+        return ret;
+    }
 
     private int _totalCount;
     private ItemsProviderResult<SelectedItem> _result;
@@ -265,7 +289,7 @@ public partial class MultiSelect<TValue>
     }
 
     /// <summary>
-    /// FormatValueAsString 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -350,7 +374,7 @@ public partial class MultiSelect<TValue>
         val = val.Trim();
         if (OnEditCallback != null)
         {
-            ret = await OnEditCallback.Invoke(val);
+            ret = await OnEditCallback(val);
         }
         else if (!string.IsNullOrEmpty(val))
         {
