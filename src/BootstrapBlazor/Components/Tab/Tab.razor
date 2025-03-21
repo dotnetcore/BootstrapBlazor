@@ -51,11 +51,11 @@ else
                                 }
                                 else if (item.IsDisabled)
                                 {
-                                    @RenderDisabledHeader(item)
+                                    @RenderDisabledHeaderItem(item)
                                 }
                                 else
                                 {
-                                    @RenderHeader(item)
+                                    @RenderHeaderItem(item)
                                 }
                             }
                             @if (IsCard || IsBorderCard)
@@ -124,7 +124,7 @@ else
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderDisabledHeader(TabItem item) =>
+    RenderFragment RenderDisabledHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
         <div role="tab" class="@GetClassString(item)">
             @RenderHeaderContent(item)
@@ -136,7 +136,7 @@ else
         }
     </div>;
 
-    RenderFragment RenderHeader(TabItem item) =>
+    RenderFragment RenderHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
         <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
             @RenderHeaderContent(item)
