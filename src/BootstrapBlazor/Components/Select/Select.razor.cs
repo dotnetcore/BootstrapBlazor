@@ -175,17 +175,7 @@ public partial class Select<TValue> : ISelect, ILookup
             return null;
         }
 
-        if (IsVirtualize)
-        {
-            _init = false;
-            return new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
-        }
-
-        var item = GetItemWithEnumValue()
-            ?? Rows.Find(i => i.Value == CurrentValueAsString)
-            ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
-
+        var item = IsVirtualize ? GetItemByVirtulized() : GetItemByRows();
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)
@@ -201,9 +191,18 @@ public partial class Select<TValue> : ISelect, ILookup
         return item;
     }
 
-    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum
-        ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString())
-        : null;
+    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
+
+    private SelectedItem GetItemByVirtulized() => new(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+
+    private SelectedItem? GetItemByRows()
+    {
+        var item = GetItemWithEnumValue()
+            ?? Rows.Find(i => i.Value == CurrentValueAsString)
+            ?? Rows.Find(i => i.Active)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
+        return item;
+    }
 
     /// <summary>
     /// <inheritdoc/>
