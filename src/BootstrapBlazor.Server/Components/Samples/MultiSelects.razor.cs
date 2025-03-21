@@ -485,6 +485,14 @@ public partial class MultiSelects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(MultiSelect<string>.DefaultVirtualizeItemText),
+            Description = Localizer["MultiSelectsAttribute_DefaultVirtualizeItemText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

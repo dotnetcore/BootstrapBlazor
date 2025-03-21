@@ -3031,7 +3031,8 @@
     "MultiSelectVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
     "MultiSelectVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
     "MultiSelectsAttribute_ShowSearch": "Whether to display the search box",
-    "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize"
+    "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize",
+    "MultiSelectsAttribute_DefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
@@ -3208,7 +3209,8 @@
     "SelectsOnInputChangedCallback": "Callback method for converting input text into corresponding Value in edit mode",
     "TextConvertToValueCallback": "Callback method when input text changes in edit mode",
     "SelectsIsEditable": "Whether editable",
-    "SelectsIsVirtualize": "Wether to enable virtualize"
+    "SelectsIsVirtualize": "Wether to enable virtualize",
+    "SelectsDefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider",
