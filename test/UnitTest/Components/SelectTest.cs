@@ -371,7 +371,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DisableItemChangedWhenFirstRender_Ok()
+    public void DisableItemChangedWhenFirstRender_False()
     {
         var triggered = false;
 
@@ -392,6 +392,30 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisableItemChangedWhenFirstRender, true);
         });
         Assert.False(triggered);
+    }
+
+    [Fact]
+    public void DisableItemChangedWhenFirstRender_True()
+    {
+        var triggered = false;
+
+        // 空值时，不触发 OnSelectedItemChanged 回调
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "");
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                triggered = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DisableItemChangedWhenFirstRender, false);
+        });
+        Assert.True(triggered);
     }
 
     [Fact]
