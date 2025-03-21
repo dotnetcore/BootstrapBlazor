@@ -350,6 +350,35 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Placeholder_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var items = Foo.GenerateFoo(localizer, 80).Skip(option.StartIndex).Take(5);
+                var ret = new QueryData<Foo>()
+                {
+                    Items = items,
+                    TotalCount = 80
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 50f);
+            pb.Add(a => a.OnGetDisplayText, f => f?.Name);
+        });
+        cut.Contains("<div class=\"dropdown-item\"><div class=\"is-ph\"></div></div>");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.RowHeight, 35f);
+        });
+        cut.Contains("<div class=\"dropdown-item\" style=\"height: 35px;\"><div class=\"is-ph\"></div></div>");
+    }
+
+    [Fact]
     public async Task IsVirtualize_OnQueryAsync_Clearable_Ok()
     {
         var query = false;
@@ -375,6 +404,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, items[0]);
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.RowHeight, 35f);
             pb.Add(a => a.OnGetDisplayText, f => f?.Name);
             pb.Add(a => a.OnClearAsync, () =>
             {
