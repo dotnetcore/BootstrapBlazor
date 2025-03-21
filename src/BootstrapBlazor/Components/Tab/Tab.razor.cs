@@ -879,10 +879,6 @@ public partial class Tab : IHandlerException
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
 
-    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultDisabledHeader(item) : RenderChromeDisabledHeader(item);
-
-    private RenderFragment RenderHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultHeader(item) : RenderChromeHeader(item);
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
