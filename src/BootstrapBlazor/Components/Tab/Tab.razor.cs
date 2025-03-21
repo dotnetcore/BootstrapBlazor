@@ -29,7 +29,6 @@ public partial class Tab : IHandlerException
         .Build();
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
-        .AddClass("active", TabStyle == TabStyle.Default && item.IsActive && !item.IsDisabled)
         .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
@@ -329,7 +328,7 @@ public partial class Tab : IHandlerException
 
     private Placement LastPlacement { get; set; }
 
-    private string DraggableString => AllowDrag ? "true" : "false";
+    private string? DraggableString => AllowDrag ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -878,10 +877,6 @@ public partial class Tab : IHandlerException
     }
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
-
-    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultDisabledHeader(item) : RenderChromeDisabledHeader(item);
-
-    private RenderFragment RenderHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultHeader(item) : RenderChromeHeader(item);
 
     /// <summary>
     /// <inheritdoc/>

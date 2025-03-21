@@ -51,11 +51,11 @@ else
                                 }
                                 else if (item.IsDisabled)
                                 {
-                                    @RenderDisabledHeaderByStyle(item)
+                                    @RenderDisabledHeader(item)
                                 }
                                 else
                                 {
-                                    @RenderHeaderByStyle(item)
+                                    @RenderHeader(item)
                                 }
                             }
                             @if (IsCard || IsBorderCard)
@@ -124,7 +124,7 @@ else
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderChromeDisabledHeader(TabItem item) =>
+    RenderFragment RenderDisabledHeader(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
         <div role="tab" class="@GetClassString(item)">
             @RenderHeaderContent(item)
@@ -136,14 +136,9 @@ else
         }
     </div>;
 
-    RenderFragment RenderDefaultDisabledHeader(TabItem item) =>
-    @<div @key="item" role="tab" class="@GetClassString(item)">
-        @RenderHeaderContent(item)
-    </div>;
-
-    RenderFragment RenderChromeHeader(TabItem item) =>
-    @<div @key="@item" class="@GetItemWrapClassString(item)">
-        <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
+    RenderFragment RenderHeader(TabItem item) =>
+    @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
+        <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
             @RenderHeaderContent(item)
         </a>
         @if (TabStyle == TabStyle.Chrome)
@@ -152,11 +147,6 @@ else
             <i class="tab-corner tab-corner-right"></i>
         }
     </div>;
-
-    RenderFragment RenderDefaultHeader(TabItem item) =>
-    @<a @key="item" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
-        @RenderHeaderContent(item)
-    </a>;
 
     RenderFragment RenderHeaderContent(TabItem item) =>
     @<div class="tabs-item-body">
