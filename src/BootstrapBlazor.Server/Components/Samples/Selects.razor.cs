@@ -10,13 +10,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Selects
 {
-    private long TestId { get; set; } = 1;
-    private IEnumerable<SelectedItem> TestItems { get; set; } = new[]
-{
-        new SelectedItem ("1", "mm1"),
-        new SelectedItem ("2", "mm2") 
-    };
-
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
