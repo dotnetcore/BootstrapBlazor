@@ -596,6 +596,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.RowHeight, 30f);
+            pb.Add(a => a.OverscanCount, 4);
             pb.Add(a => a.OnExpandNodeAsync, async item =>
             {
                 await Task.Delay(10);
