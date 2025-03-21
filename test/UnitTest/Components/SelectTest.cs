@@ -841,7 +841,7 @@ public class SelectTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => items[0].Click());
         var el = cut.Find(".form-select") as IHtmlInputElement;
         Assert.NotNull(el);
-        Assert.Equal("Test2", el.Value);
+        Assert.Equal("2", el.Value);
         Assert.Equal("2", cut.Instance.Value);
 
         // 点击 Clear 按钮
