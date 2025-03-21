@@ -20,7 +20,7 @@ public partial class MultiSelect<TValue>
         .AddClass("is-clearable", IsClearable)
         .Build();
 
-    private string? MultipleDropdownMenuClassString => CssBuilder.Default(DropdownMenuClassString)
+    private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
         .AddClass("is-fixed-toolbar", ShowToolbar)
         .Build();
 
@@ -55,6 +55,12 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 关闭按钮图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示功能按钮 默认为 false 不显示
@@ -152,14 +158,6 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is null.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearableIcon { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -184,8 +182,8 @@ public partial class MultiSelect<TValue>
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectCloseIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
-        ClearableIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearableIcon);
 
         ResetItems();
         ResetRules();
@@ -294,12 +292,6 @@ public partial class MultiSelect<TValue>
         }
         return items;
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool CheckFixedSearch() => ShowToolbar ? true : base.CheckFixedSearch();
 
     /// <summary>
     /// 客户端回车回调方法

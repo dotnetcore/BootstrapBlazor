@@ -694,8 +694,6 @@
     "TreeViewShowSkeletonButtonText": "异步加载",
     "TreeViewShowSearchTitle": "显示搜索栏",
     "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
-    "TreeViewFixedSearchTitle": "固定搜索栏",
-    "TreeViewFixedSearchIntro": "通过设置 <code>IsFixedSearch=\"true\"</code> 固定搜索栏，可通过样式变量 <code>--bb-tree-search-height</code> 设定搜索栏高度",
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",
@@ -2153,7 +2151,11 @@
     "Att10": "获得焦点时是否展开下拉候选菜单",
     "Att11": "候选项模板",
     "Att12": "是否跳过 Enter 按键处理",
-    "Att13": "是否跳过 Esc 按键处理"
+    "Att13": "是否跳过 Esc 按键处理",
+    "IsVirtualizeTitle": "虚拟滚动",
+    "IsVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
+    "IsVirtualizeDescription": "组件虚拟滚动支持两种形式通过 <code>Items</code> 或者 <code>OnQueryAsync</code> 回调方法提供数据",
+    "AttrIsVirtualize": "是否开启虚拟滚动"
   },
   "BootstrapBlazor.Server.Components.Samples.AutoCompletes": {
     "Title": "AutoComplete 自动完成",
@@ -3029,7 +3031,7 @@
     "MultiSelectVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
     "MultiSelectVirtualizeDescription": "组件虚拟滚动支持两种形式通过 <code>Items</code> 或者 <code>OnQueryAsync</code> 回调方法提供数据",
     "MultiSelectsAttribute_ShowSearch": "是否显示搜索框",
-    "MultiSelectsAttribute_IsFixedSearch": "是否固定搜索栏"
+    "MultiSelectsAttribute_IsVirtualize": "是否开启虚拟滚动"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio 单选框",
@@ -3165,7 +3167,7 @@
     "SelectsCustomTemplateTitle": "自定义选项模板",
     "SelectsCustomTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式",
     "SelectsShowSearchTitle": "带搜索框的下拉框",
-    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 <b>false</b> 不显示搜索框；通过设置 <code>IsFixedSearch</code> 固定搜索栏",
+    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 <b>false</b> 不显示搜索框",
     "SelectsConfirmSelectTitle": "带确认的下拉框",
     "SelectsConfirmSelectIntro": "通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变",
     "SelectsTimeZoneTitle": "时区下拉框",
@@ -3206,7 +3208,7 @@
     "SelectsOnInputChangedCallback": "编辑模式下输入文本转换为对应 Value 回调方法",
     "TextConvertToValueCallback": "编辑模式下输入文本变化时回调方法",
     "SelectsIsEditable": "是否可编辑",
-    "SelectsIsFixedSearch": "是否固定搜索栏"
+    "SelectsIsVirtualize": "是否开启虚拟滚动"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",

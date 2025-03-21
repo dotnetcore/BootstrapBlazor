@@ -1,7 +1,3 @@
 .auto-fill {
-    --bb-af-dropdown-max-height: var(--bb-dropdown-max-height);
-
-    .dropdown-menu {
-        max-height: var(--bb-af-dropdown-max-height);
-    }
+    --bb-dropdown-max-height: 330px;
 }

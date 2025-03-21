@@ -7,7 +7,7 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel" data-bb-dismiss=".picker-panel-link-btn">
+<div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel">
     <input readonly="@ReadonlyString" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" @onblur="OnBlur" />
     @if (ShowIcon)
     {

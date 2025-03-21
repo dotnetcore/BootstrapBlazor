@@ -120,8 +120,6 @@ public partial class MultiSelects
     private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
 
     private string? _editString;
-
-    private bool _isFixedSearch = true;
     private bool _isClearable = true;
     private bool _showToolbar = true;
     private bool _showSearch = true;
@@ -383,14 +381,6 @@ public partial class MultiSelects
         },
         new()
         {
-            Name = "IsFixedSearch",
-            Description = Localizer["MultiSelectsAttribute_IsFixedSearch"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "ShowToolbar",
             Description = Localizer["MultiSelectsAttribute_ShowToolbar"],
             Type = "bool",
@@ -481,6 +471,14 @@ public partial class MultiSelects
         {
             Name = "IsFixedHeight",
             Description = Localizer["MultiSelectsAttribute_IsFixedHeight"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(MultiSelect<string>.IsVirtualize),
+            Description = Localizer["MultiSelectsAttribute_IsVirtualize"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

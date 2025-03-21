@@ -41,16 +41,10 @@ public sealed partial class Selects
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private bool _showSearch;
-
+    private bool _showSearch = true;
     private bool _showPopoverSearch = true;
-
-    private bool _isShowSearchClearable;
-
-    private bool _isFixedSearch;
-
-    private bool _isClearable;
-
+    private bool _isShowSearchClearable = true;
+    private bool _isClearable = true;
     private string? _fooName;
 
     private readonly List<SelectedItem> _enumValueDemoItems = [
@@ -360,14 +354,6 @@ public sealed partial class Selects
         },
         new()
         {
-            Name = "IsFixedSearch",
-            Description = Localizer["SelectsIsFixedSearch"],
-            Type = "boolean",
-            ValueList = "true / false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "IsDisabled",
             Description = Localizer["SelectsIsDisabled"],
             Type = "boolean",
@@ -426,6 +412,14 @@ public sealed partial class Selects
         {
             Name = "DisableItemChangedWhenFirstRender",
             Description = Localizer["SelectsDisableItemChangedWhenFirstRender"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Select<string>.IsVirtualize),
+            Description = Localizer["SelectsIsVirtualize"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

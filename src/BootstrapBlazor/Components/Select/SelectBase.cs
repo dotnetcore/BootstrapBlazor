@@ -24,12 +24,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the search bar in the dropdown is fixed. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsFixedSearch { get; set; }
-
-    /// <summary>
     /// Gets or sets the search icon.
     /// </summary>
     [Parameter]
@@ -169,13 +163,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .Build();
 
     /// <summary>
-    /// Gets the dropdown menu class string.
-    /// </summary>
-    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", CheckFixedSearch())
-        .Build();
-
-    /// <summary>
     /// Gets the clear icon class string.
     /// </summary>
     protected string? ClearClassString => CssBuilder.Default("clear-icon")
@@ -217,7 +204,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     /// <summary>
-    /// 
+    /// Gets whether show the clear button.
     /// </summary>
     /// <returns></returns>
     protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
@@ -243,10 +230,4 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         }
         CurrentValue = default;
     }
-
-    /// <summary>
-    /// Gets whether to show the search box.
-    /// </summary>
-    /// <returns></returns>
-    protected virtual bool CheckFixedSearch() => ShowSearch && IsFixedSearch;
 }

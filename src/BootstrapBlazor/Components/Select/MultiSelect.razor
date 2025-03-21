@@ -28,7 +28,7 @@
                         <div class="multi-select-item-group">
                             <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
                                             TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
-                                <i class="@ClearIcon"></i>
+                                <i class="@CloseButtonIcon"></i>
                             </DynamicElement>
                             <span class="multi-select-item">@item.Text</span>
                         </div>
@@ -51,9 +51,9 @@
     </div>
     @if (GetClearable())
     {
-        <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearableIcon"></i></span>
+        <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
     }
-    <div class="@MultipleDropdownMenuClassString">
+    <div class="@DropdownMenuClassString">
         @if (ShowSearch)
         {
             <div class="dropdown-menu-search">

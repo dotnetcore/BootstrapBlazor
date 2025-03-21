@@ -6,9 +6,7 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -564,30 +562,6 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.SearchIcon, "search-icon");
         });
         Assert.Contains("search-icon", cut.Markup);
-    }
-
-    [Fact]
-    public void IsFixedSearch_Ok()
-    {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
-        {
-            pb.Add(a => a.Items, new SelectedItem[]
-            {
-                new("1", "Test1"),
-                new("2", "Test2")
-            });
-            pb.Add(a => a.Value, "2");
-            pb.Add(a => a.ShowSearch, true);
-            pb.Add(a => a.IsFixedSearch, true);
-        });
-        Assert.Contains("dropdown-menu is-fixed-search", cut.Markup);
-        Assert.Contains("class=\"icon search-icon", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowSearch, false);
-        });
-        Assert.DoesNotContain("dropdown-menu is-fixed-search", cut.Markup);
     }
 
     [Fact]

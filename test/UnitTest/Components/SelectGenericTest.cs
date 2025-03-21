@@ -474,24 +474,6 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsFixedSearch_Ok()
-    {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
-        {
-            pb.Add(a => a.Items, new SelectedItem<string>[]
-            {
-                new("1", "Test1"),
-                new("2", "Test2")
-            });
-            pb.Add(a => a.Value, "2");
-            pb.Add(a => a.ShowSearch, true);
-            pb.Add(a => a.IsFixedSearch, true);
-        });
-        Assert.Contains("dropdown-menu is-fixed-search", cut.Markup);
-        Assert.Contains("class=\"icon", cut.Markup);
-    }
-
-    [Fact]
     public void CustomClass_Ok()
     {
         var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>

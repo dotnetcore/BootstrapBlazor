@@ -694,8 +694,6 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
-    "TreeViewFixedSearchTitle": "Fixed search",
-    "TreeViewFixedSearchIntro": "The search bar can be fixed by setting <code>IsFixedSearch=\"true\"</code>, and the search bar height can be set by the css variable <code>--bb-tree-search-height</code>",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
@@ -2153,7 +2151,11 @@
     "Att10": "Whether to expand the dropdown candidate menu when it gains focus",
     "Att11": "Candidate template",
     "Att12": "Whether to skip Enter key handling",
-    "Att13": "Whether to skip Esc key processing"
+    "Att13": "Whether to skip Esc key processing",
+    "IsVirtualizeTitle": "Virtualize",
+    "IsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
+    "IsVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
+    "AttrIsVirtualize": "Wether to enable virtualize"
   },
   "BootstrapBlazor.Server.Components.Samples.AutoCompletes": {
     "Title": "AutoComplete",
@@ -3029,7 +3031,7 @@
     "MultiSelectVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
     "MultiSelectVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
     "MultiSelectsAttribute_ShowSearch": "Whether to display the search box",
-    "MultiSelectsAttribute_IsFixedSearch": "Whether fixed the search box"
+    "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
@@ -3165,7 +3167,7 @@
     "SelectsCustomTemplateTitle": "Custom option templates",
     "SelectsCustomTemplateIntro": "By setting the <code>ItemTemplate</code> you can customize the option rendering style",
     "SelectsShowSearchTitle": "Drop-down box with search box",
-    "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default <b>false</b>. Fixed the search bar by setting <code>IsFixedSearch</code>",
+    "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default <b>false</b>",
     "SelectsConfirmSelectTitle": "Drop-down box with confirmation",
     "SelectsConfirmSelectIntro": "Block changes to the current value by setting the <code>OnBeforeSelectedItemChange</code> delegate.",
     "SelectsTimeZoneTitle": "Timezone",
@@ -3206,7 +3208,7 @@
     "SelectsOnInputChangedCallback": "Callback method for converting input text into corresponding Value in edit mode",
     "TextConvertToValueCallback": "Callback method when input text changes in edit mode",
     "SelectsIsEditable": "Whether editable",
-    "SelectsIsFixedSearch": "Whether fixed the search box"
+    "SelectsIsVirtualize": "Wether to enable virtualize"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider",

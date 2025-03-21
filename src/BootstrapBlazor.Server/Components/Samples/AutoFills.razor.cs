@@ -15,8 +15,15 @@ partial class AutoFills
 
     [NotNull]
     private Foo Model2 { get; set; } = new();
+
     [NotNull]
     private Foo Model3 { get; set; } = new();
+
+    [NotNull]
+    private Foo Model4 { get; set; } = new();
+
+    [NotNull]
+    private Foo Model5 { get; set; } = new();
 
     private static string? OnGetDisplayText(Foo? foo) => foo?.Name;
 
@@ -29,9 +36,17 @@ partial class AutoFills
     [NotNull]
     private IEnumerable<Foo>? Items3 { get; set; }
 
+    [NotNull]
+    private IEnumerable<Foo>? Items4 { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? Items5 { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    private bool _isClearable = true;
 
     /// <inheritdoc/>
     protected override void OnInitialized()
@@ -46,12 +61,39 @@ partial class AutoFills
 
         Items3 = Foo.GenerateFoo(LocalizerFoo);
         Model3 = Items3.First();
+
+        Items4 = Foo.GenerateFoo(LocalizerFoo);
+        Model4 = Items3.First();
+
+        Items5 = Foo.GenerateFoo(LocalizerFoo);
+        Model5 = Items3.First();
     }
 
     private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
     {
         var items = string.IsNullOrEmpty(searchText) ? Items2 : Items2.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
         return Task.FromResult(items);
+    }
+
+    private Task<IEnumerable<Foo>> OnCustomVirtulizeFilter(string searchText)
+    {
+        var items = string.IsNullOrEmpty(searchText) ? Items5 : Items5.Where(i => i.Name!.Contains(searchText));
+        return Task.FromResult(items);
+    }
+
+    private async Task<QueryData<Foo>> OnQueryAsync(VirtualizeQueryOption option)
+    {
+        await Task.Delay(200);
+        var items = Foo.GenerateFoo(LocalizerFoo);
+        if (!string.IsNullOrEmpty(option.SearchText))
+        {
+            items = [.. items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase))];
+        }
+        return new QueryData<Foo>
+        {
+            Items = items.Skip(option.StartIndex).Take(option.Count),
+            TotalCount = items.Count
+        };
     }
 
     /// <summary>
@@ -160,6 +202,14 @@ partial class AutoFills
         {
             Name = nameof(AutoFill<string>.SkipEsc),
             Description = Localizer["Att13"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(AutoFill<string>.IsVirtualize),
+            Description = Localizer["AttrIsVirtualize"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
