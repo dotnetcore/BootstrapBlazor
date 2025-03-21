@@ -127,7 +127,7 @@ else
     RenderFragment RenderDisabledHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
         <div role="tab" class="@GetClassString(item)">
-            @RenderHeaderContent(item)
+            @RenderHeaderItemContent(item)
         </div>
         @if (TabStyle == TabStyle.Chrome)
         {
@@ -139,7 +139,7 @@ else
     RenderFragment RenderHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
         <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
-            @RenderHeaderContent(item)
+            @RenderHeaderItemContent(item)
         </a>
         @if (TabStyle == TabStyle.Chrome)
         {
@@ -148,7 +148,7 @@ else
         }
     </div>;
 
-    RenderFragment RenderHeaderContent(TabItem item) =>
+    RenderFragment RenderHeaderItemContent(TabItem item) =>
     @<div class="tabs-item-body">
         @if (!string.IsNullOrEmpty(item.Icon))
         {
