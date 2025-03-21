@@ -226,7 +226,6 @@
 
 .tabs.tabs-card > .tabs-header .tabs-item.active,
 .tabs.tabs-border-card > .tabs-header .tabs-item.active {
-    background-color: var(--bs-body-bg);
     border-width: 0 1px 0px 0;
 }
 
@@ -470,21 +469,23 @@
     min-height: calc(100% + 2rem);
 }
 
-.tab-drag-over {
-    animation: drag-tab-item 1s linear infinite;
-}
+.tab-dragging {
+    .tabs-item-wrap:not(:hover) .tabs-item {
+        pointer-events: none;
+    }
 
-.tab-dragging th[draggable] * {
-    pointer-events: none;
-}
+    .tab-drag-over .tabs-item {
+        animation: drag-tab-item 1s linear infinite;
+    }
 
-.tab-drag {
-    background-color: var(--bs-secondary);
+    .tab-drag {
+        background-color: var(--bs-secondary);
+    }
 }
 
 @keyframes drag-tab-item {
     50% {
-        background-color: var(--bs-primary);
+        background-color: var(--bs-primary) !important;
     }
 }
 
@@ -536,6 +537,14 @@
                 }
             }
         }
+    }
+
+    .tab-drag-over .tabs-item {
+        animation: none;
+    }
+
+    .tab-drag-over .tabs-item .tabs-item-body {
+        animation: drag-tab-item 1s linear infinite;
     }
 }
 
