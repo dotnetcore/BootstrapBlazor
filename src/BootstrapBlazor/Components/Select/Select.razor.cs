@@ -119,6 +119,12 @@ public partial class Select<TValue> : ISelect, ILookup
     public object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// Gets or sets the default text for virtualized items. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? DefaultVirtualizeItemText { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
@@ -172,7 +178,7 @@ public partial class Select<TValue> : ISelect, ILookup
         if (IsVirtualize)
         {
             _init = false;
-            return new SelectedItem(CurrentValueAsString, CurrentValueAsString);
+            return new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
         }
 
         var item = GetItemWithEnumValue()
