@@ -496,10 +496,7 @@
     --bb-tabs-item-active-color: var(--bs-body-color);
     --bb-tabs-item-hover-color: var(--bs-body-color);
     --bb-tabs-item-bg-color: rgba(var(--bs-body-color-rgb), 0.08);
-
-    .tabs-nav {
-        background-color: var(--bb-tabs-header-bg-color);
-    }
+    background-color: var(--bb-tabs-header-bg-color);
 
     .tabs-item-fix {
         border: none;
