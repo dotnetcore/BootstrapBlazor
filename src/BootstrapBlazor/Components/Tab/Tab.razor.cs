@@ -329,7 +329,7 @@ public partial class Tab : IHandlerException
 
     private Placement LastPlacement { get; set; }
 
-    private string DraggableString => AllowDrag ? "true" : "false";
+    private string? DraggableString => AllowDrag ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
