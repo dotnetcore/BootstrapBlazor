@@ -113,11 +113,12 @@ public partial class MultiSelects
     [NotNull]
     private List<Foo>? Foos { get; set; }
 
-    private string? _virtualItemString1;
+    private string? _virtualItemValue1;
+    private string? _virtualItemValue2;
+    private string? _virtualItemText1;
+    private string? _virtualItemText2;
 
-    private string? _virtualItemString2;
-
-    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Id.ToString(), i.Name!)).ToList();
 
     private string? _editString;
     private bool _isClearable = true;
@@ -213,8 +214,10 @@ public partial class MultiSelects
 
         Items = GenerateDataSource(DataSource);
         Foos = Foo.GenerateFoo(LocalizerFoo);
-        _virtualItemString1 = Foos[79].Name;
-        _virtualItemString2 = Foos[45].Name;
+        _virtualItemValue1 = $"{Foos[79].Id}, {Foos[78].Id}";
+        _virtualItemValue2 = $"{Foos[45].Id}, {Foos[46].Id}";
+        _virtualItemText1 = $"{Foos[79].Name}, {Foos[78].Name}";
+        _virtualItemText2 = $"{Foos[45].Name}, {Foos[46].Name}";
     }
 
     private static List<SelectedItem> GenerateItems() =>
