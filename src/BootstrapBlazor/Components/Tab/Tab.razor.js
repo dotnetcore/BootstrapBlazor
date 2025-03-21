@@ -103,7 +103,11 @@ const active = tab => {
 }
 
 const setDraggable = tab => {
-    disposeDragItems(tab.dragItems)
+    disposeDragItems(tab.dragItems);
+
+    if (tab.el.querySelector('.tabs-item-wrap[draggable="true"]') === null) {
+        return;
+    }
 
     let dragItem = null;
     let index = 0
