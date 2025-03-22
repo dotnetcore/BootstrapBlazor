@@ -197,6 +197,7 @@
 }
 
 .tabs .tabs-body {
+    background-color: var(--bs-body-bg);
     padding: var(--bb-tabs-body-padding);
     flex: 1;
 }
@@ -232,6 +233,8 @@
 .tabs .tabs-item-fix {
     height: 100%;
     flex: 1;
+    width: 1%;
+    min-width: 0;
     border: 1px solid var(--bs-border-color);
     border-width: 0 0 1px 0;
 }
@@ -639,6 +642,50 @@
 
             .tabs-item-body {
                 background-color: var(--bb-tabs-item-bg-color);
+            }
+        }
+    }
+}
+
+.tabs {
+    &:not(.tabs-vertical) > .tabs-header .tabs-nav-toolbar {
+        display: flex;
+    }
+
+    &.tabs-bottom > .tabs-header {
+        .tabs-nav-toolbar {
+            border-top: 1px solid var(--bs-border-color);
+        }
+    }
+
+    &:not(.tabs-bottom) > .tabs-header {
+        .tabs-nav-toolbar {
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+    }
+
+    > .tabs-header {
+        .tabs-nav-toolbar {
+            display: none;
+            align-items: center;
+            height: 100%;
+            padding: 3px 0.5rem;
+
+            .tabs-nav-toolbar-button {
+                cursor: pointer;
+                padding: 0 .75rem;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                border-radius: var(--bs-border-radius);
+
+                &:not(.disabled):not(:disabled):hover {
+                    background-color: var(--bb-tabs-item-hover-bg-color);
+                }
+
+                .btn {
+                    padding: 0;
+                }
             }
         }
     }

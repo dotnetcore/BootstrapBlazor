@@ -51,11 +51,11 @@ else
                                 }
                                 else if (item.IsDisabled)
                                 {
-                                    @RenderDisabledHeader(item)
+                                    @RenderDisabledHeaderItem(item)
                                 }
                                 else
                                 {
-                                    @RenderHeader(item)
+                                    @RenderHeaderItem(item)
                                 }
                             }
                             @if (IsCard || IsBorderCard)
@@ -72,6 +72,23 @@ else
                 @if (ButtonTemplate != null)
                 {
                     @ButtonTemplate
+                }
+                @if (ShowToolbar)
+                {
+                    <div class="tabs-nav-toolbar">
+                        @if (ShowRefreshToolbarButton)
+                        {
+                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-refresh">
+                                <TabToolbarRefreshButton Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"></TabToolbarRefreshButton>
+                            </div>
+                        }
+                        @if (ShowFullscreenToolbarButton)
+                        {
+                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
+                                <FullScreenButton TargetId="@Id"></FullScreenButton>
+                            </div>
+                        }
+                    </div>
                 }
                 @if (ShowNavigatorButtons)
                 {
@@ -108,9 +125,7 @@ else
                 {
                     foreach (var item in Items)
                     {
-                        <div @key="@item" class="@GetContentClassString(item)" id="@GetIdByTabItem(item)">
-                            @RenderTabItem(item)
-                        </div>
+                        @RenderTabItem(item)
                     }
                 }
             </CascadingValue>
@@ -124,10 +139,10 @@ else
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderDisabledHeader(TabItem item) =>
+    RenderFragment RenderDisabledHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
         <div role="tab" class="@GetClassString(item)">
-            @RenderHeaderContent(item)
+            @RenderHeaderItemContent(item)
         </div>
         @if (TabStyle == TabStyle.Chrome)
         {
@@ -136,10 +151,10 @@ else
         }
     </div>;
 
-    RenderFragment RenderHeader(TabItem item) =>
+    RenderFragment RenderHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
         <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
-            @RenderHeaderContent(item)
+            @RenderHeaderItemContent(item)
         </a>
         @if (TabStyle == TabStyle.Chrome)
         {
@@ -148,7 +163,7 @@ else
         }
     </div>;
 
-    RenderFragment RenderHeaderContent(TabItem item) =>
+    RenderFragment RenderHeaderItemContent(TabItem item) =>
     @<div class="tabs-item-body">
         @if (!string.IsNullOrEmpty(item.Icon))
         {

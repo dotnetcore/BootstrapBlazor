@@ -136,6 +136,7 @@ internal static class BootstrapIcons
         { ComponentIcons.TabNextIcon, "bi bi-chevron-right" },
         { ComponentIcons.TabDropdownIcon, "bi bi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "bi bi-x" },
+        { ComponentIcons.TabRefreshButtonIcon, "bi bi-arrow-clockwise" },
 
         { ComponentIcons.TableColumnToolboxIcon, "bi bi-gear" },
 

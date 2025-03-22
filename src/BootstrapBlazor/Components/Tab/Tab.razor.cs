@@ -10,22 +10,18 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Tab 组件
+/// Tab component
 /// </summary>
 public partial class Tab : IHandlerException
 {
     private bool FirstRender { get; set; } = true;
-
-    private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !item.IsActive)
-        .Build();
 
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
 
     private static string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", item is { IsActive: true, IsDisabled: false })
         .Build();
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
@@ -58,25 +54,25 @@ public partial class Tab : IHandlerException
     private readonly List<TabItem> _draggedItems = new(50);
 
     /// <summary>
-    /// 获得/设置 TabItem 集合
+    /// Gets the collection of tab items.
     /// </summary>
     public IEnumerable<TabItem> Items => TabItems;
 
     private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
-    /// 获得/设置 是否为排除地址 默认 false
+    /// Gets or sets the excluded link. Default is false.
     /// </summary>
     private bool Excluded { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为卡片样式 默认 false
+    /// Gets or sets whether card style. Default is false.
     /// </summary>
     [Parameter]
     public bool IsCard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为带边框卡片样式 默认 false
+    /// Gets or sets whether border card style. Default is false.
     /// </summary>
     [Parameter]
     public bool IsBorderCard { get; set; }
@@ -294,6 +290,30 @@ public partial class Tab : IHandlerException
     [Parameter]
     public TabStyle TabStyle { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether show the toolbar. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowFullscreenToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowRefreshToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarButtonIcon { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -330,6 +350,8 @@ public partial class Tab : IHandlerException
 
     private string? DraggableString => AllowDrag ? "true" : null;
 
+    private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -360,8 +382,16 @@ public partial class Tab : IHandlerException
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
+        RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
 
-        AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+        if (AdditionalAssemblies is null)
+        {
+            var entryAssembly = Assembly.GetEntryAssembly();
+            if (entryAssembly is not null)
+            {
+                AdditionalAssemblies = [entryAssembly];
+            }
+        }
 
         if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
         {
@@ -805,7 +835,7 @@ public partial class Tab : IHandlerException
         }
         if (TabItems.Any(i => i.IsActive) == false)
         {
-            TabItems.Where(i => !i.IsDisabled).FirstOrDefault()?.SetActive(true);
+            TabItems.FirstOrDefault(i => !i.IsDisabled)?.SetActive(true);
         }
         StateHasChanged();
     }
@@ -819,7 +849,7 @@ public partial class Tab : IHandlerException
 
         if (item.IsActive)
         {
-            builder.AddContent(0, item.ChildContent);
+            builder.AddContent(0, item.RenderContent(_cache));
             if (IsLazyLoadTabItem)
             {
                 LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
@@ -827,7 +857,7 @@ public partial class Tab : IHandlerException
         }
         else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
         {
-            builder.AddContent(0, item.ChildContent);
+            builder.AddContent(0, item.RenderContent(_cache));
         }
     };
 
@@ -876,7 +906,15 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
+    private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
+
+    private Task OnRefreshAsync()
+    {
+        // refresh the active tab item
+        var item = TabItems.FirstOrDefault(i => i.IsActive);
+        item.Refresh(_cache);
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// <inheritdoc/>
