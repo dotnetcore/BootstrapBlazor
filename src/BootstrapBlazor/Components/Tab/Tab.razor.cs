@@ -25,7 +25,7 @@ public partial class Tab : IHandlerException
         .Build();
 
     private static string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", item is { IsActive: true, IsDisabled: false })
         .Build();
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
@@ -388,7 +388,14 @@ public partial class Tab : IHandlerException
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
         RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
 
-        AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+        if (AdditionalAssemblies is null)
+        {
+            var entryAssembly = Assembly.GetEntryAssembly();
+            if (entryAssembly is not null)
+            {
+                AdditionalAssemblies = [entryAssembly];
+            }
+        }
 
         if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
         {
@@ -832,7 +839,7 @@ public partial class Tab : IHandlerException
         }
         if (TabItems.Any(i => i.IsActive) == false)
         {
-            TabItems.Where(i => !i.IsDisabled).FirstOrDefault()?.SetActive(true);
+            TabItems.FirstOrDefault(i => !i.IsDisabled)?.SetActive(true);
         }
         StateHasChanged();
     }
