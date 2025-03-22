@@ -136,6 +136,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.TabNextIcon, "mdi mdi-chevron-right" },
         { ComponentIcons.TabDropdownIcon, "mdi mdi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "mdi mdi-close" },
+        { ComponentIcons.TabRefreshButtonIcon, "mdi mdi-refresh" },
 
         { ComponentIcons.TableColumnToolboxIcon, "mdi mdi-cog" },
 

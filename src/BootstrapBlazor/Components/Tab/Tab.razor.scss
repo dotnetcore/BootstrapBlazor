@@ -669,6 +669,10 @@
             display: none;
             align-items: center;
             height: 100%;
+
+            .tabs-nav-toolbar-button {
+                cursor: pointer;
+            }
         }
     }
 }

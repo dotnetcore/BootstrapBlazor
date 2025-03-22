@@ -304,7 +304,19 @@ public partial class Tab : IHandlerException
     /// Gets or sets whether show the full screen button. Default is true.
     /// </summary>
     [Parameter]
-    public bool ShowFullscreenButton { get; set; } = true;
+    public bool ShowFullscreenToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowRefreshToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarButtonIcon { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
@@ -372,6 +384,7 @@ public partial class Tab : IHandlerException
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
+        RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
 
         AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
 
@@ -889,6 +902,11 @@ public partial class Tab : IHandlerException
     }
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
+
+    private Task OnRefreshAsync()
+    {
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// <inheritdoc/>

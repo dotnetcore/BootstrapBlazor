@@ -76,9 +76,15 @@ else
                 @if (ShowToolbar)
                 {
                     <div class="tabs-nav-toolbar">
-                        @if (ShowFullscreenButton)
+                        @if (ShowRefreshToolbarButton)
                         {
-                            <div class="tabs-nav-toolbar-button">
+                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-refresh">
+                                <TabToolbarRefreshButton Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"></TabToolbarRefreshButton>
+                            </div>
+                        }
+                        @if (ShowFullscreenToolbarButton)
+                        {
+                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
                                 <FullScreenButton TargetId="@Id"></FullScreenButton>
                             </div>
                         }
