@@ -10,7 +10,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Tab 组件
+/// Tab component
 /// </summary>
 public partial class Tab : IHandlerException
 {
@@ -58,25 +58,25 @@ public partial class Tab : IHandlerException
     private readonly List<TabItem> _draggedItems = new(50);
 
     /// <summary>
-    /// 获得/设置 TabItem 集合
+    /// Gets the collection of tab items.
     /// </summary>
     public IEnumerable<TabItem> Items => TabItems;
 
     private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
-    /// 获得/设置 是否为排除地址 默认 false
+    /// Gets or sets the excluded link. Default is false.
     /// </summary>
     private bool Excluded { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为卡片样式 默认 false
+    /// Gets or sets whether card style. Default is false.
     /// </summary>
     [Parameter]
     public bool IsCard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为带边框卡片样式 默认 false
+    /// Gets or sets whether border card style. Default is false.
     /// </summary>
     [Parameter]
     public bool IsBorderCard { get; set; }
