@@ -354,6 +354,8 @@ public partial class Tab : IHandlerException
 
     private string? DraggableString => AllowDrag ? "true" : null;
 
+    private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -844,7 +846,7 @@ public partial class Tab : IHandlerException
 
         if (item.IsActive)
         {
-            builder.AddContent(0, item.ChildContent);
+            builder.AddContent(0, item.RenderContent(_cache));
             if (IsLazyLoadTabItem)
             {
                 LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
@@ -852,7 +854,7 @@ public partial class Tab : IHandlerException
         }
         else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
         {
-            builder.AddContent(0, item.ChildContent);
+            builder.AddContent(0, item.RenderContent(_cache));
         }
     };
 
@@ -905,6 +907,9 @@ public partial class Tab : IHandlerException
 
     private Task OnRefreshAsync()
     {
+        // refresh the active tab item
+        var item = TabItems.FirstOrDefault(i => i.IsActive);
+        item.Refresh(_cache);
         return Task.CompletedTask;
     }
 
