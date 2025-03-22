@@ -669,9 +669,23 @@
             display: none;
             align-items: center;
             height: 100%;
+            padding: 3px 0.5rem;
 
             .tabs-nav-toolbar-button {
                 cursor: pointer;
+                padding: 0 .75rem;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                border-radius: var(--bs-border-radius);
+
+                &:not(.disabled):not(:disabled):hover {
+                    background-color: var(--bb-tabs-item-hover-bg-color);
+                }
+
+                .btn {
+                    padding: 0;
+                }
             }
         }
     }
