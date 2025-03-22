@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TabToolbarRefreshButton component
+/// TabToolbarButton component
 /// </summary>
-public partial class TabToolbarRefreshButton
+public partial class TabToolbarButton
 {
     /// <summary>
     /// Gets or sets the button icon string. Default is null.
@@ -21,6 +21,16 @@ public partial class TabToolbarRefreshButton
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip text. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? TooltipText { get; set; }
+
+    private string? ClassString => CssBuilder.Default("tabs-nav-toolbar-button")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private async Task OnClick()
     {
