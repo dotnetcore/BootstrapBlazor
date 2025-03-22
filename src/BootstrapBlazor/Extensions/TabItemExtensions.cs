@@ -15,7 +15,7 @@ internal static class TabItemExtensions
     public static RenderFragment RenderContent(this TabItem item, ConcurrentDictionary<TabItem, TabItemContent> cache) => builder =>
     {
         builder.OpenComponent<TabItemContent>(0);
-        builder.AddAttribute(10, nameof(TabItemContent.ChildContent), item.ChildContent);
+        builder.AddAttribute(10, nameof(TabItemContent.Item), item);
         builder.AddComponentReferenceCapture(20, content =>
         {
             var tabItemContent = (TabItemContent)content;

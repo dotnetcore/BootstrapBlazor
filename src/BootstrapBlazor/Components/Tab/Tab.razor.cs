@@ -16,10 +16,6 @@ public partial class Tab : IHandlerException
 {
     private bool FirstRender { get; set; } = true;
 
-    private static string? GetContentClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !item.IsActive)
-        .Build();
-
     private string? WrapClassString => CssBuilder.Default("tabs-nav-wrap")
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();

@@ -125,9 +125,7 @@ else
                 {
                     foreach (var item in Items)
                     {
-                        <div @key="@item" class="@GetContentClassString(item)" id="@GetIdByTabItem(item)">
-                            @RenderTabItem(item)
-                        </div>
+                        @RenderTabItem(item)
                     }
                 }
             </CascadingValue>

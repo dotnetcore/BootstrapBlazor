@@ -12,8 +12,15 @@ internal class TabItemContent : IComponent
     /// <summary>
     /// Gets or sets the component content. Default is null
     /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter, NotNull]
+    public TabItem? Item { get; set; }
+
+    /// <summary>
+    /// Gets <see cref="IComponentIdGenerator"/> instrance
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private IComponentIdGenerator? ComponentIdGenerator { get; set; }
 
     private RenderHandle _renderHandle;
 
@@ -35,26 +42,28 @@ internal class TabItemContent : IComponent
         _renderHandle.Render(BuildRenderTree);
     }
 
-    private object key = new();
+    private object _key = new();
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="builder"></param>
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "div");
-        builder.SetKey(key);
-        builder.AddContent(10, ChildContent);
+        builder.SetKey(_key);
+        builder.AddAttribute(5, "class", ClassString);
+        builder.AddAttribute(6, "id", ComponentIdGenerator.Generate(Item));
+        builder.AddContent(10, Item.ChildContent);
         builder.CloseElement();
     }
+
+    private string? ClassString => CssBuilder.Default("tabs-body-content")
+        .AddClass("d-none", !Item.IsActive)
+        .Build();
 
     /// <summary>
     /// Render method
     /// </summary>
     public void Render()
     {
-        key = new object();
+        _key = new object();
         RenderContent();
     }
 }
