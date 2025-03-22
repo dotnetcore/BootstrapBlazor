@@ -134,7 +134,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-right" },
         { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-down" },
         { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
-        { ComponentIcons.TabRefreshButtonIcon, "fa-solid fa-arrows-rotate" },
+        { ComponentIcons.TabRefreshButtonIcon, "fa-solid fa-rotate-right" },
 
         { ComponentIcons.TableColumnToolboxIcon, "fa-solid fa-gear" },
 

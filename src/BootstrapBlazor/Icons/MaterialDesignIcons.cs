@@ -77,8 +77,8 @@ internal static class MaterialDesignIcons
         { ComponentIcons.ImagePreviewNextIcon, "mdi mdi-chevron-right" },
         { ComponentIcons.ImagePreviewMinusIcon, "mdi mdi-magnify-minus-outline" },
         { ComponentIcons.ImagePreviewPlusIcon, "mdi mdi-magnify-plus-outline" },
-        { ComponentIcons.ImagePreviewRotateLeftIcon, "mdi mdi-file-rotate-left-outline" },
-        { ComponentIcons.ImagePreviewRotateRightIcon, "mdi mdi-file-rotate-right-outline" },
+        { ComponentIcons.ImagePreviewRotateLeftIcon, "mdi mdi-restore" },
+        { ComponentIcons.ImagePreviewRotateRightIcon, "mdi mdi-reload" },
 
         { ComponentIcons.ImageViewerFileIcon, "mdi mdi-file-image-outline" },
 
@@ -136,7 +136,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.TabNextIcon, "mdi mdi-chevron-right" },
         { ComponentIcons.TabDropdownIcon, "mdi mdi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "mdi mdi-close" },
-        { ComponentIcons.TabRefreshButtonIcon, "mdi mdi-refresh" },
+        { ComponentIcons.TabRefreshButtonIcon, "mdi mdi-reload" },
 
         { ComponentIcons.TableColumnToolboxIcon, "mdi mdi-cog" },
 
