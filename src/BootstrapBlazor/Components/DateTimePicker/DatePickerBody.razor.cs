@@ -537,7 +537,7 @@ public partial class DatePickerBody
 
         // 调整顺序
         var firstDayIndex = (int)FirstDayOfWeek;
-        return list.Skip(firstDayIndex).Concat(list.Take(firstDayIndex)).ToList();
+        return [.. list.Skip(firstDayIndex), .. list.Take(firstDayIndex)];
     }
 
     private async Task UpdateDisabledDaysCache(bool force)

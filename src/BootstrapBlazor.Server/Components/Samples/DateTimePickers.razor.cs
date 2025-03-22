@@ -222,6 +222,14 @@ public sealed partial class DateTimePickers
         },
         new()
         {
+            Name = nameof(DateTimePicker<DateTime>.FirstDayOfWeek),
+            Description = Localizer["AttrFirstDayOfWeek"],
+            Type = "DayOfWeek",
+            ValueList = " — ",
+            DefaultValue = "Sunday"
+        },
+        new()
+        {
             Name = "ViewMode",
             Description = Localizer["Att9"],
             Type = "DatePickerViewMode",

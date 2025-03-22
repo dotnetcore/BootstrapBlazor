@@ -6,7 +6,7 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <Calendar ValueChanged="@OnValueChanged" />
+    <Calendar ValueChanged="@OnValueChanged" FirstDayOfWeek="DayOfWeek.Monday" />
     <ConsoleLogger @ref="NormalLogger" />
 </DemoBlock>
 

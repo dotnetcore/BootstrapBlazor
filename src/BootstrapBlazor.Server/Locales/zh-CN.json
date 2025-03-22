@@ -2572,7 +2572,8 @@
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> 是否显示假日",
     "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
     "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存",
-    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串"
+    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串",
+    "AttrFirstDayOfWeek": "设置每周第一天"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
@@ -3768,7 +3769,8 @@
     "Chinese": "语文",
     "Math": "数学",
     "English": "英语",
-    "Study": "自习"
+    "Study": "自习",
+    "FirstDayOfWeek": "设置每周第一天"
   },
   "BootstrapBlazor.Server.Components.Samples.Cameras": {
     "Title": "Camera 摄像头拍照组件",

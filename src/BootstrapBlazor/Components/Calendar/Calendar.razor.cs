@@ -107,7 +107,7 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
+        WeekLists = GetWeekList();
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
@@ -124,7 +124,7 @@ public partial class Calendar
         get
         {
             var d = Value.AddDays(1 - Value.Day);
-            d = d.AddDays(0 - (int)d.DayOfWeek);
+            d = d.AddDays((int)FirstDayOfWeek - (int)d.DayOfWeek);
             return d;
         }
     }
@@ -196,6 +196,12 @@ public partial class Calendar
     /// </summary>
     [Parameter]
     public bool ShowYearButtons { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// </summary>
+    [Parameter]
+    public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
     /// <summary>
     /// 选中日期时回调此方法
@@ -296,5 +302,13 @@ public partial class Calendar
         var context = new BodyTemplateContext();
         context.Values.AddRange(Enumerable.Range(0, 7).Select(i => CreateCellValue(week.AddDays(i))));
         return context;
+    }
+    private List<string> GetWeekList()
+    {
+        var list = Localizer[nameof(WeekLists)].Value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        // 调整顺序
+        var firstDayIndex = (int)FirstDayOfWeek;
+        return [.. list.Skip(firstDayIndex), .. list.Take(firstDayIndex)];
     }
 }
