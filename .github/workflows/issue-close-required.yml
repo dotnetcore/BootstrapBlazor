@@ -1,0 +1,26 @@
+name: Issue Close Require
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  issue-close-require:
+    permissions:
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: needs repro project
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'close-issues'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          labels: 'need-repro-project'
+          inactive-day: 2
+          body: |
+            Since the issue was labeled with `need-repro-project`, but no response in 2 days. This issue will be closed. If you have any questions, you can comment and reply.
+
+            由于该 issue 被标记为需要复现工程，却 2 天未收到回应。现关闭 issue，若有任何问题，可评论回复。
