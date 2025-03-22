@@ -309,6 +309,18 @@ public partial class Tab : IHandlerException
     public bool ShowFullscreenToolbarButton { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the full screen toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the full screen toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarTooltipText { get; set; }
+
+    /// <summary>
     /// Gets or sets whether show the full screen button. Default is true.
     /// </summary>
     [Parameter]
@@ -319,6 +331,12 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? RefreshToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarTooltipText { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
@@ -383,6 +401,8 @@ public partial class Tab : IHandlerException
         CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
+        RefreshToolbarTooltipText ??= Localizer[nameof(RefreshToolbarTooltipText)];
+        FullscreenToolbarTooltipText ??= Localizer[nameof(FullscreenToolbarTooltipText)];
 
         PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);

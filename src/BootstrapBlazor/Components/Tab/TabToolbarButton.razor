@@ -1,9 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 
-<Tooltip Title="@TooltipText">
+<Tooltip Title="@TooltipText" Placement="Placement.Bottom">
     <div @attributes="@AdditionalAttributes" class="@ClassString" @onclick="OnClick">
         <i class="@Icon"></i>
     </div>
 </Tooltip>
-
