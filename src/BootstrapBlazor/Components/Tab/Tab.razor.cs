@@ -294,6 +294,18 @@ public partial class Tab : IHandlerException
     [Parameter]
     public TabStyle TabStyle { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether show the toolbar. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowFullscreenButton { get; set; } = true;
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 

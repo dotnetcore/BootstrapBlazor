@@ -73,6 +73,17 @@ else
                 {
                     @ButtonTemplate
                 }
+                @if (ShowToolbar)
+                {
+                    <div class="tabs-nav-toolbar">
+                        @if (ShowFullscreenButton)
+                        {
+                            <div class="tabs-nav-toolbar-button">
+                                <FullScreenButton TargetId="@Id"></FullScreenButton>
+                            </div>
+                        }
+                    </div>
+                }
                 @if (ShowNavigatorButtons)
                 {
                     <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
