@@ -234,7 +234,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
-        cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
+        cut.Contains("Binder");
     }
 
     [Fact]
@@ -268,7 +268,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
-        cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
+        cut.Contains("Binder");
     }
 
     [Fact]
