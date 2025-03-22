@@ -906,7 +906,7 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
+    private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
 
     private Task OnRefreshAsync()
     {
