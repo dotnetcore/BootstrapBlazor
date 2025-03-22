@@ -228,6 +228,12 @@ public partial class Tab : IHandlerException
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the template of the toolbar button. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolbarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 标签页前置模板 默认 null
     /// <para>在向前移动标签页按钮前</para>
     /// </summary>
