@@ -437,9 +437,27 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsChromeStyleTitle"]" Introduction="@Localizer["TabsChromeStyleIntro"]" Name="Chrome">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" AllowDrag="true">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+            <div>@Localizer["TabItem2Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+            <div>@Localizer["TabItem3Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+            <div>@Localizer["TabItem4Content"]</div>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsCapsuleStyleTitle"]" Introduction="@Localizer["TabsCapsuleStyleIntro"]" Name="Capsule">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true" ShowToolbar="true">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+            <div>@Localizer["TabItem1Content"]</div>
+            <Counter></Counter>
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>
@@ -472,24 +490,6 @@ private void Navigation()
         <ToolbarTemplate>
             <TabToolbarButton Icon="fa fa-home" TooltipText="Home"></TabToolbarButton>
         </ToolbarTemplate>
-    </Tab>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TabsCapsuleStyleTitle"]" Introduction="@Localizer["TabsCapsuleStyleIntro"]" Name="Capsule">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true" ShowToolbar="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
-            <div>@Localizer["TabItem1Content"]</div>
-            <Counter></Counter>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
-            <div>@Localizer["TabItem4Content"]</div>
-        </TabItem>
     </Tab>
 </DemoBlock>
 

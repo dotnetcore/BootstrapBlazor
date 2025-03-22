@@ -384,6 +384,70 @@ public sealed partial class Tabs
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowToolbar),
+            Description = Localizer["AttributeShowToolbar"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Tab.ToolbarTemplate),
+            Description = Localizer["AttributeToolbarTemplate"].Value,
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowRefreshToolbarButton),
+            Description = Localizer["AttributeShowRefreshToolbarButton"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowFullscreenToolbarButton),
+            Description = Localizer["AttributeShowFullscreenToolbarButton"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.RefreshToolbarTooltipText),
+            Description = Localizer["AttributeRefreshToolbarTooltipText"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.FullscreenToolbarTooltipText),
+            Description = Localizer["AttributeFullscreenToolbarTooltipText"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.RefreshToolbarButtonIcon),
+            Description = Localizer["AttributeRefreshToolbarButtonIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.FullscreenToolbarButtonIcon),
+            Description = Localizer["AttributeFullscreenToolbarButtonIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 
