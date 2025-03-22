@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ButtonBase
 
-<a @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @onclick="ToggleFullScreen">
+<a @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bs-placement="@PlacementString" @onclick="ToggleFullScreen">
     <i class="@ButtonIconString"></i>
     <i class="@FullScreenExitIconString"></i>
     @if (!string.IsNullOrEmpty(Text))
