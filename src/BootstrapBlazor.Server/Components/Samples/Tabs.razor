@@ -423,7 +423,21 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsDragTitle"]" Introduction="@Localizer["TabsDragIntro"]" Name="AllowDrag">
-    <Tab IsBorderCard="true" AllowDrag="true">
+    <Tab IsBorderCard="true" AllowDrag="true" ShowToolbar="true">
+        <TabItem Text="@Localizer["TabItem1Text"]">
+            <div>@Localizer["TabItem1Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem2Text"]">
+            <div>@Localizer["TabItem2Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem3Text"]">
+            <div>@Localizer["TabItem3Content"]</div>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsDragTitle"]" Introduction="@Localizer["TabsDragIntro"]" Name="AllowDrag">
+    <Tab IsBorderCard="true" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -437,7 +451,7 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsChromeStyleTitle"]" Introduction="@Localizer["TabsChromeStyleIntro"]" Name="Chrome">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" AllowDrag="true">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -454,7 +468,7 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsCapsuleStyleTitle"]" Introduction="@Localizer["TabsCapsuleStyleIntro"]" Name="Capsule">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
