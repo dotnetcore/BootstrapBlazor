@@ -2120,7 +2120,17 @@
     "TabsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>TabStyle=\"TabStyle.Chrome\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> mode",
     "TabAtt2TabStyle": "Set the tab style",
     "TabsCapsuleStyleTitle": "Capsule Style",
-    "TabsCapsuleStyleIntro": "Set the capsule tab style by setting <code>TabStyle=\"TabStyle.Capsule\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> <code>Placement=\"Placement.Bottom\"</code> mode"
+    "TabsCapsuleStyleIntro": "Set the capsule tab style by setting <code>TabStyle=\"TabStyle.Capsule\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> <code>Placement=\"Placement.Bottom\"</code> mode",
+    "AttributeToolbarTemplate": "The template for Toolbar",
+    "TabsToolbarTitle": "Toolbar",
+    "TabsToolbarIntro": "By setting <code>ShowToolbar</code>, you can display the tab toolbar. By default, the <b>Refresh</b> and <b>Fullscreen</b> buttons are displayed. You can control whether to display them by <code>ShowRefreshToolbarButton</code> and <code>ShowFullscreenToolbarButton</code>",
+    "AttributeShowToolbar": "Whether to display the toolbar",
+    "AttributeShowRefreshToolbarButton": "Whether to display the toolbar refresh button",
+    "AttributeShowFullscreenToolbarButton": "Whether to display the toolbar full screen button",
+    "AttributeRefreshToolbarTooltipText": "Toolbar refresh button tooltip text",
+    "AttributeFullscreenToolbarTooltipText": "Toolbar full screen button tooltip text",
+    "AttributeRefreshToolbarButtonIcon": "Toolbar refresh button icon",
+    "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",

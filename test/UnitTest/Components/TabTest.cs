@@ -26,6 +26,53 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ToolbarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.Closable, true);
+                pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template"));
+        });
+        cut.DoesNotContain("test-toolbar-template");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
+        cut.Contains("test-toolbar-template");
+    }
+
+    [Fact]
+    public void ToolbarTooltipText_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.Closable, true);
+                pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.RefreshToolbarButtonIcon, "test-refresh-icon");
+            pb.Add(a => a.RefreshToolbarTooltipText, "test-refresh-tooltip-text");
+            pb.Add(a => a.FullscreenToolbarButtonIcon, "test-fullscreen-icon");
+            pb.Add(a => a.FullscreenToolbarTooltipText, "test-fullscreen-tooltip-text");
+        });
+        cut.Contains("test-refresh-icon");
+        cut.Contains("test-refresh-tooltip-text");
+    }
+
+    [Fact]
     public void TabItem_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>

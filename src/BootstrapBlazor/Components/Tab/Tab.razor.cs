@@ -228,6 +228,12 @@ public partial class Tab : IHandlerException
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the template of the toolbar button. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolbarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 标签页前置模板 默认 null
     /// <para>在向前移动标签页按钮前</para>
     /// </summary>
@@ -303,6 +309,18 @@ public partial class Tab : IHandlerException
     public bool ShowFullscreenToolbarButton { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the full screen toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the full screen toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarTooltipText { get; set; }
+
+    /// <summary>
     /// Gets or sets whether show the full screen button. Default is true.
     /// </summary>
     [Parameter]
@@ -313,6 +331,12 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? RefreshToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarTooltipText { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
@@ -377,6 +401,8 @@ public partial class Tab : IHandlerException
         CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
+        RefreshToolbarTooltipText ??= Localizer[nameof(RefreshToolbarTooltipText)];
+        FullscreenToolbarTooltipText ??= Localizer[nameof(FullscreenToolbarTooltipText)];
 
         PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);

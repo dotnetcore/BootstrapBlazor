@@ -13,7 +13,9 @@ else
             <div class="@WrapClassString">
                 @if (BeforeNavigatorTemplate != null)
                 {
-                    @BeforeNavigatorTemplate
+                    <CascadingValue Value="this" IsFixed="true">
+                        @BeforeNavigatorTemplate
+                    </CascadingValue>
                 }
                 @if (ShowNavigatorButtons)
                 {
@@ -71,22 +73,33 @@ else
                 </div>
                 @if (ButtonTemplate != null)
                 {
-                    @ButtonTemplate
+                    <CascadingValue Value="this" IsFixed="true">
+                        @ButtonTemplate
+                    </CascadingValue>
                 }
                 @if (ShowToolbar)
                 {
                     <div class="tabs-nav-toolbar">
                         @if (ShowRefreshToolbarButton)
                         {
-                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-refresh">
-                                <TabToolbarRefreshButton Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"></TabToolbarRefreshButton>
-                            </div>
+                            <TabToolbarButton class="tabs-nav-toolbar-refresh"
+                                              Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"
+                                              TooltipText="@RefreshToolbarTooltipText"></TabToolbarButton>
                         }
                         @if (ShowFullscreenToolbarButton)
                         {
                             <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
-                                <FullScreenButton TargetId="@Id"></FullScreenButton>
+                                <FullScreenButton TargetId="@Id"
+                                                  Icon="@FullscreenToolbarButtonIcon"
+                                                  TooltipText="@FullscreenToolbarTooltipText"
+                                                  TooltipPlacement="Placement.Bottom"></FullScreenButton>
                             </div>
+                        }
+                        @if (ToolbarTemplate != null)
+                        {
+                            <CascadingValue Value="this" IsFixed="true">
+                                @ToolbarTemplate
+                            </CascadingValue>
                         }
                     </div>
                 }

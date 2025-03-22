@@ -173,7 +173,9 @@
     "CloseCurrentTabText": "Close",
     "CloseOtherTabsText": "Close Other",
     "CloseAllTabsText": "Close All",
-    "NotFoundTabText": "NotFound"
+    "NotFoundTabText": "NotFound",
+    "RefreshToolbarTooltipText": "Refresh",
+    "FullscreenToolbarTooltipText": "Fullscreen"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "Please enter ...",

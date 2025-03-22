@@ -2120,7 +2120,17 @@
     "TabsChromeStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Chrome\"</code> 设置 Chrome 浏览器标签页样式，目前仅支持 <code>Placement=\"Placement.Top\"</code> 模式",
     "TabAtt2TabStyle": "设置标签页样式",
     "TabsCapsuleStyleTitle": "胶囊样式",
-    "TabsCapsuleStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Capsule\"</code> 设置标签页为胶囊样式，目前仅支持 <code>Placement=\"Placement.Top\"</code>  <code>Placement=\"Placement.Bottom\"</code> 模式"
+    "TabsCapsuleStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Capsule\"</code> 设置标签页为胶囊样式，目前仅支持 <code>Placement=\"Placement.Top\"</code>  <code>Placement=\"Placement.Bottom\"</code> 模式",
+    "AttributeToolbarTemplate": "Toolbar 模板",
+    "TabsToolbarTitle": "工具栏",
+    "TabsToolbarIntro": "通过设置 <code>ShowToolbar</code> 显示标签页工具栏，默认显示 <b>刷新</b> <b>全屏</b> 按钮，可以通过 <code>ShowRefreshToolbarButton</code> <code>ShowFullscreenToolbarButton</code> 控制是否显示",
+    "AttributeShowToolbar": "是否显示工具栏",
+    "AttributeShowRefreshToolbarButton": "是否显示工具栏刷新按钮",
+    "AttributeShowFullscreenToolbarButton": "是否显示工具栏全屏按钮",
+    "AttributeRefreshToolbarTooltipText": "工具栏刷新按钮提示框文字",
+    "AttributeFullscreenToolbarTooltipText": "工具栏全屏按钮提示框文字",
+    "AttributeRefreshToolbarButtonIcon": "工具栏刷新按钮图标",
+    "AttributeFullscreenToolbarButtonIcon": "工具栏全屏按钮图标"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",

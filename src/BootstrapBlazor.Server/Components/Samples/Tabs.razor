@@ -423,21 +423,7 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsDragTitle"]" Introduction="@Localizer["TabsDragIntro"]" Name="AllowDrag">
-    <Tab IsBorderCard="true" AllowDrag="true" ShowToolbar="true">
-        <TabItem Text="@Localizer["TabItem1Text"]">
-            <div>@Localizer["TabItem1Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem2Text"]">
-            <div>@Localizer["TabItem2Content"]</div>
-        </TabItem>
-        <TabItem Text="@Localizer["TabItem3Text"]">
-            <div>@Localizer["TabItem3Content"]</div>
-        </TabItem>
-    </Tab>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TabsDragTitle"]" Introduction="@Localizer["TabsDragIntro"]" Name="AllowDrag">
-    <Tab IsBorderCard="true" AllowDrag="true" ShowToolbar="true">
+    <Tab IsBorderCard="true" AllowDrag="true">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -482,6 +468,28 @@ private void Navigation()
         <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
             <div>@Localizer["TabItem4Content"]</div>
         </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsToolbarTitle"]" Introduction="@Localizer["TabsToolbarIntro"]" Name="Toolbar">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true">
+        <ChildContent>
+            <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+                <div>@Localizer["TabItem1Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+                <div>@Localizer["TabItem2Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+                <div>@Localizer["TabItem3Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+                <div>@Localizer["TabItem4Content"]</div>
+            </TabItem>
+        </ChildContent>
+        <ToolbarTemplate>
+            <TabToolbarButton Icon="fa fa-home" TooltipText="Home"></TabToolbarButton>
+        </ToolbarTemplate>
     </Tab>
 </DemoBlock>
 

@@ -671,6 +671,12 @@
             height: 100%;
             padding: 3px 0.5rem;
 
+            > [data-bs-toggle="tooltip"] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
             .tabs-nav-toolbar-button {
                 cursor: pointer;
                 padding: 0 .75rem;
