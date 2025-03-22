@@ -2572,7 +2572,8 @@
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> Whether to display holidays",
     "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
     "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache",
-    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string"
+    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string",
+    "AttrFirstDayOfWeek": "The first day of the week"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
@@ -3768,7 +3769,8 @@
     "Chinese": "Chinese",
     "Math": "Math",
     "English": "English",
-    "Study": "Study"
+    "Study": "Study",
+    "FirstDayOfWeek": "The first day of the week"
   },
   "BootstrapBlazor.Server.Components.Samples.Cameras": {
     "Title": "Camera",
