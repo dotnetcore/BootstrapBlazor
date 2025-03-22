@@ -645,3 +645,30 @@
         }
     }
 }
+
+.tabs {
+    &:not(.tabs-vertical) > .tabs-header .tabs-nav .tabs-nav-toolbar {
+        display: flex;
+    }
+
+    &.tabs-bottom > .tabs-header {
+        .tabs-nav .tabs-nav-toolbar {
+            border-top: 1px solid var(--bs-border-color);
+        }
+    }
+
+    &:not(.tabs-bottom) > .tabs-header {
+        .tabs-nav .tabs-nav-toolbar {
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+    }
+
+    > .tabs-header {
+        .tabs-nav .tabs-nav-toolbar {
+            display: none;
+            align-items: center;
+            height: 100%;
+            padding-inline: 1rem;
+        }
+    }
+}
