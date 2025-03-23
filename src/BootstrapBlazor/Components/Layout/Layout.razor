@@ -119,6 +119,11 @@
             <Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
                  ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
                  DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
+                 TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
+                 ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
+                 RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
+                 RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
+                 OnToolbarRefreshCallback="OnToolbarRefreshCallback"
                  Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
             </Tab>
         }
