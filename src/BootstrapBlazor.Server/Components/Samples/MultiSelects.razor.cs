@@ -148,7 +148,7 @@ public partial class MultiSelects
         }
         return new QueryData<SelectedItem>
         {
-            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Id.ToString(), i.Name!)),
             TotalCount = items.Count
         };
     }
