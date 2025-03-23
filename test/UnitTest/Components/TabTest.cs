@@ -7,7 +7,6 @@ using AngleSharp.Dom;
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Reflection;
-using System.Threading.Tasks;
 using UnitTest.Misc;
 
 namespace UnitTest.Components;
@@ -1100,6 +1099,11 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         Assert.True(clicked);
 
+        clicked = false;
+        var item = cut.FindComponent<TabItem>();
+        await cut.InvokeAsync(() => tab.Instance.Refresh(item.Instance));
+        Assert.True(clicked);
+
         tab.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowRefreshToolbarButton, false);
@@ -1111,13 +1115,6 @@ public class TabTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowFullscreenToolbarButton, false);
         });
         cut.DoesNotContain("tabs-nav-toolbar-fs");
-
-        // 利用反射提高代码覆盖率
-        var type = Type.GetType("BootstrapBlazor.Components.TabItemExtensions, BootstrapBlazor");
-        Assert.NotNull(type);
-        var mi = type.GetMethod("Refresh", BindingFlags.Static | BindingFlags.Public);
-        Assert.NotNull(mi);
-        mi.Invoke(null, [null, null]);
     }
 
     class DisableTabItemButton : ComponentBase
