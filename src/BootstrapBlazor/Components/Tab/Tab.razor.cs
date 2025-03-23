@@ -959,6 +959,12 @@ public partial class Tab : IHandlerException
     }
 
     /// <summary>
+    /// Refresh the tab item method
+    /// </summary>
+    /// <param name="item"></param>
+    public void Refresh(TabItem item) => item.Refresh(_cache);
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override async ValueTask DisposeAsync(bool disposing)
