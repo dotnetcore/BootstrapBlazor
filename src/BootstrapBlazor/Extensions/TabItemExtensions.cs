@@ -24,9 +24,9 @@ internal static class TabItemExtensions
         builder.CloseComponent();
     };
 
-    public static void Refresh(this TabItem? item, ConcurrentDictionary<TabItem, TabItemContent> cache)
+    public static void Refresh(this TabItem item, ConcurrentDictionary<TabItem, TabItemContent> cache)
     {
-        if (item is not null && cache.TryGetValue(item, out var content))
+        if (cache.TryGetValue(item, out var content))
         {
             content.Render();
         }

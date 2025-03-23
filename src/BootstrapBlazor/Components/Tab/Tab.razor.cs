@@ -950,11 +950,10 @@ public partial class Tab : IHandlerException
     {
         // refresh the active tab item
         var item = TabItems.FirstOrDefault(i => i.IsActive);
-        item.Refresh(_cache);
 
-        if (OnToolbarRefreshCallback != null)
+        if (item is not null)
         {
-            await OnToolbarRefreshCallback();
+            await Refresh(item);
         }
     }
 
@@ -962,7 +961,15 @@ public partial class Tab : IHandlerException
     /// Refresh the tab item method
     /// </summary>
     /// <param name="item"></param>
-    public void Refresh(TabItem item) => item.Refresh(_cache);
+    public async Task Refresh(TabItem item)
+    {
+        item.Refresh(_cache);
+
+        if (OnToolbarRefreshCallback != null)
+        {
+            await OnToolbarRefreshCallback();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
