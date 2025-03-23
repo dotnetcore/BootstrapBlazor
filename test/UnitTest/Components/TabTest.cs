@@ -7,6 +7,7 @@ using AngleSharp.Dom;
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Reflection;
+using System.Threading.Tasks;
 using UnitTest.Misc;
 
 namespace UnitTest.Components;
@@ -23,6 +24,49 @@ public class TabTest : BootstrapBlazorTestBase
                 { "/Binder", new() { Text = "Index_Binder_Test" } }
             };
         });
+    }
+
+    [Fact]
+    public async Task ContextMenu_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "Tab1");
+                    pb.Add(a => a.Url, "/Index");
+                    pb.Add(a => a.Closable, true);
+                    pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                    pb.Add(a => a.ChildContent, "Tab1-Content");
+                });
+            });
+            pb.AddChildContent<ContextMenu>(pb =>
+            {
+                pb.AddChildContent<ContextMenuItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "test-close");
+                    pb.Add(a => a.OnClick, (context, item) =>
+                    {
+                        clicked = true;
+                        if (item is TabItem tabItem)
+                        {
+
+                        }
+                        return Task.CompletedTask;
+                    });
+                });
+            });
+        });
+
+        var menuItem = cut.Find(".tabs-item");
+        await cut.InvokeAsync(() => menuItem.ContextMenu());
+
+        var item = cut.Find(".dropdown-menu .dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.True(clicked);
     }
 
     [Fact]

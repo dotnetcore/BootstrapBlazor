@@ -496,6 +496,30 @@ private void Navigation()
     </Tab>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TabsContextMenuTitle"]" Introduction="@Localizer["TabsContextMenuIntro"]" Name="ContextMenu">
+    <ContextMenuZone>
+        <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" @ref="_tab">
+            <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+                <div>@Localizer["TabItem1Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+                <div>@Localizer["TabItem2Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+                <div>@Localizer["TabItem3Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+                <div>@Localizer["TabItem4Content"]</div>
+            </TabItem>
+        </Tab>
+        <ContextMenu>
+            <ContextMenuItem Icon="fa-solid fa-xmark" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-left-right" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-arrows-left-right-to-line" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+        </ContextMenu>
+    </ContextMenuZone>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
 
 <MethodTable Items="@GetMethods()" Title="@Localizer["MethodTitle"]" />

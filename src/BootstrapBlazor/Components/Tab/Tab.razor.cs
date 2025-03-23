@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.Reflection;
@@ -370,6 +371,9 @@ public partial class Tab : IHandlerException
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
 
+    [CascadingParameter]
+    private ContextMenuZone? ContextMenuZone { get; set; }
+
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
     private bool HandlerNavigation { get; set; }
@@ -381,6 +385,8 @@ public partial class Tab : IHandlerException
     private string? DraggableString => AllowDrag ? "true" : null;
 
     private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
+
+    private bool IsPreventDefault => ContextMenuZone != null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -963,6 +969,14 @@ public partial class Tab : IHandlerException
         {
             RemoveLocationChanged();
             ErrorLogger?.UnRegister(this);
+        }
+    }
+
+    private async Task OnContextMenu(MouseEventArgs e, TabItem item)
+    {
+        if (ContextMenuZone != null)
+        {
+            await ContextMenuZone.OnContextMenu(e, item);
         }
     }
 }
