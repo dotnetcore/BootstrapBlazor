@@ -1021,6 +1021,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowToolbar_Ok()
     {
+        var clicked = false;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
@@ -1031,6 +1032,11 @@ public class TabTest : BootstrapBlazorTestBase
                     pb.Add(a => a.ShowFullScreen, true);
                     pb.Add(a => a.Text, "Text1");
                     pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
+                pb.Add(a => a.OnToolbarRefreshCallback, () =>
+                {
+                    clicked = true;
+                    return Task.CompletedTask;
                 });
             });
         });
@@ -1046,8 +1052,9 @@ public class TabTest : BootstrapBlazorTestBase
         cut.Contains("tabs-nav-toolbar-fs");
 
         // 点击刷新按钮
-        var button = cut.Find(".tabs-nav-toolbar-refresh > i");
+        var button = cut.Find(".tabs-nav-toolbar-refresh");
         await cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
 
         tab.SetParametersAndRender(pb =>
         {

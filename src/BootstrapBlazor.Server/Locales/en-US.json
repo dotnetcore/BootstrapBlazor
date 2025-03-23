@@ -2123,14 +2123,16 @@
     "TabsCapsuleStyleIntro": "Set the capsule tab style by setting <code>TabStyle=\"TabStyle.Capsule\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> <code>Placement=\"Placement.Bottom\"</code> mode",
     "AttributeToolbarTemplate": "The template for Toolbar",
     "TabsToolbarTitle": "Toolbar",
-    "TabsToolbarIntro": "By setting <code>ShowToolbar</code>, you can display the tab toolbar. By default, the <b>Refresh</b> and <b>Fullscreen</b> buttons are displayed. You can control whether to display them by <code>ShowRefreshToolbarButton</code> and <code>ShowFullscreenToolbarButton</code>",
+    "TabsToolbarIntro": "By setting <code>ShowToolbar</code>, you can display the tab toolbar. By default, the <b>Refresh</b> and <b>Fullscreen</b> buttons are displayed. You can control whether to display them by <code>ShowRefreshToolbarButton</code> and <code>ShowFullscreenToolbarButton</code>, click the <b>Refresh</b> button to trigger the <code>OnToolbarRefreshCallback</code> callback method. You can customize toolbar buttons using <code>ToolbarTemplate</code>",
     "AttributeShowToolbar": "Whether to display the toolbar",
     "AttributeShowRefreshToolbarButton": "Whether to display the toolbar refresh button",
     "AttributeShowFullscreenToolbarButton": "Whether to display the toolbar full screen button",
     "AttributeRefreshToolbarTooltipText": "Toolbar refresh button tooltip text",
     "AttributeFullscreenToolbarTooltipText": "Toolbar full screen button tooltip text",
     "AttributeRefreshToolbarButtonIcon": "Toolbar refresh button icon",
-    "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon"
+    "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon",
+    "TabsToolbarDesc": "After clicking the button, the counter value increases, and clicking the <b>Refresh</b> button on the toolbar will reset the counter.",
+    "AttributeOnToolbarRefreshCallback": "Click the toolbar refresh button callback method"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",

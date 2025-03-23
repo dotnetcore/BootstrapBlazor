@@ -338,6 +338,12 @@ public partial class Tab : IHandlerException
     [Parameter]
     public string? RefreshToolbarTooltipText { get; set; }
 
+    /// <summary>
+    /// Gets or sets the refresh toolbar button click event callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnToolbarRefreshCallback { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -934,12 +940,16 @@ public partial class Tab : IHandlerException
 
     private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
 
-    private Task OnRefreshAsync()
+    private async Task OnRefreshAsync()
     {
         // refresh the active tab item
         var item = TabItems.FirstOrDefault(i => i.IsActive);
         item.Refresh(_cache);
-        return Task.CompletedTask;
+
+        if (OnToolbarRefreshCallback != null)
+        {
+            await OnToolbarRefreshCallback();
+        }
     }
 
     /// <summary>

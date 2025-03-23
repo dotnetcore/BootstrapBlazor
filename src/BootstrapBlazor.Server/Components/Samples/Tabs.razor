@@ -457,7 +457,6 @@ private void Navigation()
     <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
-            <Counter></Counter>
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>
@@ -472,10 +471,14 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsToolbarTitle"]" Introduction="@Localizer["TabsToolbarIntro"]" Name="Toolbar">
+    <section ignore>
+        <div>@((MarkupString)Localizer["TabsToolbarDesc"].Value)</div>
+    </section>
     <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true">
         <ChildContent>
             <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
                 <div>@Localizer["TabItem1Content"]</div>
+                <Counter></Counter>
             </TabItem>
             <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
                 <div>@Localizer["TabItem2Content"]</div>
@@ -488,7 +491,7 @@ private void Navigation()
             </TabItem>
         </ChildContent>
         <ToolbarTemplate>
-            <TabToolbarButton Icon="fa fa-home" TooltipText="Home"></TabToolbarButton>
+            <TabToolbarButton Icon="fa fa-home fa-shake" TooltipText="Home"></TabToolbarButton>
         </ToolbarTemplate>
     </Tab>
 </DemoBlock>
