@@ -171,6 +171,33 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
+    [NotNull]
+    private Tab? _tab = null;
+
+    private async Task OnClose(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            await _tab.RemoveTab(tabItem);
+        }
+    }
+
+    private Task OnCloseOther(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            _tab.ActiveTab(tabItem);
+        }
+        _tab.CloseOtherTabs();
+        return Task.CompletedTask;
+    }
+
+    private Task OnCloseAll(ContextMenuItem item, object? context)
+    {
+        _tab.CloseAllTabs();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

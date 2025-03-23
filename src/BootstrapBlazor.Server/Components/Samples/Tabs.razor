@@ -498,7 +498,7 @@ private void Navigation()
 
 <DemoBlock Title="@Localizer["TabsContextMenuTitle"]" Introduction="@Localizer["TabsContextMenuIntro"]" Name="ContextMenu">
     <ContextMenuZone>
-        <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true">
+        <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" @ref="_tab">
             <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
                 <div>@Localizer["TabItem1Content"]</div>
             </TabItem>
@@ -513,11 +513,9 @@ private void Navigation()
             </TabItem>
         </Tab>
         <ContextMenu>
-            <ContextMenuItem Icon="fa-solid fa-xmark" Text="关闭"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-left-right" Text="关闭其他"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-angle-left" Text="关闭左侧"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-angle-right" Text="关闭右侧"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-arrows-left-right-to-line" Text="关闭全部"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-xmark" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-left-right" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-arrows-left-right-to-line" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
         </ContextMenu>
     </ContextMenuZone>
 </DemoBlock>
