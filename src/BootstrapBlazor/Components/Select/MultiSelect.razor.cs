@@ -251,7 +251,7 @@ public partial class MultiSelect<TValue>
         for (int i = 0; i < values.Count; i++)
         {
             var text = i < texts.Count ? texts[i] : values[i];
-            ret.Add(new SelectedItem(values[i], text));
+            ret.Add(new SelectedItem(values[i].Trim(), text.Trim()));
         }
         return ret;
     }
