@@ -174,6 +174,15 @@ public sealed partial class Tabs
     [NotNull]
     private Tab? _tab = null;
 
+    private Task OnRefrsh(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            _tab.Refresh(tabItem);
+        }
+        return Task.CompletedTask;
+    }
+
     private async Task OnClose(ContextMenuItem item, object? context)
     {
         if (context is TabItem tabItem)
