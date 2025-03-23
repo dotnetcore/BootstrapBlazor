@@ -2133,6 +2133,7 @@
     "AttributeFullscreenToolbarButtonIcon": "工具栏全屏按钮图标",
     "TabsToolbarDesc": "点击按钮计数器数值增加后，点击工具栏的 <b>刷新</b> 按钮计数器清零",
     "AttributeOnToolbarRefreshCallback": "点击工具栏刷新按钮回调方法",
+    "ContextRefresh": "刷新",
     "ContextClose": "关闭",
     "ContextCloseOther": "关闭其他",
     "ContextCloseAll": "关闭全部",

@@ -950,6 +950,19 @@ public partial class Tab : IHandlerException
     {
         // refresh the active tab item
         var item = TabItems.FirstOrDefault(i => i.IsActive);
+
+        if (item is not null)
+        {
+            await Refresh(item);
+        }
+    }
+
+    /// <summary>
+    /// Refresh the tab item method
+    /// </summary>
+    /// <param name="item"></param>
+    public async Task Refresh(TabItem item)
+    {
         item.Refresh(_cache);
 
         if (OnToolbarRefreshCallback != null)

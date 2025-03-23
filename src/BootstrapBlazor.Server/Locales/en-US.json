@@ -2133,6 +2133,7 @@
     "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon",
     "TabsToolbarDesc": "After clicking the button, the counter value increases, and clicking the <b>Refresh</b> button on the toolbar will reset the counter.",
     "AttributeOnToolbarRefreshCallback": "Click the toolbar refresh button callback method",
+    "ContextRefresh": "Refresh",
     "ContextClose": "Close",
     "ContextCloseOther": "Close Other Tabs",
     "ContextCloseAll": "Close All Tabs",
