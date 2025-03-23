@@ -2131,7 +2131,8 @@
     "AttributeFullscreenToolbarTooltipText": "Toolbar full screen button tooltip text",
     "AttributeRefreshToolbarButtonIcon": "Toolbar refresh button icon",
     "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon",
-    "TabsToolbarDesc": "After clicking the button, the counter value increases, and clicking the <b>Refresh</b> button on the toolbar will reset the counter."
+    "TabsToolbarDesc": "After clicking the button, the counter value increases, and clicking the <b>Refresh</b> button on the toolbar will reset the counter.",
+    "AttributeOnToolbarRefreshCallback": "Click the toolbar refresh button callback method"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",

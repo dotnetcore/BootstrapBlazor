@@ -443,6 +443,14 @@ public sealed partial class Tabs
         },
         new()
         {
+            Name = nameof(Tab.OnToolbarRefreshCallback),
+            Description = Localizer["AttributeOnToolbarRefreshCallback"].Value,
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(Tab.FullscreenToolbarButtonIcon),
             Description = Localizer["AttributeFullscreenToolbarButtonIcon"].Value,
             Type = "string?",

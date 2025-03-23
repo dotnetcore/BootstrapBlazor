@@ -2131,7 +2131,8 @@
     "AttributeFullscreenToolbarTooltipText": "工具栏全屏按钮提示框文字",
     "AttributeRefreshToolbarButtonIcon": "工具栏刷新按钮图标",
     "AttributeFullscreenToolbarButtonIcon": "工具栏全屏按钮图标",
-    "TabsToolbarDesc": "点击按钮计数器数值增加后，点击工具栏的 <b>刷新</b> 按钮计数器清零"
+    "TabsToolbarDesc": "点击按钮计数器数值增加后，点击工具栏的 <b>刷新</b> 按钮计数器清零",
+    "AttributeOnToolbarRefreshCallback": "点击工具栏刷新按钮回调方法"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",
