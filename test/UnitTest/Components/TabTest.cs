@@ -61,6 +61,9 @@ public class TabTest : BootstrapBlazorTestBase
             });
         });
 
+        var menuItem = cut.Find(".tabs-item");
+        await cut.InvokeAsync(() => menuItem.ContextMenu());
+
         var item = cut.Find(".dropdown-menu .dropdown-item");
         await cut.InvokeAsync(() => item.Click());
         Assert.True(clicked);
