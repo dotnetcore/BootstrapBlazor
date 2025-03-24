@@ -10,11 +10,21 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public Func<string, Task>? ThemeChangedAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="themeName"></param>
     public async ValueTask SetThemeAsync(string themeName)
     {
         var module = await jsRuntime.LoadUtility();
         await module.SetThemeAsync(themeName);
+
+        if (ThemeChangedAsync is not null)
+        {
+            await ThemeChangedAsync(themeName);
+        }
     }
 
     /// <summary>
