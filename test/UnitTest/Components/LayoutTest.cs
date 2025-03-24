@@ -14,6 +14,42 @@ namespace UnitTest.Components;
 public class LayoutTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void TabStyle_Ok()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.TabStyle, TabStyle.Default);
+            pb.Add(a => a.RefreshToolbarButtonIcon, "test-refresh-icon");
+            pb.Add(a => a.FullscreenToolbarButtonIcon, "test-fullscreen-icon");
+            pb.Add(a => a.OnToolbarRefreshCallback, () => Task.CompletedTask);
+            pb.Add(a => a.RefreshToolbarTooltipText, "test-refresh-tooltip");
+            pb.Add(a => a.FullscreenToolbarTooltipText, "test-fullscreen-tooltip");
+        });
+        Assert.DoesNotContain("tabs-chrome", cut.Markup);
+        Assert.DoesNotContain("tabs-capsule", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabStyle, TabStyle.Capsule));
+        Assert.Contains("tabs-capsule", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabStyle, TabStyle.Chrome));
+        Assert.Contains("tabs-chrome", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowToolbar, true));
+        Assert.Contains("tabs-nav-toolbar-refresh", cut.Markup);
+        Assert.Contains("tabs-nav-toolbar-fs", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowRefreshToolbarButton, false));
+        Assert.DoesNotContain("tabs-nav-toolbar-refresh", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFullscreenToolbarButton, false));
+        Assert.DoesNotContain("tabs-nav-toolbar-fs", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template")));
+        Assert.Contains("test-toolbar-template", cut.Markup);
+    }
+
+    [Fact]
     public void ShowFooter_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>

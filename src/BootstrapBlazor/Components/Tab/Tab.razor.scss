@@ -136,7 +136,6 @@
     left: 0;
     height: 2px;
     background-color: var(--bb-tabs-bar-bg);
-    z-index: 1;
     transition: transform .3s cubic-bezier(.645,.045,.355,1);
     list-style: none;
 }
@@ -559,10 +558,9 @@
         align-items: flex-end;
         flex-shrink: 0;
         padding: 0 1rem;
-        z-index: 1;
 
         &.active {
-            z-index: 5;
+            z-index: 1;
 
             .tab-corner {
                 background-color: var(--bs-body-bg);
