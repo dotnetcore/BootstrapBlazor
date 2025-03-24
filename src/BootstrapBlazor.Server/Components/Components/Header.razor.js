@@ -1,5 +1,4 @@
-﻿import { switchTheme as syncTheme } from "./Pre.razor.js"
-import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
     const scrollTop = () => (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
@@ -15,10 +14,6 @@ export function init(id) {
         }
         prevScrollTop = currentScrollTop
     });
-}
-
-export async function updateTheme(theme, assetPath) {
-    await syncTheme(theme, assetPath);
 }
 
 export function dispose(id) {
