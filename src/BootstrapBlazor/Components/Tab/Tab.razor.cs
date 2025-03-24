@@ -695,7 +695,10 @@ public partial class Tab : IHandlerException
 
     private void AddTabItem(string url)
     {
-        var parameters = new Dictionary<string, object?>();
+        var parameters = new Dictionary<string, object?>
+        {
+            { nameof(TabItem.Url), url }
+        };
         var context = RouteTableFactory.Create(AdditionalAssemblies, url);
         if (context.Handler != null)
         {
@@ -720,7 +723,6 @@ public partial class Tab : IHandlerException
                 var menu = GetMenuItem(url) ?? new MenuItem() { Text = url.Split("/").FirstOrDefault() };
                 SetTabItemParameters(menu.Text, menu.Icon, true, true);
             }
-            parameters.Add(nameof(TabItem.Url), url);
 
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
             {
