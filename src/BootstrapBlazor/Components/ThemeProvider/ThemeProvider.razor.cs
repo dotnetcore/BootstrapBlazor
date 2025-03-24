@@ -90,6 +90,10 @@ public partial class ThemeProvider
     [Inject, NotNull]
     private IStringLocalizer<ThemeProvider>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IThemeProvider? ThemeProviderService { get; set; }
+
     private string? ClassString => CssBuilder.Default("dropdown bb-theme-mode")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -139,5 +143,6 @@ public partial class ThemeProvider
         {
             await OnThemeChangedAsync(name);
         }
+        await ThemeProviderService.SetThemeAsync(name.ToDescriptionString());
     }
 }
