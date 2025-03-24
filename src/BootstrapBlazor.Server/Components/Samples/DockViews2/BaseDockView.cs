@@ -22,6 +22,10 @@ public abstract class BaseDockView : ComponentBase
     [NotNull]
     private MockDataTableDynamicService? DataTableDynamicService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IThemeProvider? ThemeProviderService { get; set; }
+
     /// <summary>
     /// 获得/设置 数据集合
     /// </summary>
@@ -40,6 +44,11 @@ public abstract class BaseDockView : ComponentBase
     protected DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
     /// <summary>
+    /// Gets or sets the theme
+    /// </summary>
+    protected DockViewTheme Theme { get; set; } = DockViewTheme.Light;
+
+    /// <summary>
     /// 获得 <see cref="DynamicObjectContext"/> 实例方法
     /// </summary>
     /// <param name="context"></param>
@@ -51,6 +60,8 @@ public abstract class BaseDockView : ComponentBase
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Items = Foo.GenerateFoo(LocalizerFoo, 50);
 
         // 模拟数据从数据库中获得
@@ -63,6 +74,22 @@ public abstract class BaseDockView : ComponentBase
         TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
 
         DataTableDynamicContext = DataTableDynamicService.CreateContext();
+
+        ThemeProviderService.ThemeChangedAsync += OnThemeChanged;
+    }
+
+    private Task OnThemeChanged(string themeName)
+    {
+        if (themeName == "dark")
+        {
+            Theme = DockViewTheme.Dark;
+        }
+        else
+        {
+            Theme = DockViewTheme.Light;
+        }
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>

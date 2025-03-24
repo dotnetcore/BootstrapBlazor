@@ -78,14 +78,14 @@ export async function highlight(id) {
     }
 }
 
-export async function switchTheme(theme, assetPath) {
+export async function switchTheme(theme) {
     if (theme === 'dark') {
-        removeLink(`${assetPath}lib/highlight/vs.min.css`);
-        await addLink(`${assetPath}lib/highlight/vs2015.min.css`);
+        removeLink(`./lib/highlight/vs.min.css`);
+        await addLink(`./lib/highlight/vs2015.min.css`);
     }
     else {
-        removeLink(`${assetPath}lib/highlight/vs2015.min.css`);
-        await addLink(`${assetPath}lib/highlight/vs.min.css`);
+        removeLink(`./lib/highlight/vs2015.min.css`);
+        await addLink(`./lib/highlight/vs.min.css`);
     }
 }
 

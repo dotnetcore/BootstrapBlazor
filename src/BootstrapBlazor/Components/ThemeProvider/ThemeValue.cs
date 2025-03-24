@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -14,20 +16,24 @@ public enum ThemeValue
     /// <summary>
     /// 自动
     /// </summary>
+    [Description("auto")]
     Auto,
 
     /// <summary>
     /// 明亮主题
     /// </summary>
+    [Description("light")]
     Light,
 
     /// <summary>
     /// 暗黑主题
     /// </summary>
+    [Description("dark")]
     Dark,
 
     /// <summary>
     /// 使用本地保存选项
     /// </summary>
+    [Description("useLocalStorage")]
     UseLocalStorage,
 }
