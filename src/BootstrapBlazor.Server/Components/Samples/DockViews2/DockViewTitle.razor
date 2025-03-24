@@ -5,7 +5,7 @@
 
 <h4>@((MarkupString)Localizer["DockViewTitleIntro"].Value)</h4>
 
-<DockViewV2 Name="DockViewV2LayoutColumn" class="dockview-demo">
+<DockViewV2 Name="DockViewV2LayoutColumn" Theme="@Theme" class="dockview-demo">
     <DockViewContent Type="DockViewContentType.Column">
         <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback" Height="33">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
