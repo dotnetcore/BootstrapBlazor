@@ -5,9 +5,9 @@
 
 <h4>@((MarkupString)Localizer["DockViewNestIntro"].Value)</h4>
 
-<Select @bind-Value="@Theme"></Select>
+<Select @bind-Value="@_theme"></Select>
 
-<DockViewV2 Name="DockViewNest" Theme="Theme" class="dockview-demo">
+<DockViewV2 Name="DockViewNest" Theme="_theme" class="dockview-demo">
     <DockViewContent Type="DockViewContentType.Row">
         <DockViewComponent Key="tab1" Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
@@ -40,7 +40,7 @@
             </Table>
         </DockViewComponent>
         <DockViewComponent Key="tab3" Title="嵌套布局" ShowHeader="false">
-            <DockViewV2 Name="DockViewInnerNest" Theme="Theme">
+            <DockViewV2 Name="DockViewInnerNest" Theme="_theme">
                 <DockViewContent Type="DockViewContentType.Column">
                     <DockViewComponent Key="tab31" Title="内嵌标签一">
                         <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"

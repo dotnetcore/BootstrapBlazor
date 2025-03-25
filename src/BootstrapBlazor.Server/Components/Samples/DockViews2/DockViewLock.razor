@@ -7,7 +7,7 @@
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
-<DockViewV2 Name="DockViewLock" Theme="@Theme" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="IsLock" class="dock-lock-demo">
+<DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="IsLock" class="dock-lock-demo">
     <DockViewContent Type="DockViewContentType.Row">
         <DockViewComponent Key="tab1" Title="标签一" Width="18">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"

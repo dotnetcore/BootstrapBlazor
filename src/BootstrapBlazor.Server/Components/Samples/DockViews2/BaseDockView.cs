@@ -22,10 +22,6 @@ public abstract class BaseDockView : ComponentBase
     [NotNull]
     private MockDataTableDynamicService? DataTableDynamicService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IThemeProvider? ThemeProviderService { get; set; }
-
     /// <summary>
     /// 获得/设置 数据集合
     /// </summary>
@@ -42,11 +38,6 @@ public abstract class BaseDockView : ComponentBase
     /// 获得/设置 <see cref="DataTableDynamicContext"/> 实例
     /// </summary>
     protected DataTableDynamicContext? DataTableDynamicContext { get; set; }
-
-    /// <summary>
-    /// Gets or sets the theme
-    /// </summary>
-    protected DockViewTheme Theme { get; set; } = DockViewTheme.Light;
 
     /// <summary>
     /// 获得 <see cref="DynamicObjectContext"/> 实例方法
@@ -74,22 +65,6 @@ public abstract class BaseDockView : ComponentBase
         TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
 
         DataTableDynamicContext = DataTableDynamicService.CreateContext();
-
-        ThemeProviderService.ThemeChangedAsync += OnThemeChanged;
-    }
-
-    private Task OnThemeChanged(string themeName)
-    {
-        if (themeName == "dark")
-        {
-            Theme = DockViewTheme.Dark;
-        }
-        else
-        {
-            Theme = DockViewTheme.Light;
-        }
-        StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -116,23 +91,23 @@ public abstract class BaseDockView : ComponentBase
     protected static Task<IEnumerable<TableTreeNode<TreeFoo>>> TreeNodeConverter(IEnumerable<TreeFoo> items)
     {
         // 构造树状数据结构
-        var ret = BuildTreeNodes(items, 0);
-        return Task.FromResult(ret);
+        var ret = BuildTreeNodes(items.ToList(), 0);
+        return Task.FromResult(ret.AsEnumerable());
+    }
 
-        IEnumerable<TableTreeNode<TreeFoo>> BuildTreeNodes(IEnumerable<TreeFoo> items, int parentId)
+    private static List<TableTreeNode<TreeFoo>> BuildTreeNodes(List<TreeFoo> items, int parentId)
+    {
+        var ret = new List<TableTreeNode<TreeFoo>>();
+        ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
         {
-            var ret = new List<TableTreeNode<TreeFoo>>();
-            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
-            {
-                // 此处为示例，假设偶行数据都有子数据
-                HasChildren = index % 2 == 0,
-                // 如果子项集合有值 则默认展开此节点
-                IsExpand = items.Any(i => i.ParentId == foo.Id),
-                // 获得子项集合
-                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
-            }));
-            return ret;
-        }
+            // 此处为示例，假设偶行数据都有子数据
+            HasChildren = index % 2 == 0,
+            // 如果子项集合有值 则默认展开此节点
+            IsExpand = items.Any(i => i.ParentId == foo.Id),
+            // 获得子项集合
+            Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id).ToList(), foo.Id)
+        }));
+        return ret;
     }
 
     /// <summary>
@@ -162,7 +137,7 @@ public abstract class BaseDockView : ComponentBase
         /// GenerateFoos
         /// </summary>
         /// <returns></returns>
-        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
+        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => [.. Enumerable.Range(1, count).Select(i => new TreeFoo()
         {
             Id = id + i,
             ParentId = parentId,
@@ -172,6 +147,6 @@ public abstract class BaseDockView : ComponentBase
             Count = Random.Shared.Next(1, 100),
             Complete = Random.Shared.Next(1, 100) > 50,
             Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
-        }).ToList();
+        })];
     }
 }
