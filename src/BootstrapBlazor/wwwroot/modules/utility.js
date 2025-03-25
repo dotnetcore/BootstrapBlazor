@@ -1,4 +1,6 @@
-﻿const vibrate = () => {
+﻿import EventHandler from "./event-handler.js"
+
+const vibrate = () => {
     if ('vibrate' in window.navigator) {
         window.navigator.vibrate([200, 100, 200])
         const handler = window.setTimeout(function () {
@@ -788,6 +790,8 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
     else {
         setTheme(theme, sync);
     }
+
+    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
 }
 
 const deepMerge = (obj1, obj2, skipNull = true) => {
