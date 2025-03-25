@@ -29,10 +29,6 @@ public partial class Pre
     [NotNull]
     private CodeSnippetService? CodeSnippetService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IThemeProvider? ThemeProviderService { get; set; }
-
     /// <summary>
     /// 获得/设置 子组件 CodeFile 为空时生效
     /// </summary>
@@ -70,16 +66,6 @@ public partial class Pre
     private string? MinusTooltipTitle { get; set; }
 
     private string? CopiedText { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ThemeProviderService.ThemeChangedAsync += OnThemeChanged;
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -203,12 +189,4 @@ public partial class Pre
 
     [GeneratedRegex(@"<Tips[\s\S]*>[\s\S]*?</Tips>")]
     private static partial Regex TipsRegex();
-
-    private async Task OnThemeChanged(string themeName)
-    {
-        if (themeName == "light" || themeName == "dark")
-        {
-            await InvokeVoidAsync("switchTheme", themeName);
-        }
-    }
 }
