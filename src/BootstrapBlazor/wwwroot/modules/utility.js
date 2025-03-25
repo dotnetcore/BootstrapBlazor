@@ -1,4 +1,6 @@
-﻿const vibrate = () => {
+﻿import EventHandler from "./event-handler.js"
+
+const vibrate = () => {
     if ('vibrate' in window.navigator) {
         window.navigator.vibrate([200, 100, 200])
         const handler = window.setTimeout(function () {
@@ -754,6 +756,7 @@ export function setTheme(theme, sync) {
         })
         saveTheme(theme);
     }
+    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
 }
 
 export function setActiveTheme(el, activeItem) {
