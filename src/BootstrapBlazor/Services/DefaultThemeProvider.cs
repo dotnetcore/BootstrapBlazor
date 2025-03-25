@@ -20,11 +20,6 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     {
         var module = await jsRuntime.LoadUtility();
         await module.SetThemeAsync(themeName);
-
-        if (ThemeChangedAsync is not null)
-        {
-            await ThemeChangedAsync(themeName);
-        }
     }
 
     /// <summary>
@@ -34,5 +29,13 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     {
         var module = await jsRuntime.LoadUtility();
         return await module.GetThemeAsync();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void TriggerThemeChanged(string themeName)
+    {
+        ThemeChangedAsync?.Invoke(themeName);
     }
 }
