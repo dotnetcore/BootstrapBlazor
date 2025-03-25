@@ -1,7 +1,7 @@
 name: Close inactive issues
 on:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "30 2 * * *"
 
 jobs:
   close-issues:
