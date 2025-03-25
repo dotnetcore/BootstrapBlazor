@@ -27,4 +27,9 @@ public interface IThemeProvider
     /// The callback when theme changed
     /// </summary>
     Func<string, Task>? ThemeChangedAsync { get; set; }
+
+    /// <summary>
+    /// Trigger the theme changed event
+    /// </summary>
+    void TriggerThemeChanged();
 }
