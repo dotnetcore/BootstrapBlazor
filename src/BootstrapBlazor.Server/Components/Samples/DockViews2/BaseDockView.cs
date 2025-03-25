@@ -162,7 +162,7 @@ public abstract class BaseDockView : ComponentBase
         /// GenerateFoos
         /// </summary>
         /// <returns></returns>
-        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
+        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => [.. Enumerable.Range(1, count).Select(i => new TreeFoo()
         {
             Id = id + i,
             ParentId = parentId,
@@ -172,6 +172,6 @@ public abstract class BaseDockView : ComponentBase
             Count = Random.Shared.Next(1, 100),
             Complete = Random.Shared.Next(1, 100) > 50,
             Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
-        }).ToList();
+        })];
     }
 }
