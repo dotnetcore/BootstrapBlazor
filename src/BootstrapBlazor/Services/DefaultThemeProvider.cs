@@ -34,11 +34,8 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void TriggerThemeChanged()
+    public void TriggerThemeChanged(string themeName)
     {
-        if (ThemeChangedAsync is not null)
-        {
-            ThemeChangedAsync(string.Empty);
-        }
+        ThemeChangedAsync?.Invoke(themeName);
     }
 }

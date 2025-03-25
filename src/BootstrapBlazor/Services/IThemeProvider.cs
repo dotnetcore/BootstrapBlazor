@@ -31,5 +31,6 @@ public interface IThemeProvider
     /// <summary>
     /// Trigger the theme changed event
     /// </summary>
-    void TriggerThemeChanged();
+    /// <param name="themeName">The name of the theme to set.</param>
+    void TriggerThemeChanged(string themeName);
 }
