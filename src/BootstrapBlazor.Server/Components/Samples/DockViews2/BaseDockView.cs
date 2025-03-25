@@ -88,7 +88,6 @@ public abstract class BaseDockView : ComponentBase
         {
             Theme = DockViewTheme.Light;
         }
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
