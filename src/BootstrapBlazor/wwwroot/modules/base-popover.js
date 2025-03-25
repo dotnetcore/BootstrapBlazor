@@ -17,7 +17,7 @@ const Popover = {
                 initCallback: null,
                 hideCallback: null
             },
-            ...(config ?? {})
+            ...(config || {})
         }
         const createPopover = () => {
             if (!popover.isDisabled()) {
