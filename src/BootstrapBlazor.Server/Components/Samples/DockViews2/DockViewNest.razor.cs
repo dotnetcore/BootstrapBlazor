@@ -13,4 +13,6 @@ public partial class DockViewNest
     [Inject]
     [NotNull]
     private IStringLocalizer<DockViewNest>? Localizer { get; set; }
+
+    private DockViewTheme _theme;
 }

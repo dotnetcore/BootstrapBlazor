@@ -7,7 +7,7 @@
 
 <Select @bind-Value="@Theme"></Select>
 
-<DockViewV2 Name="DockViewNest" Theme="Theme" class="dockview-demo">
+<DockViewV2 Name="DockViewNest" Theme="_theme" class="dockview-demo">
     <DockViewContent Type="DockViewContentType.Row">
         <DockViewComponent Key="tab1" Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
