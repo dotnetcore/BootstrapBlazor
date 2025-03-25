@@ -40,11 +40,6 @@ public abstract class BaseDockView : ComponentBase
     protected DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
     /// <summary>
-    /// Gets or sets the theme
-    /// </summary>
-    protected DockViewTheme Theme { get; set; } = DockViewTheme.Light;
-
-    /// <summary>
     /// 获得 <see cref="DynamicObjectContext"/> 实例方法
     /// </summary>
     /// <param name="context"></param>

@@ -12,7 +12,7 @@
     <Button OnClickWithoutRender="Reset" Text="复位"></Button>
 </GroupBox>
 
-<DockViewV2 @ref="DockView" Name="DockViewLayout" LayoutConfig="@LayoutConfig" class="dock-layout-demo">
+<DockViewV2 @ref="@_dockView" Name="DockViewLayout" LayoutConfig="@_layoutConfig" class="dock-layout-demo">
     <DockViewContent Type="DockViewContentType.Column">
         <DockViewComponent Key="tab1" Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
