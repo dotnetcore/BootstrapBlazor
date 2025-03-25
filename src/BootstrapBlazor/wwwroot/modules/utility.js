@@ -785,13 +785,13 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
         document.documentElement.style.setProperty('--bb-theme-y', `${y}px`);
         document.startViewTransition(() => {
             setTheme(theme, sync);
+            EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
         });
     }
     else {
         setTheme(theme, sync);
+        EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
     }
-
-    EventHandler.trigger(document, 'changed.bb.theme', { theme: theme });
 }
 
 const deepMerge = (obj1, obj2, skipNull = true) => {
