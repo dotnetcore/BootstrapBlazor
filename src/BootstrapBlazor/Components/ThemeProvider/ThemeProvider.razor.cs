@@ -143,6 +143,7 @@ public partial class ThemeProvider
         {
             await OnThemeChangedAsync(name);
         }
-        await ThemeProviderService.SetThemeAsync(name.ToDescriptionString());
+
+        ThemeProviderService.TriggerThemeChanged(name.ToDescriptionString());
     }
 }
