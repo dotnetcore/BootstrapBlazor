@@ -564,6 +564,12 @@
                 background-color: var(--bb-tabs-item-hover-bg-color);
             }
         }
+
+        > [data-bs-toggle="tooltip"] {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
     }
 }
 

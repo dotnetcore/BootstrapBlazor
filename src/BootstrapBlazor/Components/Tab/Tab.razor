@@ -20,9 +20,11 @@ else
                 @if (ShowNavigatorButtons)
                 {
                     <div class="nav-link-bar left">
-                        <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
-                            <i class="@PreviousIcon"></i>
-                        </div>
+                        <Tooltip Title="@PrevTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
+                            <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
+                                <i class="@PreviousIcon"></i>
+                            </div>
+                        </Tooltip>
                     </div>
                 }
                 <div class="tabs-nav-scroll">
@@ -107,15 +109,19 @@ else
                     @if (ShowNavigatorButtons)
                     {
                         <div class="nav-link-bar right">
-                            <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
-                                <i class="@NextIcon"></i>
-                            </div>
+                            <Tooltip Title="@NextTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
+                                <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
+                                    <i class="@NextIcon"></i>
+                                </div>
+                            </Tooltip>
                         </div>
                     }
                     @if (ShouldShowExtendButtons())
                     {
                         <div class="nav-link-bar dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="nav-link-bar-button nav-link-close"><i class="@DropdownIcon"></i></div>
+                            <Tooltip Title="@CloseTabNavLinkTooltipText" Placement="Placement.Left" Trigger="hover">
+                                <div class="nav-link-bar-button nav-link-close"><i class="@DropdownIcon"></i></div>
+                            </Tooltip>
                         </div>
                         <div class="dropdown-menu dropdown-menu-end shadow">
                             <div class="dropdown-item" @onclick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></div>

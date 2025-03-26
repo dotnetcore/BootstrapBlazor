@@ -167,7 +167,6 @@ public partial class Tab : IHandlerException
     /// 获得/设置 NotFound 标签文本 默认 null NET6.0/7.0 有效
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? NotFoundTabText { get; set; }
 
     /// <summary>
@@ -205,21 +204,18 @@ public partial class Tab : IHandlerException
     /// 获得/设置 关闭当前 TabItem 菜单文本
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? CloseCurrentTabText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭所有 TabItem 菜单文本
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? CloseAllTabsText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭其他 TabItem 菜单文本
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? CloseOtherTabsText { get; set; }
 
     /// <summary>
@@ -345,6 +341,24 @@ public partial class Tab : IHandlerException
     [Parameter]
     public Func<Task>? OnToolbarRefreshCallback { get; set; }
 
+    /// <summary>
+    /// Gets or sets the previous tab navigation link tooltip text. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? PrevTabNavLinkTooltipText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the next tab navigation link tooltip text. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? NextTabNavLinkTooltipText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the close tab navigation link tooltip text. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? CloseTabNavLinkTooltipText { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -415,6 +429,9 @@ public partial class Tab : IHandlerException
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
         RefreshToolbarTooltipText ??= Localizer[nameof(RefreshToolbarTooltipText)];
         FullscreenToolbarTooltipText ??= Localizer[nameof(FullscreenToolbarTooltipText)];
+        PrevTabNavLinkTooltipText ??= Localizer[nameof(PrevTabNavLinkTooltipText)];
+        NextTabNavLinkTooltipText ??= Localizer[nameof(NextTabNavLinkTooltipText)];
+        CloseTabNavLinkTooltipText ??= Localizer[nameof(CloseTabNavLinkTooltipText)];
 
         PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
