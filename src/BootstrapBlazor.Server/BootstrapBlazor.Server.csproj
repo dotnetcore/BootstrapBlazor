@@ -23,7 +23,7 @@
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="9.0.0" />
-<!--    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="9.0.0" />-->
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="9.0.0" />
