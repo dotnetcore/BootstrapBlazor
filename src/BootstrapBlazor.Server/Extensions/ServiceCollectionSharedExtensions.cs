@@ -44,10 +44,10 @@ public static class ServiceCollectionSharedExtensions
         services.AddBootstrapBlazor(configureOptions);
 
         // 增加 Azure 语音服务
-        services.AddBootstrapBlazorAzureSpeech();
+        //services.AddBootstrapBlazorAzureSpeech();
 
         // 增加 Baidu 语音服务
-        //services.AddBootstrapBlazorBaiduSpeech();
+        services.AddBootstrapBlazorBaiduSpeech();
 
         // 增加 Baidu ORC 服务
         services.AddBootstrapBlazorBaiduOcr();
