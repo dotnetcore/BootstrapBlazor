@@ -8911,9 +8911,10 @@ public class TableTest : BootstrapBlazorTestBase
 
         public RenderFragment RenderVirtualPlaceHolder() => new(builder =>
         {
-            if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
+            var fieldInfo = GetType().BaseType!.GetField("_virtualizeElement", BindingFlags.NonPublic | BindingFlags.Instance)!;
+            if (ScrollMode == ScrollMode.Virtual && fieldInfo.GetValue(this) is Virtualize<Foo> element)
             {
-                builder.AddContent(0, VirtualizeElement.Placeholder?.Invoke(new Microsoft.AspNetCore.Components.Web.Virtualization.PlaceholderContext()));
+                builder.AddContent(0, element.Placeholder?.Invoke(new PlaceholderContext()));
             }
         });
 
