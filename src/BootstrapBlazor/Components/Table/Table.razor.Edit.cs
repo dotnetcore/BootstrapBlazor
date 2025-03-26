@@ -404,9 +404,9 @@ public partial class Table<TItem>
 
     private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)
     {
-        if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
+        if (ScrollMode == ScrollMode.Virtual && _virtualizeElement != null)
         {
-            await VirtualizeElement.RefreshDataAsync();
+            await _virtualizeElement.RefreshDataAsync();
         }
         else
         {
