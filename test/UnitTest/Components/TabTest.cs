@@ -226,14 +226,14 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.True(clicked);
 
         // Click Prev
-        var button = cut.Find(".nav-link-bar.left");
+        var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
         button.Click();
         button.Click();
         button.Click();
         Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
 
         // Click Next
-        button = cut.Find(".nav-link-bar.right");
+        button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         button.Click();
         button.Click();
         button.Click();
@@ -284,11 +284,11 @@ public class TabTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cut.Instance.AddTab("/Cat", null!));
 
         // Click Prev
-        var button = cut.Find(".nav-link-bar.left");
+        var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
         button.Click();
 
         // Click Next
-        button = cut.Find(".nav-link-bar.right");
+        button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         button.Click();
 
         button = cut.Find(".tabs-item-close");
