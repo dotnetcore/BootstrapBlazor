@@ -369,13 +369,12 @@
             {
                 @if (Items != null)
                 {
-                    <Virtualize @ref="VirtualizeElement"
-                                ItemSize="RowHeight" OverscanCount="10" Items="@Items.ToList()" ChildContent="RenderRow">
+                    <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Items.ToList()" ChildContent="RenderRow">
                     </Virtualize>
                 }
                 else
                 {
-                    <Virtualize @ref="VirtualizeElement"
+                    <Virtualize @ref="_virtualizeElement"
                                 ItemSize="RowHeight" OverscanCount="10" Placeholder="RenderPlaceholderRow"
                                 ItemsProvider="LoadItems" ItemContent="RenderRow">
                     </Virtualize>

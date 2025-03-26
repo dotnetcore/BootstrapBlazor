@@ -38,7 +38,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
-    protected Virtualize<TItem>? VirtualizeElement { get; set; }
+    [NotNull]
+    private Virtualize<TItem>? _virtualizeElement = null;
 
     /// <summary>
     /// 获得 Table 组件样式表
