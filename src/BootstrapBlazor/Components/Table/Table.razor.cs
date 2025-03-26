@@ -909,6 +909,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         base.OnParametersSet();
 
+        if (ScrollMode == ScrollMode.Virtual && IsTree)
+        {
+            throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
+        }
+
         OnInitParameters();
 
         if (Items != null && OnQueryAsync != null)
