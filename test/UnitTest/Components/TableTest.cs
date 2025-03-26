@@ -2693,6 +2693,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -2710,6 +2711,13 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var virtualComponent = cut.FindComponent<Virtualize<Foo>>();
         Assert.NotNull(virtualComponent);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var exception = Assert.Throws<InvalidOperationException>(() => table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTree, true);
+        }));
+        Assert.NotNull(exception);
     }
 
     [Fact]
