@@ -5033,7 +5033,7 @@
     "ShowUnsetGroupItemsOnTopAttr": "Whether ungrouped edits are rendered at the beginning",
     "ShowSkeletonAttr": "Whether to display skeleton screen when first render",
     "ShowLoadingInFirstRenderAttr": "Whether to display the loading animation when first render",
-    "ShowColumnListAttr": "Show columnshow/hide control buttons",
+    "ShowColumnListAttr": "Show Column show/hide control buttons",
     "OnColumnVisibleChangedAttr": "Trigger this callback when switch show/hide column in the list",
     "ShowEmptyAttr": "Show no data prompts",
     "ShowToastAfterSaveOrDeleteModelAttr": "Do you show a toast prompt box after a save/delete failure",

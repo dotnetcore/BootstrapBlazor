@@ -548,9 +548,34 @@
     .tab-drag-over .tabs-item .tabs-item-body {
         animation: drag-tab-item 1s linear infinite;
     }
+
+    .nav-link-bar {
+        padding: 3px 0.5rem;
+
+        .nav-link-bar-button {
+            cursor: pointer;
+            padding: 0 .75rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-radius: var(--bs-border-radius);
+
+            &:hover {
+                background-color: var(--bb-tabs-item-hover-bg-color);
+            }
+        }
+
+        > [data-bs-toggle="tooltip"] {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
 .tabs-chrome > .tabs-header {
+    padding: 0 .25rem;
+
     .tabs-item-wrap {
         overflow: hidden;
         position: relative;
