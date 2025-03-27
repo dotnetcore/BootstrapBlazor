@@ -711,6 +711,26 @@ public enum ComponentIcons
     TabRefreshButtonIcon,
 
     /// <summary>
+    /// Tab 组件 TabContextMenuRefreshIcon 属性图标
+    /// </summary>
+    TabContextMenuRefreshIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseOtherIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseOtherIcon,
+
+    /// <summary>
+    /// Tab 组件 TabContextMenuCloseAllIcon 属性图标
+    /// </summary>
+    TabContextMenuCloseAllIcon,
+
+    /// <summary>
     /// Timer 组件 Icon 属性图标
     /// </summary>
     TimerIcon,

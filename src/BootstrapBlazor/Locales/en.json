@@ -105,7 +105,11 @@
     "TooltipText": "Go top"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Click to Expand/Collapse sidebar"
+    "TooltipText": "Click to Expand/Collapse sidebar",
+    "ContextRefresh": "Refresh",
+    "ContextClose": "Close",
+    "ContextCloseOther": "Close Other Tabs",
+    "ContextCloseAll": "Close All Tabs"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Welcome",
