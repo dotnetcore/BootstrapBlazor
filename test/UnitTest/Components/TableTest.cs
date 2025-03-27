@@ -2104,7 +2104,6 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.RowHeight, 39.5f);
-                pb.Add(a => a.OverscanCount, 10);
                 pb.Add(a => a.ShowFooter, true);
                 pb.Add(a => a.IsFixedFooter, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
