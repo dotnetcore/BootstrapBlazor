@@ -14,7 +14,7 @@ namespace UnitTest.Components;
 public class LayoutTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void TabStyle_Ok()
+    public async Task TabStyle_Ok()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
@@ -47,6 +47,25 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template")));
         Assert.Contains("test-toolbar-template", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowTabContextMenu, true));
+        cut.Contains("bb-cm-zone");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.BeforeTabContextMenuTemplate, tab => b => b.AddContent(0, "test-before-tab-context-menu")));
+        cut.Contains("test-before-tab-context-menu");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabContextMenuTemplate, tab => b => b.AddContent(0, "test-tab-context-menu")));
+        cut.Contains("test-tab-context-menu");
+
+        // test context menu onclick event handler
+        var tab = cut.Find(".tabs-item");
+        await cut.InvokeAsync(() => tab.ContextMenu());
+
+        var buttons = cut.FindAll(".bb-cm-zone > .dropdown-menu .dropdown-item");
+        foreach (var button in buttons)
+        {
+            await cut.InvokeAsync(() => button.Click());
+        }
     }
 
     [Fact]
