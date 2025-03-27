@@ -210,9 +210,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(table.Instance.AddAsync);
         Assert.True(updated);
-
-        var rows = table.FindAll("tbody tr");
-        Assert.Equal(2, rows.Count);
+        Assert.Equal(2, table.Instance.Rows.Count);
     }
 
     [Fact]
@@ -8931,11 +8929,8 @@ public class TableTest : BootstrapBlazorTestBase
 
         public async Task TestDeleteAsync()
         {
-            if (Items != null)
-            {
-                SelectedRows.Add(Items.First());
-                await DeleteAsync();
-            }
+            SelectedRows.Add(Rows[0]);
+            await DeleteAsync();
         }
 
         public string? TestGetCellClassString(ITableColumn col) => base.GetCellClassString(col, false, false);
