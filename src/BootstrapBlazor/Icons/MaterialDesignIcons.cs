@@ -9,10 +9,7 @@ internal static class MaterialDesignIcons
 {
     public static Dictionary<ComponentIcons, string> Icons => new()
     {
-        // AnchorLink 组件
         { ComponentIcons.AnchorLinkIcon, "mdi mdi-link-variant" },
-
-        // Avatar 组件
         { ComponentIcons.AvatarIcon, "mdi mdi-account" },
         { ComponentIcons.AutoFillIcon, "mdi mdi-chevron-up" },
         { ComponentIcons.AutoCompleteIcon, "mdi mdi-chevron-up" },
@@ -24,6 +21,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.CameraPlayIcon, "mdi mdi-play-circle-outline" },
         { ComponentIcons.CameraStopIcon, "mdi mdi-stop-circle-outline" },
         { ComponentIcons.CameraPhotoIcon, "mdi mdi-camera-outline" },
+
         { ComponentIcons.CardCollapseIcon, "mdi mdi-chevron-right-circle" },
         { ComponentIcons.CarouselPreviousIcon, "mdi mdi-chevron-left" },
         { ComponentIcons.CarouselNextIcon, "mdi mdi-chevron-right" },
@@ -31,16 +29,15 @@ internal static class MaterialDesignIcons
         { ComponentIcons.CascaderSubMenuIcon, "mdi mdi-chevron-down" },
         { ComponentIcons.ConsoleClearButtonIcon, "mdi mdi-close" },
 
-        // DateTimePicker 组件
         { ComponentIcons.DatePickBodyPreviousYearIcon, "mdi mdi-chevron-double-left" },
         { ComponentIcons.DatePickBodyPreviousMonthIcon, "mdi mdi-chevron-left" },
         { ComponentIcons.DatePickBodyNextMonthIcon, "mdi mdi-chevron-right" },
         { ComponentIcons.DatePickBodyNextYearIcon, "mdi mdi-chevron-double-right" },
         { ComponentIcons.DateTimePickerIcon, "mdi mdi-calendar-outline" },
+
         { ComponentIcons.TimePickerCellUpIcon, "mdi mdi-chevron-up" },
         { ComponentIcons.TimePickerCellDownIcon, "mdi mdi-chevron-down" },
 
-        // DateTimeRange 组件
         { ComponentIcons.DateTimeRangeIcon, "mdi mdi-calendar-range-outline" },
         { ComponentIcons.DateTimeRangeClearIcon, "mdi mdi-close-circle-outline" },
 
@@ -89,6 +86,11 @@ internal static class MaterialDesignIcons
         { ComponentIcons.InputNumberPlusIcon, "mdi mdi-plus-circle-outline" },
 
         { ComponentIcons.LayoutMenuBarIcon, "mdi mdi-menu" },
+        { ComponentIcons.TabContextMenuRefreshIcon, "mdi mdi-refresh" },
+        { ComponentIcons.TabContextMenuCloseIcon, "mdi mdi-close" },
+        { ComponentIcons.TabContextMenuCloseOtherIcon, "mdi mdi-menu" },
+        { ComponentIcons.TabContextMenuCloseAllIcon, "mdi mdi-arrow-left-right-bold" },
+
         { ComponentIcons.LogoutLinkIcon, "mdi mdi-logout" },
 
         { ComponentIcons.LoadingIcon, "mdi mdi-loading mdi-spin" },
