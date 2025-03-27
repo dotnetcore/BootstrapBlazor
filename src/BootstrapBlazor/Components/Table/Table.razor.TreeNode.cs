@@ -28,7 +28,6 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 树形数据集合
     /// </summary>
-    [NotNull]
     private List<TableTreeNode<TItem>> TreeRows { get; } = new(100);
 
     /// <summary>
@@ -121,6 +120,7 @@ public partial class Table<TItem>
         {
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
+
         return await OnTreeExpand(node.Value);
     }
 }
