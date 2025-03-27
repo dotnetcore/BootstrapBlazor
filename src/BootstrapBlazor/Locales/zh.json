@@ -105,7 +105,11 @@
     "TooltipText": "返回顶端"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "点击展开收缩左侧菜单"
+    "TooltipText": "点击展开收缩左侧菜单",
+    "ContextRefresh": "刷新",
+    "ContextClose": "关闭",
+    "ContextCloseOther": "关闭其他",
+    "ContextCloseAll": "关闭全部"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "欢迎",

@@ -116,22 +116,49 @@
     @<main class="layout-main">
         @if (UseTabSet)
         {
-            <Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
-                 ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
-                 DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-                 TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
-                 ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
-                 RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
-                 RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
-                 OnToolbarRefreshCallback="OnToolbarRefreshCallback"
-                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
-            </Tab>
+            @if (ShowTabContextMenu)
+            {
+                <ContextMenuZone>
+                    @RenderTab
+                    <ContextMenu>
+                        @if (BeforeTabContextMenuTemplate != null)
+                        {
+                            @BeforeTabContextMenuTemplate(_tab)
+                        }
+                        <ContextMenuItem Icon="@TabContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefrsh"></ContextMenuItem>
+                        <ContextMenuDivider></ContextMenuDivider>
+                        <ContextMenuItem Icon="@TabContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+                        <ContextMenuItem Icon="@TabContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+                        <ContextMenuItem Icon="@TabContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+                        @if (TabContextMenuTemplate != null)
+                        {
+                            @TabContextMenuTemplate(_tab)
+                        }
+                    </ContextMenu>
+                </ContextMenuZone>
+            }
+            else
+            {
+                @RenderTab
+            }
         }
         else
         {
             @HandlerMain()
         }
     </main>;
+
+    RenderFragment RenderTab =>
+    @<Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies" @ref="_tab"
+          ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
+          DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
+          TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
+          ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
+          RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
+          RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
+          OnToolbarRefreshCallback="OnToolbarRefreshCallback"
+          Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
+    </Tab>;
 
     RenderFragment RenderFooter =>
     @<footer class="@FooterClassString">
