@@ -484,7 +484,7 @@ public partial class Table<TItem>
         else
         {
             ResetSelectedRows(Items);
-            _rowsCache = null;
+            RowsCache = null;
         }
         return;
 
@@ -513,7 +513,7 @@ public partial class Table<TItem>
             }
 
             // 更新数据后清除缓存防止新数据不显示
-            _rowsCache = null;
+            RowsCache = null;
             return;
 
             void ProcessData()

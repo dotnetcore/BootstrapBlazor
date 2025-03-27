@@ -106,7 +106,7 @@ public partial class Table<TItem>
                 IsLoadChildren = false;
 
                 // 清除缓存
-                _rowsCache = null;
+                RowsCache = null;
 
                 // 更新 UI
                 StateHasChanged();
