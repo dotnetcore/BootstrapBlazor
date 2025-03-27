@@ -935,7 +935,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsPagination = false;
         }
 
-        RowsCache = null;
+        _rowsCache = null;
 
         if (IsExcel)
         {
@@ -1274,7 +1274,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
-    private List<TItem>? RowsCache { get; set; }
+    private List<TItem>? _rowsCache = null;
 
     /// <summary>
     /// 获得 当前表格所有 Rows 集合
@@ -1286,8 +1286,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
             // 如果 QueryItems 无默认值
             // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
-            RowsCache ??= IsTree ? TreeRows.GetAllItems() : [.. (Items ?? QueryItems)];
-            return RowsCache;
+            _rowsCache ??= IsTree ? TreeRows.GetAllItems() : [.. (Items ?? QueryItems)];
+            return _rowsCache;
         }
     }
 

@@ -648,7 +648,7 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.SetValue(context.Model);
-            RowsCache = null;
+            _rowsCache = null;
             valid = true;
         }
         else
@@ -1095,7 +1095,7 @@ public partial class Table<TItem>
 
     private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
     {
-        RowsCache = null;
+        _rowsCache = null;
         if (context != null)
         {
             var items = context.GetItems();
