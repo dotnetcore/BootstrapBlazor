@@ -42,10 +42,10 @@ public sealed partial class Tabs
         _bindPlacement = placement;
     }
 
-    private Task AddTab(Tab tabset)
+    private Task AddTab(Tab tab)
     {
-        var text = $"Tab {tabset.Items.Count() + 1}";
-        tabset.AddTab(new Dictionary<string, object?>
+        var text = $"Tab {tab.Items.Count() + 1}";
+        tab.AddTab(new Dictionary<string, object?>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
@@ -59,18 +59,18 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
-    private static Task Active(Tab tabset)
+    private static Task Active(Tab tab)
     {
-        tabset.ActiveTab(0);
+        tab.ActiveTab(0);
         return Task.CompletedTask;
     }
 
-    private static async Task RemoveTab(Tab tabset)
+    private static async Task RemoveTab(Tab tab)
     {
-        if (tabset.Items.Count() > 4)
+        if (tab.Items.Count() > 4)
         {
-            var item = tabset.Items.Last();
-            await tabset.RemoveTab(item);
+            var item = tab.Items.Last();
+            await tab.RemoveTab(item);
         }
     }
 
