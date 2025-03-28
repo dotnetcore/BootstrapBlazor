@@ -115,6 +115,12 @@ public partial class Tab : IHandlerException
     public bool ShowFullScreen { get; set; }
 
     /// <summary>
+    /// Gets or sets whether show the full screen button on context menu. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowContextMenuFullScreen { get; set; } = true;
+
+    /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
     /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
@@ -432,6 +438,10 @@ public partial class Tab : IHandlerException
 
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private FullScreenService? FullScreenService { get; set; }
 
     private ContextMenuZone? _contextMenuZone;
 
@@ -1016,7 +1026,7 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
+    private string GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
 
     private async Task OnRefreshAsync()
     {
@@ -1073,6 +1083,14 @@ public partial class Tab : IHandlerException
     {
         CloseAllTabs();
         return Task.CompletedTask;
+    }
+
+    private async Task OnFullScreen(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            await FullScreenService.ToggleById(GetIdByTabItem(tabItem));
+        }
     }
 
     private async Task OnContextMenu(MouseEventArgs e, TabItem item)

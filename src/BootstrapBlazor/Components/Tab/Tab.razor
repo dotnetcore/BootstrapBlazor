@@ -20,6 +20,11 @@ else if (ShowContextMenu)
             <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
             <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
             <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+            @if (ShowContextMenuFullScreen)
+            {
+                <ContextMenuDivider></ContextMenuDivider>
+                <ContextMenuItem Icon="@FullscreenToolbarButtonIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
+            }
             @if (ContextMenuTemplate != null)
             {
                 @ContextMenuTemplate(this)
