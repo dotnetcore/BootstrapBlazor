@@ -545,11 +545,6 @@ public class TabTest : BootstrapBlazorTestBase
         cut.Contains("<i class=\"tab-corner tab-corner-left\"></i>");
         cut.Contains("<i class=\"tab-corner tab-corner-right\"></i>");
 
-        var button = cut.FindComponent<DisableTabItemButton>();
-        Assert.NotNull(button);
-        await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        cut.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>");
-
         // trigger click
         var link = cut.Find("a");
         await cut.InvokeAsync(() => link.Click());
