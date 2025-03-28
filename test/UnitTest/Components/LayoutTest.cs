@@ -78,6 +78,18 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.Contains("test-tab-close-icon");
         cut.Contains("test-tab-close-all-icon");
         cut.Contains("test-tab-close-other-icon");
+
+        var show = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeShowContextMenu, item =>
+            {
+                show = true;
+                return Task.FromResult(true);
+            });
+        });
+        await cut.InvokeAsync(() => tab.ContextMenu());
+        Assert.True(show);
     }
 
     [Fact]
