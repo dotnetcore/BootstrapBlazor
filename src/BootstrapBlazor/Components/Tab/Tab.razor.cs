@@ -408,6 +408,12 @@ public partial class Tab : IHandlerException
     public string? ContextMenuCloseAllIcon { get; set; }
 
     /// <summary>
+    /// Gets or sets the icon of tab item context menu full screen button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuFullScreenIcon { get; set; }
+
+    /// <summary>
     /// Gets or sets before popup context menu callback. Default is null.
     /// </summary>
     [Parameter]
@@ -500,6 +506,7 @@ public partial class Tab : IHandlerException
         ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
         ContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
         ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
+        ContextMenuFullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuFullScreenIcon);
 
         if (AdditionalAssemblies is null)
         {
