@@ -115,6 +115,12 @@ public partial class Tab : IHandlerException
     public bool ShowFullScreen { get; set; }
 
     /// <summary>
+    /// Gets or sets whether show the full screen button on context menu. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowContextMenuFullScreen { get; set; } = true;
+
+    /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
     /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
@@ -402,6 +408,12 @@ public partial class Tab : IHandlerException
     public string? ContextMenuCloseAllIcon { get; set; }
 
     /// <summary>
+    /// Gets or sets the icon of tab item context menu full screen button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuFullScreenIcon { get; set; }
+
+    /// <summary>
     /// Gets or sets before popup context menu callback. Default is null.
     /// </summary>
     [Parameter]
@@ -432,6 +444,10 @@ public partial class Tab : IHandlerException
 
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private FullScreenService? FullScreenService { get; set; }
 
     private ContextMenuZone? _contextMenuZone;
 
@@ -490,6 +506,7 @@ public partial class Tab : IHandlerException
         ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
         ContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
         ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
+        ContextMenuFullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuFullScreenIcon);
 
         if (AdditionalAssemblies is null)
         {
@@ -1016,7 +1033,7 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
+    private string GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
 
     private async Task OnRefreshAsync()
     {
@@ -1073,6 +1090,14 @@ public partial class Tab : IHandlerException
     {
         CloseAllTabs();
         return Task.CompletedTask;
+    }
+
+    private async Task OnFullScreen(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            await FullScreenService.ToggleById(GetIdByTabItem(tabItem));
+        }
     }
 
     private async Task OnContextMenu(MouseEventArgs e, TabItem item)

@@ -182,7 +182,8 @@
     "ContextRefresh": "刷新",
     "ContextClose": "关闭",
     "ContextCloseOther": "关闭其他",
-    "ContextCloseAll": "关闭全部"
+    "ContextCloseAll": "关闭全部",
+    "ContextFullScreen": "全屏"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "请输入 ...",

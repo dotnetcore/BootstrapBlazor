@@ -90,6 +90,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.TabContextMenuCloseIcon, "fa-fw fa-solid fa-xmark" },
         { ComponentIcons.TabContextMenuCloseOtherIcon, "fa-fw fa-solid fa-left-right" },
         { ComponentIcons.TabContextMenuCloseAllIcon, "fa-fw fa-solid fa-arrows-left-right-to-line" },
+        { ComponentIcons.TabContextMenuFullScreenIcon, "fa-fw fa-solid fa-maximize" },
 
         { ComponentIcons.LogoutLinkIcon, "fa-solid fa-key" },
 

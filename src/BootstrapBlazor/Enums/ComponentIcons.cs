@@ -731,6 +731,11 @@ public enum ComponentIcons
     TabContextMenuCloseAllIcon,
 
     /// <summary>
+    /// Tab 组件 TabContextMenuFullScreenIcon 属性图标
+    /// </summary>
+    TabContextMenuFullScreenIcon,
+
+    /// <summary>
     /// Timer 组件 Icon 属性图标
     /// </summary>
     TimerIcon,

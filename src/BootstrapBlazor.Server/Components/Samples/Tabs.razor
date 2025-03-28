@@ -500,9 +500,8 @@ private void Navigation()
     <section ignore>
         <p>@((MarkupString)Localizer["TabsContextMenuDesc"].Value)</p>
     </section>
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" ShowContextMenu="true" 
-         OnBeforeShowContextMenu="OnBeforeShowContextMenu">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user" IsDisabled="true">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" ShowContextMenu="true">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
             <Counter></Counter>
         </TabItem>

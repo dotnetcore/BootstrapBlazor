@@ -90,6 +90,7 @@ internal static class BootstrapIcons
         { ComponentIcons.TabContextMenuCloseIcon, "bi bi-x" },
         { ComponentIcons.TabContextMenuCloseOtherIcon, "bi bi-arrow" },
         { ComponentIcons.TabContextMenuCloseAllIcon, "bi bi-arrow-left-right" },
+        { ComponentIcons.TabContextMenuFullScreenIcon, "bi bi-arrows-fullscreen" },
 
         { ComponentIcons.LogoutLinkIcon, "bi bi-box-arrow-right" },
 
