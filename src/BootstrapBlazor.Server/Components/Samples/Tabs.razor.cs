@@ -13,7 +13,7 @@ public sealed partial class Tabs
     [NotNull]
     private Tab? TabSet { get; set; }
 
-    private Placement BindPlacement = Placement.Top;
+    private Placement _bindPlacement = Placement.Top;
 
     private bool RemoveEnabled => (TabSet?.Items.Count() ?? 4) < 4;
 
@@ -39,7 +39,7 @@ public sealed partial class Tabs
 
     private void SetPlacement(Placement placement)
     {
-        BindPlacement = placement;
+        _bindPlacement = placement;
     }
 
     private Task AddTab(Tab tabset)
@@ -77,26 +77,21 @@ public sealed partial class Tabs
     private void OnToggleDisable()
     {
         Disabled = !Disabled;
-
         DisableText = Disabled ? "Enable" : "Disable";
     }
 
     /// <summary>
-    /// OnAfterRenderAsync
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            var menuItem = TabMenu?.Items.FirstOrDefault();
-            if (menuItem != null)
+            var menuItem = TabMenu.Items.FirstOrDefault();
+            if (menuItem != null && TabMenu.OnClick is not null)
             {
-                await InvokeAsync(() =>
-                {
-                    var _ = TabMenu?.OnClick?.Invoke(menuItem);
-                });
+                TabMenu.OnClick(menuItem);
             }
         }
     }
@@ -122,11 +117,6 @@ public sealed partial class Tabs
         [nameof(TabItem.IsActive)] = true,
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
-
-    private void OnClick()
-    {
-        ShowButtons = !ShowButtons;
-    }
 
     private async Task RemoveTab()
     {
@@ -168,42 +158,6 @@ public sealed partial class Tabs
     {
         TabItemText = text;
         StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    [NotNull]
-    private Tab? _tab = null;
-
-    private Task OnRefrsh(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            _tab.Refresh(tabItem);
-        }
-        return Task.CompletedTask;
-    }
-
-    private async Task OnClose(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            await _tab.RemoveTab(tabItem);
-        }
-    }
-
-    private Task OnCloseOther(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            _tab.ActiveTab(tabItem);
-        }
-        _tab.CloseOtherTabs();
-        return Task.CompletedTask;
-    }
-
-    private Task OnCloseAll(ContextMenuItem item, object? context)
-    {
-        _tab.CloseAllTabs();
         return Task.CompletedTask;
     }
 
