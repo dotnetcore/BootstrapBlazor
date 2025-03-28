@@ -33,6 +33,7 @@ public class TabTest : BootstrapBlazorTestBase
             pb.AddChildContent<Tab>(pb =>
             {
                 pb.Add(a => a.ShowContextMenu, true);
+                pb.Add(a => a.ShowContextMenuFullScreen, true);
                 pb.AddChildContent<TabItem>(pb =>
                 {
                     pb.Add(a => a.IsDisabled, true);
