@@ -90,6 +90,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.TabContextMenuCloseIcon, "mdi mdi-close" },
         { ComponentIcons.TabContextMenuCloseOtherIcon, "mdi mdi-menu" },
         { ComponentIcons.TabContextMenuCloseAllIcon, "mdi mdi-arrow-left-right-bold" },
+        { ComponentIcons.TabContextMenuFullScreenIcon, "mdi mdi-arrow-expand-all" },
 
         { ComponentIcons.LogoutLinkIcon, "mdi mdi-logout" },
 

@@ -182,7 +182,8 @@
     "ContextRefresh": "Refresh",
     "ContextClose": "Close",
     "ContextCloseOther": "Close Other Tabs",
-    "ContextCloseAll": "Close All Tabs"
+    "ContextCloseAll": "Close All Tabs",
+    "ContextFullScreen": "Full screen"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "Please enter ...",
