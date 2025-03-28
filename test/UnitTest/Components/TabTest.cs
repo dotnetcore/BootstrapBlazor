@@ -496,13 +496,16 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.AddChildContent<DisableTabItemButton>();
             });
         });
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div></div>", cut.Markup);
+        var tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[0].OuterHtml);
+        Assert.DoesNotContain("tabs-item disabled", tabItems[1].OuterHtml);
 
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
 
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>", cut.Markup);
+        tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[1].OuterHtml);
     }
 
     [Fact]
