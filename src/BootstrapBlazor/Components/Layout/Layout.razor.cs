@@ -339,6 +339,12 @@ public partial class Layout : IHandlerException
     [Parameter]
     public string? TabContextMenuCloseAllIcon { get; set; }
 
+    /// <summary>
+    /// Gets or sets before popup context menu callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
