@@ -57,6 +57,14 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb => pb.Add(a => a.TabContextMenuTemplate, tab => b => b.AddContent(0, "test-tab-context-menu")));
         cut.Contains("test-tab-context-menu");
 
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TabContextMenuRefreshIcon, "test-tab-refresh-icon");
+            pb.Add(a => a.TabContextMenuCloseIcon, "test-tab-close-icon");
+            pb.Add(a => a.TabContextMenuCloseAllIcon, "test-tab-close-all-icon");
+            pb.Add(a => a.TabContextMenuCloseOtherIcon, "test-tab-close-other-icon");
+        });
+
         // test context menu onclick event handler
         var tab = cut.Find(".tabs-item");
         await cut.InvokeAsync(() => tab.ContextMenu());
@@ -66,6 +74,10 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             await cut.InvokeAsync(() => button.Click());
         }
+        cut.Contains("test-tab-refresh-icon");
+        cut.Contains("test-tab-close-icon");
+        cut.Contains("test-tab-close-all-icon");
+        cut.Contains("test-tab-close-other-icon");
     }
 
     [Fact]
