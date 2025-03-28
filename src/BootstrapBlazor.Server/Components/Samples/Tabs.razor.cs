@@ -111,6 +111,12 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
+    private async Task<bool> OnBeforeShowContextMenu(TabItem item)
+    {
+        await Task.Yield();
+        return item.IsDisabled == false;
+    }
+
     private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
     {
         [nameof(TabItem.Text)] = text,

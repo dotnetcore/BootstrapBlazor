@@ -497,8 +497,12 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsContextMenuTitle"]" Introduction="@Localizer["TabsContextMenuIntro"]" Name="ContextMenu">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" ShowContextMenu="true">
-        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TabsContextMenuDesc"].Value)</p>
+    </section>
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" ShowContextMenu="true" 
+         OnBeforeShowContextMenu="OnBeforeShowContextMenu">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user" IsDisabled="true">
             <div>@Localizer["TabItem1Content"]</div>
             <Counter></Counter>
         </TabItem>

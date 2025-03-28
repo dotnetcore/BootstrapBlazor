@@ -2138,7 +2138,8 @@
     "ContextCloseOther": "关闭其他",
     "ContextCloseAll": "关闭全部",
     "TabsContextMenuTitle": "右键菜单",
-    "TabsContextMenuIntro": "通过内置 <code>ContextMenuZone</code> 组件，点击标签页右键时弹窗自定义右键菜单"
+    "TabsContextMenuIntro": "通过内置 <code>ContextMenuZone</code> 组件，点击标签页右键时弹窗自定义右键菜单",
+    "TabsContextMenuDesc": "被禁用的标签页可以通过设置 <code>OnBeforeShowContextMenu</code> 回调方法控制右键菜单是否显示，默认均显示"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",

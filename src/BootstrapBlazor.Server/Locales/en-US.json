@@ -2138,7 +2138,8 @@
     "ContextCloseOther": "Close Other Tabs",
     "ContextCloseAll": "Close All Tabs",
     "TabsContextMenuTitle": "TabItem Context Menu",
-    "TabsContextMenuIntro": "Use the built-in <code>ContextMenuZone</code> component to pop up a custom context menu when you right-click a tab item"
+    "TabsContextMenuIntro": "Use the built-in <code>ContextMenuZone</code> component to pop up a custom context menu when you right-click a tab item",
+    "TabsContextMenuDesc": "For disabled tabs, you can set the <code>OnBeforeShowContextMenu</code> callback method to control whether the right-click menu is displayed. By default, it is displayed."
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
