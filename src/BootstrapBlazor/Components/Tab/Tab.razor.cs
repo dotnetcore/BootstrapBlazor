@@ -1068,6 +1068,14 @@ public partial class Tab : IHandlerException
         return Task.CompletedTask;
     }
 
+    private async Task OnContextMenu(MouseEventArgs e, TabItem item)
+    {
+        if (_contextMenuZone != null && item is { Closable: true })
+        {
+            await _contextMenuZone.OnContextMenu(e, item);
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1079,14 +1087,6 @@ public partial class Tab : IHandlerException
         {
             RemoveLocationChanged();
             ErrorLogger?.UnRegister(this);
-        }
-    }
-
-    private async Task OnContextMenu(MouseEventArgs e, TabItem item)
-    {
-        if (_contextMenuZone != null)
-        {
-            await _contextMenuZone.OnContextMenu(e, item);
         }
     }
 }
