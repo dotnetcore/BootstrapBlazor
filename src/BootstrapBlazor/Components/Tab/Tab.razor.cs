@@ -400,6 +400,12 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseAllIcon { get; set; }
+    
+    /// <summary>
+    /// Gets or sets before popup context menu callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
@@ -1070,9 +1076,18 @@ public partial class Tab : IHandlerException
 
     private async Task OnContextMenu(MouseEventArgs e, TabItem item)
     {
-        if (_contextMenuZone != null && item is { Closable: true })
+        if (_contextMenuZone != null)
         {
-            await _contextMenuZone.OnContextMenu(e, item);
+            var show = true;
+            if (OnBeforeShowContextMenu != null)
+            {
+                show = await OnBeforeShowContextMenu(item);
+            }
+
+            if (show)
+            {
+                await _contextMenuZone.OnContextMenu(e, item);
+            }
         }
     }
 
