@@ -6,9 +6,35 @@
 {
     @Body
 }
+else if (ShowContextMenu)
+{
+    <ContextMenuZone @ref="_contextMenuZone">
+        @RenderTab
+        <ContextMenu>
+            @if (BeforeContextMenuTemplate != null)
+            {
+                @BeforeContextMenuTemplate(this)
+            }
+            <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
+            <ContextMenuDivider></ContextMenuDivider>
+            <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+            <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+            <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+            @if (ContextMenuTemplate != null)
+            {
+                @ContextMenuTemplate(this)
+            }
+        </ContextMenu>
+    </ContextMenuZone>
+}
 else
 {
-    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
+    @RenderTab
+}
+
+@code {
+    RenderFragment RenderTab =>
+    @<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
                 @if (BeforeNavigatorTemplate != null)
@@ -155,18 +181,17 @@ else
                 }
             </CascadingValue>
         </div>
-    </div>
-}
-
-@code {
+    </div>;
+    
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderDisabledHeaderItem(TabItem item) =>
+    RenderFragment RenderDisabledHeaderItem(TabItem item) => 
     @<div @key="@item" class="@GetItemWrapClassString(item)">
-        <div role="tab" class="@GetClassString(item)">
+        <div role="tab" class="@GetClassString(item)" 
+             @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault">
             @RenderHeaderItemContent(item)
         </div>
         @if (TabStyle == TabStyle.Chrome)

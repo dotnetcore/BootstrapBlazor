@@ -339,6 +339,12 @@ public partial class Layout : IHandlerException
     [Parameter]
     public string? TabContextMenuCloseAllIcon { get; set; }
 
+    /// <summary>
+    /// Gets or sets before popup context menu callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
@@ -509,10 +515,6 @@ public partial class Layout : IHandlerException
 
         TooltipText ??= Localizer[nameof(TooltipText)];
         MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
-        TabContextMenuRefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuRefreshIcon);
-        TabContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
-        TabContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
-        TabContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
     }
 
     /// <summary>
@@ -626,38 +628,6 @@ public partial class Layout : IHandlerException
     }
 
     private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
-
-    private async Task OnRefrsh(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            await _tab.Refresh(tabItem);
-        }
-    }
-
-    private async Task OnClose(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            await _tab.RemoveTab(tabItem);
-        }
-    }
-
-    private Task OnCloseOther(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            _tab.ActiveTab(tabItem);
-        }
-        _tab.CloseOtherTabs();
-        return Task.CompletedTask;
-    }
-
-    private Task OnCloseAll(ContextMenuItem item, object? context)
-    {
-        _tab.CloseAllTabs();
-        return Task.CompletedTask;
-    }
 
     /// <summary>
     /// <inheritdoc/>

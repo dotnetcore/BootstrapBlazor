@@ -105,11 +105,7 @@
     "TooltipText": "Go top"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Click to Expand/Collapse sidebar",
-    "ContextRefresh": "Refresh",
-    "ContextClose": "Close",
-    "ContextCloseOther": "Close Other Tabs",
-    "ContextCloseAll": "Close All Tabs"
+    "TooltipText": "Click to Expand/Collapse sidebar"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Welcome",
@@ -119,7 +115,7 @@
     "Text": "Logout"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
+    "InvalidOperationExceptionMessage": "SideMenu component cannot be used independently. Please use Menu component to set IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
@@ -182,7 +178,11 @@
     "FullscreenToolbarTooltipText": "Fullscreen",
     "PrevTabNavLinkTooltipText": "Prev Tab",
     "NextTabNavLinkTooltipText": "Next Tab",
-    "CloseTabNavLinkTooltipText": "Close"
+    "CloseTabNavLinkTooltipText": "Close",
+    "ContextRefresh": "Refresh",
+    "ContextClose": "Close",
+    "ContextCloseOther": "Close Other Tabs",
+    "ContextCloseAll": "Close All Tabs"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "Please enter ...",

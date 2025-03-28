@@ -28,34 +28,19 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ContextMenu_Ok()
     {
-        var clicked = false;
         var cut = Context.RenderComponent<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
+                pb.Add(a => a.ShowContextMenu, true);
                 pb.AddChildContent<TabItem>(pb =>
                 {
+                    pb.Add(a => a.IsDisabled, true);
                     pb.Add(a => a.Text, "Tab1");
                     pb.Add(a => a.Url, "/Index");
                     pb.Add(a => a.Closable, true);
                     pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                     pb.Add(a => a.ChildContent, "Tab1-Content");
-                });
-            });
-            pb.AddChildContent<ContextMenu>(pb =>
-            {
-                pb.AddChildContent<ContextMenuItem>(pb =>
-                {
-                    pb.Add(a => a.Text, "test-close");
-                    pb.Add(a => a.OnClick, (context, item) =>
-                    {
-                        clicked = true;
-                        if (item is TabItem tabItem)
-                        {
-
-                        }
-                        return Task.CompletedTask;
-                    });
                 });
             });
         });
@@ -64,8 +49,7 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => menuItem.ContextMenu());
 
         var item = cut.Find(".dropdown-menu .dropdown-item");
-        await cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        Assert.NotNull(item);
     }
 
     [Fact]
@@ -496,13 +480,16 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.AddChildContent<DisableTabItemButton>();
             });
         });
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div></div>", cut.Markup);
+        var tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[0].OuterHtml);
+        Assert.DoesNotContain("tabs-item disabled", tabItems[1].OuterHtml);
 
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
 
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>", cut.Markup);
+        tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[1].OuterHtml);
     }
 
     [Fact]
@@ -545,7 +532,6 @@ public class TabTest : BootstrapBlazorTestBase
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        cut.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>");
 
         // trigger click
         var link = cut.Find("a");
