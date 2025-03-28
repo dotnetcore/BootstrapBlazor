@@ -400,7 +400,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseAllIcon { get; set; }
-    
+
     /// <summary>
     /// Gets or sets before popup context menu callback. Default is null.
     /// </summary>
@@ -942,9 +942,10 @@ public partial class Tab : IHandlerException
         {
             item.SetActive(false);
         }
-        if (TabItems.Any(i => i.IsActive) == false)
+        if (TabItems.Find(i => i.IsActive) == null)
         {
-            TabItems.FirstOrDefault(i => !i.IsDisabled)?.SetActive(true);
+            var tabItem = TabItems.Find(i => !i.IsDisabled);
+            tabItem?.SetActive(true);
         }
         StateHasChanged();
     }
