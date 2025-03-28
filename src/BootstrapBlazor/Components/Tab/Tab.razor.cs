@@ -358,13 +358,13 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? CloseTabNavLinkTooltipText { get; set; }
-    
+
     /// <summary>
     /// Gets or sets whether enable tab context menu. Default is false.
     /// </summary>
     [Parameter]
     public bool ShowContextMenu { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the template of before context menu. Default is null.
     /// </summary>
@@ -376,7 +376,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? ContextMenuTemplate { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the icon of tab item context menu refresh button. Default is null.
     /// </summary>
@@ -400,7 +400,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseAllIcon { get; set; }
-    
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -426,9 +426,9 @@ public partial class Tab : IHandlerException
 
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
-    
+
     private ContextMenuZone? _contextMenuZone;
-    
+
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
     private bool HandlerNavigation { get; set; }
@@ -484,7 +484,7 @@ public partial class Tab : IHandlerException
         ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
         ContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
         ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
-        
+
         if (AdditionalAssemblies is null)
         {
             var entryAssembly = Assembly.GetEntryAssembly();
@@ -1035,7 +1035,7 @@ public partial class Tab : IHandlerException
             await OnToolbarRefreshCallback();
         }
     }
-    
+
     private async Task OnRefresh(ContextMenuItem item, object? context)
     {
         if (context is TabItem tabItem)
