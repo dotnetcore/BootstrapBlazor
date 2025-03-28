@@ -623,38 +623,6 @@ public partial class Layout : IHandlerException
 
     private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
 
-    private async Task OnRefresh(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            await _tab.Refresh(tabItem);
-        }
-    }
-
-    private async Task OnClose(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            await _tab.RemoveTab(tabItem);
-        }
-    }
-
-    private Task OnCloseOther(ContextMenuItem item, object? context)
-    {
-        if (context is TabItem tabItem)
-        {
-            _tab.ActiveTab(tabItem);
-        }
-        _tab.CloseOtherTabs();
-        return Task.CompletedTask;
-    }
-
-    private Task OnCloseAll(ContextMenuItem item, object? context)
-    {
-        _tab.CloseAllTabs();
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
