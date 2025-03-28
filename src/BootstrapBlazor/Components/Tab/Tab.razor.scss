@@ -1,4 +1,4 @@
-.tabs {
+﻿.tabs {
     --bb-tabs-item-padding: #{$bb-tabs-item-padding};
     --bb-tabs-item-height: #{$bb-tabs-item-height};
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
@@ -462,13 +462,6 @@
 .tabs.tabs-right > .tabs-header .tabs-active-bar {
     right: auto;
     left: 0;
-}
-
-.is-page .layout-main > .tabs {
-    margin: -1rem;
-    border: none;
-    border-radius: unset;
-    min-height: calc(100% + 2rem);
 }
 
 .tab-dragging {
