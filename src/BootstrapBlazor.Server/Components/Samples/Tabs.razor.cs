@@ -452,6 +452,62 @@ public sealed partial class Tabs
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowContextMenu),
+            Description = Localizer["AttributeShowContextMenu"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuRefreshIcon),
+            Description = Localizer["AttributeContextMenuRefreshIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseIcon),
+            Description = Localizer["AttributeContextMenuCloseIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseOtherIcon),
+            Description = Localizer["AttributeContextMenuCloseOtherIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseAllIcon),
+            Description = Localizer["AttributeContextMenuCloseAllIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuFullScreenIcon),
+            Description = Localizer["AttributeContextMenuFullScreenIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.OnBeforeShowContextMenu),
+            Description = Localizer["AttributeOnBeforeShowContextMenu"].Value,
+            Type = "Func<TabItem, Task<bool>>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 

@@ -1443,7 +1443,15 @@
     "LayoutsAppTips6": "In this example, a scroll bar appears after clicking the menu on the left to expand",
     "LayoutsAppTips7": "The available area in the right panel is all by default, which is suitable for layouts with <code>Tab</code> components. In this example, for the sake of beauty, the <code>Main</code> template has a built-in <code>div</code > And set the style to <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "In this example, if the scroll bar does not appear after clicking the left menu to expand, the height of the parent container will be expanded",
-    "LayoutsAppTips9": "Please refer to <a href='/tab'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
+    "LayoutsAppTips9": "Please refer to <a href='/tab'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together",
+    "ShowTabContextMenu": "whether enable tab context menu",
+    "BeforeTabContextMenuTemplate": "the template of before tab context menu",
+    "TabContextMenuTemplate": "the template of tab context menu",
+    "TabContextMenuRefreshIcon": "the icon of tab item context menu refresh button",
+    "TabContextMenuCloseIcon": "the icon of tab item context menu close button",
+    "TabContextMenuCloseOtherIcon": "the icon of tab item context menu close other button",
+    "TabContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
+    "OnBeforeShowContextMenu": "before popup context menu callback"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer",
@@ -2139,7 +2147,14 @@
     "ContextCloseAll": "Close All Tabs",
     "TabsContextMenuTitle": "TabItem Context Menu",
     "TabsContextMenuIntro": "Use the built-in <code>ContextMenuZone</code> component to pop up a custom context menu when you right-click a tab item",
-    "TabsContextMenuDesc": "The disabled tab can be set by setting the <code>OnBeforeShowContextMenu</code> callback method to control whether the right-click menu is displayed according to the return value. If it is not set, the right-click menu is also displayed for the disabled tab"
+    "TabsContextMenuDesc": "The disabled tab can be set by setting the <code>OnBeforeShowContextMenu</code> callback method to control whether the right-click menu is displayed according to the return value. If it is not set, the right-click menu is also displayed for the disabled tab",
+    "AttributeShowContextMenu": "whether enable tab context menu",
+    "AttributeContextMenuRefreshIcon": "the icon of tab item context menu refresh button",
+    "AttributeContextMenuCloseIcon": "the icon of tab item context menu close button",
+    "AttributeContextMenuCloseOtherIcon": "the icon of tab item context menu close other button",
+    "AttributeContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
+    "AttributeContextMenuFullScreenIcon": "the icon of tab item context menu full screen button",
+    "AttributeOnBeforeShowContextMenu": "before popup context menu callback"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
