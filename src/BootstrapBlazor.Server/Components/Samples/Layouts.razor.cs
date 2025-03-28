@@ -209,6 +209,70 @@ public sealed partial class Layouts
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.ShowTabContextMenu),
+            Description =  Localizer["Layouts_ShowTabContextMenu"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.BeforeTabContextMenuTemplate),
+            Description =  Localizer["Layouts_BeforeTabContextMenuTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.TabContextMenuTemplate),
+            Description =  Localizer["Layouts_TabContextMenuTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.TabContextMenuRefreshIcon),
+            Description =  Localizer["Layouts_TabContextMenuRefreshIcon"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.TabContextMenuCloseIcon),
+            Description =  Localizer["Layouts_TabContextMenuCloseIcon"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.TabContextMenuCloseOtherIcon),
+            Description =  Localizer["Layouts_TabContextMenuCloseOtherIcon"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.TabContextMenuCloseAllIcon),
+            Description =  Localizer["Layouts_TabContextMenuCloseAllIcon"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Layout.OnBeforeShowContextMenu),
+            Description =  Localizer["Layouts_OnBeforeShowContextMenu"],
+            Type = "Func<TabItem, Task<bool>>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

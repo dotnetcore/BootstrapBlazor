@@ -1443,7 +1443,15 @@
     "LayoutsAppTips6": "本例点击左侧菜单展开后出现滚动条",
     "LayoutsAppTips7": "右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "本例点击左侧菜单展开后不出现滚动条会撑开父容器高度",
-    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tab'>Tab 组件</a>"
+    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tab'>Tab 组件</a>",
+    "ShowTabContextMenu": "是否显示右键菜单",
+    "BeforeTabContextMenuTemplate": "前面右键菜单模板",
+    "TabContextMenuTemplate": "右键菜单后续模板",
+    "TabContextMenuRefreshIcon": "右键菜单刷新按钮图标",
+    "TabContextMenuCloseIcon": "右键菜单关闭按钮图标",
+    "TabContextMenuCloseOtherIcon": "右键菜单关闭其他按钮图标",
+    "TabContextMenuCloseAllIcon": "右键菜单关闭全部按钮图标",
+    "OnBeforeShowContextMenu": "右键菜单弹出前回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer 页脚组件",
