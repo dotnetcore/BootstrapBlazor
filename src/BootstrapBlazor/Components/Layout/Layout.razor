@@ -116,31 +116,7 @@
     @<main class="layout-main">
         @if (UseTabSet)
         {
-            @if (ShowTabContextMenu)
-            {
-                <ContextMenuZone>
-                    @RenderTab
-                    <ContextMenu>
-                        @if (BeforeTabContextMenuTemplate != null)
-                        {
-                            @BeforeTabContextMenuTemplate(_tab)
-                        }
-                        <ContextMenuItem Icon="@TabContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefrsh"></ContextMenuItem>
-                        <ContextMenuDivider></ContextMenuDivider>
-                        <ContextMenuItem Icon="@TabContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
-                        <ContextMenuItem Icon="@TabContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
-                        <ContextMenuItem Icon="@TabContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
-                        @if (TabContextMenuTemplate != null)
-                        {
-                            @TabContextMenuTemplate(_tab)
-                        }
-                    </ContextMenu>
-                </ContextMenuZone>
-            }
-            else
-            {
-                @RenderTab
-            }
+            @RenderTab
         }
         else
         {
@@ -153,6 +129,9 @@
           ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
           DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
           TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
+          ShowContextMenu="ShowTabContextMenu"
+          ContextMenuRefreshIcon="@TabContextMenuRefreshIcon" ContextMenuCloseIcon="@TabContextMenuCloseIcon"
+          ContextMenuCloseOtherIcon="@TabContextMenuCloseOtherIcon" ContextMenuCloseAllIcon="@TabContextMenuCloseAllIcon"
           ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
           RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
           RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"

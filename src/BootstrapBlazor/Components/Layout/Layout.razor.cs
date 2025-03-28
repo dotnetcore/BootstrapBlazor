@@ -509,10 +509,6 @@ public partial class Layout : IHandlerException
 
         TooltipText ??= Localizer[nameof(TooltipText)];
         MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
-        TabContextMenuRefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuRefreshIcon);
-        TabContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
-        TabContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
-        TabContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
     }
 
     /// <summary>
@@ -627,7 +623,7 @@ public partial class Layout : IHandlerException
 
     private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
 
-    private async Task OnRefrsh(ContextMenuItem item, object? context)
+    private async Task OnRefresh(ContextMenuItem item, object? context)
     {
         if (context is TabItem tabItem)
         {

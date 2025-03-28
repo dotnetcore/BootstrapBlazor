@@ -358,7 +358,49 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public string? CloseTabNavLinkTooltipText { get; set; }
+    
+    /// <summary>
+    /// Gets or sets whether enable tab context menu. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowContextMenu { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the template of before context menu. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Tab>? BeforeContextMenuTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the template of context menu. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Tab>? ContextMenuTemplate { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu refresh button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuRefreshIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuCloseIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close other button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuCloseOtherIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close all button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ContextMenuCloseAllIcon { get; set; }
+    
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -384,10 +426,9 @@ public partial class Tab : IHandlerException
 
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
-
-    [CascadingParameter]
-    private ContextMenuZone? ContextMenuZone { get; set; }
-
+    
+    private ContextMenuZone? _contextMenuZone;
+    
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
     private bool HandlerNavigation { get; set; }
@@ -400,7 +441,7 @@ public partial class Tab : IHandlerException
 
     private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
 
-    private bool IsPreventDefault => ContextMenuZone != null;
+    private bool IsPreventDefault => _contextMenuZone != null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -439,6 +480,11 @@ public partial class Tab : IHandlerException
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
         RefreshToolbarButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabRefreshButtonIcon);
 
+        ContextMenuRefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuRefreshIcon);
+        ContextMenuCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseIcon);
+        ContextMenuCloseOtherIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseOtherIcon);
+        ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
+        
         if (AdditionalAssemblies is null)
         {
             var entryAssembly = Assembly.GetEntryAssembly();
@@ -989,6 +1035,38 @@ public partial class Tab : IHandlerException
             await OnToolbarRefreshCallback();
         }
     }
+    
+    private async Task OnRefresh(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            await Refresh(tabItem);
+        }
+    }
+
+    private async Task OnClose(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            await RemoveTab(tabItem);
+        }
+    }
+
+    private Task OnCloseOther(ContextMenuItem item, object? context)
+    {
+        if (context is TabItem tabItem)
+        {
+            ActiveTab(tabItem);
+        }
+        CloseOtherTabs();
+        return Task.CompletedTask;
+    }
+
+    private Task OnCloseAll(ContextMenuItem item, object? context)
+    {
+        CloseAllTabs();
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -1006,9 +1084,9 @@ public partial class Tab : IHandlerException
 
     private async Task OnContextMenu(MouseEventArgs e, TabItem item)
     {
-        if (ContextMenuZone != null)
+        if (_contextMenuZone != null)
         {
-            await ContextMenuZone.OnContextMenu(e, item);
+            await _contextMenuZone.OnContextMenu(e, item);
         }
     }
 }
