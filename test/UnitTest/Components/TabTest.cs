@@ -26,6 +26,81 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ContextMenu_Ok()
+    {
+        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.Add(a => a.ShowContextMenu, true);
+                pb.Add(a => a.ShowContextMenuFullScreen, true);
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.IsDisabled, true);
+                    pb.Add(a => a.Text, "Tab1");
+                    pb.Add(a => a.Url, "/Index");
+                    pb.Add(a => a.Closable, true);
+                    pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                    pb.Add(a => a.ChildContent, "Tab1-Content");
+                });
+            });
+        });
+
+        var menuItem = cut.Find(".tabs-item");
+        await cut.InvokeAsync(() => menuItem.ContextMenu());
+
+        var item = cut.Find(".dropdown-menu .dropdown-item");
+        Assert.NotNull(item);
+    }
+
+    [Fact]
+    public void ToolbarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.Closable, true);
+                pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template"));
+        });
+        cut.DoesNotContain("test-toolbar-template");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
+        cut.Contains("test-toolbar-template");
+    }
+
+    [Fact]
+    public void ToolbarTooltipText_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.Closable, true);
+                pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.RefreshToolbarButtonIcon, "test-refresh-icon");
+            pb.Add(a => a.RefreshToolbarTooltipText, "test-refresh-tooltip-text");
+            pb.Add(a => a.FullscreenToolbarButtonIcon, "test-fullscreen-icon");
+            pb.Add(a => a.FullscreenToolbarTooltipText, "test-fullscreen-tooltip-text");
+        });
+        cut.Contains("test-refresh-icon");
+        cut.Contains("test-refresh-tooltip-text");
+    }
+
+    [Fact]
     public void TabItem_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
@@ -136,14 +211,14 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.True(clicked);
 
         // Click Prev
-        var button = cut.Find(".nav-link-bar.left");
+        var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
         button.Click();
         button.Click();
         button.Click();
         Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
 
         // Click Next
-        button = cut.Find(".nav-link-bar.right");
+        button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         button.Click();
         button.Click();
         button.Click();
@@ -194,11 +269,11 @@ public class TabTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cut.Instance.AddTab("/Cat", null!));
 
         // Click Prev
-        var button = cut.Find(".nav-link-bar.left");
+        var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
         button.Click();
 
         // Click Next
-        button = cut.Find(".nav-link-bar.right");
+        button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         button.Click();
 
         button = cut.Find(".tabs-item-close");
@@ -353,7 +428,7 @@ public class TabTest : BootstrapBlazorTestBase
         });
         var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
-        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+        cut.Contains("Binder");
 
         var items = cut.Instance.Items;
         Assert.Equal(2, items.Count());
@@ -406,13 +481,16 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.AddChildContent<DisableTabItemButton>();
             });
         });
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div></div>", cut.Markup);
+        var tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[0].OuterHtml);
+        Assert.DoesNotContain("tabs-item disabled", tabItems[1].OuterHtml);
 
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
 
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>", cut.Markup);
+        tabItems = cut.FindAll(".tabs-item");
+        Assert.Contains("tabs-item disabled", tabItems[1].OuterHtml);
     }
 
     [Fact]
@@ -455,7 +533,6 @@ public class TabTest : BootstrapBlazorTestBase
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        cut.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>");
 
         // trigger click
         var link = cut.Find("a");
@@ -542,10 +619,9 @@ public class TabTest : BootstrapBlazorTestBase
         });
         Assert.Contains("Tab1-Content", cut.Markup);
         Assert.DoesNotContain("Tab2-Content", cut.Markup);
-        Assert.DoesNotContain("tabs-body-content", cut.Markup);
 
         // 提高代码覆盖率
-        cut.InvokeAsync(() => cut.Instance.CloseOtherTabs());
+        cut.InvokeAsync(cut.Instance.CloseOtherTabs);
     }
 
     [Fact]
@@ -942,6 +1018,13 @@ public class TabTest : BootstrapBlazorTestBase
 
         var button = cut.Find(".btn-fs");
         await cut.InvokeAsync(() => button.Click());
+
+        var tab = cut.FindComponent<Tab>();
+        tab.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFullScreen, false);
+        });
+        cut.DoesNotContain("btn btn-fs");
     }
 
     [Fact]
@@ -963,6 +1046,62 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.Contains("before-navigator-template");
         cut.Contains("after-navigator-template");
+    }
+
+    [Fact]
+    public async Task ShowToolbar_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, false);
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.ShowFullScreen, true);
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
+                pb.Add(a => a.OnToolbarRefreshCallback, () =>
+                {
+                    clicked = true;
+                    return Task.CompletedTask;
+                });
+            });
+        });
+        cut.DoesNotContain("tabs-nav-toolbar");
+
+        var tab = cut.FindComponent<Tab>();
+        tab.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+        });
+        cut.Contains("tabs-nav-toolbar");
+        cut.Contains("tabs-nav-toolbar-refresh");
+        cut.Contains("tabs-nav-toolbar-fs");
+
+        // 点击刷新按钮
+        var button = cut.Find(".tabs-nav-toolbar-refresh");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+
+        clicked = false;
+        var item = cut.FindComponent<TabItem>();
+        await cut.InvokeAsync(() => tab.Instance.Refresh(item.Instance));
+        Assert.True(clicked);
+
+        tab.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowRefreshToolbarButton, false);
+        });
+        cut.DoesNotContain("tabs-nav-toolbar-refresh");
+
+        tab.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFullscreenToolbarButton, false);
+        });
+        cut.DoesNotContain("tabs-nav-toolbar-fs");
     }
 
     class DisableTabItemButton : ComponentBase

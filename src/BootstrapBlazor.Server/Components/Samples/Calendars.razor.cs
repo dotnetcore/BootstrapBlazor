@@ -77,6 +77,14 @@ public sealed partial class Calendars
             Type = "RenderFragment<CalendarCellValue>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Calendar.FirstDayOfWeek),
+            Description = Localizer["FirstDayOfWeek"],
+            Type = "DayOfWeek",
+            ValueList = " — ",
+            DefaultValue = "Sunday"
         }
     ];
 }

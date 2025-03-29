@@ -47,7 +47,7 @@ else
         @if (IsVirtualize)
         {
             <div class="tree-root scroll is-virtual" tabindex="0">
-                <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Rows">
+                <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Rows">
                     @RenderRow(context)
                 </Virtualize>
             </div>

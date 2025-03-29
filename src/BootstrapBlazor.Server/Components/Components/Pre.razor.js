@@ -1,4 +1,4 @@
-﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title, assetRoot) {
@@ -48,6 +48,15 @@ export async function init(id, title, assetRoot) {
             preElement.style.maxHeight = `${preHeight}px`
         })
     }
+
+    registerBootstrapBlazorModule('Pre', id, () => {
+        EventHandler.on(document, 'changed.bb.theme', updateTheme);
+    });
+}
+
+const updateTheme = e => {
+    const theme = e.theme;
+    switchTheme(theme);
 }
 
 export async function highlight(id) {
@@ -78,14 +87,14 @@ export async function highlight(id) {
     }
 }
 
-export async function switchTheme(theme, assetPath) {
+export async function switchTheme(theme) {
     if (theme === 'dark') {
-        removeLink(`${assetPath}lib/highlight/vs.min.css`);
-        await addLink(`${assetPath}lib/highlight/vs2015.min.css`);
+        removeLink(`./lib/highlight/vs.min.css`);
+        await addLink(`./lib/highlight/vs2015.min.css`);
     }
     else {
-        removeLink(`${assetPath}lib/highlight/vs2015.min.css`);
-        await addLink(`${assetPath}lib/highlight/vs.min.css`);
+        removeLink(`./lib/highlight/vs2015.min.css`);
+        await addLink(`./lib/highlight/vs.min.css`);
     }
 }
 
@@ -96,7 +105,12 @@ export function dispose(id) {
         return
     }
 
-    EventHandler.off(el, 'click', '.btn-copy')
-    EventHandler.off(el, 'click', '.btn-plus')
-    EventHandler.off(el, 'click', '.btn-minus')
+    EventHandler.off(el, 'click', '.btn-copy');
+    EventHandler.off(el, 'click', '.btn-plus');
+    EventHandler.off(el, 'click', '.btn-minus');
+
+    const { Pre } = window.BootstrapBlazor;
+    Pre.dispose(id, () => {
+        EventHandler.off(document, 'changed.bb.theme', updateTheme);
+    });
 }

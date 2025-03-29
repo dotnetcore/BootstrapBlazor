@@ -2104,6 +2104,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.RowHeight, 39.5f);
+                pb.Add(a => a.OverscanCount, 10);
                 pb.Add(a => a.ShowFooter, true);
                 pb.Add(a => a.IsFixedFooter, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -2693,6 +2694,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -2710,6 +2712,13 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var virtualComponent = cut.FindComponent<Virtualize<Foo>>();
         Assert.NotNull(virtualComponent);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var exception = Assert.Throws<InvalidOperationException>(() => table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTree, true);
+        }));
+        Assert.NotNull(exception);
     }
 
     [Fact]
@@ -8911,9 +8920,10 @@ public class TableTest : BootstrapBlazorTestBase
 
         public RenderFragment RenderVirtualPlaceHolder() => new(builder =>
         {
-            if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
+            var fieldInfo = GetType().BaseType!.GetField("_virtualizeElement", BindingFlags.NonPublic | BindingFlags.Instance)!;
+            if (ScrollMode == ScrollMode.Virtual && fieldInfo.GetValue(this) is Virtualize<Foo> element)
             {
-                builder.AddContent(0, VirtualizeElement.Placeholder?.Invoke(new Microsoft.AspNetCore.Components.Web.Virtualization.PlaceholderContext()));
+                builder.AddContent(0, element.Placeholder?.Invoke(new PlaceholderContext()));
             }
         });
 

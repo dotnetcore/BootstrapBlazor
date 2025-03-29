@@ -13,7 +13,7 @@ public sealed partial class Tabs
     [NotNull]
     private Tab? TabSet { get; set; }
 
-    private Placement BindPlacement = Placement.Top;
+    private Placement _bindPlacement = Placement.Top;
 
     private bool RemoveEnabled => (TabSet?.Items.Count() ?? 4) < 4;
 
@@ -39,13 +39,13 @@ public sealed partial class Tabs
 
     private void SetPlacement(Placement placement)
     {
-        BindPlacement = placement;
+        _bindPlacement = placement;
     }
 
-    private Task AddTab(Tab tabset)
+    private Task AddTab(Tab tab)
     {
-        var text = $"Tab {tabset.Items.Count() + 1}";
-        tabset.AddTab(new Dictionary<string, object?>
+        var text = $"Tab {tab.Items.Count() + 1}";
+        tab.AddTab(new Dictionary<string, object?>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
@@ -59,44 +59,39 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
-    private static Task Active(Tab tabset)
+    private static Task Active(Tab tab)
     {
-        tabset.ActiveTab(0);
+        tab.ActiveTab(0);
         return Task.CompletedTask;
     }
 
-    private static async Task RemoveTab(Tab tabset)
+    private static async Task RemoveTab(Tab tab)
     {
-        if (tabset.Items.Count() > 4)
+        if (tab.Items.Count() > 4)
         {
-            var item = tabset.Items.Last();
-            await tabset.RemoveTab(item);
+            var item = tab.Items.Last();
+            await tab.RemoveTab(item);
         }
     }
 
     private void OnToggleDisable()
     {
         Disabled = !Disabled;
-
         DisableText = Disabled ? "Enable" : "Disable";
     }
 
     /// <summary>
-    /// OnAfterRenderAsync
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {
-            var menuItem = TabMenu?.Items.FirstOrDefault();
-            if (menuItem != null)
+            var menuItem = TabMenu.Items.FirstOrDefault();
+            if (menuItem != null && TabMenu.OnClick is not null)
             {
-                await InvokeAsync(() =>
-                {
-                    var _ = TabMenu?.OnClick?.Invoke(menuItem);
-                });
+                TabMenu.OnClick(menuItem);
             }
         }
     }
@@ -116,17 +111,18 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
+    private async Task<bool> OnBeforeShowContextMenu(TabItem item)
+    {
+        await Task.Yield();
+        return item.IsDisabled == false;
+    }
+
     private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
     {
         [nameof(TabItem.Text)] = text,
         [nameof(TabItem.IsActive)] = true,
         [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
     });
-
-    private void OnClick()
-    {
-        ShowButtons = !ShowButtons;
-    }
 
     private async Task RemoveTab()
     {
@@ -382,6 +378,134 @@ public sealed partial class Tabs
             Name = "ButtonTemplate",
             Description = Localizer["AttributeButtonTemplate"].Value,
             Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowToolbar),
+            Description = Localizer["AttributeShowToolbar"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Tab.ToolbarTemplate),
+            Description = Localizer["AttributeToolbarTemplate"].Value,
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowRefreshToolbarButton),
+            Description = Localizer["AttributeShowRefreshToolbarButton"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowFullscreenToolbarButton),
+            Description = Localizer["AttributeShowFullscreenToolbarButton"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.RefreshToolbarTooltipText),
+            Description = Localizer["AttributeRefreshToolbarTooltipText"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.FullscreenToolbarTooltipText),
+            Description = Localizer["AttributeFullscreenToolbarTooltipText"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.RefreshToolbarButtonIcon),
+            Description = Localizer["AttributeRefreshToolbarButtonIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.OnToolbarRefreshCallback),
+            Description = Localizer["AttributeOnToolbarRefreshCallback"].Value,
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.FullscreenToolbarButtonIcon),
+            Description = Localizer["AttributeFullscreenToolbarButtonIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ShowContextMenu),
+            Description = Localizer["AttributeShowContextMenu"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuRefreshIcon),
+            Description = Localizer["AttributeContextMenuRefreshIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseIcon),
+            Description = Localizer["AttributeContextMenuCloseIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseOtherIcon),
+            Description = Localizer["AttributeContextMenuCloseOtherIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuCloseAllIcon),
+            Description = Localizer["AttributeContextMenuCloseAllIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.ContextMenuFullScreenIcon),
+            Description = Localizer["AttributeContextMenuFullScreenIcon"].Value,
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Tab.OnBeforeShowContextMenu),
+            Description = Localizer["AttributeOnBeforeShowContextMenu"].Value,
+            Type = "Func<TabItem, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         }

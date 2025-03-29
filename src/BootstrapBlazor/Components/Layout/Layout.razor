@@ -116,17 +116,30 @@
     @<main class="layout-main">
         @if (UseTabSet)
         {
-            <Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
-                 ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
-                 DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
-            </Tab>
+            @RenderTab
         }
         else
         {
             @HandlerMain()
         }
     </main>;
+
+    RenderFragment RenderTab =>
+    @<Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies" @ref="_tab"
+          ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
+          DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
+          TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
+          ShowContextMenu="ShowTabContextMenu"
+          BeforeContextMenuTemplate="@BeforeTabContextMenuTemplate" ContextMenuTemplate="@TabContextMenuTemplate"
+          ContextMenuRefreshIcon="@TabContextMenuRefreshIcon" ContextMenuCloseIcon="@TabContextMenuCloseIcon"
+          ContextMenuCloseOtherIcon="@TabContextMenuCloseOtherIcon" ContextMenuCloseAllIcon="@TabContextMenuCloseAllIcon"
+          OnBeforeShowContextMenu="@OnBeforeShowContextMenu"
+          ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
+          RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
+          RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
+          OnToolbarRefreshCallback="OnToolbarRefreshCallback"
+          Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
+    </Tab>;
 
     RenderFragment RenderFooter =>
     @<footer class="@FooterClassString">

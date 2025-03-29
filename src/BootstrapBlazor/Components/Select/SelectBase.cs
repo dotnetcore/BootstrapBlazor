@@ -112,14 +112,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public int OverscanCount { get; set; } = 4;
 
     /// <summary>
-    /// Gets or sets the default text for virtualized items. Default is null.
-    /// </summary>
-    [Parameter]
-    [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，删除即可；Deprecated, just delete")]
-    public string? DefaultVirtualizeItemText { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback method when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]

@@ -21,6 +21,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.CameraPlayIcon, "fa-solid fa-circle-play" },
         { ComponentIcons.CameraStopIcon, "fa-solid fa-circle-stop" },
         { ComponentIcons.CameraPhotoIcon, "fa-solid fa-camera-retro" },
+
         { ComponentIcons.CardCollapseIcon, "fa-solid fa-circle-chevron-right" },
         { ComponentIcons.CarouselPreviousIcon, "fa-solid fa-angle-left" },
         { ComponentIcons.CarouselNextIcon, "fa-solid fa-angle-right" },
@@ -32,7 +33,6 @@ internal static class FontAwesomeIcons
         { ComponentIcons.DatePickBodyPreviousMonthIcon, "fa-solid fa-angle-left" },
         { ComponentIcons.DatePickBodyNextMonthIcon, "fa-solid fa-angle-right" },
         { ComponentIcons.DatePickBodyNextYearIcon, "fa-solid fa-angles-right" },
-
         { ComponentIcons.DateTimePickerIcon, "fa-regular fa-calendar-days" },
 
         { ComponentIcons.TimePickerCellUpIcon, "fa-solid fa-angle-up" },
@@ -86,6 +86,12 @@ internal static class FontAwesomeIcons
         { ComponentIcons.InputNumberPlusIcon, "fa-solid fa-circle-plus" },
 
         { ComponentIcons.LayoutMenuBarIcon, "fa-solid fa-bars" },
+        { ComponentIcons.TabContextMenuRefreshIcon, "fa-fw fa-solid fa-rotate-right" },
+        { ComponentIcons.TabContextMenuCloseIcon, "fa-fw fa-solid fa-xmark" },
+        { ComponentIcons.TabContextMenuCloseOtherIcon, "fa-fw fa-solid fa-left-right" },
+        { ComponentIcons.TabContextMenuCloseAllIcon, "fa-fw fa-solid fa-arrows-left-right-to-line" },
+        { ComponentIcons.TabContextMenuFullScreenIcon, "fa-fw fa-solid fa-maximize" },
+
         { ComponentIcons.LogoutLinkIcon, "fa-solid fa-key" },
 
         { ComponentIcons.LoadingIcon, "fa-solid fa-fw fa-spin fa-spinner" },
@@ -134,6 +140,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.TabNextIcon, "fa-solid fa-chevron-right" },
         { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-down" },
         { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.TabRefreshButtonIcon, "fa-solid fa-rotate-right" },
 
         { ComponentIcons.TableColumnToolboxIcon, "fa-solid fa-gear" },
 

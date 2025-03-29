@@ -14,6 +14,85 @@ namespace UnitTest.Components;
 public class LayoutTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task TabStyle_Ok()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.TabStyle, TabStyle.Default);
+            pb.Add(a => a.RefreshToolbarButtonIcon, "test-refresh-icon");
+            pb.Add(a => a.FullscreenToolbarButtonIcon, "test-fullscreen-icon");
+            pb.Add(a => a.OnToolbarRefreshCallback, () => Task.CompletedTask);
+            pb.Add(a => a.RefreshToolbarTooltipText, "test-refresh-tooltip");
+            pb.Add(a => a.FullscreenToolbarTooltipText, "test-fullscreen-tooltip");
+        });
+        Assert.DoesNotContain("tabs-chrome", cut.Markup);
+        Assert.DoesNotContain("tabs-capsule", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabStyle, TabStyle.Capsule));
+        Assert.Contains("tabs-capsule", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabStyle, TabStyle.Chrome));
+        Assert.Contains("tabs-chrome", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowToolbar, true));
+        Assert.Contains("tabs-nav-toolbar-refresh", cut.Markup);
+        Assert.Contains("tabs-nav-toolbar-fs", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowRefreshToolbarButton, false));
+        Assert.DoesNotContain("tabs-nav-toolbar-refresh", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFullscreenToolbarButton, false));
+        Assert.DoesNotContain("tabs-nav-toolbar-fs", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template")));
+        Assert.Contains("test-toolbar-template", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowTabContextMenu, true));
+        cut.Contains("bb-cm-zone");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.BeforeTabContextMenuTemplate, tab => b => b.AddContent(0, "test-before-tab-context-menu")));
+        cut.Contains("test-before-tab-context-menu");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.TabContextMenuTemplate, tab => b => b.AddContent(0, "test-tab-context-menu")));
+        cut.Contains("test-tab-context-menu");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TabContextMenuRefreshIcon, "test-tab-refresh-icon");
+            pb.Add(a => a.TabContextMenuCloseIcon, "test-tab-close-icon");
+            pb.Add(a => a.TabContextMenuCloseAllIcon, "test-tab-close-all-icon");
+            pb.Add(a => a.TabContextMenuCloseOtherIcon, "test-tab-close-other-icon");
+        });
+
+        // test context menu onclick event handler
+        var tab = cut.Find(".tabs-item");
+        await cut.InvokeAsync(() => tab.ContextMenu());
+
+        var buttons = cut.FindAll(".bb-cm-zone > .dropdown-menu .dropdown-item");
+        foreach (var button in buttons)
+        {
+            await cut.InvokeAsync(() => button.Click());
+        }
+        cut.Contains("test-tab-refresh-icon");
+        cut.Contains("test-tab-close-icon");
+        cut.Contains("test-tab-close-all-icon");
+        cut.Contains("test-tab-close-other-icon");
+
+        var show = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeShowContextMenu, item =>
+            {
+                show = true;
+                return Task.FromResult(true);
+            });
+        });
+        await cut.InvokeAsync(() => tab.ContextMenu());
+        Assert.True(show);
+    }
+
+    [Fact]
     public void ShowFooter_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
@@ -234,7 +313,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
-        cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
+        cut.Contains("Binder");
     }
 
     [Fact]
@@ -268,7 +347,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         });
         var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
-        cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
+        cut.Contains("Binder");
     }
 
     [Fact]

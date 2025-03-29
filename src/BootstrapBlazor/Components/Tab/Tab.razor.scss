@@ -1,4 +1,4 @@
-.tabs {
+﻿.tabs {
     --bb-tabs-item-padding: #{$bb-tabs-item-padding};
     --bb-tabs-item-height: #{$bb-tabs-item-height};
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
@@ -136,7 +136,6 @@
     left: 0;
     height: 2px;
     background-color: var(--bb-tabs-bar-bg);
-    z-index: 1;
     transition: transform .3s cubic-bezier(.645,.045,.355,1);
     list-style: none;
 }
@@ -197,6 +196,7 @@
 }
 
 .tabs .tabs-body {
+    background-color: var(--bs-body-bg);
     padding: var(--bb-tabs-body-padding);
     flex: 1;
 }
@@ -226,13 +226,14 @@
 
 .tabs.tabs-card > .tabs-header .tabs-item.active,
 .tabs.tabs-border-card > .tabs-header .tabs-item.active {
-    background-color: var(--bs-body-bg);
     border-width: 0 1px 0px 0;
 }
 
 .tabs .tabs-item-fix {
     height: 100%;
     flex: 1;
+    width: 1%;
+    min-width: 0;
     border: 1px solid var(--bs-border-color);
     border-width: 0 0 1px 0;
 }
@@ -463,28 +464,23 @@
     left: 0;
 }
 
-.is-page .layout-main > .tabs {
-    margin: -1rem;
-    border: none;
-    border-radius: unset;
-    min-height: calc(100% + 2rem);
-}
+.tab-dragging {
+    .tabs-item-wrap:not(:hover) .tabs-item {
+        pointer-events: none;
+    }
 
-.tab-drag-over {
-    animation: drag-tab-item 1s linear infinite;
-}
+    .tab-drag-over .tabs-item {
+        animation: drag-tab-item 1s linear infinite;
+    }
 
-.tab-dragging th[draggable] * {
-    pointer-events: none;
-}
-
-.tab-drag {
-    background-color: var(--bs-secondary);
+    .tab-drag {
+        background-color: var(--bs-secondary);
+    }
 }
 
 @keyframes drag-tab-item {
     50% {
-        background-color: var(--bs-primary);
+        background-color: var(--bs-primary) !important;
     }
 }
 
@@ -496,10 +492,7 @@
     --bb-tabs-item-active-color: var(--bs-body-color);
     --bb-tabs-item-hover-color: var(--bs-body-color);
     --bb-tabs-item-bg-color: rgba(var(--bs-body-color-rgb), 0.08);
-
-    .tabs-nav {
-        background-color: var(--bb-tabs-header-bg-color);
-    }
+    background-color: var(--bb-tabs-header-bg-color);
 
     .tabs-item-fix {
         border: none;
@@ -540,9 +533,42 @@
             }
         }
     }
+
+    .tab-drag-over .tabs-item {
+        animation: none;
+    }
+
+    .tab-drag-over .tabs-item .tabs-item-body {
+        animation: drag-tab-item 1s linear infinite;
+    }
+
+    .nav-link-bar {
+        padding: 3px 0.5rem;
+
+        .nav-link-bar-button {
+            cursor: pointer;
+            padding: 0 .75rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-radius: var(--bs-border-radius);
+
+            &:hover {
+                background-color: var(--bb-tabs-item-hover-bg-color);
+            }
+        }
+
+        > [data-bs-toggle="tooltip"] {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 
 .tabs-chrome > .tabs-header {
+    padding: 0 .25rem;
+
     .tabs-item-wrap {
         overflow: hidden;
         position: relative;
@@ -550,10 +576,9 @@
         align-items: flex-end;
         flex-shrink: 0;
         padding: 0 1rem;
-        z-index: 1;
 
         &.active {
-            z-index: 5;
+            z-index: 1;
 
             .tab-corner {
                 background-color: var(--bs-body-bg);
@@ -633,6 +658,57 @@
 
             .tabs-item-body {
                 background-color: var(--bb-tabs-item-bg-color);
+            }
+        }
+    }
+}
+
+.tabs {
+    &:not(.tabs-vertical) > .tabs-header .tabs-nav-toolbar {
+        display: flex;
+    }
+
+    &.tabs-bottom > .tabs-header {
+        .tabs-nav-toolbar {
+            border-top: 1px solid var(--bs-border-color);
+        }
+    }
+
+    &:not(.tabs-bottom) > .tabs-header {
+        .tabs-nav-toolbar {
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+    }
+
+    > .tabs-header {
+        .tabs-nav-toolbar {
+            display: none;
+            align-items: center;
+            height: 100%;
+            padding: 3px 0.5rem;
+
+            > [data-bs-toggle="tooltip"] {
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
+            .tabs-nav-toolbar-button {
+                cursor: pointer;
+                padding: 0 .75rem;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                border-radius: var(--bs-border-radius);
+                user-select: none;
+
+                &:not(.disabled):not(:disabled):hover {
+                    background-color: var(--bb-tabs-item-hover-bg-color);
+                }
+
+                .btn {
+                    padding: 0;
+                }
             }
         }
     }

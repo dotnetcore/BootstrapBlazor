@@ -1,4 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
@@ -368,18 +369,15 @@
             {
                 @if (Items != null)
                 {
-                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="VirtualizeElement"
-                        ItemSize="RowHeight" OverscanCount="10" Items="@Items.ToList()" ChildContent="RenderRow" />
+                    <Virtualize ItemSize="RowHeight" OverscanCount="@OverscanCount" Items="@Items.ToList()" ChildContent="RenderRow">
+                    </Virtualize>
                 }
                 else
                 {
-                    <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize @ref="VirtualizeElement"
-                        ItemSize="RowHeight" OverscanCount="10"
-                        ItemsProvider="LoadItems" ItemContent="RenderRow">
-                        <Placeholder>
-                            @RenderPlaceHolderRow
-                        </Placeholder>
-                    </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+                    <Virtualize @ref="_virtualizeElement"
+                                ItemSize="RowHeight" OverscanCount="@OverscanCount" Placeholder="RenderPlaceholderRow"
+                                ItemsProvider="LoadItems" ItemContent="RenderRow">
+                    </Virtualize>
                 }
             }
             else
@@ -808,7 +806,7 @@
         }
     </DynamicElement>;
 
-    RenderFragment RenderPlaceHolderRow =>
+    RenderFragment<PlaceholderContext> RenderPlaceholderRow => context =>
     @<tr>
         @if (IsMultipleSelect)
         {

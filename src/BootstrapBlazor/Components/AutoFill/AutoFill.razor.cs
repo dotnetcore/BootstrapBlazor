@@ -99,7 +99,7 @@ public partial class AutoFill<TValue>
     public bool IsVirtualize { get; set; }
 
     /// <summary>
-    /// Gets or sets the row height for virtual scrolling. Default is 33.
+    /// Gets or sets the row height for virtual scrolling. Default is 50f.
     /// </summary>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
@@ -160,7 +160,7 @@ public partial class AutoFill<TValue>
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
-    private string? PlaceHolderStyleString => RowHeight > 50f
+    private string? PlaceHolderStyleString => RowHeight != 50f
         ? CssBuilder.Default().AddStyle("height", $"{RowHeight}px").Build()
         : null;
 

@@ -233,4 +233,17 @@ public class CalendarTest : BootstrapBlazorTestBase
         });
         Assert.NotEqual(v, DateTime.MinValue);
     }
+
+    [Fact]
+    public void FirstDayOfWeek_Ok()
+    {
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTime(2025, 02, 20));
+            pb.Add(a => a.FirstDayOfWeek, DayOfWeek.Monday);
+        });
+        var labels = cut.FindAll(".calendar-table thead > tr > th");
+        Assert.Equal("一", labels[0].TextContent);
+        Assert.Equal("日", labels[6].TextContent);
+    }
 }

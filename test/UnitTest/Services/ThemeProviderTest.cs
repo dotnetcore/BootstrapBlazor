@@ -10,8 +10,18 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetTheme_Ok()
     {
+        var themeName = "";
         var themeProviderService = Context.Services.GetRequiredService<IThemeProvider>();
+        themeProviderService.TriggerThemeChanged("light");
+
+        themeProviderService.ThemeChangedAsync = async theme =>
+        {
+            themeName = theme;
+            await Task.CompletedTask;
+        };
         await themeProviderService.SetThemeAsync("light");
+        themeProviderService.TriggerThemeChanged("light");
+        Assert.Equal("light", themeName);
     }
 
     [Fact]

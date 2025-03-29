@@ -190,7 +190,7 @@ private void Navigation()
             <button class="btn btn-primary" @onclick="e => SetPlacement(Placement.Left)">Left</button>
         </div>
     </p>
-    <Tab Placement="@BindPlacement" Height="200">
+    <Tab Placement="@_bindPlacement" Height="200">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -211,7 +211,7 @@ private void Navigation()
         </TabItem>
     </Tab>
     <Divider Text="@Localizer["DividerText"]"></Divider>
-    <Tab Placement="@BindPlacement" IsCard="true" Height="200">
+    <Tab Placement="@_bindPlacement" IsCard="true" Height="200">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -232,7 +232,7 @@ private void Navigation()
         </TabItem>
     </Tab>
     <Divider Text="@Localizer["DividerText"]"></Divider>
-    <Tab Placement="@BindPlacement" IsBorderCard="true" Height="200">
+    <Tab Placement="@_bindPlacement" IsBorderCard="true" Height="200">
         <TabItem Text="@Localizer["TabItem1Text"]">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -339,7 +339,7 @@ private void Navigation()
         </button>
     </section>
 
-    <Tab ShowExtendButtons="ShowButtons" ShowClose="true" @ref="TabSetApp" class="mt-3">
+    <Tab ShowExtendButtons="true" ShowClose="true" @ref="TabSetApp" class="mt-3">
         <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -437,7 +437,7 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsChromeStyleTitle"]" Introduction="@Localizer["TabsChromeStyleIntro"]" Name="Chrome">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" AllowDrag="true" ShowToolbar="true" ShowExtendButtons="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
         </TabItem>
@@ -454,9 +454,56 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsCapsuleStyleTitle"]" Introduction="@Localizer["TabsCapsuleStyleIntro"]" Name="Capsule">
-    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule">
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Capsule" AllowDrag="true" ShowToolbar="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
             <div>@Localizer["TabItem1Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+            <div>@Localizer["TabItem2Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+            <div>@Localizer["TabItem3Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+            <div>@Localizer["TabItem4Content"]</div>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsToolbarTitle"]" Introduction="@Localizer["TabsToolbarIntro"]" Name="Toolbar">
+    <section ignore>
+        <div>@((MarkupString)Localizer["TabsToolbarDesc"].Value)</div>
+    </section>
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true">
+        <ChildContent>
+            <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+                <div>@Localizer["TabItem1Content"]</div>
+                <Counter></Counter>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+                <div>@Localizer["TabItem2Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+                <div>@Localizer["TabItem3Content"]</div>
+            </TabItem>
+            <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+                <div>@Localizer["TabItem4Content"]</div>
+            </TabItem>
+        </ChildContent>
+        <ToolbarTemplate>
+            <TabToolbarButton Icon="fa fa-home fa-shake" TooltipText="Home"></TabToolbarButton>
+        </ToolbarTemplate>
+    </Tab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TabsContextMenuTitle"]" Introduction="@Localizer["TabsContextMenuIntro"]" Name="ContextMenu">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TabsContextMenuDesc"].Value)</p>
+    </section>
+    <Tab IsCard="true" ShowClose="true" TabStyle="TabStyle.Chrome" ShowToolbar="true" ShowContextMenu="true" ShowContextMenuFullScreen="true">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+            <div>@Localizer["TabItem1Content"]</div>
+            <Counter></Counter>
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>

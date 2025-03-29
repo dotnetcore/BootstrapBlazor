@@ -423,6 +423,14 @@ public sealed partial class Selects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Select<string>.DefaultVirtualizeItemText),
+            Description = Localizer["SelectsDefaultVirtualizeItemText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

@@ -11,8 +11,8 @@
     --bb-table-footer-font-weight: blod;
     --bb-table-card-row-padding: .75rem .5rem;
     --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
-    --bs-table-striped-bg: rgba(0,0,0,.05);
-    --bs-table-hover-bg: rgba(0,0,0,.075);
+    --bs-table-striped-bg: rgba(0, 0, 0, .05);
+    --bs-table-hover-bg: rgba(0, 0, 0, .075);
     --bb-table-search-body-margin: 1rem;
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: rgba(var(--bs-body-color-rgb), .18);
@@ -309,6 +309,7 @@
 
 .table-toolbar .dropdown-menu {
     max-height: var(--bb-table-columnlist-max-height);
+    overflow: auto;
 }
 
 .table-toolbar .dropdown-menu .dropdown-item span {

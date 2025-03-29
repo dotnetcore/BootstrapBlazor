@@ -18,6 +18,66 @@ public partial class Layout : IHandlerException
     private bool IsSmallScreen { get; set; }
 
     /// <summary>
+    /// Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.
+    /// </summary>
+    [Parameter]
+    public TabStyle TabStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether show the toolbar. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template of the toolbar button. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowFullscreenToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the full screen toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the full screen toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? FullscreenToolbarTooltipText { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether show the full screen button. Default is true.
+    /// </summary>
+    [Parameter]
+    public bool ShowRefreshToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button icon string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarButtonIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button tooltip string. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? RefreshToolbarTooltipText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the refresh toolbar button click event callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnToolbarRefreshCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 侧边栏状态
     /// </summary>
     [Parameter]
@@ -237,6 +297,54 @@ public partial class Layout : IHandlerException
     [Parameter]
     public string NotAuthorizeUrl { get; set; } = "/Account/Login";
 
+    /// <summary>
+    /// Gets or sets whether enable tab context menu. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowTabContextMenu { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template of before tab context menu. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Tab>? BeforeTabContextMenuTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template of tab context menu. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Tab>? TabContextMenuTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu refresh button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? TabContextMenuRefreshIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? TabContextMenuCloseIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close other button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? TabContextMenuCloseOtherIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of tab item context menu close all button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? TabContextMenuCloseAllIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets before popup context menu callback. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
@@ -344,7 +452,8 @@ public partial class Layout : IHandlerException
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
-    private bool _init { get; set; }
+    private bool _init;
+    private Tab _tab = default!;
 
     /// <summary>
     /// <inheritdoc/>

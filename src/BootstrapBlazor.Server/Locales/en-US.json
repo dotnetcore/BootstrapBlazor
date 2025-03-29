@@ -1443,7 +1443,15 @@
     "LayoutsAppTips6": "In this example, a scroll bar appears after clicking the menu on the left to expand",
     "LayoutsAppTips7": "The available area in the right panel is all by default, which is suitable for layouts with <code>Tab</code> components. In this example, for the sake of beauty, the <code>Main</code> template has a built-in <code>div</code > And set the style to <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "In this example, if the scroll bar does not appear after clicking the left menu to expand, the height of the parent container will be expanded",
-    "LayoutsAppTips9": "Please refer to <a href='/tab'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
+    "LayoutsAppTips9": "Please refer to <a href='/tab'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together",
+    "ShowTabContextMenu": "whether enable tab context menu",
+    "BeforeTabContextMenuTemplate": "the template of before tab context menu",
+    "TabContextMenuTemplate": "the template of tab context menu",
+    "TabContextMenuRefreshIcon": "the icon of tab item context menu refresh button",
+    "TabContextMenuCloseIcon": "the icon of tab item context menu close button",
+    "TabContextMenuCloseOtherIcon": "the icon of tab item context menu close other button",
+    "TabContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
+    "OnBeforeShowContextMenu": "before popup context menu callback"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer",
@@ -2120,7 +2128,33 @@
     "TabsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>TabStyle=\"TabStyle.Chrome\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> mode",
     "TabAtt2TabStyle": "Set the tab style",
     "TabsCapsuleStyleTitle": "Capsule Style",
-    "TabsCapsuleStyleIntro": "Set the capsule tab style by setting <code>TabStyle=\"TabStyle.Capsule\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> <code>Placement=\"Placement.Bottom\"</code> mode"
+    "TabsCapsuleStyleIntro": "Set the capsule tab style by setting <code>TabStyle=\"TabStyle.Capsule\"</code>. Currently only supports <code>Placement=\"Placement.Top\"</code> <code>Placement=\"Placement.Bottom\"</code> mode",
+    "AttributeToolbarTemplate": "The template for Toolbar",
+    "TabsToolbarTitle": "Toolbar",
+    "TabsToolbarIntro": "By setting <code>ShowToolbar</code>, you can display the tab toolbar. By default, the <b>Refresh</b> and <b>Fullscreen</b> buttons are displayed. You can control whether to display them by <code>ShowRefreshToolbarButton</code> and <code>ShowFullscreenToolbarButton</code>, click the <b>Refresh</b> button to trigger the <code>OnToolbarRefreshCallback</code> callback method. You can customize toolbar buttons using <code>ToolbarTemplate</code>",
+    "AttributeShowToolbar": "Whether to display the toolbar",
+    "AttributeShowRefreshToolbarButton": "Whether to display the toolbar refresh button",
+    "AttributeShowFullscreenToolbarButton": "Whether to display the toolbar full screen button",
+    "AttributeRefreshToolbarTooltipText": "Toolbar refresh button tooltip text",
+    "AttributeFullscreenToolbarTooltipText": "Toolbar full screen button tooltip text",
+    "AttributeRefreshToolbarButtonIcon": "Toolbar refresh button icon",
+    "AttributeFullscreenToolbarButtonIcon": "Toolbar full screen button icon",
+    "TabsToolbarDesc": "After clicking the button, the counter value increases, and clicking the <b>Refresh</b> button on the toolbar will reset the counter.",
+    "AttributeOnToolbarRefreshCallback": "Click the toolbar refresh button callback method",
+    "ContextRefresh": "Refresh",
+    "ContextClose": "Close",
+    "ContextCloseOther": "Close Other Tabs",
+    "ContextCloseAll": "Close All Tabs",
+    "TabsContextMenuTitle": "TabItem Context Menu",
+    "TabsContextMenuIntro": "Use the built-in <code>ContextMenuZone</code> component to pop up a custom context menu when you right-click a tab item",
+    "TabsContextMenuDesc": "The disabled tab can be set by setting the <code>OnBeforeShowContextMenu</code> callback method to control whether the right-click menu is displayed according to the return value. If it is not set, the right-click menu is also displayed for the disabled tab",
+    "AttributeShowContextMenu": "whether enable tab context menu",
+    "AttributeContextMenuRefreshIcon": "the icon of tab item context menu refresh button",
+    "AttributeContextMenuCloseIcon": "the icon of tab item context menu close button",
+    "AttributeContextMenuCloseOtherIcon": "the icon of tab item context menu close other button",
+    "AttributeContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
+    "AttributeContextMenuFullScreenIcon": "the icon of tab item context menu full screen button",
+    "AttributeOnBeforeShowContextMenu": "before popup context menu callback"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
@@ -2572,7 +2606,8 @@
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> Whether to display holidays",
     "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
     "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache",
-    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string"
+    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string",
+    "AttrFirstDayOfWeek": "The first day of the week"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
@@ -3031,7 +3066,8 @@
     "MultiSelectVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
     "MultiSelectVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
     "MultiSelectsAttribute_ShowSearch": "Whether to display the search box",
-    "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize"
+    "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize",
+    "MultiSelectsAttribute_DefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
@@ -3208,7 +3244,8 @@
     "SelectsOnInputChangedCallback": "Callback method for converting input text into corresponding Value in edit mode",
     "TextConvertToValueCallback": "Callback method when input text changes in edit mode",
     "SelectsIsEditable": "Whether editable",
-    "SelectsIsVirtualize": "Wether to enable virtualize"
+    "SelectsIsVirtualize": "Wether to enable virtualize",
+    "SelectsDefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider",
@@ -3766,7 +3803,8 @@
     "Chinese": "Chinese",
     "Math": "Math",
     "English": "English",
-    "Study": "Study"
+    "Study": "Study",
+    "FirstDayOfWeek": "The first day of the week"
   },
   "BootstrapBlazor.Server.Components.Samples.Cameras": {
     "Title": "Camera",
@@ -4863,7 +4901,7 @@
     "Affix": "Affix",
     "Watermark": "Watermark",
     "OctIcon": "Oct Icons",
-    "UniverIcons": "Univer Icons",
+    "UniverIcon": "Univer Icons",
     "Typed": "Typed",
     "UniverSheet": "UniverSheet"
   },
@@ -5011,7 +5049,7 @@
     "ShowUnsetGroupItemsOnTopAttr": "Whether ungrouped edits are rendered at the beginning",
     "ShowSkeletonAttr": "Whether to display skeleton screen when first render",
     "ShowLoadingInFirstRenderAttr": "Whether to display the loading animation when first render",
-    "ShowColumnListAttr": "Show columnshow/hide control buttons",
+    "ShowColumnListAttr": "Show Column show/hide control buttons",
     "OnColumnVisibleChangedAttr": "Trigger this callback when switch show/hide column in the list",
     "ShowEmptyAttr": "Show no data prompts",
     "ShowToastAfterSaveOrDeleteModelAttr": "Do you show a toast prompt box after a save/delete failure",

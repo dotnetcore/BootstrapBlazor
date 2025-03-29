@@ -668,7 +668,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsVirtualize_Items()
+    public void DefaultVirtualizeItemText_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
@@ -677,19 +677,14 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("1", "Test1"),
                 new("2", "Test2")
             });
-            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.Value, "1,2");
+            pb.Add(a => a.DefaultVirtualizeItemText, "Test1");
             pb.Add(a => a.IsVirtualize, true);
-            pb.Add(a => a.RowHeight, 33f);
-            pb.Add(a => a.OverscanCount, 4);
         });
-
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
-        cut.InvokeAsync(async () =>
-        {
-            // 搜索 T
-            cut.Find(".search-text").Input("T");
-            await cut.Instance.ConfirmSelectedItem(0);
-        });
+        var items = cut.FindAll(".multi-select-items .multi-select-item");
+        Assert.Equal(2, items.Count);
+        Assert.Equal("Test1", items[0].InnerHtml);
+        Assert.Equal("2", items[1].InnerHtml);
     }
 
     [Fact]

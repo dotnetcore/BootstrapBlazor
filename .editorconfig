@@ -68,10 +68,10 @@ resharper_web_config_type_not_resolved_highlighting = warning
 resharper_web_config_wrong_module_highlighting = warning
 
 # Code files 
-[*.{cs,csx,vb,vbx}]
+[*.{cs,csx,vb,vbx,css,scss}]
 indent_size = 4
 
-[*.{cs,css,js,json,*html,razor,txt,log}]
+[*.{cs,css,scss,js,json,*html,razor,txt,log}]
 charset = utf-8-bom
 
 [*.{xml,config,*proj,nuspec,props,resx,targets,yml,tasks}]

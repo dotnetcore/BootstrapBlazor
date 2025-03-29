@@ -38,7 +38,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
-    protected Virtualize<TItem>? VirtualizeElement { get; set; }
+    [NotNull]
+    private Virtualize<TItem>? _virtualizeElement = null;
 
     /// <summary>
     /// 获得 Table 组件样式表
@@ -368,6 +369,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
     [Parameter]
     public float RowHeight { get; set; } = 38f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 10.
+    /// </summary>
+    /// <remarks>Effective when <see cref="ScrollMode"/> is set to <see cref="ScrollMode.Virtual"/>.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 10;
 
     [Inject]
     [NotNull]
@@ -908,6 +916,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         base.OnParametersSet();
 
+        if (ScrollMode == ScrollMode.Virtual && IsTree)
+        {
+            throw new InvalidOperationException($"{GetType()} does not support virtual scrolling in tree mode. ${GetType()} 目前不支持虚拟滚动模式下设置 IsTree=\"true\"");
+        }
+
         OnInitParameters();
 
         if (Items != null && OnQueryAsync != null)
@@ -922,7 +935,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsPagination = false;
         }
 
-        RowsCache = null;
+        _rowsCache = null;
 
         if (IsExcel)
         {
@@ -1261,7 +1274,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
-    private List<TItem>? RowsCache { get; set; }
+    private List<TItem>? _rowsCache = null;
 
     /// <summary>
     /// 获得 当前表格所有 Rows 集合
@@ -1273,8 +1286,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5JG5D
             // 如果 QueryItems 无默认值
             // 页面 OnInitializedAsync 二刷再 OnAfterRender 过程中导致 QueryItems 变量为空 ToList 报错
-            RowsCache ??= IsTree ? TreeRows.GetAllItems() : [.. (Items ?? QueryItems)];
-            return RowsCache;
+            _rowsCache ??= IsTree ? TreeRows.GetAllItems() : [.. (Items ?? QueryItems)];
+            return _rowsCache;
         }
     }
 

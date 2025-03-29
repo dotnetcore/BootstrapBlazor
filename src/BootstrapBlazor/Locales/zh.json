@@ -173,7 +173,17 @@
     "CloseCurrentTabText": "关闭当前标签",
     "CloseOtherTabsText": "关闭其他标签",
     "CloseAllTabsText": "关闭所有标签",
-    "NotFoundTabText": "未找到"
+    "NotFoundTabText": "未找到",
+    "RefreshToolbarTooltipText": "刷新",
+    "FullscreenToolbarTooltipText": "全屏",
+    "PrevTabNavLinkTooltipText": "上一个标签",
+    "NextTabNavLinkTooltipText": "下一个标签",
+    "CloseTabNavLinkTooltipText": "关闭",
+    "ContextRefresh": "刷新",
+    "ContextClose": "关闭",
+    "ContextCloseOther": "关闭其他",
+    "ContextCloseAll": "关闭全部",
+    "ContextFullScreen": "全屏"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "请输入 ...",

@@ -1,0 +1,31 @@
+name: Close inactive issues
+on:
+  schedule:
+    - cron: "0 1 * * *"
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-stale: 2
+          any-of-labels: "invalid"
+          stale-issue-label: "stale"
+          stale-issue-message: "Since the issue was labeled with `invalid`, but no response in 2 days. This issue will be closed after 2 days. If you have any questions, you can comment and reply. \r\r 由于该 issue 被标记为不合规工程，却 2 天未收到回应，该 Issue 将与 2 天后自动关闭。"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-stale: 2
+          any-of-labels: "need-repro-project"
+          stale-issue-label: "stale"
+          stale-issue-message: "Since the issue was labeled with `need-repro-project`, but no response in 2 days. This issue will be closed after 2 days. If you have any questions, you can comment and reply. \r\r 由于该 issue 被标记为需要复现工程，却 2 天未收到回应，该 Issue 将与 2 天后自动关闭。"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-close: 2
+          any-of-labels: "stale"
+          close-issue-message: "Since the issue was labeled with `stale`, but no response in 2 days. This issue will be closed. If you have any questions, you can comment and reply. \r\r 由于该 issue 被标记为过期工程，却 2 天未收到回应。现关闭 issue，若有任何问题，可评论回复。"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

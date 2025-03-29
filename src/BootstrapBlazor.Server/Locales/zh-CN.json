@@ -1443,7 +1443,15 @@
     "LayoutsAppTips6": "本例点击左侧菜单展开后出现滚动条",
     "LayoutsAppTips7": "右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "本例点击左侧菜单展开后不出现滚动条会撑开父容器高度",
-    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tab'>Tab 组件</a>"
+    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tab'>Tab 组件</a>",
+    "ShowTabContextMenu": "是否显示右键菜单",
+    "BeforeTabContextMenuTemplate": "前面右键菜单模板",
+    "TabContextMenuTemplate": "右键菜单后续模板",
+    "TabContextMenuRefreshIcon": "右键菜单刷新按钮图标",
+    "TabContextMenuCloseIcon": "右键菜单关闭按钮图标",
+    "TabContextMenuCloseOtherIcon": "右键菜单关闭其他按钮图标",
+    "TabContextMenuCloseAllIcon": "右键菜单关闭全部按钮图标",
+    "OnBeforeShowContextMenu": "右键菜单弹出前回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer 页脚组件",
@@ -2120,7 +2128,33 @@
     "TabsChromeStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Chrome\"</code> 设置 Chrome 浏览器标签页样式，目前仅支持 <code>Placement=\"Placement.Top\"</code> 模式",
     "TabAtt2TabStyle": "设置标签页样式",
     "TabsCapsuleStyleTitle": "胶囊样式",
-    "TabsCapsuleStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Capsule\"</code> 设置标签页为胶囊样式，目前仅支持 <code>Placement=\"Placement.Top\"</code>  <code>Placement=\"Placement.Bottom\"</code> 模式"
+    "TabsCapsuleStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Capsule\"</code> 设置标签页为胶囊样式，目前仅支持 <code>Placement=\"Placement.Top\"</code>  <code>Placement=\"Placement.Bottom\"</code> 模式",
+    "AttributeToolbarTemplate": "Toolbar 模板",
+    "TabsToolbarTitle": "工具栏",
+    "TabsToolbarIntro": "通过设置 <code>ShowToolbar</code> 显示标签页工具栏，默认显示 <b>刷新</b> <b>全屏</b> 按钮，可以通过 <code>ShowRefreshToolbarButton</code> <code>ShowFullscreenToolbarButton</code> 控制是否显示，点击 <b>刷新</b> 按钮后触发 <code>OnToolbarRefreshCallback</code> 回调方法，可以通过 <code>ToolbarTemplate</code> 自定义工具栏按钮",
+    "AttributeShowToolbar": "是否显示工具栏",
+    "AttributeShowRefreshToolbarButton": "是否显示工具栏刷新按钮",
+    "AttributeShowFullscreenToolbarButton": "是否显示工具栏全屏按钮",
+    "AttributeRefreshToolbarTooltipText": "工具栏刷新按钮提示框文字",
+    "AttributeFullscreenToolbarTooltipText": "工具栏全屏按钮提示框文字",
+    "AttributeRefreshToolbarButtonIcon": "工具栏刷新按钮图标",
+    "AttributeFullscreenToolbarButtonIcon": "工具栏全屏按钮图标",
+    "TabsToolbarDesc": "点击按钮计数器数值增加后，点击工具栏的 <b>刷新</b> 按钮计数器清零",
+    "AttributeOnToolbarRefreshCallback": "点击工具栏刷新按钮回调方法",
+    "ContextRefresh": "刷新",
+    "ContextClose": "关闭",
+    "ContextCloseOther": "关闭其他",
+    "ContextCloseAll": "关闭全部",
+    "TabsContextMenuTitle": "右键菜单",
+    "TabsContextMenuIntro": "通过内置 <code>ContextMenuZone</code> 组件，点击标签页右键时弹窗自定义右键菜单",
+    "TabsContextMenuDesc": "被禁用的标签页可以通过设置 <code>OnBeforeShowContextMenu</code> 回调方法根据返回值控制右键菜单是否显示，未设置时禁用标签页也显示右键菜单",
+    "AttributeShowContextMenu": "是否显示右键菜单",
+    "AttributeContextMenuRefreshIcon": "右键菜单刷新按钮图标",
+    "AttributeContextMenuCloseIcon": "右键菜单关闭按钮图标",
+    "AttributeContextMenuCloseOtherIcon": "右键菜单关闭其他按钮图标",
+    "AttributeContextMenuCloseAllIcon": "右键菜单关闭全部按钮图标",
+    "AttributeContextMenuFullScreenIcon": "右键菜单全屏按钮图标",
+    "AttributeOnBeforeShowContextMenu": "右键菜单弹出前回调方法"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",
@@ -2572,7 +2606,8 @@
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> 是否显示假日",
     "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
     "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存",
-    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串"
+    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串",
+    "AttrFirstDayOfWeek": "设置每周第一天"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
@@ -3031,7 +3066,8 @@
     "MultiSelectVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
     "MultiSelectVirtualizeDescription": "组件虚拟滚动支持两种形式通过 <code>Items</code> 或者 <code>OnQueryAsync</code> 回调方法提供数据",
     "MultiSelectsAttribute_ShowSearch": "是否显示搜索框",
-    "MultiSelectsAttribute_IsVirtualize": "是否开启虚拟滚动"
+    "MultiSelectsAttribute_IsVirtualize": "是否开启虚拟滚动",
+    "MultiSelectsAttribute_DefaultVirtualizeItemText": "开启虚拟滚动时首次加载 Value 对应的文本字符串用逗号分割"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio 单选框",
@@ -3208,7 +3244,8 @@
     "SelectsOnInputChangedCallback": "编辑模式下输入文本转换为对应 Value 回调方法",
     "TextConvertToValueCallback": "编辑模式下输入文本变化时回调方法",
     "SelectsIsEditable": "是否可编辑",
-    "SelectsIsVirtualize": "是否开启虚拟滚动"
+    "SelectsIsVirtualize": "是否开启虚拟滚动",
+    "SelectsDefaultVirtualizeItemText": "开启虚拟滚动时首次加载 Value 对应的文本字符串用逗号分割"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",
@@ -3766,7 +3803,8 @@
     "Chinese": "语文",
     "Math": "数学",
     "English": "英语",
-    "Study": "自习"
+    "Study": "自习",
+    "FirstDayOfWeek": "设置每周第一天"
   },
   "BootstrapBlazor.Server.Components.Samples.Cameras": {
     "Title": "Camera 摄像头拍照组件",

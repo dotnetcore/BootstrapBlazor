@@ -218,11 +218,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool IsVirtualize { get; set; }
 
     /// <summary>
-    /// Gets or sets the row height for virtual scrolling. Default is 38.
+    /// Gets or sets the row height for virtual scrolling. Default is 29f.
     /// </summary>
-    /// <remarks>Effective when <see cref="ScrollMode"/> is set to Virtual.</remarks>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
-    public float RowHeight { get; set; } = 38f;
+    public float RowHeight { get; set; } = 29f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 10.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 10;
 
     /// <summary>
     /// Gets or sets the toolbar content template. Default is null.

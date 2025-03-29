@@ -115,7 +115,7 @@
     "Text": "Logout"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
+    "InvalidOperationExceptionMessage": "SideMenu component cannot be used independently. Please use Menu component to set IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
@@ -173,7 +173,17 @@
     "CloseCurrentTabText": "Close",
     "CloseOtherTabsText": "Close Other",
     "CloseAllTabsText": "Close All",
-    "NotFoundTabText": "NotFound"
+    "NotFoundTabText": "NotFound",
+    "RefreshToolbarTooltipText": "Refresh",
+    "FullscreenToolbarTooltipText": "Fullscreen",
+    "PrevTabNavLinkTooltipText": "Prev Tab",
+    "NextTabNavLinkTooltipText": "Next Tab",
+    "CloseTabNavLinkTooltipText": "Close",
+    "ContextRefresh": "Refresh",
+    "ContextClose": "Close",
+    "ContextCloseOther": "Close Other Tabs",
+    "ContextCloseAll": "Close All Tabs",
+    "ContextFullScreen": "Full screen"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "Please enter ...",

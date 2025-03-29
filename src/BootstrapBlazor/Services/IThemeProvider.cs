@@ -6,18 +6,31 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 主题提供器接口
+/// Interface for theme provider
 /// </summary>
 public interface IThemeProvider
 {
     /// <summary>
-    /// 设置主题方法
+    /// Sets the theme asynchronously.
     /// </summary>
-    /// <param name="themeName"></param>
+    /// <param name="themeName">The name of the theme to set.</param>
+    /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
     ValueTask SetThemeAsync(string themeName);
 
     /// <summary>
-    /// 获得当前主题方法
+    /// Gets the current theme asynchronously.
     /// </summary>
+    /// <returns>A <see cref="ValueTask{TResult}"/> representing the asynchronous operation, with the current theme name as the result.</returns>
     ValueTask<string?> GetThemeAsync();
+
+    /// <summary>
+    /// The callback when theme changed
+    /// </summary>
+    Func<string, Task>? ThemeChangedAsync { get; set; }
+
+    /// <summary>
+    /// Trigger the theme changed event
+    /// </summary>
+    /// <param name="themeName">The name of the theme to set.</param>
+    void TriggerThemeChanged(string themeName);
 }

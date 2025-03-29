@@ -51,6 +51,8 @@ public abstract class BaseDockView : ComponentBase
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         Items = Foo.GenerateFoo(LocalizerFoo, 50);
 
         // 模拟数据从数据库中获得
@@ -89,23 +91,23 @@ public abstract class BaseDockView : ComponentBase
     protected static Task<IEnumerable<TableTreeNode<TreeFoo>>> TreeNodeConverter(IEnumerable<TreeFoo> items)
     {
         // 构造树状数据结构
-        var ret = BuildTreeNodes(items, 0);
-        return Task.FromResult(ret);
+        var ret = BuildTreeNodes(items.ToList(), 0);
+        return Task.FromResult(ret.AsEnumerable());
+    }
 
-        IEnumerable<TableTreeNode<TreeFoo>> BuildTreeNodes(IEnumerable<TreeFoo> items, int parentId)
+    private static List<TableTreeNode<TreeFoo>> BuildTreeNodes(List<TreeFoo> items, int parentId)
+    {
+        var ret = new List<TableTreeNode<TreeFoo>>();
+        ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
         {
-            var ret = new List<TableTreeNode<TreeFoo>>();
-            ret.AddRange(items.Where(i => i.ParentId == parentId).Select((foo, index) => new TableTreeNode<TreeFoo>(foo)
-            {
-                // 此处为示例，假设偶行数据都有子数据
-                HasChildren = index % 2 == 0,
-                // 如果子项集合有值 则默认展开此节点
-                IsExpand = items.Any(i => i.ParentId == foo.Id),
-                // 获得子项集合
-                Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id), foo.Id)
-            }));
-            return ret;
-        }
+            // 此处为示例，假设偶行数据都有子数据
+            HasChildren = index % 2 == 0,
+            // 如果子项集合有值 则默认展开此节点
+            IsExpand = items.Any(i => i.ParentId == foo.Id),
+            // 获得子项集合
+            Items = BuildTreeNodes(items.Where(i => i.ParentId == foo.Id).ToList(), foo.Id)
+        }));
+        return ret;
     }
 
     /// <summary>
@@ -135,7 +137,7 @@ public abstract class BaseDockView : ComponentBase
         /// GenerateFoos
         /// </summary>
         /// <returns></returns>
-        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => Enumerable.Range(1, count).Select(i => new TreeFoo()
+        public static List<TreeFoo> GenerateFoos(IStringLocalizer<Foo> localizer, int count = 80, int parentId = 0, int id = 0) => [.. Enumerable.Range(1, count).Select(i => new TreeFoo()
         {
             Id = id + i,
             ParentId = parentId,
@@ -145,6 +147,6 @@ public abstract class BaseDockView : ComponentBase
             Count = Random.Shared.Next(1, 100),
             Complete = Random.Shared.Next(1, 100) > 50,
             Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
-        }).ToList();
+        })];
     }
 }
