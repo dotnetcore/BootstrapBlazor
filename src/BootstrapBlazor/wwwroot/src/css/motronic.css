@@ -327,8 +327,12 @@
     --bs-btn-active-border-color: #B5B5C3;
 }
 
-.modal-backdrop.show {
-    opacity: .3;
+.modal-backdrop {
+    --bs-backdrop-opacity: 0.3;
+}
+
+.bb-mask {
+    --bb-mask-opacity: 0.3;
 }
 
 .modal-content {
