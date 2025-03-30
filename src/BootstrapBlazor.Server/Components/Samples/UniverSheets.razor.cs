@@ -70,7 +70,7 @@ public partial class UniverSheets
         await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
             CommandName = "SetWorkbook",
-            Data = _reportData
+            WorkbookData = _reportData
         });
     }
 
@@ -88,8 +88,6 @@ public partial class UniverSheets
     {
         await _sheetPlugin.PushDataAsync(new UniverSheetData()
         {
-            MessageName = "MessageName",
-            CommandName = "CommandName",
             Data = new
             {
                 Id = "1",

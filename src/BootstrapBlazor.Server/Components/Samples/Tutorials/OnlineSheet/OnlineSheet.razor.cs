@@ -44,7 +44,7 @@ public partial class OnlineSheet : IDisposable
 
             _data = new UniverSheetData()
             {
-                Data = sheetData
+                WorkbookData = sheetData
             };
         }
     }
