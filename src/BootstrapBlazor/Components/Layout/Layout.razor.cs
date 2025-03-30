@@ -417,14 +417,12 @@ public partial class Layout : IHandlerException
     /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
     /// </summary>
     [Parameter]
-    [NotNull]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
     /// 获得/设置 鼠标悬停提示文字信息
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? TooltipText { get; set; }
 
     /// <summary>
@@ -453,7 +451,7 @@ public partial class Layout : IHandlerException
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
     private bool _init;
-    private Tab _tab = default!;
+    private Tab _tab = null!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -483,7 +481,7 @@ public partial class Layout : IHandlerException
         if (AuthenticationStateTask != null)
         {
             // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
-            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+            AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
 
             var url = Navigation.ToBaseRelativePath(Navigation.Uri);
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
