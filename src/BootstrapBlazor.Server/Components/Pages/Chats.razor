@@ -37,7 +37,7 @@
                 </div>
                 <div class="msg-body">
                     <div class="msg-time">@message.Time.ToString("HH:mm:ss")</div>
-                    <div>@message.Content</div>
+                    <MarkdownContent Content="@message.Content"></MarkdownContent>
                     @if (message.Role == ChatRole.Assistant)
                     {
                         <div class="msg-desc">AI-generated content may be incorrect</div>

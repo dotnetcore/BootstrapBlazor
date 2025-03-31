@@ -385,10 +385,6 @@ public partial class ValidateForm
             var result = rule.GetValidationResult(value, context);
             if (result != null && result != ValidationResult.Success)
             {
-                // 查找 resource 资源文件中的 ErrorMessage
-                var ruleNameSpan = rule.GetType().Name.AsSpan();
-                var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
-                var ruleName = ruleNameSpan[..index];
                 var find = false;
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
@@ -400,29 +396,36 @@ public partial class ValidateForm
                     }
                 }
 
-                // 通过设置 ErrorMessage 检索
-                if (!context.ObjectType.Assembly.IsDynamic && !find
-                    && !string.IsNullOrEmpty(rule.ErrorMessage)
-                    && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
+                if (!context.ObjectType.Assembly.IsDynamic)
                 {
-                    rule.ErrorMessage = msg;
-                    find = true;
-                }
+                    if (!find && !string.IsNullOrEmpty(rule.ErrorMessage)
+                        && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
+                    {
+                        // 通过设置 ErrorMessage 检索
+                        rule.ErrorMessage = msg;
+                        find = true;
+                    }
 
-                // 通过 Attribute 检索
-                if (!rule.GetType().Assembly.IsDynamic && !find
-                    && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
-                {
-                    rule.ErrorMessage = msg;
-                    find = true;
-                }
+                    if (!find && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
+                    {
+                        // 通过 Attribute 检索
+                        rule.ErrorMessage = msg;
+                        find = true;
+                    }
 
-                // 通过 字段.规则名称 检索
-                if (!context.ObjectType.Assembly.IsDynamic && !find
-                    && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
-                {
-                    rule.ErrorMessage = msg;
-                    find = true;
+                    if (!find)
+                    {
+                        // 通过 字段.规则名称 检索
+                        // 查找 resource 资源文件中的 ErrorMessage
+                        var ruleNameSpan = rule.GetType().Name.AsSpan();
+                        var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
+                        var ruleName = index == -1 ? ruleNameSpan[..] : ruleNameSpan[..index];
+                        if (LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
+                        {
+                            rule.ErrorMessage = msg;
+                            find = true;
+                        }
+                    }
                 }
 
                 if (!find)
