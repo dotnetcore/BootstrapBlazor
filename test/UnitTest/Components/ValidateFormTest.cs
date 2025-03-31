@@ -566,6 +566,27 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal(HasServiceAttribute.Success, msg);
     }
+    
+    [Fact]
+    public async Task TestService_Ok()
+    {
+        // 自定义验证规则没有使用约定 Attribute 结尾单元测试
+        var foo = new HasService();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Tag2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag2", typeof(string)));
+                pb.Add(a => a.ValidateRules, [new FormItemValidator(new TestValidateRule())]);
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Test", msg);
+    }
 
     [Fact]
     public async Task RequiredValidator_Ok()
@@ -726,7 +747,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     private class HasServiceAttribute : ValidationAttribute
     {
         public const string Success = "Has Service";
-        public const string Error = "No Service";
+        private const string Error = "No Service";
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
@@ -738,10 +759,21 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         }
     }
 
+    private class TestValidateRule : ValidationAttribute
+    {
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        {
+            return new("Test");
+        }
+    }
+
     private class HasService
     {
         [HasService]
         public string? Tag { get; set; }
+        
+        [TestValidateRule]
+        public string? Tag2 { get; set; }
     }
 
     [MetadataType(typeof(DummyMetadata))]
