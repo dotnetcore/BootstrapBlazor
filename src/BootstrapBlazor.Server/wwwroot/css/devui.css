@@ -22,6 +22,10 @@ code {
     --bb-code-line-height: 1.5;
 }
 
+hr {
+    margin: .5rem 0;
+}
+
 pre code.hljs {
     padding: var(--bb-space);
 }
