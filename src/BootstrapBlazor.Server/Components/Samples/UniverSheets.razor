@@ -17,7 +17,7 @@
         <Button OnClickWithoutRender="OnSaveExcelData" Text="@Localizer["SaveButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetExcel" Lang="@System.Globalization.CultureInfo.CurrentUICulture.Name" OnReadyAsync="OnReadyAsync"></UniverSheet>
+        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync"></UniverSheet>
     </div>
     <section ignore>
         <Textarea rows="3" readonly Value="@_jsonData"></Textarea>
@@ -32,6 +32,6 @@
         <Button OnClickWithoutRender="OnPushPluginData" Text="@Localizer["PushButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetPlugin" Lang="@System.Globalization.CultureInfo.CurrentUICulture.Name" Plugins="_plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
+        <UniverSheet @ref="_sheetPlugin" Plugins="_plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
     </div>
 </DemoBlock>
