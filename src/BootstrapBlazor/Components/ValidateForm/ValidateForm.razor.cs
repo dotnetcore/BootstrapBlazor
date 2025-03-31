@@ -419,7 +419,7 @@ public partial class ValidateForm
                         // 查找 resource 资源文件中的 ErrorMessage
                         var ruleNameSpan = rule.GetType().Name.AsSpan();
                         var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
-                        var ruleName = ruleNameSpan[..index];
+                        var ruleName = index == -1 ? ruleNameSpan[..] : ruleNameSpan[..index];
                         if (LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{ruleName.ToString()}", out msg))
                         {
                             rule.ErrorMessage = msg;
