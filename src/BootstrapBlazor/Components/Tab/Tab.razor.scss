@@ -504,7 +504,7 @@
                 &:hover {
                     background-color: var(--bb-tabs-item-hover-bg-color);
                 }
-            }
+            }       
         }
 
         .btn-fs {
@@ -591,6 +591,30 @@
 
         &:not(:first-child) {
             margin-left: -2rem;
+        }
+
+        &:not(.active) {
+            &:not(:hover):not(:first-child) {
+                .tabs-item {
+                    &:before {
+                        content: '';
+                        width: 2px;
+                        background-color: rgba(var(--bs-emphasis-color-rgb), .2);
+                        position: absolute;
+                        left: 0;
+                        top: 8px;
+                        bottom: 10px;
+                    }
+                }
+            }
+
+            &:hover + .tabs-item-wrap {
+                .tabs-item {
+                    &:before {
+                        content: none;
+                    }
+                }
+            }
         }
 
         .tabs-item {

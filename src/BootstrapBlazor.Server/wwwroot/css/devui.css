@@ -54,6 +54,11 @@ pre code.hljs {
     --bs-btn-xxl-font-size: 1.5rem;
 }
 
+.btn-xs {
+    --bs-btn-padding-y: 0;
+    --bs-btn-padding-x: 0.45rem;
+}
+
 .btn-circle {
     --bb-button-circle-width: 35px;
     --bb-button-circle-height: 35px;
