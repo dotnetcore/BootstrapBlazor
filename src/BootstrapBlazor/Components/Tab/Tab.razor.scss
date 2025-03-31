@@ -486,6 +486,7 @@
 
 .tabs-chrome > .tabs-header,
 .tabs-capsule > .tabs-header {
+    --bb-tabs-header-height: 36px;
     --bb-tabs-header-bg-color: var(--bs-border-color);
     --bb-tabs-item-hover-bg-color: rgba(var(--bs-body-color-rgb), 0.1);
     --bb-tabs-item-active-bg-color: var(--bs-body-bg);
@@ -621,7 +622,7 @@
             border: none !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            height: 36px !important;
+            height: var(--bb-tabs-header-height) !important;
 
             .tabs-item-body {
                 margin-bottom: 4px;
