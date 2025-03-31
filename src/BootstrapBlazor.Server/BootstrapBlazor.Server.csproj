@@ -74,11 +74,10 @@
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
     <PackageReference Include="Longbow.Logging" Version="9.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
-    <PackageReference Include="Markdig" Version="0.40.0" />
-    <PackageReference Include="Markdown.ColorCode" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.ChatBot\BootstrapBlazor.ChatBot.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
