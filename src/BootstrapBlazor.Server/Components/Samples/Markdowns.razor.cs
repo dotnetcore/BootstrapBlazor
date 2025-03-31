@@ -21,10 +21,10 @@ public partial class Markdowns
     private string? AsyncValue { get; set; }
 
     [NotNull]
-    private Markdown? MarkdownSetValue { get; set; }
+    private BootstrapBlazor.Components.Markdown? MarkdownSetValue { get; set; }
 
     [NotNull]
-    private Markdown? Markdown { get; set; }
+    private BootstrapBlazor.Components.Markdown? Markdown { get; set; }
 
     private string JsString { get; set; } = @"```js
         console.log('test');
