@@ -345,6 +345,12 @@ public partial class Layout : IHandlerException
     [Parameter]
     public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether show the tab in header. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowTabInHeader { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
