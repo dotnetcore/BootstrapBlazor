@@ -5,7 +5,7 @@
 
 .chat-body {
     min-height: 210px;
-    max-height: 786px;
+    max-height: calc(100vh - 441px);
     overflow-y: auto;
     background-color: #faf9f8;
 }
@@ -51,6 +51,17 @@
 ::deep .chat-footer-tx {
     resize: none;
     flex: 1;
+}
+
+::deep div:has(pre) {
+    overflow: hidden;
+}
+
+::deep pre {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--bs-border-radius);
+    padding: 4px 10px;
 }
 
 .chat-auth {
