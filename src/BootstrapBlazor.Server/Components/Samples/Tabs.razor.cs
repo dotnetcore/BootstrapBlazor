@@ -95,7 +95,16 @@ public sealed partial class Tabs
             }
         }
     }
+    private List<Foo>? Items { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Items = Foo.GenerateFoo(FooLocalizer);
 
+        base.OnInitialized();
+    }
     private List<MenuItem> GetSideMenuItems() =>
     [
         new() { Text = Localizer["BackText1"] },

@@ -1,6 +1,7 @@
 ﻿@page "/tab"
 @inject IStringLocalizer<Tabs> Localizer
 @inject ToastService ToastService
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["TabsTitle"]</h3>
 
@@ -507,6 +508,14 @@ private void Navigation()
         </TabItem>
         <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
             <div>@Localizer["TabItem2Content"]</div>
+            <Table TItem="Foo" Items="@Items.Take(3)">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["CustomColText1"]" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" Text="@Localizer["CustomColText2"]" />
+                    <TableColumn @bind-Field="@context.Address" Text="@Localizer["CustomColText3"]" />
+                    <TableColumn @bind-Field="@context.Complete" />
+                </TableColumns>
+            </Table>
         </TabItem>
         <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
             <div>@Localizer["TabItem3Content"]</div>
