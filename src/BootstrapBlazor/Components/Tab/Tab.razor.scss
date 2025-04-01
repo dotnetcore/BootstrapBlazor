@@ -574,6 +574,7 @@
 .tabs-chrome {
     --bb-tabs-header-padding: 0 0.25rem;
     --bb-tabs-item-wrap-padding-x: 1rem;
+    --bb-tabs-item-body-margin-bottom: 4px;
 }
 
 .tabs-chrome > .tabs-header {
@@ -617,11 +618,14 @@
                     }
                 }
             }
+        }
 
-            &:hover + .tabs-item-wrap {
+        &.active,
+        &:hover {
+            + .tabs-item-wrap {
                 .tabs-item {
                     &:before {
-                        content: none;
+                        content: none !important;
                     }
                 }
             }
@@ -634,7 +638,7 @@
             height: var(--bb-tabs-header-height) !important;
 
             .tabs-item-body {
-                margin-bottom: 4px;
+                margin-bottom: var(--bb-tabs-item-body-margin-bottom);
             }
         }
 

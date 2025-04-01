@@ -176,4 +176,5 @@ pre code.hljs {
 
 .tabs-chrome {
     --bb-tabs-item-wrap-padding-x: 0.5rem;
+    --bb-tabs-item-body-margin-bottom: 2px;
 }
