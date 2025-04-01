@@ -465,6 +465,8 @@ public partial class Tab : IHandlerException
 
     private bool IsPreventDefault => _contextMenuZone != null;
 
+    internal LayoutTabHeader? layoutTabHeader = null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -473,6 +475,11 @@ public partial class Tab : IHandlerException
         base.OnInitialized();
 
         ErrorLogger?.Register(this);
+
+        if (Layout is { ShowTabInHeader: true })
+        {
+            Layout.RegisterTab(this);
+        }
     }
 
     /// <summary>

@@ -40,7 +40,14 @@ else
 @code {
     RenderFragment RenderTab =>
     @<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
-        @RenderTabHeader
+        @if (layoutTabHeader != null)
+        {
+            layoutTabHeader.RenderHeader(RenderTabHeader);
+        }
+        else
+        {
+            @RenderTabHeader
+        }
         <div class="tabs-body">
             <CascadingValue Value="this" IsFixed="true">
                 @if (IsOnlyRenderActiveTab)
@@ -62,7 +69,7 @@ else
         </div>
     </div>;
 
-    internal RenderFragment RenderTabHeader =>
+    RenderFragment RenderTabHeader =>
     @<div class="tabs-header">
         <div class="@WrapClassString">
             @if (BeforeNavigatorTemplate != null)

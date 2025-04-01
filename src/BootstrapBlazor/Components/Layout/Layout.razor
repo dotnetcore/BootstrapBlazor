@@ -82,10 +82,7 @@
         @if (ShowTabInHeader)
         {
             <div class="tabs tabs-chrome">
-                @if(_tab != null)
-                {
-                    @_tab.RenderTabHeader
-                }
+                @RenderTabHeader()
             </div>
         }
         @Header
