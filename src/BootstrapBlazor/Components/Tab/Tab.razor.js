@@ -171,7 +171,7 @@ const disposeDragItems = items => {
     })
 }
 
-export function init(id, invoke, method) {
+export function init(id, invoke, method, layoutId) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -180,11 +180,17 @@ export function init(id, invoke, method) {
     const tab = { el, invoke, method }
     Data.set(id, tab)
 
-    tab.header = el.firstChild
+    if (layoutId) {
+        const layout = document.getElementById(layoutId)
+        tab.header = layout.querySelector('.layout-header .tabs > .tabs-header');
+    }
+    else {
+        tab.header = el.firstChild
+    }
+
     tab.wrap = tab.header.firstChild
     tab.scroll = tab.wrap.querySelector('.tabs-nav-scroll')
     tab.tabNav = tab.scroll.firstChild
-
     tab.resizeHandler = () => {
         resize(tab)
     }

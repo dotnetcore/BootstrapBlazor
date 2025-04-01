@@ -345,6 +345,12 @@ public partial class Layout : IHandlerException
     [Parameter]
     public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether show the tab in header. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowTabInHeader { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
@@ -451,7 +457,8 @@ public partial class Layout : IHandlerException
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
     private bool _init;
-    private Tab _tab = null!;
+    private Tab? _tab = null;
+    private ITabHeader? _tabHeader = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -626,6 +633,18 @@ public partial class Layout : IHandlerException
     }
 
     private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
+
+    private RenderFragment RenderTabHeader() => builder =>
+    {
+        builder.OpenComponent<LayoutHeader>(0);
+        builder.AddComponentReferenceCapture(1, instance => _tabHeader = (ITabHeader)instance);
+        builder.CloseComponent();
+    };
+
+    internal void RegisterTab(Tab tab)
+    {
+        tab.TabHeader = _tabHeader;
+    }
 
     /// <summary>
     /// <inheritdoc/>

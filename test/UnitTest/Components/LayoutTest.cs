@@ -93,6 +93,18 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowTabInHeader_Ok()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.ShowTabInHeader, true);
+            pb.Add(a => a.Header, CreateHeader());
+        });
+        cut.Contains("tabs tabs-chrome");
+    }
+
+    [Fact]
     public void ShowFooter_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>

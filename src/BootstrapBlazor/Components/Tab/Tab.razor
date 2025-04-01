@@ -8,158 +8,20 @@
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
-        <div class="tabs-header">
-            <div class="@WrapClassString">
-                @if (BeforeNavigatorTemplate != null)
-                {
-                    <CascadingValue Value="this" IsFixed="true">
-                        @BeforeNavigatorTemplate
-                    </CascadingValue>
-                }
-                @if (ShowNavigatorButtons)
-                {
-                    <div class="nav-link-bar left">
-                        <Tooltip Title="@PrevTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
-                            <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
-                                <i class="@PreviousIcon"></i>
-                            </div>
-                        </Tooltip>
-                    </div>
-                }
-                <div class="tabs-nav-scroll">
-                    <div role="tablist" class="tabs-nav">
-                        <CascadingValue Value="this" IsFixed="true">
-                            @ChildContent
-                        </CascadingValue>
-                        <RenderTemplate>
-                            @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
-                            {
-                                if (ClickTabToNavigation)
-                                {
-                                    Navigator.NavigateTo(DefaultUrl);
-                                }
-                                else
-                                {
-                                    AddTabItem(DefaultUrl);
-                                }
-                            }
-                            @if (FirstRender)
-                            {
-                                if (!Items.Any(t => t.IsActive))
-                                {
-                                    Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
-                                }
-                            }
-                            <ContextMenuZone @ref="_contextMenuZone">
-                                @foreach (var item in Items)
-                                {
-                                    @if (item.HeaderTemplate != null)
-                                    {
-                                        <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-                                            @item.HeaderTemplate(item)
-                                        </div>
-                                    }
-                                    else if (item.IsDisabled)
-                                    {
-                                        @RenderDisabledHeaderItem(item)
-                                    }
-                                    else
-                                    {
-                                        @RenderHeaderItem(item)
-                                    }
-                                }
-                                <ContextMenu>
-                                    @if (BeforeContextMenuTemplate != null)
-                                    {
-                                        @BeforeContextMenuTemplate(this)
-                                    }
-                                    <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
-                                    <ContextMenuDivider></ContextMenuDivider>
-                                    <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
-                                    <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
-                                    <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
-                                    @if (ShowContextMenuFullScreen)
-                                    {
-                                        <ContextMenuDivider></ContextMenuDivider>
-                                        <ContextMenuItem Icon="@ContextMenuFullScreenIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
-                                    }
-                                    @if (ContextMenuTemplate != null)
-                                    {
-                                        @ContextMenuTemplate(this)
-                                    }
-                                </ContextMenu>
-                            </ContextMenuZone>
-                            @if (IsCard || IsBorderCard)
-                            {
-                                <div class="tabs-item-fix"></div>
-                            }
-                        </RenderTemplate>
-                        @if (!IsCard && !IsBorderCard && ShowActiveBar)
-                        {
-                            <div class="tabs-active-bar"></div>
-                        }
-                    </div>
-                </div>
-                <CascadingValue Value="this" IsFixed="true">
-                    @if (ButtonTemplate != null)
-                    {
-                        @ButtonTemplate
-                    }
-                    @if (ShowToolbar)
-                    {
-                        <div class="tabs-nav-toolbar">
-                            @if (ShowRefreshToolbarButton)
-                            {
-                                <TabToolbarButton class="tabs-nav-toolbar-refresh"
-                                                  Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"
-                                                  TooltipText="@RefreshToolbarTooltipText"></TabToolbarButton>
-                            }
-                            @if (ShowFullscreenToolbarButton)
-                            {
-                                <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
-                                    <FullScreenButton TargetId="@Id"
-                                                      Icon="@FullscreenToolbarButtonIcon"
-                                                      TooltipText="@FullscreenToolbarTooltipText"
-                                                      TooltipPlacement="Placement.Bottom" TooltipTrigger="hover"></FullScreenButton>
-                                </div>
-                            }
-                            @if (ToolbarTemplate != null)
-                            {
-                                @ToolbarTemplate
-                            }
-                        </div>
-                    }
-                    @if (ShowNavigatorButtons)
-                    {
-                        <div class="nav-link-bar right">
-                            <Tooltip Title="@NextTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
-                                <div class="nav-link-bar-button" @onclick="@ClickNextTab">
-                                    <i class="@NextIcon"></i>
-                                </div>
-                            </Tooltip>
-                        </div>
-                    }
-                    @if (ShouldShowExtendButtons())
-                    {
-                        <div class="nav-link-bar dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <Tooltip Title="@CloseTabNavLinkTooltipText" Placement="Placement.Left" Trigger="hover">
-                                <div class="nav-link-bar-button nav-link-close"><i class="@DropdownIcon"></i></div>
-                            </Tooltip>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end shadow">
-                            <div class="dropdown-item" @onclick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></div>
-                            <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
-                            <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
-                        </div>
-                    }
-                    @if (AfterNavigatorTemplate != null)
-                    {
-                        @AfterNavigatorTemplate
-                    }
-                </CascadingValue>
-            </div>
-        </div>
+    @RenderTab
+}
+
+@code {
+    RenderFragment RenderTab =>
+    @<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
+        @if (TabHeader != null)
+        {
+            TabHeader.Render(RenderTabHeader);
+        }
+        else
+        {
+            @RenderTabHeader
+        }
         <div class="tabs-body">
             <CascadingValue Value="this" IsFixed="true">
                 @if (IsOnlyRenderActiveTab)
@@ -179,10 +41,139 @@ else
                 }
             </CascadingValue>
         </div>
-    </div>
-}
+    </div>;
 
-@code {   
+    RenderFragment RenderTabHeader =>
+    @<div class="tabs-header">
+        <div class="@WrapClassString">
+            @if (BeforeNavigatorTemplate != null)
+            {
+                <CascadingValue Value="this" IsFixed="true">
+                    @BeforeNavigatorTemplate
+                </CascadingValue>
+            }
+            @if (ShowNavigatorButtons)
+            {
+                <div class="nav-link-bar left">
+                    <Tooltip Title="@PrevTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
+                        <div class="nav-link-bar-button" @onclick="@ClickPrevTab">
+                            <i class="@PreviousIcon"></i>
+                        </div>
+                    </Tooltip>
+                </div>
+            }
+            <div class="tabs-nav-scroll">
+                <div role="tablist" class="tabs-nav">
+                    <CascadingValue Value="this" IsFixed="true">
+                        @ChildContent
+                    </CascadingValue>
+                    <RenderTemplate>
+                        @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
+                        {
+                            if (ClickTabToNavigation)
+                            {
+                                Navigator.NavigateTo(DefaultUrl);
+                            }
+                            else
+                            {
+                                AddTabItem(DefaultUrl);
+                            }
+                        }
+                        @if (FirstRender)
+                        {
+                            if (!Items.Any(t => t.IsActive))
+                            {
+                                Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
+                            }
+                        }
+                        @foreach (var item in Items)
+                        {
+                            @if (item.HeaderTemplate != null)
+                            {
+                                <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
+                                    @item.HeaderTemplate(item)
+                                </div>
+                            }
+                            else if (item.IsDisabled)
+                            {
+                                @RenderDisabledHeaderItem(item)
+                            }
+                            else
+                            {
+                                @RenderHeaderItem(item)
+                            }
+                        }
+                        @if (IsCard || IsBorderCard)
+                        {
+                            <div class="tabs-item-fix"></div>
+                        }
+                    </RenderTemplate>
+                    @if (!IsCard && !IsBorderCard && ShowActiveBar)
+                    {
+                        <div class="tabs-active-bar"></div>
+                    }
+                </div>
+            </div>
+            <CascadingValue Value="this" IsFixed="true">
+                @if (ButtonTemplate != null)
+                {
+                    @ButtonTemplate
+                }
+                @if (ShowToolbar)
+                {
+                    <div class="tabs-nav-toolbar">
+                        @if (ShowRefreshToolbarButton)
+                        {
+                            <TabToolbarButton class="tabs-nav-toolbar-refresh"
+                                                Icon="@RefreshToolbarButtonIcon" OnClickAsync="OnRefreshAsync"
+                                                TooltipText="@RefreshToolbarTooltipText"></TabToolbarButton>
+                        }
+                        @if (ShowFullscreenToolbarButton)
+                        {
+                            <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
+                                <FullScreenButton TargetId="@Id"
+                                                    Icon="@FullscreenToolbarButtonIcon"
+                                                    TooltipText="@FullscreenToolbarTooltipText"
+                                                    TooltipPlacement="Placement.Bottom" TooltipTrigger="hover"></FullScreenButton>
+                            </div>
+                        }
+                        @if (ToolbarTemplate != null)
+                        {
+                            @ToolbarTemplate
+                        }
+                    </div>
+                }
+                @if (ShowNavigatorButtons)
+                {
+                    <div class="nav-link-bar right">
+                        <Tooltip Title="@NextTabNavLinkTooltipText" Placement="Placement.Bottom" Trigger="hover">
+                            <div class="nav-link-bar-button" @onclick="@ClickNextTab">
+                                <i class="@NextIcon"></i>
+                            </div>
+                        </Tooltip>
+                    </div>
+                }
+                @if (ShouldShowExtendButtons())
+                {
+                    <div class="nav-link-bar dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <Tooltip Title="@CloseTabNavLinkTooltipText" Placement="Placement.Left" Trigger="hover">
+                            <div class="nav-link-bar-button nav-link-close"><i class="@DropdownIcon"></i></div>
+                        </Tooltip>
+                    </div>
+                    <div class="dropdown-menu dropdown-menu-end shadow">
+                        <div class="dropdown-item" @onclick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></div>
+                        <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
+                        <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
+                    </div>
+                }
+                @if (AfterNavigatorTemplate != null)
+                {
+                    @AfterNavigatorTemplate
+                }
+            </CascadingValue>
+        </div>
+    </div>;
+    
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
