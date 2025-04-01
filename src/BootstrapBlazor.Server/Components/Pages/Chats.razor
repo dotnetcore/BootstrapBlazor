@@ -7,6 +7,14 @@
 
 <h4>@Localizer["ChatsDescription"]</h4>
 
+<HeadContent>
+    <style>
+        .bb-ad {
+            display: none;
+        }
+    </style>
+</HeadContent>
+
 <DemoBlock Title="@Localizer["ChatNormalTitle"]" Introduction="@Localizer["ChatNormalIntro"]" Name="Normal" ShowCode="false">
     <div class="chat-title">@Localizer["ChatUserTitle"]</div>
     <div class="chat-body">
@@ -47,7 +55,7 @@
         }
     </div>
     <div class="chat-footer">
-        <label class="chat-info">@((MarkupString)Localizer["ChatInfo", _currentCount, _totalCount].Value)</label>
+        <label class="chat-info">@((MarkupString)Localizer["ChatInfo", _currentCount, TotalCount].Value)</label>
         <div class="d-flex">
             <Textarea Id="@Id" class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)"></Textarea>
             <div class="chat-buttons">

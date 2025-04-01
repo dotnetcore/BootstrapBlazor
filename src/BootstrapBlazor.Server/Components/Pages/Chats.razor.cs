@@ -32,14 +32,10 @@ public partial class Chats
         .AddClass("msg-stack-assistant", role == ChatRole.Assistant)
         .Build();
 
-    private static readonly ConcurrentDictionary<string, int> _cache = new();
-
+    private const int TotalCount = 50;
+    private static readonly ConcurrentDictionary<string, int> Cache = new();
     private string? _code;
-
-    private readonly int _totalCount = 50;
-
     private int _currentCount;
-
     private bool _isDisabled;
 
     /// <summary>
@@ -51,7 +47,7 @@ public partial class Chats
         await base.OnInitializedAsync();
 
         _code = await GetFingerCodeAsync();
-        _currentCount = _cache.GetOrAdd(_code, key => _totalCount);
+        _currentCount = Cache.GetOrAdd(_code, key => TotalCount);
         _isDisabled = _currentCount < 1;
     }
 
@@ -112,7 +108,7 @@ public partial class Chats
                 await Task.Delay(100);
                 if (!string.IsNullOrEmpty(_code))
                 {
-                    _currentCount = _cache.AddOrUpdate(_code, key => _totalCount, (key, number) => number - 1);
+                    _currentCount = Cache.AddOrUpdate(_code, key => TotalCount, (key, number) => number - 1);
                     _isDisabled = _currentCount < 1;
                 }
                 else
