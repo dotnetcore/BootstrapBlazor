@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Rendering;
-
 namespace BootstrapBlazor.Components;
 
 internal class LayoutTabHeader : IComponent
@@ -26,26 +24,14 @@ internal class LayoutTabHeader : IComponent
         return Task.CompletedTask;
     }
 
-    private RenderFragment? _renderFragment;
-
     /// <summary>
     /// render tab header method.
     /// </summary>
-    public void RenderHeader(RenderFragment renderFragment)
+    public void Render(RenderFragment renderFragment)
     {
-        _renderFragment = renderFragment;
-        _renderHandle.Render(BuildRenderTree);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="builder"></param>
-    private void BuildRenderTree(RenderTreeBuilder builder)
-    {
-        if (_renderFragment != null)
+        _renderHandle.Render(builder =>
         {
-            builder.AddContent(0, _renderFragment);
-        }
+            builder.AddContent(0, renderFragment);
+        });
     }
 }
