@@ -42,7 +42,7 @@ public partial class Tab : IHandlerException
         .AddClass("tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
         .AddClass("tabs-chrome", TabStyle == TabStyle.Chrome)
         .AddClass("tabs-capsule", TabStyle == TabStyle.Capsule)
-       .AddClassFromAttributes(AdditionalAttributes)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
