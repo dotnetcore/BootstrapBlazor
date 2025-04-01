@@ -419,8 +419,14 @@ public partial class Tab : IHandlerException
     [Parameter]
     public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="ITabHeader"/> instance. Default is null.
+    /// </summary>
+    [Parameter]
+    public Layout? Layout { get; set; }
+
     [CascadingParameter]
-    private Layout? Layout { get; set; }
+    private Layout? CascadeLayout { get; set; }
 
     [Inject]
     [NotNull]
@@ -465,7 +471,7 @@ public partial class Tab : IHandlerException
 
     private bool IsPreventDefault => _contextMenuZone != null;
 
-    internal LayoutTabHeader? layoutTabHeader = null;
+    internal ITabHeader? TabHeader { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -786,6 +792,8 @@ public partial class Tab : IHandlerException
         StateHasChanged();
     }
 
+    private Layout? LayoutInstance => Layout ?? CascadeLayout;
+
     private void AddTabItem(string url)
     {
         var parameters = new Dictionary<string, object?>
@@ -823,7 +831,7 @@ public partial class Tab : IHandlerException
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
                 builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
-                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
+                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), LayoutInstance?.Resource);
                 builder.CloseComponent();
             }));
         }
@@ -1005,7 +1013,7 @@ public partial class Tab : IHandlerException
     private IEnumerable<MenuItem>? _menuItems;
     private MenuItem? GetMenuItem(string url)
     {
-        _menuItems ??= (Menus ?? Layout?.Menus).GetAllItems();
+        _menuItems ??= (Menus ?? LayoutInstance?.Menus).GetAllItems();
         return _menuItems?.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && (i.Url.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase)));
     }
 

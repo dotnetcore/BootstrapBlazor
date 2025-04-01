@@ -5,7 +5,7 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class LayoutTabHeader : IComponent
+internal class LayoutHeader : IComponent, ITabHeader
 {
     private RenderHandle _renderHandle;
 

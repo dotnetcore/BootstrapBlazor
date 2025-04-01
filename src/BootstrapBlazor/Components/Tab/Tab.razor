@@ -40,9 +40,9 @@ else
 @code {
     RenderFragment RenderTab =>
     @<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
-        @if (layoutTabHeader != null)
+        @if (TabHeader != null)
         {
-            layoutTabHeader.Render(RenderTabHeader);
+            TabHeader.Render(RenderTabHeader);
         }
         else
         {

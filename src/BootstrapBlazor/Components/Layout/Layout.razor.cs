@@ -458,7 +458,7 @@ public partial class Layout : IHandlerException
 
     private bool _init;
     private Tab? _tab = null;
-    private LayoutTabHeader? _tabHeader = null;
+    private ITabHeader? _tabHeader = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -636,14 +636,14 @@ public partial class Layout : IHandlerException
 
     private RenderFragment RenderTabHeader() => builder =>
     {
-        builder.OpenComponent<LayoutTabHeader>(0);
-        builder.AddComponentReferenceCapture(1, instance => _tabHeader = (LayoutTabHeader)instance);
+        builder.OpenComponent<LayoutHeader>(0);
+        builder.AddComponentReferenceCapture(1, instance => _tabHeader = (ITabHeader)instance);
         builder.CloseComponent();
     };
 
     internal void RegisterTab(Tab tab)
     {
-        tab.layoutTabHeader = _tabHeader;
+        tab.TabHeader = _tabHeader;
     }
 
     /// <summary>
