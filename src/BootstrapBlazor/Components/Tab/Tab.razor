@@ -6,40 +6,9 @@
 {
     @Body
 }
-else if (ShowContextMenu)
-{
-    <ContextMenuZone @ref="_contextMenuZone">
-        @RenderTab
-        <ContextMenu>
-            @if (BeforeContextMenuTemplate != null)
-            {
-                @BeforeContextMenuTemplate(this)
-            }
-            <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
-            <ContextMenuDivider></ContextMenuDivider>
-            <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
-            <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
-            <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
-            @if (ShowContextMenuFullScreen)
-            {
-                <ContextMenuDivider></ContextMenuDivider>
-                <ContextMenuItem Icon="@ContextMenuFullScreenIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
-            }
-            @if (ContextMenuTemplate != null)
-            {
-                @ContextMenuTemplate(this)
-            }
-        </ContextMenu>
-    </ContextMenuZone>
-}
 else
 {
-    @RenderTab
-}
-
-@code {
-    RenderFragment RenderTab =>
-    @<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
                 @if (BeforeNavigatorTemplate != null)
@@ -82,23 +51,45 @@ else
                                     Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
                                 }
                             }
-                            @foreach (var item in Items)
-                            {
-                                @if (item.HeaderTemplate != null)
+                            <ContextMenuZone @ref="_contextMenuZone">
+                                @foreach (var item in Items)
                                 {
-                                    <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-                                        @item.HeaderTemplate(item)
-                                    </div>
+                                    @if (item.HeaderTemplate != null)
+                                    {
+                                        <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
+                                            @item.HeaderTemplate(item)
+                                        </div>
+                                    }
+                                    else if (item.IsDisabled)
+                                    {
+                                        @RenderDisabledHeaderItem(item)
+                                    }
+                                    else
+                                    {
+                                        @RenderHeaderItem(item)
+                                    }
                                 }
-                                else if (item.IsDisabled)
-                                {
-                                    @RenderDisabledHeaderItem(item)
-                                }
-                                else
-                                {
-                                    @RenderHeaderItem(item)
-                                }
-                            }
+                                <ContextMenu>
+                                    @if (BeforeContextMenuTemplate != null)
+                                    {
+                                        @BeforeContextMenuTemplate(this)
+                                    }
+                                    <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
+                                    <ContextMenuDivider></ContextMenuDivider>
+                                    <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+                                    <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+                                    <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+                                    @if (ShowContextMenuFullScreen)
+                                    {
+                                        <ContextMenuDivider></ContextMenuDivider>
+                                        <ContextMenuItem Icon="@ContextMenuFullScreenIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
+                                    }
+                                    @if (ContextMenuTemplate != null)
+                                    {
+                                        @ContextMenuTemplate(this)
+                                    }
+                                </ContextMenu>
+                            </ContextMenuZone>
                             @if (IsCard || IsBorderCard)
                             {
                                 <div class="tabs-item-fix"></div>
@@ -188,8 +179,10 @@ else
                 }
             </CascadingValue>
         </div>
-    </div>;
-    
+    </div>
+}
+
+@code {   
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
