@@ -22,6 +22,10 @@ code {
     --bb-code-line-height: 1.5;
 }
 
+hr {
+    margin: .5rem 0;
+}
+
 pre code.hljs {
     padding: var(--bb-space);
 }
@@ -159,5 +163,18 @@ pre code.hljs {
 
 .tabs {
     --bb-tabs-item-height: 29px;
+    --bb-tabs-item-padding: 0 .5rem;
     --bb-tabs-body-padding: .5rem;
+    --bb-tabs-item-close-button-height: 16px;
+}
+
+.tabs-chrome > .tabs-header,
+.tabs-capsule > .tabs-header {
+    --bb-tabs-item-body-padding: 2px 8px;
+    --bb-tabs-header-height: 26px;
+}
+
+.tabs-chrome {
+    --bb-tabs-item-wrap-padding-x: 0.5rem;
+    --bb-tabs-item-body-margin-bottom: 2px;
 }

@@ -86,7 +86,9 @@ else
                             {
                                 @if (item.HeaderTemplate != null)
                                 {
-                                    @item.HeaderTemplate(item)
+                                    <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
+                                        @item.HeaderTemplate(item)
+                                    </div>
                                 }
                                 else if (item.IsDisabled)
                                 {

@@ -150,10 +150,6 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
-    private static string? GetClassString(TabItem tabItem) => CssBuilder.Default("tabs-item")
-        .AddClass("active", tabItem.IsActive)
-        .Build();
-
     private async Task OnClickTabItem(TabItem tabItem)
     {
         TabSetTemplate.ActiveTab(tabItem);
