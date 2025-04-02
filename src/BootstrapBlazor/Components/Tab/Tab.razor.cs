@@ -1175,7 +1175,7 @@ public partial class Tab : IHandlerException
             }
         }
 
-        if (IsCard || IsBorderCard)
+        if (TabStyle == TabStyle.Default && (IsCard || IsBorderCard))
         {
             builder.OpenElement(100, "div");
             builder.AddAttribute(110, "class", "tabs-item-fix");
