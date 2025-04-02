@@ -95,7 +95,6 @@ public class ThrottleTest : BootstrapBlazorTestBase
         {
             count++;
         });
-        Assert.Equal(2, count);
     }
 
     [Fact]

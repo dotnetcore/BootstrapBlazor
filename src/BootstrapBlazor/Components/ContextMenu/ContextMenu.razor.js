@@ -1,37 +1,37 @@
 ﻿import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import { createPopper, computePosition } from '../../modules/floating-ui.js'
+import { registerBootstrapBlazorModule } from "../../modules/utility.js"
 
 export function init(id) {
     const el = document.getElementById(id)
 
     if (el) {
-        window.bb = window.bb || {};
-        if (bb.cancelContextMenuHandler === void 0) {
-            bb.contextMenus = []
-            bb.cancelContextMenuHandler = e => {
-                const menu = document.querySelector('.bb-cm.show')
-                if (menu) {
-                    const menuId = menu.getAttribute('id')
-                    const cm = Data.get(menuId)
-                    if (cm.popper) {
-                        cm.popper()
-                    }
+        const cm = { el, zone: getZone(el) };
+        Data.set(id, cm);
 
-                    menu.classList.remove('show')
-                    const zone = getZone(menu)
-                    if (zone) {
-                        zone.appendChild(menu)
+        registerBootstrapBlazorModule("ContextMenu", id, context => {
+            if (context.cancelContextMenuHandler === void 0) {
+                context.cancelContextMenuHandler = e => {
+                    const menu = document.querySelector('.bb-cm.show')
+                    if (menu) {
+                        const menuId = menu.getAttribute('id')
+                        const cm = Data.get(menuId)
+                        if (cm.popper) {
+                            cm.popper()
+                        }
+
+                        menu.classList.remove('show')
+                        const zone = getZone(menu)
+                        if (zone) {
+                            zone.appendChild(menu)
+                        }
                     }
                 }
             }
-            EventHandler.on(document, 'click', bb.cancelContextMenuHandler)
-            EventHandler.on(document, 'contextmenu', bb.cancelContextMenuHandler)
-        }
-        bb.contextMenus.push(el)
-
-        const cm = { el, zone: getZone(el) }
-        Data.set(id, cm)
+            EventHandler.on(document, 'click', context.cancelContextMenuHandler)
+            EventHandler.on(document, 'contextmenu', context.cancelContextMenuHandler)
+        })
     }
 }
 
@@ -64,19 +64,11 @@ export function dispose(id) {
             cm.popper()
         }
 
-        window.bb = window.bb || { contextMenus: [] }
-        const index = bb.contextMenus.indexOf(el)
-        if (index > -1) {
-            bb.contextMenus.splice(index, 1)
-        }
-
-        if (bb.contextMenus.length === 0) {
-            if (bb.cancelContextMenuHandler) {
-                EventHandler.off(document, 'click', bb.cancelContextMenuHandler)
-                EventHandler.off(document, 'contextmenu', bb.cancelContextMenuHandler)
-            }
-            delete bb.cancelContextMenuHandler;
-        }
+        const { ContextMenu } = window.BootstrapBlazor;
+        ContextMenu.dispose(id, context => {
+            EventHandler.off(document, 'click', context.cancelContextMenuHandler)
+            EventHandler.off(document, 'contextmenu', context.cancelContextMenuHandler)
+        });
     }
 }
 
