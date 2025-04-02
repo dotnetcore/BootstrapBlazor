@@ -18,10 +18,7 @@ public partial class ContextMenuZone
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// 获得/设置 上下文菜单组件集合
-    /// </summary>
-    private ContextMenu? ContextMenu { get; set; }
+    private ContextMenu? _contextMenu;
 
     private string? ClassString => CssBuilder.Default("bb-cm-zone")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -36,9 +33,9 @@ public partial class ContextMenuZone
     internal async Task OnContextMenu(MouseEventArgs args, object? contextItem)
     {
         // 弹出关联菜单
-        if (ContextMenu != null)
+        if (_contextMenu != null)
         {
-            await ContextMenu.Show(args, contextItem);
+            await _contextMenu.Show(args, contextItem);
         }
     }
 
@@ -46,5 +43,5 @@ public partial class ContextMenuZone
     /// ContextMenu 组件调用
     /// </summary>
     /// <param name="contextMenu"></param>
-    internal void RegisterContextMenu(ContextMenu contextMenu) => ContextMenu = contextMenu;
+    internal void RegisterContextMenu(ContextMenu contextMenu) => _contextMenu = contextMenu;
 }
