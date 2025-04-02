@@ -45,7 +45,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFullscreenToolbarButton, false));
         Assert.DoesNotContain("tabs-nav-toolbar-fs", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template")));
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ToolbarTemplate, tab => builder => builder.AddContent(0, "test-toolbar-template")));
         Assert.Contains("test-toolbar-template", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowTabContextMenu, true));
