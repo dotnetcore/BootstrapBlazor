@@ -95,6 +95,8 @@ public sealed partial class Tabs
             }
         }
     }
+    
+    [NotNull]
     private List<Foo>? Items { get; set; }
     /// <summary>
     /// <inheritdoc/>
