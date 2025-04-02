@@ -581,7 +581,7 @@ public class LayoutAuthorizationTest : AuthorizationViewTestBase
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.OnAuthorizing, url => Task.FromResult(true));
         });
-        cut.Contains("<section class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
+        cut.MarkupMatches("<section id:ignore class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
         Context.DisposeComponents();
     }
 }
