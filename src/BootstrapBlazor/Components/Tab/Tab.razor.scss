@@ -494,7 +494,7 @@
 
 .tabs-chrome > .tabs-header,
 .tabs-capsule > .tabs-header {
-    --bb-tabs-header-height: 36px;
+    --bb-tabs-chrome-item-height: 36px;
     --bb-tabs-header-bg-color: var(--bs-border-color);
     --bb-tabs-item-body-border-radius: 14.5px;
     --bb-tabs-item-body-padding: 4px 10px;
@@ -637,7 +637,7 @@
             border: none !important;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            height: var(--bb-tabs-header-height) !important;
+            height: var(--bb-tabs-chrome-item-height) !important;
 
             .tabs-item-body {
                 margin-bottom: var(--bb-tabs-item-body-margin-bottom);
