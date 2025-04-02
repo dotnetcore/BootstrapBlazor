@@ -49,13 +49,13 @@
 
         .layout-main {
             min-height: calc(var(--bb-layout-height) - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
-        }
 
-        > .tabs {
-            margin: -1rem;
-            border: none;
-            border-radius: unset;
-            min-height: calc(100% + 2rem);
+            > .tabs {
+                margin: -1rem;
+                border: none;
+                border-radius: unset;
+                min-height: calc(100% + 2rem);
+            }
         }
     }
 
