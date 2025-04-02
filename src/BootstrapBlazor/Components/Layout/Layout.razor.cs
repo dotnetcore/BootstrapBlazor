@@ -33,7 +33,7 @@ public partial class Layout : IHandlerException
     /// Gets or sets the template of the toolbar button. Default is null.
     /// </summary>
     [Parameter]
-    public RenderFragment? ToolbarTemplate { get; set; }
+    public RenderFragment<Tab>? ToolbarTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets whether show the full screen button. Default is true.

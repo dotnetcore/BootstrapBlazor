@@ -66,7 +66,7 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                 pb.Add(a => a.ChildContent, "Tab1-Content");
             });
-            pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "test-toolbar-template"));
+            pb.Add(a => a.ToolbarTemplate, tab => builder => builder.AddContent(0, "test-toolbar-template"));
         });
         cut.DoesNotContain("test-toolbar-template");
 
@@ -765,10 +765,10 @@ public class TabTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
-            pb.Add(a => a.ButtonTemplate, new RenderFragment(builder =>
+            pb.Add(a => a.ButtonTemplate, tab => builder =>
             {
                 builder.AddContent(0, new MarkupString("<div>test-button</div>"));
-            }));
+            });
         });
         cut.Contains("<div>test-button</div>");
     }
@@ -1034,8 +1034,8 @@ public class TabTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Tab>(pb =>
             {
-                pb.Add(a => a.BeforeNavigatorTemplate, builder => builder.AddContent(0, "before-navigator-template"));
-                pb.Add(a => a.AfterNavigatorTemplate, builder => builder.AddContent(0, "after-navigator-template"));
+                pb.Add(a => a.BeforeNavigatorTemplate, tab => builder => builder.AddContent(0, "before-navigator-template"));
+                pb.Add(a => a.AfterNavigatorTemplate, tab => builder => builder.AddContent(0, "after-navigator-template"));
                 pb.AddChildContent<TabItem>(pb =>
                 {
                     pb.Add(a => a.ShowFullScreen, true);

@@ -228,27 +228,27 @@ public partial class Tab : IHandlerException
     /// 获得/设置 按钮模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? ButtonTemplate { get; set; }
+    public RenderFragment<Tab>? ButtonTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the template of the toolbar button. Default is null.
     /// </summary>
     [Parameter]
-    public RenderFragment? ToolbarTemplate { get; set; }
+    public RenderFragment<Tab>? ToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页前置模板 默认 null
     /// <para>在向前移动标签页按钮前</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? BeforeNavigatorTemplate { get; set; }
+    public RenderFragment<Tab>? BeforeNavigatorTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页后置模板 默认 null
     /// <para>在向后移动标签页按钮前</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? AfterNavigatorTemplate { get; set; }
+    public RenderFragment<Tab>? AfterNavigatorTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 上一个标签图标
@@ -580,7 +580,9 @@ public partial class Tab : IHandlerException
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback), Layout?.Id);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback), LayoutId);
+
+    private string? LayoutId => Layout is { ShowTabInHeader: true } ? Layout.Id : null;
 
     private void RemoveLocationChanged()
     {
@@ -1131,6 +1133,80 @@ public partial class Tab : IHandlerException
             }
         }
     }
+
+    private RenderFragment RenderTabList() => builder =>
+    {
+        if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
+        {
+            if (ClickTabToNavigation)
+            {
+                Navigator.NavigateTo(DefaultUrl);
+            }
+            else
+            {
+                AddTabItem(DefaultUrl);
+            }
+        }
+
+        if (FirstRender)
+        {
+            if (!Items.Any(t => t.IsActive))
+            {
+                Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
+            }
+        }
+
+        if (ShowContextMenu)
+        {
+            builder.OpenComponent<ContextMenuZone>(0);
+            builder.AddAttribute(10, nameof(ContextMenuZone.ChildContent), RenderContextMenuZoneContent());
+            builder.AddComponentReferenceCapture(20, instance => _contextMenuZone = (ContextMenuZone)instance);
+            builder.CloseComponent();
+        }
+        else
+        {
+            builder.AddContent(150, RenderTabItems());
+        }
+
+        if (TabStyle == TabStyle.Default && (IsCard || IsBorderCard))
+        {
+            builder.OpenElement(200, "div");
+            builder.AddAttribute(210, "class", "tabs-item-fix");
+            builder.CloseElement();
+        }
+    };
+
+    private RenderFragment RenderContextMenuZoneContent() => builder =>
+    {
+        builder.AddContent(0, RenderTabItems());
+        builder.AddContent(10, RenderContextMenu);
+    };
+
+    private RenderFragment RenderTabItems() => builder =>
+    {
+        for (var index = 0; index < _items.Count; index++)
+        {
+            var item = _items[index];
+            var sequence = (index + 1) * 100;
+            if (item.HeaderTemplate != null)
+            {
+                builder.OpenElement(sequence, "div");
+                builder.SetKey(item);
+                builder.AddAttribute(sequence + 10, "class", GetItemWrapClassString(item));
+                builder.AddAttribute(sequence + 20, "draggable", DraggableString);
+                builder.AddContent(sequence + 30, item.HeaderTemplate(item));
+                builder.CloseElement();
+            }
+            else if (item.IsDisabled)
+            {
+                builder.AddContent(sequence + 40, RenderDisabledHeaderItem(item));
+            }
+            else
+            {
+                builder.AddContent(sequence + 50, RenderHeaderItem(item));
+            }
+        }
+    };
 
     /// <summary>
     /// <inheritdoc/>
