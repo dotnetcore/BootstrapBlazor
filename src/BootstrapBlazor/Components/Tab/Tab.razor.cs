@@ -481,11 +481,6 @@ public partial class Tab : IHandlerException
         base.OnInitialized();
 
         ErrorLogger?.Register(this);
-
-        if (Layout is { ShowTabInHeader: true })
-        {
-            Layout.RegisterTab(this);
-        }
     }
 
     /// <summary>
@@ -497,6 +492,15 @@ public partial class Tab : IHandlerException
         if (ShowExtendButtons)
         {
             IsBorderCard = true;
+        }
+
+        if (Layout is { ShowTabInHeader: true })
+        {
+            Layout.RegisterTab(this);
+        }
+        else
+        {
+            TabHeader = null;
         }
 
         CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
