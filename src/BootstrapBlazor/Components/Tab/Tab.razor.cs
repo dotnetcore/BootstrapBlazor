@@ -1132,6 +1132,57 @@ public partial class Tab : IHandlerException
         }
     }
 
+    private RenderFragment RenderTabList() => builder =>
+    {
+        if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
+        {
+            if (ClickTabToNavigation)
+            {
+                Navigator.NavigateTo(DefaultUrl);
+            }
+            else
+            {
+                AddTabItem(DefaultUrl);
+            }
+        }
+
+        if (FirstRender)
+        {
+            if (!Items.Any(t => t.IsActive))
+            {
+                Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
+            }
+        }
+
+        foreach (var item in Items)
+        {
+            if (item.HeaderTemplate != null)
+            {
+                builder.OpenElement(0, "div");
+                builder.SetKey(item);
+                builder.AddAttribute(10, "class", GetItemWrapClassString(item));
+                builder.AddAttribute(20, "draggable", DraggableString);
+                builder.AddContent(30, item.HeaderTemplate(item));
+                builder.CloseElement();
+            }
+            else if (item.IsDisabled)
+            {
+                builder.AddContent(40, RenderDisabledHeaderItem(item));
+            }
+            else
+            {
+                builder.AddContent(50, RenderHeaderItem(item));
+            }
+        }
+
+        if (IsCard || IsBorderCard)
+        {
+            builder.OpenElement(100, "div");
+            builder.AddAttribute(110, "class", "tabs-item-fix");
+            builder.CloseElement();
+        }
+    };
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
