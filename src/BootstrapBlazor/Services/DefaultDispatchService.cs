@@ -9,7 +9,7 @@ internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 {
     public void Dispatch(DispatchEntry<TEntry> payload)
     {
-        lock (locker)
+        lock (_locker)
         {
             Cache.ForEach(cb =>
             {
@@ -20,7 +20,7 @@ internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 
     public void Subscribe(Func<DispatchEntry<TEntry>, Task> callback)
     {
-        lock (locker)
+        lock (_locker)
         {
             Cache.Add(callback);
         }
@@ -28,7 +28,7 @@ internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 
     public void UnSubscribe(Func<DispatchEntry<TEntry>, Task> callback)
     {
-        lock (locker)
+        lock (_locker)
         {
             Cache.Remove(callback);
         }
@@ -36,5 +36,9 @@ internal class DefaultDispatchService<TEntry> : IDispatchService<TEntry>
 
     private List<Func<DispatchEntry<TEntry>, Task>> Cache { get; } = new(50);
 
-    private readonly object locker = new();
+#if NET9_0_OR_GREATER
+    private readonly Lock _locker = new();
+#else
+    private readonly object _locker = new();
+#endif
 }
