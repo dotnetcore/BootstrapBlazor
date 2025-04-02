@@ -3,12 +3,13 @@ import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, callback) {
     const el = document.getElementById(id)
+    const headerEl = el.querySelector('.ribbon-header')
     const rt = {
-        element: el, invoke, callback,
+        element: el, headerEl, invoke, callback,
         handlerClick: e => {
-            const isFloat = el.classList.contains('is-float')
+            const isFloat = headerEl.classList.contains('is-float')
             if (isFloat) {
-                const expanded = el.classList.contains('is-expand')
+                const expanded = headerEl.classList.contains('is-expand')
                 if (expanded) {
                     const ribbonBody = e.target.closest('.ribbon-body');
                     if (ribbonBody) {
