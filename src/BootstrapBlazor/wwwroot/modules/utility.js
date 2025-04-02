@@ -822,7 +822,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             if (this._init === false) {
                 this._init = true;
-                cb();
+                cb(this);
             }
             return this;
         },
@@ -832,7 +832,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             }
             if (this._items.length === 0 && cb) {
                 this._init = false;
-                cb();
+                cb(this);
             }
         }
     };
