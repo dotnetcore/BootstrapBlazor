@@ -45,9 +45,7 @@ else
         <div class="@WrapClassString">
             @if (BeforeNavigatorTemplate != null)
             {
-                <CascadingValue Value="this" IsFixed="true">
-                    @BeforeNavigatorTemplate(this)
-                </CascadingValue>
+                @BeforeNavigatorTemplate(this)
             }
             @if (ShowNavigatorButtons)
             {
@@ -65,36 +63,7 @@ else
                         @ChildContent
                     </CascadingValue>
                     <RenderTemplate>
-                        @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
-                        {
-                            if (ClickTabToNavigation)
-                            {
-                                Navigator.NavigateTo(DefaultUrl);
-                            }
-                            else
-                            {
-                                AddTabItem(DefaultUrl);
-                            }
-                        }
-                        @if (FirstRender)
-                        {
-                            if (!Items.Any(t => t.IsActive))
-                            {
-                                Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
-                            }
-                        }
-                        @if (ShowContextMenu)
-                        {
-                            @RenderTabItemListContextMenu
-                        }
-                        else
-                        {
-                            @RenderTabItemList
-                        }
-                        @if (IsCard || IsBorderCard)
-                        {
-                            <div class="tabs-item-fix"></div>
-                        }
+                        @RenderTabList()
                     </RenderTemplate>
                     @if (!IsCard && !IsBorderCard && ShowActiveBar)
                     {
@@ -160,31 +129,27 @@ else
         </div>
     </div>;
 
-    RenderFragment RenderTabItemListContextMenu =>
-    @<div>
-        @RenderTabItemList
-    </div>;
-
-    RenderFragment RenderTabItemList =>
-    @<div>
-        @foreach (var item in Items)
+    RenderFragment RenderContextMenu =>
+    @<ContextMenu>
+        @if (BeforeContextMenuTemplate != null)
         {
-            @if (item.HeaderTemplate != null)
-            {
-                <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-                    @item.HeaderTemplate(item)
-                </div>
-            }
-            else if (item.IsDisabled)
-            {
-                @RenderDisabledHeaderItem(item)
-            }
-            else
-            {
-                @RenderHeaderItem(item)
-            }
+            @BeforeContextMenuTemplate(this)
         }
-    </div>;
+        <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
+        <ContextMenuDivider></ContextMenuDivider>
+        <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+        <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+        <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+        @if (ShowContextMenuFullScreen)
+        {
+            <ContextMenuDivider></ContextMenuDivider>
+            <ContextMenuItem Icon="@ContextMenuFullScreenIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
+        }
+        @if (ContextMenuTemplate != null)
+        {
+            @ContextMenuTemplate(this)
+        }
+    </ContextMenu>;
     
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
