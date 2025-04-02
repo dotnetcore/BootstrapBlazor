@@ -228,27 +228,27 @@ public partial class Tab : IHandlerException
     /// 获得/设置 按钮模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? ButtonTemplate { get; set; }
+    public RenderFragment<Tab>? ButtonTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the template of the toolbar button. Default is null.
     /// </summary>
     [Parameter]
-    public RenderFragment? ToolbarTemplate { get; set; }
+    public RenderFragment<Tab>? ToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页前置模板 默认 null
     /// <para>在向前移动标签页按钮前</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? BeforeNavigatorTemplate { get; set; }
+    public RenderFragment<Tab>? BeforeNavigatorTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页后置模板 默认 null
     /// <para>在向后移动标签页按钮前</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? AfterNavigatorTemplate { get; set; }
+    public RenderFragment<Tab>? AfterNavigatorTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 上一个标签图标
