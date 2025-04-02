@@ -65,7 +65,7 @@ else
                     <RenderTemplate>
                         @RenderTabList()
                     </RenderTemplate>
-                    @if (!IsCard && !IsBorderCard && ShowActiveBar)
+                    @if (!IsCard && !IsBorderCard && ShowActiveBar && TabStyle == TabStyle.Default)
                     {
                         <div class="tabs-active-bar"></div>
                     }
