@@ -1157,9 +1157,8 @@ public partial class Tab : IHandlerException
         if (ShowContextMenu)
         {
             builder.OpenComponent<ContextMenuZone>(0);
-            builder.AddComponentReferenceCapture(10, instance => _contextMenuZone = (ContextMenuZone)instance);
-            builder.AddContent(20, RenderTabItems());
-            builder.AddContent(30, RenderContextMenu);
+            builder.AddAttribute(10, nameof(ContextMenuZone.ChildContent), RenderContextMenuZoneContent());
+            builder.AddComponentReferenceCapture(20, instance => _contextMenuZone = (ContextMenuZone)instance);
             builder.CloseComponent();
         }
         else
@@ -1173,6 +1172,12 @@ public partial class Tab : IHandlerException
             builder.AddAttribute(210, "class", "tabs-item-fix");
             builder.CloseElement();
         }
+    };
+
+    private RenderFragment RenderContextMenuZoneContent() => builder =>
+    {
+        builder.AddContent(0, RenderTabItems());
+        builder.AddContent(10, RenderContextMenu);
     };
 
     private RenderFragment RenderTabItems() => builder =>
