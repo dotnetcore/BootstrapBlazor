@@ -83,22 +83,13 @@ else
                                 Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
                             }
                         }
-                        @foreach (var item in Items)
+                        @if (ShowContextMenu)
                         {
-                            @if (item.HeaderTemplate != null)
-                            {
-                                <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-                                    @item.HeaderTemplate(item)
-                                </div>
-                            }
-                            else if (item.IsDisabled)
-                            {
-                                @RenderDisabledHeaderItem(item)
-                            }
-                            else
-                            {
-                                @RenderHeaderItem(item)
-                            }
+                            @RenderTabItemListContextMenu
+                        }
+                        else
+                        {
+                            @RenderTabItemList
                         }
                         @if (IsCard || IsBorderCard)
                         {
@@ -167,6 +158,32 @@ else
                 @AfterNavigatorTemplate(this)
             }
         </div>
+    </div>;
+
+    RenderFragment RenderTabItemListContextMenu =>
+    @<div>
+        @RenderTabItemList
+    </div>;
+
+    RenderFragment RenderTabItemList =>
+    @<div>
+        @foreach (var item in Items)
+        {
+            @if (item.HeaderTemplate != null)
+            {
+                <div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
+                    @item.HeaderTemplate(item)
+                </div>
+            }
+            else if (item.IsDisabled)
+            {
+                @RenderDisabledHeaderItem(item)
+            }
+            else
+            {
+                @RenderHeaderItem(item)
+            }
+        }
     </div>;
     
     RenderFragment<TabItem> RenderTabItem => item =>
