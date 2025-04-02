@@ -17,9 +17,7 @@ public partial class RibbonTabHeader
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public IEnumerable<RibbonTabItem>? Items { get; set; }
 
     /// <summary>
