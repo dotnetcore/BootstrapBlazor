@@ -71,9 +71,7 @@ else
         <div class="@WrapClassString">
             @if (BeforeNavigatorTemplate != null)
             {
-                <CascadingValue Value="this" IsFixed="true">
-                    @BeforeNavigatorTemplate(this)
-                </CascadingValue>
+                @BeforeNavigatorTemplate(this)
             }
             @if (ShowNavigatorButtons)
             {
