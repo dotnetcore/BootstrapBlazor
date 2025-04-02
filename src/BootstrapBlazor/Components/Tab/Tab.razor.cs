@@ -580,7 +580,9 @@ public partial class Tab : IHandlerException
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback), Layout?.Id);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback), LayoutId);
+
+    private string? LayoutId => Layout is { ShowTabInHeader: true } ? Layout.Id : null;
 
     private void RemoveLocationChanged()
     {
