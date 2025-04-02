@@ -128,6 +128,28 @@ else
             }
         </div>
     </div>;
+
+    RenderFragment RenderContextMenu =>
+    @<ContextMenu>
+        @if (BeforeContextMenuTemplate != null)
+        {
+            @BeforeContextMenuTemplate(this)
+        }
+        <ContextMenuItem Icon="@ContextMenuRefreshIcon" Text="@Localizer["ContextRefresh"]" OnClick="OnRefresh"></ContextMenuItem>
+        <ContextMenuDivider></ContextMenuDivider>
+        <ContextMenuItem Icon="@ContextMenuCloseIcon" Text="@Localizer["ContextClose"]" OnClick="OnClose"></ContextMenuItem>
+        <ContextMenuItem Icon="@ContextMenuCloseOtherIcon" Text="@Localizer["ContextCloseOther"]" OnClick="OnCloseOther"></ContextMenuItem>
+        <ContextMenuItem Icon="@ContextMenuCloseAllIcon" Text="@Localizer["ContextCloseAll"]" OnClick="OnCloseAll"></ContextMenuItem>
+        @if (ShowContextMenuFullScreen)
+        {
+            <ContextMenuDivider></ContextMenuDivider>
+            <ContextMenuItem Icon="@ContextMenuFullScreenIcon" Text="@Localizer["ContextFullScreen"]" OnClick="OnFullScreen"></ContextMenuItem>
+        }
+        @if (ContextMenuTemplate != null)
+        {
+            @ContextMenuTemplate(this)
+        }
+    </ContextMenu>;
     
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">

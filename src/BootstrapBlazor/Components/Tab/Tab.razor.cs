@@ -1154,32 +1154,50 @@ public partial class Tab : IHandlerException
             }
         }
 
-        foreach (var item in Items)
+        if (ShowContextMenu)
         {
-            if (item.HeaderTemplate != null)
-            {
-                builder.OpenElement(0, "div");
-                builder.SetKey(item);
-                builder.AddAttribute(10, "class", GetItemWrapClassString(item));
-                builder.AddAttribute(20, "draggable", DraggableString);
-                builder.AddContent(30, item.HeaderTemplate(item));
-                builder.CloseElement();
-            }
-            else if (item.IsDisabled)
-            {
-                builder.AddContent(40, RenderDisabledHeaderItem(item));
-            }
-            else
-            {
-                builder.AddContent(50, RenderHeaderItem(item));
-            }
+            builder.OpenComponent<ContextMenuZone>(0);
+            builder.AddComponentReferenceCapture(10, instance => _contextMenuZone = (ContextMenuZone)instance);
+            builder.AddContent(20, RenderTabItems());
+            builder.AddContent(30, RenderContextMenu);
+            builder.CloseComponent();
+        }
+        else
+        {
+            builder.AddContent(150, RenderTabItems());
         }
 
         if (TabStyle == TabStyle.Default && (IsCard || IsBorderCard))
         {
-            builder.OpenElement(100, "div");
-            builder.AddAttribute(110, "class", "tabs-item-fix");
+            builder.OpenElement(200, "div");
+            builder.AddAttribute(210, "class", "tabs-item-fix");
             builder.CloseElement();
+        }
+    };
+
+    private RenderFragment RenderTabItems() => builder =>
+    {
+        for (var index = 0; index < _items.Count; index++)
+        {
+            var item = _items[index];
+            var sequence = (index + 1) * 100;
+            if (item.HeaderTemplate != null)
+            {
+                builder.OpenElement(sequence, "div");
+                builder.SetKey(item);
+                builder.AddAttribute(sequence + 10, "class", GetItemWrapClassString(item));
+                builder.AddAttribute(sequence + 20, "draggable", DraggableString);
+                builder.AddContent(sequence + 30, item.HeaderTemplate(item));
+                builder.CloseElement();
+            }
+            else if (item.IsDisabled)
+            {
+                builder.AddContent(sequence + 40, RenderDisabledHeaderItem(item));
+            }
+            else
+            {
+                builder.AddContent(sequence + 50, RenderHeaderItem(item));
+            }
         }
     };
 
