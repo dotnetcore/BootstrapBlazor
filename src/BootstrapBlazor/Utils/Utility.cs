@@ -671,7 +671,7 @@ public static class Utility
     /// <param name="fieldType"></param>
     /// <param name="componentType">组件类型</param>
     /// <returns></returns>
-    private static bool IsCheckboxList(Type fieldType, Type? componentType = null)
+    public static bool IsCheckboxList(Type fieldType, Type? componentType = null)
     {
         var ret = false;
         if (componentType != null)
