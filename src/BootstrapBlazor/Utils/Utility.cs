@@ -574,12 +574,12 @@ public static class Utility
         return ret;
     }
 
-    private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => source.Select(d => new SelectedItem(d.Value, d.Text)
+    private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => [.. source.Select(d => new SelectedItem(d.Value, d.Text)
     {
         Active = d.Active,
         IsDisabled = d.IsDisabled,
         GroupName = d.GroupName
-    }).ToList();
+    })];
 
     private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
