@@ -192,8 +192,12 @@ public partial class Drawer
             await OnClickBackdrop();
         }
         _render = false;
+        var animation = await InvokeAsync<bool>("execute", Id, false);
+        if (animation)
+        {
+            await Task.Delay(300);
+        }
         await Close();
-        await InvokeVoidAsync("execute", Id, false);
         _render = true;
     }
 
