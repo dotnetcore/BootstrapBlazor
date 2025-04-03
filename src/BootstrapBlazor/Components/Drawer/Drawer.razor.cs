@@ -171,22 +171,30 @@ public partial class Drawer
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
+    private RenderFragment RenderBackdrop() => builder =>
+    {
+        builder.OpenElement(0, "div");
+        builder.AddAttribute(10, "class", "drawer-backdrop modal-backdrop fade");
+        if (IsBackdrop)
+        {
+            builder.AddAttribute(20, "onclick", EventCallback.Factory.Create(this, OnContainerClick));
+        }
+        builder.CloseElement();
+    };
+
     /// <summary>
     /// 点击背景遮罩方法
     /// </summary>
     public async Task OnContainerClick()
     {
-        if (IsBackdrop)
+        if (OnClickBackdrop != null)
         {
-            if (OnClickBackdrop != null)
-            {
-                await OnClickBackdrop();
-            }
-            _render = false;
-            await Close();
-            await InvokeVoidAsync("execute", Id, false);
-            _render = true;
+            await OnClickBackdrop();
         }
+        _render = false;
+        await Close();
+        await InvokeVoidAsync("execute", Id, false);
+        _render = true;
     }
 
     /// <summary>
