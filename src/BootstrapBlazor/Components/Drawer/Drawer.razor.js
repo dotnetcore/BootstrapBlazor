@@ -155,6 +155,7 @@ export function execute(id, open) {
             el.classList.remove('show');
         }
     }
+    return animationFrame;
 }
 
 export function dispose(id) {
