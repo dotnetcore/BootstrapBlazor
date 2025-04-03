@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Drawer 组件基类
+/// Drawer component
 /// </summary>
 public partial class Drawer
 {
@@ -142,6 +142,14 @@ public partial class Drawer
 
     private string? BodyScrollString => BodyScroll ? "true" : null;
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -174,7 +182,10 @@ public partial class Drawer
             {
                 await OnClickBackdrop();
             }
+            _render = false;
             await Close();
+            await InvokeVoidAsync("execute", Id, false);
+            _render = true;
         }
     }
 
