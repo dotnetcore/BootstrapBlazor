@@ -89,6 +89,8 @@ export function execute(id, open) {
     const dw = Data.get(id)
     const { el, body } = dw
     const drawerBody = el.querySelector('.drawer-body')
+    const drawerBackdrop = el.querySelector('.drawer-backdrop')
+    const animationFrame = getComputedStyle(drawerBody).getPropertyValue('transition') !== 'none';
 
     let start = void 0
     const show = ts => {
@@ -100,9 +102,16 @@ export function execute(id, open) {
             requestAnimationFrame(show);
         }
         else {
-            drawerBody.classList.add('show');
-            el.focus();
+            showDrawer();
         }
+    }
+    
+    const showDrawer = () => {
+        drawerBody.classList.add('show');
+        if (drawerBackdrop) {
+            drawerBackdrop.classList.add('show');
+        }
+        el.focus();
     }
 
     const hide = ts => {
@@ -114,8 +123,7 @@ export function execute(id, open) {
             requestAnimationFrame(hide);
         }
         else {
-            el.classList.remove('show')
-            body.classList.remove('drawer-overflow-hidden')
+            el.classList.remove('show');
         }
     }
 
@@ -126,12 +134,28 @@ export function execute(id, open) {
         if (scroll === false) {
             body.classList.add('drawer-overflow-hidden');
         }
-        requestAnimationFrame(show)
+
+        if (animationFrame) {
+            requestAnimationFrame(show)
+        }
+        else {
+            showDrawer();
+        }
     }
     else if (el.classList.contains('show')) {
-        drawerBody.classList.remove('show')
-        requestAnimationFrame(hide)
+        drawerBody.classList.remove('show');
+        if (drawerBackdrop) {
+            drawerBackdrop.classList.remove('show');
+        }
+        body.classList.remove('drawer-overflow-hidden');
+        if (animationFrame) {
+            requestAnimationFrame(hide)
+        }
+        else {
+            el.classList.remove('show');
+        }
     }
+    return animationFrame;
 }
 
 export function dispose(id) {

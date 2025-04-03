@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Drawer 组件基类
+/// Drawer component
 /// </summary>
 public partial class Drawer
 {
@@ -142,6 +142,14 @@ public partial class Drawer
 
     private string? BodyScrollString => BodyScroll ? "true" : null;
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -163,19 +171,29 @@ public partial class Drawer
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
+    private RenderFragment RenderBackdrop() => builder =>
+    {
+        builder.OpenElement(0, "div");
+        builder.AddAttribute(10, "class", "drawer-backdrop modal-backdrop fade");
+        if (IsBackdrop)
+        {
+            builder.AddAttribute(20, "onclick", EventCallback.Factory.Create(this, OnContainerClick));
+        }
+        builder.CloseElement();
+    };
+
     /// <summary>
     /// 点击背景遮罩方法
     /// </summary>
     public async Task OnContainerClick()
     {
-        if (IsBackdrop)
+        if (OnClickBackdrop != null)
         {
-            if (OnClickBackdrop != null)
-            {
-                await OnClickBackdrop();
-            }
-            await Close();
+            await OnClickBackdrop();
         }
+        _render = false;
+        await Close();
+        _render = true;
     }
 
     /// <summary>
@@ -186,6 +204,11 @@ public partial class Drawer
     public async Task Close()
     {
         IsOpen = false;
+        var animation = await InvokeAsync<bool>("execute", Id, false);
+        if (animation)
+        {
+            await Task.Delay(300);
+        }
         if (OnCloseAsync != null)
         {
             await OnCloseAsync();

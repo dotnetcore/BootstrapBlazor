@@ -900,7 +900,14 @@ public partial class Table<TItem>
         };
         AppendOptions(editOption, changedType);
 
-        var option = new DrawerOption() { Class = "drawer-table-edit", Placement = Placement.Right, AllowResize = true, IsBackdrop = true, Width = "600px" };
+        var option = new DrawerOption()
+        {
+            Class = "drawer-table-edit",
+            Placement = Placement.Right,
+            AllowResize = true,
+            IsBackdrop = true,
+            Width = "600px"
+        };
         if (OnBeforeShowDrawer != null)
         {
             await OnBeforeShowDrawer(option);

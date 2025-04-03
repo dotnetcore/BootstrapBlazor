@@ -1,4 +1,4 @@
-.drawer {
+﻿.drawer {
     --bb-drawer-bg: var(--bs-body-bg);
     --bb-drawer-zindex: #{$bb-drawer-zindex};
     --bb-drawer-body-shadow: #{$bb-drawer-body-shadow};
@@ -6,7 +6,6 @@
     --bb-drawer-bar-bg: #{$bb-drawer-bar-bg};
     --bb-drawer-bar-hover-color: #{$bb-drawer-bar-hover-color};
     --bb-drawer-bar-drag-color: #{$bb-drawer-bar-drag-color};
-    --bb-drawer-backdrop-bg: #{$bb-drawer-backdrop-bg};
     --bb-drawer-position: fixed;
     position: var(--bb-drawer-position);
     top: 0;
@@ -42,23 +41,13 @@
         pointer-events: none;
     }
 
-    .drawer-backdrop {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 1;
-        background-color: var(--bb-drawer-backdrop-bg);
-    }
-
     .drawer-body {
         position: absolute;
         box-sizing: border-box;
         background-color: var(--bb-drawer-bg);
         box-shadow: var(--bb-drawer-body-shadow);
         transition: transform .3s linear;
-        z-index: 2;
+        z-index: 1052;
         pointer-events: auto;
         display: flex;
         padding: var(--bb-drawer-body-padding);
@@ -115,7 +104,7 @@
         .drawer-bar {
             background-color: var(--bb-drawer-bar-bg);
             position: absolute;
-            z-index: 5;
+            z-index: 1055;
 
             .drawer-bar-body {
                 position: absolute;
@@ -187,4 +176,10 @@
 
 .drawer-overflow-hidden {
     overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .drawer .drawer-body {
+        transition: none;
+    }
 }
