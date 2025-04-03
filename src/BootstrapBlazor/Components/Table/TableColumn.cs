@@ -112,13 +112,19 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 Textarea 行数 默认为 0
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public int Rows { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为默认排序规则 默认为 SortOrder.Unset
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public int Cols { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public SortOrder DefaultSortOrder { get; set; }

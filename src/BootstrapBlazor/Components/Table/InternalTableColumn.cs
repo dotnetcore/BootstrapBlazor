@@ -186,6 +186,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public int Cols { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     [NotNull]
     public string? Text { get; set; } = fieldText;
 

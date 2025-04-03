@@ -67,6 +67,11 @@ public interface IEditorItem : ILookup
     int Rows { get; set; }
 
     /// <summary>
+    /// Gets or sets the field expand columns. Default is 0.
+    /// </summary>
+    int Cols { get; set; }
+
+    /// <summary>
     /// Gets or sets the edit template.
     /// </summary>
     RenderFragment<object>? EditTemplate { get; set; }
