@@ -5019,6 +5019,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
                     builder.AddAttribute(33, "LookupService", new FooLookupService());
+                    builder.AddAttribute(34, "Cols", 6);
                     builder.CloseComponent();
                 });
             });
@@ -5040,6 +5041,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.NotNull(column.Instance.Step);
         Assert.NotNull(column.Instance.Template);
         Assert.Equal(1, column.Instance.Rows);
+        Assert.Equal(6, column.Instance.Cols);
         Assert.NotNull(column.Instance.EditTemplate);
         Assert.NotNull(column.Instance.SearchTemplate);
         Assert.NotNull(column.Instance.FilterTemplate);

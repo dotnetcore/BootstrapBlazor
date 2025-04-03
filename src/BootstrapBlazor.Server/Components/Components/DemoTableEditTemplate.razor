@@ -4,36 +4,18 @@
 
 <div class="row form-inline g-3">
     <div class="col-12 col-sm-6">
-        <BootstrapInput @bind-Value="Model.Name" />
+        <BootstrapInput @bind-Value="Model.Name"></BootstrapInput>
     </div>
     <div class="col-12 col-sm-6">
-        <MultiSelect @bind-Value="@Model.Hobby" Items="Hobbies" />
+        <MultiSelect @bind-Value="@Model.Hobby" Items="Hobbies"></MultiSelect>
     </div>
     <div class="col-12">
-        <Textarea @bind-Value="Model.Address" rows="3"/>
+        <Textarea @bind-Value="Model.Address" rows="3"></Textarea>
     </div>
     <div class="col-12 col-sm-6">
-        <Select @bind-Value="Model.Education" />
+        <Select @bind-Value="Model.Education"></Select>
     </div>
     <div class="col-12 col-sm-6">
-        <Display Value="@EducationDesc" ShowLabel="true" DisplayText="@Localizer["TablesEditTemplateDisplayLabel"]" />
+        <Display Value="@EducationDesc" ShowLabel="true" DisplayText="@Localizer["TablesEditTemplateDisplayLabel"]"></Display>
     </div>
 </div>
-
-@code {
-    [Parameter]
-    [NotNull]
-    public Foo? Model { get; set; }
-
-    private IEnumerable<SelectedItem>? Hobbies { get; set; }
-
-    private string? EducationDesc => Model.Education == EnumEducation.Primary ? Localizer["TablesEditTemplateDisplayDetail1"] : Localizer["TablesEditTemplateDisplayDetail2"];
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
-    }
-}

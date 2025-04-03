@@ -243,6 +243,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Address);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Rows), 3);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Cols), 0);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ValidateRules), new List<IValidator>
                     {
                         new FormItemValidator(new RequiredAttribute())

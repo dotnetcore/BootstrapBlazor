@@ -574,12 +574,12 @@ public static class Utility
         return ret;
     }
 
-    private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => source.Select(d => new SelectedItem(d.Value, d.Text)
+    private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => [.. source.Select(d => new SelectedItem(d.Value, d.Text)
     {
         Active = d.Active,
         IsDisabled = d.IsDisabled,
         GroupName = d.GroupName
-    }).ToList();
+    })];
 
     private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
@@ -671,7 +671,7 @@ public static class Utility
     /// <param name="fieldType"></param>
     /// <param name="componentType">组件类型</param>
     /// <returns></returns>
-    private static bool IsCheckboxList(Type fieldType, Type? componentType = null)
+    public static bool IsCheckboxList(Type fieldType, Type? componentType = null)
     {
         var ret = false;
         if (componentType != null)

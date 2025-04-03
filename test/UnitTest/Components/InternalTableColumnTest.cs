@@ -60,6 +60,7 @@ public class InternalTableColumnTest
         SetValue("Readonly", true);
         SetValue("Step", "1");
         SetValue("Rows", 1);
+        SetValue("Cols", 6);
         SetValue("ComponentType", typeof(string));
         SetValue("Order", 1);
         SetValue("Lookup", new SelectedItem[] { new("test", "Test") });

@@ -103,6 +103,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    public int Cols { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
     public RenderFragment<TModel>? EditTemplate { get; set; }
 
     RenderFragment<object>? IEditorItem.EditTemplate

@@ -53,6 +53,7 @@ public static class IEditItemExtensions
         if (source.LookupService != null) dest.LookupService = source.LookupService;
         if (source.Readonly.HasValue) dest.Readonly = source.Readonly;
         if (source.Rows > 0) dest.Rows = source.Rows;
+        if (source.Cols > 0) dest.Cols = source.Cols;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
         if (source.ValidateRules != null) dest.ValidateRules = source.ValidateRules;
