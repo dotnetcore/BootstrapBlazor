@@ -27,19 +27,15 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <returns></returns>
     private string? GetCssString(IEditorItem item)
     {
-        int cols = 0;
+        int cols = Math.Max(0, Math.Min(12, item.Cols));
         double mdCols = 6;
-        if (item is AutoGenerateColumnAttribute a && a.Cols > 0 && a.Cols < 13)
-        {
-            cols = a.Cols;
-        }
         if (ItemsPerRow.HasValue)
         {
-            mdCols = Math.Min(12, Math.Ceiling(12d / ItemsPerRow.Value));
+            mdCols = Math.Max(0, Math.Min(12, Math.Ceiling(12d / ItemsPerRow.Value)));
         }
         return CssBuilder.Default("col-12")
             .AddClass($"col-sm-{cols}", cols > 0) // 指定 Cols
-            .AddClass($"col-sm-6 col-md-{mdCols}", mdCols < 12 && cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
+            .AddClass($"col-sm-6 col-md-{mdCols}", mdCols > 0 && cols == 0 && item.Rows == 0 && !Utility.IsCheckboxList(item.PropertyType, item.ComponentType)) // 指定 ItemsPerRow
             .Build();
     }
 
