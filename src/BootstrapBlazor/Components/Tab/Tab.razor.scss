@@ -582,6 +582,10 @@
 .tabs-chrome > .tabs-header {
     padding: var(--bb-tabs-header-padding);
 
+    .nav-link-bar-button:hover {
+        z-index: 2;
+    }
+
     .tabs-nav-scroll {
         margin-inline-start: -1rem;
     }
