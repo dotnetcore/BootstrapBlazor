@@ -633,6 +633,12 @@
             }
         }
 
+        &:hover:not(.active) {
+            .tab-corner {
+                display: none;
+            }
+        }
+
         .tabs-item {
             border: none !important;
             border-top-left-radius: 10px;
