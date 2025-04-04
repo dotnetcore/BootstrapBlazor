@@ -638,6 +638,8 @@
         }
 
         &:hover:not(.active) {
+            z-index: 5;
+
             .tab-corner {
                 display: none;
             }
