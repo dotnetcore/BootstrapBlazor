@@ -607,7 +607,7 @@
         }
 
         &:not(:first-child) {
-            margin-left: calc(0px - 2 * var(--bb-tabs-item-wrap-padding-x));
+            margin-inline-start: calc(0px - 2 * var(--bb-tabs-item-wrap-padding-x));
         }
 
         &:not(.active) {
@@ -699,7 +699,7 @@
     }
 
     .tabs-item-wrap {
-        margin-left: calc(var(--bb-tabs-item-wrap-padding-x) / 2);
+        margin-inline-start: calc(var(--bb-tabs-item-wrap-padding-x) / 2);
 
         &.active {
             .tabs-item {
