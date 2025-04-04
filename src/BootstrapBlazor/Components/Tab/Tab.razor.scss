@@ -586,8 +586,10 @@
         z-index: 2;
     }
 
-    .tabs-nav-scroll {
-        margin-inline-start: -1rem;
+    .of, .extend {
+        .tabs-nav-scroll {
+            margin-inline-start: -1rem;
+        }
     }
 
     .tabs-item-wrap {
@@ -698,8 +700,10 @@
 }
 
 .tabs-capsule > .tabs-header {
-    .tabs-nav-scroll {
-        margin-inline-start: -0.5rem;
+    .of, .extend {
+        .tabs-nav-scroll {
+            margin-inline-start: -0.5rem;
+        }
     }
 
     .tabs-item-wrap {
