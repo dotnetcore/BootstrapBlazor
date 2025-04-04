@@ -506,10 +506,6 @@
     --bb-tabs-item-text-padding: 0 .5rem;
     background-color: var(--bb-tabs-header-bg-color);
 
-    .tabs-nav-scroll {
-        margin-left: -1rem;
-    }
-
     .tabs-item-wrap {
         &:not(.active) {
             .tabs-item:not(.disabled) .tabs-item-body {
@@ -585,6 +581,10 @@
 
 .tabs-chrome > .tabs-header {
     padding: var(--bb-tabs-header-padding);
+
+    .tabs-nav-scroll {
+        margin-inline-start: -1rem;
+    }
 
     .tabs-item-wrap {
         overflow: hidden;
@@ -694,6 +694,10 @@
 }
 
 .tabs-capsule > .tabs-header {
+    .tabs-nav-scroll {
+        margin-inline-start: -0.5rem;
+    }
+
     .tabs-item-wrap {
         margin-left: calc(var(--bb-tabs-item-wrap-padding-x) / 2);
 
