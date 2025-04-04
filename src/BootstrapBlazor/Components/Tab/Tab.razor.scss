@@ -506,6 +506,10 @@
     --bb-tabs-item-text-padding: 0 .5rem;
     background-color: var(--bb-tabs-header-bg-color);
 
+    .tabs-nav-scroll {
+        margin-left: -1rem;
+    }
+
     .tabs-item-wrap {
         &:not(.active) {
             .tabs-item:not(.disabled) .tabs-item-body {
