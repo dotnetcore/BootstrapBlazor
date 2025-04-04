@@ -168,13 +168,21 @@ pre code.hljs {
     --bb-tabs-item-close-button-height: 16px;
 }
 
-.tabs-chrome > .tabs-header,
-.tabs-capsule > .tabs-header {
-    --bb-tabs-item-body-padding: 2px 8px;
-    --bb-tabs-header-height: 26px;
-}
-
 .tabs-chrome {
     --bb-tabs-item-wrap-padding-x: 0.5rem;
     --bb-tabs-item-body-margin-bottom: 2px;
 }
+
+    .tabs-chrome > .tabs-header,
+    .tabs-capsule > .tabs-header {
+        --bb-tabs-item-body-padding: 2px 8px;
+        --bb-tabs-chrome-item-height: 26px;
+    }
+
+        .tabs-chrome > .tabs-header .nav-link-bar .nav-link-bar-button, .tabs-capsule > .tabs-header .nav-link-bar .nav-link-bar-button {
+            padding: 0 .5rem;
+        }
+
+        .tabs-chrome > .tabs-header .of .tabs-nav-scroll, .tabs-chrome > .tabs-header .extend .tabs-nav-scroll {
+            margin-inline-start: -0.75rem;
+        }
