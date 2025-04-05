@@ -18,6 +18,7 @@
         <div>@((MarkupString)Localizer["TabsTips3"].Value)</div>
     </p>
     <p>@Localizer["TabsTips4"]</p>
+    <div>@((MarkupString)Localizer["ShowTabInHeaderDesc"].Value)</div>
 </Tips>
 
 <p class="code-label">@Localizer["TabsInfoTitle"]</p>
@@ -71,8 +72,6 @@ private void Navigation()
     NavigationManager.NavigateTo(ServiceProvider, url: "url", text: "text", icon: "icon", closable: true);
 }
 </Pre>
-
-<div><code>Layout</code> 组件中开启多标签功能后，可以通过设置 <code>ShowTabInHeader="true"</code> 将 <code>Tab</code> 标签头渲染到 <code>Layout</code> Header 模板中，效果可以通过 <a href="template" target="_blank">项目模板</a> 新建工程查看</div>
 
 <DemoBlock Title="@Localizer["TabsNormalTitle"]" Introduction="@Localizer["TabsNormalIntro"]" Name="Normal">
     <Tab>

@@ -2154,7 +2154,8 @@
     "AttributeContextMenuCloseOtherIcon": "the icon of tab item context menu close other button",
     "AttributeContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
     "AttributeContextMenuFullScreenIcon": "the icon of tab item context menu full screen button",
-    "AttributeOnBeforeShowContextMenu": "before popup context menu callback"
+    "AttributeOnBeforeShowContextMenu": "before popup context menu callback",
+    "ShowTabInHeaderDesc": "After enabling the multi-tab function in the <code>Layout</code> component, you can render the <code>Tab</code> tag header into the <code>Layout</code> Header template by setting <code>ShowTabInHeader=\"true\"</code>. The effect can be viewed by creating a new project in the <a href=\"template\" target=\"_blank\">Project Template</a>"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
