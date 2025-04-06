@@ -1104,6 +1104,33 @@ public class TabTest : BootstrapBlazorTestBase
         cut.DoesNotContain("tabs-nav-toolbar-fs");
     }
 
+    [Fact]
+    public void TabHeader_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTabHeader>();
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, false);
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.ShowFullScreen, true);
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
+            });
+        });
+        var header = cut.FindComponent<MockTabHeader>();
+        var tab = cut.FindComponent<Tab>();
+        var headerElement = cut.Find(".tabs-header");
+        Assert.NotNull(headerElement);
+
+        tab.Instance.SetTabHeader(header.Instance);
+        tab.SetParametersAndRender();
+        tab.DoesNotContain("tabs-header");
+    }
+
     class DisableTabItemButton : ComponentBase
     {
         [CascadingParameter, NotNull]
@@ -1121,5 +1148,16 @@ public class TabTest : BootstrapBlazorTestBase
             TabItem.SetDisabled(true);
             return Task.CompletedTask;
         }
+    }
+
+    class MockTabHeader : ComponentBase, ITabHeader
+    {
+        public string GetId() => "MockTabHeader";
+
+        private RenderFragment? _renderFragment;
+
+        public void Render(RenderFragment renderFragment) => _renderFragment = renderFragment;
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder) => builder.AddContent(0, _renderFragment);
     }
 }

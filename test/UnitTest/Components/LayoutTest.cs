@@ -97,10 +97,12 @@ public class LayoutTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
+            pb.Add(a => a.Id, "LayoutId");
             pb.Add(a => a.UseTabSet, true);
             pb.Add(a => a.ShowTabInHeader, true);
             pb.Add(a => a.Header, CreateHeader());
         });
+        cut.Contains("data-bb-header-id=\"LayoutId__tab_header\"");
         cut.Contains("tabs tabs-chrome");
     }
 
