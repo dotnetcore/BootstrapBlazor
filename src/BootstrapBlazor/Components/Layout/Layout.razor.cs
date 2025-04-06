@@ -457,7 +457,6 @@ public partial class Layout : IHandlerException, ITabHeader
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
     private bool _init;
-    private Tab? _tab = null;
     private LayoutHeader? _layoutHeader = null;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
