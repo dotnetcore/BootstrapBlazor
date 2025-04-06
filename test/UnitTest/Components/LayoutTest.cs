@@ -93,15 +93,30 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowTabInHeader_Ok()
+    public async Task ShowTabInHeader_Ok()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
+            pb.Add(a => a.Id, "LayoutId");
             pb.Add(a => a.UseTabSet, true);
-            pb.Add(a => a.ShowTabInHeader, true);
+            pb.Add(a => a.ShowTabInHeader, false);
             pb.Add(a => a.Header, CreateHeader());
         });
+        await cut.InvokeAsync(() => cut.Instance.Render(bulder => bulder.AddContent(0, "")));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowTabInHeader, true);
+        });
+        cut.Contains("data-bb-header-id=\"LayoutId_tab_header\"");
         cut.Contains("tabs tabs-chrome");
+        await cut.InvokeAsync(() => cut.Instance.Render(bulder => bulder.AddContent(0, "")));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowTabInHeader, false);
+        });
+        await cut.InvokeAsync(() => cut.Instance.Render(bulder => bulder.AddContent(0, "")));
     }
 
     [Fact]

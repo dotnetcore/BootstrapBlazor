@@ -171,7 +171,7 @@ const disposeDragItems = items => {
     })
 }
 
-export function init(id, invoke, method, layoutId) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -180,9 +180,10 @@ export function init(id, invoke, method, layoutId) {
     const tab = { el, invoke, method }
     Data.set(id, tab)
 
-    if (layoutId) {
-        const layout = document.getElementById(layoutId)
-        tab.header = layout.querySelector('.layout-header .tabs > .tabs-header');
+    const headerId = el.getAttribute("data-bb-header-id");
+    if (headerId) {
+        const header = document.getElementById(headerId)
+        tab.header = header.querySelector('.tabs > .tabs-header');
     }
     else {
         tab.header = el.firstChild

@@ -81,7 +81,7 @@
         }
         @if (ShowTabInHeader)
         {
-            <div class="tabs tabs-chrome">
+            <div class="tabs tabs-chrome" id="@GetId()">
                 @RenderTabHeader()
             </div>
         }
@@ -131,7 +131,7 @@
     </main>;
 
     RenderFragment RenderTab =>
-    @<Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies" @ref="_tab"
+    @<Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
           ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
           DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
           TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
@@ -143,7 +143,7 @@
           ShowRefreshToolbarButton="ShowRefreshToolbarButton" ShowFullscreenToolbarButton="ShowFullscreenToolbarButton"
           RefreshToolbarButtonIcon="@RefreshToolbarButtonIcon" FullscreenToolbarButtonIcon="@FullscreenToolbarButtonIcon"
           RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
-          OnToolbarRefreshCallback="OnToolbarRefreshCallback" Layout="this"
+          OnToolbarRefreshCallback="OnToolbarRefreshCallback" TabHeader="TabHeader"
           Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText">
     </Tab>;
 

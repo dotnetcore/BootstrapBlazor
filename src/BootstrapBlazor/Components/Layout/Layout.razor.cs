@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Layout 组件
 /// </summary>
-public partial class Layout : IHandlerException
+public partial class Layout : IHandlerException, ITabHeader
 {
     private bool IsSmallScreen { get; set; }
 
@@ -457,8 +457,9 @@ public partial class Layout : IHandlerException
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
     private bool _init;
-    private Tab? _tab = null;
-    private ITabHeader? _tabHeader = null;
+    private LayoutHeader? _layoutHeader = null;
+
+    private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -637,14 +638,25 @@ public partial class Layout : IHandlerException
     private RenderFragment RenderTabHeader() => builder =>
     {
         builder.OpenComponent<LayoutHeader>(0);
-        builder.AddComponentReferenceCapture(1, instance => _tabHeader = (ITabHeader)instance);
+        builder.AddComponentReferenceCapture(1, instance => _layoutHeader = (LayoutHeader)instance);
         builder.CloseComponent();
     };
 
-    internal void RegisterTab(Tab tab)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="renderFragment"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Render(RenderFragment renderFragment)
     {
-        tab.TabHeader = _tabHeader;
+        _layoutHeader?.Render(renderFragment);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public string GetId() => $"{Id}_tab_header";
 
     /// <summary>
     /// <inheritdoc/>
