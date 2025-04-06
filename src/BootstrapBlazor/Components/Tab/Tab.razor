@@ -8,7 +8,7 @@
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
+    <div @attributes="@AdditionalAttributes" id="@Id" data-bb-header-id="@HeaderId" class="@ClassString" style="@StyleString">
         @if (TabHeader != null)
         {
             TabHeader.Render(RenderTabHeader);

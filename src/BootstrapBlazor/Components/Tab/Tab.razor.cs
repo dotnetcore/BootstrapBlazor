@@ -423,10 +423,10 @@ public partial class Tab : IHandlerException
     /// Gets or sets the <see cref="ITabHeader"/> instance. Default is null.
     /// </summary>
     [Parameter]
-    public Layout? Layout { get; set; }
+    public ITabHeader? TabHeader { get; set; }
 
     [CascadingParameter]
-    private Layout? CascadeLayout { get; set; }
+    private Layout? Layout { get; set; }
 
     [Inject]
     [NotNull]
@@ -471,8 +471,6 @@ public partial class Tab : IHandlerException
 
     private bool IsPreventDefault => _contextMenuZone != null;
 
-    internal ITabHeader? TabHeader { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -492,15 +490,6 @@ public partial class Tab : IHandlerException
         if (ShowExtendButtons)
         {
             IsBorderCard = true;
-        }
-
-        if (Layout is { ShowTabInHeader: true })
-        {
-            Layout.RegisterTab(this);
-        }
-        else
-        {
-            TabHeader = null;
         }
 
         CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
@@ -584,9 +573,7 @@ public partial class Tab : IHandlerException
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback), LayoutId);
-
-    private string? LayoutId => Layout is { ShowTabInHeader: true } ? Layout.Id : null;
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback));
 
     private void RemoveLocationChanged()
     {
@@ -798,8 +785,6 @@ public partial class Tab : IHandlerException
         StateHasChanged();
     }
 
-    private Layout? LayoutInstance => Layout ?? CascadeLayout;
-
     private void AddTabItem(string url)
     {
         var parameters = new Dictionary<string, object?>
@@ -837,7 +822,7 @@ public partial class Tab : IHandlerException
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
                 builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
-                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), LayoutInstance?.Resource);
+                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
                 builder.CloseComponent();
             }));
         }
@@ -1019,7 +1004,7 @@ public partial class Tab : IHandlerException
     private IEnumerable<MenuItem>? _menuItems;
     private MenuItem? GetMenuItem(string url)
     {
-        _menuItems ??= (Menus ?? LayoutInstance?.Menus).GetAllItems();
+        _menuItems ??= (Menus ?? Layout?.Menus).GetAllItems();
         return _menuItems?.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && (i.Url.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase)));
     }
 
@@ -1188,29 +1173,35 @@ public partial class Tab : IHandlerException
 
     private RenderFragment RenderTabItems() => builder =>
     {
-        for (var index = 0; index < _items.Count; index++)
+        foreach (var item in Items)
         {
-            var item = _items[index];
-            var sequence = (index + 1) * 100;
             if (item.HeaderTemplate != null)
             {
-                builder.OpenElement(sequence, "div");
+                builder.OpenElement(0, "div");
                 builder.SetKey(item);
-                builder.AddAttribute(sequence + 10, "class", GetItemWrapClassString(item));
-                builder.AddAttribute(sequence + 20, "draggable", DraggableString);
-                builder.AddContent(sequence + 30, item.HeaderTemplate(item));
+                builder.AddAttribute(10, "class", GetItemWrapClassString(item));
+                builder.AddAttribute(20, "draggable", DraggableString);
+                builder.AddContent(30, item.HeaderTemplate(item));
                 builder.CloseElement();
             }
             else if (item.IsDisabled)
             {
-                builder.AddContent(sequence + 40, RenderDisabledHeaderItem(item));
+                builder.AddContent(40, RenderDisabledHeaderItem(item));
             }
             else
             {
-                builder.AddContent(sequence + 50, RenderHeaderItem(item));
+                builder.AddContent(50, RenderHeaderItem(item));
             }
         }
     };
+
+    /// <summary>
+    /// Sets the <see cref="ITabHeader"/> instance.
+    /// </summary>
+    /// <param name="tabHeader"></param>
+    public void SetTabHeader(ITabHeader tabHeader) => TabHeader = tabHeader;
+
+    private string? HeaderId => TabHeader?.GetId();
 
     /// <summary>
     /// <inheritdoc/>

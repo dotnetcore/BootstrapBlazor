@@ -15,4 +15,10 @@ public interface ITabHeader
     /// </summary>
     /// <param name="renderFragment"></param>
     void Render(RenderFragment renderFragment);
+
+    /// <summary>
+    /// Get the id of the tab header
+    /// </summary>
+    /// <returns></returns>
+    string GetId();
 }
