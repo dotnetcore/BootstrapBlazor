@@ -51,7 +51,7 @@ export function dispose(id) {
 const updateWatermark = (records, watermark) => {
     for (const record of records) {
         for (const dom of record.removedNodes) {
-            if (dom.classList.contains('bb-watermark-bg')) {
+            if (dom.classList && dom.classList.contains('bb-watermark-bg')) {
                 createWatermark(watermark);
                 return;
             }
