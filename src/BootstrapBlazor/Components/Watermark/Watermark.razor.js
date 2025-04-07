@@ -90,7 +90,7 @@ const createWatermark = watermark => {
     div.style.opacity = '1';
     div.style.position = 'absolute';
     div.style.inset = '0';
-    div.style.zIndex = '999';
+    div.style.zIndex = '9999';
     div.classList.add("bb-watermark-bg");
 
     const mark = el.querySelector('.bb-watermark-bg');
@@ -138,7 +138,7 @@ const monitor = watermark => {
         clearWatermark(watermark);
         return;
     }
-    if (zIndex !== '999') {
+    if (zIndex !== '9999') {
         clearWatermark(watermark);
         return;
     }
