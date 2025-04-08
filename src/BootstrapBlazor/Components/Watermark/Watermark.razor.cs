@@ -72,6 +72,11 @@ public partial class Watermark
         base.OnParametersSet();
 
         Text ??= "BootstrapBlazor";
+
+        if(IsPage && ChildContent is not null)
+        {
+            throw new InvalidOperationException($"{nameof(IsPage)} is true, {nameof(ChildContent)} cannot be set.");
+        }
     }
 
     /// <summary>
