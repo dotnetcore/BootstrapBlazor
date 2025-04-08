@@ -801,7 +801,7 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
             }
             else {
                 const value = obj2[key];
-                if (skipNull && value === null) {
+                if (skipNull && (value === null || value === void 0)) {
                     continue;
                 }
                 obj1[key] = obj2[key];
