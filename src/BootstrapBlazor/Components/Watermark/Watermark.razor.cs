@@ -60,7 +60,7 @@ public partial class Watermark
     public bool IsPage { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-watermark")
-        .AddClass("is-page", ChildContent is null)
+        .AddClass("is-page", IsPage)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
