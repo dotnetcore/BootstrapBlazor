@@ -56,6 +56,9 @@ const active = tab => {
     resize(tab)
 
     const activeTab = tab.tabNav.querySelector('.tabs-item-wrap.active')
+    if (activeTab === null) {
+        return
+    }
     if (activeTab) {
         if (tab.vertical) {
             const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top + activeTab.offsetHeight
@@ -69,7 +72,6 @@ const active = tab => {
             }
         }
         else {
-            // mark sure display total active tabitem
             const right = getPosition(activeTab).left - getPosition(activeTab.parentNode).left + activeTab.offsetWidth
             const navWidth = tab.scroll.offsetWidth
             const marginX = navWidth - right + 2
