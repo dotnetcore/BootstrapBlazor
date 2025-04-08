@@ -22,6 +22,17 @@ public class WatermarkTest : BootstrapBlazorTestBase
         });
         cut.MarkupMatches("<div id:ignore class=\"bb-watermark\"><span>Test</span></div>");
 
-        cut.SetParametersAndRender();
+        var ex = Assert.ThrowsAny<InvalidOperationException>(() => cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPage, true);
+        }));
+        Assert.Equal($"IsPage is true, ChildContent cannot be set.", ex.Message);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPage, true);
+            pb.Add(a => a.ChildContent, (RenderFragment?)null);
+        });
+        cut.MarkupMatches("<div id:ignore class=\"bb-watermark is-page\"></div>");
     }
 }

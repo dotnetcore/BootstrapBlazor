@@ -7,6 +7,9 @@
 
 <DemoBlock Title="@Localizer["WatermarkNormalTitle"]" Introduction="@Localizer["WatermarkNormalIntro"]" Name="Normal">
     <section ignore>
+        @((MarkupString)Localizer["WatermarkDescription"].Value)
+        <Pre>&lt;Layout&gt;&lt;/Layout&gt;
+&lt;Watermark IsPage="true" Text="BootstrapBlazor" FontSize="20" Color="#ddd" Rotate="-45" Gap="40"&gt;&lt;/Watermark&gt;</Pre>
         <div class="row form-inline g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>

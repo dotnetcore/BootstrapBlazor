@@ -71,7 +71,8 @@ const createWatermark = watermark => {
         fontSize: 16,
         text: 'BootstrapBlazor',
         rotate: -40,
-        color: '#0000004d'
+        color: '#0000004d',
+        zIndex: '9999'
     };
 
     for (const key in options) {
@@ -90,31 +91,40 @@ const createWatermark = watermark => {
     div.style.opacity = '1';
     div.style.position = 'absolute';
     div.style.inset = '0';
-    div.style.zIndex = '9999';
     div.classList.add("bb-watermark-bg");
+
+    if (options.zIndex === void 0) {
+        options.zIndex = defaults.zIndex;
+    }
+    div.style.zIndex = options.zIndex;
 
     const mark = el.querySelector('.bb-watermark-bg');
     if (mark) {
         mark.remove();
     }
-    el.appendChild(div);
 
+    if (bg.isPage) {
+        document.body.appendChild(div);
+    }
+    else {
+        el.appendChild(div);
+    }
     options.bg = bg;
     requestAnimationFrame(() => monitor(watermark));
 }
 
 const monitor = watermark => {
-    const { el, options, ob } = watermark;
+    const { el, options } = watermark;
     if (el === null) {
         return;
     }
 
-    if (el.children.length !== 2) {
+    if (options.isPage === false && el.children.length !== 2) {
         clearWatermark(watermark);
         return;
     }
 
-    const mark = el.children[1];
+    const mark = options.isPage ? el.children[0] : el.children[1];
     if (mark.className !== 'bb-watermark-bg') {
         clearWatermark(watermark);
         return;
@@ -138,7 +148,7 @@ const monitor = watermark => {
         clearWatermark(watermark);
         return;
     }
-    if (zIndex !== '9999') {
+    if (zIndex !== options.zIndex) {
         clearWatermark(watermark);
         return;
     }
@@ -198,6 +208,6 @@ const getWatermark = props => {
     return {
         base64: canvas.toDataURL(),
         size: canvasSize,
-        styleSize: canvasSize / devicePixelRatio,
+        styleSize: canvasSize / devicePixelRatio
     };
 }

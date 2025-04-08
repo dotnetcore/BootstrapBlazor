@@ -53,7 +53,14 @@ public partial class Watermark
     [Parameter]
     public int? Gap { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否为整页面水印 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPage { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-watermark")
+        .AddClass("is-page", IsPage)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -65,6 +72,11 @@ public partial class Watermark
         base.OnParametersSet();
 
         Text ??= "BootstrapBlazor";
+
+        if(IsPage && ChildContent is not null)
+        {
+            throw new InvalidOperationException($"{nameof(IsPage)} is true, {nameof(ChildContent)} cannot be set.");
+        }
     }
 
     /// <summary>
@@ -95,6 +107,7 @@ public partial class Watermark
         Color,
         Rotate,
         Gap,
-        ZIndex
+        ZIndex,
+        IsPage
     };
 }
