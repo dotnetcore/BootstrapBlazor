@@ -95,6 +95,7 @@ public partial class Watermark
         Color,
         Rotate,
         Gap,
-        ZIndex
+        ZIndex,
+        IsPage = ChildContent is null
     };
 }
