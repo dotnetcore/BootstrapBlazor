@@ -1,7 +1,7 @@
-.row {
+﻿.row {
     --bb-form-range-margin-top: #{$bb-form-range-margin-top};
 
-    .form-range {
+    > div[class^="col-"] > .form-range {
         margin-block-start: var(--bb-form-range-margin-top);
     }
 }
