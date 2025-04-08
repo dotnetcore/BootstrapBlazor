@@ -1,10 +1,10 @@
 ﻿.bb-watermark {
     position: relative;
-    pointer-events: none;
-}
 
-body > .bb-watermark {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
+    &.is-page {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+    }
 }

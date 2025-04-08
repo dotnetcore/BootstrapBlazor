@@ -54,6 +54,7 @@ public partial class Watermark
     public int? Gap { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-watermark")
+        .AddClass("is-page", ChildContent is null)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
