@@ -53,6 +53,12 @@ public partial class Watermark
     [Parameter]
     public int? Gap { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否为整页面水印 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPage { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-watermark")
         .AddClass("is-page", ChildContent is null)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -97,6 +103,6 @@ public partial class Watermark
         Rotate,
         Gap,
         ZIndex,
-        IsPage = ChildContent is null
+        IsPage
     };
 }
