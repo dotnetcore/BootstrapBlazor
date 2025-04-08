@@ -69,7 +69,6 @@ const active = tab => {
             }
         }
         else {
-            // mark sure display total active tabitem
             const right = getPosition(activeTab).left - getPosition(activeTab.parentNode).left + activeTab.offsetWidth
             const navWidth = tab.scroll.offsetWidth
             const marginX = navWidth - right + 2
