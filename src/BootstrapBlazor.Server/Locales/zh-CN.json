@@ -7017,7 +7017,8 @@
     "WatermarkTitle": "Watermark 水印组件",
     "WatermarkIntro": "在页面上添加文本或图片等水印信息",
     "WatermarkNormalTitle": "基础用法",
-    "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容"
+    "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容",
+    "WatermarkDescription": "<p>全局增加水印实现方法</p><p>可以在模板页 <code>MainLayout</code> 中加水印组件并设置 <code>IsPage=\"true\"</code> 即可</p>"
   },
   "BootstrapBlazor.Server.Data.AttributeItem": {
     "Name": "参数",
