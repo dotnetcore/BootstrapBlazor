@@ -56,6 +56,9 @@ const active = tab => {
     resize(tab)
 
     const activeTab = tab.tabNav.querySelector('.tabs-item-wrap.active')
+    if (activeTab === null) {
+        return
+    }
     if (activeTab) {
         if (tab.vertical) {
             const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top + activeTab.offsetHeight
