@@ -56,7 +56,7 @@
 
 <DemoBlock Title="@Localizer["SidebarTitle"]" Introduction="@Localizer["SidebarIntro"]" Name="Sidebar">
     <section ignore class="mb-3">@((MarkupString)Localizer["SidebarTip"].Value)</section>
-    <DateTimeRange Value="@SidebarDateTimeRangeValue" ShowSidebar="true" />
+    <DateTimeRange Value="@SidebarDateTimeRangeValue" ShowSidebar="true"></DateTimeRange>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TodayTitle"]" Introduction="@Localizer["TodayIntro"]" Name="Today">
@@ -81,7 +81,7 @@
                 <DateTimeRange @bind-Value="@ValidateFormModel.Range" />
             </div>
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["Submit"]" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["Submit"]"></Button>
             </div>
         </div>
     </ValidateForm>
