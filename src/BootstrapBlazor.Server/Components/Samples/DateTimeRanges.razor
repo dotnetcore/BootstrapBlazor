@@ -13,9 +13,33 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
+    <section ignore>
+        <GroupBox Title="@Localizer["Feature"]">
+            <div class="row g-3 form-inline text-end">
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["FeatureShowLunar"]" ShowLabel="true" @bind-Value="_showLunar" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["FeatureShowSolarTerm"]" ShowLabel="true" @bind-Value="_showSolarTerm" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["FeatureShowFestivals"]" ShowLabel="true" @bind-Value="_showFestivals" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["FeatureShowHolidays"]" ShowLabel="true" @bind-Value="_showHolidays" />
+                </div>
+            </div>
+        </GroupBox>
+        <div class="mt-3">
+            <Pre>builder.Services.AddBootstrapHolidayService();</Pre>
+        </div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimeRange @bind-Value="@BindValueDemoDateTimeRangeValue" OnValueChanged="v => BindValueDemoOnValueChanged(v, 1)" ShowLunar="_showLunar" ShowSolarTerm="_showSolarTerm" ShowFestivals="_showFestivals" ShowHolidays="_showHolidays"></DateTimeRange>
+            <DateTimeRange @bind-Value="@BindValueDemoDateTimeRangeValue" OnValueChanged="v => BindValueDemoOnValueChanged(v, 1)"
+                           ShowLunar="_showLunar" ShowSolarTerm="_showSolarTerm"
+                           ShowFestivals="_showFestivals" ShowHolidays="_showHolidays"
+                           ShowSelectedValue="true"></DateTimeRange>
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
@@ -56,7 +80,7 @@
 
 <DemoBlock Title="@Localizer["SidebarTitle"]" Introduction="@Localizer["SidebarIntro"]" Name="Sidebar">
     <section ignore class="mb-3">@((MarkupString)Localizer["SidebarTip"].Value)</section>
-    <DateTimeRange Value="@SidebarDateTimeRangeValue" ShowSidebar="true" />
+    <DateTimeRange Value="@SidebarDateTimeRangeValue" ShowSidebar="true"></DateTimeRange>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TodayTitle"]" Introduction="@Localizer["TodayIntro"]" Name="Today">
@@ -81,7 +105,7 @@
                 <DateTimeRange @bind-Value="@ValidateFormModel.Range" />
             </div>
             <div class="col-12">
-                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["Submit"]" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["Submit"]"></Button>
             </div>
         </div>
     </ValidateForm>

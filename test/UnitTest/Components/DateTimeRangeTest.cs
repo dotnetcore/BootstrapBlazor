@@ -78,13 +78,27 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task RangeValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>();
+        var val = DateTime.Today;
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.ShowSelectedValue, true);
+            pb.Add(a => a.OnDateClick, d =>
+            {
+                val = d;
+                return Task.CompletedTask;
+            });
+        });
         var cells = cut.FindAll(".date-table tbody span");
         var end = cells.First(i => i.TextContent == "7");
         await cut.InvokeAsync(() =>
         {
             end.Click();
         });
+        Assert.Equal(7, val.Day);
+        var inputs = cut.FindAll(".datetime-range-input");
+        var input = inputs[0];
+        var start = val;
+        Assert.Equal(start.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
 
         cells = cut.FindAll(".date-table tbody span");
         var first = cells.First(i => i.TextContent == "1");
@@ -92,6 +106,12 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             first.Click();
         });
+        inputs = cut.FindAll(".datetime-range-input");
+        input = inputs[0];
+        Assert.Equal(val.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
+
+        input = inputs[1];
+        Assert.Equal(start.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
 
         // confirm
         var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
