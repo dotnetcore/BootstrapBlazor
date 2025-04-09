@@ -4007,7 +4007,12 @@
     "Submit": "Submit",
     "Limit": "time limit",
     "ViewModeTitle": "ViewMode",
-    "ViewModeIntro": "By setting <code>ViewMode=\"DatePickerViewMode.Year\"</code>, the component view is the year view, and by setting <code>ViewMode=\"DatePickerViewMode.Month\"</code>, the component view is the year view."
+    "ViewModeIntro": "By setting <code>ViewMode=\"DatePickerViewMode.Year\"</code>, the component view is the year view, and by setting <code>ViewMode=\"DatePickerViewMode.Month\"</code>, the component view is the year view.",
+    "Feature": "Feature",
+    "FeatureShowLunar": "Lunar",
+    "FeatureShowSolarTerm": "Solar Term",
+    "FeatureShowFestivals": "Festivals",
+    "FeatureShowHolidays": "Holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "Basic usage",

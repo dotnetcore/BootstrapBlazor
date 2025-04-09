@@ -4007,7 +4007,12 @@
     "Submit": "提交",
     "Limit": "时间范围",
     "ViewModeTitle": "显示模式",
-    "ViewModeIntro": "通过设置 <code>ViewMode=\"DatePickerViewMode.Year\"</code> 使组件视图为年视图，设置 <code>ViewMode=\"DatePickerViewMode.Month\"</code> 使组件视图为年视图"
+    "ViewModeIntro": "通过设置 <code>ViewMode=\"DatePickerViewMode.Year\"</code> 使组件视图为年视图，设置 <code>ViewMode=\"DatePickerViewMode.Month\"</code> 使组件视图为年视图",
+    "Feature": "功能体验区",
+    "FeatureShowLunar": "显示农历",
+    "FeatureShowSolarTerm": "24 节气",
+    "FeatureShowFestivals": "节日",
+    "FeatureShowHolidays": "法定假日"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "基础用法",
