@@ -3987,7 +3987,7 @@
     "NormalTitle": "Basic skills",
     "NormalIntro": "Take 'day' as the basic unit, select a period of time",
     "BindValueTitle": "Data two-way binding",
-    "BindValueIntro": "Click the confirm button, the time selection box value is the same as the text box value",
+    "BindValueIntro": "Click the confirm button, the time selection box value is the same as the text box value. Enable auto-close by setting <code>AutoClose=\"true\"</code>. Directly display the selected value by setting <code>ShowSelectedValue=\"true\"</code>",
     "MaxMinValueTitle": "Max and Min",
     "MaxMinValueIntro": "set time range",
     "DisabledTitle": "Disabled",
