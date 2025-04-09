@@ -100,6 +100,8 @@ public sealed partial class DateTimeRanges
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         ValidateFormModel = new ValidateFormRangeFoo()
         {
             DateTime = DateTime.Now,
@@ -148,6 +150,12 @@ public sealed partial class DateTimeRanges
             Name = "OnValueChanged",
             Description="ValueChanged callback delegate",
             Type ="Func<DateTimeRangeValue,Task>"
+        },
+        new()
+        {
+            Name = "OnDateClick",
+            Description="Date cell click event callback",
+            Type ="Func<DateTime,Task>"
         }
     ];
 
