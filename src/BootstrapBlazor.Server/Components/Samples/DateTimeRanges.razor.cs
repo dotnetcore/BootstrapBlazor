@@ -183,6 +183,14 @@ public sealed partial class DateTimeRanges
         },
         new()
         {
+            Name = nameof(DateTimeRange.ShowSelectedValue),
+            Description = "Whether to show the selected value",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowToday",
             Description = "Whether to show today shortcut button",
             Type = "bool",
