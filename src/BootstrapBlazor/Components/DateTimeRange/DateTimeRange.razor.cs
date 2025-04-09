@@ -102,6 +102,12 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
+    /// Gets or sets whether to automatically close the popup after a date range is selected. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool AutoClose { get; set; }
+
+    /// <summary>
     /// Gets or sets whether show the selected value. Default is false.
     /// </summary>
     [Parameter]
@@ -509,7 +515,15 @@ public partial class DateTimeRange
         {
             await OnDateClick(d);
         }
-        StateHasChanged();
+
+        if (AutoClose && SelectedValue.Start != DateTime.MinValue && SelectedValue.End != DateTime.MinValue)
+        {
+            await ClickConfirmButton();
+        }
+        else
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>

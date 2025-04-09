@@ -3987,7 +3987,7 @@
     "NormalTitle": "基本功能",
     "NormalIntro": "以「日」为基本单位，选择一段时间",
     "BindValueTitle": "数据双向绑定",
-    "BindValueIntro": "点击确认按钮时间选择框值与文本框值一致",
+    "BindValueIntro": "点击确认按钮时间选择框值与文本框值一致，通过设置 <code>AutoClose=\"true\"</code> 实现自动关闭功能，通过设置 <code>ShowSelectedValue=\"true\"</code> 直接显示选中值",
     "MaxMinValueTitle": "最大值和最小值",
     "MaxMinValueIntro": "设置时间的取值范围",
     "DisabledTitle": "禁用",
