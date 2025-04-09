@@ -102,7 +102,7 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to auto close the popup when the user selected range value. Default is false.
+    /// Gets or sets whether to automatically close the popup after a date range is selected. Default is false.
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
