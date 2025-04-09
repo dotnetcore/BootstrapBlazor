@@ -79,8 +79,15 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public async Task RangeValue_Ok()
     {
         var val = DateTime.Today;
+        var confirmValue = new DateTimeRangeValue();
         var cut = Context.RenderComponent<DateTimeRange>(pb =>
         {
+            pb.Add(a => a.OnConfirm, v =>
+            {
+                confirmValue = v;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.AutoClose, true);
             pb.Add(a => a.ShowSelectedValue, true);
             pb.Add(a => a.OnDateClick, d =>
             {
@@ -113,12 +120,9 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         input = inputs[1];
         Assert.Equal(start.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
 
-        // confirm
-        var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
-        await cut.InvokeAsync(() =>
-        {
-            confirm.Click();
-        });
+        // 由于设置了 AutoClose 属性所以这里不需要点击确定按钮
+        Assert.Equal(val, confirmValue.Start);
+        Assert.Equal(start, confirmValue.End.Date);
 
         var value = cut.Instance.Value;
         var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(-1);
