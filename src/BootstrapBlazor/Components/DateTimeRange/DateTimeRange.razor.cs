@@ -5,7 +5,6 @@
 
 using Microsoft.Extensions.Localization;
 using System.Globalization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -252,6 +251,12 @@ public partial class DateTimeRange
     [Parameter]
     public bool ShowHolidays { get; set; }
 
+    /// <summary>
+    /// Gets or sets the date value changed event callback.
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnDateClick { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
@@ -449,7 +454,7 @@ public partial class DateTimeRange
     /// 更新值方法
     /// </summary>
     /// <param name="d"></param>
-    private void UpdateValue(DateTime d)
+    private async Task UpdateValue(DateTime d)
     {
         if (SelectedValue.Start == DateTime.MinValue)
         {
@@ -486,6 +491,11 @@ public partial class DateTimeRange
             {
                 EndValue = SelectedValue.End;
             }
+        }
+
+        if (OnDateClick != null)
+        {
+            await OnDateClick(d);
         }
         StateHasChanged();
     }
