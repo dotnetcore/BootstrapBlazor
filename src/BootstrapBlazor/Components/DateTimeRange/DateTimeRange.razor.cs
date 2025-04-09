@@ -477,7 +477,7 @@ public partial class DateTimeRange
             SelectedValue.End = DateTime.MinValue;
         }
 
-        if (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month)
+        if (ViewMode is DatePickerViewMode.Year or DatePickerViewMode.Month)
         {
             if (SelectedValue.Start != DateTime.MinValue)
             {
