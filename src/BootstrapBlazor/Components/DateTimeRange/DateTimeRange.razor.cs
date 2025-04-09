@@ -102,6 +102,12 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
+    /// Gets or sets whether show the selected value. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ShowSelectedValue { get; set; }
+
+    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -491,6 +497,12 @@ public partial class DateTimeRange
             {
                 EndValue = SelectedValue.End;
             }
+        }
+
+        if (ShowSelectedValue)
+        {
+            Value.Start = SelectedValue.Start;
+            Value.End = SelectedValue.End;
         }
 
         if (OnDateClick != null)
