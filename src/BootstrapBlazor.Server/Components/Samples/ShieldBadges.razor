@@ -1,0 +1,13 @@
+﻿@page "/shield-badge"
+@inject IStringLocalizer<ShieldBadges> Localizer
+
+<h3>@Localizer["ShieldBadgeTitle"]</h3>
+<h4>@Localizer["ShieldBadgeIntro"]</h4>
+
+<DemoBlock Title="@Localizer["ShieldBadgeNormalTitle"]"
+           Introduction="@Localizer["ShieldBadgeNormalIntro"]"
+           Name="Normal">
+    <ShieldBadge Icon="fa-solid fa-flag" Label="download" Text="12M"></ShieldBadge>
+</DemoBlock>
+
+
