@@ -1,4 +1,4 @@
-@import "bootstrapblazor-dark.scss";
+﻿@import "bootstrapblazor-dark.scss";
 
 @import "root.scss";
 @import "../../Components/Affix/Affix.razor.scss";
@@ -8,6 +8,7 @@
 @import "../../Components/AutoFill/AutoFill.razor.scss";
 @import "../../Components/Avatar/Avatar.razor.scss";
 @import "../../Components/Badge/Badge.razor.scss";
+@import "../../Components/Badge/ShieldBadge.razor.scss";
 @import "../../Components/Button/Button.razor.scss";
 @import "../../Components/Button/DialButton.razor.scss";
 @import "../../Components/Button/PopConfirmButtonContent.razor.scss";
