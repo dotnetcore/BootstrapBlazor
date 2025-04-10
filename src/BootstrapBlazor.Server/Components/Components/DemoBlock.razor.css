@@ -45,6 +45,7 @@
 
     .card-footer-code ::deep .pre-code {
         margin: .5rem;
+        width: calc(100% - 1rem);
     }
 
 .card-footer-control {

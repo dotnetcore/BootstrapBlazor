@@ -1,0 +1,35 @@
+﻿.shield-badge {
+    --bb-shield-badge-icon-color: #fff;
+    --bb-shield-badge-label-color: #fff;
+    --bb-shield-badge-label-bg: #5e5e5e;
+    --bb-shield-badge-text-color: #fff;
+    --bb-shield-badge-text-bg: #0f81c2;
+    --bb-shield-badge-radius: 3px;
+    --bb-shield-badge-font-size: 12px;
+    --bb-shield-badge-padding: 1px 6px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    font-size: var(--bb-shield-badge-font-size);
+
+    .shield-badge-label {
+        background-color: var(--bb-shield-badge-label-bg);
+        color: var(--bb-shield-badge-label-color);
+        padding: var(--bb-shield-badge-padding);
+        border-top-left-radius: var(--bb-shield-badge-radius);
+        border-bottom-left-radius: var(--bb-shield-badge-radius);
+
+        .shield-badge-icon {
+            color: var(--bb-shield-badge-icon-color);
+            margin-inline-end: 4px;
+            font-size: 95%;
+        }
+    }
+
+    .shield-badge-text {
+        background-color: var(--bb-shield-badge-text-bg);
+        color: var(--bb-shield-badge-text-color);
+        padding: var(--bb-shield-badge-padding);
+        border-top-right-radius: var(--bb-shield-badge-radius);
+        border-bottom-right-radius: var(--bb-shield-badge-radius);
+    }
+}

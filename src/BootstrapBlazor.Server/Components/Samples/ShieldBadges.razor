@@ -1,0 +1,74 @@
+﻿@page "/shield-badge"
+@inject IStringLocalizer<ShieldBadges> Localizer
+
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["SubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["ShieldBadgeNormalTitle"]"
+           Introduction="@Localizer["ShieldBadgeNormalIntro"]"
+           Name="Normal">
+    <section ignore>
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Icon" Width="106"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_icon"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IconColor" Width="106"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_iconColor"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Label" Width="106"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_label"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="LabelColor" Width="106"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_labelColor"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="LabelBgColor" Width="106"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_labelBackgroundColor"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Text" Width="106"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_text"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="TextColor" Width="106"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_textColor"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="TextBgColor" Width="106"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_textBackgroundColor"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-4">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Radius" Width="106"></BootstrapInputGroupLabel>
+                    <Slider @bind-Value="@_radius" Min="0" Max="10" Step="1"></Slider>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <ShieldBadge Icon="@_icon" IconColor="@_iconColor"
+                 Label="download" LabelColor="@_labelColor" LabelBackgroundColor="@_labelBackgroundColor"
+                 Text="12M" TextColor="@_textColor" TextBackgroundColor="@_textBackgroundColor"
+                 Radius="@_radius"></ShieldBadge>
+</DemoBlock>

@@ -3666,6 +3666,12 @@
     "IsPill": "Capsule style",
     "ButtonSpan": "The primary button"
   },
+  "BootstrapBlazor.Server.Components.Samples.ShieldBadges": {
+    "Title": "ShieldBadge",
+    "SubTitle": "Badge component with icon label text like Shields Badge",
+    "ShieldBadgeNormalTitle": "Basic usage",
+    "ShieldBadgeNormalIntro": "Use <code>Icon</code> to set the icon, <code>Label</code> to set the left text, and <code>Text</code> to set the right text"
+  },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Title": "BarcodeReader",
     "SubTitle": "This component scans the bar code by calling the camera to obtain the bar code content bar code/QR code",
@@ -4909,7 +4915,8 @@
     "OctIcon": "Oct Icons",
     "UniverIcon": "Univer Icons",
     "Typed": "Typed",
-    "UniverSheet": "UniverSheet"
+    "UniverSheet": "UniverSheet",
+    "ShieldBadge": "ShieldBadge"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
