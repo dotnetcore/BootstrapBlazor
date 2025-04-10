@@ -3666,6 +3666,12 @@
     "IsPill": "胶囊样式",
     "ButtonSpan": "主要按钮"
   },
+  "BootstrapBlazor.Server.Components.Samples.ShieldBadges": {
+    "Title": "ShieldBadge 徽章组件",
+    "SubTitle": "带图标标签文本的徽章组件高仿 Shields Badge",
+    "ShieldBadgeNormalTitle": "基础用法",
+    "ShieldBadgeNormalIntro": "通过 <code>Icon</code> 设置图标，通过 <code>Label</code> 设置左侧文本，通过 <code>Text</code> 设置右侧文本"
+  },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Title": "BarcodeReader 条码扫描",
     "SubTitle": "本组件通过调用摄像头对条码进行扫描，获取到条码内容条码/QR码",

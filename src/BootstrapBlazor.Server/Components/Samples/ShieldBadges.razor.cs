@@ -10,5 +10,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class ShieldBadges
 {
+    private string? _icon = "fa-brands fa-github";
+    private string? _iconColor;
 
+    private string? _label = "download";
+    private string? _labelColor;
+    private string? _labelBackgroundColor;
+
+    private string? _text = "12M";
+    private string? _textColor;
+    private string? _textBackgroundColor;
+
+    private int _radius = 3;
 }
