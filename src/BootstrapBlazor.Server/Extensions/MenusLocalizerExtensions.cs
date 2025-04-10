@@ -526,6 +526,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ShieldBadge"],
+                    Url = "shield-badge"
+                },
+                new()
+                {
                     Text = Localizer["BarcodeReader"],
                     Url = "barcode-reader"
                 },
