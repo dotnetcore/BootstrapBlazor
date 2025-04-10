@@ -156,6 +156,8 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private ItemsProviderResult<SelectedItem> _result;
 
+    private string _defaultVirtualizedItemText = "";
+
     private SelectedItem? SelectedItem { get; set; }
 
     private SelectedItem? SelectedRow
@@ -175,7 +177,7 @@ public partial class Select<TValue> : ISelect, ILookup
             return null;
         }
 
-        var item = IsVirtualize ? GetItemByVirtulized() : GetItemByRows();
+        var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)
@@ -193,7 +195,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
 
-    private SelectedItem GetItemByVirtulized() => new(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+    private SelectedItem GetItemByVirtualized() => new(CurrentValueAsString, _defaultVirtualizedItemText);
 
     private SelectedItem? GetItemByRows()
     {
@@ -202,6 +204,16 @@ public partial class Select<TValue> : ISelect, ILookup
             ?? Rows.Find(i => i.Active)
             ?? Rows.FirstOrDefault(i => !i.IsDisabled);
         return item;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _defaultVirtualizedItemText = DefaultVirtualizeItemText ?? CurrentValueAsString;
     }
 
     /// <summary>
@@ -363,6 +375,7 @@ public partial class Select<TValue> : ISelect, ILookup
         }
         if (ret)
         {
+            _defaultVirtualizedItemText = item.Text;
             await SelectedItemChanged(item);
         }
     }
