@@ -761,7 +761,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DefaultVirtualizeItemText_Ok()
+    public void DefaultVirtualizeItemText_Null()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
@@ -776,12 +776,33 @@ public class SelectTest : BootstrapBlazorTestBase
 
         var input = cut.Find(".form-select");
         Assert.Contains("value=\"3\"", input.OuterHtml);
+    }
 
-        cut.SetParametersAndRender(pb =>
+    [Fact]
+    public async Task DefaultVirtualizeItemText_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
         {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "3");
+            pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.DefaultVirtualizeItemText, "Test3");
         });
+
+        var input = cut.Find(".form-select");
         Assert.Contains("value=\"Test3\"", input.OuterHtml);
+
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, items.Count);
+
+        var item = items[1];
+        await cut.InvokeAsync(() => item.Click());
+        input = cut.Find(".form-select");
+        Assert.Contains("value=\"Test2\"", input.OuterHtml);
     }
 
     [Fact]
