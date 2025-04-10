@@ -1,0 +1,21 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
+    <div class="shield-badge-label">
+        @if (!string.IsNullOrEmpty(Icon))
+        {
+            <i class="@IconString"></i>
+        }
+        @if (!string.IsNullOrEmpty(Label))
+        {
+            <span>@Label</span>
+        }
+    </div>
+    <div class="shield-badge-text">
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
+    </div>
+</div>
