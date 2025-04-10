@@ -4909,7 +4909,8 @@
     "OctIcon": "Oct Icons",
     "UniverIcon": "Univer Icons",
     "Typed": "打字机效果 Typed",
-    "UniverSheet": "表格组件 UniverSheet"
+    "UniverSheet": "表格组件 UniverSheet",
+    "ShieldBadge": "徽章组件 ShieldBadge"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
