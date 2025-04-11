@@ -1158,11 +1158,10 @@ public partial class Table<TItem>
         var option = new ToastOption()
         {
             Title = title,
-            Delay = Options.CurrentValue.ToastDelay
         };
-        if (option.Delay == 0)
+        if (Options.CurrentValue.ToastDelay > 0)
         {
-            option.Delay = Math.Max(1000, ToastDelay);
+            option.Delay = Options.CurrentValue.ToastDelay;
         }
         return option;
     }
