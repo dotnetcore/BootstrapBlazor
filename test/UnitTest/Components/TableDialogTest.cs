@@ -6,6 +6,7 @@
 using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace UnitTest.Components;
@@ -15,12 +16,15 @@ public class TableDialogTest : TableDialogTestBase
     [Fact]
     public async Task EditAsync_Ok()
     {
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.ToastDelay = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.ToastDelay, 4000);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.EditDialogIsDraggable, true);
