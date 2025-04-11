@@ -303,13 +303,6 @@ public partial class Table<TItem>
     public string? SaveButtonToastResultContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the toast delay in milliseconds. Default is 4000ms.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public int ToastDelay { get; set; } = 4000;
-
-    /// <summary>
     /// 获得/设置 保存成功文字
     /// </summary>
     [Parameter]
