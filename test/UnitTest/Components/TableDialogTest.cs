@@ -24,7 +24,6 @@ public class TableDialogTest : TableDialogTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.ToastDelay, 4000);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.EditDialogIsDraggable, true);
