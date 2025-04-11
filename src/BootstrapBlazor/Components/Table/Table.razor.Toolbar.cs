@@ -1153,11 +1153,19 @@ public partial class Table<TItem>
         }
     }
 
-    private ToastOption GetToastOption(string title) => new()
+    private ToastOption GetToastOption(string title)
     {
-        Title = title,
-        Delay = Options.CurrentValue.ToastDelay
-    };
+        var option = new ToastOption()
+        {
+            Title = title,
+            Delay = Options.CurrentValue.ToastDelay
+        };
+        if (option.Delay == 0)
+        {
+            option.Delay = Math.Max(1000, ToastDelay);
+        }
+        return option;
+    }
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
