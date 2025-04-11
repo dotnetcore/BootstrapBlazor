@@ -12,9 +12,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
-    /// <summary>
-    /// Gets the component style
-    /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete")
         .Build();
 
