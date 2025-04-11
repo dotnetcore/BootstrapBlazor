@@ -17,7 +17,7 @@ public class SwalService(IOptionsMonitor<BootstrapBlazorOptions> options) : Boot
     /// <param name="swal">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
     public async Task Show(SwalOption option, SweetAlert? swal = null)
     {
-        if (!option.ForceDelay && options.CurrentValue.SwalDelay != 0)
+        if (!option.ForceDelay && options.CurrentValue.SwalDelay > 0)
         {
             option.Delay = options.CurrentValue.SwalDelay;
         }
