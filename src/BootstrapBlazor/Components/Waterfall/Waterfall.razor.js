@@ -1,6 +1,5 @@
 ﻿import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
-import { debounce } from "../../modules/utility.js"
 
 const cal = (el, imgWidth) => {
     const containerWidth = el.offsetWidth;
@@ -56,7 +55,7 @@ export function init(id, invoke, method) {
     EventHandler.on(container, 'click', '.bb-waterfall-item', e => {
         const element = e.delegateTarget;
         const item = getWaterfallItem(element);
-        invokeMethodAsync('OnClickItem', item);
+        invoke.invokeMethodAsync('OnClickItem', item);
     });
     EventHandler.on(window, 'scroll', () => {
         const offsetHeight = (window.innerHeight || document.documentElement.clientHeight) + document.documentElement.scrollTop;
