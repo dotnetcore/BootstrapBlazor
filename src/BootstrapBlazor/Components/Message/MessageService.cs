@@ -22,7 +22,7 @@ public class MessageService(IOptionsMonitor<BootstrapBlazorOptions> option) : Bo
     {
         if (!option.ForceDelay)
         {
-            if (Options.MessageDelay != 0)
+            if (Options.MessageDelay > 0)
             {
                 option.Delay = Options.MessageDelay;
             }
