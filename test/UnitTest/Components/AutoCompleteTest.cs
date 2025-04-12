@@ -3,14 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
-
 namespace UnitTest.Components;
 
 public class AutoCompleteTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Items_Ok()
+    public async Task Items_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>(pb =>
         {
@@ -18,6 +16,8 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsSelectAllTextOnEnter, true);
         });
         Assert.Contains("<div class=\"auto-complete\"", cut.Markup);
+        Assert.Contains("data-bb-trigger-delete=\"true\"", cut.Markup);
+
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
 
@@ -35,6 +35,9 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerDeleteCallback("Test"));
+        Assert.Equal("Test", cut.Instance.Value);
     }
 
     [Fact]
