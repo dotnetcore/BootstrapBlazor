@@ -176,12 +176,23 @@ public partial class AutoComplete
         // client input does not need to be re-rendered to prevent jitter when the network is congested 
         _render = false;
         CurrentValue = val;
+        _render = true;
+        _dropdown.Render();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// TriggerChange method
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public Task DeleteCallback(string val)
+    {
+        CurrentValue = val;
         if (!ValueChanged.HasDelegate)
         {
             StateHasChanged();
         }
-        _render = true;
-        _dropdown.Render();
         return Task.CompletedTask;
     }
 }
