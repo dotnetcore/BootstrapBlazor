@@ -173,6 +173,7 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
+        // client input does not need to be re-rendered to prevent jitter when the network is congested 
         _render = false;
         CurrentValue = val;
         if (!ValueChanged.HasDelegate)
