@@ -157,6 +157,11 @@ const handlerKeyup = (ac, e) => {
         current.classList.add('active');
         scrollIntoView(el, current);
     }
+    else if (key === 'Backspace' || key === 'Delete') {
+        if (input.getAttribute('data-bb-trigger-delete') === 'true') {
+            invoke.invokeMethodAsync('TriggerDeleteCallback', input.value);
+        }
+    }
 }
 
 export function showList(id) {

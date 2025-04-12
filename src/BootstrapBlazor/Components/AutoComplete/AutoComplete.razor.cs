@@ -13,12 +13,6 @@ namespace BootstrapBlazor.Components;
 public partial class AutoComplete
 {
     /// <summary>
-    /// Gets the component style
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("auto-complete")
-        .Build();
-
-    /// <summary>
     /// Gets or sets the collection of matching data obtained by inputting a string
     /// </summary>
     [Parameter]
@@ -179,14 +173,26 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
+        // client input does not need to be re-rendered to prevent jitter when the network is congested 
         _render = false;
+        CurrentValue = val;
+        _render = true;
+        _dropdown.Render();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// TriggerChange method
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public Task TriggerDeleteCallback(string val)
+    {
         CurrentValue = val;
         if (!ValueChanged.HasDelegate)
         {
             StateHasChanged();
         }
-        _render = true;
-        _dropdown.Render();
         return Task.CompletedTask;
     }
 }
