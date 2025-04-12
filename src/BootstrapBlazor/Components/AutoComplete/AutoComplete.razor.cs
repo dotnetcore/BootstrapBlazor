@@ -186,7 +186,7 @@ public partial class AutoComplete
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public Task DeleteCallback(string val)
+    public Task TriggerDeleteCallback(string val)
     {
         CurrentValue = val;
         if (!ValueChanged.HasDelegate)

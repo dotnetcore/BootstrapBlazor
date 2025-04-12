@@ -158,8 +158,8 @@ const handlerKeyup = (ac, e) => {
         scrollIntoView(el, current);
     }
     else if (key === 'Backspace' || key === 'Delete') {
-        if (el.className === 'auto-complete') {
-            invoke.invokeMethodAsync('DeleteCallback', input.value);
+        if (input.getAttribute('data-bb-trigger-delete') === 'true') {
+            invoke.invokeMethodAsync('TriggerDeleteCallback', input.value);
         }
     }
 }
