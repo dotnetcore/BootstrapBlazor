@@ -41,16 +41,18 @@ export function init(id, invoke) {
     if (duration > 0) {
         ac.debounce = true
         EventHandler.on(input, 'keydown', debounce(e => {
-            handlerKeydown(ac, e);
+            handlerKeydown(e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
         EventHandler.on(input, 'keydown', e => {
-            handlerKeydown(ac, e);
+            handlerKeydown(e);
         })
     }
+
+    EventHandler.on(input, 'keyup', e => handlerKeyup(ac, e));
 
     ac.triggerBlur = () => {
         el.classList.remove('show');
@@ -117,7 +119,7 @@ export function init(id, invoke) {
     });
 }
 
-const handlerKeydown = (ac, e) => {
+const handlerKeyup = (ac, e) => {
     const key = e.key;
     const { el, input, invoke, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
@@ -162,6 +164,9 @@ const handlerKeydown = (ac, e) => {
             invoke.invokeMethodAsync('TriggerDeleteCallback', input.value);
         }
     }
+}
+
+const handlerKeydown = e => {
     if (e.key === 'Tab') {
         ac.triggerBlur();
     }
@@ -193,6 +198,7 @@ export function dispose(id) {
         }
         EventHandler.off(input, 'change');
         EventHandler.off(input, 'keydown');
+        EventHandler.off(input, 'keyup');
         EventHandler.off(menu, 'click');
         Input.dispose(input);
 
