@@ -41,14 +41,14 @@ export function init(id, invoke) {
     if (duration > 0) {
         ac.debounce = true
         EventHandler.on(input, 'keydown', debounce(e => {
-            handlerKeydown(e);
+            handlerKeydown(ac, e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
         EventHandler.on(input, 'keydown', e => {
-            handlerKeydown(e);
+            handlerKeydown(ac, e);
         })
     }
 
@@ -166,7 +166,7 @@ const handlerKeyup = (ac, e) => {
     }
 }
 
-const handlerKeydown = e => {
+const handlerKeydown = (ac, e) => {
     if (e.key === 'Tab') {
         ac.triggerBlur();
     }
