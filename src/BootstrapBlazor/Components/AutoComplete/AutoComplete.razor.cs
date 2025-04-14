@@ -4,6 +4,13 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop; // Required for JSInvokable
+using System; // Required for Func
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +19,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
+    // Parameters... (omitted for brevity, same as latest code)
+    #region Parameters
     /// <summary>
     /// Gets or sets the collection of matching data obtained by inputting a string
     /// </summary>
@@ -67,6 +76,7 @@ public partial class AutoComplete
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
+    #endregion
 
     /// <summary>
     /// IStringLocalizer service instance
@@ -83,7 +93,11 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private RenderTemplate? _dropdown = default;
+    private RenderTemplate? _dropdown = default!; // Use ! assertion
+
+    // REMOVED: _currentInputValue field is no longer needed
+
+    // private bool _isFirstRender = true; // Flag for initial value setting - Handled in OnAfterRenderAsync
 
     /// <summary>
     /// <inheritdoc/>
@@ -91,8 +105,7 @@ public partial class AutoComplete
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        SkipRegisterEnterEscJSInvoke = true;
+        SkipRegisterEnterEscJSInvoke = true; // Keep this if base class needs it
     }
 
     /// <summary>
@@ -110,21 +123,52 @@ public partial class AutoComplete
         Items ??= [];
     }
 
-    private bool _render = true;
-
     /// <summary>
-    /// <inheritdoc/>
+    /// OnAfterRenderAsync method
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override bool ShouldRender() => _render;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Ensure JS interop module is loaded (likely handled by base class)
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // _isFirstRender = false; // Not needed
+            await JSSetInputValue(Value); // Set initial value using the backing field
+        }
+        // Handle external parameter changes if necessary
+        // This might require comparing the current Value parameter against a stored previous value
+        // For simplicity, we assume external changes require user interaction or parent component logic
+    }
+
+    // REMOVED: _render flag and ShouldRender override (may not be needed)
 
     /// <summary>
     /// Callback method when a candidate item is clicked
     /// </summary>
     private async Task OnClickItem(string val)
     {
-        CurrentValue = val;
+        // Update C# state first, bypassing CurrentValue setter
+        var previousValue = Value;
+        var valueHasChanged = !EqualityComparer<string>.Default.Equals(val, previousValue);
 
+        if (valueHasChanged)
+        {
+            Value = val; // Update backing field directly
+
+            // Manually trigger notifications/callbacks
+            if (FieldIdentifier != null) ValidateForm?.NotifyFieldChanged(FieldIdentifier.Value, Value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            if (OnValueChanged != null) await OnValueChanged.Invoke(Value);
+            if (IsNeedValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
+
+        // Update the visual input via JS
+        await JSSetInputValue(val);
+
+        // Invoke selection changed callback separately
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
@@ -133,13 +177,34 @@ public partial class AutoComplete
 
     private List<string> Rows => _filterItems ?? [.. Items];
 
+    // REMOVED: UpdateInputValue JSInvokable method
+
     /// <summary>
-    /// TriggerFilter method
+    /// JSInvokable method called by JavaScript after debouncing.
+    /// Receives the debounced value from the input.
+    /// Renamed from TriggerFilter.
     /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public override async Task TriggerFilter(string val)
+    /// <param name="val">The debounced input value.</param>
+    [JSInvokable] // This method is new/renamed, keep JSInvokable
+    public async Task PerformFilteringAndCommitValue(string val)
     {
+        // --- Bypass CurrentValue Setter ---
+        var previousValue = Value;
+        var valueHasChanged = !EqualityComparer<string>.Default.Equals(val, previousValue);
+
+        if (valueHasChanged)
+        {
+            Value = val; // Update backing field directly
+
+            // Manually trigger notifications and callbacks
+            if (FieldIdentifier != null) ValidateForm?.NotifyFieldChanged(FieldIdentifier.Value, Value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            if (OnValueChanged != null) await OnValueChanged.Invoke(Value);
+            if (IsNeedValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
+        // --- End Bypass ---
+
+        // Perform filtering logic (using the new 'val')...
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
@@ -163,36 +228,93 @@ public partial class AutoComplete
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
 
-        await TriggerChange(val);
+        // Update dropdown UI
+        if (_dropdown != null)
+        {
+            StateHasChanged(); // Trigger re-render of dropdown via main component render
+        }
     }
 
+    // REMOVED: TriggerChange method from latest code
+
     /// <summary>
-    /// TriggerChange method
+    /// Handles the Enter key press, potentially committing the current input value.
+    /// Hides base implementation.
     /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public override Task TriggerChange(string val)
+    /// <param name="val">The current value in the input field when Enter was pressed.</param>
+    // Removed [JSInvokable]
+    public new async Task EnterCallback(string val) // Use 'new'
     {
-        // client input does not need to be re-rendered to prevent jitter when the network is congested 
-        _render = false;
-        CurrentValue = val;
-        _render = true;
-        _dropdown.Render();
-        return Task.CompletedTask;
+        // Update C# state first, bypassing setter
+        var previousValue = Value;
+        var valueHasChanged = !EqualityComparer<string>.Default.Equals(val, previousValue);
+
+        if (valueHasChanged)
+        {
+            Value = val; // Update backing field directly
+
+            // Manually trigger notifications/callbacks
+            if (FieldIdentifier != null) ValidateForm?.NotifyFieldChanged(FieldIdentifier.Value, Value);
+            if (ValueChanged.HasDelegate) await ValueChanged.InvokeAsync(Value);
+            if (OnValueChanged != null) await OnValueChanged.Invoke(Value);
+            if (IsNeedValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+        }
+
+        // Update the visual input via JS
+        await JSSetInputValue(val);
+    }
+
+
+    /// <summary>
+    /// Handles the Escape key press. Hides base implementation.
+    /// </summary>
+    // Removed [JSInvokable]
+    public new async Task EscCallback() // Use 'new'
+    {
+        // Reset visual input to last committed C# value
+        await JSSetInputValue(Value);
     }
 
     /// <summary>
-    /// TriggerChange method
+    /// Handles deletion - No longer directly called by JS in this version.
     /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
+    // Removed [JSInvokable]
     public Task TriggerDeleteCallback(string val)
     {
-        CurrentValue = val;
-        if (!ValueChanged.HasDelegate)
-        {
-            StateHasChanged();
-        }
+        // Value update is handled by PerformFilteringAndCommitValue after debounce.
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Helper method to call the JS function to set the input value.
+    /// </summary>
+    /// <param name="value">The value to set.</param>
+    private async ValueTask JSSetInputValue(string? value)
+    {
+        try
+        {
+            // Module is JSObjectReference from BootstrapModuleComponentBase
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("setValue", Id, value);
+            }
+        }
+        catch (JSDisconnectedException) { } // Ignore if circuit is disconnected
+        catch (ObjectDisposedException) { } // Ignore if Module is disposed
+        catch (Exception ex)
+        {
+            //Console.WriteLine($"Error calling JS setValue for ID {Id}: {ex.Message}"); // Log other errors
+        }
+    }
+
+    /// <summary>
+    /// Dispose method
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        // Ensure base disposal runs, which should call JS dispose
+        await base.DisposeAsync(disposing);
     }
 }

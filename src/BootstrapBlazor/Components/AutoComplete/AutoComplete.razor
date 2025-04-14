@@ -1,47 +1,72 @@
-﻿@namespace BootstrapBlazor.Components
+﻿@* --- File: AutoComplete.razor --- *@
+@namespace BootstrapBlazor.Components
 @inherits PopoverCompleteBase<string>
 
+@* Show label if configured *@
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
+    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
+
+@* Main container div *@
 <div class="auto-complete" id="@Id">
-    <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
-           data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
-           data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
-           data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString" data-bb-debounce="@DurationString"
-           data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString" data-bb-blur="@TriggerBlurString"
-           data-bb-scroll-behavior="@ScrollIntoViewBehaviorString" data-bb-trigger-delete="true"
-           value="@CurrentValueAsString"
-           placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
+    @* Input element - Value is now controlled primarily by the browser & JS setValue *@
+    <input @attributes="AdditionalAttributes"
+           id="@InputId"
+           class="@ClassName"
+           autocomplete="off"
+           type="text"
+           data-bs-toggle="@ToggleString"
+           data-bs-placement="@PlacementString"
+           data-bs-offset="@OffsetString"
+           data-bs-custom-class="@CustomClassString"
+           data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
+           data-bb-debounce="@DurationString"
+           data-bb-skip-esc="@SkipEscString"
+           data-bb-skip-enter="@SkipEnterString"
+           data-bb-blur="@TriggerBlurString"
+           data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
+           data-bb-trigger-delete="true"
+           placeholder="@PlaceHolder"
+           disabled="@Disabled"
+           @ref="FocusElement" />
+
+    @* Icon shown by default *@
     <span class="form-select-append"><i class="@Icon"></i></span>
+    @* Loading icon shown during filtering *@
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
+
+    @* Render the dropdown menu using RenderFragment *@
     <RenderTemplate @ref="_dropdown">
         @RenderDropdown
     </RenderTemplate>
 </div>
 
 @code {
+    // RenderFragment for the dropdown menu content
     RenderFragment RenderDropdown =>
     @<div class="dropdown-menu">
         <div class="dropdown-menu-body">
+                @* Iterate through filtered items (Rows) *@
             @foreach (var item in Rows)
+        {
+            <div @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
+                        @* Use ItemTemplate if provided, otherwise display item directly *@
+                @if (ItemTemplate == null)
             {
-                <div @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
-                    @if (ItemTemplate == null)
-                    {
-                        <div>@item</div>
-                    }
-                    else
-                    {
-                        @ItemTemplate(item)
-                    }
-                </div>
+                <div>@item</div>
             }
-            @if (ShowNoDataTip && Rows.Count == 0)
+            else
             {
-                <div class="dropdown-item">@NoDataTip</div>
+                @ItemTemplate(item)
             }
+            </div>
+        }
+                @* Show "No data" tip if configured and no items match *@
+            @if (ShowNoDataTip && !Rows.Any()) // Use !Rows.Any() for clarity
+        {
+            <div class="dropdown-item disabled">@NoDataTip</div> @* Add 'disabled' class? *@
+        }
         </div>
     </div>;
 }
