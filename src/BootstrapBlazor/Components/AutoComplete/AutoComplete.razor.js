@@ -1,56 +1,58 @@
-﻿// Import necessary modules
-import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js";
-// handleKeyUp is imported but not used directly, keep for potential base class usage
-import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js";
-import Data from "../../modules/data.js";
-import EventHandler from "../../modules/event-handler.js";
-import Input from "../../modules/input.js";
-import Popover from "../../modules/base-popover.js";
+﻿// Original imports
+import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
+import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
+import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
+import Input from "../../modules/input.js"
+import Popover from "../../modules/base-popover.js"
 
-// Initialization function for the AutoComplete component
 export function init(id, invoke) {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    // Prevent double initialization
-    if (Data.get(id)) {
+    const el = document.getElementById(id)
+    // Prevent double init
+    if (!el || Data.get(id)) {
         return;
     }
 
-    const menu = el.querySelector('.dropdown-menu');
-    const input = document.getElementById(`${id}_input`);
+    const menu = el.querySelector('.dropdown-menu')
+    const input = document.getElementById(`${id}_input`)
     if (!input || !menu) return;
 
-    const ac = { el, invoke, menu, input };
-    Data.set(id, ac);
+    const ac = { el, invoke, menu, input }
+    Data.set(id, ac)
 
-    // --- Popover/Dropdown Setup ---
+    // Original popover/style logic
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
     if (isPopover) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' });
-    } else {
+    }
+    else {
         const extraClass = input.getAttribute('data-bs-custom-class');
         if (extraClass) menu.classList.add(...extraClass.split(' '));
         const offset = input.getAttribute('data-bs-offset');
         if (offset) {
-            try {
-                const [x, y] = offset.split(',').map(parseFloat);
-                if (!isNaN(x) && x !== 0) menu.style.marginLeft = `${x}px`;
-                if (!isNaN(y) && y !== 0) menu.style.marginTop = `${y}px`;
-            } catch (e) { console.error("Invalid offset format:", offset); }
+            try { // Add try/catch for safety
+                const [x, y] = offset.split(',');
+                const xValue = parseFloat(x);
+                const yValue = parseFloat(y);
+                if (xValue > 0) menu.style.setProperty('margin-left', `${xValue}px`);
+                if (yValue > 0) menu.style.setProperty('margin-top', `${yValue}px`);
+            } catch (e) { console.error("Error parsing offset", e); }
         }
     }
 
-    // --- Debounce Setup ---
-    const duration = parseInt(input.getAttribute('data-bb-debounce') || '0', 10);
-    const filterDuration = duration > 0 ? duration : 200;
+    // Original debounce setup
+    const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
 
     // Debounced callback for filtering and committing value
+    let filterDuration = duration;
+    if (filterDuration === 0) {
+        filterDuration = 200; // Original default
+    }
     const filterCallback = debounce(async v => {
         const currentAc = Data.get(id);
         if (!currentAc) return;
         try {
-            // Call C# method (renamed in our fix)
+            // STUTTER FIX: Call renamed C# method to handle filtering and state commit
             await currentAc.invoke.invokeMethodAsync('PerformFilteringAndCommitValue', v);
         } catch (error) {
             if (!error.message || !error.message.includes("instance is already disposed")) {
@@ -61,124 +63,140 @@ export function init(id, invoke) {
         }
     }, filterDuration);
 
-    // --- Event Listeners ---
-
-    // Handles input changes (typing, pasting, IME)
-    Input.composition(input, v => {
-        const currentAc = Data.get(id);
-        if (!currentAc) return;
-        // Don't push immediate value to C#
-        // Trigger debounced C# call
-        if (!isPopover) currentAc.el.classList.add('show');
-        currentAc.el.classList.add('is-loading');
-        filterCallback(v); // Pass current input value 'v'
-    });
-
-    // Keydown handler (handles Tab, potentially debounced Arrows/Enter/Esc if duration > 0)
+    // Original keydown listener setup
+    // Note: Debouncing keydown might feel slightly laggy for navigation keys.
+    // Consider if debouncing is truly needed here or only for filtering.
+    // Keeping original logic for minimal change.
     if (duration > 0) {
-        // If debounce is enabled, debounce keydown actions too
         EventHandler.on(input, 'keydown', debounce(e => {
-            const currentAc = Data.get(id); // Get context inside debounced function
-            if (currentAc) handlerKeydown(currentAc, e); // Pass ac context
+            const currentAc = Data.get(id); // Get context inside handler
+            if (currentAc) handlerKeydown(currentAc, e); // Pass context
         }, duration, e => {
-            // Only debounce specific keys if needed (original logic)
+            // Debounce only specific keys (original logic)
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
-        // If no debounce, handle keydown directly
         EventHandler.on(input, 'keydown', e => {
-            const currentAc = Data.get(id);
-            if (currentAc) handlerKeydown(currentAc, e); // Pass ac context
+            const currentAc = Data.get(id); // Get context
+            if (currentAc) handlerKeydown(currentAc, e); // Pass context
         })
     }
 
-    // Keyup handler (handles actions after key is released)
-    EventHandler.on(input, 'keyup', e => {
-        const currentAc = Data.get(id);
-        if (currentAc) handlerKeyup(currentAc, e); // Pass ac context
-    });
+    // Original keyup listener setup
+    // EventHandler.on(input, 'keyup', e => handlerKeyup(ac, e));
+    // Replaced by handlerKeydown for Enter/Esc/Arrows to match original structure better
+    // Backspace/Delete now handled by Input.composition
 
-    // Blur trigger function (with delay)
+    // Original triggerBlur function definition
     ac.triggerBlur = () => {
         const currentAc = Data.get(id);
         if (!currentAc) return;
+
+        // BLUR FIX: Add delay to allow click events on items to register first
         setTimeout(() => {
             const currentAcDelayed = Data.get(id);
             if (!currentAcDelayed) return;
-            // console.log('[AutoComplete JS] triggerBlur: function called (after delay).');
-            if (!isPopover) currentAcDelayed.el.classList.remove('show');
+
+            if (!isPopover) currentAcDelayed.el.classList.remove('show'); // Use isPopover from outer scope
+
             const shouldTriggerCsharp = currentAcDelayed.input.getAttribute('data-bb-blur') === 'true';
-            // console.log(`[AutoComplete JS] triggerBlur: Should call C#? ${shouldTriggerCsharp}`);
             if (shouldTriggerCsharp) {
                 try {
-                    // console.log('[AutoComplete JS] triggerBlur: Attempting invokeMethodAsync("TriggerBlur")...');
-                    currentAcDelayed.invoke.invokeMethodAsync('TriggerBlur');
-                    // console.log('[AutoComplete JS] triggerBlur: invokeMethodAsync("TriggerBlur") called.');
+                    const currentValue = currentAcDelayed.input.value;
+                    // BLUR FIX: Call new C# method with the current visual value
+                    currentAcDelayed.invoke.invokeMethodAsync('TriggerBlurWithValue', currentValue);
                 } catch (error) {
                     if (!error.message || !error.message.includes("instance is already disposed")) {
-                        console.error('[AutoComplete JS] triggerBlur: Error invoking C# TriggerBlur.', error);
+                        console.error('[AutoComplete JS] triggerBlur: Error invoking C# TriggerBlurWithValue.', error);
                     }
                 }
             }
-        }, 150);
+        }, 150); // Adjust delay if needed
     };
 
-    // Dropdown item click handler
-    EventHandler.on(menu, 'click', '.dropdown-item:not(.disabled)', e => {
+    // Original dropdown item click listener
+    EventHandler.on(menu, 'click', '.dropdown-item', e => {
         const currentAc = Data.get(id);
         if (!currentAc) return;
-        // Let the natural blur event handle calling triggerBlur
+        // Original called ac.triggerBlur(). Let the native blur event handle it now.
         if (currentAc.popover) currentAc.popover.hide();
         else currentAc.el.classList.remove('show');
-        // C# OnClickItem handles state update and calls JS setValue
+        // C# OnClickItem calls JS setValue
     });
 
-    // Focus handler
+    // Original focus listener
     EventHandler.on(input, 'focus', e => {
         const currentAc = Data.get(id);
         if (!currentAc) return;
         const showDropdownOnFocus = currentAc.input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
-            if (isPopover) { if (currentAc.popover) currentAc.popover.show(); }
-            else currentAc.el.classList.add('show');
+            if (isPopover === false) {
+                currentAc.el.classList.add('show');
+            }
+            // Show popover on focus if applicable
+            else if (currentAc.popover) {
+                currentAc.popover.show();
+            }
         }
     });
 
-    // Standard blur event listener
-    EventHandler.on(input, 'blur', e => {
-        const currentAc = Data.get(id);
-        if (currentAc) currentAc.triggerBlur();
-    });
-
-    // REMOVED: Change handler (Input.composition is used)
+    // REMOVED: Original 'change' listener - Input.composition handles value changes
     // EventHandler.on(input, 'change', e => { ... });
 
-    // Click outside handler
+    // ADDED: Standard 'blur' event listener for input
+    EventHandler.on(input, 'blur', e => {
+        const currentAc = Data.get(id);
+        if (currentAc) {
+            // Call the (potentially delayed) triggerBlur function
+            currentAc.triggerBlur();
+        }
+    });
+
+    // ADDED: Use Input.composition for reliable input value changes (typing, paste, IME)
+    Input.composition(input, v => {
+        const currentAc = Data.get(id);
+        if (!currentAc) return;
+        if (isPopover === false) {
+            currentAc.el.classList.add('show');
+        }
+        currentAc.el.classList.add('is-loading');
+        // STUTTER FIX: Only call filterCallback (which calls C# PerformFilteringAndCommitValue)
+        filterCallback(v);
+        // STUTTER FIX: Removed call to UpdateInputValue / TriggerChange
+    });
+
+    // Original click outside logic
     ac.closePopover = e => {
-        const targetAc = e.target.closest('.auto-complete');
-        if (targetAc && targetAc.getAttribute('id') === id) return;
-        document.querySelectorAll('.auto-complete.show, .auto-complete .popover.show').forEach(visibleAc => {
-            const visibleId = visibleAc.getAttribute('id');
-            if (visibleId === id) return;
-            if (!targetAc || visibleAc !== targetAc) {
-                const data = Data.get(visibleId);
-                if (data) {
-                    if (data.popover) data.popover.hide();
-                    else visibleAc.classList.remove('show');
+        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+            const targetAc = e.target.closest('.auto-complete'); // Renamed variable
+            if (targetAc === a) {
+                return;
+            }
+            const elInput = a.querySelector('[data-bs-toggle="bb.dropdown"]'); // Renamed variable
+            if (elInput === null) {
+                const idToClose = a.getAttribute('id'); // Renamed variable
+                const d = Data.get(idToClose);
+                if (d) {
+                    // Original called d.triggerBlur(). Removed to rely on native blur.
+                    if (d.popover) d.popover.hide();
+                    else a.classList.remove('show');
                 }
             }
+            // Handle popover case if needed (original didn't explicitly)
+            else {
+                const popoverInstance = Popover.getInstance(elInput);
+                popoverInstance?.hide();
+            }
         });
-    };
-
-    // Register module
+    }
     registerBootstrapBlazorModule('AutoComplete', id, () => {
         EventHandler.on(document, 'click', ac.closePopover);
     });
 }
 
-// Keyup Handler (from latest code)
-const handlerKeyup = (ac, e) => {
+// Keydown Handler (Adapted from original logic + our fixes)
+const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, input, invoke, menu } = ac;
 
@@ -186,12 +204,12 @@ const handlerKeyup = (ac, e) => {
         const skipEnter = input.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
             const current = menu.querySelector('.active');
-            if (current !== null && (el.classList.contains('show') || ac.popover?.isShown())) {
+            if (current !== null) {
                 current.click(); // C# OnClickItem calls JS setValue
             } else {
-                // C# EnterCallback calls JS setValue
-                invoke.invokeMethodAsync('EnterCallback', input.value);
+                invoke.invokeMethodAsync('EnterCallback', input.value); // C# EnterCallback calls JS setValue
             }
+            e.preventDefault(); // Prevent default form submission
         }
     }
     else if (key === 'Escape') {
@@ -208,6 +226,7 @@ const handlerKeyup = (ac, e) => {
         }
         const items = [...menu.querySelectorAll('.dropdown-item:not(.disabled)')];
         if (!items.length) return;
+        e.preventDefault();
         let current = menu.querySelector('.active');
         if (current !== null) current.classList.remove('active');
         let index = current === null ? -1 : items.indexOf(current);
@@ -222,30 +241,28 @@ const handlerKeyup = (ac, e) => {
     }
     else if (key === 'Backspace' || key === 'Delete') {
         // Value change handled by Input.composition -> filterCallback
-        // Removed explicit TriggerDeleteCallback call
+        // Removed original call to TriggerDeleteCallback
     }
-};
-
-// Keydown handler (from latest code - only handles Tab)
-const handlerKeydown = (ac, e) => { // Accept ac context
-    if (e.key === 'Tab') {
+    else if (e.key === 'Tab') {
         // Let blur handler manage the triggerBlur call
-        // ac.triggerBlur();
     }
-};
+}
 
-// *** NEW FUNCTION: Called from C# to set the input value ***
+// REMOVED: handlerKeyup (logic merged into handlerKeydown or covered by composition)
+
+// ADDED: Function called from C# to set the input value visually
 export function setValue(id, value) {
     const ac = Data.get(id);
     if (ac && ac.input) {
         ac.input.value = value ?? "";
     } else {
+        // Fallback if called before init or after dispose
         const inputElement = document.getElementById(`${id}_input`);
         if (inputElement) inputElement.value = value ?? "";
     }
 }
 
-// Function to show the dropdown list programmatically
+// Original showList function
 export function showList(id) {
     const ac = Data.get(id);
     if (ac) {
@@ -254,7 +271,7 @@ export function showList(id) {
     }
 }
 
-// Dispose function to clean up resources and event listeners
+// Original dispose function, adapted for added/removed listeners
 export function dispose(id) {
     const ac = Data.get(id);
     Data.remove(id);
@@ -264,24 +281,31 @@ export function dispose(id) {
         // Remove all listeners added in init
         EventHandler.off(input, 'focus');
         EventHandler.off(input, 'keydown');
-        EventHandler.off(input, 'keyup');
-        EventHandler.off(input, 'blur'); // Remove blur listener
+        // EventHandler.off(input, 'keyup'); // Not added in this version
+        EventHandler.off(input, 'blur'); // Remove added blur listener
         EventHandler.off(menu, 'click');
         EventHandler.off(document, 'click', closePopover);
         Input.dispose(input); // Ensure this removes composition listeners
-        const bb = window.BootstrapBlazor;
-        if (bb && bb.AutoComplete && typeof bb.AutoComplete.dispose === 'function') {
-            bb.AutoComplete.dispose(id);
+
+        // Original module disposal
+        const bb = window.BootstrapBlazor || {};
+        if (bb.AutoComplete && typeof bb.AutoComplete.dispose === 'function') {
+            bb.AutoComplete.dispose(id, () => {
+                EventHandler.off(document, 'click', closePopover);
+            });
+        } else {
+            EventHandler.off(document, 'click', closePopover);
         }
     }
 }
 
-// Helper to scroll an item into view
+// Original scrollIntoView function
 const scrollIntoView = (el, item) => {
-    const input = el.querySelector('input');
+    const input = el.querySelector('input'); // Find input within el
     const behavior = input?.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
     item.scrollIntoView({ behavior: behavior, block: "nearest", inline: "start" });
 };
 
-// Export base input functions if needed
+// Original exports
 export { handleKeyUp, select, selectAllByFocus, selectAllByEnter };
+
