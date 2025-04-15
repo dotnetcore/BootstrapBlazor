@@ -109,7 +109,21 @@ public partial class AutoComplete
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        SkipRegisterEnterEscJSInvoke = true; // Keep original base class interaction
+        SkipRegisterEnterEscJSInvoke = true;
+
+        Items ??= []; // Ensure Items is initialized (from main)
+
+        // ++ ADDED: Initial filtering logic from main branch ++
+        // If a Value is provided initially, pre-filter the dropdown list
+        if (!string.IsNullOrEmpty(Value))
+        {
+            _filterItems = GetFilterItemsByValue(Value); // Use the new helper
+            if (DisplayCount != null)
+            {
+                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+            }
+        }
+        // ++ END ADDED ++
     }
 
     /// <summary>
@@ -124,7 +138,6 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-        Items ??= [];
 
         // Note: Logic for handling external Value changes might be needed here
         // by comparing previous/current Value and calling JSSetInputValue if changed.
@@ -178,6 +191,18 @@ public partial class AutoComplete
 
     private List<string> Rows => _filterItems ?? [.. Items];
 
+    // ++ ADDED: Helper method from main branch ++
+    private List<string> GetFilterItemsByValue(string val)
+    {
+        var sourceItems = Items ?? Enumerable.Empty<string>(); // Ensure source is not null
+        var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        var items = IsLikeMatch
+            ? sourceItems.Where(s => s != null && s.Contains(val, comparison)) // Add null check
+            : sourceItems.Where(s => s != null && s.StartsWith(val, comparison)); // Add null check
+        return [.. items];
+    }
+    // ++ END ADDED ++
+
     /// <summary>
     /// JSInvokable method called by JavaScript after debouncing input.
     /// Updates C# state, performs filtering, and updates dropdown UI.
@@ -201,29 +226,28 @@ public partial class AutoComplete
             if (IsNeedValidate && FieldIdentifier != null) EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
         }
 
-        // Original filtering logic
+        // -- MODIFIED: Filtering logic now uses the helper method --
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _filterItems = [.. items];
+            _filterItems = [.. (items ?? Enumerable.Empty<string>())]; // Handle null result from custom filter
         }
         else if (string.IsNullOrEmpty(val))
         {
-            _filterItems = [.. Items];
+            // Use full list if input is empty, don't filter by empty string
+            _filterItems = Items?.ToList() ?? [];
         }
         else
         {
-            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = IsLikeMatch
-                ? Items.Where(s => s.Contains(val, comparison))
-                : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = [.. items];
+            // Use the helper method for standard filtering
+            _filterItems = GetFilterItemsByValue(val);
         }
 
         if (DisplayCount != null)
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
+        // -- END MODIFIED --
 
         // Update dropdown UI using targeted render (original approach)
         _shouldRender = false;
