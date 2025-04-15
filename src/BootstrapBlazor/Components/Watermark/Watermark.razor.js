@@ -41,10 +41,12 @@ export function dispose(id) {
     Data.remove(id);
 
     if (watermark) {
-        const { ob } = watermark;
+        const { el, ob } = watermark;
         ob.disconnect();
 
         delete watermark.ob;
+        document.body.removeAttribute('data-bb-watermark');
+        el.remove();
     }
 }
 
