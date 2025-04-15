@@ -102,13 +102,13 @@ const createWatermark = watermark => {
     if (mark) {
         mark.remove();
     }
+    el.appendChild(div);
 
-    if (bg.isPage) {
-        document.body.appendChild(div);
+    if (options.isPage) {
+        document.body.setAttribute('data-bb-watermark', "true");
+        document.body.appendChild(el);
     }
-    else {
-        el.appendChild(div);
-    }
+
     options.bg = bg;
     requestAnimationFrame(() => monitor(watermark));
 }
