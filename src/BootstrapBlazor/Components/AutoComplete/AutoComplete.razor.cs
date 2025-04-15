@@ -93,6 +93,17 @@ public partial class AutoComplete
         base.OnInitialized();
 
         SkipRegisterEnterEscJSInvoke = true;
+
+        Items ??= [];
+
+        if (!string.IsNullOrEmpty(Value))
+        {
+            _filterItems = GetFilterItemsByValue(Value);
+            if (DisplayCount != null)
+            {
+                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+            }
+        }
     }
 
     /// <summary>
@@ -106,8 +117,6 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-
-        Items ??= [];
     }
 
     private bool _render = true;
@@ -151,11 +160,7 @@ public partial class AutoComplete
         }
         else
         {
-            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = IsLikeMatch
-                ? Items.Where(s => s.Contains(val, comparison))
-                : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = [.. items];
+            _filterItems = GetFilterItemsByValue(val);
         }
 
         if (DisplayCount != null)
@@ -164,6 +169,15 @@ public partial class AutoComplete
         }
 
         await TriggerChange(val);
+    }
+
+    private List<string> GetFilterItemsByValue(string val)
+    {
+        var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        var items = IsLikeMatch
+            ? Items.Where(s => s.Contains(val, comparison))
+            : Items.Where(s => s.StartsWith(val, comparison));
+        return [.. items];
     }
 
     /// <summary>
