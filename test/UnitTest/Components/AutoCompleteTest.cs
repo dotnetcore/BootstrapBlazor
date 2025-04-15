@@ -41,6 +41,23 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Value_Ok()
+    {
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+            pb.Add(a => a.Value, "test12");
+            pb.Add(a => a.DisplayCount, 2);
+        });
+        var menus = cut.FindAll(".dropdown-item");
+
+        // 由于 Value = test12
+        // 并且设置了 DisplayCount = 2
+        // 候选项只有 2 个
+        Assert.Equal(2, menus.Count);
+    }
+
+    [Fact]
     public void Debounce_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>();
