@@ -179,8 +179,12 @@ const monitor = watermark => {
 
 const clearWatermark = watermark => {
     const { el, ob } = watermark;
-    ob.disconnect();
-    el.innerHTML = '';
+    if (ob) {
+        ob.disconnect();
+    }
+    if (el) {
+        el.innerHTML = '';
+    }
 }
 
 const getWatermark = props => {
