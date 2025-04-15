@@ -3,15 +3,15 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components; // Added for Parameter/Inject etc.
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging; // Added for ILogger (optional, for handling ex)
-using Microsoft.JSInterop; // Added for JSInvokable/IJSRuntime
-using System; // Added for Func/StringComparison/Exception
 using System.Collections.Generic; // Added for List<>
 using System.Diagnostics.CodeAnalysis; // Added for NotNull
-using System.Linq; // Added for Linq methods (Ensure this is present for .Take())
+using System.Linq; // Added for Linq methods
+using System; // Added for Func/StringComparison/Exception
 using System.Threading.Tasks; // Added for Task
+using Microsoft.AspNetCore.Components; // Added for Parameter/Inject etc.
+using Microsoft.JSInterop; // Added for JSInvokable/IJSRuntime
+using Microsoft.Extensions.Logging; // Added for ILogger (optional, for handling ex)
 
 namespace BootstrapBlazor.Components;
 
@@ -20,6 +20,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
+    // Parameters remain the same as original
+
     /// <summary>
     /// Gets or sets the collection of matching data obtained by inputting a string
     /// </summary>
@@ -76,16 +78,6 @@ public partial class AutoComplete
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
 
-    // --- NEW PARAMETER ---
-    /// <summary>
-    /// Gets or sets whether to populate the dropdown list with initial items
-    /// immediately after the component first renders.
-    /// Defaults to true. Set to false to only populate when the user interacts (types or focuses, depending on other settings).
-    /// </summary>
-    [Parameter]
-    public bool PopulateListOnFirstRender { get; set; } = true; // Default to the behavior we just added
-    // --- END NEW PARAMETER ---
-
     /// <summary>
     /// IStringLocalizer service instance
     /// </summary>
@@ -99,6 +91,7 @@ public partial class AutoComplete
     [Inject]
     [NotNull]
     private ILogger<AutoComplete>? Logger { get; set; }
+
 
     /// <summary>
     /// Gets the string setting for automatically displaying the dropdown when focused
@@ -142,56 +135,11 @@ public partial class AutoComplete
     /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender); // Call base implementation first
-
+        await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            // Original logic: Set initial visual value of input via JS
+            // STUTTER FIX: Set initial visual value of input via JS
             await JSSetInputValue(Value);
-
-            // --- MODIFIED SECTION ---
-            // Check the new parameter before populating/rendering the initial list
-            if (PopulateListOnFirstRender) // <--- Check the new parameter
-            {
-                // 1. Populate the _filterItems list based on initial state
-                try
-                {
-                    if (OnCustomFilter != null)
-                    {
-                        var initialItems = await OnCustomFilter(Value ?? "");
-                        _filterItems = [.. initialItems];
-                    }
-                    else if (!string.IsNullOrEmpty(Value))
-                    {
-                        var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                        var items = IsLikeMatch
-                            ? Items.Where(s => s.Contains(Value, comparison))
-                            : Items.Where(s => s.StartsWith(Value, comparison));
-                        _filterItems = [.. items];
-                    }
-                    else
-                    {
-                        _filterItems = [.. Items];
-                    }
-
-                    if (DisplayCount.HasValue && _filterItems != null)
-                    {
-                        _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger?.LogError(ex, "Error during initial population of AutoComplete dropdown for ID {Id}", Id);
-                    _filterItems = [];
-                }
-
-                // 2. Trigger a re-render of *only* the dropdown fragment
-                if (_dropdown != null)
-                {
-                    _dropdown.Render();
-                }
-            }
-            // --- End of modified section ---
         }
     }
 
@@ -254,37 +202,28 @@ public partial class AutoComplete
         }
 
         // Original filtering logic
-        try
+        if (OnCustomFilter != null)
         {
-            if (OnCustomFilter != null)
-            {
-                var items = await OnCustomFilter(val);
-                _filterItems = [.. items];
-            }
-            else if (string.IsNullOrEmpty(val))
-            {
-                _filterItems = [.. Items];
-            }
-            else
-            {
-                var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                var items = IsLikeMatch
-                    ? Items.Where(s => s.Contains(val, comparison))
-                    : Items.Where(s => s.StartsWith(val, comparison));
-                _filterItems = [.. items];
-            }
-
-            if (DisplayCount != null && _filterItems != null) // Check _filterItems for null after potential filtering
-            {
-                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
-            }
+            var items = await OnCustomFilter(val);
+            _filterItems = [.. items];
         }
-        catch (Exception ex) // Optional: Add error handling for filtering
+        else if (string.IsNullOrEmpty(val))
         {
-             Logger?.LogError(ex, "Error during filtering/committing value for AutoComplete ID {Id}", Id);
-             _filterItems = []; // Set to empty list on error
+            _filterItems = [.. Items];
+        }
+        else
+        {
+            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var items = IsLikeMatch
+                ? Items.Where(s => s.Contains(val, comparison))
+                : Items.Where(s => s.StartsWith(val, comparison));
+            _filterItems = [.. items];
         }
 
+        if (DisplayCount != null)
+        {
+            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+        }
 
         // Update dropdown UI using targeted render (original approach)
         _shouldRender = false;
