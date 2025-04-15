@@ -118,6 +118,7 @@ public partial class AutoComplete
         if (!string.IsNullOrEmpty(Value))
         {
             _filterItems = GetFilterItemsByValue(Value); // Use the new helper
+
             if (DisplayCount != null)
             {
                 _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
@@ -240,6 +241,7 @@ public partial class AutoComplete
         else
         {
             // Use the helper method for standard filtering
+
             _filterItems = GetFilterItemsByValue(val);
         }
 
@@ -253,6 +255,15 @@ public partial class AutoComplete
         _shouldRender = false;
         if (_dropdown != null) _dropdown.Render();
         _shouldRender = true;
+    }
+
+    private List<string> GetFilterItemsByValue(string val)
+    {
+        var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        var items = IsLikeMatch
+            ? Items.Where(s => s.Contains(val, comparison))
+            : Items.Where(s => s.StartsWith(val, comparison));
+        return [.. items];
     }
 
     /// <summary>

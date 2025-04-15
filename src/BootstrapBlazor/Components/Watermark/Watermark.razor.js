@@ -41,10 +41,12 @@ export function dispose(id) {
     Data.remove(id);
 
     if (watermark) {
-        const { ob } = watermark;
+        const { el, ob } = watermark;
         ob.disconnect();
 
         delete watermark.ob;
+        document.body.removeAttribute('data-bb-watermark');
+        el.remove();
     }
 }
 
@@ -102,13 +104,13 @@ const createWatermark = watermark => {
     if (mark) {
         mark.remove();
     }
+    el.appendChild(div);
 
-    if (bg.isPage) {
-        document.body.appendChild(div);
+    if (options.isPage) {
+        document.body.setAttribute('data-bb-watermark', "true");
+        document.body.appendChild(el);
     }
-    else {
-        el.appendChild(div);
-    }
+
     options.bg = bg;
     requestAnimationFrame(() => monitor(watermark));
 }
@@ -179,8 +181,12 @@ const monitor = watermark => {
 
 const clearWatermark = watermark => {
     const { el, ob } = watermark;
-    ob.disconnect();
-    el.innerHTML = '';
+    if (ob) {
+        ob.disconnect();
+    }
+    if (el) {
+        el.innerHTML = '';
+    }
 }
 
 const getWatermark = props => {
