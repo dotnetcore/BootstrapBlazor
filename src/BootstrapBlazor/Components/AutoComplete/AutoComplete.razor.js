@@ -106,8 +106,20 @@ export function init(id, invoke) {
             }
         });
     }
+    ac.blur = e => {
+        if (e.key === 'Tab') {
+            [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+                const id = a.getAttribute('id');
+                const d = Data.get(id);
+                if (d) {
+                    d.close();
+                }
+            });
+        }
+    }
     registerBootstrapBlazorModule('AutoComplete', id, () => {
         EventHandler.on(document, 'click', ac.closePopover);
+        EventHandler.on(document, 'keyup', ac.blur);
     });
 }
 
@@ -131,7 +143,7 @@ const handlerKeyup = (ac, e) => {
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
-        el.classList.add('show');
+        ac.show();
         const items = [...menu.querySelectorAll('.dropdown-item')];
         let current = menu.querySelector('.active');
         if (current !== null) {
@@ -171,6 +183,7 @@ export function dispose(id) {
     const { AutoComplete } = window.BootstrapBlazor;
     AutoComplete.dispose(id, () => {
         EventHandler.off(document, 'click', ac.closePopover);
+        EventHandler.off(document, 'keyup', ac.blur);
     });
 }
 
