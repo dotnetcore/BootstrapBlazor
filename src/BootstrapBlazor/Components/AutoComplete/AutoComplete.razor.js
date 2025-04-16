@@ -9,7 +9,7 @@ export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
-    const ac = { el, invoke, menu, input }
+    const ac = { el, invoke, menu }
     Data.set(id, ac)
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
@@ -62,22 +62,14 @@ export function init(id, invoke) {
         }
     });
 
-    let filterDuration = duration;
-    if (filterDuration === 0) {
-        filterDuration = 200;
-    }
-    const filterCallback = debounce(async v => {
-        await invoke.invokeMethodAsync('TriggerFilter', v);
-        el.classList.remove('is-loading');
-    }, filterDuration);
-
-    Input.composition(input, v => {
+    Input.composition(input, async v => {
         if (isPopover === false) {
             ac.show();
         }
 
         el.classList.add('is-loading');
-        filterCallback(v);
+        await invoke.invokeMethodAsync('TriggerFilter', v);
+        el.classList.remove('is-loading');
     });
 
     ac.show = () => {
@@ -112,7 +104,7 @@ export function init(id, invoke) {
 
 const handlerKeyup = (ac, e) => {
     const key = e.key;
-    const { el, input, invoke, menu } = ac;
+    const { el, invoke, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
@@ -150,18 +142,6 @@ const handlerKeyup = (ac, e) => {
     }
 }
 
-export function showList(id) {
-    const ac = Data.get(id)
-    if (ac) {
-        if (ac.popover) {
-            ac.popover.show();
-        }
-        else {
-            ac.show();
-        }
-    }
-}
-
 export function dispose(id) {
     const ac = Data.get(id)
     Data.remove(id)
@@ -174,14 +154,15 @@ export function dispose(id) {
                 EventHandler.off(input, 'focus')
             }
         }
+        EventHandler.off(menu, 'click');
         EventHandler.off(input, 'keyup');
         Input.dispose(input);
-
-        const { AutoComplete } = window.BootstrapBlazor;
-        AutoComplete.dispose(id, () => {
-            EventHandler.off(document, 'click', ac.closePopover);
-        });
     }
+
+    const { AutoComplete } = window.BootstrapBlazor;
+    AutoComplete.dispose(id, () => {
+        EventHandler.off(document, 'click', ac.closePopover);
+    });
 }
 
 const scrollIntoView = (el, item) => {
