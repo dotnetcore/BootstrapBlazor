@@ -389,15 +389,19 @@ const setExcelKeyboardListener = table => {
     const setFocus = target => {
         const handler = setTimeout(function () {
             clearTimeout(handler);
-            target.focus();
-            target.select();
+            if (target.focus) {
+                target.focus();
+            }
+            if (target.select) {
+                target.select();
+            }
         }, 10);
     }
 
     const activeCell = (cells, index) => {
         let ret = false;
         const td = cells[index];
-        const target = td.querySelector('input.form-control:not([readonly])');
+        const target = td.querySelector('.form-control:not([readonly])');
         if (target) {
             setFocus(target);
             ret = true;
@@ -425,21 +429,29 @@ const setExcelKeyboardListener = table => {
             }
         }
         else if (keyCode === KeyCodes.UP_ARROW) {
-            cells = tr.previousElementSibling && tr.previousElementSibling.children;
-            if (cells) {
-                while (index < cells.length) {
+            let nextRow = tr.previousElementSibling;
+            while (nextRow) {
+                cells = nextRow.children;
+                if (cells) {
                     if (activeCell(cells, index)) {
                         break;
+                    }
+                    else {
+                        nextRow = nextRow.previousElementSibling;
                     }
                 }
             }
         }
         else if (keyCode === KeyCodes.DOWN_ARROW) {
-            cells = tr.nextElementSibling && tr.nextElementSibling.children;
-            if (cells) {
-                while (index < cells.length) {
+            let nextRow = tr.nextElementSibling;
+            while (nextRow) {
+                cells = nextRow.children;
+                if (cells) {
                     if (activeCell(cells, index)) {
                         break;
+                    }
+                    else {
+                        nextRow = nextRow.nextElementSibling;
                     }
                 }
             }
