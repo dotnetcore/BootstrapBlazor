@@ -179,14 +179,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public virtual Task TriggerFilter(string val) => Task.CompletedTask;
 
     /// <summary>
-    /// TriggerChange 方法
-    /// </summary>
-    /// <param name="val"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public virtual Task TriggerChange(string val) => Task.CompletedTask;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>

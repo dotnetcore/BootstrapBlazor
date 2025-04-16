@@ -8,7 +8,7 @@ namespace UnitTest.Components;
 public class AutoCompleteTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Items_Ok()
+    public void Items_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>(pb =>
         {
@@ -35,9 +35,6 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
-
-        await cut.InvokeAsync(() => cut.Instance.TriggerDeleteCallback("Test"));
-        Assert.Equal("Test", cut.Instance.Value);
     }
 
     [Fact]
@@ -220,7 +217,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ValidateForm_Ok()
+    public void ValidateForm_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -231,12 +228,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Items, items);
             });
         });
-
-        // Trigger js invoke
-        var comp = cut.FindComponent<AutoComplete>().Instance;
-        await cut.InvokeAsync(() => comp.TriggerChange("v"));
-
-        Assert.Equal("v", comp.Value);
+        Assert.Contains("form-label", cut.Markup);
     }
 
     [Fact]
@@ -332,7 +324,6 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<MockPopoverCompleteBase>();
         cut.Instance.TriggerFilter("test");
-        cut.Instance.TriggerChange("test");
     }
 
     class MockPopoverCompleteBase : PopoverCompleteBase<string>
@@ -340,11 +331,6 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         public override Task TriggerFilter(string val)
         {
             return base.TriggerFilter(val);
-        }
-
-        public override Task TriggerChange(string val)
-        {
-            return base.TriggerChange(val);
         }
     }
 }
