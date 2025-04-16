@@ -389,8 +389,12 @@ const setExcelKeyboardListener = table => {
     const setFocus = target => {
         const handler = setTimeout(function () {
             clearTimeout(handler);
-            target.focus();
-            target.select();
+            if (target.focus) {
+                target.focus();
+            }
+            if (target.select) {
+                target.select();
+            }
         }, 10);
     }
 
