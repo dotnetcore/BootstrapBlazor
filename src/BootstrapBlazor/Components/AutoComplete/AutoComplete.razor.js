@@ -49,11 +49,15 @@ export function init(id, invoke) {
         })
     }
 
+    EventHandler.on(menu, 'click', '.dropdown-item', e => {
+        ac.close();
+    });
+
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
             if (isPopover === false) {
-                el.classList.add('show');
+                ac.show();
             }
         }
     });
@@ -69,12 +73,20 @@ export function init(id, invoke) {
 
     Input.composition(input, v => {
         if (isPopover === false) {
-            el.classList.add('show');
+            ac.show();
         }
 
         el.classList.add('is-loading');
         filterCallback(v);
     });
+
+    ac.show = () => {
+        ac.el.classList.add('show');
+    }
+
+    ac.close = () => {
+        ac.el.classList.remove('show');
+    }
 
     ac.closePopover = e => {
         [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
@@ -88,6 +100,7 @@ export function init(id, invoke) {
                 const id = a.getAttribute('id');
                 const d = Data.get(id);
                 if (d) {
+                    d.close();
                 }
             }
         });
@@ -144,7 +157,7 @@ export function showList(id) {
             ac.popover.show();
         }
         else {
-            ac.el.classList.add('show');
+            ac.show();
         }
     }
 }
