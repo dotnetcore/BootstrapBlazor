@@ -36,35 +36,18 @@ export function init(id, invoke) {
         }
     }
 
-    // debounce
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
-        EventHandler.on(input, 'keydown', debounce(e => {
-            handlerKeydown(ac, e);
-        }, duration, e => {
-            return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
-        }))
+        EventHandler.on(input, 'keyup', debounce(e => {
+            handlerKeyup(ac, e);
+        }, duration))
     }
     else {
-        EventHandler.on(input, 'keydown', e => {
-            handlerKeydown(ac, e);
+        EventHandler.on(input, 'keyup', e => {
+            handlerKeyup(ac, e);
         })
     }
-
-    EventHandler.on(input, 'keyup', e => handlerKeyup(ac, e));
-
-    ac.triggerBlur = () => {
-        el.classList.remove('show');
-        const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
-        if (triggerBlur) {
-            invoke.invokeMethodAsync('TriggerBlur');
-        }
-    }
-
-    EventHandler.on(menu, 'click', '.dropdown-item', e => {
-        ac.triggerBlur();
-    });
 
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
@@ -73,10 +56,6 @@ export function init(id, invoke) {
                 el.classList.add('show');
             }
         }
-    });
-
-    EventHandler.on(input, 'change', e => {
-        invoke.invokeMethodAsync('TriggerChange', e.target.value);
     });
 
     let filterDuration = duration;
@@ -109,7 +88,6 @@ export function init(id, invoke) {
                 const id = a.getAttribute('id');
                 const d = Data.get(id);
                 if (d) {
-                    d.triggerBlur();
                 }
             }
         });
@@ -128,7 +106,6 @@ const handlerKeyup = (ac, e) => {
             const current = menu.querySelector('.active');
             if (current !== null) {
                 current.click();
-                ac.triggerBlur();
             }
             invoke.invokeMethodAsync('EnterCallback', input.value);
         }
@@ -137,7 +114,6 @@ const handlerKeyup = (ac, e) => {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
             invoke.invokeMethodAsync('EscCallback');
-            ac.triggerBlur();
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
@@ -158,17 +134,6 @@ const handlerKeyup = (ac, e) => {
         current = items[index];
         current.classList.add('active');
         scrollIntoView(el, current);
-    }
-    else if (key === 'Backspace' || key === 'Delete') {
-        if (input.getAttribute('data-bb-trigger-delete') === 'true') {
-            invoke.invokeMethodAsync('TriggerDeleteCallback', input.value);
-        }
-    }
-}
-
-const handlerKeydown = (ac, e) => {
-    if (e.key === 'Tab') {
-        ac.triggerBlur();
     }
 }
 
@@ -196,10 +161,7 @@ export function dispose(id) {
                 EventHandler.off(input, 'focus')
             }
         }
-        EventHandler.off(input, 'change');
-        EventHandler.off(input, 'keydown');
         EventHandler.off(input, 'keyup');
-        EventHandler.off(menu, 'click');
         Input.dispose(input);
 
         const { AutoComplete } = window.BootstrapBlazor;
