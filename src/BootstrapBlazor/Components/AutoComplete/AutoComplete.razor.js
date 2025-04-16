@@ -62,14 +62,23 @@ export function init(id, invoke) {
         }
     });
 
-    Input.composition(input, async v => {
+    let filterDuration = duration;
+    if (filterDuration === 0) {
+        filterDuration = 200;
+    }
+    const filterCallback = debounce(async v => {
+        await invoke.invokeMethodAsync('TriggerFilter', v);
+        el.classList.remove('is-loading');
+    }, filterDuration);
+
+    Input.composition(input, v => {
         if (isPopover === false) {
             ac.show();
         }
 
         el.classList.add('is-loading');
-        await invoke.invokeMethodAsync('TriggerFilter', v);
-        el.classList.remove('is-loading');
+        filterCallback(v);
+
     });
 
     ac.show = () => {

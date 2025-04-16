@@ -14,7 +14,7 @@
            data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString" data-bb-debounce="@DurationString"
            data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
            data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
-           value="@_displayText"
+           @bind="@_displayText"
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
@@ -22,7 +22,14 @@
     {
         <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
     }
-    <div class="dropdown-menu">
+    <RenderTemplate @ref="_dropdown">
+        @RenderDropdown
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderDropdown =>
+    @<div class="dropdown-menu">
         @if (IsVirtualize)
         {
             <div class="dropdown-menu-body dropdown-virtual">
@@ -52,10 +59,8 @@
                 }
             </div>
         }
-    </div>
-</div>
+    </div>;
 
-@code {
     RenderFragment<TValue> RenderRow => item =>
     @<div @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
         @if (ItemTemplate != null)

@@ -149,7 +149,10 @@ public partial class AutoFill<TValue>
     private List<TValue>? _filterItems;
 
     [NotNull]
-    private Virtualize<TValue>? _virtualizeElement = default;
+    private Virtualize<TValue>? _virtualizeElement = null;
+
+    [NotNull]
+    private RenderTemplate? _dropdown = null;
 
     /// <summary>
     /// Gets the clear icon class string.
@@ -181,13 +184,6 @@ public partial class AutoFill<TValue>
         Items ??= [];
     }
 
-    private bool _render = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldRender() => _render;
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -239,10 +235,7 @@ public partial class AutoFill<TValue>
 
     private async ValueTask<ItemsProviderResult<TValue>> LoadItems(ItemsProviderRequest request)
     {
-        _render = false;
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = request.Count, SearchText = _searchText });
-        _render = true;
-
         var _totalCount = data.TotalCount;
         var items = data.Items ?? [];
         return new ItemsProviderResult<TValue>(items, _totalCount);
@@ -261,7 +254,7 @@ public partial class AutoFill<TValue>
         {
             _searchText = val;
             await _virtualizeElement.RefreshDataAsync();
-            StateHasChanged();
+            _dropdown.Render();
             return;
         }
 
@@ -276,10 +269,10 @@ public partial class AutoFill<TValue>
         }
         else
         {
-            var comparision = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
             var items = IsLikeMatch
-                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
-                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
+                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparison) ?? false)
+                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparison) ?? false);
             _filterItems = [.. items];
         }
 
@@ -287,18 +280,6 @@ public partial class AutoFill<TValue>
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// Triggers the change method.
-    /// </summary>
-    /// <param name="val">The value to change to.</param>
-    [JSInvokable]
-    public Task TriggerChange(string val)
-    {
-        _displayText = val;
-        StateHasChanged();
-        return Task.CompletedTask;
+        _dropdown.Render();
     }
 }
