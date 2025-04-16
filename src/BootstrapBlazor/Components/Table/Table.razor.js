@@ -429,21 +429,29 @@ const setExcelKeyboardListener = table => {
             }
         }
         else if (keyCode === KeyCodes.UP_ARROW) {
-            cells = tr.previousElementSibling && tr.previousElementSibling.children;
-            if (cells) {
-                while (index < cells.length) {
+            let nextRow = tr.previousElementSibling;
+            while (nextRow) {
+                cells = nextRow.children;
+                if (cells) {
                     if (activeCell(cells, index)) {
                         break;
+                    }
+                    else {
+                        nextRow = nextRow.previousElementSibling;
                     }
                 }
             }
         }
         else if (keyCode === KeyCodes.DOWN_ARROW) {
-            cells = tr.nextElementSibling && tr.nextElementSibling.children;
-            if (cells) {
-                while (index < cells.length) {
+            let nextRow = tr.nextElementSibling;
+            while (nextRow) {
+                cells = nextRow.children;
+                if (cells) {
                     if (activeCell(cells, index)) {
                         break;
+                    }
+                    else {
+                        nextRow = nextRow.nextElementSibling;
                     }
                 }
             }
