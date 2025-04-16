@@ -18,16 +18,17 @@ public sealed partial class AutoCompletes
 
     private IEnumerable<string> Items => _items;
 
-    private string Value { get; set; } = "";
+    private string _value = "";
+    private string _matchValue = "";
+    private string _tipValue = "";
+    private string _filterValue = "";
+    private string _debounceValue = "";
 
-    private Task OnValueChanged(string val)
+    private static async Task<IEnumerable<string>> OnCustomFilter(string val)
     {
-        _items.Clear();
-        _items.Add($"{val}@163.com");
-        _items.Add($"{val}@126.com");
-        _items.Add($"{val}@sina.com");
-        _items.Add($"{val}@hotmail.com");
-        return Task.CompletedTask;
+        await Task.Yield();
+        var items = new List<string> { $"{val}@163.com", $"{val}@126.com", $"{val}@sina.com", $"{val}@hotmail.com" };
+        return items;
     }
 
     [NotNull]
