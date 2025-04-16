@@ -120,7 +120,7 @@ const handlerKeyup = (ac, e) => {
             if (current !== null) {
                 current.click();
             }
-            invoke.invokeMethodAsync('EnterCallback', input.value);
+            invoke.invokeMethodAsync('EnterCallback');
         }
     }
     else if (key === 'Escape') {

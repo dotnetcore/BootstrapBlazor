@@ -213,11 +213,10 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EnterCallback(string val)
+    public async Task EnterCallback()
     {
         if (OnEnterAsync != null)
         {
-            CurrentValueAsString = val;
             await OnEnterAsync(Value);
         }
     }
