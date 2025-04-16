@@ -401,7 +401,7 @@ const setExcelKeyboardListener = table => {
     const activeCell = (cells, index) => {
         let ret = false;
         const td = cells[index];
-        const target = td.querySelector('input.form-control:not([readonly])');
+        const target = td.querySelector('.form-control:not([readonly])');
         if (target) {
             setFocus(target);
             ret = true;
