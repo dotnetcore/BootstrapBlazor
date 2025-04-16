@@ -8,7 +8,97 @@
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <section ignore>@Localizer["NormalDescription"]</section>
     <div style="width: 200px;">
-        <Display Value="@Value" class="mb-3"></Display>
-        <AutoComplete Items="@StaticItems" IsSelectAllTextOnFocus="true" @bind-Value="@Value"></AutoComplete>
+        <AutoComplete Items="@StaticItems" IsSelectAllTextOnFocus="true" Value="@Value"></AutoComplete>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="LikeMatch">
+    <section ignore>@Localizer["LikeMatchDescription"]</section>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="NoDataTip">
+    <section ignore>@((MarkupString)Localizer["NoDataTipDescription"].Value)</section>
+    <div style="width: 200px;">
+        <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValueChanged">
+    <section ignore>@Localizer["ValueChangedDescription"]</section>
+    <div style="width: 200px;">
+        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ShowLabel">
+    <section ignore>@((MarkupString)Localizer["ShowLabelDescription"].Value)</section>
+    <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm Model="@Model">
+        <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true" />
+    </ValidateForm>
+    <Divider Text="@Localizer["Divider2Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="false" />
+    <Divider Text="@Localizer["Divider3Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" DisplayText="@Localizer["AutoText"]" ShowLabel="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DebounceTitle"]" Introduction="@Localizer["DebounceIntro"]" Name="Debounce">
+    <section ignore>@Localizer["DebounceDescription"]</section>
+    <div style="width: 200px;">
+        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" Debounce="500" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OnSelectedItemChangedTitle"]" Introduction="@Localizer["OnSelectedItemChangedIntro"]" Name="OnSelectedItemChanged">
+    <AutoComplete Items="@StaticItems" OnSelectedItemChanged="OnSelectedItemChanged" Debounce="500"></AutoComplete>
+    <section ignore>
+        <ConsoleLogger @ref="Logger" />
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
+    <AutoComplete Items="@StaticItems">
+        <ItemTemplate>
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-bell"></i>
+                <span class="flex-fill ms-2">@context</span>
+            </div>
+        </ItemTemplate>
+    </AutoComplete>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupPrevLabel"]" />
+                <AutoComplete Items="@StaticItems" OnSelectedItemChanged="GroupOnSelectedItemChanged"></AutoComplete>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <AutoComplete Items="@StaticItems" OnSelectedItemChanged="GroupOnSelectedItemChanged"></AutoComplete>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupPrevLabel"]" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupPrevLabel"]" />
+                <AutoComplete Items="@StaticItems" OnSelectedItemChanged="GroupOnSelectedItemChanged"></AutoComplete>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <ConsoleLogger @ref="GroupLogger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PopoverTitle"]"
+           Introduction="@Localizer["PopoverIntro"]"
+           Name="Popover">
+    <AutoComplete Items="@StaticItems" IsPopover="true"></AutoComplete>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
