@@ -6,19 +6,13 @@
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
 <div class="auto-complete" id="@Id">
-    @*
-        INPUT VALUE ATTRIBUTE REMOVED:
-        Removed 'value="@CurrentValueAsString"' to prevent Blazor from overwriting
-        the user's input during async operations/re-renders (fixes stuttering).
-        The input's visual value is now primarily controlled by the browser during typing
-        and synchronized via JavaScript interop ('setValue') when needed (init, click, enter, esc).
-    *@
     <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
            data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
            data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
            data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString" data-bb-debounce="@DurationString"
            data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString" data-bb-blur="@TriggerBlurString"
            data-bb-scroll-behavior="@ScrollIntoViewBehaviorString" data-bb-trigger-delete="true"
+           @bind="@CurrentValueAsString"
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
@@ -28,7 +22,6 @@
 </div>
 
 @code {
-    // Original code block for RenderDropdown remains unchanged
     RenderFragment RenderDropdown =>
     @<div class="dropdown-menu">
         <div class="dropdown-menu-body">

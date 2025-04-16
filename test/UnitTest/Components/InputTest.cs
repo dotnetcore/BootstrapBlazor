@@ -191,8 +191,8 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnEnterAsync, v => { val = v; return Task.CompletedTask; });
             builder.Add(a => a.Value, "test");
         });
-        await cut.Instance.EnterCallback("Test1");
-        Assert.Equal("Test1", val);
+        await cut.Instance.EnterCallback();
+        Assert.Equal("test", val);
     }
 
     [Fact]

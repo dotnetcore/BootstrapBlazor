@@ -8,28 +8,28 @@
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <section ignore>@Localizer["NormalDescription"]</section>
     <div style="width: 200px;">
-        <AutoComplete Items="@StaticItems" IsSelectAllTextOnFocus="true" Value="@Value"></AutoComplete>
+        <AutoComplete Value="@_value" Items="@StaticItems" IsSelectAllTextOnFocus="true"></AutoComplete>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="LikeMatch">
     <section ignore>@Localizer["LikeMatchDescription"]</section>
     <div style="width: 200px;">
-        <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
+        <AutoComplete Value="@_matchValue" Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="NoDataTip">
     <section ignore>@((MarkupString)Localizer["NoDataTipDescription"].Value)</section>
     <div style="width: 200px;">
-        <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />
+        <AutoComplete Value="@_tipValue" Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValueChanged">
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="OnCustomFilter">
     <section ignore>@Localizer["ValueChangedDescription"]</section>
     <div style="width: 200px;">
-        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
+        <AutoComplete Value="@_filterValue" Items="@Items" OnCustomFilter="OnCustomFilter" />
     </div>
 </DemoBlock>
 
@@ -48,12 +48,12 @@
 <DemoBlock Title="@Localizer["DebounceTitle"]" Introduction="@Localizer["DebounceIntro"]" Name="Debounce">
     <section ignore>@Localizer["DebounceDescription"]</section>
     <div style="width: 200px;">
-        <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" Debounce="500" />
+        <AutoComplete @bind-Value="@_debounceValue" Items="@Items" Debounce="500" />
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnSelectedItemChangedTitle"]" Introduction="@Localizer["OnSelectedItemChangedIntro"]" Name="OnSelectedItemChanged">
-    <AutoComplete Items="@StaticItems" OnSelectedItemChanged="OnSelectedItemChanged" Debounce="500"></AutoComplete>
+    <AutoComplete Items="@StaticItems" OnSelectedItemChanged="OnSelectedItemChanged"></AutoComplete>
     <section ignore>
         <ConsoleLogger @ref="Logger" />
     </section>

@@ -289,7 +289,7 @@ public partial class Search<TValue>
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public override async Task TriggerChange(string val)
+    public async Task TriggerChange(string val)
     {
         _render = false;
         _displayText = val;

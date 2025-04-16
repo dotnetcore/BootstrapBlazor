@@ -295,7 +295,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="val">The value to change to.</param>
     [JSInvokable]
-    public override Task TriggerChange(string val)
+    public Task TriggerChange(string val)
     {
         _displayText = val;
         StateHasChanged();
