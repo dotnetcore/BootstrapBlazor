@@ -168,7 +168,8 @@ public partial class AutoComplete
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
 
-        await TriggerChange(val);
+        // only render the dropdown
+        _dropdown.Render();
     }
 
     private List<string> GetFilterItemsByValue(string val)
