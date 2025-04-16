@@ -83,7 +83,7 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private RenderTemplate? _dropdown = default;
+    private RenderTemplate? _dropdown = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -118,14 +118,6 @@ public partial class AutoComplete
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
-
-    private bool _render = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// Callback method when a candidate item is clicked
@@ -168,7 +160,7 @@ public partial class AutoComplete
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
 
-        // only render the dropdown
+        // only render the dropdown menu
         _dropdown.Render();
     }
 
@@ -179,35 +171,5 @@ public partial class AutoComplete
             ? Items.Where(s => s.Contains(val, comparison))
             : Items.Where(s => s.StartsWith(val, comparison));
         return [.. items];
-    }
-
-    /// <summary>
-    /// TriggerChange method
-    /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public override Task TriggerChange(string val)
-    {
-        // client input does not need to be re-rendered to prevent jitter when the network is congested 
-        _render = false;
-        CurrentValue = val;
-        _render = true;
-        _dropdown.Render();
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// TriggerChange method
-    /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public Task TriggerDeleteCallback(string val)
-    {
-        CurrentValue = val;
-        if (!ValueChanged.HasDelegate)
-        {
-            StateHasChanged();
-        }
-        return Task.CompletedTask;
     }
 }
