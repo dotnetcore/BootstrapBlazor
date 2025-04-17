@@ -278,11 +278,11 @@ public partial class Search<TValue>
     }
 
     /// <summary>
-    /// TriggerFilter 方法
+    /// TriggerFilter method called by Javascript.
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public override async Task TriggerFilter(string val)
+    public async Task TriggerFilter(string val)
     {
         _render = false;
         _displayText = val;

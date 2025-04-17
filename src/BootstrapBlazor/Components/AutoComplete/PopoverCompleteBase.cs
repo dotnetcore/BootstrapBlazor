@@ -169,15 +169,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
             await OnBlurAsync(Value);
         }
     }
-
-    /// <summary>
-    /// TriggerFilter 方法
-    /// </summary>
-    /// <param name="val"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public virtual Task TriggerFilter(string val) => Task.CompletedTask;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
