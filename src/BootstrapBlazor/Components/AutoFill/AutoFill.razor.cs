@@ -248,7 +248,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="val">The value to filter by.</param>
     [JSInvokable]
-    public override async Task TriggerFilter(string val)
+    public async Task TriggerFilter(string val)
     {
         if (OnQueryAsync != null)
         {

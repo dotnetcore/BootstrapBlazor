@@ -139,7 +139,7 @@ public partial class AutoComplete
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public override async Task TriggerFilter(string val)
+    public async Task TriggerFilter(string val)
     {
         if (OnCustomFilter != null)
         {
