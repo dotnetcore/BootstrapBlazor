@@ -276,10 +276,10 @@ public partial class AutoFill<TValue>
         }
         else
         {
-            var comparision = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
             var items = IsLikeMatch
-                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
-                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
+                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparison) ?? false)
+                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparison) ?? false);
             _filterItems = [.. items];
         }
 
@@ -288,17 +288,5 @@ public partial class AutoFill<TValue>
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// Triggers the change method.
-    /// </summary>
-    /// <param name="val">The value to change to.</param>
-    [JSInvokable]
-    public Task TriggerChange(string val)
-    {
-        _displayText = val;
-        StateHasChanged();
-        return Task.CompletedTask;
     }
 }
