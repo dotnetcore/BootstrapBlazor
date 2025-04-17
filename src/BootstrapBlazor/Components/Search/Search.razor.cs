@@ -208,14 +208,6 @@ public partial class Search<TValue>
         }
     }
 
-    private bool _render = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldRender() => _render;
-
     private string _displayText = "";
     /// <summary>
     /// 点击搜索按钮时触发此方法
@@ -284,13 +276,11 @@ public partial class Search<TValue>
     [JSInvokable]
     public async Task TriggerFilter(string val)
     {
-        _render = false;
         _displayText = val;
         if (IsTriggerSearchByInput)
         {
             await OnSearchClick();
         }
-        _render = true;
         _dropdown.Render();
     }
 }
