@@ -70,6 +70,27 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        Foo? val = null;
+        var items = new List<Foo>() { new() { Name = "test1" }, new() { Name = "test2" } };
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnBlurAsync, v =>
+            {
+                val = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.NotNull(val);
+        Assert.Equal("test1", val.Name);
+    }
+
+    [Fact]
     public async Task OnCustomFilter_Ok()
     {
         var filtered = false;

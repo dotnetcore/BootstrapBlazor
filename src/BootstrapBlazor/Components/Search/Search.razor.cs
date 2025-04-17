@@ -169,7 +169,8 @@ public partial class Search<TValue>
     [NotNull]
     private List<TValue>? _filterItems = null;
 
-    private SearchContext<TValue> _context = default!;
+    [NotNull]
+    private SearchContext<TValue>? _context = null;
 
     [NotNull]
     private RenderTemplate? _dropdown = null;
@@ -266,6 +267,11 @@ public partial class Search<TValue>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
+        }
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
         }
     }
 

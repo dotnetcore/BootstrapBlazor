@@ -130,6 +130,11 @@ public partial class AutoComplete
         {
             await OnSelectedItemChanged(val);
         }
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];

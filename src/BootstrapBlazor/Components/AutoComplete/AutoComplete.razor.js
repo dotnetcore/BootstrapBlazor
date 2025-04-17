@@ -9,7 +9,7 @@ export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
-    const ac = { el, invoke, menu }
+    const ac = { el, invoke, menu, input }
     Data.set(id, ac)
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
@@ -102,24 +102,36 @@ export function init(id, invoke) {
                 const d = Data.get(id);
                 if (d) {
                     d.close();
+                    d.blur();
                 }
             }
         });
     }
-    ac.blur = e => {
+
+    ac.keyup = e => {
         if (e.key === 'Tab') {
             [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
                 const id = a.getAttribute('id');
                 const d = Data.get(id);
                 if (d) {
                     d.close();
+                    d.blur();
                 }
             });
         }
     }
+
+    ac.blur = function () {
+        const { input, invoke } = this;
+        const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
+        if (triggerBlur) {
+            invoke.invokeMethodAsync('TriggerBlur');
+        }
+    }
+
     registerBootstrapBlazorModule('AutoComplete', id, () => {
         EventHandler.on(document, 'click', ac.closePopover);
-        EventHandler.on(document, 'keyup', ac.blur);
+        EventHandler.on(document, 'keyup', ac.keyup);
     });
 }
 
@@ -183,7 +195,7 @@ export function dispose(id) {
     const { AutoComplete } = window.BootstrapBlazor;
     AutoComplete.dispose(id, () => {
         EventHandler.off(document, 'click', ac.closePopover);
-        EventHandler.off(document, 'keyup', ac.blur);
+        EventHandler.off(document, 'keyup', ac.keyup);
     });
 }
 

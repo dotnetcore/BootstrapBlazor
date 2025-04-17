@@ -227,6 +227,11 @@ public partial class AutoFill<TValue>
         {
             await OnSelectedItemChanged(val);
         }
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
