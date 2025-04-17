@@ -258,7 +258,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
-            pb.Add(a => a.Value, "test1");
+            pb.Add(a => a.Value, "test2");
             pb.Add(a => a.OnBlurAsync, v =>
             {
                 val = v;
@@ -266,7 +266,10 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
-        Assert.Equal("test1", val);
+        Assert.Equal("test2", val);
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
     }
 
     [Fact]
