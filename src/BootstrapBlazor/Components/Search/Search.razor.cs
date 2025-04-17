@@ -259,8 +259,6 @@ public partial class Search<TValue>
         {
             await OnBlurAsync(Value);
         }
-
-        await TriggerFilter(_displayText);
     }
 
     /// <summary>
