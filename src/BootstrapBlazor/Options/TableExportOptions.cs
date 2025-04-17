@@ -43,7 +43,7 @@ public class TableExportOptions
     /// <summary>
     /// Gets or sets whether to enable Excel auto-filtering. Default is true.
     /// </summary>
-    public bool AutoFilter { get; set; } = true;
+    public bool EnableAutoFilter { get; set; } = true;
 
     /// <summary>
     /// Gets or sets whether to enable Excel auto-width. Default is false.
