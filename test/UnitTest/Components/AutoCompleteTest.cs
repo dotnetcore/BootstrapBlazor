@@ -265,9 +265,8 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-
-        // trigger blur
-        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
+        var input = cut.Find(".form-control");
+        await cut.InvokeAsync(() => input.Blur());
         Assert.Equal("test1", val);
     }
 
@@ -328,9 +327,9 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
 
     class MockPopoverCompleteBase : PopoverCompleteBase<string>
     {
-        public override Task TriggerFilter(string val)
+        public Task TriggerFilter(string val)
         {
-            return base.TriggerFilter(val);
+            return Task.CompletedTask;
         }
     }
 }
