@@ -121,7 +121,7 @@ export function init(id, invoke) {
         }
     }
 
-    ac.blur = function() {
+    ac.blur = function () {
         const { input, invoke } = this;
         const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
         if (triggerBlur) {
@@ -195,7 +195,7 @@ export function dispose(id) {
     const { AutoComplete } = window.BootstrapBlazor;
     AutoComplete.dispose(id, () => {
         EventHandler.off(document, 'click', ac.closePopover);
-        EventHandler.off(document, 'keyup', ac.blur);
+        EventHandler.off(document, 'keyup', ac.keyup);
     });
 }
 
