@@ -265,8 +265,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        var input = cut.Find(".form-control");
-        await cut.InvokeAsync(() => input.Blur());
+        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
         Assert.Equal("test1", val);
     }
 
