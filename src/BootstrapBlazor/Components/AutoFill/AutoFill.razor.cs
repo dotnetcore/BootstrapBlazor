@@ -233,7 +233,7 @@ public partial class AutoFill<TValue>
             await OnBlurAsync(Value);
         }
 
-        await TriggerFilter(CurrentValueAsString);
+        await TriggerFilter(_displayText!);
     }
 
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
