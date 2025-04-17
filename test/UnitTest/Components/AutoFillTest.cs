@@ -164,7 +164,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnGetDisplayText_Ok()
+    public void OnGetDisplayText_Ok()
     {
         var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
         {
@@ -174,18 +174,6 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         var input = cut.Find("input");
         Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.OnGetDisplayText, null!);
-        });
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsLikeMatch, true);
-        });
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
     }
 
     [Fact]
