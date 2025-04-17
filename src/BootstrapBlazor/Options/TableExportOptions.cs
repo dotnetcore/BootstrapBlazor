@@ -38,4 +38,14 @@ public class TableExportOptions
     /// </summary>
     /// <remarks>注意格式化后返回值是 <code>string</code> 会导致原始值类型改变</remarks>
     public string ArrayDelimiter { get; set; } = ",";
+
+    /// <summary>
+    /// 获得/设置 是否启用 Excel 自动筛选 默认 true
+    /// </summary>
+    public bool AutoFilter { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否启用 Excel 自动宽度 默认 false
+    /// </summary>
+    public bool EnableAutoWidth { get; set; }
 }
