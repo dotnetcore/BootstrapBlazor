@@ -172,7 +172,7 @@ public partial class Search<TValue>
     private SearchContext<TValue> _context = default!;
 
     [NotNull]
-    private RenderTemplate? _dropdown = default;
+    private RenderTemplate? _dropdown = null;
 
     /// <summary>
     /// <inheritdoc/>
