@@ -29,7 +29,7 @@
                    data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString" data-bb-blur="@TriggerBlurString"
                    data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
                    data-bb-input="@UseInputString"
-                   value="@_displayText"
+                   @bind="@_displayText"
                    placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
             @if (IsClearable)
             {
