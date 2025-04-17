@@ -53,10 +53,7 @@ public class SearchTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
-
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
-        await Task.Delay(20);
-
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         Assert.Contains("test1", cut.Markup);
         Assert.Contains("test2", cut.Markup);
     }
@@ -143,7 +140,9 @@ public class SearchTest : BootstrapBlazorTestBase
                 return items;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
+        await Task.Delay(20);
 
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.Click());
