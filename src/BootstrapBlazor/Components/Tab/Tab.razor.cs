@@ -143,7 +143,7 @@ public partial class Tab : IHandlerException
     /// Gets or sets whether auto reset tab item index. Default is true.
     /// </summary>
     [Parameter]
-    public bool IsAutoLoopTabItem { get; set; } = true;
+    public bool IsLoopSwitchTabItem { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示活动标签 默认为 true 显示
@@ -656,7 +656,7 @@ public partial class Tab : IHandlerException
                 index--;
                 if (index < 0)
                 {
-                    if (IsAutoLoopTabItem)
+                    if (IsLoopSwitchTabItem)
                     {
                         index = TabItems.Count - 1;
                     }
@@ -699,7 +699,7 @@ public partial class Tab : IHandlerException
                 index++;
                 if (index + 1 > TabItems.Count)
                 {
-                    if (IsAutoLoopTabItem)
+                    if (IsLoopSwitchTabItem)
                     {
                         index = 0;
                     }
