@@ -203,6 +203,14 @@ public sealed partial class Tabs
         },
         new()
         {
+            Name = nameof(Tab.IsLoopSwitchTabItem),
+            Description = Localizer["TabAttIsLoopSwitchTabItem"].Value,
+            Type = "boolean",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ShowClose",
             Description = Localizer["TabAtt4ShowClose"].Value,
             Type = "boolean",
