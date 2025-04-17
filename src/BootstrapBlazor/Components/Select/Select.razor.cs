@@ -173,6 +173,7 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (Value is null)
         {
+            _lastSelectedValueString = "";
             _init = false;
             return null;
         }
@@ -411,6 +412,7 @@ public partial class Select<TValue> : ISelect, ILookup
         await base.OnClearValue();
 
         SelectedItem = null;
+        _lastSelectedValueString = "";
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
