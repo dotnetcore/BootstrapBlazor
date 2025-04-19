@@ -32,7 +32,7 @@
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.9" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.10" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
@@ -63,7 +63,7 @@
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.2" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.3" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.3" />
