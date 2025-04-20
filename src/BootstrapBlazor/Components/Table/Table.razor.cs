@@ -133,7 +133,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     private string? LineCellClassString => CssBuilder.Default("table-cell")
-        .AddClass("table-col-line-no", IsExcel)
+        .AddClass("col-line-no")
         .AddClass(LineNoColumnAlignment.ToDescriptionString())
         .Build();
 
