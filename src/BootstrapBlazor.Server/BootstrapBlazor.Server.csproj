@@ -25,7 +25,7 @@
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.BarCode" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="9.0.0" />
