@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 查询条件实体类
 /// </summary>
+[JsonConverter(typeof(JsonQueryPageOptionsConverter))]
 public class QueryPageOptions
 {
     /// <summary>
