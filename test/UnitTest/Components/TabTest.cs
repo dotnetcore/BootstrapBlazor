@@ -172,6 +172,42 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsLoopSwitchTabItem_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.Add(a => a.IsLoopSwitchTabItem, false);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Index");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+
+        // Click Prev
+        var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+
+        // Click Next
+        button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+
+        await cut.InvokeAsync(() => button.Click());
+        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+    }
+
+    [Fact]
     public void ClickTab_Ok()
     {
         var clicked = false;

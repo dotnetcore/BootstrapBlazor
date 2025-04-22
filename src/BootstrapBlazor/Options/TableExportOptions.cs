@@ -8,34 +8,45 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Table 导出 Excel 配置类
+/// Configuration class for exporting tables to Excel
 /// </summary>
 public class TableExportOptions
 {
     /// <summary>
-    /// 获得/设置 是否使用格式化 默认 true 如果设置 <see cref="TableColumn{TItem, TType}.FormatString"/> 或者 <see cref="TableColumn{TItem, TType}.Formatter"/> 后使用格式化值
+    /// Gets or sets whether to use formatting. Default is true. 
+    /// If <see cref="TableColumn{TItem, TType}.FormatString"/> or <see cref="TableColumn{TItem, TType}.Formatter"/> is set, the formatted value will be used.
     /// </summary>
-    /// <remarks>注意格式化后返回值是 <code>string</code> 会导致原始值类型改变</remarks>
+    /// <remarks>Note: After formatting, the returned value is a <code>string</code>, which may change the original value type.</remarks>
     public bool EnableFormat { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否使用 Lookup 默认 true
+    /// Gets or sets whether to use Lookup. Default is true.
     /// </summary>
     public bool EnableLookup { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否将数组类型值进行合并操作 默认 true
+    /// Gets or sets whether to merge array-type values. Default is true.
     /// </summary>
     public bool AutoMergeArray { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否使用枚举类型的 <see cref="DescriptionAttribute"/> 标签 默认 true
+    /// Gets or sets whether to use the <see cref="DescriptionAttribute"/> tag for enum types. Default is true.
     /// </summary>
     public bool UseEnumDescription { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 数组类型合并操作时使用的分隔符 默认使用逗号
+    /// Gets or sets the delimiter used when merging array-type values. Default is a comma.
     /// </summary>
-    /// <remarks>注意格式化后返回值是 <code>string</code> 会导致原始值类型改变</remarks>
+    /// <remarks>Note: After formatting, the returned value is a <code>string</code>, which may change the original value type.</remarks>
     public string ArrayDelimiter { get; set; } = ",";
+
+    /// <summary>
+    /// Gets or sets whether to enable Excel auto-filtering. Default is true.
+    /// </summary>
+    public bool EnableAutoFilter { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether to enable Excel auto-width. Default is false.
+    /// </summary>
+    public bool EnableAutoWidth { get; set; }
 }

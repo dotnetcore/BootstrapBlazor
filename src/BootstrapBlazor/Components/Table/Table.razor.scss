@@ -1,4 +1,4 @@
-.table-container {
+﻿.table-container {
     --bb-table-td-padding-x: .5rem;
     --bb-table-td-padding-y: .5rem;
     --bb-table-cardview-label-width: 30%;
@@ -751,6 +751,10 @@ form .table .table-cell > textarea {
 
 .table-excel > tbody > tr > td > .table-cell > .form-check {
     padding: 6px 8px;
+}
+
+.table-excel > tbody > tr > td > .col-line-no {
+    padding: 7px 0;
 }
 
 .table-excel .active > td > .table-cell .form-control,

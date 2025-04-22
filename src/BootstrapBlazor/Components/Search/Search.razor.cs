@@ -8,142 +8,142 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Search 组件
+/// Search component
 /// </summary>
 public partial class Search<TValue>
 {
     /// <summary>
-    /// 获得/设置 图标模板 默认 null 未设置
+    /// Gets or sets the icon template. Default is null if not set.
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? IconTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示清空小按钮 默认 false
+    /// Gets or sets whether to show the clear button. Default is false.
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
 
     /// <summary>
-    /// 获得/设置 清空图标 默认为 null
+    /// Gets or sets the clear icon. Default is null.
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示清除按钮 默认为 false 不显示
+    /// Gets or sets whether to show the clear button. Default is false.
     /// </summary>
     [Parameter]
     public bool ShowClearButton { get; set; }
 
     /// <summary>
-    /// Clear button icon
+    /// Gets or sets the icon of clear button. Default is null.
     /// </summary>
     [Parameter]
     public string? ClearButtonIcon { get; set; }
 
     /// <summary>
-    /// Clear button text
+    /// Gets or sets the text of clear button. Default is null.
     /// </summary>
     [Parameter]
     public string? ClearButtonText { get; set; }
 
     /// <summary>
-    /// Clear button color
+    /// Gets or sets the color of clear button. Default is <see cref="Color.Primary"/>.
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 是否显示搜索按钮 默认为 true 显示
+    /// Gets or sets whether to show the search button. Default is true.
     /// </summary>
     [Parameter]
     public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 搜索按钮颜色
+    /// Gets or sets the search button color. Default is <see cref="Color.Primary"/>.
     /// </summary>
     [Parameter]
     public Color SearchButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 搜索按钮图标
+    /// Gets or sets the search button icon. Default is null.
     /// </summary>
     [Parameter]
     public string? SearchButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 正在搜索按钮图标
+    /// Gets or sets the loading icon for the search button. Default is null.
     /// </summary>
     [Parameter]
     public string? SearchButtonLoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索按钮文字
+    /// Gets or sets the search button text. Default is null.
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮模板 默认 null 未设置
+    /// Gets or sets the button template. Default is null.
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? ButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 前置按钮模板 默认 null 未设置
+    /// Gets or sets the prefix button template. Default is null.
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? PrefixButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示前缀图标 默认为 false 不显示
+    /// Gets or sets whether to show the prefix icon. Default is false.
     /// </summary>
     [Parameter]
     public bool ShowPrefixIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 前缀图标 默认为 null
+    /// Gets or sets the prefix icon. Default is null.
     /// </summary>
     [Parameter]
     public string? PrefixIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 前缀图标模板 默认为 null
+    /// Gets or sets the prefix icon template. Default is null.
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? PrefixIconTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击搜索后是否自动清空搜索框
+    /// Gets or sets whether to automatically clear the search box after searching. Deprecated.
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，删除即可; Deprecated. Just delete it")]
+    [Obsolete("Deprecated. Just delete it.")]
     [ExcludeFromCodeCoverage]
     public bool IsAutoClearAfterSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索模式是否为输入即触发 默认 true 值为 false 时需要点击搜索按钮触发
+    /// Gets or sets whether the search is triggered by input. Default is true. If false, the search button must be clicked to trigger.
     /// </summary>
     [Parameter]
     public bool IsTriggerSearchByInput { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击搜索按钮时回调委托
+    /// Gets or sets the callback delegate when the search button is clicked.
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<TValue>>>? OnSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
+    /// Gets or sets the callback method to get display text. Default is null, using ToString() method.
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<TValue, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击清空按钮时回调委托
+    /// Gets or sets the event callback when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
     public Func<string?, Task>? OnClear { get; set; }
@@ -163,9 +163,6 @@ public partial class Search<TValue>
     [NotNull]
     private string? ButtonIcon { get; set; }
 
-    /// <summary>
-    /// 获得/设置 UI 呈现数据集合
-    /// </summary>
     [NotNull]
     private List<TValue>? _filterItems = null;
 
@@ -210,10 +207,6 @@ public partial class Search<TValue>
     }
 
     private string _displayText = "";
-    /// <summary>
-    /// 点击搜索按钮时触发此方法
-    /// </summary>
-    /// <returns></returns>
     private async Task OnSearchClick()
     {
         if (OnSearch != null)
@@ -232,10 +225,6 @@ public partial class Search<TValue>
         }
     }
 
-    /// <summary>
-    /// 点击搜索按钮时触发此方法
-    /// </summary>
-    /// <returns></returns>
     private async Task OnClearClick()
     {
         if (OnClear != null)
@@ -256,9 +245,6 @@ public partial class Search<TValue>
         return displayText;
     }
 
-    /// <summary>
-    /// 鼠标点击候选项时回调此方法
-    /// </summary>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;

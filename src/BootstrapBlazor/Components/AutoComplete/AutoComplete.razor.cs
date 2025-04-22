@@ -135,6 +135,8 @@ public partial class AutoComplete
         {
             await OnBlurAsync(Value);
         }
+
+        await TriggerFilter(val);
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];
