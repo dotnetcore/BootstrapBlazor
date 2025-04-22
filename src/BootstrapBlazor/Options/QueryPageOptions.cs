@@ -74,7 +74,6 @@ public class QueryPageOptions
     /// </summary>
     [Obsolete("This property is obsolete. Use Searches instead. 已过期，请使用 Searches 参数")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public List<IFilterAction> Searchs => Searches;
 
     /// <summary>
@@ -87,7 +86,6 @@ public class QueryPageOptions
     /// </summary>
     [Obsolete("This property is obsolete. Use CustomerSearches instead. 已过期，请使用 CustomerSearches 参数")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public List<IFilterAction> CustomerSearchs => CustomerSearches;
 
     /// <summary>
@@ -100,7 +98,6 @@ public class QueryPageOptions
     /// </summary>
     [Obsolete("This property is obsolete. Use AdvanceSearches instead. 已过期，请使用 AdvanceSearches 参数")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public List<IFilterAction> AdvanceSearchs => AdvanceSearches;
 
     /// <summary>
@@ -119,7 +116,6 @@ public class QueryPageOptions
     /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
     [Obsolete("This property is obsolete. Use IsFirstQuery. 已弃用单词拼写错误，请使用 IsFirstQuery")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public bool IsFristQuery { get => IsFirstQuery; set => IsFirstQuery = value; }
 
     /// <summary>
