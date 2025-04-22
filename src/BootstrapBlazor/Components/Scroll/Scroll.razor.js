@@ -1,11 +1,4 @@
-﻿export function init(id) {
-    const el = document.getElementById(id)
-    if (el === null) {
-
-    }
-}
-
-export function scrollToBottom(id) {
+﻿export function scrollToBottom(id) {
     const el = document.getElementById(id);
     const top = el.scrollHeight;
     el.scrollTo({
