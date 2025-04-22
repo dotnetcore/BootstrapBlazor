@@ -34,14 +34,8 @@ public sealed partial class Scrolls
         }
     ];
 
-    private Scroll? _scroll;
+    [NotNull]
+    private Scroll? _scroll = null;
 
-    private async Task ScrollToBottom()
-    {
-        if (_scroll != null)
-        {
-            await _scroll.ScrollToBottom();
-        }
-
-    }
+    private Task ScrollToBottom() => _scroll.ScrollToBottom();
 }
