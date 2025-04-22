@@ -82,7 +82,7 @@ public class QueryPageOptions
     public List<IFilterAction> Searches { get; } = new(20);
 
     /// <summary>
-    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
+    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得
     /// </summary>
     [Obsolete("This property is obsolete. Use CustomerSearches instead. 已过期，请使用 CustomerSearches 参数")]
     [ExcludeFromCodeCoverage]
@@ -90,7 +90,7 @@ public class QueryPageOptions
     public List<IFilterAction> CustomerSearchs => CustomerSearches;
 
     /// <summary>
-    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
+    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得
     /// </summary>
     public List<IFilterAction> CustomerSearches { get; } = new(20);
 
