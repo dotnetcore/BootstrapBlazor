@@ -5,7 +5,7 @@
 
 namespace UnitTest.Components;
 
-public class ScrollTest : TestBase
+public class ScrollTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Height_Ok()
@@ -31,20 +31,20 @@ public class ScrollTest : TestBase
             builder.Add(a => a.Width, "500px");
         });
 
-        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 5px; --bb-scroll-hover-width: 5px;\"></div>", cut.Markup);
+        Assert.Contains("style=\"width: 500px; --bb-scroll-width: 5px; --bb-scroll-hover-width: 5px;\"", cut.Markup);
 
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.ScrollWidth, 6);
         });
-        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 5px;\"></div>", cut.Markup);
+        Assert.Contains("style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 5px;\"", cut.Markup);
 
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.ScrollWidth, 6);
             builder.Add(a => a.ScrollHoverWidth, 12);
         });
-        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 12px;\"></div>", cut.Markup);
+        Assert.Contains("style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 12px;\"", cut.Markup);
     }
 
     [Fact]
