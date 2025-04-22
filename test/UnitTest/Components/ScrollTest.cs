@@ -59,4 +59,17 @@ public class ScrollTest : TestBase
 
         Assert.Contains("I am scroll", cut.Markup);
     }
+
+    [Fact]
+    public async Task ScrollToBottom_Ok()
+    {
+        var cut = Context.RenderComponent<Scroll>(builder => builder.Add(a => a.ChildContent, r =>
+        {
+            r.OpenElement(0, "div");
+            r.AddContent(1, "I am scroll");
+            r.CloseComponent();
+        }));
+
+        await cut.InvokeAsync(() => cut.Instance.ScrollToBottom());
+    }
 }
