@@ -63,8 +63,5 @@ public partial class Scroll
     /// <summary>
     /// 滚动到底部
     /// </summary>
-    public async Task ScrollToBottom()
-    {
-        await InvokeVoidAsync("scrollToBottom", Id);
-    }
+    public Task ScrollToBottom() => InvokeVoidAsync("scrollToBottom", Id);
 }
