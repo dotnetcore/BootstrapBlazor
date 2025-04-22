@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 查询条件实体类
 /// </summary>
+[JsonConverter(typeof(JsonQueryPageOptionsConverter))]
 public class QueryPageOptions
 {
     /// <summary>
@@ -81,15 +82,14 @@ public class QueryPageOptions
     public List<IFilterAction> Searches { get; } = new(20);
 
     /// <summary>
-    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
+    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得
     /// </summary>
     [Obsolete("This property is obsolete. Use CustomerSearches instead. 已过期，请使用 CustomerSearches 参数")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public List<IFilterAction> CustomerSearchs => CustomerSearches;
 
     /// <summary>
-    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
+    /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得
     /// </summary>
     public List<IFilterAction> CustomerSearches { get; } = new(20);
 
@@ -116,7 +116,6 @@ public class QueryPageOptions
     /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
     [Obsolete("This property is obsolete. Use IsFirstQuery. 已弃用单词拼写错误，请使用 IsFirstQuery")]
     [ExcludeFromCodeCoverage]
-    [JsonIgnore]
     public bool IsFristQuery { get => IsFirstQuery; set => IsFirstQuery = value; }
 
     /// <summary>
