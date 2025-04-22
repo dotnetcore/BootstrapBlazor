@@ -73,6 +73,7 @@ public class QueryPageOptions
     /// </summary>
     [Obsolete("This property is obsolete. Use Searches instead. 已过期，请使用 Searches 参数")]
     [ExcludeFromCodeCoverage]
+    [JsonIgnore]
     public List<IFilterAction> Searchs => Searches;
 
     /// <summary>
@@ -98,6 +99,7 @@ public class QueryPageOptions
     /// </summary>
     [Obsolete("This property is obsolete. Use AdvanceSearches instead. 已过期，请使用 AdvanceSearches 参数")]
     [ExcludeFromCodeCoverage]
+    [JsonIgnore]
     public List<IFilterAction> AdvanceSearchs => AdvanceSearches;
 
     /// <summary>
