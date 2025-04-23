@@ -1,4 +1,4 @@
-.is-draggable .modal-header {
+﻿.is-draggable .modal-header {
     cursor: pointer;
 }
 
@@ -68,6 +68,24 @@
 .modal-fullscreen.is-draggable {
     margin: 0 !important;
     width: 100vw !important;
+}
+
+.modal-multiple .modal-dialog {
+    position: fixed;
+    inset: 0;
+
+    &:last-child:before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-color: #000;
+        opacity: 0.3;
+        pointer-events: auto;
+    }
+}
+
+.modal-multiple ~ .modal-backdrop {
+    display: none;
 }
 
 @media print {

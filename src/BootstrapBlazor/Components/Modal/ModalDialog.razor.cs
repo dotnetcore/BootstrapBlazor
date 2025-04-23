@@ -25,7 +25,7 @@ public partial class ModalDialog : IHandlerException
         .AddClass("modal-fullscreen", MaximizeStatus)
         .AddClass("is-draggable", IsDraggable)
         .AddClass("is-draggable-center", IsCentered && IsDraggable && _firstRender)
-        .AddClass("d-none", !IsShown)
+        .AddClass("d-none", IsHidePreviousDialog && !IsShown)
         .AddClass(Class, !string.IsNullOrEmpty(Class))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -77,6 +77,12 @@ public partial class ModalDialog : IHandlerException
     /// </summary>
     [Parameter]
     public bool IsScrolling { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to hide the previous dialog when opening a new one, default is false
+    /// </summary>
+    [Parameter]
+    public bool IsHidePreviousDialog { get; set; }
 
     /// <summary>
     /// 获得/设置 是否可以拖拽弹窗 默认 false 不可以拖动
