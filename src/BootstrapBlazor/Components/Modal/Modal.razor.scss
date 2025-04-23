@@ -72,6 +72,7 @@
 
 .modal-multiple .modal-dialog {
     position: fixed;
+    inset: 0;
 
     &:last-child:before {
         content: "";
