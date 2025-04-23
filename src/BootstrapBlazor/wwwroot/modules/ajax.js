@@ -4,6 +4,7 @@
         url: null,
         data: null,
         toJson: true,
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
         ...option
     }
 
@@ -14,13 +15,19 @@
 
     let result = null;
     try {
-        const { toJson, url, method, data } = option;
+        const { toJson, url, method, data, headers } = option;
+        if (headers['Content-Type'] === void 0) {
+            headers['Content-Type'] = 'application/json; charset=utf-8'
+        }
+        const contentType = headers['Content-Type'];
+        let postData = JSON.stringify(data);
+        if (contentType.indexOf('application/x-www-form-urlencoded') > -1) {
+            postData = new URLSearchParams(data).toString();
+        }
         result = await fetch(url, {
             method: method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: method === 'POST' ? JSON.stringify(data) : null
+            headers: headers,
+            body: postData
         });
         if (toJson === true) {
             result = await result.json()
