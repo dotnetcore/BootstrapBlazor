@@ -31,6 +31,7 @@ public partial class Dialog : IDisposable
 
     private string? ClassString => CssBuilder.Default()
         .AddClass("modal-multiple", DialogParameters.Count > 1)
+        .AddClass("show", DialogParameters.Count > 0)
         .Build();
 
     /// <summary>
