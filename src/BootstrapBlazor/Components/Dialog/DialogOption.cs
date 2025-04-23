@@ -198,9 +198,9 @@ public class DialogOption
     public ExportPdfButtonOptions? ExportPdfButtonOptions { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to keep the previous dialog when opening a new one, default is false
+    /// Gets or sets whether to hide the previous dialog when opening a new one, default is false
     /// </summary>
-    public bool IsKeepPreviousDialog { get; set; }
+    public bool IsHidePreviousDialog { get; set; }
 
     /// <summary>
     /// Method to close the dialog
@@ -225,7 +225,7 @@ public class DialogOption
             [nameof(ModalDialog.FullScreenSize)] = FullScreenSize,
             [nameof(ModalDialog.IsCentered)] = IsCentered,
             [nameof(ModalDialog.IsScrolling)] = IsScrolling,
-            [nameof(ModalDialog.IsKeepPreviousDialog)] = IsKeepPreviousDialog,
+            [nameof(ModalDialog.IsHidePreviousDialog)] = IsHidePreviousDialog,
             [nameof(ModalDialog.ShowCloseButton)] = ShowCloseButton,
             [nameof(ModalDialog.ShowSaveButton)] = ShowSaveButton,
             [nameof(ModalDialog.ShowHeaderCloseButton)] = ShowHeaderCloseButton,
