@@ -59,4 +59,9 @@ public partial class Scroll
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
+    /// <summary>
+    /// 滚动到底部
+    /// </summary>
+    public Task ScrollToBottom() => InvokeVoidAsync("scrollToBottom", Id);
 }

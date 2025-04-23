@@ -33,4 +33,9 @@ public sealed partial class Scrolls
             DefaultValue = " — "
         }
     ];
+
+    [NotNull]
+    private Scroll? _scroll = null;
+
+    private Task ScrollToBottom() => _scroll.ScrollToBottom();
 }

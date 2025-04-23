@@ -9,10 +9,19 @@
 
 <DemoBlock Title="@Localizer["ScrollNormalTitle"]" Introduction="@Localizer["ScrollNormalIntro"]" Name="Normal">
     <div class="scroll-demo border">
-        <Scroll Height="200px">
-            <div style="height: 400px;">@Localizer["ScrollNormalDescription"]</div>
-            <div>@Localizer["ScrollNormalBottom"]</div>
+        <Scroll @ref="_scroll" Height="200px">
+            <div class="m-1">@Localizer["ScrollNormalDescription"]</div>
+            <div class="bg-primary" style="height: 100px;"></div>
+            <div class="bg-secondary" style="height: 100px;"></div>
+            <div class="bg-warning" style="height: 100px;"></div>
+            <div class="bg-success" style="height: 100px;"></div>
+            <div class="bg-info" style="height: 100px;"></div>
+            <div class="m-1">@Localizer["ScrollNormalBottom"]</div>
         </Scroll>
+        <Divider/>
+        <div class="m-3">
+            <Button OnClick="ScrollToBottom" Text="@Localizer["ScrollToBottom"]"></Button>
+        </div>
     </div>
 </DemoBlock>
 

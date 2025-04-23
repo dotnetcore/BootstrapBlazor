@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(AutoInvokeInit = false, AutoInvokeDispose = false)]
 
-<div @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
     @ChildContent
 </div>
