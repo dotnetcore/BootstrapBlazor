@@ -2,7 +2,7 @@
 @inherits BootstrapComponentBase
 
 <Modal @ref="_modal" IsBackdrop="_isBackdrop" IsKeyboard="@_isKeyboard" IsFade="@_isFade"
-       OnShownAsync="@_onShownAsync" OnCloseAsync="@_onCloseAsync">
+       OnShownAsync="@_onShownAsync" OnCloseAsync="@_onCloseAsync" class="@ClassString">
     @for (var index = 0; index < DialogParameters.Keys.Count; index++)
     {
         @RenderDialog(index, DialogParameters.Keys.ElementAt(index))

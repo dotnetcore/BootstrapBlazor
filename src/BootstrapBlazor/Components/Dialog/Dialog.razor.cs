@@ -29,6 +29,10 @@ public partial class Dialog : IDisposable
     private bool _isBackdrop = false;
     private bool? _isFade = null;
 
+    private string? ClassString => CssBuilder.Default()
+        .AddClass("modal-multiple", DialogParameters.Count > 1)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
