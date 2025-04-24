@@ -20,9 +20,12 @@
             headers['Content-Type'] = 'application/json; charset=utf-8'
         }
         const contentType = headers['Content-Type'];
-        let postData = JSON.stringify(data);
-        if (contentType.indexOf('application/x-www-form-urlencoded') > -1) {
-            postData = new URLSearchParams(data).toString();
+        let postData = null;
+        if (data) {
+            postData = JSON.stringify(data);
+            if (contentType.indexOf('application/x-www-form-urlencoded') > -1) {
+                postData = new URLSearchParams(data).toString();
+            }
         }
         result = await fetch(url, {
             method: method,
