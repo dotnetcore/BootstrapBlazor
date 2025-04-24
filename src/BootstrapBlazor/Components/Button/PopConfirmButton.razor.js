@@ -140,6 +140,12 @@ export function dispose(id) {
         popover.dispose();
     }
 
+    if (el) {
+        EventHandler.off(el, 'show.bs.popover')
+        EventHandler.off(el, 'inserted.bs.popover')
+        EventHandler.off(el, 'hide.bs.popover')
+    }
+
     const { PopConfirmButton } = window.BootstrapBlazor;
     PopConfirmButton.dispose(id, () => {
         EventHandler.off(document, 'click', confirm.closeConfirm)
