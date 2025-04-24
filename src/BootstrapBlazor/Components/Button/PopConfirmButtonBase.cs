@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 确认弹窗按钮组件
 /// </summary>
-[BootstrapModuleAutoLoader("Button/PopConfirmButton.razor.js")]
+[BootstrapModuleAutoLoader("Button/PopConfirmButton.razor.js", JSObjectReference = true)]
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>
@@ -166,6 +166,25 @@ public abstract class PopConfirmButtonBase : ButtonBase
         if (Placement != Placement.Top && Placement != Placement.Right && Placement != Placement.Bottom && Placement != Placement.Left)
         {
             Placement = Placement.Auto;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, OnClose == null ? null : nameof(TriggerCloseCallback));
+
+    /// <summary>
+    /// Trigger OnClose event callback.
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerCloseCallback()
+    {
+        if (OnClose != null)
+        {
+            await OnClose();
         }
     }
 }
