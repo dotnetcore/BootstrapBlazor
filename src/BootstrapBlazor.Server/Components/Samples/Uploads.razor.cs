@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
