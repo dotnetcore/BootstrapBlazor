@@ -84,9 +84,13 @@ export function init(id, invoke, closeCallback = null) {
                         popover.hide();
 
                         const id = element.getAttribute('id');
-                        const com = Data.get(id);
-                        const { invoke, closeCallback } = com;
-                        invoke.invokeMethodAsync(closeCallback);
+                        if (id) {
+                            const com = Data.get(id);
+                            const { invoke, closeCallback } = com;
+                            if (invoke) {
+                                invoke.invokeMethodAsync(closeCallback);
+                            }
+                        }
                     }
                 }
             })
