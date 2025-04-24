@@ -398,6 +398,7 @@ public class DialogTest : BootstrapBlazorTestBase
         #region 弹窗中的弹窗测试
         await cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
+            IsHidePreviousDialog = true,
             // 弹窗中按钮
             BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>()
             {
