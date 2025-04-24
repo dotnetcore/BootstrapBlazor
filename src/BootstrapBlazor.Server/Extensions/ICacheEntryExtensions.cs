@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Caching.Memory;
-using System.Reflection;
 
 namespace BootstrapBlazor.Server.Extensions;
 
