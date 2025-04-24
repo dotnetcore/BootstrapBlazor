@@ -19,19 +19,24 @@
         if (headers['Content-Type'] === void 0) {
             headers['Content-Type'] = 'application/json; charset=utf-8'
         }
-        const contentType = headers['Content-Type'];
-        let postData = null;
-        if (data) {
-            postData = JSON.stringify(data);
-            if (contentType.indexOf('application/x-www-form-urlencoded') > -1) {
-                postData = new URLSearchParams(data).toString();
+
+        const fetchOptions = {
+            method: method,
+            headers: headers
+        }
+
+        if (method === 'PUT' || method === 'POST') {
+            const contentType = headers['Content-Type'];
+            let postData = null;
+            if (data) {
+                postData = JSON.stringify(data);
+                if (contentType.indexOf('application/x-www-form-urlencoded') > -1) {
+                    postData = new URLSearchParams(data).toString();
+                }
+                fetchOptions.body = postData;
             }
         }
-        result = await fetch(url, {
-            method: method,
-            headers: headers,
-            body: postData
-        });
+        result = await fetch(url, fetchOptions);
         if (toJson === true) {
             result = await result.json()
         }
