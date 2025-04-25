@@ -8,7 +8,7 @@ const config = {
     popoverSelector: '.popover-confirm.show'
 }
 
-export function init(id, invoke, closeCallback = null) {
+export function init(id, invoke, closeCallback) {
     const el = document.getElementById(id)
     if (el == null) {
         return
