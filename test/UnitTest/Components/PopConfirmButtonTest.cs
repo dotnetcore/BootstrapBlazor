@@ -242,7 +242,13 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<PopConfirmButton>();
+        var cut = Context.RenderComponent<PopConfirmButton>(pb =>
+        {
+            pb.Add(a => a.OnClose, () =>
+            {
+                return Task.CompletedTask;
+            });
+        });
         Assert.DoesNotContain("data-bs-trigger", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
