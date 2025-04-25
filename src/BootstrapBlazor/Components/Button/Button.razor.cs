@@ -40,7 +40,7 @@ public partial class Button : ButtonBase
     }
 
     /// <summary>
-    /// OnClickButton 方法 
+    /// OnClickButton 方法
     /// </summary>
     protected virtual async Task OnClickButton()
     {
