@@ -40,7 +40,7 @@ public partial class Button : ButtonBase
     }
 
     /// <summary>
-    /// OnClickButton 方法
+    /// OnClickButton 方法 
     /// </summary>
     protected virtual async Task OnClickButton()
     {
@@ -50,7 +50,14 @@ public partial class Button : ButtonBase
             IsDisabled = true;
         }
 
-        await HandlerClick();
+        if (IsAsync)
+        {
+            await Task.Run(() => InvokeAsync(HandlerClick));
+        }
+        else
+        {
+            await HandlerClick();
+        }
 
         // 恢复按钮
         if (IsAsync && ButtonType == ButtonType.Button)

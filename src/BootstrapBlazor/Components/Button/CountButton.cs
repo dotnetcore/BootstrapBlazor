@@ -36,7 +36,7 @@ public class CountButton : Button
         IsAsyncLoading = true;
         IsDisabled = true;
 
-        await HandlerClick();
+        await Task.Run(() => InvokeAsync(HandlerClick));
         await UpdateCount();
 
         IsDisabled = false;
