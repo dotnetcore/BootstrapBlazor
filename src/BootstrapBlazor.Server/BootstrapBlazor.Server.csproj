@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.9" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.4" />
