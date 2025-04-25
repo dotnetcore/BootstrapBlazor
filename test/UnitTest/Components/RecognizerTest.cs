@@ -102,7 +102,7 @@ public class RecognizerTest : SpeechTestBase
         var shown = GetShow(cut.Instance);
         Assert.True(shown);
 
-        token.Cancel();
+        GetToken(cut.Instance) = null;
         shown = GetShow(cut.Instance);
         Assert.False(shown);
     }
