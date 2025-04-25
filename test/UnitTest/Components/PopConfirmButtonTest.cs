@@ -89,6 +89,10 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         // 默认设置增加 shadow 样式
         Assert.Contains("data-bs-custom-class=\"test-custom-class shadow\"", cut.Markup);
 
+        close = false;
+        await cut.InvokeAsync(() => popButton.Instance.TriggerCloseCallback());
+        Assert.True(close);
+
         // 移除 shadow 样式
         popButton.SetParametersAndRender(pb =>
         {
@@ -104,6 +108,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // Close
+        close = false;
         buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
