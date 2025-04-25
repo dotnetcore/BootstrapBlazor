@@ -2406,6 +2406,10 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(clickCallback);
         Assert.True(clicked);
         Assert.True(confirmCallback);
+
+        clicked = false;
+        await cut.InvokeAsync(() => button.Instance.TriggerCloseCallback());
+        Assert.True(clicked);
     }
 
     [Fact]
