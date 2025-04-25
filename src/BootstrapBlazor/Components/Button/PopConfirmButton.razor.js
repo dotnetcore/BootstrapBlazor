@@ -87,7 +87,7 @@ export function init(id, invoke, closeCallback = null) {
                         if (id) {
                             const com = Data.get(id);
                             const { invoke, closeCallback } = com;
-                            if (invoke) {
+                            if (invoke && closeCallback) {
                                 invoke.invokeMethodAsync(closeCallback);
                             }
                         }
