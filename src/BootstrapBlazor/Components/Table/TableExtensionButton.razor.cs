@@ -61,7 +61,10 @@ public partial class TableExtensionButton
 
     private async Task OnClickConfirm(TableCellPopConfirmButton b)
     {
-        await b.OnConfirm();
+        if (b.OnConfirm != null)
+        {
+            await b.OnConfirm();
+        }
 
         if (OnClickButton != null)
         {

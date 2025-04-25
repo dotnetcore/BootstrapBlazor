@@ -57,7 +57,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击确认时回调方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
@@ -70,7 +69,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击关闭时回调方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task>? OnClose { get; set; }
 
     /// <summary>
@@ -159,9 +157,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
 
         ConfirmIcon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
         Trigger ??= "click";
-
-        OnClose ??= () => Task.CompletedTask;
-        OnConfirm ??= () => Task.CompletedTask;
 
         if (Placement != Placement.Top && Placement != Placement.Right && Placement != Placement.Bottom && Placement != Placement.Left)
         {
