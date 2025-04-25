@@ -2360,6 +2360,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         var clickCallback = false;
+        var confirmCallback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -2390,15 +2391,21 @@ public class TableTest : BootstrapBlazorTestBase
                         clickCallback = true;
                         return Task.CompletedTask;
                     }));
+                    builder.AddAttribute(4, nameof(TableToolbarPopConfirmButton<Foo>.OnConfirm), new Func<Task>(() =>
+                    {
+                        confirmCallback = true;
+                        return Task.CompletedTask;
+                    }));
                     builder.CloseComponent();
                 });
             });
         });
 
         var button = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm!.Invoke());
         Assert.True(clickCallback);
         Assert.True(clicked);
+        Assert.True(confirmCallback);
     }
 
     [Fact]
