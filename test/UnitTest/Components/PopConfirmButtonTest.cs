@@ -29,6 +29,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
 
         cut.Contains("fa-solid fa-xmark");
         cut.Contains("fa-solid fa-check");
+        cut.DoesNotContain("data-bb-close=\"true\"");
 
         // Show
         var button = cut.Find("div");
@@ -84,6 +85,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
+        cut.Contains("data-bb-close=\"true\"");
         // 默认设置增加 shadow 样式
         Assert.Contains("data-bs-custom-class=\"test-custom-class shadow\"", cut.Markup);
 
