@@ -87,7 +87,8 @@ export function init(id, invoke, closeCallback = null) {
                         if (id) {
                             const com = Data.get(id);
                             const { invoke, closeCallback } = com;
-                            if (invoke && closeCallback) {
+                            const trigger = element.getAttribute('data-bb-close') === 'true';
+                            if (invoke && trigger) {
                                 invoke.invokeMethodAsync(closeCallback);
                             }
                         }

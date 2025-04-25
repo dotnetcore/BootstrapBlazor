@@ -69,6 +69,8 @@ public partial class PopConfirmButton
 
     private string? ConfirmString => OnBeforeClick != null ? "true" : null;
 
+    private string? TriggerCloseString => OnClose != null ? "true" : null;
+
     /// <summary>
     /// 显示确认弹窗方法
     /// </summary>

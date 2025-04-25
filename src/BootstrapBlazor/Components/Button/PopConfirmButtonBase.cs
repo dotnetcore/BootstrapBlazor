@@ -168,7 +168,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, OnClose == null ? null : nameof(TriggerCloseCallback));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerCloseCallback));
 
     /// <summary>
     /// Trigger OnClose event callback.
