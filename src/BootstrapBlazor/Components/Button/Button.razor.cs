@@ -50,14 +50,7 @@ public partial class Button : ButtonBase
             IsDisabled = true;
         }
 
-        if (IsAsync)
-        {
-            await Task.Run(() => InvokeAsync(HandlerClick));
-        }
-        else
-        {
-            await HandlerClick();
-        }
+        await HandlerClick();
 
         // 恢复按钮
         if (IsAsync && ButtonType == ButtonType.Button)
