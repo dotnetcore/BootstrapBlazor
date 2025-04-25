@@ -16,6 +16,7 @@ else
     RenderFragment RenderComponent =>
     @<DynamicElement TagName="@TagName" OnClick="Show" id="@Id"
                      class="@ClassString" role="dialog" tabindex="@Tab" data-bb-confirm="@ConfirmString"
+                     data-bb-close="@TriggerCloseString"
                      data-bs-custom-class="@CustomClassString" data-bs-trigger="@TriggerString" data-bs-placement="@PlacementString">
         @if(IsAsyncLoading)
         {

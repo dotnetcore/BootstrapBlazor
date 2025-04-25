@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 确认弹窗按钮组件
 /// </summary>
-[BootstrapModuleAutoLoader("Button/PopConfirmButton.razor.js")]
+[BootstrapModuleAutoLoader("Button/PopConfirmButton.razor.js", JSObjectReference = true)]
 public abstract class PopConfirmButtonBase : ButtonBase
 {
     /// <summary>
@@ -57,7 +57,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击确认时回调方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
@@ -70,7 +69,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击关闭时回调方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<Task>? OnClose { get; set; }
 
     /// <summary>
@@ -160,12 +158,28 @@ public abstract class PopConfirmButtonBase : ButtonBase
         ConfirmIcon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
         Trigger ??= "click";
 
-        OnClose ??= () => Task.CompletedTask;
-        OnConfirm ??= () => Task.CompletedTask;
-
         if (Placement != Placement.Top && Placement != Placement.Right && Placement != Placement.Bottom && Placement != Placement.Left)
         {
             Placement = Placement.Auto;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerCloseCallback));
+
+    /// <summary>
+    /// Trigger OnClose event callback.
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerCloseCallback()
+    {
+        if (OnClose != null)
+        {
+            await OnClose();
         }
     }
 }

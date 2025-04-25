@@ -8,7 +8,7 @@ const config = {
     popoverSelector: '.popover-confirm.show'
 }
 
-export function init(id) {
+export function init(id, invoke, closeCallback) {
     const el = document.getElementById(id)
     if (el == null) {
         return
@@ -18,7 +18,9 @@ export function init(id) {
 
     const confirm = {
         el,
-        container: el.querySelector('[data-bb-toggle="confirm"]')
+        container: el.querySelector('[data-bb-toggle="confirm"]'),
+        invoke,
+        closeCallback
     }
     Data.set(id, confirm)
 
@@ -79,7 +81,17 @@ export function init(id) {
                 if (element) {
                     const popover = bootstrap.Popover.getInstance(element);
                     if (popover) {
-                        popover.hide()
+                        popover.hide();
+
+                        const id = element.getAttribute('id');
+                        if (id) {
+                            const com = Data.get(id);
+                            const { invoke, closeCallback } = com;
+                            const trigger = element.getAttribute('data-bb-close') === 'true';
+                            if (invoke && trigger) {
+                                invoke.invokeMethodAsync(closeCallback);
+                            }
+                        }
                     }
                 }
             })
@@ -135,9 +147,15 @@ export function dispose(id) {
     const confirm = Data.get(id)
     Data.remove(id)
 
-    const { popover } = confirm ?? {};
+    const { popover, el } = confirm ?? {};
     if (popover) {
         popover.dispose();
+    }
+
+    if (el) {
+        EventHandler.off(el, 'show.bs.popover')
+        EventHandler.off(el, 'inserted.bs.popover')
+        EventHandler.off(el, 'hide.bs.popover')
     }
 
     const { PopConfirmButton } = window.BootstrapBlazor;

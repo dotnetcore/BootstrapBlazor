@@ -2360,6 +2360,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         var clickCallback = false;
+        var confirmCallback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -2390,15 +2391,21 @@ public class TableTest : BootstrapBlazorTestBase
                         clickCallback = true;
                         return Task.CompletedTask;
                     }));
+                    builder.AddAttribute(4, nameof(TableToolbarPopConfirmButton<Foo>.OnConfirm), new Func<Task>(() =>
+                    {
+                        confirmCallback = true;
+                        return Task.CompletedTask;
+                    }));
                     builder.CloseComponent();
                 });
             });
         });
 
         var button = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm!.Invoke());
         Assert.True(clickCallback);
         Assert.True(clicked);
+        Assert.True(confirmCallback);
     }
 
     [Fact]
@@ -5370,7 +5377,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm!.Invoke());
         Assert.Single(items);
     }
 
@@ -5420,7 +5427,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm!.Invoke());
 
         var row = cut.FindAll("tbody tr");
         Assert.Single(row);
@@ -6199,7 +6206,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         var delete = cut.FindComponent<TableToolbarPopConfirmButton<DynamicObject>>();
-        await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+        await cut.InvokeAsync(() => delete.Instance.OnConfirm!.Invoke());
     }
 
     [Fact]
@@ -6953,13 +6960,13 @@ public class TableTest : BootstrapBlazorTestBase
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
         cut.InvokeAsync(input.Instance.OnToggleClick);
-        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm!.Invoke());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.PageItemsSource, [1, 2, 4, 8]);
         });
-        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
+        cut.InvokeAsync(() => deleteButton.Instance.OnConfirm!.Invoke());
     }
 
     [Fact]
@@ -7084,7 +7091,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         var delete = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+        await cut.InvokeAsync(() => delete.Instance.OnConfirm!.Invoke());
     }
 
     [Fact]
