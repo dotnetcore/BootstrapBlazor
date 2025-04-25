@@ -108,7 +108,7 @@ public class RecognizerTest : SpeechTestBase
     }
 
     [UnsafeAccessor(UnsafeAccessorKind.Field, Name = "_token")]
-    static extern ref CancellationTokenSource GetToken(SpeechWave @this);
+    static extern ref CancellationTokenSource? GetToken(SpeechWave @this);
 
     [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "get_IsShow")]
     static extern bool GetShow(SpeechWave @this);
