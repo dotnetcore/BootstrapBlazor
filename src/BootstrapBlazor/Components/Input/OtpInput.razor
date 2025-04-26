@@ -4,21 +4,14 @@
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     @for (var index = 0; index < Digits; index++)
     {
-        if (index < _values.Length)
+        if (IsReadonly || IsDisabled)
         {
-            @if (IsReadonly || IsDisabled)
-            {
-                <span class="@ItemClassString">@_values[index]</span>
-            }
-            else
-            {
-                <span class="@ItemClassString">
-                    @{
-                        var charIndex = index;
-                    }
-                    <input type="@TypeString" @bind="@_values[charIndex]" />
-                </span>
-            }
+            <span class="@ItemClassString">@GetValueString(index)</span>
+        }
+        else
+        {
+            var charIndex = index;
+            <input type="@TypeString" maxlength="1" inputmode="@TypeModeString" class="@ItemClassString" value="@GetValueString(index)" @onchange="e => OnChanged(e, charIndex)" />
         }
     }
 </div>
