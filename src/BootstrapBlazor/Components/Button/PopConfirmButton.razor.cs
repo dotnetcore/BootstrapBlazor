@@ -99,7 +99,11 @@ public partial class PopConfirmButton
             IsDisabled = true;
             IsAsyncLoading = true;
             StateHasChanged();
-            await OnConfirm();
+
+            if (OnConfirm != null)
+            {
+                await OnConfirm();
+            }
 
             if (ButtonType == ButtonType.Submit)
             {
