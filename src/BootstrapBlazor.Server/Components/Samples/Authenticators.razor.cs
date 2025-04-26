@@ -23,9 +23,9 @@ public partial class Authenticators
 
     private string? _code;
 
-    private double _remain = 0;
+    private double _progress = 0;
 
-    private int _time = 0;
+    private int _remain = 0;
 
     /// <summary>
     /// <inheritdoc/>
@@ -49,8 +49,8 @@ public partial class Authenticators
 
         await Task.Delay(1000);
         _code = TotpService.Compute("OMM2LVLFX6QJHMYI");
-        _time = TotpService.Instance.GetRemainingSeconds();
-        _remain = (30d - _time) * 100 / 30d;
+        _remain = TotpService.Instance.GetRemainingSeconds();
+        _progress = (30d - _remain) * 100 / 30d;
         StateHasChanged();
     }
 }
