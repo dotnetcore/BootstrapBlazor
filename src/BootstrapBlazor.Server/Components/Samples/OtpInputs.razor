@@ -1,0 +1,15 @@
+﻿@page "/otp-input"
+@inject IStringLocalizer<OtpInputs> Localizer
+
+<h3>@Localizer["OtpInputsTitle"]</h3>
+
+<h4>@Localizer["OtpInputsDescription"]</h4>
+
+<Tips class="mt-3">
+    <p>@((MarkupString)Localizer["OtpInputsTips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["OtpInputsTopBarTitle"]"
+           Introduction="@Localizer["MenusTopBarIntro"]"
+           Name="TopBar">
+</DemoBlock>
