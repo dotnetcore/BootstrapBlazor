@@ -1,15 +1,27 @@
 ﻿@page "/authenticator"
 
+<HeadContent>
+    <style>
+        .qrcode {
+            display: flex;
+            justify-content: center;
+        }
+
+        .progress {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</HeadContent>
+
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<Tips></Tips>
+<PackageTips Name="BootstrapBlazor.Authenticator"></PackageTips>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
-    <div class="d-flex justify-content-center mb-3">
-        <QRCode Content="@_content" Width="256"></QRCode>
-    </div>
+    <QRCode Content="@_content" Width="256" class="mb-3"></QRCode>
     <OtpInput Value="@_code" class="text-center mb-3"></OtpInput>
-    <BootstrapBlazor.Components.Progress Value="@_remain" IsShowValue="false" style="max-width: 500px; margin: 0 auto;"></BootstrapBlazor.Components.Progress>
+    <BootstrapBlazor.Components.Progress Value="@_remain" IsShowValue="false"></BootstrapBlazor.Components.Progress>
 </DemoBlock>
