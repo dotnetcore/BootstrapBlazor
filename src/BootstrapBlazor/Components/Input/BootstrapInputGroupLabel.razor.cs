@@ -41,6 +41,12 @@ public partial class BootstrapInputGroupLabel
     [Parameter]
     public bool ShowRequiredMark { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     private string? Required => ShowRequiredMark ? "true" : null;
 
     private bool IsInputGroupLabel => InputGroup != null;
