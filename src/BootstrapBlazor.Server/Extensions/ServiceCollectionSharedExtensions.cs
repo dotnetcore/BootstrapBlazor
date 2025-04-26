@@ -30,6 +30,9 @@ public static class ServiceCollectionSharedExtensions
         services.AddSingleton<MenuService>();
         services.AddScoped<FanControllerDataService>();
 
+        // 增加 Authenticator 服务
+        services.AddBootstrapBlazorAuthenticator();
+
         // 增加示例网站配置
         services.AddOptionsMonitor<WebsiteOptions>();
 
