@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// OTP input component
 /// </summary>
+[BootstrapModuleAutoLoader("Input/OtpInput.razor.js")]
 public partial class OtpInput
 {
     /// <summary>
@@ -54,7 +55,7 @@ public partial class OtpInput
     private string? TypeModeString => Type switch
     {
         OtpInputType.Number => "numeric",
-        _ => "text"
+        _ => null
     };
 
     private char[] _values = [];
