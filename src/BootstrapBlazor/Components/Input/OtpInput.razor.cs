@@ -33,6 +33,7 @@ public partial class OtpInput
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("bb-opt-item")
+        .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .Build();
@@ -41,6 +42,12 @@ public partial class OtpInput
     {
         OtpInputType.Number => "number",
         OtpInputType.Password => "password",
+        _ => "text"
+    };
+
+    private string? TypeModeString => Type switch
+    {
+        OtpInputType.Number => "numeric",
         _ => "text"
     };
 
@@ -54,5 +61,27 @@ public partial class OtpInput
         base.OnParametersSet();
 
         _values = Value?.ToCharArray() ?? [];
+    }
+
+    private char? GetValueString(int index)
+    {
+        char? c = _values.ElementAtOrDefault(index);
+        if (c == 0)
+        {
+            c = null;
+        }
+        return c;
+    }
+
+    private void OnChanged(ChangeEventArgs e, int index)
+    {
+        if (index < _values.Length)
+        {
+            var v = e.Value?.ToString();
+            if (!string.IsNullOrEmpty(v))
+            {
+                _values[index] = v[0];
+            }
+        }
     }
 }
