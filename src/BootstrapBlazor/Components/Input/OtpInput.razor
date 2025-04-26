@@ -6,7 +6,19 @@
     {
         if (index < _values.Length)
         {
-            <span class="@SpanClassString">@_values[index]</span>
+            @if (IsReadonly || IsDisabled)
+            {
+                <span class="@ItemClassString">@_values[index]</span>
+            }
+            else
+            {
+                <span class="@ItemClassString">
+                    @{
+                        var charIndex = index;
+                    }
+                    <input type="@TypeString" @bind="@_values[charIndex]" />
+                </span>
+            }
         }
     }
 </div>
