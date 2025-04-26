@@ -11,7 +11,7 @@
         else
         {
             var charIndex = index;
-            <input type="@TypeString" maxlength="1" inputmode="@TypeModeString" class="@ItemClassString" value="@GetValueString(index)" @onchange="e => OnChanged(e, charIndex)" />
+            <input type="@TypeString" maxlength="@MaxLengthString" inputmode="@TypeModeString" class="@ItemClassString" value="@GetValueString(index)" @onchange="e => OnChanged(e.Value!.ToString(), charIndex)" />
         }
     }
 </div>

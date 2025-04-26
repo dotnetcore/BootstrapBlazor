@@ -45,6 +45,12 @@ public partial class OtpInput
         _ => "text"
     };
 
+    private string? MaxLengthString => Type switch
+    {
+        OtpInputType.Text => "1",
+        _ => null
+    };
+
     private string? TypeModeString => Type switch
     {
         OtpInputType.Number => "numeric",
@@ -60,7 +66,14 @@ public partial class OtpInput
     {
         base.OnParametersSet();
 
-        _values = Value?.ToCharArray() ?? [];
+        _values = new char[Digits];
+        for (var index = 0; index < Digits; index++)
+        {
+            if (index < Value.Length)
+            {
+                _values[index] = Value[index];
+            }
+        }
     }
 
     private char? GetValueString(int index)
@@ -73,15 +86,11 @@ public partial class OtpInput
         return c;
     }
 
-    private void OnChanged(ChangeEventArgs e, int index)
+    private void OnChanged(string? v, int index)
     {
-        if (index < _values.Length)
+        if (index < Digits && !string.IsNullOrEmpty(v))
         {
-            var v = e.Value?.ToString();
-            if (!string.IsNullOrEmpty(v))
-            {
-                _values[index] = v[0];
-            }
+            _values[index] = v[0];
         }
     }
 }
