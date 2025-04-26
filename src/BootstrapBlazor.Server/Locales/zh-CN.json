@@ -4918,7 +4918,8 @@
     "UniverIcon": "Univer Icons",
     "Typed": "打字机效果 Typed",
     "UniverSheet": "表格组件 UniverSheet",
-    "ShieldBadge": "徽章组件 ShieldBadge"
+    "ShieldBadge": "徽章组件 ShieldBadge",
+    "Authenticator": "密码验证服务 Authenticator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7091,5 +7092,9 @@
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
     "ToastOnReadyTitle": "在线表格协作通知",
     "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Authenticators": {
+    "Title": "Authenticator 密码验证服务",
+    "SubTitle": "实现 TOTP RFC 6238 和 HOTP RFC 4226 认证器服务"
   }
 }

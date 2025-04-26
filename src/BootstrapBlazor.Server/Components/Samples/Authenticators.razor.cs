@@ -16,6 +16,5 @@ public partial class Authenticators
 
     [Inject]
     [NotNull]
-    private IAuthenticatorService? AuthenticatorService { get; set; }
-
+    private ITOTPService? TOTPService { get; set; }
 }

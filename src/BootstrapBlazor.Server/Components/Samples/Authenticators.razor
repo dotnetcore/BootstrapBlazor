@@ -4,10 +4,12 @@
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<div>@AuthenticatorService.GenerateOtpUri()</div>
+<div>@TOTPService.GenerateOtpUri()</div>
 
-<div>@AuthenticatorService.ComputeTotp("OMM2LVLFX6QJHMYI")</div>
+<div>@TOTPService.Compute("OMM2LVLFX6QJHMYI")</div>
 
-<div>@AuthenticatorService.TOTPInstance?.GetRemainingSeconds()</div>
+<div>@TOTPService.TOTPInstance?.GetRemainingSeconds()</div>
 
-<div>@AuthenticatorService.GenerateSecretKey()</div>
+<div>@TOTPService.GenerateSecretKey()</div>
+
+<div>@TOTPService.Verify(TOTPService.Compute("OMM2LVLFX6QJHMYI"))</div>

@@ -4918,7 +4918,8 @@
     "UniverIcon": "Univer Icons",
     "Typed": "Typed",
     "UniverSheet": "UniverSheet",
-    "ShieldBadge": "ShieldBadge"
+    "ShieldBadge": "ShieldBadge",
+    "Authenticator": "Authenticator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7091,5 +7092,9 @@
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
     "ToastOnReadyTitle": "Collaboration Notification",
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Authenticators": {
+    "Title": "Authenticator",
+    "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service."
   }
 }
