@@ -1,0 +1,12 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<string>
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+    @for (var index = 0; index < Digits; index++)
+    {
+        if (index < _values.Length)
+        {
+            <span class="@SpanClassString">@_values[index]</span>
+        }
+    }
+</div>
