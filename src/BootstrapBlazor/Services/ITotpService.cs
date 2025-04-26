@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ITOTPService interface
+/// ITotpService interface
 /// </summary>
-public interface ITOTPService
+public interface ITotpService
 {
     /// <summary>
     /// Generates a one-time password (OTP) URI for the specified parameters.
@@ -53,7 +53,7 @@ public interface ITOTPService
     bool Verify(string code, DateTime? timestamp = null);
 
     /// <summary>
-    /// Gets the <see cref="Components.TOTPInstanceBase"/> instance. Default is null.
+    /// Gets the <see cref="TotpInstanceBase"/> instance. Default is null.
     /// </summary>
-    TOTPInstanceBase? TOTPInstance { get; }
+    TotpInstanceBase Instance { get; }
 }

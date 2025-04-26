@@ -11,10 +11,5 @@
         <QRCode Content="@_content" Width="256"></QRCode>
     </div>
     <OtpInput Value="@_code" class="text-center mb-3"></OtpInput>
+    <BootstrapBlazor.Components.Progress Value="@_remain" IsShowValue="false" style="max-width: 500px; margin: 0 auto;"></BootstrapBlazor.Components.Progress>
 </DemoBlock>
-
-<div>@TOTPService.TOTPInstance?.GetRemainingSeconds()</div>
-
-<div>@TOTPService.GenerateSecretKey()</div>
-
-<div>@TOTPService.Verify(TOTPService.Compute("OMM2LVLFX6QJHMYI"))</div>

@@ -17,11 +17,15 @@ public partial class Authenticators
 
     [Inject]
     [NotNull]
-    private ITOTPService? TOTPService { get; set; }
+    private ITotpService? TotpService { get; set; }
 
     private string _content = "";
 
     private string? _code;
+
+    private double _remain = 0;
+
+    private int _time = 0;
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,8 +34,8 @@ public partial class Authenticators
     {
         base.OnInitialized();
 
-        _content = TOTPService.GenerateOtpUri();
-        _code = TOTPService.Compute("OMM2LVLFX6QJHMYI");
+        _content = TotpService.GenerateOtpUri();
+        _code = TotpService.Compute("OMM2LVLFX6QJHMYI");
     }
 
     /// <summary>
@@ -44,7 +48,9 @@ public partial class Authenticators
         await base.OnAfterRenderAsync(firstRender);
 
         await Task.Delay(1000);
-        _code = TOTPService.Compute("OMM2LVLFX6QJHMYI");
+        _code = TotpService.Compute("OMM2LVLFX6QJHMYI");
+        _time = TotpService.Instance.GetRemainingSeconds();
+        _remain = (30d - _time) * 100 / 30d;
         StateHasChanged();
     }
 }

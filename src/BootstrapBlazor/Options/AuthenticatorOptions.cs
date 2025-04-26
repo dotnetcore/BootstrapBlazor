@@ -33,33 +33,33 @@ public class AuthenticatorOptions
     /// <summary>
     /// Gets or sets the OTP hash mode.
     /// </summary>
-    public OTPHashMode Algorithm { get; set; }
+    public OtpHashMode Algorithm { get; set; }
 
     /// <summary>
     /// Gets or sets the OTP type.
     /// </summary>
-    public OTPType Type { get; set; }
+    public OtpType Type { get; set; }
 
     /// <summary>
     /// Gets or sets the code length. Default is 6.
     /// </summary>
-    public int Digits { get; private set; } = 6;
+    public int Digits { get; set; } = 6;
 
     /// <summary>
     /// Gets or sets the period in seconds for TOTP. Default is 30.
     /// </summary>
-    public int Period { get; private set; } = 30;
+    public int Period { get; set; } = 30;
 
     /// <summary>
-    /// Gets or sets the counter for HOTP. Default is 0.
+    /// Gets or sets the counter for Hotp. Default is 0.
     /// </summary>
-    public int Counter { get; private set; }
+    public int Counter { get; set; }
 }
 
 /// <summary>
 /// Abstract class representing a Time-based One-Time Password (TOTP) instance.
 /// </summary>
-public abstract class TOTPInstanceBase
+public abstract class TotpInstanceBase
 {
     /// <summary>
     /// Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp.
@@ -80,10 +80,10 @@ public abstract class TOTPInstanceBase
 /// <summary>
 /// Abstract class representing an HMAC-based One-Time Password (HOTP) instance.
 /// </summary>
-public abstract class HOTPInstanceBase
+public abstract class HotpInstanceBase
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="code"></param>
     /// <param name="counter"></param>
@@ -94,7 +94,7 @@ public abstract class HOTPInstanceBase
 /// <summary>
 /// Enum representing the OTP hash modes.
 /// </summary>
-public enum OTPHashMode
+public enum OtpHashMode
 {
     /// <summary>
     /// SHA1 hash mode
@@ -115,15 +115,15 @@ public enum OTPHashMode
 /// <summary>
 /// Enum representing the OTP types.
 /// </summary>
-public enum OTPType
+public enum OtpType
 {
     /// <summary>
     /// Time-based One-Time Password (TOTP) algorithm
     /// </summary>
-    TOTP,
+    Totp,
 
     /// <summary>
     /// HMAC-based One-Time Password (HOTP) algorithm
     /// </summary>
-    HOTP
+    Hotp
 }
