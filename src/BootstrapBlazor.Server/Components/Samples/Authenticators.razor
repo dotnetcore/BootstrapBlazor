@@ -31,7 +31,11 @@
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
     <QRCode Content="@_content" Width="190" class="mb-3"></QRCode>
-    <OtpInput Value="@_code" class="text-center mb-3"></OtpInput>
+    <OtpInput Value="@_code" IsReadonly="true" class="text-center mb-3"></OtpInput>
+    <OtpInput Value="" IsReadonly="true" class="text-center mb-3"></OtpInput>
+    <OtpInput Value="@_code" IsReadonly="false" class="text-center mb-3"></OtpInput>
+    <OtpInput Value="" IsReadonly="false" class="text-center mb-3"></OtpInput>
+    <OtpInput Value="" IsReadonly="false" Type="OtpInputType.Text" class="text-center mb-3"></OtpInput>
     <div class="position-relative">
         <BootstrapBlazor.Components.Progress Value="@_progress" IsShowValue="false"></BootstrapBlazor.Components.Progress>
         <span class="opt-progress-label">@_remain</span>
