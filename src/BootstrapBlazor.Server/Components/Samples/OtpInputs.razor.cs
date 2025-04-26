@@ -13,4 +13,10 @@ public partial class OtpInputs
     private string _value = "818924";
 
     private OtpInputType _otpInputType;
+
+    private string _placeHolder = "X";
+
+    private bool _readonly = false;
+
+    private bool _disabled = false;
 }
