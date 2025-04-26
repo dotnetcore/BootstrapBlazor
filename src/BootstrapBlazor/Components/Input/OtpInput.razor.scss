@@ -4,6 +4,7 @@
 
     .bb-opt-item {
         --bb-opt-item-width: 66px;
+        --bb-opt-item-disabled-color: #b8b8b8;
         --bb-opt-item-padding: #{$bb-opt-item-padding};
         --bb-opt-item-margin: #{$bb-opt-item-margin};
         --bb-opt-font-size: #{$bb-opt-font-size};
@@ -32,6 +33,6 @@
     }
 
     span.bb-opt-item {
-        color: #b8b8b8;
+        color: var(--bb-opt-item-disabled-color);
     }
 }
