@@ -17,7 +17,13 @@ public partial class OtpInput
     public int Digits { get; set; } = 6;
 
     /// <summary>
-    /// 
+    /// Gets or sets whether the OTP input is readonly. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsReadonly { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value type of the OTP input. Default is <see cref="OtpInputType.Number"/>.
     /// </summary>
     [Parameter]
     public OtpInputType Type { get; set; }
@@ -26,9 +32,17 @@ public partial class OtpInput
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? SpanClassString => CssBuilder.Default("bb-opt-span")
+    private string? ItemClassString => CssBuilder.Default("bb-opt-item")
+        .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .Build();
+
+    private string TypeString => Type switch
+    {
+        OtpInputType.Number => "number",
+        OtpInputType.Password => "password",
+        _ => "text"
+    };
 
     private char[] _values = [];
 

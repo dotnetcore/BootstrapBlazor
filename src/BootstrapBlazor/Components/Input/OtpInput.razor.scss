@@ -1,11 +1,22 @@
-﻿.bb-opt-span {
+﻿.bb-opt-item {
+    --bb-opt-item-padding: #{$bb-opt-item-padding};
+    --bb-opt-item-margin: #{$bb-opt-item-margin};
+    --bb-opt-font-size: #{$bb-opt-font-size};
+    --bb-opt-border-width: #{$bb-opt-border-width};
     display: inline-block;
-    border: 1px solid var(--bs-border-color);
-    font-size: 3em;
-    padding: 0 .5em;
+    border: var(--bb-opt-border-width) solid var(--bs-border-color);
+    font-size: var(--bb-opt-font-size);
+    padding: var(--bb-opt-item-padding);
     border-radius: var(--bs-border-radius);
 
     &:not(:last-child) {
-        margin-right: .5rem;
+        margin-right: var(--bb-opt-item-margin);
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+    }
+
+    > input {
     }
 }
