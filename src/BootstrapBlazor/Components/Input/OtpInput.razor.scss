@@ -21,6 +21,7 @@
         }
 
         &.disabled {
+            background-color: var(--bs-secondary-bg);
             cursor: not-allowed;
         }
 
