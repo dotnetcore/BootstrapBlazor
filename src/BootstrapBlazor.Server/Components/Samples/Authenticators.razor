@@ -1,0 +1,13 @@
+﻿@page "/authenticator"
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<div>@AuthenticatorService.GenerateOtpUri()</div>
+
+<div>@AuthenticatorService.ComputeTotp("OMM2LVLFX6QJHMYI")</div>
+
+<div>@AuthenticatorService.TOTPInstance?.GetRemainingSeconds()</div>
+
+<div>@AuthenticatorService.GenerateSecretKey()</div>
