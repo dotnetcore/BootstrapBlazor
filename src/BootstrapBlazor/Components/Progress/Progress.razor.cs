@@ -67,6 +67,12 @@ public partial class Progress
     [Parameter]
     public string? Text { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     private string? ClassString => CssBuilder.Default("progress")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -100,7 +106,9 @@ public partial class Progress
     /// <summary>
     /// 获得 当前值百分比标签文字
     /// </summary>
-    private string? ValueLabelString => IsShowValue ? string.IsNullOrEmpty(Text) ? $"{InternalValue}%" : Text : null;
+    private string? ValueLabelString => IsShowValue
+        ? string.IsNullOrEmpty(Text) ? $"{InternalValue}%" : Text
+        : null;
 
     /// <summary>
     /// OnParametersSet 方法
