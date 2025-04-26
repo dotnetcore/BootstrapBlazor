@@ -9,7 +9,38 @@
     <p>@((MarkupString)Localizer["OtpInputsTips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["OtpInputsTopBarTitle"]"
-           Introduction="@Localizer["MenusTopBarIntro"]"
-           Name="TopBar">
+<DemoBlock Title="@Localizer["OtpInputsNormalTitle"]"
+           Introduction="@Localizer["OtpInputsNormalIntro"]"
+           Name="Normal">
+    <OtpInput Value="@_value"></OtpInput>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OtpInputsReadonlyTitle"]"
+           Introduction="@Localizer["OtpInputsReadonlyIntro"]"
+           Name="Readonly">
+    <OtpInput Value="@_value" IsReadonly="true"></OtpInput>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OtpInputsDisabledTitle"]"
+           Introduction="@Localizer["OtpInputsDisabledIntro"]"
+           Name="Disabled">
+    <OtpInput Value="@_value" IsDisabled="true"></OtpInput>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OtpInputsTypeTitle"]"
+           Introduction="@Localizer["OtpInputsTypeIntro"]"
+           Name="Type">
+    <div class="row g-3">
+        <div class="col-12"><Select @bind-Value="_otpInputType"></Select></div>
+        <div class="col-12"><OtpInput Value="@_value" Type="_otpInputType"></OtpInput></div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OtpInputsTypeTitle"]"
+           Introduction="@Localizer["OtpInputsTypeIntro"]"
+           Name="Type">
+    <div class="row g-3">
+        <div class="col-12"><Select @bind-Value="_otpInputType"></Select></div>
+        <div class="col-12"><OtpInput Value="@_value" Type="_otpInputType"></OtpInput></div>
+    </div>
 </DemoBlock>

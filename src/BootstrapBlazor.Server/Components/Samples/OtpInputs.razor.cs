@@ -10,5 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class OtpInputs
 {
+    private string _value = "818924";
 
+    private OtpInputType _otpInputType;
 }
