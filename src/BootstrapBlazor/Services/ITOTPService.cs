@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IAuthenticator interface
+/// ITOTPService interface
 /// </summary>
-public interface IAuthenticatorService
+public interface ITOTPService
 {
     /// <summary>
     /// Generates a one-time password (OTP) URI for the specified parameters.
@@ -23,7 +23,7 @@ public interface IAuthenticatorService
     /// <param name="secretKey"></param>
     /// <param name="timestamp"></param>
     /// <returns></returns>
-    string ComputeTotp(string secretKey, DateTime? timestamp = null);
+    string Compute(string secretKey, DateTime? timestamp = null);
 
     /// <summary>
     /// Computes the remaining seconds until the next TOTP expiration for the given secret key and timestamp.
@@ -45,7 +45,15 @@ public interface IAuthenticatorService
     byte[] GetSecretKeyBytes(string input);
 
     /// <summary>
-    /// Gets the <see cref="Components.TOTPInstance"/> instance. Default is null.
+    /// Verifies the given TOTP code against the expected value using the provided secret key.
     /// </summary>
-    TOTPInstance? TOTPInstance { get; }
+    /// <param name="code"></param>
+    /// <param name="timestamp"></param>
+    /// <returns></returns>
+    bool Verify(string code, DateTime? timestamp = null);
+
+    /// <summary>
+    /// Gets the <see cref="Components.TOTPInstanceBase"/> instance. Default is null.
+    /// </summary>
+    TOTPInstanceBase? TOTPInstance { get; }
 }

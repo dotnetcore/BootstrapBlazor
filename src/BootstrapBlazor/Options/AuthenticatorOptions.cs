@@ -54,24 +54,41 @@ public class AuthenticatorOptions
     /// Gets or sets the counter for HOTP. Default is 0.
     /// </summary>
     public int Counter { get; private set; }
-
-    /// <summary>
-    /// Gets the <see cref="TOTPInstance"/> instance. Default is null.
-    /// </summary>
-    public TOTPInstance? Instance { get; }
 }
 
 /// <summary>
 /// Abstract class representing a Time-based One-Time Password (TOTP) instance.
 /// </summary>
-public abstract class TOTPInstance
+public abstract class TOTPInstanceBase
 {
     /// <summary>
-    /// Generates a one-time password (OTP) URI for the specified parameters.
+    /// Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp.
     /// </summary>
     /// <param name="timestamp"></param>
     /// <returns></returns>
     public abstract int GetRemainingSeconds(DateTime? timestamp = null);
+
+    /// <summary>
+    /// Verify the given TOTP code against the expected value using the provided secret key.
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="timestamp"></param>
+    /// <returns></returns>
+    public abstract bool Verify(string code, DateTime? timestamp = null);
+}
+
+/// <summary>
+/// Abstract class representing an HMAC-based One-Time Password (HOTP) instance.
+/// </summary>
+public abstract class HOTPInstanceBase
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="counter"></param>
+    /// <returns></returns>
+    public abstract bool Verify(string code, long counter);
 }
 
 /// <summary>
@@ -103,10 +120,10 @@ public enum OTPType
     /// <summary>
     /// Time-based One-Time Password (TOTP) algorithm
     /// </summary>
-    Totp,
+    TOTP,
 
     /// <summary>
     /// HMAC-based One-Time Password (HOTP) algorithm
     /// </summary>
-    Hotp,
+    HOTP
 }
