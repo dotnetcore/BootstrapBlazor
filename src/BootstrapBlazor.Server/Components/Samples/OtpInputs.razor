@@ -40,7 +40,14 @@
            Introduction="@Localizer["OtpInputsTypeIntro"]"
            Name="Type">
     <div class="row g-3">
-        <div class="col-12"><Select @bind-Value="_otpInputType"></Select></div>
-        <div class="col-12"><OtpInput Value="@_value" Type="_otpInputType"></OtpInput></div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Type"></BootstrapInputGroupLabel>
+                <Select @bind-Value="_otpInputType"></Select>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+        </div>
     </div>
+    <OtpInput Value="@_value" Type="_otpInputType"></OtpInput>
 </DemoBlock>

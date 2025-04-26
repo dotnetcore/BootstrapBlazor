@@ -29,6 +29,12 @@ public partial class OtpInput
     [Parameter]
     public OtpInputType Type { get; set; }
 
+    /// <summary>
+    /// Gets or sets the placeholder of the OTP input. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? PlaceHolder { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-opt-input")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
