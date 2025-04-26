@@ -2,9 +2,18 @@
 
 export function init(id) {
     const el = document.getElementById(id);
+    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
+    EventHandler.on(el, 'input', 'input', e => {
+        const isNumber = e.target.getAttribute('type') === 'number';
+        if (isNumber) {
+            if (e.target.value.length > 1) {
+                e.target.value = e.target.value.slice(1, 2);
+            }
+        }
+    });
     EventHandler.on(el, 'keydown', 'input', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
-        if (e.key === 'Tab') {
+        if (skipKeys.indexOf(e.key) > -1) {
 
         }
         else if (e.key === 'Backspace' || e.key === 'ArrowLeft') {
@@ -14,14 +23,14 @@ export function init(id) {
             setNextFocus(el, e.target);
         }
         else if (isNumber) {
-            if (e.key >= '0' && e.key <= '9') {
+            if ("0123456789".indexOf(e.key) > -1) {
                 setNextFocus(el, e.target);
             }
             else {
                 e.preventDefault();
             }
         }
-        else if ((e.key >= 'a' && e.key <= 'z') || (e.key >= 'A' && e.key <= 'Z')) {
+        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
             setNextFocus(el, e.target);
         }
         else {
@@ -41,9 +50,6 @@ const setPrevFocus = (el, target) => {
     if (index > 0) {
         setFocus(inputs[index - 1]);
     }
-    else {
-        setBlur(target);
-    }
 }
 
 const setNextFocus = (el, target) => {
@@ -52,18 +58,6 @@ const setNextFocus = (el, target) => {
     if (index < inputs.length - 1) {
         setFocus(inputs[index + 1]);
     }
-    else {
-        setBlur(target);
-    }
-}
-
-const setBlur = target => {
-    const handler = setTimeout(function () {
-        clearTimeout(handler);
-        if (target.blur) {
-            target.blur();
-        }
-    }, 0);
 }
 
 const setFocus = target => {
@@ -77,5 +71,7 @@ const setFocus = target => {
 
 export function dispose(id) {
     const el = document.getElementById(id);
+    EventHandler.off(el, 'input');
     EventHandler.off(el, 'keydown');
+    EventHandler.off(el, 'focus');
 }
