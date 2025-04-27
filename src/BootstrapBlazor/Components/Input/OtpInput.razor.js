@@ -3,7 +3,7 @@
 export function init(id) {
     const el = document.getElementById(id);
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
-    EventHandler.on(el, 'input', 'input', e => {
+    EventHandler.on(el, 'input', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (isNumber) {
             if (e.target.value.length > 1) {
@@ -11,7 +11,7 @@ export function init(id) {
             }
         }
     });
-    EventHandler.on(el, 'keydown', 'input', e => {
+    EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (skipKeys.indexOf(e.key) > -1) {
 
@@ -37,7 +37,7 @@ export function init(id) {
             e.preventDefault();
         }
     });
-    EventHandler.on(el, 'focus', 'input', e => {
+    EventHandler.on(el, 'focus', '.bb-opt-item', e => {
         if (e.target.select) {
             e.target.select();
         }
