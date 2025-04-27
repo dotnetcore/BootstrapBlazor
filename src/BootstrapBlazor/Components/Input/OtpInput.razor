@@ -2,20 +2,20 @@
 @inherits ValidateBase<string>
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+    <input hidden value="@CurrentValueAsString" class="" />
     @for (var index = 0; index < Digits; index++)
     {
-        <span class="@ItemClassString">
             @if(IsReadonly || IsDisabled)
             {
-                @GetValueString(index)
+                <span class="@ItemClassString">
+                    @GetValueString(index)
+                </span>
             }
             else
             {
-                var charIndex = index;
                 <input type="@TypeString" class="@InputClassString"
                        maxlength="@MaxLengthString" inputmode="@TypeModeString" placeholder="@PlaceHolder"
-                       value="@GetValueString(index)" @onchange="e => OnChanged(e.Value!.ToString(), charIndex)" />
+                       value="@GetValueString(index)" />
             }
-        </span>
     }
 </div>

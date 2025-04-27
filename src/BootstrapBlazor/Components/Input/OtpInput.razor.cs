@@ -44,9 +44,8 @@ public partial class OtpInput
         .AddClass(ValidCss)
         .Build();
 
-    private string? InputClassString => CssBuilder.Default()
+    private string? InputClassString => CssBuilder.Default("bb-opt-item")
         .AddClass("input-number-fix", Type == OtpInputType.Number)
-        .AddClass("disabled", IsDisabled)
         .Build();
 
     private string TypeString => Type switch
@@ -58,8 +57,8 @@ public partial class OtpInput
 
     private string? MaxLengthString => Type switch
     {
-        OtpInputType.Text => "1",
-        _ => null
+        OtpInputType.Number => null,
+        _ => "1"
     };
 
     private string? TypeModeString => Type switch
@@ -77,34 +76,19 @@ public partial class OtpInput
     {
         base.OnParametersSet();
 
+        Value ??= "";
         _values = new char[Digits];
-        if (Value != null)
+        for (var index = 0; index < Digits; index++)
         {
-            for (var index = 0; index < Digits; index++)
+            if (index < Value.Length)
             {
-                if (index < Value.Length)
-                {
-                    _values[index] = Value[index];
-                }
+                _values[index] = Value[index];
             }
         }
     }
 
     private char? GetValueString(int index)
     {
-        char? c = _values.ElementAtOrDefault(index);
-        if (c == 0)
-        {
-            c = null;
-        }
-        return c;
-    }
-
-    private void OnChanged(string? v, int index)
-    {
-        if (index < Digits && !string.IsNullOrEmpty(v))
-        {
-            _values[index] = v[0];
-        }
+        return _values[index] != 0 ? _values[index] : null;
     }
 }
