@@ -107,7 +107,7 @@ public partial class OtpInput
     [JSInvokable]
     public Task TriggerSetValue(string val)
     {
-        CurrentValueAsString = val;
+        SetValue(val);
         return Task.CompletedTask;
     }
 }
