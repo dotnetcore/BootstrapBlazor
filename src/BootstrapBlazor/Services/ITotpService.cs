@@ -21,12 +21,12 @@ public interface ITotpService
     /// Computes the Time-based One-Time Password (TOTP) for the given secret key and timestamp.
     /// </summary>
     /// <param name="secretKey"></param>
-    /// <param name="step"></param>
+    /// <param name="period"></param>
     /// <param name="mode"></param>
-    /// <param name="totpSize"></param>
+    /// <param name="digits"></param>
     /// <param name="timestamp"></param>
     /// <returns></returns>
-    string Compute(string secretKey, int step = 6, OtpHashMode mode = OtpHashMode.Sha1, int totpSize = 6, DateTime? timestamp = null);
+    string Compute(string secretKey, int period = 30, OtpHashMode mode = OtpHashMode.Sha1, int digits = 6, DateTime? timestamp = null);
 
     /// <summary>
     /// Computes the remaining seconds until the next TOTP expiration for the given secret key and timestamp.
