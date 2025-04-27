@@ -168,7 +168,7 @@ public partial class Timer
         }
     }
 
-    private async Task OnStart(TimeSpan val)
+    private Task OnStart(TimeSpan val)
     {
         Value = val;
         IsPause = false;
@@ -176,54 +176,60 @@ public partial class Timer
         AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
 
         StateHasChanged();
-        await Task.Yield();
 
-        // 点击 Cancel 后重新设置再点击 Star
-        if (CancelTokenSource.IsCancellationRequested)
+        _ = Task.Run(async () =>
         {
-            CancelTokenSource.Dispose();
-            CancelTokenSource = new CancellationTokenSource();
-        }
-
-        while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero)
-        {
-            try
+            // 点击 Cancel 后重新设置再点击 Star
+            if (CancelTokenSource.IsCancellationRequested)
             {
-                await Task.Delay(1000, CancelTokenSource.Token);
-            }
-            catch (TaskCanceledException) { }
-
-            if (!CancelTokenSource.IsCancellationRequested)
-            {
-                CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
-                StateHasChanged();
-            }
-
-            if (IsPause)
-            {
-                ResetEvent.WaitOne();
-                AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
-
-                // 重建 CancelToken
                 CancelTokenSource.Dispose();
                 CancelTokenSource = new CancellationTokenSource();
             }
-        }
 
-        if (CurrentTimespan == TimeSpan.Zero)
-        {
-            await Task.Delay(500, CancelTokenSource.Token);
-            if (!CancelTokenSource.IsCancellationRequested)
+            while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero)
             {
-                Value = TimeSpan.Zero;
-                Vibrate = IsVibrate;
-                StateHasChanged();
-                if (OnTimeout != null)
+                try
                 {
-                    await OnTimeout();
+                    await Task.Delay(1000, CancelTokenSource.Token);
+                }
+                catch (TaskCanceledException) { }
+
+                if (!CancelTokenSource.IsCancellationRequested)
+                {
+                    CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
+                    await InvokeAsync(StateHasChanged);
+                }
+
+                if (IsPause)
+                {
+                    ResetEvent.WaitOne();
+                    AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
+
+                    // 重建 CancelToken
+                    CancelTokenSource.Dispose();
+                    CancelTokenSource = new CancellationTokenSource();
                 }
             }
-        }
+
+            if (CurrentTimespan == TimeSpan.Zero)
+            {
+                await Task.Delay(500, CancelTokenSource.Token);
+                if (!CancelTokenSource.IsCancellationRequested)
+                {
+                    Value = TimeSpan.Zero;
+                    await InvokeAsync(async () =>
+                    {
+                        Vibrate = IsVibrate;
+                        StateHasChanged();
+                        if (OnTimeout != null)
+                        {
+                            await OnTimeout();
+                        }
+                    });
+                }
+            }
+        });
+        return Task.CompletedTask;
     }
 
     private void OnClickPause()
