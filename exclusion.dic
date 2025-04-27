@@ -112,3 +112,4 @@ Sqlite
 maxlength
 inputmode
 Totp
+otpauth
