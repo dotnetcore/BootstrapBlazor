@@ -14,6 +14,10 @@ export function init(id) {
         input.value = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
     });
     EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
+        if (e.ctrlKey) {
+            return;
+        }
+
         const isNumber = e.target.getAttribute('type') === 'number';
         if (skipKeys.indexOf(e.key) > -1) {
 
