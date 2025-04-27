@@ -7,13 +7,13 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// Authenticators sample
+/// OtpServices sample
 /// </summary>
-public partial class Authenticators
+public partial class OtpServices
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Authenticators>? Localizer { get; set; }
+    private IStringLocalizer<OtpServices>? Localizer { get; set; }
 
     [Inject]
     [NotNull]

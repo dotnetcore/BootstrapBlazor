@@ -7103,7 +7103,7 @@
     "OtpInputsValidateFormTitle": "ValidateForm",
     "OtpInputsValidateFormIntro": "When the password is not provided, click the Submit button, the password box will be displayed in red and it will be prompted that it cannot be empty."
   },
-  "BootstrapBlazor.Server.Components.Samples.Authenticators": {
+  "BootstrapBlazor.Server.Components.Samples.OtpServices": {
     "Title": "Authenticator",
     "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service.",
     "BaseUsageTitle": "Basic usage",

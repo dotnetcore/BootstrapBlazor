@@ -7103,7 +7103,7 @@
     "OtpInputsValidateFormTitle": "表单内使用",
     "OtpInputsValidateFormIntro": "密码未提供值时，点击提交按钮，密码框显示为红色，并且提示不可为空"
   },
-  "BootstrapBlazor.Server.Components.Samples.Authenticators": {
+  "BootstrapBlazor.Server.Components.Samples.OtpServices": {
     "Title": "Authenticator 密码验证服务",
     "SubTitle": "实现 TOTP RFC 6238 和 HOTP RFC 4226 认证器服务",
     "BaseUsageTitle": "基本用法",
