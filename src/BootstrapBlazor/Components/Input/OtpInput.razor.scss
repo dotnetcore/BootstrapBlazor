@@ -30,6 +30,14 @@
             padding: 0;
             text-align: center;
         }
+
+        &.is-valid {
+            --bs-border-color: var(--bs-success);
+        }
+
+        &.is-invalid {
+            --bs-border-color: var(--bs-danger);
+        }
     }
 
     span.bb-opt-item {

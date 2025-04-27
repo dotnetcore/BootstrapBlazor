@@ -46,6 +46,7 @@ public partial class OtpInput
 
     private string? InputClassString => CssBuilder.Default("bb-opt-item")
         .AddClass("input-number-fix", Type == OtpInputType.Number)
+        .AddClass(ValidCss)
         .Build();
 
     private string TypeString => Type switch
