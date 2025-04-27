@@ -1,0 +1,20 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<string>
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+    @for (var index = 0; index < Digits; index++)
+    {
+        @if(IsReadonly || IsDisabled)
+        {
+            <span class="@ItemClassString">
+                @GetValueString(index)
+            </span>
+        }
+        else
+        {
+            <input type="@TypeString" class="@InputClassString"
+                    maxlength="@MaxLengthString" inputmode="@TypeModeString" placeholder="@PlaceHolder"
+                    value="@GetValueString(index)" />
+        }
+    }
+</div>

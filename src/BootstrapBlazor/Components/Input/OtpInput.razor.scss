@@ -1,0 +1,46 @@
+﻿.bb-opt-input {
+    white-space: nowrap;
+    overflow: hidden;
+
+    .bb-opt-item {
+        --bb-opt-item-width: 66px;
+        --bb-opt-item-disabled-color: #b8b8b8;
+        --bb-opt-item-padding: #{$bb-opt-item-padding};
+        --bb-opt-item-margin: #{$bb-opt-item-margin};
+        --bb-opt-font-size: #{$bb-opt-font-size};
+        --bb-opt-border-width: #{$bb-opt-border-width};
+        display: inline-block;
+        border: var(--bb-opt-border-width) solid var(--bs-border-color);
+        font-size: var(--bb-opt-font-size);
+        padding: var(--bb-opt-item-padding);
+        border-radius: var(--bs-border-radius);
+        width: var(--bb-opt-item-width);
+        height: var(--bb-opt-item-width);
+
+        &:not(:last-child) {
+            margin-right: var(--bb-opt-item-margin);
+        }
+
+        &.disabled {
+            background-color: var(--bs-secondary-bg);
+            cursor: not-allowed;
+        }
+
+        &[type] {
+            padding: 0;
+            text-align: center;
+        }
+
+        &.is-valid {
+            --bs-border-color: var(--bs-success);
+        }
+
+        &.is-invalid {
+            --bs-border-color: var(--bs-danger);
+        }
+    }
+
+    span.bb-opt-item {
+        color: var(--bb-opt-item-disabled-color);
+    }
+}

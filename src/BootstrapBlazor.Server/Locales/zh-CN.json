@@ -4918,7 +4918,8 @@
     "UniverIcon": "Univer Icons",
     "Typed": "打字机效果 Typed",
     "UniverSheet": "表格组件 UniverSheet",
-    "ShieldBadge": "徽章组件 ShieldBadge"
+    "ShieldBadge": "徽章组件 ShieldBadge",
+    "OtpInput": "验证码输入框 OtpInput"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7091,5 +7092,14 @@
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
     "ToastOnReadyTitle": "在线表格协作通知",
     "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容"
+  },
+  "BootstrapBlazor.Server.Components.Samples.OtpInputs": {
+    "OtpInputsTitle": "OtpInput 密码框",
+    "OtpInputsDescription": "基于 OTP(One-Time Password‌) 仅限单次使用且具备时效性的安全验证密码框",
+    "OtpInputsTips": "OTP（One Time Password，简称OTP）：这是一种安全措施，用于在每次登录或交易时生成一个唯一的密码，本组件配合 <code>ITotpService</code> <code>IHotpService</code> 使用大大提高安全性",
+    "OtpInputsNormalTitle": "基础用法",
+    "OtpInputsNormalIntro": "通过设置 <code>Type</code> 等参数控制密码类型或者长度",
+    "OtpInputsValidateFormTitle": "表单内使用",
+    "OtpInputsValidateFormIntro": "密码未提供值时，点击提交按钮，密码框显示为红色，并且提示不可为空"
   }
 }
