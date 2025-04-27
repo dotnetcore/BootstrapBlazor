@@ -7092,5 +7092,14 @@
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
     "ToastOnReadyTitle": "Collaboration Notification",
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content"
+  },
+  "BootstrapBlazor.Server.Components.Samples.OtpInputs": {
+    "OtpInputsTitle": "OtpInput",
+    "OtpInputsDescription": "A secure verification password box based on OTP (One-Time Password) that is limited to one-time use and has a time limit",
+    "OtpInputsTips": "OTP (One Time Password, abbreviated as OTP): This is a security measure used to generate a unique password for each login or transaction. This component is used in conjunction with <code>ITotpService</code> <code>IHotpService</code> to greatly improve security.",
+    "OtpInputsNormalTitle": "Basic usage",
+    "OtpInputsNormalIntro": "Control the password type or length by setting parameters such as <code>Type</code>",
+    "OtpInputsValidateFormTitle": "ValidateForm",
+    "OtpInputsValidateFormIntro": "When the password is not provided, click the Submit button, the password box will be displayed in red and it will be prompted that it cannot be empty."
   }
 }
