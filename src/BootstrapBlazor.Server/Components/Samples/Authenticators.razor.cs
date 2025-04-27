@@ -13,7 +13,7 @@ public partial class Authenticators
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Anchors>? Localizer { get; set; }
+    private IStringLocalizer<Authenticators>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -34,7 +34,15 @@ public partial class Authenticators
     {
         base.OnInitialized();
 
-        _content = TotpService.GenerateOtpUri();
+        _content = TotpService.GenerateOtpUri(new OtpOptions()
+        {
+            AccountName = "BootstrapBlazor",
+            IssuerName = "BootstrapBlazor",
+            UserName = "Simulator",
+            SecretKey = "OMM2LVLFX6QJHMYI",
+            Algorithm = OtpHashMode.Sha1,
+            Type = OtpType.Totp
+        });
         _code = TotpService.Compute("OMM2LVLFX6QJHMYI");
     }
 
