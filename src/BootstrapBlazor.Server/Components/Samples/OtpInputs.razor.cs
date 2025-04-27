@@ -19,4 +19,6 @@ public partial class OtpInputs
     private bool _readonly = false;
 
     private bool _disabled = false;
+
+    private LoginModel _model = new() { UserName = "Admin", Password = "" };
 }
