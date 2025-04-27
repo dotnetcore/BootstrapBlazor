@@ -273,6 +273,13 @@ public class InputTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("DisplayText", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
+        });
+        cut.Contains("test-child-content");
+        cut.DoesNotContain("DisplayText");
     }
 
     [Fact]
