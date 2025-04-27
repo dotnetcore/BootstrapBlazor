@@ -23,7 +23,9 @@ public class OtpInputTest : BootstrapBlazorTestBase
         Assert.Equal(6, items.Count);
 
         var item = items[0];
-        Assert.Equal("1", item.GetAttribute("value"));
+        Assert.Contains("value=\"1\"", item.OuterHtml);
+        item = items[1];
+        Assert.Contains("value=\"2\"", item.OuterHtml);
     }
 
     [Fact]
@@ -42,7 +44,7 @@ public class OtpInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsReadonly, false);
         });
         item = cut.Find(".bb-opt-item");
-        Assert.Equal("<input type=\"number\" class=\"input-number-fix\" inputmode=\"numeric\" blazor:onchange=\"1\">", item.InnerHtml);
+        Assert.Equal("<input type=\"number\" class=\"bb-opt-item input-number-fix\" inputmode=\"numeric\">", item.OuterHtml);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -50,5 +52,26 @@ public class OtpInputTest : BootstrapBlazorTestBase
         });
         item = cut.Find(".bb-opt-item");
         Assert.Equal("<span class=\"bb-opt-item disabled\"></span>", item.OuterHtml);
+    }
+
+    [Fact]
+    public void Type_Ok()
+    {
+        var cut = Context.RenderComponent<OtpInput>(pb =>
+        {
+            pb.Add(a => a.Type, OtpInputType.Text);
+            pb.Add(a => a.PlaceHolder, "X");
+        });
+
+        var item = cut.Find(".bb-opt-item");
+        Assert.Equal("<input type=\"text\" class=\"bb-opt-item\" maxlength=\"1\" placeholder=\"X\">", item.OuterHtml);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Type, OtpInputType.Password);
+            pb.Add(a => a.PlaceHolder, null);
+        });
+        item = cut.Find(".bb-opt-item");
+        Assert.Equal("<input type=\"password\" class=\"bb-opt-item\" maxlength=\"1\">", item.OuterHtml);
     }
 }
