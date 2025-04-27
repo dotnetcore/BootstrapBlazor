@@ -111,3 +111,6 @@ iframe
 Sqlite
 maxlength
 inputmode
+Totp
+otpauth
+Hotp

@@ -110,7 +110,9 @@ export function dispose(id) {
     EventHandler.off(el, 'click', '.btn-minus');
 
     const { Pre } = window.BootstrapBlazor;
-    Pre.dispose(id, () => {
-        EventHandler.off(document, 'changed.bb.theme', updateTheme);
-    });
+    if (Pre) {
+        Pre.dispose(id, () => {
+            EventHandler.off(document, 'changed.bb.theme', updateTheme);
+        });
+    }
 }
