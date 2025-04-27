@@ -2,7 +2,7 @@
 @inherits ValidateBase<string>
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
-    <input hidden value="@CurrentValueAsString" class="" />
+    <input hidden value="@CurrentValueAsString" class="opt-input-val" />
     @for (var index = 0; index < Digits; index++)
     {
             @if(IsReadonly || IsDisabled)
