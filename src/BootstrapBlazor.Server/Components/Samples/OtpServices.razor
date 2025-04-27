@@ -51,4 +51,6 @@ private ITotpService? TotpService { get; set; }</Pre>
 
 <p class="code-label">4. 验证逻辑</p>
 
-<div>网页内使用 <code>OtpInput</code> 让用户填写手机 <code>App</code> 终端的密码，后台通过调用 <code>TotpService</code> 实例方法 <code>Compute</code> 得到当前时间窗口内的密码，与客户录入的比对，如果一致则密码正确</div>
+<p>网页内使用 <code>OtpInput</code> 让用户填写手机 <code>App</code> 终端的密码，后台通过调用 <code>TotpService</code> 实例方法 <code>Compute</code> 得到当前时间窗口内的密码，与客户录入的比对，如果一致则密码正确</p>
+
+<div>通过使用本服务可以很方便的构建 <code>2FA</code> 应用</div>
