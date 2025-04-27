@@ -74,4 +74,23 @@ public class OtpInputTest : BootstrapBlazorTestBase
         item = cut.Find(".bb-opt-item");
         Assert.Equal("<input type=\"password\" class=\"bb-opt-item\" maxlength=\"1\">", item.OuterHtml);
     }
+
+    [Fact]
+    public async Task TriggerSetValue_Ok()
+    {
+        var v = "123456";
+        var cut = Context.RenderComponent<OtpInput>(pb =>
+        {
+            pb.Add(a => a.Type, OtpInputType.Text);
+            pb.Add(a => a.Value, v);
+            pb.Add(a => a.OnValueChanged, val =>
+            {
+                v = val;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerSetValue("234567"));
+        Assert.Equal("234567", v);
+    }
 }
