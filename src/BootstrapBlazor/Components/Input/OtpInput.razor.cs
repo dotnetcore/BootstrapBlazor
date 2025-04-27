@@ -40,9 +40,13 @@ public partial class OtpInput
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("bb-opt-item")
-        .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
+        .Build();
+
+    private string? InputClassString => CssBuilder.Default()
+        .AddClass("input-number-fix", Type == OtpInputType.Number)
+        .AddClass("disabled", IsDisabled)
         .Build();
 
     private string TypeString => Type switch
@@ -74,11 +78,14 @@ public partial class OtpInput
         base.OnParametersSet();
 
         _values = new char[Digits];
-        for (var index = 0; index < Digits; index++)
+        if (Value != null)
         {
-            if (index < Value.Length)
+            for (var index = 0; index < Digits; index++)
             {
-                _values[index] = Value[index];
+                if (index < Value.Length)
+                {
+                    _values[index] = Value[index];
+                }
             }
         }
     }
