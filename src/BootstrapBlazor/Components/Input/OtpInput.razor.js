@@ -51,7 +51,7 @@ export function init(id) {
 }
 
 const setPrevFocus = (el, target) => {
-    const inputs = [...el.querySelectorAll('input')];
+    const inputs = [...el.querySelectorAll('.bb-opt-item')];
     let index = inputs.indexOf(target);
     if (index > 0) {
         setFocus(inputs[index - 1]);
@@ -59,7 +59,7 @@ const setPrevFocus = (el, target) => {
 }
 
 const setNextFocus = (el, target) => {
-    const inputs = [...el.querySelectorAll('input')];
+    const inputs = [...el.querySelectorAll('.bb-opt-item')];
     let index = inputs.indexOf(target);
     if (index < inputs.length - 1) {
         setFocus(inputs[index + 1]);
