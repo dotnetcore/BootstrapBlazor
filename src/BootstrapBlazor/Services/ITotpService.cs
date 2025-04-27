@@ -13,9 +13,9 @@ public interface ITotpService
     /// <summary>
     /// Generates a one-time password (OTP) URI for the specified parameters.
     /// </summary>
-    /// <param name="options">the instance of <see cref="AuthenticatorOptions"/></param>
+    /// <param name="options">the instance of <see cref="OtpOptions"/></param>
     /// <returns></returns>
-    string GenerateOtpUri(AuthenticatorOptions? options = null);
+    string GenerateOtpUri(OtpOptions? options = null);
 
     /// <summary>
     /// Computes the Time-based One-Time Password (TOTP) for the given secret key and timestamp.

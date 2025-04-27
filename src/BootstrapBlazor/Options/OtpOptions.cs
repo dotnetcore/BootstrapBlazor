@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AuthenticatorOptions class
+/// OtpOptions class
 /// </summary>
-public class AuthenticatorOptions
+public class OtpOptions
 {
     /// <summary>
     /// Gets or sets the secret key used for generating the QR code.
