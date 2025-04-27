@@ -273,6 +273,13 @@ public class InputTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("DisplayText", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
+        });
+        cut.Contains("test-child-content");
+        cut.DoesNotContain("DisplayText");
     }
 
     [Fact]
@@ -315,6 +322,22 @@ public class InputTest : BootstrapBlazorTestBase
         });
 
         cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\" style=\"--bb-input-group-label-width: 120px;\"><span>BootstrapInputGroup</span></div></div>");
+    }
+
+    [Fact]
+    public void InputGroup_ChildContent()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        {
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<BootstrapInputGroupLabel>(0);
+                builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.ChildContent), new RenderFragment(builder => builder.AddContent(0, "child-content")));
+                builder.CloseComponent();
+            }));
+        });
+
+        cut.Contains("child-content");
     }
 
     [Theory]

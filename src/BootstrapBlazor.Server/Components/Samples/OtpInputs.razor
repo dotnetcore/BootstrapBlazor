@@ -1,0 +1,74 @@
+﻿@page "/otp-input"
+@inject IStringLocalizer<OtpInputs> Localizer
+
+<HeadContent>
+    <style>
+        .input-group-text {
+            --bb-input-group-label-width: 100px;
+        }
+
+        .otp-input-demo {
+            text-align: center;
+        }
+    </style>
+</HeadContent>
+
+<h3>@Localizer["OtpInputsTitle"]</h3>
+
+<h4>@Localizer["OtpInputsDescription"]</h4>
+
+<Tips class="mt-3">
+    <p>@((MarkupString)Localizer["OtpInputsTips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["OtpInputsNormalTitle"]"
+           Introduction="@Localizer["OtpInputsNormalIntro"]"
+           Name="Normal">
+    <div class="row g-3 mb-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Type"></BootstrapInputGroupLabel>
+                <Select @bind-Value="_otpInputType"></Select>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="PlaceHolder"></BootstrapInputGroupLabel>
+                <BootstrapInput @bind-Value="@_placeHolder"></BootstrapInput>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Readonly"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="@_readonly"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Disable"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="@_disabled"></Switch>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <OtpInput Value="@_value" Type="_otpInputType" PlaceHolder="@_placeHolder" IsReadonly="_readonly" IsDisabled="_disabled"></OtpInput>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OtpInputsValidateFormTitle"]"
+           Introduction="@Localizer["OtpInputsValidateFormIntro"]"
+           Name="ValidateForm">
+    <ValidateForm Model="@_model">
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@_model.UserName" />
+            </div>
+            <div class="col-12">
+                <GroupBox Title="2FA" class="otp-input-demo">
+                    <OtpInput @bind-Value="@_model.Password"></OtpInput>
+                </GroupBox>
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-save" Text="Submit"></Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>

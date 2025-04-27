@@ -4,10 +4,26 @@
 @if (IsInputGroupLabel)
 {
     <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" required="@Required">
-        <span>@DisplayText</span>
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            <span>@DisplayText</span>
+        }
     </div>
 }
 else
 {
-    <label @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" required="@Required">@DisplayText</label>
+    <label @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" required="@Required">
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            @DisplayText
+        }
+    </label>
 }

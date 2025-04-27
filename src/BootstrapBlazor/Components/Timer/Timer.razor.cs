@@ -43,8 +43,6 @@ public partial class Timer
 
     private CancellationTokenSource CancelTokenSource { get; set; } = new();
 
-    private AutoResetEvent ResetEvent { get; } = new(false);
-
     private bool Vibrate { get; set; }
 
     /// <summary>
@@ -185,29 +183,23 @@ public partial class Timer
             CancelTokenSource = new CancellationTokenSource();
         }
 
-        while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero)
+        while (CancelTokenSource is { IsCancellationRequested: false } && CurrentTimespan > TimeSpan.Zero)
         {
             try
             {
                 await Task.Delay(1000, CancelTokenSource.Token);
+
+                if (IsPause)
+                {
+                    AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
+                }
+                else
+                {
+                    CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
+                    StateHasChanged();
+                }
             }
             catch (TaskCanceledException) { }
-
-            if (!CancelTokenSource.IsCancellationRequested)
-            {
-                CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
-                StateHasChanged();
-            }
-
-            if (IsPause)
-            {
-                ResetEvent.WaitOne();
-                AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
-
-                // 重建 CancelToken
-                CancelTokenSource.Dispose();
-                CancelTokenSource = new CancellationTokenSource();
-            }
         }
 
         if (CurrentTimespan == TimeSpan.Zero)
@@ -229,14 +221,6 @@ public partial class Timer
     private void OnClickPause()
     {
         IsPause = !IsPause;
-        if (!IsPause)
-        {
-            ResetEvent.Set();
-        }
-        else
-        {
-            CancelTokenSource.Cancel();
-        }
     }
 
     private string GetPauseText() => IsPause ? ResumeText : PauseText;
@@ -262,7 +246,6 @@ public partial class Timer
             CancelTokenSource.Cancel();
             CancelTokenSource.Dispose();
 
-            ResetEvent.Dispose();
             if (Module != null)
             {
                 await Module.DisposeAsync();

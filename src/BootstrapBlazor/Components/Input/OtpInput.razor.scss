@@ -4,6 +4,7 @@
 
     .bb-opt-item {
         --bb-opt-item-width: 66px;
+        --bb-opt-item-disabled-color: #b8b8b8;
         --bb-opt-item-padding: #{$bb-opt-item-padding};
         --bb-opt-item-margin: #{$bb-opt-item-margin};
         --bb-opt-font-size: #{$bb-opt-font-size};
@@ -21,6 +22,7 @@
         }
 
         &.disabled {
+            background-color: var(--bs-secondary-bg);
             cursor: not-allowed;
         }
 
@@ -28,5 +30,17 @@
             padding: 0;
             text-align: center;
         }
+
+        &.is-valid {
+            --bs-border-color: var(--bs-success);
+        }
+
+        &.is-invalid {
+            --bs-border-color: var(--bs-danger);
+        }
+    }
+
+    span.bb-opt-item {
+        color: var(--bb-opt-item-disabled-color);
     }
 }

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// OTP input component
 /// </summary>
-[BootstrapModuleAutoLoader("Input/OtpInput.razor.js")]
+[BootstrapModuleAutoLoader("Input/OtpInput.razor.js", JSObjectReference = true)]
 public partial class OtpInput
 {
     /// <summary>
@@ -29,13 +29,23 @@ public partial class OtpInput
     [Parameter]
     public OtpInputType Type { get; set; }
 
+    /// <summary>
+    /// Gets or sets the placeholder of the OTP input. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? PlaceHolder { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-opt-input")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("bb-opt-item")
-        .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass("disabled", IsDisabled)
+        .AddClass(ValidCss)
+        .Build();
+
+    private string? InputClassString => CssBuilder.Default("bb-opt-item")
+        .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass(ValidCss)
         .Build();
 
@@ -48,8 +58,8 @@ public partial class OtpInput
 
     private string? MaxLengthString => Type switch
     {
-        OtpInputType.Text => "1",
-        _ => null
+        OtpInputType.Number => null,
+        _ => "1"
     };
 
     private string? TypeModeString => Type switch
@@ -67,6 +77,7 @@ public partial class OtpInput
     {
         base.OnParametersSet();
 
+        Value ??= "";
         _values = new char[Digits];
         for (var index = 0; index < Digits; index++)
         {
@@ -77,21 +88,27 @@ public partial class OtpInput
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerSetValue));
+
     private char? GetValueString(int index)
     {
-        char? c = _values.ElementAtOrDefault(index);
-        if (c == 0)
-        {
-            c = null;
-        }
-        return c;
+        return _values[index] != 0 ? _values[index] : null;
     }
 
-    private void OnChanged(string? v, int index)
+
+    /// <summary>
+    /// Trigger value changed event callback. Trigger by JavaScript.
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerSetValue(string val)
     {
-        if (index < Digits && !string.IsNullOrEmpty(v))
-        {
-            _values[index] = v[0];
-        }
+        SetValue(val);
+        return Task.CompletedTask;
     }
 }
