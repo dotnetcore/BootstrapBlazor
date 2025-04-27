@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// OTP input component
 /// </summary>
-[BootstrapModuleAutoLoader("Input/OtpInput.razor.js")]
+[BootstrapModuleAutoLoader("Input/OtpInput.razor.js", JSObjectReference = true)]
 public partial class OtpInput
 {
     /// <summary>
@@ -87,8 +87,27 @@ public partial class OtpInput
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerSetValue));
+
     private char? GetValueString(int index)
     {
         return _values[index] != 0 ? _values[index] : null;
+    }
+
+
+    /// <summary>
+    /// Trigger value changed event callback. Trigger by JavaScript.
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerSetValue(string val)
+    {
+        CurrentValueAsString = val;
+        return Task.CompletedTask;
     }
 }

@@ -1,6 +1,6 @@
 ﻿import EventHandler from '../../modules/event-handler.js'
 
-export function init(id) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     EventHandler.on(el, 'input', '.bb-opt-item', e => {
@@ -10,7 +10,7 @@ export function init(id) {
                 e.target.value = e.target.value.slice(1, 2);
             }
         }
-        setValue(el);
+        setValue(el, invoke, method);
     });
     EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
         if (e.ctrlKey) {
@@ -63,13 +63,14 @@ export function init(id) {
             }
         }
         e.target.blur();
-        setValue(el);
+        setValue(el, invoke, method);
     });
 }
 
-const setValue = el => {
-    const input = el.querySelector('.bb-opt-input-val');
-    input.value = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
+const setValue = (el, invoke, method) => {
+    const val = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
+    console.log(val);
+    invoke.invokeMethodAsync(method, val);
 }
 
 const setPrevFocus = (el, target) => {
