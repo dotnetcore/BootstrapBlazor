@@ -1,0 +1,56 @@
+﻿@page "/otp-service"
+
+<HeadContent>
+    <style>
+        .qrcode {
+            display: flex;
+            justify-content: center;
+        }
+
+        .progress {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .opt-progress-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.75rem;
+            color: var(--bs-body-color);
+        }
+    </style>
+</HeadContent>
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Authenticator"></PackageTips>
+
+<DemoBlock Title="@Localizer["BaseUsageTitle"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <QRCode Content="@_content" Width="190" class="mb-3"></QRCode>
+    <OtpInput Value="@_code" IsReadonly="true" class="text-center mb-3"></OtpInput>
+    <div class="position-relative">
+        <BootstrapBlazor.Components.Progress Value="@_progress" IsShowValue="false"></BootstrapBlazor.Components.Progress>
+        <span class="opt-progress-label">@_remain</span>
+    </div>
+</DemoBlock>
+
+<p class="code-label mt-3">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITotpService? TotpService { get; set; }</Pre>
+
+<p class="code-label">2. 生成二维码</p>
+<p>调用 <code>TotpService</code> 实例方法 <code>GenerateOtpUri</code> 得到二维码内容，配合二维码组件 <code>QRCode</code> 显示二维码</p>
+
+<p class="code-label">3. 使用 <code>Microsoft Authenticator</code> <code>Google Authenticator</code> 等支持 <b>TOTP</b> 协议的软件，扫描二维码</p>
+
+<p class="code-label">4. 验证逻辑</p>
+
+<p>网页内使用 <code>OtpInput</code> 让用户填写手机 <code>App</code> 终端的密码，后台通过调用 <code>TotpService</code> 实例方法 <code>Compute</code> 得到当前时间窗口内的密码，与客户录入的比对，如果一致则密码正确</p>
+
+<div>通过使用本服务可以很方便的构建 <code>2FA</code> 应用</div>

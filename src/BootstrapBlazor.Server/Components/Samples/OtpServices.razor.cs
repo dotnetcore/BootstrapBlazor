@@ -7,13 +7,13 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// Authenticators sample
+/// OtpServices sample
 /// </summary>
-public partial class Authenticators
+public partial class OtpServices
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Anchors>? Localizer { get; set; }
+    private IStringLocalizer<OtpServices>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -34,7 +34,15 @@ public partial class Authenticators
     {
         base.OnInitialized();
 
-        _content = TotpService.GenerateOtpUri();
+        _content = TotpService.GenerateOtpUri(new OtpOptions()
+        {
+            AccountName = "BootstrapBlazor",
+            IssuerName = "BootstrapBlazor",
+            UserName = "Simulator",
+            SecretKey = "OMM2LVLFX6QJHMYI",
+            Algorithm = OtpHashMode.Sha1,
+            Type = OtpType.Totp
+        });
         _code = TotpService.Compute("OMM2LVLFX6QJHMYI");
     }
 

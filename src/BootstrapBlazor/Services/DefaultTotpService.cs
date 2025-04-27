@@ -9,7 +9,7 @@ class DefaultTotpService : ITotpService
 {
     public TotpInstanceBase Instance { get; } = new DefaultTotpInstance();
 
-    public string Compute(string secretKey, int step = 6, OtpHashMode mode = OtpHashMode.Sha1, int totpSize = 6, DateTime? timestamp = null) => "123456";
+    public string Compute(string secretKey, int period = 30, OtpHashMode mode = OtpHashMode.Sha1, int digits = 6, DateTime? timestamp = null) => "123456";
 
     public string GenerateOtpUri(OtpOptions? options = null) => "otpauth://totp/BootstrapBlazor?secret=OMM2LVLFX6QJHMYI&issuer=Simulator";
 

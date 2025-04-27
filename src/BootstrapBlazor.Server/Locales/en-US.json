@@ -4920,7 +4920,7 @@
     "UniverSheet": "UniverSheet",
     "ShieldBadge": "ShieldBadge",
     "OtpInput": "OtpInput",
-    "Authenticator": "Authenticator"
+    "TotpService": "ITotpService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7103,8 +7103,10 @@
     "OtpInputsValidateFormTitle": "ValidateForm",
     "OtpInputsValidateFormIntro": "When the password is not provided, click the Submit button, the password box will be displayed in red and it will be prompted that it cannot be empty."
   },
-  "BootstrapBlazor.Server.Components.Samples.Authenticators": {
-    "Title": "Authenticator",
-    "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service."
+  "BootstrapBlazor.Server.Components.Samples.OtpServices": {
+    "Title": "ITotpService",
+    "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service.",
+    "BaseUsageTitle": "Basic usage",
+    "BaseUsageIntro": "By calling the <code>Compute</code> method of the <code>ITotpService</code> service instance, you can get the password in the current time window. By calling the <code>Instance.GetRemainingSeconds</code> method, you can display the remaining validity time of the current password. In this example, the progress bar is used for dynamic display."
   }
 }

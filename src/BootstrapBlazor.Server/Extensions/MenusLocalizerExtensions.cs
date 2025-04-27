@@ -1539,6 +1539,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["TotpService"],
+                    Url = "otp-service"
+                },
+                new()
+                {
                     Text = Localizer["Title"],
                     Url = "title"
                 },
