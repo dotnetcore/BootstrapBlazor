@@ -5,10 +5,8 @@ export function init(id, invoke, method) {
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     EventHandler.on(el, 'input', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
-        if (isNumber) {
-            if (e.target.value.length > 1) {
-                e.target.value = e.target.value.slice(1, 2);
-            }
+        if (isNumber && e.target.value.length > 1) {
+            e.target.value = e.target.value.slice(1, 2);
         }
         setValue(el, invoke, method);
     });
