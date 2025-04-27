@@ -2,7 +2,6 @@
 
 export function init(id) {
     const el = document.getElementById(id);
-    const input = el.querySelector('.bb-opt-input-val');
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     EventHandler.on(el, 'input', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
@@ -11,7 +10,7 @@ export function init(id) {
                 e.target.value = e.target.value.slice(1, 2);
             }
         }
-        input.value = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
+        setValue(el);
     });
     EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
         if (e.ctrlKey) {
@@ -48,6 +47,29 @@ export function init(id) {
             e.target.select();
         }
     });
+
+    EventHandler.on(el, 'paste', e => {
+        if (e.clipboardData && e.clipboardData.getData) {
+            const pastedText = e.clipboardData.getData('text/plain');
+            const inputs = [...el.querySelectorAll('.bb-opt-item')];
+            for (const index in inputs) {
+                const input = inputs[index];
+                if (index < pastedText.length) {
+                    input.value = pastedText[index];
+                }
+                else {
+                    input.value = '';
+                }
+            }
+        }
+        e.target.blur();
+        setValue(el);
+    });
+}
+
+const setValue = el => {
+    const input = el.querySelector('.bb-opt-input-val');
+    input.value = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
 }
 
 const setPrevFocus = (el, target) => {
