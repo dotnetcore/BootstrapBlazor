@@ -9,13 +9,13 @@ class DefaultTotpService : ITotpService
 {
     public TotpInstanceBase Instance { get; } = new DefaultTotpInstance();
 
-    public string Compute(string secretKey, DateTime? timestamp = null) => "";
+    public string Compute(string secretKey, DateTime? timestamp = null) => "123456";
 
-    public string GenerateOtpUri(OtpOptions? options = null) => "";
+    public string GenerateOtpUri(OtpOptions? options = null) => "otpauth://totp/BootstrapBlazor?secret=OMM2LVLFX6QJHMYI&issuer=Simulator";
 
-    public string GenerateSecretKey(int length = 20) => "";
+    public string GenerateSecretKey(int length = 20) => "OMM2LVLFX6QJHMYI";
 
-    public int GetRemainingSeconds(DateTime? timestamp = null) => 0;
+    public int GetRemainingSeconds(DateTime? timestamp = null) => 30;
 
     public byte[] GetSecretKeyBytes(string input) => [];
 
@@ -23,7 +23,7 @@ class DefaultTotpService : ITotpService
 
     class DefaultTotpInstance : TotpInstanceBase
     {
-        public override int GetRemainingSeconds(DateTime? timestamp = null) => 0;
+        public override int GetRemainingSeconds(DateTime? timestamp = null) => 30;
 
         public override bool Verify(string code, DateTime? timestamp = null) => false;
     }
