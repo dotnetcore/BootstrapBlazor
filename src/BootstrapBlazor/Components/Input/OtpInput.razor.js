@@ -2,6 +2,7 @@
 
 export function init(id) {
     const el = document.getElementById(id);
+    const input = el.querySelector('.bb-opt-input-val');
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     EventHandler.on(el, 'input', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
@@ -10,6 +11,7 @@ export function init(id) {
                 e.target.value = e.target.value.slice(1, 2);
             }
         }
+        input.value = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
     });
     EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
