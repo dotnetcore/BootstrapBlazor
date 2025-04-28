@@ -4918,7 +4918,9 @@
     "UniverIcon": "Univer Icons",
     "Typed": "Typed",
     "UniverSheet": "UniverSheet",
-    "ShieldBadge": "ShieldBadge"
+    "ShieldBadge": "ShieldBadge",
+    "OtpInput": "OtpInput",
+    "TotpService": "ITotpService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7091,5 +7093,20 @@
   "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
     "ToastOnReadyTitle": "Collaboration Notification",
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content"
+  },
+  "BootstrapBlazor.Server.Components.Samples.OtpInputs": {
+    "OtpInputsTitle": "OtpInput",
+    "OtpInputsDescription": "A secure verification password box based on OTP (One-Time Password) that is limited to one-time use and has a time limit",
+    "OtpInputsTips": "OTP (One Time Password, abbreviated as OTP): This is a security measure used to generate a unique password for each login or transaction. This component is used in conjunction with <code>ITotpService</code> <code>IHotpService</code> to greatly improve security.",
+    "OtpInputsNormalTitle": "Basic usage",
+    "OtpInputsNormalIntro": "Control the password type or length by setting parameters such as <code>Type</code>",
+    "OtpInputsValidateFormTitle": "ValidateForm",
+    "OtpInputsValidateFormIntro": "When the password is not provided, click the Submit button, the password box will be displayed in red and it will be prompted that it cannot be empty."
+  },
+  "BootstrapBlazor.Server.Components.Samples.OtpServices": {
+    "Title": "ITotpService",
+    "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service.",
+    "BaseUsageTitle": "Basic usage",
+    "BaseUsageIntro": "By calling the <code>Compute</code> method of the <code>ITotpService</code> service instance, you can get the password in the current time window. By calling the <code>Instance.GetRemainingSeconds</code> method, you can display the remaining validity time of the current password. In this example, the progress bar is used for dynamic display."
   }
 }

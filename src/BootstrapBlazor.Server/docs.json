@@ -228,7 +228,9 @@
     "watermark": "Watermarks",
     "typed": "Typeds",
     "univer-sheet": "UniverSheets",
-    "shield-badge": "ShieldBadges"
+    "shield-badge": "ShieldBadges",
+    "opt-input": "OtpInputs",
+    "otp-service": "OtpServices"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
