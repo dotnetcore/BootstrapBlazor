@@ -1,4 +1,4 @@
-.layout-splitebar {
+﻿.layout-split-bar {
     width: 1px;
     position: absolute;
     top: 0;
@@ -7,9 +7,9 @@
     background-color: var(--bs-border-color);
     display: none;
 
-    .layout-splitebar-body {
-        --bb-splitebar-body-hover-bg: #{$bb-splitebar-body-hover-bg};
-        --bb-splitebar-body-drag-hover-bg: #{$bb-splitebar-body-drag-hover-bg};
+    .layout-split-bar-body {
+        --bb-split-bar-body-hover-bg: #{$bb-split-bar-body-hover-bg};
+        --bb-split-bar-body-drag-hover-bg: #{$bb-split-bar-body-drag-hover-bg};
         position: absolute;
         inset: 0px -2px;
         cursor: col-resize;
@@ -18,27 +18,27 @@
         transition: background .3s linear;
 
         &:hover {
-            background-color: var(--bb-splitebar-body-hover-bg);
+            background-color: var(--bb-split-bar-body-hover-bg);
         }
     }
 }
 
 .drag {
-    .layout-splitebar {
-        .layout-splitebar-body:hover {
-            background-color: var(--bb-splitebar-body-drag-hover-bg);
+    .layout-split-bar {
+        .layout-split-bar-body:hover {
+            background-color: var(--bb-split-bar-body-drag-hover-bg);
         }
     }
 }
 
 .is-collapsed {
-    .layout-splitebar-body {
+    .layout-split-bar-body {
         display: none;
     }
 }
 
 @media(min-width: 768px) {
-    .layout-splitebar {
+    .layout-split-bar {
         display: block;
     }
 }
