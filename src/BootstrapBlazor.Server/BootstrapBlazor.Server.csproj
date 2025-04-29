@@ -57,7 +57,7 @@
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.Player" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.Player" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="9.0.2" />
