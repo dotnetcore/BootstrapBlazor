@@ -138,7 +138,7 @@ public partial class Layout : IHandlerException, ITabHeader
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，请使用 ShowSplitBar 单词拼写错误；Deprecated, please use ShowSplitBar The word is misspelled")]
+    [Obsolete("已弃用，请使用 ShowSplitBar 单词拼写错误；Deprecated. Please use 'ShowSplitBar' instead. The word 'Splitebar' is misspelled.")]
     public bool ShowSplitebar { get; set; }
 
     /// <summary>
