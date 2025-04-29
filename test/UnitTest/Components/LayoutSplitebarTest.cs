@@ -5,12 +5,12 @@
 
 namespace UnitTest.Components;
 
-public class LayoutSplitebarTest : BootstrapBlazorTestBase
+public class LayoutSplitBarTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void LayoutSplitebar_Ok()
+    public void LayoutSplitBar_Ok()
     {
-        var cut = Context.RenderComponent<LayoutSplitebar>(pb =>
+        var cut = Context.RenderComponent<LayoutSplitBar>(pb =>
         {
             pb.Add(a => a.ContainerSelector, ".layout");
         });

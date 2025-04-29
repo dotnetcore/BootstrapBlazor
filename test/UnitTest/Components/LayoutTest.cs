@@ -359,7 +359,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 builder.AddContent(0, "test");
             }));
         });
-        cut.Contains("layout-splitebar");
+        cut.Contains("layout-split-bar");
         cut.Contains("data-bb-min=\"100\"");
         cut.Contains("data-bb-max=\"300\"");
     }
