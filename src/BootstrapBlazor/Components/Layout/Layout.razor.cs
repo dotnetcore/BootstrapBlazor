@@ -130,6 +130,15 @@ public partial class Layout : IHandlerException, ITabHeader
     /// 仅在 左右布局时有效
     /// </summary>
     [Parameter]
+    public bool ShowSplitBar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示分割栏 默认 false 不显示
+    /// 仅在 左右布局时有效
+    /// </summary>
+    [Parameter]
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 ShowSplitBar 单词拼写错误；Deprecated, please use ShowSplitBar The word is misspelled")]
     public bool ShowSplitebar { get; set; }
 
     /// <summary>
