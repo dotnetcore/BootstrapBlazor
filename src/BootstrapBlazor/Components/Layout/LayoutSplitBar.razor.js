@@ -11,11 +11,11 @@ export function init(id) {
     const selector = el.getAttribute("data-bb-selector") ?? ".layout";
     const section = document.querySelector(selector);
     if (section === null) {
-        log.warning(`LayoutSplitebar: selector ${selector} not found`);
+        log.warning(`LayoutSplitBar: selector ${selector} not found`);
         return;
     }
 
-    const bar = el.querySelector(".layout-splitebar-body");
+    const bar = el.querySelector(".layout-split-bar-body");
     let originX = 0;
     let width = 0;
     Drag.drag(bar,
@@ -50,7 +50,7 @@ export function init(id) {
 export function dispose(id) {
     const el = document.getElementById(id);
     if (el) {
-        const bar = el.querySelector(".layout-splitebar-body");
+        const bar = el.querySelector(".layout-split-bar-body");
         if (bar) {
             Drag.dispose(bar);
         }

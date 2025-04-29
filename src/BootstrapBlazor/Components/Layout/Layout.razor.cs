@@ -130,6 +130,15 @@ public partial class Layout : IHandlerException, ITabHeader
     /// 仅在 左右布局时有效
     /// </summary>
     [Parameter]
+    public bool ShowSplitBar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示分割栏 默认 false 不显示
+    /// 仅在 左右布局时有效
+    /// </summary>
+    [Parameter]
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 ShowSplitBar 单词拼写错误；Deprecated. Please use 'ShowSplitBar' instead. The word 'Splitebar' is misspelled.")]
     public bool ShowSplitebar { get; set; }
 
     /// <summary>
@@ -491,7 +500,7 @@ public partial class Layout : IHandlerException, ITabHeader
             // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
             AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
 
-            var uri= Navigation.ToAbsoluteUri(Navigation.Uri);
+            var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var context = RouteTableFactory.Create(AdditionalAssemblies, uri.LocalPath);
             if (context.Handler != null)
             {

@@ -1424,7 +1424,7 @@
     "Layouts_IsFixedFooter_Description": "Whether to fix the Footer component",
     "Layouts_IsFixedHeader_Description": "Whether to fix the Header component",
     "Layouts_ShowCollapseBar_Description": "Whether to show contraction and expansion Bar",
-    "Layouts_ShowSplitebar_Description": "Whether to display the left and right split bar",
+    "Layouts_ShowSplitBar_Description": "Whether to display the left and right split bar",
     "Layouts_SidebarMinWidth_Description": "Minimum sidebar width",
     "Layouts_SidebarMaxWidth_Description": "Maximum sidebar width",
     "Layouts_ShowFooter_Description": "Whether to show Footer template",
