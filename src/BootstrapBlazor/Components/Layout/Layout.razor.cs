@@ -500,7 +500,7 @@ public partial class Layout : IHandlerException, ITabHeader
             // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
             AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
 
-            var uri= Navigation.ToAbsoluteUri(Navigation.Uri);
+            var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var context = RouteTableFactory.Create(AdditionalAssemblies, uri.LocalPath);
             if (context.Handler != null)
             {
