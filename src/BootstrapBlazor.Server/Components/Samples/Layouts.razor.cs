@@ -141,8 +141,8 @@ public sealed partial class Layouts
         },
         new()
         {
-            Name = "ShowSplitebar",
-            Description =  Localizer["Layouts_ShowSplitebar_Description"],
+            Name = "ShowSplitBar",
+            Description =  Localizer["Layouts_ShowSplitBar_Description"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

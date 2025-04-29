@@ -1424,7 +1424,7 @@
     "Layouts_IsFixedFooter_Description": "是否固定 Footer 组件",
     "Layouts_IsFixedHeader_Description": "是否固定 Header 组件",
     "Layouts_ShowCollapseBar_Description": "是否显示收缩展开 Bar",
-    "Layouts_ShowSplitebar_Description": "是否显示左右分割栏",
+    "Layouts_ShowSplitBar_Description": "是否显示左右分割栏",
     "Layouts_SidebarMinWidth_Description": "侧边栏最小宽度",
     "Layouts_SidebarMaxWidth_Description": "侧边栏最大宽度",
     "Layouts_ShowFooter_Description": "是否显示 Footer 模板",
