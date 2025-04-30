@@ -138,7 +138,7 @@ public class SearchTest : BootstrapBlazorTestBase
             builder.Add(s => s.ClearButtonColor, Color.Secondary);
             builder.Add(s => s.ClearButtonIcon, "test-icon");
             builder.Add(s => s.ClearButtonText, "Clear");
-            builder.Add(s => s.OnClear, v =>
+            builder.Add(s => s.OnClear, () =>
             {
                 ret = true;
                 return Task.CompletedTask;
