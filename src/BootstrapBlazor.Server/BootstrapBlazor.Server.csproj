@@ -33,7 +33,7 @@
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.11" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.12" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
