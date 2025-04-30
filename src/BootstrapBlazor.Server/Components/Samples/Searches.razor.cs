@@ -40,12 +40,6 @@ public sealed partial class Searches
         return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
-    private Task<IEnumerable<string>> OnClear(string searchText)
-    {
-        DisplayLogger.Log($"OnClear: {searchText}");
-        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
-    }
-
     [NotNull]
     private ConsoleLogger? KeyboardLogger { get; set; }
 
