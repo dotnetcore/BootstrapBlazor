@@ -68,7 +68,7 @@
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.4" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.3" />
+    <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.7" />
     <PackageReference Include="Longbow.Logging" Version="9.0.0" />
