@@ -146,7 +146,7 @@ public partial class Search<TValue>
     /// Gets or sets the event callback when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
-    public Func<string?, Task>? OnClear { get; set; }
+    public Func<Task>? OnClear { get; set; }
 
     [Inject]
     [NotNull]
@@ -221,18 +221,17 @@ public partial class Search<TValue>
             {
                 await InvokeVoidAsync("showList", Id);
             }
-            StateHasChanged();
         }
     }
 
     private async Task OnClearClick()
     {
+        _displayText = "";
         if (OnClear != null)
         {
-            await OnClear(_displayText);
+            await OnClear();
         }
-        _displayText = "";
-        _filterItems = [];
+        await OnSearchClick();
     }
 
     private string? GetDisplayText(TValue item)
@@ -272,6 +271,7 @@ public partial class Search<TValue>
         if (IsTriggerSearchByInput)
         {
             await OnSearchClick();
+            StateHasChanged();
         }
         _dropdown.Render();
     }
