@@ -3,34 +3,32 @@
 @inherits BootstrapComponentBase
 
 <div class="@ClassString">
-    <CascadingValue Value="@_editorItems" IsFixed="true">
+    <CascadingValue Value="@_editorItems" IsFixed="false">
         @FieldItems?.Invoke(Model)
     </CascadingValue>
     <CascadingValue Value="this" Name="EditorForm">
-        <RenderTemplate>
-            @if (ShowUnsetGroupItemsOnTop)
+        @if (ShowUnsetGroupItemsOnTop)
+        {
+            if (UnsetGroupItems.Any())
             {
-                if (UnsetGroupItems.Any())
-                {
-                    @RenderUnsetGroupItems
-                }
-                @foreach (var g in GroupItems)
-                {
-                    @RenderGroupItems(g)
-                }
+                @RenderUnsetGroupItems
             }
-            else
+            @foreach (var g in GroupItems)
             {
-                @foreach (var g in GroupItems)
-                {
-                    @RenderGroupItems(g)
-                }
-                if (UnsetGroupItems.Any())
-                {
-                    @RenderUnsetGroupItems
-                }
+                @RenderGroupItems(g)
             }
-        </RenderTemplate>
+        }
+        else
+        {
+            @foreach (var g in GroupItems)
+            {
+                @RenderGroupItems(g)
+            }
+            if (UnsetGroupItems.Any())
+            {
+                @RenderUnsetGroupItems
+            }
+        }
     </CascadingValue>
 
     @if (Buttons != null)
