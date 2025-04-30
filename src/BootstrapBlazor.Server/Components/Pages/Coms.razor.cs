@@ -20,7 +20,7 @@ public sealed partial class Coms
         return Task.FromResult<IEnumerable<string?>>(ComponentItems.Where(i => i.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList());
     }
 
-    private Task OnClear(string searchText)
+    private Task OnClear()
     {
         SearchText = "";
         StateHasChanged();
