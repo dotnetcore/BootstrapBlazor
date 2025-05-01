@@ -27,4 +27,16 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
     {
         throw new NotImplementedException();
     }
+
+    public async Task Open(MediaTrackConstraints constraints)
+    {
+        var module = await LoadModule();
+        await module.InvokeVoidAsync("open", constraints);
+    }
+
+    public async Task Close(string selector)
+    {
+        var module = await LoadModule();
+        await module.InvokeVoidAsync("close", selector);
+    }
 }

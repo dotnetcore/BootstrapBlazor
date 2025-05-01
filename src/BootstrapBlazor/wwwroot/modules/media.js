@@ -4,14 +4,41 @@
         console.log("enumerateDevices() not supported.");
     }
     else {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        console.log(stream);
-
+        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         const devices = await navigator.mediaDevices.enumerateDevices();
-        devices.forEach(d => {
-            console.log(d);
-        });
         ret = devices;
     }
     return ret;
+}
+
+export async function open(options) {
+    const constrains = {
+        video: {
+            facingMode: options.facingMode || "environment",
+            deviceId: options.deviceId ? { exact: options.deviceId } : null,
+        },
+        audio: false
+    }
+    const video = document.querySelector(options.videoSelector);
+    if (video) {
+        const stream = await navigator.mediaDevices.getUserMedia(constrains);
+        video.srcObject = stream;
+    }
+}
+
+export async function close(videoSelector) {
+    const video = document.querySelector(videoSelector);
+    if (video) {
+        video.pause();
+        const stream = video.srcObject;
+        if (stream) {
+            const tracks = stream.getTracks();
+
+            tracks.forEach(track => {
+                track.stop();
+            });
+
+            video.srcObject = null;
+        }
+    }
 }

@@ -11,22 +11,22 @@ namespace BootstrapBlazor.Components;
 public interface IMediaDeviceInfo
 {
     /// <summary>
-    /// Returns a string that is an identifier for the represented device that is persisted across sessions. It is un-guessable by other applications and unique to the origin of the calling application. It is reset when the user clears cookies (for Private Browsing, a different identifier is used that is not persisted across sessions).
+    /// The deviceId read-only property of the MediaDeviceInfo interface returns a string that is an identifier for the represented device and is persisted across sessions.
     /// </summary>
-    public string? DeviceId { get; }
+    public string DeviceId { get; }
 
     /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
+    /// The groupId read-only property of the MediaDeviceInfo interface returns a string that is a group identifier.
     /// </summary>
-    public string? GroupId { get; }
+    public string GroupId { get; }
 
     /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
+    /// The kind read-only property of the MediaDeviceInfo interface returns an enumerated value, that is either "videoinput", "audioinput" or "audiooutput".
     /// </summary>
-    public string? Kind { get; }
+    public string Kind { get; }
 
     /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
+    /// The label read-only property of the MediaDeviceInfo interface returns a string describing this device (for example "External USB Webcam").
     /// </summary>
-    public string? Label { get; }
+    public string Label { get; }
 }

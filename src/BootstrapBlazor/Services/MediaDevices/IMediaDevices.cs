@@ -22,4 +22,18 @@ public interface IMediaDevices
     /// <param name="options"></param>
     /// <returns></returns>
     Task<MediaStream> GetDisplayMedia(DisplayMediaOptions? options = null);
+
+    /// <summary>
+    /// The open() method of the MediaDevices interface creates a new MediaStream object and starts capturing media from the specified device.
+    /// </summary>
+    /// <param name="constraints"></param>
+    /// <returns></returns>
+    Task Open(MediaTrackConstraints constraints);
+
+    /// <summary>
+    /// The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.
+    /// </summary>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    Task Close(string selector);
 }

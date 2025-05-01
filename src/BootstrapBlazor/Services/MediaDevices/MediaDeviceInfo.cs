@@ -7,11 +7,11 @@ namespace BootstrapBlazor.Components;
 
 class MediaDeviceInfo : IMediaDeviceInfo
 {
-    public string? DeviceId { get; set; }
+    public string DeviceId { get; set; } = "";
 
-    public string? GroupId { get; set; }
+    public string GroupId { get; set; } = "";
 
-    public string? Kind { get; set; }
+    public string Kind { get; set; } = "";
 
-    public string? Label { get; set; }
+    public string Label { get; set; } = "";
 }
