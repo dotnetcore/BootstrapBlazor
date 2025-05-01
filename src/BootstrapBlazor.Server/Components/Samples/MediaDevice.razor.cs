@@ -13,7 +13,7 @@ public partial class MediaDevice
     [Inject, NotNull]
     private IMediaDevices? MediaDevices { get; set; }
 
-    private readonly List<MediaDeviceInfo> _devices = [];
+    private readonly List<IMediaDeviceInfo> _devices = [];
 
     private async Task OnRequestDevice()
     {
