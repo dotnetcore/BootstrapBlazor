@@ -5,28 +5,13 @@
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-/// The MediaDeviceInfo interface of the Media Capture and Streams API contains information that describes a single media input or output device.
-/// </summary>
-public class MediaDeviceInfo(string deviceId, string groupId, string kind, string label)
+class MediaDeviceInfo : IMediaDeviceInfo
 {
-    /// <summary>
-    /// Returns a string that is an identifier for the represented device that is persisted across sessions. It is un-guessable by other applications and unique to the origin of the calling application. It is reset when the user clears cookies (for Private Browsing, a different identifier is used that is not persisted across sessions).
-    /// </summary>
-    public string DeviceId => deviceId;
+    public string? DeviceId { get; set; }
 
-    /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
-    /// </summary>
-    public string GroupId => groupId;
+    public string? GroupId { get; set; }
 
-    /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
-    /// </summary>
-    public string Kind => kind;
+    public string? Kind { get; set; }
 
-    /// <summary>
-    /// Returns a string that is a group identifier. Two devices have the same group identifier if they belong to the same physical device — for example a monitor with both a built-in camera and a microphone.
-    /// </summary>
-    public string Label => label;
+    public string? Label { get; set; }
 }

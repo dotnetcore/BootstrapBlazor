@@ -17,7 +17,7 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         return _module;
     }
 
-    public async Task<List<MediaDeviceInfo>?> EnumerateDevices()
+    public async Task<IEnumerable<IMediaDeviceInfo>?> EnumerateDevices()
     {
         var module = await LoadModule();
         return await module.InvokeAsync<List<MediaDeviceInfo>?>("enumerateDevices");
