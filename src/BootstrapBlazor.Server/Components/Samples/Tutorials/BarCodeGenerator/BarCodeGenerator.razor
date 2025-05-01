@@ -1,0 +1,77 @@
+﻿@namespace BootstrapBlazor.Server.Components.Samples.Tutorials
+@inject IStringLocalizer<BarCodeGenerator> Localizer
+@page "/tutorials/barcode"
+
+<div class="bc-main">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <h5>@Localizer["SelectType"]</h5>
+            <div class="bc-type-list">
+                @foreach (var item in _contents)
+                {
+                    <span class="@GetItemClassString(item)" @onclick="@(() => OnActiveType(item))">@item</span>
+                }
+            </div>
+            <div class="bc-content-main">
+                @if (_activeContentType == "Text")
+                {
+                    <ValidateForm Model="_textContent" OnValidSubmit="OnTextSubmit">
+                        <EditorForm TModel="TextContent" ItemsPerRow="1">
+                            <FieldItems>
+                                <EditorItem @bind-Field="@context.Content" Rows="3" Text="Text"></EditorItem>
+                            </FieldItems>
+                        </EditorForm>
+                        <div class="form-footer">
+                            <Button ButtonType="@ButtonType.Submit" Text="Submit" />
+                        </div>
+                    </ValidateForm>
+                }
+                else if (_activeContentType == "Url")
+                {
+                    <ValidateForm Model="_urlContent" OnValidSubmit="OnUrlSubmit">
+                        <EditorForm TModel="TextContent" ItemsPerRow="1">
+                            <FieldItems>
+                                <EditorItem @bind-Field="@context.Content" PlaceHolder="https://" Text="Url"></EditorItem>
+                            </FieldItems>
+                        </EditorForm>
+                        <div class="form-footer">
+                            <Button ButtonType="@ButtonType.Submit" Text="Submit" />
+                        </div>
+                    </ValidateForm>
+                }
+                else if (_activeContentType == "Wi-Fi")
+                {
+                    <ValidateForm Model="_wifiContent" OnValidSubmit="OnWiFiSubmit">
+                        <EditorForm TModel="WiFiContent" ItemsPerRow="1">
+                            <FieldItems>
+                                <EditorItem @bind-Field="@context.Password" ComponentType="typeof(BootstrapPassword)"></EditorItem>
+                            </FieldItems>
+                        </EditorForm>
+                        <div class="form-footer">
+                            <Button ButtonType="@ButtonType.Submit" Text="Submit" />
+                        </div>
+                    </ValidateForm>
+                }
+                else if (_activeContentType == "Email")
+                {
+                    <ValidateForm Model="_emailContent" OnValidSubmit="OnEmailSubmit">
+                        <EditorForm TModel="EmailContent" ItemsPerRow="1"></EditorForm>
+                        <div class="form-footer">
+                            <Button ButtonType="@ButtonType.Submit" Text="Submit" />
+                        </div>
+                    </ValidateForm>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <h5>@Localizer["Preview"]</h5>
+            <p>@((MarkupString)_desc)</p>
+            <div class="bc-qr-content">
+                @if (!string.IsNullOrEmpty(_content))
+                {
+                    <QRCode Content="@_content" Width="256"></QRCode>
+                }
+            </div>
+        </div>
+    </div>
+</div>

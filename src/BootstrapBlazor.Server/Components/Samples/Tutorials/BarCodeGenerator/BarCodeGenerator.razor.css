@@ -1,0 +1,28 @@
+﻿.bc-type-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.bc-type-item {
+    padding: .25rem 1rem;
+    border: 2px solid var(--bb-primary-color);
+    border-radius: 50px;
+    line-height: 1.8em;
+    cursor: pointer;
+}
+
+    .bc-type-item.active {
+        background-color: var(--bb-primary-color);
+        color: var(--bs-white);
+    }
+
+.bc-qr-content {
+    border: 2px solid var(--bb-primary-color);
+    border-radius: var(--bs-border-radius);
+    padding: .25rem;
+    display: flex;
+    height: calc(256px + .5rem + 4px);
+    width: calc(256px + .5rem + 4px);
+}
