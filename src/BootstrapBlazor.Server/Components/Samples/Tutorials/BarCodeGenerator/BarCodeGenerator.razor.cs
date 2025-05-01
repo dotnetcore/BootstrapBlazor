@@ -26,6 +26,15 @@ public partial class BarCodeGenerator
 
     private string? _content;
 
+    private string _desc => _activeContentType switch
+    {
+        "Text" => Localizer["TextDesc"],
+        "Url" => Localizer["UrlDesc"],
+        "Wi-Fi" => Localizer["WiFiDesc"],
+        "Email" => Localizer["EmailDesc"],
+        _ => string.Empty
+    };
+
     private string? GetItemClassString(string item) => CssBuilder.Default("bc-type-item")
         .AddClass("active", _activeContentType == item)
         .Build();

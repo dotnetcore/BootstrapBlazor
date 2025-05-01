@@ -7108,5 +7108,13 @@
     "SubTitle": "An implementation TOTP RFC 6238 and HOTP RFC 4226 Authenticator service.",
     "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "By calling the <code>Compute</code> method of the <code>ITotpService</code> service instance, you can get the password in the current time window. By calling the <code>Instance.GetRemainingSeconds</code> method, you can display the remaining validity time of the current password. In this example, the progress bar is used for dynamic display."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+    "SelectType": "Select content type",
+    "Preview": "Preview",
+    "TextDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and search for the current text using the default search engine.",
+    "UrlDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and open the current address",
+    "WiFiDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below to automatically join the <code>WiFi</code> network.",
+    "EmailDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below, then open the <code>Email</code> app to send an email."
   }
 }

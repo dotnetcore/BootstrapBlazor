@@ -1,10 +1,11 @@
 ﻿@namespace BootstrapBlazor.Server.Components.Samples.Tutorials
+@inject IStringLocalizer<BarCodeGenerator> Localizer
 @page "/tutorials/barcode"
 
 <div class="bc-main">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <h5>选择一个类型</h5>
+            <h5>@Localizer["SelectType"]</h5>
             <div class="bc-type-list">
                 @foreach (var item in _contents)
                 {
@@ -63,7 +64,8 @@
             </div>
         </div>
         <div class="col-12 col-sm-6">
-            <h5>预览</h5>
+            <h5>@Localizer["Preview"]</h5>
+            <p>@((MarkupString)_desc)</p>
             <div class="bc-qr-content">
                 @if (!string.IsNullOrEmpty(_content))
                 {

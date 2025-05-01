@@ -7108,5 +7108,13 @@
     "SubTitle": "实现 TOTP RFC 6238 和 HOTP RFC 4226 认证器服务",
     "BaseUsageTitle": "基本用法",
     "BaseUsageIntro": "通过调用 <code>ITotpService</code> 服务实例方法 <code>Compute</code> 得到当前时间窗口内密码, 通过调用 <code>Instance.GetRemainingSeconds</code> 方法可以显示当前密码剩余有效时间，本例中通过进度条进行动态显示"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+    "SelectType": "选择一个类型",
+    "Preview": "预览",
+    "TextDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Safari</code> 浏览器使用默认搜索引擎搜索当前文本",
+    "UrlDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Safari</code> 浏览器并且打开当前地址",
+    "WiFiDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，自动加入 <code>WiFi</code> 网络",
+    "EmailDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Email</code> 应用发送邮件"
   }
 }
