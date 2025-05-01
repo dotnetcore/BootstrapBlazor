@@ -26,18 +26,14 @@
     </section>
     <div class="row form-inline g-3">
         <div class="col-12">
-            <Button Text="@Localizer["MediaDeviceRequestText"]" Icon="fa-brands fa-bluetooth" OnClick="OnRequestDevice"></Button>
+            <Button Text="@Localizer["MediaDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
+            <Button Text="@Localizer["MediaDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo"></Button>
+            <Button Text="@Localizer["MediaDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo"></Button>
         </div>
     </div>
 
-    @foreach (var d in _devices)
-    {
-        <div>
-            <div>@d.DeviceId</div>
-            <div>@d.GroupId</div>
-            <div>@d.Kind</div>
-            <div>@d.Label</div>
-        </div>
-    }
+    <Select Items="@_items" @bind-Value="_deviceId"></Select>
+
+    <video class="bb-video" muted playsinline autoplay style="height: auto; width: auto;"></video>
 </DemoBlock>
 

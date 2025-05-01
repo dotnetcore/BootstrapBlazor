@@ -13,14 +13,40 @@ public partial class MediaDevice
     [Inject, NotNull]
     private IMediaDevices? MediaDevices { get; set; }
 
+    [Inject, NotNull]
+    private IMediaVideo? VideoDeviceService { get; set; }
+
     private readonly List<IMediaDeviceInfo> _devices = [];
+
+    private List<SelectedItem> _items = [];
+
+    private string? _deviceId;
 
     private async Task OnRequestDevice()
     {
-        var devices = await MediaDevices.EnumerateDevices();
+        var devices = await VideoDeviceService.GetDevices();
         if (devices != null)
         {
             _devices.AddRange(devices);
+            _items = [.. _devices.Select(i => new SelectedItem(i.DeviceId, i.Label))];
         }
+    }
+
+    private async Task OnOpenVideo()
+    {
+        if (!string.IsNullOrEmpty(_deviceId))
+        {
+            var constraints = new MediaTrackConstraints
+            {
+                DeviceId = _deviceId,
+                VideoSelector = ".bb-video"
+            };
+            await VideoDeviceService.Open(constraints);
+        }
+    }
+
+    private async Task OnCloseVideo()
+    {
+        await VideoDeviceService.Close(".bb-video");
     }
 }
