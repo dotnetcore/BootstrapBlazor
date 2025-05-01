@@ -14,7 +14,7 @@ public interface IMediaDevices
     /// An array of MediaDeviceInfo objects. Each object in the array describes one of the available media input and output devices.
     /// </summary>
     /// <returns></returns>
-    Task<List<MediaDeviceInfo>> EnumerateDevices();
+    Task<List<MediaDeviceInfo>?> EnumerateDevices();
 
     /// <summary>
     /// The getDisplayMedia() method of the MediaDevices interface prompts the user to select and grant permission to capture the contents of a display or portion thereof (such as a window) as a MediaStream.

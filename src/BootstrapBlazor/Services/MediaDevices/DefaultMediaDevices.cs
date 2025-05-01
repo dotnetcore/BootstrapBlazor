@@ -3,14 +3,24 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-
 namespace BootstrapBlazor.Components;
 
-class DefaultMediaDevices : IMediaDevices
+class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
 {
-    public Task<List<MediaDeviceInfo>> EnumerateDevices()
+    private DotNetObjectReference<DefaultMediaDevices>? _interop = null;
+    private JSModule? _module = null;
+
+    private async Task<JSModule> LoadModule()
     {
-        throw new NotImplementedException();
+        _interop ??= DotNetObjectReference.Create(this);
+        _module ??= await jsRuntime.LoadModuleByName("media");
+        return _module;
+    }
+
+    public async Task<List<MediaDeviceInfo>?> EnumerateDevices()
+    {
+        var module = await LoadModule();
+        return await module.InvokeAsync<List<MediaDeviceInfo>?>("enumerateDevices");
     }
 
     public Task<MediaStream> GetDisplayMedia(DisplayMediaOptions? options = null)
