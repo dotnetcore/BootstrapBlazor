@@ -17,3 +17,12 @@
         background-color: var(--bb-primary-color);
         color: var(--bs-white);
     }
+
+.bc-qr-content {
+    border: 2px solid var(--bb-primary-color);
+    border-radius: var(--bs-border-radius);
+    padding: .25rem;
+    display: flex;
+    height: calc(256px + .5rem + 4px);
+    width: calc(256px + .5rem + 4px);
+}

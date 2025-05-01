@@ -15,4 +15,10 @@ public class TextContent
     /// </summary>
     [Required]
     public string? Content { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override string? ToString() => Content;
 }
