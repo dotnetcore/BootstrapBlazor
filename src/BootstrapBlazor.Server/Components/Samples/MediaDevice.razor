@@ -1,0 +1,43 @@
+﻿@page "/media-device"
+@inject IStringLocalizer<MediaDevice> Localizer
+
+<h3>@Localizer["MediaDeviceTitle"]</h3>
+
+<h4>@Localizer["MediaDeviceIntro"]</h4>
+
+<p>@((MarkupString)Localizer["MediaDeviceDescription"].Value)</p>
+
+<Pre>[Inject, NotNull]
+    private IBluetooth? BluetoothService { get; set; }</Pre>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["MediaDeviceTipsLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["MediaDeviceTipsLi2"].Value)</li>
+    </ul>
+    <div>@((MarkupString)Localizer["MediaDeviceTipsTitle"].Value)</div>
+</Tips>
+
+<DemoBlock Title="@Localizer["BaseUsageTitle"]"
+           Introduction="@Localizer["BaseUsageIntro"]"
+           Name="Normal">
+    <section ignore>
+        @Localizer["UsageDesc"]
+    </section>
+    <div class="row form-inline g-3">
+        <div class="col-12">
+            <Button Text="@Localizer["MediaDeviceRequestText"]" Icon="fa-brands fa-bluetooth" OnClick="OnRequestDevice"></Button>
+        </div>
+    </div>
+
+    @foreach (var d in _devices)
+    {
+        <div>
+            <div>@d.DeviceId</div>
+            <div>@d.GroupId</div>
+            <div>@d.Kind</div>
+            <div>@d.Label</div>
+        </div>
+    }
+</DemoBlock>
+
