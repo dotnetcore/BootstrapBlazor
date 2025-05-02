@@ -135,8 +135,6 @@ public sealed partial class Cameras
 
     private Task OnApply(int width, int height) => Camera.Resize(width, height);
 
-    private Task OnFlip() => Camera.Flip();
-
     private Task OnError(string err)
     {
         PlayDisabled = false;
