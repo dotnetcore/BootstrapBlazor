@@ -1,4 +1,4 @@
-﻿import { drawImage, registerBootstrapBlazorModule } from "./utility.js"
+﻿import { registerBootstrapBlazorModule } from "./utility.js"
 
 export async function enumerateDevices() {
     let ret = null;
@@ -59,32 +59,11 @@ export async function close(videoSelector) {
     media.stream = null;
 }
 
-export async function capture(videoSelector) {
-    const video = document.querySelector(videoSelector);
-    if (video) {
-        const stream = video.srcObject;
-        if (stream) {
-            const tracks = stream.getVideoTracks();
-            if (tracks) {
-                const track = tracks[0];
-                const capture = new ImageCapture(track);
-                const blob = await capture.takePhoto();
-                const image = await createImageBitmap(blob);
-                const { offsetWidth, offsetHeight } = video;
-                drawImage(document.querySelector(".bb-video-image"), image, offsetWidth, offsetHeight);
-
-                const img = document.querySelector(".bb-image");
-                img.src = URL.createObjectURL(blob);
-            }
-        }
-    }
-}
-
 export async function getPreviewUrl() {
     let url = null;
     const media = registerBootstrapBlazorModule("MediaDevices");
     const { stream } = media;
-    if (stream) {
+    if (stream && stream.active) {
         const tracks = stream.getVideoTracks();
         if (tracks) {
             const track = tracks[0];
