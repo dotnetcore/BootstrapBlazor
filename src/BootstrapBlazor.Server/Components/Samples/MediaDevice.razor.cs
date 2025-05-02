@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class MediaDevice
 {
     [Inject, NotNull]
-    private IVideoDevice? MediaVideoService { get; set; }
+    private IVideoDevice? VideoDeviceService { get; set; }
 
     private readonly List<IMediaDeviceInfo> _devices = [];
 
@@ -19,9 +19,11 @@ public partial class MediaDevice
 
     private string? _deviceId;
 
+    private string? _previewUrl;
+
     private async Task OnRequestDevice()
     {
-        var devices = await MediaVideoService.GetDevices();
+        var devices = await VideoDeviceService.GetDevices();
         if (devices != null)
         {
             _devices.AddRange(devices);
@@ -38,18 +40,17 @@ public partial class MediaDevice
                 DeviceId = _deviceId,
                 VideoSelector = ".bb-video"
             };
-            await MediaVideoService.Open(constraints);
+            await VideoDeviceService.Open(constraints);
         }
     }
 
     private async Task OnCloseVideo()
     {
-        await MediaVideoService.Close(".bb-video");
+        await VideoDeviceService.Close(".bb-video");
     }
 
     private async Task OnCapture()
     {
-        await Task.Delay(1);
-        //await VideoDeviceService.Capture(".bb-video");
+        _previewUrl = await VideoDeviceService.GetPreviewUrl();
     }
 }

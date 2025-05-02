@@ -35,11 +35,15 @@ private IBluetooth? BluetoothService { get; set; }</Pre>
 
     <Select Items="@_items" @bind-Value="_deviceId"></Select>
 
+    <div>Video</div>
+
     <video class="bb-video" muted playsinline autoplay style="height: auto; width: auto;"></video>
 
-    <canvas class="bb-video-image"></canvas>
+    <div>Preview</div>
 
-    <div>Image</div>
-    <img class="bb-image" src="" />
+    @if (!string.IsNullOrEmpty(_previewUrl))
+    {
+        <img class="bb-image" src="@_previewUrl" />
+    }
 </DemoBlock>
 
