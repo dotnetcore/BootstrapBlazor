@@ -35,4 +35,10 @@ public interface IMediaDevices
     /// </summary>
     /// <returns></returns>
     Task Capture();
+
+    /// <summary>
+    /// Gets the preview URL of the captured image.
+    /// </summary>
+    /// <returns></returns>
+    Task<string?> GetPreviewUrl();
 }

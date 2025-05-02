@@ -49,6 +49,6 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
 
     public Task<string?> GetPreviewUrl()
     {
-        throw new NotImplementedException();
+        return deviceService.GetPreviewUrl();
     }
 }

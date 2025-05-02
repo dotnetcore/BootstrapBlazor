@@ -59,16 +59,6 @@ export async function close(videoSelector) {
     media.stream = null;
 }
 
-const closeStream = stream => {
-    if (stream) {
-        const tracks = stream.getTracks();
-
-        tracks.forEach(track => {
-            track.stop();
-        });
-    }
-}
-
 export async function capture(videoSelector) {
     const video = document.querySelector(videoSelector);
     if (video) {
@@ -87,5 +77,31 @@ export async function capture(videoSelector) {
                 img.src = URL.createObjectURL(blob);
             }
         }
+    }
+}
+
+export async function getPreviewUrl() {
+    let url = null;
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    const { stream } = media;
+    if (stream) {
+        const tracks = stream.getVideoTracks();
+        if (tracks) {
+            const track = tracks[0];
+            const capture = new ImageCapture(track);
+            const blob = await capture.takePhoto();
+            url = URL.createObjectURL(blob);
+        }
+    }
+    return url;
+}
+
+const closeStream = stream => {
+    if (stream) {
+        const tracks = stream.getTracks();
+
+        tracks.forEach(track => {
+            track.stop();
+        });
     }
 }

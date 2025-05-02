@@ -7,12 +7,10 @@ namespace BootstrapBlazor.Components;
 
 class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
 {
-    private DotNetObjectReference<DefaultMediaDevices>? _interop = null;
     private JSModule? _module = null;
 
     private async Task<JSModule> LoadModule()
     {
-        _interop ??= DotNetObjectReference.Create(this);
         _module ??= await jsRuntime.LoadModuleByName("media");
         return _module;
     }
@@ -39,5 +37,11 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
     {
         var module = await LoadModule();
         await module.InvokeVoidAsync("capture");
+    }
+
+    public async Task<string?> GetPreviewUrl()
+    {
+        var module = await LoadModule();
+        return await module.InvokeAsync<string?>("getPreviewUrl");
     }
 }
