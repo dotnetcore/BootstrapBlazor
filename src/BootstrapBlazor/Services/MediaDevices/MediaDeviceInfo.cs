@@ -5,13 +5,28 @@
 
 namespace BootstrapBlazor.Components;
 
-class MediaDeviceInfo : IMediaDeviceInfo
+/// <summary>
+/// <inheritdoc/>
+/// </summary>
+public class MediaDeviceInfo : IMediaDeviceInfo
 {
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string DeviceId { get; set; } = "";
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string GroupId { get; set; } = "";
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string Kind { get; set; } = "";
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string Label { get; set; } = "";
 }

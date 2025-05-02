@@ -37,16 +37,6 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
         return deviceService.Capture();
     }
 
-    public Task Preview()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Stream?> GetPreviewImage()
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<string?> GetPreviewUrl()
     {
         return deviceService.GetPreviewUrl();

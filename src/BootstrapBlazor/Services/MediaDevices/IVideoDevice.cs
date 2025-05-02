@@ -36,17 +36,17 @@ public interface IVideoDevice
     /// <returns></returns>
     Task Capture();
 
-    /// <summary>
-    /// Preview a still image from the video stream.
-    /// </summary>
-    /// <returns></returns>
-    Task Preview();
+    ///// <summary>
+    ///// Preview a still image from the video stream.
+    ///// </summary>
+    ///// <returns></returns>
+    //Task Preview();
 
-    /// <summary>
-    /// Gets the stream of the captured image.
-    /// </summary>
-    /// <returns></returns>
-    Task<Stream?> GetPreviewImage();
+    ///// <summary>
+    ///// Gets the stream of the captured image.
+    ///// </summary>
+    ///// <returns></returns>
+    //Task<Stream?> GetPreviewImage();
 
     /// <summary>
     /// Gets the preview URL of the captured image.
