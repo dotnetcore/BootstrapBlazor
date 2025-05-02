@@ -5,7 +5,7 @@
 
 namespace BootstrapBlazor.Components;
 
-class DefaultMediaVideo(IMediaDevices deviceService) : IMediaVideo
+class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
 {
     /// <summary>
     /// <inheritdoc/>
@@ -27,9 +27,9 @@ class DefaultMediaVideo(IMediaDevices deviceService) : IMediaVideo
         return deviceService.Open(constraints);
     }
 
-    public Task Close()
+    public Task Close(string? videoSelector)
     {
-        return deviceService.Close();
+        return deviceService.Close(videoSelector);
     }
 
     public Task Capture()

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Video Media Device Interface
 /// </summary>
-public interface IMediaVideo
+public interface IVideoDevice
 {
     /// <summary>
     /// Gets the list of video devices.
@@ -26,8 +26,9 @@ public interface IMediaVideo
     /// <summary>
     /// Close the video device with the specified selector.
     /// </summary>
+    /// <param name="videoSelector"></param>
     /// <returns></returns>
-    Task Close();
+    Task Close(string? videoSelector);
 
     /// <summary>
     /// Capture a still image from the video stream.

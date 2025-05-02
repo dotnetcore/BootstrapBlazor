@@ -26,8 +26,9 @@ public interface IMediaDevices
     /// <summary>
     /// The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.
     /// </summary>
+    /// <param name="videoSelector"></param>
     /// <returns></returns>
-    Task Close();
+    Task Close(string? videoSelector);
 
     /// <summary>
     /// The capture() method of the MediaDevices interface captures a still image from the specified video stream and saves it to the specified location.

@@ -23,12 +23,12 @@ public class MediaTrackConstraints
     /// <summary>
     /// 
     /// </summary>
-    public int Width { get; set; }
+    public int? Width { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
-    public int Height { get; set; }
+    public int? Height { get; set; }
 
     /// <summary>
     /// 
