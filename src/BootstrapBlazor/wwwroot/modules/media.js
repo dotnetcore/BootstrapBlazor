@@ -75,31 +75,6 @@ export async function getPreviewUrl() {
     return url;
 }
 
-export async function flip() {
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    const { stream } = media;
-    if (stream && stream.active) {
-        const tracks = stream.getVideoTracks();
-        if (tracks) {
-            const track = tracks[0];
-            const constraints = track.getSettings();
-            const { facingMode } = constraints;
-            if (facingMode === void 0) {
-                console.log('facingMode is not supported');
-                return;
-            }
-
-            if (facingMode === "user" || facingMode.exact === "user" || facingMode.ideal === "user") {
-                constraints.facingMode = { ideal: "environment" }
-            }
-            else {
-                constraints.facingMode = { ideal: "user" }
-            }
-            await track.applyConstraints(constraints);
-        }
-    }
-}
-
 const closeStream = stream => {
     if (stream) {
         const tracks = stream.getTracks();

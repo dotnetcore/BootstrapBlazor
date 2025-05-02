@@ -44,10 +44,4 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         var module = await LoadModule();
         return await module.InvokeAsync<string?>("getPreviewUrl");
     }
-
-    public async Task Flip()
-    {
-        var module = await LoadModule();
-        await module.InvokeAsync<string?>("flip");
-    }
 }

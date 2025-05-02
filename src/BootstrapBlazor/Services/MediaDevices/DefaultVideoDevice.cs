@@ -41,9 +41,4 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
     {
         return deviceService.GetPreviewUrl();
     }
-
-    public Task Flip()
-    {
-        return deviceService.Flip();
-    }
 }

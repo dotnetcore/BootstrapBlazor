@@ -53,10 +53,4 @@ public interface IVideoDevice
     /// </summary>
     /// <returns></returns>
     Task<string?> GetPreviewUrl();
-
-    /// <summary>
-    /// Flip the video device.
-    /// </summary>
-    /// <returns></returns>
-    Task Flip();
 }
