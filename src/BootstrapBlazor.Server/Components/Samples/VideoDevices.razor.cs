@@ -26,6 +26,7 @@ public partial class VideoDevices
         var devices = await VideoDeviceService.GetDevices();
         if (devices != null)
         {
+            _devices.Clear();
             _devices.AddRange(devices);
             _items = [.. _devices.Select(i => new SelectedItem(i.DeviceId, i.Label))];
         }
