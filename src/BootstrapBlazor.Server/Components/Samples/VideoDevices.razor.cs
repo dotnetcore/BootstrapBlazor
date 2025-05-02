@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// 
+/// VideoDevice Component
 /// </summary>
-public partial class MediaDevice
+public partial class VideoDevices
 {
     [Inject, NotNull]
     private IVideoDevice? VideoDeviceService { get; set; }

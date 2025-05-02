@@ -1,0 +1,50 @@
+﻿@page "/video-device"
+@inject IStringLocalizer<VideoDevices> Localizer
+
+<h3>@Localizer["VideoDeviceTitle"]</h3>
+
+<h4>@Localizer["VideoDeviceIntro"]</h4>
+
+<p>@((MarkupString)Localizer["VideoDeviceDescription"].Value)</p>
+
+<Pre>[Inject, NotNull]
+private IBluetooth? BluetoothService { get; set; }</Pre>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["VideoDeviceTipsLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["VideoDeviceTipsLi2"].Value)</li>
+    </ul>
+    <div>@((MarkupString)Localizer["VideoDeviceTipsTitle"].Value)</div>
+</Tips>
+
+<DemoBlock Title="@Localizer["BaseUsageTitle"]"
+           Introduction="@Localizer["BaseUsageIntro"]"
+           Name="Normal">
+    <section ignore>
+        @Localizer["UsageDesc"]
+    </section>
+    <div class="row form-inline g-3">
+        <div class="col-12">
+            <Button Text="@Localizer["VideoDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
+            <Button Text="@Localizer["VideoDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo"></Button>
+            <Button Text="@Localizer["VideoDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo"></Button>
+            <Button Text="@Localizer["VideoDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture"></Button>
+            <Button Text="@Localizer["VideoDeviceFlipText"]" Icon="fa-solid fa-camera" OnClick="OnFlip"></Button>
+        </div>
+    </div>
+
+    <Select Items="@_items" @bind-Value="_deviceId"></Select>
+
+    <div>Video</div>
+
+    <video class="bb-video" muted playsinline autoplay style="height: auto; width: auto;"></video>
+
+    <div>Preview</div>
+
+    @if (!string.IsNullOrEmpty(_previewUrl))
+    {
+        <img class="bb-image" src="@_previewUrl" />
+    }
+</DemoBlock>
+
