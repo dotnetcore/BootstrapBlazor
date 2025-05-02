@@ -29,4 +29,11 @@ public interface IMediaVideo
     /// <param name="selector"></param>
     /// <returns></returns>
     Task Close(string selector);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    Task Capture(string selector);
 }

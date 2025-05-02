@@ -31,4 +31,9 @@ class DefaultMediaVideo(IMediaDevices deviceService) : IMediaVideo
     {
         return deviceService.Close(selector);
     }
+
+    public Task Capture(string selector)
+    {
+        return deviceService.Capture(selector);
+    }
 }

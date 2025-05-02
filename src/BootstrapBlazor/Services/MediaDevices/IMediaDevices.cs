@@ -36,4 +36,11 @@ public interface IMediaDevices
     /// <param name="selector"></param>
     /// <returns></returns>
     Task Close(string selector);
+
+    /// <summary>
+    /// The capture() method of the MediaDevices interface captures a still image from the specified video stream and saves it to the specified location.
+    /// </summary>
+    /// <param name="selector"></param>
+    /// <returns></returns>
+    Task Capture(string selector);
 }

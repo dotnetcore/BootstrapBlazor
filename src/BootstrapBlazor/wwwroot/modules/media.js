@@ -42,3 +42,31 @@ export async function close(videoSelector) {
         }
     }
 }
+
+export async function capture(videoSelector) {
+    const video = document.querySelector(videoSelector);
+    if (video) {
+        const stream = video.srcObject;
+        if (stream) {
+            const tracks = stream.getVideoTracks();
+            if (tracks) {
+                const track = tracks[0];
+                const capture = new ImageCapture(track);
+                const blob = await capture.takePhoto();
+                const image = await createImageBitmap(blob);
+                const { offsetWidth, offsetHeight } = video;
+                drawImage(document.querySelector(".b-video-image"), image, offsetWidth, offsetHeight);
+            }
+        }
+    }
+}
+
+const drawImage = (canvas, image, offsetWidth, offsetHeight) => {
+    canvas.width = offsetWidth * devicePixelRatio;
+    canvas.height = offsetHeight * devicePixelRatio;
+    canvas.style.width = `${offsetWidth}px`;
+    canvas.style.height = `${offsetHeight}px`;
+    const context = canvas.getContext('2d')
+    //context.scale(devicePixelRatio, devicePixelRatio)
+    context.drawImage(image, 0, 0, offsetWidth, offsetHeight);
+}
