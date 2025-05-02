@@ -1,4 +1,10 @@
-﻿export async function enumerateDevices() {
+﻿import { drawImage } from "./utility.js"
+
+window.BootstrapBlazor = window.BootstrapBlazor || {};
+window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
+
+
+export async function enumerateDevices() {
     let ret = null;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !navigator.mediaDevices.enumerateDevices) {
         console.log("enumerateDevices() not supported.");
@@ -59,14 +65,4 @@ export async function capture(videoSelector) {
             }
         }
     }
-}
-
-const drawImage = (canvas, image, offsetWidth, offsetHeight) => {
-    canvas.width = offsetWidth * devicePixelRatio;
-    canvas.height = offsetHeight * devicePixelRatio;
-    canvas.style.width = `${offsetWidth}px`;
-    canvas.style.height = `${offsetHeight}px`;
-    const context = canvas.getContext('2d')
-    //context.scale(devicePixelRatio, devicePixelRatio)
-    context.drawImage(image, 0, 0, offsetWidth, offsetHeight);
 }
