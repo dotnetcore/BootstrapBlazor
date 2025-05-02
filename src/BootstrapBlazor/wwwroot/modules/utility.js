@@ -876,6 +876,16 @@ export function setMemorialMode(memorial) {
     }
 }
 
+export function drawImage(canvas, image, offsetWidth, offsetHeight) {
+    canvas.width = offsetWidth * devicePixelRatio;
+    canvas.height = offsetHeight * devicePixelRatio;
+    canvas.style.width = `${offsetWidth}px`;
+    canvas.style.height = `${offsetHeight}px`;
+    const context = canvas.getContext('2d');
+    context.scale(devicePixelRatio, devicePixelRatio);
+    context.drawImage(image, 0, 0, offsetWidth, offsetHeight);
+}
+
 export {
     autoAdd,
     autoRemove,
