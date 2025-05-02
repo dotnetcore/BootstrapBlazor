@@ -55,9 +55,4 @@ public partial class VideoDevices
     {
         _previewUrl = await VideoDeviceService.GetPreviewUrl();
     }
-
-    private async Task OnFlip()
-    {
-        await VideoDeviceService.Flip();
-    }
 }

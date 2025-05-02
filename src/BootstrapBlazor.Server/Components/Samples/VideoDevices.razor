@@ -17,7 +17,6 @@ private IBluetooth? BluetoothService { get; set; }</Pre>
             <Button Text="@Localizer["VideoDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo" class="ms-2"></Button>
             <Button Text="@Localizer["VideoDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo" class="ms-2"></Button>
             <Button Text="@Localizer["VideoDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture" class="ms-2"></Button>
-            <Button Text="@Localizer["VideoDeviceFlipText"]" Icon="fa-solid fa-camera-rotate" OnClick="OnFlip" class="ms-2"></Button>
         </div>
         <div class="col-12">
             <Select Items="@_items" @bind-Value="_deviceId" DisplayText="Devices" ShowLabel="true"></Select>
