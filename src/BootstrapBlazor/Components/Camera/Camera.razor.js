@@ -136,22 +136,18 @@ export function download(id, fileName) {
     createEl.remove();
 }
 
-export function resize(id, width, height) {
+export async function resize(id, width, height) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
         return
     }
 
     const constrains = {
-        video: {
-            deviceId: camera.video.deviceId,
-            width: { ideal: width },
-            height: { ideal: height }
-        }
+        facingMode: "environment",
+        width: { ideal: width },
+        height: { ideal: height }
     }
-
-    stopDevice(camera)
-    play(camera, constrains)
+    await camera.video.track.applyConstraints(constrains);
 }
 
 export function dispose(id) {
