@@ -49,4 +49,9 @@ public partial class MediaDevice
     {
         await VideoDeviceService.Close(".bb-video");
     }
+
+    private async Task OnCapture()
+    {
+        await VideoDeviceService.Capture(".bb-video");
+    }
 }

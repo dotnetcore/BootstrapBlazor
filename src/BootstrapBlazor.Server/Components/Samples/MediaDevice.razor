@@ -29,11 +29,14 @@
             <Button Text="@Localizer["MediaDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
             <Button Text="@Localizer["MediaDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo"></Button>
             <Button Text="@Localizer["MediaDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo"></Button>
+            <Button Text="@Localizer["MediaDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture"></Button>
         </div>
     </div>
 
     <Select Items="@_items" @bind-Value="_deviceId"></Select>
 
     <video class="bb-video" muted playsinline autoplay style="height: auto; width: auto;"></video>
+
+    <canvas class="b-video-image"></canvas>
 </DemoBlock>
 
