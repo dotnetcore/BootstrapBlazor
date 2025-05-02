@@ -21,16 +21,6 @@ private IBluetooth? BluetoothService { get; set; }</Pre>
         <div class="col-12">
             <Select Items="@_items" @bind-Value="_deviceId" DisplayText="Devices" ShowLabel="true"></Select>
         </div>
-        @foreach (var device in _devices)
-        {
-            <div class="col-12">
-                <div>
-                    <div>DeviceId: @device.DeviceId</div>
-                    <div>DeviceId: @device.GroupId</div>
-                    <div>DeviceId: @device.Label</div>
-                </div>
-            </div>
-        }
     </div>
 
     <video class="bb-video" muted playsinline autoplay></video>
