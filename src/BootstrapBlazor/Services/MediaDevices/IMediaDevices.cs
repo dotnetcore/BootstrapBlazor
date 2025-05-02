@@ -17,13 +17,6 @@ public interface IMediaDevices
     Task<IEnumerable<IMediaDeviceInfo>?> EnumerateDevices();
 
     /// <summary>
-    /// The getDisplayMedia() method of the MediaDevices interface prompts the user to select and grant permission to capture the contents of a display or portion thereof (such as a window) as a MediaStream.
-    /// </summary>
-    /// <param name="options"></param>
-    /// <returns></returns>
-    Task<MediaStream> GetDisplayMedia(DisplayMediaOptions? options = null);
-
-    /// <summary>
     /// The open() method of the MediaDevices interface creates a new MediaStream object and starts capturing media from the specified device.
     /// </summary>
     /// <param name="constraints"></param>

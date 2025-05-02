@@ -23,11 +23,6 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         return await module.InvokeAsync<List<MediaDeviceInfo>?>("enumerateDevices");
     }
 
-    public Task<MediaStream> GetDisplayMedia(DisplayMediaOptions? options = null)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task Open(MediaTrackConstraints constraints)
     {
         var module = await LoadModule();
