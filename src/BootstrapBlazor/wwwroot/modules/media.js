@@ -16,32 +16,56 @@ export async function enumerateDevices() {
 export async function open(options) {
     const constrains = {
         video: {
-            facingMode: { exact: options.facingMode || "environment" },
             deviceId: options.deviceId ? { exact: options.deviceId } : null,
+            facingMode: { ideal: options.facingMode || "environment" }
         },
         audio: false
     }
-    const video = document.querySelector(options.videoSelector);
-    if (video) {
-        const stream = await navigator.mediaDevices.getUserMedia(constrains);
-        video.srcObject = stream;
+
+    const { videoSelector, width, height } = options;
+    if (width) {
+        constrains.video.width = { ideal: width };
+    }
+    if (height) {
+        constrains.video.height = { ideal: height };
+    }
+    const stream = await navigator.mediaDevices.getUserMedia(constrains);
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    media.stream = stream;
+
+    if (videoSelector) {
+        const video = document.querySelector(videoSelector);
+        if (video) {
+            video.srcObject = stream;
+        }
     }
 }
 
 export async function close(videoSelector) {
-    const video = document.querySelector(videoSelector);
-    if (video) {
-        video.pause();
-        const stream = video.srcObject;
-        if (stream) {
-            const tracks = stream.getTracks();
-
-            tracks.forEach(track => {
-                track.stop();
-            });
-
+    if (videoSelector) {
+        const video = document.querySelector(videoSelector);
+        if (video) {
+            video.pause();
+            const stream = video.srcObject;
+            closeStream(stream);
             video.srcObject = null;
         }
+    }
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    const { stream } = media;
+    if (stream && stream.active) {
+        closeStream(stream);
+    }
+    media.stream = null;
+}
+
+const closeStream = stream => {
+    if (stream) {
+        const tracks = stream.getTracks();
+
+        tracks.forEach(track => {
+            track.stop();
+        });
     }
 }
 
