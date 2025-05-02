@@ -27,13 +27,28 @@ class DefaultMediaVideo(IMediaDevices deviceService) : IMediaVideo
         return deviceService.Open(constraints);
     }
 
-    public Task Close(string selector)
+    public Task Close()
     {
         return deviceService.Close(selector);
     }
 
-    public Task Capture(string selector)
+    public Task Capture()
     {
         return deviceService.Capture(selector);
+    }
+
+    public Task Preview()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Stream?> GetPreviewImage()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string?> GetPreviewUrl()
+    {
+        throw new NotImplementedException();
     }
 }

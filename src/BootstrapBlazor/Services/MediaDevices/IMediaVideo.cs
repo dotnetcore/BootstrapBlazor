@@ -6,34 +6,50 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Video Media Device Interface
 /// </summary>
 public interface IMediaVideo
 {
     /// <summary>
-    /// 
+    /// Gets the list of video devices.
     /// </summary>
     /// <returns></returns>
     Task<List<IMediaDeviceInfo>?> GetDevices();
 
     /// <summary>
-    /// 
+    /// Opens the video device with the specified constraints.
     /// </summary>
     /// <param name="constraints"></param>
     /// <returns></returns>
     Task Open(MediaTrackConstraints constraints);
 
     /// <summary>
-    /// 
+    /// Close the video device with the specified selector.
     /// </summary>
-    /// <param name="selector"></param>
     /// <returns></returns>
-    Task Close(string selector);
+    Task Close();
 
     /// <summary>
-    /// 
+    /// Capture a still image from the video stream.
     /// </summary>
-    /// <param name="selector"></param>
     /// <returns></returns>
-    Task Capture(string selector);
+    Task Capture();
+
+    /// <summary>
+    /// Preview a still image from the video stream.
+    /// </summary>
+    /// <returns></returns>
+    Task Preview();
+
+    /// <summary>
+    /// Gets the stream of the captured image.
+    /// </summary>
+    /// <returns></returns>
+    Task<Stream?> GetPreviewImage();
+
+    /// <summary>
+    /// Gets the preview URL of the captured image.
+    /// </summary>
+    /// <returns></returns>
+    Task<string?> GetPreviewUrl();
 }
