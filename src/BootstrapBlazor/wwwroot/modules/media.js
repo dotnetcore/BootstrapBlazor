@@ -1,8 +1,4 @@
-﻿import { drawImage } from "./utility.js"
-
-window.BootstrapBlazor = window.BootstrapBlazor || {};
-window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
-
+﻿import { drawImage, registerBootstrapBlazorModule } from "./utility.js"
 
 export async function enumerateDevices() {
     let ret = null;
@@ -20,7 +16,7 @@ export async function enumerateDevices() {
 export async function open(options) {
     const constrains = {
         video: {
-            facingMode: options.facingMode || "environment",
+            facingMode: { exact: options.facingMode || "environment" },
             deviceId: options.deviceId ? { exact: options.deviceId } : null,
         },
         audio: false
@@ -61,7 +57,10 @@ export async function capture(videoSelector) {
                 const blob = await capture.takePhoto();
                 const image = await createImageBitmap(blob);
                 const { offsetWidth, offsetHeight } = video;
-                drawImage(document.querySelector(".b-video-image"), image, offsetWidth, offsetHeight);
+                drawImage(document.querySelector(".bb-video-image"), image, offsetWidth, offsetHeight);
+
+                const img = document.querySelector(".bb-image");
+                img.src = URL.createObjectURL(blob);
             }
         }
     }
