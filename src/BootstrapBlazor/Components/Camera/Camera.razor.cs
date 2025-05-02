@@ -154,6 +154,12 @@ public partial class Camera
     public Task Resize(int width, int height) => InvokeVoidAsync("resize", Id, width, height);
 
     /// <summary>
+    /// 反转摄像头方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Flip() => InvokeVoidAsync("flip", Id);
+
+    /// <summary>
     /// 初始化设备方法
     /// </summary>
     /// <param name="devices"></param>

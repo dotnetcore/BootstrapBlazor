@@ -40,6 +40,9 @@ const play = (camera, option = {}) => {
         ...option
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+        const supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
+        console.log(supportedConstraints);
+
         camera.video = { deviceId: option.video.deviceId };
         camera.video.element = camera.el.querySelector('video')
         camera.video.element.srcObject = stream
@@ -142,12 +145,40 @@ export async function resize(id, width, height) {
         return
     }
 
-    const constrains = {
+    const constraints = {
         facingMode: "environment",
         width: { ideal: width },
         height: { ideal: height }
     }
-    await camera.video.track.applyConstraints(constrains);
+    await camera.video.track.applyConstraints(constraints);
+}
+
+
+export async function flip(id) {
+    const camera = Data.get(id)
+    if (camera === null || camera.video === void 0) {
+        return
+    }
+
+    const { track } = camera.video;
+    if (track) {
+        const constraints = track.getConstraints();
+        if (constraints.facingMode === void 0) {
+            constraints.facingMode = { exact: "environment" }
+        }
+        const { exact } = constraints.facingMode;
+        if (exact === void 0) {
+            constraints.facingMode = { ideal: "environment" }
+        }
+        else if (exact === "user") {
+            constraints.facingMode = { ideal: "environment" }
+        }
+        else {
+            constraints.facingMode = { ideal: "user" }
+        }
+        console.log(constraints);
+        await track.applyConstraints(constraints);
+    }
 }
 
 export function dispose(id) {
