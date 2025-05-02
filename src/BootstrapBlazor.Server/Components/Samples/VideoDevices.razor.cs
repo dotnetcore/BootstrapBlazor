@@ -31,6 +31,8 @@ public partial class VideoDevices
             _devices.Clear();
             _devices.AddRange(devices);
             _items = [.. _devices.Select(i => new SelectedItem(i.DeviceId, i.Label))];
+
+            _deviceId = _items.FirstOrDefault()?.Value;
         }
     }
 
