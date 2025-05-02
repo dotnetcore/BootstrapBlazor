@@ -51,21 +51,30 @@ export async function open(options) {
 }
 
 export async function close(videoSelector) {
-    if (videoSelector) {
-        const video = document.querySelector(videoSelector);
-        if (video) {
-            video.pause();
-            const stream = video.srcObject;
-            closeStream(stream);
-            video.srcObject = null;
+    let ret = false;
+
+    try {
+        if (videoSelector) {
+            const video = document.querySelector(videoSelector);
+            if (video) {
+                video.pause();
+                const stream = video.srcObject;
+                closeStream(stream);
+                video.srcObject = null;
+            }
         }
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        const { stream } = media;
+        if (stream && stream.active) {
+            closeStream(stream);
+        }
+        media.stream = null;
+        ret = true;
     }
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    const { stream } = media;
-    if (stream && stream.active) {
-        closeStream(stream);
+    catch (err) {
+        console.error("Error closing media devices.", err);
     }
-    media.stream = null;
+    return ret;
 }
 
 export async function getPreviewUrl() {

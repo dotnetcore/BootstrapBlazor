@@ -27,10 +27,10 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         return await module.InvokeAsync<bool>("open", constraints);
     }
 
-    public async Task Close(string? videoSelector)
+    public async Task<bool> Close(string? videoSelector)
     {
         var module = await LoadModule();
-        await module.InvokeVoidAsync("close", videoSelector);
+        return await module.InvokeAsync<bool>("close", videoSelector);
     }
 
     public async Task Capture()

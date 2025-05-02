@@ -28,7 +28,7 @@ public interface IVideoDevice
     /// </summary>
     /// <param name="videoSelector"></param>
     /// <returns></returns>
-    Task Close(string? videoSelector);
+    Task<bool> Close(string? videoSelector);
 
     /// <summary>
     /// Capture a still image from the video stream.

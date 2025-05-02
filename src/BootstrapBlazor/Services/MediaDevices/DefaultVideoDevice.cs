@@ -27,7 +27,7 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
         return deviceService.Open(constraints);
     }
 
-    public Task Close(string? videoSelector)
+    public Task<bool> Close(string? videoSelector)
     {
         return deviceService.Close(videoSelector);
     }
