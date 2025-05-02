@@ -46,6 +46,7 @@ public partial class VideoDevices
 
     private async Task OnCloseVideo()
     {
+        _previewUrl = "";
         await VideoDeviceService.Close(".bb-video");
     }
 

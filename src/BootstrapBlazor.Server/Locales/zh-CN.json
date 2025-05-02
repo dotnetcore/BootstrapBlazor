@@ -7117,5 +7117,16 @@
     "UrlDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Safari</code> 浏览器并且打开当前地址",
     "WiFiDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，自动加入 <code>WiFi</code> 网络",
     "EmailDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Email</code> 应用发送邮件"
+  },
+  "BootstrapBlazor.Server.Components.Samples.VideoDevices": {
+    "VideoDeviceTitle": "IVideoDevice 视频设备服务",
+    "VideoDeviceIntro": "通过此服务获得视频设备操作能力",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过调用不同的 api 方法进行不同操作",
+    "VideoDeviceRequestText": "枚举设备",
+    "VideoDeviceOpenText": "打开设备",
+    "VideoDeviceCloseText": "关闭设备",
+    "VideoDeviceCaptureText": "截图",
+    "VideoDeviceFlipText": "翻转镜头"
   }
 }
