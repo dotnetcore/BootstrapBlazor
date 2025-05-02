@@ -44,11 +44,13 @@ public partial class MediaDevice
 
     private async Task OnCloseVideo()
     {
-        await VideoDeviceService.Close(".bb-video");
+        await Task.Delay(1);
+        //await VideoDeviceService.Close(".bb-video");
     }
 
     private async Task OnCapture()
     {
-        await VideoDeviceService.Capture(".bb-video");
+        await Task.Delay(1);
+        //await VideoDeviceService.Capture(".bb-video");
     }
 }

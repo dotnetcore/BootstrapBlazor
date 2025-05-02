@@ -29,12 +29,12 @@ class DefaultMediaVideo(IMediaDevices deviceService) : IMediaVideo
 
     public Task Close()
     {
-        return deviceService.Close(selector);
+        return deviceService.Close();
     }
 
     public Task Capture()
     {
-        return deviceService.Capture(selector);
+        return deviceService.Capture();
     }
 
     public Task Preview()
