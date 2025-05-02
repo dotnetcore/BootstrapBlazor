@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// VideoDevice Component
 /// </summary>
-public partial class VideoDevices
+public partial class VideoDevices : IAsyncDisposable
 {
     [Inject, NotNull]
     private IVideoDevice? VideoDeviceService { get; set; }
@@ -59,5 +59,24 @@ public partial class VideoDevices
     private async Task OnCapture()
     {
         _previewUrl = await VideoDeviceService.GetPreviewUrl();
+    }
+
+    private async Task DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            await OnCloseVideo();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
