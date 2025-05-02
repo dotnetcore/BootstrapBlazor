@@ -11,9 +11,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class MediaDevice
 {
     [Inject, NotNull]
-    private IMediaDevices? MediaDevices { get; set; }
-
-    [Inject, NotNull]
     private IMediaVideo? VideoDeviceService { get; set; }
 
     private readonly List<IMediaDeviceInfo> _devices = [];
