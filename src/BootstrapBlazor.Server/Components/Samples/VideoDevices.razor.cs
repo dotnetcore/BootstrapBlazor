@@ -21,6 +21,8 @@ public partial class VideoDevices
 
     private string? _previewUrl;
 
+    private bool _isOpen = false;
+
     private async Task OnRequestDevice()
     {
         var devices = await VideoDeviceService.GetDevices();
@@ -41,7 +43,7 @@ public partial class VideoDevices
                 DeviceId = _deviceId,
                 VideoSelector = ".bb-video"
             };
-            await VideoDeviceService.Open(constraints);
+            _isOpen =  await VideoDeviceService.Open(constraints);
         }
     }
 
