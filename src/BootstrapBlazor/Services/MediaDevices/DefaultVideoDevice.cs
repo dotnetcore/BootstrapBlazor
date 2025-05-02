@@ -22,12 +22,12 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
         return ret;
     }
 
-    public Task Open(MediaTrackConstraints constraints)
+    public Task<bool> Open(MediaTrackConstraints constraints)
     {
         return deviceService.Open(constraints);
     }
 
-    public Task Close(string? videoSelector)
+    public Task<bool> Close(string? videoSelector)
     {
         return deviceService.Close(videoSelector);
     }
@@ -40,10 +40,5 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
     public Task<string?> GetPreviewUrl()
     {
         return deviceService.GetPreviewUrl();
-    }
-
-    public Task Flip()
-    {
-        return deviceService.Flip();
     }
 }

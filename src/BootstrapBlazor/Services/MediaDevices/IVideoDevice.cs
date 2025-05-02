@@ -21,14 +21,14 @@ public interface IVideoDevice
     /// </summary>
     /// <param name="constraints"></param>
     /// <returns></returns>
-    Task Open(MediaTrackConstraints constraints);
+    Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
     /// Close the video device with the specified selector.
     /// </summary>
     /// <param name="videoSelector"></param>
     /// <returns></returns>
-    Task Close(string? videoSelector);
+    Task<bool> Close(string? videoSelector);
 
     /// <summary>
     /// Capture a still image from the video stream.
@@ -53,10 +53,4 @@ public interface IVideoDevice
     /// </summary>
     /// <returns></returns>
     Task<string?> GetPreviewUrl();
-
-    /// <summary>
-    /// Flip the video device.
-    /// </summary>
-    /// <returns></returns>
-    Task Flip();
 }

@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// VideoDevice Component
 /// </summary>
-public partial class VideoDevices
+public partial class VideoDevices : IAsyncDisposable
 {
     [Inject, NotNull]
     private IVideoDevice? VideoDeviceService { get; set; }
@@ -21,13 +21,18 @@ public partial class VideoDevices
 
     private string? _previewUrl;
 
+    private bool _isOpen = false;
+
     private async Task OnRequestDevice()
     {
         var devices = await VideoDeviceService.GetDevices();
         if (devices != null)
         {
+            _devices.Clear();
             _devices.AddRange(devices);
             _items = [.. _devices.Select(i => new SelectedItem(i.DeviceId, i.Label))];
+
+            _deviceId = _items.FirstOrDefault()?.Value;
         }
     }
 
@@ -40,12 +45,13 @@ public partial class VideoDevices
                 DeviceId = _deviceId,
                 VideoSelector = ".bb-video"
             };
-            await VideoDeviceService.Open(constraints);
+            _isOpen = await VideoDeviceService.Open(constraints);
         }
     }
 
     private async Task OnCloseVideo()
     {
+        _isOpen = false;
         _previewUrl = "";
         await VideoDeviceService.Close(".bb-video");
     }
@@ -55,8 +61,22 @@ public partial class VideoDevices
         _previewUrl = await VideoDeviceService.GetPreviewUrl();
     }
 
-    private async Task OnFlip()
+    private async Task DisposeAsync(bool disposing)
     {
-        await VideoDeviceService.Flip();
+        if (disposing)
+        {
+            await OnCloseVideo();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }

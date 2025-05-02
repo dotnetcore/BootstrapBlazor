@@ -29,34 +29,52 @@ export async function open(options) {
     if (height) {
         constrains.video.height = { ideal: height };
     }
-    const stream = await navigator.mediaDevices.getUserMedia(constrains);
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    media.stream = stream;
 
-    if (videoSelector) {
-        const video = document.querySelector(videoSelector);
-        if (video) {
-            video.srcObject = stream;
+    let ret = false;
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constrains);
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        media.stream = stream;
+
+        if (videoSelector) {
+            const video = document.querySelector(videoSelector);
+            if (video) {
+                video.srcObject = stream;
+            }
         }
+        ret = true;
     }
+    catch (err) {
+        console.error("Error accessing media devices.", err);
+    }
+    return ret;
 }
 
 export async function close(videoSelector) {
-    if (videoSelector) {
-        const video = document.querySelector(videoSelector);
-        if (video) {
-            video.pause();
-            const stream = video.srcObject;
-            closeStream(stream);
-            video.srcObject = null;
+    let ret = false;
+
+    try {
+        if (videoSelector) {
+            const video = document.querySelector(videoSelector);
+            if (video) {
+                video.pause();
+                const stream = video.srcObject;
+                closeStream(stream);
+                video.srcObject = null;
+            }
         }
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        const { stream } = media;
+        if (stream && stream.active) {
+            closeStream(stream);
+        }
+        media.stream = null;
+        ret = true;
     }
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    const { stream } = media;
-    if (stream && stream.active) {
-        closeStream(stream);
+    catch (err) {
+        console.error("Error closing media devices.", err);
     }
-    media.stream = null;
+    return ret;
 }
 
 export async function getPreviewUrl() {
@@ -73,31 +91,6 @@ export async function getPreviewUrl() {
         }
     }
     return url;
-}
-
-export async function flip() {
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    const { stream } = media;
-    if (stream && stream.active) {
-        const tracks = stream.getVideoTracks();
-        if (tracks) {
-            const track = tracks[0];
-            const constraints = track.getSettings();
-            const { facingMode } = constraints;
-            if (facingMode === void 0) {
-                console.log('facingMode is not supported');
-                return;
-            }
-
-            if (facingMode === "user" || facingMode.exact === "user" || facingMode.ideal === "user") {
-                constraints.facingMode = { ideal: "environment" }
-            }
-            else {
-                constraints.facingMode = { ideal: "user" }
-            }
-            await track.applyConstraints(constraints);
-        }
-    }
 }
 
 const closeStream = stream => {

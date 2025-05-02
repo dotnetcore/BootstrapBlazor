@@ -21,14 +21,14 @@ public interface IMediaDevices
     /// </summary>
     /// <param name="constraints"></param>
     /// <returns></returns>
-    Task Open(MediaTrackConstraints constraints);
+    Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
     /// The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.
     /// </summary>
     /// <param name="videoSelector"></param>
     /// <returns></returns>
-    Task Close(string? videoSelector);
+    Task<bool> Close(string? videoSelector);
 
     /// <summary>
     /// The capture() method of the MediaDevices interface captures a still image from the specified video stream and saves it to the specified location.
@@ -41,10 +41,4 @@ public interface IMediaDevices
     /// </summary>
     /// <returns></returns>
     Task<string?> GetPreviewUrl();
-
-    /// <summary>
-    /// Flip the video device.
-    /// </summary>
-    /// <returns></returns>
-    Task Flip();
 }

@@ -2,7 +2,6 @@
     min-height: 240px;
     height: auto;
     width: auto;
-    transform: scaleX(-1);
     margin-top: 1rem;
     display: block;
 }
@@ -10,7 +9,6 @@
 .bb-image {
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
-    transform: scaleX(-1);
     margin-top: 1rem;
     display: block;
 }
