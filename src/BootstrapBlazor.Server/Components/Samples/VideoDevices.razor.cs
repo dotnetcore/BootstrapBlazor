@@ -43,12 +43,13 @@ public partial class VideoDevices
                 DeviceId = _deviceId,
                 VideoSelector = ".bb-video"
             };
-            _isOpen =  await VideoDeviceService.Open(constraints);
+            _isOpen = await VideoDeviceService.Open(constraints);
         }
     }
 
     private async Task OnCloseVideo()
     {
+        _isOpen = false;
         _previewUrl = "";
         await VideoDeviceService.Close(".bb-video");
     }
