@@ -46,7 +46,6 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
         Assert.Equal(".bb-video", options.VideoSelector);
 
         await service.Capture();
-        await service.Flip();
         var url = await service.GetPreviewUrl();
         Assert.Equal("blob:https://test-preview", url);
     }
