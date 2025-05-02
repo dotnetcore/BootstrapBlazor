@@ -21,7 +21,7 @@ public interface IMediaDevices
     /// </summary>
     /// <param name="constraints"></param>
     /// <returns></returns>
-    Task Open(MediaTrackConstraints constraints);
+    Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
     /// The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.

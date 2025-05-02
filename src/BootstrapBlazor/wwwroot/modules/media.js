@@ -29,16 +29,25 @@ export async function open(options) {
     if (height) {
         constrains.video.height = { ideal: height };
     }
-    const stream = await navigator.mediaDevices.getUserMedia(constrains);
-    const media = registerBootstrapBlazorModule("MediaDevices");
-    media.stream = stream;
 
-    if (videoSelector) {
-        const video = document.querySelector(videoSelector);
-        if (video) {
-            video.srcObject = stream;
+    let ret = false;
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constrains);
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        media.stream = stream;
+
+        if (videoSelector) {
+            const video = document.querySelector(videoSelector);
+            if (video) {
+                video.srcObject = stream;
+            }
         }
+        ret = true;
     }
+    catch (err) {
+        console.error("Error accessing media devices.", err);
+    }
+    return ret;
 }
 
 export async function close(videoSelector) {

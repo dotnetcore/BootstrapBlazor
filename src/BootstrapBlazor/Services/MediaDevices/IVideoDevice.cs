@@ -21,7 +21,7 @@ public interface IVideoDevice
     /// </summary>
     /// <param name="constraints"></param>
     /// <returns></returns>
-    Task Open(MediaTrackConstraints constraints);
+    Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
     /// Close the video device with the specified selector.
