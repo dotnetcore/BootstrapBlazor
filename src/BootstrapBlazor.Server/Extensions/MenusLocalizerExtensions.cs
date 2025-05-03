@@ -1551,13 +1551,13 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["AudioDevices"],
+                    Text = Localizer["AudioDevice"],
                     Url = "audio-device"
                 },
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["VideoDevices"],
+                    Text = Localizer["VideoDevice"],
                     Url = "video-device"
                 },
                 new()
