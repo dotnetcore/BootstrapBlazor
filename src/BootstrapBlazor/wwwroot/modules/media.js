@@ -7,8 +7,7 @@ export async function enumerateDevices() {
     }
     else {
         await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        ret = devices;
+        ret = await navigator.mediaDevices.enumerateDevices();
     }
     return ret;
 }
