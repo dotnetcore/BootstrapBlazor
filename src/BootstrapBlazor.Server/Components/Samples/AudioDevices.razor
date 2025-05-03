@@ -14,7 +14,7 @@ private IAudioDevice? AudioDeviceService { get; set; }</Pre>
     <div class="row form-inline g-3">
         <div class="col-12">
             <div class="bb-actions">
-                <Button Text="@Localizer["AudioDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
+                <Button Text="@Localizer["AudioDeviceRequestText"]" Icon="fa-solid fa-microphone" OnClick="OnRequestDevice"></Button>
                 <Button Text="@Localizer["AudioDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpen" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)"></Button>
                 <Button Text="@Localizer["AudioDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnClose" IsDisabled="!_isOpen"></Button>
             </div>

@@ -7128,5 +7128,14 @@
     "VideoDeviceCloseText": "关闭设备",
     "VideoDeviceCaptureText": "截图",
     "VideoDeviceFlipText": "翻转镜头"
+  },
+  "BootstrapBlazor.Server.Components.Samples.AudioDevices": {
+    "VideoDeviceTitle": "IAudioDevice 音频设备服务",
+    "VideoDeviceIntro": "通过此服务获得音频设备操作能力",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过调用不同的 api 方法进行不同操作",
+    "AudioDeviceRequestText": "枚举设备",
+    "AudioDeviceOpenText": "打开设备",
+    "AudioDeviceCloseText": "关闭设备"
   }
 }
