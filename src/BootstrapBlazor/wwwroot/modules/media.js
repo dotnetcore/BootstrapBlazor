@@ -43,7 +43,7 @@ const openVideoDevice = async options => {
         }
     }
 
-    const { videoSelector, width, height } = options;
+    const { selector, width, height } = options;
     if (width) {
         constrains.video.width = { ideal: width };
     }
@@ -57,8 +57,8 @@ const openVideoDevice = async options => {
         const media = registerBootstrapBlazorModule("MediaDevices");
         media.stream = stream;
 
-        if (videoSelector) {
-            const video = document.querySelector(videoSelector);
+        if (selector) {
+            const video = document.querySelector(selector);
             if (video) {
                 video.srcObject = stream;
             }
@@ -122,7 +122,6 @@ export async function apply(options) {
                         ideal: options.facingMode,
                     }
                 }
-                console.log(settings);
                 await track.applyConstraints(settings);
             }
         }
@@ -171,7 +170,10 @@ export async function record(options) {
         const stream = await navigator.mediaDevices.getUserMedia(constrains);
         const media = registerBootstrapBlazorModule("MediaDevices");
         const mediaRecorder = new MediaRecorder(stream);
+
+        stop();
         media.recorder = mediaRecorder;
+        media.audioSelector = options.selector;
         media.chunks = [];
 
         mediaRecorder.start();
@@ -192,8 +194,8 @@ export async function record(options) {
                     }
                 }
                 delete media.audioSelector;
+                delete media.recorder;
             }
-
         };
         ret = true;
     }
@@ -210,7 +212,12 @@ export async function stop(selector) {
         media.audioSelector = selector;
     }
     if (media.recorder) {
-        media.recorder.stop();
+        if (media.recorder.state === "recording") {
+            media.recorder.stop();
+        }
+        else {
+            delete media.recorder;
+        }
         ret = true;
     }
     return ret;
