@@ -564,7 +564,8 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("float-end table-toolbar-button");
-        cut.Contains("float-start table-toolbar-button");
+        cut.Contains("float-start table-toolbar-template");
+        cut.Contains("table-toolbar-template-content");
     }
 
     [Fact]
