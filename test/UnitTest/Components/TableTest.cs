@@ -560,9 +560,11 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.ToolbarTemplate, builder => builder.AddContent(0, "table-toolbar-template-content"));
             });
         });
         cut.Contains("float-end table-toolbar-button");
+        cut.Contains("float-start table-toolbar-button");
     }
 
     [Fact]
