@@ -14,22 +14,26 @@ export async function enumerateDevices() {
 
 export async function open(options) {
     const isVideo = options.video && options.video !== false;
+    let ret = false;
     if (isVideo) {
-        await openVideoDevice(options);
+        ret = await openVideoDevice(options);
     }
     else {
-        await record(options);
+        ret = await record(options);
     }
+    return ret;
 }
 
 export async function close(selector) {
     const media = registerBootstrapBlazorModule("MediaDevices");
+    let ret = false;
     if (media.stream) {
-        await closeVideoDevice(selector);
+        ret = await closeVideoDevice(selector);
     }
     else {
-        await stop(selector);
+        ret = await stop(selector);
     }
+    return ret;
 }
 
 const openVideoDevice = async options => {
@@ -108,12 +112,12 @@ export async function apply(options) {
                 const settings = track.getSettings();
                 const { aspectRatio } = settings;
                 if (options.width) {
-                   settings.width = {
-                       exact: options.width,
-                   };
-                   settings.height = {
-                       exact: Math.floor(options.width / aspectRatio)
-                   };
+                    settings.width = {
+                        exact: options.width,
+                    };
+                    settings.height = {
+                        exact: Math.floor(options.width / aspectRatio)
+                    };
                 }
                 if (options.facingMode) {
                     settings.facingMode = {
@@ -177,6 +181,23 @@ export async function record(options) {
         mediaRecorder.ondataavailable = function (e) {
             media.chunks.push(e.data);
         };
+        mediaRecorder.onstop = function () {
+            if (media.audioSelector) {
+                const audio = document.querySelector(media.audioSelector);
+                if (audio) {
+                    if (media.chunks && media.chunks.length > 0) {
+                        const blob = new Blob(media.chunks, { type: media.recorder.mimeType });
+                        media.chunks = [];
+                        audio.src = window.URL.createObjectURL(blob);
+                        audio.classList.remove("d-none");
+                        audio.classList.remove("hidden");
+                        audio.removeAttribute("hidden");
+                    }
+                }
+                delete media.audioSelector;
+            }
+
+        };
         ret = true;
     }
     catch (err) {
@@ -186,19 +207,14 @@ export async function record(options) {
 }
 
 export async function stop(selector) {
+    let ret = false;
     const media = registerBootstrapBlazorModule("MediaDevices");
+    if (selector) {
+        media.audioSelector = selector;
+    }
     if (media.recorder) {
         media.recorder.stop();
+        ret = true;
     }
-
-    if (selector) {
-        const audio = document.querySelector(selector);
-        if (audio) {
-            if (media.chunks && media.chunks.length > 0) {
-                const blob = new Blob(media.chunks, {type: media.recorder.mimeType});
-                media.chunks = [];
-                audio.src = window.URL.createObjectURL(blob);
-            }
-        }
-    }
+    return ret;
 }
