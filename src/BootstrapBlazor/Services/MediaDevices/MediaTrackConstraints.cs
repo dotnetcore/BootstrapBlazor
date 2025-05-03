@@ -11,27 +11,27 @@ namespace BootstrapBlazor.Components;
 public class MediaTrackConstraints
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public string DeviceId { get; set; } = "";
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public string? VideoSelector { get; set; }
+    public string? Selector { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public int? Width { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public int? Height { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public string? FacingMode { get; set; }
 }
