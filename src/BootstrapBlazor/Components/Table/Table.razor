@@ -69,6 +69,12 @@
                         @TableToolbarTemplate
                     }
                 </TableToolbar>
+                @if (ToolbarTemplate != null)
+                {
+                    <div class="float-start table-toolbar-template">
+                        @ToolbarTemplate
+                    </div>
+                }
                 <div class="float-end table-toolbar-button btn-group table-column-right">
                     @if (TableExtensionToolbarBeforeTemplate != null)
                     {

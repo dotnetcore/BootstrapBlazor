@@ -711,6 +711,15 @@ form .table .table-cell > textarea {
     }
 }
 
+.table-toolbar-template {
+    margin-block-end: .5rem;
+    min-height: 35px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 @media (min-width: 576px) {
     .table-search .card-header .card-title {
         display: initial;
