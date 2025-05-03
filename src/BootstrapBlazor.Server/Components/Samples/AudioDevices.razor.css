@@ -5,9 +5,6 @@
 }
 
 .bb-audio {
-    min-height: 240px;
-    height: auto;
-    width: auto;
-    margin: 1rem;
-    display: block;
+    margin-top: 1rem;
+    width: 100%;
 }
