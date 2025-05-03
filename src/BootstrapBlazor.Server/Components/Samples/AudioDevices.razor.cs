@@ -6,12 +6,12 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// VideoDevice Component
+/// AudioDevice Component
 /// </summary>
-public partial class VideoDevices : IAsyncDisposable
+public partial class AudioDevices : IAsyncDisposable
 {
     [Inject, NotNull]
-    private IVideoDevice? VideoDeviceService { get; set; }
+    private IAudioDevice? AudioDeviceService { get; set; }
 
     private readonly List<IMediaDeviceInfo> _devices = [];
 
@@ -19,13 +19,11 @@ public partial class VideoDevices : IAsyncDisposable
 
     private string? _deviceId;
 
-    private string? _previewUrl;
-
     private bool _isOpen = false;
 
     private async Task OnRequestDevice()
     {
-        var devices = await VideoDeviceService.GetDevices();
+        var devices = await AudioDeviceService.GetDevices();
         if (devices != null)
         {
             _devices.Clear();
@@ -36,38 +34,30 @@ public partial class VideoDevices : IAsyncDisposable
         }
     }
 
-    private async Task OnOpenVideo()
+    private async Task OnOpen()
     {
         if (!string.IsNullOrEmpty(_deviceId))
         {
             var constraints = new MediaTrackConstraints
             {
                 DeviceId = _deviceId,
-                Selector = ".bb-video"
+                Selector = ".bb-audio"
             };
-            _isOpen = await VideoDeviceService.Open(constraints);
+            _isOpen = await AudioDeviceService.Open(constraints);
         }
     }
 
-    private async Task OnCloseVideo()
+    private async Task OnClose()
     {
         _isOpen = false;
-        _previewUrl = "";
-        await VideoDeviceService.Close(".bb-video");
+        await AudioDeviceService.Close(".bb-audio");
     }
-
-    private async Task OnCapture()
-    {
-        _previewUrl = await VideoDeviceService.GetPreviewUrl();
-    }
-
-    private Task OnApply(int width, int height) => VideoDeviceService.Apply(new MediaTrackConstraints() { Width = width, Height = height });
 
     private async Task DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            await OnCloseVideo();
+            await OnClose();
         }
     }
 

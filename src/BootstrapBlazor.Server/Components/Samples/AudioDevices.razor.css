@@ -1,0 +1,13 @@
+﻿.bb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .5rem;
+}
+
+.bb-audio {
+    min-height: 240px;
+    height: auto;
+    width: auto;
+    margin: 1rem;
+    display: block;
+}

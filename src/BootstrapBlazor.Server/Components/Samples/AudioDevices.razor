@@ -1,0 +1,29 @@
+﻿@page "/audio-device"
+@inject IStringLocalizer<AudioDevices> Localizer
+
+<h3>@Localizer["AudioDeviceTitle"]</h3>
+
+<h4>@Localizer["AudioDeviceIntro"]</h4>
+
+<Pre>[Inject, NotNull]
+private IAudioDevice? AudioDeviceService { get; set; }</Pre>
+
+<DemoBlock Title="@Localizer["BaseUsageTitle"]"
+           Introduction="@Localizer["BaseUsageIntro"]"
+           Name="Normal">
+    <div class="row form-inline g-3">
+        <div class="col-12">
+            <div class="bb-actions">
+                <Button Text="@Localizer["AudioDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
+                <Button Text="@Localizer["AudioDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpen" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)"></Button>
+                <Button Text="@Localizer["AudioDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnClose" IsDisabled="!_isOpen"></Button>
+            </div>
+        </div>
+        <div class="col-12">
+            <Select Items="@_items" @bind-Value="_deviceId" DisplayText="Devices" ShowLabel="true"></Select>
+        </div>
+    </div>
+
+    <audio class="bb-audio d-none" controls></audio>
+</DemoBlock>
+
