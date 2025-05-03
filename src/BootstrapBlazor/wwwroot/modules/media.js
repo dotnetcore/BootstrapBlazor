@@ -77,6 +77,41 @@ export async function close(videoSelector) {
     return ret;
 }
 
+export async function apply(options) {
+    let ret = false;
+    try {
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        const { stream } = media;
+        if (stream && stream.active) {
+            const tracks = stream.getVideoTracks();
+            if (tracks) {
+                const track = tracks[0];
+                const settings = track.getSettings();
+                const { aspectRatio } = settings;
+                if (options.width) {
+                   settings.width = {
+                       exact: options.width,
+                   };
+                   settings.height = {
+                       exact: Math.floor(options.width / aspectRatio)
+                   };
+                }
+                if (options.facingMode) {
+                    settings.facingMode = {
+                        ideal: options.facingMode,
+                    }
+                }
+                console.log(settings);
+                await track.applyConstraints(settings);
+            }
+        }
+    }
+    catch (err) {
+        console.error("Error apply constraints media devices.", err);
+    }
+    return ret;
+}
+
 export async function getPreviewUrl() {
     let url = null;
     const media = registerBootstrapBlazorModule("MediaDevices");

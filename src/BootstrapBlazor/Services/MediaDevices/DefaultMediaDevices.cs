@@ -44,4 +44,10 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         var module = await LoadModule();
         return await module.InvokeAsync<string?>("getPreviewUrl");
     }
+
+    public async Task<bool> Apply(MediaTrackConstraints constraints)
+    {
+        var module = await LoadModule();
+        return await module.InvokeAsync<bool>("apply", constraints);
+    }
 }
