@@ -166,6 +166,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
             {
                 pb.AddChildContent<ModalDialog>(pb =>
                 {
+                    pb.Add(d => d.FooterContentTemplate, builder => builder.AddContent(0, "footer-content-template"));
                     pb.Add(d => d.BodyContext, new Foo() { Name = "Test_BodyContext" });
                     pb.Add(d => d.BodyTemplate, BootstrapDynamicComponent.CreateComponent<MockModalDialogContentComponent>().Render());
                 });
@@ -174,6 +175,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         var content = cut.FindComponent<MockModalDialogContentComponent>().Instance;
         var f = content.Context as Foo;
         Assert.Equal("Test_BodyContext", f!.Name);
+        cut.Contains("footer-content-template");
     }
 
     [Fact]
