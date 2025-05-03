@@ -61,6 +61,8 @@ public partial class VideoDevices : IAsyncDisposable
         _previewUrl = await VideoDeviceService.GetPreviewUrl();
     }
 
+    private Task OnApply(int width, int height) => VideoDeviceService.Apply(new MediaTrackConstraints() { Width = width, Height = height });
+
     private async Task DisposeAsync(bool disposing)
     {
         if (disposing)

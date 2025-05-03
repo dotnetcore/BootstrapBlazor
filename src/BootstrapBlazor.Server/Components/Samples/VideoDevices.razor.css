@@ -1,14 +1,22 @@
-﻿.bb-video {
+﻿.bb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .5rem;
+}
+
+.bb-video {
     min-height: 240px;
     height: auto;
     width: auto;
-    margin-top: 1rem;
+    margin: 1rem;
     display: block;
 }
 
 .bb-image {
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
-    margin-top: 1rem;
+    margin: 1rem 1rem 0 1rem;
     display: block;
+    width: calc(100% - 2rem);
+    max-width: 640px;
 }

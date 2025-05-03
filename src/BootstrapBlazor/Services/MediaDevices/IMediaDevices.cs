@@ -41,4 +41,11 @@ public interface IMediaDevices
     /// </summary>
     /// <returns></returns>
     Task<string?> GetPreviewUrl();
+
+    /// <summary>
+    /// Apply the media track constraints.
+    /// </summary>
+    /// <param name="constraints"></param>
+    /// <returns></returns>
+    Task<bool> Apply(MediaTrackConstraints constraints);
 }

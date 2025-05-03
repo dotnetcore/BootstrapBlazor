@@ -41,4 +41,9 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
     {
         return deviceService.GetPreviewUrl();
     }
+
+    public Task<bool> Apply(MediaTrackConstraints constraints)
+    {
+        return deviceService.Apply(constraints);
+    }
 }
