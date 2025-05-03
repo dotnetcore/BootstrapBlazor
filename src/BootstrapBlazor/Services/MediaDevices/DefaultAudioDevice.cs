@@ -5,7 +5,7 @@
 
 namespace BootstrapBlazor.Components;
 
-class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
+class DefaultAudioDevice(IMediaDevices deviceService) : IAudioDevice
 {
     /// <summary>
     /// <inheritdoc/>
@@ -17,33 +17,18 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
         var devices = await deviceService.EnumerateDevices();
         if (devices != null)
         {
-            ret.AddRange(devices.Where(d => d.Kind == "videoinput"));
+            ret.AddRange(devices.Where(d => d.Kind == "audioinput"));
         }
         return ret;
     }
 
     public Task<bool> Open(MediaTrackConstraints constraints)
     {
-        return deviceService.Open("video", constraints);
+        return deviceService.Open("audio", constraints);
     }
 
     public Task<bool> Close(string? selector)
     {
         return deviceService.Close(selector);
-    }
-
-    public Task Capture()
-    {
-        return deviceService.Capture();
-    }
-
-    public Task<string?> GetPreviewUrl()
-    {
-        return deviceService.GetPreviewUrl();
-    }
-
-    public Task<bool> Apply(MediaTrackConstraints constraints)
-    {
-        return deviceService.Apply(constraints);
     }
 }

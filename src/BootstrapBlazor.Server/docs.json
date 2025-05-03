@@ -231,7 +231,8 @@
     "shield-badge": "ShieldBadges",
     "opt-input": "OtpInputs",
     "otp-service": "OtpServices",
-    "video-device": "VideoDevices"
+    "video-device": "VideoDevices",
+    "audio-device": "AudioDevices"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

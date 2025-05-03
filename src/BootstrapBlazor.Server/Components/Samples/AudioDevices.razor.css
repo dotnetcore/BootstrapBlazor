@@ -1,0 +1,10 @@
+﻿.bb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .5rem;
+}
+
+.bb-audio {
+    margin-top: 1rem;
+    width: 100%;
+}

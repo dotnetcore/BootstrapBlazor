@@ -5,7 +5,7 @@
 
 namespace UnitTest.Services;
 
-public class VideoDeviceTest : BootstrapBlazorTestBase
+public class AudioDeviceTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task GetDevices_Ok()
@@ -14,49 +14,31 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
             new() { DeviceId = "test-device-video-id", GroupId = "test-groupd-id", Kind = "videoinput", Label="test-video" },
             new() { DeviceId = "test-device-audio-id", GroupId = "test-groupd-id", Kind = "audioinput", Label="test-audio" }
         ]);
-        var service = Context.Services.GetRequiredService<IVideoDevice>();
+        var service = Context.Services.GetRequiredService<IAudioDevice>();
         var devices = await service.GetDevices();
         Assert.NotNull(devices);
-        Assert.Equal("test-device-video-id", devices[0].DeviceId);
+        Assert.Equal("test-device-audio-id", devices[0].DeviceId);
         Assert.Equal("test-groupd-id", devices[0].GroupId);
-        Assert.Equal("videoinput", devices[0].Kind);
-        Assert.Equal("test-video", devices[0].Label);
+        Assert.Equal("audioinput", devices[0].Kind);
+        Assert.Equal("test-audio", devices[0].Label);
     }
 
     [Fact]
     public async Task Open_Ok()
     {
-        Context.JSInterop.Setup<string?>("getPreviewUrl").SetResult("blob:https://test-preview");
         Context.JSInterop.Setup<bool>("open", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("close", _ => true).SetResult(true);
-        Context.JSInterop.Setup<bool>("apply", _ => true).SetResult(true);
 
-        var service = Context.Services.GetRequiredService<IVideoDevice>();
+        var service = Context.Services.GetRequiredService<IAudioDevice>();
         var options = new MediaTrackConstraints()
         {
             DeviceId = "test-device-id",
-            FacingMode = "user",
-            Height = 640,
-            Width = 480,
-            Selector = ".bb-video"
+            Selector = ".bb-audio"
         };
         var open = await service.Open(options);
         Assert.True(open);
 
-        var close = await service.Close(".bb-video");
+        var close = await service.Close(".bb-audio");
         Assert.True(close);
-
-        var apply = await service.Apply(new MediaTrackConstraints() { Width = 640, Height = 480, Selector = ".bb-video" });
-        Assert.True(apply);
-
-        Assert.Equal("test-device-id", options.DeviceId);
-        Assert.Equal("user", options.FacingMode);
-        Assert.Equal(640, options.Height);
-        Assert.Equal(480, options.Width);
-        Assert.Equal(".bb-video", options.Selector);
-
-        await service.Capture();
-        var url = await service.GetPreviewUrl();
-        Assert.Equal("blob:https://test-preview", url);
     }
 }

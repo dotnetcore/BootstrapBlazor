@@ -7,22 +7,43 @@ export async function enumerateDevices() {
     }
     else {
         await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        ret = devices;
+        ret = await navigator.mediaDevices.enumerateDevices();
     }
     return ret;
 }
 
-export async function open(options) {
+export async function open(type, options) {
+    let ret = false;
+    if (type === "video") {
+        ret = await openVideoDevice(options);
+    }
+    else if (type === "audio") {
+        ret = await record(options);
+    }
+    return ret;
+}
+
+export async function close(selector) {
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    let ret = false;
+    if (media.stream) {
+        ret = await closeVideoDevice(selector);
+    }
+    else {
+        ret = await stop(selector);
+    }
+    return ret;
+}
+
+const openVideoDevice = async options => {
     const constrains = {
         video: {
             deviceId: options.deviceId ? { exact: options.deviceId } : null,
             facingMode: { ideal: options.facingMode || "environment" }
-        },
-        audio: false
+        }
     }
 
-    const { videoSelector, width, height } = options;
+    const { selector, width, height } = options;
     if (width) {
         constrains.video.width = { ideal: width };
     }
@@ -36,8 +57,8 @@ export async function open(options) {
         const media = registerBootstrapBlazorModule("MediaDevices");
         media.stream = stream;
 
-        if (videoSelector) {
-            const video = document.querySelector(videoSelector);
+        if (selector) {
+            const video = document.querySelector(selector);
             if (video) {
                 video.srcObject = stream;
             }
@@ -45,17 +66,17 @@ export async function open(options) {
         ret = true;
     }
     catch (err) {
-        console.error("Error accessing media devices.", err);
+        console.error("Error accessing video devices.", err);
     }
     return ret;
 }
 
-export async function close(videoSelector) {
+const closeVideoDevice = async selector => {
     let ret = false;
 
     try {
-        if (videoSelector) {
-            const video = document.querySelector(videoSelector);
+        if (selector) {
+            const video = document.querySelector(selector);
             if (video) {
                 video.pause();
                 const stream = video.srcObject;
@@ -72,7 +93,7 @@ export async function close(videoSelector) {
         ret = true;
     }
     catch (err) {
-        console.error("Error closing media devices.", err);
+        console.error("Error closing video devices.", err);
     }
     return ret;
 }
@@ -89,19 +110,18 @@ export async function apply(options) {
                 const settings = track.getSettings();
                 const { aspectRatio } = settings;
                 if (options.width) {
-                   settings.width = {
-                       exact: options.width,
-                   };
-                   settings.height = {
-                       exact: Math.floor(options.width / aspectRatio)
-                   };
+                    settings.width = {
+                        exact: options.width,
+                    };
+                    settings.height = {
+                        exact: Math.floor(options.width / aspectRatio)
+                    };
                 }
                 if (options.facingMode) {
                     settings.facingMode = {
                         ideal: options.facingMode,
                     }
                 }
-                console.log(settings);
                 await track.applyConstraints(settings);
             }
         }
@@ -136,4 +156,69 @@ const closeStream = stream => {
             track.stop();
         });
     }
+}
+
+export async function record(options) {
+    const constrains = {
+        audio: {
+            deviceId: options.deviceId ? { exact: options.deviceId } : null
+        }
+    }
+
+    let ret = false;
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constrains);
+        const media = registerBootstrapBlazorModule("MediaDevices");
+        const mediaRecorder = new MediaRecorder(stream);
+
+        stop();
+        media.recorder = mediaRecorder;
+        media.audioSelector = options.selector;
+        media.chunks = [];
+
+        mediaRecorder.start();
+        mediaRecorder.ondataavailable = function (e) {
+            media.chunks.push(e.data);
+        };
+        mediaRecorder.onstop = function () {
+            if (media.audioSelector) {
+                const audio = document.querySelector(media.audioSelector);
+                if (audio) {
+                    if (media.chunks && media.chunks.length > 0) {
+                        const blob = new Blob(media.chunks, { type: media.recorder.mimeType });
+                        media.chunks = [];
+                        audio.src = window.URL.createObjectURL(blob);
+                        audio.classList.remove("d-none");
+                        audio.classList.remove("hidden");
+                        audio.removeAttribute("hidden");
+                    }
+                }
+                delete media.audioSelector;
+                delete media.recorder;
+            }
+        };
+        ret = true;
+    }
+    catch (err) {
+        console.error("Error accessing audio devices.", err);
+    }
+    return ret;
+}
+
+export async function stop(selector) {
+    let ret = false;
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    if (selector) {
+        media.audioSelector = selector;
+    }
+    if (media.recorder) {
+        if (media.recorder.state === "recording") {
+            media.recorder.stop();
+        }
+        else {
+            delete media.recorder;
+        }
+        ret = true;
+    }
+    return ret;
 }
