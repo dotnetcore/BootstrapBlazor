@@ -201,6 +201,12 @@ public partial class ModalDialog : IHandlerException
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the footer content template. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterContentTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 ModalHeader 组件
     /// </summary>
     [Parameter]

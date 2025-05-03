@@ -50,6 +50,12 @@
                     @if (ShowFooter)
                     {
                         <div class="modal-footer">
+                            @if (FooterContentTemplate != null)
+                            {
+                                <div class="modal-footer-content">
+                                    @FooterContentTemplate
+                                </div>
+                            }
                             @if (ShowCloseButton)
                             {
                                 <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="@CloseButtonIcon" OnClickWithoutRender="OnClickCloseAsync"></Button>
