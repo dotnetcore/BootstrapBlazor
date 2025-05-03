@@ -19,9 +19,10 @@ public interface IMediaDevices
     /// <summary>
     /// The open() method of the MediaDevices interface creates a new MediaStream object and starts capturing media from the specified device.
     /// </summary>
+    /// <param name="type">video or audio</param>
     /// <param name="constraints"></param>
     /// <returns></returns>
-    Task<bool> Open(MediaTrackConstraints constraints);
+    Task<bool> Open(string type, MediaTrackConstraints constraints);
 
     /// <summary>
     /// The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.

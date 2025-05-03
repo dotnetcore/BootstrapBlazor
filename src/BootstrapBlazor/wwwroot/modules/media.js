@@ -12,13 +12,12 @@ export async function enumerateDevices() {
     return ret;
 }
 
-export async function open(options) {
-    const isVideo = options.video && options.video !== false;
+export async function open(type, options) {
     let ret = false;
-    if (isVideo) {
+    if (type === "video") {
         ret = await openVideoDevice(options);
     }
-    else {
+    else if (type === "audio") {
         ret = await record(options);
     }
     return ret;
@@ -41,8 +40,7 @@ const openVideoDevice = async options => {
         video: {
             deviceId: options.deviceId ? { exact: options.deviceId } : null,
             facingMode: { ideal: options.facingMode || "environment" }
-        },
-        audio: false
+        }
     }
 
     const { videoSelector, width, height } = options;
@@ -163,7 +161,6 @@ const closeStream = stream => {
 
 export async function record(options) {
     const constrains = {
-        video: false,
         audio: {
             deviceId: options.deviceId ? { exact: options.deviceId } : null
         }

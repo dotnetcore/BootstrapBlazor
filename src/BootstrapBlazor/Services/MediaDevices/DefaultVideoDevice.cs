@@ -24,7 +24,7 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
 
     public Task<bool> Open(MediaTrackConstraints constraints)
     {
-        return deviceService.Open(constraints);
+        return deviceService.Open("video", constraints);
     }
 
     public Task<bool> Close(string? selector)

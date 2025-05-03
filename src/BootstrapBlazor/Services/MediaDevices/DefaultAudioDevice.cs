@@ -24,7 +24,7 @@ class DefaultAudioDevice(IMediaDevices deviceService) : IAudioDevice
 
     public Task<bool> Open(MediaTrackConstraints constraints)
     {
-        return deviceService.Open(constraints);
+        return deviceService.Open("audio", constraints);
     }
 
     public Task<bool> Close(string? selector)
