@@ -13,10 +13,15 @@ private IBluetooth? BluetoothService { get; set; }</Pre>
            Name="Normal">
     <div class="row form-inline g-3">
         <div class="col-12">
-            <Button Text="@Localizer["VideoDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
-            <Button Text="@Localizer["VideoDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)" class="ms-2"></Button>
-            <Button Text="@Localizer["VideoDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo" IsDisabled="!_isOpen" class="ms-2"></Button>
-            <Button Text="@Localizer["VideoDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture" IsDisabled="!_isOpen" class="ms-2"></Button>
+            <div class="bb-actions">
+                <Button Text="@Localizer["VideoDeviceRequestText"]" Icon="fa-solid fa-photo-film" OnClick="OnRequestDevice"></Button>
+                <Button Text="@Localizer["VideoDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)"></Button>
+                <Button Text="@Localizer["VideoDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo" IsDisabled="!_isOpen"></Button>
+                <Button Text="@Localizer["VideoDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture" IsDisabled="!_isOpen"></Button>
+                <Button Text="QVGA" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(320, 240)"></Button>
+                <Button Text="VGA" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(640, 480)"></Button>
+                <Button Text="HD" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(1280, 960)"></Button>
+            </div>
         </div>
         <div class="col-12">
             <Select Items="@_items" @bind-Value="_deviceId" DisplayText="Devices" ShowLabel="true"></Select>

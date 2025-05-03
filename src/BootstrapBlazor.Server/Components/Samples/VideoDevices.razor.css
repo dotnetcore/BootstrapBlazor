@@ -1,4 +1,10 @@
-﻿.bb-video {
+﻿.bb-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem .5rem;
+}
+
+.bb-video {
     min-height: 240px;
     height: auto;
     width: auto;
