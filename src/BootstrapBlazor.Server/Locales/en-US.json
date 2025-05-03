@@ -7131,8 +7131,8 @@
     "VideoDeviceFlipText": "Flip"
   },
   "BootstrapBlazor.Server.Components.Samples.AudioDevices": {
-    "VideoDeviceTitle": "IAudioDevice",
-    "VideoDeviceIntro": "Get audio equipment operation capabilities through this service",
+    "AudioDeviceTitle": "IAudioDevice",
+    "AudioDeviceIntro": "Get audio equipment operation capabilities through this service",
     "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "Perform different operations by calling different API methods",
     "AudioDeviceRequestText": "List",
