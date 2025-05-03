@@ -28,6 +28,7 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<string?>("getPreviewUrl").SetResult("blob:https://test-preview");
         Context.JSInterop.Setup<bool>("open", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("close", _ => true).SetResult(true);
+        Context.JSInterop.Setup<bool>("apply", _ => true).SetResult(true);
 
         var service = Context.Services.GetRequiredService<IVideoDevice>();
         var options = new MediaTrackConstraints()
@@ -43,6 +44,9 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
 
         var close = await service.Close(".bb-video");
         Assert.True(close);
+
+        var apply = await service.Apply(new MediaTrackConstraints() { Width = 640, Height = 480, VideoSelector = ".bb-video" });
+        Assert.True(apply);
 
         Assert.Equal("test-device-id", options.DeviceId);
         Assert.Equal("user", options.FacingMode);
