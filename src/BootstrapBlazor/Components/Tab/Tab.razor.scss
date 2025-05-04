@@ -209,7 +209,7 @@
     }
 }
 
-.tabs .tabs-body {
+.tabs > .tabs-body {
     background-color: var(--bs-body-bg);
     padding: var(--bb-tabs-body-padding);
     flex: 1;
