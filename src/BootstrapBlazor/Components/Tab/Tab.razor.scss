@@ -20,6 +20,20 @@
         }
     }
 
+    &:not(:has(> .tabs-header)) {
+        > .tabs-body {
+            --bb-tabs-item-height: 0px;
+        }
+    }
+
+    > .tabs-body {
+        background-color: var(--bs-body-bg);
+        padding: var(--bb-tabs-body-padding);
+        flex: 1;
+        height: 1%;
+        min-height: 0;
+    }
+
     .tabs-body-content {
         background-color: var(--bs-body-bg);
 
@@ -207,14 +221,6 @@
             border-radius: var(--bs-border-radius);
         }
     }
-}
-
-.tabs > .tabs-body {
-    background-color: var(--bs-body-bg);
-    padding: var(--bb-tabs-body-padding);
-    flex: 1;
-    height: 1%;
-    min-height: 0;
 }
 
 /*Card*/
