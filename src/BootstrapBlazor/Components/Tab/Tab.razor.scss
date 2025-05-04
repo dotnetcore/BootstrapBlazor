@@ -14,6 +14,12 @@
     display: flex;
     flex-flow: column;
 
+    &:fullscreen {
+        > .tabs-body {
+            overflow: auto;
+        }
+    }
+
     .tabs-body-content {
         background-color: var(--bs-body-bg);
 
