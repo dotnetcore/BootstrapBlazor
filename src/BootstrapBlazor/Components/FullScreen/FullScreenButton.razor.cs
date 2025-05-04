@@ -14,7 +14,7 @@ public partial class FullScreenButton
     /// 获得/设置 退出全屏图标 默认 fa-solid fa-maximize
     /// </summary>
     [Parameter]
-    [Obsolete("已启用，请使用 Icon 参数 Please use Icon parameter")]
+    [Obsolete("已弃用，请使用 Icon 参数；Deprecated. Please use Icon parameter")]
     [ExcludeFromCodeCoverage]
     public string? FullScreenIcon { get => FullScreenExitIcon; set => FullScreenExitIcon = value; }
 
