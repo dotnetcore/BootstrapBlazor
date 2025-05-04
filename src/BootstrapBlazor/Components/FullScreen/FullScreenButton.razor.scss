@@ -1,8 +1,17 @@
-.bb-fs-on,
-.bb-fs-open .bb-fs-off {
+﻿.bb-fs-on {
     display: none;
 }
 
-.bb-fs-open .bb-fs-on {
+.bb-fs-off {
     display: inline-block;
+}
+
+:not(:root):fullscreen {
+    .bb-fs-on {
+        display: inline-block;
+    }
+
+    .bb-fs-off {
+        display: none;
+    }
 }
