@@ -36,11 +36,6 @@
 
     .tabs-body-content {
         background-color: var(--bs-body-bg);
-
-        &.bb-fs-open {
-            padding: var(--bb-tabs-body-padding);
-            overflow: auto;
-        }
     }
 }
 
