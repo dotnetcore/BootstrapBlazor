@@ -207,6 +207,8 @@
     background-color: var(--bs-body-bg);
     padding: var(--bb-tabs-body-padding);
     flex: 1;
+    height: 1%;
+    min-height: 0;
 }
 
 .tabs .tabs-content {
