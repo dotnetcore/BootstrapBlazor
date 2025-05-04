@@ -137,6 +137,11 @@
         position: relative;
         flex: 1;
 
+        > .tabs:fullscreen {
+            --bb-layout-header-height: 0px;
+            --bb-layout-footer-height: 0px;
+        }
+
         .tabs.tabs-border-card {
             box-shadow: none;
         }
@@ -275,8 +280,7 @@
         .layout-main > .tabs {
             height: calc(var(--bb-layout-height) - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
 
-            .tabs-body {
-                height: calc(100% - var(--bb-tabs-item-height));
+            > .tabs-body {
                 overflow: auto;
             }
         }
