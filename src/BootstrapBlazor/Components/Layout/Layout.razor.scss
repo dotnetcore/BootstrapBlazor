@@ -137,6 +137,11 @@
         position: relative;
         flex: 1;
 
+        > .tabs:fullscreen {
+            --bb-layout-header-height: 0px;
+            --bb-layout-footer-height: 0px;
+        }
+
         .tabs.tabs-border-card {
             box-shadow: none;
         }
