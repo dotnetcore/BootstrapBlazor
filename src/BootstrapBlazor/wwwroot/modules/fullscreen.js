@@ -1,6 +1,16 @@
-﻿import { isElement } from "./utility.js"
+﻿import { isElement, registerBootstrapBlazorModule } from "./utility.js"
+import EventHandler from "./event-handler.js"
 
 export async function toggle(options) {
+    registerBootstrapBlazorModule("FullScreen", null, () => {
+        EventHandler.on(document, "fullscreenchange", () => {
+            if (document.fullscreenElement === null) {
+                [...document.querySelectorAll('.bb-fs-open')].forEach(el => {
+                    el.classList.remove('bb-fs-open');
+                })
+            }
+        });
+    })
     let el = null;
     options = options || {};
     if (options.id) {
