@@ -70,6 +70,7 @@
     width: var(--bb-logout-user-avatar-width);
     height: var(--bb-logout-user-avatar-height);
     margin-inline-end: var(--bb-logout-user-avatar-margin-right);
+    border-radius: var(--bb-logout-user-avatar-border-radius, 0);
 }
 
 .dropdown-logout .logout-un {
