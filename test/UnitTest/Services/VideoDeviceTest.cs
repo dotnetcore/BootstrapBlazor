@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.JSInterop;
+using UnitTest.Mock;
+
 namespace UnitTest.Services;
 
 public class VideoDeviceTest : BootstrapBlazorTestBase
@@ -27,7 +30,7 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
     public async Task Open_Ok()
     {
         Context.JSInterop.Setup<string?>("getPreviewUrl").SetResult("blob:https://test-preview");
-        Context.JSInterop.Setup<Stream?>("getPreviewData").SetResult(new MemoryStream([0x01, 0x02]));
+        Context.JSInterop.Setup<IJSStreamReference?>("getPreviewData").SetResult(new MockJSStreamReference());
         Context.JSInterop.Setup<bool>("open", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("close", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("apply", _ => true).SetResult(true);
@@ -62,6 +65,6 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
 
         var data = await service.GetPreviewData();
         Assert.NotNull(data);
-        Assert.Equal(2, data.Length);
+        Assert.Equal(4, data.Length);
     }
 }
