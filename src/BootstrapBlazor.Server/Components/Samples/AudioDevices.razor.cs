@@ -24,6 +24,8 @@ public partial class AudioDevices : IAsyncDisposable
 
     private bool _isOpen = false;
 
+    private bool _isDownload = false;
+
     private async Task OnRequestDevice()
     {
         var devices = await AudioDeviceService.GetDevices();
@@ -52,8 +54,9 @@ public partial class AudioDevices : IAsyncDisposable
 
     private async Task OnClose()
     {
-        _isOpen = false;
         await AudioDeviceService.Close(".bb-audio");
+        _isOpen = false;
+        _isDownload = true;
     }
 
     private async Task OnDownload()
@@ -61,7 +64,7 @@ public partial class AudioDevices : IAsyncDisposable
         var stream = await AudioDeviceService.GetData();
         if (stream != null)
         {
-            await DownloadService.DownloadFromStreamAsync("data.wav", stream);
+            await DownloadService.DownloadFromStreamAsync($"data_{DateTime.Now:HHmmss}.wav", stream);
         }
     }
 
