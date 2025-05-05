@@ -65,7 +65,13 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
 
     public async Task<Stream?> GetAudioData()
     {
+        Stream? ret = null;
         var module = await LoadModule();
-        return await module.InvokeAsync<Stream?>("getAudioData");
+        var stream = await module.InvokeAsync<IJSStreamReference?>("getAudioData");
+        if (stream != null)
+        {
+            ret = await stream.OpenReadStreamAsync(stream.Length);
+        }
+        return ret;
     }
 }
