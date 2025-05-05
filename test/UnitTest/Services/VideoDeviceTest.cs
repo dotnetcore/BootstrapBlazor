@@ -27,6 +27,7 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
     public async Task Open_Ok()
     {
         Context.JSInterop.Setup<string?>("getPreviewUrl").SetResult("blob:https://test-preview");
+        Context.JSInterop.Setup<Stream?>("getPreviewData").SetResult(new MemoryStream([0x01, 0x02]));
         Context.JSInterop.Setup<bool>("open", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("close", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("apply", _ => true).SetResult(true);
@@ -58,5 +59,9 @@ public class VideoDeviceTest : BootstrapBlazorTestBase
         await service.Capture();
         var url = await service.GetPreviewUrl();
         Assert.Equal("blob:https://test-preview", url);
+
+        var data = await service.GetPreviewData();
+        Assert.NotNull(data);
+        Assert.Equal(2, data.Length);
     }
 }
