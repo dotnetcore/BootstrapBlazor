@@ -12,9 +12,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Logout
 {
-    private string? LogoutClassString => CssBuilder.Default("dropdown dropdown-logout")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Logout>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 组件当前用户头像
@@ -70,9 +70,19 @@ public partial class Logout
     [Parameter]
     public RenderFragment? LinkTemplate { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Logout>? Localizer { get; set; }
+    /// <summary>
+    /// Gets or sets the avatar border radius. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? AvatarRadius { get; set; }
+
+    private string? LogoutClassString => CssBuilder.Default("dropdown dropdown-logout")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? AvatarStyleString => CssBuilder.Default()
+        .AddStyle("--bb-logout-user-avatar-border-radius", AvatarRadius, !string.IsNullOrEmpty(AvatarRadius))
+        .Build();
 
     /// <summary>
     /// OnInitialized 方法
