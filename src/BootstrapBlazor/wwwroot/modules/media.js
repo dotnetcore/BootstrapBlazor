@@ -154,7 +154,7 @@ export async function getPreviewUrl() {
     return url;
 }
 
-export async function getPreviewData() {
+export function getPreviewData() {
     const media = registerBootstrapBlazorModule("MediaDevices");
     return media.previewBlob;
 }
