@@ -69,7 +69,7 @@ public partial class VideoDevices : IAsyncDisposable
         var stream = await VideoDeviceService.GetPreviewData();
         if (stream != null)
         {
-            await DownloadService.DownloadFromStreamAsync("preview.png", stream);
+            await DownloadService.DownloadFromStreamAsync($"preview_{DateTime.Now:HHmmss}.png", stream);
         }
     }
 

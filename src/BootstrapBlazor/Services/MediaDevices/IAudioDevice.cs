@@ -29,4 +29,10 @@ public interface IAudioDevice
     /// <param name="selector"></param>
     /// <returns></returns>
     Task<bool> Close(string? selector);
+
+    /// <summary>
+    /// Gets the stream of the audio.
+    /// </summary>
+    /// <returns></returns>
+    Task<Stream?> GetData();
 }

@@ -7139,6 +7139,7 @@
     "AudioDeviceOpenText": "录音",
     "AudioDeviceCloseText": "停止",
     "AudioDevicePauseText": "暂停",
-    "AudioDeviceResumeText": "恢复"
+    "AudioDeviceResumeText": "恢复",
+    "AudioDeviceDownloadText": "下载"
   }
 }

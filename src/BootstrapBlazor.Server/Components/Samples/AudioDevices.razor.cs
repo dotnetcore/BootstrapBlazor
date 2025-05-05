@@ -13,6 +13,9 @@ public partial class AudioDevices : IAsyncDisposable
     [Inject, NotNull]
     private IAudioDevice? AudioDeviceService { get; set; }
 
+    [Inject, NotNull]
+    private DownloadService? DownloadService { get; set; }
+
     private readonly List<IMediaDeviceInfo> _devices = [];
 
     private List<SelectedItem> _items = [];
@@ -20,6 +23,8 @@ public partial class AudioDevices : IAsyncDisposable
     private string? _deviceId;
 
     private bool _isOpen = false;
+
+    private bool _isDownload = false;
 
     private async Task OnRequestDevice()
     {
@@ -49,8 +54,18 @@ public partial class AudioDevices : IAsyncDisposable
 
     private async Task OnClose()
     {
-        _isOpen = false;
         await AudioDeviceService.Close(".bb-audio");
+        _isOpen = false;
+        _isDownload = true;
+    }
+
+    private async Task OnDownload()
+    {
+        var stream = await AudioDeviceService.GetData();
+        if (stream != null)
+        {
+            await DownloadService.DownloadFromStreamAsync($"data_{DateTime.Now:HHmmss}.wav", stream);
+        }
     }
 
     private async Task DisposeAsync(bool disposing)

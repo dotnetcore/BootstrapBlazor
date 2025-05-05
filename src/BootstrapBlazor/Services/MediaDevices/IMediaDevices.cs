@@ -55,4 +55,10 @@ public interface IMediaDevices
     /// <param name="constraints"></param>
     /// <returns></returns>
     Task<bool> Apply(MediaTrackConstraints constraints);
+
+    /// <summary>
+    /// Gets the stream of the audio.
+    /// </summary>
+    /// <returns></returns>
+    Task<Stream?> GetAudioData();
 }

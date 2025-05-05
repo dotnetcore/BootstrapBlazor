@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.JSInterop;
+using UnitTest.Mock;
+
 namespace UnitTest.Services;
 
 public class AudioDeviceTest : BootstrapBlazorTestBase
@@ -28,6 +31,7 @@ public class AudioDeviceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<bool>("open", _ => true).SetResult(true);
         Context.JSInterop.Setup<bool>("close", _ => true).SetResult(true);
+        Context.JSInterop.Setup<IJSStreamReference?>("getAudioData").SetResult(new MockJSStreamReference());
 
         var service = Context.Services.GetRequiredService<IAudioDevice>();
         var options = new MediaTrackConstraints()
@@ -40,5 +44,9 @@ public class AudioDeviceTest : BootstrapBlazorTestBase
 
         var close = await service.Close(".bb-audio");
         Assert.True(close);
+
+        var data = await service.GetData();
+        Assert.NotNull(data);
+        Assert.Equal(4, data.Length);
     }
 }
