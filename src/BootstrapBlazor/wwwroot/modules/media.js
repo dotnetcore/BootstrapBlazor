@@ -202,6 +202,7 @@ export async function record(options) {
                         audio.classList.remove("d-none");
                         audio.classList.remove("hidden");
                         audio.removeAttribute("hidden");
+                        media.audioBlob = blob;
                     }
                 }
                 delete media.audioSelector;
@@ -232,4 +233,9 @@ export function stop(selector) {
         ret = true;
     }
     return ret;
+}
+
+export function getAudioData() {
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    return media.audioBlob
 }
