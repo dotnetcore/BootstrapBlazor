@@ -7128,7 +7128,7 @@
     "VideoDeviceOpenText": "Open",
     "VideoDeviceCloseText": "Close",
     "VideoDeviceCaptureText": "Capture",
-    "VideoDeviceFlipText": "Flip"
+    "VideoDeviceDownloadText": "Download"
   },
   "BootstrapBlazor.Server.Components.Samples.AudioDevices": {
     "AudioDeviceTitle": "IAudioDevice",
