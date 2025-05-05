@@ -17,6 +17,7 @@ private IAudioDevice? AudioDeviceService { get; set; }</Pre>
                 <Button Text="@Localizer["AudioDeviceRequestText"]" Icon="fa-solid fa-microphone" OnClick="OnRequestDevice"></Button>
                 <Button Text="@Localizer["AudioDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpen" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)"></Button>
                 <Button Text="@Localizer["AudioDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnClose" IsDisabled="!_isOpen"></Button>
+                <Button Text="@Localizer["AudioDeviceDownloadText"]" Icon="fa-solid fa-download" OnClick="OnDownload"></Button>
             </div>
         </div>
         <div class="col-12">
@@ -24,9 +25,6 @@ private IAudioDevice? AudioDeviceService { get; set; }</Pre>
         </div>
     </div>
 
-    <div>
-        <audio class="bb-audio d-none" controls></audio>
-        <Button Text="@Localizer["AudioDeviceDownloadText"]" Icon="fa-solid fa-download" OnClick="OnDownload"></Button>
-    </div>
+    <audio class="bb-audio d-none" controls></audio>
 </DemoBlock>
 
