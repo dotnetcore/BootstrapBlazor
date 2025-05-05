@@ -31,4 +31,9 @@ class DefaultAudioDevice(IMediaDevices deviceService) : IAudioDevice
     {
         return deviceService.Close(selector);
     }
+
+    public Task<Stream?> GetData()
+    {
+        return deviceService.GetAudioData();
+    }
 }

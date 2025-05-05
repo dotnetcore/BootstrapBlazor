@@ -62,4 +62,10 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         var module = await LoadModule();
         return await module.InvokeAsync<bool>("apply", constraints);
     }
+
+    public async Task<Stream?> GetAudioData()
+    {
+        var module = await LoadModule();
+        return await module.InvokeAsync<Stream?>("getAudioData");
+    }
 }
