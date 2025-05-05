@@ -96,4 +96,15 @@ public class LogoutTest : BootstrapBlazorTestBase
         });
         Assert.Contains("link_template", cut.Markup);
     }
+
+    [Fact]
+    public void AvatarRadius_Ok()
+    {
+        // 未设置 Items
+        var cut = Context.RenderComponent<Logout>(pb =>
+        {
+            pb.Add(a => a.AvatarRadius, "50%");
+        });
+        Assert.Contains("--bb-logout-user-avatar-border-radius: 50%;", cut.Markup);
+    }
 }
