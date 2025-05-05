@@ -44,6 +44,12 @@ public interface IMediaDevices
     Task<string?> GetPreviewUrl();
 
     /// <summary>
+    /// Gets the stream of the captured image.
+    /// </summary>
+    /// <returns></returns>
+    Task<Stream?> GetPreviewData();
+
+    /// <summary>
     /// Apply the media track constraints.
     /// </summary>
     /// <param name="constraints"></param>
