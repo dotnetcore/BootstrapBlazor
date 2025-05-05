@@ -18,6 +18,7 @@ private IVideoDevice? VideoDeviceService { get; set; }</Pre>
                 <Button Text="@Localizer["VideoDeviceOpenText"]" Icon="fa-solid fa-play" OnClick="OnOpenVideo" IsDisabled="_isOpen || string.IsNullOrEmpty(_deviceId)"></Button>
                 <Button Text="@Localizer["VideoDeviceCloseText"]" Icon="fa-solid fa-stop" OnClick="OnCloseVideo" IsDisabled="!_isOpen"></Button>
                 <Button Text="@Localizer["VideoDeviceCaptureText"]" Icon="fa-solid fa-camera" OnClick="OnCapture" IsDisabled="!_isOpen"></Button>
+                <Button Text="@Localizer["VideoDeviceDownloadText"]" Icon="fa-solid fa-download" OnClick="OnDownload" IsDisabled="!_isOpen"></Button>
                 <Button Text="QVGA" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(320, 240)"></Button>
                 <Button Text="VGA" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(640, 480)"></Button>
                 <Button Text="HD" IsDisabled="!_isOpen" OnClickWithoutRender="() => OnApply(1280, 960)"></Button>

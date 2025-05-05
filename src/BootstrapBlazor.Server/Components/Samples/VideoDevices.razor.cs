@@ -13,6 +13,9 @@ public partial class VideoDevices : IAsyncDisposable
     [Inject, NotNull]
     private IVideoDevice? VideoDeviceService { get; set; }
 
+    [Inject, NotNull]
+    private DownloadService? DownloadService { get; set; }
+
     private readonly List<IMediaDeviceInfo> _devices = [];
 
     private List<SelectedItem> _items = [];
@@ -59,6 +62,15 @@ public partial class VideoDevices : IAsyncDisposable
     private async Task OnCapture()
     {
         _previewUrl = await VideoDeviceService.GetPreviewUrl();
+    }
+
+    private async Task OnDownload()
+    {
+        var stream = await VideoDeviceService.GetPreviewData();
+        if (stream != null)
+        {
+            await DownloadService.DownloadFromStreamAsync("preview.png", stream);
+        }
     }
 
     private async Task OnApply(int width, int height) => await VideoDeviceService.Apply(new MediaTrackConstraints() { Width = width, Height = height });

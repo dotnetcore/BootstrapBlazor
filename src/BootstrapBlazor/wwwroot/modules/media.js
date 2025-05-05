@@ -6,8 +6,13 @@ export async function enumerateDevices() {
         console.log("enumerateDevices() not supported.");
     }
     else {
-        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        ret = await navigator.mediaDevices.enumerateDevices();
+        try {
+            await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            ret = await navigator.mediaDevices.enumerateDevices();
+        }
+        catch (e) {
+            console.warn(e);
+        }
     }
     return ret;
 }
@@ -25,12 +30,12 @@ export async function open(type, options) {
 
 export async function close(selector) {
     const media = registerBootstrapBlazorModule("MediaDevices");
-    let ret = false;
+    let ret;
     if (media.stream) {
         ret = await closeVideoDevice(selector);
     }
     else {
-        ret = await stop(selector);
+        ret = stop(selector);
     }
     return ret;
 }
@@ -143,9 +148,15 @@ export async function getPreviewUrl() {
             const capture = new ImageCapture(track);
             const blob = await capture.takePhoto();
             url = URL.createObjectURL(blob);
+            media.previewBlob = blob;
         }
     }
     return url;
+}
+
+export function getPreviewData() {
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    return media.previewBlob;
 }
 
 const closeStream = stream => {
@@ -205,7 +216,7 @@ export async function record(options) {
     return ret;
 }
 
-export async function stop(selector) {
+export function stop(selector) {
     let ret = false;
     const media = registerBootstrapBlazorModule("MediaDevices");
     if (selector) {

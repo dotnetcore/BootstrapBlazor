@@ -37,6 +37,11 @@ class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
         return deviceService.Capture();
     }
 
+    public Task<Stream?> GetPreviewData()
+    {
+        return deviceService.GetPreviewData();
+    }
+
     public Task<string?> GetPreviewUrl()
     {
         return deviceService.GetPreviewUrl();

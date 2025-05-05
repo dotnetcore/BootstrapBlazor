@@ -45,6 +45,18 @@ class DefaultMediaDevices(IJSRuntime jsRuntime) : IMediaDevices
         return await module.InvokeAsync<string?>("getPreviewUrl");
     }
 
+    public async Task<Stream?> GetPreviewData()
+    {
+        Stream? ret = null;
+        var module = await LoadModule();
+        var stream = await module.InvokeAsync<IJSStreamReference?>("getPreviewData");
+        if (stream != null)
+        {
+            ret = await stream.OpenReadStreamAsync(stream.Length);
+        }
+        return ret;
+    }
+
     public async Task<bool> Apply(MediaTrackConstraints constraints)
     {
         var module = await LoadModule();
