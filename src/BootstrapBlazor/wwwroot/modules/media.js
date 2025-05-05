@@ -143,9 +143,15 @@ export async function getPreviewUrl() {
             const capture = new ImageCapture(track);
             const blob = await capture.takePhoto();
             url = URL.createObjectURL(blob);
+            media.previewBlob = blob;
         }
     }
     return url;
+}
+
+export async function getPreviewData() {
+    const media = registerBootstrapBlazorModule("MediaDevices");
+    return media.previewBlob;
 }
 
 const closeStream = stream => {
