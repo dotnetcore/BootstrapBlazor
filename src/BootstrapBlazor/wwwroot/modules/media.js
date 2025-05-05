@@ -6,8 +6,13 @@ export async function enumerateDevices() {
         console.log("enumerateDevices() not supported.");
     }
     else {
-        await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        ret = await navigator.mediaDevices.enumerateDevices();
+        try {
+            await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            ret = await navigator.mediaDevices.enumerateDevices();
+        }
+        catch (e) {
+            console.warn(e);
+        }
     }
     return ret;
 }
