@@ -24,6 +24,9 @@ private IAudioDevice? AudioDeviceService { get; set; }</Pre>
         </div>
     </div>
 
-    <audio class="bb-audio d-none" controls></audio>
+    <div>
+        <audio class="bb-audio d-none" controls></audio>
+        <Button Text="@Localizer["AudioDeviceDownloadText"]" Icon="fa-solid fa-download" OnClick="OnDownload"></Button>
+    </div>
 </DemoBlock>
 
