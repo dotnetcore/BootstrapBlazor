@@ -25,12 +25,12 @@ export async function open(type, options) {
 
 export async function close(selector) {
     const media = registerBootstrapBlazorModule("MediaDevices");
-    let ret = false;
+    let ret;
     if (media.stream) {
         ret = await closeVideoDevice(selector);
     }
     else {
-        ret = await stop(selector);
+        ret = stop(selector);
     }
     return ret;
 }
@@ -205,7 +205,7 @@ export async function record(options) {
     return ret;
 }
 
-export async function stop(selector) {
+export function stop(selector) {
     let ret = false;
     const media = registerBootstrapBlazorModule("MediaDevices");
     if (selector) {
