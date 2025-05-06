@@ -1,0 +1,37 @@
+﻿@page "/tutorials/mfa"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<div class="bb-sign">
+    <div class="text-center">
+        <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+        <h3>Sign in to Blazor</h3>
+    </div>
+    <div class="bb-sign-body">
+        <div class="mb-2">Username or email address</div>
+        <input type="text" class="form-control mb-3" value="argo@blazor.zone" />
+        <div class="d-flex mb-2">
+            <div>Password</div>
+            <div>Forgot password?</div>
+        </div>
+        <input type="password" class="form-control" value="123456" />
+        <button type="button" class="form-control bg-success text-white mt-3" @onclick="OnSubmit">Sign in</button>
+        <div class="bb-sign-divider text-center mt-3">Or</div>
+        <button type="button" class="form-control bg-secondary mt-3">
+            <i class="fa-solid fa-user-lock"></i>
+            <span>Sign in with passkey</span>
+        </button>
+    </div>
+    <div class="bb-sign-callout mt-3">
+        <div class="mt-1">New to Blazor? <a href="#">Create an account</a></div>
+    </div>
+</div>
+
+@code {
+    [Inject, NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    private void OnSubmit()
+    {
+        NavigationManager.NavigateTo("/tutorials/mfa/two-factor");
+    }
+}

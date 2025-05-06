@@ -23,7 +23,8 @@
     "DrawingSummary": "Drawing",
     "AdminSummary": "Admin",
     "OnlineSheet": "UniverSheet",
-    "MemorialMode": "Memorial"
+    "MemorialMode": "Memorial",
+    "MFA": "MFA"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",

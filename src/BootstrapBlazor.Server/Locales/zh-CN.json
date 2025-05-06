@@ -23,7 +23,8 @@
     "DrawingSummary": "画图 Drawing",
     "AdminSummary": "中台 Admin",
     "OnlineSheet": "在线表格 UniverSheet",
-    "MemorialMode": "追悼模式"
+    "MemorialMode": "追悼模式",
+    "MFA": "多因子认证 MFA"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "正在加载 ...",
