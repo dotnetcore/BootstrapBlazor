@@ -94,9 +94,9 @@ public partial class ExportPdfButtons
         {
             Name = nameof(ExportPdfButton.AutoDownload),
             Description = Localizer["AttributeAutoDownload"],
-            Type = "string?",
-            ValueList = " — ",
-            DefaultValue = " — "
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         },
         new()
         {
