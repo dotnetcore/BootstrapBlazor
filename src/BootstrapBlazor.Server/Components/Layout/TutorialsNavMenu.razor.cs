@@ -115,6 +115,11 @@ public partial class TutorialsNavMenu
             {
                 Text = Localizer["MemorialMode"],
                 Url = "tutorials/memorial",
+            },
+            new()
+            {
+                Text = Localizer["MFA"],
+                Url = "tutorials/mfa",
             }
         ]);
     }
