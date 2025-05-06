@@ -59,10 +59,10 @@ public class ExportPdfButton : Button
     public Func<string, Task>? OnAfterDownload { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动下载 Pdf 默认为 false
+    /// 获得/设置 是否自动下载 Pdf 默认为 true
     /// </summary>
     [Parameter]
-    public bool AutoDownload { get; set; }
+    public bool AutoDownload { get; set; } = true;
 
     [Inject, NotNull]
     private IHtml2Pdf? Html2PdfService { get; set; }
