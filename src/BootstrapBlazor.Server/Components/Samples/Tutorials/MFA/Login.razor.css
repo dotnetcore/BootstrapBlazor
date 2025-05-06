@@ -1,0 +1,50 @@
+﻿.bb-sign {
+    margin: 0 auto;
+    width: 320px;
+    padding: 0 1rem;
+}
+
+    .bb-sign img {
+        background-color: var(--bb-primary-color);
+        border-radius: 50%;
+        margin-block: 2rem;
+    }
+
+.bb-sign-body {
+    background-color: #f6f8fa;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 1rem;
+}
+
+.bb-sign-divider {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+}
+
+    .bb-sign-divider::before,
+    .bb-sign-divider::after {
+        content: "";
+        position: relative;
+        display: inline-block;
+        width: 50%;
+        height: 1px;
+        vertical-align: middle;
+        background-color: #d1d9e0;
+    }
+
+    .bb-sign-divider::before {
+        right: 0.5rem;
+    }
+
+    .bb-sign-divider::after {
+        left: 0.5rem;
+    }
+
+.bb-sign-callout {
+    padding: 1rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    text-align: center;
+}

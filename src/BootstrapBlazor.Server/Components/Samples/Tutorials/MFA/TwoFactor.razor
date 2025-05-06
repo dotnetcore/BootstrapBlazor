@@ -1,0 +1,21 @@
+﻿@page "/tutorials/mfa/two-factor"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<div class="bb-sign">
+    <div class="text-center">
+        <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+        <h1>Two-factor authentication</h1>
+    </div>
+    <div class="bb-sign-body">
+        <div class="text-center">
+            <img class="rounded-2" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+            <h3>Blazor Mobile</h3>
+        </div>
+        <div>We sent you a sign-in request on your Blazor Mobile app. Approve the request to verify your identity.</div>
+    </div>
+    <div class="bb-sign-callout mt-3">
+        <div class="mt-1">
+            <a href="./tutorials/mfa/two-factor/app">Use your authenticator app</a>
+        </div>
+    </div>
+</div>

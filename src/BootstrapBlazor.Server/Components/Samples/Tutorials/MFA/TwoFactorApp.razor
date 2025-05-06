@@ -1,0 +1,48 @@
+﻿@page "/tutorials/mfa/two-factor/app"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<div class="bb-sign">
+    <div class="text-center">
+        <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+        <h3>Two-factor authentication</h3>
+    </div>
+    <div class="bb-sign-body">
+        <div class="text-center">
+            <img class="rounded-2" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+            <h3>Authentication code</h3>
+        </div>
+        <div>
+            <OtpInput @bind-Value="@_code"></OtpInput>
+        </div>
+        <button type="button" class="form-control bg-success text-white mt-3" @onclick="OnVerify">Sign in</button>
+        <div class="mt-3">
+            Open your two-factor authenticator (TOTP) app or browser extension to view your authentication code.
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject, NotNull]
+    private ITotpService? TotpService { get; set; }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private string _code = "";
+
+    private async Task OnVerify()
+    {
+        if (string.IsNullOrEmpty(_code))
+        {
+            return;
+        }
+        if (TotpService.Verify(_code))
+        {
+            await ToastService.Success("Sign In", "Login success. redirect home Url");
+        }
+        else
+        {
+            await ToastService.Error("Sign In", "Login failed.");
+        }
+    }
+}
