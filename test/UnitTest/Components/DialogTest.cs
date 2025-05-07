@@ -573,6 +573,11 @@ public class DialogTest : BootstrapBlazorTestBase
         }));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
+
+        #region Show Extensions Method
+        await cut.InvokeAsync(() => dialog.Show<MockValidateFormDialog>("Test Title"));
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        #endregion
     }
 
     private class MockValidateFormDialog : ComponentBase
