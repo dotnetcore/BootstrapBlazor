@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DialogService 扩展方法
+/// DialogService extensions method
 /// </summary>
 public static class DialogServiceExtensions
 {
     /// <summary>
-    /// 弹出带结果的对话框
+    /// Show dialog with generic type.
     /// </summary>
     /// <param name="service">DialogService 服务实例</param>
     /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
