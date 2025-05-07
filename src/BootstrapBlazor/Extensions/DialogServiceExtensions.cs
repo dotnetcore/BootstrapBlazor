@@ -8,10 +8,29 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DialogService 扩展方法
+/// DialogService extensions method
 /// </summary>
 public static class DialogServiceExtensions
 {
+    /// <summary>
+    /// Show dialog with generic type.
+    /// </summary>
+    /// <param name="service">DialogService 服务实例</param>
+    /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
+    /// <param name="parameters">TComponent 组件所需要的参数集合</param>
+    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    public static Task Show<TComponent>(this DialogService service, string title, IDictionary<string, object?>? parameters = null, Dialog? dialog = null) where TComponent : IComponent
+    {
+        var option = new DialogOption();
+        if (!string.IsNullOrEmpty(title))
+        {
+            option.Title = title;
+        }
+        option.ShowFooter = false;
+        option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
+        return service.Show(option, dialog);
+    }
+
     /// <summary>
     /// 弹出搜索对话框
     /// </summary>
