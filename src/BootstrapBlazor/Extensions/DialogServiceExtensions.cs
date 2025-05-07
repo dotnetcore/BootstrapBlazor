@@ -17,7 +17,7 @@ public static class DialogServiceExtensions
     /// </summary>
     /// <param name="service">DialogService 服务实例</param>
     /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
-    /// <param name="parameters">TCom 组件所需要的参数集合</param>
+    /// <param name="parameters">TComponent 组件所需要的参数集合</param>
     /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
     public static Task Show<TComponent>(this DialogService service, string title, IDictionary<string, object?>? parameters = null, Dialog? dialog = null) where TComponent : IComponent
     {
