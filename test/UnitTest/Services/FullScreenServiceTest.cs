@@ -58,14 +58,13 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
         var cut = Context.Render(builder =>
         {
             builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "id", "test-id");
             builder.CloseElement();
 
             builder.OpenComponent<MockFullScreen>(0);
             builder.CloseComponent();
         });
         var fs = cut.FindComponent<MockFullScreen>();
-        await cut.InvokeAsync(() => fs.Instance.TestById("test-id"));
+        await cut.InvokeAsync(() => fs.Instance.TestById());
     }
 
     [Fact]
@@ -105,7 +104,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
 
         public Task Test(ElementReference ele) => FullScreenService.ToggleByElement(ele);
 
-        public Task TestById(string id) => FullScreenService.ToggleById(id);
+        public Task TestById() => FullScreenService.ToggleById();
 
         public Task Toggle() => FullScreenService.Toggle();
     }
