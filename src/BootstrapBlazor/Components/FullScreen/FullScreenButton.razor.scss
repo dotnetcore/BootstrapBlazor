@@ -6,7 +6,7 @@
     display: inline-block;
 }
 
-:not(:root):fullscreen {
+:fullscreen {
     .bb-fs-on {
         display: inline-block;
     }

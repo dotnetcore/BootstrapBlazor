@@ -1059,8 +1059,6 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
-
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
@@ -1120,10 +1118,7 @@ public partial class Tab : IHandlerException
 
     private async Task OnFullScreen(ContextMenuItem item, object? context)
     {
-        if (context is TabItem tabItem)
-        {
-            await FullScreenService.ToggleById(GetIdByTabItem(tabItem));
-        }
+        await FullScreenService.ToggleById();
     }
 
     private async Task OnContextMenu(MouseEventArgs e, TabItem item)

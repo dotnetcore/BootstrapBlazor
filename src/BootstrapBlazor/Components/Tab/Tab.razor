@@ -87,8 +87,7 @@ else
                     @if (ShowFullscreenToolbarButton)
                     {
                         <div class="tabs-nav-toolbar-button tabs-nav-toolbar-fs">
-                            <FullScreenButton TargetId="@Id"
-                                              Icon="@FullscreenToolbarButtonIcon"
+                            <FullScreenButton Icon="@FullscreenToolbarButtonIcon"
                                               TooltipText="@FullscreenToolbarTooltipText"
                                               TooltipPlacement="Placement.Bottom" TooltipTrigger="hover"></FullScreenButton>
                         </div>
@@ -194,7 +193,7 @@ else
         {
             @if (ShowFullScreen && item.ShowFullScreen)
             {
-                <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
+                <FullScreenButton></FullScreenButton>
             }
             @if (ShowClose && item.Closable)
             {
