@@ -58,13 +58,14 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
         var cut = Context.Render(builder =>
         {
             builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "id", "test-id");
             builder.CloseElement();
 
             builder.OpenComponent<MockFullScreen>(0);
             builder.CloseComponent();
         });
         var fs = cut.FindComponent<MockFullScreen>();
-        await cut.InvokeAsync(() => fs.Instance.TestById());
+        await cut.InvokeAsync(() => fs.Instance.TestById("test-id"));
     }
 
     [Fact]
