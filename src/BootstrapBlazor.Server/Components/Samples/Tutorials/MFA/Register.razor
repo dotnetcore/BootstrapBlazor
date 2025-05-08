@@ -1,0 +1,58 @@
+﻿@page "/tutorials/mfa/two-factor/register"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject ITotpService TotpService
+
+<div class="bb-sign">
+    <div class="text-center">
+        <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+        <h3>Two-factor methods</h3>
+    </div>
+    <div class="bb-sign-body">
+        <div class="mb-2"><b>Authenticator app</b></div>
+        <div class="mb-3">
+            Authenticator apps and browser extensions like <code>1Password</code>, <code>Authy</code>, <code>Microsoft Authenticator</code>, <code>Google Authenticator</code>, etc. generate one-time passwords that are used as a second factor to verify your identity when prompted during sign-in.
+        </div>
+        <div class="mb-2"><b>Scan the QR code</b></div>
+        <div class="mb-3">
+            Use an authenticator app or browser extension to scan. Learn more about enabling 2FA.
+        </div>
+        <div class="bb-sign-qr">
+            <QRCode Content="@_content" Width="190"></QRCode>
+        </div>
+        <div class="mb-3"><b>Verify the code from the app</b></div>
+        <input type="password" class="form-control" @bind="@_code" />
+        <button type="button" class="form-control bg-success text-white mt-3" @onclick="OnRegister">Save</button>
+    </div>
+</div>
+
+@code {
+    [Inject, NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    private string? _content;
+
+    private string? _code;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _content = TotpService.GenerateOtpUri(new OtpOptions()
+        {
+            AccountName = "BootstrapBlazor",
+            IssuerName = "BootstrapBlazor",
+            UserName = "Simulator",
+            SecretKey = "OMM2LVLFX6QJHMYI",
+            Algorithm = OtpHashMode.Sha1,
+            Type = OtpType.Totp
+        });
+    }
+
+    private void OnRegister()
+    {
+        if (_code == TotpService.Compute("OMM2LVLFX6QJHMYI"))
+        {
+            NavigationManager.NavigateTo("/tutorials/mfa/two-factor/app");
+        }
+    }
+}
