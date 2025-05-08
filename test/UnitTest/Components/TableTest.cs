@@ -8651,8 +8651,8 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowExtendEditButton, false);
             pb.Add(a => a.ShowExtendDeleteButton, false);
         });
-        Assert.True(CanEdit(cut.Instance));
-        Assert.True(CanDelete(cut.Instance));
+        Assert.True(ProhibitEdit(cut.Instance));
+        Assert.True(ProhibitDelete(cut.Instance));
 
         cut.SetParametersAndRender(pb =>
         {
@@ -8661,8 +8661,8 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisableExtendEditButton, true);
             pb.Add(a => a.DisableExtendDeleteButton, true);
         });
-        Assert.True(CanEdit(cut.Instance));
-        Assert.True(CanDelete(cut.Instance));
+        Assert.True(ProhibitEdit(cut.Instance));
+        Assert.True(ProhibitDelete(cut.Instance));
 
         cut.SetParametersAndRender(pb =>
         {
@@ -8680,14 +8680,14 @@ public class TableTest : BootstrapBlazorTestBase
                 return true;
             });
         });
-        Assert.True(CanEdit(cut.Instance));
-        Assert.True(CanDelete(cut.Instance));
+        Assert.True(ProhibitEdit(cut.Instance));
+        Assert.True(ProhibitDelete(cut.Instance));
     }
 
-    static bool CanEdit(Table<Foo> @this)
+    static bool ProhibitEdit(Table<Foo> @this)
     {
         var ret = false;
-        var methodInfo = @this.GetType().GetMethod("CanEdit", BindingFlags.Instance | BindingFlags.NonPublic);
+        var methodInfo = @this.GetType().GetMethod("ProhibitEdit", BindingFlags.Instance | BindingFlags.NonPublic);
         if (methodInfo != null)
         {
             var result = methodInfo.Invoke(@this, null);
@@ -8699,10 +8699,10 @@ public class TableTest : BootstrapBlazorTestBase
         return ret;
     }
 
-    static bool CanDelete(Table<Foo> @this)
+    static bool ProhibitDelete(Table<Foo> @this)
     {
         var ret = false;
-        var methodInfo = @this.GetType().GetMethod("CanDelete", BindingFlags.Instance | BindingFlags.NonPublic);
+        var methodInfo = @this.GetType().GetMethod("ProhibitDelete", BindingFlags.Instance | BindingFlags.NonPublic);
         if (methodInfo != null)
         {
             var result = methodInfo.Invoke(@this, null);

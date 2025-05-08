@@ -545,7 +545,7 @@ public partial class Table<TItem>
         if (SelectedRows.Count == 1)
         {
             // 检查是否选中了不可编辑行（行内无编辑按钮），同时检查按钮禁用状态（禁用时不可编辑）
-            if (CanEdit())
+            if (ProhibitEdit())
             {
                 // 提示不可编辑
                 await ShowToastAsync(EditButtonToastTitle, EditButtonToastReadonlyContent);
@@ -992,7 +992,7 @@ public partial class Table<TItem>
         {
             await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastContent);
         }
-        else if (CanDelete())
+        else if (ProhibitDelete())
         {
             await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastCanNotDeleteContent);
         }
@@ -1003,12 +1003,12 @@ public partial class Table<TItem>
         return ret;
     }
 
-    private bool CanEdit() => (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
+    private bool ProhibitEdit() => (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
                 || !ShowExtendEditButton
                 || (DisableExtendEditButtonCallback != null && DisableExtendEditButtonCallback(SelectedRows[0]))
                 || DisableExtendEditButton;
 
-    private bool CanDelete() => (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
+    private bool ProhibitDelete() => (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
             || !ShowExtendDeleteButton
             || (DisableExtendDeleteButtonCallback != null && SelectedRows.Any(x => DisableExtendDeleteButtonCallback(x)))
             || DisableExtendDeleteButton;
