@@ -105,7 +105,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
 
         public Task Test(ElementReference ele) => FullScreenService.ToggleByElement(ele);
 
-        public Task TestById() => FullScreenService.ToggleById();
+        public Task TestById(string id) => FullScreenService.ToggleById(id);
 
         public Task Toggle() => FullScreenService.Toggle();
     }
