@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -8633,6 +8634,65 @@ public class TableTest : BootstrapBlazorTestBase
             });
             return Task.CompletedTask;
         });
+    }
+
+    [Fact]
+    public void Modify_Ok()
+    {
+        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        {
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.ShowExtendEditButton, false);
+            pb.Add(a => a.ShowExtendDeleteButton, false);
+        });
+        Assert.True(CanEdit(cut.Instance));
+        Assert.True(CanDelete(cut.Instance));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendEditButton, true);
+            pb.Add(a => a.ShowExtendDeleteButton, true);
+            pb.Add(a => a.DisableExtendEditButton, true);
+            pb.Add(a => a.DisableExtendDeleteButton, true);
+        });
+        Assert.True(CanEdit(cut.Instance));
+        Assert.True(CanDelete(cut.Instance));
+    }
+
+    static bool CanEdit(Table<Foo> @this)
+    {
+        var ret = false;
+        var methodInfo = @this.GetType().GetMethod("CanEdit", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (methodInfo != null)
+        {
+            var result = methodInfo.Invoke(@this, null);
+            if (result is bool d)
+            {
+                ret = d;
+            }
+        }
+        return ret;
+    }
+
+    static bool CanDelete(Table<Foo> @this)
+    {
+        var ret = false;
+        var methodInfo = @this.GetType().GetMethod("CanDelete", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (methodInfo != null)
+        {
+            var result = methodInfo.Invoke(@this, null);
+            if (result is bool d)
+            {
+                ret = d;
+            }
+        }
+        return ret;
     }
 
     class MockFoo(string name)
