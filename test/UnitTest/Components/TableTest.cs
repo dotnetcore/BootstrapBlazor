@@ -8663,6 +8663,25 @@ public class TableTest : BootstrapBlazorTestBase
         });
         Assert.True(CanEdit(cut.Instance));
         Assert.True(CanDelete(cut.Instance));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendEditButton, true);
+            pb.Add(a => a.ShowExtendDeleteButton, true);
+            pb.Add(a => a.DisableExtendEditButton, false);
+            pb.Add(a => a.DisableExtendDeleteButton, false);
+            pb.Add(a => a.SelectedRows, [new Foo()]);
+            pb.Add(a => a.DisableExtendEditButtonCallback, rows =>
+            {
+                return true;
+            });
+            pb.Add(a => a.DisableExtendDeleteButtonCallback, rows =>
+            {
+                return true;
+            });
+        });
+        Assert.True(CanEdit(cut.Instance));
+        Assert.True(CanDelete(cut.Instance));
     }
 
     static bool CanEdit(Table<Foo> @this)
