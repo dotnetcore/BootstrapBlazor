@@ -18,10 +18,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [NotNull]
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private ILogger<ErrorLogger>? Logger { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -105,17 +101,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
-    public async Task HandlerExceptionAsync(Exception exception)
-    {
-        if (OnErrorHandleAsync != null)
-        {
-            await OnErrorHandleAsync(Logger, exception);
-        }
-        else
-        {
-            await _errorBoundary.RenderException(exception, _cache.LastOrDefault());
-        }
-    }
+    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, _cache.LastOrDefault());
 
     private readonly List<IHandlerException> _cache = [];
 
