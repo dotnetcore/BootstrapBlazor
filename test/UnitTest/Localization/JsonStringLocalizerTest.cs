@@ -158,6 +158,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.NotEmpty(items);
     }
 
+
     [Fact]
     public void GetAllStrings_FromBase()
     {
@@ -236,7 +237,21 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var resolve = provider.GetRequiredService<ILocalizationResolve>();
         Assert.Empty(resolve.GetAllStringsByCulture(true));
     }
+    [Fact]
+    public void GetString_FromBaseTypeJson()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddBootstrapBlazor();
 
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Foo2>>();
+
+        Assert.Equal("姓名", localizer["Name"].Value);
+
+        var resolve = provider.GetRequiredService<ILocalizationResolve>();
+        Assert.Empty(resolve.GetAllStringsByCulture(true));
+    }
     [Fact]
     public void GetAllStrings_FromResolver()
     {
