@@ -17,6 +17,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
         {
             builder.Add(s => s.Icon, "fa-solid fa-maximize");
             builder.Add(s => s.Text, "button-text");
+            builder.Add(s => s.TargetId, "fsId");
         });
         cut.Contains("bb-fs-off");
         cut.Contains("bb-fs-on");
