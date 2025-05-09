@@ -1,0 +1,18 @@
+﻿@page "/fullscreen-button"
+@inject IStringLocalizer<FullScreenButtons> Localizer
+
+<h3>@Localizer["FullScreenButtonTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["FullScreenButtonIntro"].Value)</h4>
+
+<DemoBlock Title="@Localizer["FullScreenButtonNormalTitle"]" Introduction="@Localizer["FullScreenButtonNormalIntro"]" Name="Normal">
+    <section ignore>
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["FullScreenTitleLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["FullScreenTitleLi2"].Value)</li>
+        </ul>
+    </section>
+    <FullScreenButton Icon="fa-solid fa-font-awesome"></FullScreenButton>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
