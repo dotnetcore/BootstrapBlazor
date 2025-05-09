@@ -17,6 +17,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
         {
             builder.Add(s => s.Icon, "fa-solid fa-maximize");
             builder.Add(s => s.Text, "button-text");
+            builder.Add(s => s.TargetId, "fsId");
         });
         cut.Contains("bb-fs-off");
         cut.Contains("bb-fs-on");
@@ -87,9 +88,10 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
     [Fact]
     public void FullScreenOption_Ok()
     {
-        var option = new FullScreenOption() { Element = new("test01", null), Id = "test" };
+        var option = new FullScreenOption() { Element = new("test01", null), Id = "test", Selector = "test-selector" };
         Assert.NotNull(option.Id);
         Assert.Null(option.Element.Context);
+        Assert.NotNull(option.Selector);
     }
 
     private class MockFullScreen : ComponentBase

@@ -19,4 +19,9 @@ public class FullScreenOption
     /// 获得/设置 要全屏的 HTML Element Id
     /// </summary>
     public string? Id { get; set; }
+
+    /// <summary>
+    /// 获得/设置 要全屏的 HTML css selector
+    /// </summary>
+    public string? Selector { get; set; }
 }

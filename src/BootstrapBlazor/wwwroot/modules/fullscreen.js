@@ -6,6 +6,9 @@ export async function toggle(options) {
     if (options.id) {
         el = document.getElementById(options.id);
     }
+    else if (options.selector) {
+        el = document.querySelector(options.selector);
+    }
     else if (isElement(options.element)) {
         el = options.element;
     }
