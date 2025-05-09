@@ -1183,6 +1183,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FullScreenButton"],
+                    Url = "fullscreen-button"
+                },
+                new()
+                {
                     Text = Localizer["Light"],
                     Url = "light"
                 },
