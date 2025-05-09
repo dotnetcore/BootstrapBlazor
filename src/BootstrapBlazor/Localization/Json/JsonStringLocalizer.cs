@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
@@ -119,7 +120,28 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
             else
             {
-                HandleMissingResourceItem(name);
+                // 如果没有找到资源信息则尝试从父类中查找
+                var type = Assembly.GetType(typeName);
+                var propertyInfo = type?.GetPropertyByName(name);
+                if (propertyInfo != null)
+                {
+                    var baseType = propertyInfo.DeclaringType!;
+                    // 如果是父类属性则尝试从父类中查找
+                    if (baseType != type)
+                    {
+                        var baseAssembly = baseType.Assembly!;
+                        var localizerStrings2 = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(baseAssembly, baseType.FullName!));
+
+                        var l2 = localizerStrings2.Find(i => i.Name == name);
+                        if (l2 is { ResourceNotFound: false })
+                        {
+                            ret = l2.Value;
+                        }
+                    }
+
+                }
+                if (ret is null)
+                    HandleMissingResourceItem(name);
             }
         }
         return ret;
