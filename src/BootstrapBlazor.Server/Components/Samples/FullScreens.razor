@@ -9,13 +9,3 @@
 <DemoBlock Title="@Localizer["FullScreenNormalTitle"]" Introduction="@Localizer["FullScreenNormalIntro"]" Name="Normal">
     <Button Text="@Localizer["FullScreenNormalButtonText1"]" OnClick="() => FullScreenService.Toggle()"></Button>
 </DemoBlock>
-
-<DemoBlock Title="@Localizer["FullScreenTitleTitle"]" Introduction="@Localizer["FullScreenTitleIntro"]" Name="Title">
-    <section ignore>
-        <ul class="ul-demo mb-3">
-            <li>@((MarkupString)Localizer["FullScreenTitleLi1"].Value)</li>
-            <li>@((MarkupString)Localizer["FullScreenTitleLi3"].Value)</li>
-        </ul>
-    </section>
-    <FullScreenButton Icon="fa-solid fa-font-awesome"></FullScreenButton>
-</DemoBlock>
