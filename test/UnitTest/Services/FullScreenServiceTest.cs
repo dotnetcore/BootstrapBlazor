@@ -88,9 +88,10 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
     [Fact]
     public void FullScreenOption_Ok()
     {
-        var option = new FullScreenOption() { Element = new("test01", null), Id = "test" };
+        var option = new FullScreenOption() { Element = new("test01", null), Id = "test", Selector = "test-selector" };
         Assert.NotNull(option.Id);
         Assert.Null(option.Element.Context);
+        Assert.Null(option.Selector);
     }
 
     private class MockFullScreen : ComponentBase
