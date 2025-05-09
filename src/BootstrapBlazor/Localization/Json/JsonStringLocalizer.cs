@@ -119,7 +119,36 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
             else
             {
-                HandleMissingResourceItem(name);
+                // 如果没有找到资源信息则尝试从父类中查找
+                ret ??= GetStringFromBaseType(name);
+
+                if (ret is null)
+                {
+                    // 加入缺失资源信息缓存中
+                    HandleMissingResourceItem(name);
+                }
+            }
+        }
+        return ret;
+    }
+
+    private string? GetStringFromBaseType(string name)
+    {
+        string? ret = null;
+        var type = Assembly.GetType(typeName);
+        var propertyInfo = type?.GetPropertyByName(name);
+        if (propertyInfo is { DeclaringType: not null })
+        {
+            var baseType = propertyInfo.DeclaringType;
+            if (baseType != type)
+            {
+                var baseAssembly = baseType.Assembly;
+                var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(baseAssembly, baseType.FullName!));
+                var l = localizerStrings.Find(i => i.Name == name);
+                if (l is { ResourceNotFound: false })
+                {
+                    ret = l.Value;
+                }
             }
         }
         return ret;

@@ -238,6 +238,23 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetString_FromBaseTypeJson()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<SubFoo>>();
+        Assert.Equal("姓名", localizer["Name"].Value);
+    }
+
+    class SubFoo : Foo
+    {
+
+    }
+
+    [Fact]
     public void GetAllStrings_FromResolver()
     {
         var sc = new ServiceCollection();
