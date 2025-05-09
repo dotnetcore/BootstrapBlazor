@@ -53,17 +53,8 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <inheritdoc/>
     /// </summary>
     /// <param name="exception"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     protected override async Task OnErrorAsync(Exception exception)
     {
-        // 由框架调用
-        if (OnErrorHandleAsync != null)
-        {
-            await OnErrorHandleAsync(Logger, exception);
-            return;
-        }
-
         if (ShowToast)
         {
             await ToastService.Error(ToastTitle, exception.Message);
