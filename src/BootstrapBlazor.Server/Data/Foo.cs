@@ -184,14 +184,6 @@ public class Foo
 }
 
 /// <summary>
-/// Demo示例数据
-/// Demo sample data
-/// </summary>
-public class Foo2:Foo
-{
-
-}
-/// <summary>
 ///
 /// </summary>
 public enum EnumEducation
