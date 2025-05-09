@@ -124,6 +124,13 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="handler"></param>
     public async Task RenderException(Exception exception, IHandlerException? handler)
     {
+        // 外部调用
+        if (OnErrorHandleAsync != null)
+        {
+            await OnErrorHandleAsync(Logger, exception);
+            return;
+        }
+
         if (handler != null)
         {
             await handler.HandlerException(exception, ExceptionContent);
