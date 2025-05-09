@@ -2251,14 +2251,18 @@
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
     "FullScreensDescription": "Human-computer interaction by injecting service calls <code>Show</code> method pop-ups",
-    "Tips": "This component provides functionality in the form of injection services, the user experience is very comfortable to use, anytime, anywhere calls, need to be built into the page using this component <code>FullScreen</code> component, or in the main layout component of <code>MainLayout</code>, the sample code is as follows:",
     "FullScreenNormalTitle": "Basic usage",
     "FullScreenNormalIntro": "The entire page is fully screened by calling the <code>Show</code> method that <code>FullScreenService</code> service instance",
     "FullScreenNormalButtonText1": "FullScreen",
-    "FullScreenTitleTitle": "Button",
-    "FullScreenTitleIntro": "The full screen of the entire web page is component <code>FullScreenButton</code>",
-    "FullScreenTitleLi1": "The button default icon can be set through the <code>ButtonIcon</code>, and the full-screen icon can be set through the <code>FullScreenIcon</code> property",
-    "FullScreenTitleLi3": "Use the <code>Text</code> property to set current page title"
+    "FullScreenOptionDesc": "You can set the full-screen window by setting <code>FullScreenOption</code>, and specify the page element by <code>ElementReference</code> <code>Id</code> <code>Selector</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.FullScreenButtons": {
+    "FullScreenButtonTitle": "FullScreenButton",
+    "FullScreenButtonIntro": "Use the <code>FullScreenButton</code> component to make the entire web page or a specified element full screen",
+    "FullScreenButtonNormalTitle": "Basic usage",
+    "FullScreenButtonNormalIntro": "You can set the default icon of the button through <code>Icon</code>, and set the icon when exiting full screen through the <code>FullScreenExitIcon</code> property",
+    "FullScreenTitleLi1": "Set the fullscreen element ID through the <code>TargetId</code> parameter",
+    "FullScreenTitleLi2": "Set the current page title text through the <code>Text</code> property"
   },
   "BootstrapBlazor.Server.Components.Samples.Buttons": {
     "Title": "Button",
@@ -4923,7 +4927,8 @@
     "OtpInput": "OtpInput",
     "TotpService": "ITotpService",
     "VideoDevice": "IVideoDevice",
-    "AudioDevice": "IAudioDevice"
+    "AudioDevice": "IAudioDevice",
+    "FullScreenButton": "FullScreenButton"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

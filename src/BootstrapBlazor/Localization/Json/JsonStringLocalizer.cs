@@ -5,7 +5,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
@@ -121,27 +120,35 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 // 如果没有找到资源信息则尝试从父类中查找
-                var type = Assembly.GetType(typeName);
-                var propertyInfo = type?.GetPropertyByName(name);
-                if (propertyInfo != null)
-                {
-                    var baseType = propertyInfo.DeclaringType!;
-                    // 如果是父类属性则尝试从父类中查找
-                    if (baseType != type)
-                    {
-                        var baseAssembly = baseType.Assembly!;
-                        var localizerStrings2 = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(baseAssembly, baseType.FullName!));
+                ret ??= GetStringFromBaseType(name);
 
-                        var l2 = localizerStrings2.Find(i => i.Name == name);
-                        if (l2 is { ResourceNotFound: false })
-                        {
-                            ret = l2.Value;
-                        }
-                    }
-
-                }
                 if (ret is null)
+                {
+                    // 加入缺失资源信息缓存中
                     HandleMissingResourceItem(name);
+                }
+            }
+        }
+        return ret;
+    }
+
+    private string? GetStringFromBaseType(string name)
+    {
+        string? ret = null;
+        var type = Assembly.GetType(typeName);
+        var propertyInfo = type?.GetPropertyByName(name);
+        if (propertyInfo is { DeclaringType: not null })
+        {
+            var baseType = propertyInfo.DeclaringType;
+            if (baseType != type)
+            {
+                var baseAssembly = baseType.Assembly;
+                var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(baseAssembly, baseType.FullName!));
+                var l = localizerStrings.Find(i => i.Name == name);
+                if (l is { ResourceNotFound: false })
+                {
+                    ret = l.Value;
+                }
             }
         }
         return ret;
