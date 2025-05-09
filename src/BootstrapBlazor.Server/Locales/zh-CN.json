@@ -2251,10 +2251,10 @@
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen 全屏",
     "FullScreensDescription": "通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互",
-    "Tips": "本组件使用注入服务的形式提供功能，使用时用户体验效果非常舒适，随时随地的调用，需要在使用本组件的页面中内置 <code>FullScreen</code> 组件，或者在 <code>MainLayout</code> 主布局组件中内置，示例代码如下：",
     "FullScreenNormalTitle": "基础用法",
     "FullScreenNormalIntro": "通过调用<code>FullScreenService</code> 服务实例的 <code>Show</code> 方法将整个网页进行全屏化",
-    "FullScreenNormalButtonText1": "全屏"
+    "FullScreenNormalButtonText1": "全屏",
+    "FullScreenOptionDesc": "通过设置 <code>FullScreenOption</code> 对全屏化的窗口进行设置，可通过 <code>ElementReference</code> <code>Id</code> <code>Selector</code> 指定页面元素"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreenButtons": {
     "FullScreenButtonTitle": "FullScreenButton 全屏按钮",

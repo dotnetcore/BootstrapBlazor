@@ -2251,10 +2251,10 @@
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
     "FullScreensDescription": "Human-computer interaction by injecting service calls <code>Show</code> method pop-ups",
-    "Tips": "This component provides functionality in the form of injection services, the user experience is very comfortable to use, anytime, anywhere calls, need to be built into the page using this component <code>FullScreen</code> component, or in the main layout component of <code>MainLayout</code>, the sample code is as follows:",
     "FullScreenNormalTitle": "Basic usage",
     "FullScreenNormalIntro": "The entire page is fully screened by calling the <code>Show</code> method that <code>FullScreenService</code> service instance",
-    "FullScreenNormalButtonText1": "FullScreen"
+    "FullScreenNormalButtonText1": "FullScreen",
+    "FullScreenOptionDesc": "You can set the full-screen window by setting <code>FullScreenOption</code>, and specify the page element by <code>ElementReference</code> <code>Id</code> <code>Selector</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreenButtons": {
     "FullScreenButtonTitle": "FullScreenButton",
