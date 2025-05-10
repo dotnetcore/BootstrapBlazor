@@ -46,6 +46,12 @@ public partial class MultiFilter
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the compare method used to compare the search text with the items. Default is <see cref="StringComparison.OrdinalIgnoreCase"/>
+    /// </summary>
+    [Parameter]
+    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+
     private string? _searchText;
 
     private List<SelectedItem>? _source;
@@ -226,7 +232,7 @@ public partial class MultiFilter
         {
             if (!string.IsNullOrEmpty(_searchText))
             {
-                _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
+                _items = [.. _source.Where(i => i.Text.Contains(_searchText, StringComparison))];
             }
             else
             {
