@@ -343,6 +343,8 @@ public static class IEditItemExtensions
 
     internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
 
+    internal static bool GetIgnoreExport(this ITableColumn col) => col.IgnoreWhenExport ?? false;
+
     internal static bool GetShowCopyColumn(this ITableColumn col) => col.ShowCopyColumn ?? false;
 
     internal static bool GetShowTips(this ITableColumn col) => col.ShowTips ?? false;

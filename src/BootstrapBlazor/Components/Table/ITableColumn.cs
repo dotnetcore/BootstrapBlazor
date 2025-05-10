@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components;
 public interface ITableColumn : IEditorItem
 {
     /// <summary>
+    /// Gets or sets whether the current item is ignored when export operation. Default is false.
+    /// </summary>
+    bool? IgnoreWhenExport { get; set; }
+
+    /// <summary>
     /// Gets or sets whether sorting is allowed. Default is null.
     /// </summary>
     bool? Sortable { get; set; }

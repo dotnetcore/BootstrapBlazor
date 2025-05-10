@@ -54,6 +54,11 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public bool? IgnoreWhenExport { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     [Parameter]
     public bool? Sortable { get; set; }
 
