@@ -47,7 +47,7 @@ public partial class MultiFilter
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the compare method used to compare the search text with the items. Default is <see cref="StringComparison.OrdinalIgnoreCase"/>
+    /// Gets or sets the string comparison option used for filtering operations. Default is <see cref="StringComparison.OrdinalIgnoreCase"/>
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
