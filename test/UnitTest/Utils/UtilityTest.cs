@@ -581,12 +581,13 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var cols = Utility.GetTableColumns<Cat>(new InternalTableColumn[]
         {
-            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true, IsVisibleWhenAdd = false, IsVisibleWhenEdit = false }
+            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true, IsVisibleWhenAdd = false, IsVisibleWhenEdit = false, IgnoreWhenExport = true }
         });
         Assert.Equal(2, cols.Count());
         Assert.Equal(true, cols.First().LookupServiceData);
         Assert.False(cols.First().IsVisibleWhenAdd);
         Assert.False(cols.First().IsVisibleWhenEdit);
+        Assert.True(cols.First().IgnoreWhenExport);
     }
 
     [Fact]

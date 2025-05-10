@@ -111,6 +111,7 @@ public static class IEditItemExtensions
         if (col.ToolboxTemplate != null) dest.ToolboxTemplate = col.ToolboxTemplate;
         if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
         if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
+        if (col.IgnoreWhenExport.HasValue) dest.IgnoreWhenExport = col.IgnoreWhenExport;
     }
 
     /// <summary>
@@ -342,6 +343,8 @@ public static class IEditItemExtensions
     internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
 
     internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
+
+    internal static bool GetIgnoreExport(this ITableColumn col) => col.IgnoreWhenExport ?? false;
 
     internal static bool GetShowCopyColumn(this ITableColumn col) => col.ShowCopyColumn ?? false;
 

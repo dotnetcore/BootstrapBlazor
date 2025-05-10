@@ -315,4 +315,9 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <inheritdoc/>
     /// </summary>
     public bool IsMarkupString { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool? IgnoreWhenExport { get; set; }
 }
