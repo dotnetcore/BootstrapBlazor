@@ -322,4 +322,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <inheritdoc/>
     /// </summary>
     public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool? IgnoreWhenExport { get; set; }
 }
