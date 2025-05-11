@@ -76,7 +76,7 @@ export function reset(id) {
             table.tables.push(shim.firstChild)
         }
 
-        if (table.isExcel) {
+        if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
             setExcelKeyboardListener(table)
         }
 
@@ -232,7 +232,7 @@ const destroyTable = table => {
             EventHandler.off(table.body, 'scroll')
         }
 
-        if (table.isExcel) {
+        if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
             EventHandler.off(table.element, 'keydown')
         }
 
