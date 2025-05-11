@@ -251,6 +251,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool IsExcel { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否启用 Excel 模式下的键盘导航功能 默认 true
+    /// </summary>
+    [Parameter]
+    public bool EnableKeyboardNavigationCell { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断
     /// </summary>
     [Parameter]
@@ -1054,7 +1060,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                         Text = Localizer["AlignRightText"].Value,
                         Tooltip = Localizer["AlignRightTooltipText"].Value
                     }
-                }
+                },
+                EnableKeyboardNavigationCell
             });
         }
 
