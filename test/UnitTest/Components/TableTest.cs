@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -581,6 +580,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsExcel, true);
+                pb.Add(a => a.EnableKeyboardNavigationCell, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.OnSaveAsync, (foo, changedItem) =>
                 {
