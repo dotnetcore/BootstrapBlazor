@@ -25,21 +25,7 @@ else
             }
             else
             {
-                <div class="card-header"><span>@_title</span></div>
-                <div class="card-body">
-                    @RenderFilter(Column)
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex flex-fill">
-                        @if (ShowMoreButton)
-                        {
-                            <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(_count == 1)"></Button>
-                            <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(_count == 0)"></Button>
-                        }
-                    </div>
-                    <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-                    <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
-                </div>
+                @RenderFilter(Column)
             }
         </div>
     </span>
@@ -50,13 +36,11 @@ else
     @<CascadingValue Value="this" IsFixed="true">
         @if (Column.PropertyType.IsEnum())
         {
-            <EnumFilter Type="Column.PropertyType" Count="_count"></EnumFilter>
+            <TableColumnEnumFilter></TableColumnEnumFilter>
         }
         else if (Column.IsLookup())
         {
-            <LookupFilter Lookup="Column.Lookup" LookupService="Column.LookupService" LookupServiceKey="@Column.LookupServiceKey"
-                          LookupServiceData="Column.LookupServiceData" LookupStringComparison="Column.LookupStringComparison"
-                          Type="Column.PropertyType" IsShowSearch="Column.ShowSearchWhenSelect"></LookupFilter>
+
         }
         else
         {
@@ -64,32 +48,32 @@ else
             switch (fieldType.Name)
             {
                 case nameof(Boolean):
-                    <BoolFilter />
+                    <TableColumnBoolFilter></TableColumnBoolFilter>
                     break;
-                case nameof(DateTime):
-                    <DateTimeFilter Count="_count" />
-                    break;
-                case nameof(Int16):
-                    <NumberFilter TType="Int16?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(Int32):
-                    <NumberFilter TType="Int32?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(Int64):
-                    <NumberFilter TType="Int64?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(Single):
-                    <NumberFilter TType="Single?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(Double):
-                    <NumberFilter TType="Double?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(Decimal):
-                    <NumberFilter TType="Decimal?" Count="@_count" Step="@_step" />
-                    break;
-                case nameof(String):
-                    <StringFilter Count="_count" />
-                    break;
+                // case nameof(DateTime):
+                //     <DateTimeFilter Count="_count" />
+                //     break;
+                // case nameof(Int16):
+                //     <NumberFilter TType="Int16?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(Int32):
+                //     <NumberFilter TType="Int32?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(Int64):
+                //     <NumberFilter TType="Int64?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(Single):
+                //     <NumberFilter TType="Single?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(Double):
+                //     <NumberFilter TType="Double?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(Decimal):
+                //     <NumberFilter TType="Decimal?" Count="@_count" Step="@_step" />
+                //     break;
+                // case nameof(String):
+                //     <StringFilter Count="_count" />
+                //     break;
                 default:
                     <div>@NotSupportedMessage</div>
                     break;

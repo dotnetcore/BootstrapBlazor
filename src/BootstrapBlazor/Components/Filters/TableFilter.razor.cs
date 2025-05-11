@@ -39,38 +39,16 @@ public partial class TableFilter : IFilter
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加过滤条件图标
-    /// </summary>
-    [Parameter]
-    public string? PlusIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 减少过滤条件图标
-    /// </summary>
-    [Parameter]
-    public string? MinusIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
     public string? NotSupportedMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 显示文字
-    /// </summary>
-    private string? _title;
-
-    /// <summary>
     /// 获得/设置 相关 Field 字段名称
     /// </summary>
     [NotNull]
     internal string? FieldKey { get; set; }
-
-    /// <summary>
-    /// 获得/设置 条件数量
-    /// </summary>
-    private int _count;
 
     /// <summary>
     /// 获得/设置 是否显示增加减少条件按钮
@@ -97,24 +75,10 @@ public partial class TableFilter : IFilter
     public ITableColumn? Column { get; set; }
 
     /// <summary>
-    /// 重置按钮文本
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearButtonText { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否为 HeaderRow 模式 默认 false
     /// </summary>
     [Parameter]
     public bool IsHeaderRow { get; set; }
-
-    /// <summary>
-    /// 过滤按钮文本
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? FilterButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 ITable 实例
@@ -122,18 +86,12 @@ public partial class TableFilter : IFilter
     [Parameter]
     public ITable? Table { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableFilter>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     /// <summary>
-    /// 组件步长
+    /// 
     /// </summary>
-    private string? _step;
+    [Inject]
+    [NotNull]
+    protected IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -142,10 +100,7 @@ public partial class TableFilter : IFilter
     {
         base.OnInitialized();
 
-        _title = Column.GetDisplayName();
-        FieldKey = Column.GetFieldName();
         Column.Filter = this;
-        _step = Column.Step;
     }
 
     /// <summary>
@@ -155,21 +110,8 @@ public partial class TableFilter : IFilter
     {
         base.OnParametersSet();
 
-        FilterButtonText ??= Localizer[nameof(FilterButtonText)];
-        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
-
-        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
-        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
-
-        if (Table != null && Table.Filters.TryGetValue(Column.GetFieldName(), out var action))
-        {
-            var filter = action.GetFilterConditions();
-            if (filter.Filters?.Count > 1)
-            {
-                _count = 1;
-            }
-        }
+        FieldKey = Column.GetFieldName();
     }
 
     /// <summary>
@@ -183,31 +125,6 @@ public partial class TableFilter : IFilter
             await base.InvokeInitAsync();
         }
     }
-
-    /// <summary>
-    /// 点击重置按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private async Task OnClickReset()
-    {
-        _count = 0;
-
-        if (Table != null)
-        {
-            Table.Filters.Remove(FieldKey);
-            FilterAction.Reset();
-            if (Table.OnFilterAsync != null)
-            {
-                await Table.OnFilterAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// 点击确认时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private Task OnClickConfirm() => OnFilterAsync();
 
     /// <summary>
     /// 过滤数据方法
@@ -230,30 +147,6 @@ public partial class TableFilter : IFilter
             {
                 await Table.OnFilterAsync();
             }
-        }
-    }
-
-    /// <summary>
-    /// 点击增加按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private void OnClickPlus()
-    {
-        if (_count == 0)
-        {
-            _count++;
-        }
-    }
-
-    /// <summary>
-    /// 点击减少按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private void OnClickMinus()
-    {
-        if (_count == 1)
-        {
-            _count--;
         }
     }
 }
