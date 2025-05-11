@@ -25,9 +25,7 @@ public partial class EnumFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
