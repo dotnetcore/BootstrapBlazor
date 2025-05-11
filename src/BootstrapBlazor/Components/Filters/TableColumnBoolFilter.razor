@@ -1,0 +1,18 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TableColumnFilterBase
+
+@if (IsHeaderRow)
+{
+    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+}
+else
+{
+    <div class="card-header"><span>@Title</span></div>
+    <div class="card-body">
+        <Select Items="@Items" @bind-Value="@Value"></Select>
+    </div>
+    <div class="card-footer">
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+    </div>
+}
