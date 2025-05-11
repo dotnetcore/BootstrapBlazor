@@ -4,7 +4,14 @@
 
 @if (IsHeaderRow)
 {
-    @RenderFilter(Column)
+    @if (Column.FilterTemplate != null)
+    {
+        @Column.FilterTemplate
+    }
+    else
+    {
+        @RenderFilter(Column)
+    }
 }
 else
 {
@@ -12,23 +19,28 @@ else
         <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
         </i>
         <div class="card filter-item">
-            <div class="card-header"><span>@_title</span></div>
-            <div class="card-body">
-                @RenderFilter(Column)
-            </div>
-            <div class="card-footer">
-                <div class="d-flex flex-fill">
-                    <RenderTemplate>
+            @if(Column.FilterTemplate != null)
+            {
+                @Column.FilterTemplate
+            }
+            else
+            {
+                <div class="card-header"><span>@_title</span></div>
+                <div class="card-body">
+                    @RenderFilter(Column)
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex flex-fill">
                         @if (ShowMoreButton)
                         {
                             <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(_count == 1)"></Button>
                             <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(_count == 0)"></Button>
                         }
-                    </RenderTemplate>
+                    </div>
+                    <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+                    <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
                 </div>
-                <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-                <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
-            </div>
+            }
         </div>
     </span>
 }
@@ -36,11 +48,7 @@ else
 @code {
     RenderFragment<ITableColumn> RenderFilter => Column =>
     @<CascadingValue Value="this" IsFixed="true">
-        @if (Column.FilterTemplate != null)
-        {
-            @Column.FilterTemplate
-        }
-        else if (Column.PropertyType.IsEnum())
+        @if (Column.PropertyType.IsEnum())
         {
             <EnumFilter Type="Column.PropertyType" Count="_count"></EnumFilter>
         }
