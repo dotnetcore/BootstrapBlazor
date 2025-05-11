@@ -5584,7 +5584,7 @@
     "TablesExportShowExportCsvButtonTitle": "Export Csv/Pdf Button",
     "TablesExportShowExportCsvButtonIntro": "Show/hide <code>Csv/Pdf</code> button by set <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code>",
     "TablesExportOnExportAsyncTitle": "Custom export method",
-    "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
+    "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used. You can set the column property <code>IgnoreWhenExport=\"true\"</code> to ignore this column when exporting",
     "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",
     "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
     "TablesExportButtonExcelText": "Export Page data - Excel",
