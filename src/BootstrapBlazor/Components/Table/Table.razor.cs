@@ -1055,7 +1055,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     },
                     new
                     {
-                        Key = "align-left",
+                        Key = "align-right",
                         Icon = "fa-solid fa-align-right",
                         Text = Localizer["AlignRightText"].Value,
                         Tooltip = Localizer["AlignRightTooltipText"].Value
