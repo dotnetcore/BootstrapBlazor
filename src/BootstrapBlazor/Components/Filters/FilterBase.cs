@@ -35,7 +35,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// <summary>
     /// 获得 当前过滤条件是否激活
     /// </summary>
-    protected bool HasFilter => TableFilter?.HasFilter ?? false; // IsHeaderRow 为真时使用 TableFilter 不为空
+    protected bool HasFilter => TableFilter?.HasFilter ?? false;
 
     /// <summary>
     /// 获得/设置 条件数量
@@ -56,7 +56,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     protected TableFilter? TableFilter { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
