@@ -3,14 +3,19 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService" LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData" StringComparison="@_lookup.LookupStringComparison"
-            @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="@_isShowSearch"></Select>
+    <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService"
+            LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+            StringComparison="@_lookup.LookupStringComparison"
+            @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()"
+            IsPopover="true" ShowSearch="@_isShowSearch" ShowLabel="false" SkipValidate="true"></Select>
 }
 else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService" LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData" StringComparison="@_lookup.LookupStringComparison"
+        <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService"
+                LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+                StringComparison="@_lookup.LookupStringComparison"
         @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
     </div>
     <div class="card-footer  justify-content-end">

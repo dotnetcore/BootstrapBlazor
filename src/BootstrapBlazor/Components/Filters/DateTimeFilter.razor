@@ -4,7 +4,8 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterValueChanged()"></DateTimePicker>
+        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterValueChanged()"
+                        ShowLabel="false" SkipValidate="true"></DateTimePicker>
         <FilterButton Items="_items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
     </div>
 }
@@ -12,15 +13,14 @@ else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="_items" @bind-Value="_action1"></Select>
-
-        <DateTimePicker class="is-filter" @bind-Value="_value1"></DateTimePicker>
+        <Select Items="_items" @bind-Value="_action1" ShowLabel="false" SkipValidate="true"></Select>
+        <DateTimePicker class="is-filter" @bind-Value="_value1" ShowLabel="false" SkipValidate="true"></DateTimePicker>
 
         @if (Count > 0)
         {
             <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-            <Select Items="_items" @bind-Value="_action2"></Select>
-            <DateTimePicker class="is-filter" @bind-Value="_value2"></DateTimePicker>
+            <Select Items="_items" @bind-Value="_action2" ShowLabel="false" SkipValidate="true"></Select>
+            <DateTimePicker class="is-filter" @bind-Value="_value2" ShowLabel="false" SkipValidate="true"></DateTimePicker>
         }
     </div>
     <div class="card-footer">

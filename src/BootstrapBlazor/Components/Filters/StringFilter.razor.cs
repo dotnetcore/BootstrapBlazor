@@ -16,6 +16,12 @@ public partial class StringFilter
     private FilterAction _action2 = FilterAction.Contains;
     private IEnumerable<SelectedItem> _items = [];
 
+    private bool HasFilter => TableFilter.HasFilter();
+
+    private string? FilterRowClassString => CssBuilder.Default("filter-row")
+        .AddClass("active", HasFilter)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

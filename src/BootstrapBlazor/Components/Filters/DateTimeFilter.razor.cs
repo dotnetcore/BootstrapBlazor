@@ -15,10 +15,8 @@ public partial class DateTimeFilter
     private DateTime? _value2;
     private FilterAction _action2 = FilterAction.LessThanOrEqual;
 
-    private bool HasFilter => TableFilter?.HasFilter ?? false;
-
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", HasFilter)
+        .AddClass("active", TableFilter.HasFilter())
         .Build();
 
     private IEnumerable<SelectedItem> _items = [];

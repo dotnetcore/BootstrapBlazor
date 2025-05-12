@@ -16,17 +16,19 @@ else
                 <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
                                 Value="@_searchText" bind-value:event="oninput" IsAutoFocus="true"
                                 PlaceHolder="@SearchPlaceHolderText" IsSelectAllTextOnFocus="true"
-                                OnValueChanged="OnSearchValueChanged" />
+                                OnValueChanged="OnSearchValueChanged" ShowLabel="false" SkipValidate="true"></BootstrapInput>
             }
             <div class="bb-multi-filter-list">
                 <div class="bb-multi-filter-header">
-                    <Checkbox Value="GetAllState()" ShowAfterLabel="true" ShowLabel="false" DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
+                    <Checkbox Value="GetAllState()" ShowAfterLabel="true" ShowLabel="false" SkipValidate="true"
+                              DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
                 </div>
                 <div class="bb-multi-filter-body scroll">
                     @foreach (var item in GetItems())
                     {
                         <div class="bb-multi-filter-body-item">
-                            <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
+                            <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true"
+                                      ShowLabel="false" SkipValidate="true" DisplayText="@item.Text" />
                         </div>
                     }
                 </div>
