@@ -470,7 +470,8 @@ public static class Utility
     /// <param name="changedType"></param>
     /// <param name="isSearch"></param>
     /// <param name="lookupService"></param>
-    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookupService = null)
+    /// <param name="skipValidate"></param>
+    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookupService = null, bool? skipValidate = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -488,7 +489,7 @@ public static class Utility
             builder.AddAttribute(30, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(40, nameof(ValidateBase<string>.ValueExpression), valueExpression);
             builder.AddAttribute(41, nameof(ValidateBase<string>.ShowRequired), GetRequired(item, changedType));
-            builder.AddAttribute(41, nameof(ValidateBase<string>.RequiredErrorMessage), item.RequiredErrorMessage);
+            builder.AddAttribute(42, nameof(ValidateBase<string>.RequiredErrorMessage), item.RequiredErrorMessage);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
@@ -503,6 +504,11 @@ public static class Utility
             if (item.ShowLabelTooltip != null)
             {
                 builder.AddAttribute(70, nameof(ValidateBase<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            }
+
+            if (skipValidate is true)
+            {
+                builder.AddAttribute(71, nameof(ValidateBase<string>.SkipValidate), true);
             }
         }
 
@@ -547,7 +553,7 @@ public static class Utility
         }
 
         // 设置 SkipValidate 参数
-        if (IsValidComponent(componentType))
+        if (skipValidate is not true && IsValidComponent(componentType))
         {
             builder.AddAttribute(160, nameof(IEditorItem.SkipValidate), isSearch || item.SkipValidate);
         }
