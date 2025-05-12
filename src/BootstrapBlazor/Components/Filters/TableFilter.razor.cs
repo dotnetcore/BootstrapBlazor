@@ -47,6 +47,7 @@ public partial class TableFilter : IFilter
     /// 获得/设置 ITable 实例
     /// </summary>
     [Parameter]
+    [NotNull]
     public ITable? Table { get; set; }
 
     /// <summary>
@@ -75,11 +76,6 @@ public partial class TableFilter : IFilter
     /// </summary>
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
-
-    /// <summary>
-    /// 获得 当前过滤条件是否激活
-    /// </summary>
-    internal bool HasFilter => (Table != null) && Table.Filters.ContainsKey(Column.GetFieldName());
 
     private string _fieldKey = "";
 
@@ -120,7 +116,7 @@ public partial class TableFilter : IFilter
     /// 过滤数据方法
     /// </summary>
     /// <returns></returns>
-    internal async Task OnFilterAsync()
+    public async Task OnFilterAsync()
     {
         if (Table != null)
         {

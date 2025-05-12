@@ -7,5 +7,12 @@ namespace BootstrapBlazor.Components;
 
 internal static class TableFilterExtensions
 {
-    public static bool HasFilter(this TableFilter? filter) => filter?.HasFilter ?? false;
+    public static bool HasFilter(this TableFilter? filter)
+    {
+        if (filter == null)
+        {
+            return false;
+        }
+        return filter.Table.Filters.ContainsKey(filter.Column.GetFieldName());
+    }
 }
