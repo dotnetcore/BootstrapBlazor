@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -26,11 +25,6 @@ public abstract class MultipleFilterBase : FilterBase
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示增加减少条件按钮
-    /// </summary>
-    public bool ShowMoreButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 条件数量
