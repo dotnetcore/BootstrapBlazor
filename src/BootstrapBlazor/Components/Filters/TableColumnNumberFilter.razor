@@ -7,43 +7,43 @@
     <div class="@FilterRowClassString">
         @if (typeof(TType).IsNumber())
         {
-            <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@Step"></BootstrapInputNumber>
+            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@Step"></BootstrapInputNumber>
         }
         else
         {
-            <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
+            <BootstrapInput @bind-Value="@_value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
         }
-        <FilterButton Items="@_items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <FilterButton Items="@_items" @bind-Value="@_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
     </div>
 }
 else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="@_items" @bind-Value="@Action1"></Select>
+        <Select Items="@_items" @bind-Value="@_action1"></Select>
 
         @if (typeof(TType).IsNumber())
         {
-            <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
         }
         else
         {
-            <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
+            <BootstrapInput @bind-Value="@_value1" ShowLabel="false"></BootstrapInput>
         }
 
         @if (Count > 0)
         {
             <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
 
-            <Select Items="@_items" @bind-Value="@Action2"></Select>
+            <Select Items="@_items" @bind-Value="@_action2"></Select>
 
             @if (typeof(TType).IsNumber())
             {
-                <BootstrapInputNumber @bind-Value="@Value2" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+                <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
             }
             else
             {
-                <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+                <BootstrapInput @bind-Value="@_value2" ShowLabel="false"></BootstrapInput>
             }
         }
     </div>
