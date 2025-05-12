@@ -5,6 +5,9 @@
 
 namespace BootstrapBlazor.Server.Components.Components;
 
+/// <summary>
+/// 
+/// </summary>
 public partial class CustomerFilter
 {
     private int? Value;
