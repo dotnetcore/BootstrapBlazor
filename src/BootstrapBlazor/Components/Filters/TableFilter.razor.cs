@@ -8,24 +8,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableFilter 基类
+/// TableFilter component
 /// </summary>
 public partial class TableFilter : IFilter
 {
-    /// <summary>
-    /// 获得 过滤小图标样式
-    /// </summary>
-    private string? FilterClassString => CssBuilder.Default(Icon)
-        .AddClass("active", IsActive)
-        .Build();
-
-    /// <summary>
-    /// 获得 样式
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("filter-icon")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
     /// <summary>
     /// 获得/设置 是否 active
     /// </summary>
@@ -45,33 +31,10 @@ public partial class TableFilter : IFilter
     public string? NotSupportedMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关 Field 字段名称
-    /// </summary>
-    [NotNull]
-    internal string? FieldKey { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示增加减少条件按钮
-    /// </summary>
-    public bool ShowMoreButton { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 过滤条件 IFilterAction 接口
-    /// </summary>
-    [NotNull]
-    public IFilterAction? FilterAction { get; set; }
-
-    /// <summary>
-    /// 获得 当前过滤条件是否激活
-    /// </summary>
-    internal bool HasFilter => (Table != null) && Table.Filters.ContainsKey(Column.GetFieldName());
-
-    /// <summary>
     /// 获得 相关联 ITableColumn 实例
     /// </summary>
     [Parameter]
     [NotNull]
-    [EditorRequired]
     public ITableColumn? Column { get; set; }
 
     /// <summary>
@@ -94,6 +57,33 @@ public partial class TableFilter : IFilter
     protected IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得 过滤小图标样式
+    /// </summary>
+    private string? FilterClassString => CssBuilder.Default(Icon)
+        .AddClass("active", IsActive)
+        .Build();
+
+    /// <summary>
+    /// 获得 样式
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("filter-icon")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 过滤条件 IFilterAction 接口
+    /// </summary>
+    [NotNull]
+    public IFilterAction? FilterAction { get; set; }
+
+    /// <summary>
+    /// 获得 当前过滤条件是否激活
+    /// </summary>
+    internal bool HasFilter => (Table != null) && Table.Filters.ContainsKey(Column.GetFieldName());
+
+    private string _fieldKey = "";
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -111,7 +101,7 @@ public partial class TableFilter : IFilter
         base.OnParametersSet();
 
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
-        FieldKey = Column.GetFieldName();
+        _fieldKey = Column.GetFieldName();
     }
 
     /// <summary>
@@ -137,11 +127,11 @@ public partial class TableFilter : IFilter
             var f = FilterAction.GetFilterConditions();
             if (f.Filters != null && f.Filters.Count > 0)
             {
-                Table.Filters[FieldKey] = FilterAction;
+                Table.Filters[_fieldKey] = FilterAction;
             }
             else
             {
-                Table.Filters.Remove(FieldKey);
+                Table.Filters.Remove(_fieldKey);
             }
             if (Table.OnFilterAsync != null)
             {

@@ -67,19 +67,6 @@ public partial class MultiFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (TableFilter != null)
-        {
-            TableFilter.ShowMoreButton = false;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
