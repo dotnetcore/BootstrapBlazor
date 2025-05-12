@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 多选过滤器组件
 /// </summary>
-public partial class TableColumnMultiFilter
+public partial class MultiFilter
 {
     /// <summary>
     /// 获得/设置 搜索栏占位符 默认 nul 使用资源文件中值

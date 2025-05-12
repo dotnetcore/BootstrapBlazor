@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public abstract class TableColumnMultipleFilterBase : TableColumnFilterBase
+public abstract class MultipleFilterBase : FilterBase
 {
     [Inject]
     [NotNull]

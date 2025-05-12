@@ -8,28 +8,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class TableColumnBoolFilter
+public partial class LookupFilter
 {
-    /// <summary>
-    /// 获得/设置 条件候选项 请尽量使用静态数据 避免组件性能损失
-    /// </summary>
-    [Parameter]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
+    private Type _type = default!;
     private string? _value;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (TableFilter != null)
-        {
-            TableFilter.ShowMoreButton = false;
-        }
-    }
+    private bool _isShowSearch;
+    private ILookup _lookup = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,12 +22,11 @@ public partial class TableColumnBoolFilter
     {
         base.OnParametersSet();
 
-        Items ??= new SelectedItem[]
-        {
-            new("", Localizer["BoolFilter.AllText"].Value),
-            new("true", Localizer["BoolFilter.TrueText"].Value),
-            new("false", Localizer["BoolFilter.FalseText"].Value)
-        };
+        var column = TableFilter.Column;
+
+        _isShowSearch = column.ShowSearchWhenSelect;
+        _type = column.PropertyType;
+        _lookup = column;
     }
 
     /// <summary>
@@ -64,10 +47,12 @@ public partial class TableColumnBoolFilter
         var filter = new FilterKeyValueAction() { Filters = [] };
         if (!string.IsNullOrEmpty(_value))
         {
+            var type = Nullable.GetUnderlyingType(_type) ?? _type;
+            var val = Convert.ChangeType(_value, type);
             filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
-                FieldValue = _value == "true",
+                FieldValue = val,
                 FilterAction = FilterAction.Equal
             });
         }
@@ -80,13 +65,14 @@ public partial class TableColumnBoolFilter
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         var first = filter.Filters?.FirstOrDefault() ?? filter;
-        if (first.FieldValue is bool value)
+        var type = Nullable.GetUnderlyingType(_type) ?? _type;
+        if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
-            _value = value ? "true" : "false";
+            _value = first.FieldValue.ToString();
         }
-        else if (first.FieldValue is null)
+        else
         {
-            _value = "";
+            _value = null;
         }
         await base.SetFilterConditionsAsync(filter);
     }

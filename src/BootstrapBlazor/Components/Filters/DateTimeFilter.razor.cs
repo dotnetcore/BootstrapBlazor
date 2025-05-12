@@ -8,13 +8,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class TableColumnNumberFilter<TType>
+public partial class DateTimeFilter
 {
-    private TType? _value1;
+    private DateTime? _value1;
     private FilterAction _action1 = FilterAction.GreaterThanOrEqual;
-    private TType? _value2;
+    private DateTime? _value2;
     private FilterAction _action2 = FilterAction.LessThanOrEqual;
-    private string? _step;
 
     private bool HasFilter => TableFilter?.HasFilter ?? false;
 
@@ -38,25 +37,11 @@ public partial class TableColumnNumberFilter<TType>
             new("GreaterThan", Localizer["GreaterThan"].Value),
             new("LessThan", Localizer["LessThan"].Value),
             new("Equal", Localizer["Equal"].Value),
-            new("NotEqual", Localizer["NotEqual"].Value)
+            new("NotEqual", Localizer["NotEqual"].Value )
         };
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        _step = TableFilter.Column.Step;
-    }
-
-    /// <summary>
-    /// 重置按钮回调方法
-    /// </summary>
-    /// <returns></returns>
-    protected async Task OnClearFilter()
+    private async Task OnClearFilter()
     {
         if (TableFilter != null)
         {
@@ -70,8 +55,8 @@ public partial class TableColumnNumberFilter<TType>
     /// </summary>
     public override void Reset()
     {
-        _value1 = default;
-        _value2 = default;
+        _value1 = null;
+        _value2 = null;
         _action1 = FilterAction.GreaterThanOrEqual;
         _action2 = FilterAction.LessThanOrEqual;
         Count = 0;
@@ -115,13 +100,13 @@ public partial class TableColumnNumberFilter<TType>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         var first = filter.Filters?.FirstOrDefault() ?? filter;
-        if (first.FieldValue is TType value)
+        if (first.FieldValue is DateTime value)
         {
             _value1 = value;
         }
         else
         {
-            _value1 = default;
+            _value1 = null;
         }
         _action1 = first.FilterAction;
 
@@ -129,13 +114,13 @@ public partial class TableColumnNumberFilter<TType>
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
-            if (second.FieldValue is TType value2)
+            if (second.FieldValue is DateTime value2)
             {
                 _value2 = value2;
             }
             else
             {
-                _value2 = default;
+                _value2 = null;
             }
             _action2 = second.FilterAction;
             Logic = filter.FilterLogic;

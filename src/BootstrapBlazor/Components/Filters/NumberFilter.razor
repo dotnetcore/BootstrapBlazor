@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TType
-@inherits TableColumnMultipleFilterBase
+@inherits MultipleFilterBase
 
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
         @if (typeof(TType).IsNumber())
         {
-            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@Step"></BootstrapInputNumber>
+            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@_step"></BootstrapInputNumber>
         }
         else
         {
@@ -24,7 +24,7 @@ else
 
         @if (typeof(TType).IsNumber())
         {
-            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" Step="@_step"></BootstrapInputNumber>
         }
         else
         {
@@ -39,7 +39,7 @@ else
 
             @if (typeof(TType).IsNumber())
             {
-                <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
+                <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" Step="@_step"></BootstrapInputNumber>
             }
             else
             {

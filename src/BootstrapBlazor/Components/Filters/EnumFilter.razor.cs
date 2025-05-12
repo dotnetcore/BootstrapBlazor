@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 枚举类型过滤组件
 /// </summary>
-public partial class TableColumnEnumFilter
+public partial class EnumFilter
 {
     /// <summary>
     /// 内部使用

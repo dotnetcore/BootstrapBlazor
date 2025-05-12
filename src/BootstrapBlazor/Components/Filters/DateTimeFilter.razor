@@ -1,19 +1,26 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TableColumnMultipleFilterBase
+@inherits MultipleFilterBase
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+    <div class="@FilterRowClassString">
+        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterValueChanged()"></DateTimePicker>
+        <FilterButton Items="_items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+    </div>
 }
 else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="@Items" @bind-Value="@_value"></Select>
+        <Select Items="_items" @bind-Value="_action1"></Select>
+
+        <DateTimePicker class="is-filter" @bind-Value="_value1"></DateTimePicker>
+
         @if (Count > 0)
         {
             <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-            <Select Items="@Items" @bind-Value="@_value2"></Select>
+            <Select Items="_items" @bind-Value="_action2"></Select>
+            <DateTimePicker class="is-filter" @bind-Value="_value2"></DateTimePicker>
         }
     </div>
     <div class="card-footer">

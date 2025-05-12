@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public abstract class TableColumnFilterBase : BootstrapModuleComponentBase, IFilterAction
+public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
     /// 
@@ -43,11 +43,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase, IFil
     /// 获得/设置 Header 显示文字
     /// </summary>
     protected string? Title;
-
-    /// <summary>
-    /// 获得/设置 组件步长
-    /// </summary>
-    protected string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
@@ -92,7 +87,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase, IFil
         if (column != null)
         {
             Title = column.GetDisplayName();
-            Step = column.Step;
             FieldKey = column.GetFieldName();
         }
     }

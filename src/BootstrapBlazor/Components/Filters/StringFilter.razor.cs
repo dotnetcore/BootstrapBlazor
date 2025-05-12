@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class TableColumnStringFilter
+public partial class StringFilter
 {
     private string? _value1;
     private FilterAction _action1 = FilterAction.Contains;

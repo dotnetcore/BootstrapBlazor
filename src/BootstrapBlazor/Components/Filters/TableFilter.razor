@@ -28,11 +28,11 @@ else
         {
             @if (Column.PropertyType.IsEnum())
             {
-                <TableColumnEnumFilter></TableColumnEnumFilter>
+                <EnumFilter></EnumFilter>
             }
             else if (Column.IsLookup())
             {
-                <TableColumnLookupFilter></TableColumnLookupFilter>
+                <LookupFilter></LookupFilter>
             }
             else
             {
@@ -40,31 +40,31 @@ else
                 switch (fieldType.Name)
                 {
                     case nameof(Boolean):
-                        <TableColumnBoolFilter></TableColumnBoolFilter>
+                        <BoolFilter></BoolFilter>
                         break;
                     case nameof(DateTime):
-                        <TableColumnDateTimeFilter></TableColumnDateTimeFilter>
+                        <DateTimeFilter></DateTimeFilter>
                         break;
                     case nameof(Int16):
-                        <TableColumnNumberFilter TType="Int16?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Int16?"></NumberFilter>
                         break;
                     case nameof(Int32):
-                        <TableColumnNumberFilter TType="Int32?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Int32?"></NumberFilter>
                         break;
                     case nameof(Int64):
-                        <TableColumnNumberFilter TType="Int64?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Int64?"></NumberFilter>
                         break;
                     case nameof(Single):
-                        <TableColumnNumberFilter TType="Single?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Single?"></NumberFilter>
                         break;
                     case nameof(Double):
-                        <TableColumnNumberFilter TType="Double?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Double?"></NumberFilter>
                         break;
                     case nameof(Decimal):
-                        <TableColumnNumberFilter TType="Decimal?"></TableColumnNumberFilter>
+                        <NumberFilter TType="Decimal?"></NumberFilter>
                         break;
                     case nameof(String):
-                        <TableColumnStringFilter></TableColumnStringFilter>
+                        <StringFilter></StringFilter>
                         break;
                     default:
                         <div>@NotSupportedMessage</div>
