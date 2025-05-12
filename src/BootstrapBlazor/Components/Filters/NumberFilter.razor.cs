@@ -16,10 +16,8 @@ public partial class NumberFilter<TType>
     private FilterAction _action2 = FilterAction.LessThanOrEqual;
     private string? _step;
 
-    private bool HasFilter => TableFilter?.HasFilter ?? false;
-
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", HasFilter)
+        .AddClass("active", TableFilter.HasFilter())
         .Build();
 
     private IEnumerable<SelectedItem> _items = [];

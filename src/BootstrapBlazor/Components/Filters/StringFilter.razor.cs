@@ -16,10 +16,8 @@ public partial class StringFilter
     private FilterAction _action2 = FilterAction.Contains;
     private IEnumerable<SelectedItem> _items = [];
 
-    private bool HasFilter => TableFilter.HasFilter();
-
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", HasFilter)
+        .AddClass("active", TableFilter.HasFilter())
         .Build();
 
     /// <summary>
@@ -37,6 +35,15 @@ public partial class StringFilter
             new("NotContains", Localizer["NotContains"].Value)
         };
         Logic = FilterLogic.Or;
+    }
+
+    private async Task OnClearFilter()
+    {
+        if (TableFilter != null)
+        {
+            Reset();
+            await TableFilter.OnFilterAsync();
+        }
     }
 
     /// <summary>
