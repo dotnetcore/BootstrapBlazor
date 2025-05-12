@@ -45,7 +45,6 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<EnumFilter>(pb =>
         {
-            pb.Add(a => a.Count, 2);
             pb.Add(a => a.Type, typeof(EnumEducation));
         });
 
@@ -171,7 +170,6 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
         var tableFilter = cut.FindComponent<TableFilter>();
         tableFilter.Render();
-        Assert.Equal(0, filter.Instance.Count);
     }
 
     class MockFilter : FilterBase

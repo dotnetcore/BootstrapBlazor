@@ -36,10 +36,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void Count_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeFilter>(pb =>
-        {
-            pb.Add(a => a.Count, 2);
-        });
+        var cut = Context.RenderComponent<DateTimeFilter>();
 
         var logic = cut.FindComponent<FilterLogicItem>();
         Assert.NotNull(logic);

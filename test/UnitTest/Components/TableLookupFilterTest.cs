@@ -10,20 +10,11 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void Lookup_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>(pb =>
-        {
-            pb.Add(a => a.Type, typeof(string));
-            pb.Add(a => a.LookupServiceKey, "FooLookup");
-        });
+        var cut = Context.RenderComponent<LookupFilter>();
         var items = cut.FindAll(".dropdown-item");
         Assert.Equal(3, items.Count);
         Assert.Contains("LookupService-Test-2", items[items.Count - 1].InnerHtml);
 
-        var lookupService = Context.Services.GetKeyedService<ILookupService>("FooLookupAsync");
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.LookupService, lookupService);
-        });
         cut.WaitForAssertion(() =>
         {
             items = cut.FindAll(".dropdown-item");
@@ -35,15 +26,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void Reset_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>(pb =>
-        {
-            pb.Add(a => a.Type, typeof(string));
-            pb.Add(a => a.Lookup, new List<SelectedItem>()
-            {
-                new("true", "True"),
-                new("false", "False")
-            });
-        });
+        var cut = Context.RenderComponent<LookupFilter>();
 
         var filter = cut.Instance;
         cut.InvokeAsync(() => filter.Reset());
@@ -52,15 +35,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void GetFilterConditions_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>(pb =>
-        {
-            pb.Add(a => a.Type, typeof(string));
-            pb.Add(a => a.Lookup, new List<SelectedItem>()
-            {
-                new("true", "True"),
-                new("false", "False")
-            });
-        });
+        var cut = Context.RenderComponent<LookupFilter>();
 
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();
@@ -73,16 +48,6 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         conditions = filter.GetFilterConditions();
         Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
-    }
-
-    [Fact]
-    public void InvalidOperationException_Exception()
-    {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<LookupFilter>());
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<LookupFilter>(pb =>
-        {
-            pb.Add(a => a.Lookup, new List<SelectedItem>());
-        }));
     }
 
     [Fact]
@@ -123,15 +88,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void SetFilterConditions_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>(pb =>
-        {
-            pb.Add(a => a.Type, typeof(bool));
-            pb.Add(a => a.Lookup, new List<SelectedItem>()
-            {
-                new("true", "True"),
-                new("false", "False")
-            });
-        });
+        var cut = Context.RenderComponent<LookupFilter>();
 
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();

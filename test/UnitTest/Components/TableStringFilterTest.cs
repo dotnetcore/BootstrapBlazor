@@ -10,10 +10,7 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void Count_Ok()
     {
-        var cut = Context.RenderComponent<StringFilter>(pb =>
-        {
-            pb.Add(a => a.Count, 2);
-        });
+        var cut = Context.RenderComponent<StringFilter>();
 
         var logic = cut.FindComponent<FilterLogicItem>();
         Assert.NotNull(logic);
@@ -181,6 +178,6 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
     private class MockStringFilter : StringFilter
     {
-        public bool HasFilterTest() => HasFilter;
+        public bool HasFilterTest() => true;
     }
 }

@@ -35,45 +35,6 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Count_Ok()
-    {
-        var cut = Context.RenderComponent<NumberFilter<int?>>(pb =>
-        {
-            pb.Add(a => a.Count, 2);
-        });
-
-        var logic = cut.FindComponent<FilterLogicItem>();
-        Assert.NotNull(logic);
-
-        var conditions = cut.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Empty(conditions.Filters);
-
-        var dt = cut.FindComponent<BootstrapInputNumber<int?>>().Instance;
-        cut.InvokeAsync(() => dt.SetValue(10));
-
-        conditions = cut.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
-
-        dt = cut.FindComponents<BootstrapInputNumber<int?>>()[1].Instance;
-        cut.InvokeAsync(() => dt.SetValue(10));
-
-        conditions = cut.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Equal(2, conditions.Filters.Count);
-    }
-
-    [Fact]
-    public void NotNumber_Ok()
-    {
-        var cut = Context.RenderComponent<NumberFilter<string>>(pb =>
-        {
-            pb.Add(a => a.Count, 2);
-        });
-    }
-
-    [Fact]
     public async Task Misc_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

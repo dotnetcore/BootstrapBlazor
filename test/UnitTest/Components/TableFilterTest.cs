@@ -7,23 +7,17 @@ using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class TableFilterTest : BootstrapBlazorTestBase
+public partial class TableFilterTest : BootstrapBlazorTestBase
 {
-    private IStringLocalizer<Foo> Localizer { get; }
-
-    public TableFilterTest()
-    {
-        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-    }
-
     [Fact]
     public void TableFilter_Ok()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, Foo.GenerateFoo(Localizer));
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, CreateTableColumns());
@@ -79,189 +73,48 @@ public class TableFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task MultiFilter_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Cat>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Cat>
-                {
-                    new()
-                });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.TableColumns, cat => builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<TableColumn<Cat, string?>>(index++);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Field), cat.P8);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P8), typeof(string)));
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Filterable), true);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FilterTemplate), new RenderFragment(b =>
-                    {
-                        b.OpenComponent<MultiFilter>(0);
-                        b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
-                        b.AddAttribute(2, nameof(MultiFilter.StringComparison), StringComparison.OrdinalIgnoreCase);
-                        b.AddAttribute(3, nameof(MultiFilter.OnGetItemsAsync), () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
-                        b.AddAttribute(4, nameof(MultiFilter.AlwaysTriggerGetItems), true);
-                        b.CloseComponent();
-                    }));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        cut.Contains("bb-multi-filter-loading");
-
-        var filter = cut.FindComponent<MultiFilter>();
-        filter.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.LoadingTemplate, "loading-template-test");
-        });
-        cut.Contains("loading-template-test");
-        await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
-
-        // 选中数据
-        var checkItems = cut.FindComponents<Checkbox<bool>>();
-        await cut.InvokeAsync(() => checkItems[1].Instance.SetValue(true));
-        await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
-    }
-
-    [Fact]
-    public void MultiFilter_Exception()
-    {
-        // 测试 Exception
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            Context.RenderComponent<MultiFilter>(pb =>
-            {
-                pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
-                pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
-            });
-        });
-    }
-
-    [Fact]
-    public async Task MultipleFilter_Items()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Cat>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Cat>
-                {
-                    new()
-                });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.TableColumns, cat => builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<TableColumn<Cat, string?>>(index++);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Field), cat.P8);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P8), typeof(string)));
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Filterable), true);
-                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FilterTemplate), new RenderFragment(b =>
-                    {
-                        b.OpenComponent<MultiFilter>(0);
-                        b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
-                        b.AddAttribute(2, nameof(MultiFilter.Items), new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
-                        b.CloseComponent();
-                    }));
-                    builder.CloseComponent();
-                });
-            });
-        });
-        cut.DoesNotContain("multi-filter-placeholder");
-        cut.DoesNotContain("multi-filter-All");
-
-        var filter = cut.FindComponent<MultiFilter>();
-        filter.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.SearchPlaceHolderText, "multi-filter-placeholder");
-            pb.Add(a => a.SelectAllText, "multi-filter-All");
-        });
-        cut.Contains("multi-filter-placeholder");
-        cut.Contains("multi-filter-All");
-
-        await cut.InvokeAsync(() => filter.Instance.Reset());
-
-        // 选中选项
-        var checkboxs = cut.FindComponents<Checkbox<bool>>();
-        Assert.Equal(3, checkboxs.Count);
-        await cut.InvokeAsync(() => checkboxs[2].Instance.SetState(CheckboxState.Checked));
-
-        FilterKeyValueAction? action = null;
-        await cut.InvokeAsync(() =>
-        {
-            action = filter.Instance.GetFilterConditions();
-        });
-        Assert.NotNull(action);
-        Assert.Equal(FilterLogic.Or, action.FilterLogic);
-        Assert.NotNull(action.Filters);
-        Assert.NotNull(action.Filters[0]);
-        Assert.Equal("test2", action.Filters[0].FieldValue);
-        Assert.Equal("P8", action.Filters[0].FieldKey);
-        Assert.Equal(CheckboxState.Indeterminate, checkboxs[0].Instance.State);
-
-        // 测试 Items 改变保持选项
-        filter.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Items, new SelectedItem[] { new("test3", "test3"), new("test2", "test2") });
-        });
-        checkboxs = cut.FindComponents<Checkbox<bool>>();
-        Assert.Equal(3, checkboxs.Count);
-        checkboxs[2].Markup.Contains("checked=\"checked\"");
-
-        // 测试全选
-        await cut.InvokeAsync(() => checkboxs[0].Instance.SetState(CheckboxState.Checked));
-        await cut.InvokeAsync(() => checkboxs[0].Instance.SetState(CheckboxState.UnChecked));
-
-        // 测试搜索
-        var input = cut.Find(".bb-multi-filter-search");
-        await cut.InvokeAsync(() => input.Input("test02"));
-        await cut.InvokeAsync(() => input.Input(""));
-    }
-
-    [Fact]
-    public void NotInTable_Ok()
+    public async Task BoolFilter_Ok()
     {
         var cut = Context.RenderComponent<TableFilter>(pb =>
         {
-            var foo = Foo.Generate(Localizer);
-            var column = new TableColumn<Foo, string>();
-            column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>()
-            {
-                [nameof(TableColumn<Foo, string>.Field)] = foo.Name,
-                [nameof(TableColumn<Foo, string>.FieldExpression)] = foo.GenerateValueExpression(),
-            }));
-            pb.Add(a => a.IsHeaderRow, true);
-            pb.Add(a => a.Column, column);
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, new MockColumn<bool>());
         });
-    }
+        var boolFilter = cut.FindComponent<BoolFilter>().Instance;
 
-    [Fact]
-    public void OnlyOneTableFilterPerColumn_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        // SetFilterConditionsAsync
+        var newConditions = new FilterKeyValueAction();
+        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
+
+        newConditions = new FilterKeyValueAction
         {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Foo>() { new() });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ShowFilterHeader, true);
-                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<TableColumn<Foo, bool>>(index++);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Field), foo.Complete);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Complete), typeof(bool)));
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Filterable), true);
-                    builder.CloseComponent();
-                }));
-            });
-        });
+            Filters = [new FilterKeyValueAction() { FieldValue = true }]
+        };
+        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
 
-        var filters = cut.FindComponents<BoolFilter>();
-        Assert.Single(filters);
+        newConditions = new FilterKeyValueAction
+        {
+            Filters = [new FilterKeyValueAction() { FieldValue = false }]
+        };
+        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
+
+        // GetFilterConditions
+        var filter = boolFilter.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
+
+        // Reset
+        await cut.InvokeAsync(() => boolFilter.Reset());
+
+        // IsHeaderRow
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsHeaderRow, true);
+        });
+        var select = cut.FindComponent<Select<string>>();
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Equal(3, items.Count);
+        await cut.InvokeAsync(() => items[1].Click());
     }
 
     private static RenderFragment<Foo> CreateTableColumns() => foo => builder =>
@@ -385,5 +238,24 @@ public class TableFilterTest : BootstrapBlazorTestBase
         public Foo? P7 { get; set; }
 
         public string? P8 { get; set; }
+    }
+
+    private class MockTable : ITable
+    {
+        public Dictionary<string, IFilterAction> Filters => [];
+
+        public Func<Task>? OnFilterAsync { get; }
+
+        public List<ITableColumn> Columns => [];
+
+        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+    }
+
+    private class MockColumn<TType> : TableColumn<Foo, TType>
+    {
+        public MockColumn()
+        {
+            PropertyType = typeof(TType);
+        }
     }
 }
