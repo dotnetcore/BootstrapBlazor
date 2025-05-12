@@ -1,0 +1,30 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TableColumnFilterBase
+
+@if (_items != null)
+{
+    if (IsHeaderRow)
+    {
+        <Select Items="@_items" StringComparison="LookupStringComparison" @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="@_isShowSearch"></Select>
+    }
+    else
+    {
+        <Select Items="@_items" StringComparison="LookupStringComparison" @bind-Value="@_value" ShowSearch="_isShowSearch"></Select>
+    }
+}
+
+@if (IsHeaderRow)
+{
+    <Select Items="@_items" StringComparison="LookupStringComparison" @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="@_isShowSearch"></Select>
+}
+else
+{
+    <div class="card-header"><span>@Title</span></div>
+    <div class="card-body">
+        <Select Items="@_items" StringComparison="LookupStringComparison" @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
+    </div>
+    <div class="card-footer  justify-content-end">
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+    </div>
+}
