@@ -1,0 +1,30 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits TableColumnMultipleFilterBase
+
+@if (IsHeaderRow)
+{
+    <Select Items="@_items" @bind-Value="@_value1" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+}
+else
+{
+    <div class="card-header"><span>@Title</span></div>
+    <div class="card-body">
+        <Select Items="@_items" @bind-Value="@_value1"></Select>
+        @if (Count > 0)
+        {
+            <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+            <Select Items="@_items" @bind-Value="@_value2"></Select>
+        }
+    </div>
+    <div class="card-footer">
+        <div class="d-flex flex-fill">
+            @if (ShowMoreButton)
+            {
+                <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
+                <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
+            }
+        </div>
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+    </div>
+}
