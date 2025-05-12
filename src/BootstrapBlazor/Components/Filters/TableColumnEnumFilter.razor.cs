@@ -10,10 +10,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class TableColumnEnumFilter
 {
-    private string? Value { get; set; }
-
-    private string? Value2 { get; set; }
-
     /// <summary>
     /// 内部使用
     /// </summary>
@@ -33,6 +29,9 @@ public partial class TableColumnEnumFilter
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
+    private string? _value;
+    private string? _value2;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -47,75 +46,77 @@ public partial class TableColumnEnumFilter
         Items ??= EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
     }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    //public override void Reset()
-    //{
-    //    Value = "";
-    //    StateHasChanged();
-    //}
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        _value = null;
+        _value2 = null;
+        Count = 0;
+        StateHasChanged();
+    }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    ///// <returns></returns>
-    //public override FilterKeyValueAction GetFilterConditions()
-    //{
-    //    var filter = new FilterKeyValueAction() { Filters = [] };
-    //    if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
-    //    {
-    //        filter.Filters.Add(new FilterKeyValueAction()
-    //        {
-    //            FieldKey = FieldKey,
-    //            FieldValue = val,
-    //            FilterAction = FilterAction.Equal
-    //        });
-    //    }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override FilterKeyValueAction GetFilterConditions()
+    {
+        var filter = new FilterKeyValueAction() { Filters = [] };
+        if (!string.IsNullOrEmpty(_value) && Enum.TryParse(EnumType, _value, out var val))
+        {
+            filter.Filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = val,
+                FilterAction = FilterAction.Equal
+            });
+        }
 
-    //    if (Count > 0 && Enum.TryParse(EnumType, Value2, out var val2))
-    //    {
-    //        filter.Filters.Add(new FilterKeyValueAction()
-    //        {
-    //            FieldKey = FieldKey,
-    //            FieldValue = val2,
-    //            FilterAction = FilterAction.Equal
-    //        });
-    //        filter.FilterLogic = Logic;
-    //    }
-    //    return filter;
-    //}
+        if (Count > 0 && Enum.TryParse(EnumType, _value2, out var val2))
+        {
+            filter.Filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = val2,
+                FilterAction = FilterAction.Equal
+            });
+            filter.FilterLogic = Logic;
+        }
+        return filter;
+    }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    //public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
-    //{
-    //    var first = filter.Filters?.FirstOrDefault() ?? filter;
-    //    var type = Nullable.GetUnderlyingType(Type) ?? Type;
-    //    if (first.FieldValue != null && first.FieldValue.GetType() == type)
-    //    {
-    //        Value = first.FieldValue.ToString();
-    //    }
-    //    else
-    //    {
-    //        Value = "";
-    //    }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
+    {
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var type = Nullable.GetUnderlyingType(Type) ?? Type;
+        if (first.FieldValue != null && first.FieldValue.GetType() == type)
+        {
+            _value = first.FieldValue.ToString();
+        }
+        else
+        {
+            _value = "";
+        }
 
-    //    if (filter.Filters != null && filter.Filters.Count == 2)
-    //    {
-    //        Count = 1;
-    //        FilterKeyValueAction second = filter.Filters[1];
-    //        if (second.FieldValue != null && second.FieldValue.GetType() == type)
-    //        {
-    //            Value2 = second.FieldValue.ToString();
-    //        }
-    //        else
-    //        {
-    //            Value2 = "";
-    //        }
-    //        Logic = filter.FilterLogic;
-    //    }
-    //    await base.SetFilterConditionsAsync(filter);
-    //}
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue != null && second.FieldValue.GetType() == type)
+            {
+                _value2 = second.FieldValue.ToString();
+            }
+            else
+            {
+                _value2 = "";
+            }
+            Logic = filter.FilterLogic;
+        }
+        await base.SetFilterConditionsAsync(filter);
+    }
 }

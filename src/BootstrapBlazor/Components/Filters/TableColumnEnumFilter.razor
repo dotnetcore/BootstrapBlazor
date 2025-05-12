@@ -1,19 +1,19 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits TableColumnFilterBase
+@inherits TableColumnMultipleFilterBase
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+    <Select Items="@Items" @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
 }
 else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="@Items" @bind-Value="@Value"></Select>
+        <Select Items="@Items" @bind-Value="@_value"></Select>
         @if (Count > 0)
         {
             <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-            <Select Items="@Items" @bind-Value="@Value2"></Select>
+            <Select Items="@Items" @bind-Value="@_value2"></Select>
         }
     </div>
     <div class="card-footer">

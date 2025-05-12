@@ -16,7 +16,7 @@ public partial class TableColumnBoolFilter
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    private string Value { get; set; } = "";
+    private string? _value;
 
     /// <summary>
     /// <inheritdoc/>
@@ -46,48 +46,48 @@ public partial class TableColumnBoolFilter
         };
     }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    //public override void Reset()
-    //{
-    //    Value = "";
-    //    StateHasChanged();
-    //}
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        _value = null;
+        StateHasChanged();
+    }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    ///// <returns></returns>
-    //public override FilterKeyValueAction GetFilterConditions()
-    //{
-    //    var filter = new FilterKeyValueAction() { Filters = [] };
-    //    if (!string.IsNullOrEmpty(Value))
-    //    {
-    //        filter.Filters.Add(new FilterKeyValueAction()
-    //        {
-    //            FieldKey = FieldKey,
-    //            FieldValue = Value == "true",
-    //            FilterAction = FilterAction.Equal
-    //        });
-    //    }
-    //    return filter;
-    //}
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override FilterKeyValueAction GetFilterConditions()
+    {
+        var filter = new FilterKeyValueAction() { Filters = [] };
+        if (!string.IsNullOrEmpty(_value))
+        {
+            filter.Filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = _value == "true",
+                FilterAction = FilterAction.Equal
+            });
+        }
+        return filter;
+    }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    //public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
-    //{
-    //    var first = filter.Filters?.FirstOrDefault() ?? filter;
-    //    if (first.FieldValue is bool value)
-    //    {
-    //        Value = value ? "true" : "false";
-    //    }
-    //    else if (first.FieldValue is null)
-    //    {
-    //        Value = "";
-    //    }
-    //    await base.SetFilterConditionsAsync(filter);
-    //}
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
+    {
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldValue is bool value)
+        {
+            _value = value ? "true" : "false";
+        }
+        else if (first.FieldValue is null)
+        {
+            _value = "";
+        }
+        await base.SetFilterConditionsAsync(filter);
+    }
 }

@@ -3,15 +3,15 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+    <Select Items="@Items" @bind-Value="@_value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
 }
 else
 {
     <div class="card-header"><span>@Title</span></div>
     <div class="card-body">
-        <Select Items="@Items" @bind-Value="@Value"></Select>
+        <Select Items="@Items" @bind-Value="@_value"></Select>
     </div>
-    <div class="card-footer">
+    <div class="card-footer justify-content-end">
         <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
         <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
     </div>

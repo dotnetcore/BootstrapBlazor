@@ -10,19 +10,20 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
+public abstract class TableColumnFilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
-    /// 获得/设置 增加过滤条件图标
+    /// 
     /// </summary>
-    [Parameter]
-    public string? PlusIcon { get; set; }
+    [Inject]
+    [NotNull]
+    protected IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 减少过滤条件图标
+    /// 获得/设置 所属 TableFilter 实例
     /// </summary>
-    [Parameter]
-    public string? MinusIcon { get; set; }
+    [CascadingParameter, NotNull]
+    protected TableFilter? TableFilter { get; set; }
 
     /// <summary>
     /// 重置按钮文本
@@ -38,28 +39,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     [NotNull]
     public string? FilterButtonText { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Inject]
-    [NotNull]
-    protected IStringLocalizer<TableFilter>? Localizer { get; set; }
-
-    /// <summary>
-    /// 获得/设置 所属 TableFilter 实例
-    /// </summary>
-    [CascadingParameter, NotNull]
-    protected TableFilter? TableFilter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示增加减少条件按钮
-    /// </summary>
-    public bool ShowMoreButton { get; set; } = true;
-
     /// <summary>
     /// 获得/设置 Header 显示文字
     /// </summary>
@@ -71,11 +50,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     protected string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 条件数量
-    /// </summary>
-    protected int Count { get; set; }
-
-    /// <summary>
     /// 获得/设置 相关 Field 字段名称
     /// </summary>
     [NotNull]
@@ -84,12 +58,25 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     /// <summary>
     /// 
     /// </summary>
-    protected virtual FilterLogic Logic { get; set; }
+    protected FilterLogic Logic { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为 HeaderRow 模式 默认 false
     /// </summary>
     protected bool IsHeaderRow => TableFilter?.IsHeaderRow ?? false;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (TableFilter != null)
+        {
+            TableFilter.FilterAction = this;
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -100,9 +87,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
 
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
-
-        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
-        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
 
         var column = TableFilter.Column;
         if (column != null)
@@ -119,8 +103,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     /// <returns></returns>
     protected async Task OnClickReset()
     {
-        Count = 0;
-
         var table = TableFilter.Table;
         if (table != null)
         {
@@ -138,13 +120,7 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     /// 点击确认时回调此方法
     /// </summary>
     /// <returns></returns>
-    protected Task OnClickConfirm() => OnFilterAsync();
-
-    /// <summary>
-    /// 过滤数据方法
-    /// </summary>
-    /// <returns></returns>
-    private async Task OnFilterAsync()
+    protected async Task OnClickConfirm()
     {
         var table = TableFilter.Table;
         if (table != null)
@@ -166,30 +142,6 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// 点击增加按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    protected void OnClickPlus()
-    {
-        if (Count == 0)
-        {
-            Count++;
-        }
-    }
-
-    /// <summary>
-    /// 点击减少按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    protected void OnClickMinus()
-    {
-        if (Count == 1)
-        {
-            Count--;
-        }
-    }
-
-    /// <summary>
     /// 过滤按钮回调方法
     /// </summary>
     /// <returns></returns>
@@ -201,4 +153,21 @@ public abstract class TableColumnFilterBase : BootstrapModuleComponentBase
             StateHasChanged();
         }
     }
+
+    /// <summary>
+    /// 重置过滤条件方法
+    /// </summary>
+    public abstract void Reset();
+
+    /// <summary>
+    /// 获得过滤窗口的所有条件方法
+    /// </summary>
+    /// <returns></returns>
+    public abstract FilterKeyValueAction GetFilterConditions();
+
+    /// <summary>
+    /// 设置过滤集合方法
+    /// </summary>
+    /// <param name="filter"></param>
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
 }
