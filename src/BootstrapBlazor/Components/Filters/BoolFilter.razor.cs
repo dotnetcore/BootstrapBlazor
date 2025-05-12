@@ -71,10 +71,6 @@ public partial class BoolFilter
         {
             _value = value ? "true" : "false";
         }
-        else if (first.FieldValue is null)
-        {
-            _value = "";
-        }
         await base.SetFilterConditionsAsync(filter);
     }
 }

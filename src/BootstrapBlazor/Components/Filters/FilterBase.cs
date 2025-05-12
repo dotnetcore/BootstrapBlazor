@@ -58,7 +58,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// <summary>
     /// 获得/设置 是否为 HeaderRow 模式 默认 false
     /// </summary>
-    protected bool IsHeaderRow => TableFilter?.IsHeaderRow ?? false;
+    protected bool IsHeaderRow => TableFilter.IsHeaderRow;
 
     /// <summary>
     /// <inheritdoc/>
@@ -119,8 +119,8 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
         var table = TableFilter.Table;
         if (table != null)
         {
-            var f = TableFilter.FilterAction.GetFilterConditions();
-            if (f.Filters != null && f.Filters.Count > 0)
+            var f = GetFilterConditions();
+            if (f.Filters is { Count: > 0 })
             {
                 table.Filters[FieldKey] = TableFilter.FilterAction;
             }
@@ -141,11 +141,8 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// <returns></returns>
     protected async Task OnFilterValueChanged()
     {
-        if (TableFilter != null)
-        {
-            await TableFilter.OnFilterAsync();
-            StateHasChanged();
-        }
+        await TableFilter.OnFilterAsync();
+        StateHasChanged();
     }
 
     /// <summary>

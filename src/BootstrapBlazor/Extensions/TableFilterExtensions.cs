@@ -5,8 +5,16 @@
 
 namespace BootstrapBlazor.Components;
 
-internal static class TableFilterExtensions
+/// <summary>
+/// TableFilter extensions methods
+/// </summary>
+public static class TableFilterExtensions
 {
+    /// <summary>
+    /// <see cref="TableFilter"/> Whether has filter
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public static bool HasFilter(this TableFilter? filter)
     {
         if (filter == null)
