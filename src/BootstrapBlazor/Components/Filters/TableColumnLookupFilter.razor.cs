@@ -8,42 +8,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public partial class TableColumnLookupFilter : ILookup
+public partial class TableColumnLookupFilter
 {
-    [Inject]
-    [NotNull]
-    private ILookupService? InjectLookupService { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public IEnumerable<SelectedItem>? Lookup { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public ILookupService? LookupService { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public string? LookupServiceKey { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public object? LookupServiceData { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public StringComparison LookupStringComparison { get; set; }
-
     private Type _type = default!;
     private string? _value;
     private bool _isShowSearch;
-
-    private List<SelectedItem>? _items;
+    private ILookup _lookup = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -53,33 +23,10 @@ public partial class TableColumnLookupFilter : ILookup
         base.OnParametersSet();
 
         var column = TableFilter.Column;
-        Lookup = column.Lookup;
-        LookupService = column.LookupService;
-        LookupServiceKey = column.LookupServiceKey;
-        LookupServiceData = column.LookupServiceData;
-        LookupStringComparison = column.LookupStringComparison;
 
         _isShowSearch = column.ShowSearchWhenSelect;
         _type = column.PropertyType;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        var items = new List<SelectedItem>
-        {
-            new("", Localizer["EnumFilter.AllText"].Value)
-        };
-        var lookup = await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData);
-        if (lookup != null)
-        {
-            items.AddRange(lookup);
-        }
-        _items = items;
+        _lookup = column;
     }
 
     /// <summary>

@@ -185,10 +185,6 @@
     "ContextCloseAll": "关闭全部",
     "ContextFullScreen": "全屏"
   },
-  "BootstrapBlazor.Components.MultiFilter": {
-    "MultiFilterSearchPlaceHolderText": "请输入 ...",
-    "MultiFilterSelectAllText": "全选"
-  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
     "EditButtonText": "编辑",
@@ -278,7 +274,9 @@
     "Contains": "包含",
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选",
-    "NotSupportedMessage": "不支持的类型，请使用 FilterTemplate 自定义过滤组件"
+    "NotSupportedMessage": "不支持的类型，请使用 FilterTemplate 自定义过滤组件",
+    "MultiFilterSearchPlaceHolderText": "请输入 ...",
+    "MultiFilterSelectAllText": "全选"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "并且",

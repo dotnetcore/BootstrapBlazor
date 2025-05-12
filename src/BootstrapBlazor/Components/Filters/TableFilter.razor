@@ -4,14 +4,7 @@
 
 @if (IsHeaderRow)
 {
-    @if (Column.FilterTemplate != null)
-    {
-        @Column.FilterTemplate
-    }
-    else
-    {
-        @RenderFilter(Column)
-    }
+    @RenderFilter(Column)
 }
 else
 {
@@ -19,14 +12,7 @@ else
         <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
         </i>
         <div class="card filter-item">
-            @if(Column.FilterTemplate != null)
-            {
-                @Column.FilterTemplate
-            }
-            else
-            {
-                @RenderFilter(Column)
-            }
+            @RenderFilter(Column)
         </div>
     </span>
 }
@@ -34,50 +20,57 @@ else
 @code {
     RenderFragment<ITableColumn> RenderFilter => Column =>
     @<CascadingValue Value="this" IsFixed="true">
-        @if (Column.PropertyType.IsEnum())
+        @if (Column.FilterTemplate != null)
         {
-            <TableColumnEnumFilter></TableColumnEnumFilter>
-        }
-        else if (Column.IsLookup())
-        {
-            <TableColumnLookupFilter></TableColumnLookupFilter>
+            @Column.FilterTemplate
         }
         else
         {
-            var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
-            switch (fieldType.Name)
+            @if (Column.PropertyType.IsEnum())
             {
-                case nameof(Boolean):
-                    <TableColumnBoolFilter></TableColumnBoolFilter>
-                    break;
-                case nameof(DateTime):
-                    <TableColumnDateTimeFilter></TableColumnDateTimeFilter>
-                    break;
-                case nameof(Int16):
-                    <NumberFilter TType="Int16?"></NumberFilter>
-                    break;
-                case nameof(Int32):
-                    <TableColumnNumberFilter TType="Int32?"></TableColumnNumberFilter>
-                    break;
-                case nameof(Int64):
-                    <TableColumnNumberFilter TType="Int64?"></TableColumnNumberFilter>
-                    break;
-                case nameof(Single):
-                    <TableColumnNumberFilter TType="Single?"></TableColumnNumberFilter>
-                    break;
-                case nameof(Double):
-                    <TableColumnNumberFilter TType="Double?"></TableColumnNumberFilter>
-                    break;
-                case nameof(Decimal):
-                    <TableColumnNumberFilter TType="Decimal?"></TableColumnNumberFilter>
-                    break;
-                case nameof(String):
-                    <TableColumnStringFilter></TableColumnStringFilter>
-                    break;
-                default:
-                    <div>@NotSupportedMessage</div>
-                    break;
-            };
+                <TableColumnEnumFilter></TableColumnEnumFilter>
+            }
+            else if (Column.IsLookup())
+            {
+                <TableColumnLookupFilter></TableColumnLookupFilter>
+            }
+            else
+            {
+                var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+                switch (fieldType.Name)
+                {
+                    case nameof(Boolean):
+                        <TableColumnBoolFilter></TableColumnBoolFilter>
+                        break;
+                    case nameof(DateTime):
+                        <TableColumnDateTimeFilter></TableColumnDateTimeFilter>
+                        break;
+                    case nameof(Int16):
+                        <TableColumnNumberFilter TType="Int16?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(Int32):
+                        <TableColumnNumberFilter TType="Int32?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(Int64):
+                        <TableColumnNumberFilter TType="Int64?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(Single):
+                        <TableColumnNumberFilter TType="Single?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(Double):
+                        <TableColumnNumberFilter TType="Double?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(Decimal):
+                        <TableColumnNumberFilter TType="Decimal?"></TableColumnNumberFilter>
+                        break;
+                    case nameof(String):
+                        <TableColumnStringFilter></TableColumnStringFilter>
+                        break;
+                    default:
+                        <div>@NotSupportedMessage</div>
+                        break;
+                };
+            }
         }
     </CascadingValue>;
 }
