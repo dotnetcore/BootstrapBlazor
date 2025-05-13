@@ -21,6 +21,20 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnFilterAsync_Ok()
+    {
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        {
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, new MockColumn());
+            pb.Add(a => a.IsHeaderRow, true);
+        });
+
+        var items = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => { items[1].Click(); });
+    }
+
+    [Fact]
     public async Task FilterAction_Ok()
     {
         var cut = Context.RenderComponent<EnumFilter>(pb =>
@@ -74,6 +88,17 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions.Filters);
+    }
+
+    class MockTable : ITable
+    {
+        public Dictionary<string, IFilterAction> Filters { get; set; } = [];
+
+        public Func<Task>? OnFilterAsync { get; set; }
+
+        public List<ITableColumn> Columns => [];
+
+        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
     }
 
     class MockColumn : TableColumn<Foo, EnumEducation>
