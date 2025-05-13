@@ -9,12 +9,14 @@
 }
 else
 {
-    <div class="card-header"><span>@Title</span></div>
-    <div class="card-body">
-        <Select Items="@Items" @bind-Value="@_value" ShowLabel="false" SkipValidate="true"></Select>
-    </div>
-    <div class="card-footer justify-content-end">
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+    <div class="card filter-item">
+        <div class="card-header"><span>@Title</span></div>
+        <div class="card-body">
+            <Select Items="@Items" @bind-Value="@_value" ShowLabel="false" SkipValidate="true"></Select>
+        </div>
+        <div class="card-footer justify-content-end">
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+        </div>
     </div>
 }

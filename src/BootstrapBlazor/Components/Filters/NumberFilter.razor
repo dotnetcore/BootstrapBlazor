@@ -20,41 +20,43 @@
 }
 else
 {
-    <div class="card-header"><span>@Title</span></div>
-    <div class="card-body">
-        <Select Items="@_items" @bind-Value="@_action1" ShowLabel="false" SkipValidate="true"></Select>
-
-        @if (typeof(TType).IsNumber())
-        {
-            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
-        }
-        else
-        {
-            <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-        }
-
-        @if (Count > 0)
-        {
-            <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-
-            <Select Items="@_items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
+    <div class="card filter-item">
+        <div class="card-header"><span>@Title</span></div>
+        <div class="card-body">
+            <Select Items="@_items" @bind-Value="@_action1" ShowLabel="false" SkipValidate="true"></Select>
 
             @if (typeof(TType).IsNumber())
             {
-                <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
+                <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
             }
             else
             {
-                <BootstrapInput @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
             }
-        }
-    </div>
-    <div class="card-footer">
-        <div class="d-flex flex-fill">
-            <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
-            <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
+
+            @if (Count > 0)
+            {
+                <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+
+                <Select Items="@_items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
+
+                @if (typeof(TType).IsNumber())
+                {
+                    <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
+                }
+                else
+                {
+                    <BootstrapInput @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                }
+            }
         </div>
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+        <div class="card-footer">
+            <div class="d-flex flex-fill">
+                <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
+                <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
+            </div>
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+        </div>
     </div>
 }

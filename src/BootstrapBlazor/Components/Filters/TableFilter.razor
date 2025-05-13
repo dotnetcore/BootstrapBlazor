@@ -11,9 +11,7 @@ else
     <span @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-dismiss=".filter-dismiss">
         <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
         </i>
-        <div class="card filter-item">
-            @RenderFilter(Column)
-        </div>
+        @RenderFilter(Column)
     </span>
 }
 

@@ -11,15 +11,17 @@
 }
 else
 {
-    <div class="card-header"><span>@Title</span></div>
-    <div class="card-body">
-        <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService"
-                LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
-                StringComparison="@_lookup.LookupStringComparison"
-        @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
-    </div>
-    <div class="card-footer  justify-content-end">
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-        <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+    <div class="card filter-item">
+        <div class="card-header"><span>@Title</span></div>
+        <div class="card-body">
+            <Select Items="@_lookup.Lookup" LookupService="@_lookup.LookupService"
+                    LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+                    StringComparison="@_lookup.LookupStringComparison"
+            @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
+        </div>
+        <div class="card-footer  justify-content-end">
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
+            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
+        </div>
     </div>
 }
