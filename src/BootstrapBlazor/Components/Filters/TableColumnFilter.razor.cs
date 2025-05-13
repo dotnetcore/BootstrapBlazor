@@ -10,13 +10,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableColumnFilter 组件
 /// </summary>
-public partial class TableColumnFilter
+public partial class TableColumnFilter<TFilter> where TFilter : IComponent
 {
     /// <summary>
-    /// 获得/设置 过滤组件类型
+    /// 获得/设置 过滤器组件参数集合 Default is null
     /// </summary>
-    [Parameter, NotNull, EditorRequired]
-    public Type? Filter { get; set; }
+    [Parameter]
+    public IDictionary<string, object>? FilterParameters { get; set;}
 
     /// <summary>
     /// 获得/设置 重置按钮文本
@@ -43,7 +43,7 @@ public partial class TableColumnFilter
     /// 获得/设置 是否为 HeaderRow 模式 默认 false
     /// </summary>
     [Parameter]
-    public bool? IsHeaderRow { get; set; }
+    public bool IsHeaderRow { get; set; }
 
     /// <summary>
     /// 获得/设置 <see cref="ITable"/> 实例
@@ -106,30 +106,17 @@ public partial class TableColumnFilter
 
         Table ??= TableFilter?.Table;
         Column ??= TableFilter?.Column;
-
-        if (Column != null)
-        {
-            Title = Column.GetDisplayName();
-            _fieldKey = Column.GetFieldName();
-        }
+        Title = Column?.GetDisplayName();
+        _fieldKey = Column?.GetFieldName();
     }
 
     /// <summary>
     /// 点击重置按钮时回调此方法
     /// </summary>
     /// <returns></returns>
-    protected async Task OnClickReset()
+    protected void OnClickReset()
     {
-        if (Table != null)
-        {
-            TableFilter.FilterAction.Reset();
-            table.Filters.Remove(FieldKey);
-
-            if (table.OnFilterAsync != null)
-            {
-                await table.OnFilterAsync();
-            }
-        }
+        TableFilter?.Reset();
     }
 
     /// <summary>
@@ -138,22 +125,9 @@ public partial class TableColumnFilter
     /// <returns></returns>
     protected async Task OnClickConfirm()
     {
-        var table = TableFilter.Table;
-        if (table != null)
+        if (TableFilter != null)
         {
-            var f = GetFilterConditions();
-            if (f.Filters is { Count: > 0 })
-            {
-                table.Filters[FieldKey] = TableFilter.FilterAction;
-            }
-            else
-            {
-                table.Filters.Remove(FieldKey);
-            }
-            if (table.OnFilterAsync != null)
-            {
-                await table.OnFilterAsync();
-            }
+            await TableFilter.OnFilterAsync();
         }
     }
 
@@ -181,17 +155,28 @@ public partial class TableColumnFilter
         }
     }
 
-    private RenderFragment RenderFilter() => builder =>
+    /// <summary>
+    /// 渲染自定义过滤器方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual RenderFragment RenderFilter() => builder =>
     {
-        if (Filter != null)
+        var filterType = typeof(TFilter);
+        builder.OpenComponent<TFilter>(0);
+        if (filterType.IsSubclassOf(typeof(FilterBase)))
         {
-            builder.OpenComponent(0, Filter);
-            builder.AddAttribute(1, nameof(IFilter.FieldKey), FieldKey);
-            builder.AddAttribute(2, nameof(IFilter.Table), Table);
-            builder.AddAttribute(3, nameof(IFilter.IsActive), IsActive);
-            builder.AddAttribute(4, nameof(IFilter.IsHeaderRow), IsHeaderRow);
-            builder.AddAttribute(5, nameof(IFilter.NotSupportedMessage), NotSupportedMessage);
-            builder.CloseComponent();
+            builder.AddAttribute(1, nameof(FilterBase.FieldKey), _fieldKey);
+            builder.AddAttribute(2, nameof(FilterBase.IsHeaderRow), IsHeaderRow);
         }
+        if (filterType.IsSubclassOf(typeof(MultipleFilterBase)))
+        {
+            builder.AddAttribute(10, nameof(MultipleFilterBase.Count), _count);
+        }
+
+        if (FilterParameters != null)
+        {
+            builder.AddMultipleAttributes(100, FilterParameters);
+        }
+        builder.CloseComponent();
     };
 }

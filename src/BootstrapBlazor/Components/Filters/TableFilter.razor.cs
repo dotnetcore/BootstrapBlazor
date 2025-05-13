@@ -50,12 +50,9 @@ public partial class TableFilter : IFilter
     [NotNull]
     public ITable? Table { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
-    protected IStringLocalizer<TableFilter>? Localizer { get; set; }
+    private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
     /// 获得 过滤小图标样式
@@ -77,7 +74,7 @@ public partial class TableFilter : IFilter
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
 
-    private string _fieldKey = "";
+    private string? _fieldKey;
 
     /// <summary>
     /// <inheritdoc/>
@@ -97,7 +94,7 @@ public partial class TableFilter : IFilter
         base.OnParametersSet();
 
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
-        _fieldKey = Column.GetFieldName();
+        _fieldKey ??= Column.GetFieldName();
     }
 
     /// <summary>
@@ -110,6 +107,11 @@ public partial class TableFilter : IFilter
         {
             await base.InvokeInitAsync();
         }
+    }
+
+    public void Reset()
+    {
+
     }
 
     /// <summary>

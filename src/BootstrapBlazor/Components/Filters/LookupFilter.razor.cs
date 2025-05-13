@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Lookup 过滤器
 /// </summary>
 public partial class LookupFilter
 {
-    private Type _type = default!;
+    private Type _type = null!;
     private string? _value;
     private bool _isShowSearch;
-    private ILookup _lookup = default!;
+    private ILookup _lookup = null!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -22,11 +22,13 @@ public partial class LookupFilter
     {
         base.OnParametersSet();
 
-        var column = TableFilter.Column;
-
-        _isShowSearch = column.ShowSearchWhenSelect;
-        _type = column.PropertyType;
-        _lookup = column;
+        if (TableFilter != null)
+        {
+            var column = TableFilter.Column;
+            _isShowSearch = column.ShowSearchWhenSelect;
+            _type = column.PropertyType;
+            _lookup = column;
+        }
     }
 
     /// <summary>
@@ -44,12 +46,12 @@ public partial class LookupFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction { Filters = [] };
         if (!string.IsNullOrEmpty(_value))
         {
             var type = Nullable.GetUnderlyingType(_type) ?? _type;
             var val = Convert.ChangeType(_value, type);
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = val,

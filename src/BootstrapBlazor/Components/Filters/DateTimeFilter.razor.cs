@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class DateTimeFilter
 {
@@ -85,7 +85,7 @@ public partial class DateTimeFilter
 
         if (Count > 0 && _value2 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = _value2,
@@ -112,7 +112,7 @@ public partial class DateTimeFilter
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters is { Count: 2 })
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];

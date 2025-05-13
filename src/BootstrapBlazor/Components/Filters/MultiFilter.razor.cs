@@ -137,11 +137,11 @@ public partial class MultiFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
+        var filter = new FilterKeyValueAction{ Filters = [], FilterLogic = FilterLogic.Or };
 
         foreach (var item in GetItems().Where(i => i.Active))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = item.Value,

@@ -103,7 +103,7 @@ public partial class EnumFilter
             _value = "";
         }
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters is { Count: 2 })
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];

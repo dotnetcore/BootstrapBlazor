@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class NumberFilter<TType>
 {
@@ -78,10 +78,10 @@ public partial class NumberFilter<TType>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction { Filters = [] };
         if (_value1 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = _value1,
@@ -91,7 +91,7 @@ public partial class NumberFilter<TType>
 
         if (Count > 0 && _value2 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = _value2,
@@ -118,7 +118,7 @@ public partial class NumberFilter<TType>
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters is { Count: 2 })
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];

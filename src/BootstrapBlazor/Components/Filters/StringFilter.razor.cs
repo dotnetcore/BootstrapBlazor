@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class StringFilter
 {
@@ -81,10 +81,10 @@ public partial class StringFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction { Filters = [] };
         if (!string.IsNullOrEmpty(_value1))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = _value1,
@@ -94,7 +94,7 @@ public partial class StringFilter
 
         if (Count > 0 && !string.IsNullOrEmpty(_value2))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
                 FieldValue = _value2,
@@ -121,7 +121,7 @@ public partial class StringFilter
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters is { Count: 2 })
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];

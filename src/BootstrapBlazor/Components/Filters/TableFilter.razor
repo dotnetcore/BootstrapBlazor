@@ -26,11 +26,11 @@ else
         {
             @if (Column.PropertyType.IsEnum())
             {
-                <TableColumnFilter Filter="@typeof(EnumFilter)" ShowMoreButton="true"></TableColumnFilter>
+                <TableColumnFilter TFilter="EnumFilter" ShowMoreButton="true"></TableColumnFilter>
             }
             else if (Column.IsLookup())
             {
-                <TableColumnFilter Filter="@typeof(LookupFilter)"></TableColumnFilter>
+                <TableColumnFilter TFilter="LookupFilter"></TableColumnFilter>
             }
             else
             {
@@ -38,31 +38,31 @@ else
                 switch (fieldType.Name)
                 {
                     case nameof(String):
-                        <TableColumnFilter Filter="@typeof(StringFilter)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="StringFilter" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Boolean):
-                        <TableColumnFilter Filter="@typeof(BoolFilter)"></TableColumnFilter>
+                        <TableColumnFilter TFilter="BoolFilter"></TableColumnFilter>
                         break;
                     case nameof(DateTime):
-                        <TableColumnFilter Filter="@typeof(DateTimeFilter)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="DateTimeFilter" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int16):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Int16?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int16?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int32):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Int32?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int32?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int64):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Int64?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int64?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Single):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Single?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Single?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Double):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Double?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Double?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Decimal):
-                        <TableColumnFilter Filter="@typeof(NumberFilter<Decimal?>)" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Decimal?>" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     default:
                         <div>@NotSupportedMessage</div>

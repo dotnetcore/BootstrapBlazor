@@ -6,12 +6,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 多条件过滤器基类
 /// </summary>
 public abstract class MultipleFilterBase : FilterBase
 {
     /// <summary>
     /// 获得/设置 条件数量
     /// </summary>
-    protected int Count { get; set; }
+    public int Count { get; set; }
+
+    /// <summary>
+    /// 获得/设置 多个条件逻辑关系符号
+    /// </summary>
+    protected FilterLogic Logic { get; set; }
 }
