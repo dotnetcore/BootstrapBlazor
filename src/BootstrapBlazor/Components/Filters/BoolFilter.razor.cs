@@ -66,7 +66,7 @@ public partial class BoolFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is bool value)
         {
             _value = value ? "true" : "false";
