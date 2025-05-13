@@ -6,12 +6,12 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BoolFilter component is used for boolean value filtering in table column.
 /// </summary>
 public partial class BoolFilter
 {
     /// <summary>
-    /// 获得/设置 条件候选项 请尽量使用静态数据 避免组件性能损失
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }

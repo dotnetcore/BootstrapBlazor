@@ -10,11 +10,16 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class StringFilter
 {
+    /// <summary>
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
     private string? _value1;
     private FilterAction _action1 = FilterAction.Contains;
     private string? _value2;
     private FilterAction _action2 = FilterAction.Contains;
-    private IEnumerable<SelectedItem> _items = [];
 
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
         .AddClass("active", TableFilter.HasFilter())
@@ -27,14 +32,24 @@ public partial class StringFilter
     {
         base.OnInitialized();
 
-        _items = new SelectedItem[]
-        {
-            new("Contains", Localizer["Contains"].Value),
-            new("Equal", Localizer["Equal"].Value),
-            new("NotEqual", Localizer["NotEqual"].Value),
-            new("NotContains", Localizer["NotContains"].Value)
-        };
         Logic = FilterLogic.Or;
+    }
+
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??=
+        [
+            new SelectedItem("Contains", Localizer["Contains"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value),
+            new SelectedItem("NotContains", Localizer["NotContains"].Value)
+        ];
     }
 
     private async Task OnClearFilter()

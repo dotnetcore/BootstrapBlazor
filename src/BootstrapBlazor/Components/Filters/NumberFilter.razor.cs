@@ -20,25 +20,11 @@ public partial class NumberFilter<TType>
         .AddClass("active", TableFilter.HasFilter())
         .Build();
 
-    private IEnumerable<SelectedItem> _items = [];
-
     /// <summary>
-    /// <inheritdoc/>
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        _items = new SelectedItem[]
-        {
-            new("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
-            new("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
-            new("GreaterThan", Localizer["GreaterThan"].Value),
-            new("LessThan", Localizer["LessThan"].Value),
-            new("Equal", Localizer["Equal"].Value),
-            new("NotEqual", Localizer["NotEqual"].Value)
-        };
-    }
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -47,6 +33,15 @@ public partial class NumberFilter<TType>
     {
         base.OnParametersSet();
 
+        Items ??=
+        [
+            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
+            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
+            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
+            new SelectedItem("LessThan", Localizer["LessThan"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
+        ];
         _step = TableFilter.Column.Step;
     }
 

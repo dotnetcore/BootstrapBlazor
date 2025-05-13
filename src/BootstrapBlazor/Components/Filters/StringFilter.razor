@@ -5,29 +5,16 @@
 {
     <div class="@FilterRowClassString">
         <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-        <FilterButton Items="_items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
     </div>
 }
 else
 {
-    <div class="card filter-item">
-        <div class="card-header"><span>@Title</span></div>
-        <div class="card-body">
-            <Select Items="@_items" @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></Select>
-            <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-            @if (Count > 0)
-            {
-                <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-                <Select Items="@_items" @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></Select>
-            }
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-fill">
-                <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
-                <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
-            </div>
-            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
-        </div>
-    </div>
+    <Select Items="@Items" @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></Select>
+    <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+    @if (Count > 0)
+    {
+        <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+        <Select Items="@Items" @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></Select>
+    }
 }
