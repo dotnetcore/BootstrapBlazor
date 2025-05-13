@@ -5,16 +5,8 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        @if (typeof(TType).IsNumber())
-        {
-            <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
-                                  OnValueChanged="_ => OnFilterAsync()" Step="@_step"></BootstrapInputNumber>
-        }
-        else
-        {
-            <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
-                            OnValueChanged="_ => OnFilterAsync()"></BootstrapInput>
-        }
+        <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
+                              OnValueChanged="_ => OnFilterAsync()" Step="@_step"></BootstrapInputNumber>
         <FilterButton Items="@Items" @bind-Value="@_action1" OnSelectedItemChanged="_ => OnFilterAsync()"
                       OnClearFilter="OnClearFilter" />
     </div>
@@ -22,25 +14,11 @@
 else
 {
     <Select Items="@Items" @bind-Value="@_action1" ShowLabel="false" SkipValidate="true"></Select>
-    @if (typeof(TType).IsNumber())
-    {
-        <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
-    }
-    else
-    {
-        <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-    }
+    <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
         <Select Items="@Items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
-        @if (typeof(TType).IsNumber())
-        {
-            <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
-        }
-        else
-        {
-            <BootstrapInput @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-        }
+        <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
     }
 }

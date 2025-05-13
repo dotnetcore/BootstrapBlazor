@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// NumberFilter 组件
 /// </summary>
 public partial class NumberFilter<TType>
 {
@@ -42,7 +42,7 @@ public partial class NumberFilter<TType>
             new SelectedItem("Equal", Localizer["Equal"].Value),
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
         ];
-        _step = TableColumnFilter.Column.Step;
+        _step = TableColumnFilter?.Column.Step;
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public partial class NumberFilter<TType>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is TType value)
         {
             _value1 = value;
@@ -105,7 +105,7 @@ public partial class NumberFilter<TType>
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters is { Count: 2 })
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
