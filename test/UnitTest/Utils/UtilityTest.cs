@@ -254,7 +254,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void CreateComponentByFieldType_Ok()
     {
         var editor = new MockNullDisplayNameColumn("Name", typeof(string)) { Readonly = true };
-        var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Foo() { Name = "Test-Component" }));
+        var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Foo() { Name = "Test-Component" }, skipValidate: true));
         var cut = Context.Render(builder => builder.AddContent(0, fragment));
         Assert.Contains("value=\"Test-Component\"", cut.Markup);
     }
