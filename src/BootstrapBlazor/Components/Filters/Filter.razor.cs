@@ -93,9 +93,14 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// 点击重置按钮时回调此方法
     /// </summary>
     /// <returns></returns>
-    protected void OnClickReset()
+    private async Task OnClickReset()
     {
-        TableColumnFilter?.Reset();
+        _count = 0;
+        if (TableColumnFilter != null)
+        {
+            await TableColumnFilter.Reset();
+        }
+        StateHasChanged();
     }
 
     /// <summary>

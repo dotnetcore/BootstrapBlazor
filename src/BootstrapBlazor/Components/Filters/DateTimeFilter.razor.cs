@@ -16,7 +16,7 @@ public partial class DateTimeFilter
     private FilterAction _action2 = FilterAction.LessThanOrEqual;
 
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", TableFilter.HasFilter())
+        .AddClass("active", TableColumnFilter.HasFilter())
         .Build();
 
     /// <summary>
@@ -41,15 +41,6 @@ public partial class DateTimeFilter
             new SelectedItem("Equal", Localizer["Equal"].Value),
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
         ];
-    }
-
-    private async Task OnClearFilter()
-    {
-        if (TableFilter != null)
-        {
-            Reset();
-            await TableFilter.OnFilterAsync();
-        }
     }
 
     /// <summary>

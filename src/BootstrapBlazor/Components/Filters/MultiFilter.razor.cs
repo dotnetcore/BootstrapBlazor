@@ -53,9 +53,7 @@ public partial class MultiFilter
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     private string? _searchText;
-
     private List<SelectedItem>? _source;
-
     private List<SelectedItem>? _items;
 
     /// <summary>
@@ -82,7 +80,7 @@ public partial class MultiFilter
         if (Items != null)
         {
             var selectedItems = _source?.Where(x => x.Active).ToList();
-            _source = Items.ToList();
+            _source = [.. Items];
             ResetActiveItems(_source, selectedItems);
         }
     }
@@ -110,7 +108,12 @@ public partial class MultiFilter
     {
         if (OnGetItemsAsync != null)
         {
-            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(TriggerGetItemsCallback), AlwaysTrigger = AlwaysTriggerGetItems });
+            await InvokeVoidAsync("init", Id, new
+            {
+                Invoker = Interop,
+                Callback = nameof(TriggerGetItemsCallback),
+                AlwaysTrigger = AlwaysTriggerGetItems
+            });
         }
     }
 
@@ -119,7 +122,7 @@ public partial class MultiFilter
     /// </summary>
     public override void Reset()
     {
-        _searchText = string.Empty;
+        _searchText = null;
         if (_source != null)
         {
             foreach (var item in _source)
@@ -137,7 +140,7 @@ public partial class MultiFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction{ Filters = [], FilterLogic = FilterLogic.Or };
+        var filter = new FilterKeyValueAction { Filters = [], FilterLogic = FilterLogic.Or };
 
         foreach (var item in GetItems().Where(i => i.Active))
         {

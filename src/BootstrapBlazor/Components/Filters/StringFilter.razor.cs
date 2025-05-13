@@ -22,7 +22,7 @@ public partial class StringFilter
     private FilterAction _action2 = FilterAction.Contains;
 
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", TableFilter.HasFilter())
+        .AddClass("active", TableColumnFilter.HasFilter())
         .Build();
 
     /// <summary>
@@ -34,7 +34,6 @@ public partial class StringFilter
 
         Logic = FilterLogic.Or;
     }
-
 
     /// <summary>
     /// <inheritdoc/>
@@ -52,22 +51,13 @@ public partial class StringFilter
         ];
     }
 
-    private async Task OnClearFilter()
-    {
-        if (TableFilter != null)
-        {
-            Reset();
-            await TableFilter.OnFilterAsync();
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
         _value1 = null;
-        _value2 = "";
+        _value2 = null;
         _action1 = FilterAction.Contains;
         _action2 = FilterAction.Contains;
         Logic = FilterLogic.Or;
@@ -117,7 +107,7 @@ public partial class StringFilter
         }
         else
         {
-            _value1 = "";
+            _value1 = null;
         }
         _action1 = first.FilterAction;
 
@@ -131,7 +121,7 @@ public partial class StringFilter
             }
             else
             {
-                _value2 = "";
+                _value2 = null;
             }
             _action2 = second.FilterAction;
             Logic = second.FilterLogic;

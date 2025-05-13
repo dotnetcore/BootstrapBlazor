@@ -29,7 +29,7 @@ public partial class EnumFilter
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    private string? _value;
+    private string? _value1;
     private string? _value2;
 
     /// <summary>
@@ -39,7 +39,7 @@ public partial class EnumFilter
     {
         base.OnParametersSet();
 
-        Type ??= TableFilter?.Column.PropertyType;
+        Type ??= TableColumnFilter?.Column.PropertyType;
         if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
 
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
@@ -51,7 +51,7 @@ public partial class EnumFilter
     /// </summary>
     public override void Reset()
     {
-        _value = null;
+        _value1 = null;
         _value2 = null;
         Count = 0;
         StateHasChanged();
@@ -64,7 +64,7 @@ public partial class EnumFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction() { Filters = [] };
-        if (!string.IsNullOrEmpty(_value) && Enum.TryParse(EnumType, _value, out var val))
+        if (!string.IsNullOrEmpty(_value1) && Enum.TryParse(EnumType, _value1, out var val))
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
@@ -96,11 +96,11 @@ public partial class EnumFilter
         var type = Nullable.GetUnderlyingType(Type) ?? Type;
         if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
-            _value = first.FieldValue.ToString();
+            _value1 = first.FieldValue.ToString();
         }
         else
         {
-            _value = "";
+            _value1 = null;
         }
 
         if (filter.Filters is { Count: 2 })
@@ -113,7 +113,7 @@ public partial class EnumFilter
             }
             else
             {
-                _value2 = "";
+                _value2 = null;
             }
             Logic = filter.FilterLogic;
         }

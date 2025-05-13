@@ -8,14 +8,14 @@
         @if (typeof(TType).IsNumber())
         {
             <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
-                                  OnValueChanged="_ => OnFilterValueChanged()" Step="@_step"></BootstrapInputNumber>
+                                  OnValueChanged="_ => OnFilterAsync()" Step="@_step"></BootstrapInputNumber>
         }
         else
         {
             <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
-                            OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
+                            OnValueChanged="_ => OnFilterAsync()"></BootstrapInput>
         }
-        <FilterButton Items="@Items" @bind-Value="@_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()"
+        <FilterButton Items="@Items" @bind-Value="@_action1" OnSelectedItemChanged="_ => OnFilterAsync()"
                       OnClearFilter="OnClearFilter" />
     </div>
 }

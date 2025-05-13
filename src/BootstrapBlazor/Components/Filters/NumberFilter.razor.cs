@@ -17,7 +17,7 @@ public partial class NumberFilter<TType>
     private string? _step;
 
     private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", TableFilter.HasFilter())
+        .AddClass("active", TableColumnFilter.HasFilter())
         .Build();
 
     /// <summary>
@@ -42,20 +42,7 @@ public partial class NumberFilter<TType>
             new SelectedItem("Equal", Localizer["Equal"].Value),
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
         ];
-        _step = TableFilter.Column.Step;
-    }
-
-    /// <summary>
-    /// 重置按钮回调方法
-    /// </summary>
-    /// <returns></returns>
-    protected async Task OnClearFilter()
-    {
-        if (TableFilter != null)
-        {
-            Reset();
-            await TableFilter.OnFilterAsync();
-        }
+        _step = TableColumnFilter.Column.Step;
     }
 
     /// <summary>

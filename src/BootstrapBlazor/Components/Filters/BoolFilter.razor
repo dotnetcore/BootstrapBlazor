@@ -4,7 +4,7 @@
 @if (IsHeaderRow)
 {
     <Select Items="@Items" @bind-Value="@_value" ShowLabel="false" SkipValidate="true"
-            OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+            OnSelectedItemChanged="_ => OnFilterAsync()" IsPopover="true"></Select>
 }
 else
 {

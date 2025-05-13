@@ -14,6 +14,11 @@ namespace BootstrapBlazor.Components;
 public class SearchFilterAction(string name, object? value, FilterAction action = FilterAction.Contains) : IFilterAction
 {
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? FieldKey { get; set; } = name;
+
+    /// <summary>
     /// 获得/设置 过滤条件名称
     /// </summary>
     public string Name { get; set; } = name;

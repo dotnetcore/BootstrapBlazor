@@ -5,7 +5,7 @@
 {
     <div class="@FilterRowClassString">
         <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter" />
     </div>
 }
 else

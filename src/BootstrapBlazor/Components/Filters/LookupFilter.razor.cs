@@ -22,9 +22,9 @@ public partial class LookupFilter
     {
         base.OnParametersSet();
 
-        if (TableFilter != null)
+        if (TableColumnFilter != null)
         {
-            var column = TableFilter.Column;
+            var column = TableColumnFilter.Column;
             _isShowSearch = column.ShowSearchWhenSelect;
             _type = column.PropertyType;
             _lookup = column;

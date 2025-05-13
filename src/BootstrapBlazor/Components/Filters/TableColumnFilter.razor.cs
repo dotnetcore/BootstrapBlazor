@@ -74,8 +74,6 @@ public partial class TableColumnFilter : IFilter
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
 
-    private string? _fieldKey;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -94,7 +92,6 @@ public partial class TableColumnFilter : IFilter
         base.OnParametersSet();
 
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
-        _fieldKey ??= Column.GetFieldName();
     }
 
     /// <summary>
@@ -112,34 +109,39 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// Reset filter method
     /// </summary>
-    public void Reset()
+    public async Task Reset()
     {
-
+        FilterAction.Reset();
+        await OnFilterAsync();
     }
 
     /// <summary>
-    /// 过滤数据方法
+    /// Filter method
     /// </summary>
     /// <returns></returns>
     public async Task OnFilterAsync()
     {
-        if (string.IsNullOrEmpty(_fieldKey))
+        if (Table.OnFilterAsync == null)
         {
             return;
         }
 
-        var f = FilterAction.GetFilterConditions();
-        if (f.Filters != null && f.Filters.Count > 0)
+        var fieldKey = FilterAction.FieldKey;
+        if (string.IsNullOrEmpty(fieldKey))
         {
-            Table.Filters[_fieldKey] = FilterAction;
+            return;
+        }
+
+        var action = FilterAction.GetFilterConditions();
+        if (action.Filters != null && action.Filters.Count > 0)
+        {
+            Table.Filters[fieldKey] = FilterAction;
         }
         else
         {
-            Table.Filters.Remove(_fieldKey);
+            Table.Filters.Remove(fieldKey);
         }
-        if (Table.OnFilterAsync != null)
-        {
-            await Table.OnFilterAsync();
-        }
+
+        await Table.OnFilterAsync();
     }
 }

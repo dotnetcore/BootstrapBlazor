@@ -36,7 +36,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// 获得/设置 所属 TableFilter 实例
     /// </summary>
     [CascadingParameter, NotNull]
-    protected TableColumnFilter? TableFilter { get; set; }
+    protected TableColumnFilter? TableColumnFilter { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -45,21 +45,35 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     {
         base.OnInitialized();
 
-        if (TableFilter != null)
+        if (TableColumnFilter != null)
         {
-            TableFilter.FilterAction = this;
+            TableColumnFilter.FilterAction = this;
         }
+    }
+
+    /// <summary>
+    /// 重置按钮回调方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task OnClearFilter()
+    {
+        if (TableColumnFilter != null)
+        {
+            await TableColumnFilter.Reset();
+        }
+
+        StateHasChanged();
     }
 
     /// <summary>
     /// 过滤按钮回调方法
     /// </summary>
     /// <returns></returns>
-    protected async Task OnFilterValueChanged()
+    protected virtual async Task OnFilterAsync()
     {
-        if (TableFilter != null)
+        if (TableColumnFilter != null)
         {
-            await TableFilter.OnFilterAsync();
+            await TableColumnFilter.OnFilterAsync();
         }
 
         StateHasChanged();
@@ -80,5 +94,5 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// 设置过滤集合方法
     /// </summary>
     /// <param name="filter"></param>
-    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();
 }

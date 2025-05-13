@@ -4,9 +4,9 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterValueChanged()"
+        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterAsync()"
                         ShowLabel="false" SkipValidate="true"></DateTimePicker>
-        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter"></FilterButton>
     </div>
 }
 else
