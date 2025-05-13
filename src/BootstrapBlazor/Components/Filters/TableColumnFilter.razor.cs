@@ -130,7 +130,7 @@ public partial class TableColumnFilter : IFilter
         }
 
         var action = FilterAction.GetFilterConditions();
-        if (action.Filters != null && action.Filters.Count > 0)
+        if (action.Filters.Count > 0)
         {
             Table.Filters[_fieldKey] = FilterAction;
         }

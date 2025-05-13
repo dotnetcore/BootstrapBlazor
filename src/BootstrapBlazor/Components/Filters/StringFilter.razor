@@ -15,6 +15,7 @@ else
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-        <Select Items="@Items" @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></Select>
+        <Select Items="@Items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
+        <BootstrapInput @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></BootstrapInput>
     }
 }

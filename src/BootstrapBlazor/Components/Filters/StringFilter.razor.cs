@@ -71,7 +71,7 @@ public partial class StringFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (!string.IsNullOrEmpty(_value1))
         {
             filter.Filters.Add(new FilterKeyValueAction
