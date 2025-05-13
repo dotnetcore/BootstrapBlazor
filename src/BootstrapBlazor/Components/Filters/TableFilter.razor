@@ -9,7 +9,8 @@
 else
 {
     <span @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-dismiss=".filter-dismiss">
-        <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
+        <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside"
+           data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
         </i>
         @RenderFilter(Column)
     </span>
@@ -26,11 +27,11 @@ else
         {
             @if (Column.PropertyType.IsEnum())
             {
-                <TableColumnFilter TFilter="EnumFilter" ShowMoreButton="true"></TableColumnFilter>
+                <TableColumnFilter TFilter="EnumFilter" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
             }
             else if (Column.IsLookup())
             {
-                <TableColumnFilter TFilter="LookupFilter"></TableColumnFilter>
+                <TableColumnFilter TFilter="LookupFilter" IsHeaderRow="IsHeaderRow"></TableColumnFilter>
             }
             else
             {
@@ -38,36 +39,36 @@ else
                 switch (fieldType.Name)
                 {
                     case nameof(String):
-                        <TableColumnFilter TFilter="StringFilter" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="StringFilter" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Boolean):
-                        <TableColumnFilter TFilter="BoolFilter"></TableColumnFilter>
+                        <TableColumnFilter TFilter="BoolFilter" IsHeaderRow="IsHeaderRow"></TableColumnFilter>
                         break;
                     case nameof(DateTime):
-                        <TableColumnFilter TFilter="DateTimeFilter" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="DateTimeFilter" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int16):
-                        <TableColumnFilter TFilter="NumberFilter<Int16?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int16?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int32):
-                        <TableColumnFilter TFilter="NumberFilter<Int32?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int32?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Int64):
-                        <TableColumnFilter TFilter="NumberFilter<Int64?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Int64?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Single):
-                        <TableColumnFilter TFilter="NumberFilter<Single?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Single?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Double):
-                        <TableColumnFilter TFilter="NumberFilter<Double?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Double?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     case nameof(Decimal):
-                        <TableColumnFilter TFilter="NumberFilter<Decimal?>" ShowMoreButton="true"></TableColumnFilter>
+                        <TableColumnFilter TFilter="NumberFilter<Decimal?>" IsHeaderRow="IsHeaderRow" ShowMoreButton="true"></TableColumnFilter>
                         break;
                     default:
                         <div>@NotSupportedMessage</div>
                         break;
-                };
+                }
             }
         }
     </CascadingValue>;
