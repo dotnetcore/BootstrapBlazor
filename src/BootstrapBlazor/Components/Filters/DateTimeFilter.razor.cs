@@ -63,7 +63,7 @@ public partial class DateTimeFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (_value1 != null)
         {
             filter.Filters.Add(new FilterKeyValueAction()
@@ -92,7 +92,7 @@ public partial class DateTimeFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is DateTime value)
         {
             _value1 = value;
@@ -103,7 +103,7 @@ public partial class DateTimeFilter
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters is { Count: 2 })
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
