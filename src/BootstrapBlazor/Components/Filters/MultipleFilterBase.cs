@@ -13,6 +13,7 @@ public abstract class MultipleFilterBase : FilterBase
     /// <summary>
     /// 获得/设置 条件数量
     /// </summary>
+    [Parameter]
     public int Count { get; set; }
 
     /// <summary>
