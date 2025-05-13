@@ -1,28 +1,75 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ComponentBase
-@typeparam TFilter
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Filters/TableColumnFilter.razor.js")]
 
-@if (_isHeaderRow)
+@if (IsHeaderRow)
 {
-    @RenderFilter()
+    @RenderFilter(Column)
 }
 else
 {
-    <div class="card filter-item">
-        <div class="card-header"><span>@Title</span></div>
-        <div class="card-body">
-            @RenderFilter()
-        </div>
-        <div class="card-footer">
-            <div class="d-flex flex-fill">
-                @if (ShowMoreButton)
+    <span @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-dismiss=".filter-dismiss">
+        <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside"
+           data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
+        </i>
+        @RenderFilter(Column)
+    </span>
+}
+
+@code {
+    RenderFragment<ITableColumn> RenderFilter => Column =>
+    @<CascadingValue Value="this" IsFixed="true">
+        @if (Column.FilterTemplate != null)
+        {
+            @Column.FilterTemplate
+        }
+        else
+        {
+            @if (Column.PropertyType.IsEnum())
+            {
+                <Filter TFilter="EnumFilter" ShowMoreButton="true"></Filter>
+            }
+            else if (Column.IsLookup())
+            {
+                <Filter TFilter="LookupFilter"></Filter>
+            }
+            else
+            {
+                var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+                switch (fieldType.Name)
                 {
-                    <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(_count == 1)"></Button>
-                    <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(_count == 0)"></Button>
+                    case nameof(String):
+                        <Filter TFilter="StringFilter" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Boolean):
+                        <Filter TFilter="BoolFilter"></Filter>
+                        break;
+                    case nameof(DateTime):
+                        <Filter TFilter="DateTimeFilter" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Int16):
+                        <Filter TFilter="NumberFilter<Int16?>" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Int32):
+                        <Filter TFilter="NumberFilter<Int32?>" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Int64):
+                        <Filter TFilter="NumberFilter<Int64?>" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Single):
+                        <Filter TFilter="NumberFilter<Single?>" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Double):
+                        <Filter TFilter="NumberFilter<Double?>" ShowMoreButton="true"></Filter>
+                        break;
+                    case nameof(Decimal):
+                        <Filter TFilter="NumberFilter<Decimal?>" ShowMoreButton="true"></Filter>
+                        break;
+                    default:
+                        <div>@NotSupportedMessage</div>
+                        break;
                 }
-            </div>
-            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
-            <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
-        </div>
-    </div>
+            }
+        }
+    </CascadingValue>;
 }

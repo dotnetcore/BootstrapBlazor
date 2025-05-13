@@ -8,69 +8,83 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableColumnFilter 组件
+/// TableFilter component
 /// </summary>
-public partial class TableColumnFilter<TFilter> where TFilter : IComponent
+public partial class TableColumnFilter : IFilter
 {
     /// <summary>
-    /// 获得/设置 过滤器组件参数集合 Default is null
+    /// 获得/设置 是否 active
     /// </summary>
     [Parameter]
-    public IDictionary<string, object>? FilterParameters { get; set; }
+    public bool IsActive { get; set; }
 
     /// <summary>
-    /// 获得/设置 重置按钮文本
+    /// 获得/设置 过滤图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedMessage { get; set; }
+
+    /// <summary>
+    /// 获得 相关联 ITableColumn 实例
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? ClearButtonText { get; set; }
+    public ITableColumn? Column { get; set; }
 
     /// <summary>
-    /// 获得/设置 过滤按钮文本
+    /// 获得/设置 是否为 HeaderRow 模式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsHeaderRow { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ITable 实例
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? FilterButtonText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Header 显示文字
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? Title { get; set; }
-
-    /// <summary>
-    /// 获得/设置 增加过滤条件图标
-    /// </summary>
-    [Parameter]
-    public string? PlusIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 减少过滤条件图标
-    /// </summary>
-    [Parameter]
-    public string? MinusIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether show the more button. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool ShowMoreButton { get; set; }
-
-    [CascadingParameter]
-    private TableFilter? TableFilter { get; set; }
+    public ITable? Table { get; set; }
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<TableFilter>? Localizer { get; set; }
+    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
 
-    [Inject]
+    /// <summary>
+    /// 获得 过滤小图标样式
+    /// </summary>
+    private string? FilterClassString => CssBuilder.Default(Icon)
+        .AddClass("active", IsActive)
+        .Build();
+
+    /// <summary>
+    /// 获得 样式
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("filter-icon")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 过滤条件 IFilterAction 接口
+    /// </summary>
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    public IFilterAction? FilterAction { get; set; }
 
-    private int _count;
     private string? _fieldKey;
-    private bool _isHeaderRow = false;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Column.Filter = this;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -79,83 +93,53 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
     {
         base.OnParametersSet();
 
-        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
-        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
-
-        FilterButtonText ??= Localizer[nameof(FilterButtonText)];
-        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
-
-        _isHeaderRow = TableFilter.IsHeaderRow();
-        _fieldKey = TableFilter.GetFieldKey();
+        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
+        _fieldKey ??= Column.GetFieldName();
     }
 
     /// <summary>
-    /// 点击重置按钮时回调此方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected void OnClickReset()
+    protected override async Task InvokeInitAsync()
     {
-        TableFilter?.Reset();
-    }
-
-    /// <summary>
-    /// 点击确认时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    protected async Task OnClickConfirm()
-    {
-        if (TableFilter != null)
+        if (!IsHeaderRow)
         {
-            await TableFilter.OnFilterAsync();
+            await base.InvokeInitAsync();
         }
     }
 
     /// <summary>
-    /// 点击增加按钮时回调此方法
+    /// Reset filter method
     /// </summary>
-    /// <returns></returns>
-    private void OnClickPlus()
+    public void Reset()
     {
-        if (_count == 0)
-        {
-            _count++;
-        }
+
     }
 
     /// <summary>
-    /// 点击减少按钮时回调此方法
+    /// 过滤数据方法
     /// </summary>
     /// <returns></returns>
-    private void OnClickMinus()
+    public async Task OnFilterAsync()
     {
-        if (_count == 1)
+        if (string.IsNullOrEmpty(_fieldKey))
         {
-            _count--;
+            return;
+        }
+
+        var f = FilterAction.GetFilterConditions();
+        if (f.Filters != null && f.Filters.Count > 0)
+        {
+            Table.Filters[_fieldKey] = FilterAction;
+        }
+        else
+        {
+            Table.Filters.Remove(_fieldKey);
+        }
+        if (Table.OnFilterAsync != null)
+        {
+            await Table.OnFilterAsync();
         }
     }
-
-    /// <summary>
-    /// 渲染自定义过滤器方法
-    /// </summary>
-    /// <returns></returns>
-    protected virtual RenderFragment RenderFilter() => builder =>
-    {
-        var filterType = typeof(TFilter);
-        builder.OpenComponent<TFilter>(0);
-        if (filterType.IsSubclassOf(typeof(FilterBase)))
-        {
-            builder.AddAttribute(1, nameof(FilterBase.FieldKey), _fieldKey);
-            builder.AddAttribute(2, nameof(FilterBase.IsHeaderRow), _isHeaderRow);
-        }
-        if (filterType.IsSubclassOf(typeof(MultipleFilterBase)))
-        {
-            builder.AddAttribute(10, nameof(MultipleFilterBase.Count), _count);
-        }
-
-        if (FilterParameters != null)
-        {
-            builder.AddMultipleAttributes(100, FilterParameters);
-        }
-        builder.CloseComponent();
-    };
 }

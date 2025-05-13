@@ -8,14 +8,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableFilter extensions methods
 /// </summary>
-public static class TableFilterExtensions
+public static class TableColumnFilterExtensions
 {
     /// <summary>
     /// Whether has filter
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
-    public static bool HasFilter(this TableFilter? filter)
+    public static bool HasFilter(this TableColumnFilter? filter)
     {
         if (filter == null)
         {
@@ -29,7 +29,7 @@ public static class TableFilterExtensions
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
-    public static bool IsHeaderRow(this TableFilter? filter)
+    public static bool IsHeaderRow(this TableColumnFilter? filter)
     {
         if (filter == null)
         {
@@ -43,7 +43,7 @@ public static class TableFilterExtensions
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
-    public static string GetFieldKey(this TableFilter? filter)
+    public static string GetFieldKey(this TableColumnFilter? filter)
     {
         if (filter == null)
         {

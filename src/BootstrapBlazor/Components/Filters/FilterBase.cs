@@ -17,7 +17,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// </summary>
     [Inject]
     [NotNull]
-    protected IStringLocalizer<TableFilter>? Localizer { get; set; }
+    protected IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
@@ -36,7 +36,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// 获得/设置 所属 TableFilter 实例
     /// </summary>
     [CascadingParameter, NotNull]
-    protected TableFilter? TableFilter { get; set; }
+    protected TableColumnFilter? TableFilter { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

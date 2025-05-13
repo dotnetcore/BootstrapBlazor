@@ -259,7 +259,7 @@
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存"
   },
-  "BootstrapBlazor.Components.TableFilter": {
+  "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "重置",
     "FilterButtonText": "确认",
     "BoolFilter.AllText": "全部",

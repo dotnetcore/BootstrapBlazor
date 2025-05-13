@@ -259,7 +259,7 @@
     "CloseButtonText": "Close",
     "SaveButtonText": "Save"
   },
-  "BootstrapBlazor.Components.TableFilter": {
+  "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Clear",
     "FilterButtonText": "Filter",
     "BoolFilter.AllText": "All",
