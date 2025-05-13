@@ -17,7 +17,7 @@ public partial class CustomerFilter
         new() { Value = "", Text = "请选择 ..." },
         new() { Value = "10", Text = "大于 10" },
         new() { Value = "50", Text = "大于 50" },
-        new() { Value = "100", Text = "大于 100" }
+        new() { Value = "80", Text = "大于 80" }
     };
 
     /// <summary>
