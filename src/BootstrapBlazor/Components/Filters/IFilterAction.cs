@@ -14,11 +14,6 @@ namespace BootstrapBlazor.Components;
 public interface IFilterAction
 {
     /// <summary>
-    /// 获得/设置 过滤器 Key 值
-    /// </summary>
-    public string? FieldKey { get; set; }
-
-    /// <summary>
     /// 获得 IFilter 实例中的过滤条件集合
     /// </summary>
     /// <returns></returns>

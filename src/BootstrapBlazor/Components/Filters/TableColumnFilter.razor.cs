@@ -74,6 +74,8 @@ public partial class TableColumnFilter : IFilter
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
 
+    private string _fieldKey = "";
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -82,6 +84,7 @@ public partial class TableColumnFilter : IFilter
         base.OnInitialized();
 
         Column.Filter = this;
+        _fieldKey = Column.GetFieldName();
     }
 
     /// <summary>
@@ -126,20 +129,14 @@ public partial class TableColumnFilter : IFilter
             return;
         }
 
-        var fieldKey = FilterAction.FieldKey;
-        if (string.IsNullOrEmpty(fieldKey))
-        {
-            return;
-        }
-
         var action = FilterAction.GetFilterConditions();
         if (action.Filters != null && action.Filters.Count > 0)
         {
-            Table.Filters[fieldKey] = FilterAction;
+            Table.Filters[_fieldKey] = FilterAction;
         }
         else
         {
-            Table.Filters.Remove(fieldKey);
+            Table.Filters.Remove(_fieldKey);
         }
 
         await Table.OnFilterAsync();
