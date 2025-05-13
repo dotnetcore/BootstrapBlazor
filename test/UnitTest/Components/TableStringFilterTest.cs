@@ -38,7 +38,6 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
             items[1].Click();
         });
         var conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
     }
 
@@ -63,7 +62,6 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => filter.Reset());
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
         // Improve test coverage
@@ -77,7 +75,6 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         };
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
         newConditions = new FilterKeyValueAction()
@@ -90,13 +87,11 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         };
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
         newConditions = new FilterKeyValueAction() { FieldValue = "1" };
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
     }
 }

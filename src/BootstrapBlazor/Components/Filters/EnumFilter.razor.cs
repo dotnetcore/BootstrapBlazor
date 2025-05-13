@@ -63,7 +63,7 @@ public partial class EnumFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (!string.IsNullOrEmpty(_value1) && Enum.TryParse(EnumType, _value1, out var val))
         {
             filter.Filters.Add(new FilterKeyValueAction()
@@ -92,7 +92,7 @@ public partial class EnumFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         var type = Nullable.GetUnderlyingType(Type) ?? Type;
         if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
@@ -103,7 +103,7 @@ public partial class EnumFilter
             _value1 = null;
         }
 
-        if (filter.Filters is { Count: 2 })
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];

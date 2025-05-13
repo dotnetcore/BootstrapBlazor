@@ -100,7 +100,7 @@ public partial class StringFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        FilterKeyValueAction first = filter.Filters?.FirstOrDefault() ?? filter;
+        FilterKeyValueAction first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is string value)
         {
             _value1 = value;
@@ -111,7 +111,7 @@ public partial class StringFilter
         }
         _action1 = first.FilterAction;
 
-        if (filter.Filters is { Count: 2 })
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
