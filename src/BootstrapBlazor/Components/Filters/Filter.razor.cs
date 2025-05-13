@@ -33,13 +33,6 @@ public partial class Filter<TFilter> where TFilter : IComponent
     public string? FilterButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 显示文字
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? Title { get; set; }
-
-    /// <summary>
     /// 获得/设置 增加过滤条件图标
     /// </summary>
     [Parameter]
@@ -56,6 +49,11 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// </summary>
     [Parameter]
     public bool ShowMoreButton { get; set; }
+
+    /// <summary>
+    /// Gets or sets the filter title. Default is null.
+    /// </summary>
+    public string? Title { get; set; }
 
     [CascadingParameter]
     private TableColumnFilter? TableColumnFilter { get; set; }
@@ -84,6 +82,8 @@ public partial class Filter<TFilter> where TFilter : IComponent
 
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+
+        Title ??= TableColumnFilter.GetFilterTitle();
 
         _isHeaderRow = TableColumnFilter.IsHeaderRow();
         _fieldKey = TableColumnFilter.GetFieldKey();

@@ -51,4 +51,18 @@ public static class TableColumnFilterExtensions
         }
         return filter.Column.GetFieldName();
     }
+
+    /// <summary>
+    /// Gets the filter title.
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static string GetFilterTitle(this TableColumnFilter? filter)
+    {
+        if (filter == null)
+        {
+            return string.Empty;
+        }
+        return filter.Column.GetDisplayName();
+    }
 }
