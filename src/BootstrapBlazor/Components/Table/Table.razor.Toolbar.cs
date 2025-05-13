@@ -1183,20 +1183,26 @@ public partial class Table<TItem>
     }
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportAsync(Rows, GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportAsync(Rows, GetExportColumns()));
 
     private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportCsvAsync(Rows, GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportCsvAsync(Rows, GetExportColumns()));
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportPdfAsync(Rows, GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportPdfAsync(Rows, GetExportColumns()));
 
     private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportExcelAsync(Rows, GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportExcelAsync(Rows, GetExportColumns()));
+
+    /// <summary>
+    /// Gets the export column collection.
+    /// </summary>
+    /// <returns></returns>
+    public List<ITableColumn> GetExportColumns() => [.. GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)];
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
