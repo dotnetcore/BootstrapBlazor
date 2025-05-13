@@ -65,7 +65,7 @@
             </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <CustomerFilter></CustomerFilter>
+                    <Filter TFilter="CustomerFilter"></Filter>
                 </FilterTemplate>
             </TableColumn>
         </TableColumns>
@@ -211,22 +211,22 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter Items="Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <Filter TFilter="MultiFilter" FilterParameters="_multiFilterParameter1"></Filter>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter Items="Items.Select(i => new SelectedItem(i.Address!, i.Address!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <Filter TFilter="MultiFilter" FilterParameters="_multiFilterParameter2"></Filter>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Complete.ToString(), i.Complete.ToString())).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <Filter TFilter="MultiFilter" FilterParameters="_multiFilterParameter3"></Filter>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <Filter TFilter="MultiFilter" FilterParameters="_multiFilterParameter4"></Filter>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
