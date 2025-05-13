@@ -25,12 +25,12 @@ public partial class BoolFilter
     {
         base.OnParametersSet();
 
-        Items ??= new SelectedItem[]
-        {
-            new("", Localizer["BoolFilter.AllText"].Value),
-            new("true", Localizer["BoolFilter.TrueText"].Value),
-            new("false", Localizer["BoolFilter.FalseText"].Value)
-        };
+        Items ??=
+        [
+            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
+            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
+            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
+        ];
     }
 
     /// <summary>
