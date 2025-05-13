@@ -29,8 +29,6 @@ public partial class TablesFilter
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
 
-    private IEnumerable<SelectedItem> _nameMultiFilterItems = default!;
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -39,7 +37,6 @@ public partial class TablesFilter
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
-        _nameMultiFilterItems = Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value);
     }
 
     private async Task<List<SelectedItem>> OnGetAddressItemsAsync()
