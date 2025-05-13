@@ -1202,7 +1202,7 @@ public partial class Table<TItem>
     /// Gets the export column collection.
     /// </summary>
     /// <returns></returns>
-    public List<ITableColumn> GetExportColumns() => [.. GetVisibleColumns().Where(i => i.IgnoreWhenExport == false)];
+    public List<ITableColumn> GetExportColumns() => [.. GetVisibleColumns().Where(i => i.IgnoreWhenExport is not true)];
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
