@@ -4,13 +4,14 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 
 namespace UnitTest.Components;
 
-public partial class TableFilterTest : BootstrapBlazorTestBase
+public partial class TableColumnFilterTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void TableFilter_Ok()
+    public void TableColumnFilter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -30,7 +31,7 @@ public partial class TableFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowFilterHeader, false);
         });
 
-        var filterInstance = cut.FindComponent<TableFilter>();
+        var filterInstance = cut.FindComponent<TableColumnFilter>();
 
         // Reset/Confirm buttons
         // ClickReset
@@ -56,7 +57,7 @@ public partial class TableFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void FilterTemplate_Ok()
+    public void Filter_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -73,48 +74,32 @@ public partial class TableFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task BoolFilter_Ok()
+    public async Task OnFilterAsync_Ok()
     {
-        var cut = Context.RenderComponent<TableFilter>(pb =>
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
-            pb.Add(a => a.Column, new MockColumn<bool>());
+            pb.Add(a => a.Column, new MockColumn<string>());
         });
-        var boolFilter = cut.FindComponent<BoolFilter>().Instance;
 
-        // SetFilterConditionsAsync
-        var newConditions = new FilterKeyValueAction();
-        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
+        var filter = cut.Instance;
+        await cut.InvokeAsync(() => filter.OnFilterAsync());
 
-        newConditions = new FilterKeyValueAction
-        {
-            Filters = [new FilterKeyValueAction() { FieldValue = true }]
-        };
-        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
-
-        newConditions = new FilterKeyValueAction
-        {
-            Filters = [new FilterKeyValueAction() { FieldValue = false }]
-        };
-        await cut.InvokeAsync(() => boolFilter.SetFilterConditionsAsync(newConditions));
-
-        // GetFilterConditions
-        var filter = boolFilter.GetFilterConditions();
-        Assert.NotNull(filter.Filters);
-        Assert.Single(filter.Filters);
-
-        // Reset
-        await cut.InvokeAsync(() => boolFilter.Reset());
-
-        // IsHeaderRow
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.IsHeaderRow, true);
+            pb.Add(a => a.Table, new MockTable() { OnFilterAsync = () => Task.CompletedTask });
         });
-        var select = cut.FindComponent<Select<string>>();
-        var items = cut.FindAll(".dropdown-item");
-        Assert.Equal(3, items.Count);
-        await cut.InvokeAsync(() => items[1].Click());
+        await cut.InvokeAsync(() => filter.OnFilterAsync());
+
+        var f = cut.FindComponent<StringFilter>();
+        await cut.InvokeAsync(() => f.Instance.SetFilterConditionsAsync(new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new() { FieldValue = "test" }
+            ]
+        }));
+        await cut.InvokeAsync(() => filter.OnFilterAsync());
     }
 
     private static RenderFragment<Foo> CreateTableColumns() => foo => builder =>
@@ -242,9 +227,9 @@ public partial class TableFilterTest : BootstrapBlazorTestBase
 
     private class MockTable : ITable
     {
-        public Dictionary<string, IFilterAction> Filters => [];
+        public Dictionary<string, IFilterAction> Filters { get; set; } = [];
 
-        public Func<Task>? OnFilterAsync { get; }
+        public Func<Task>? OnFilterAsync { get; set; }
 
         public List<ITableColumn> Columns => [];
 
@@ -256,6 +241,7 @@ public partial class TableFilterTest : BootstrapBlazorTestBase
         public MockColumn()
         {
             PropertyType = typeof(TType);
+            FieldName = "Name";
         }
     }
 }
