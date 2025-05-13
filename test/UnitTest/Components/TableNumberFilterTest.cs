@@ -92,7 +92,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void NotNumberType_OnFilterValueChanged()
     {
-        var cut = Context.RenderComponent<TableFilter>(pb =>
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
         {
             var foo = new Foo();
             var column = new TableColumn<Foo, string>();
