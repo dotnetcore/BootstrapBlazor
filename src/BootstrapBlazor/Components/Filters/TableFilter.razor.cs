@@ -109,6 +109,9 @@ public partial class TableFilter : IFilter
         }
     }
 
+    /// <summary>
+    /// Reset filter method
+    /// </summary>
     public void Reset()
     {
 
@@ -120,21 +123,23 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     public async Task OnFilterAsync()
     {
-        if (Table != null)
+        if (string.IsNullOrEmpty(_fieldKey))
         {
-            var f = FilterAction.GetFilterConditions();
-            if (f.Filters != null && f.Filters.Count > 0)
-            {
-                Table.Filters[_fieldKey] = FilterAction;
-            }
-            else
-            {
-                Table.Filters.Remove(_fieldKey);
-            }
-            if (Table.OnFilterAsync != null)
-            {
-                await Table.OnFilterAsync();
-            }
+            return;
+        }
+
+        var f = FilterAction.GetFilterConditions();
+        if (f.Filters != null && f.Filters.Count > 0)
+        {
+            Table.Filters[_fieldKey] = FilterAction;
+        }
+        else
+        {
+            Table.Filters.Remove(_fieldKey);
+        }
+        if (Table.OnFilterAsync != null)
+        {
+            await Table.OnFilterAsync();
         }
     }
 }

@@ -16,7 +16,7 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
     /// 获得/设置 过滤器组件参数集合 Default is null
     /// </summary>
     [Parameter]
-    public IDictionary<string, object>? FilterParameters { get; set;}
+    public IDictionary<string, object>? FilterParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 重置按钮文本
@@ -38,26 +38,6 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
     [Parameter]
     [NotNull]
     public string? Title { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为 HeaderRow 模式 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsHeaderRow { get; set; }
-
-    /// <summary>
-    /// 获得/设置 <see cref="ITable"/> 实例
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public ITable? Table { get; set; }
-
-    /// <summary>
-    /// 获得/设置 <see cref="ITableColumn"/> 实例
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public ITableColumn? Column { get; set; }
 
     /// <summary>
     /// 获得/设置 增加过滤条件图标
@@ -90,6 +70,7 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
 
     private int _count;
     private string? _fieldKey;
+    private bool _isHeaderRow = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -104,10 +85,8 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
 
-        Table ??= TableFilter?.Table;
-        Column ??= TableFilter?.Column;
-        Title = Column?.GetDisplayName();
-        _fieldKey = Column?.GetFieldName();
+        _isHeaderRow = TableFilter.IsHeaderRow();
+        _fieldKey = TableFilter.GetFieldKey();
     }
 
     /// <summary>
@@ -166,7 +145,7 @@ public partial class TableColumnFilter<TFilter> where TFilter : IComponent
         if (filterType.IsSubclassOf(typeof(FilterBase)))
         {
             builder.AddAttribute(1, nameof(FilterBase.FieldKey), _fieldKey);
-            builder.AddAttribute(2, nameof(FilterBase.IsHeaderRow), IsHeaderRow);
+            builder.AddAttribute(2, nameof(FilterBase.IsHeaderRow), _isHeaderRow);
         }
         if (filterType.IsSubclassOf(typeof(MultipleFilterBase)))
         {

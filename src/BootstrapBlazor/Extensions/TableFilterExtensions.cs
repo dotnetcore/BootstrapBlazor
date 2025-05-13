@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 public static class TableFilterExtensions
 {
     /// <summary>
-    /// <see cref="TableFilter"/> Whether has filter
+    /// Whether has filter
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
@@ -22,5 +22,33 @@ public static class TableFilterExtensions
             return false;
         }
         return filter.Table.Filters.ContainsKey(filter.Column.GetFieldName());
+    }
+
+    /// <summary>
+    /// Whether is header row
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static bool IsHeaderRow(this TableFilter? filter)
+    {
+        if (filter == null)
+        {
+            return false;
+        }
+        return filter.IsHeaderRow;
+    }
+
+    /// <summary>
+    /// Gets the field key for the filter.
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static string GetFieldKey(this TableFilter? filter)
+    {
+        if (filter == null)
+        {
+            return string.Empty;
+        }
+        return filter.Column.GetFieldName();
     }
 }
