@@ -111,6 +111,12 @@ public partial class Select<TValue> : ISelect, ILookup
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether auto clear the search text when dropdown closed.
+    /// </summary>
+    [Parameter]
+    public bool IsAutoClearSearchTextWhenCollapsed { get; set; }
+
     IEnumerable<SelectedItem>? ILookup.Lookup { get => Items; set => Items = value; }
 
     StringComparison ILookup.LookupStringComparison { get => StringComparison; set => StringComparison = value; }
