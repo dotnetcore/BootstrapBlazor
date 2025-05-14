@@ -35,7 +35,7 @@ public partial class CustomerFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (Value != null)
         {
             filter.Filters.Add(new FilterKeyValueAction()

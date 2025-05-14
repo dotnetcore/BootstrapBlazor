@@ -65,7 +65,7 @@ public partial class NumberFilter<TType>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (_value1 != null)
         {
             filter.Filters.Add(new FilterKeyValueAction

@@ -177,8 +177,8 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
 
         Assert.NotNull(filter.Filters[1].Filters);
         Assert.NotNull(cut.Instance.Value.Filters[1].Filters);
-        Assert.Equal(2, filter.Filters[1].Filters?.Count);
-        Assert.Equal(2, cut.Instance.Value.Filters[1].Filters?.Count);
+        Assert.Equal(2, filter.Filters[1].Filters.Count);
+        Assert.Equal(2, cut.Instance.Value.Filters[1].Filters.Count);
 
         var buttons = cut.FindAll(".btn-remove");
         Assert.Equal(2, buttons.Count);

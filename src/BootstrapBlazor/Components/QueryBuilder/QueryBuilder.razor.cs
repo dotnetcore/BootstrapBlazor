@@ -131,7 +131,6 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         ItemText ??= Localizer[nameof(ItemText)];
 
         Value ??= new();
-        Value.Filters ??= [];
         Value.FilterLogic = Logic;
 
         Operations ??=
@@ -164,14 +163,14 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnClickRemoveFilter(FilterKeyValueAction parent, FilterKeyValueAction filter)
     {
-        parent.Filters!.Remove(filter);
+        parent.Filters.Remove(filter);
 
         await OnFilterChanged();
     }
 
     private async Task OnClickAddFilter(FilterKeyValueAction filter)
     {
-        filter.Filters!.Add(new());
+        filter.Filters.Add(new());
 
         await OnFilterChanged();
     }
@@ -197,22 +196,22 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnAddFilterGroup(FilterKeyValueAction filter)
     {
-        filter.Filters!.Add(new FilterKeyValueAction() { Filters = [new()] });
+        filter.Filters.Add(new FilterKeyValueAction());
 
         await OnFilterChanged();
     }
 
     private async Task OnAddFilterItem(FilterKeyValueAction filter)
     {
-        filter.Filters!.Add(new FilterKeyValueAction() { });
+        filter.Filters.Add(new FilterKeyValueAction());
 
         await OnFilterChanged();
     }
 
     private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
     {
-        filter.Filters!.Clear();
-        parent?.Filters!.Remove(filter);
+        filter.Filters.Clear();
+        parent?.Filters.Remove(filter);
 
         await OnFilterChanged();
     }
@@ -223,31 +222,28 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) => builder =>
     {
-        if (filter.Filters != null)
+        var index = 0;
+        builder.OpenElement(index++, "ul");
+        builder.AddAttribute(index++, "class", "qb-group");
+        if (filter.HasFilters() && ShowHeader)
         {
-            var index = 0;
-            builder.OpenElement(index++, "ul");
-            builder.AddAttribute(index++, "class", "qb-group");
-            if (filter.HasFilters() && ShowHeader)
-            {
-                builder.OpenElement(index++, "li");
-                builder.AddAttribute(index++, "class", "qb-item");
-                builder.AddContent(index++, RenderHeader(parent, filter));
-                builder.CloseElement();
-            }
-            foreach (var f in filter.Filters)
-            {
-                if (f.HasFilters())
-                {
-                    RenderFilterItem(ref index, RenderFilters(filter, f));
-                }
-                else
-                {
-                    RenderFilterItem(ref index, RenderFilter(filter, f));
-                }
-            }
+            builder.OpenElement(index++, "li");
+            builder.AddAttribute(index++, "class", "qb-item");
+            builder.AddContent(index++, RenderHeader(parent, filter));
             builder.CloseElement();
         }
+        foreach (var f in filter.Filters)
+        {
+            if (f.HasFilters())
+            {
+                RenderFilterItem(ref index, RenderFilters(filter, f));
+            }
+            else
+            {
+                RenderFilterItem(ref index, RenderFilter(filter, f));
+            }
+        }
+        builder.CloseElement();
 
         void RenderFilterItem(ref int sequence, RenderFragment fragment)
         {

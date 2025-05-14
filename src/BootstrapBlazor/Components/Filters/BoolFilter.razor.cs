@@ -48,7 +48,7 @@ public partial class BoolFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (!string.IsNullOrEmpty(_value))
         {
             filter.Filters.Add(new FilterKeyValueAction
