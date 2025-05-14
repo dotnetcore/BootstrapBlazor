@@ -3211,7 +3211,7 @@
     "SelectsCustomTemplateTitle": "自定义选项模板",
     "SelectsCustomTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式",
     "SelectsShowSearchTitle": "带搜索框的下拉框",
-    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 <b>false</b> 不显示搜索框",
+    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 <b>false</b> 不显示搜索框，可以通过设置 <code>IsAutoClearSearchTextWhenCollapsed</code> 参数控制下拉框收起后是否自动清空搜索框内文字，默认值为 false 不清空",
     "SelectsConfirmSelectTitle": "带确认的下拉框",
     "SelectsConfirmSelectIntro": "通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变",
     "SelectsTimeZoneTitle": "时区下拉框",
