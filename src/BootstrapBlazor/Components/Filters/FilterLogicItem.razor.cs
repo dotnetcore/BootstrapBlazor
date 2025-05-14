@@ -29,7 +29,6 @@ public partial class FilterLogicItem
     private IStringLocalizer<FilterLogicItem>? Localizer { get; set; }
 
     private readonly List<SelectedItem> _items = [];
-    private FilterLogic _value;
 
     /// <summary>
     /// <inheritdoc/>
@@ -47,10 +46,10 @@ public partial class FilterLogicItem
 
     private async Task OnValueChanged(FilterLogic val)
     {
-        _value = val;
+        Logic = val;
         if (LogicChanged.HasDelegate)
         {
-            await LogicChanged.InvokeAsync(_value);
+            await LogicChanged.InvokeAsync(Logic);
         }
     }
 }
