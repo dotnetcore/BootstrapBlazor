@@ -37,5 +37,5 @@ public class FilterKeyValueAction
     /// <summary>
     /// 获得/设置 子过滤条件集合
     /// </summary>
-    public List<FilterKeyValueAction>? Filters { get; set; }
+    public List<FilterKeyValueAction> Filters { get; set; } = [];
 }

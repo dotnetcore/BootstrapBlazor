@@ -29,7 +29,10 @@ public partial class TablesFilter
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
 
-    private IEnumerable<SelectedItem> _nameMultiFilterItems = default!;
+    private readonly Dictionary<string, object> _multiFilterParameter1 = new();
+    private readonly Dictionary<string, object> _multiFilterParameter2 = new();
+    private readonly Dictionary<string, object> _multiFilterParameter3 = new();
+    private readonly Dictionary<string, object> _multiFilterParameter4 = new();
 
     /// <summary>
     /// OnInitialized 方法
@@ -39,7 +42,18 @@ public partial class TablesFilter
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
-        _nameMultiFilterItems = Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value);
+        var items1 = Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value);
+        _multiFilterParameter1.Add(nameof(MultiFilter.Items), items1);
+
+        _multiFilterParameter2.Add(nameof(MultiFilter.OnGetItemsAsync), new Func<Task<List<SelectedItem>>>(OnGetAddressItemsAsync));
+
+        var items3 = Items.Select(i => new SelectedItem(i.Complete.ToString(), i.Complete.ToString())).DistinctBy(i => i.Value);
+        _multiFilterParameter3.Add(nameof(MultiFilter.Items), items3);
+        _multiFilterParameter3.Add(nameof(MultiFilter.ShowSearch), false);
+
+        var items4 = Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value);
+        _multiFilterParameter4.Add(nameof(MultiFilter.Items), items4);
+        _multiFilterParameter4.Add(nameof(MultiFilter.ShowSearch), false);
     }
 
     private async Task<List<SelectedItem>> OnGetAddressItemsAsync()

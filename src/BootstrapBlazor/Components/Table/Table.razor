@@ -586,7 +586,7 @@
                             }
                             @if (col.GetFilterable() && !ShowFilterHeader)
                             {
-                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation></TableColumnFilter>
                             }
                             @if (col.GetSortable())
                             {
@@ -655,7 +655,7 @@
                         <div class="table-cell">
                             @if(col.GetFilterable())
                             {
-                                <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true" />
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"></TableColumnFilter>
                             }
                         </div>
                     </th>

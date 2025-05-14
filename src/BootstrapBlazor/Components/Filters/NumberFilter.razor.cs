@@ -3,32 +3,28 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 数字类型过滤条件
+/// NumberFilter 组件
 /// </summary>
 public partial class NumberFilter<TType>
 {
-    private TType? Value1 { get; set; }
+    private TType? _value1;
+    private FilterAction _action1 = FilterAction.GreaterThanOrEqual;
+    private TType? _value2;
+    private FilterAction _action2 = FilterAction.LessThanOrEqual;
+    private string? _step;
 
-    private FilterAction Action1 { get; set; } = FilterAction.GreaterThanOrEqual;
-
-    private TType? Value2 { get; set; }
-
-    private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableFilter>? Localizer { get; set; }
+    private string? FilterRowClassString => CssBuilder.Default("filter-row")
+        .AddClass("active", TableColumnFilter.HasFilter())
+        .Build();
 
     /// <summary>
-    /// 获得/设置 步长 默认 0.01
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
     /// </summary>
     [Parameter]
-    public string Step { get; set; } = "0.01";
+    public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -37,15 +33,16 @@ public partial class NumberFilter<TType>
     {
         base.OnParametersSet();
 
-        Items ??= new SelectedItem[]
-        {
-            new("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
-            new("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
-            new("GreaterThan", Localizer["GreaterThan"].Value),
-            new("LessThan", Localizer["LessThan"].Value),
-            new("Equal", Localizer["Equal"].Value),
-            new("NotEqual", Localizer["NotEqual"].Value)
-        };
+        Items ??=
+        [
+            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
+            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
+            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
+            new SelectedItem("LessThan", Localizer["LessThan"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value)
+        ];
+        _step = TableColumnFilter?.Column.Step;
     }
 
     /// <summary>
@@ -53,10 +50,10 @@ public partial class NumberFilter<TType>
     /// </summary>
     public override void Reset()
     {
-        Value1 = default;
-        Value2 = default;
-        Action1 = FilterAction.GreaterThanOrEqual;
-        Action2 = FilterAction.LessThanOrEqual;
+        _value1 = default;
+        _value2 = default;
+        _action1 = FilterAction.GreaterThanOrEqual;
+        _action2 = FilterAction.LessThanOrEqual;
         Count = 0;
         Logic = FilterLogic.And;
         StateHasChanged();
@@ -68,24 +65,24 @@ public partial class NumberFilter<TType>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
-        if (Value1 != null)
+        var filter = new FilterKeyValueAction();
+        if (_value1 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
-                FieldValue = Value1,
-                FilterAction = Action1
+                FieldValue = _value1,
+                FilterAction = _action1
             });
         }
 
-        if (Count > 0 && Value2 != null)
+        if (Count > 0 && _value2 != null)
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
-                FieldValue = Value2,
-                FilterAction = Action2,
+                FieldValue = _value2,
+                FilterAction = _action2,
             });
             filter.FilterLogic = Logic;
         }
@@ -97,30 +94,30 @@ public partial class NumberFilter<TType>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is TType value)
         {
-            Value1 = value;
+            _value1 = value;
         }
         else
         {
-            Value1 = default;
+            _value1 = default;
         }
-        Action1 = first.FilterAction;
+        _action1 = first.FilterAction;
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is TType value2)
             {
-                Value2 = value2;
+                _value2 = value2;
             }
             else
             {
-                Value2 = default;
+                _value2 = default;
             }
-            Action2 = second.FilterAction;
+            _action2 = second.FilterAction;
             Logic = filter.FilterLogic;
         }
         await base.SetFilterConditionsAsync(filter);

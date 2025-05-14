@@ -1,47 +1,24 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TType
-@inherits FilterBase
+@inherits MultipleFilterBase
 
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        @if (typeof(TType).IsNumber())
-        {
-            <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()" Step="@Step"></BootstrapInputNumber>
-        }
-        else
-        {
-            <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
-        }
-        <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
+                              OnValueChanged="_ => OnFilterAsync()" Step="@_step"></BootstrapInputNumber>
+        <FilterButton Items="@Items" @bind-Value="@_action1" OnSelectedItemChanged="_ => OnFilterAsync()"
+                      OnClearFilter="OnClearFilter" />
     </div>
 }
 else
 {
-    <Select Items="@Items" @bind-Value="@Action1"></Select>
-
-    @if (typeof(TType).IsNumber())
-    {
-        <BootstrapInputNumber @bind-Value="@Value1" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
-    }
-    else
-    {
-        <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
-    }
-
+    <Select Items="@Items" @bind-Value="@_action1" ShowLabel="false" SkipValidate="true"></Select>
+    <BootstrapInputNumber @bind-Value="@_value1" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-
-        <Select Items="@Items" @bind-Value="@Action2"></Select>
-
-        @if (typeof(TType).IsNumber())
-        {
-            <BootstrapInputNumber @bind-Value="@Value2" ShowLabel="false" Step="@Step"></BootstrapInputNumber>
-        }
-        else
-        {
-            <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
-        }
+        <Select Items="@Items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
+        <BootstrapInputNumber @bind-Value="@_value2" ShowLabel="false" SkipValidate="true" Step="@_step"></BootstrapInputNumber>
     }
 }

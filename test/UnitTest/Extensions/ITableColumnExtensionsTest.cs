@@ -73,7 +73,7 @@ public class ITableColumnExtensionsTest
             CssClass = "test-css",
             DefaultSort = true,
             DefaultSortOrder = SortOrder.Desc,
-            Filter = new TableFilter(),
+            Filter = new TableColumnFilter(),
             Filterable = true,
             FilterTemplate = builder => builder.AddContent(0, "test-filter"),
             Fixed = true,
