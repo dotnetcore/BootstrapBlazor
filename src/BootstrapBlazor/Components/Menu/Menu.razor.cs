@@ -133,7 +133,7 @@ public partial class Menu
         InitMenus(null, Items, GetUrl());
         if (!DisableNavigation)
         {
-            Options.Text = ActiveMenu?.Text;
+            Options.Text ??= ActiveMenu?.Text;
             Options.Icon = ActiveMenu?.Icon;
             Options.IsActive = true;
         }
