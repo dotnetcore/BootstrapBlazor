@@ -24,9 +24,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public FilterKeyValueAction? Value { get; set; }
 
     /// <summary>
@@ -216,7 +214,9 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         await OnFilterChanged();
     }
 
-    private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic ? Color.Primary : Color.Secondary;
+    private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic
+        ? Color.Primary
+        : Color.Secondary;
 
     private readonly List<SelectedItem> _fields = [];
 
