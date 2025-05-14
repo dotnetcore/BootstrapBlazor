@@ -118,43 +118,6 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// 重置过滤条件方法
-    /// </summary>
-    public override void Reset()
-    {
-        _searchText = null;
-        if (_source != null)
-        {
-            foreach (var item in _source)
-            {
-                item.Active = false;
-            }
-        }
-        _items = null;
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 生成过滤条件方法
-    /// </summary>
-    /// <returns></returns>
-    public override FilterKeyValueAction GetFilterConditions()
-    {
-        var filter = new FilterKeyValueAction { Filters = [], FilterLogic = FilterLogic.Or };
-
-        foreach (var item in GetItems().Where(i => i.Active))
-        {
-            filter.Filters.Add(new FilterKeyValueAction
-            {
-                FieldKey = FieldKey,
-                FieldValue = item.Value,
-                FilterAction = FilterAction.Equal
-            });
-        }
-        return filter;
-    }
-
-    /// <summary>
     /// JavaScript 回调方法
     /// </summary>
     /// <returns></returns>
@@ -240,4 +203,63 @@ public partial class MultiFilter
     }
 
     private List<SelectedItem> GetItems() => _items ?? _source ?? [];
+
+    /// <summary>
+    /// 重置过滤条件方法
+    /// </summary>
+    public override void Reset()
+    {
+        _searchText = null;
+        if (_source != null)
+        {
+            foreach (var item in _source)
+            {
+                item.Active = false;
+            }
+        }
+        _items = null;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 生成过滤条件方法
+    /// </summary>
+    /// <returns></returns>
+    public override FilterKeyValueAction GetFilterConditions()
+    {
+        var filter = new FilterKeyValueAction { FilterLogic = FilterLogic.Or };
+        foreach (var item in GetItems().Where(i => i.Active))
+        {
+            filter.Filters.Add(new FilterKeyValueAction
+            {
+                FieldKey = FieldKey,
+                FieldValue = item.Value,
+                FilterAction = FilterAction.Equal
+            });
+        }
+        return filter;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
+    {
+        var items = GetItems();
+        if (items.Count > 0)
+        {
+            foreach (var f in filter.Filters)
+            {
+                var val = f.FieldValue?.ToString();
+                var item = items.Find(i => i.Value == val);
+                if (item != null)
+                {
+                    item.Active = true;
+                }
+            }
+        }
+        await base.SetFilterConditionsAsync(filter);
+    }
 }
