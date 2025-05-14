@@ -18,26 +18,13 @@ public partial class Select<TValue> : ISelect, ILookup
     [NotNull]
     private SwalService? SwalService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("select dropdown")
-        .AddClass("is-clearable", IsClearable)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
-    private string? InputClassString => CssBuilder.Default("form-select form-control")
-        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
-        .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
-        .AddClass(CssClass).AddClass(ValidCss)
-        .Build();
-
-    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", item.Value == CurrentValueAsString)
-        .AddClass("disabled", item.IsDisabled)
-        .Build();
-
-    private readonly List<SelectedItem> _children = [];
-
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
     /// Gets or sets the display template. Default is null.
@@ -124,31 +111,35 @@ public partial class Select<TValue> : ISelect, ILookup
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
+    IEnumerable<SelectedItem>? ILookup.Lookup { get => Items; set => Items = value; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    StringComparison ILookup.LookupStringComparison { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
-
-    /// <summary>
-    /// Gets or sets the injected lookup service instance.
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private ILookupService? InjectLookupService { get; set; }
+    StringComparison ILookup.LookupStringComparison { get => StringComparison; set => StringComparison = value; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
+
+    private string? ClassString => CssBuilder.Default("select dropdown")
+        .AddClass("is-clearable", IsClearable)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? InputClassString => CssBuilder.Default("form-select form-control")
+        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
+        .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
+
+    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+        .AddClass("active", item.Value == CurrentValueAsString)
+        .AddClass("disabled", item.IsDisabled)
+        .Build();
+
+    private readonly List<SelectedItem> _children = [];
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     private string? InputId => $"{Id}_input";
 
@@ -167,44 +158,6 @@ public partial class Select<TValue> : ISelect, ILookup
             SelectedItem ??= GetSelectedRow();
             return SelectedItem;
         }
-    }
-
-    private SelectedItem? GetSelectedRow()
-    {
-        if (Value is null)
-        {
-            _lastSelectedValueString = "";
-            _init = false;
-            return null;
-        }
-
-        var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
-        if (item != null)
-        {
-            if (_init && DisableItemChangedWhenFirstRender)
-            {
-
-            }
-            else
-            {
-                _ = SelectedItemChanged(item);
-                _init = false;
-            }
-        }
-        return item;
-    }
-
-    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
-
-    private SelectedItem GetItemByVirtualized() => new(CurrentValueAsString, _defaultVirtualizedItemText);
-
-    private SelectedItem? GetItemByRows()
-    {
-        var item = GetItemWithEnumValue()
-            ?? Rows.Find(i => i.Value == CurrentValueAsString)
-            ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
-        return item;
     }
 
     /// <summary>
@@ -439,5 +392,43 @@ public partial class Select<TValue> : ISelect, ILookup
                 await OnInputChangedCallback(v);
             }
         }
+    }
+
+    private SelectedItem? GetSelectedRow()
+    {
+        if (Value is null)
+        {
+            _lastSelectedValueString = "";
+            _init = false;
+            return null;
+        }
+
+        var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
+        if (item != null)
+        {
+            if (_init && DisableItemChangedWhenFirstRender)
+            {
+
+            }
+            else
+            {
+                _ = SelectedItemChanged(item);
+                _init = false;
+            }
+        }
+        return item;
+    }
+
+    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
+
+    private SelectedItem GetItemByVirtualized() => new(CurrentValueAsString, _defaultVirtualizedItemText);
+
+    private SelectedItem? GetItemByRows()
+    {
+        var item = GetItemWithEnumValue()
+            ?? Rows.Find(i => i.Value == CurrentValueAsString)
+            ?? Rows.Find(i => i.Active)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
+        return item;
     }
 }
