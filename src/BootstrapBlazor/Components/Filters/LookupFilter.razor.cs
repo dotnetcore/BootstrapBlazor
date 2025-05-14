@@ -46,7 +46,7 @@ public partial class LookupFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction { Filters = [] };
+        var filter = new FilterKeyValueAction();
         if (!string.IsNullOrEmpty(_value))
         {
             var type = Nullable.GetUnderlyingType(_type) ?? _type;
@@ -66,7 +66,7 @@ public partial class LookupFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         var type = Nullable.GetUnderlyingType(_type) ?? _type;
         if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {

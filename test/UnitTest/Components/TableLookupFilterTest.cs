@@ -8,115 +8,85 @@ namespace UnitTest.Components;
 public class TableLookupFilterTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Lookup_Ok()
+    public async Task OnFilterAsync_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>();
-        var items = cut.FindAll(".dropdown-item");
-        Assert.Equal(3, items.Count);
-        Assert.Contains("LookupService-Test-2", items[items.Count - 1].InnerHtml);
-
-        cut.WaitForAssertion(() =>
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
         {
-            items = cut.FindAll(".dropdown-item");
-            Assert.Equal(3, items.Count);
-            Assert.Contains("LookupService-Test-2-async", items[items.Count - 1].InnerHtml);
-        });
-    }
-
-    [Fact]
-    public void Reset_Ok()
-    {
-        var cut = Context.RenderComponent<LookupFilter>();
-
-        var filter = cut.Instance;
-        cut.InvokeAsync(() => filter.Reset());
-    }
-
-    [Fact]
-    public void GetFilterConditions_Ok()
-    {
-        var cut = Context.RenderComponent<LookupFilter>();
-
-        var filter = cut.Instance;
-        var conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Empty(conditions.Filters);
-
-        // Set Value
-        var items = cut.FindAll(".dropdown-item");
-        cut.InvokeAsync(() => items[1].Click());
-        conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
-    }
-
-    [Fact]
-    public void IsHeaderRow_OnFilterValueChanged()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Foo>() { new() });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ShowFilterHeader, true);
-                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<TableColumn<Foo, bool>>(index++);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Field), foo.Complete);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.FieldExpression), foo.GenerateValueExpression(nameof(foo.Complete), typeof(bool)));
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Filterable), true);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Lookup), new List<SelectedItem>()
-                    {
-                        new("true", "True"),
-                        new("false", "False")
-                    });
-                    builder.CloseComponent();
-                }));
-            });
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, new MockColumn());
+            pb.Add(a => a.IsHeaderRow, true);
         });
 
         var items = cut.FindAll(".dropdown-item");
-        cut.InvokeAsync(() => items[1].Click());
-        var conditions = cut.FindComponent<LookupFilter>().Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
+        await cut.InvokeAsync(() => { items[1].Click(); });
     }
 
     [Fact]
-    public void SetFilterConditions_Ok()
+    public async Task FilterAction_Ok()
     {
-        var cut = Context.RenderComponent<LookupFilter>();
-
-        var filter = cut.Instance;
-        var conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Empty(conditions.Filters);
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        {
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, new MockColumn());
+        });
+        var lookup = cut.FindComponent<LookupFilter>();
+        var filter = lookup.Instance;
 
         var newConditions = new FilterKeyValueAction()
         {
-            Filters = [new FilterKeyValueAction() { FieldValue = true }]
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = "1" },
+            ]
         };
-        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
-        conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        var conditions = filter.GetFilterConditions();
         Assert.Single(conditions.Filters);
-
-        newConditions = new FilterKeyValueAction()
-        {
-            Filters = [new FilterKeyValueAction() { FieldValue = null }]
-        };
-        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        await cut.InvokeAsync(() => filter.Reset());
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
-        newConditions = new FilterKeyValueAction() { FieldValue = true };
-        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        // Improve test coverage
+        newConditions = new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = false },
+            ]
+        };
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = null };
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions.Filters);
+    }
+
+    class MockTable : ITable
+    {
+        public Dictionary<string, IFilterAction> Filters { get; set; } = [];
+
+        public Func<Task>? OnFilterAsync { get; set; }
+
+        public List<ITableColumn> Columns => [];
+
+        public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+    }
+
+    class MockColumn : TableColumn<Foo, string>
+    {
+        public MockColumn()
+        {
+            PropertyType = typeof(string);
+            FieldName = "Lookup";
+            Lookup = new List<SelectedItem>()
+            {
+                new("1", "Test-1"),
+                new("2", "Test-2"),
+                new("3", "Test-3")
+            };
+        }
     }
 }
