@@ -137,7 +137,7 @@ public class AutoGenerateClassTest
         Assert.Equal(0, attr.Width);
 
         attrInterface.IgnoreWhenExport = null;
-        Assert.Null(attrInterface.IgnoreWhenExport);
+        Assert.False(attrInterface.IgnoreWhenExport);
 
         attrInterface.Width = -10;
         Assert.Equal(-10, attr.Width);
