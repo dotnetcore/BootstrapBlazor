@@ -44,6 +44,11 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsHeaderRow, true);
         });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsHeaderRow, false);
+        });
         var filter = cut.Instance;
 
         var newConditions = new FilterKeyValueAction()
