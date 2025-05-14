@@ -71,6 +71,14 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
                 pb.Add(a => a.TableColumns, CreateCatTableColumns());
             });
         });
+
+        Context.RenderComponent<Filter<MultiFilter>>(pb =>
+        {
+            pb.Add(a => a.FilterParameters, new Dictionary<string, object>()
+            {
+                { "Items", new List<SelectedItem>() }
+            });
+        });
     }
 
     [Fact]

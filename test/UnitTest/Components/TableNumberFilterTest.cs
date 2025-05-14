@@ -40,7 +40,10 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task FilterAction_Ok()
     {
-        var cut = Context.RenderComponent<NumberFilter<double?>>();
+        var cut = Context.RenderComponent<NumberFilter<double?>>(pb =>
+        {
+            pb.Add(a => a.IsHeaderRow, true);
+        });
         var filter = cut.Instance;
 
         var newConditions = new FilterKeyValueAction()
