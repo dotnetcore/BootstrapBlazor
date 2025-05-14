@@ -3221,6 +3221,7 @@
     "SwalFooter": "Click Confirm to change the option value and select Cancel to leave the value unchanged",
     "SelectsShowLabel": "Whether to display the front label",
     "SelectsShowSearch": "Whether to display the search box",
+    "SelectsIsAutoClearSearchTextWhenCollapsed": "Whether to automatically clear the search bar when the drop-down box is collapsed",
     "SelectsDisplayText": "The front label displays text",
     "SelectsClass": "Style",
     "SelectsColor": "Color",

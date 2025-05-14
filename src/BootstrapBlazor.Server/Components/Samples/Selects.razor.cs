@@ -322,6 +322,14 @@ public sealed partial class Selects
         },
         new()
         {
+            Name = "IsAutoClearSearchTextWhenCollapsed",
+            Description = Localizer["SelectsIsAutoClearSearchTextWhenCollapsed"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["SelectsDisplayText"],
             Type = "string",

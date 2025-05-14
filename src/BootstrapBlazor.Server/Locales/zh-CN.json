@@ -3221,6 +3221,7 @@
     "SwalFooter": "点击确认改变选项值，选择取消后值不变",
     "SelectsShowLabel": "是否显示前置标签",
     "SelectsShowSearch": "是否显示搜索框",
+    "SelectsIsAutoClearSearchTextWhenCollapsed": "下拉框收起时是否自动清空搜索栏",
     "SelectsDisplayText": "前置标签显示文本",
     "SelectsClass": "样式",
     "SelectsColor": "颜色",
