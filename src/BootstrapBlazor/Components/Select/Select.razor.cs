@@ -117,6 +117,12 @@ public partial class Select<TValue> : ISelect, ILookup
     [Parameter]
     public bool IsAutoClearSearchTextWhenCollapsed { get; set; }
 
+    /// <summary>
+    /// Gets or sets the dropdown collapsed callback method.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCollapsed { get; set; }
+
     IEnumerable<SelectedItem>? ILookup.Lookup { get => Items; set => Items = value; }
 
     StringComparison ILookup.LookupStringComparison { get => StringComparison; set => StringComparison = value; }
@@ -267,8 +273,29 @@ public partial class Select<TValue> : ISelect, ILookup
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
         ConfirmMethodCallback = nameof(ConfirmSelectedItem),
-        SearchMethodCallback = nameof(TriggerOnSearch)
+        SearchMethodCallback = nameof(TriggerOnSearch),
+        TriggerCollapsed = (OnCollapsed != null || IsAutoClearSearchTextWhenCollapsed) ? nameof(TriggerCollapsed) : null
     });
+
+    /// <summary>
+    /// Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript.
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerCollapsed()
+    {
+        if (OnCollapsed != null)
+        {
+            await OnCollapsed();
+        }
+
+        if (IsAutoClearSearchTextWhenCollapsed)
+        {
+            SearchText = string.Empty;
+            _itemsCache = null;
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
