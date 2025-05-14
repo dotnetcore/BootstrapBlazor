@@ -22,6 +22,19 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
 
         var action = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => action.Click());
+
+        // check filter
+        var filter = cut.Instance;
+        var conditions = filter.FilterAction.GetFilterConditions();
+        Assert.Single(conditions.Filters);
+
+        // trigger onclear
+        var clear = cut.Find(".btn-ban");
+        await cut.InvokeAsync(() => clear.Click());
+
+        // check filter
+        conditions = filter.FilterAction.GetFilterConditions();
+        Assert.Empty(conditions.Filters);
     }
 
     [Fact]
