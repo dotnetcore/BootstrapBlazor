@@ -194,7 +194,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnAddFilterGroup(FilterKeyValueAction filter)
     {
-        filter.Filters.Add(new FilterKeyValueAction());
+        filter.Filters.Add(new GroupFilterKeyValueAction());
 
         await OnFilterChanged();
     }
@@ -220,38 +220,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private readonly List<SelectedItem> _fields = [];
 
-    RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) => builder =>
-    {
-        var index = 0;
-        builder.OpenElement(index++, "ul");
-        builder.AddAttribute(index++, "class", "qb-group");
-        if (filter.HasFilters() && ShowHeader)
-        {
-            builder.OpenElement(index++, "li");
-            builder.AddAttribute(index++, "class", "qb-item");
-            builder.AddContent(index++, RenderHeader(parent, filter));
-            builder.CloseElement();
-        }
-        foreach (var f in filter.Filters)
-        {
-            if (f.HasFilters())
-            {
-                RenderFilterItem(ref index, RenderFilters(filter, f));
-            }
-            else
-            {
-                RenderFilterItem(ref index, RenderFilter(filter, f));
-            }
-        }
-        builder.CloseElement();
+    private bool IsShowHeader(FilterKeyValueAction filter) => ShowHeader && IsGroup(filter);
 
-        void RenderFilterItem(ref int sequence, RenderFragment fragment)
-        {
-            builder.OpenElement(sequence++, "li");
-            builder.AddAttribute(sequence++, "class", "qb-item");
-            builder.AddAttribute(sequence++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
-            builder.AddContent(sequence++, fragment);
-            builder.CloseElement();
-        }
-    };
+    private static bool IsGroup(FilterKeyValueAction filter) => filter is GroupFilterKeyValueAction || filter.Filters.Count > 0;
 }
