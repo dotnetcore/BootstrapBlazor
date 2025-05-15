@@ -65,7 +65,9 @@
             </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <CustomerFilter></CustomerFilter>
+                    <FilterProvider ShowMoreButton="false">
+                        <CustomerFilter></CustomerFilter>
+                    </FilterProvider>
                 </FilterTemplate>
             </TableColumn>
         </TableColumns>
@@ -211,22 +213,30 @@
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter Items="Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <FilterProvider ShowMoreButton="false">
+                        <MultiFilter Items="Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    </FilterProvider>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter OnGetItemsAsync="OnGetAddressItemsAsync"></MultiFilter>
+                    <FilterProvider ShowMoreButton="false">
+                        <MultiFilter OnGetItemsAsync="OnGetAddressItemsAsync"></MultiFilter>
+                    </FilterProvider>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Complete.ToString()!, i.Complete.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <FilterProvider ShowMoreButton="false">
+                        <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Complete.ToString()!, i.Complete.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    </FilterProvider>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <FilterProvider ShowMoreButton="false">
+                        <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    </FilterProvider>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
