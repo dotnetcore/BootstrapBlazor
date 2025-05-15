@@ -20,4 +20,17 @@ public abstract class MultipleFilterBase : FilterBase
     /// 获得/设置 多个条件逻辑关系符号
     /// </summary>
     protected FilterLogic Logic { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (FilterContext != null)
+        {
+            Count = FilterContext.Count;
+        }
+    }
 }

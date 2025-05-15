@@ -8,16 +8,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Filter 组件
+/// FilterProvider component
 /// </summary>
-public partial class Filter<TFilter> where TFilter : IComponent
+public partial class FilterProvider
 {
-    /// <summary>
-    /// 获得/设置 过滤器组件参数集合 Default is null
-    /// </summary>
-    [Parameter]
-    public IDictionary<string, object>? FilterParameters { get; set; }
-
     /// <summary>
     /// 获得/设置 重置按钮文本
     /// </summary>
@@ -53,10 +47,20 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// <summary>
     /// Gets or sets the filter title. Default is null.
     /// </summary>
+    [Parameter]
     public string? Title { get; set; }
 
+    /// <summary>
+    /// Gets or sets the child content. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="TableColumnFilter"/> instance from cascading parameter.
+    /// </summary>
     [CascadingParameter]
-    private TableColumnFilter? TableColumnFilter { get; set; }
+    protected TableColumnFilter? TableColumnFilter { get; set; }
 
     [Inject]
     [NotNull]
@@ -66,9 +70,20 @@ public partial class Filter<TFilter> where TFilter : IComponent
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private int _count;
-    private string? _fieldKey;
-    private bool _isHeaderRow = false;
+    /// <summary>
+    /// Gets or sets the filter counter. Default is 0.
+    /// </summary>
+    protected int Count { get; set; }
+
+    /// <summary>
+    /// Gets or sets the column field key. Default is null.
+    /// </summary>
+    protected string? FieldKey { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the filter is header row. Default is false.
+    /// </summary>
+    protected bool IsHeaderRow { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -84,9 +99,8 @@ public partial class Filter<TFilter> where TFilter : IComponent
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
 
         Title ??= TableColumnFilter.GetFilterTitle();
-
-        _isHeaderRow = TableColumnFilter.IsHeaderRow();
-        _fieldKey = TableColumnFilter.GetFieldKey();
+        FieldKey ??= TableColumnFilter.GetFieldKey();
+        IsHeaderRow = TableColumnFilter.IsHeaderRow();
     }
 
     /// <summary>
@@ -95,7 +109,7 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// <returns></returns>
     private async Task OnClickReset()
     {
-        _count = 0;
+        Count = 0;
         if (TableColumnFilter != null)
         {
             await TableColumnFilter.Reset();
@@ -121,9 +135,9 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// <returns></returns>
     private void OnClickPlus()
     {
-        if (_count == 0)
+        if (Count == 0)
         {
-            _count++;
+            Count++;
         }
     }
 
@@ -133,9 +147,9 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// <returns></returns>
     private void OnClickMinus()
     {
-        if (_count == 1)
+        if (Count == 1)
         {
-            _count--;
+            Count--;
         }
     }
 
@@ -145,22 +159,14 @@ public partial class Filter<TFilter> where TFilter : IComponent
     /// <returns></returns>
     protected virtual RenderFragment RenderFilter() => builder =>
     {
-        var filterType = typeof(TFilter);
-        builder.OpenComponent<TFilter>(0);
-        if (filterType.IsSubclassOf(typeof(FilterBase)))
+        builder.OpenComponent<CascadingValue<FilterContext>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<FilterContext>.Value), new FilterContext()
         {
-            builder.AddAttribute(1, nameof(FilterBase.FieldKey), _fieldKey);
-            builder.AddAttribute(2, nameof(FilterBase.IsHeaderRow), _isHeaderRow);
-        }
-        if (filterType.IsSubclassOf(typeof(MultipleFilterBase)))
-        {
-            builder.AddAttribute(10, nameof(MultipleFilterBase.Count), _count);
-        }
-
-        if (FilterParameters != null)
-        {
-            builder.AddMultipleAttributes(100, FilterParameters);
-        }
+            Count = Count,
+            FieldKey = FieldKey,
+            IsHeaderRow = IsHeaderRow
+        });
+        builder.AddAttribute(2, nameof(CascadingValue<FilterContext>.ChildContent), ChildContent);
         builder.CloseComponent();
     };
 }
