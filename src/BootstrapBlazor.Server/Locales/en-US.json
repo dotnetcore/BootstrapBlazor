@@ -3448,8 +3448,6 @@
     "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "UploadNormalTitle": "Basic usage",
     "UploadNormalIntro": "The <code>InputUpload</code> component is used with other form components to display the file name, select the file and upload it by clicking the <b>browse button</b>, and by setting the <code>ShowRemoveButton</code> parameter, display the <b>delete button</b>, click the delete button to call back <code>onDelete</code> delegate method",
-    "UploadNormalLabelName": "Name:",
-    "UploadNormalLabelAddress": "Address:",
     "UploadNormalLabelPhoto": "Photo:",
     "UploadFormSettingsTitle": "FormSettings",
     "UploadFormSettingsIntro": "Use the file upload component to constrain the file format within the form",

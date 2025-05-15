@@ -16,14 +16,6 @@
            Introduction="@Localizer["UploadNormalIntro"]"
            Name="Normal">
     <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <label for="text1" class="form-label">@Localizer["UploadNormalLabelName"]</label>
-            <input id="text1" class="form-control">
-        </div>
-        <div class="col-12 col-sm-6">
-            <label for="text2" class="form-label">@Localizer["UploadNormalLabelAddress"]</label>
-            <input id="text2" class="form-control">
-        </div>
         <div class="col-12">
             <label for="text3" class="form-label">@Localizer["UploadNormalLabelPhoto"]</label>
             <InputUpload TValue="string" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
