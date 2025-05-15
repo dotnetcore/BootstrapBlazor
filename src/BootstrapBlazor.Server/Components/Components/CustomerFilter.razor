@@ -1,10 +1,12 @@
 ﻿@inherits FilterBase
 
-@if (IsHeaderRow)
-{
+<FilterProvider>
+    @if (IsHeaderRow)
+    {
 
-}
-else
-{
-    <Select Items="@_items" @bind-Value="@Value"></Select>
-}
+    }
+    else
+    {
+        <Select Items="@_items" @bind-Value="@Value"></Select>
+    }
+</FilterProvider>

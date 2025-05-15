@@ -2,47 +2,49 @@
 @inherits FilterBase
 @attribute [BootstrapModuleAutoLoader("Filters/MultiFilter.razor.js", JSObjectReference = true)]
 
-@if (IsHeaderRow)
-{
+<FilterProvider>
+    @if (IsHeaderRow)
+    {
     
-}
-else
-{
-    <div class="bb-multi-filter" id="@Id">
-        @if (ShowSearch)
-        {
-            <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
-                            Value="@_searchText" bind-value:event="oninput" IsAutoFocus="true"
-                            PlaceHolder="@SearchPlaceHolderText" IsSelectAllTextOnFocus="true"
-                            OnValueChanged="OnSearchValueChanged" ShowLabel="false" SkipValidate="true"></BootstrapInput>
-        }
-        <div class="bb-multi-filter-list">
-            <div class="bb-multi-filter-header">
-                <Checkbox Value="GetAllState()" ShowAfterLabel="true" ShowLabel="false" SkipValidate="true"
-                          DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
+    }
+    else
+    {
+        <div class="bb-multi-filter" id="@Id">
+            @if (ShowSearch)
+            {
+                <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
+                                Value="@_searchText" bind-value:event="oninput" IsAutoFocus="true"
+                                PlaceHolder="@SearchPlaceHolderText" IsSelectAllTextOnFocus="true"
+                                OnValueChanged="OnSearchValueChanged" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+            }
+            <div class="bb-multi-filter-list">
+                <div class="bb-multi-filter-header">
+                    <Checkbox Value="GetAllState()" ShowAfterLabel="true" ShowLabel="false" SkipValidate="true"
+                              DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
+                </div>
+                <div class="bb-multi-filter-body scroll">
+                    @foreach (var item in GetItems())
+                    {
+                        <div class="bb-multi-filter-body-item">
+                            <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true"
+                                      ShowLabel="false" SkipValidate="true" DisplayText="@item.Text" />
+                        </div>
+                    }
+                </div>
             </div>
-            <div class="bb-multi-filter-body scroll">
-                @foreach (var item in GetItems())
-                {
-                    <div class="bb-multi-filter-body-item">
-                        <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true"
-                                  ShowLabel="false" SkipValidate="true" DisplayText="@item.Text" />
-                    </div>
-                }
-            </div>
+            @if (_source == null)
+            {
+                <div class="bb-multi-filter-loading">
+                    @if (LoadingTemplate != null)
+                    {
+                        @LoadingTemplate
+                    }
+                    else
+                    {
+                        <Spinner Color="Color.Primary" />
+                    }
+                </div>
+            }
         </div>
-        @if (_source == null)
-        {
-            <div class="bb-multi-filter-loading">
-                @if (LoadingTemplate != null)
-                {
-                    @LoadingTemplate
-                }
-                else
-                {
-                    <Spinner Color="Color.Primary" />
-                }
-            </div>
-        }
-    </div>
-}
+    }
+</FilterProvider>
