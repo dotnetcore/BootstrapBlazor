@@ -17,12 +17,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// 获得/设置 是否仅上传一次 默认 false
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用 通过 IsMultiple 参数实现此功能; Deprecated. please use IsMultiple parameter.")]
+    [ExcludeFromCodeCoverage]
     public bool IsSingle { get; set; }
 
     /// <summary>
     /// 获得/设置 最大上传个数 默认为最大值 <see cref="int.MaxValue"/>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用 通过 MaxFileCount 参数实现此功能; Deprecated. please use MaxFileCount parameter.")]
+    [ExcludeFromCodeCoverage]
     public int Max { get; set; } = int.MaxValue;
 
     /// <summary>
@@ -46,7 +50,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 获得/设置 上传文件集合
     /// </summary>
-    protected List<UploadFile> UploadFiles { get; set; } = [];
+    protected List<UploadFile> UploadFiles { get; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
@@ -185,6 +189,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected virtual Task OnFileUpload(List<UploadFile> items)
     {
+        UploadFiles.AddRange(items);
         return Task.CompletedTask;
     }
 
@@ -265,12 +270,21 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 是否显示上传组件
+    /// 是否可以上传
     /// </summary>
     protected bool CheckCanUpload()
     {
-        var count = GetUploadFiles().Count;
-        return IsSingle ? count < 1 : count < Max;
+        if (IsDisabled)
+        {
+            return true;
+        }
+
+        if (IsMultiple == false)
+        {
+            return UploadFiles.Count > 0;
+        }
+
+        return MaxFileCount.HasValue && UploadFiles.Count > MaxFileCount.Value;
     }
 
     /// <summary>
@@ -280,7 +294,15 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     protected virtual List<UploadFile> GetUploadFiles()
     {
         var ret = new List<UploadFile>();
-        if (IsSingle)
+        if (IsMultiple)
+        {
+            if (DefaultFileList != null)
+            {
+                ret.AddRange(DefaultFileList);
+            }
+            ret.AddRange(UploadFiles);
+        }
+        else
         {
             if (DefaultFileList != null && DefaultFileList.Count != 0)
             {
@@ -290,14 +312,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             {
                 ret.Add(UploadFiles.First());
             }
-        }
-        else
-        {
-            if (DefaultFileList != null)
-            {
-                ret.AddRange(DefaultFileList);
-            }
-            ret.AddRange(UploadFiles);
         }
         return ret;
     }

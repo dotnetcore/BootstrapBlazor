@@ -12,36 +12,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
-    private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
-
-    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
-        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
-        .Build();
-
-    private string? LoadingIconString => CssBuilder.Default("loading-icon")
-        .AddClass(LoadingIcon)
-        .Build();
-
-    private string? DeleteIconString => CssBuilder.Default("delete-icon")
-        .AddClass(DeleteIcon)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("invalid-icon")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
-    private string? DownloadIconString => CssBuilder.Default("download-icon")
-        .AddClass(DownloadIcon)
-        .Build();
-
-    private string? CancelIconString => CssBuilder.Default("cancel-icon")
-        .AddClass(CancelIcon)
-        .Build();
-
     /// <summary>
     /// 获得/设置 浏览按钮图标
     /// </summary>
@@ -233,6 +203,36 @@ public partial class ButtonUpload<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
+        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
+        .Build();
+
+    private string? LoadingIconString => CssBuilder.Default("loading-icon")
+        .AddClass(LoadingIcon)
+        .Build();
+
+    private string? DeleteIconString => CssBuilder.Default("delete-icon")
+        .AddClass(DeleteIcon)
+        .Build();
+
+    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
+        .AddClass(ValidStatusIcon)
+        .Build();
+
+    private string? InvalidStatusIconString => CssBuilder.Default("invalid-icon")
+        .AddClass(InvalidStatusIcon)
+        .Build();
+
+    private string? DownloadIconString => CssBuilder.Default("download-icon")
+        .AddClass(DownloadIcon)
+        .Build();
+
+    private string? CancelIconString => CssBuilder.Default("cancel-icon")
+        .AddClass(CancelIcon)
+        .Build();
+
+    private bool IsUploadButtonDisabled => CheckCanUpload();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -288,11 +288,6 @@ public partial class ButtonUpload<TValue>
         }
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
     private string? GetFileFormatClassString(UploadFile item)
     {
         var builder = CssBuilder.Default("file-icon");

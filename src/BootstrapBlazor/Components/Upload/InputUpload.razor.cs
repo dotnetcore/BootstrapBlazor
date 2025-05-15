@@ -78,7 +78,7 @@ public partial class InputUpload<TValue>
         .AddClass(DeleteButtonClass)
         .Build();
 
-    private bool IsDeleteButtonDisabled => IsDisabled || _currentFiles.Count == 0;
+    private bool IsDeleteButtonDisabled => IsDisabled || UploadFiles.Count == 0;
 
     private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
         .AddClass(BrowserButtonClass)
@@ -87,8 +87,6 @@ public partial class InputUpload<TValue>
     private string? ClassString => CssBuilder.Default("upload")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    private List<UploadFile> _currentFiles = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -104,26 +102,15 @@ public partial class InputUpload<TValue>
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="items"></param>
-    /// <returns></returns>
-    protected override Task OnFileUpload(List<UploadFile> items)
-    {
-        _currentFiles = items;
-        return Task.CompletedTask;
-    }
-
     private async Task OnDeleteFile()
     {
-        foreach (var item in _currentFiles)
+        foreach (var item in UploadFiles)
         {
             await OnFileDelete(item);
         }
 
         // TODO: 需要验证文件删除结果
-        _currentFiles = [];
+        UploadFiles.Clear();
         CurrentValue = default;
     }
 
