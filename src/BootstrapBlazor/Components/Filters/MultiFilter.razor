@@ -19,14 +19,14 @@ else
         <div class="bb-multi-filter-list">
             <div class="bb-multi-filter-header">
                 <Checkbox Value="GetAllState()" ShowAfterLabel="true" ShowLabel="false" SkipValidate="true"
-                            DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
+                          DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="_selectAllState" />
             </div>
             <div class="bb-multi-filter-body scroll">
                 @foreach (var item in GetItems())
                 {
                     <div class="bb-multi-filter-body-item">
                         <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true"
-                                    ShowLabel="false" SkipValidate="true" DisplayText="@item.Text" />
+                                  ShowLabel="false" SkipValidate="true" DisplayText="@item.Text" />
                     </div>
                 }
             </div>
