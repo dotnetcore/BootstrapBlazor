@@ -17,13 +17,13 @@
            Name="Normal">
     <div class="row g-3">
         <div class="col-12">
-            <label for="text3" class="form-label">@Localizer["UploadNormalLabelPhoto"]</label>
-            <InputUpload TValue="string" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
+            <InputUpload TValue="string" ShowDeleteButton="true"
+                         ShowLabel="true" DisplayText="@Localizer["UploadNormalLabelPhoto"]"
+                         OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
         </div>
     </div>
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
-
 <DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
            Introduction="@Localizer["UploadFormSettingsIntro"]"
            Name="FormSettings">
@@ -52,17 +52,23 @@
            Introduction="@Localizer["UploadClickUploadIntro"]"
            Name="ClickUpload">
     <div class="row g-3">
-        <div class="col-12 col-sm-6">
+        <div class="col-12">
             <p>@((MarkupString)Localizer["UploadClickUploadTips1"].Value)</p>
-            <ButtonUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+            <ButtonUpload TValue="string" IsMultiple="true" ShowProgress="true"
+                          OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+        </div>
+        <div class="col-12">
+            <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
+            <ButtonUpload TValue="string" class="mt-3"
+                          OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+        </div>
+        <div class="col-12">
+            <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
+            <ButtonUpload TValue="string" class="mt-3"
+                          ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up"
+                          OnChange="@OnClickToUploadNoUploadList" ></ButtonUpload>
         </div>
     </div>
-    <section ignore>
-        <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
-        <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" class="mt-3"></ButtonUpload>
-        <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
-        <ButtonUpload TValue="string" OnChange="@OnClickToUploadNoUploadList" ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up" class="mt-3"></ButtonUpload>
-    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadedFilesTitle"]"
