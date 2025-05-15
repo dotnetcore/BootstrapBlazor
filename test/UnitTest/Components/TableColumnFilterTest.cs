@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Threading.Tasks;
 
 namespace UnitTest.Components;
 
@@ -57,7 +56,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Filter_Ok()
+    public void FilterProvider_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -69,14 +68,6 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
                 });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableColumns, CreateCatTableColumns());
-            });
-        });
-
-        Context.RenderComponent<Filter<MultiFilter>>(pb =>
-        {
-            pb.Add(a => a.FilterParameters, new Dictionary<string, object>()
-            {
-                { "Items", new List<SelectedItem>() }
             });
         });
     }
