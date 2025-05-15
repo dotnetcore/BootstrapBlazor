@@ -45,7 +45,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 获得/设置 上传文件集合
     /// </summary>
-    protected List<UploadFile> UploadFiles { get; } = [];
+    protected List<UploadFile> UploadFiles { get; set; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
@@ -110,7 +110,50 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual async Task OnFileChange(InputFileChangeEventArgs args)
+    {
+        // init UploadFiles
+        var items = args.GetMultipleFiles(args.FileCount).Select(f => new UploadFile()
+        {
+            OriginFileName = f.Name,
+            Size = f.Size,
+            File = f,
+            FileCount = args.FileCount,
+            Uploaded = OnChange == null,
+            UpdateCallback = Update
+        });
+        UploadFiles.AddRange(items);
+
+        // trigger OnChange event callback
+        if (OnChange != null)
+        {
+            foreach (var item in items)
+            {
+                await OnChange(item);
+                item.Uploaded = true;
+            }
+            StateHasChanged();
+        }
+
+        // trigger OnAllFileUploaded event callback
+        if (OnAllFileUploaded != null)
+        {
+            await OnAllFileUploaded(UploadFiles);
+        }
+
+        var type = NullableUnderlyingType ?? typeof(TValue);
+        if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
+        {
+            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
+        }
+    }
+
+    /// <summary>
+    /// Delete file method.
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
@@ -137,7 +180,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 
+    /// append html attribute method.
     /// </summary>
     /// <returns></returns>
     protected virtual IDictionary<string, object> GetUploadAdditionalAttributes()
@@ -158,16 +201,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 清空上传列表方法
-    /// </summary>
-    public virtual void Reset()
-    {
-        DefaultFileList?.Clear();
-        UploadFiles.Clear();
-        StateHasChanged();
-    }
-
-    /// <summary>
     /// 是否显示进度条方法
     /// </summary>
     /// <param name="item"></param>
@@ -183,49 +216,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (GetShowProgress(file))
         {
             StateHasChanged();
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected virtual async Task OnFileChange(InputFileChangeEventArgs args)
-    {
-        // init UploadFiles
-        var items = args.GetMultipleFiles(args.FileCount).Select(f => new UploadFile()
-        {
-            OriginFileName = f.Name,
-            Size = f.Size,
-            File = f,
-            FileCount = args.FileCount,
-            Uploaded = OnChange == null,
-            UpdateCallback = Update
-        }).ToList();
-        UploadFiles.AddRange(items);
-
-        // trigger OnChange event callback
-        if (OnChange != null)
-        {
-            foreach (var item in items)
-            {
-                await OnChange(item);
-                item.Uploaded = true;
-                StateHasChanged();
-            }
-        }
-
-        // trigger OnAllFileUploaded event callback
-        if (OnAllFileUploaded != null)
-        {
-            await OnAllFileUploaded(UploadFiles);
-        }
-
-        var type = NullableUnderlyingType ?? typeof(TValue);
-        if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
-        {
-            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
         }
     }
 
@@ -265,5 +255,15 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             ret.AddRange(UploadFiles);
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 清空上传列表方法
+    /// </summary>
+    public virtual void Reset()
+    {
+        DefaultFileList?.Clear();
+        UploadFiles.Clear();
+        StateHasChanged();
     }
 }
