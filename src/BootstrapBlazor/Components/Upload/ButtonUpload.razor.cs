@@ -125,6 +125,127 @@ public partial class ButtonUpload<TValue>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否上传整个目录 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsDirectory { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否允许多文件上传 默认 false 不允许
+    /// </summary>
+    [Parameter]
+    public bool IsMultiple { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置文件格式图标回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string?, string>? OnGetFileFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+        .AddClass("is-valid", item.Uploaded && item.Code == 0)
+        .AddClass("is-invalid", item.Code != 0)
+        .Build();
+
+    private string? ItemClassString => CssBuilder.Default("upload-item")
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -138,5 +259,100 @@ public partial class ButtonUpload<TValue>
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
         DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
+
+        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
+        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
+        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
+        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
+        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
+        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
+        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
+        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
+        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
+        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
+        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
+        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
+    }
+
+    /// <summary>
+    /// 点击下载按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickDownload(UploadFile item)
+    {
+        if (OnDownload != null)
+        {
+            await OnDownload(item);
+        }
+    }
+
+    /// <summary>
+    /// 点击取消按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickCancel(UploadFile item)
+    {
+        if (OnCancel != null)
+        {
+            await OnCancel(item);
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected override IDictionary<string, object> GetUploadAdditionalAttributes()
+    {
+        var ret = base.GetUploadAdditionalAttributes();
+
+        if (IsMultiple)
+        {
+            ret.Add("multiple", "multiple");
+        }
+
+        if (IsDirectory)
+        {
+            ret.Add("directory", "dicrectory");
+            ret.Add("webkitdirectory", "webkitdirectory");
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    private string? GetFileFormatClassString(UploadFile item)
+    {
+        var builder = CssBuilder.Default("file-icon");
+        var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName);
+        if (!string.IsNullOrEmpty(fileExtension))
+        {
+            fileExtension = fileExtension.ToLowerInvariant();
+        }
+        var icon = OnGetFileFormat?.Invoke(fileExtension) ?? GetFileExtensions();
+        builder.AddClass(icon);
+        return builder.Build();
+
+        // switch 关键字导致无法 100% 覆盖
+        [ExcludeFromCodeCoverage]
+        string? GetFileExtensions() => fileExtension switch
+        {
+            ".csv" or ".xls" or ".xlsx" => FileIconExcel,
+            ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
+            ".ppt" or ".pptx" => FileIconPPT,
+            ".wav" or ".mp3" => FileIconAudio,
+            ".mp4" or ".mov" or ".mkv" => FileIconVideo,
+            ".cs" or ".html" or ".vb" => FileIconCode,
+            ".pdf" => FileIconPdf,
+            ".zip" or ".rar" or ".iso" => FileIconZip,
+            ".txt" or ".log" => FileIconArchive,
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
+            _ => FileIconFile
+        };
     }
 }

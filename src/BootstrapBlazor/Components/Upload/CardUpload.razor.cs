@@ -10,6 +10,19 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class CardUpload<TValue>
 {
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+        .AddClass("is-valid", item.Uploaded && item.Code == 0)
+        .AddClass("is-invalid", item.Code != 0)
+        .Build();
+    private string? ItemClassString => CssBuilder.Default("upload-item")
+        .AddClass("is-single", IsSingle)
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
     private string? BodyClassString => CssBuilder.Default("upload-body is-card")
         .AddClass("is-single", IsSingle)
         .Build();
@@ -102,6 +115,30 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -164,6 +201,32 @@ public partial class CardUpload<TValue>
         if (OnZoomAsync != null)
         {
             await OnZoomAsync(item);
+        }
+    }
+
+    /// <summary>
+    /// 点击下载按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickDownload(UploadFile item)
+    {
+        if (OnDownload != null)
+        {
+            await OnDownload(item);
+        }
+    }
+
+    /// <summary>
+    /// 点击取消按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickCancel(UploadFile item)
+    {
+        if (OnCancel != null)
+        {
+            await OnCancel(item);
         }
     }
 }

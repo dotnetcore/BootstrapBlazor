@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits SingleUploadBase<TValue>
+@inherits UploadBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -46,7 +46,6 @@
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
-
 
 @code {
     RenderFragment RenderAdd =>

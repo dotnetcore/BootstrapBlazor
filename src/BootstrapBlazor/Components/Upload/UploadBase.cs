@@ -14,11 +14,28 @@ namespace BootstrapBlazor.Components;
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
-    /// 获得 组件样式
+    /// 获得/设置 是否仅上传一次 默认 false
     /// </summary>
-    protected string? ClassString => CssBuilder.Default("upload")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
+    [Parameter]
+    public bool IsSingle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大上传个数 默认为最大值 <see cref="int.MaxValue"/>
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; } = int.MaxValue;
+
+    /// <summary>
+    /// 获得/设置 所有文件上传完毕回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<IReadOnlyCollection<UploadFile>, Task>? OnAllFileUploaded { get; set; }
+
+    /// <summary>
+    /// 获得/设置 已上传文件集合
+    /// </summary>
+    [Parameter]
+    public List<UploadFile>? DefaultFileList { get; set; }
 
     /// <summary>
     /// 获得/设置 当前上传文件
@@ -31,6 +48,12 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     protected List<UploadFile> UploadFiles { get; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
+
+    /// <summary>
+    /// 获得/设置 是否显示上传进度 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool ShowProgress { get; set; }
 
     /// <summary>
     /// 获得/设置 上传接收的文件格式 默认为 null 接收任意格式
@@ -99,27 +122,18 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             ret = await OnDelete(item);
         }
         ErrorMessage = null;
-        return ret;
-    }
 
-    /// <summary>
-    /// 上传文件改变时回调此方法
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected virtual Task OnFileChange(InputFileChangeEventArgs args)
-    {
-        // 判定可为空
-        var type = NullableUnderlyingType ?? typeof(TValue);
-        if (type.IsAssignableTo(typeof(IBrowserFile)))
+        if (ret)
         {
-            CurrentValue = (TValue)args.File;
+            UploadFiles.Remove(item);
+            if (!string.IsNullOrEmpty(item.ValidateId))
+            {
+                await RemoveValidResult(item.ValidateId);
+            }
+            DefaultFileList?.Remove(item);
         }
-        if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
-        {
-            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
-        }
-        return Task.CompletedTask;
+        return ret;
+
     }
 
     /// <summary>
@@ -148,7 +162,108 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     public virtual void Reset()
     {
+        DefaultFileList?.Clear();
         UploadFiles.Clear();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 是否显示进度条方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected bool GetShowProgress(UploadFile item) => ShowProgress && !item.Uploaded;
+
+    /// <summary>
+    /// 更新上传进度方法
+    /// </summary>
+    /// <param name="file"></param>
+    protected void Update(UploadFile file)
+    {
+        if (GetShowProgress(file))
+        {
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected virtual async Task OnFileChange(InputFileChangeEventArgs args)
+    {
+        // init UploadFiles
+        var items = args.GetMultipleFiles(args.FileCount).Select(f => new UploadFile()
+        {
+            OriginFileName = f.Name,
+            Size = f.Size,
+            File = f,
+            FileCount = args.FileCount,
+            Uploaded = OnChange == null,
+            UpdateCallback = Update
+        }).ToList();
+        UploadFiles.AddRange(items);
+
+        // trigger OnChange event callback
+        if (OnChange != null)
+        {
+            foreach (var item in items)
+            {
+                await OnChange(item);
+                item.Uploaded = true;
+                StateHasChanged();
+            }
+        }
+
+        // trigger OnAllFileUploaded event callback
+        if (OnAllFileUploaded != null)
+        {
+            await OnAllFileUploaded(UploadFiles);
+        }
+
+        var type = NullableUnderlyingType ?? typeof(TValue);
+        if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
+        {
+            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
+        }
+    }
+
+    /// <summary>
+    /// 是否显示上传组件
+    /// </summary>
+    protected bool CheckCanUpload()
+    {
+        var count = GetUploadFiles().Count;
+        return IsSingle ? count < 1 : count < Max;
+    }
+
+    /// <summary>
+    /// 获得当前图片集合
+    /// </summary>
+    /// <returns></returns>
+    protected virtual List<UploadFile> GetUploadFiles()
+    {
+        var ret = new List<UploadFile>();
+        if (IsSingle)
+        {
+            if (DefaultFileList != null && DefaultFileList.Count != 0)
+            {
+                ret.Add(DefaultFileList.First());
+            }
+            if (ret.Count == 0 && UploadFiles.Count != 0)
+            {
+                ret.Add(UploadFiles.First());
+            }
+        }
+        else
+        {
+            if (DefaultFileList != null)
+            {
+                ret.AddRange(DefaultFileList);
+            }
+            ret.AddRange(UploadFiles);
+        }
+        return ret;
     }
 }

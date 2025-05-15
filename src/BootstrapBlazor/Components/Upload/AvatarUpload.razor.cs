@@ -13,45 +13,6 @@ namespace BootstrapBlazor.Components;
 public partial class AvatarUpload<TValue>
 {
     /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected new string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", !IsDisabled && item.IsValid.HasValue && item.IsValid.Value)
-        .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
-        .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
-        .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
-        .AddClass("is-circle", IsCircle)
-        .AddClass("is-single", IsSingle)
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 预览框 Style 属性
-    /// </summary>
-    private string? PrevStyleString => CssBuilder.Default()
-        .AddClass($"width: {Width}px;", Width > 0)
-        .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
-        .AddClass($"height: {Width}px;", IsCircle)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 文件预览框宽度
     /// </summary>
     [Parameter]
@@ -108,6 +69,41 @@ public partial class AvatarUpload<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+        .AddClass("is-valid", !IsDisabled && item.IsValid.HasValue && item.IsValid.Value)
+        .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
+        .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
+        .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    private string? ItemClassString => CssBuilder.Default("upload-item")
+        .AddClass("is-circle", IsCircle)
+        .AddClass("is-single", IsSingle)
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 预览框 Style 属性
+    /// </summary>
+    private string? PrevStyleString => CssBuilder.Default()
+        .AddClass($"width: {Width}px;", Width > 0)
+        .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
+        .AddClass($"height: {Width}px;", IsCircle)
+        .Build();
+
+    private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
+        .AddClass(ValidStatusIcon)
+        .Build();
+
+    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
+        .AddClass(InvalidStatusIcon)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>

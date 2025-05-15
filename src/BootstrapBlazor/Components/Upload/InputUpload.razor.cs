@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -13,22 +12,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class InputUpload<TValue>
 {
-    private string? InputValueClassString => CssBuilder.Default("form-control")
-        .AddClass(CssClass).AddClass(ValidCss)
-        .Build();
-
-    private string? RemoveButtonClassString => CssBuilder.Default()
-        .AddClass(DeleteButtonClass)
-        .Build();
-
-    private bool IsDeleteButtonDisabled => IsDisabled || CurrentFile == null;
-
-    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
-        .AddClass(BrowserButtonClass)
-        .Build();
-
-    private string? GetFileName() => CurrentFile?.GetFileName() ?? Value?.ToString();
-
     /// <summary>
     /// 获得/设置 浏览按钮图标
     /// </summary>
@@ -87,16 +70,25 @@ public partial class InputUpload<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+    private string? InputValueClassString => CssBuilder.Default("form-control")
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
 
-        DeleteButtonText ??= Localizer[nameof(DeleteButtonText)];
-        BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
-    }
+    private string? RemoveButtonClassString => CssBuilder.Default()
+        .AddClass(DeleteButtonClass)
+        .Build();
+
+    private bool IsDeleteButtonDisabled => IsDisabled || CurrentFile == null;
+
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
+        .AddClass(BrowserButtonClass)
+        .Build();
+
+    private string? GetFileName() => CurrentFile?.GetFileName() ?? Value?.ToString();
+
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -105,35 +97,11 @@ public partial class InputUpload<TValue>
     {
         base.OnParametersSet();
 
+        DeleteButtonText ??= Localizer[nameof(DeleteButtonText)];
+        BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
+
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadBrowserButtonIcon);
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
-    }
-
-    /// <summary>
-    /// 上传文件改变时回调方法
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected override async Task OnFileChange(InputFileChangeEventArgs args)
-    {
-        CurrentFile = new UploadFile()
-        {
-            OriginFileName = args.File.Name,
-            Size = args.File.Size,
-            File = args.File,
-            Uploaded = false
-        };
-
-        UploadFiles.Clear();
-        UploadFiles.Add(CurrentFile);
-
-        await base.OnFileChange(args);
-
-        if (OnChange != null)
-        {
-            await OnChange(CurrentFile);
-        }
-        CurrentFile.Uploaded = true;
     }
 
     private async Task OnDeleteFile()
