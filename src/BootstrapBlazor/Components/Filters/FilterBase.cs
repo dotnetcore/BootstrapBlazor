@@ -39,6 +39,12 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     protected TableColumnFilter? TableColumnFilter { get; set; }
 
     /// <summary>
+    /// Gets or sets the <see cref="FilterContext"/> instance from cascading parameter.
+    /// </summary>
+    [CascadingParameter]
+    protected FilterContext? FilterContext { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -48,6 +54,20 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
         if (TableColumnFilter != null)
         {
             TableColumnFilter.FilterAction = this;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (FilterContext != null)
+        {
+            FieldKey = FilterContext.FieldKey;
+            IsHeaderRow = FilterContext.IsHeaderRow;
         }
     }
 
