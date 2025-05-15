@@ -160,7 +160,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         else if (type == typeof(string))
         {
-            CurrentValue = (TValue)(object)string.Join(";", UploadFiles.Select(f => f.OriginFileName));
+            CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName));
         }
 
         await OnFileUpload(items);
