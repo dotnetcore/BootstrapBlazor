@@ -26,6 +26,12 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public int Max { get; set; } = int.MaxValue;
 
     /// <summary>
+    /// 获得/设置 最大上传个数 默认为 null
+    /// </summary>
+    [Parameter]
+    public int? MaxFileCount { get; set; }
+
+    /// <summary>
     /// 获得/设置 所有文件上传完毕回调方法 默认 null
     /// </summary>
     [Parameter]
@@ -36,11 +42,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     [Parameter]
     public List<UploadFile>? DefaultFileList { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前上传文件
-    /// </summary>
-    protected UploadFile? CurrentFile { get; set; }
 
     /// <summary>
     /// 获得/设置 上传文件集合
@@ -91,14 +92,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             if (messages.Any())
             {
                 IsValid = false;
-                if (CurrentFile != null)
-                {
-                    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
-                    if (msg != null)
-                    {
-                        ErrorMessage = msg.ErrorMessage;
-                    }
-                }
+
+                // TODO: 提示
+                //if (CurrentFile != null)
+                //{
+                //    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
+                //    if (msg != null)
+                //    {
+                //        ErrorMessage = msg.ErrorMessage;
+                //    }
+                //}
             }
             else
             {
@@ -116,8 +119,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected virtual async Task OnFileChange(InputFileChangeEventArgs args)
     {
+        // TODO: 超过文件个数限制时需要提示
         // init UploadFiles
-        var items = args.GetMultipleFiles(args.FileCount).Select(f => new UploadFile()
+        var fileCount = MaxFileCount ?? args.FileCount;
+        var items = args.GetMultipleFiles(fileCount).Select(f => new UploadFile()
         {
             OriginFileName = f.Name,
             Size = f.Size,
@@ -125,8 +130,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             FileCount = args.FileCount,
             Uploaded = OnChange == null,
             UpdateCallback = Update
-        });
-        UploadFiles.AddRange(items);
+        }).ToList();
 
         // trigger OnChange event callback
         if (OnChange != null)
@@ -142,14 +146,34 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         // trigger OnAllFileUploaded event callback
         if (OnAllFileUploaded != null)
         {
-            await OnAllFileUploaded(UploadFiles);
+            await OnAllFileUploaded(items);
         }
 
         var type = NullableUnderlyingType ?? typeof(TValue);
-        if (type.IsAssignableTo(typeof(List<IBrowserFile>)))
+        if (type.IsAssignableTo(typeof(IBrowserFile)))
         {
-            CurrentValue = (TValue)(object)UploadFiles.Select(f => f.File).ToList();
+            CurrentValue = default;
         }
+        else if (type.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
+        {
+            CurrentValue = (TValue)(object)items.Select(f => f.File).ToList();
+        }
+        else if (type == typeof(string))
+        {
+            CurrentValue = (TValue)(object)string.Join(";", UploadFiles.Select(f => f.OriginFileName));
+        }
+
+        await OnFileUpload(items);
+    }
+
+    /// <summary>
+    /// 文件上传回调方法用于组件处理自定义逻辑
+    /// </summary>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    protected virtual Task OnFileUpload(List<UploadFile> items)
+    {
+        return Task.CompletedTask;
     }
 
     /// <summary>

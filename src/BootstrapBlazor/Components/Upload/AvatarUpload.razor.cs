@@ -105,6 +105,8 @@ public partial class AvatarUpload<TValue>
         .AddClass(InvalidStatusIcon)
         .Build();
 
+    private UploadFile? _currentFile = null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -126,14 +128,14 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     protected override async Task OnFileChange(InputFileChangeEventArgs args)
     {
-        CurrentFile = new UploadFile()
+        _currentFile = new UploadFile()
         {
             OriginFileName = args.File.Name,
             Size = args.File.Size,
             File = args.File,
             Uploaded = false
         };
-        CurrentFile.ValidateId = $"{Id}_{CurrentFile.GetHashCode()}";
+        _currentFile.ValidateId = $"{Id}_{_currentFile.GetHashCode()}";
 
         if (IsSingle)
         {
@@ -142,20 +144,20 @@ public partial class AvatarUpload<TValue>
             UploadFiles.Clear();
         }
 
-        UploadFiles.Add(CurrentFile);
+        UploadFiles.Add(_currentFile);
 
         await base.OnFileChange(args);
 
         // ValidateFile 后 IsValid 才有值
-        CurrentFile.IsValid = IsValid;
+        _currentFile.IsValid = IsValid;
 
         if (OnChange != null)
         {
-            await OnChange(CurrentFile);
+            await OnChange(_currentFile);
         }
         else
         {
-            await CurrentFile.RequestBase64ImageFileAsync(CurrentFile.File.ContentType, 320, 240);
+            await _currentFile.RequestBase64ImageFileAsync(_currentFile.File.ContentType, 320, 240);
         }
     }
 
@@ -163,5 +165,5 @@ public partial class AvatarUpload<TValue>
     /// 获得 弹窗客户端 ID
     /// </summary>
     /// <returns></returns>
-    protected override string? RetrieveId() => CurrentFile?.ValidateId;
+    protected override string? RetrieveId() => _currentFile?.ValidateId;
 }
