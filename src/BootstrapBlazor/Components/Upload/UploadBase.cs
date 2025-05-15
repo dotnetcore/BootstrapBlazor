@@ -69,6 +69,18 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public string? Capture { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否上传整个目录 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsDirectory { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否允许多文件上传 默认 false 不允许
+    /// </summary>
+    [Parameter]
+    public bool IsMultiple { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击删除按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
@@ -220,6 +232,15 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (!string.IsNullOrEmpty(Capture))
         {
             ret.Add("capture", Capture);
+        }
+        if (IsMultiple)
+        {
+            ret.Add("multiple", "multiple");
+        }
+        if (IsDirectory)
+        {
+            ret.Add("directory", "dicrectory");
+            ret.Add("webkitdirectory", "webkitdirectory");
         }
         return ret;
     }
