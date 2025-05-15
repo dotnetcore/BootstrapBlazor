@@ -6,38 +6,60 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MultipleUploadBase 基类
+/// SingleUploadBase 基类
 /// </summary>
-public abstract class SingleUploadBase<TValue> : UploadBase<TValue>
+/// <typeparam name="TValue"></typeparam>
+public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
 {
     /// <summary>
-    ///
+    /// 获得/设置 是否仅上传一次 默认 false
     /// </summary>
-    /// <param name="item"></param>
+    [Parameter]
+    public bool IsSingle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大上传个数 默认为最大值 <see cref="int.MaxValue"/>
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; } = int.MaxValue;
+
+    /// <summary>
+    /// 是否显示上传组件
+    /// </summary>
+    protected bool CheckCanUpload()
+    {
+        var count = GetUploadFiles().Count;
+        return IsSingle ? count < 1 : count < Max;
+    }
+
+    /// <summary>
+    /// 获得当前图片集合
+    /// </summary>
     /// <returns></returns>
-    protected string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", item.Uploaded && item.Code == 0)
-        .AddClass("is-invalid", item.Code != 0)
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
-    /// <summary>
-    ///
-    /// </summary>
-    protected virtual string? ItemClassString => CssBuilder.Default("upload-item")
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 已上传文件集合
-    /// </summary>
-    [Parameter]
-    public List<UploadFile>? DefaultFileList { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示上传进度 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool ShowProgress { get; set; }
+    protected virtual List<UploadFile> GetUploadFiles()
+    {
+        var ret = new List<UploadFile>();
+        if (IsSingle)
+        {
+            if (DefaultFileList != null && DefaultFileList.Count != 0)
+            {
+                ret.Add(DefaultFileList.First());
+            }
+            if (ret.Count == 0 && UploadFiles.Count != 0)
+            {
+                ret.Add(UploadFiles.First());
+            }
+        }
+        else
+        {
+            if (DefaultFileList != null)
+            {
+                ret.AddRange(DefaultFileList);
+            }
+            ret.AddRange(UploadFiles);
+        }
+        return ret;
+    }
 
     /// <summary>
     /// OnFileDelete 回调委托
@@ -49,29 +71,47 @@ public abstract class SingleUploadBase<TValue> : UploadBase<TValue>
         var ret = await base.OnFileDelete(item);
         if (ret)
         {
-            UploadFiles.Remove(item);
+            if (IsSingle)
+            {
+                UploadFiles.Clear();
+            }
+            else
+            {
+                UploadFiles.Remove(item);
+            }
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
                 await RemoveValidResult(item.ValidateId);
             }
-            DefaultFileList?.Remove(item);
+            RemoveItem();
+        }
+
+        void RemoveItem()
+        {
+            if (DefaultFileList != null)
+            {
+                if (IsSingle)
+                {
+                    DefaultFileList.Clear();
+                }
+                else
+                {
+                    DefaultFileList.Remove(item);
+                }
+            }
         }
         return ret;
     }
 
     /// <summary>
-    /// 是否显示进度条方法
+    /// 更新上传进度方法
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected bool GetShowProgress(UploadFile item) => ShowProgress && !item.Uploaded;
-
-    /// <summary>
-    /// 清空上传列表方法
-    /// </summary>
-    public override void Reset()
+    /// <param name="file"></param>
+    protected void Update(UploadFile file)
     {
-        DefaultFileList?.Clear();
-        base.Reset();
+        if (GetShowProgress(file))
+        {
+            StateHasChanged();
+        }
     }
 }
