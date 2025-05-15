@@ -125,18 +125,6 @@ public partial class ButtonUpload<TValue>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否上传整个目录 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool IsDirectory { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否允许多文件上传 默认 false 不允许
-    /// </summary>
-    [Parameter]
-    public bool IsMultiple { get; set; }
-
-    /// <summary>
     /// 获得/设置 设置文件格式图标回调委托
     /// </summary>
     [Parameter]
@@ -298,27 +286,6 @@ public partial class ButtonUpload<TValue>
         {
             await OnCancel(item);
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected override IDictionary<string, object> GetUploadAdditionalAttributes()
-    {
-        var ret = base.GetUploadAdditionalAttributes();
-
-        if (IsMultiple)
-        {
-            ret.Add("multiple", "multiple");
-        }
-
-        if (IsDirectory)
-        {
-            ret.Add("directory", "dicrectory");
-            ret.Add("webkitdirectory", "webkitdirectory");
-        }
-        return ret;
     }
 
     /// <summary>
