@@ -15,7 +15,7 @@ public partial class CardUpload<TValue>
         .Build();
 
     private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", item.Uploaded && item.Code == 0)
+        .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
         .AddClass("is-invalid", item.Code != 0)
         .Build();
     private string? ItemClassString => CssBuilder.Default("upload-item")
@@ -27,7 +27,7 @@ public partial class CardUpload<TValue>
         .AddClass("is-single", IsMultiple == false)
         .Build();
 
-    private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
+    private string? GetDisabledString(UploadFile item) => (!IsDisabled && item is { Uploaded: true, Code: 0 }) ? null : "disabled";
 
     private bool ShowPreviewList => GetUploadFiles().Count != 0;
 
@@ -177,7 +177,7 @@ public partial class CardUpload<TValue>
     protected override bool CheckCanUpload()
     {
         // 允许多上传
-        if (IsMultiple == true)
+        if (IsMultiple)
         {
             return true;
         }
