@@ -101,6 +101,19 @@ public partial class Toast
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
