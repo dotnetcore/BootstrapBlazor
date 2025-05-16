@@ -12,16 +12,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class UploadAvatars : IDisposable
 {
-    private CancellationTokenSource? ReadAvatarToken { get; set; }
+    private static long MaxFileLength = 5 * 1024 * 1024;
+    private CancellationTokenSource? _token;
+    private List<UploadFile> _previewFileList = [];
+    private Person _foo = new();
+    private bool _isMultiple = true;
+    private bool _isUploadButtonAtFirst;
+    private bool _isCircle;
+    private int _radius = 49;
 
-    private static long MaxFileLength => 5 * 1024 * 1024;
-
-    private List<UploadFile> PreviewFileList { get; } = [];
-
-    private Person Foo2 { get; set; } = new Person();
-
-    [NotNull]
-    private ConsoleLogger? Logger2 { get; set; }
+    private string? RadiusString => $"{_radius}px";
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,13 +30,13 @@ public partial class UploadAvatars : IDisposable
     {
         base.OnInitialized();
 
-        PreviewFileList.AddRange(
+        _previewFileList.AddRange(
         [
             new UploadFile { PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo.png" }
         ]);
     }
 
-    private async Task OnAvatarUpload(UploadFile file)
+    private async Task OnChange(UploadFile file)
     {
         // 示例代码，使用 base64 格式
         if (file is { File: not null })
@@ -44,14 +44,14 @@ public partial class UploadAvatars : IDisposable
             var format = file.File.ContentType;
             if (file.IsImage())
             {
-                ReadAvatarToken ??= new CancellationTokenSource();
-                if (ReadAvatarToken.IsCancellationRequested)
+                _token ??= new CancellationTokenSource();
+                if (_token.IsCancellationRequested)
                 {
-                    ReadAvatarToken.Dispose();
-                    ReadAvatarToken = new CancellationTokenSource();
+                    _token.Dispose();
+                    _token = new CancellationTokenSource();
                 }
 
-                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, ReadAvatarToken.Token);
+                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, _token.Token);
             }
             else
             {
@@ -68,7 +68,6 @@ public partial class UploadAvatars : IDisposable
 
     private Task OnAvatarValidSubmit(EditContext context)
     {
-        Logger2.Log(Foo2.Picture?.Name ?? "");
         return Task.CompletedTask;
     }
 
@@ -77,7 +76,7 @@ public partial class UploadAvatars : IDisposable
     /// </summary>
     public void Dispose()
     {
-        ReadAvatarToken?.Cancel();
+        _token?.Cancel();
         GC.SuppressFinalize(this);
     }
 
