@@ -50,6 +50,10 @@ private ToastService? ToastService { get; set; }
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnPreventClick" Text="@Localizer["ToastsPreventText"]"></Button>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ToastsAsyncTitle"]" Introduction="@Localizer["ToastsAsyncIntro"]" Name="Async" ShowCode="false">
+    <Button IsAsync="true" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnAsyncClick" Text="@Localizer["ToastsAsyncText"]"></Button>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ToastsCloseTitle"]" Introduction="@Localizer["ToastsCloseIntro"]" Name="Close" ShowCode="false">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["ToastsCloseNotificationText"]"></Button>
     <ConsoleLogger @ref="Logger"></ConsoleLogger>
