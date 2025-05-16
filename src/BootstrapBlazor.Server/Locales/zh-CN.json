@@ -3465,7 +3465,8 @@
     "UploadsDefaultFileList": "已上传文件集合",
     "UploadsAccept": "上传接收的文件格式",
     "UploadsOnDelete": "点击删除按钮时回调此方法",
-    "UploadsOnChange": "点击浏览按钮时回调此方法"
+    "UploadsOnChange": "点击浏览按钮时回调此方法",
+    "UploadsBorderRadius": "预览框圆角曲率"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "Upload 上传",

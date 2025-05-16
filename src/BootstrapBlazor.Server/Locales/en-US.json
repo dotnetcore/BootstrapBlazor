@@ -3465,7 +3465,8 @@
     "UploadsDefaultFileList": "The collection of files has been uploaded",
     "UploadsAccept": "Upload the received file format",
     "UploadsOnDelete": "Call back this method when you click the Delete button",
-    "UploadsOnChange": "Call back this method when you click the Browse button"
+    "UploadsOnChange": "Call back this method when you click the Browse button",
+    "UploadsBorderRadius": "Border radius"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "Upload",
