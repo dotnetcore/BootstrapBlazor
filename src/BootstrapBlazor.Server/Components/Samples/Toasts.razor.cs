@@ -176,7 +176,7 @@ public sealed partial class Toasts
             Name = "Title",
             Description = Localizer["ToastsAttrTitle"],
             Type = "string",
-            ValueList = "—",
+            ValueList = " — ",
             DefaultValue = ""
         },
         new()
@@ -184,7 +184,7 @@ public sealed partial class Toasts
             Name = "Content",
             Description = Localizer["ToastsAttrContent"],
             Type = "string",
-            ValueList = "—",
+            ValueList = " — ",
             DefaultValue = ""
         },
         new()
@@ -192,7 +192,7 @@ public sealed partial class Toasts
             Name = "Delay",
             Description = Localizer["ToastsAttrDelay"],
             Type = "int",
-            ValueList = "—",
+            ValueList = " — ",
             DefaultValue = "4000"
         },
         new()
@@ -200,7 +200,7 @@ public sealed partial class Toasts
             Name = "IsAutoHide",
             Description = Localizer["ToastsAttrIsAutoHide"],
             Type = "boolean",
-            ValueList = "",
+            ValueList = " — ",
             DefaultValue = "true"
         },
         new()
