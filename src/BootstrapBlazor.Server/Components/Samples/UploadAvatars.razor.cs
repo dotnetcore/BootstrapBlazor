@@ -108,8 +108,8 @@ public partial class UploadAvatars : IDisposable
         },
         new()
         {
-            Name = "IsSingle",
-            Description = Localizer["UploadsIsSingle"],
+            Name = "IsMultiple",
+            Description = Localizer["UploadsIsMultiple"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
