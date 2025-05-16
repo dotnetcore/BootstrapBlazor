@@ -191,7 +191,7 @@ public static class UploadFileExtensions
     /// <param name="allowExtensions"></param>
     /// <param name="_callback"></param>
     /// <returns></returns>
-    public static bool IsImage(this UploadFile item, List<string>? allowExtensions, Func<UploadFile, bool>? _callback = null)
+    public static bool IsImage(this UploadFile item, List<string>? allowExtensions = null, Func<UploadFile, bool>? _callback = null)
     {
         bool ret;
         if (_callback != null)
