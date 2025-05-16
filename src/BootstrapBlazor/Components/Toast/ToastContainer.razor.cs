@@ -75,7 +75,12 @@ public partial class ToastContainer : IDisposable
                 return;
             }
         }
-        Toasts.Add(option);
+
+        // support update content
+        if (!Toasts.Contains(option))
+        {
+            Toasts.Add(option);
+        }
         await InvokeAsync(StateHasChanged);
     }
 
