@@ -63,12 +63,6 @@ public partial class DropUpload
     [NotNull]
     public string? FooterText { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否显示上传列表 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowUploadFileList { get; set; } = true;
-
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
