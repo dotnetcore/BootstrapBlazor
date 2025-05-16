@@ -33,6 +33,17 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     public bool IsHeaderRow { get; set; }
 
     /// <summary>
+    /// 获得/设置 条件数量
+    /// </summary>
+    [Parameter]
+    public int Count { get; set; }
+
+    /// <summary>
+    /// 获得/设置 多个条件逻辑关系符号
+    /// </summary>
+    protected FilterLogic Logic { get; set; }
+
+    /// <summary>
     /// 获得/设置 所属 TableFilter 实例
     /// </summary>
     [CascadingParameter, NotNull]
@@ -68,6 +79,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
         {
             FieldKey = FilterContext.FieldKey;
             IsHeaderRow = FilterContext.IsHeaderRow;
+            Count = FilterContext.Count;
         }
     }
 

@@ -153,20 +153,10 @@ public partial class FilterProvider
         }
     }
 
-    /// <summary>
-    /// 渲染自定义过滤器方法
-    /// </summary>
-    /// <returns></returns>
-    protected virtual RenderFragment RenderFilter() => builder =>
+    private FilterContext FilterContext => new()
     {
-        builder.OpenComponent<CascadingValue<FilterContext>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<FilterContext>.Value), new FilterContext()
-        {
-            Count = Count,
-            FieldKey = FieldKey,
-            IsHeaderRow = IsHeaderRow
-        });
-        builder.AddAttribute(2, nameof(CascadingValue<FilterContext>.ChildContent), ChildContent);
-        builder.CloseComponent();
+        Count = Count,
+        FieldKey = FieldKey,
+        IsHeaderRow = IsHeaderRow
     };
 }
