@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 枚举类型过滤组件
+/// Enum filter component
 /// </summary>
 public partial class EnumFilter
 {

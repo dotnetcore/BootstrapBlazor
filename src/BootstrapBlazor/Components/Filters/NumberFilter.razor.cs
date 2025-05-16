@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// NumberFilter 组件
+/// NumberFilter component
 /// </summary>
 public partial class NumberFilter<TType>
 {
