@@ -29,6 +29,12 @@ public partial class AvatarUpload<TValue>
     public bool IsCircle { get; set; }
 
     /// <summary>
+    /// Gets or sets the border radius. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? BorderRadius { get; set; }
+
+    /// <summary>
     /// 获得/设置 删除图标
     /// </summary>
     [Parameter]
@@ -89,10 +95,11 @@ public partial class AvatarUpload<TValue>
     /// <summary>
     /// 获得/设置 预览框 Style 属性
     /// </summary>
-    private string? PrevStyleString => CssBuilder.Default()
+    private string? ItemStyleString => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)
         .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
         .AddClass($"height: {Width}px;", IsCircle)
+        .AddClass($"--bb-upload-item-border-radius: {BorderRadius};", IsCircle && !string.IsNullOrEmpty(BorderRadius))
         .Build();
 
     private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")

@@ -14,7 +14,7 @@
         }
         @foreach (var item in GetUploadFiles())
         {
-            <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
+            <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@ItemStyleString">
                 <Avatar Url="@item.PrevUrl" />
                 @if (!IsDisabled)
                 {
@@ -49,7 +49,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div class="@ItemClassString" style="@PrevStyleString">
+    @<div class="@ItemClassString" style="@ItemStyleString">
         <div class="upload-item-actions btn-browser">
             <span class="upload-item-plus">
                 <i class="@AddIcon"></i>

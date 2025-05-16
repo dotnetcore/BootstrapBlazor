@@ -109,7 +109,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             Size = f.Size,
             File = f,
             FileCount = args.FileCount,
-            Uploaded = OnChange == null,
+            Uploaded = false,
             UpdateCallback = Update
         }).ToList();
 
