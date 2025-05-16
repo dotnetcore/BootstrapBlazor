@@ -64,8 +64,9 @@ public sealed partial class Toasts
             PreventDuplicates = true,
             Category = ToastCategory.Success,
             Title = "Successfully saved",
-            Content = $"Save data successfully, automatically close after {_delayTs} seconds"
+            Content = $"Save data successfully, automatically close after {DelayTs} seconds"
         });
+    }
 
     private async Task OnAsyncClick()
     {
@@ -79,13 +80,14 @@ public sealed partial class Toasts
 
         await Task.Delay(3000);
         _option.Content = "打包完成，正在下载...";
+        _option.IsAutoHide = true;
         _option.Category = ToastCategory.Information;
         await ToastService.Show(_option);
 
-        await Task.Delay(3000);
+        await Task.Delay(2500);
         _option.Content = "下载成功";
         _option.Category = ToastCategory.Success;
-        _option.IsAutoHide = true;
+
         await ToastService.Show(_option);
     }
 
