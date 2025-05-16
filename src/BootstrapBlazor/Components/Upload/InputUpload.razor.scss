@@ -4,6 +4,7 @@
     --bb-upload-body-list-item-padding: #{$bb-upload-body-list-item-padding};
     --bb-upload-body-list-item-body-padding: #{$bb-upload-body-list-item-body-padding};
     --bb-upload-body-list-item-hover-color: #{$bb-upload-body-list-item-hover-color};
+    --bb-upload-body-list-grap: #{$bb-upload-body-list-grap};
     --bb-upload-card-width: #{$bb-upload-card-width};
     --bb-upload-card-height: #{$bb-upload-card-height};
     --bb-upload-card-shadow: #{$bb-upload-card-shadow};
@@ -102,6 +103,7 @@
     margin: 0;
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .upload .upload-body.is-avatar .upload-item {
@@ -109,8 +111,6 @@
     position: relative;
     border: 1px dashed var(--bs-border-color);
     border-radius: 6px;
-    margin-inline-end: 1rem;
-    margin-block-end: 1rem;
     overflow: hidden;
     cursor: pointer;
 }
