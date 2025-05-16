@@ -272,7 +272,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 是否可以上传
     /// </summary>
-    protected bool CheckCanUpload()
+    protected virtual bool CheckCanUpload()
     {
         if (IsDisabled)
         {

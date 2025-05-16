@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Forms;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -84,7 +82,7 @@ public partial class AvatarUpload<TValue>
 
     private string? ItemClassString => CssBuilder.Default("upload-item")
         .AddClass("is-circle", IsCircle)
-        .AddClass("is-single", IsSingle)
+        .AddClass("is-single", IsMultiple == false)
         .AddClass("disabled", IsDisabled)
         .Build();
 
@@ -105,8 +103,6 @@ public partial class AvatarUpload<TValue>
         .AddClass(InvalidStatusIcon)
         .Build();
 
-    private UploadFile? _currentFile = null;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -124,46 +120,40 @@ public partial class AvatarUpload<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="args"></param>
     /// <returns></returns>
-    protected override async Task OnFileChange(InputFileChangeEventArgs args)
+    protected override bool CheckCanUpload()
     {
-        _currentFile = new UploadFile()
+        // 允许多上传
+        if(IsMultiple == true)
         {
-            OriginFileName = args.File.Name,
-            Size = args.File.Size,
-            File = args.File,
-            Uploaded = false
-        };
-        _currentFile.ValidateId = $"{Id}_{_currentFile.GetHashCode()}";
-
-        if (IsSingle)
-        {
-            // 单图片模式
-            DefaultFileList?.Clear();
-            UploadFiles.Clear();
+            return true;
         }
 
-        UploadFiles.Add(_currentFile);
+        // 只允许单个上传
+        return UploadFiles.Count == 0;
+    }
 
-        await base.OnFileChange(args);
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnFileUpload(List<UploadFile> items)
+    {
+        await base.OnFileUpload(items);
 
-        // ValidateFile 后 IsValid 才有值
-        _currentFile.IsValid = IsValid;
-
-        if (OnChange != null)
+        foreach (var item in items)
         {
-            await OnChange(_currentFile);
-        }
-        else
-        {
-            await _currentFile.RequestBase64ImageFileAsync(_currentFile.File.ContentType, 320, 240);
+            item.ValidateId = $"{Id}_{item.GetHashCode()}";
+            if (OnChange != null)
+            {
+                await item.RequestBase64ImageFileAsync();
+            }
         }
     }
 
     /// <summary>
-    /// 获得 弹窗客户端 ID
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override string? RetrieveId() => _currentFile?.ValidateId;
+    //protected override string? RetrieveId() => _currentFile?.ValidateId;
 }
