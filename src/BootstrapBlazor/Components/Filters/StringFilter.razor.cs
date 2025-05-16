@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// StringFilter 组件
+/// StringFilter component
 /// </summary>
 public partial class StringFilter
 {

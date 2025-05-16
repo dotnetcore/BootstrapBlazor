@@ -6,31 +6,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 多条件过滤器基类
+/// Multiple filter base class
 /// </summary>
+[Obsolete("Deprecated. Please use FilterBase class. 已弃用 请使用 FilterBase 类")]
+[ExcludeFromCodeCoverage]
 public abstract class MultipleFilterBase : FilterBase
 {
-    /// <summary>
-    /// 获得/设置 条件数量
-    /// </summary>
-    [Parameter]
-    public int Count { get; set; }
 
-    /// <summary>
-    /// 获得/设置 多个条件逻辑关系符号
-    /// </summary>
-    protected FilterLogic Logic { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (FilterContext != null)
-        {
-            Count = FilterContext.Count;
-        }
-    }
 }
