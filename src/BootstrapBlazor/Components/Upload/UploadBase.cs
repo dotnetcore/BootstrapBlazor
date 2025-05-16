@@ -244,7 +244,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         if (IsDirectory)
         {
-            ret.Add("directory", "dicrectory");
+            ret.Add("directory", "directory");
             ret.Add("webkitdirectory", "webkitdirectory");
         }
         return ret;
