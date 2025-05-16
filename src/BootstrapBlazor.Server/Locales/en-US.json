@@ -3446,8 +3446,8 @@
     "UploadsTitle": "AvatarUpload",
     "UploadsSubTitle": "Click to upload a file, usually used to upload a preview of one or a group of avatar-like images",
     "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
-    "AvatarUploadTitle": "User profile picture upload",
-    "AvatarUploadIntro": "<code>AvatarUpload</code> component, using the <code>OnChange</code> to limit the format and size of images uploaded by users. In this example, only <code>jpg/png/bmp/jpeg/gif</code> five picture formats are allowed",
+    "AvatarUploadTitle": "Basic usage",
+    "AvatarUploadIntro": "<code>AvatarUpload</code> component, using the <code>OnChange</code> to limit the format and size of images uploaded by users. In this example, only <code>jpg/png/bmp/jpeg/gif</code> five picture formats are allowed. The component processes user uploaded avatars by setting the <code>OnChange</code> callback function. If this callback is not provided, the component will use the built-in method to try to read the uploaded file and generate the preview data in <code>base64</code> format.",
     "AvatarUploadTips3": "When you set up <code>IsSingle</code>, you can upload only one image or file",
     "AvatarUploadTips5": "RELATED: <a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept]</a>  <a href='https://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types]</a>",
     "AvatarUploadTips6": "Set the preview address <code>PrevUrl</code> with the <code>DefaultFileList</code> property",
@@ -3467,6 +3467,13 @@
     "UploadsOnDelete": "Call back this method when you click the Delete button",
     "UploadsOnChange": "Call back this method when you click the Browse button",
     "UploadsBorderRadius": "Border radius"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UploadButtons": {
+    "UploadsTitle": "ButtonUpload",
+    "UploadsSubTitle": "Upload files by clicking on them, usually used to upload file attachments",
+    "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "ButtonUploadTitle": "Basic usage",
+    "ButtonUploadIntro": ""
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "Upload",

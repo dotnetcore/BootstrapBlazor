@@ -3447,7 +3447,7 @@
     "UploadsSubTitle": "通过点击上传文件，通常用作上传预览一个或者一组类似头像的图片",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "AvatarUploadTitle": "基本用法",
-    "AvatarUploadIntro": "通过设置 <code>IsMultiple</code> 控制是否允许多文件上传，通过设置 <code>IsCircle</code> 控制是否为圆角，通过设置 <code>BorderRadius</code> 控制圆角曲率",
+    "AvatarUploadIntro": "通过设置 <code>IsMultiple</code> 控制是否允许多文件上传，通过设置 <code>IsCircle</code> 控制是否为圆角，通过设置 <code>BorderRadius</code> 控制圆角曲率。组件通过设置 <code>OnChange</code> 回调函数处理用户上传头像，如果未提供此回调时，将使用内置方法尝试读取上传文件生成 <code>base64</code> 格式预览数据",
     "AvatarUploadTips3": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
     "AvatarUploadTips5": "相关文档：<a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept 属性详解]</a> <a href='https://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types 详细列表]</a>",
     "AvatarUploadTips6": "通过 <code>DefaultFileList</code> 属性设置预览地址 <code>PrevUrl</code> 即可",
@@ -3467,6 +3467,13 @@
     "UploadsOnDelete": "点击删除按钮时回调此方法",
     "UploadsOnChange": "点击浏览按钮时回调此方法",
     "UploadsBorderRadius": "预览框圆角曲率"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UploadButtons": {
+    "UploadsTitle": "ButtonUpload 按钮上传组件",
+    "UploadsSubTitle": "通过点击上传文件，通常用作上传文件附件",
+    "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
+    "ButtonUploadTitle": "基础用法",
+    "ButtonUploadIntro": ""
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "Upload 上传",
