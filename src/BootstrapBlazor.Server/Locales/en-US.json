@@ -125,7 +125,7 @@
     "ToastsPreventIntro": "By setting <code>PreventDuplicates=\"true\"</code> to repeatedly click the button below, only one pop-up window will appear",
     "ToastsPreventText": "Prevent Duplicates",
     "ToastsAsyncTitle": "Async notification",
-    "ToastsAsyncIntro": "By setting <code>IsAsync</code>, the pop-up window is displayed, the thread is blocked, and after clicking the close button, the subsequent code continues to execute",
+    "ToastsAsyncIntro": "By setting the button's <code>IsAsync</code> parameter, use the same <code>ToastOption</code> to update the pop-up window information for different steps",
     "ToastsAsyncDemoTitle": "Async notification",
     "ToastsAsyncDemoStep1Text": "Packing documents, please wait...",
     "ToastsAsyncDemoStep2Text": "Packaging completed, downloading...",

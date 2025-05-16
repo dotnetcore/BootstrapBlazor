@@ -125,7 +125,7 @@
     "ToastsPreventIntro": "通过设置 <code>PreventDuplicates=\"true\"</code> 重复点击下方按钮时，仅弹窗一次",
     "ToastsPreventText": "阻止重复",
     "ToastsAsyncTitle": "线程阻塞通知",
-    "ToastsAsyncIntro": "通过设置 <code>IsAsync</code> 弹窗显示后，线程阻塞，点击关闭按钮后，继续执行后续代码",
+    "ToastsAsyncIntro": "通过设置按钮 <code>IsAsync</code> 参数，使用同一个 <code>ToastOption</code> 更新弹窗信息提示不同步骤时的信息",
     "ToastsAsyncDemoTitle": "异步通知",
     "ToastsAsyncDemoStep1Text": "正在打包文档，请稍等...",
     "ToastsAsyncDemoStep2Text": "打包完成，正在下载...",
