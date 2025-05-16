@@ -211,12 +211,13 @@ public sealed partial class Uploads : IDisposable
     }
 
     /// <summary>
-    /// Dispose
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {
         ReadToken?.Cancel();
         ReadAvatarToken?.Cancel();
+        GC.SuppressFinalize(this);
     }
 
     private List<AttributeItem> GetInputAttributes() =>
