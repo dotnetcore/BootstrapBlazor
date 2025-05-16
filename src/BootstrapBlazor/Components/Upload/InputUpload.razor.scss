@@ -1,4 +1,4 @@
-.upload {
+﻿.upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
     --bb-upload-body-list-max-height: #{$bb-upload-body-list-max-height};
     --bb-upload-body-list-item-padding: #{$bb-upload-body-list-item-padding};
@@ -82,6 +82,10 @@
 .upload .upload-body.is-list .delete-icon,
 .upload .upload-body.is-list .invalid-icon {
     color: var(--bs-danger);
+}
+
+.upload .upload-body.is-list .upload-item:hover .invalid-icon {
+    display: none;
 }
 
 .upload .upload-body.is-list .download-icon {
