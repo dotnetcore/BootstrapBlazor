@@ -115,6 +115,13 @@ public partial class AvatarUpload<TValue>
         AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadAddIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadValidStatusIcon);
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadInvalidStatusIcon);
+
+        // 头像上传时如果用户没有设置 OnChanged 回调，需要使用内置方法将文件头像转化未 Base64 格式用于预览
+        OnChange ??= new Func<UploadFile, Task>(async item =>
+        {
+            item.ValidateId = $"{Id}_{item.GetHashCode()}";
+            await item.RequestBase64ImageFileAsync();
+        });
     }
 
     /// <summary>
@@ -124,7 +131,7 @@ public partial class AvatarUpload<TValue>
     protected override bool CheckCanUpload()
     {
         // 允许多上传
-        if(IsMultiple == true)
+        if (IsMultiple == true)
         {
             return true;
         }
@@ -132,28 +139,4 @@ public partial class AvatarUpload<TValue>
         // 只允许单个上传
         return UploadFiles.Count == 0;
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnFileUpload(List<UploadFile> items)
-    {
-        await base.OnFileUpload(items);
-
-        foreach (var item in items)
-        {
-            item.ValidateId = $"{Id}_{item.GetHashCode()}";
-            if (OnChange != null)
-            {
-                await item.RequestBase64ImageFileAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    //protected override string? RetrieveId() => _currentFile?.ValidateId;
 }

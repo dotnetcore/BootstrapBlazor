@@ -42,17 +42,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public Func<IReadOnlyCollection<UploadFile>, Task>? OnAllFileUploaded { get; set; }
 
     /// <summary>
-    /// 获得/设置 已上传文件集合
+    /// 获得/设置 已上传文件集合，可用于组件初始化
     /// </summary>
     [Parameter]
     public List<UploadFile>? DefaultFileList { get; set; }
-
-    /// <summary>
-    /// 获得/设置 上传文件集合
-    /// </summary>
-    protected List<UploadFile> UploadFiles { get; } = [];
-
-    List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
     /// <summary>
     /// 获得/设置 是否显示上传进度 默认为 false
@@ -91,52 +84,24 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击浏览按钮时回调此方法 默认 null
+    /// 获得/设置 点击浏览按钮时回调此方法，如果多文件上传此回调会触发多次 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
 
     /// <summary>
-    /// 显示/隐藏验证结果方法
+    /// 获得/设置 已上传文件集合，此集合中数据是用户上传文件集合
     /// </summary>
-    /// <param name="results"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results)
-    {
-        if (FieldIdentifier != null)
-        {
-            var messages = results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)));
-            if (messages.Any())
-            {
-                IsValid = false;
-
-                // TODO: 提示
-                //if (CurrentFile != null)
-                //{
-                //    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
-                //    if (msg != null)
-                //    {
-                //        ErrorMessage = msg.ErrorMessage;
-                //    }
-                //}
-            }
-            else
-            {
-                ErrorMessage = null;
-                IsValid = true;
-            }
-            OnValidate(IsValid);
-        }
-    }
+    public List<UploadFile> UploadFiles { get; } = [];
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected virtual async Task OnFileChange(InputFileChangeEventArgs args)
+    protected async Task OnFileChange(InputFileChangeEventArgs args)
     {
-        // TODO: 超过文件个数限制时需要提示
-        // init UploadFiles
+        UploadFiles.Clear();
         var fileCount = MaxFileCount ?? args.FileCount;
         var items = args.GetMultipleFiles(fileCount).Select(f => new UploadFile()
         {
@@ -148,14 +113,17 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             UpdateCallback = Update
         }).ToList();
 
-        // trigger OnChange event callback
-        if (OnChange != null)
+        foreach (var item in items)
         {
-            foreach (var item in items)
+            UploadFiles.Add(item);
+
+            // trigger OnChange event callback
+            // 回调给用户，用于存储文件并生成预览地址给 PreUrl
+            if (OnChange != null)
             {
                 await OnChange(item);
-                item.Uploaded = true;
             }
+            item.Uploaded = true;
             StateHasChanged();
         }
 
@@ -166,31 +134,22 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
 
         var type = NullableUnderlyingType ?? typeof(TValue);
-        if (type.IsAssignableTo(typeof(IBrowserFile)))
-        {
-            CurrentValue = default;
-        }
-        else if (type.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
+        if (type.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
         {
             CurrentValue = (TValue)(object)items.Select(f => f.File).ToList();
+        }
+        else if (type.IsAssignableTo(typeof(IEnumerable<string>)))
+        {
+            CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName)).ToList();
+        }
+        else if (type == typeof(IBrowserFile))
+        {
+            CurrentValue = (TValue)(object)items[0].File!;
         }
         else if (type == typeof(string))
         {
             CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName));
         }
-
-        await OnFileUpload(items);
-    }
-
-    /// <summary>
-    /// 文件上传回调方法用于组件处理自定义逻辑
-    /// </summary>
-    /// <param name="items"></param>
-    /// <returns></returns>
-    protected virtual Task OnFileUpload(List<UploadFile> items)
-    {
-        UploadFiles.AddRange(items);
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -218,36 +177,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         return ret;
 
-    }
-
-    /// <summary>
-    /// append html attribute method.
-    /// </summary>
-    /// <returns></returns>
-    protected virtual IDictionary<string, object> GetUploadAdditionalAttributes()
-    {
-        var ret = new Dictionary<string, object>
-        {
-            { "hidden", "hidden" }
-        };
-        if (!string.IsNullOrEmpty(Accept))
-        {
-            ret.Add("accept", Accept);
-        }
-        if (!string.IsNullOrEmpty(Capture))
-        {
-            ret.Add("capture", Capture);
-        }
-        if (IsMultiple)
-        {
-            ret.Add("multiple", "multiple");
-        }
-        if (IsDirectory)
-        {
-            ret.Add("directory", "directory");
-            ret.Add("webkitdirectory", "webkitdirectory");
-        }
-        return ret;
     }
 
     /// <summary>
@@ -310,5 +239,67 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         DefaultFileList?.Clear();
         UploadFiles.Clear();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 显示/隐藏验证结果方法
+    /// </summary>
+    /// <param name="results"></param>
+    public override void ToggleMessage(IEnumerable<ValidationResult> results)
+    {
+        if (FieldIdentifier != null)
+        {
+            var messages = results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)));
+            if (messages.Any())
+            {
+                IsValid = false;
+
+                // TODO: 提示
+                //if (CurrentFile != null)
+                //{
+                //    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
+                //    if (msg != null)
+                //    {
+                //        ErrorMessage = msg.ErrorMessage;
+                //    }
+                //}
+            }
+            else
+            {
+                ErrorMessage = null;
+                IsValid = true;
+            }
+            OnValidate(IsValid);
+        }
+    }
+
+    /// <summary>
+    /// append html attribute method.
+    /// </summary>
+    /// <returns></returns>
+    protected IDictionary<string, object> GetUploadAdditionalAttributes()
+    {
+        var ret = new Dictionary<string, object>
+        {
+            { "hidden", "hidden" }
+        };
+        if (!string.IsNullOrEmpty(Accept))
+        {
+            ret.Add("accept", Accept);
+        }
+        if (!string.IsNullOrEmpty(Capture))
+        {
+            ret.Add("capture", Capture);
+        }
+        if (IsMultiple)
+        {
+            ret.Add("multiple", "multiple");
+        }
+        if (IsDirectory)
+        {
+            ret.Add("directory", "directory");
+            ret.Add("webkitdirectory", "webkitdirectory");
+        }
+        return ret;
     }
 }
