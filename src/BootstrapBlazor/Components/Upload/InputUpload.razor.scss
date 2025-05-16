@@ -9,7 +9,6 @@
     --bb-upload-card-height: #{$bb-upload-card-height};
     --bb-upload-card-shadow: #{$bb-upload-card-shadow};
     --bb-upload-card-padding: #{$bb-upload-card-padding};
-    --bb-upload-card-margin: #{$bb-upload-card-margin};
     --bb-upload-card-item-width: #{$bb-upload-card-item-width};
     --bb-upload-drop-height: #{$bb-upload-drop-height};
     --bb-upload-drop-footer-font-size: #{$bb-upload-drop-footer-font-size};
@@ -183,7 +182,6 @@
     height: var(--bb-upload-card-height);
     position: relative;
     cursor: pointer;
-    margin: var(--bb-upload-card-margin);
     overflow: hidden;
 }
 
