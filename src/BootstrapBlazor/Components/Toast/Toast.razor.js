@@ -49,6 +49,11 @@ export function update(id) {
         progressElement.style.width = '100%';
         progressElement.style.transition = `width linear ${delay / 1000}s`;
     }
+    else {
+        toast._config.autohide = false;
+        progressElement.style.removeProperty('width');
+        progressElement.style.removeProperty('transition');
+    }
 }
 
 export function dispose(id) {
