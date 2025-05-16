@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// Uploads
 /// </summary>
-public sealed partial class Uploads
+public sealed partial class Uploads : IDisposable
 {
     [NotNull]
     private ConsoleLogger? Logger1 { get; set; }
@@ -18,7 +18,7 @@ public sealed partial class Uploads
     [NotNull]
     private ConsoleLogger? Logger2 { get; set; }
 
-    private static readonly Random random = new();
+    private static readonly Random Random = new();
 
     private CancellationTokenSource? ReadToken { get; set; }
 
@@ -34,21 +34,21 @@ public sealed partial class Uploads
 
     private List<UploadFile> DefaultFormatFileList { get; } =
     [
-       new UploadFile { FileName = "Test.xls" },
-       new UploadFile { FileName = "Test.doc" },
-       new UploadFile { FileName = "Test.ppt" },
-       new UploadFile { FileName = "Test.mp3" },
-       new UploadFile { FileName = "Test.mp4" },
-       new UploadFile { FileName = "Test.pdf" },
-       new UploadFile { FileName = "Test.cs" },
-       new UploadFile { FileName = "Test.zip" },
-       new UploadFile { FileName = "Test.txt" },
-       new UploadFile { FileName = "Test.dat" }
+       new() { FileName = "Test.xls" },
+       new() { FileName = "Test.doc" },
+       new() { FileName = "Test.ppt" },
+       new() { FileName = "Test.mp3" },
+       new() { FileName = "Test.mp4" },
+       new() { FileName = "Test.pdf" },
+       new() { FileName = "Test.cs" },
+       new() { FileName = "Test.zip" },
+       new() { FileName = "Test.txt" },
+       new() { FileName = "Test.dat" }
     ];
 
     private List<UploadFile> Base64FormatFileList { get; } =
     [
-        new UploadFile { FileName = "Test", PrevUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkCAYAAAD/yagrAAAE60lEQVR4AWJwL/AB9GIWvI0jURz/L1NomZmZP8p9kWNmhnIbKPdomZmZGcJgO7QsWMbce55Yl11t47FbVdKTYpjOr/+H4y4Z/MpYeJVV8KVvokFRylq9osKfVtGQ/NHyPl2CbNVGwau2oOlmgUDJtDJGzxtvvIA3vRH+7IgeA0VtYhQBtKPlToFgC6RY58aggfwLNKhr0Zry2NnPrpIM2YGW2+UBG1IEmdGVJEVXE+hQXt8joKhLjdGVZHd7TSD9DHmT3J1dheroSF4fhnvUVQwbZx9UOnHSzQjkTN0tIG+8hFdbxet4PQOG4WqJwN1hFVb+xUBmCblxvxRkIE+Q+Yf0T31NSrp4/RV4FhHgoSTchQRZBK4D1+Fe2q2g8CYXU6buQyNDaiZKZhn0IYXHVwbkRQydHyawOAGGisa/o3DvI/jF3QKKiuAy+LKs5CvaXMLdeXb35wbkKTjmReDZHysCBosWJqN7r0jZ/VfgXtIlUNQnVpK7D4nNJSC5BHGi1d108Ppr8MxlF0cJqBSyFJaUfUnvHLyO4cttgaI+NhGB7HE0MaSUks/gU5vwe1gv5tfhmUmAhxME8jbIUtiEDus+fhmDJlgCRY0ylZRZhybKWtNinmYlH9NvL5puO3m9UHOkgzb3xuF5HCkDyhYiSwrYVfQPTpYChTc+E35tG9VJBjGFFNmtVlNMDnjzbx0EBpKq1eTeh2awbArBRuHadBWu6WVB4U/NITfuobYoCZl7QL//wDtr+nTmsgzQh2Kwgtz7QAZWFeGw/RI8s94Kigp1PvzZg2i9x11FDtKn/oZCoZdZxhaAXmG4/ohJKHudLE1Gyu66DOfs10BRR5CU3TKQIrtzj9BAkF991dsMslTZEClLsI+jFmANZYFAdAJl9QG03jWH9GrcFh9QTP4Of6GfJGSpsv1J2aoEKRuWCANNJNqOFAaPAW36rVRMCjVf6ZCtqYF2p6Asxg5mWK6tQamY9RCs8z1wF+FxTR5UqYT/3GC7oCkMHcjxKguq6cnl+Egf2whip3C9Yu56jk+GXXOtv1XIa8L1f3AFkHe9az83AmNanwV/bhfa5JKJ3n1slCUL8dk7CNfvVFMfySRThoxbK7fh18tTZXI2QeySLk88IRGsbHkqQj6wUJ72G5CloCXKZrdbLPgVMgVfQMq5m97bfQWOOeVbaK02nSA2ofn2y662UJE47horLZTe38oDjdxQUhmawocxa0OJ5hXjnZE4w1y0uc/iULKGfk+xNuZxI/BnjhFs+THPq4phmTsbeYPXRjFsJJ+NSMlnInHkxrwzGDjR3uBcG1/B/b/TwZkhubb6tP2oVfTAD2G4kw9vYiA2h+zy4GwYxd7S4qGOgd6oqVn6re1DTXiO4e4wPF+yQlF4ZCBfheSPIjJn+ciS/w93qjA6aZYqeQ5D3dTqvuE6GZNTkov5vqsYvLh7j8u1sWWkLIdBQR+q+XdtaKGhJCWBDpkwgSw9gRpKyoNKw6rjCLCDP4yVflSgWFwt3C0HSUo2BTFYX28fVAaWPpDx7wtwjOSSUszawnUT0KTudlfrFQwZ3WNf867CNZQhk/C8kIFUhJLt/O3Jzn62IYNwrUvA8zws4W61CGlDSfugXMz5pJgiSFYyXMYiRXdH4GmyqaR9UHLxzxG41KAwpZxRPN4kRf85Z5I4MvYfFUFGfemJG40AAAAASUVORK5CYII=" },
+        new() { FileName = "Test", PrevUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAkCAYAAAD/yagrAAAE60lEQVR4AWJwL/AB9GIWvI0jURz/L1NomZmZP8p9kWNmhnIbKPdomZmZGcJgO7QsWMbce55Yl11t47FbVdKTYpjOr/+H4y4Z/MpYeJVV8KVvokFRylq9osKfVtGQ/NHyPl2CbNVGwau2oOlmgUDJtDJGzxtvvIA3vRH+7IgeA0VtYhQBtKPlToFgC6RY58aggfwLNKhr0Zry2NnPrpIM2YGW2+UBG1IEmdGVJEVXE+hQXt8joKhLjdGVZHd7TSD9DHmT3J1dheroSF4fhnvUVQwbZx9UOnHSzQjkTN0tIG+8hFdbxet4PQOG4WqJwN1hFVb+xUBmCblxvxRkIE+Q+Yf0T31NSrp4/RV4FhHgoSTchQRZBK4D1+Fe2q2g8CYXU6buQyNDaiZKZhn0IYXHVwbkRQydHyawOAGGisa/o3DvI/jF3QKKiuAy+LKs5CvaXMLdeXb35wbkKTjmReDZHysCBosWJqN7r0jZ/VfgXtIlUNQnVpK7D4nNJSC5BHGi1d108Ppr8MxlF0cJqBSyFJaUfUnvHLyO4cttgaI+NhGB7HE0MaSUks/gU5vwe1gv5tfhmUmAhxME8jbIUtiEDus+fhmDJlgCRY0ylZRZhybKWtNinmYlH9NvL5puO3m9UHOkgzb3xuF5HCkDyhYiSwrYVfQPTpYChTc+E35tG9VJBjGFFNmtVlNMDnjzbx0EBpKq1eTeh2awbArBRuHadBWu6WVB4U/NITfuobYoCZl7QL//wDtr+nTmsgzQh2Kwgtz7QAZWFeGw/RI8s94Kigp1PvzZg2i9x11FDtKn/oZCoZdZxhaAXmG4/ohJKHudLE1Gyu66DOfs10BRR5CU3TKQIrtzj9BAkF991dsMslTZEClLsI+jFmANZYFAdAJl9QG03jWH9GrcFh9QTP4Of6GfJGSpsv1J2aoEKRuWCANNJNqOFAaPAW36rVRMCjVf6ZCtqYF2p6Asxg5mWK6tQamY9RCs8z1wF+FxTR5UqYT/3GC7oCkMHcjxKguq6cnl+Egf2whip3C9Yu56jk+GXXOtv1XIa8L1f3AFkHe9az83AmNanwV/bhfa5JKJ3n1slCUL8dk7CNfvVFMfySRThoxbK7fh18tTZXI2QeySLk88IRGsbHkqQj6wUJ72G5CloCXKZrdbLPgVMgVfQMq5m97bfQWOOeVbaK02nSA2ofn2y662UJE47horLZTe38oDjdxQUhmawocxa0OJ5hXjnZE4w1y0uc/iULKGfk+xNuZxI/BnjhFs+THPq4phmTsbeYPXRjFsJJ+NSMlnInHkxrwzGDjR3uBcG1/B/b/TwZkhubb6tP2oVfTAD2G4kw9vYiA2h+zy4GwYxd7S4qGOgd6oqVn6re1DTXiO4e4wPF+yQlF4ZCBfheSPIjJn+ciS/w93qjA6aZYqeQ5D3dTqvuE6GZNTkov5vqsYvLh7j8u1sWWkLIdBQR+q+XdtaKGhJCWBDpkwgSw9gRpKyoNKw6rjCLCDP4yVflSgWFwt3C0HSUo2BTFYX28fVAaWPpDx7wtwjOSSUszawnUT0KTudlfrFQwZ3WNf867CNZQhk/C8kIFUhJLt/O3Jzn62IYNwrUvA8zws4W61CGlDSfugXMz5pJgiSFYyXMYiRXdH4GmyqaR9UHLxzxG41KAwpZxRPN4kRf85Z5I4MvYfFUFGfemJG40AAAAASUVORK5CYII=" },
     ];
 
     /// <summary>
@@ -58,10 +58,10 @@ public sealed partial class Uploads
     {
         base.OnInitialized();
 
-        PreviewFileList.AddRange(new[]
-        {
+        PreviewFileList.AddRange(
+        [
             new UploadFile { PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo.png" }
-        });
+        ]);
     }
 
     private Task OnFileChange(UploadFile file)
@@ -88,7 +88,7 @@ public sealed partial class Uploads
     private async Task OnClickToUpload(UploadFile file)
     {
         // 示例代码，模拟 80% 几率保存成功
-        var error = random.Next(1, 100) > 80;
+        var error = Random.Next(1, 100) > 80;
         if (error)
         {
             file.Code = 1;
@@ -105,12 +105,11 @@ public sealed partial class Uploads
         await ToastService.Success("Upload", $"{file.OriginFileName} uploaded success.");
     }
 
-    private async Task<bool> SaveToFile(UploadFile file)
+    private async Task SaveToFile(UploadFile file)
     {
         // Server Side 使用
         // Web Assembly 模式下必须使用 WebApi 方式去保存文件到服务器或者数据库中
         // 生成写入文件名称
-        var ret = false;
         if (!string.IsNullOrEmpty(WebsiteOption.CurrentValue.WebRootPath))
         {
             var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
@@ -118,7 +117,7 @@ public sealed partial class Uploads
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
             ReadToken ??= new CancellationTokenSource();
-            ret = await file.SaveToFileAsync(fileName, MaxFileLength, ReadToken.Token);
+            var ret = await file.SaveToFileAsync(fileName, MaxFileLength, ReadToken.Token);
 
             if (ret)
             {
@@ -139,7 +138,6 @@ public sealed partial class Uploads
             file.Error = Localizer["UploadsWasmError"];
             await ToastService.Information(Localizer["UploadsSaveFile"], Localizer["UploadsSaveFileMsg"]);
         }
-        return ret;
     }
 
     private async Task OnDownload(UploadFile item)
@@ -156,7 +154,7 @@ public sealed partial class Uploads
     private async Task OnAvatarUpload(UploadFile file)
     {
         // 示例代码，使用 base64 格式
-        if (file != null && file.File != null)
+        if (file is { File: not null })
         {
             var format = file.File.ContentType;
             if (CheckValidAvatarFormat(format))
@@ -196,7 +194,7 @@ public sealed partial class Uploads
 
     private async Task OnCardUpload(UploadFile file)
     {
-        if (file != null && file.File != null)
+        if (file is { File: not null })
         {
             // 服务器端验证当文件大于 5MB 时提示文件太大信息
             if (file.Size > MaxFileLength)
