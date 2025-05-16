@@ -211,6 +211,14 @@ public sealed partial class Uploads : IDisposable
         }
     }
 
+    private readonly List<UploadFile> _dropFiles = [];
+    private Task OnDropUpload(UploadFile file)
+    {
+        _dropFiles.Add(file);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

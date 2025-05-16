@@ -21,7 +21,7 @@
                          OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger1" />
+    <ConsoleLogger @ref="Logger1"></ConsoleLogger>
 </DemoBlock>
 <DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
            Introduction="@Localizer["UploadFormSettingsIntro"]"
@@ -35,10 +35,10 @@
     <ValidateForm Model="Foo1" OnValidSubmit="OnSubmit">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Foo1.Name" />
+                <BootstrapInput @bind-Value="@Foo1.Name"/>
             </div>
             <div class="col-12">
-                <InputUpload @bind-Value="@Foo1.Picture" />
+                <InputUpload @bind-Value="@Foo1.Picture"/>
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
@@ -64,8 +64,9 @@
         <div class="col-12">
             <p>@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
             <ButtonUpload TValue="string" class="mt-3"
-                          ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up"
-                          OnChange="@OnClickToUploadNoUploadList" ></ButtonUpload>
+                          ShowUploadFileList="false" BrowserButtonText="Upload"
+                          BrowserButtonIcon="fa-solid fa-cloud-arrow-up"
+                          OnChange="@OnClickToUploadNoUploadList"></ButtonUpload>
         </div>
     </div>
 </DemoBlock>
@@ -122,7 +123,7 @@
             <ValidateForm Model="Foo2" OnValidSubmit="OnAvatarValidSubmit">
                 <div class="row g-3">
                     <div class="col-12">
-                        <BootstrapInput @bind-Value="@Foo2.Name" />
+                        <BootstrapInput @bind-Value="@Foo2.Name"/>
                     </div>
                     <div class="col-12">
                         <AvatarUpload @bind-Value="@Foo2.Picture"></AvatarUpload>
@@ -134,7 +135,7 @@
             </ValidateForm>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger2" />
+    <ConsoleLogger @ref="Logger2"/>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadPreCardStyleTitle"]"
@@ -163,17 +164,19 @@
 <DemoBlock Title="@Localizer["UploadFileIconTitle"]"
            Introduction="@Localizer["UploadFileIconIntro"]"
            Name="FileIcon">
-    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload"></CardUpload>
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload"></CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFileIconTemplateTitle"]"
            Introduction="@Localizer["UploadFileIconTemplateIntro"]"
            Name="IconTemplate">
-    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload">
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload">
         <IconTemplate>
             <FileIcon Extension="@context.GetExtension()">
                 <BackgroundTemplate>
-                    <i class="fa-regular fa-clipboard fa-4x" />
+                    <i class="fa-regular fa-clipboard fa-4x"></i>
                 </BackgroundTemplate>
             </FileIcon>
         </IconTemplate>
@@ -187,12 +190,18 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="DropUpload">
-    <DropUpload OnChange="@OnCardUpload" FooterText="@Localizer["DropUploadFooterText"]"
-                ShowProgress="true" ShowFooter="true" ShowUploadFileList="true"></DropUpload>
+    <DropUpload OnChange="@OnDropUpload" FooterText="@Localizer["DropUploadFooterText"]"
+                ShowProgress="true" ShowFooter="true" IsMultiple="false" IsDirectory="true"></DropUpload>
+    <div class="mt-3">
+        @foreach (var file in _dropFiles)
+        {
+            <div>@file.GetFileName()</div>
+        }
+    </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
+<AttributeTable Items="@GetInputAttributes()" Title="InputUpload"></AttributeTable>
 
-<AttributeTable Items="@GetButtonAttributes()" Title="ButtonUpload/CardUpload" />
+<AttributeTable Items="@GetButtonAttributes()" Title="ButtonUpload/CardUpload"></AttributeTable>
 
-<AttributeTable Items="@GetAvatarAttributes()" Title="AvatarUpload" />
+<AttributeTable Items="@GetAvatarAttributes()" Title="AvatarUpload"></AttributeTable>
