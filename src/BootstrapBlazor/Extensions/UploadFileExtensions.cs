@@ -21,15 +21,17 @@ public static class UploadFileExtensions
     /// <param name="maxHeight"></param>
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
-    [ExcludeFromCodeCoverage]
-    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
+    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string? format = null, int maxWidth = 320, int maxHeight = 240, long? maxAllowedSize = null, CancellationToken token = default)
     {
         if (upload.File != null)
         {
             try
             {
+                format ??= upload.File.ContentType;
                 var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
-                using var fileStream = imageFile.OpenReadStream(maxAllowedSize, token);
+
+                maxAllowedSize ??= upload.File.Size;
+                using var fileStream = imageFile.OpenReadStream(maxAllowedSize.Value, token);
                 using var memoryStream = new MemoryStream();
                 await fileStream.CopyToAsync(memoryStream, token);
                 upload.PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
