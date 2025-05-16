@@ -97,7 +97,7 @@
            Name="AvatarUpload">
     <div class="row g-3">
         <div class="col-12">
-            <p>@Localizer["AvatarUploadTips1"]</p>
+            <p>@((MarkupString)Localizer["AvatarUploadTips1"].Value)</p>
             <AvatarUpload TValue="string" Accept="image/*" IsMultiple="true"
                           OnChange="@OnAvatarUpload"></AvatarUpload>
         </div>
