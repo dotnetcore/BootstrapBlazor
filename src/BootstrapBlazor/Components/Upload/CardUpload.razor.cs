@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 卡片式上传组件
+/// CardUpload component
 /// </summary>
 public partial class CardUpload<TValue>
 {
@@ -19,12 +19,12 @@ public partial class CardUpload<TValue>
         .AddClass("is-invalid", item.Code != 0)
         .Build();
     private string? ItemClassString => CssBuilder.Default("upload-item")
-        .AddClass("is-single", IsSingle)
+        .AddClass("is-single", IsMultiple == false)
         .AddClass("disabled", IsDisabled)
         .Build();
 
     private string? BodyClassString => CssBuilder.Default("upload-body is-card")
-        .AddClass("is-single", IsSingle)
+        .AddClass("is-single", IsMultiple == false)
         .Build();
 
     private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
@@ -134,10 +134,22 @@ public partial class CardUpload<TValue>
     public Func<UploadFile, Task>? OnCancel { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击 Zoom 图标回调方法
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnZoomAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 取消图标
     /// </summary>
     [Parameter]
     public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图标文件扩展名集合 ".png"
+    /// </summary>
+    [Parameter]
+    public List<string>? AllowExtensions { get; set; }
 
     [Inject]
     [NotNull]
@@ -158,37 +170,21 @@ public partial class CardUpload<TValue>
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
     }
 
-    private bool IsImage(UploadFile item)
-    {
-        bool ret;
-        if (item.File != null)
-        {
-            ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || CheckExtensions(item.File.Name);
-        }
-        else if (CanPreviewCallback != null)
-        {
-            ret = CanPreviewCallback(item);
-        }
-        else
-        {
-            ret = IsBase64Format() || CheckExtensions(item.FileName ?? item.PrevUrl ?? "");
-        }
-
-        bool IsBase64Format() => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
-
-        bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
-        {
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" or ".webp" => true,
-            _ => false
-        };
-        return ret;
-    }
-
     /// <summary>
-    /// 获得/设置 点击 Zoom 图标回调方法
+    /// <inheritdoc/>
     /// </summary>
-    [Parameter]
-    public Func<UploadFile, Task>? OnZoomAsync { get; set; }
+    /// <returns></returns>
+    protected override bool CheckCanUpload()
+    {
+        // 允许多上传
+        if (IsMultiple == true)
+        {
+            return true;
+        }
+
+        // 只允许单个上传
+        return UploadFiles.Count == 0;
+    }
 
     private async Task OnCardFileDelete(UploadFile item)
     {
@@ -204,12 +200,7 @@ public partial class CardUpload<TValue>
         }
     }
 
-    /// <summary>
-    /// 点击下载按钮回调此方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected async Task OnClickDownload(UploadFile item)
+    private async Task OnClickDownload(UploadFile item)
     {
         if (OnDownload != null)
         {
@@ -217,12 +208,7 @@ public partial class CardUpload<TValue>
         }
     }
 
-    /// <summary>
-    /// 点击取消按钮回调此方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected async Task OnClickCancel(UploadFile item)
+    private async Task OnClickCancel(UploadFile item)
     {
         if (OnCancel != null)
         {

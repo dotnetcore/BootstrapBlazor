@@ -16,7 +16,7 @@
         {
             <div @key="@item" class="@GetItemClassString(item)">
                 <div class="upload-item-body">
-                    @if (IsImage(item))
+                    @if (item.IsImage(AllowExtensions, CanPreviewCallback))
                     {
                         <img class="upload-item-body-image" alt="prevUrl" src="@item.PrevUrl" @onclick="() => OnClickZoom(item)" />
                     }

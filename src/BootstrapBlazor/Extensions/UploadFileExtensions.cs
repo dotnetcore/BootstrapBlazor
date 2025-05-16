@@ -183,4 +183,54 @@ public static class UploadFileExtensions
         }
         return ret;
     }
+
+    /// <summary>
+    /// Check item whether is image extension method.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="allowExtensions"></param>
+    /// <param name="_callback"></param>
+    /// <returns></returns>
+    public static bool IsImage(this UploadFile item, List<string>? allowExtensions, Func<UploadFile, bool>? _callback = null)
+    {
+        bool ret;
+        if (_callback != null)
+        {
+            ret = _callback(item);
+        }
+        else if (item.File != null)
+        {
+            ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || item.IsAllowExtensions(allowExtensions);
+        }
+        else
+        {
+            ret = item.IsBase64Format() || item.IsAllowExtensions(allowExtensions);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// Check item whether is base64 format image extension method.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static bool IsBase64Format(this UploadFile item) => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Check the extension whether in the allowExtensions list.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="allowExtensions"></param>
+    /// <returns></returns>
+    public static bool IsAllowExtensions(this UploadFile item, List<string>? allowExtensions = null)
+    {
+        var ret = false;
+        allowExtensions ??= [".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".webp"];
+        var fileName = item.File?.Name ?? item.FileName ?? item.PrevUrl;
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            ret = allowExtensions.Contains(Path.GetExtension(fileName), StringComparer.OrdinalIgnoreCase);
+        }
+        return ret;
+    }
 }
