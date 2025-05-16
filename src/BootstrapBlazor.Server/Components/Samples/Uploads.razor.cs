@@ -217,7 +217,6 @@ public sealed partial class Uploads : IDisposable
     {
         ReadToken?.Cancel();
         ReadAvatarToken?.Cancel();
-        GC.SuppressFinalize(this);
     }
 
     private List<AttributeItem> GetInputAttributes() =>
