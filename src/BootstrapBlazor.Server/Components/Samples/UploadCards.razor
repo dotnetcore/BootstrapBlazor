@@ -1,0 +1,65 @@
+﻿@page "/upload-card"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<UploadInputs> Localizer
+@inject ToastService ToastService
+
+<h3>@Localizer["UploadsTitle"]</h3>
+
+<h4>@Localizer["UploadsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["UploadPreCardStyleTitle"]"
+           Introduction="@Localizer["UploadPreCardStyleIntro"]"
+           Name="PreCardStyle">
+    <section ignore>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</div>
+        <div class="mb-3">@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</div>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleWasmSide"].Value)</div>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleLink", WebsiteOption.CurrentValue.VideoLibUrl].Value)</div>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
+    </section>
+    <div class="row g-3">
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["UploadPreCardStyleTips1"].Value)</p>
+            <CardUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnCardUpload"></CardUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["UploadPreCardStyleTips2"].Value)</p>
+            <CardUpload TValue="string" OnChange="@OnCardUpload"></CardUpload>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadFileIconTitle"]"
+           Introduction="@Localizer["UploadFileIconIntro"]"
+           Name="FileIcon">
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload"></CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadFileIconTemplateTitle"]"
+           Introduction="@Localizer["UploadFileIconTemplateIntro"]"
+           Name="IconTemplate">
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload">
+        <IconTemplate>
+            <FileIcon Extension="@context.GetExtension()">
+                <BackgroundTemplate>
+                    <i class="fa-regular fa-clipboard fa-4x"></i>
+                </BackgroundTemplate>
+            </FileIcon>
+        </IconTemplate>
+    </CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadBase64Title"]"
+           Introduction="@Localizer["UploadBase64Intro"]"
+           Name="Base64">
+    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList"></CardUpload>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"></AttributeTable>

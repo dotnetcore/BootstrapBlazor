@@ -1,0 +1,60 @@
+﻿@page "/upload-avatar"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<UploadInputs> Localizer
+@inject ToastService ToastService
+
+<h3>@Localizer["UploadsTitle"]</h3>
+
+<h4>@Localizer["UploadsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["AvatarUploadTitle"]"
+           Introduction="@Localizer["AvatarUploadIntro"]"
+           Name="AvatarUpload">
+    <div class="row g-3">
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips1"].Value)</p>
+            <AvatarUpload TValue="string" Accept="image/*" IsMultiple="true"
+                          OnChange="@OnAvatarUpload"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@Localizer["AvatarUploadTips2"]</p>
+            <AvatarUpload TValue="string" Accept="image/*" IsMultiple="true" IsCircle="true" ShowProgress="true"
+                          OnChange="@OnAvatarUpload"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips3"].Value)</p>
+            <AvatarUpload class="mb-3" TValue="string" OnChange="@OnAvatarUpload"></AvatarUpload>
+            <p>@((MarkupString)Localizer["AvatarUploadTips5"].Value)</p>
+            <AvatarUpload TValue="string" Accept="image/gif, image/jpeg"
+                          OnChange="@OnAvatarUpload"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips6"].Value)</p>
+            <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" DefaultFileList="@PreviewFileList"
+                          OnChange="@OnAvatarUpload"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips7"].Value)</p>
+            <ValidateForm Model="Foo2" OnValidSubmit="OnAvatarValidSubmit">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <BootstrapInput @bind-Value="@Foo2.Name" />
+                    </div>
+                    <div class="col-12">
+                        <AvatarUpload @bind-Value="@Foo2.Picture"></AvatarUpload>
+                    </div>
+                    <div class="col-12">
+                        <Button ButtonType="@ButtonType.Submit" Text="@Localizer["AvatarUploadButtonText"]"></Button>
+                    </div>
+                </div>
+            </ValidateForm>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger2" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
