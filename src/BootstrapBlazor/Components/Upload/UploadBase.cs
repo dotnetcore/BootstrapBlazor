@@ -291,28 +291,14 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// 获得当前图片集合
     /// </summary>
     /// <returns></returns>
-    protected virtual List<UploadFile> GetUploadFiles()
+    protected List<UploadFile> GetUploadFiles()
     {
         var ret = new List<UploadFile>();
-        if (IsMultiple)
+        if (DefaultFileList != null)
         {
-            if (DefaultFileList != null)
-            {
-                ret.AddRange(DefaultFileList);
-            }
-            ret.AddRange(UploadFiles);
+            ret.AddRange(DefaultFileList);
         }
-        else
-        {
-            if (DefaultFileList != null && DefaultFileList.Count != 0)
-            {
-                ret.Add(DefaultFileList.First());
-            }
-            if (ret.Count == 0 && UploadFiles.Count != 0)
-            {
-                ret.Add(UploadFiles.First());
-            }
-        }
+        ret.AddRange(UploadFiles);
         return ret;
     }
 
