@@ -24,6 +24,10 @@ private MessageService? MessageService { get; set; }
     <Message @ref="Message" Placement="Placement.Bottom" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MessagesAsyncTitle"]" Introduction="@Localizer["MessagesAsyncIntro"]" Name="Async">
+    <Button IsAsync="true" OnClick="@ShowAsyncMessage" Text="@Localizer["MessagesAsyncText"]"></Button>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["MessagesIconTitle"]" Introduction="@Localizer["MessagesIconIntro"]" Name="Icon">
     <button class="btn btn-primary" @onclick="@ShowIconMessage">@Localizer["MessagesMessagePrompt"]</button>
 </DemoBlock>
