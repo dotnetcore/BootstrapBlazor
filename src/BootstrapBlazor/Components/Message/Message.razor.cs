@@ -102,8 +102,11 @@ public partial class Message
             _messages.Clear();
         }
 
-        _messages.Add(option);
-        _msgId = GetItemId(option);
+        if (!_messages.Contains(option))
+        {
+            _messages.Add(option);
+            _msgId = GetItemId(option);
+        }
         await InvokeAsync(StateHasChanged);
     }
 
