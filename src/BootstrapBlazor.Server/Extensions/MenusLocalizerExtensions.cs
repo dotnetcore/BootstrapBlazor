@@ -489,8 +489,28 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Upload"],
-                    Url = "upload"
+                    Text = Localizer["InputUpload"],
+                    Url = "upload-input"
+                },
+                new()
+                {
+                    Text = Localizer["ButtonUpload"],
+                    Url = "upload-button"
+                },
+                new()
+                {
+                    Text = Localizer["AvatarUpload"],
+                    Url = "upload-avatar"
+                },
+                new()
+                {
+                    Text = Localizer["CardUpload"],
+                    Url = "upload-card"
+                },
+                new()
+                {
+                    Text = Localizer["DropUpload"],
+                    Url = "upload-drop"
                 },
                 new()
                 {
