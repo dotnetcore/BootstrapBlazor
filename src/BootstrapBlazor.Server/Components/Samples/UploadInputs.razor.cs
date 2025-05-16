@@ -12,9 +12,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class UploadInputs
 {
-    [NotNull]
-    private ConsoleLogger? Logger1 { get; set; }
-
     private Person Foo1 { get; set; } = new Person();
 
     private Task OnFileChange(UploadFile file)
