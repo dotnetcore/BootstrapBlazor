@@ -58,12 +58,12 @@
                           OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
         <div class="col-12">
-            <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
+            <p>@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
             <ButtonUpload TValue="string" class="mt-3"
                           OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
         <div class="col-12">
-            <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
+            <p>@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
             <ButtonUpload TValue="string" class="mt-3"
                           ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up"
                           OnChange="@OnClickToUploadNoUploadList" ></ButtonUpload>
@@ -142,14 +142,14 @@
            Introduction="@Localizer["UploadPreCardStyleIntro"]"
            Name="PreCardStyle">
     <section ignore>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</div>
+        <p>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</p>
         <div>@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</div>
+        <p>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</p>
         <div>@((MarkupString)Localizer["UploadPreCardStyleWasmSide"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleLink", WebsiteOption.CurrentValue.VideoLibUrl].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
     </section>
-    <div class="row g-3 mt-3">
+    <div class="row g-3">
         <div class="col-12">
             <p>@((MarkupString)Localizer["UploadPreCardStyleTips1"].Value)</p>
             <CardUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnCardUpload"></CardUpload>
