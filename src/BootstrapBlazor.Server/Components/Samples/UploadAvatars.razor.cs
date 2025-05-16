@@ -95,8 +95,8 @@ public partial class UploadAvatars : IDisposable
             Name = "Height",
             Description = Localizer["UploadsHeight"],
             Type = "int",
-            ValueList = "—",
-            DefaultValue = "0"
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
@@ -105,6 +105,14 @@ public partial class UploadAvatars : IDisposable
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "BorderRadius",
+            Description = Localizer["UploadsBorderRadius"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
