@@ -3,14 +3,14 @@
 
 @if (IsHeaderRow)
 {
-    @RenderFilter()
+    @RenderFilter
 }
 else
 {
     <div class="card filter-item">
         <div class="card-header"><span>@Title</span></div>
         <div class="card-body">
-            @RenderFilter()
+            @RenderFilter
         </div>
         <div class="card-footer">
             <div class="d-flex flex-fill">
@@ -24,4 +24,11 @@ else
             <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
         </div>
     </div>
+}
+
+@code {
+    RenderFragment RenderFilter =>
+    @<CascadingValue IsFixed="false" Value="@FilterContext">
+        @ChildContent
+    </CascadingValue>;
 }
