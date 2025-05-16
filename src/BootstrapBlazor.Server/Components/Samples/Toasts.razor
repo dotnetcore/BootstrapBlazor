@@ -1,7 +1,6 @@
 ﻿@page "/toast"
 @inject IStringLocalizer<Toasts> Localizer
 @inject ToastService ToastService
-@inject IJSRuntime JSRuntime
 
 <h3>@Localizer["ToastsTitle"]</h3>
 
@@ -49,6 +48,10 @@ private ToastService? ToastService { get; set; }
 
 <DemoBlock Title="@Localizer["ToastsPreventTitle"]" Introduction="@Localizer["ToastsPreventIntro"]" Name="PreventDuplicates" ShowCode="false">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnPreventClick" Text="@Localizer["ToastsPreventText"]"></Button>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToastsAsyncTitle"]" Introduction="@Localizer["ToastsAsyncIntro"]" Name="Async" ShowCode="false">
+    <Button IsAsync="true" Icon="fa-solid fa-triangle-exclamation" OnClick="@OnAsyncClick" Text="@Localizer["ToastsAsyncText"]"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ToastsCloseTitle"]" Introduction="@Localizer["ToastsCloseIntro"]" Name="Close" ShowCode="false">
