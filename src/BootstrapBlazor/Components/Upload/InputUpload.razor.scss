@@ -13,6 +13,7 @@
     --bb-upload-drop-height: #{$bb-upload-drop-height};
     --bb-upload-drop-footer-font-size: #{$bb-upload-drop-footer-font-size};
     --bb-upload-drop-footer-margin-top: #{$bb-upload-drop-footer-margin-top};
+    --bb-upload-item-border-radius: #{$bb-upload-item-border-radius};
 }
 
 .upload .upload-body {
@@ -124,7 +125,7 @@
 }
 
 .upload .upload-body.is-avatar .upload-item.is-circle {
-    border-radius: 50%;
+    border-radius: var(--bb-upload-item-border-radius);
 }
 
 .upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
