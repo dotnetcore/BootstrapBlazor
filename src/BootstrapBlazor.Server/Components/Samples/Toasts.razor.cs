@@ -70,22 +70,22 @@ public sealed partial class Toasts
 
     private async Task OnAsyncClick()
     {
-        _option.Title = "通知服务";
+        _option.Title = Localizer["ToastsAsyncDemoTitle"];
         _option.ForceDelay = true;
         _option.IsAutoHide = false;
         _option.Delay = 3000;
-        _option.Content = "正在打包文档，请稍等...";
+        _option.Content = Localizer["ToastsAsyncDemoStep1Text"];
         _option.Category = ToastCategory.Information;
         await ToastService.Show(_option);
 
         await Task.Delay(3000);
-        _option.Content = "打包完成，正在下载...";
+        _option.Content = Localizer["ToastsAsyncDemoStep2Text"];
         _option.IsAutoHide = true;
         _option.Category = ToastCategory.Information;
         await ToastService.Show(_option);
 
-        await Task.Delay(2500);
-        _option.Content = "下载成功";
+        await Task.Delay(2000);
+        _option.Content = Localizer["ToastsAsyncDemoStep3Text"];
         _option.Category = ToastCategory.Success;
 
         await ToastService.Show(_option);
