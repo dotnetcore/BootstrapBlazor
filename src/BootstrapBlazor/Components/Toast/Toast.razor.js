@@ -12,7 +12,7 @@ export function init(id, invoke, callback) {
             return toast.toast._config.autohide
         }
     }
-    Data.set(id, toast)
+    Data.set(id, toast);
 
     if (toast.showProgress()) {
         toast.progressElement = toast.element.querySelector('.toast-progress')
@@ -29,6 +29,25 @@ export function init(id, invoke, callback) {
         toast.invoke.invokeMethodAsync(toast.callback)
     })
     toast.toast.show()
+}
+
+export function update(id) {
+    const t = Data.get(id);
+    const { element, toast } = t;
+    const autoHide = element.getAttribute('data-bs-autohide') !== 'false';
+    if(autoHide) {
+        const delay = parseInt(element.getAttribute('data-bs-delay'));
+        const progressElement = element.querySelector('.toast-progress');
+
+        toast._config.autohide = autoHide;
+        toast._config.delay = delay;
+
+        progressElement.style.width = '100%';
+        progressElement.style.transition = `width linear ${delay / 1000}s`;
+        EventHandler.on(progressElement, 'transitionend', e => {
+           toast.hide();
+        });
+    }
 }
 
 export function dispose(id) {
