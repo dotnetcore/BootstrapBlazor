@@ -206,6 +206,7 @@ public sealed partial class Uploads : IDisposable
             else
             {
                 await SaveToFile(file);
+                await ToastService.Success(Localizer["UploadsFileMsg"], $"{file.File!.Name} {Localizer["UploadsSuccess"]}");
             }
         }
     }
