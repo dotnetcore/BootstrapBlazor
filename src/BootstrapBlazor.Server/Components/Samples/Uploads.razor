@@ -75,7 +75,7 @@
            Introduction="@Localizer["UploadedFilesIntro"]"
            Name="UploadedFiles">
     <div class="row g-3">
-        <div class="col-12 col-sm-6">
+        <div class="col-12">
             <ButtonUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
                           OnDownload="OnDownload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
@@ -86,7 +86,7 @@
            Introduction="@Localizer["UploadFolderIntro"]"
            Name="UploadFolder">
     <div class="row g-3">
-        <div class="col-12 col-sm-6">
+        <div class="col-12">
             <ButtonUpload TValue="string" IsDirectory="true" OnChange="@OnUploadFolder"></ButtonUpload>
         </div>
     </div>
