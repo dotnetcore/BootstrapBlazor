@@ -321,7 +321,7 @@
         }
 
         .upload-drop-text {
-            margin-top: 1rem;
+            margin-block-start: 1rem;
         }
 
         em {
@@ -332,7 +332,7 @@
 
     .upload-drop-footer {
         font-size: var(--bb-upload-drop-footer-font-size);
-        margin-top: var(--bb-upload-drop-footer-margin-top);
+        margin-block-start: var(--bb-upload-drop-footer-margin-top);
     }
 
     .upload-drop-list {
