@@ -3552,12 +3552,9 @@
     "UploadsIsDirectory": "是否上传整个目录",
     "UploadsIsMultiple": "是否允许多文件上传",
     "UploadsShowProgress": "是否显示上传进度",
-    "UploadsDefaultFileList": "已上传文件集合",
-    "UploadsAccept": "上传接收的文件格式",
-    "UploadsShowUploadFileList": "是否显示上传列表",
+    "UploadsShowZoomButton": "是否显示放大按钮",
     "UploadsShowDeleteButton": "是否显示删除按钮",
-    "UploadsOnDelete": "点击删除按钮时回调此方法",
-    "UploadsOnChange": "点击浏览按钮时回调此方法"
+    "UploadsShowDownloadButton": "是否显示下载按钮",
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload 上传",

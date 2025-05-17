@@ -54,6 +54,53 @@ public partial class UploadCards
 
     private List<AttributeItem> GetAttributes() =>
     [
-
+        new()
+        {
+            Name = "IsDirectory",
+            Description = Localizer["UploadsIsDirectory"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsMultiple",
+            Description = Localizer["UploadsIsMultiple"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowProgress",
+            Description = Localizer["UploadsShowProgress"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowZoomButton",
+            Description = Localizer["UploadsShowZoomButton"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowDeletedButton",
+            Description = Localizer["UploadsShowDeleteButton"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowDownloadButton",
+            Description = Localizer["UploadsShowDownloadButton"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
     ];
 }

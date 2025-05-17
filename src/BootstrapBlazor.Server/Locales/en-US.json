@@ -3552,12 +3552,9 @@
     "UploadsIsDirectory": "Whether to upload the entire directory",
     "UploadsIsMultiple": "Whether to allow multiple file uploads",
     "UploadsShowProgress": "Whether to display the upload progress",
-    "UploadsDefaultFileList": "The collection of files has been uploaded",
-    "UploadsShowUploadFileList": "Whether show the upload file list",
-    "UploadsAccept": "Upload the received file format",
+    "UploadsShowZoomButton": "Whether to display the Zoom button",
     "UploadsShowDeleteButton": "Whether to display the Delete button",
-    "UploadsOnDelete": "Call back this method when you click the Delete button",
-    "UploadsOnChange": "Call back this method when you click the Browse button"
+    "UploadsShowDownloadButton": "Whether to display the Download button"
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload",
