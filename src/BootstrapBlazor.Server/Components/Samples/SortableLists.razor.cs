@@ -136,6 +136,16 @@ public partial class SortableLists
         AddItems3 = Foo.GenerateFoo(FooLocalizer, 12).Skip(8).ToList();
     }
 
+    private Task OnUpdateTable(SortableEvent @event)
+    {
+        var oldItem = Items[@event.OldIndex];
+        Items.Remove(oldItem);
+        Items.Insert(@event.NewIndex, oldItem);
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private Task OnUpdate(SortableEvent @event)
     {
         var oldIndex = @event.OldIndex;
