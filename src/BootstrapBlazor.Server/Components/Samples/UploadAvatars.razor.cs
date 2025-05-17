@@ -12,10 +12,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class UploadAvatars : IDisposable
 {
-    private static long MaxFileLength = 5 * 1024 * 1024;
+    private static readonly long MaxFileLength = 5 * 1024 * 1024;
     private CancellationTokenSource? _token;
-    private List<UploadFile> _previewFileList = [];
-    private Person _foo = new();
+    private readonly List<UploadFile> _previewFileList = [];
+    private readonly Person _foo = new();
     private bool _isMultiple = true;
     private bool _isUploadButtonAtFirst;
     private bool _isCircle;
