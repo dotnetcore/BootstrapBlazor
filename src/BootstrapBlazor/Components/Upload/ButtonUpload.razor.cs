@@ -71,7 +71,6 @@ public partial class ButtonUpload<TValue>
     /// 获得/设置 浏览按钮颜色
     /// </summary>
     [Parameter]
-    [NotNull]
     public Color BrowserButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
@@ -267,7 +266,7 @@ public partial class ButtonUpload<TValue>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected async Task OnClickDownload(UploadFile item)
+    private async Task OnClickDownload(UploadFile item)
     {
         if (OnDownload != null)
         {
@@ -280,7 +279,7 @@ public partial class ButtonUpload<TValue>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected async Task OnClickCancel(UploadFile item)
+    private async Task OnClickCancel(UploadFile item)
     {
         if (OnCancel != null)
         {
