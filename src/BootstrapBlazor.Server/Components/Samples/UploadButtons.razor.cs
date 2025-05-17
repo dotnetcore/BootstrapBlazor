@@ -14,6 +14,13 @@ public partial class UploadButtons
     private CancellationTokenSource? ReadToken { get; set; }
     private static long MaxFileLength => 5 * 1024 * 1024;
 
+    private bool _isMultiple = true;
+    private bool _showProgress = true;
+    private bool _showUploadFileList = true;
+    private bool _showDownloadButton = true;
+    private bool _isDirectory = false;
+    private bool _isDisabled = false;
+
     private List<UploadFile> DefaultFormatFileList { get; } =
     [
         new() { FileName = "Test.xls" },

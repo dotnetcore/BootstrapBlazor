@@ -3512,7 +3512,9 @@
     "UploadsSubTitle": "Upload files by clicking on them, usually used to upload file attachments",
     "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "ButtonUploadTitle": "Basic usage",
-    "ButtonUploadIntro": ""
+    "ButtonUploadIntro": "",
+    "UploadClickUploadTips2": "When you set up <code>IsSingle</code>, you can upload only one image or file",
+    "UploadClickUploadTips3ShowUploadList": "Set <code>ShowUploadFileList</code> value to <b>false</b> as normal button"
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload",

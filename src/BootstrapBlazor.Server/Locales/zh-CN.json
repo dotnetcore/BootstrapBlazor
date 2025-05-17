@@ -3509,10 +3509,13 @@
   },
   "BootstrapBlazor.Server.Components.Samples.UploadButtons": {
     "UploadsTitle": "ButtonUpload 按钮上传组件",
-    "UploadsSubTitle": "通过点击上传文件，通常用作上传文件附件",
+    "UploadsSubTitle": "通过点击按钮弹出选择文件框进行上传操作文件，通常用作上传文件附件",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "ButtonUploadTitle": "基础用法",
-    "ButtonUploadIntro": ""
+    "ButtonUploadIntro": "",
+    "UploadClickUploadIntro": "<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。",
+    "UploadClickUploadTips2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
+    "UploadClickUploadTips3ShowUploadList": "设置 <code>ShowUploadFileList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑"
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload 上传",
@@ -3527,10 +3530,6 @@
     "UploadFormSettingsLi2": "选择文件后并未开始上传文件，点击 <code>提交</code> 按钮数据验证合法后，再 <code>OnSubmit</code> 回调委托中进行上传文件操作，注意 <b>Picture</b> 属性类型为 <code>IBrowserFile</code>",
     "UploadFormSettingsButtonText": "提交",
     "UploadClickUploadTitle": "点击上传",
-    "UploadClickUploadIntro": "<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。",
-    "UploadClickUploadTips1": "点击 <code>浏览按钮</code> 选择文件上传，本例中设置 <code>IsMultiple=true</code> 可多选文件进行上传",
-    "UploadClickUploadTips2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
-    "UploadClickUploadTips3ShowUploadList": "设置 <code>ShowUploadFileList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑",
     "UploadedFilesTitle": "已上传文件列表",
     "UploadedFilesIntro": "使用 <code>DefaultFileList</code> 设置已上传的内容",
     "UploadFolderTitle": "上传文件夹",
