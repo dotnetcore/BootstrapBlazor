@@ -30,7 +30,9 @@ export function init(id, invoke, callback) {
         invoke.invokeMethodAsync(toast.callback)
     })
     EventHandler.on(progressElement, 'transitionend', e => {
-        toast.toast.hide();
+        if (toast.toast._config.autohide === false) {
+            toast.toast.hide();
+        }
     });
 
     toast.toast.show();
@@ -42,8 +44,6 @@ export function update(id) {
     const autoHide = element.getAttribute('data-bs-autohide') !== 'false';
     if (autoHide) {
         const delay = parseInt(element.getAttribute('data-bs-delay'));
-
-        toast._config.autohide = autoHide;
         toast._config.delay = delay;
 
         progressElement.style.width = '100%';
