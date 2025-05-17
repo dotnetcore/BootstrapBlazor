@@ -135,12 +135,12 @@ public partial class UploadButtons
             Description = Localizer["UploadsShowUploadFileList"],
             Type = "bool",
             ValueList = "true|false",
-            DefaultValue = "false"
+            DefaultValue = "true"
         },
         new()
         {
             Name = "ShowDownloadButton",
-            Description = Localizer["UploadsShowDownloadButton"],
+            Description = Localizer["UploadsShowDeleteButton"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
