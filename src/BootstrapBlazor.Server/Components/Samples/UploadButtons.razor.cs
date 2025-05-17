@@ -123,14 +123,6 @@ public partial class UploadButtons
         },
         new()
         {
-            Name = "IsSingle",
-            Description = Localizer["UploadsIsSingle"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "ShowProgress",
             Description = Localizer["UploadsShowProgress"],
             Type = "bool",
@@ -139,83 +131,11 @@ public partial class UploadButtons
         },
         new()
         {
-            Name = "Accept",
-            Description = Localizer["UploadsAccept"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "BrowserButtonClass",
-            Description = Localizer["UploadsBrowserButtonClass"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "btn-primary"
-        },
-        new()
-        {
-            Name = "BrowserButtonIcon",
-            Description = Localizer["UploadsBrowserButtonIcon"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "fa-regular fa-folder-open"
-        },
-        new()
-        {
-            Name = "BrowserButtonText",
-            Description = Localizer["UploadsBrowserButtonText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = ""
-        },
-        new()
-        {
-            Name = "DefaultFileList",
-            Description = Localizer["UploadsDefaultFileList"],
-            Type = "List<UploadFile>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnGetFileFormat",
-            Description = Localizer["UploadsOnGetFileFormat"],
-            Type = "Func<string, string>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnDelete",
-            Description = Localizer["UploadsOnDelete"],
-            Type = "Func<string, Task<bool>>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnChange",
-            Description = Localizer["UploadsOnChange"],
-            Type = "Func<UploadFile, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnDownload",
-            Description = Localizer["UploadsOnDownload"],
-            Type = "Func<UploadFile, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IconTemplate",
-            Description = Localizer["UploadsIconTemplate"],
-            Type = "RenderFragment<UploadFile>",
-            ValueList = " — ",
-            DefaultValue = " — "
+            Name = "ShowDownloadButton",
+            Description = Localizer["UploadsShowDownloadButton"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }

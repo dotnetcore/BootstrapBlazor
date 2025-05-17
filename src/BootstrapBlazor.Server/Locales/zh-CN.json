@@ -3512,10 +3512,7 @@
     "UploadsSubTitle": "通过点击按钮弹出选择文件框进行上传操作文件，通常用作上传文件附件",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "ButtonUploadTitle": "基础用法",
-    "ButtonUploadIntro": "",
-    "UploadClickUploadIntro": "<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。",
-    "UploadClickUploadTips2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
-    "UploadClickUploadTips3ShowUploadList": "设置 <code>ShowUploadFileList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑"
+    "ButtonUploadIntro": "通过设置 <code>ShowUploadFileList=\"true\"</code> 可以显示上传文件列表，设置 <code>ShowDeleteButton=\"true\"</code> 显示 <b>删除</b> 按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload 上传",
