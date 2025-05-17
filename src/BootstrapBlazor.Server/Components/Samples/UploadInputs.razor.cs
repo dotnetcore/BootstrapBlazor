@@ -33,6 +33,22 @@ public partial class UploadInputs
     [
         new()
         {
+            Name = "IsDirectory",
+            Description = Localizer["UploadsIsDirectory"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsMultiple",
+            Description = Localizer["UploadsIsMultiple"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowDeleteButton",
             Description = Localizer["UploadsShowDeleteButton"],
             Type = "bool",

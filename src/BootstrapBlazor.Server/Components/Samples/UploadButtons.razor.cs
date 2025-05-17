@@ -131,6 +131,14 @@ public partial class UploadButtons
         },
         new()
         {
+            Name = "ShowUploadFileList",
+            Description = Localizer["UploadsShowUploadFileList"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowDownloadButton",
             Description = Localizer["UploadsShowDownloadButton"],
             Type = "bool",

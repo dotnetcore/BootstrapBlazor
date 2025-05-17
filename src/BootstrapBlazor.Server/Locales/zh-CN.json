@@ -3493,6 +3493,9 @@
     "UploadFormSettingsLi1": "使用 <code>ValidateForm</code> 表单组件，通过设置模型属性的 <code>FileValidation</code> 标签设置自定义验证，支持文件 <b>扩展名</b> <b>大小</b> 验证，本例中设置扩展名为 <code>.png .jpg .jpeg</code>，文件大小限制为 <code>50K</code>",
     "UploadFormSettingsLi2": "选择文件后并未开始上传文件，点击 <code>提交</code> 按钮数据验证合法后，再 <code>OnSubmit</code> 回调委托中进行上传文件操作，注意 <b>Picture</b> 属性类型为 <code>IBrowserFile</code>",
     "UploadFormSettingsButtonText": "提交",
+    "UploadsIsMultiple": "是否允许多文件上传",
+    "UploadsShowProgress": "是否显示上传进度",
+    "UploadsDefaultFileList": "已上传文件集合",
     "UploadsShowDeleteButton": "是否显示删除按钮",
     "UploadsIsDisabled": "是否禁用",
     "UploadsPlaceHolder": "占位字符串",
@@ -3512,7 +3515,13 @@
     "UploadsSubTitle": "通过点击按钮弹出选择文件框进行上传操作文件，通常用作上传文件附件",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "ButtonUploadTitle": "基础用法",
-    "ButtonUploadIntro": "通过设置 <code>ShowUploadFileList=\"true\"</code> 可以显示上传文件列表，设置 <code>ShowDeleteButton=\"true\"</code> 显示 <b>删除</b> 按钮"
+    "ButtonUploadIntro": "通过设置 <code>ShowUploadFileList=\"true\"</code> 可以显示上传文件列表，设置 <code>ShowDeleteButton=\"true\"</code> 显示 <b>删除</b> 按钮",
+    "UploadsIsMultiple": "是否允许多文件上传",
+    "UploadsShowProgress": "是否显示上传进度",
+    "UploadsDefaultFileList": "已上传文件集合",
+    "UploadsAccept": "上传接收的文件格式",
+    "UploadsOnDelete": "点击删除按钮时回调此方法",
+    "UploadsOnChange": "点击浏览按钮时回调此方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload 上传",
