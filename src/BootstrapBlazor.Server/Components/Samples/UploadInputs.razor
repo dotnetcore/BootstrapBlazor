@@ -16,9 +16,9 @@
            Name="Normal">
     <div class="row g-3">
         <div class="col-12">
-            <InputUpload TValue="string" ShowDeleteButton="true"
+            <InputUpload TValue="string" ShowDeleteButton="true" IsMultiple="true"
                          ShowLabel="true" DisplayText="@Localizer["UploadNormalLabelPhoto"]"
-                         OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
+                         OnChange="@OnFileChange"></InputUpload>
         </div>
     </div>
 </DemoBlock>
@@ -27,7 +27,7 @@
            Introduction="@Localizer["UploadFormSettingsIntro"]"
            Name="FormSettings">
     <section ignore>
-        <ul class="ul-demo mb-3">
+        <ul class="ul-demo">
             <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
             <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
         </ul>

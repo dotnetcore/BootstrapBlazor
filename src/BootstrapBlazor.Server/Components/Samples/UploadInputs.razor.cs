@@ -14,18 +14,12 @@ public partial class UploadInputs
 {
     private Person Foo1 { get; set; } = new Person();
 
-    private Task OnFileChange(UploadFile file)
+    private async Task OnFileChange(UploadFile file)
     {
         // 未真正保存文件
         // file.SaveToFile()
-        Logger1.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
-        return Task.CompletedTask;
-    }
-
-    private Task<bool> OnFileDelete(UploadFile item)
-    {
-        Logger1.Log($"{item.OriginFileName} {Localizer["UploadsRemoveMsg"]}");
-        return Task.FromResult(true);
+        await Task.Delay(200);
+        await ToastService.Information(Localizer["UploadsSaveFile"], $"{file.File!.Name} {Localizer["UploadsSuccess"]}");
     }
 
     private static Task OnSubmit(EditContext context)
