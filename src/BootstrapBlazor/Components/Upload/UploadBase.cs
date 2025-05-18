@@ -97,6 +97,33 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+        else if (value is IEnumerable<IBrowserFile> files)
+        {
+            return string.Join(";", files.Select(i => i.Name));
+        }
+        else if (value is IBrowserFile file)
+        {
+            return file.Name;
+        }
+        else if (value is IEnumerable<string> strings)
+        {
+            return string.Join(";", strings);
+        }
+        else
+        {
+            return base.FormatValueAsString(value);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
     protected async Task OnFileChange(InputFileChangeEventArgs args)

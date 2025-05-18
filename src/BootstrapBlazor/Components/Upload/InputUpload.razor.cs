@@ -102,14 +102,6 @@ public partial class InputUpload<TValue>
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override string? FormatValueAsString(TValue? value)
-    {
-        return CurrentValue?.ToString();
-    }
-
     private async Task OnDeleteFile()
     {
         foreach (var item in UploadFiles)
