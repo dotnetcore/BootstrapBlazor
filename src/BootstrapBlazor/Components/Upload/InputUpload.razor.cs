@@ -112,22 +112,4 @@ public partial class InputUpload<TValue>
         }
         CurrentValue = default;
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results)
-    {
-        if (results.Any())
-        {
-            ErrorMessage = results.First().ErrorMessage;
-            IsValid = false;
-        }
-        else
-        {
-            ErrorMessage = null;
-            IsValid = true;
-        }
-        OnValidate(IsValid);
-    }
 }
