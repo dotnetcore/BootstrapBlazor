@@ -439,6 +439,14 @@ public sealed partial class Selects
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Select<string>.ShowSwal),
+            Description = Localizer["SelectsShowSwal"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         }
     ];
 }
