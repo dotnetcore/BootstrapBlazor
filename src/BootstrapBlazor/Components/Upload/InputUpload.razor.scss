@@ -124,7 +124,7 @@
     border-radius: var(--bb-upload-item-border-radius);
 }
 
-.upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
+.upload .upload-body.is-avatar .upload-item:not(.is-form):not(.is-valid):not(.is-invalid):hover,
 .upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
 .upload .upload-body.is-card .upload-item.is-valid,
 .upload .upload-body.is-card .upload-item:not(.disabled):hover {
