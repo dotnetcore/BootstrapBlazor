@@ -276,26 +276,24 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         if (FieldIdentifier != null)
         {
-            var messages = results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)));
-            if (messages.Any())
+            var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName)).ToList();
+            if (messages.Count == 0)
             {
+                messages = results.Where(item => item.MemberNames.Any(m =>
+                        UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)))
+                    .ToList();
+            }
+            if (messages.Count > 0)
+            {
+                ErrorMessage = messages.First().ErrorMessage;
                 IsValid = false;
-
-                // TODO: 提示
-                //if (CurrentFile != null)
-                //{
-                //    var msg = messages.FirstOrDefault(m => m.MemberNames.Any(f => f.Equals(CurrentFile.ValidateId, StringComparison.OrdinalIgnoreCase)));
-                //    if (msg != null)
-                //    {
-                //        ErrorMessage = msg.ErrorMessage;
-                //    }
-                //}
             }
             else
             {
                 ErrorMessage = null;
                 IsValid = true;
             }
+
             OnValidate(IsValid);
         }
     }
