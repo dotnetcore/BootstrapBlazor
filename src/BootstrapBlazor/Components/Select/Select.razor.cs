@@ -356,8 +356,7 @@ public partial class Select<TValue> : ISelect, ILookup
             }
             else
             {
-                // Return false to proceed
-                ret = true;
+                return;
             }
         }
         if (ret)
