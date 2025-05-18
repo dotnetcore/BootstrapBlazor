@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -20,7 +20,7 @@ jobs:
         dotnet-version: 9.0.x
 
     - name: Build
-      env: 
+      env:
         NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
         Bundle: True
       run: |
@@ -35,3 +35,11 @@ jobs:
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Check Router
+      run: |
+        dotnet test test/UnitTestDocs
+
+    - name: Check Localizer
+      run: |
+        dotnet test test/UnitTestLocalization
