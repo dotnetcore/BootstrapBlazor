@@ -145,7 +145,6 @@ public class UploadInputTest : BootstrapBlazorTestBase
     {
         [Required]
         [FileValidation(Extensions = [".png", ".jpg", ".jpeg"])]
-
         public IBrowserFile? Picture { get; set; }
     }
 
