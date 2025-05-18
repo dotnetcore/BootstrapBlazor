@@ -78,18 +78,27 @@ public partial class AvatarUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", !IsDisabled && item.IsValid is true)
-        .AddClass("is-invalid", !IsDisabled && item.IsValid is false)
-        .AddClass("is-valid", !IsDisabled && item is { IsValid: null, Uploaded: true, Code: 0 })
-        .AddClass("is-invalid", !IsDisabled && item is { IsValid: null, Code: not 0 })
+    private string? GetItemClassString(UploadFile? item = null) => CssBuilder.Default("upload-item")
+        .AddClass("is-circle", IsCircle)
+        .AddClass("disabled", IsDisabled)
+        .AddClass(GetValidStatus(item))
         .Build();
 
-    private string? ItemClassString => CssBuilder.Default("upload-item")
-        .AddClass("is-circle", IsCircle)
-        .AddClass("is-single", IsMultiple == false)
-        .AddClass("disabled", IsDisabled)
-        .Build();
+    private string? GetValidStatus(UploadFile? item = null)
+    {
+        if (ValidateForm == null)
+        {
+            return null;
+        }
+
+        if (IsDisabled)
+        {
+            return null;
+        }
+
+        var state = item?.IsValid ?? IsValid;
+        return state is true ? "is-valid" : "is-invalid";
+    }
 
     /// <summary>
     /// 获得/设置 预览框 Style 属性
@@ -127,11 +136,11 @@ public partial class AvatarUpload<TValue>
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadInvalidStatusIcon);
 
         // 头像上传时如果用户没有设置 OnChanged 回调，需要使用内置方法将文件头像转化未 Base64 格式用于预览
-        OnChange ??= new Func<UploadFile, Task>(async item =>
+        OnChange ??= async item =>
         {
             item.ValidateId = $"{Id}_{item.GetHashCode()}";
             await item.RequestBase64ImageFileAsync();
-        });
+        };
     }
 
     /// <summary>
@@ -141,12 +150,24 @@ public partial class AvatarUpload<TValue>
     protected override bool CheckCanUpload()
     {
         // 允许多上传
-        if (IsMultiple == true)
+        if (IsMultiple)
         {
-            return true;
+            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
         }
 
         // 只允许单个上传
         return UploadFiles.Count == 0;
     }
+
+    /// <summary>
+    /// 获得 数据验证客户端 ID
+    /// </summary>
+    /// <returns></returns>
+    protected override string? RetrieveId()
+    {
+        var files = GetUploadFiles();
+        return files.Count == 0 ? $"{Id}_new" : files[0].ValidateId;
+    }
+
+    private string? AddId => GetUploadFiles().Count == 0 ? $"{Id}_new" : null;
 }

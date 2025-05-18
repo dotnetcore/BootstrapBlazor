@@ -194,7 +194,7 @@ public partial class ButtonUpload<TValue>
         .Build();
 
     private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", item.Uploaded && item.Code == 0)
+        .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
         .AddClass("is-invalid", item.Code != 0)
         .Build();
 

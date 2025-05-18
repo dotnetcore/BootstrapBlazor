@@ -3468,7 +3468,7 @@
     "AvatarUploadTips7": "Verify that an example of using a picture box is used in the form",
     "AvatarUploadButtonText": "Submit",
     "AvatarUploadValidateTitle": "ValidateForm",
-    "AvatarUploadValidateIntro": "Place it in <code>ValidateForm</code> to integrate automatic data validation function. For details, please refer to <code>ValidateForm</code> component",
+    "AvatarUploadValidateIntro": "Place it in <code>ValidateForm</code> to integrate automatic data validation function. For details, please refer to <code>ValidateForm</code> component. In this example, the uploaded file extension is limited to <code>.png, .jpg, .jpeg</code>. An error message will be displayed when uploading other formats. The file size limit is <code>5M</code>. An error message will also be displayed when it exceeds",
     "AvatarUploadAcceptTitle": "Accept",
     "AvatarUploadAcceptIntro": "The component provides <code>Accept</code> property for upload file filtering, in this case the circular avatar box accepts both GIF and JPEG images, sets the <code>Accept='image/gif, image/jpeg'</code> and can be written as: <code>Accept='image/*'</code> if you don't restrict the format of the image. Whether this property is not secure or should be to file format validation using the <b>server-side authentication</b>",
     "UploadsWidth": "The width of the preview box",

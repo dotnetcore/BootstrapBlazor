@@ -122,7 +122,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// User selects files callback method
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -130,14 +130,19 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         UploadFiles.Clear();
         var fileCount = MaxFileCount ?? args.FileCount;
-        var items = args.GetMultipleFiles(fileCount).Select(f => new UploadFile()
+        var items = args.GetMultipleFiles(fileCount).Select(f =>
         {
-            OriginFileName = f.Name,
-            Size = f.Size,
-            File = f,
-            FileCount = args.FileCount,
-            Uploaded = false,
-            UpdateCallback = Update
+            var file = new UploadFile()
+            {
+                OriginFileName = f.Name,
+                Size = f.Size,
+                File = f,
+                FileCount = args.FileCount,
+                Uploaded = false,
+                UpdateCallback = Update
+            };
+            file.ValidateId = $"{Id}_{file.GetHashCode()}";
+            return file;
         }).ToList();
 
         foreach (var item in items)
@@ -170,7 +175,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         else if (ValueType == typeof(IBrowserFile))
         {
-            CurrentValue = (TValue)(object)items[0].File!;
+            CurrentValue = (TValue)items[0].File!;
         }
         else if (ValueType == typeof(string))
         {
@@ -269,7 +274,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 显示/隐藏验证结果方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
     public override void ToggleMessage(IEnumerable<ValidationResult> results)
