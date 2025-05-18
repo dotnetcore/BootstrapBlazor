@@ -59,6 +59,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
     /// <summary>
     /// Gets or sets whether show the swal popup when <see cref="OnBeforeSelectedItemChange"/> return true. Default is true.
+    /// 获得/设置 是否显示 Swal 确认弹窗
     /// </summary>
     [Parameter]
     public bool ShowSwal { get; set; } = true;
