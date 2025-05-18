@@ -186,8 +186,8 @@
 <DemoBlock Title="@Localizer["SortableListTableTitle"]"
            Introduction="@Localizer["SortableListTableIntro"]"
            Name="Table">
-    <SortableList Option="_optionTable">
-        <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
+    <SortableList Option="_optionTable" OnUpdate="OnUpdateTable">
+        <Table TItem="Foo" Items="@Items" IsStriped="true" ShowLineNo="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />

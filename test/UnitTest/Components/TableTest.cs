@@ -4582,6 +4582,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4593,6 +4594,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
 
@@ -4601,6 +4603,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4608,6 +4611,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(1, checkboxs);
 
@@ -4615,6 +4619,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4622,6 +4627,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
     }
