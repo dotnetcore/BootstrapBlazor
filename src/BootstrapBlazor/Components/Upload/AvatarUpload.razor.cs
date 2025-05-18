@@ -79,11 +79,10 @@ public partial class AvatarUpload<TValue>
         .Build();
 
     private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", !IsDisabled && item.IsValid.HasValue && item.IsValid.Value)
-        .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
-        .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
-        .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
-        .AddClass("disabled", IsDisabled)
+        .AddClass("is-valid", !IsDisabled && item.IsValid is true)
+        .AddClass("is-invalid", !IsDisabled && item.IsValid is false)
+        .AddClass("is-valid", !IsDisabled && item is { IsValid: null, Uploaded: true, Code: 0 })
+        .AddClass("is-invalid", !IsDisabled && item is { IsValid: null, Code: not 0 })
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("upload-item")
@@ -100,6 +99,10 @@ public partial class AvatarUpload<TValue>
         .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
         .AddClass($"height: {Width}px;", IsCircle)
         .AddClass($"--bb-upload-item-border-radius: {BorderRadius};", IsCircle && !string.IsNullOrEmpty(BorderRadius))
+        .Build();
+
+    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
+        .AddClass("btn-browser", IsDisabled == false)
         .Build();
 
     private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
