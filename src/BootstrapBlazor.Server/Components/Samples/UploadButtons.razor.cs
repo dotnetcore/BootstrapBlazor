@@ -8,11 +8,11 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// ButtonUpload sample code
 /// </summary>
-public partial class UploadButtons
+public partial class UploadButtons : IDisposable
 {
     private static readonly Random Random = new();
-    private CancellationTokenSource? ReadToken { get; set; }
-    private static long MaxFileLength => 5 * 1024 * 1024;
+    private static readonly long MaxFileLength = 5 * 1024 * 1024;
+    private CancellationTokenSource? _token;
 
     private bool _isMultiple = true;
     private bool _showProgress = true;
@@ -20,20 +20,6 @@ public partial class UploadButtons
     private bool _showDownloadButton = true;
     private bool _isDirectory = false;
     private bool _isDisabled = false;
-
-    private List<UploadFile> DefaultFormatFileList { get; } =
-    [
-        new() { FileName = "Test.xls" },
-        new() { FileName = "Test.doc" },
-        new() { FileName = "Test.ppt" },
-        new() { FileName = "Test.mp3" },
-        new() { FileName = "Test.mp4" },
-        new() { FileName = "Test.pdf" },
-        new() { FileName = "Test.cs" },
-        new() { FileName = "Test.zip" },
-        new() { FileName = "Test.txt" },
-        new() { FileName = "Test.dat" }
-    ];
 
     private async Task OnClickToUpload(UploadFile file)
     {
@@ -48,17 +34,6 @@ public partial class UploadButtons
         {
             await SaveToFile(file);
         }
-    }
-
-    private async Task OnClickToUploadNoUploadList(UploadFile file)
-    {
-        await ToastService.Success("Upload", $"{file.OriginFileName} uploaded success.");
-    }
-
-    private async Task OnUploadFolder(UploadFile file)
-    {
-        // 上传文件夹时会多次回调此方法
-        await SaveToFile(file);
     }
 
     private async Task OnDownload(UploadFile item)
@@ -79,20 +54,27 @@ public partial class UploadButtons
                 $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
-            ReadToken ??= new CancellationTokenSource();
-            var ret = await file.SaveToFileAsync(fileName, MaxFileLength, ReadToken.Token);
+            _token ??= new CancellationTokenSource();
+            try
+            {
+                var ret = await file.SaveToFileAsync(fileName, MaxFileLength, _token.Token);
 
-            if (ret)
-            {
-                // 保存成功
-                file.PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
+                if (ret)
+                {
+                    // 保存成功
+                    file.PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
+                }
+                else
+                {
+                    var errorMessage = $"{Localizer["UploadsSaveFileError"]} {file.OriginFileName}";
+                    file.Code = 1;
+                    file.Error = errorMessage;
+                    await ToastService.Error(Localizer["UploadFile"], errorMessage);
+                }
             }
-            else
+            catch (OperationCanceledException)
             {
-                var errorMessage = $"{Localizer["UploadsSaveFileError"]} {file.OriginFileName}";
-                file.Code = 1;
-                file.Error = errorMessage;
-                await ToastService.Error(Localizer["UploadFile"], errorMessage);
+
             }
         }
         else
@@ -101,6 +83,17 @@ public partial class UploadButtons
             file.Error = Localizer["UploadsWasmError"];
             await ToastService.Information(Localizer["UploadsSaveFile"], Localizer["UploadsSaveFileMsg"]);
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        _token?.Cancel();
+        _token?.Dispose();
+        _token = null;
+        GC.SuppressFinalize(this);
     }
 
     private List<AttributeItem> GetAttributes() =>
