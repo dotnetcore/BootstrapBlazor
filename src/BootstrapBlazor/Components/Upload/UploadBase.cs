@@ -133,20 +133,19 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             await OnAllFileUploaded(items);
         }
 
-        var type = NullableUnderlyingType ?? typeof(TValue);
-        if (type.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
+        if (ValueType.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
         {
             CurrentValue = (TValue)(object)items.Select(f => f.File).ToList();
         }
-        else if (type.IsAssignableTo(typeof(IEnumerable<string>)))
+        else if (ValueType.IsAssignableTo(typeof(IEnumerable<string>)))
         {
             CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName)).ToList();
         }
-        else if (type == typeof(IBrowserFile))
+        else if (ValueType == typeof(IBrowserFile))
         {
             CurrentValue = (TValue)(object)items[0].File!;
         }
-        else if (type == typeof(string))
+        else if (ValueType == typeof(string))
         {
             CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName));
         }
