@@ -3267,7 +3267,8 @@
     "TextConvertToValueCallback": "编辑模式下输入文本变化时回调方法",
     "SelectsIsEditable": "是否可编辑",
     "SelectsIsVirtualize": "是否开启虚拟滚动",
-    "SelectsDefaultVirtualizeItemText": "开启虚拟滚动时首次加载 Value 对应的文本字符串用逗号分割"
+    "SelectsDefaultVirtualizeItemText": "开启虚拟滚动时首次加载 Value 对应的文本字符串用逗号分割",
+    "SelectsShowSwal": "是否显示 Swal 确认弹窗"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",

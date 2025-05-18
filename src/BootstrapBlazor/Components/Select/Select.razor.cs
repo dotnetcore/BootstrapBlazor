@@ -58,6 +58,13 @@ public partial class Select<TValue> : ISelect, ILookup
     public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
 
     /// <summary>
+    /// Gets or sets whether to show the Swal confirmation popup when <see cref="OnBeforeSelectedItemChange"/> returns true. Default is true.
+    /// 获得/设置 是否显示 Swal 确认弹窗
+    /// </summary>
+    [Parameter]
+    public bool ShowSwal { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the callback method when the selected item changes.
     /// </summary>
     [Parameter]
@@ -338,7 +345,7 @@ public partial class Select<TValue> : ISelect, ILookup
         if (OnBeforeSelectedItemChange != null)
         {
             ret = await OnBeforeSelectedItemChange(item);
-            if (ret)
+            if (ret && ShowSwal)
             {
                 // Return true to show modal
                 var option = new SwalOption()
@@ -353,10 +360,6 @@ public partial class Select<TValue> : ISelect, ILookup
                     option.FooterTemplate = builder => builder.AddContent(0, SwalFooter);
                 }
                 ret = await SwalService.ShowModal(option);
-            }
-            else
-            {
-                return;
             }
         }
         if (ret)
