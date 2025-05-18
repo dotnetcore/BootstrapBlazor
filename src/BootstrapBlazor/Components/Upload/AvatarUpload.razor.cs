@@ -97,7 +97,12 @@ public partial class AvatarUpload<TValue>
         }
 
         var state = item?.IsValid ?? IsValid;
-        return state is true ? "is-valid" : "is-invalid";
+        if (state == null)
+        {
+            return null;
+        }
+
+        return state.Value ? "is-valid" : "is-invalid";
     }
 
     /// <summary>
