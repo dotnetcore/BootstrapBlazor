@@ -1,6 +1,6 @@
 ﻿@page "/upload-drop"
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
-@inject IStringLocalizer<UploadInputs> Localizer
+@inject IStringLocalizer<UploadDrops> Localizer
 @inject ToastService ToastService
 
 <h3>@Localizer["UploadsTitle"]</h3>
@@ -11,9 +11,9 @@
 
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
-<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="DropUpload">
+<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="Normal">
     <DropUpload OnChange="@OnDropUpload" FooterText="@Localizer["DropUploadFooterText"]"
-                ShowProgress="true" ShowFooter="true" IsMultiple="false" IsDirectory="true"></DropUpload>
+                ShowProgress="true" ShowFooter="true" IsMultiple="false"></DropUpload>
     <div class="mt-3">
         @foreach (var file in _dropFiles)
         {
