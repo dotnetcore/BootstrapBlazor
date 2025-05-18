@@ -464,8 +464,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         if (FieldIdentifier != null)
         {
-            var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName));
-            if (messages.Any())
+            var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName)).ToList();
+            if (messages.Count > 0)
             {
                 ErrorMessage = messages.First().ErrorMessage;
                 IsValid = false;
