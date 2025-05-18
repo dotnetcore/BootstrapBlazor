@@ -42,4 +42,4 @@ jobs:
 
     - name: Check Localizer
       run: |
-        dotnet test test/UnitTestLocalization
+        dotnet test test/UnitTest.Localization
