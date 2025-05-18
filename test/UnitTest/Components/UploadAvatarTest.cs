@@ -23,6 +23,8 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
+        Assert.Contains("upload-item-plus", cut.Markup);
+
         var input = cut.FindComponent<InputFile>();
         await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
@@ -91,6 +93,22 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void MaxFileCount_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsMultiple, true);
+            pb.Add(a => a.MaxFileCount, 2);
+            pb.Add(a => a.DefaultFileList,
+            [
+                new UploadFile { FileName = "Test-File" },
+                new UploadFile { FileName = "Test-File" }
+            ]);
+        });
+        Assert.DoesNotContain(".upload-item-plus", cut.Markup);
+    }
+
+    [Fact]
     public async Task AvatarUpload_ValidateForm_Ok()
     {
         var invalid = false;
@@ -131,6 +149,15 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             form.Submit();
         });
         Assert.False(invalid);
+
+        // 设置 Disabled 取消校验
+        var upload = cut.FindComponent<AvatarUpload<string>>();
+        upload.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+
+        Assert.DoesNotContain("is-invalid", upload.Markup);
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
