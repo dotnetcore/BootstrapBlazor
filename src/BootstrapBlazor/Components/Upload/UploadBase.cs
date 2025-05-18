@@ -194,11 +194,11 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
         if (ret)
         {
-            UploadFiles.Remove(item);
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
                 await RemoveValidResult(item.ValidateId);
             }
+            UploadFiles.Remove(item);
             DefaultFileList?.Remove(item);
         }
         return ret;
@@ -243,7 +243,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 获得当前图片集合
+    /// Get the files collection.
+    /// 获得当前文件集合
     /// </summary>
     /// <returns></returns>
     protected List<UploadFile> GetUploadFiles()

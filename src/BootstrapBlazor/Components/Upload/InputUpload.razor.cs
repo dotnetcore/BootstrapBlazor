@@ -104,9 +104,10 @@ public partial class InputUpload<TValue>
 
     private async Task TriggerDeleteFile()
     {
-        for (var index = UploadFiles.Count; index > 0; index--)
+        var files = GetUploadFiles();
+        for (var index = files.Count; index > 0; index--)
         {
-            var item = UploadFiles[index - 1];
+            var item = files[index - 1];
             await OnFileDelete(item);
         }
         CurrentValue = default;
@@ -115,7 +116,6 @@ public partial class InputUpload<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="results"></param>
     public override void ToggleMessage(IEnumerable<ValidationResult> results)
     {
         if (results.Any())
