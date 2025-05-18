@@ -3491,7 +3491,7 @@
     "UploadNormalLabelPhoto": "Select one or more files",
     "UploadFormSettingsTitle": "ValidateForm",
     "UploadFormSettingsIntro": "Use the file upload component to constrain the file format within the form",
-    "UploadFormSettingsLi1": "Using the <code>ValidateForm</code> form component, custom validation is set by setting the <code>fileValidation</code> label of the model properties to support file <b>extension</b><b>size</b>validation, in this case with the extension <code>.png .jpg .jpeg</code> and the file size limit to <code>50K</code>",
+    "UploadFormSettingsLi1": "Using the <code>ValidateForm</code> form component, custom validation is set by setting the <code>fileValidation</code> label of the model properties to support file <b>extension</b><b>size</b>validation, in this case with the extension <code>.png .jpg .jpeg</code> and the file size limit to <code>5M</code>",
     "UploadFormSettingsLi2": "After selecting the file and not starting to upload the file, click the <code>submit</code> button to verify that the data is legitimate, and then upload the file <code>OnSubmit</code> callback delegate, noting that the <b>Picture</b>property type is <code>IBrowserFile</code>",
     "UploadFormSettingsButtonText": "Submit",
     "UploadsIsDirectory": "Whether to upload the entire directory",

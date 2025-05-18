@@ -3491,7 +3491,7 @@
     "UploadNormalLabelPhoto": "选择一个或者多个文件",
     "UploadFormSettingsTitle": "表单应用",
     "UploadFormSettingsIntro": "放置到 <code>ValidateForm</code> 内集成自动数据验证功能，详情可以参考 <code>ValidateForm</code> 组件",
-    "UploadFormSettingsLi1": "使用 <code>ValidateForm</code> 表单组件，通过设置模型属性的 <code>FileValidation</code> 标签设置自定义验证，支持文件 <b>扩展名</b> <b>大小</b> 验证，本例中设置扩展名为 <code>.png .jpg .jpeg</code>，文件大小限制为 <code>50K</code>",
+    "UploadFormSettingsLi1": "使用 <code>ValidateForm</code> 表单组件，通过设置模型属性的 <code>FileValidation</code> 标签设置自定义验证，支持文件 <b>扩展名</b> <b>大小</b> 验证，本例中设置扩展名为 <code>.png .jpg .jpeg</code>，文件大小限制为 <code>5M</code>",
     "UploadFormSettingsLi2": "选择文件后并未开始上传文件，点击 <code>提交</code> 按钮数据验证合法后，再 <code>OnSubmit</code> 回调委托中进行上传文件操作，注意 <b>Picture</b> 属性类型为 <code>IBrowserFile</code>",
     "UploadFormSettingsButtonText": "提交",
     "UploadsIsDirectory": "是否上传整个目录",
