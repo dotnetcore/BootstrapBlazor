@@ -6,12 +6,11 @@ on:
       - master
       - main
       - dev
-      - chore-action
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -21,7 +20,7 @@ jobs:
         dotnet-version: 9.0.x
 
     - name: Build
-      env: 
+      env:
         NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
         Bundle: True
       run: |
