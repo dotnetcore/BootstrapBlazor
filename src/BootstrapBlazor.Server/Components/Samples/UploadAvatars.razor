@@ -40,9 +40,16 @@
                     <Slider @bind-Value="@_radius" Min="0" Max="49" UseInputEvent="true"></Slider>
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
-    <AvatarUpload TValue="string" IsMultiple="@_isMultiple" IsCircle="@_isCircle" BorderRadius="@RadiusString"></AvatarUpload>
+    <AvatarUpload TValue="string" IsMultiple="@_isMultiple" IsCircle="@_isCircle" BorderRadius="@RadiusString"
+                  IsDisabled="@_isDisabled"></AvatarUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AvatarUploadAcceptTitle"]"

@@ -20,6 +20,7 @@ public partial class UploadAvatars : IDisposable
     private bool _isUploadButtonAtFirst;
     private bool _isCircle;
     private int _radius = 49;
+    private bool _isDisabled = false;
 
     private string? RadiusString => $"{_radius}px";
 
