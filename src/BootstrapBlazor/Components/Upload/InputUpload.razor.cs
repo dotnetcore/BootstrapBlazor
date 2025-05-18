@@ -102,15 +102,13 @@ public partial class InputUpload<TValue>
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
     }
 
-    private async Task OnDeleteFile()
+    private async Task TriggerDeleteFile()
     {
-        foreach (var item in UploadFiles)
+        for (var index = UploadFiles.Count; index > 0; index--)
         {
+            var item = UploadFiles[index - 1];
             await OnFileDelete(item);
         }
-
-        // TODO: 需要验证文件删除结果
-        UploadFiles.Clear();
         CurrentValue = default;
     }
 

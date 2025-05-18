@@ -34,10 +34,10 @@
     <ValidateForm Model="Foo1" OnValidSubmit="OnSubmit">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Foo1.Name" />
+                <BootstrapInput @bind-Value="@Foo1.Name"></BootstrapInput>
             </div>
             <div class="col-12">
-                <InputUpload @bind-Value="@Foo1.Picture" />
+                <InputUpload @bind-Value="@Foo1.Picture" ShowDeleteButton="true"></InputUpload>
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
