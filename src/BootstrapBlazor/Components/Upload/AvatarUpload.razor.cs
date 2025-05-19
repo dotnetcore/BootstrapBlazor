@@ -149,22 +149,6 @@ public partial class AvatarUpload<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool CheckCanUpload()
-    {
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return UploadFiles.Count == 0;
-    }
-
-    /// <summary>
     /// 获得 数据验证客户端 ID
     /// </summary>
     /// <returns></returns>
