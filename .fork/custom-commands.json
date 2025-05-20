@@ -1,0 +1,18 @@
+﻿[
+  {
+    "version": 2
+  },
+  {
+    "action": {
+      "script": "git push origin ${ref}\ngit push gitee.com ${ref}",
+      "showOutput": false,
+      "type": "sh",
+      "waitForExit": true
+    },
+    "name": "Push All Branch",
+    "refTargets": [
+      "localbranch"
+    ],
+    "target": "ref"
+  }
+]
