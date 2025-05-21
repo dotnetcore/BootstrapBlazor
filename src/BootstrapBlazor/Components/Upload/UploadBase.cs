@@ -236,7 +236,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         if (IsDisabled)
         {
-            return true;
+            return false;
         }
 
         // 允许多上传
