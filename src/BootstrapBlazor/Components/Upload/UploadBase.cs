@@ -128,7 +128,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected async Task OnFileChange(InputFileChangeEventArgs args)
     {
-        UploadFiles.Clear();
         var fileCount = MaxFileCount ?? args.FileCount;
         var items = args.GetMultipleFiles(fileCount).Select(f =>
         {
@@ -234,9 +233,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     protected virtual bool CheckCanUpload()
     {
+        // 如果组件禁用了 IsDisabled 允许上传但是不出现 + 按钮
         if (IsDisabled)
         {
-            return false;
+            return true;
         }
 
         // 允许多上传

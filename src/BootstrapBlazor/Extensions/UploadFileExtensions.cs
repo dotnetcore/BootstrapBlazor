@@ -54,7 +54,6 @@ public static class UploadFileExtensions
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    [ExcludeFromCodeCoverage]
     public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         var ret = false;
@@ -130,7 +129,6 @@ public static class UploadFileExtensions
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    [ExcludeFromCodeCoverage]
     public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         byte[]? ret = null;
