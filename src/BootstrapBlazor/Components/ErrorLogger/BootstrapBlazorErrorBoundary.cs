@@ -69,6 +69,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
 #if DEBUG
+        // DEBUG 模式下显示异常堆栈信息到 UI 页面方便开发人员调试
         if (OnErrorHandleAsync == null)
         {
             var ex = CurrentException ?? _exception;
