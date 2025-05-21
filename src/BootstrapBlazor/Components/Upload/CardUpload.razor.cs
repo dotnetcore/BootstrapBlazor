@@ -252,6 +252,28 @@ public partial class CardUpload<TValue>
         FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool CheckCanUpload()
+    {
+        // 如果组件禁用了 IsDisabled 允许上传但是不出现 + 按钮
+        if (IsDisabled)
+        {
+            return true;
+        }
+
+        // 允许多上传
+        if (IsMultiple)
+        {
+            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
+        }
+
+        // 只允许单个上传
+        return UploadFiles.Count == 0;
+    }
+
     private async Task OnCardFileDelete(UploadFile item)
     {
         await OnFileDelete(item);
