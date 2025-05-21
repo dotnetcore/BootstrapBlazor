@@ -150,9 +150,79 @@ public partial class CardUpload<TValue>
     [Parameter]
     public List<string>? AllowExtensions { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Docx 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 PPT 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Audio 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Video 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 File 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Pdf 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Zip 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Archive 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Image 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 File 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
+        .AddClass("btn-browser", IsDisabled == false)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -167,22 +237,19 @@ public partial class CardUpload<TValue>
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadDownloadIcon);
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
-    }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool CheckCanUpload()
-    {
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return true;
-        }
-
-        // 只允许单个上传
-        return UploadFiles.Count == 0;
+        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
+        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
+        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
+        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
+        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
+        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
+        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
+        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
+        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
+        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
+        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
+        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
 
     private async Task OnCardFileDelete(UploadFile item)
