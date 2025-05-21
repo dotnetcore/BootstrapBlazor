@@ -48,10 +48,8 @@ public partial class UploadButtons : IDisposable
         // 生成写入文件名称
         if (!string.IsNullOrEmpty(WebsiteOption.CurrentValue.WebRootPath))
         {
-            var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath,
-                $"images{Path.DirectorySeparatorChar}uploader");
-            file.FileName =
-                $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "images", "uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
             _token ??= new CancellationTokenSource();

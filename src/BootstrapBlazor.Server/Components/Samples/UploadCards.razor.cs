@@ -3,12 +3,14 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Newtonsoft.Json.Linq;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// CardUpload sample code
 /// </summary>
-public partial class UploadCards
+public partial class UploadCards : IDisposable
 {
     private List<UploadFile> DefaultFormatFileList { get; } =
     [
@@ -30,6 +32,7 @@ public partial class UploadCards
     ];
 
     private static long MaxFileLength => 5 * 1024 * 1024;
+    private CancellationTokenSource? _token;
 
     private async Task OnCardUpload(UploadFile file)
     {
@@ -46,10 +49,63 @@ public partial class UploadCards
             {
                 // 模拟保存成功
                 await Task.Delay(100);
-                //await SaveToFile(file);
+                await SaveToFile(file);
                 await ToastService.Success(Localizer["UploadsFileMsg"], $"{file.File!.Name} {Localizer["UploadsSuccess"]}");
             }
         }
+    }
+
+    private async Task SaveToFile(UploadFile file)
+    {
+        // Server Side 使用
+        // Web Assembly 模式下必须使用 WebApi 方式去保存文件到服务器或者数据库中
+        // 生成写入文件名称
+        if (!string.IsNullOrEmpty(WebsiteOption.CurrentValue.WebRootPath))
+        {
+            var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "images", "uploader");
+            file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
+            var fileName = Path.Combine(uploaderFolder, file.FileName);
+
+            _token ??= new CancellationTokenSource();
+            try
+            {
+                var ret = await file.SaveToFileAsync(fileName, MaxFileLength, _token.Token);
+
+                if (ret)
+                {
+                    // 保存成功
+                    file.PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
+                }
+                else
+                {
+                    var errorMessage = $"{Localizer["UploadsSaveFileError"]} {file.OriginFileName}";
+                    file.Code = 1;
+                    file.Error = errorMessage;
+                    await ToastService.Error(Localizer["UploadFile"], errorMessage);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+
+            }
+        }
+        else
+        {
+            file.Code = 1;
+            file.Error = Localizer["UploadsWasmError"];
+            await ToastService.Information(Localizer["UploadsSaveFile"], Localizer["UploadsSaveFileMsg"]);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        _token?.Cancel();
+        _token?.Dispose();
+        _token = null;
+        GC.SuppressFinalize(this);
     }
 
     private List<AttributeItem> GetAttributes() =>
