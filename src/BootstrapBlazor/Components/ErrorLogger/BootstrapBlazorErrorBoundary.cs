@@ -68,6 +68,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+#if DEBUG
         if (OnErrorHandleAsync == null)
         {
             var ex = CurrentException ?? _exception;
@@ -77,6 +78,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
                 builder.AddContent(0, ExceptionContent(ex));
             }
         }
+#endif
         builder.AddContent(1, ChildContent);
     }
 
