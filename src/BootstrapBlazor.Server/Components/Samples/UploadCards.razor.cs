@@ -12,6 +12,15 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class UploadCards : IDisposable
 {
+    private bool _isMultiple = true;
+    private bool _isDirectory = false;
+    private bool _isDisabled = false;
+    private bool _isUploadButtonAtFirst = false;
+    private bool _showProgress = true;
+    private bool _showZoomButton = true;
+    private bool _showDeleteButton = true;
+    private bool _showDownloadButton = true;
+
     private List<UploadFile> DefaultFormatFileList { get; } =
     [
         new() { FileName = "Test.xls" },

@@ -146,7 +146,7 @@
 }
 
 .upload .upload-body.is-avatar .upload-item .upload-item-actions,
-.upload .upload-body.is-card .upload-item .upload-item-actions.btn-browser {
+.upload .upload-body.is-card .upload-item .upload-item-actions > .upload-item-plus {
     position: absolute;
     top: 0;
     left: 0;

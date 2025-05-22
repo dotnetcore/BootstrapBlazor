@@ -15,15 +15,61 @@
            Introduction="@Localizer["ButtonUploadIntro"]"
            Name="Normal">
     <section ignore>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</div>
-        <div class="mb-3">@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleWasmSide"].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleLink", WebsiteOption.CurrentValue.VideoLibUrl].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
-        <div class="mt-3">@((MarkupString)Localizer["UploadPreCardStyleTips1"].Value)</div>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isMultiple"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDirectory"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDirectory"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsUploadButtonAtFirst"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isUploadButtonAtFirst"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowProgress"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showProgress"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDeleteButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDeleteButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowZoomButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showZoomButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDownloadButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDownloadButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+        </div>
     </section>
-    <CardUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnCardUpload"></CardUpload>
+    <CardUpload TValue="string" IsMultiple="@_isMultiple" IsDirectory="@_isDirectory"
+                IsDisabled="@_isDisabled" IsUploadButtonAtFirst="@_isUploadButtonAtFirst"
+                ShowProgress="@_showProgress" ShowDeletedButton="@_showDeleteButton"
+                ShowDownloadButton="@_showDownloadButton" ShowZoomButton="@_showZoomButton" OnChange="@OnCardUpload"></CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFileIconTitle"]"
