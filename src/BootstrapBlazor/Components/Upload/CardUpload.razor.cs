@@ -258,12 +258,6 @@ public partial class CardUpload<TValue>
     /// <returns></returns>
     protected override bool CheckCanUpload()
     {
-        // 如果组件禁用了 IsDisabled 允许上传但是不出现 + 按钮
-        if (IsDisabled)
-        {
-            return true;
-        }
-
         // 允许多上传
         if (IsMultiple)
         {
