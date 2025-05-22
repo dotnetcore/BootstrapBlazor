@@ -78,7 +78,7 @@
     "TablesPagePaginationTitle": "Pagination table",
     "TablesPagePaginationIntro": "Set <code>IsPagination</code> to display the pagination component",
     "TablesPageShowTopPaginationTitle": "Show on top",
-    "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
+    "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component. You can use <code>IsAutoScrollTopWhenClickPage</code> to control whether to automatically scroll to the top after turning the page. The default value is <code>false</code> to keep the scroll bar position"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "Fixed column",

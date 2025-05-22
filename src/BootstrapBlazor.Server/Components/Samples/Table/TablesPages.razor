@@ -22,8 +22,8 @@
 <DemoBlock Title="@Localizer["TablesPageShowTopPaginationTitle"]"
            Introduction="@Localizer["TablesPageShowTopPaginationIntro"]"
            Name="ShowTopPagination">
-    <Table TItem="Foo"
-           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" _pageItems="10" OnQueryAsync="@OnQueryAsync">
+    <Table TItem="Foo" IsAutoScrollTopWhenClickPage="true" IsFixedHeader="true" Height="200"
+           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
