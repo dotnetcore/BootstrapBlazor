@@ -21,20 +21,6 @@ export function init(id, invoke, options) {
     reset(id)
 }
 
-export function scrollTop(id) {
-    const table = Data.get(id)
-    if (table === null) {
-        return;
-    }
-
-    const body = table.tables.length === 2 ? table.tables[1] : table.tables[0];
-    body.parentElement.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-    });
-}
-
 export function reloadColumnWidth(tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);
@@ -213,12 +199,16 @@ export function scroll(id, align, options = { behavior: 'smooth' }) {
     }
 }
 
-export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
+export function scrollTo(id) {
     const element = document.getElementById(id);
     if (element) {
         const scroll = element.querySelector('.scroll');
         if (scroll) {
-            scroll.scrollTo(x, y, options);
+            scroll.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
         }
     }
 }
