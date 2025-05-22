@@ -78,7 +78,7 @@
     "TablesPagePaginationTitle": "分页表格",
     "TablesPagePaginationIntro": "设置 <code>IsPagination</code> 显示分页组件",
     "TablesPageShowTopPaginationTitle": "显示在顶端",
-    "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
+    "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件，可通过 <code>IsAutoScrollTopWhenClickPage</code> 控制是否翻页后自动滚动到顶端，默认值为 <code>false</code> 保持滚动条位置"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "固定列功能",

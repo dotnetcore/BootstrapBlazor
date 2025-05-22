@@ -759,6 +759,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<List<TItem>, bool>? DisableEditButtonCallback { get; set; }
 
+    /// <summary>
+    /// 获得/设置 翻页时是否自动滚动到顶部 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAutoScrollTopWhenClickPage { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -1012,6 +1018,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_isFilterTrigger)
         {
             _isFilterTrigger = false;
+            _shouldScrollTop = false;
+            await InvokeVoidAsync("scrollTo", Id);
+        }
+
+        if(_shouldScrollTop)
+        {
+            _shouldScrollTop = false;
             await InvokeVoidAsync("scrollTo", Id);
         }
 
@@ -1055,7 +1068,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     },
                     new
                     {
-                        Key = "align-left",
+                        Key = "align-right",
                         Icon = "fa-solid fa-align-right",
                         Text = Localizer["AlignRightText"].Value,
                         Tooltip = Localizer["AlignRightTooltipText"].Value

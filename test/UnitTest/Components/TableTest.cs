@@ -980,6 +980,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.PageItemsSource, [2, 4, 8]);
                 pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsAutoScrollTopWhenClickPage, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -991,8 +992,9 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageLinkClick!.Invoke(2));
+        var items = cut.FindAll(".page-link");
+        await cut.InvokeAsync(() => items[2].Click());
+
         var activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
     }
@@ -1058,7 +1060,7 @@ public class TableTest : BootstrapBlazorTestBase
             return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
-                TotalCount = items.Count(),
+                TotalCount = 80,
                 IsAdvanceSearch = true,
                 IsFiltered = true,
                 IsSearch = true,
