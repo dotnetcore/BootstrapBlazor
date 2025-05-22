@@ -242,11 +242,11 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         // 允许多上传
         if (IsMultiple)
         {
-            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
+            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
         }
 
         // 只允许单个上传
-        return UploadFiles.Count == 0;
+        return UploadFiles.Count > 0;
     }
 
     /// <summary>
