@@ -21,6 +21,20 @@ export function init(id, invoke, options) {
     reset(id)
 }
 
+export function scrollTop(id) {
+    const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
+
+    const body = table.tables.length === 2 ? table.tables[1] : table.tables[0];
+    body.parentElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+    });
+}
+
 export function reloadColumnWidth(tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);

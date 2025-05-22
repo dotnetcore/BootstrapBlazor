@@ -169,6 +169,12 @@ public partial class Table<TItem>
 
             // 通知 SelectedRow 双向绑定集合改变
             await OnSelectedRowsChanged();
+
+            // 通知 UI 滚动到顶端
+            if(IsAutoScrollTopWhenClickPage)
+            {
+                await InvokeVoidAsync("scrollTop", Id);
+            }
         }
     }
 

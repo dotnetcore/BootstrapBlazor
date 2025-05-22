@@ -759,6 +759,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<List<TItem>, bool>? DisableEditButtonCallback { get; set; }
 
+    /// <summary>
+    /// 获得/设置 翻页时是否自动滚动到顶部 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAutoScrollTopWhenClickPage { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
