@@ -992,8 +992,9 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageLinkClick!.Invoke(2));
+        var items = cut.FindAll(".page-link");
+        await cut.InvokeAsync(() => items[2].Click());
+
         var activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
     }
