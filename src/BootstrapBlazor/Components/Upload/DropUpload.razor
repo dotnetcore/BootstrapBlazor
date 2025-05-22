@@ -6,7 +6,7 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <div class="upload-drop-body">
+    <div class="@BodyClassString">
         @if (BodyTemplate != null)
         {
             @BodyTemplate

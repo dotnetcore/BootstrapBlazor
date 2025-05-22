@@ -75,6 +75,10 @@ public partial class DropUpload
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? BodyClassString => CssBuilder.Default("upload-drop-body")
+        .AddClass("btn-browser", !IsDisabled)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
