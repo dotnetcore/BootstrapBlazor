@@ -310,6 +310,10 @@
         height: var(--bb-upload-drop-height);
         cursor: pointer;
 
+        &.disabled {
+            border-color: var(--bs-border-color);
+        }
+
         .upload-drop-icon > i {
             font-size: 3em;
             color: var(--bs-secondary);

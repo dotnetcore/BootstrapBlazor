@@ -77,6 +77,11 @@ public partial class DropUpload
 
     private string? BodyClassString => CssBuilder.Default("upload-drop-body")
         .AddClass("btn-browser", !IsDisabled)
+        .AddClass("disabled", IsDisabled)
+        .Build();
+
+    private string? TextClassString => CssBuilder.Default("upload-drop-text")
+        .AddClass("text-muted", IsDisabled)
         .Build();
 
     /// <summary>
