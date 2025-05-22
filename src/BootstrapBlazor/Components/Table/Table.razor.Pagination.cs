@@ -148,6 +148,7 @@ public partial class Table<TItem>
         }
     };
 
+    private bool _shouldScrollTop = false;
     /// <summary>
     /// 点击页码调用此方法
     /// </summary>
@@ -171,9 +172,9 @@ public partial class Table<TItem>
             await OnSelectedRowsChanged();
 
             // 通知 UI 滚动到顶端
-            if(IsAutoScrollTopWhenClickPage)
+            if (IsAutoScrollTopWhenClickPage)
             {
-                await InvokeVoidAsync("scrollTop", Id);
+                _shouldScrollTop = true;
             }
         }
     }

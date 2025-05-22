@@ -1018,6 +1018,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_isFilterTrigger)
         {
             _isFilterTrigger = false;
+            _shouldScrollTop = false;
+            await InvokeVoidAsync("scrollTo", Id);
+        }
+
+        if(_shouldScrollTop)
+        {
+            _shouldScrollTop = false;
             await InvokeVoidAsync("scrollTo", Id);
         }
 
