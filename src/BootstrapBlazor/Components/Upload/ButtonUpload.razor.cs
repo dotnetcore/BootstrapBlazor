@@ -273,7 +273,7 @@ public partial class ButtonUpload<TValue>
         }
 
         // 只允许单个上传
-        return UploadFiles.Count > 0;
+        return GetUploadFiles().Count > 0;
     }
 
     /// <summary>

@@ -114,62 +114,6 @@ public partial class UploadAvatars : IDisposable
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsDirectory",
-            Description = Localizer["UploadsIsDirectory"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsMultiple",
-            Description = Localizer["UploadsIsMultiple"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowProgress",
-            Description = Localizer["UploadsShowProgress"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "Accept",
-            Description = Localizer["UploadsAccept"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "DefaultFileList",
-            Description = Localizer["UploadsDefaultFileList"],
-            Type = "List<UploadFile>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnDelete",
-            Description = Localizer["UploadsOnDelete"],
-            Type = "Func<string, Task<bool>>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnChange",
-            Description = Localizer["UploadsOnChange"],
-            Type = "Func<UploadFile, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
         }
     ];
 

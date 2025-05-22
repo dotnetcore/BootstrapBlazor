@@ -93,48 +93,4 @@ public partial class UploadButtons : IDisposable
         _token = null;
         GC.SuppressFinalize(this);
     }
-
-    private List<AttributeItem> GetAttributes() =>
-    [
-        new()
-        {
-            Name = "IsDirectory",
-            Description = Localizer["UploadsIsDirectory"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsMultiple",
-            Description = Localizer["UploadsIsMultiple"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowProgress",
-            Description = Localizer["UploadsShowProgress"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowUploadFileList",
-            Description = Localizer["UploadsShowUploadFileList"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "ShowDownloadButton",
-            Description = Localizer["UploadsShowDeleteButton"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        }
-    ];
 }

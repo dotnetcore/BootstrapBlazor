@@ -3474,13 +3474,6 @@
     "UploadsWidth": "预览框宽度",
     "UploadsHeight": "预览框高度",
     "UploadsIsCircle": "是否为圆形头像模式",
-    "UploadsIsDirectory": "是否上传整个目录",
-    "UploadsIsMultiple": "是否允许多文件上传",
-    "UploadsShowProgress": "是否显示上传进度",
-    "UploadsDefaultFileList": "已上传文件集合",
-    "UploadsAccept": "上传接收的文件格式",
-    "UploadsOnDelete": "点击删除按钮时回调此方法",
-    "UploadsOnChange": "点击浏览按钮时回调此方法",
     "UploadsBorderRadius": "预览框圆角曲率"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
@@ -3518,16 +3511,7 @@
     "UploadsSubTitle": "通过点击按钮弹出选择文件框选择一个或者多个文件，通常用作上传文件附件",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "ButtonUploadTitle": "基础用法",
-    "ButtonUploadIntro": "通过设置 <code>ShowUploadFileList=\"true\"</code> 可以显示上传文件列表，设置 <code>ShowDeleteButton=\"true\"</code> 显示 <b>删除</b> 按钮",
-    "UploadsIsDirectory": "是否上传整个目录",
-    "UploadsIsMultiple": "是否允许多文件上传",
-    "UploadsShowProgress": "是否显示上传进度",
-    "UploadsDefaultFileList": "已上传文件集合",
-    "UploadsAccept": "上传接收的文件格式",
-    "UploadsShowUploadFileList": "是否显示上传列表",
-    "UploadsShowDeleteButton": "是否显示删除按钮",
-    "UploadsOnDelete": "点击删除按钮时回调此方法",
-    "UploadsOnChange": "点击浏览按钮时回调此方法"
+    "ButtonUploadIntro": "通过设置 <code>ShowUploadFileList=\"true\"</code> 可以显示上传文件列表，设置 <code>ShowDeleteButton=\"true\"</code> 显示 <b>删除</b> 按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadCards": {
     "UploadsTitle": "CardUpload 卡片上传组件",
