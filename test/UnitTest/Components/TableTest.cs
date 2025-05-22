@@ -980,6 +980,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.PageItemsSource, [2, 4, 8]);
                 pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsAutoScrollTopWhenClickPage, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -1058,7 +1059,7 @@ public class TableTest : BootstrapBlazorTestBase
             return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
-                TotalCount = items.Count(),
+                TotalCount = 80,
                 IsAdvanceSearch = true,
                 IsFiltered = true,
                 IsSearch = true,
