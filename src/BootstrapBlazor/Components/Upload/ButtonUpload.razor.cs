@@ -230,8 +230,6 @@ public partial class ButtonUpload<TValue>
         .AddClass(CancelIcon)
         .Build();
 
-    private bool IsUploadButtonDisabled => CheckCanUpload();
-
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -259,6 +257,23 @@ public partial class ButtonUpload<TValue>
         FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
         FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
         CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
+    }
+
+    private bool CheckStatus()
+    {
+        if (IsDisabled)
+        {
+            return true;
+        }
+
+        // 允许多上传
+        if (IsMultiple)
+        {
+            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
+        }
+
+        // 只允许单个上传
+        return UploadFiles.Count > 0;
     }
 
     /// <summary>

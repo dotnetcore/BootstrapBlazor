@@ -102,6 +102,23 @@ public partial class InputUpload<TValue>
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
     }
 
+    private bool CheckStatus()
+    {
+        if (IsDisabled)
+        {
+            return true;
+        }
+
+        // 允许多上传
+        if (IsMultiple)
+        {
+            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
+        }
+
+        // 只允许单个上传
+        return UploadFiles.Count > 0;
+    }
+
     private async Task TriggerDeleteFile()
     {
         var files = GetUploadFiles();

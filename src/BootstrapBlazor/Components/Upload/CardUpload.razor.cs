@@ -252,11 +252,7 @@ public partial class CardUpload<TValue>
         FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool CheckCanUpload()
+    private bool CheckCanUpload()
     {
         // 允许多上传
         if (IsMultiple)

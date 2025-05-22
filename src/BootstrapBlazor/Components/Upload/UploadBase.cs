@@ -229,27 +229,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 是否可以上传
-    /// </summary>
-    protected virtual bool CheckCanUpload()
-    {
-        // 如果组件禁用了 IsDisabled 允许上传但是不出现 + 按钮
-        if (IsDisabled)
-        {
-            return true;
-        }
-
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return UploadFiles.Count > 0;
-    }
-
-    /// <summary>
     /// Get the files collection.
     /// 获得当前文件集合
     /// </summary>

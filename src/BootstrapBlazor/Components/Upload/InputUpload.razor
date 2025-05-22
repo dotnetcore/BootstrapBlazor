@@ -16,7 +16,7 @@
                     Icon="@DeleteButtonIcon" Text="@DeleteButtonText" Color="Color.None"
                     OnClick="@TriggerDeleteFile"></Button>
         }
-        <Button class="@BrowserButtonClassString" IsDisabled="@IsDisabled" Icon="@BrowserButtonIcon"
+        <Button class="@BrowserButtonClassString" IsDisabled="@CheckStatus()" Icon="@BrowserButtonIcon"
                 Text="@BrowserButtonText" Color="Color.None"></Button>
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"></InputFile>

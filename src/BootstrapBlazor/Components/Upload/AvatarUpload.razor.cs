@@ -148,11 +148,7 @@ public partial class AvatarUpload<TValue>
         };
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool CheckCanUpload()
+    private bool CheckCanUpload()
     {
         // 允许多上传
         if (IsMultiple)
