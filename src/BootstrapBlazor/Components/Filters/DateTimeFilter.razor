@@ -4,22 +4,20 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <DateTimePicker class="is-filter" @bind-Value="Value1" OnValueChanged="_ => OnFilterValueChanged()"></DateTimePicker>
-        <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <DateTimePicker class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterAsync()"
+                        ShowLabel="false" SkipValidate="true"></DateTimePicker>
+        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter"></FilterButton>
     </div>
 }
 else
 {
-    <Select Items="Items" @bind-Value="Action1"></Select>
-
-    <DateTimePicker class="is-filter" @bind-Value="Value1"></DateTimePicker>
+    <Select Items="Items" @bind-Value="_action1" ShowLabel="false" SkipValidate="true"></Select>
+    <DateTimePicker class="is-filter" @bind-Value="_value1" ShowLabel="false" SkipValidate="true"></DateTimePicker>
 
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-
-        <Select Items="Items" @bind-Value="Action2"></Select>
-
-        <DateTimePicker class="is-filter" @bind-Value="Value2"></DateTimePicker>
+        <Select Items="Items" @bind-Value="_action2" ShowLabel="false" SkipValidate="true"></Select>
+        <DateTimePicker class="is-filter" @bind-Value="_value2" ShowLabel="false" SkipValidate="true"></DateTimePicker>
     }
 }

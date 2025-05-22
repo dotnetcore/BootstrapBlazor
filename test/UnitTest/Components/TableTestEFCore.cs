@@ -55,6 +55,7 @@ public class TableTestEFCore : BootstrapBlazorTestBase
             });
         });
 
+        // 由于 SearchText 是 ZhangSan 无符合条件数据
         Assert.NotNull(items);
         Assert.Empty(items);
 

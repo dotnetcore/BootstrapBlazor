@@ -1,0 +1,32 @@
+[
+  {
+    "version" : 2
+  },
+  {
+    "action" : {
+      "script" : "git branch -d localBranchName\ngit push gitee.com --delete refs/heads/${ref}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Delete All Branch",
+    "refTargets" : [
+      "localbranch",
+      "remotebranch"
+    ],
+    "target" : "ref"
+  },
+  {
+    "action" : {
+      "script" : "git push origin ${ref}\ngit push gitee.com ${ref}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Push All Branch",
+    "refTargets" : [
+      "localbranch"
+    ],
+    "target" : "ref"
+  }
+]

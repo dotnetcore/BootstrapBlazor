@@ -3,39 +3,34 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 类型过滤器基类
-/// /// </summary>
+/// 过滤器基类
+/// </summary>
 public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
-    /// 
+    /// 获得/设置 <see cref="IStringLocalizer{TableFilter}"/> 实例
     /// </summary>
-    protected string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", HasFilter)
-        .Build();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected virtual FilterLogic Logic { get; set; }
+    [Inject]
+    [NotNull]
+    protected IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
     /// </summary>
-    protected string? FieldKey { get; set; }
+    [Parameter]
+    [NotNull]
+    public string? FieldKey { get; set; }
 
     /// <summary>
-    /// 获得 是否为 HeaderRow 呈现模式 默认为 false
+    /// 获得/设置 是否为 HeaderRow 模式 默认 false
     /// </summary>
-    protected bool IsHeaderRow => TableFilter?.IsHeaderRow ?? false;
-
-    /// <summary>
-    /// 获得 当前过滤条件是否激活
-    /// </summary>
-    protected bool HasFilter => TableFilter?.HasFilter ?? false; // IsHeaderRow 为真时使用 TableFilter 不为空
+    [Parameter]
+    public bool IsHeaderRow { get; set; }
 
     /// <summary>
     /// 获得/设置 条件数量
@@ -44,29 +39,76 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     public int Count { get; set; }
 
     /// <summary>
-    /// 获得/设置 条件候选项 请尽量使用静态数据 避免组件性能损失
+    /// 获得/设置 多个条件逻辑关系符号
     /// </summary>
-    [Parameter]
-    public IEnumerable<SelectedItem>? Items { get; set; }
+    protected FilterLogic Logic { get; set; }
 
     /// <summary>
     /// 获得/设置 所属 TableFilter 实例
     /// </summary>
-    [CascadingParameter]
-    protected TableFilter? TableFilter { get; set; }
+    [CascadingParameter, NotNull]
+    protected TableColumnFilter? TableColumnFilter { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// Gets or sets the <see cref="FilterContext"/> instance from cascading parameter.
+    /// </summary>
+    [CascadingParameter]
+    protected FilterContext? FilterContext { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (TableFilter != null)
+        if (TableColumnFilter != null)
         {
-            TableFilter.FilterAction = this;
-            FieldKey = TableFilter.FieldKey;
+            TableColumnFilter.FilterAction = this;
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (FilterContext != null)
+        {
+            FieldKey = FilterContext.FieldKey;
+            IsHeaderRow = FilterContext.IsHeaderRow;
+            Count = FilterContext.Count;
+        }
+    }
+
+    /// <summary>
+    /// 重置按钮回调方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task OnClearFilter()
+    {
+        if (TableColumnFilter != null)
+        {
+            await TableColumnFilter.Reset();
+        }
+
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 过滤按钮回调方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task OnFilterAsync()
+    {
+        if (TableColumnFilter != null)
+        {
+            await TableColumnFilter.OnFilterAsync();
+        }
+
+        StateHasChanged();
     }
 
     /// <summary>
@@ -84,31 +126,5 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     /// 设置过滤集合方法
     /// </summary>
     /// <param name="filter"></param>
-    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
-
-    /// <summary>
-    /// 过滤按钮回调方法
-    /// </summary>
-    /// <returns></returns>
-    protected async Task OnFilterValueChanged()
-    {
-        if (TableFilter != null)
-        {
-            await TableFilter.OnFilterAsync();
-            StateHasChanged();
-        }
-    }
-
-    /// <summary>
-    /// 重置按钮回调方法
-    /// </summary>
-    /// <returns></returns>
-    protected async Task OnClearFilter()
-    {
-        if (TableFilter != null)
-        {
-            Reset();
-            await TableFilter.OnFilterAsync();
-        }
-    }
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();
 }

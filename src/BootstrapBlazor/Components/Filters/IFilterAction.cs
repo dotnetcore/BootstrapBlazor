@@ -14,15 +14,15 @@ namespace BootstrapBlazor.Components;
 public interface IFilterAction
 {
     /// <summary>
+    /// 重置过滤条件方法
+    /// </summary>
+    void Reset();
+
+    /// <summary>
     /// 获得 IFilter 实例中的过滤条件集合
     /// </summary>
     /// <returns></returns>
     FilterKeyValueAction GetFilterConditions();
-
-    /// <summary>
-    /// 重置过滤条件方法
-    /// </summary>
-    void Reset();
 
     /// <summary>
     /// Override existing filter conditions

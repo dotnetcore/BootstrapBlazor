@@ -19,7 +19,7 @@ public static class QueryPageOptionsExtensions
     /// <returns></returns>
     public static FilterKeyValueAction ToFilter(this QueryPageOptions option)
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction();
 
         // 处理模糊搜索
         if (option.Searches.Count != 0)
@@ -27,7 +27,7 @@ public static class QueryPageOptionsExtensions
             filter.Filters.Add(new FilterKeyValueAction()
             {
                 FilterLogic = FilterLogic.Or,
-                Filters = option.Searches.Select(i => i.GetFilterConditions()).ToList()
+                Filters = [.. option.Searches.Select(i => i.GetFilterConditions())]
             });
         }
 
@@ -71,5 +71,5 @@ public static class QueryPageOptionsExtensions
     /// </summary>
     /// <param name="filterKeyValueAction"></param>
     /// <returns></returns>
-    public static bool HasFilters(this FilterKeyValueAction filterKeyValueAction) => filterKeyValueAction.Filters != null && filterKeyValueAction.Filters.Count != 0;
+    public static bool HasFilters(this FilterKeyValueAction filterKeyValueAction) => filterKeyValueAction.Filters.Count != 0;
 }

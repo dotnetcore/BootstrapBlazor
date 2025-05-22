@@ -1,0 +1,97 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Filters/TableColumnFilter.razor.js")]
+
+@if (IsHeaderRow)
+{
+    @RenderFilter(Column)
+}
+else
+{
+    <span @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-dismiss=".filter-dismiss">
+        <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside"
+           data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
+        </i>
+        @RenderFilter(Column)
+    </span>
+}
+
+@code {
+    RenderFragment<ITableColumn> RenderFilter => Column =>
+    @<CascadingValue Value="this" IsFixed="true">
+        @if (Column.FilterTemplate != null)
+        {
+            @Column.FilterTemplate
+        }
+        else
+        {
+            @if (Column.PropertyType.IsEnum())
+            {
+                <FilterProvider ShowMoreButton="true">
+                    <EnumFilter></EnumFilter>
+                </FilterProvider>
+            }
+            else if (Column.IsLookup())
+            {
+                <FilterProvider>
+                    <LookupFilter></LookupFilter>
+                </FilterProvider>
+            }
+            else
+            {
+                var fieldType = Nullable.GetUnderlyingType(Column.PropertyType) ?? Column.PropertyType;
+                switch (fieldType.Name)
+                {
+                    case nameof(String):
+                        <FilterProvider ShowMoreButton="true">
+                            <StringFilter></StringFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Boolean):
+                        <FilterProvider>
+                            <BoolFilter></BoolFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(DateTime):
+                        <FilterProvider ShowMoreButton="true">
+                            <DateTimeFilter></DateTimeFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Int16):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="short?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Int32):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="int?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Int64):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="long?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Single):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="float?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Double):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="double?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    case nameof(Decimal):
+                        <FilterProvider ShowMoreButton="true">
+                            <NumberFilter TType="decimal?"></NumberFilter>
+                        </FilterProvider>
+                        break;
+                    default:
+                        <div>@NotSupportedMessage</div>
+                        break;
+                }
+            }
+        }
+    </CascadingValue>;
+}

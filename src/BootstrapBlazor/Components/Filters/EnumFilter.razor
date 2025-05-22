@@ -3,16 +3,15 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
+    <Select Items="@Items" @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"
+            OnSelectedItemChanged="_ => OnFilterAsync()" IsPopover="true"></Select>
 }
 else
 {
-    <Select Items="@Items" @bind-Value="@Value"></Select>
-
+    <Select Items="@Items" @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></Select>
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-
-        <Select Items="@Items" @bind-Value="@Value2"></Select>
+        <Select Items="@Items" @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></Select>
     }
 }

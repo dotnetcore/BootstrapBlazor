@@ -43,7 +43,7 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
     /// <returns></returns>
     public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldKey == Name)
         {
             Value = first.FieldValue;

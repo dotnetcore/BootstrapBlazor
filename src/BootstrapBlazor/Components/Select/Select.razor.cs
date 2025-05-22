@@ -18,26 +18,13 @@ public partial class Select<TValue> : ISelect, ILookup
     [NotNull]
     private SwalService? SwalService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("select dropdown")
-        .AddClass("is-clearable", IsClearable)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
-    private string? InputClassString => CssBuilder.Default("form-select form-control")
-        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
-        .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
-        .AddClass(CssClass).AddClass(ValidCss)
-        .Build();
-
-    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", item.Value == CurrentValueAsString)
-        .AddClass("disabled", item.IsDisabled)
-        .Build();
-
-    private readonly List<SelectedItem> _children = [];
-
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
     /// Gets or sets the display template. Default is null.
@@ -69,6 +56,13 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to show the Swal confirmation popup when <see cref="OnBeforeSelectedItemChange"/> returns true. Default is true.
+    /// 获得/设置 是否显示 Swal 确认弹窗
+    /// </summary>
+    [Parameter]
+    public bool ShowSwal { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the callback method when the selected item changes.
@@ -125,30 +119,46 @@ public partial class Select<TValue> : ISelect, ILookup
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// Gets or sets whether auto clear the search text when dropdown closed.
     /// </summary>
-    IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
+    [Parameter]
+    public bool IsAutoClearSearchTextWhenCollapsed { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// Gets or sets the dropdown collapsed callback method.
     /// </summary>
-    StringComparison ILookup.LookupStringComparison { get; set; }
+    [Parameter]
+    public Func<Task>? OnCollapsed { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
+    IEnumerable<SelectedItem>? ILookup.Lookup { get => Items; set => Items = value; }
 
-    /// <summary>
-    /// Gets or sets the injected lookup service instance.
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private ILookupService? InjectLookupService { get; set; }
+    StringComparison ILookup.LookupStringComparison { get => StringComparison; set => StringComparison = value; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
+
+    private string? ClassString => CssBuilder.Default("select dropdown")
+        .AddClass("is-clearable", IsClearable)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? InputClassString => CssBuilder.Default("form-select form-control")
+        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
+        .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
+
+    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+        .AddClass("active", item.Value == CurrentValueAsString)
+        .AddClass("disabled", item.IsDisabled)
+        .Build();
+
+    private readonly List<SelectedItem> _children = [];
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     private string? InputId => $"{Id}_input";
 
@@ -167,44 +177,6 @@ public partial class Select<TValue> : ISelect, ILookup
             SelectedItem ??= GetSelectedRow();
             return SelectedItem;
         }
-    }
-
-    private SelectedItem? GetSelectedRow()
-    {
-        if (Value is null)
-        {
-            _lastSelectedValueString = "";
-            _init = false;
-            return null;
-        }
-
-        var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
-        if (item != null)
-        {
-            if (_init && DisableItemChangedWhenFirstRender)
-            {
-
-            }
-            else
-            {
-                _ = SelectedItemChanged(item);
-                _init = false;
-            }
-        }
-        return item;
-    }
-
-    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
-
-    private SelectedItem GetItemByVirtualized() => new(CurrentValueAsString, _defaultVirtualizedItemText);
-
-    private SelectedItem? GetItemByRows()
-    {
-        var item = GetItemWithEnumValue()
-            ?? Rows.Find(i => i.Value == CurrentValueAsString)
-            ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
-        return item;
     }
 
     /// <summary>
@@ -308,8 +280,29 @@ public partial class Select<TValue> : ISelect, ILookup
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
         ConfirmMethodCallback = nameof(ConfirmSelectedItem),
-        SearchMethodCallback = nameof(TriggerOnSearch)
+        SearchMethodCallback = nameof(TriggerOnSearch),
+        TriggerCollapsed = (OnCollapsed != null || IsAutoClearSearchTextWhenCollapsed) ? nameof(TriggerCollapsed) : null
     });
+
+    /// <summary>
+    /// Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript.
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerCollapsed()
+    {
+        if (OnCollapsed != null)
+        {
+            await OnCollapsed();
+        }
+
+        if (IsAutoClearSearchTextWhenCollapsed)
+        {
+            SearchText = string.Empty;
+            _itemsCache = null;
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -352,7 +345,7 @@ public partial class Select<TValue> : ISelect, ILookup
         if (OnBeforeSelectedItemChange != null)
         {
             ret = await OnBeforeSelectedItemChange(item);
-            if (ret)
+            if (ret && ShowSwal)
             {
                 // Return true to show modal
                 var option = new SwalOption()
@@ -367,11 +360,6 @@ public partial class Select<TValue> : ISelect, ILookup
                     option.FooterTemplate = builder => builder.AddContent(0, SwalFooter);
                 }
                 ret = await SwalService.ShowModal(option);
-            }
-            else
-            {
-                // Return false to proceed
-                ret = true;
             }
         }
         if (ret)
@@ -439,5 +427,43 @@ public partial class Select<TValue> : ISelect, ILookup
                 await OnInputChangedCallback(v);
             }
         }
+    }
+
+    private SelectedItem? GetSelectedRow()
+    {
+        if (Value is null)
+        {
+            _lastSelectedValueString = "";
+            _init = false;
+            return null;
+        }
+
+        var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
+        if (item != null)
+        {
+            if (_init && DisableItemChangedWhenFirstRender)
+            {
+
+            }
+            else
+            {
+                _ = SelectedItemChanged(item);
+                _init = false;
+            }
+        }
+        return item;
+    }
+
+    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString()) : null;
+
+    private SelectedItem GetItemByVirtualized() => new(CurrentValueAsString, _defaultVirtualizedItemText);
+
+    private SelectedItem? GetItemByRows()
+    {
+        var item = GetItemWithEnumValue()
+            ?? Rows.Find(i => i.Value == CurrentValueAsString)
+            ?? Rows.Find(i => i.Active)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
+        return item;
     }
 }

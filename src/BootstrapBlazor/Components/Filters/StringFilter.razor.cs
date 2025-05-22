@@ -3,31 +3,37 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 字符串类型过滤条件
+/// StringFilter component
 /// </summary>
 public partial class StringFilter
 {
-    private string Value1 { get; set; } = "";
+    /// <summary>
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
 
-    private FilterAction Action1 { get; set; } = FilterAction.Contains;
+    private string? _value1;
+    private FilterAction _action1 = FilterAction.Contains;
+    private string? _value2;
+    private FilterAction _action2 = FilterAction.Contains;
 
-    private string Value2 { get; set; } = "";
-
-    private FilterAction Action2 { get; set; } = FilterAction.Equal;
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableFilter>? Localizer { get; set; }
+    private string? FilterRowClassString => CssBuilder.Default("filter-row")
+        .AddClass("active", TableColumnFilter.HasFilter())
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override FilterLogic Logic { get; set; } = FilterLogic.Or;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Logic = FilterLogic.Or;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,13 +42,13 @@ public partial class StringFilter
     {
         base.OnParametersSet();
 
-        Items ??= new SelectedItem[]
-        {
-            new("Contains", Localizer["Contains"].Value),
-            new("Equal", Localizer["Equal"].Value),
-            new("NotEqual", Localizer["NotEqual"].Value),
-            new("NotContains", Localizer["NotContains"].Value)
-        };
+        Items ??=
+        [
+            new SelectedItem("Contains", Localizer["Contains"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value),
+            new SelectedItem("NotContains", Localizer["NotContains"].Value)
+        ];
     }
 
     /// <summary>
@@ -50,10 +56,10 @@ public partial class StringFilter
     /// </summary>
     public override void Reset()
     {
-        Value1 = "";
-        Value2 = "";
-        Action1 = FilterAction.Contains;
-        Action2 = FilterAction.Contains;
+        _value1 = null;
+        _value2 = null;
+        _action1 = FilterAction.Contains;
+        _action2 = FilterAction.Contains;
         Logic = FilterLogic.Or;
         Count = 0;
         StateHasChanged();
@@ -65,24 +71,24 @@ public partial class StringFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
-        if (!string.IsNullOrEmpty(Value1))
+        var filter = new FilterKeyValueAction();
+        if (!string.IsNullOrEmpty(_value1))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
-                FieldValue = Value1,
-                FilterAction = Action1
+                FieldValue = _value1,
+                FilterAction = _action1
             });
         }
 
-        if (Count > 0 && !string.IsNullOrEmpty(Value2))
+        if (Count > 0 && !string.IsNullOrEmpty(_value2))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
-                FieldValue = Value2,
-                FilterAction = Action2,
+                FieldValue = _value2,
+                FilterAction = _action2,
             });
             filter.FilterLogic = Logic;
         }
@@ -94,30 +100,30 @@ public partial class StringFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        FilterKeyValueAction first = filter.Filters?.FirstOrDefault() ?? filter;
+        FilterKeyValueAction first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is string value)
         {
-            Value1 = value;
+            _value1 = value;
         }
         else
         {
-            Value1 = "";
+            _value1 = null;
         }
-        Action1 = first.FilterAction;
+        _action1 = first.FilterAction;
 
-        if (filter.Filters != null && filter.Filters.Count == 2)
+        if (filter.Filters.Count > 1)
         {
             Count = 1;
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue is string value2)
             {
-                Value2 = value2;
+                _value2 = value2;
             }
             else
             {
-                Value2 = "";
+                _value2 = null;
             }
-            Action2 = second.FilterAction;
+            _action2 = second.FilterAction;
             Logic = second.FilterLogic;
         }
         await base.SetFilterConditionsAsync(filter);

@@ -4582,6 +4582,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4593,6 +4594,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
 
@@ -4601,6 +4603,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4608,6 +4611,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(1, checkboxs);
 
@@ -4615,6 +4619,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4622,6 +4627,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
     }
@@ -6993,6 +6999,12 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(3, "IgnoreWhenExport", true);
+                    builder.CloseComponent();
                 });
             });
         });
@@ -7007,9 +7019,20 @@ public class TableTest : BootstrapBlazorTestBase
         }
 
         var table = cut.FindComponent<Table<Foo>>();
+
+        // 可见列为 2 列
+        var columns = table.Instance.GetVisibleColumns();
+        Assert.Equal(2, columns.Count());
+
+        // 由于设置了 IgnoreWhenExport 为 true 所以导出时不包含 Address 列
+        ITableExportDataContext<Foo>? exportContext = null;
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnExportAsync, _ => Task.FromResult(true));
+            pb.Add(a => a.OnExportAsync, context =>
+            {
+                exportContext ??= context;
+                return Task.FromResult(true);
+            });
         });
 
         buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
@@ -7020,6 +7043,9 @@ public class TableTest : BootstrapBlazorTestBase
                 button.Click();
             });
         }
+        Assert.NotNull(exportContext);
+        Assert.Single(exportContext.Columns);
+        Assert.Equal("Name", exportContext.Columns.ElementAt(0).GetFieldName());
     }
 
     [Fact]
@@ -8206,37 +8232,6 @@ public class TableTest : BootstrapBlazorTestBase
         var cells = cut.FindAll("td");
         Assert.Equal("<div class=\"table-cell\"><div>Name - Test</div></div>", cells[0].InnerHtml);
         Assert.Equal("<div class=\"table-cell\">&lt;div&gt;Address - Test&lt;/div&gt;</div>", cells[1].InnerHtml);
-    }
-
-    [Fact]
-    public void IgnoreWhenExport_Ok()
-    {
-        var items = new Foo[] { new() { Name = "Name", Address = "Address" } };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(3, "IgnoreWhenExport", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<Table<Foo>>();
-        var columns = table.Instance.GetVisibleColumns();
-        Assert.Single(columns);
     }
 
     [Fact]

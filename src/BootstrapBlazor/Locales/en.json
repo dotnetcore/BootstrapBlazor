@@ -185,10 +185,6 @@
     "ContextCloseAll": "Close All Tabs",
     "ContextFullScreen": "Full screen"
   },
-  "BootstrapBlazor.Components.MultiFilter": {
-    "MultiFilterSearchPlaceHolderText": "Please enter ...",
-    "MultiFilterSelectAllText": "Select All"
-  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",
@@ -263,7 +259,7 @@
     "CloseButtonText": "Close",
     "SaveButtonText": "Save"
   },
-  "BootstrapBlazor.Components.TableFilter": {
+  "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Clear",
     "FilterButtonText": "Filter",
     "BoolFilter.AllText": "All",
@@ -278,7 +274,9 @@
     "Contains": "Contains",
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All",
-    "NotSupportedMessage": "Unsupported filter type, Please customize the filter use FilterTemplate"
+    "NotSupportedMessage": "Unsupported filter type, Please customize the filter use FilterTemplate",
+    "MultiFilterSearchPlaceHolderText": "Please enter ...",
+    "MultiFilterSelectAllText": "Select All"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "And",
