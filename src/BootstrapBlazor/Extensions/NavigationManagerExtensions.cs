@@ -31,11 +31,11 @@ public static class NavigationManagerExtensions
     }
 
     /// <summary>
-    /// 获得当前 Url 的相对路径不包含 QueryString 和 Hash
+    /// 获得当前 Url 的相对路径，不包含 QueryString 和 Fragment（Hash）
     /// </summary>
     /// <param name="navigationManager"></param>
     /// <returns></returns>
-    public static string ToBaseRelativePathWithoutQueryString(this NavigationManager navigationManager)
+    public static string ToBaseRelativePathWithoutQueryAndFragment(this NavigationManager navigationManager)
     {
         var url = navigationManager.ToBaseRelativePath(navigationManager.Uri);
 

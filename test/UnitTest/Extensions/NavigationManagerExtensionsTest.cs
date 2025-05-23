@@ -18,7 +18,7 @@ public class NavigationManagerExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ToBaseRelativePathWithoutQueryString_Ok()
+    public void ToBaseRelativePathWithoutQueryAndFragment_Ok()
     {
         var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/test?test1=1");
