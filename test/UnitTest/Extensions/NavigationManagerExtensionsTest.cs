@@ -16,4 +16,15 @@ public class NavigationManagerExtensionsTest : BootstrapBlazorTestBase
         var provider = Context.Services.GetRequiredService<IServiceProvider>();
         nav.NavigateTo(provider, "/Cat", "Cat", "fa-solid fa-font-awesome", false);
     }
+
+    [Fact]
+    public void ToBaseRelativePathWithoutQueryAndFragment_Ok()
+    {
+        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/test?test1=1");
+        Assert.Equal("test", nav.ToBaseRelativePathWithoutQueryAndFragment());
+
+        nav.NavigateTo("/test#1234");
+        Assert.Equal("test", nav.ToBaseRelativePathWithoutQueryAndFragment());
+    }
 }
