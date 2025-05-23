@@ -41,6 +41,12 @@ public partial class UploadButtons : IDisposable
         await ToastService.Success("文件下载", $"下载 {item.FileName} 成功");
     }
 
+    private async Task<bool> OnDelete(UploadFile item)
+    {
+        await ToastService.Success("文件操作", $"删除文件 {item.FileName} 成功");
+        return true;
+    }
+
     private async Task SaveToFile(UploadFile file)
     {
         // Server Side 使用
