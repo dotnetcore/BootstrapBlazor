@@ -3535,8 +3535,6 @@
     "DropUploadTitle": "Basic usage",
     "DropUploadIntro": "Handle all uploaded files via the <code>OnChange</code> callback",
     "DropUploadFooterText": "File size should not exceed 5Mb",
-    "UploadsIsDirectory": "Whether to upload the entire directory",
-    "UploadsIsMultiple": "Whether to allow multiple file uploads",
     "UploadsBodyTemplate": "Body Template",
     "UploadsIconTemplate": "Icon Template",
     "UploadsTextTemplate": "Text Template",

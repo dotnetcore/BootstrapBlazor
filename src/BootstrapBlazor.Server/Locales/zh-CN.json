@@ -3535,8 +3535,6 @@
     "DropUploadTitle": "基础用法",
     "DropUploadIntro": "通过 <code>OnChange</code> 回调处理所有上传文件",
     "DropUploadFooterText": "文件大小不超过 5Mb",
-    "UploadsIsDirectory": "是否上传整个目录",
-    "UploadsIsMultiple": "是否允许多文件上传",
     "UploadsBodyTemplate": "Body 模板",
     "UploadsIconTemplate": "图标模板",
     "UploadsTextTemplate": "文字模板",

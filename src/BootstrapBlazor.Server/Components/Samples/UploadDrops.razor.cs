@@ -27,22 +27,6 @@ public partial class UploadDrops
     [
         new()
         {
-            Name = "IsDirectory",
-            Description = Localizer["UploadsIsDirectory"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsMultiple",
-            Description = Localizer["UploadsIsMultiple"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "BodyTemplate",
             Description = Localizer["UploadsBodyTemplate"],
             Type = "RenderFragment",
