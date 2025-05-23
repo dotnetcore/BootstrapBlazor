@@ -86,14 +86,6 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     /// <summary>
     /// 获得/设置 设置文件格式图标回调委托
     /// </summary>
@@ -189,6 +181,14 @@ public partial class ButtonUpload<TValue>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string? ClassString => CssBuilder.Default("upload")
         .AddClassFromAttributes(AdditionalAttributes)

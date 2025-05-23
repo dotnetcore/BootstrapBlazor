@@ -63,6 +63,138 @@ public partial class DropUpload
     [NotNull]
     public string? FooterText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示上传列表 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowUploadFileList { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 设置文件格式图标回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string?, string>? OnGetFileFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下载按钮图标
+    /// </summary>
+    [Parameter]
+    public string? DownloadIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载中图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上传失败状态图标
+    /// </summary>
+    [Parameter]
+    public string? InvalidStatusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上传成功状态图标
+    /// </summary>
+    [Parameter]
+    public string? ValidStatusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除按钮图标
+    /// </summary>
+    [Parameter]
+    public string? DeleteIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
