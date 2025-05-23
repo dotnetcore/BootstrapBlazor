@@ -219,10 +219,10 @@ public partial class ButtonUpload<TValue>
         // 允许多上传
         if (IsMultiple)
         {
-            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
+            return MaxFileCount.HasValue && Files.Count >= MaxFileCount;
         }
 
         // 只允许单个上传
-        return GetUploadFiles().Count > 0;
+        return Files.Count > 0;
     }
 }

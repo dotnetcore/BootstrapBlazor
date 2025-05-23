@@ -153,11 +153,11 @@ public partial class AvatarUpload<TValue>
         // 允许多上传
         if (IsMultiple)
         {
-            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
+            return !MaxFileCount.HasValue || Files.Count < MaxFileCount;
         }
 
         // 只允许单个上传
-        return GetUploadFiles().Count == 0;
+        return Files.Count == 0;
     }
 
     /// <summary>
@@ -166,9 +166,8 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     protected override string? RetrieveId()
     {
-        var files = GetUploadFiles();
-        return files.Count == 0 ? $"{Id}_new" : files[0].ValidateId;
+        return Files.Count == 0 ? $"{Id}_new" : Files[0].ValidateId;
     }
 
-    private string? AddId => GetUploadFiles().Count == 0 ? $"{Id}_new" : null;
+    private string? AddId => Files.Count == 0 ? $"{Id}_new" : null;
 }

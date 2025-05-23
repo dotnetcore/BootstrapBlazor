@@ -12,7 +12,7 @@
         {
             @RenderAdd
         }
-        @foreach (var item in GetUploadFiles())
+        @foreach (var item in Files)
         {
             <div @key="@item" class="@GetItemClassString(item)">
                 <div class="upload-item-body">

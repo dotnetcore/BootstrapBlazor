@@ -28,9 +28,9 @@ public partial class CardUpload<TValue>
 
     private string? GetDisabledString(UploadFile item) => (!IsDisabled && item is { Uploaded: true, Code: 0 }) ? null : "disabled";
 
-    private bool ShowPreviewList => GetUploadFiles().Count != 0;
+    private bool ShowPreviewList => Files.Count != 0;
 
-    private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
+    private List<string?> PreviewList => Files.Select(i => i.PrevUrl).ToList();
 
     private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
@@ -257,11 +257,11 @@ public partial class CardUpload<TValue>
         // 允许多上传
         if (IsMultiple)
         {
-            return !MaxFileCount.HasValue || GetUploadFiles().Count < MaxFileCount;
+            return !MaxFileCount.HasValue || Files.Count < MaxFileCount;
         }
 
         // 只允许单个上传
-        return GetUploadFiles().Count == 0;
+        return Files.Count == 0;
     }
 
     private async Task OnCardFileDelete(UploadFile item)

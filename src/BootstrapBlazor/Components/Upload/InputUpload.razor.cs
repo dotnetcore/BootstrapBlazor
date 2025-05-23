@@ -112,19 +112,18 @@ public partial class InputUpload<TValue>
         // 允许多上传
         if (IsMultiple)
         {
-            return MaxFileCount.HasValue && GetUploadFiles().Count >= MaxFileCount;
+            return MaxFileCount.HasValue && Files.Count >= MaxFileCount;
         }
 
         // 只允许单个上传
-        return GetUploadFiles().Count > 0;
+        return Files.Count > 0;
     }
 
     private async Task TriggerDeleteFile()
     {
-        var files = GetUploadFiles();
-        for (var index = files.Count; index > 0; index--)
+        for (var index = Files.Count; index > 0; index--)
         {
-            var item = files[index - 1];
+            var item = Files[index - 1];
             await OnFileDelete(item);
         }
         CurrentValue = default;

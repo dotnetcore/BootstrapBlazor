@@ -95,6 +95,11 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public List<UploadFile> UploadFiles { get; } = [];
 
     /// <summary>
+    /// Gets the collection of files to be uploaded.
+    /// </summary>
+    protected List<UploadFile> Files => GetUploadFiles();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override string? FormatValueAsString(TValue? value)
@@ -228,6 +233,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
     }
 
+    private List<UploadFile>? _filesCache;
     /// <summary>
     /// Get the files collection.
     /// 获得当前文件集合
@@ -235,13 +241,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected List<UploadFile> GetUploadFiles()
     {
-        var ret = new List<UploadFile>();
-        if (DefaultFileList != null)
+        if (_filesCache == null)
         {
-            ret.AddRange(DefaultFileList);
+            _filesCache = [];
+            if (DefaultFileList != null)
+            {
+                _filesCache.AddRange(DefaultFileList);
+            }
+            _filesCache.AddRange(UploadFiles);
         }
-        ret.AddRange(UploadFiles);
-        return ret;
+        return _filesCache;
     }
 
     /// <summary>
