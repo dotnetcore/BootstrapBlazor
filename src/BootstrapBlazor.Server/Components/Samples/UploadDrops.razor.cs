@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class UploadDrops
 {
+    private bool _isMultiple = true;
+    private bool _isDisabled = false;
+    private bool _showProgress = true;
+    private bool _showFooter = true;
+
     private readonly List<UploadFile> _dropFiles = [];
 
     private async Task OnDropUpload(UploadFile file)

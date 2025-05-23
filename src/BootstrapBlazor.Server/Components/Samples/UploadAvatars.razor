@@ -18,6 +18,12 @@
         <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
                     <Switch @bind-Value="@_isMultiple"></Switch>
                 </BootstrapInputGroup>
@@ -38,12 +44,6 @@
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="BorderRadius"></BootstrapInputGroupLabel>
                     <Slider @bind-Value="@_radius" Min="0" Max="49" UseInputEvent="true"></Slider>
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
-                    <Switch @bind-Value="@_isDisabled"></Switch>
                 </BootstrapInputGroup>
             </div>
         </div>

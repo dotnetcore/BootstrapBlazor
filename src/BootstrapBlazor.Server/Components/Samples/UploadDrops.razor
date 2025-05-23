@@ -12,8 +12,37 @@
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
 <DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="Normal">
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isMultiple"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowProgress"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showProgress"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowFooter"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showFooter"></Switch>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
     <DropUpload OnChange="@OnDropUpload" FooterText="@Localizer["DropUploadFooterText"]"
-                ShowProgress="true" ShowFooter="true" IsMultiple="false"></DropUpload>
+                IsDisabled="@_isDisabled" IsMultiple="@_isMultiple"
+                ShowProgress="@_showProgress" ShowFooter="@_showFooter"></DropUpload>
     <div class="mt-3">
         @foreach (var file in _dropFiles)
         {
