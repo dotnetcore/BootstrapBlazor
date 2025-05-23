@@ -9,11 +9,20 @@ public partial class Meets : ComponentBase
 
     private Meet? Meet { get; set; }
 
+    private string Domain { get; set; } = "meet.jit.si";
+
+    private string? RoomName { get; set; } = "BootstrapBlazor";
+
+    private bool IsDisable { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Option = new MeetOption();
-        Option.RoomName = "BootstrapBlazor";
+        Option.RoomName = RoomName;
         Option.Width = "100%";
         Option.Height = 700;
         Option.ConfigOverwrite = new

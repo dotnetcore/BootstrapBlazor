@@ -8,9 +8,18 @@
 
 <Tips class="mt-3">
     <p>JitsiMeet是一个开源的WebRTC会议程序，可以自托管安装也可以使用官方的托管服务（免费计划为25MAU），此组件仅为JitsiMeet的客户端程序，不含服务端。</p>
+    <p>默认的测试会议仅支持5分钟的会议，并且主持人需要登录。子托管以及官方托管服务不需要。</p>
 </Tips>
 
-<DemoBlock Introduction="使用JitsiMeet创建会议室，支持执行命令，支持OnLoad回调。例子中隐藏了内置的邀请程序，无法在会议中找到邀请链接" Title="使用JitsiMeet创建会议室" Name="Normal">
+<DemoBlock Introduction="使用JitsiMeet创建会议室，支持执行命令，支持OnLoad回调（meet.jit.si不会触发回调也不会响应命令，请使用8x8.vc或子托管域名测试）。例子中隐藏了内置的邀请程序，无法在会议中找到邀请链接。" Title="使用JitsiMeet创建会议室" Name="Normal">
     <Button OnClick="RunCommand">执行命令</Button>
-    <Meet @ref="Meet" Option="@Option" Domain="meet.jit.si" OnLoad="OnLoad"></Meet>
+    <div class="row g-3">
+        <div class="col-6">
+            <BootstrapInput @bind-Value="Domain" DisplayText="服务器地址" ShowLabel="true"></BootstrapInput>
+        </div>
+        <div class="col-6">
+            <BootstrapInput @bind-Value="RoomName" DisplayText="会议室名称" ShowLabel="true"></BootstrapInput>
+        </div>
+    </div>
+    <Meet @ref="Meet" Option="@Option" Domain="@Domain" OnLoad="OnLoad"></Meet>
 </DemoBlock>
