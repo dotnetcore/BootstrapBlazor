@@ -9,11 +9,12 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 按钮上传组件
+/// <para>ButtonUpload Component</para>
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
     /// <summary>
-    /// 获得/设置 浏览按钮图标
+    /// 获得/设置 浏览按钮加载中图标
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -193,41 +194,8 @@ public partial class ButtonUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
-        .AddClass("is-invalid", item.Code != 0)
-        .Build();
-
-    private string? ItemClassString => CssBuilder.Default("upload-item")
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
     private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
         .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
-        .Build();
-
-    private string? LoadingIconString => CssBuilder.Default("loading-icon")
-        .AddClass(LoadingIcon)
-        .Build();
-
-    private string? DeleteIconString => CssBuilder.Default("delete-icon")
-        .AddClass(DeleteIcon)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("invalid-icon")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
-    private string? DownloadIconString => CssBuilder.Default("download-icon")
-        .AddClass(DownloadIcon)
-        .Build();
-
-    private string? CancelIconString => CssBuilder.Default("cancel-icon")
-        .AddClass(CancelIcon)
         .Build();
 
     /// <summary>
@@ -239,24 +207,6 @@ public partial class ButtonUpload<TValue>
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
-        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadLoadingIcon);
-        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadInvalidStatusIcon);
-        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
-        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
-        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
-
-        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
-        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
-        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
-        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
-        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
-        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
-        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
-        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
-        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
-        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
-        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
-        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
     }
 
     private bool CheckStatus()
@@ -275,58 +225,4 @@ public partial class ButtonUpload<TValue>
         // 只允许单个上传
         return GetUploadFiles().Count > 0;
     }
-
-    /// <summary>
-    /// 点击下载按钮回调此方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private async Task OnClickDownload(UploadFile item)
-    {
-        if (OnDownload != null)
-        {
-            await OnDownload(item);
-        }
-    }
-
-    /// <summary>
-    /// 点击取消按钮回调此方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private async Task OnClickCancel(UploadFile item)
-    {
-        if (OnCancel != null)
-        {
-            await OnCancel(item);
-        }
-    }
-
-    private string? GetFileFormatClassString(UploadFile item)
-    {
-        var builder = CssBuilder.Default("file-icon");
-        var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName);
-        if (!string.IsNullOrEmpty(fileExtension))
-        {
-            fileExtension = fileExtension.ToLowerInvariant();
-        }
-        var icon = OnGetFileFormat?.Invoke(fileExtension) ?? GetFileExtensions(fileExtension);
-        builder.AddClass(icon);
-        return builder.Build();
-    }
-
-    private string? GetFileExtensions(string? fileExtension) => fileExtension switch
-    {
-        ".csv" or ".xls" or ".xlsx" => FileIconExcel,
-        ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
-        ".ppt" or ".pptx" => FileIconPPT,
-        ".wav" or ".mp3" => FileIconAudio,
-        ".mp4" or ".mov" or ".mkv" => FileIconVideo,
-        ".cs" or ".html" or ".vb" => FileIconCode,
-        ".pdf" => FileIconPdf,
-        ".zip" or ".rar" or ".iso" => FileIconZip,
-        ".txt" or ".log" => FileIconArchive,
-        ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
-        _ => FileIconFile
-    };
 }

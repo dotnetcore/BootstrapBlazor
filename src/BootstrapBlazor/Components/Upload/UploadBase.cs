@@ -205,8 +205,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             UploadFiles.Remove(item);
             DefaultFileList?.Remove(item);
         }
+        StateHasChanged();
         return ret;
-
     }
 
     /// <summary>
