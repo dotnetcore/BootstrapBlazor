@@ -28,6 +28,18 @@
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowUploadFileList"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showUploadFileList"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDownloadButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDownloadButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="ShowProgress"></BootstrapInputGroupLabel>
                     <Switch @bind-Value="@_showProgress"></Switch>
                 </BootstrapInputGroup>
@@ -43,12 +55,6 @@
     <DropUpload OnChange="@OnDropUpload" FooterText="@Localizer["DropUploadFooterText"]"
                 IsDisabled="@_isDisabled" IsMultiple="@_isMultiple"
                 ShowProgress="@_showProgress" ShowFooter="@_showFooter"></DropUpload>
-    <div class="mt-3">
-        @foreach (var file in _dropFiles)
-        {
-            <div>@file.GetFileName()</div>
-        }
-    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>

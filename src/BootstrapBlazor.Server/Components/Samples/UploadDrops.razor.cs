@@ -14,17 +14,13 @@ public partial class UploadDrops
     private bool _isDisabled = false;
     private bool _showProgress = true;
     private bool _showFooter = true;
+    private bool _showUploadFileList = true;
+    private bool _showDownloadButton = true;
 
-    private readonly List<UploadFile> _dropFiles = [];
-
-    private async Task OnDropUpload(UploadFile file)
+    private Task OnDropUpload(UploadFile file)
     {
         // 模拟保存文件等处理
-        await Task.Delay(1000);
-
-        // 添加文件到集合中，用于 UI 呈现上传列表
-        _dropFiles.Add(file);
-        StateHasChanged();
+        return Task.Delay(1000);
     }
 
     private List<AttributeItem> GetAttributes() =>
