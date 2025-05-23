@@ -300,6 +300,13 @@
 }
 
 .upload.is-drop {
+
+    &.disabled {
+        .upload-drop-body {
+            border-color: var(--bs-border-color);
+        }
+    }
+
     .upload-drop-body {
         border: 1px dashed var(--bs-primary);
         border-radius: var(--bs-border-radius);
@@ -309,10 +316,6 @@
         align-items: center;
         height: var(--bb-upload-drop-height);
         cursor: pointer;
-
-        &.disabled {
-            border-color: var(--bs-border-color);
-        }
 
         .upload-drop-icon > i {
             font-size: 3em;
