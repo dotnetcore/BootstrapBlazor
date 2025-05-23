@@ -4,7 +4,7 @@
   },
   {
     "action" : {
-      "script" : "git branch -d localBranchName\ngit push gitee.com --delete refs/heads/${ref}",
+      "script" : "git branch -d ${ref}\ngit push gitee.com --delete refs/heads/${ref}",
       "showOutput" : false,
       "type" : "sh",
       "waitForExit" : true
