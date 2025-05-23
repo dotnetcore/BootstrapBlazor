@@ -77,8 +77,6 @@ public partial class OnlineSheet : IDisposable
                 ForceDelay = true
             });
 
-            DispatchService.UnSubscribe(Dispatch);
-
             await _sheetExcel.PushDataAsync(entry.Entry.Data);
         }
     }
