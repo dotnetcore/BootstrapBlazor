@@ -16,6 +16,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         UploadFile? uploadFile = null;
         var cut = Context.RenderComponent<InputUpload<string>>(pb =>
         {
+            pb.Add(a => a.Capture, "capture");
             pb.Add(a => a.PlaceHolder, "TestPlaceHolder");
             pb.Add(a => a.OnChange, file =>
             {
@@ -25,6 +26,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, "test.jpg");
         });
         cut.Contains("value=\"test.jpg\"");
+        cut.Contains("capture=\"capture\"");
 
         var input = cut.FindComponent<InputFile>();
         await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
@@ -139,6 +141,34 @@ public class UploadInputTest : BootstrapBlazorTestBase
         // 提交表单
         var form = cut.Find("form");
         cut.InvokeAsync(() => form.Submit());
+    }
+
+    [Fact]
+    public void InputUpload_Value()
+    {
+        var cut = Context.RenderComponent<InputUpload<List<string>>>(pb =>
+        {
+            pb.Add(a => a.Value,
+            [
+                "test1.png",
+                "test2.png"
+            ]);
+        });
+        Assert.Contains("test1.png;test2.png", cut.Markup);
+    }
+
+    [Fact]
+    public void InputUpload_Files()
+    {
+        var cut = Context.RenderComponent<InputUpload<List<IBrowserFile>>>(pb =>
+        {
+            pb.Add(a => a.Value,
+            [
+                new MockBrowserFile("test1.png"),
+                new MockBrowserFile("test2.png")
+            ]);
+        });
+        Assert.Contains("test1.png;test2.png", cut.Markup);
     }
 
     private class Person
