@@ -19,7 +19,7 @@ public partial class CardUpload<TValue>
         .AddClass("is-invalid", item.Code != 0)
         .Build();
     private string? ItemClassString => CssBuilder.Default("upload-item")
-        .AddClass("disabled", IsDisabled)
+        .AddClass("disabled", CheckCanUpload() == false)
         .Build();
 
     private string? BodyClassString => CssBuilder.Default("upload-body is-card")
@@ -250,18 +250,6 @@ public partial class CardUpload<TValue>
         FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
         FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
         FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
-    }
-
-    private bool CheckCanUpload()
-    {
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return !MaxFileCount.HasValue || Files.Count < MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return Files.Count == 0;
     }
 
     private async Task OnCardFileDelete(UploadFile item)

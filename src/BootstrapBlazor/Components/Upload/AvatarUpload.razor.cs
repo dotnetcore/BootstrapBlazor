@@ -148,18 +148,6 @@ public partial class AvatarUpload<TValue>
         };
     }
 
-    private bool CheckCanUpload()
-    {
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return !MaxFileCount.HasValue || Files.Count < MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return Files.Count == 0;
-    }
-
     /// <summary>
     /// 获得 数据验证客户端 ID
     /// </summary>

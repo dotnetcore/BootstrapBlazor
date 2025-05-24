@@ -151,6 +151,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
         foreach (var item in items)
         {
+            _filesCache = null;
             UploadFiles.Add(item);
 
             // trigger OnChange event callback
@@ -209,6 +210,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             }
             UploadFiles.Remove(item);
             DefaultFileList?.Remove(item);
+            _filesCache = null;
         }
         StateHasChanged();
         return ret;
@@ -235,8 +237,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     private List<UploadFile>? _filesCache;
     /// <summary>
-    /// Get the files collection.
     /// 获得当前文件集合
+    /// <para>Get the files collection.</para>
     /// </summary>
     /// <returns></returns>
     protected List<UploadFile> GetUploadFiles()
@@ -254,7 +256,30 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
+    /// 检查是否可以继续上传文件
+    /// <para>Check whether can upload file.</para>
+    /// </summary>
+    /// <returns></returns>
+    protected bool CheckCanUpload()
+    {
+        if(IsDisabled)
+        {
+            return false;
+        }
+
+        // 允许多上传
+        if (IsMultiple)
+        {
+            return !MaxFileCount.HasValue || Files.Count < MaxFileCount;
+        }
+
+        // 只允许单个上传
+        return Files.Count == 0;
+    }
+
+    /// <summary>
     /// 清空上传列表方法
+    /// <para>Clear the upload files collection.</para>
     /// </summary>
     public virtual void Reset()
     {
@@ -274,9 +299,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName)).ToList();
             if (messages.Count == 0)
             {
-                messages = results.Where(item => item.MemberNames.Any(m =>
-                        UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)))
-                    .ToList();
+                messages = [.. results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)))];
             }
             if (messages.Count > 0)
             {
