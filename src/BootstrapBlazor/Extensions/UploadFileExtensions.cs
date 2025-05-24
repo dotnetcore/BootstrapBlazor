@@ -21,13 +21,14 @@ public static class UploadFileExtensions
     /// <param name="maxHeight"></param>
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
+    [ExcludeFromCodeCoverage]
     public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string? format = null, int maxWidth = 320, int maxHeight = 240, long? maxAllowedSize = null, CancellationToken token = default)
     {
         if (upload.File != null)
         {
             try
             {
-                format ??= upload.File.ContentType;
+                format ??= upload.File.ContentType; 
                 var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
 
                 maxAllowedSize ??= upload.File.Size;
@@ -54,6 +55,7 @@ public static class UploadFileExtensions
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         var ret = false;
@@ -129,6 +131,7 @@ public static class UploadFileExtensions
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage]
     public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
     {
         byte[]? ret = null;

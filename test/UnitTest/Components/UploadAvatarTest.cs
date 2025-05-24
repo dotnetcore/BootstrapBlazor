@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -161,6 +162,22 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("is-invalid", upload.Markup);
     }
 
+    [Fact]
+    public void AvatarUpload_ShowProgress_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await Task.Delay(100);
+                await file.SaveToFileAsync("1.txt");
+                SetUploaded(file, false);
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+    }
+
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
     {
         public string Name { get; } = name;
@@ -176,4 +193,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             return new MemoryStream([0x01, 0x02]);
         }
     }
+
+    [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "set_Uploaded")]
+    static extern void SetUploaded(UploadFile @this, bool v);
 }

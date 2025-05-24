@@ -68,7 +68,7 @@
     </section>
     <CardUpload TValue="string" IsMultiple="@_isMultiple" IsDirectory="@_isDirectory"
                 IsDisabled="@_isDisabled" IsUploadButtonAtFirst="@_isUploadButtonAtFirst"
-                ShowProgress="@_showProgress" ShowDeletedButton="@_showDeleteButton"
+                ShowProgress="@_showProgress" ShowDeleteButton="@_showDeleteButton"
                 ShowDownloadButton="@_showDownloadButton" ShowZoomButton="@_showZoomButton" OnChange="@OnCardUpload"></CardUpload>
 </DemoBlock>
 
@@ -97,5 +97,5 @@
 <DemoBlock Title="@Localizer["UploadBase64Title"]"
            Introduction="@Localizer["UploadBase64Intro"]"
            Name="Base64">
-    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" ShowDownloadButton="false" ShowDeletedButton="false"></CardUpload>
+    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" ShowDownloadButton="false" ShowDeleteButton="false"></CardUpload>
 </DemoBlock>
