@@ -105,6 +105,18 @@ public partial class ButtonUpload<TValue>
     public Func<UploadFile, Task>? OnDownload { get; set; }
 
     /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    /// <summary>
     /// 获得/设置 Excel 类型文件图标
     /// </summary>
     [Parameter]
@@ -170,18 +182,6 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public string? FileIconFile { get; set; }
 
-    /// <summary>
-    /// 获得/设置 取消图标
-    /// </summary>
-    [Parameter]
-    public string? CancelIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 点击取消按钮回调此方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<UploadFile, Task>? OnCancel { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
@@ -207,22 +207,5 @@ public partial class ButtonUpload<TValue>
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
-    }
-
-    private bool CheckStatus()
-    {
-        if (IsDisabled)
-        {
-            return true;
-        }
-
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return MaxFileCount.HasValue && Files.Count >= MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return Files.Count > 0;
     }
 }

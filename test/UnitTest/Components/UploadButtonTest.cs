@@ -156,6 +156,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Accept, "Image");
                 pb.Add(a => a.Value, foo.Name);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.ShowUploadFileList, true);
             });
             pb.Add(a => a.OnValidSubmit, context =>
             {
@@ -311,6 +312,24 @@ public class UploadButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
         {
+            pb.Add(a => a.LoadingIcon, "fa-loading");
+            pb.Add(a => a.DeleteIcon, "fa-delte");
+            pb.Add(a => a.CancelIcon, "fa-cancel");
+            pb.Add(a => a.DownloadIcon, "fa-download");
+            pb.Add(a => a.InvalidStatusIcon, "fa-invalid");
+            pb.Add(a => a.ValidStatusIcon, "fa-valid");
+
+            pb.Add(a => a.FileIconArchive, "fa-file-text");
+            pb.Add(a => a.FileIconExcel, "fa-file-excel");
+            pb.Add(a => a.FileIconFile, "fa-file");
+            pb.Add(a => a.FileIconDocx, "fa-file-word");
+            pb.Add(a => a.FileIconPPT, "fa-file-powerpoint");
+            pb.Add(a => a.FileIconAudio, "fa-file-audio");
+            pb.Add(a => a.FileIconVideo, "fa-file-video");
+            pb.Add(a => a.FileIconCode, "fa-file-code");
+            pb.Add(a => a.FileIconPdf, "fa-file-pdf");
+            pb.Add(a => a.FileIconImage, "fa-file-image");
+            pb.Add(a => a.FileIconZip, "fa-file-archive");
             pb.Add(a => a.DefaultFileList,
             [
                 new() { FileName = "1.csv" },
@@ -343,18 +362,20 @@ public class UploadButtonTest : BootstrapBlazorTestBase
                 new() { FileName = "1.test" },
                 new() { FileName = "1" }
             ]);
+
         });
-        cut.Contains("fa-regular fa-file-excel");
-        cut.Contains("fa-regular fa-file-word");
-        cut.Contains("fa-regular fa-file-powerpoint");
-        cut.Contains("fa-regular fa-file-audio");
-        cut.Contains("fa-regular fa-file-video");
-        cut.Contains("fa-regular fa-file-code");
-        cut.Contains("fa-regular fa-file-pdf");
-        cut.Contains("fa-regular fa-file-archive");
-        cut.Contains("fa-regular fa-file-text");
-        cut.Contains("fa-regular fa-file-image");
-        cut.Contains("fa-regular fa-file");
+        cut.Contains("fa-file-excel");
+        cut.Contains("fa-file-word");
+        cut.Contains("fa-file-powerpoint");
+        cut.Contains("fa-file-audio");
+        cut.Contains("fa-file-video");
+        cut.Contains("fa-file-code");
+        cut.Contains("fa-file-pdf");
+        cut.Contains("fa-file-archive");
+        cut.Contains("fa-file-text");
+        cut.Contains("fa-file-image");
+        cut.Contains("fa-file-archive");
+        cut.Contains("fa-file");
 
         cut.SetParametersAndRender(pb =>
         {

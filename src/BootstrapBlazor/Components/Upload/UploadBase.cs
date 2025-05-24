@@ -262,7 +262,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected bool CheckCanUpload()
     {
-        if(IsDisabled)
+        if (IsDisabled)
         {
             return false;
         }
