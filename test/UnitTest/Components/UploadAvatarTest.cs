@@ -82,12 +82,14 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        cut.Contains("upload-item-actions");
+        cut.DoesNotContain("upload-item-actions");
 
         // IsUploadButtonAtFirst
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsUploadButtonAtFirst, true);
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsMultiple, true);
         });
     }
 

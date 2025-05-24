@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 头像上传组件
+/// <para>AvatarUpload Component</para>
 /// </summary>
 public partial class AvatarUpload<TValue>
 {
