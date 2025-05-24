@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
@@ -17,6 +16,8 @@ public class UploadCardTest : BootstrapBlazorTestBase
         var deleted = false;
         var cut = Context.RenderComponent<CardUpload<string>>(pb =>
         {
+            pb.Add(a => a.ShowZoomButton, true);
+            pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.OnDelete, file =>
             {
                 deleted = true;
@@ -35,6 +36,8 @@ public class UploadCardTest : BootstrapBlazorTestBase
             ]);
         });
         cut.Contains("bb-previewer collapse active");
+        cut.Contains("aria-label=\"zoom\"");
+        cut.Contains("aria-label=\"delete\"");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -119,7 +122,11 @@ public class UploadCardTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsUploadButtonAtFirst, true);
             pb.Add(a => a.IsMultiple, true);
+            pb.Add(a => a.ShowZoomButton, false);
+            pb.Add(a => a.ShowDeleteButton, false);
         });
+        cut.DoesNotContain("aria-label=\"zoom\"");
+        cut.DoesNotContain("aria-label=\"delete\"");
     }
 
     [Fact]
@@ -168,32 +175,6 @@ public class UploadCardTest : BootstrapBlazorTestBase
             button.Click();
         });
         Assert.True(cancel);
-    }
-
-    //[Fact]
-    //public async Task CardUpload_Max_Ok()
-    //{
-    //    var cut = Context.RenderComponent<CardUpload<string>>(pb =>
-    //    {
-    //        pb.Add(a => a.ShowProgress, true);
-    //        pb.Add(a => a.Max, 1);
-    //    });
-    //    var input = cut.FindComponent<InputFile>();
-    //    await cut.InvokeAsync(async () =>
-    //    {
-    //        await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
-    //        {
-    //            new()
-    //        }));
-    //    });
-    //}
-
-    private class Person
-    {
-        [Required]
-        [FileValidation(Extensions = [".png", ".jpg", ".jpeg"])]
-
-        public IBrowserFile? Picture { get; set; }
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile

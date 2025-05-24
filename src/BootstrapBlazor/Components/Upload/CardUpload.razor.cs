@@ -106,7 +106,15 @@ public partial class CardUpload<TValue>
     /// 获得/设置 是否显示删除按钮 默认 true 显示
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请使用 ShowDeleteButton 参数。Deprecated, please use the ShowDeleteButton parameter")]
+    [ExcludeFromCodeCoverage]
     public bool ShowDeletedButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示删除按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 继续上传按钮是否在列表前 默认 false

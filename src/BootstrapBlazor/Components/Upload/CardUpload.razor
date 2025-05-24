@@ -75,12 +75,11 @@
             @RenderAdd
         }
     </div>
-    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
-
     @if (ShowPreviewList)
     {
         <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
     }
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
 
 @code {
