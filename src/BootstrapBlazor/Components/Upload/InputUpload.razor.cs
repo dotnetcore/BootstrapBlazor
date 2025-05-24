@@ -109,14 +109,7 @@ public partial class InputUpload<TValue>
             return true;
         }
 
-        // 允许多上传
-        if (IsMultiple)
-        {
-            return MaxFileCount.HasValue && Files.Count >= MaxFileCount;
-        }
-
-        // 只允许单个上传
-        return Files.Count > 0;
+        return CanUpload();
     }
 
     private async Task TriggerDeleteFile()
