@@ -6,19 +6,31 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 卡片式上传组件
+/// CardUpload component
 /// </summary>
 public partial class CardUpload<TValue>
 {
-    private string? BodyClassString => CssBuilder.Default("upload-body is-card")
-        .AddClass("is-single", IsSingle)
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
+    private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+        .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
+        .AddClass("is-invalid", item.Code != 0)
+        .Build();
+    private string? ItemClassString => CssBuilder.Default("upload-item")
+        .AddClass("disabled", CanUpload() == false)
+        .Build();
 
-    private bool ShowPreviewList => GetUploadFiles().Count != 0;
+    private string? BodyClassString => CssBuilder.Default("upload-body is-card")
+        .AddClass("is-single", IsMultiple == false)
+        .Build();
 
-    private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
+    private string? GetDisabledString(UploadFile item) => (!IsDisabled && item is { Uploaded: true, Code: 0 }) ? null : "disabled";
+
+    private bool ShowPreviewList => Files.Count != 0;
+
+    private List<string?> PreviewList => Files.Select(i => i.PrevUrl).ToList();
 
     private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
@@ -94,7 +106,15 @@ public partial class CardUpload<TValue>
     /// 获得/设置 是否显示删除按钮 默认 true 显示
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请使用 ShowDeleteButton 参数。Deprecated, please use the ShowDeleteButton parameter")]
+    [ExcludeFromCodeCoverage]
     public bool ShowDeletedButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示删除按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 继续上传按钮是否在列表前 默认 false
@@ -102,9 +122,115 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击 Zoom 图标回调方法
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnZoomAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图标文件扩展名集合 ".png"
+    /// </summary>
+    [Parameter]
+    public List<string>? AllowExtensions { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Docx 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 PPT 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Audio 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Video 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 File 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Pdf 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Zip 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Archive 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Image 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 File 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
+        .AddClass("btn-browser", IsDisabled == false)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -119,39 +245,20 @@ public partial class CardUpload<TValue>
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadDownloadIcon);
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
+
+        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
+        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
+        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
+        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
+        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
+        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
+        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
+        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
+        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
+        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
+        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
+        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
-
-    private bool IsImage(UploadFile item)
-    {
-        bool ret;
-        if (item.File != null)
-        {
-            ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || CheckExtensions(item.File.Name);
-        }
-        else if (CanPreviewCallback != null)
-        {
-            ret = CanPreviewCallback(item);
-        }
-        else
-        {
-            ret = IsBase64Format() || CheckExtensions(item.FileName ?? item.PrevUrl ?? "");
-        }
-
-        bool IsBase64Format() => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
-
-        bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
-        {
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" or ".webp" => true,
-            _ => false
-        };
-        return ret;
-    }
-
-    /// <summary>
-    /// 获得/设置 点击 Zoom 图标回调方法
-    /// </summary>
-    [Parameter]
-    public Func<UploadFile, Task>? OnZoomAsync { get; set; }
 
     private async Task OnCardFileDelete(UploadFile item)
     {
@@ -164,6 +271,22 @@ public partial class CardUpload<TValue>
         if (OnZoomAsync != null)
         {
             await OnZoomAsync(item);
+        }
+    }
+
+    private async Task OnClickDownload(UploadFile item)
+    {
+        if (OnDownload != null)
+        {
+            await OnDownload(item);
+        }
+    }
+
+    private async Task OnClickCancel(UploadFile item)
+    {
+        if (OnCancel != null)
+        {
+            await OnCancel(item);
         }
     }
 }

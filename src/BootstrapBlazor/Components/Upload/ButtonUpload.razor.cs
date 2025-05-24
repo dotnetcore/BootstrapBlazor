@@ -9,41 +9,12 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 按钮上传组件
+/// <para>ButtonUpload Component</para>
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
-    private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
-
-    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
-        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
-        .Build();
-
-    private string? LoadingIconString => CssBuilder.Default("loading-icon")
-        .AddClass(LoadingIcon)
-        .Build();
-
-    private string? DeleteIconString => CssBuilder.Default("delete-icon")
-        .AddClass(DeleteIcon)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("invalid-icon")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
-    private string? DownloadIconString => CssBuilder.Default("download-icon")
-        .AddClass(DownloadIcon)
-        .Build();
-
-    private string? CancelIconString => CssBuilder.Default("cancel-icon")
-        .AddClass(CancelIcon)
-        .Build();
-
     /// <summary>
-    /// 获得/设置 浏览按钮图标
+    /// 获得/设置 浏览按钮加载中图标
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -101,7 +72,6 @@ public partial class ButtonUpload<TValue>
     /// 获得/设置 浏览按钮颜色
     /// </summary>
     [Parameter]
-    [NotNull]
     public Color BrowserButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
@@ -116,6 +86,102 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 设置文件格式图标回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string?, string>? OnGetFileFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示下载按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDownloadButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击下载按钮回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconExcel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconDocx { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPPT { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconAudio { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconVideo { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconCode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconPdf { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconZip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconArchive { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconImage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Excel 类型文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIconFile { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
@@ -123,6 +189,14 @@ public partial class ButtonUpload<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
+        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
+        .Build();
 
     /// <summary>
     /// OnParametersSet 方法
@@ -133,10 +207,7 @@ public partial class ButtonUpload<TValue>
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
-        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadLoadingIcon);
-        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadInvalidStatusIcon);
-        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
-        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
-        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
     }
+
+    private bool CheckStatus() => IsDisabled || CanUpload() == false;
 }

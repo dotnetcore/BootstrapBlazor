@@ -1,0 +1,199 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+using Microsoft.AspNetCore.Components.Forms;
+using System.Runtime.CompilerServices;
+
+namespace UnitTest.Components;
+
+public class UploadAvatarTest : BootstrapBlazorTestBase
+{
+    [Fact]
+    public async Task AvatarUpload_Ok()
+    {
+        UploadFile? uploadFile = null;
+        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsMultiple, true);
+            pb.Add(a => a.OnChange, file =>
+            {
+                uploadFile = file;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Contains("upload-item-plus", cut.Markup);
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new()
+        })));
+
+        // Height/Width
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Height, 40);
+            pb.Add(a => a.Width, 50);
+        });
+        cut.Contains("width: 50px;");
+        cut.Contains("height: 40px;");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsCircle, true);
+        });
+        cut.Contains("height: 50px;");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Height, 0);
+        });
+        cut.Contains("height: 50px;");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.BorderRadius, "10px");
+        });
+        cut.Contains("--bb-upload-item-border-radius: 10px;");
+
+        // DefaultFileList
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnChange, null);
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "Test-File" }
+            ]);
+        });
+        input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new()
+        })));
+
+        // upload-item-delete
+        var button = cut.Find(".upload-item-delete");
+        await cut.InvokeAsync(() => button.Click());
+
+        cut.Contains("upload-item-actions btn-browser");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        cut.DoesNotContain("upload-item-actions");
+
+        // IsUploadButtonAtFirst
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsUploadButtonAtFirst, true);
+            pb.Add(a => a.IsDisabled, false);
+            pb.Add(a => a.IsMultiple, true);
+        });
+    }
+
+    [Fact]
+    public void MaxFileCount_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.IsMultiple, true);
+            pb.Add(a => a.MaxFileCount, 2);
+            pb.Add(a => a.DefaultFileList,
+            [
+                new UploadFile { FileName = "Test-File" },
+                new UploadFile { FileName = "Test-File" }
+            ]);
+        });
+        Assert.DoesNotContain(".upload-item-plus", cut.Markup);
+    }
+
+    [Fact]
+    public async Task AvatarUpload_ValidateForm_Ok()
+    {
+        var invalid = false;
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<AvatarUpload<string>>(pb =>
+            {
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 提交表单
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(async () =>
+        {
+            await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+            form.Submit();
+        });
+        Assert.False(invalid);
+
+        // 设置 Disabled 取消校验
+        var upload = cut.FindComponent<AvatarUpload<string>>();
+        upload.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+
+        Assert.DoesNotContain("is-invalid", upload.Markup);
+    }
+
+    [Fact]
+    public void AvatarUpload_ShowProgress_Ok()
+    {
+        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await Task.Delay(100);
+                await file.SaveToFileAsync("1.txt");
+                SetUploaded(file, false);
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+    }
+
+    private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
+    {
+        public string Name { get; } = name;
+
+        public DateTimeOffset LastModified { get; } = DateTimeOffset.Now;
+
+        public long Size { get; } = 10;
+
+        public string ContentType { get; } = contentType;
+
+        public Stream OpenReadStream(long maxAllowedSize = 512000, CancellationToken cancellationToken = default)
+        {
+            return new MemoryStream([0x01, 0x02]);
+        }
+    }
+
+    [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "set_Uploaded")]
+    static extern void SetUploaded(UploadFile @this, bool v);
+}

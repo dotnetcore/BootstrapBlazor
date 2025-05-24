@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits SingleUploadBase<TValue>
+@inherits UploadBase<TValue>
 
 @if (IsShowLabel)
 {
@@ -8,13 +8,13 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="upload-body is-avatar">
-        @if (IsUploadButtonAtFirst && CheckCanUpload())
+        @if (IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }
-        @foreach (var item in GetUploadFiles())
+        @foreach (var item in Files)
         {
-            <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
+            <div @key="item" class="@GetItemClassString(item)" id="@item.ValidateId" style="@ItemStyleString">
                 <Avatar Url="@item.PrevUrl" />
                 @if (!IsDisabled)
                 {
@@ -39,7 +39,7 @@
                 }
             </div>
         }
-        @if (!IsUploadButtonAtFirst && CheckCanUpload())
+        @if (!IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }
@@ -47,11 +47,10 @@
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
 
-
 @code {
     RenderFragment RenderAdd =>
-    @<div class="@ItemClassString" style="@PrevStyleString">
-        <div class="upload-item-actions btn-browser">
+    @<div id="@AddId" class="@GetItemClassString()" style="@ItemStyleString">
+        <div class="@ActionClassString">
             <span class="upload-item-plus">
                 <i class="@AddIcon"></i>
             </span>

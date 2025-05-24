@@ -3,54 +3,14 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Forms;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 头像上传组件
+/// <para>AvatarUpload Component</para>
 /// </summary>
 public partial class AvatarUpload<TValue>
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected new string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
-        .AddClass("is-valid", !IsDisabled && item.IsValid.HasValue && item.IsValid.Value)
-        .AddClass("is-invalid", !IsDisabled && item.IsValid.HasValue && !item.IsValid.Value)
-        .AddClass("is-valid", !IsDisabled && !item.IsValid.HasValue && item.Uploaded && item.Code == 0)
-        .AddClass("is-invalid", !IsDisabled && !item.IsValid.HasValue && item.Code != 0)
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
-    /// <summary>
-    /// 
-    /// </summary>
-    protected override string? ItemClassString => CssBuilder.Default(base.ItemClassString)
-        .AddClass("is-circle", IsCircle)
-        .AddClass("is-single", IsSingle)
-        .AddClass("disabled", IsDisabled)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 预览框 Style 属性
-    /// </summary>
-    private string? PrevStyleString => CssBuilder.Default()
-        .AddClass($"width: {Width}px;", Width > 0)
-        .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
-        .AddClass($"height: {Width}px;", IsCircle)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
     /// <summary>
     /// 获得/设置 文件预览框宽度
     /// </summary>
@@ -68,6 +28,12 @@ public partial class AvatarUpload<TValue>
     /// </summary>
     [Parameter]
     public bool IsCircle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the border radius. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? BorderRadius { get; set; }
 
     /// <summary>
     /// 获得/设置 删除图标
@@ -109,6 +75,64 @@ public partial class AvatarUpload<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetItemClassString(UploadFile? item = null) => CssBuilder.Default("upload-item")
+        .AddClass("is-circle", IsCircle)
+        .AddClass("disabled", IsDisabled)
+        .AddClass(GetValidStatus(item))
+        .Build();
+
+    private string? GetValidStatus(UploadFile? item = null)
+    {
+        if (ValidateForm == null)
+        {
+            return null;
+        }
+
+        if (IsDisabled)
+        {
+            return null;
+        }
+
+        if(item == null)
+        {
+            return null;
+        }
+
+        var state = item.IsValid ?? IsValid;
+        if (state == null)
+        {
+            return null;
+        }
+
+        return state.Value ? "is-valid" : "is-invalid";
+    }
+
+    /// <summary>
+    /// 获得/设置 预览框 Style 属性
+    /// </summary>
+    private string? ItemStyleString => CssBuilder.Default()
+        .AddClass($"width: {Width}px;", Width > 0)
+        .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
+        .AddClass($"height: {Width}px;", IsCircle)
+        .AddClass($"--bb-upload-item-border-radius: {BorderRadius};", IsCircle && !string.IsNullOrEmpty(BorderRadius))
+        .Build();
+
+    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
+        .AddClass("btn-browser", IsDisabled == false)
+        .Build();
+
+    private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
+        .AddClass(ValidStatusIcon)
+        .Build();
+
+    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
+        .AddClass(InvalidStatusIcon)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -121,51 +145,23 @@ public partial class AvatarUpload<TValue>
         AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadAddIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadValidStatusIcon);
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadInvalidStatusIcon);
-    }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected override async Task OnFileChange(InputFileChangeEventArgs args)
-    {
-        CurrentFile = new UploadFile()
+        // 头像上传时如果用户没有设置 OnChanged 回调，需要使用内置方法将文件头像转化未 Base64 格式用于预览
+        OnChange ??= async item =>
         {
-            OriginFileName = args.File.Name,
-            Size = args.File.Size,
-            File = args.File,
-            Uploaded = false
+            item.ValidateId = $"{Id}_{item.GetHashCode()}";
+            await item.RequestBase64ImageFileAsync();
         };
-        CurrentFile.ValidateId = $"{Id}_{CurrentFile.GetHashCode()}";
-
-        if (IsSingle)
-        {
-            // 单图片模式
-            DefaultFileList?.Clear();
-            UploadFiles.Clear();
-        }
-
-        UploadFiles.Add(CurrentFile);
-
-        await base.OnFileChange(args);
-
-        // ValidateFile 后 IsValid 才有值
-        CurrentFile.IsValid = IsValid;
-
-        if (OnChange != null)
-        {
-            await OnChange(CurrentFile);
-        }
-        else
-        {
-            await CurrentFile.RequestBase64ImageFileAsync(CurrentFile.File.ContentType, 320, 240);
-        }
     }
 
     /// <summary>
-    /// 获得 弹窗客户端 ID
+    /// 获得 数据验证客户端 ID
     /// </summary>
     /// <returns></returns>
-    protected override string? RetrieveId() => CurrentFile?.ValidateId;
+    protected override string? RetrieveId()
+    {
+        return Files.Count == 0 ? $"{Id}_new" : Files[0].ValidateId;
+    }
+
+    private string? AddId => Files.Count == 0 ? $"{Id}_new" : null;
 }

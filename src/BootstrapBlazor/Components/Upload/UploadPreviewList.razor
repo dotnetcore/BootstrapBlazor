@@ -1,0 +1,45 @@
+﻿@namespace BootstrapBlazor.Components
+
+<div class="upload-body is-list">
+    @foreach (var item in Items)
+    {
+        <div @key="item" class="@GetItemClassString(item)">
+            <i class="@GetFileFormatClassString(item)"></i>
+            <div class="upload-item-body">
+                <span>@item.GetFileName()</span>
+                <span>(@item.Size.ToFileSizeString())</span>
+            </div>
+            @if (GetShowProgress(item))
+            {
+                <i class="@LoadingIconString"></i>
+                <i class="@CancelIconString" @onclick="() => OnClickCancel(item)"></i>
+                <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent"></Progress>
+            }
+            else
+            {
+                <div class="upload-buttons">
+                    @if (item.Code == 0)
+                    {
+                        @if (ShowDownloadButton)
+                        {
+                            <i class="@DownloadIconString" @onclick="() => OnClickDownload(item)"></i>
+                        }
+                        <i class="@ValidStatusIconString"></i>
+                        @if (!IsDisabled)
+                        {
+                            <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                        }
+                    }
+                    else
+                    {
+                        @if (!IsDisabled)
+                        {
+                            <i class="@InvalidStatusIconString"></i>
+                            <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
