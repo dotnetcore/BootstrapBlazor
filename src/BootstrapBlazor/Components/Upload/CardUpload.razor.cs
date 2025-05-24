@@ -19,7 +19,7 @@ public partial class CardUpload<TValue>
         .AddClass("is-invalid", item.Code != 0)
         .Build();
     private string? ItemClassString => CssBuilder.Default("upload-item")
-        .AddClass("disabled", CheckCanUpload() == false)
+        .AddClass("disabled", CanUpload() == false)
         .Build();
 
     private string? BodyClassString => CssBuilder.Default("upload-body is-card")

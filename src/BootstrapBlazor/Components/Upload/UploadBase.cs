@@ -260,13 +260,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <para>Check whether can upload file.</para>
     /// </summary>
     /// <returns></returns>
-    protected bool CheckCanUpload()
+    protected bool CanUpload()
     {
-        if (IsDisabled)
-        {
-            return false;
-        }
-
         // 允许多上传
         if (IsMultiple)
         {
@@ -275,6 +270,20 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
         // 只允许单个上传
         return Files.Count == 0;
+    }
+
+    /// <summary>
+    /// 判断是否显示新建按钮
+    /// </summary>
+    /// <returns></returns>
+    protected bool ShowAddButton()
+    {
+        if (IsDisabled)
+        {
+            return Files.Count == 0;
+        }
+
+        return CanUpload();
     }
 
     /// <summary>

@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
-        @if (IsUploadButtonAtFirst && CheckCanUpload())
+        @if (IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }
@@ -70,7 +70,7 @@
                 </span>
             </div>
         }
-        @if (!IsUploadButtonAtFirst && CheckCanUpload())
+        @if (!IsUploadButtonAtFirst && ShowAddButton())
         {
             @RenderAdd
         }

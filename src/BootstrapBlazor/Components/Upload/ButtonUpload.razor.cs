@@ -208,4 +208,6 @@ public partial class ButtonUpload<TValue>
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
     }
+
+    private bool CheckStatus() => IsDisabled || CanUpload() == false;
 }
