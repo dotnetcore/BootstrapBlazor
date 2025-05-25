@@ -18,11 +18,18 @@
             else
             {
                 <div class="upload-buttons">
-                    @if (item.Code == 0 && ShowDownloadButton)
+                    @if (item.Code == 0)
                     {
-                        <i class="@DownloadIconString" @onclick="() => OnClickDownload(item)"></i>
+                        @if (ShowDownloadButton)
+                        {
+                            <i class="@DownloadIconString" @onclick="() => OnClickDownload(item)"></i>
+                        }
+                        <i class="@InvalidStatusIconString"></i>
                     }
-                    <i class="@ValidStatusIconString"></i>
+                    else
+                    {
+                        <i class="@ValidStatusIconString"></i>
+                    }
                     <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
                 </div>
             }
