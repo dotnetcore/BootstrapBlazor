@@ -12,8 +12,7 @@ public partial class Meets : ComponentBase
 {
     private MeetOption? _option;
     private Meet? _meet;
-    private string _domain = "meet.jit.si";
-    private string? _roomName = "BootstrapBlazor";
+    private readonly string _domain = "meet.jit.si";
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
@@ -27,7 +26,7 @@ public partial class Meets : ComponentBase
 
         _option = new MeetOption
         {
-            RoomName = _roomName,
+            RoomName = "BootstrapBlazor",
             Width = "100%",
             Height = 700,
             ConfigOverwrite = new
