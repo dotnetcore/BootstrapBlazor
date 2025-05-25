@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
 
@@ -169,6 +170,41 @@ public class UploadInputTest : BootstrapBlazorTestBase
             ]);
         });
         Assert.Contains("test1.png;test2.png", cut.Markup);
+    }
+
+    [Fact]
+    public void InputUpload_IsMultiple()
+    {
+        var cut = Context.RenderComponent<InputUpload<List<string>>>(pb =>
+        {
+            pb.Add(a => a.IsMultiple, false);
+        });
+
+        // 禁用多选功能
+        cut.DoesNotContain("multiple=\"multiple\"");
+
+        // 给定已上传文件后上传按钮应该被禁用
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList,
+            [
+                new UploadFile() { FileName = "test1.png" },
+                new UploadFile() { FileName = "test2.png" }
+            ]);
+        });
+        var button = cut.Find(".btn-browser");
+        Assert.True(button.IsDisabled());
+
+        // 开启多选功能
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsMultiple, true);
+        });
+        cut.Contains("multiple=\"multiple\"");
+
+        // 给定已上传文件后上传按钮不应该被禁用
+        button = cut.Find(".btn-browser");
+        Assert.False(button.IsDisabled());
     }
 
     private class Person
