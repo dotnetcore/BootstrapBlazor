@@ -54,72 +54,6 @@ public class FileListUploadBase<TValue> : UploadBase<TValue>
     public Func<UploadFile, Task>? OnCancel { get; set; }
 
     /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconExcel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconDocx { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconPPT { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconAudio { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconVideo { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconCode { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconPdf { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconZip { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconArchive { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconImage { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconFile { get; set; }
-
-    /// <summary>
     /// <see cref="IconTheme"/> 服务实例
     /// </summary>
     [Inject]
@@ -136,17 +70,5 @@ public class FileListUploadBase<TValue> : UploadBase<TValue>
         DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadDeleteIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadDownloadIcon);
         CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
-
-        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
-        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
-        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
-        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
-        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
-        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
-        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
-        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
-        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
-        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
-        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
 }

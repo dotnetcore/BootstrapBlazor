@@ -354,18 +354,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
             pb.Add(a => a.DownloadIcon, "fa-download");
             pb.Add(a => a.InvalidStatusIcon, "fa-invalid");
             pb.Add(a => a.ValidStatusIcon, "fa-valid");
-
-            pb.Add(a => a.FileIconArchive, "fa-file-text");
-            pb.Add(a => a.FileIconExcel, "fa-file-excel");
-            pb.Add(a => a.FileIconFile, "fa-file");
-            pb.Add(a => a.FileIconDocx, "fa-file-word");
-            pb.Add(a => a.FileIconPPT, "fa-file-powerpoint");
-            pb.Add(a => a.FileIconAudio, "fa-file-audio");
-            pb.Add(a => a.FileIconVideo, "fa-file-video");
-            pb.Add(a => a.FileIconCode, "fa-file-code");
-            pb.Add(a => a.FileIconPdf, "fa-file-pdf");
-            pb.Add(a => a.FileIconImage, "fa-file-image");
-            pb.Add(a => a.FileIconZip, "fa-file-archive");
             pb.Add(a => a.DefaultFileList,
             [
                 new() { FileName = "1.csv" },
@@ -421,6 +409,12 @@ public class UploadButtonTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("fa-format-test");
+
+        // Empty Items
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, null);
+        });
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile

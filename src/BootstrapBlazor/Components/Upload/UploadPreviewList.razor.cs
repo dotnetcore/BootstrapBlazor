@@ -206,11 +206,21 @@ public partial class UploadPreviewList
     {
         base.OnParametersSet();
 
-        Items ??= [];
-
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadLoadingIcon);
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadInvalidStatusIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadValidStatusIcon);
+
+        FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
+        FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);
+        FileIconPPT ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPPT);
+        FileIconAudio ??= IconTheme.GetIconByKey(ComponentIcons.FileIconAudio);
+        FileIconVideo ??= IconTheme.GetIconByKey(ComponentIcons.FileIconVideo);
+        FileIconCode ??= IconTheme.GetIconByKey(ComponentIcons.FileIconCode);
+        FileIconPdf ??= IconTheme.GetIconByKey(ComponentIcons.FileIconPdf);
+        FileIconZip ??= IconTheme.GetIconByKey(ComponentIcons.FileIconZip);
+        FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
+        FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
+        FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
     }
 
     private async Task OnClickDownload(UploadFile item)
