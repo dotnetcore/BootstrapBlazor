@@ -11,7 +11,6 @@ using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -581,6 +580,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.IsExcel, true);
+                pb.Add(a => a.EnableKeyboardNavigationCell, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.OnSaveAsync, (foo, changedItem) =>
                 {
@@ -980,6 +980,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.PageItemsSource, [2, 4, 8]);
                 pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsAutoScrollTopWhenClickPage, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -991,8 +992,9 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var pager = cut.FindComponent<Pagination>();
-        await cut.InvokeAsync(() => pager.Instance.OnPageLinkClick!.Invoke(2));
+        var items = cut.FindAll(".page-link");
+        await cut.InvokeAsync(() => items[2].Click());
+
         var activePage = cut.Find(".page-item.active");
         Assert.Equal("2", activePage.TextContent);
     }
@@ -1058,7 +1060,7 @@ public class TableTest : BootstrapBlazorTestBase
             return Task.FromResult(new QueryData<Foo>()
             {
                 Items = items,
-                TotalCount = items.Count(),
+                TotalCount = 80,
                 IsAdvanceSearch = true,
                 IsFiltered = true,
                 IsSearch = true,
@@ -4582,6 +4584,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4593,6 +4596,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
 
@@ -4601,6 +4605,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4608,6 +4613,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(1, checkboxs);
 
@@ -4615,6 +4621,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(0, checkboxs);
 
@@ -4622,6 +4629,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
+        inputs = cut.FindComponents<Checkbox<Foo>>();
         checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
         Assert.Equal(3, checkboxs);
     }
@@ -6993,6 +7001,12 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(3, "IgnoreWhenExport", true);
+                    builder.CloseComponent();
                 });
             });
         });
@@ -7007,9 +7021,20 @@ public class TableTest : BootstrapBlazorTestBase
         }
 
         var table = cut.FindComponent<Table<Foo>>();
+
+        // 可见列为 2 列
+        var columns = table.Instance.GetVisibleColumns();
+        Assert.Equal(2, columns.Count());
+
+        // 由于设置了 IgnoreWhenExport 为 true 所以导出时不包含 Address 列
+        ITableExportDataContext<Foo>? exportContext = null;
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnExportAsync, _ => Task.FromResult(true));
+            pb.Add(a => a.OnExportAsync, context =>
+            {
+                exportContext ??= context;
+                return Task.FromResult(true);
+            });
         });
 
         buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
@@ -7020,6 +7045,9 @@ public class TableTest : BootstrapBlazorTestBase
                 button.Click();
             });
         }
+        Assert.NotNull(exportContext);
+        Assert.Single(exportContext.Columns);
+        Assert.Equal("Name", exportContext.Columns.ElementAt(0).GetFieldName());
     }
 
     [Fact]
@@ -8209,37 +8237,6 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IgnoreWhenExport_Ok()
-    {
-        var items = new Foo[] { new() { Name = "Name", Address = "Address" } };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Address");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                    builder.AddAttribute(3, "IgnoreWhenExport", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<Table<Foo>>();
-        var columns = table.Instance.GetVisibleColumns();
-        Assert.Single(columns);
-    }
-
-    [Fact]
     public void OnSelectedRows_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8682,8 +8679,10 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowExtendEditButton, false);
             pb.Add(a => a.ShowExtendDeleteButton, false);
         });
-        Assert.True(ProhibitEdit(cut.Instance));
-        Assert.True(ProhibitDelete(cut.Instance));
+
+        // 不显示编辑删除按钮不参与是否可编辑删除判断，用户可能自定义按钮编辑或者删除当前行
+        Assert.False(ProhibitEdit(cut.Instance));
+        Assert.False(ProhibitDelete(cut.Instance));
 
         cut.SetParametersAndRender(pb =>
         {

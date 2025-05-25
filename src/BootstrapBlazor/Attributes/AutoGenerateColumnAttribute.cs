@@ -319,5 +319,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool? IgnoreWhenExport { get; set; }
+    public bool IgnoreWhenExport { get; set; }
+
+    bool? ITableColumn.IgnoreWhenExport
+    {
+        get => IgnoreWhenExport;
+        set => IgnoreWhenExport = value ?? false;
+    }
 }

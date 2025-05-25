@@ -121,17 +121,7 @@ const monitor = watermark => {
         return;
     }
 
-    if (options.isPage === false && el.children.length !== 2) {
-        clearWatermark(watermark);
-        return;
-    }
-
-    const mark = options.isPage ? el.children[0] : el.children[1];
-    if (mark.className !== 'bb-watermark-bg') {
-        clearWatermark(watermark);
-        return;
-    }
-
+    const mark = el.querySelector('.bb-watermark-bg');
     const style = getComputedStyle(mark);
     const { display, opacity, position, inset, zIndex, zoom, transform, backgroundRepeat, backgroundImage, backgroundSize } = style;
     if (display !== 'block') {

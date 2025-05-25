@@ -46,9 +46,9 @@ public static class LambdaExtensions
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
     {
         var express = new List<Expression<Func<TItem, bool>>>();
-        if (filter.Filters != null)
+        if (filter.Filters.Count > 0)
         {
-            express.AddRange(filter.Filters.Select(f => f.Filters != null
+            express.AddRange(filter.Filters.Select(f => f.Filters.Count > 0
                 ? f.Filters.GetFilterLambda<TItem>(f.FilterLogic)
                 : f.GetInnerFilterLambda<TItem>()));
         }
@@ -86,7 +86,7 @@ public static class LambdaExtensions
     /// <returns></returns>
     private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic)
     {
-        var express = filters.Select(filter => filter.Filters != null
+        var express = filters.Select(filter => filter.Filters.Count > 0
                 ? filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic)
                 : filter.GetInnerFilterLambda<TItem>())
             .ToList();

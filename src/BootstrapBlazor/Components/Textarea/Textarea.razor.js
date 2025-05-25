@@ -3,7 +3,7 @@ import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
-    var el = document.getElementById(id);
+    const el = document.getElementById(id);
     const text = {
         prevMethod: '',
         element: el
@@ -14,7 +14,7 @@ export function init(id) {
         if (e.key === "Enter" || e.key === "NumpadEnter") {
             const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
             const shiftKey = e.shiftKey;
-            if (shiftKey && useShiftEnter) {
+            if (useShiftEnter && shiftKey === false) {
                 e.preventDefault();
             }
         }

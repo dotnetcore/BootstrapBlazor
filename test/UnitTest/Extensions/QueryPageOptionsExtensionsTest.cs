@@ -127,10 +127,12 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
     [Fact]
     public void Set_Ok()
     {
-        var filter = new SearchFilterAction("", "", FilterAction.Equal);
-        filter.Name = "test";
-        filter.Value = "test";
-        filter.Action = FilterAction.GreaterThan;
+        var filter = new SearchFilterAction("", "", FilterAction.Equal)
+        {
+            Name = "test",
+            Value = "test",
+            Action = FilterAction.GreaterThan
+        };
         Assert.Equal("test", filter.Name);
         Assert.Equal("test", filter.Value);
         Assert.Equal(FilterAction.GreaterThan, filter.Action);

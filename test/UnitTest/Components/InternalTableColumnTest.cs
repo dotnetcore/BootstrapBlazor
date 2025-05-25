@@ -49,7 +49,7 @@ public class InternalTableColumnTest
         {
             builder.AddContent(0, "test");
         }));
-        SetValue("Filter", new TableFilter());
+        SetValue("Filter", new TableColumnFilter());
         SetValue("FormatString", "test");
         SetValue("Formatter", new Func<object?, Task<string>>(val =>
         {

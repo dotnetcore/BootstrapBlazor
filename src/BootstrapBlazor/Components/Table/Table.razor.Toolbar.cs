@@ -470,7 +470,7 @@ public partial class Table<TItem>
     {
         // 不可见列
         var items = VisibleColumns.Where(i => i.Visible);
-        return Columns.Where(i => !i.GetIgnoreExport() && !i.GetIgnore() && items.Any(v => v.Name == i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
+        return Columns.Where(i => !i.GetIgnore() && items.Any(v => v.Name == i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item) => VisibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && VisibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
@@ -545,6 +545,7 @@ public partial class Table<TItem>
         if (SelectedRows.Count == 1)
         {
             // 检查是否选中了不可编辑行（行内无编辑按钮），同时检查按钮禁用状态（禁用时不可编辑）
+            // ShowExtendEditButton 不参与逻辑，不显示扩展编辑按钮时用户可能自定义按钮调用 EditAsync 方法
             if (ProhibitEdit())
             {
                 // 提示不可编辑
@@ -1004,12 +1005,10 @@ public partial class Table<TItem>
     }
 
     private bool ProhibitEdit() => (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
-                || !ShowExtendEditButton
-                || (DisableExtendEditButtonCallback != null && DisableExtendEditButtonCallback(SelectedRows[0]))
-                || DisableExtendEditButton;
+            || (DisableExtendEditButtonCallback != null && DisableExtendEditButtonCallback(SelectedRows[0]))
+            || DisableExtendEditButton;
 
     private bool ProhibitDelete() => (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
-            || !ShowExtendDeleteButton
             || (DisableExtendDeleteButtonCallback != null && SelectedRows.Any(x => DisableExtendDeleteButtonCallback(x)))
             || DisableExtendDeleteButton;
 
@@ -1183,20 +1182,26 @@ public partial class Table<TItem>
     }
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportAsync(Rows, GetVisibleColumns()));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportAsync(Rows, GetExportColumns()));
 
     private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportCsvAsync(Rows, GetVisibleColumns()));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportCsvAsync(Rows, GetExportColumns()));
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportPdfAsync(Rows, GetVisibleColumns()));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportPdfAsync(Rows, GetExportColumns()));
 
     private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : TableExport.ExportExcelAsync(Rows, GetVisibleColumns()));
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetExportColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportExcelAsync(Rows, GetExportColumns()));
+
+    /// <summary>
+    /// Gets the export column collection.
+    /// </summary>
+    /// <returns></returns>
+    public List<ITableColumn> GetExportColumns() => [.. GetVisibleColumns().Where(i => i.IgnoreWhenExport is not true)];
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据

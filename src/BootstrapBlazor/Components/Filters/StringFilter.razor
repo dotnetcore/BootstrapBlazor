@@ -4,22 +4,18 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <BootstrapInput @bind-Value="@Value1" ShowLabel="false" OnValueChanged="_ => OnFilterValueChanged()"></BootstrapInput>
-        <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
+        <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+        <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter" />
     </div>
 }
 else
 {
-    <Select Items="@Items" @bind-Value="@Action1"></Select>
-
-    <BootstrapInput @bind-Value="@Value1" ShowLabel="false"></BootstrapInput>
-
+    <Select Items="@Items" @bind-Value="@_action1" ShowLabel="false" SkipValidate="true"></Select>
+    <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
     @if (Count > 0)
     {
         <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
-
-        <Select Items="@Items" @bind-Value="@Action2"></Select>
-
-        <BootstrapInput @bind-Value="@Value2" ShowLabel="false"></BootstrapInput>
+        <Select Items="@Items" @bind-Value="@_action2" ShowLabel="false" SkipValidate="true"></Select>
+        <BootstrapInput @bind-Value="@_value2" ShowLabel="false" SkipValidate="true"></BootstrapInput>
     }
 }

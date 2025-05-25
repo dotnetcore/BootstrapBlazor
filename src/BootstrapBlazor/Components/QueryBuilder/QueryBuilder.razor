@@ -6,7 +6,7 @@
     <CascadingValue Value="Value.Filters" IsFixed="true">
         @ChildContent?.Invoke(new TModel())
     </CascadingValue>
-    @if (!Value.HasFilters() && ShowHeader)
+    @if (ShowHeader && Value.Filters.Count == 0)
     {
         @RenderHeader(null, Value)
     }
@@ -17,6 +17,29 @@
 </div>
 
 @code {
+    RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) =>
+    @<ul class="qb-group">
+        @if (IsShowHeader(filter))
+        {
+            <li class="qb-item">
+                @RenderHeader(parent, filter)
+            </li>
+        }
+        @foreach (var f in filter.Filters)
+        {
+            <li class="qb-item">
+                @if (IsGroup(f))
+                {
+                    @RenderFilters(filter, f)
+                }
+                else
+                {
+                    @RenderFilter(filter, f)
+                }
+            </li>
+        }
+    </ul>;
+
     RenderFragment RenderFilter(FilterKeyValueAction parent, FilterKeyValueAction filter) =>
     @<div class="qb-row">
         <Select Items="_fields" @bind-Value="@filter.FieldKey" />

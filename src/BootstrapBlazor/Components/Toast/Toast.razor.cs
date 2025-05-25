@@ -49,21 +49,19 @@ public partial class Toast
     /// <summary>
     /// 获得/设置 弹出框自动关闭时长
     /// </summary>
-    protected string? DelayString => Options.IsAutoHide ? Convert.ToString(Options.Delay) : null;
+    private string? DelayString => Options.IsAutoHide ? Options.Delay.ToString() : null;
 
     /// <summary>
-    /// 获得/设置 是否开启动画效果 
+    /// 获得/设置 是否开启动画效果
     /// </summary>
-    protected string? AnimationString => Options.Animation ? null : "false";
+    private string? AnimationString => Options.Animation ? null : "false";
 
     /// <summary>
     /// 获得/设置 ToastOption 实例
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public ToastOption? Options { get; set; }
 
     /// <summary>
@@ -71,7 +69,7 @@ public partial class Toast
     /// </summary>
     /// <value></value>
     [CascadingParameter]
-    protected ToastContainer? ToastContainer { get; set; }
+    private ToastContainer? ToastContainer { get; set; }
 
     [Inject]
     [NotNull]
@@ -98,6 +96,19 @@ public partial class Toast
         Options.InformationIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon);
         Options.WarningIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon);
         Options.ErrorIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
     }
 
     /// <summary>

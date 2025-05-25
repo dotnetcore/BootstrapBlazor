@@ -3,33 +3,20 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 布尔类型过滤条件
+/// BoolFilter component is used for boolean value filtering in table column.
 /// </summary>
 public partial class BoolFilter
 {
-    private string Value { get; set; } = "";
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableFilter>? Localizer { get; set; }
-
     /// <summary>
-    /// <inheritdoc/>
+    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
 
-        if (TableFilter != null)
-        {
-            TableFilter.ShowMoreButton = false;
-        }
-    }
+    private string? _value;
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,12 +25,12 @@ public partial class BoolFilter
     {
         base.OnParametersSet();
 
-        Items ??= new SelectedItem[]
-        {
-            new("", Localizer["BoolFilter.AllText"].Value),
-            new("true", Localizer["BoolFilter.TrueText"].Value),
-            new("false", Localizer["BoolFilter.FalseText"].Value)
-        };
+        Items ??=
+        [
+            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
+            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
+            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
+        ];
     }
 
     /// <summary>
@@ -51,7 +38,7 @@ public partial class BoolFilter
     /// </summary>
     public override void Reset()
     {
-        Value = "";
+        _value = null;
         StateHasChanged();
     }
 
@@ -61,13 +48,13 @@ public partial class BoolFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
-        if (!string.IsNullOrEmpty(Value))
+        var filter = new FilterKeyValueAction();
+        if (!string.IsNullOrEmpty(_value))
         {
-            filter.Filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction
             {
                 FieldKey = FieldKey,
-                FieldValue = Value == "true",
+                FieldValue = _value == "true",
                 FilterAction = FilterAction.Equal
             });
         }
@@ -79,14 +66,10 @@ public partial class BoolFilter
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var first = filter.Filters.FirstOrDefault() ?? filter;
         if (first.FieldValue is bool value)
         {
-            Value = value ? "true" : "false";
-        }
-        else if (first.FieldValue is null)
-        {
-            Value = "";
+            _value = value ? "true" : "false";
         }
         await base.SetFilterConditionsAsync(filter);
     }

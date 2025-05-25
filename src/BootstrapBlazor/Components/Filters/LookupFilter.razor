@@ -1,14 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits FilterBase
 
-@if(Items != null)
+@if (IsHeaderRow)
 {
-    if (IsHeaderRow)
-    {
-        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="IsShowSearch"></Select>
-    }
-    else
-    {
-        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" ShowSearch="IsShowSearch"></Select>
-    }
+    <Select Items="@_lookup.Lookup" ShowLabel="false" SkipValidate="true"
+            LookupService="@_lookup.LookupService" StringComparison="@_lookup.LookupStringComparison"
+            LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+            @bind-Value="@_value" ShowSearch="@_isShowSearch"
+            OnSelectedItemChanged="_ => OnFilterAsync()" IsPopover="true"></Select>
+}
+else
+{
+    <Select Items="@_lookup.Lookup" ShowLabel="false" SkipValidate="true"
+            LookupService="@_lookup.LookupService" StringComparison="@_lookup.LookupStringComparison"
+            LookupServiceKey="@_lookup.LookupServiceKey" LookupServiceData="@_lookup.LookupServiceData"
+            @bind-Value="@_value" ShowSearch="@_isShowSearch"></Select>
 }

@@ -76,7 +76,7 @@ export function reset(id) {
             table.tables.push(shim.firstChild)
         }
 
-        if (table.isExcel) {
+        if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
             setExcelKeyboardListener(table)
         }
 
@@ -199,12 +199,16 @@ export function scroll(id, align, options = { behavior: 'smooth' }) {
     }
 }
 
-export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
+export function scrollTo(id) {
     const element = document.getElementById(id);
     if (element) {
         const scroll = element.querySelector('.scroll');
         if (scroll) {
-            scroll.scrollTo(x, y, options);
+            scroll.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
         }
     }
 }
@@ -232,7 +236,7 @@ const destroyTable = table => {
             EventHandler.off(table.body, 'scroll')
         }
 
-        if (table.isExcel) {
+        if (table.options.enableKeyboardNavigationCell === true && table.isExcel) {
             EventHandler.off(table.element, 'keydown')
         }
 

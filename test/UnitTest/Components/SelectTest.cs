@@ -429,6 +429,34 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnCollapsed_Ok()
+    {
+        var collapsed = false;
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.OnCollapsed, () => { collapsed = true; return Task.CompletedTask; });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerCollapsed());
+        Assert.True(collapsed);
+    }
+
+    [Fact]
+    public async Task IsAutoClearSearchTextWhenCollapsed_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.IsAutoClearSearchTextWhenCollapsed, true);
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("123"));
+        cut.Contains("value=\"123\"");
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerCollapsed());
+        cut.Contains("value=\"\"");
+    }
+
+    [Fact]
     public void Validate_Ok()
     {
         var valid = false;
@@ -1139,6 +1167,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 pb.Add(a => a.SwalCategory, SwalCategory.Question);
                 pb.Add(a => a.SwalTitle, "Swal-Title");
                 pb.Add(a => a.SwalContent, "Swal-Content");
+                pb.Add(a => a.ShowSwal, true);
                 pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
                 pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
                 pb.Add(a => a.SwalFooter, "test-swal-footer");
