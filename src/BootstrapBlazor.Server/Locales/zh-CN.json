@@ -4943,7 +4943,8 @@
     "TotpService": "时间密码验证服务 ITotpService",
     "VideoDevice": "视频设备服务 IVideoDevice",
     "AudioDevice": "音频设备服务 IAudioDevice",
-    "FullScreenButton": "全屏按钮 FullScreenButton"
+    "FullScreenButton": "全屏按钮 FullScreenButton",
+    "Meet": "视频会议组件 Meet"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
