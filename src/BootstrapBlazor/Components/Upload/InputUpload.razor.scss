@@ -43,10 +43,6 @@
     background-color: var(--bs-secondary-bg);
 }
 
-.upload .upload-body.is-list .upload-item:hover .fa-trash-can {
-    display: inline-block;
-}
-
 .upload .upload-body.is-list .upload-item .upload-item-body {
     flex: 1;
     padding: var(--bb-upload-body-list-item-body-padding);
@@ -63,9 +59,6 @@
     padding-right: 0.25rem;
 }
 
-.upload .upload-body.is-list .upload-item .fa-trash-can,
-.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-circle-check,
-.upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
 .upload .upload-body.is-avatar .upload-item .upload-item-delete,
 .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
 .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,

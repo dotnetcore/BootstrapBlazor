@@ -20,12 +20,6 @@ public partial class ButtonUpload<TValue>
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下载按钮图标
-    /// </summary>
-    [Parameter]
-    public string? DownloadIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 上传失败状态图标
     /// </summary>
     [Parameter]
@@ -36,12 +30,6 @@ public partial class ButtonUpload<TValue>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 删除按钮图标
-    /// </summary>
-    [Parameter]
-    public string? DeleteIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 浏览按钮图标
@@ -92,103 +80,9 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public Func<string?, string>? OnGetFileFormat { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否显示下载按钮 默认 false
-    /// </summary>
-    [Parameter]
-    public bool ShowDownloadButton { get; set; }
-
-    /// <summary>
-    /// 获得/设置 点击下载按钮回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<UploadFile, Task>? OnDownload { get; set; }
-
-    /// <summary>
-    /// 获得/设置 取消图标
-    /// </summary>
-    [Parameter]
-    public string? CancelIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 点击取消按钮回调此方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<UploadFile, Task>? OnCancel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconExcel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconDocx { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconPPT { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconAudio { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconVideo { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconCode { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconPdf { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconZip { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconArchive { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconImage { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Excel 类型文件图标
-    /// </summary>
-    [Parameter]
-    public string? FileIconFile { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
 
     private string? ClassString => CssBuilder.Default("upload")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -199,7 +93,7 @@ public partial class ButtonUpload<TValue>
         .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -208,6 +102,4 @@ public partial class ButtonUpload<TValue>
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
     }
-
-    private bool CheckStatus() => IsDisabled || !CanUpload();
 }

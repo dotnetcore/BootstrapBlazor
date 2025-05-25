@@ -283,6 +283,12 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
+    /// 检查上传按钮是否可用方法 不可用时返回 true
+    /// </summary>
+    /// <returns></returns>
+    protected bool CheckStatus() => IsDisabled || !CanUpload();
+
+    /// <summary>
     /// 判断是否显示新建按钮
     /// </summary>
     /// <returns></returns>

@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits UploadBase<string>
+@inherits FileListUploadBase<string>
 
 @if (IsShowLabel)
 {
@@ -54,7 +54,7 @@
                            OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel" CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
                            InvalidStatusIcon="@InvalidStatusIcon" ValidStatusIcon="@ValidStatusIcon"
                            ShowDownloadButton="@ShowDownloadButton" DownloadIcon="@DownloadIcon" OnDownload="@OnDownload"
-                           DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete"
+                           ShowDeleteButton="@ShowDeleteButton" DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete"
                            FileIconExcel="@FileIconExcel" FileIconDocx="@FileIconDocx" FileIconPPT="@FileIconPPT"
                            FileIconAudio="@FileIconAudio" FileIconVideo="@FileIconVideo"
                            FileIconCode="@FileIconCode" FileIconPdf="@FileIconPdf" FileIconZip="@FileIconZip"

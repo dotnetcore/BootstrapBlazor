@@ -73,6 +73,12 @@ public partial class UploadPreviewList
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示删除按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 删除按钮图标
     /// </summary>
     [Parameter]
@@ -188,8 +194,8 @@ public partial class UploadPreviewList
         .Build();
 
     private string? DeleteIconString => CssBuilder.Default("delete-icon")
-    .AddClass(DeleteIcon)
-    .Build();
+        .AddClass(DeleteIcon)
+        .Build();
 
     private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
         .AddClass(ValidStatusIcon)
@@ -208,12 +214,12 @@ public partial class UploadPreviewList
 
         Items ??= [];
 
-        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadLoadingIcon);
-        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadInvalidStatusIcon);
-        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
-        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadLoadingIcon);
+        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadInvalidStatusIcon);
+        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadValidStatusIcon);
+        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadDownloadIcon);
         CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
-        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
+        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadDeleteIcon);
 
         FileIconExcel ??= IconTheme.GetIconByKey(ComponentIcons.FileIconExcel);
         FileIconDocx ??= IconTheme.GetIconByKey(ComponentIcons.FileIconDocx);

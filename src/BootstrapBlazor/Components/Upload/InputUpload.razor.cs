@@ -102,8 +102,6 @@ public partial class InputUpload<TValue>
         DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
     }
 
-    private bool CheckStatus() => IsDisabled || !CanUpload();
-
     private async Task TriggerDeleteFile()
     {
         for (var index = Files.Count; index > 0; index--)
