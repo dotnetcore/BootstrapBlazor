@@ -8679,8 +8679,10 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowExtendEditButton, false);
             pb.Add(a => a.ShowExtendDeleteButton, false);
         });
-        Assert.True(ProhibitEdit(cut.Instance));
-        Assert.True(ProhibitDelete(cut.Instance));
+
+        // 不显示编辑删除按钮不参与是否可编辑删除判断，用户可能自定义按钮编辑或者删除当前行
+        Assert.False(ProhibitEdit(cut.Instance));
+        Assert.False(ProhibitDelete(cut.Instance));
 
         cut.SetParametersAndRender(pb =>
         {
