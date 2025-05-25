@@ -386,7 +386,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
                 new() { FileName = "1.test" },
                 new() { FileName = "1" }
             ]);
-
         });
         cut.Contains("fa-file-excel");
         cut.Contains("fa-file-word");

@@ -136,6 +136,31 @@ public class UploadDropTest : BootstrapBlazorTestBase
         });
     }
 
+
+    [Fact]
+    public void OnGetFileFormat_Ok()
+    {
+        var cut = Context.RenderComponent<DropUpload>(pb =>
+        {
+            pb.Add(a => a.LoadingIcon, "fa-loading");
+            pb.Add(a => a.DeleteIcon, "fa-delte");
+            pb.Add(a => a.CancelIcon, "fa-cancel");
+            pb.Add(a => a.DownloadIcon, "fa-download");
+            pb.Add(a => a.InvalidStatusIcon, "fa-invalid");
+            pb.Add(a => a.ValidStatusIcon, "fa-valid");
+            pb.Add(a => a.ShowUploadFileList, true);
+            pb.Add(a => a.OnGetFileFormat, extensions =>
+            {
+                return "fa-format-test";
+            });
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "1.csv" }
+            ]);
+        });
+        cut.Contains("fa-format-test");
+    }
+
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
     {
         public string Name { get; } = name;

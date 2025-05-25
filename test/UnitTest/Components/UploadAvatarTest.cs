@@ -163,7 +163,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AvatarUpload_ShowProgress_Ok()
+    public async Task DropUpload_ShowProgress_Ok()
     {
         var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
         {
@@ -172,10 +172,16 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             {
                 await Task.Delay(100);
                 await file.SaveToFileAsync("1.txt");
-                SetUploaded(file, false);
             });
         });
         var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() =>
+        {
+            _ = input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+        });
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
