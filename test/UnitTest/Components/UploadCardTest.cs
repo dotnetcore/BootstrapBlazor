@@ -151,13 +151,21 @@ public class UploadCardTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.AllowExtensions, [".dba"]);
-            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
-            {
+            pb.Add(a => a.DefaultFileList,
+            [
                 new() { FileName = "test.dba" }
-            });
+            ]);
         });
-
         cut.Contains("<span>test.dba</span> (0 B)");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { File = new MockBrowserFile("demo.dba") }
+            ]);
+        });
+        cut.Contains("<span>demo.dba</span> (0 B)");
     }
 
     [Fact]

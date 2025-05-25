@@ -81,7 +81,7 @@ public class UploadFile
     /// 获得 UploadFile 文件名
     /// </summary>
     /// <returns></returns>
-    public string? GetFileName() => FileName ?? OriginFileName;
+    public string? GetFileName() => FileName ?? OriginFileName ?? File?.Name;
 
     /// <summary>
     /// 获得 UploadFile 文件扩展名
