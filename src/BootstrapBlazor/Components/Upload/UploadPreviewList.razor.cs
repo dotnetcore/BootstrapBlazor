@@ -73,12 +73,6 @@ public partial class UploadPreviewList
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示删除按钮 默认 false
-    /// </summary>
-    [Parameter]
-    public bool ShowDeleteButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 删除按钮图标
     /// </summary>
     [Parameter]
