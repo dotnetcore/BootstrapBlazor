@@ -209,5 +209,5 @@ public partial class ButtonUpload<TValue>
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
     }
 
-    private bool CheckStatus() => IsDisabled || CanUpload() == false;
+    private bool CheckStatus() => IsDisabled || !CanUpload();
 }
