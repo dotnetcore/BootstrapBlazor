@@ -104,6 +104,39 @@ public class UploadDropTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task DropUpload_ShowProgress_Ok()
+    {
+        var cancel = false;
+        var cut = Context.RenderComponent<DropUpload>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await Task.Delay(100);
+                await file.SaveToFileAsync("1.txt");
+            });
+            pb.Add(a => a.OnCancel, file =>
+            {
+                cancel = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(async () =>
+        {
+            _ = input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+
+            var button = cut.Find(".cancel-icon");
+            Assert.NotNull(button);
+            await cut.InvokeAsync(() => button.Click());
+            Assert.True(cancel);
+        });
+    }
+
+    [Fact]
     public void ButtonUpload_OnGetFileFormat_Ok()
     {
         var cut = Context.RenderComponent<DropUpload>(pb =>
