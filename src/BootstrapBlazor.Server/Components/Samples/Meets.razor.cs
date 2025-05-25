@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
-using Console = System.Console;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
+/// <summary>
+/// Meet 视频会议组件示例
+/// </summary>
 public partial class Meets : ComponentBase
 {
-    private MeetOption? Option { get; set; }
+    private MeetOption? _option;
+    private Meet? _meet;
+    private string _domain = "meet.jit.si";
+    private string? _roomName = "BootstrapBlazor";
 
-    private Meet? Meet { get; set; }
-
-    private string Domain { get; set; } = "meet.jit.si";
-
-    private string? RoomName { get; set; } = "BootstrapBlazor";
-
-    private bool IsDisable { get; set; } = true;
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
 
     /// <summary>
     /// <inheritdoc />
@@ -21,29 +24,34 @@ public partial class Meets : ComponentBase
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Option = new MeetOption();
-        Option.RoomName = RoomName;
-        Option.Width = "100%";
-        Option.Height = 700;
-        Option.ConfigOverwrite = new
-        {
-            Lobby = new {EnableChat = false},
-            HiddenPremeetingButtons = new string[]{"invite"},
-            DisableInviteFunctions = true,
-            ButtonsWithNotifyClick = new []{new {key = "invite", preventExecution = true}}
-        };
-        Option.UserInfo = new UserInfo() { DisplayName = "BootstrapBlazor", Email = "bb@blazor.zone" };
 
+        _option = new MeetOption
+        {
+            RoomName = _roomName,
+            Width = "100%",
+            Height = 700,
+            ConfigOverwrite = new
+            {
+                Lobby = new { EnableChat = false },
+                HiddenPremeetingButtons = new string[] { "invite" },
+                DisableInviteFunctions = true,
+                ButtonsWithNotifyClick = new[] { new { key = "invite", preventExecution = true } }
+            },
+            UserInfo = new UserInfo() { DisplayName = "BootstrapBlazor", Email = "a@blazor.zone" }
+        };
     }
 
     private void OnLoad()
     {
-        Console.WriteLine("会议室加载完成");
+        ToastService.Information("Meet 示例", "会议室加载完成");
     }
 
-    private void RunCommand()
+    private async Task RunCommand()
     {
-        Meet?.ExecuteCommand("toggleChat");
+        if (_meet != null)
+        {
+            await _meet.ExecuteCommand("toggleChat");
+        }
     }
 }
 
