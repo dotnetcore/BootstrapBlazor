@@ -233,7 +233,8 @@
     "otp-service": "OtpServices",
     "video-device": "VideoDevices",
     "audio-device": "AudioDevices",
-    "fullscreen-button": "FullScreenButtons"
+    "fullscreen-button": "FullScreenButtons",
+    "meet": "Meets"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
