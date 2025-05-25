@@ -4942,6 +4942,7 @@
     "VideoDevice": "视频设备服务 IVideoDevice",
     "AudioDevice": "音频设备服务 IAudioDevice",
     "FullScreenButton": "全屏按钮 FullScreenButton",
+    "Meet": "视频会议组件 Meet",
     "InputUpload": "上传组件 InputUpload",
     "ButtonUpload": "按钮上传组件 ButtonUpload",
     "AvatarUpload": "头像上传组件 AvatarUpload",

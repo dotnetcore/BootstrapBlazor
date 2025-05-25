@@ -4942,6 +4942,7 @@
     "VideoDevice": "IVideoDevice",
     "AudioDevice": "IAudioDevice",
     "FullScreenButton": "FullScreenButton",
+    "Meet": "Meet",
     "InputUpload": "InputUpload",
     "ButtonUpload": "ButtonUpload",
     "AvatarUpload": "AvatarUpload",

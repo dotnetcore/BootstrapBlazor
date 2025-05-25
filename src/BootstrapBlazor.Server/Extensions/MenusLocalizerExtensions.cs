@@ -1229,6 +1229,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Meet"],
+                    Url = "meet"
+                },
+                new()
+                {
                     Text = Localizer["Modal"],
                     Url = "modal"
                 },
