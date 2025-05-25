@@ -109,7 +109,7 @@ public partial class InputUpload<TValue>
             return true;
         }
 
-        return CanUpload();
+        return !CanUpload();
     }
 
     private async Task TriggerDeleteFile()

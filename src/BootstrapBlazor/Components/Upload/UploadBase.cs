@@ -102,6 +102,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        _filesCache = null;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override string? FormatValueAsString(TValue? value)
     {
         if (value is null)
