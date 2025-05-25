@@ -146,6 +146,21 @@ public class UploadCardTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AllowExtensions_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.AllowExtensions, [".dba"]);
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new() { FileName = "test.dba" }
+            });
+        });
+
+        cut.Contains("<span>test.dba</span> (0 B)");
+    }
+
+    [Fact]
     public async Task CardUpload_ShowProgress_Ok()
     {
         var cancel = false;
