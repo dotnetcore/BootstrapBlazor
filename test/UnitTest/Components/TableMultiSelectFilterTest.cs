@@ -26,6 +26,7 @@ public class TableMultiSelectFilterTest : BootstrapBlazorTestBase
         var conditions = filter.FilterAction.GetFilterConditions();
         Assert.Single(conditions.Filters);
     }
+
     [Fact]
     public async Task OnFilterAsync_Ok()
     {
