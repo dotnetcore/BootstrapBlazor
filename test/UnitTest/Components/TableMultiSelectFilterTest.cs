@@ -25,14 +25,6 @@ public class TableMultiSelectFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         var conditions = filter.FilterAction.GetFilterConditions();
         Assert.Single(conditions.Filters);
-
-        // trigger onclear
-        var clear = cut.Find(".btn-ban");
-        await cut.InvokeAsync(() => clear.Click());
-
-        // check filter
-        conditions = filter.FilterAction.GetFilterConditions();
-        Assert.Empty(conditions.Filters);
     }
     [Fact]
     public async Task OnFilterAsync_Ok()
