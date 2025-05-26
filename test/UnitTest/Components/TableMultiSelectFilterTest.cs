@@ -8,7 +8,7 @@ namespace UnitTest.Components;
 public class TableMultiSelectFilterTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void IsHeaderRow_Ok()
+    public async Task IsHeaderRow_Ok()
     {
         var cut = Context.RenderComponent<TableColumnFilter>(pb =>
         {
@@ -17,6 +17,22 @@ public class TableMultiSelectFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsHeaderRow, true);
         });
         cut.Contains("filter-row");
+
+        var actions = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => actions[1].Click());
+
+        // check filter
+        var filter = cut.Instance;
+        var conditions = filter.FilterAction.GetFilterConditions();
+        Assert.Single(conditions.Filters);
+
+        // trigger onclear
+        var clear = cut.Find(".btn-ban");
+        await cut.InvokeAsync(() => clear.Click());
+
+        // check filter
+        conditions = filter.FilterAction.GetFilterConditions();
+        Assert.Empty(conditions.Filters);
     }
     [Fact]
     public async Task OnFilterAsync_Ok()

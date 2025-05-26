@@ -5,7 +5,7 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <MultiSelect class="is-filter" @bind-Value="_value1" OnValueChanged="_ => OnFilterAsync()"
+        <MultiSelect class="is-filter" Items="@Items" @bind-Value="_value1" OnValueChanged="_ => OnFilterAsync()"
                      ShowLabel="false" SkipValidate="true" IsPopover="true"></MultiSelect>
         <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter"></FilterButton>
     </div>
