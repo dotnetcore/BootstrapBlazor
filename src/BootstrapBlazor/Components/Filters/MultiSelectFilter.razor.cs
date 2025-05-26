@@ -29,9 +29,8 @@ public partial class MultiSelectFilter<TType>
     public override void Reset()
     {
         _value1 = default;
-        _action1 = FilterAction.GreaterThanOrEqual;
+        _action1 = FilterAction.Equal;
         Count = 0;
-        Logic = FilterLogic.And;
         StateHasChanged();
     }
 
