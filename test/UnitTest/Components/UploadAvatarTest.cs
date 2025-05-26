@@ -83,7 +83,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        cut.DoesNotContain("upload-item-actions");
+        cut.Contains("upload-item-actions");
 
         // IsUploadButtonAtFirst
         cut.SetParametersAndRender(pb =>
@@ -182,6 +182,19 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
                 new()
             }));
         });
+    }
+
+    [Fact]
+    public void IsImage_Ok()
+    {
+        var file = new UploadFile
+        {
+            File = new MockBrowserFile("test.text")
+        };
+        Assert.True(file.IsImage([".text"]));
+
+        file.File = new MockBrowserFile("test.jpg", "image/jpeg");
+        Assert.True(file.IsImage());
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
