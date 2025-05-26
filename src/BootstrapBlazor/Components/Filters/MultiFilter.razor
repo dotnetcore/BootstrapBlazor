@@ -12,7 +12,7 @@ else
         @if (ShowSearch)
         {
             <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
-                            Value="@_searchText" bind-value:event="oninput" IsAutoFocus="true"
+                            Value="@_searchText" IsAutoFocus="true"
                             PlaceHolder="@SearchPlaceHolderText" IsSelectAllTextOnFocus="true"
                             OnValueChanged="OnSearchValueChanged" ShowLabel="false" SkipValidate="true"></BootstrapInput>
         }
