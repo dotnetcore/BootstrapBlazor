@@ -351,6 +351,14 @@ private enum MultiSelectEnumFoo
     </div>
  </DemoBlock>
 
+<DemoBlock Title="@Localizer["MultiSelectGenericTitle"]" Introduction="@Localizer["MultiSelectGenericIntro"]" Name="Generic">
+    <div class="row">
+        <div class="col-12">
+            <MultiSelectGeneric Items="@FooItems" @bind-Value="_genericValue" ShowSearch="true" IsPopover="true"></MultiSelectGeneric>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <EventTable Items="@GetEvents()"></EventTable>

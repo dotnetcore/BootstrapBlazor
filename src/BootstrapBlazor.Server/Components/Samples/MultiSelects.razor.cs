@@ -125,6 +125,11 @@ public partial class MultiSelects
     private bool _showToolbar = true;
     private bool _showSearch = true;
 
+    [NotNull]
+    private List<SelectedItem<Foo>>? FooItems { get; set; }
+
+    private List<Foo>? _genericValue = null;
+
     private async Task<SelectedItem> OnEditCallback(string value)
     {
         await Task.Delay(100);
@@ -188,6 +193,7 @@ public partial class MultiSelects
         Items8 = GenerateItems();
         TemplateItems = GenerateItems();
         EditableItems = GenerateItems();
+        FooItems = [.. Foo.GenerateFoo(LocalizerFoo).Select(i => new SelectedItem<Foo>(i, i.Name!))];
 
         // 初始化数据
         DataSource =
