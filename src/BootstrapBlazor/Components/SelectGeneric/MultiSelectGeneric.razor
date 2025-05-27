@@ -1,0 +1,154 @@
+﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@typeparam TValue
+@inherits SelectBase<List<TValue>>
+@attribute [BootstrapModuleAutoLoader("Select/MultiSelect.razor.js", JSObjectReference = true)]
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
+}
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-scroll-behavior="@ScrollIntoViewBehaviorString">
+    <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" data-bs-custom-class="@CustomClassString" tabindex="0">
+        <div class="@PlaceHolderClassString">@PlaceHolder</div>
+        <div class="multi-select-items">
+            @if (DisplayTemplate != null)
+            {
+                @DisplayTemplate(SelectedItems)
+            }
+            else
+            {
+                foreach (var item in SelectedItems)
+                {
+                    if (ShowCloseButton)
+                    {
+                        <div class="multi-select-item-group">
+                            <DynamicElement TagName="span" class="multi-select-close"
+                                            TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item)">
+                                <i class="@CloseButtonIcon"></i>
+                            </DynamicElement>
+                            <span class="multi-select-item">@item.Text</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="multi-select-item">@item.Text</span>
+                    }
+                }
+            }
+        </div>
+        @if (!IsSingleLine)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
+    </div>
+    @if (GetClearable())
+    {
+        <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
+    }
+    <div class="@DropdownMenuClassString">
+        @if (ShowSearch)
+        {
+            <div class="dropdown-menu-search">
+                <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" aria-label="search" />
+                <i class="@SearchIconString"></i>
+                <i class="@SearchLoadingIconString"></i>
+            </div>
+        }
+        @if (ShowToolbar)
+        {
+            <div class="toolbar">
+                @if (ShowDefaultButtons)
+                {
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
+                }
+                @ButtonTemplate
+            </div>
+        }
+        @if (IsVirtualize)
+        {
+            <div class="dropdown-menu-body dropdown-virtual">
+                @if (OnQueryAsync == null)
+                {
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow">
+                    </Virtualize>
+                }
+                else
+                {
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
+                                Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
+                    </Virtualize>
+                }
+            </div>
+        }
+        else if (Rows.Count == 0)
+        {
+            <div class="dropdown-item">@NoSearchDataText</div>
+        }
+        else
+        {
+            <div class="dropdown-menu-body">
+                @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
+                {
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        if (GroupItemTemplate != null)
+                        {
+                            @GroupItemTemplate(itemGroup.Key)
+                        }
+                        else
+                        {
+                            <Divider Text="@itemGroup.Key" />
+                        }
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        @RenderRow(item)
+                    }
+
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        if (GroupItemTemplate != null)
+                        {
+                            @GroupItemTemplate(itemGroup.Key)
+                        }
+                        else
+                        {
+                            <Divider Text="@itemGroup.Key" />
+                        }
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    RenderFragment<SelectedItem<TValue>> RenderRow => item =>
+    @<DynamicElement OnClick="() => ToggleRow(item)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+        <div class="multi-select-item">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
+            </div>
+            @if (ItemTemplate != null)
+            {
+                @ItemTemplate(item)
+            }
+            else if (IsMarkupString)
+            {
+                @((MarkupString)item.Text)
+            }
+            else
+            {
+                <span>@item.Text</span>
+            }
+        </div>
+    </DynamicElement>;
+
+    RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
+    @<div class="dropdown-item">
+        <div class="is-ph"></div>
+    </div>;
+}
