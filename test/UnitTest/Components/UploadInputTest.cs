@@ -145,7 +145,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InputUpload_Value()
+    public async Task InputUpload_Value()
     {
         var cut = Context.RenderComponent<InputUpload<List<string>>>(pb =>
         {
@@ -156,10 +156,18 @@ public class UploadInputTest : BootstrapBlazorTestBase
             ]);
         });
         Assert.Contains("test1.png;test2.png", cut.Markup);
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test3.png"),
+            new("test4.png")
+        })));
+        Assert.Contains("test3.png;test4.png", cut.Markup);
     }
 
     [Fact]
-    public void InputUpload_Files()
+    public async Task InputUpload_Files()
     {
         var cut = Context.RenderComponent<InputUpload<List<IBrowserFile>>>(pb =>
         {
@@ -170,6 +178,18 @@ public class UploadInputTest : BootstrapBlazorTestBase
             ]);
         });
         Assert.Contains("test1.png;test2.png", cut.Markup);
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test3.png"),
+            new("test4.png")
+        })));
+        Assert.Contains("test3.png;test4.png", cut.Markup);
+
+        // 重置后不应该包含新上传的文件
+        await cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.DoesNotContain("test3.png;test4.png", cut.Markup);
     }
 
     [Fact]

@@ -186,7 +186,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         else if (ValueType.IsAssignableTo(typeof(IEnumerable<string>)))
         {
-            CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName)).ToList();
+            CurrentValue = (TValue)(object)items.Select(f => f.OriginFileName).ToList();
         }
         else if (ValueType == typeof(IBrowserFile))
         {
@@ -310,6 +310,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         DefaultFileList?.Clear();
         UploadFiles.Clear();
+        _filesCache = null;
+        CurrentValue = default;
         StateHasChanged();
     }
 
