@@ -371,7 +371,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
-    public bool IsNeedValidate => ValidateForm != null && !IsDisabled && !SkipValidate;
+    public bool IsNeedValidate => !IsDisabled && !SkipValidate;
 
     /// <summary>
     /// <inheritdoc/>
