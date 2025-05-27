@@ -5800,7 +5800,7 @@
     "SetFilterInCodeIntro": "示例展示如何通过代码设置过滤条件",
     "SetFilterInCodeButtonText1": "名称包含01",
     "SetFilterInCodeButtonText2": "重置条件",
-    "TablesFilterTemplateDescription": "<code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a>"
+    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li></ul-demo>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedHeader": {
     "TablesFixedHeaderTitle": "固定表头功能",
