@@ -190,6 +190,23 @@ public class UploadInputTest : BootstrapBlazorTestBase
         // 重置后不应该包含新上传的文件
         await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.DoesNotContain("test3.png;test4.png", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList,
+            [
+                new UploadFile() { FileName = "test5.png" },
+                new UploadFile() { FileName = "test6.png" }
+            ]);
+            pb.Add(a => a.Value,
+            [
+                new MockBrowserFile("test5.png"),
+                new MockBrowserFile("test6.png")
+            ]);
+        });
+        Assert.Contains("test5.png;test6.png", cut.Markup);
+        await cut.InvokeAsync(() => cut.Instance.Reset());
+        Assert.DoesNotContain("test5.png;test6.png", cut.Markup);
     }
 
     [Fact]
@@ -233,7 +250,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<InputUpload<string>>(pb =>
         {
             pb.Add(a => a.IsMultiple, true);
-            pb.Add(a => a.MaxFileCount, 4);
+            pb.Add(a => a.MaxFileCount, 2);
         });
 
         var input = cut.FindComponent<InputFile>();
