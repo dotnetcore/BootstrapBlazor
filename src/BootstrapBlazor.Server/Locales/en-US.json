@@ -3088,7 +3088,9 @@
     "MultiSelectVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
     "MultiSelectsAttribute_ShowSearch": "Whether to display the search box",
     "MultiSelectsAttribute_IsVirtualize": "Wether to enable virtualize",
-    "MultiSelectsAttribute_DefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas"
+    "MultiSelectsAttribute_DefaultVirtualizeItemText": "The text string corresponding to the first load value when virtual scrolling is turned on is separated by commas",
+    "MultiSelectGenericTitle": "Generic",
+    "MultiSelectGenericIntro": "Data source <code>Items</code> supports generics when using <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
