@@ -200,7 +200,26 @@ public class UploadCardTest : BootstrapBlazorTestBase
         Assert.True(cancel);
     }
 
-    private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
+    [Fact]
+    public async Task ShowDeleteButton_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDeleteButton, true);
+            pb.Add(a => a.IsDisabled, true);
+        });
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test3.png", delay: TimeSpan.FromMilliseconds(300)),
+        })));
+
+        var btn = cut.Find(".btn-outline-danger");
+        btn.InnerHtml.Contains("disabled=\"disabled\"");
+    }
+
+    private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text", TimeSpan? delay = null) : IBrowserFile
     {
         public string Name { get; } = name;
 
@@ -212,6 +231,10 @@ public class UploadCardTest : BootstrapBlazorTestBase
 
         public Stream OpenReadStream(long maxAllowedSize = 512000, CancellationToken cancellationToken = default)
         {
+            if (delay != null)
+            {
+                Thread.Sleep(delay.Value.Milliseconds);
+            }
             return new MemoryStream([0x01, 0x02]);
         }
     }
