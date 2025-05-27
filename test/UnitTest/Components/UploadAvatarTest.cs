@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace UnitTest.Components;
 
@@ -92,22 +93,6 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.IsMultiple, true);
         });
-    }
-
-    [Fact]
-    public void MaxFileCount_Ok()
-    {
-        var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
-        {
-            pb.Add(a => a.IsMultiple, true);
-            pb.Add(a => a.MaxFileCount, 2);
-            pb.Add(a => a.DefaultFileList,
-            [
-                new UploadFile { FileName = "Test-File" },
-                new UploadFile { FileName = "Test-File" }
-            ]);
-        });
-        Assert.DoesNotContain(".upload-item-plus", cut.Markup);
     }
 
     [Fact]

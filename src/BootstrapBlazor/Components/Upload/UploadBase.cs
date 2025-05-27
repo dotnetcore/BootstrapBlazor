@@ -143,8 +143,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <returns></returns>
     protected async Task OnFileChange(InputFileChangeEventArgs args)
     {
-        var fileCount = MaxFileCount ?? args.FileCount;
-        var items = args.GetMultipleFiles(fileCount).Select(f =>
+        var fileCount = MaxFileCount ?? 0;
+        fileCount = Math.Max(fileCount, args.FileCount);
+        var items = args.GetMultipleFiles(args.FileCount).Take(fileCount).Select(f =>
         {
             var file = new UploadFile()
             {
