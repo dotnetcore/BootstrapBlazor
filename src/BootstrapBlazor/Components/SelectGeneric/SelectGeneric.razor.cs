@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件实现类
+/// Select 泛型组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 [CascadingTypeParameter(nameof(TValue))]
