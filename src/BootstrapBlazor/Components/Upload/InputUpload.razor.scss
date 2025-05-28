@@ -294,6 +294,22 @@
 
 .upload.is-drop {
 
+    &.dropping {
+        .upload-drop-body {
+            border-color: var(--bs-success);
+
+            * {
+                pointer-events: none;
+            }
+        }
+
+        &.disabled {
+            .upload-drop-body {
+                border-color: var(--bs-danger);
+            }
+        }
+    }
+
     &.disabled {
         .upload-drop-body {
             border-color: var(--bs-border-color);
