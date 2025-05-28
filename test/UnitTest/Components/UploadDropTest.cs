@@ -70,16 +70,16 @@ public class UploadDropTest : BootstrapBlazorTestBase
         var input = cut.FindComponent<InputFile>();
         await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
-            new("test1.png")
+            new("test1.png"),
+            new("test2.png")
         })));
         cut.Contains("test1.png");
+        cut.Contains("test2.png");
 
         await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
-            new("test2.png"),
             new("test3.png")
         })));
-        cut.Contains("test2.png");
         cut.DoesNotContain("test3.png");
     }
 
