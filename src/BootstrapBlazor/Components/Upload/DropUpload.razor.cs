@@ -98,16 +98,16 @@ public partial class DropUpload
     private IStringLocalizer<UploadBase<string>>? Localizer { get; set; }
 
     private string? ClassString => CssBuilder.Default("upload is-drop")
-        .AddClass("disabled", CanUpload() == false)
+        .AddClass("disabled", CheckStatus())
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? BodyClassString => CssBuilder.Default("upload-drop-body")
-        .AddClass("btn-browser", CanUpload())
+        .AddClass("btn-browser", CheckStatus() == false)
         .Build();
 
     private string? TextClassString => CssBuilder.Default("upload-drop-text")
-        .AddClass("text-muted", CanUpload() == false)
+        .AddClass("text-muted", CheckStatus())
         .Build();
 
     /// <summary>
