@@ -14,6 +14,12 @@ public class CardTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.HeaderTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.HeaderPaddingY, "0.25rem");
+        });
+        cut.Contains("--bs-card-cap-padding-y: 0.25rem;");
     }
 
     [Fact]
