@@ -33,12 +33,7 @@ export function dispose(id) {
     if (el) {
         const tip = bootstrap.Tooltip.getInstance(el)
         if (tip) {
-            const handler = setTimeout(() => {
-                clearTimeout(handler)
-                if (tip && tip._element) {
-                    tip.dispose()
-                }
-            }, 100);
+            tip.dispose()
         }
     }
 }
