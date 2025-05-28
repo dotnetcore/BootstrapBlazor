@@ -140,12 +140,12 @@ public partial class AvatarUpload<TValue>
 
     private string? GetValidStatus(UploadFile? item = null)
     {
-        if (item == null || IsDisabled || ValidateForm == null)
+        if (IsDisabled || ValidateForm == null)
         {
             return null;
         }
 
-        var state = item.IsValid;
+        var state = item?.IsValid ?? IsValid;
         return state.HasValue
             ? state.Value ? "is-valid" : "is-invalid"
             : null;
