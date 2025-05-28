@@ -33,21 +33,21 @@
                     @(new MarkupString(UploadText))
                 }
             </div>
+            @if (ShowFooter)
+            {
+                <div class="upload-drop-footer">
+                    @if (FooterTemplate != null)
+                    {
+                        @FooterTemplate
+                    }
+                    else
+                    {
+                        <span class="text-muted">@(new MarkupString(FooterText))</span>
+                    }
+                </div>
+            }
         }
     </div>
-    @if (ShowFooter)
-    {
-        <div class="upload-drop-footer">
-            @if (FooterTemplate != null)
-            {
-                @FooterTemplate
-            }
-            else
-            {
-                @(new MarkupString(FooterText))
-            }
-        </div>
-    }
     @if (ShowUploadFileList)
     {
         <UploadPreviewList Items="Files" IsDisabled="@IsDisabled" ShowProgress="@ShowProgress"
