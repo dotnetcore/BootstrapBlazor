@@ -50,6 +50,13 @@ public partial class Card
         .Build();
 
     /// <summary>
+    /// 获得/设置 Card Header 高度 padding Y轴值 默认 null
+    /// <para>单位需自行给定 如 0.25rem</para>
+    /// </summary>
+    [Parameter]
+    public string? HeaderPaddingY { get; set; }
+
+    /// <summary>
     /// 获得/设置 收缩展开箭头图标 默认 fa-solid fa-circle-chevron-right
     /// </summary>
     [Parameter]
@@ -118,6 +125,10 @@ public partial class Card
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? HeaderStyleString => CssBuilder.Default()
+        .AddStyle("--bs-card-cap-padding-y", HeaderPaddingY)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>

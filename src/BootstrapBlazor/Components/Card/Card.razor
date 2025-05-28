@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@HeaderStyleString">
     @if (HeaderTemplate != null || !string.IsNullOrEmpty(HeaderText))
     {
         <div class="card-header">
@@ -33,7 +33,7 @@
             }
         </div>
     }
-    <div class="@BodyClassName" id="@BodyId">
+    <div id="@BodyId" class="@BodyClassName">
         @if (IsCollapsible)
         {
             <div class="card-body-wrapper">
