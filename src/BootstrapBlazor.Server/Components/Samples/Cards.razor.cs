@@ -50,6 +50,14 @@ public sealed partial class Cards
         },
         new()
         {
+            Name = nameof(Card.HeaderPaddingY),
+            Description = Localizer["HeaderPaddingY"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "Color",
             Description = Localizer["Color"],
             Type = "Color",

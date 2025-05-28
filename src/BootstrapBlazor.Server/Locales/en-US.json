@@ -3801,7 +3801,8 @@
     "CollapsibleTitle": "Collapsible",
     "CollapsibleHeaderTemplate": "Header Template",
     "CollapsibleBody": "Click card hader for collapse/expand card body",
-    "ShadowBody": "Shadow effect sample"
+    "ShadowBody": "Shadow effect sample",
+    "HeaderPaddingY": "Header top and bottom padding"
   },
   "BootstrapBlazor.Server.Components.Samples.Calendars": {
     "Title": "Calendar",

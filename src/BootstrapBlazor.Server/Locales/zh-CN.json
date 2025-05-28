@@ -3801,7 +3801,8 @@
     "CollapsibleTitle": "可以收缩展开的卡片",
     "CollapsibleBody": "点击 Header 收缩/展开",
     "CollapsibleHeaderTemplate": "这里是模板",
-    "ShadowBody": "阴影特效示例"
+    "ShadowBody": "阴影特效示例",
+    "HeaderPaddingY": "Header 上下内边距"
   },
   "BootstrapBlazor.Server.Components.Samples.Calendars": {
     "Title": "Calendar 日历框",
