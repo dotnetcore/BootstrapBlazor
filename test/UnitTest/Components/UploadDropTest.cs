@@ -47,8 +47,9 @@ public class UploadDropTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DropUpload>(pb =>
         {
             pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.FooterText, "drop-upload-footer-text1");
         });
-        cut.Contains("<div class=\"upload-drop-footer\"><span class=\"text-muted\"></span></div>");
+        cut.Contains("<div class=\"upload-drop-footer\"><span class=\"text-muted\">drop-upload-footer-text1</span></div>");
 
         cut.SetParametersAndRender(pb =>
         {
