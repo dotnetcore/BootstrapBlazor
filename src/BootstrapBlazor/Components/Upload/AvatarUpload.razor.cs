@@ -128,20 +128,68 @@ public partial class AvatarUpload<TValue>
     }
 
     /// <summary>
-    /// 获得 数据验证客户端 ID
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override string? RetrieveId()
+    protected override async ValueTask ShowValidResult()
     {
-        return Files.Count == 0 ? $"{Id}_new" : Files[0].ValidateId;
+        ValidateModule ??= await LoadValidateModule();
+
+        var items = Files.Count == 0 && _results.Count > 0
+            ? [new { Id = AddId, _results.First().ErrorMessage }]
+            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage });
+        await ValidateModule.InvokeVoidAsync("executeBatch", items);
+
+        if (Files.Count > 0)
+        {
+            await ValidateModule.InvokeVoidAsync("dispose", AddId);
+        }
     }
 
-    private string? AddId => Files.Count == 0 ? $"{Id}_new" : null;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async ValueTask RemoveValidResult(string? validateId = null)
+    {
+        ValidateModule ??= await LoadValidateModule();
+
+        var items = new List<string?>();
+        if (!string.IsNullOrEmpty(validateId))
+        {
+            items.Add(validateId);
+        }
+        else
+        {
+            items.AddRange(Files.Select(f => f.ValidateId));
+        }
+        await ValidateModule.InvokeVoidAsync("disposeBatch", items);
+    }
+
+    private IReadOnlyCollection<ValidationResult> _results = [];
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="results"></param>
+    public override void ToggleMessage(IReadOnlyCollection<ValidationResult> results)
+    {
+        _results = results;
+        IsValid = results.Count == 0;
+    }
+
+    private string? AddId => $"{Id}_new";
 
     private string? GetValidStatus(UploadFile? item = null)
     {
         if (IsDisabled || ValidateForm == null)
         {
+            return null;
+        }
+
+        if (item == null && Files.Count > 0)
+        {
+            // 如果没有文件则使用组件本身的 IsValid 状态
             return null;
         }
 

@@ -181,7 +181,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             // 回调给用户，用于存储文件并生成预览地址给 PreUrl
             if (OnChange != null)
             {
-                await OnChange(item);
+                //await OnChange(item);
             }
             item.Uploaded = true;
             StateHasChanged();
@@ -326,34 +326,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         _filesCache = null;
         CurrentValue = default;
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="results"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results)
-    {
-        if (FieldIdentifier != null)
-        {
-            var messages = results.Where(item => item.MemberNames.Any(m => m == FieldIdentifier.Value.FieldName)).ToList();
-            if (messages.Count == 0)
-            {
-                messages = [.. results.Where(item => item.MemberNames.Any(m => UploadFiles.Any(f => f.ValidateId?.Equals(m, StringComparison.OrdinalIgnoreCase) ?? false)))];
-            }
-            if (messages.Count > 0)
-            {
-                ErrorMessage = messages.First().ErrorMessage;
-                IsValid = false;
-            }
-            else
-            {
-                ErrorMessage = null;
-                IsValid = true;
-            }
-
-            OnValidate(IsValid);
-        }
     }
 
     /// <summary>

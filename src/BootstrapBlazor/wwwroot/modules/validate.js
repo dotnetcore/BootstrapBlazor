@@ -37,3 +37,20 @@ export function dispose(id) {
         }
     }
 }
+
+export function executeBatch(items) {
+    console.log("executeBatch", items);
+
+    items.forEach(item => {
+        const { id, errorMessage } = item;
+        execute(id, errorMessage);
+    })
+}
+
+export function disposeBatch(items) {
+    console.log("disposeBatch", items);
+
+    items.forEach(id => {
+        dispose(id);
+    })
+}
