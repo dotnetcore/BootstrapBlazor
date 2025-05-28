@@ -321,7 +321,7 @@ public class InputTest : BootstrapBlazorTestBase
             }));
         });
 
-        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\" style=\"--bb-input-group-label-width: 120px;\"><span>BootstrapInputGroup</span></div></div>");
+        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" style=\"--bb-input-group-label-width: 120px;\" required=\"true\">BootstrapInputGroup</div></div>");
     }
 
     [Fact]
