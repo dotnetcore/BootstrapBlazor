@@ -119,6 +119,5 @@ public partial class DropUpload
 
         UploadIcon ??= IconTheme.GetIconByKey(ComponentIcons.DropUploadIcon);
         UploadText ??= Localizer["DropUploadText"];
-        FooterText ??= Localizer["DropFooterText"];
     }
 }
