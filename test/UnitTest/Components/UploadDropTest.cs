@@ -48,13 +48,38 @@ public class UploadDropTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowFooter, true);
         });
-        cut.Contains("<div class=\"upload-drop-footer\"></div>");
+        cut.Contains("<div class=\"upload-drop-footer\"><span class=\"text-muted\"></span></div>");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.FooterTemplate, b => b.AddContent(0, "drop-upload-footer-text"));
         });
         cut.Contains("<div class=\"upload-drop-footer\">drop-upload-footer-text</div>");
+    }
+
+    [Fact]
+    public async Task MaxFileCount_Ok()
+    {
+        var cut = Context.RenderComponent<DropUpload>(pb =>
+        {
+            pb.Add(a => a.IsMultiple, true);
+            pb.Add(a => a.MaxFileCount, 2);
+        });
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test1.png")
+        })));
+        cut.Contains("test1.png");
+
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test2.png"),
+            new("test3.png")
+        })));
+        cut.Contains("test2.png");
+        cut.DoesNotContain("test3.png");
     }
 
     [Fact]

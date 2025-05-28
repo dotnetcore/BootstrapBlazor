@@ -244,24 +244,6 @@ public class UploadInputTest : BootstrapBlazorTestBase
         Assert.False(button.IsDisabled());
     }
 
-    [Fact]
-    public async Task MaxFileCount_Ok()
-    {
-        var cut = Context.RenderComponent<InputUpload<string>>(pb =>
-        {
-            pb.Add(a => a.IsMultiple, true);
-            pb.Add(a => a.MaxFileCount, 2);
-        });
-
-        var input = cut.FindComponent<InputFile>();
-        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
-        {
-            new("test1.png"), new("test2.png"), new("test3.png")
-        })));
-        cut.Contains("test1.png;test2.png");
-        cut.DoesNotContain("test3.png");
-    }
-
     private class Person
     {
         [Required]
