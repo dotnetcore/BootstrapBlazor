@@ -85,19 +85,6 @@ public partial class AvatarUpload<TValue>
         .AddClass(GetValidStatus(item))
         .Build();
 
-    private string? GetValidStatus(UploadFile? item = null)
-    {
-        if(item == null || IsDisabled || ValidateForm == null)
-        {
-            return null;
-        }
-
-        var state = item.IsValid;
-        return state.HasValue
-            ? state.Value ? "is-valid" : "is-invalid"
-            : null;
-    }
-
     /// <summary>
     /// 获得/设置 预览框 Style 属性
     /// </summary>
@@ -136,7 +123,6 @@ public partial class AvatarUpload<TValue>
         // 头像上传时如果用户没有设置 OnChanged 回调，需要使用内置方法将文件头像转化未 Base64 格式用于预览
         OnChange ??= async item =>
         {
-            item.ValidateId = $"{Id}_{item.GetHashCode()}";
             await item.RequestBase64ImageFileAsync();
         };
     }
@@ -151,4 +137,17 @@ public partial class AvatarUpload<TValue>
     }
 
     private string? AddId => Files.Count == 0 ? $"{Id}_new" : null;
+
+    private string? GetValidStatus(UploadFile? item = null)
+    {
+        if (item == null || IsDisabled || ValidateForm == null)
+        {
+            return null;
+        }
+
+        var state = item.IsValid;
+        return state.HasValue
+            ? state.Value ? "is-valid" : "is-invalid"
+            : null;
+    }
 }
