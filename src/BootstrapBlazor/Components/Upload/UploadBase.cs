@@ -147,14 +147,14 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         if (MaxFileCount.HasValue)
         {
             fileCount = MaxFileCount.Value;
-        }
 
-        // 计算剩余可上传数量
-        fileCount = fileCount - Files.Count;
-        if (fileCount <= 0)
-        {
-            // 如果剩余可上传数量小于等于 0 则不允许继续上传
-            return;
+            // 计算剩余可上传数量
+            fileCount = fileCount - Files.Count;
+            if (fileCount <= 0)
+            {
+                // 如果剩余可上传数量小于等于 0 则不允许继续上传
+                return;
+            }
         }
 
         var items = args.GetMultipleFiles(args.FileCount).Take(fileCount).Select(f =>
