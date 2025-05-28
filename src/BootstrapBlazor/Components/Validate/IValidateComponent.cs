@@ -33,5 +33,5 @@ public interface IValidateComponent
     /// 显示或者隐藏提示信息方法
     /// </summary>
     /// <param name="results"></param>
-    void ToggleMessage(IEnumerable<ValidationResult> results);
+    void ToggleMessage(IReadOnlyCollection<ValidationResult> results);
 }
