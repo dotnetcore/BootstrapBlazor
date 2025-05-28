@@ -503,6 +503,9 @@ public partial class ValidateForm
                 {
                     // 优先检查 File 流，不需要检查 FileName
                     ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
+
+                    // 如果 message 不为空表示验证失败
+                    file.IsValid = messages.Count == 0;
                 });
             }
             else
