@@ -159,7 +159,7 @@ public partial class AvatarUpload<TValue>
             : Files.Select(i => i.ValidateId);
 
         var addId = IsInValiadOnAddItem ? null : AddId;
-        await ValidateModule.InvokeVoidAsync("executeBatch", items, invalidItems, addId);
+        await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, addId);
     }
 
     private bool IsInValiadOnAddItem => Files.Count == 0 && _results.Count > 0;
@@ -184,4 +184,31 @@ public partial class AvatarUpload<TValue>
     }
 
     private string? AddId => $"{Id}_new";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            if (ValidateForm != null && FieldIdentifier.HasValue)
+            {
+                ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
+            }
+
+            if (ValidateModule != null)
+            {
+                var items = IsInValiadOnAddItem
+                    ? [AddId]
+                    : Files.Select(i => i.ValidateId);
+
+                await ValidateModule.InvokeVoidAsync("disposeUpload", items);
+            }
+        }
+
+        await base.DisposeAsync(false);
+    }
 }

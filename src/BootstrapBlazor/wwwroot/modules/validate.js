@@ -38,9 +38,7 @@ export function dispose(id) {
     }
 }
 
-export function executeBatch(items, invalidItems, addId) {
-    console.log("executeBatch", items, invalidItems);
-
+export function executeUpload(items, invalidItems, addId) {
     items.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -66,4 +64,13 @@ export function executeBatch(items, invalidItems, addId) {
             dispose(addId);
         }
     }
+}
+
+export function disposeUpload(items) {
+    items.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            dispose(id);
+        }
+    });
 }
