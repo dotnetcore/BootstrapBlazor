@@ -134,6 +134,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             return base.FormatValueAsString(value);
         }
+        return Task.CompletedTask;
     }
 
     /// <summary>
