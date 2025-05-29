@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 内部使用 自定义异常组件
 /// </summary>
-class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
+public class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
     [Inject]
     [NotNull]
@@ -68,19 +68,18 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-#if DEBUG
-        // DEBUG 模式下显示异常堆栈信息到 UI 页面方便开发人员调试
-        if (OnErrorHandleAsync == null)
+        if (CurrentException is null)
         {
-            var ex = CurrentException ?? _exception;
-            if (ex != null)
-            {
-                _exception = null;
-                builder.AddContent(0, ExceptionContent(ex));
-            }
+            builder.AddContent(0, ChildContent);
         }
-#endif
-        builder.AddContent(1, ChildContent);
+        else if (ErrorContent is not null)
+        {
+            builder.AddContent(1, ErrorContent(CurrentException));
+        }
+        else
+        {
+            builder.AddContent(2, ExceptionContent(CurrentException));
+        }
     }
 
     private Exception? _exception = null;
