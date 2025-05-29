@@ -179,10 +179,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
             // trigger OnChange event callback
             // 回调给用户，用于存储文件并生成预览地址给 PreUrl
-            if (OnChange != null)
-            {
-                //await OnChange(item);
-            }
+            await TriggerOnChanged(item);
             item.Uploaded = true;
             StateHasChanged();
         }
@@ -208,6 +205,19 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         else if (ValueType == typeof(string))
         {
             CurrentValue = (TValue)(object)string.Join(";", items.Select(f => f.OriginFileName));
+        }
+    }
+
+    /// <summary>
+    /// 触发 OnChanged 事件回调方法
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    protected virtual async Task TriggerOnChanged(UploadFile file)
+    {
+        if (OnChange != null)
+        {
+            await OnChange(file);
         }
     }
 

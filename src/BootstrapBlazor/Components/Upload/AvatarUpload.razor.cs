@@ -119,12 +119,6 @@ public partial class AvatarUpload<TValue>
         AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadAddIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadValidStatusIcon);
         InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadInvalidStatusIcon);
-
-        // 头像上传时如果用户没有设置 OnChanged 回调，需要使用内置方法将文件头像转化未 Base64 格式用于预览
-        OnChange ??= async item =>
-        {
-            await item.RequestBase64ImageFileAsync();
-        };
     }
 
     /// <summary>
