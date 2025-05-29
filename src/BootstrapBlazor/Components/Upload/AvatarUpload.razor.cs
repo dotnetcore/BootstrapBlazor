@@ -36,6 +36,12 @@ public partial class AvatarUpload<TValue>
     public string? BorderRadius { get; set; }
 
     /// <summary>
+    /// 获得/设置 图标文件扩展名集合 ".png"
+    /// </summary>
+    [Parameter]
+    public List<string>? AllowExtensions { get; set; }
+
+    /// <summary>
     /// 获得/设置 删除图标
     /// </summary>
     [Parameter]
@@ -129,7 +135,7 @@ public partial class AvatarUpload<TValue>
     {
         if (OnChange == null)
         {
-            await file.RequestBase64ImageFileAsync();
+            await file.RequestBase64ImageFileAsync(allowExtensions: AllowExtensions);
         }
         else
         {

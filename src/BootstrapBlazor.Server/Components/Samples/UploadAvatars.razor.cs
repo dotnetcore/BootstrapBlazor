@@ -52,7 +52,7 @@ public partial class UploadAvatars : IDisposable
                     _token = new CancellationTokenSource();
                 }
 
-                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, _token.Token);
+                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, null, _token.Token);
             }
             else
             {

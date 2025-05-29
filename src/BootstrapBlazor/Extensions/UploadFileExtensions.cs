@@ -20,22 +20,26 @@ public static class UploadFileExtensions
     /// <param name="maxWidth"></param>
     /// <param name="maxHeight"></param>
     /// <param name="maxAllowedSize"></param>
+    /// <param name="allowExtensions"></param>
     /// <param name="token"></param>
     [ExcludeFromCodeCoverage]
-    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string? format = null, int maxWidth = 320, int maxHeight = 240, long? maxAllowedSize = null, CancellationToken token = default)
+    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string? format = null, int maxWidth = 320, int maxHeight = 240, long? maxAllowedSize = null, List<string>? allowExtensions = null, CancellationToken token = default)
     {
         if (upload.File != null)
         {
             try
             {
-                format ??= upload.File.ContentType; 
-                var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
+                format ??= upload.File.ContentType;
+                if (upload.IsImage(allowExtensions))
+                {
+                    var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
 
-                maxAllowedSize ??= upload.File.Size;
-                using var fileStream = imageFile.OpenReadStream(maxAllowedSize.Value, token);
-                using var memoryStream = new MemoryStream();
-                await fileStream.CopyToAsync(memoryStream, token);
-                upload.PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+                    maxAllowedSize ??= upload.File.Size;
+                    using var fileStream = imageFile.OpenReadStream(maxAllowedSize.Value, token);
+                    using var memoryStream = new MemoryStream();
+                    await fileStream.CopyToAsync(memoryStream, token);
+                    upload.PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+                }
                 upload.Uploaded = true;
             }
             catch (Exception ex)
