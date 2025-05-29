@@ -14,7 +14,7 @@
         }
         @foreach (var item in Files)
         {
-            <div @key="item" class="@GetItemClassString(item)" id="@item.ValidateId" style="@ItemStyleString">
+            <div @key="item" class="@GetItemClassString()" id="@item.ValidateId" style="@ItemStyleString">
                 <Avatar Url="@item.PrevUrl" />
                 <div class="upload-item-actions">
                     <span class="upload-item-delete" @onclick="@(e => OnFileDelete(item))">

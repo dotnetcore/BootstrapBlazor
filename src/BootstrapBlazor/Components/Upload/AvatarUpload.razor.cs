@@ -79,10 +79,9 @@ public partial class AvatarUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetItemClassString(UploadFile? item = null) => CssBuilder.Default("upload-item")
+    private string? GetItemClassString() => CssBuilder.Default("upload-item")
         .AddClass("is-circle", IsCircle)
         .AddClass("disabled", IsDisabled)
-        .AddClass(GetValidStatus(item))
         .Build();
 
     /// <summary>
@@ -124,40 +123,18 @@ public partial class AvatarUpload<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="file"></param>
     /// <returns></returns>
-    protected override async ValueTask ShowValidResult()
+    protected override async Task TriggerOnChanged(UploadFile file)
     {
-        ValidateModule ??= await LoadValidateModule();
-
-        var items = Files.Count == 0 && _results.Count > 0
-            ? [new { Id = AddId, _results.First().ErrorMessage }]
-            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage });
-        await ValidateModule.InvokeVoidAsync("executeBatch", items);
-
-        if (Files.Count > 0)
+        if (OnChange == null)
         {
-            await ValidateModule.InvokeVoidAsync("dispose", AddId);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async ValueTask RemoveValidResult(string? validateId = null)
-    {
-        ValidateModule ??= await LoadValidateModule();
-
-        var items = new List<string?>();
-        if (!string.IsNullOrEmpty(validateId))
-        {
-            items.Add(validateId);
+            await file.RequestBase64ImageFileAsync();
         }
         else
         {
-            items.AddRange(Files.Select(f => f.ValidateId));
+            await OnChange(file);
         }
-        await ValidateModule.InvokeVoidAsync("disposeBatch", items);
     }
 
     private IReadOnlyCollection<ValidationResult> _results = [];
@@ -166,31 +143,45 @@ public partial class AvatarUpload<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
-    public override Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
+    public override async Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         _results = results;
         IsValid = results.Count == 0;
-        return Task.CompletedTask;
+
+        ValidateModule ??= await LoadValidateModule();
+
+        var invalidItems = IsInValiadOnAddItem
+            ? [new { Id = AddId, _results.First().ErrorMessage }]
+            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage });
+
+        var items = IsInValiadOnAddItem
+            ? [AddId]
+            : Files.Select(i => i.ValidateId);
+
+        var addId = IsInValiadOnAddItem ? null : AddId;
+        await ValidateModule.InvokeVoidAsync("executeBatch", items, invalidItems, addId);
+    }
+
+    private bool IsInValiadOnAddItem => Files.Count == 0 && _results.Count > 0;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override ValueTask ShowValidResult() => ValueTask.CompletedTask;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="validateId"></param>
+    /// <returns></returns>
+    protected override async ValueTask RemoveValidResult(string? validateId = null)
+    {
+        if (!string.IsNullOrEmpty(validateId))
+        {
+            await base.RemoveValidResult(validateId);
+        }
     }
 
     private string? AddId => $"{Id}_new";
-
-    private string? GetValidStatus(UploadFile? item = null)
-    {
-        if (IsDisabled || ValidateForm == null)
-        {
-            return null;
-        }
-
-        if (item == null && Files.Count > 0)
-        {
-            // 如果没有文件则使用组件本身的 IsValid 状态
-            return null;
-        }
-
-        var state = item?.IsValid ?? IsValid;
-        return state.HasValue
-            ? state.Value ? "is-valid" : "is-invalid"
-            : null;
-    }
 }

@@ -38,19 +38,32 @@ export function dispose(id) {
     }
 }
 
-export function executeBatch(items) {
-    console.log("executeBatch", items);
-
-    items.forEach(item => {
-        const { id, errorMessage } = item;
-        execute(id, errorMessage);
-    })
-}
-
-export function disposeBatch(items) {
-    console.log("disposeBatch", items);
+export function executeBatch(items, invalidItems, addId) {
+    console.log("executeBatch", items, invalidItems);
 
     items.forEach(id => {
-        dispose(id);
-    })
+        const el = document.getElementById(id);
+        if (el) {
+            const item = invalidItems.find(i => i.id === id);
+            if (item) {
+                const { id, errorMessage } = item;
+                execute(id, errorMessage);
+                el.classList.remove('is-valid');
+                el.classList.add('is-invalid');
+            }
+            else {
+                dispose(id);
+                el.classList.remove('is-invalid');
+                el.classList.add('is-valid');
+            }
+        }
+    });
+
+    if (addId) {
+        const el = document.getElementById(addId);
+        if (el) {
+            el.classList.remove('is-valid', 'is-invalid');
+            dispose(addId);
+        }
+    }
 }
