@@ -430,7 +430,7 @@ public partial class MultiSelectGeneric<TValue>
             var validationResults = new List<ValidationResult>();
 
             await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
-            ToggleMessage(validationResults);
+            await ToggleMessage(validationResults);
         }
 
         if (OnSelectedItemsChanged != null)
