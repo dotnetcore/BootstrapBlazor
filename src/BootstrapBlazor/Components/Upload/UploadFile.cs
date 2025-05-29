@@ -73,11 +73,6 @@ public class UploadFile
     internal string? ValidateId { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前上传文件是否合规 默认为 null 未检查
-    /// </summary>
-    internal bool? IsValid { get; set; }
-
-    /// <summary>
     /// 获得 UploadFile 文件名
     /// </summary>
     /// <returns></returns>
