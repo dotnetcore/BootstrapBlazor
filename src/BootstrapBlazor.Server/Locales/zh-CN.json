@@ -3476,7 +3476,11 @@
     "UploadsWidth": "预览框宽度",
     "UploadsHeight": "预览框高度",
     "UploadsIsCircle": "是否为圆形头像模式",
-    "UploadsBorderRadius": "预览框圆角曲率"
+    "UploadsBorderRadius": "预览框圆角曲率",
+    "UploadsValidateFormTitle": "表单应用",
+    "UploadsValidateFormValidContent": "数据合规，保存成功",
+    "UploadsFormatError": "文件格式不正确",
+    "UploadsAvatarMsg": "头像上传"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "InputUpload 上传组件",

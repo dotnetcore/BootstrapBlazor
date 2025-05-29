@@ -3476,7 +3476,11 @@
     "UploadsWidth": "The width of the preview box",
     "UploadsHeight": "The height of the preview box",
     "UploadsIsCircle": "Whether it is circular avatar mode",
-    "UploadsBorderRadius": "Border radius"
+    "UploadsBorderRadius": "Border radius",
+    "UploadsValidateFormTitle": "ValidateForm",
+    "UploadsValidateFormValidContent": "Saved successfully",
+    "UploadsFormatError": "The file format is incorrect",
+    "UploadsAvatarMsg": "Avatar upload"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadInputs": {
     "UploadsTitle": "InputUpload",

@@ -67,7 +67,7 @@
                 <BootstrapInput @bind-Value="@_foo.Name"></BootstrapInput>
             </div>
             <div class="col-12">
-                <AvatarUpload @bind-Value="@_foo.Picture"></AvatarUpload>
+                <AvatarUpload @bind-Value="@_foo.Picture" IsMultiple="true" MaxFileCount="3"></AvatarUpload>
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["AvatarUploadButtonText"]"></Button>

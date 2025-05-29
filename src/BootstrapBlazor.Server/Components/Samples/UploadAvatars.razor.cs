@@ -69,7 +69,7 @@ public partial class UploadAvatars : IDisposable
 
     private Task OnAvatarValidSubmit(EditContext context)
     {
-        return Task.CompletedTask;
+        return ToastService.Error(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormValidContent"]);
     }
 
     /// <summary>
@@ -125,6 +125,6 @@ public partial class UploadAvatars : IDisposable
 
         [Required]
         [FileValidation(Extensions = [".png", ".jpg", ".jpeg"], FileSize = 5 * 1024 * 1024)]
-        public IBrowserFile? Picture { get; set; }
+        public List<IBrowserFile>? Picture { get; set; }
     }
 }
