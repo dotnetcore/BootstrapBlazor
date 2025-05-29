@@ -41,7 +41,7 @@
             }
             @if (IsVirtualize)
             {
-                <div class="dropdown-virtual">
+                <div class="dropdown-menu-body dropdown-virtual">
                     @if (OnQueryAsync == null)
                     {
                         <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow" />
@@ -58,24 +58,26 @@
             }
             else
             {
-                @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
-                {
-                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                <div class="dropdown-menu-body">
+                    @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
                     {
-                        if (GroupItemTemplate != null)
+                        if (!string.IsNullOrEmpty(itemGroup.Key))
                         {
-                            @GroupItemTemplate(itemGroup.Key)
+                            if (GroupItemTemplate != null)
+                            {
+                                @GroupItemTemplate(itemGroup.Key)
+                            }
+                            else
+                            {
+                                <Divider Text="@itemGroup.Key" />
+                            }
                         }
-                        else
+                        @foreach (var item in itemGroup)
                         {
-                            <Divider Text="@itemGroup.Key" />
+                            @RenderRow(item)
                         }
                     }
-                    @foreach (var item in itemGroup)
-                    {
-                        @RenderRow(item)
-                    }
-                }
+                </div>
             }
         </div>
         @if (!IsPopover)
