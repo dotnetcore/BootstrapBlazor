@@ -152,11 +152,11 @@ public partial class AvatarUpload<TValue>
 
         var invalidItems = IsInValiadOnAddItem
             ? [new { Id = AddId, _results.First().ErrorMessage }]
-            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage });
+            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage }).ToList();
 
         var items = IsInValiadOnAddItem
             ? [AddId]
-            : Files.Select(i => i.ValidateId);
+            : Files.Select(i => i.ValidateId).ToList();
 
         var addId = IsInValiadOnAddItem ? null : AddId;
         await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, addId);
@@ -203,7 +203,7 @@ public partial class AvatarUpload<TValue>
             {
                 var items = IsInValiadOnAddItem
                     ? [AddId]
-                    : Files.Select(i => i.ValidateId);
+                    : Files.Select(i => i.ValidateId).ToList();
 
                 await ValidateModule.InvokeVoidAsync("disposeUpload", items);
             }

@@ -48,7 +48,7 @@ public class UploadFile
     public IBrowserFile? File { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传文件数量
+    /// 获得/设置 上传文件总数量
     /// </summary>
     public int FileCount { get; init; } = 1;
 

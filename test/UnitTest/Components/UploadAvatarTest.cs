@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
@@ -144,6 +145,16 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         });
 
         Assert.DoesNotContain("is-invalid", upload.Markup);
+
+        upload.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+        });
+        // 清空所有文件
+        var items = cut.FindAll(".upload-item-delete");
+        Assert.Single(items);
+        await cut.InvokeAsync(() => items[0].Click());
+        form.Submit();
     }
 
     [Fact]
@@ -179,6 +190,78 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
 
         file.File = new MockBrowserFile("test.jpg", "image/jpeg");
         Assert.True(file.IsImage());
+    }
+
+    [Fact]
+    public async Task ValidateForm_ToggleMessage()
+    {
+        bool? invalid = null;
+        var foo = new Person();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<AvatarUpload<List<IBrowserFile>>>(pb =>
+            {
+                pb.Add(a => a.IsMultiple, true);
+                pb.Add(a => a.OnChange, async file =>
+                {
+                    await Task.Delay(10);
+                });
+                pb.Add(a => a.OnDelete, async file =>
+                {
+                    await Task.Delay(1);
+                    return true;
+                });
+                pb.Add(a => a.Value, foo.Picture);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Person.Picture), typeof(List<IBrowserFile>)));
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 直接提交表单
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+
+        // 上传合规图片
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test3.png"),
+        })));
+        form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
+
+        // 上传不合规图片
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        {
+            new("test3.text"),
+        })));
+        form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+
+        // 删除不合规图片调用 RemoveValidResult 方法
+        var items = cut.FindAll(".upload-item-delete");
+        Assert.Equal(2, items.Count);
+        await cut.InvokeAsync(() => items[1].Click());
+    }
+
+    private class Person
+    {
+        [Required]
+        [FileValidation(Extensions = [".png", ".jpg", ".jpeg"])]
+        public List<IBrowserFile>? Picture { get; set; }
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile
