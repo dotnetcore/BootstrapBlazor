@@ -108,6 +108,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Accept, "Image");
                 pb.Add(a => a.Value, foo.Name);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.AllowExtensions, [".jpg"]);
             });
             pb.Add(a => a.OnValidSubmit, context =>
             {
