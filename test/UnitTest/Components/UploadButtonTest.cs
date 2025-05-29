@@ -261,7 +261,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.DefaultFileList,
             [
-                new() { FileName = "Test-File2", Code = 1001 }
+                new() { FileName = "Test-File2", Code = 1001, Error = "Error" }
             ]);
         });
         await cut.InvokeAsync(() => cut.Find(".delete-icon").Click());
