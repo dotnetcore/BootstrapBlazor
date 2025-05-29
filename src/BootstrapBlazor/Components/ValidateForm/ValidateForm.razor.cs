@@ -169,20 +169,20 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="expression"></param>
     /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
-    public void SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
+    public async Task SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
     {
         switch (expression.Body)
         {
             case UnaryExpression { Operand: MemberExpression mem }:
-                InternalSetError(mem, errorMessage);
+                await InternalSetError(mem, errorMessage);
                 break;
             case MemberExpression exp:
-                InternalSetError(exp, errorMessage);
+                await InternalSetError(exp, errorMessage);
                 break;
         }
     }
 
-    private void InternalSetError(MemberExpression exp, string errorMessage)
+    private async Task InternalSetError(MemberExpression exp, string errorMessage)
     {
         if (exp.Expression != null)
         {
@@ -198,7 +198,7 @@ public partial class ValidateForm
             {
                 new(errorMessage, [fieldName])
             };
-            validator.ToggleMessage(results);
+            await validator.ToggleMessage(results);
         }
     }
 
@@ -207,7 +207,7 @@ public partial class ValidateForm
     /// </summary>
     /// <param name="propertyName">字段名，可以使用多层，如 a.b.c</param>
     /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
-    public void SetError(string propertyName, string errorMessage)
+    public async Task SetError(string propertyName, string errorMessage)
     {
         if (TryGetModelField(propertyName, out var modelType, out var fieldName) && TryGetValidator(modelType, fieldName, out var validator))
         {
@@ -215,7 +215,7 @@ public partial class ValidateForm
             {
                 new(errorMessage, [fieldName])
             };
-            validator.ToggleMessage(results);
+            await validator.ToggleMessage(results);
         }
     }
 
@@ -327,7 +327,7 @@ public partial class ValidateForm
             ValidMemberNames.RemoveAll(name => _validateResults.Values.SelectMany(i => i).Any(i => i.MemberNames.Contains(name)));
             foreach (var (validator, messages) in _validateResults)
             {
-                validator.ToggleMessage(messages);
+                await validator.ToggleMessage(messages);
             }
         }
     }
@@ -352,7 +352,7 @@ public partial class ValidateForm
                 }
 
                 // 客户端提示
-                validator.ToggleMessage(results);
+                await validator.ToggleMessage(results);
             }
         }
     }
@@ -477,7 +477,7 @@ public partial class ValidateForm
                         await ValidateAsync(validator, context, messages, pi, propertyValue);
 
                         // 客户端提示
-                        validator.ToggleMessage(messages);
+                        await validator.ToggleMessage(messages);
                     }
                     results.AddRange(messages);
                 }

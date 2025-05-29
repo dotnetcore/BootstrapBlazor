@@ -153,7 +153,7 @@ public partial class InputUpload<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results)
+    public override Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         if (results.Any())
         {
@@ -166,5 +166,6 @@ public partial class InputUpload<TValue>
             IsValid = true;
         }
         OnValidate(IsValid);
+        return Task.CompletedTask;
     }
 }

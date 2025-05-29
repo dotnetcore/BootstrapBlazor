@@ -57,10 +57,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public Func<UploadFile, Task>? OnChange { get; set; }
 
     /// <summary>
-    /// 显示/隐藏验证结果方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results)
+    public override Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         if (FieldIdentifier != null)
         {
@@ -84,6 +84,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             }
             OnValidate(IsValid);
         }
+        return Task.CompletedTask;
     }
 
     /// <summary>

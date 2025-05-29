@@ -317,7 +317,7 @@ public partial class Transfer<TValue>
                 var validationResults = new List<ValidationResult>();
 
                 await ValidatePropertyAsync(RightItems, validationContext, validationResults);
-                ToggleMessage(validationResults);
+                await ToggleMessage(validationResults);
             }
         }
     }
