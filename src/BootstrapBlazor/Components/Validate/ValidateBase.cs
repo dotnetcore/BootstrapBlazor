@@ -460,7 +460,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 显示/隐藏验证结果方法
     /// </summary>
     /// <param name="results"></param>
-    public virtual void ToggleMessage(IEnumerable<ValidationResult> results)
+    public virtual Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         if (FieldIdentifier != null)
         {
@@ -481,6 +481,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         // 必须刷新一次 UI 保证状态正确
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private JSModule? ValidateModule { get; set; }
