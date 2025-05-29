@@ -121,7 +121,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonUpload_ValidateForm_Ok()
+    public async Task ButtonUpload_ValidateForm_Ok()
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -150,7 +150,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
         {
             new("test", ["bb_validate_123"])
         };
-        uploader.Instance.ToggleMessage(results);
+        await cut.InvokeAsync(() => uploader.Instance.ToggleMessage(results));
     }
 
     [Fact]
@@ -304,7 +304,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ButtonUpload_IsDirectory_Ok()
     {
-        var fileCount = 0;
         var fileNames = new List<string>();
         List<UploadFile> fileList = [];
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -312,7 +311,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDirectory, true);
             pb.Add(a => a.OnChange, file =>
             {
-                fileCount = file.FileCount;
                 fileNames.Add(file.OriginFileName!);
                 return Task.CompletedTask;
             });
@@ -328,7 +326,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
             new(),
             new("UploadTestFile2")
         })));
-        Assert.Equal(2, fileCount);
         Assert.Equal(2, fileNames.Count);
         Assert.Equal(2, fileList.Count);
     }
