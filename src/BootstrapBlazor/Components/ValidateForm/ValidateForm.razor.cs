@@ -511,11 +511,8 @@ public partial class ValidateForm
                 ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
 
-            if (messages.Count > 0)
-            {
-                _tcs = new TaskCompletionSource<bool>();
-                _tcs.TrySetResult(false);
-            }
+            _tcs = new TaskCompletionSource<bool>();
+            _tcs.TrySetResult(messages.Count == 0);
         }
         else
         {
