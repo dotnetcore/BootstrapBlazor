@@ -164,6 +164,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
                 OriginFileName = f.Name,
                 Size = f.Size,
                 File = f,
+                FileCount = args.FileCount,
                 Uploaded = false,
                 UpdateCallback = Update
             };

@@ -50,9 +50,7 @@ public class UploadFile
     /// <summary>
     /// 获得/设置 上传文件数量
     /// </summary>
-    [Obsolete("已弃用，删除即可；Deprecated, just delete")]
-    [ExcludeFromCodeCoverage]
-    public int FileCount { get; } = 1;
+    public int FileCount { get; init; } = 1;
 
     /// <summary>
     /// 获得/设置 更新进度回调委托
