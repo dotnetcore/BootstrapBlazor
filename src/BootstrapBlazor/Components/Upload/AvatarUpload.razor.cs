@@ -166,10 +166,11 @@ public partial class AvatarUpload<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
-    public override void ToggleMessage(IReadOnlyCollection<ValidationResult> results)
+    public override Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
     {
         _results = results;
         IsValid = results.Count == 0;
+        return Task.CompletedTask;
     }
 
     private string? AddId => $"{Id}_new";
