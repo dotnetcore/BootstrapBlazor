@@ -513,6 +513,12 @@ public partial class ValidateForm
                 // 未选择文件
                 ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
+
+            if (messages.Count > 0)
+            {
+                _tcs = new TaskCompletionSource<bool>();
+                _tcs.TrySetResult(false);
+            }
         }
         else
         {
