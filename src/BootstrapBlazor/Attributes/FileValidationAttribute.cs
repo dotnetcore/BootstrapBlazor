@@ -56,10 +56,5 @@ public class FileValidationAttribute : ValidationAttribute
         return ret;
     }
 
-    private static IEnumerable<string>? GetMemberNames(ValidationContext validationContext)
-    {
-        return validationContext == null ? [] : GetMemberNames();
-
-        IEnumerable<string> GetMemberNames() => string.IsNullOrEmpty(validationContext.MemberName) ? [] : [validationContext.MemberName];
-    }
+    private static IEnumerable<string>? GetMemberNames(ValidationContext validationContext) => validationContext == null || string.IsNullOrEmpty(validationContext.MemberName) ? [] : [validationContext.MemberName];
 }

@@ -194,23 +194,21 @@ internal static class MaterialDesignIcons
         { ComponentIcons.AvatarUploadInvalidStatusIcon, "mdi mdi-close mdi-rotate-315" },
 
         { ComponentIcons.ButtonUploadBrowserButtonIcon, "mdi mdi-folder-open" },
-        { ComponentIcons.ButtonUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
-        { ComponentIcons.ButtonUploadInvalidStatusIcon, "mdi mdi-close-circle-outline" },
-        { ComponentIcons.ButtonUploadValidStatusIcon, "mdi mdi-check-circle-outline" },
-        { ComponentIcons.ButtonUploadDeleteIcon, "mdi mdi-trash-can-outline" },
-        { ComponentIcons.ButtonUploadDownloadIcon, "mdi mdi-cloud-download-outline" },
 
         { ComponentIcons.InputUploadBrowserButtonIcon, "mdi mdi-folder-open" },
         { ComponentIcons.InputUploadDeleteButtonIcon, "mdi mdi-trash-can-outline" },
 
         { ComponentIcons.CardUploadAddIcon, "mdi mdi-plus" },
         { ComponentIcons.CardUploadStatusIcon, "mdi mdi-check mdi-rotate-315" },
-        { ComponentIcons.CardUploadDeleteIcon, "mdi mdi-close mdi-rotate-315" },
         { ComponentIcons.CardUploadRemoveIcon, "mdi mdi-trash-can-outline" },
-        { ComponentIcons.CardUploadDownloadIcon, "mdi mdi-cloud-download-outline" },
         { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline" },
         { ComponentIcons.UploadCancelIcon, "mdi mdi-cancel" },
         { ComponentIcons.DropUploadIcon, "mdi mdi-cloud-upload" },
+        { ComponentIcons.UploadLoadingIcon, "mdi mdi-loading mdi-spin" },
+        { ComponentIcons.UploadInvalidStatusIcon, "mdi mdi-close-circle-outline" },
+        { ComponentIcons.UploadValidStatusIcon, "mdi mdi-check-circle-outline" },
+        { ComponentIcons.UploadDeleteIcon, "mdi mdi-close mdi-rotate-315" },
+        { ComponentIcons.UploadDownloadIcon, "mdi mdi-cloud-download-outline" },
 
         { ComponentIcons.FileIconExcel, "mdi mdi-file-excel-outline" },
         { ComponentIcons.FileIconDocx, "mdi mdi-file-word-outline" },

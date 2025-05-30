@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 public class UploadFile
 {
     /// <summary>
-    /// 获得/设置 文件名
+    /// 获得/设置 文件名 由用户指定 上传文件时此参数未设置 默认为 null
     /// </summary>
     public string? FileName { get; set; }
 
@@ -48,7 +48,7 @@ public class UploadFile
     public IBrowserFile? File { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传文件数量
+    /// 获得/设置 上传文件总数量
     /// </summary>
     public int FileCount { get; init; } = 1;
 
@@ -73,15 +73,10 @@ public class UploadFile
     internal string? ValidateId { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件是否合规 默认为 null 未检查
-    /// </summary>
-    internal bool? IsValid { get; set; }
-
-    /// <summary>
     /// 获得 UploadFile 文件名
     /// </summary>
     /// <returns></returns>
-    public string? GetFileName() => OriginFileName ?? FileName;
+    public string? GetFileName() => FileName ?? OriginFileName ?? File?.Name;
 
     /// <summary>
     /// 获得 UploadFile 文件扩展名

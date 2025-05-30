@@ -1,0 +1,101 @@
+﻿@page "/upload-card"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<UploadCards> Localizer
+@inject ToastService ToastService
+
+<h3>@Localizer["UploadsTitle"]</h3>
+
+<h4>@Localizer["UploadsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["ButtonUploadTitle"]"
+           Introduction="@Localizer["ButtonUploadIntro"]"
+           Name="Normal">
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isMultiple"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDirectory"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDirectory"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsUploadButtonAtFirst"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isUploadButtonAtFirst"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowProgress"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showProgress"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDeleteButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDeleteButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowZoomButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showZoomButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDownloadButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDownloadButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <CardUpload TValue="string" IsMultiple="@_isMultiple" IsDirectory="@_isDirectory"
+                IsDisabled="@_isDisabled" IsUploadButtonAtFirst="@_isUploadButtonAtFirst"
+                ShowProgress="@_showProgress" ShowDeleteButton="@_showDeleteButton"
+                ShowDownloadButton="@_showDownloadButton" ShowZoomButton="@_showZoomButton" OnChange="@OnCardUpload"></CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadFileIconTitle"]"
+           Introduction="@Localizer["UploadFileIconIntro"]"
+           Name="FileIcon">
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload"></CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadFileIconTemplateTitle"]"
+           Introduction="@Localizer["UploadFileIconTemplateIntro"]"
+           Name="IconTemplate">
+    <CardUpload TValue="string" IsMultiple="true" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList"
+                OnChange="@OnCardUpload">
+        <IconTemplate>
+            <FileIcon Extension="@context.GetExtension()">
+                <BackgroundTemplate>
+                    <i class="fa-regular fa-clipboard fa-4x"></i>
+                </BackgroundTemplate>
+            </FileIcon>
+        </IconTemplate>
+    </CardUpload>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadBase64Title"]"
+           Introduction="@Localizer["UploadBase64Intro"]"
+           Name="Base64">
+    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" ShowDownloadButton="false" ShowDeleteButton="false"></CardUpload>
+</DemoBlock>

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -64,17 +63,51 @@ public partial class DropUpload
     [NotNull]
     public string? FooterText { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    /// <summary>
+    /// 获得/设置 是否显示上传列表 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowUploadFileList { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 设置文件格式图标回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string?, string>? OnGetFileFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载中图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上传失败状态图标
+    /// </summary>
+    [Parameter]
+    public string? InvalidStatusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上传成功状态图标
+    /// </summary>
+    [Parameter]
+    public string? ValidStatusIcon { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<string>>? Localizer { get; set; }
 
-    private string? DropUploadClassString => CssBuilder.Default(ClassString)
-        .AddClass("is-drop")
+    private string? ClassString => CssBuilder.Default("upload is-drop")
+        .AddClass("disabled", CheckStatus())
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? BodyClassString => CssBuilder.Default("upload-drop-body")
+        .AddClass("btn-browser", CheckStatus() == false)
+        .Build();
+
+    private string? TextClassString => CssBuilder.Default("upload-drop-text")
+        .AddClass("text-muted", CheckStatus())
         .Build();
 
     /// <summary>
@@ -86,29 +119,5 @@ public partial class DropUpload
 
         UploadIcon ??= IconTheme.GetIconByKey(ComponentIcons.DropUploadIcon);
         UploadText ??= Localizer["DropUploadText"];
-        FooterText ??= Localizer["DropFooterText"];
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected override async Task OnFileChange(InputFileChangeEventArgs args)
-    {
-        var file = new UploadFile()
-        {
-            OriginFileName = args.File.Name,
-            Size = args.File.Size,
-            File = args.File,
-            Uploaded = false,
-            UpdateCallback = Update
-        };
-        UploadFiles.Add(file);
-        if (OnChange != null)
-        {
-            await OnChange(file);
-        }
-        file.Uploaded = true;
     }
 }

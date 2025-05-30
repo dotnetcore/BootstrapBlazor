@@ -9,50 +9,15 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 按钮上传组件
+/// <para>ButtonUpload Component</para>
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
-    private bool IsUploadButtonDisabled => IsDisabled || (IsSingle && UploadFiles.Any());
-
-    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
-        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
-        .Build();
-
-    private string? LoadingIconString => CssBuilder.Default("loading-icon")
-        .AddClass(LoadingIcon)
-        .Build();
-
-    private string? DeleteIconString => CssBuilder.Default("delete-icon")
-        .AddClass(DeleteIcon)
-        .Build();
-
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
-        .AddClass(ValidStatusIcon)
-        .Build();
-
-    private string? InvalidStatusIconString => CssBuilder.Default("invalid-icon")
-        .AddClass(InvalidStatusIcon)
-        .Build();
-
-    private string? DownloadIconString => CssBuilder.Default("download-icon")
-        .AddClass(DownloadIcon)
-        .Build();
-
-    private string? CancelIconString => CssBuilder.Default("cancel-icon")
-        .AddClass(CancelIcon)
-        .Build();
-
     /// <summary>
-    /// 获得/设置 浏览按钮图标
+    /// 获得/设置 浏览按钮加载中图标
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 下载按钮图标
-    /// </summary>
-    [Parameter]
-    public string? DownloadIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 上传失败状态图标
@@ -65,12 +30,6 @@ public partial class ButtonUpload<TValue>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 删除按钮图标
-    /// </summary>
-    [Parameter]
-    public string? DeleteIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 浏览按钮图标
@@ -101,7 +60,6 @@ public partial class ButtonUpload<TValue>
     /// 获得/设置 浏览按钮颜色
     /// </summary>
     [Parameter]
-    [NotNull]
     public Color BrowserButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
@@ -116,16 +74,26 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 设置文件格式图标回调委托
+    /// </summary>
+    [Parameter]
+    public Func<string?, string>? OnGetFileFormat { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    private string? ClassString => CssBuilder.Default("upload")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
+        .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
+        .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -133,10 +101,5 @@ public partial class ButtonUpload<TValue>
 
         BrowserButtonText ??= Localizer[nameof(BrowserButtonText)];
         BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadBrowserButtonIcon);
-        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadLoadingIcon);
-        InvalidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadInvalidStatusIcon);
-        ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadValidStatusIcon);
-        DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDownloadIcon);
-        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonUploadDeleteIcon);
     }
 }

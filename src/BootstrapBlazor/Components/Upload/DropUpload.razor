@@ -1,12 +1,12 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits SingleUploadBase<string>
+@inherits FileListUploadBase<string>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
-<div @attributes="@AdditionalAttributes" class="@DropUploadClassString" id="@Id">
-    <div class="upload-drop-body">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="@BodyClassString">
         @if (BodyTemplate != null)
         {
             @BodyTemplate
@@ -23,7 +23,7 @@
                     <i class="@UploadIcon"></i>
                 }
             </div>
-            <div class="upload-drop-text">
+            <div class="@TextClassString">
                 @if (TextTemplate != null)
                 {
                     @TextTemplate
@@ -33,35 +33,29 @@
                     @(new MarkupString(UploadText))
                 }
             </div>
+            @if (ShowFooter)
+            {
+                <div class="upload-drop-footer">
+                    @if (FooterTemplate != null)
+                    {
+                        @FooterTemplate
+                    }
+                    else
+                    {
+                        <span class="text-muted">@(new MarkupString(FooterText))</span>
+                    }
+                </div>
+            }
         }
     </div>
-    @if (ShowFooter)
+    @if (ShowUploadFileList)
     {
-        <div class="upload-drop-footer">
-            @if (FooterTemplate != null)
-            {
-                @FooterTemplate
-            }
-            else
-            {
-                @(new MarkupString(FooterText))
-            }
-        </div>
+        <UploadPreviewList Items="Files" IsDisabled="@IsDisabled" ShowProgress="@ShowProgress"
+                           OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel" CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
+                           InvalidStatusIcon="@InvalidStatusIcon" ValidStatusIcon="@ValidStatusIcon"
+                           ShowDownloadButton="@ShowDownloadButton" DownloadIcon="@DownloadIcon" OnDownload="@OnDownload"
+                           DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete">
+        </UploadPreviewList>
     }
-    <ul class="upload-drop-list">
-        @foreach (var item in GetUploadFiles())
-        {
-            @if (GetShowProgress(item))
-            {
-                <li @key="item" class="upload-drop-item">
-                    <div class="upload-drop-item-file">
-                        <span>@item.GetFileName()</span>
-                        <span>(@item.Size.ToFileSizeString())</span>
-                    </div>
-                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" class="upload-drop-process" />
-                </li>
-            }
-        }
-    </ul>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"/>
 </div>

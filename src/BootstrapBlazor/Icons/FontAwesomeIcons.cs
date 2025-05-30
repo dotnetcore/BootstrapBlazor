@@ -194,23 +194,21 @@ internal static class FontAwesomeIcons
         { ComponentIcons.AvatarUploadInvalidStatusIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.ButtonUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
-        { ComponentIcons.ButtonUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
-        { ComponentIcons.ButtonUploadInvalidStatusIcon, "fa-regular fa-circle-xmark" },
-        { ComponentIcons.ButtonUploadValidStatusIcon, "fa-regular fa-circle-check" },
-        { ComponentIcons.ButtonUploadDeleteIcon, "fa-regular fa-trash-can" },
-        { ComponentIcons.ButtonUploadDownloadIcon, "fa-solid fa-download" },
 
         { ComponentIcons.InputUploadBrowserButtonIcon, "fa-regular fa-folder-open" },
         { ComponentIcons.InputUploadDeleteButtonIcon, "fa-regular fa-trash-can" },
 
         { ComponentIcons.CardUploadAddIcon, "fa-solid fa-plus" },
         { ComponentIcons.CardUploadStatusIcon, "fa-solid fa-check" },
-        { ComponentIcons.CardUploadDeleteIcon, "fa-solid fa-xmark" },
         { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },
-        { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
         { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" },
         { ComponentIcons.UploadCancelIcon, "fa-solid fa-ban" },
         { ComponentIcons.DropUploadIcon, "fa-solid fa-cloud-arrow-up" },
+        { ComponentIcons.UploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
+        { ComponentIcons.UploadInvalidStatusIcon, "fa-regular fa-circle-xmark" },
+        { ComponentIcons.UploadValidStatusIcon, "fa-regular fa-circle-check" },
+        { ComponentIcons.UploadDownloadIcon, "fa-solid fa-download" },
+        { ComponentIcons.UploadDeleteIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.FileIconExcel, "fa-regular fa-file-excel" },
         { ComponentIcons.FileIconDocx, "fa-regular fa-file-word" },

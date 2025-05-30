@@ -194,23 +194,21 @@ internal static class BootstrapIcons
         { ComponentIcons.AvatarUploadInvalidStatusIcon, "bi bi-x bi-rotate-315" },
 
         { ComponentIcons.ButtonUploadBrowserButtonIcon, "bi bi-folder2-open" },
-        { ComponentIcons.ButtonUploadLoadingIcon, "bi bi-arrow-clockwise bi-spin" },
-        { ComponentIcons.ButtonUploadInvalidStatusIcon, "bi bi-x-circle" },
-        { ComponentIcons.ButtonUploadValidStatusIcon, "bi bi-check-circle" },
-        { ComponentIcons.ButtonUploadDeleteIcon, "bi bi-trash3" },
-        { ComponentIcons.ButtonUploadDownloadIcon, "bi bi-cloud-download" },
 
         { ComponentIcons.InputUploadBrowserButtonIcon, "bi bi-folder-open" },
         { ComponentIcons.InputUploadDeleteButtonIcon, "bi bi-trash3" },
 
         { ComponentIcons.CardUploadAddIcon, "bi bi-plus" },
         { ComponentIcons.CardUploadStatusIcon, "bi bi-check bi-rotate-315" },
-        { ComponentIcons.CardUploadDeleteIcon, "bi bi-x bi-rotate-315" },
         { ComponentIcons.CardUploadRemoveIcon, "bi bi-trash3" },
-        { ComponentIcons.CardUploadDownloadIcon, "bi bi-cloud-download" },
         { ComponentIcons.CardUploadZoomIcon, "bi bi-search" },
         { ComponentIcons.UploadCancelIcon, "bi bi-cancel" },
         { ComponentIcons.DropUploadIcon, "bi bi-cloud-arrow-up-fill" },
+        { ComponentIcons.UploadLoadingIcon, "bi bi-arrow-clockwise bi-spin" },
+        { ComponentIcons.UploadInvalidStatusIcon, "bi bi-x-circle" },
+        { ComponentIcons.UploadValidStatusIcon, "bi bi-check-circle" },
+        { ComponentIcons.UploadDownloadIcon, "bi bi-cloud-download" },
+        { ComponentIcons.UploadDeleteIcon, "bi bi-x bi-rotate-315" },
 
         { ComponentIcons.FileIconExcel, "bi bi-filetype-xlsx" },
         { ComponentIcons.FileIconDocx, "bi bi-filetype-docx" },

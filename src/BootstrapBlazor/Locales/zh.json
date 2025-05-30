@@ -323,8 +323,7 @@
     "BrowserButtonText": "浏览",
     "FileExtensions": "文件扩展名必须为以下几种格式: {0}",
     "FileSizeValidation": "文件太大，文件限制大小为 {0}",
-    "DropUploadText": "拖拽文件到此处上传",
-    "DropFooterText": ""
+    "DropUploadText": "拖拽文件到此处或者<em>点击上传</em>"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "保存",
