@@ -66,15 +66,16 @@ else
 
 @code {
     RenderFragment RenderRow(TreeViewItem<TItem> item) =>
-    @<TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
-                  NodeIcon="@NodeIcon" ExpandNodeIcon="@ExpandNodeIcon" LoadingIcon="@LoadingIcon"
-                  MaxSelectedCount="MaxSelectedCount"
-                  ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
-                  IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
-                  ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
-                  ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
-                  OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
-                  OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"
-                  OnCheckStateChanged="OnCheckStateChanged"
-                  OnUpdateCallbackAsync="OnUpdateCallbackAsync" ToolbarTemplate="ToolbarTemplate"></TreeViewRow>;
+        @<TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
+                      NodeIcon="@NodeIcon" ExpandNodeIcon="@ExpandNodeIcon" LoadingIcon="@LoadingIcon"
+                      MaxSelectedCount="MaxSelectedCount" Draggable="ItemDraggable" PreviewDrop="_previewDrop"
+                      ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
+                      IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
+                      ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
+                      ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
+                      OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
+                      OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"
+                      OnCheckStateChanged="OnCheckStateChanged"
+                      OnItemDragStart="OnItemDragStart" OnItemDragEnd="OnItemDragEnd" OnItemDrop="OnItemDrop"
+                      OnUpdateCallbackAsync="OnUpdateCallbackAsync" ToolbarTemplate="ToolbarTemplate"></TreeViewRow>;
 }

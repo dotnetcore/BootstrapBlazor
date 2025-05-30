@@ -9,6 +9,23 @@
     <div class="tree-content-body">
         <DynamicElement TagName="i" class="@CaretClassString" TriggerClick="CanTriggerClickNode" OnClick="ToggleNodeAsync"></DynamicElement>
         <i class="@NodeLoadingClassString"></i>
+
+        @if (Draggable && !_draggingItem)
+        {
+            <div class="tree-drop-zone">
+                <div class="tree-drop-child-inside"
+                     ondragover="event.preventDefault();"
+                     @ondragenter="DragEnterChildInside"
+                     @ondragleave="DragLeaveChildInside"
+                     @ondrop="DropChildInside"></div>
+                <div class="tree-drop-child-below"
+                     ondragover="event.preventDefault();"
+                     @ondragenter="DragEnterChildBelow"
+                     @ondragleave="DragLeaveChildBelow"
+                     @ondrop="DropChildBelow"></div>
+            </div>
+        }
+
         @if (ShowCheckbox)
         {
             <Checkbox Value="@Item" IsDisabled="ItemDisabledState"
@@ -17,7 +34,9 @@
                       OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => TriggerBeforeStateChangedCallback(state) : null)">
             </Checkbox>
         }
-        <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow">
+        <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow"
+                        draggable="@(Draggable ? "true" : "false")"
+                        @ondragstart="DragStart" @ondragend="DragEnd">
             @if (ShowIcon)
             {
                 <i class="@IconClassString"></i>
@@ -41,6 +60,25 @@
                     <TreeViewToolbarEditButton Title="@ToolbarEditTitle" Text="@ToolbarEditLabelText" @bind-Item="Item"
                                                OnUpdateCallbackAsync="OnUpdateCallbackAsync"></TreeViewToolbarEditButton>
                 }
+            }
+
+            @if (_previewChildLast)
+            {
+                <div class="tree-preview-child-last"></div>
+            }
+            @if (_previewChildFirst)
+            {
+                <div class="tree-preview-child-first">
+                    <div class="tree-preview-circle"></div>
+                    <div class="tree-preview-line"></div>
+                </div>
+            }
+            @if (_previewBelow)
+            {
+                <div class="tree-preview-below">
+                    <div class="tree-preview-circle"></div>
+                    <div class="tree-preview-line"></div>
+                </div>
             }
         </DynamicElement>
     </div>
