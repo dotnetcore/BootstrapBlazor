@@ -97,7 +97,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     };
 
     /// <summary>
-    /// 由接口调用
+    /// 由实现 <see cref="BootstrapComponentBase"/> 组件实现类调用
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
