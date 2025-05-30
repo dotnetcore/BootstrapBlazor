@@ -6,6 +6,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace BootstrapBlazor.Components;
 
@@ -72,10 +73,21 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         if (ex != null)
         {
             _exception = null;
+
+            // 处理自定义异常逻辑
+            if(OnErrorHandleAsync != null)
+            {
+                // 页面生命周期内异常直接调用这里
+                _ = OnErrorHandleAsync(Logger, ex);
+                return;
+            }
+
+            // 渲染异常内容
             builder.AddContent(0, ExceptionContent(ex));
         }
         else
         {
+            // 渲染正常内容
             builder.AddContent(1, ChildContent);
         }
     }
