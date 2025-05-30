@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace BootstrapBlazor.Components;
 
