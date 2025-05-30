@@ -658,6 +658,15 @@ public partial class Layout : IHandlerException, ITabHeader
         await TriggerCollapseChanged();
     }
 
+    private ErrorLogger? _errorLogger;
+
+    private Task OnErrorLoggerInitialized(ErrorLogger logger)
+    {
+        _errorLogger = logger;
+        _errorLogger.Register(this);
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 上次渲染错误内容
     /// </summary>
@@ -711,6 +720,7 @@ public partial class Layout : IHandlerException, ITabHeader
 
         if (disposing)
         {
+            _errorLogger?.UnRegister(this);
             ErrorLogger?.UnRegister(this);
             if (SubscribedLocationChangedEvent)
             {
