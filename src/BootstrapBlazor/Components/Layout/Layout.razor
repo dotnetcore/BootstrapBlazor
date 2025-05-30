@@ -126,7 +126,10 @@
         }
         else
         {
-            @HandlerMain()
+            <ErrorLogger EnableErrorLogger="@_enableErrorLoggerValue" ShowToast="@_showToast" ToastTitle="@ErrorLoggerToastTitle" 
+                         OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
+                @HandlerMain()
+            </ErrorLogger>
         }
     </main>;
 
