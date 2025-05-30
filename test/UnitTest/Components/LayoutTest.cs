@@ -528,13 +528,14 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void HandlerException_Ok()
+    public void IHandlerException_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
             pb.AddChildContent<Layout>(pb =>
             {
+                // 按钮触发异常
                 pb.Add(a => a.Main, new RenderFragment(builder =>
                 {
                     builder.OpenComponent<Button>(0);
@@ -552,7 +553,29 @@ public class LayoutTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
         cut.Contains("<div class=\"error-stack\">");
+        cut.Contains("class=\"layout\"");
         Context.DisposeComponents();
+    }
+
+    [Fact]
+    public void ErrorLogger_LifeCycle()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.UseTabSet, false);
+                // 按钮触发异常
+                pb.Add(a => a.Main, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<MockPage>(0);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        cut.Contains("<div class=\"error-stack\">");
+        cut.Contains("class=\"layout\"");
     }
 
     [Fact]
@@ -598,5 +621,17 @@ public class LayoutAuthorizationTest : AuthorizationViewTestBase
         });
         cut.MarkupMatches("<section id:ignore class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
         Context.DisposeComponents();
+    }
+}
+
+class MockPage : ComponentBase
+{
+    protected override void OnInitialized()
+    {
+        var a = 1;
+        var b = 0;
+
+        // 触发生命周期内异常
+        var c = a / b; 
     }
 }
