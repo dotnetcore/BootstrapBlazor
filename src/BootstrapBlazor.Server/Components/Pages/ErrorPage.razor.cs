@@ -21,6 +21,6 @@ public partial class ErrorPage
         var b = 0;
 
         // 这里会抛出异常
-        var c = 1 / b;
+        var c = a / b;
     }
 }
