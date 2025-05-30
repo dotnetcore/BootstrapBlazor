@@ -99,8 +99,8 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     {
         _exception = null;
 
-        _currentExceptionPropertyInfo ??= GetType().BaseType!.GetProperty(nameof(CurrentException), BindingFlags.NonPublic | BindingFlags.Instance);
-        _currentExceptionPropertyInfo?.SetValue(this, null);
+        _currentExceptionPropertyInfo ??= GetType().BaseType!.GetProperty(nameof(CurrentException), BindingFlags.NonPublic | BindingFlags.Instance)!;
+        _currentExceptionPropertyInfo.SetValue(this, null);
     }
 
     private Exception? _exception = null;
