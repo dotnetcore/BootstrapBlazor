@@ -528,13 +528,14 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void HandlerException_Ok()
+    public void IHandlerException_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
             pb.AddChildContent<Layout>(pb =>
             {
+                // 按钮触发异常
                 pb.Add(a => a.Main, new RenderFragment(builder =>
                 {
                     builder.OpenComponent<Button>(0);
@@ -552,7 +553,106 @@ public class LayoutTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
         cut.Contains("<div class=\"error-stack\">");
+        cut.Contains("class=\"layout\"");
         Context.DisposeComponents();
+    }
+
+    [Fact]
+    public void ErrorLogger_LifeCycle()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.UseTabSet, false);
+                pb.Add(a => a.EnableErrorLogger, true);
+                pb.Add(a => a.ShowErrorLoggerToast, false);
+                pb.Add(a => a.ErrorLoggerToastTitle, "Title");
+                // 按钮触发异常
+                pb.Add(a => a.Main, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<MockPage>(0);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        cut.Contains("<div class=\"error-stack\">");
+        cut.Contains("class=\"layout\"");
+    }
+
+    [Fact]
+    public void ErrorLogger_OnErrorHandleAsync_Page()
+    {
+        // 页面生命周期内报错调用自定义处理方法
+        Exception? ex1 = null;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.UseTabSet, false);
+                pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
+                {
+                    ex1 = ex;
+                    return Task.CompletedTask;
+                });
+                // 按钮触发异常
+                pb.Add(a => a.Main, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<MockPage>(0);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        Assert.NotNull(ex1);
+    }
+
+    [Fact]
+    public void ErrorLogger_OnErrorHandleAsync_Button()
+    {
+        // 页面生命周期内报错调用自定义处理方法
+        Exception? ex1 = null;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
+                {
+                    ex1 = ex;
+                    return Task.CompletedTask;
+                });
+                // 按钮触发异常
+                pb.Add(a => a.Main, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<Button>(0);
+                    builder.AddAttribute(1, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                    {
+                        var a = 1;
+                        var b = 0;
+                        var c = a / b;
+                        return Task.CompletedTask;
+                    }));
+                    builder.CloseComponent();
+                }));
+            });
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.NotNull(ex1);
+
+        // 移除自定义逻辑使用内部异常处理逻辑
+        var layout = cut.FindComponent<Layout>();
+        layout.SetParametersAndRender(pb =>
+        {
+           pb.Add(a => a.OnErrorHandleAsync, null);
+        });
+        button = cut.Find("button");
+
+        ex1 = null;
+        cut.InvokeAsync(() => button.Click());
+        Assert.Null(ex1);
     }
 
     [Fact]
@@ -598,5 +698,17 @@ public class LayoutAuthorizationTest : AuthorizationViewTestBase
         });
         cut.MarkupMatches("<section id:ignore class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
         Context.DisposeComponents();
+    }
+}
+
+class MockPage : ComponentBase
+{
+    protected override void OnInitialized()
+    {
+        var a = 1;
+        var b = 0;
+
+        // 触发生命周期内异常
+        var c = a / b; 
     }
 }

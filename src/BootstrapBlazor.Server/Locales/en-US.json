@@ -1725,7 +1725,9 @@
     "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method",
     "DialogTitle": "In Dialog",
     "DialogIntro": "Click the button to pop up a pop-up window. The button in the pop-up window triggers an exception and the error is displayed in the pop-up window",
-    "DialogText": "Popup"
+    "DialogText": "Popup",
+    "PageErrorTitle": "Page",
+    "PageErrorIntro": "Click the button to navigate to the page where the error occurred during the page life cycle. The error is displayed on the current page and does not affect the menu and the overall page layout."
   },
   "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
     "Title": "Global exception",

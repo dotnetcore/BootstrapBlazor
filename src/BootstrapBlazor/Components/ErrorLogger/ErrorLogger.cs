@@ -56,6 +56,12 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback function to be invoked during initialization.
+    /// </summary>
+    [Parameter]
+    public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
+
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
 
@@ -67,6 +73,20 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         base.OnInitialized();
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (OnInitializedCallback is not null)
+        {
+            await OnInitializedCallback(this);
+        }
     }
 
     /// <summary>
@@ -97,7 +117,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     };
 
     /// <summary>
-    /// 由接口调用
+    /// 由实现 <see cref="BootstrapComponentBase"/> 组件实现类调用
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
