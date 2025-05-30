@@ -37,6 +37,8 @@ public class ErrorHandlerTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.Add(a => a.ShowToast, true);
             pb.AddChildContent<ErrorComponent>();
         });
         var errorButton = cut.Find(".btn-error");
