@@ -13,6 +13,7 @@ public class BootstrapBlazorOptionsTest
         var options = new BootstrapBlazorOptions()
         {
             EnableErrorLogger = true,
+            ShowErrorLoggerToast = true,
             EnableFallbackCulture = true,
             JSModuleVersion = "1.0",
             TableSettings = new()
