@@ -68,17 +68,26 @@ public class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (CurrentException is null)
+        var ex = CurrentException ?? _exception;
+        if (ex != null)
         {
-            builder.AddContent(0, ChildContent);
-        }
-        else if (ErrorContent is not null)
-        {
-            builder.AddContent(1, ErrorContent(CurrentException));
+            _exception = null;
+
+            // 处理自定义异常逻辑
+            if(OnErrorHandleAsync != null)
+            {
+                // 页面生命周期内异常直接调用这里
+                _ = OnErrorHandleAsync(Logger, ex);
+                return;
+            }
+
+            // 渲染异常内容
+            builder.AddContent(0, ExceptionContent(ex));
         }
         else
         {
-            builder.AddContent(2, ExceptionContent(CurrentException));
+            // 渲染正常内容
+            builder.AddContent(1, ChildContent);
         }
     }
 
