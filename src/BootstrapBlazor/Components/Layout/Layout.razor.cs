@@ -6,7 +6,6 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -454,38 +453,10 @@ public partial class Layout : IHandlerException, ITabHeader
     public object? Resource { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
-    /// </summary>
-    [Parameter]
-    public bool? EnableErrorLogger { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
-    /// </summary>
-    [Parameter]
-    public bool? ShowErrorLoggerToast { get; set; }
-
-    /// <summary>
-    /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
-    /// </summary>
-    [Parameter]
-    public string? ErrorLoggerToastTitle { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
-    /// </summary>
-    [Parameter]
-    public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
-
-    /// <summary>
     /// 获得 登录授权信息
     /// </summary>
     [CascadingParameter]
     private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     [Inject, NotNull]
     private IServiceProvider? ServiceProvider { get; set; }
@@ -498,10 +469,6 @@ public partial class Layout : IHandlerException, ITabHeader
     private LayoutHeader? _layoutHeader = null;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
-
-    private bool _enableErrorLoggerValue => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
-
-    private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// <inheritdoc/>
