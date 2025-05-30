@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 内部使用 自定义异常组件
 /// </summary>
-public class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
+class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
     [Inject]
     [NotNull]
