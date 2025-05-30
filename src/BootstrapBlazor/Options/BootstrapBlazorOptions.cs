@@ -49,6 +49,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public bool EnableErrorLogger { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets whether to enable show toast popup when global exception capture, default is true
+    /// </summary>
+    public bool ShowErrorLoggerToast { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets whether to fall back to the fallback culture, default is true
     /// </summary>
     public bool EnableFallbackCulture { get; set; } = true;
