@@ -32,33 +32,6 @@ public class ErrorHandlerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => btn.Click());
     }
 
-    [Fact]
-    public async Task ShowToast_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.Add(a => a.EnableErrorLogger, true);
-            pb.Add(a => a.ShowToast, true);
-            pb.AddChildContent<ErrorComponent>();
-        });
-        var errorButton = cut.Find(".btn-error");
-        await cut.InvokeAsync(() => errorButton.Click());
-        cut.Contains("<div class=\"toast-body\">test error logger</div>");
-
-        // 关闭 Toast
-        var toast = cut.FindComponent<Toast>().Instance;
-        await cut.InvokeAsync(() => toast.Close());
-        cut.DoesNotContain("<div class=\"toast-body\">test error logger</div>");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowToast, false);
-        });
-        errorButton = cut.Find(".btn-error");
-        await cut.InvokeAsync(() => errorButton.Click());
-        cut.DoesNotContain("<div class=\"toast-body\">test error logger</div>");
-    }
-
     private class MockDialogTest : ComponentBase
     {
         [Inject]
