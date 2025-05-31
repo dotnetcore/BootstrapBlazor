@@ -856,7 +856,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.TextConvertToValueCallback, v =>
             {
-                return Task.FromResult(v);
+                return Task.FromResult(v)!;
             });
         });
         Assert.False(input.IsReadOnly());
@@ -864,6 +864,15 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => { input.Change("Test3"); });
         Assert.Equal("Test3", cut.Instance.Value);
         Assert.True(updated);
+
+        // 覆盖返回 null 逻辑
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TextConvertToValueCallback, v =>
+            {
+                return Task.FromResult((string?)null);
+            });
+        });
     }
 
     [Fact]
