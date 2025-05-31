@@ -874,7 +874,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
                 return null;
             });
         });
-        await cut.InvokeAsync(() => { input.Change("Test3"); });
+        await cut.InvokeAsync(() => { input.Change("Test4"); });
     }
 
     [Fact]
