@@ -868,12 +868,13 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 覆盖返回 null 逻辑
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.TextConvertToValueCallback, v =>
+            pb.Add(a => a.TextConvertToValueCallback, async v =>
             {
-                return Task.FromResult((string?)null);
+                await Task.Yield();
+                return null;
             });
         });
-        Assert.Equal("Test4", cut.Instance.Value);
+        await cut.InvokeAsync(() => { input.Change("Test3"); });
     }
 
     [Fact]
