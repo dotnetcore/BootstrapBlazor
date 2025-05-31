@@ -1725,7 +1725,9 @@
     "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
     "DialogTitle": "弹窗中异常捕获",
     "DialogIntro": "点击按钮弹出弹窗，弹窗内按钮触发异常，错误显示在弹窗内",
-    "DialogText": "弹窗"
+    "DialogText": "弹窗",
+    "PageErrorTitle": "页面异常捕获",
+    "PageErrorIntro": "点击按钮导航到页面生命周期内出错的页面，错误显示在当前页面，不影响菜单以及整体页面布局"
   },
   "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
     "Title": "全局配置",

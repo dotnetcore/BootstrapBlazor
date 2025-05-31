@@ -856,7 +856,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.TextConvertToValueCallback, v =>
             {
-                return Task.FromResult(v);
+                return Task.FromResult(v)!;
             });
         });
         Assert.False(input.IsReadOnly());
@@ -864,6 +864,23 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => { input.Change("Test3"); });
         Assert.Equal("Test3", cut.Instance.Value);
         Assert.True(updated);
+
+        // 覆盖返回 null 逻辑
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TextConvertToValueCallback, async v =>
+            {
+                await Task.Yield();
+                return null;
+            });
+        });
+        await cut.InvokeAsync(() => { input.Change("Test4"); });
+
+        cut.SetParametersAndRender(pb =>
+        {
+           pb.Add(a => a.Value, null);
+        });
+        await cut.InvokeAsync(() => { input.Change("Test5"); });
     }
 
     [Fact]
@@ -881,7 +898,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.TextConvertToValueCallback, v =>
             {
-                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
+                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" })!;
             });
         });
 

@@ -12,6 +12,10 @@ public partial class GlobalException
 {
     [Inject]
     [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
     private SwalService? SwalService { get; set; }
 
     [Inject, NotNull]
@@ -19,7 +23,6 @@ public partial class GlobalException
 
     private static void OnClick()
     {
-        // NET6.0 采用 ErrorLogger 统一处理
         var a = 0;
         _ = 1 / a;
     }
@@ -38,6 +41,12 @@ public partial class GlobalException
         Title = Localizer["DialogTitle"],
         Component = BootstrapDynamicComponent.CreateComponent<MockError>()
     });
+
+    private Task OnGotoPage()
+    {
+        NavigationManager.NavigateTo("/error-page");
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// 获得属性方法
