@@ -50,6 +50,13 @@ export function hide(id) {
     }
 }
 
+export function resetValue(id, value) {
+    const input = document.getElementById(id);
+    if (input) {
+        input.value = value;
+    }
+}
+
 export function dispose(id) {
     const select = Data.get(id)
     Data.remove(id)

@@ -70,10 +70,11 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null
+    /// <para>返回值为 null 时放弃操作</para>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
-    public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
+    public Func<string, Task<TValue?>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 选项模板支持静态数据
@@ -486,17 +487,24 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
             if (item == null)
             {
-                TValue val = default!;
+                TValue? val = default;
                 if (TextConvertToValueCallback != null)
                 {
                     val = await TextConvertToValueCallback(v);
                 }
-                item = new SelectedItem<TValue>(val, v);
 
-                var items = new List<SelectedItem<TValue>>() { item };
-                items.AddRange(Items);
-                Items = items;
-                CurrentValue = val;
+                if (val is not null)
+                {
+                    item = new SelectedItem<TValue>(val, v);
+                    var items = new List<SelectedItem<TValue>>() { item };
+                    items.AddRange(Items);
+                    Items = items;
+                    CurrentValue = val;
+                }
+                else
+                {
+                    await InvokeVoidAsync("resetValue", InputId, SelectedRow?.Text);
+                }
             }
             else
             {
