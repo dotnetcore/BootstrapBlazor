@@ -873,6 +873,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
                 return Task.FromResult((string?)null);
             });
         });
+        Assert.Equal("Test4", cut.Instance.Value);
     }
 
     [Fact]
@@ -890,7 +891,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.TextConvertToValueCallback, v =>
             {
-                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
+                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" })!;
             });
         });
 
