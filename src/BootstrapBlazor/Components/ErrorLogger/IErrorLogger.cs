@@ -11,9 +11,9 @@ namespace BootstrapBlazor.Components;
 public interface IErrorLogger
 {
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// 获得/设置 是否开启全局异常捕获 默认 null 使用全局配置 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 值
     /// </summary>
-    bool EnableErrorLogger { get; set; }
+    bool? EnableErrorLogger { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义 Error 处理方法 默认 null
@@ -23,9 +23,9 @@ public interface IErrorLogger
     Task HandlerExceptionAsync(Exception ex);
 
     /// <summary>
-    /// 获得 是否显示 Error 提示弹窗 默认 true 显示
+    /// 获得 是否显示 Error 提示弹窗 默认 null 使用全局配置 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 值
     /// </summary>
-    bool ShowToast { get; }
+    bool? ShowToast { get; }
 
     /// <summary>
     /// 获得 Error Toast 弹窗标题 默认读取资源文件内容
