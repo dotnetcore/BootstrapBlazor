@@ -15,13 +15,6 @@ internal class TabItemContent : IComponent
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
-    /// <summary>
-    /// Gets <see cref="IComponentIdGenerator"/> instrance
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IComponentIdGenerator? ComponentIdGenerator { get; set; }
-
     private RenderHandle _renderHandle;
 
     void IComponent.Attach(RenderHandle renderHandle)
@@ -49,7 +42,7 @@ internal class TabItemContent : IComponent
         builder.OpenElement(0, "div");
         builder.SetKey(_key);
         builder.AddAttribute(5, "class", ClassString);
-        builder.AddAttribute(6, "id", ComponentIdGenerator.Generate(Item));
+        builder.AddAttribute(6, "id", Item.Id);
         builder.AddContent(10, Item.ChildContent);
         builder.CloseElement();
     }
