@@ -534,7 +534,19 @@ public partial class Tab : IHandlerException
             TabStyle = TabStyle.Default;
         }
 
-        AddTabByUrl();
+        if (ClickTabToNavigation)
+        {
+            if (!HandlerNavigation)
+            {
+                HandlerNavigation = true;
+                Navigator.LocationChanged += Navigator_LocationChanged;
+            }
+            AddTabByUrl();
+        }
+        else
+        {
+            RemoveLocationChanged();
+        }
     }
 
     /// <summary>
@@ -569,6 +581,22 @@ public partial class Tab : IHandlerException
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback));
 
+    private void RemoveLocationChanged()
+    {
+        if (HandlerNavigation)
+        {
+            Navigator.LocationChanged -= Navigator_LocationChanged;
+            HandlerNavigation = false;
+        }
+    }
+
+    private void Navigator_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        AddTabByUrl();
+        InvokeUpdate = true;
+        StateHasChanged();
+    }
+
     private void AddTabByUrl()
     {
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
@@ -595,11 +623,22 @@ public partial class Tab : IHandlerException
 
     private bool ShouldShowExtendButtons() => ShowExtendButtons && (Placement == Placement.Top || Placement == Placement.Bottom);
 
+    /// <summary>
+    /// 点击 TabItem 时回调此方法
+    /// </summary>
     private async Task OnClickTabItem(TabItem item)
     {
         if (OnClickTabItemAsync != null)
         {
             await OnClickTabItemAsync(item);
+        }
+
+        if (!ClickTabToNavigation)
+        {
+            TabItems.ForEach(i => i.SetActive(false));
+            item.SetActive(true);
+            InvokeUpdate = true;
+            StateHasChanged();
         }
     }
 
@@ -1188,6 +1227,7 @@ public partial class Tab : IHandlerException
 
         if (disposing)
         {
+            RemoveLocationChanged();
             ErrorLogger?.UnRegister(this);
         }
     }

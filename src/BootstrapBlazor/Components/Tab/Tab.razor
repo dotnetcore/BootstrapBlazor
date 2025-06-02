@@ -149,15 +149,15 @@ else
             @ContextMenuTemplate(this)
         }
     </ContextMenu>;
-    
+
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderDisabledHeaderItem(TabItem item) => 
+    RenderFragment RenderDisabledHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
-        <div role="tab" class="@GetClassString(item)" 
+        <div role="tab" class="@GetClassString(item)"
              @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault">
             @RenderHeaderItemContent(item)
         </div>
@@ -170,7 +170,11 @@ else
 
     RenderFragment RenderHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-        @RenderHeaderLinkItem(item)
+        <DynamicElement TagName="a" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
+                        OnContextMenu="e => OnContextMenu(e, item)"
+                        OnClick="@(() => OnClickTabItem(item))">
+            @RenderHeaderItemContent(item)
+        </DynamicElement>
         @if (TabStyle == TabStyle.Chrome)
         {
             <i class="tab-corner tab-corner-left"></i>
