@@ -32,9 +32,9 @@ public abstract class IdComponentBase : BootstrapComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        base.OnInitialized();
 
         Id ??= ComponentIdGenerator.Generate(this);
     }
