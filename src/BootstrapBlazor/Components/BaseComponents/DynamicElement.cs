@@ -97,12 +97,12 @@ public class DynamicElement : BootstrapComponentBase
 
         if (IsTriggerClick())
         {
-            builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnClick!()));
+            builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerClick));
         }
 
         if (IsTriggerDoubleClick())
         {
-            builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnDoubleClick!()));
+            builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerDoubleClick));
         }
 
         if (IsTriggerClick() || IsTriggerDoubleClick())
@@ -111,9 +111,9 @@ public class DynamicElement : BootstrapComponentBase
             builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
         }
 
-        if (TriggerContextMenu && OnContextMenu != null)
+        if (IsTriggerContextMenu())
         {
-            builder.AddAttribute(6, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnContextMenu(e)));
+            builder.AddAttribute(6, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerContextMenu));
             builder.AddEventPreventDefaultAttribute(7, "oncontextmenu", true);
         }
 
@@ -123,8 +123,35 @@ public class DynamicElement : BootstrapComponentBase
         {
             builder.CloseElement();
         }
+    }
 
-        bool IsTriggerClick() => TriggerClick && OnClick != null;
-        bool IsTriggerDoubleClick() => TriggerDoubleClick && OnDoubleClick != null;
+    private bool IsTriggerClick() => TriggerClick && OnClick != null;
+
+    private bool IsTriggerDoubleClick() => TriggerDoubleClick && OnDoubleClick != null;
+
+    private bool IsTriggerContextMenu() => TriggerContextMenu && OnContextMenu != null;
+
+    private async Task OnTriggerClick()
+    {
+        if (OnClick != null)
+        {
+            await OnClick();
+        }
+    }
+
+    private async Task OnTriggerDoubleClick()
+    {
+        if (OnDoubleClick != null)
+        {
+            await OnDoubleClick();
+        }
+    }
+
+    private async Task OnTriggerContextMenu(MouseEventArgs e)
+    {
+        if (OnContextMenu != null)
+        {
+            await OnContextMenu(e);
+        }
     }
 }
