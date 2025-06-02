@@ -22,13 +22,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool EnableErrorLogger { get; set; } = true;
+    public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool ShowToast { get; set; } = true;
+    public bool? ShowToast { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -62,8 +62,16 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
+
+    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+
+    private bool _showToast => ShowToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// <inheritdoc/>
@@ -102,13 +110,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.CloseComponent();
     }
 
-    private RenderFragment? RenderContent => EnableErrorLogger ? RenderError : ChildContent;
+    private RenderFragment? RenderContent => _enableErrorLogger ? RenderError : ChildContent;
 
     private RenderFragment RenderError => builder =>
     {
         builder.OpenComponent<BootstrapBlazorErrorBoundary>(0);
         builder.AddAttribute(1, nameof(BootstrapBlazorErrorBoundary.OnErrorHandleAsync), OnErrorHandleAsync);
-        builder.AddAttribute(2, nameof(BootstrapBlazorErrorBoundary.ShowToast), ShowToast);
+        builder.AddAttribute(2, nameof(BootstrapBlazorErrorBoundary.ShowToast), _showToast);
         builder.AddAttribute(3, nameof(BootstrapBlazorErrorBoundary.ToastTitle), ToastTitle);
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
