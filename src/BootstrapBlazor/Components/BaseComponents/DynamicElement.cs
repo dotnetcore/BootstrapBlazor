@@ -86,7 +86,7 @@ public class DynamicElement : BootstrapComponentBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
+        if (GenerateElement)
         {
             builder.OpenElement(0, TagName);
             if (AdditionalAttributes != null)
@@ -105,9 +105,13 @@ public class DynamicElement : BootstrapComponentBase
             builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerDoubleClick));
         }
 
-        if (IsTriggerClick() || IsTriggerDoubleClick())
+        if (PreventDefault)
         {
             builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
+        }
+
+        if (StopPropagation)
+        {
             builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
         }
 
@@ -119,7 +123,7 @@ public class DynamicElement : BootstrapComponentBase
 
         builder.AddContent(8, ChildContent);
 
-        if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
+        if (GenerateElement)
         {
             builder.CloseElement();
         }
