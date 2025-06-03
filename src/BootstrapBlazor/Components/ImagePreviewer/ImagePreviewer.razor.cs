@@ -78,6 +78,12 @@ public partial class ImagePreviewer
     [Parameter]
     public string? RotateRightIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 预览缩放速度
+    /// </summary>
+    [Parameter]
+    public double ZoomSpeed { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -126,5 +132,5 @@ public partial class ImagePreviewer
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, PreviewList);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, PreviewList, new { ZoomSpeed });
 }

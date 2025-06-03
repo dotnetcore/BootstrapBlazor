@@ -19,8 +19,7 @@ export default {
                 store: {
                     scale: 1
                 },
-                options: { max: null, min: 0.195 },
-                zoomSpeed: el.querySelector('.bb-viewer-zoomspeed')
+                options: { max: null, min: 0.195 }
             },
             ...config || {}
         }
