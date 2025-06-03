@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TabItem component
 /// </summary>
-public class TabItem : ComponentBase
+public class TabItem : IdComponentBase
 {
     /// <summary>
     /// Gets or sets the text. Default is null
