@@ -147,7 +147,7 @@ export default {
 
 
         // 配置缩放速度因子（值越大缩放越快）
-        const BASE_SPEED = viewer.zoomSpeed ? viewer.zoomSpeed : 0.015; // 基础速度
+        const BASE_SPEED = viewer.zoomSpeed ?? 0.015; // 基础速度
 
         const handlerWheel = e => {
             e.preventDefault();
