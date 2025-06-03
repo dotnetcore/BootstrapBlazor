@@ -22,13 +22,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool? EnableErrorLogger { get; set; }
+    public bool EnableErrorLogger { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool? ShowToast { get; set; }
+    public bool ShowToast { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -62,10 +62,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
-
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
 
@@ -77,8 +73,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         base.OnInitialized();
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
-        EnableErrorLogger ??= Options.CurrentValue.EnableErrorLogger;
-        ShowToast ??= Options.CurrentValue.ShowErrorLoggerToast;
     }
 
     /// <summary>
@@ -108,7 +102,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.CloseComponent();
     }
 
-    private RenderFragment? RenderContent => (EnableErrorLogger ?? false) ? RenderError : ChildContent;
+    private RenderFragment? RenderContent => EnableErrorLogger ? RenderError : ChildContent;
 
     private RenderFragment RenderError => builder =>
     {
