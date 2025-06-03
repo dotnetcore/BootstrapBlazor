@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BootstrapBlazor.Components;
 
-internal class TabItemContent : IComponent
+class TabItemContent : IComponent
 {
     /// <summary>
     /// Gets or sets the component content. Default is null
@@ -15,8 +15,8 @@ internal class TabItemContent : IComponent
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
-    [CascadingParameter]
-    private Layout? Layout { get; set; }
+    [CascadingParameter, NotNull]
+    private Tab? TabSet { get; set; }
 
     private RenderHandle _renderHandle;
 
@@ -55,10 +55,11 @@ internal class TabItemContent : IComponent
         builder.OpenComponent<ErrorLogger>(0);
         builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
 
-        var enableErrorLogger = Layout?.EnableErrorLogger;
-        var showToast = Layout?.ShowErrorLoggerToast;
+        var enableErrorLogger = TabSet.EnableErrorLogger;
+        var showToast = TabSet.ShowErrorLoggerToast;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
         builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), showToast);
+        builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
         builder.CloseComponent();
     };
 
