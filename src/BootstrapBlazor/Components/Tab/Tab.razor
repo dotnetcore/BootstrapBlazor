@@ -170,11 +170,11 @@ else
 
     RenderFragment RenderHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)" draggable="@DraggableString">
-        <DynamicElement TagName="a" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
-                        OnContextMenu="e => OnContextMenu(e, item)"
-                        OnClick="@(() => OnClickTabItem(item))">
-            @RenderHeaderItemContent(item)
-        </DynamicElement>
+        <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
+           @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault"
+           @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
+           @RenderHeaderItemContent(item)
+        </a>
         @if (TabStyle == TabStyle.Chrome)
         {
             <i class="tab-corner tab-corner-left"></i>
