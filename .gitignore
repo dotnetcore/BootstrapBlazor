@@ -381,3 +381,4 @@ src/**/wwwroot/**/uploader
 **/BootstrapBlazor/wwwroot/css/sweetalert2.css
 **/BootstrapBlazor/wwwroot/css/motronic.min.css
 **/BootstrapBlazor/wwwroot/css/nano.min.css
+/src/BootstrapBlazor/wwwroot/js/bootstrap.blazor.bundle.min.js
