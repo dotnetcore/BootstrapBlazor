@@ -251,6 +251,27 @@ public sealed partial class SelectGenerics
 
     private Foo _selectedFoo = new();
 
+    private async Task<Foo> TextConvertToValueCallback(string v)
+    {
+        // 模拟异步通讯切换线程
+        await Task.Delay(10);
+
+        Foo? foo = null;
+        var item = _genericItems.Find(i => i.Text == v);
+        if (item == null)
+        {
+            var id = _genericItems.Count + 1;
+            foo = new Foo() { Id = id,  Address = $"New Address - {id}" };
+            var fooItem = new SelectedItem<Foo> { Text = v, Value = foo };
+            _genericItems.Add(fooItem);
+        }
+        else
+        {
+            foo = item.Value;
+        }
+        return foo!;
+    }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>
