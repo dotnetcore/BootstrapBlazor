@@ -495,7 +495,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
                 if (val is not null)
                 {
-                    // 返回值时
+                    // 返回值时，由外部更新 Items 参数
                     CurrentValue = val;
                 }
                 else
