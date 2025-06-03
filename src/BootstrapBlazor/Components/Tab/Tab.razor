@@ -149,15 +149,15 @@ else
             @ContextMenuTemplate(this)
         }
     </ContextMenu>;
-    
+
     RenderFragment<TabItem> RenderTabItem => item =>
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
     </CascadingValue>;
 
-    RenderFragment RenderDisabledHeaderItem(TabItem item) => 
+    RenderFragment RenderDisabledHeaderItem(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
-        <div role="tab" class="@GetClassString(item)" 
+        <div role="tab" class="@GetClassString(item)"
              @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault">
             @RenderHeaderItemContent(item)
         </div>

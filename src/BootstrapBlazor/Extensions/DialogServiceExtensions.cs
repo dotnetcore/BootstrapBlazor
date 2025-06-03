@@ -263,4 +263,23 @@ public static class DialogServiceExtensions
         };
         await service.Show(option, dialog);
     }
+
+    /// <summary>
+    /// 显示异常信息对话框扩展方法
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="exception"></param>
+    /// <param name="dialog"></param>
+    /// <returns></returns>
+    public static async Task ShowExceptionDialog(this DialogService service, Exception exception, Dialog? dialog = null)
+    {
+        RenderFragment fragment = builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(10, "class", "error-stack");
+            builder.AddContent(20, new MarkupString(exception.Message));
+            builder.CloseElement();
+        };
+        await ShowErrorHandlerDialog(service, fragment, dialog);
+    }
 }

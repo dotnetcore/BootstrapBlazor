@@ -122,7 +122,9 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         cut.Contains("errorLogger-click");
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
-        cut.Contains("<div class=\"modal-body\"><div class=\"error-stack\">TimeStamp:");
+
+        // TabItem 内显示异常信息
+        cut.Contains("error-stack");
     }
 
     [Fact]

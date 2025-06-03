@@ -15,6 +15,9 @@ internal class TabItemContent : IComponent
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
     private RenderHandle _renderHandle;
 
     void IComponent.Attach(RenderHandle renderHandle)
@@ -43,9 +46,21 @@ internal class TabItemContent : IComponent
         builder.SetKey(_key);
         builder.AddAttribute(5, "class", ClassString);
         builder.AddAttribute(6, "id", Item.Id);
-        builder.AddContent(10, Item.ChildContent);
+        builder.AddContent(10, RenderItemContent(Item.ChildContent));
         builder.CloseElement();
     }
+
+    private RenderFragment RenderItemContent(RenderFragment? content) => builder =>
+    {
+        builder.OpenComponent<ErrorLogger>(0);
+        builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
+
+        var enableErrorLogger = Layout?.EnableErrorLogger;
+        var showToast = Layout?.ShowErrorLoggerToast;
+        builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
+        builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), showToast);
+        builder.CloseComponent();
+    };
 
     private string? ClassString => CssBuilder.Default("tabs-body-content")
         .AddClass("d-none", !Item.IsActive)

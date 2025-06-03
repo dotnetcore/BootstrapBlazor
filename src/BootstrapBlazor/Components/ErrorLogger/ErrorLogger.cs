@@ -69,10 +69,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
 
-    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
-
-    private bool _showToast => ShowToast ?? Options.CurrentValue.ShowErrorLoggerToast;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -81,6 +77,8 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         base.OnInitialized();
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
+        EnableErrorLogger ??= Options.CurrentValue.EnableErrorLogger;
+        ShowToast ??= Options.CurrentValue.ShowErrorLoggerToast;
     }
 
     /// <summary>
@@ -110,13 +108,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.CloseComponent();
     }
 
-    private RenderFragment? RenderContent => _enableErrorLogger ? RenderError : ChildContent;
+    private RenderFragment? RenderContent => (EnableErrorLogger ?? false) ? RenderError : ChildContent;
 
     private RenderFragment RenderError => builder =>
     {
         builder.OpenComponent<BootstrapBlazorErrorBoundary>(0);
         builder.AddAttribute(1, nameof(BootstrapBlazorErrorBoundary.OnErrorHandleAsync), OnErrorHandleAsync);
-        builder.AddAttribute(2, nameof(BootstrapBlazorErrorBoundary.ShowToast), _showToast);
+        builder.AddAttribute(2, nameof(BootstrapBlazorErrorBoundary.ShowToast), ShowToast);
         builder.AddAttribute(3, nameof(BootstrapBlazorErrorBoundary.ToastTitle), ToastTitle);
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
