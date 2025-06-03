@@ -19,7 +19,8 @@ export default {
                 store: {
                     scale: 1
                 },
-                options: { max: null, min: 0.195 }
+                options: { max: null, min: 0.195 },
+                zoomSpeed: el.querySelector('.bb-viewer-zoomspeed')
             },
             ...config || {}
         }
@@ -145,16 +146,24 @@ export default {
         // 右旋转功能
         EventHandler.on(viewer.rotateRight, 'click', () => viewer.processImage(null, rotate => rotate + 90))
 
+
+        // 配置缩放速度因子（值越大缩放越快）
+        const BASE_SPEED = viewer.zoomSpeed ? viewer.zoomSpeed : 0.015; // 基础速度
+
         const handlerWheel = e => {
-            e.preventDefault()
-            const wheel = e.wheelDelta || -e.detail
-            const delta = Math.max(-1, Math.min(1, wheel))
+            e.preventDefault();
+            const wheel = e.wheelDelta || -e.detail;
+            const delta = Math.max(-1, Math.min(1, wheel));
+
+            // 动态计算速度（按住Shift时降速）
+            const zoomStep = e.shiftKey ? BASE_SPEED * 0.2 : BASE_SPEED;
+
             if (delta > 0) {
                 // 放大
-                viewer.processImage(scale => scale + 0.015)
+                viewer.processImage(scale => scale + zoomStep);
             } else {
-                // 缩小
-                viewer.processImage(scale => Math.max(0.195, scale - 0.015))
+                // 缩小（保持最小缩放比例0.195）
+                viewer.processImage(scale => Math.max(0.195, scale - zoomStep));
             }
         }
         // 鼠标放大缩小
