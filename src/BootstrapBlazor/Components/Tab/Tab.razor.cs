@@ -431,6 +431,24 @@ public partial class Tab
     [Parameter]
     public ITabHeader? TabHeader { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
+    /// </summary>
+    [Parameter]
+    public bool? EnableErrorLogger { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? ShowErrorLoggerToast { get; set; }
+
+    /// <summary>
+    /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
+    /// </summary>
+    [Parameter]
+    public string? ErrorLoggerToastTitle { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 

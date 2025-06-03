@@ -490,10 +490,18 @@ public partial class Layout : IHandlerException, ITabHeader
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     private bool _init;
     private LayoutHeader? _layoutHeader = null;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
+
+    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+
+    private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// <inheritdoc/>
