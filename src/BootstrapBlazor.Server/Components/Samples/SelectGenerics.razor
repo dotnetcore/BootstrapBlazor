@@ -428,7 +428,8 @@
     <section ignore>@((MarkupString)Localizer["SelectsGenericDesc"].Value)</section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <SelectGeneric Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></SelectGeneric>
+            <SelectGeneric Items="_genericItems" @bind-Value="_selectedFoo"
+                           IsEditable="true" TextConvertToValueCallback="TextConvertToValueCallback"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="_selectedFoo.Address"></Display>
