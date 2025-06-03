@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tab component
 /// </summary>
-public partial class Tab : IHandlerException
+public partial class Tab
 {
     private bool FirstRender { get; set; } = true;
 
@@ -454,9 +454,6 @@ public partial class Tab : IHandlerException
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    [Inject, NotNull]
-    private DialogService? DialogService { get; set; }
-
     [Inject]
     [NotNull]
     private FullScreenService? FullScreenService { get; set; }
@@ -476,16 +473,6 @@ public partial class Tab : IHandlerException
     private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
 
     private bool IsPreventDefault => _contextMenuZone != null;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ErrorLogger?.Register(this);
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -1014,13 +1001,6 @@ public partial class Tab : IHandlerException
         }
     };
 
-    /// <summary>
-    /// HandlerException 错误处理方法
-    /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="errorContent"></param>
-    public Task HandlerException(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
-
     private IEnumerable<MenuItem>? _menuItems;
     private MenuItem? GetMenuItem(string url)
     {
@@ -1228,7 +1208,6 @@ public partial class Tab : IHandlerException
         if (disposing)
         {
             RemoveLocationChanged();
-            ErrorLogger?.UnRegister(this);
         }
     }
 }
