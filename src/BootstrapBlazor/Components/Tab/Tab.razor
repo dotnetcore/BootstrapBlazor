@@ -173,7 +173,7 @@ else
         <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
            @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault"
            @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
-           @RenderHeaderItemContent(item)
+            @RenderHeaderItemContent(item)
         </a>
         @if (TabStyle == TabStyle.Chrome)
         {
