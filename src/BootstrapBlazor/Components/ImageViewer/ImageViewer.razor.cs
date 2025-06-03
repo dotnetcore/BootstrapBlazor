@@ -118,6 +118,12 @@ public partial class ImageViewer
     [Parameter]
     public bool IsIntersectionObserver { get; set; }
 
+    /// <summary>
+    /// 获得/设置 预览缩放速度
+    /// </summary>
+    [Parameter]
+    public double ZoomSpeed { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
