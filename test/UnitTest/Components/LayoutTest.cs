@@ -535,7 +535,6 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.EnableErrorLogger, true);
             pb.AddChildContent<Layout>(pb =>
             {
-                pb.Add(a => a.EnableErrorLogger, true);
                 // 按钮触发异常
                 pb.Add(a => a.Main, new RenderFragment(builder =>
                 {
