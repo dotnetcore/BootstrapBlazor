@@ -5914,7 +5914,7 @@
     "ImageViewerErrorTemplateTitle": "Load failed",
     "ImageViewerErrorTemplateIntro": "Can be set up by the <code>Error Template</code> open Error Template function, Url parameter <code>Url</code> unable to load images displayed when the content of the Template",
     "ImageViewerPreviewListTitle": "A larger preview",
-    "ImageViewerPreviewListIntro": "Can be set up by the <code>Preview List</code> opens a larger Preview of the function,Set <code>ZoomSpeed</code> to control the speed of scrolling and scaling",
+    "ImageViewerPreviewListIntro": "Can be set up by the <code>Preview List</code> opens a larger Preview of the function, set <code>ZoomSpeed</code> to control the speed of scrolling and scaling",
     "ImageViewersAttrUrl": "Picture Url",
     "ImageViewersAttrAlt": "Native Alt attribute",
     "ImageViewersAttrShowPlaceHolder": "Whether display placeholder for large images added",

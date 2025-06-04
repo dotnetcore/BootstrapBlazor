@@ -5914,7 +5914,7 @@
     "ImageViewerErrorTemplateTitle": "加载失败",
     "ImageViewerErrorTemplateIntro": "可通过设置 <code>ErrorTemplate</code> 开启错误模板功能，参数 <code>Url</code> 无法加载图片时显示此模板内容",
     "ImageViewerPreviewListTitle": "大图预览",
-    "ImageViewerPreviewListIntro": "可通过设置 <code>PreviewList</code> 开启预览大图的功能,设置 <code>ZoomSpeed</code> 控制滚动缩放时的速度",
+    "ImageViewerPreviewListIntro": "可通过设置 <code>PreviewList</code> 开启预览大图的功能，设置 <code>ZoomSpeed</code> 控制滚动缩放时的速度",
     "ImageViewersAttrUrl": "图片 Url",
     "ImageViewersAttrAlt": "原生 alt 属性",
     "ImageViewersAttrShowPlaceHolder": "是否显示占位符 适用于大图片加载",
