@@ -3,6 +3,13 @@ import EventHandler from "./event-handler.js"
 
 export default {
     init(el, prevList, config) {
+        const BASE_SPEED = 0.015;
+        if (config.zoomSpeed && typeof config.zoomSpeed !== 'number') {
+            config.zoomSpeed = BASE_SPEED;
+        }
+        if (config.zoomSpeed <= 0) {
+            config.zoomSpeed = BASE_SPEED;
+        }
         const viewer = {
             ...{
                 el,
@@ -132,14 +139,12 @@ export default {
         EventHandler.on(viewer.rotateLeft, 'click', () => viewer.processImage(null, rotate => rotate - 90))
         EventHandler.on(viewer.rotateRight, 'click', () => viewer.processImage(null, rotate => rotate + 90))
 
-        const BASE_SPEED = viewer.zoomSpeed ? viewer.zoomSpeed : 0.015;
-
         const handlerWheel = e => {
             e.preventDefault();
             const wheel = e.wheelDelta || -e.detail;
             const delta = Math.max(-1, Math.min(1, wheel));
 
-            const zoomStep = e.shiftKey ? BASE_SPEED * 0.2 : BASE_SPEED;
+            const zoomStep = e.shiftKey ? viewer.zoomSpeed * 0.2 : viewer.zoomSpeed;
 
             if (delta > 0) {
                 viewer.processImage(scale => scale + zoomStep);
