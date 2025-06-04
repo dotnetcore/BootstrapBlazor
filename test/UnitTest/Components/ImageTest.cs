@@ -139,6 +139,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImagePreviewer>(pb =>
         {
+            pb.Add(a => a.ZoomSpeed, 0.5d);
             pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });
         cut.Instance.Show();
