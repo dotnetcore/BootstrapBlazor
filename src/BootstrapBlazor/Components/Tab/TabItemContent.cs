@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BootstrapBlazor.Components;
 
-class TabItemContent : IComponent
+class TabItemContent : IComponent, IHandlerException, IDisposable
 {
     /// <summary>
     /// Gets or sets the component content. Default is null
@@ -17,6 +17,15 @@ class TabItemContent : IComponent
 
     [CascadingParameter, NotNull]
     private Tab? TabSet { get; set; }
+
+    [Inject, NotNull]
+    private DialogService? DialogService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
+    private ErrorLogger? _logger;
 
     private RenderHandle _renderHandle;
 
@@ -55,11 +64,17 @@ class TabItemContent : IComponent
         builder.OpenComponent<ErrorLogger>(0);
         builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
 
-        var enableErrorLogger = TabSet.EnableErrorLogger;
-        var showToast = TabSet.ShowErrorLoggerToast;
+        var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+        var showToast = TabSet.ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
         builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), showToast);
         builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
+        builder.AddAttribute(5, nameof(ErrorLogger.OnInitializedCallback), new Func<ErrorLogger, Task>(logger =>
+        {
+            _logger = logger;
+            _logger.Register(this);
+            return Task.CompletedTask;
+        }));
         builder.CloseComponent();
     };
 
@@ -74,5 +89,21 @@ class TabItemContent : IComponent
     {
         _key = new object();
         RenderContent();
+    }
+
+    /// <summary>
+    /// HandlerException 错误处理方法
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <param name="errorContent"></param>
+    public Task HandlerException(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
+
+    /// <summary>
+    /// IDispose 方法用于释放资源
+    /// </summary>
+    public void Dispose()
+    {
+        _logger?.UnRegister(this);
+        GC.SuppressFinalize(this);
     }
 }
