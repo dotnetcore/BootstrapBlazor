@@ -5,6 +5,8 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 
 namespace UnitTest.Components;
 
@@ -161,7 +163,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
-            pb.Add(a => a.ShowToast, false);
+            pb.Add(a => a.ShowToast, true);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(b => b.OnClick, () =>
@@ -217,6 +219,30 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         ((IDisposable)content).Dispose();
     }
 
+    [Fact]
+    public async Task TabItem_Production_Error()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddSingleton<IHostEnvironment, MockProductionEnironment>();
+        context.Services.AddBootstrapBlazor();
+        context.Services.GetRequiredService<ICacheManager>();
+
+        var cut = context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, RenderButton()));
+                });
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+    }
+
     private RenderFragment RenderButton() => builder =>
     {
         builder.OpenComponent<Button>(0);
@@ -227,4 +253,15 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         }));
         builder.CloseComponent();
     };
+
+    class MockProductionEnironment : IHostEnvironment
+    {
+        public string EnvironmentName { get; set; } = "Production";
+
+        public string ApplicationName { get; set; } = "Test";
+
+        public string ContentRootPath { get; set; } = "UniTest";
+
+        public IFileProvider ContentRootFileProvider { get; set; } = null!;
+    }
 }

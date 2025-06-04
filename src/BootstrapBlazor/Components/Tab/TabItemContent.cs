@@ -93,7 +93,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// HandlerException 错误处理方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>

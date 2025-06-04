@@ -673,7 +673,7 @@ public partial class Layout : IHandlerException, ITabHeader
     private RenderFragment? _errorContent;
 
     /// <summary>
-    /// HandlerException 错误处理方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
