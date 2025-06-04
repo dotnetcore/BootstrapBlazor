@@ -79,10 +79,10 @@ public partial class ImagePreviewer
     public string? RotateRightIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 预览缩放速度
+    /// 获得/设置 预览缩放速度 默认 null 未设置取 0.015 值
     /// </summary>
     [Parameter]
-    public double ZoomSpeed { get; set; }
+    public double? ZoomSpeed { get; set; }
 
     [Inject]
     [NotNull]
