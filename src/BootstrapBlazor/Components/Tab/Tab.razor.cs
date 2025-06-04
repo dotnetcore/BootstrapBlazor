@@ -438,12 +438,6 @@ public partial class Tab
     public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
-    /// </summary>
-    [Parameter]
-    public bool? ShowErrorLoggerToast { get; set; }
-
-    /// <summary>
     /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
     /// </summary>
     [Parameter]
@@ -614,7 +608,7 @@ public partial class Tab
         if (!Excluded)
         {
             // 地址相同参数不同需要重新渲染 TabItem
-            var tab = Items.FirstOrDefault(tab => tab.Url.TrimStart('/').Equals(requestUrl, StringComparison.OrdinalIgnoreCase));
+            var tab = TabItems.Find(tab => tab.Url.TrimStart('/').Equals(requestUrl, StringComparison.OrdinalIgnoreCase));
             if (tab != null)
             {
                 ActiveTabItem(tab);
@@ -652,7 +646,7 @@ public partial class Tab
     /// </summary>
     public void ClickPrevTab()
     {
-        var item = Items.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
             var index = TabItems.IndexOf(item);
@@ -1036,8 +1030,8 @@ public partial class Tab
     [JSInvokable]
     public async Task DragItemCallback(int originIndex, int currentIndex)
     {
-        var firstColumn = Items.ElementAtOrDefault(originIndex);
-        var targetColumn = Items.ElementAtOrDefault(currentIndex);
+        var firstColumn = TabItems.ElementAtOrDefault(originIndex);
+        var targetColumn = TabItems.ElementAtOrDefault(currentIndex);
         if (firstColumn != null && targetColumn != null)
         {
             if (_draggedItems.Count == 0)
@@ -1138,11 +1132,12 @@ public partial class Tab
 
     private RenderFragment RenderTabList() => builder =>
     {
-        if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
+        if (TabItems.Count == 0 && !string.IsNullOrEmpty(DefaultUrl))
         {
             if (ClickTabToNavigation)
             {
                 Navigator.NavigateTo(DefaultUrl);
+                return;
             }
             else
             {
@@ -1152,9 +1147,13 @@ public partial class Tab
 
         if (FirstRender)
         {
-            if (!Items.Any(t => t.IsActive))
+            if (TabItems.Find(t => t.IsActive) == null)
             {
-                Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
+                var item = TabItems.Find(i => i.IsDisabled == false);
+                if (item != null)
+                {
+                    item.SetActive(true);
+                }
             }
         }
 
@@ -1186,7 +1185,7 @@ public partial class Tab
 
     private RenderFragment RenderTabItems() => builder =>
     {
-        foreach (var item in Items)
+        foreach (var item in TabItems)
         {
             if (item.HeaderTemplate != null)
             {

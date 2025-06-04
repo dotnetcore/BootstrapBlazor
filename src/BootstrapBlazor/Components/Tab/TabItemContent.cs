@@ -65,9 +65,10 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
 
         var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
-        var showToast = TabSet.ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
-        builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), showToast);
+
+        // TabItem 不需要 Toast 提示错误信息
+        builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), false);
         builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
         builder.AddAttribute(5, nameof(ErrorLogger.OnInitializedCallback), new Func<ErrorLogger, Task>(logger =>
         {
