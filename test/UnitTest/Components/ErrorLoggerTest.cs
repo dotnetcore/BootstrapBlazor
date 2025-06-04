@@ -185,4 +185,46 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => button.Click());
         cut.Contains("Attempted to divide by zero.error_content_template");
     }
+
+    [Fact]
+    public async Task TabItem_Error()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, RenderButton()));
+                });
+            });
+        });
+
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        // 页面不崩溃，由弹窗显示异常信息
+        cut.Contains("<div class=\"error-stack\">TimeStamp:");
+
+        // 单元测试覆盖 TabItemContent Dispose 方法
+        var handler = Activator.CreateInstance("BootstrapBlazor", "BootstrapBlazor.Components.TabItemContent");
+        Assert.NotNull(handler);
+        var content = handler.Unwrap();
+        Assert.NotNull(content);
+
+        Assert.IsType<IDisposable>(content, exactMatch: false);
+        ((IDisposable)content).Dispose();
+    }
+
+    private RenderFragment RenderButton() => builder =>
+    {
+        builder.OpenComponent<Button>(0);
+        builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+        {
+            var a = 0;
+            _ = 1 / a;
+        }));
+        builder.CloseComponent();
+    };
 }
