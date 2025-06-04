@@ -21,6 +21,10 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [Inject, NotNull]
     private DialogService? DialogService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     private ErrorLogger? _logger;
 
     private RenderHandle _renderHandle;
@@ -60,8 +64,8 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         builder.OpenComponent<ErrorLogger>(0);
         builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
 
-        var enableErrorLogger = TabSet.EnableErrorLogger;
-        var showToast = TabSet.ShowErrorLoggerToast;
+        var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+        var showToast = TabSet.ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
         builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), showToast);
         builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
