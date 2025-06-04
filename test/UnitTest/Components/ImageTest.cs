@@ -128,6 +128,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
+            pb.Add(a => a.ZoomSpeed, 0.5d);
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.IsIntersectionObserver, true);
         });
@@ -139,7 +140,6 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImagePreviewer>(pb =>
         {
-            pb.Add(a => a.ZoomSpeed, 0.5d);
             pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });
         cut.Instance.Show();
