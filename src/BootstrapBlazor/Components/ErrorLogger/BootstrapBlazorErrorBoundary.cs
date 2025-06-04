@@ -34,7 +34,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
     [Inject]
     [NotNull]
-    private IHostEnvironment? IHostEnvironment { get; set; }
+    private IHostEnvironment? HostEnvironment { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
@@ -152,7 +152,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
         if (handler != null)
         {
-            if (IHostEnvironment.IsDevelopment())
+            if (HostEnvironment.IsDevelopment())
             {
                 // IHandlerException 处理异常逻辑
                 await handler.HandlerException(exception, ExceptionContent);
