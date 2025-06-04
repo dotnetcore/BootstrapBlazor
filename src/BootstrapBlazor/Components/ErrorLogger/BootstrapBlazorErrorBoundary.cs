@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -31,6 +32,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IHostEnvironment? IHostEnvironment { get; set; }
+
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
     /// </summary>
@@ -54,13 +59,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <inheritdoc/>
     /// </summary>
     /// <param name="exception"></param>
-    protected override async Task OnErrorAsync(Exception exception)
+    protected override Task OnErrorAsync(Exception exception)
     {
-        if (ShowToast)
-        {
-            await ToastService.Error(ToastTitle, exception.Message);
-        }
         Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error occurred at {Page}", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync), NavigationManager.Uri);
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -69,13 +71,13 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+        // 页面生命周期内异常直接调用这里
         var ex = CurrentException ?? _exception;
         if (ex != null)
         {
             // 处理自定义异常逻辑
             if (OnErrorHandleAsync != null)
             {
-                // 页面生命周期内异常直接调用这里
                 _ = OnErrorHandleAsync(Logger, ex);
                 return;
             }
@@ -132,7 +134,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     }
 
     /// <summary>
-    /// 渲染异常信息方法
+    /// BootstrapBlazor 组件导致异常渲染方法
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="handler"></param>
@@ -145,14 +147,35 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             return;
         }
 
+        // 记录日志
+        await OnErrorAsync(exception);
+
         if (handler != null)
         {
-            await handler.HandlerException(exception, ExceptionContent);
+            if (IHostEnvironment.IsDevelopment())
+            {
+                // IHandlerException 处理异常逻辑
+                await handler.HandlerException(exception, ExceptionContent);
+            }
+            else
+            {
+                // 非开发模式下弹窗提示错误信息
+                await ToastService.Error(ToastTitle, exception.Message);
+            }
             return;
         }
 
-        await OnErrorAsync(exception);
+        // 显示异常信息
+        await ShowErrorToast(exception);
         _exception = exception;
         StateHasChanged();
+    }
+
+    private async Task ShowErrorToast(Exception exception)
+    {
+        if (ShowToast)
+        {
+            await ToastService.Error(ToastTitle, exception.Message);
+        }
     }
 }

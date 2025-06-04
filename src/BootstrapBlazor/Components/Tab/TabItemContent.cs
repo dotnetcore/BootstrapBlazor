@@ -93,11 +93,14 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// HandlerException 错误处理方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public Task HandlerException(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
+    public async Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
+    {
+        await DialogService.ShowErrorHandlerDialog(errorContent(ex));
+    }
 
     /// <summary>
     /// IDispose 方法用于释放资源
