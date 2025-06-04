@@ -159,7 +159,8 @@ export default {
         EventHandler.on(viewer.mask, 'click', () => {
             viewer.closeButton.click()
         })
-        EventHandler.on(document, 'keydown', e => {
+
+        viewer.keyHandler = e => {
             if (e.key === "ArrowUp") {
                 viewer.zoomOut.click()
             }
@@ -181,7 +182,8 @@ export default {
             else if (e.key === "Escape") {
                 viewer.closeButton.click()
             }
-        })
+        }
+        EventHandler.on(document, 'keydown', viewer.keyHandler);
         EventHandler.on(viewer.prevImg, 'touchstart', e => {
             e.preventDefault()
 
@@ -316,7 +318,7 @@ export default {
         EventHandler.off(viewer.prevImg, 'touchend')
         EventHandler.off(viewer.prevImg, 'touchcancel')
         EventHandler.off(viewer.mask, 'click')
-        EventHandler.off(document, 'keydown')
+        EventHandler.off(document, 'keydown', viewer.keyHandler)
 
         Drag.dispose(viewer.prevImg)
     }
