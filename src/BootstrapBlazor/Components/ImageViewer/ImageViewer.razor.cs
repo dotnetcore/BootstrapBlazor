@@ -28,9 +28,7 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public string? Url { get; set; }
 
     /// <summary>
