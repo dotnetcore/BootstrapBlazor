@@ -1,7 +1,7 @@
 ﻿import Data from "../../modules/data.js"
 import Viewer from "../../modules/viewer.js"
 
-export function init(id, prevList) {
+export function init(id, prevList, config) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -9,7 +9,7 @@ export function init(id, prevList) {
 
     const viewer = {
         el,
-        viewer: Viewer.init(el, prevList)
+        viewer: Viewer.init(el, prevList, config)
     }
     Data.set(id, viewer)
 }
