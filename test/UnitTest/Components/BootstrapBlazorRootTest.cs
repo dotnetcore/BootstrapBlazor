@@ -5,6 +5,8 @@
 
 //using HarmonyLib;
 
+using Bunit.TestDoubles;
+
 namespace UnitTest.Components;
 
 public class BootstrapBlazorRootTest : TestBase
@@ -12,17 +14,10 @@ public class BootstrapBlazorRootTest : TestBase
     [Fact]
     public void Render_Ok()
     {
-        var context = new TestContext();
-        context.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        var sc = context.Services;
-        sc.AddBootstrapBlazor();
-        sc.ConfigureJsonLocalizationOptions(op =>
-        {
-            op.IgnoreLocalizerMissing = false;
-        });
-        sc.AddScoped<IRootComponentGenerator, MockGenerator>();
-        var cut = context.RenderComponent<BootstrapBlazorRoot>();
+        Context.Services.AddBootstrapBlazor();
+        Context.Services.AddScoped<IRootComponentGenerator, MockGenerator>();
+        Context.Services.GetRequiredService<ICacheManager>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
         cut.Contains("<div class=\"auto-generator\"></div>");
     }
 

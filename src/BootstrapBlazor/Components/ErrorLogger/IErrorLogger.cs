@@ -23,7 +23,7 @@ public interface IErrorLogger
     Task HandlerExceptionAsync(Exception ex);
 
     /// <summary>
-    /// 获得 是否显示 Error 提示弹窗 默认 true 显示
+    /// 获得 是否显示 Error 提示弹窗 默认 true
     /// </summary>
     bool ShowToast { get; }
 

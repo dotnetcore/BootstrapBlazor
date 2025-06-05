@@ -13,5 +13,7 @@ public class TestBase
     {
         Context = new TestContext();
         Context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        Context.Services.AddMockEnvironment();
     }
 }

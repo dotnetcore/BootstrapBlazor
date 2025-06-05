@@ -483,10 +483,6 @@ public partial class Layout : IHandlerException, ITabHeader
     [CascadingParameter]
     private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
-
     [Inject, NotNull]
     private IServiceProvider? ServiceProvider { get; set; }
 
@@ -494,12 +490,16 @@ public partial class Layout : IHandlerException, ITabHeader
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     private bool _init;
     private LayoutHeader? _layoutHeader = null;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
 
-    private bool _enableErrorLoggerValue => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
     private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
@@ -673,7 +673,7 @@ public partial class Layout : IHandlerException, ITabHeader
     private RenderFragment? _errorContent;
 
     /// <summary>
-    /// HandlerException 错误处理方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
