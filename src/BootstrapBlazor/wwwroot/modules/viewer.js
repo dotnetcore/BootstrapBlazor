@@ -3,6 +3,13 @@ import EventHandler from "./event-handler.js"
 
 export default {
     init(el, prevList, config) {
+        const BASE_SPEED = 0.015;
+        if (config.zoomSpeed && typeof config.zoomSpeed !== 'number') {
+            config.zoomSpeed = BASE_SPEED;
+        }
+        if (config.zoomSpeed <= 0) {
+            config.zoomSpeed = BASE_SPEED;
+        }
         const viewer = {
             ...{
                 el,
@@ -31,7 +38,6 @@ export default {
             viewer.pt = { top: 0, left: 0 }
             viewer.updateImage(viewer.index)
 
-            // // 消除 body 滚动条
             viewer.body.classList.add('is-img-preview')
             viewer.el.classList.add('show')
         }
@@ -101,15 +107,12 @@ export default {
             viewer.prevImg.style.marginTop = `${top}px`
         }
 
-        // 关闭按钮处理事件
         EventHandler.on(viewer.closeButton, 'click', () => {
             viewer.body.classList.remove('is-img-preview')
-            // 恢复 Image
             viewer.resetImage()
             viewer.el.classList.remove('show')
         })
 
-        // 上一张按钮处理事件
         EventHandler.on(el, 'click', '.bb-viewer-prev', () => {
             viewer.index--
             if (viewer.index < 0) {
@@ -118,7 +121,6 @@ export default {
             viewer.updateImage(viewer.index)
         })
 
-        // 下一张按钮处理事件
         EventHandler.on(el, 'click', '.bb-viewer-next', () => {
             viewer.index++
             if (viewer.index >= viewer.prevList.length) {
@@ -127,67 +129,61 @@ export default {
             viewer.updateImage(viewer.index)
         })
 
-        // 全屏/恢复按钮功能
         EventHandler.on(viewer.fullScreen, 'click', () => {
             viewer.resetImage()
             viewer.el.classList.toggle('active')
         })
 
-        // 放大功能
         EventHandler.on(viewer.zoomOut, 'click', () => viewer.processImage(scale => scale + 0.2))
-
-        // 缩小功能
         EventHandler.on(viewer.zoomIn, 'click', () => viewer.processImage(scale => Math.max(0.2, scale - 0.2)))
-
-        // 左旋转功能
         EventHandler.on(viewer.rotateLeft, 'click', () => viewer.processImage(null, rotate => rotate - 90))
-
-        // 右旋转功能
         EventHandler.on(viewer.rotateRight, 'click', () => viewer.processImage(null, rotate => rotate + 90))
 
         const handlerWheel = e => {
-            e.preventDefault()
-            const wheel = e.wheelDelta || -e.detail
-            const delta = Math.max(-1, Math.min(1, wheel))
+            e.preventDefault();
+            const wheel = e.wheelDelta || -e.detail;
+            const delta = Math.max(-1, Math.min(1, wheel));
+
+            const zoomStep = e.shiftKey ? viewer.zoomSpeed * 0.2 : viewer.zoomSpeed;
+
             if (delta > 0) {
-                // 放大
-                viewer.processImage(scale => scale + 0.015)
-            } else {
-                // 缩小
-                viewer.processImage(scale => Math.max(0.195, scale - 0.015))
+                viewer.processImage(scale => scale + zoomStep);
+            }
+            else {
+                viewer.processImage(scale => Math.max(0.195, scale - zoomStep));
             }
         }
-        // 鼠标放大缩小
+
         EventHandler.on(viewer.prevImg, 'mousewheel', handlerWheel)
         EventHandler.on(viewer.prevImg, 'DOMMouseScroll', handlerWheel)
-
-        // 点击遮罩关闭功能
         EventHandler.on(viewer.mask, 'click', () => {
             viewer.closeButton.click()
         })
 
-        // 增加键盘支持
-        EventHandler.on(document, 'keydown', e => {
+        viewer.keyHandler = e => {
             if (e.key === "ArrowUp") {
                 viewer.zoomOut.click()
-            } else if (e.key === "ArrowDown") {
+            }
+            else if (e.key === "ArrowDown") {
                 viewer.zoomIn.click()
-            } else if (e.key === "ArrowLeft") {
+            }
+            else if (e.key === "ArrowLeft") {
                 const prevButton = viewer.el.querySelector('.bb-viewer-prev')
                 if (prevButton) {
                     prevButton.click()
                 }
-            } else if (e.key === "ArrowRight") {
+            }
+            else if (e.key === "ArrowRight") {
                 const nextButton = viewer.el.querySelector('.bb-viewer-next')
                 if (nextButton) {
                     nextButton.click()
                 }
-            } else if (e.key === "Escape") {
+            }
+            else if (e.key === "Escape") {
                 viewer.closeButton.click()
             }
-        })
-
-        // 缩放处理
+        }
+        EventHandler.on(document, 'keydown', viewer.keyHandler);
         EventHandler.on(viewer.prevImg, 'touchstart', e => {
             e.preventDefault()
 
@@ -278,8 +274,6 @@ export default {
             e => {
                 viewer.originX = e.clientX || e.touches[0].clientX
                 viewer.originY = e.clientY || e.touches[0].clientY
-
-                // 偏移量
                 viewer.pt.top = parseInt(viewer.prevImg.style.marginTop)
                 viewer.pt.left = parseInt(viewer.prevImg.style.marginLeft)
 
@@ -309,48 +303,23 @@ export default {
     },
 
     dispose(viewer) {
-
-        // 关闭按钮处理事件
         EventHandler.off(viewer.closeButton, 'click')
-
-        // 上一张按钮处理事件
         EventHandler.off(viewer.element, 'click', '.bb-viewer-prev')
-
-        // 下一张按钮处理事件
         EventHandler.off(viewer.element, 'click', '.bb-viewer-next')
-
-        // 全屏/恢复按钮功能
         EventHandler.off(viewer.fullScreen, 'click')
-
-        // 放大功能
         EventHandler.off(viewer.zoomOut, 'click')
-
-        // 缩小功能
         EventHandler.off(viewer.zoomIn, 'click')
-
-        // 左旋转功能
         EventHandler.off(viewer.rotateLeft, 'click')
-
-        // 右旋转功能
         EventHandler.off(viewer.rotateRight, 'click')
-
-        // 鼠标放大缩小
         EventHandler.off(viewer.prevImg, 'mousewheel')
         EventHandler.off(viewer.prevImg, 'DOMMouseScroll')
-
-        // 触摸放大缩小
         EventHandler.off(viewer.prevImg, 'touchstart')
         EventHandler.off(viewer.prevImg, 'touchmove')
         EventHandler.off(viewer.prevImg, 'touchend')
         EventHandler.off(viewer.prevImg, 'touchcancel')
-
-        //drag
-        Drag.dispose(viewer.prevImg)
-
-        // 点击遮罩关闭功能
         EventHandler.off(viewer.mask, 'click')
+        EventHandler.off(document, 'keydown', viewer.keyHandler)
 
-        // 增加键盘支持
-        EventHandler.off(document, 'keydown')
+        Drag.dispose(viewer.prevImg)
     }
 }

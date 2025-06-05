@@ -495,14 +495,12 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
                 if (val is not null)
                 {
-                    item = new SelectedItem<TValue>(val, v);
-                    var items = new List<SelectedItem<TValue>>() { item };
-                    items.AddRange(Items);
-                    Items = items;
+                    // 返回值时，由外部更新 Items 参数
                     CurrentValue = val;
                 }
                 else
                 {
+                    // 返回空值时恢复上次选中值
                     await InvokeVoidAsync("resetValue", InputId, SelectedRow?.Text);
                 }
             }
