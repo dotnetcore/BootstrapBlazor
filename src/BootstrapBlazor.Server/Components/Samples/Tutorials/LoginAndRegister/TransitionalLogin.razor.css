@@ -4,8 +4,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 .login-container {
@@ -56,6 +56,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.blazor-text {
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(to right, #8e44ad, #e84393);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .logo-container {
