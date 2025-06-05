@@ -1,20 +1,24 @@
 ﻿import Data from "./data.js"
 import EventHandler from "./event-handler.js"
+import { readFileAsync } from "./utility.js"
 
 export function init(id) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
-    const preventHandler = e => e.preventDefault()
+    const preventHandler = e => e.preventDefault();
     const body = el.querySelector('.upload-drop-body');
-    const upload = { el, body, preventHandler }
+    const inputFile = el.querySelector('[type="file"]');
+    const upload = { el, body, preventHandler, inputFile };
     Data.set(id, upload)
 
-    const inputFile = el.querySelector('[type="file"]')
     EventHandler.on(el, 'click', '.btn-browser', () => {
         inputFile.click()
     })
+    EventHandler.on(inputFile, 'change', e => {
+        upload.files = e.delegateTarget.files;
+    });
 
     EventHandler.on(document, "dragleave", preventHandler)
     EventHandler.on(document, 'drop', preventHandler)
@@ -79,12 +83,28 @@ export function init(id) {
     })
 }
 
+export async function getPreviewUrl(id, fileName) {
+    let url = '';
+    const upload = Data.get(id);
+    const { files } = upload;
+    if (files) {
+        const file = [...files].find(v => v.name === fileName);
+        if (file) {
+            const data = await readFileAsync(file);
+            if (data) {
+                url = URL.createObjectURL(data);
+            }
+        }
+    }
+    return url;
+}
+
 export function dispose(id) {
     const upload = Data.get(id)
     Data.remove(id)
 
     if (upload) {
-        const { el, body, preventHandler } = upload;
+        const { el, body, preventHandler, inputFile } = upload;
 
         EventHandler.off(document, 'dragleave', preventHandler)
         EventHandler.off(document, 'drop', preventHandler)
@@ -94,6 +114,7 @@ export function dispose(id) {
         EventHandler.off(el, 'click')
         EventHandler.off(el, 'drop')
         EventHandler.off(el, 'paste')
+        EventHandler.off(inputFile, 'change')
         EventHandler.off(body, 'dragleave')
         EventHandler.off(body, 'drop')
         EventHandler.off(body, 'dragenter')

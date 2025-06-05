@@ -37,39 +37,14 @@ public partial class UploadAvatars : IDisposable
         ]);
     }
 
-    private async Task OnChange(UploadFile file)
-    {
-        // 示例代码，使用 base64 格式
-        if (file is { File: not null })
-        {
-            var format = file.File.ContentType;
-            if (file.IsImage())
-            {
-                _token ??= new CancellationTokenSource();
-                if (_token.IsCancellationRequested)
-                {
-                    _token.Dispose();
-                    _token = new CancellationTokenSource();
-                }
-
-                await file.RequestBase64ImageFileAsync(format, 640, 480, MaxFileLength, null, _token.Token);
-            }
-            else
-            {
-                file.Code = 1;
-                file.Error = Localizer["UploadsFormatError"];
-            }
-
-            if (file.Code != 0)
-            {
-                await ToastService.Error(Localizer["UploadsAvatarMsg"], $"{file.Error} {format}");
-            }
-        }
-    }
-
     private Task OnAvatarValidSubmit(EditContext context)
     {
-        return ToastService.Error(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormValidContent"]);
+        return ToastService.Success(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormValidContent"]);
+    }
+
+    private Task OnAvatarInValidSubmit(EditContext context)
+    {
+        return ToastService.Error(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormInValidContent"]);
     }
 
     /// <summary>

@@ -77,6 +77,12 @@ public partial class AvatarUpload<TValue>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否允许预览回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, bool>? CanPreviewCallback { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -133,14 +139,12 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     protected override async Task TriggerOnChanged(UploadFile file)
     {
-        if (OnChange == null)
+        // 从客户端获得预览地址不使用 base64 编码
+        if (file.IsImage(AllowExtensions, CanPreviewCallback))
         {
-            await file.RequestBase64ImageFileAsync(allowExtensions: AllowExtensions);
+            file.PrevUrl = await InvokeAsync<string?>("getPreviewUrl", Id, file.OriginFileName);
         }
-        else
-        {
-            await OnChange(file);
-        }
+        await base.TriggerOnChanged(file);
     }
 
     private IReadOnlyCollection<ValidationResult> _results = [];

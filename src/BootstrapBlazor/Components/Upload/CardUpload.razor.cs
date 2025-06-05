@@ -133,6 +133,21 @@ public partial class CardUpload<TValue>
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    protected override async Task TriggerOnChanged(UploadFile file)
+    {
+        // 从客户端获得预览地址不使用 base64 编码
+        if (file.IsImage(AllowExtensions, CanPreviewCallback))
+        {
+            file.PrevUrl = await InvokeAsync<string?>("getPreviewUrl", Id, file.OriginFileName);
+        }
+        await base.TriggerOnChanged(file);
+    }
+
     private async Task OnCardFileDelete(UploadFile item)
     {
         await OnFileDelete(item);
