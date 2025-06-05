@@ -20,7 +20,12 @@ public partial class UploadDrops
     private Task OnDropUpload(UploadFile file)
     {
         // 模拟保存文件等处理
-        return Task.Delay(1000);
+        if (file.File is { Size: > 5 * 1024 * 1024 })
+        {
+            file.Code = 1004;
+            ToastService.Information("Error", Localizer["DropUploadFooterText"]);
+        }
+        return Task.CompletedTask;
     }
 
     private List<AttributeItem> GetAttributes() =>
