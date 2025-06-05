@@ -3481,6 +3481,7 @@
     "UploadsBorderRadius": "预览框圆角曲率",
     "UploadsValidateFormTitle": "表单应用",
     "UploadsValidateFormValidContent": "数据合规，保存成功",
+    "UploadsValidateFormInValidContent": "数据不合规，请更正后再提交表单",
     "UploadsFormatError": "文件格式不正确",
     "UploadsAvatarMsg": "头像上传"
   },

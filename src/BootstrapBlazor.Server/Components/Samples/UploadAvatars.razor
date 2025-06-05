@@ -55,13 +55,13 @@
 <DemoBlock Title="@Localizer["AvatarUploadAcceptTitle"]"
            Introduction="@Localizer["AvatarUploadAcceptIntro"]"
            Name="Accept">
-    <AvatarUpload TValue="string" Accept="image/*" OnChange="@OnChange"></AvatarUpload>
+    <AvatarUpload TValue="string" Accept="image/*"></AvatarUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AvatarUploadValidateTitle"]"
            Introduction="@Localizer["AvatarUploadValidateIntro"]"
            Name="ValidateForm">
-    <ValidateForm Model="@_foo" OnValidSubmit="OnAvatarValidSubmit">
+    <ValidateForm Model="@_foo" OnValidSubmit="OnAvatarValidSubmit" OnInValidSubmit="OnAvatarInValidSubmit">
         <div class="row g-3">
             <div class="col-12">
                 <BootstrapInput @bind-Value="@_foo.Name"></BootstrapInput>

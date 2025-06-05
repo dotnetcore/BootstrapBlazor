@@ -3481,6 +3481,7 @@
     "UploadsBorderRadius": "Border radius",
     "UploadsValidateFormTitle": "ValidateForm",
     "UploadsValidateFormValidContent": "Saved successfully",
+    "UploadsValidateFormInValidContent": "Please correct it and submit the form again",
     "UploadsFormatError": "The file format is incorrect",
     "UploadsAvatarMsg": "Avatar upload"
   },
