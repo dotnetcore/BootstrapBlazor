@@ -37,3 +37,40 @@ export function dispose(id) {
         }
     }
 }
+
+export function executeUpload(items, invalidItems, addId) {
+    items.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            const item = invalidItems.find(i => i.id === id);
+            if (item) {
+                const { id, errorMessage } = item;
+                execute(id, errorMessage);
+                el.classList.remove('is-valid');
+                el.classList.add('is-invalid');
+            }
+            else {
+                dispose(id);
+                el.classList.remove('is-invalid');
+                el.classList.add('is-valid');
+            }
+        }
+    });
+
+    if (addId) {
+        const el = document.getElementById(addId);
+        if (el) {
+            el.classList.remove('is-valid', 'is-invalid');
+            dispose(addId);
+        }
+    }
+}
+
+export function disposeUpload(items) {
+    items.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            dispose(id);
+        }
+    });
+}

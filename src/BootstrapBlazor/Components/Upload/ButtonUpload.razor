@@ -1,60 +1,23 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits ButtonUploadBase<TValue>
+@inherits FileListUploadBase<TValue>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Size="Size" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" Color="@BrowserButtonColor">
+    <Button class="@BrowserButtonClassString" IsDisabled="@CheckStatus()" Size="Size" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" Color="@BrowserButtonColor">
         @ChildContent
     </Button>
     @if (ShowUploadFileList)
     {
-        <div class="upload-body is-list">
-            @foreach (var item in GetUploadFiles())
-            {
-                <div @key="item" class="@GetItemClassString(item)">
-                    <i class="@GetFileFormatClassString(item)"></i>
-                    <div class="upload-item-body">
-                        <span>@item.GetFileName()</span>
-                        <span>(@item.Size.ToFileSizeString())</span>
-                    </div>
-                    @if (GetShowProgress(item))
-                    {
-                        <i class="@LoadingIconString"></i>
-                        <i class="@CancelIconString" @onclick="() => OnClickCancel(item)"></i>
-                        <Progress Color="Color.Success" Height="2" Value="@item.ProgressPercent" />
-                    }
-                    else
-                    {
-                        <div class="upload-buttons">
-                            @if (ShowDownloadButton)
-                            {
-                                <i class="@DownloadIconString" @onclick="() => OnClickDownload(item)"></i>
-                            }
-                            @if (item.Code == 0)
-                            {
-                                <i class="@ValidStatusIconString"></i>
-                                @if (!IsDisabled)
-                                {
-                                    <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                                }
-                            }
-                            else
-                            {
-                                @if (!IsDisabled)
-                                {
-                                    <i class="@InvalidStatusIconString"></i>
-                                    <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
-                                }
-                            }
-                        </div>
-                    }
-                </div>
-            }
-        </div>
+        <UploadPreviewList Items="Files" IsDisabled="@IsDisabled" ShowProgress="@ShowProgress"
+                           OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel" CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
+                           InvalidStatusIcon="@InvalidStatusIcon" ValidStatusIcon="@ValidStatusIcon"
+                           ShowDownloadButton="@ShowDownloadButton" DownloadIcon="@DownloadIcon" OnDownload="@OnDownload"
+                           DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete">
+        </UploadPreviewList>
     }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>

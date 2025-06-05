@@ -56,31 +56,6 @@ public enum ComponentIcons
     AutoFillIcon,
 
     /// <summary>
-    /// ButtonUpload 组件 LoadingIcon 属性图标
-    /// </summary>
-    ButtonUploadLoadingIcon,
-
-    /// <summary>
-    /// ButtonUpload 组件 FailedInvalidIcon 属性图标
-    /// </summary>
-    ButtonUploadInvalidStatusIcon,
-
-    /// <summary>
-    /// ButtonUpload 组件 FailedValidIcon 属性图标
-    /// </summary>
-    ButtonUploadValidStatusIcon,
-
-    /// <summary>
-    /// ButtonUpload 组件 DownloadIcon 属性图标
-    /// </summary>
-    ButtonUploadDownloadIcon,
-
-    /// <summary>
-    /// ButtonUpload 组件 DeleteIcon 属性图标
-    /// </summary>
-    ButtonUploadDeleteIcon,
-
-    /// <summary>
     /// ButtonUpload 组件 BrowserButtonIcon 属性图标
     /// </summary>
     ButtonUploadBrowserButtonIcon,
@@ -116,19 +91,9 @@ public enum ComponentIcons
     CardUploadStatusIcon,
 
     /// <summary>
-    /// CardUpload 组件 DeleteIcon 图标
-    /// </summary>
-    CardUploadDeleteIcon,
-
-    /// <summary>
     /// CardUpload 组件 RemoveIcon 图标
     /// </summary>
     CardUploadRemoveIcon,
-
-    /// <summary>
-    /// CardUpload 组件 DownloadIcon 图标
-    /// </summary>
-    CardUploadDownloadIcon,
 
     /// <summary>
     /// CardUpload 组件 ZoomIcon 图标
@@ -136,9 +101,34 @@ public enum ComponentIcons
     CardUploadZoomIcon,
 
     /// <summary>
+    /// ButtonUpload 组件 LoadingIcon 属性图标
+    /// </summary>
+    UploadLoadingIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedInvalidIcon 属性图标
+    /// </summary>
+    UploadInvalidStatusIcon,
+
+    /// <summary>
+    /// ButtonUpload 组件 FailedValidIcon 属性图标
+    /// </summary>
+    UploadValidStatusIcon,
+
+    /// <summary>
     /// Upload 组件 CancelIcon 图标
     /// </summary>
     UploadCancelIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DeleteIcon 图标
+    /// </summary>
+    UploadDeleteIcon,
+
+    /// <summary>
+    /// CardUpload 组件 DownloadIcon 图标
+    /// </summary>
+    UploadDownloadIcon,
 
     /// <summary>
     /// Upload 组件 UploadIcon 图标

@@ -1,0 +1,60 @@
+﻿@page "/upload-drop"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<UploadDrops> Localizer
+@inject ToastService ToastService
+
+<h3>@Localizer["UploadsTitle"]</h3>
+
+<h4>@Localizer["UploadsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="Normal">
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isDisabled"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_isMultiple"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowUploadFileList"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showUploadFileList"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDownloadButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDownloadButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowProgress"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showProgress"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowFooter"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showFooter"></Switch>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <DropUpload OnChange="@OnDropUpload" FooterText="@Localizer["DropUploadFooterText"]"
+                IsDisabled="@_isDisabled" IsMultiple="@_isMultiple"
+                ShowProgress="@_showProgress" ShowUploadFileList="@_showUploadFileList" ShowFooter="@_showFooter"></DropUpload>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
