@@ -17,6 +17,7 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         UploadFile? uploadFile = null;
         var cut = Context.RenderComponent<AvatarUpload<string>>(pb =>
         {
+            pb.Add(a => a.CanPreviewCallback, null);
             pb.Add(a => a.IsMultiple, true);
             pb.Add(a => a.OnChange, file =>
             {
