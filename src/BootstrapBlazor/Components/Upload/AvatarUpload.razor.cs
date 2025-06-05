@@ -133,14 +133,9 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     protected override async Task TriggerOnChanged(UploadFile file)
     {
-        if (OnChange == null)
-        {
-            await file.RequestBase64ImageFileAsync(allowExtensions: AllowExtensions);
-        }
-        else
-        {
-            await OnChange(file);
-        }
+        // 从客户端获得预览地址不使用 base64 编码
+        file.PrevUrl = await InvokeAsync<string?>("getPreviewUrl", Id, file.OriginFileName);
+        await base.TriggerOnChanged(file);
     }
 
     private IReadOnlyCollection<ValidationResult> _results = [];
