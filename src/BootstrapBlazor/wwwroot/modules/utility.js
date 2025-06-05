@@ -886,6 +886,10 @@ export function drawImage(canvas, image, offsetWidth, offsetHeight) {
     context.drawImage(image, 0, 0, offsetWidth, offsetHeight);
 }
 
+/**
+ *  @param {File} file
+ *  @returns {Blob}
+ */
 export function readFileAsync(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
