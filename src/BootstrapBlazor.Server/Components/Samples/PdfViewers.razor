@@ -1,0 +1,12 @@
+﻿@page "/pdf-viewer"
+@inject IStringLocalizer<PdfViewers> Localizer
+
+<h3>@Localizer["PdfViewerTitle"]</h3>
+
+<h4>@Localizer["PdfViewerDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.PdfViewer" />
+
+<DemoBlock Title="@Localizer["PdfViewerNormalTitle"]" Introduction="@Localizer["PdfViewerNormalIntro"]" Name="Normal">
+    <PdfViewer Url="./samples/pdf-viewer.pdf" Height="620px"></PdfViewer>
+</DemoBlock>
