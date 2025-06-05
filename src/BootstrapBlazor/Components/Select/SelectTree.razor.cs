@@ -52,6 +52,12 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
+    /// Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool CanExpandWhenDisabled { get; set; } = false;
+
+    /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     [Parameter]
