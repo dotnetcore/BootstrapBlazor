@@ -7,11 +7,9 @@
             <div class="header-row">
                 @if (isEmailEntered)
                 {
-                    <button @onclick="GoBack" type="button" id="back-button" data-testid="leftArrowIcon" aria-label="返回" class="back-button">
-                        <span class="fui-Button__icon rywnvv2 ___hix1za0 fe5j1ua fjamq6b f64fuq3 fbaiahx">
-                            <svg class="fui-Icon-regular ___12fm75w f1w7gpdv fez10in fg4l7m0" fill="var(--colorNeutralForeground3)" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M10.3 19.72a1 1 0 0 0 1.4-1.43L6.33 13H20a1 1 0 0 0 0-2H6.33l5.37-5.28a1 1 0 0 0-1.4-1.42l-6.93 6.82c-.5.5-.5 1.3 0 1.78l6.92 6.83Z"></path>
-                            </svg>
+                    <button @onclick="GoBack" aria-label="返回" class="back-button">
+                        <span>
+                            <i class="fa-solid fa-arrow-left"></i>
                         </span>
                     </button>
                 }
@@ -28,26 +26,26 @@
             @if (!isEmailEntered)
             {
                 <h2>登录</h2>
-                <p class="subtitle">使用你的 Microsoft 帐户。</p>
-                <input type="email" class="input" placeholder="电子邮件或电话号码" @bind="email" />
+                <p class="subtitle">使用你的 BootstrapBlazor 帐户。</p>
+                <BootstrapInput type="email" class="input" placeholder="电子邮件或电话号码" @bind-Value="email" />
                 <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
-                <button class="button" @onclick="OnEmailSubmit">下一个</button>
+                <Button class="button" Color="Color.Primary" OnClick="OnEmailSubmit">下一步</Button>
                 <div class="links">
                     <a href="#">忘记用户名？</a>
                 </div>
                 <div class="small">
-                    不熟悉 Microsoft？<a href="#">创建帐户</a>
+                    不熟悉 BootstrapBlazor？<a href="#">去看文档</a>
                 </div>
             }
             else
             {
                 <h2>输入你的密码</h2>
                 <p class="email-display">@email</p>
-                <input type="password" class="input" placeholder="密码" />
+                <BootstrapInput type="password" class="input" placeholder="密码" @bind-Value="password" />
                 <div class="links">
                     <a href="#">忘记了密码？</a>
                 </div>
-                <button class="button">下一个</button>
+                <Button class="button" Color="Color.Primary">下一步</Button>
                 <div class="links">
                     <a href="#">其他登录方法</a>
                 </div>
@@ -59,6 +57,7 @@
 @code {
     private bool isEmailEntered = false;
     private string email = "";
+    private string password = "";
     private bool showEmailError = false;
 
     private void OnEmailSubmit()

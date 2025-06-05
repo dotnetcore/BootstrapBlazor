@@ -27,7 +27,7 @@
     box-sizing: content-box !important;
 }
 
-.input {
+::deep .input {
     width: 100%;
     padding: 10px;
     margin: 12px 0;
@@ -66,7 +66,7 @@
     height: 28px;
 }
 
-.button {
+::deep .button {
     width: 100%;
     padding: 10px;
     background-color: #0078d4;
@@ -79,9 +79,9 @@
     transition: background-color 0.3s ease;
 }
 
-    .button:hover {
-        background-color: #005a9e;
-    }
+.button:hover {
+    background-color: #005a9e;
+}
 
 .links {
     margin-top: 10px;
