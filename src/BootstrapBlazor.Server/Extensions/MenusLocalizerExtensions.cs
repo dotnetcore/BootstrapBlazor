@@ -1607,13 +1607,13 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["AntDesignIcon"],
-                    Url = "ant-design-icon"
+                    Text = Localizer["OctIcon"],
+                    Url = "oct-icon"
                 },
                 new()
                 {
-                    Text = Localizer["ElementIcon"],
-                    Url = "element-icon"
+                    Text = Localizer["UniverIcon"],
+                    Url = "univer-icon"
                 },
                 new()
                 {
@@ -1622,14 +1622,13 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["OctIcon"],
-                    Url = "oct-icon"
+                    Text = Localizer["ElementIcon"],
+                    Url = "element-icon"
                 },
                 new()
                 {
-                    IsNew = true,
-                    Text = Localizer["UniverIcon"],
-                    Url = "univer-icon"
+                    Text = Localizer["AntDesignIcon"],
+                    Url = "ant-design-icon"
                 }
             };
             AddBadge(item);
