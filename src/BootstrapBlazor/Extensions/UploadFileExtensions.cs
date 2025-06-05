@@ -194,14 +194,14 @@ public static class UploadFileExtensions
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>
-    /// <param name="_callback"></param>
+    /// <param name="callback"></param>
     /// <returns></returns>
-    public static bool IsImage(this UploadFile item, List<string>? allowExtensions = null, Func<UploadFile, bool>? _callback = null)
+    public static bool IsImage(this UploadFile item, List<string>? allowExtensions = null, Func<UploadFile, bool>? callback = null)
     {
         bool ret;
-        if (_callback != null)
+        if (callback != null)
         {
-            ret = _callback(item);
+            ret = callback(item);
         }
         else if (item.File != null)
         {
