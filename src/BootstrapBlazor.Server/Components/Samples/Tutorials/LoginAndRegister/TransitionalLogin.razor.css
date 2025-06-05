@@ -1,0 +1,153 @@
+﻿
+.background-image {
+    background-image: url('https://logincdn.msauth.net/shared/5/js/../images/fluent_web_light_57fee22710b04cebe1d5.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 350px;
+    font-family: "Segoe UI", sans-serif;
+    text-align: left;
+    position: relative;
+    box-sizing: content-box !important;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    position: absolute;
+    left: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    margin: 0 auto;
+}
+
+.logo {
+    height: 28px;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .button:hover {
+        background-color: #005a9e;
+    }
+
+.links {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+    .links a {
+        color: #0066cc;
+        text-decoration: none;
+    }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+.small {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.email-display {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+}
+
+.lang-switch {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}

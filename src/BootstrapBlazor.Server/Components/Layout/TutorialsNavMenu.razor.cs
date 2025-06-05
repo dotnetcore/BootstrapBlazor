@@ -4,7 +4,9 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components.Pages;
+
 using Microsoft.AspNetCore.Components.Web;
+
 using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Layout;
@@ -80,6 +82,12 @@ public partial class TutorialsNavMenu
                         Template = CreateDownloadButtonComponent("template4", _template4),
                         Text = "Template 4",
                         Url = "tutorials/template4"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("TransitionalLogin", _template5),
+                        Text = "TransitionalLogin",
+                        Url = "/tutorials/transitionallogin"
                     }
                 ]
             },
@@ -212,6 +220,13 @@ public partial class TutorialsNavMenu
     [
         "Tutorials/LoginAndRegister/Template4.razor",
         "Tutorials/LoginAndRegister/Template4.razor.css",
+        .. _layoutFileList
+    ];
+
+    private readonly string[] _template5 =
+[
+        "Tutorials/LoginAndRegister/TransitionalLogin.razor",
+        "Tutorials/LoginAndRegister/TransitionalLogin.razor.css",
         .. _layoutFileList
     ];
 
