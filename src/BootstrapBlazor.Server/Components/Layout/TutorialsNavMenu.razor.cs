@@ -225,7 +225,8 @@ public partial class TutorialsNavMenu
 [
         "Tutorials/LoginAndRegister/Template5.razor",
         "Tutorials/LoginAndRegister/Template5.razor.css",
-        .. _layoutFileList
+        "../Layout/TutorialsLayout.razor",
+        "../Layout/TutorialsLayout.razor.css"
     ];
 
     private readonly string[] _waterfallFileList =
