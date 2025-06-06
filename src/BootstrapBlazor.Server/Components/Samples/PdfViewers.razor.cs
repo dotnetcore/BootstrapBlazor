@@ -15,6 +15,8 @@ public partial class PdfViewers
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
+    private bool _useGoogleDocs = true;
+
     private Task OnLoaded() => ToastService.Success("Pdf Viewer", Localizer["PdfViewerToastSuccessfulContent"]);
 
     private Task NotSupportCallback() => ToastService.Error("PdfViewer", Localizer["PdfViewerToastNotSupportContent"]);

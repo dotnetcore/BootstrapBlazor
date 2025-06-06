@@ -6161,7 +6161,7 @@
     "PdfViewerTitle": "PDFViewer PDF 阅读器",
     "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容",
     "PdfViewerNormalTitle": "基础用法",
-    "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件",
+    "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件，设置 <code>UseGoogleDocs</code> 使用 docs.google.com 预览",
     "PdfViewerToastSuccessfulContent": "PDF 文档加载成功",
     "PdfViewerToastNotSupportContent": "当前浏览器不支持 Pdf 文档预览功能"
   },
