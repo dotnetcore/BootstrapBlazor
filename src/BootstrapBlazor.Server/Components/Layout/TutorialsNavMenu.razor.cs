@@ -4,9 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components.Pages;
-
 using Microsoft.AspNetCore.Components.Web;
-
 using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Layout;
@@ -225,8 +223,8 @@ public partial class TutorialsNavMenu
 
     private readonly string[] _template5 =
 [
-        "Tutorials/LoginAndRegister/TransitionalLogin.razor",
-        "Tutorials/LoginAndRegister/TransitionalLogin.razor.css",
+        "Tutorials/LoginAndRegister/Template5.razor",
+        "Tutorials/LoginAndRegister/Template5.razor.css",
         .. _layoutFileList
     ];
 
