@@ -252,17 +252,17 @@ public partial class UploadPreviewList
     private string? GetFileFormatClassString(UploadFile item)
     {
         var builder = CssBuilder.Default("file-icon");
-        var fileExtension = Path.GetExtension(item.OriginFileName ?? item.FileName);
+        var fileExtension = Path.GetExtension(item.GetFileName());
         if (!string.IsNullOrEmpty(fileExtension))
         {
             fileExtension = fileExtension.ToLowerInvariant();
+            var icon = OnGetFileFormat?.Invoke(fileExtension) ?? GetFileExtensions(fileExtension);
+            builder.AddClass(icon);
         }
-        var icon = OnGetFileFormat?.Invoke(fileExtension) ?? GetFileExtensions(fileExtension);
-        builder.AddClass(icon);
         return builder.Build();
     }
 
-    private string? GetFileExtensions(string? fileExtension) => fileExtension switch
+    private string? GetFileExtensions(string fileExtension) => fileExtension switch
     {
         ".csv" or ".xls" or ".xlsx" => FileIconExcel,
         ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
