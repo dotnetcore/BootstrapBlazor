@@ -4856,6 +4856,7 @@
     "PulseButton": "PulseButton",
     "Bluetooth": "IBluetooth",
     "PdfReader": "PDF Reader",
+    "PdfViewer": "PDF Viewer",
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "FlipClock": "FlipClock",
@@ -6155,6 +6156,12 @@
     "PdfReaderAdvancedWatermarkLabel": "Watermark content",
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes",
     "LocalFileName": "local PDF file path"
+  },
+  "BootstrapBlazor.Server.Components.Samples.PdfViewers": {
+    "PdfViewerTitle": "PDFViewer",
+    "PdfViewerDescription": "Open the PDF file in the component to read its contents",
+    "PdfViewerNormalTitle": "Basic usage",
+    "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter"
   },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer",

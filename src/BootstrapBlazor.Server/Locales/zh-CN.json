@@ -4856,6 +4856,7 @@
     "PulseButton": "心跳按钮 PulseButton",
     "Bluetooth": "蓝牙服务 IBluetoothService",
     "PdfReader": "PDF阅读器 PDF Reader",
+    "PdfViewer": "PDF阅读器 PDF Viewer",
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
     "FlipClock": "卡片翻转时钟 FlipClock",
@@ -6155,6 +6156,12 @@
     "PdfReaderAdvancedWatermarkLabel": "水印内容",
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 自动使用 2.4.456 版本<br/>- Chrome < 109 自动使用 2.6.347 版本<br/>- 注:ReadOnly 和 Watermark 在这两种兼容模式下不能使用",
     "LocalFileName": "PDF本地文件路径"
+  },
+  "BootstrapBlazor.Server.Components.Samples.PdfViewers": {
+    "PdfViewerTitle": "PDFViewer PDF 阅读器",
+    "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容",
+    "PdfViewerNormalTitle": "基础用法",
+    "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件"
   },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer 视频播放器",
