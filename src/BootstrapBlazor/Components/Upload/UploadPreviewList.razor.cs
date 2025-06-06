@@ -262,18 +262,22 @@ public partial class UploadPreviewList
         return builder.Build();
     }
 
-    private string? GetFileExtensions(string fileExtension) => fileExtension switch
+    private string GetFileExtensions(string fileExtension)
     {
-        ".csv" or ".xls" or ".xlsx" => FileIconExcel,
-        ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
-        ".ppt" or ".pptx" => FileIconPPT,
-        ".wav" or ".mp3" => FileIconAudio,
-        ".mp4" or ".mov" or ".mkv" => FileIconVideo,
-        ".cs" or ".html" or ".vb" => FileIconCode,
-        ".pdf" => FileIconPdf,
-        ".zip" or ".rar" or ".iso" => FileIconZip,
-        ".txt" or ".log" => FileIconArchive,
-        ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
-        _ => FileIconFile
-    };
+        var extension = fileExtension switch
+        {
+            ".csv" or ".xls" or ".xlsx" => FileIconExcel,
+            ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
+            ".ppt" or ".pptx" => FileIconPPT,
+            ".wav" or ".mp3" => FileIconAudio,
+            ".mp4" or ".mov" or ".mkv" => FileIconVideo,
+            ".cs" or ".html" or ".vb" => FileIconCode,
+            ".pdf" => FileIconPdf,
+            ".zip" or ".rar" or ".iso" => FileIconZip,
+            ".txt" or ".log" => FileIconArchive,
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
+            _ => FileIconFile
+        };
+        return extension!;
+    }
 }
