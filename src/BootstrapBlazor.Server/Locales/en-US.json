@@ -4856,6 +4856,7 @@
     "PulseButton": "PulseButton",
     "Bluetooth": "IBluetooth",
     "PdfReader": "PDF Reader",
+    "PdfViewer": "PDF Viewer",
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "FlipClock": "FlipClock",

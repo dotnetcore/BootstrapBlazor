@@ -707,6 +707,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["PdfViewer"],
                     Url = "pdf-viewer"
                 },

@@ -4856,6 +4856,7 @@
     "PulseButton": "心跳按钮 PulseButton",
     "Bluetooth": "蓝牙服务 IBluetoothService",
     "PdfReader": "PDF阅读器 PDF Reader",
+    "PdfViewer": "PDF阅读器 PDF Viewer",
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
     "FlipClock": "卡片翻转时钟 FlipClock",
