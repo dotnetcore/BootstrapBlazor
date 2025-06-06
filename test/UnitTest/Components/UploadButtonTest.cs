@@ -362,6 +362,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
                 new() { FileName = "1.doc" },
                 new() { FileName = "1.docx" },
                 new() { FileName = "1.dot" },
+                new() { FileName = "1.dotx" },
                 new() { FileName = "1.ppt" },
                 new() { FileName = "1.pptx" },
                 new() { FileName = "1.wav" },
@@ -397,7 +398,6 @@ public class UploadButtonTest : BootstrapBlazorTestBase
         cut.Contains("fa-file-archive");
         cut.Contains("fa-file-text");
         cut.Contains("fa-file-image");
-        cut.Contains("fa-file-archive");
         cut.Contains("fa-file");
 
         cut.SetParametersAndRender(pb =>
