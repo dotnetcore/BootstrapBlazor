@@ -85,9 +85,9 @@ public partial class TutorialsNavMenu
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("TransitionalLogin", _template5),
-                        Text = "TransitionalLogin",
-                        Url = "/tutorials/transitionallogin"
+                        Template = CreateDownloadButtonComponent("template5", _template5),
+                        Text = "Template 5",
+                        Url = "/tutorials/template5"
                     }
                 ]
             },

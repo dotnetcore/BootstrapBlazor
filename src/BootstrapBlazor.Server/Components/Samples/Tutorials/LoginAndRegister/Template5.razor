@@ -1,0 +1,74 @@
+﻿@page "/tutorials/template5"
+@layout TutorialsLoginLayout
+
+<div class="background-image">
+    <div class="login-container">
+        <div class="login-box animate-fade-in">
+            <div class="header-row">
+                @if (isEmailEntered)
+                {
+                    <button @onclick="GoBack" aria-label="返回" class="back-button">
+                        <span>
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </span>
+                    </button>
+                }
+                <div class="logo-container">
+                    <h1 class="blazor-text">BootstrapBlazor</h1>
+                </div>
+            </div>
+            @if (!isEmailEntered)
+            {
+                <h2>登录</h2>
+                <p class="subtitle">使用你的 BootstrapBlazor 帐户。</p>
+                <BootstrapInput type="email" class="input" placeholder="电子邮件或电话号码" @bind-Value="email" />
+                <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
+                <Button class="button" Color="Color.Primary" OnClick="OnEmailSubmit">下一步</Button>
+                <div class="links">
+                    <a href="#">忘记用户名？</a>
+                </div>
+                <div class="small">
+                    不熟悉 BootstrapBlazor？<a href="/">去看文档</a>
+                </div>
+            }
+            else
+            {
+                <h2>输入你的密码</h2>
+                <p class="email-display">@email</p>
+                <BootstrapInput type="password" class="input" placeholder="密码" @bind-Value="password" />
+                <div class="links">
+                    <a href="#">忘记了密码？</a>
+                </div>
+                <Button class="button" Color="Color.Primary">下一步</Button>
+                <div class="links">
+                    <a href="#">其他登录方法</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool isEmailEntered = false;
+    private string email = "";
+    private string password = "";
+    private bool showEmailError = false;
+
+    private void OnEmailSubmit()
+    {
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            showEmailError = true;
+        }
+        else
+        {
+            showEmailError = false;
+            isEmailEntered = true;
+        }
+    }
+
+    private void GoBack()
+    {
+        isEmailEntered = false;
+    }
+}
