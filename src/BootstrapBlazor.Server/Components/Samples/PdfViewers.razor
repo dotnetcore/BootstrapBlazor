@@ -8,5 +8,6 @@
 <PackageTips Name="BootstrapBlazor.PdfViewer" />
 
 <DemoBlock Title="@Localizer["PdfViewerNormalTitle"]" Introduction="@Localizer["PdfViewerNormalIntro"]" Name="Normal">
-    <PdfViewer Url="./samples/pdf-viewer.pdf" Height="620px"></PdfViewer>
+    <PdfViewer Url="./samples/pdf-viewer.pdf" Height="620px"
+               NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"></PdfViewer>
 </DemoBlock>
