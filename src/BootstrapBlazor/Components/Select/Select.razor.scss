@@ -1,4 +1,4 @@
-.select,
+﻿.select,
 .popover-dropdown {
     --bb-dropdown-link-pre-active-bg: #{$bb-dropdown-link-pre-active-bg};
 }
@@ -229,6 +229,11 @@
         right: var(--bb-select-search-icon-right);
         top: var(--bb-select-search-icon-top);
         color: var(--bb-select-search-icon-color);
+        width: 1rem;
+        height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
