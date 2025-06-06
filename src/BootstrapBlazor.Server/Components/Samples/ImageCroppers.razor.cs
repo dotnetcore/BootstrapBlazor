@@ -22,7 +22,7 @@ public partial class ImageCroppers
 
     private string? _base64String2;
 
-    private readonly ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%" };
+    private readonly ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%", AspectRatio = 3/4f };
 
     /// <summary>
     /// <inheritdoc/>
