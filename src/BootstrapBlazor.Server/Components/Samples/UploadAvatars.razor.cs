@@ -10,10 +10,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// AvatarUpload sample code
 /// </summary>
-public partial class UploadAvatars : IDisposable
+public partial class UploadAvatars
 {
-    private static readonly long MaxFileLength = 5 * 1024 * 1024;
-    private CancellationTokenSource? _token;
     private readonly List<UploadFile> _previewFileList = [];
     private readonly Person _foo = new();
     private bool _isUploadButtonAtFirst;
@@ -45,15 +43,6 @@ public partial class UploadAvatars : IDisposable
     private Task OnAvatarInValidSubmit(EditContext context)
     {
         return ToastService.Error(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormInValidContent"]);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public void Dispose()
-    {
-        _token?.Cancel();
-        GC.SuppressFinalize(this);
     }
 
     private List<AttributeItem> GetAttributes() =>
