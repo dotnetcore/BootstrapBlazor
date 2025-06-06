@@ -6161,7 +6161,7 @@
     "PdfViewerTitle": "PDFViewer",
     "PdfViewerDescription": "Open the PDF file in the component to read its contents",
     "PdfViewerNormalTitle": "Basic usage",
-    "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter",
+    "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter. Set <code>UseGoogleDocs</code> to use docs.google.com preview",
     "PdfViewerToastSuccessfulContent": "PDF document loaded successfully.",
     "PdfViewerToastNotSupportContent": "The browser does not support inline viewing of PDF files."
   },

@@ -8,6 +8,17 @@
 <PackageTips Name="BootstrapBlazor.PdfViewer" />
 
 <DemoBlock Title="@Localizer["PdfViewerNormalTitle"]" Introduction="@Localizer["PdfViewerNormalIntro"]" Name="Normal">
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="UseGoogleDocs"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_useGoogleDocs"></Switch>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
     <PdfViewer Url="./samples/pdf-viewer.pdf" Height="620px"
-               NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"></PdfViewer>
+               NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"
+               UseGoogleDocs="@_useGoogleDocs"></PdfViewer>
 </DemoBlock>
