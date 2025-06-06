@@ -1,5 +1,23 @@
 ﻿@page "/tutorials/template5"
-@layout TutorialsLoginLayout
+@layout TutorialsLayout
+
+<HeadContent>
+    <style>
+        .main:has(.background-image) {
+            height: calc(100vh - 56px - 175px);
+        }
+
+        @@media (min-width: 768px) {
+            .main:has(.background-image) {
+                height: calc(100vh - 50px);
+            }
+
+            .login-box {
+                width: 350px;
+            }
+        }
+    </style>
+</HeadContent>
 
 <div class="background-image">
     <div class="login-container">
