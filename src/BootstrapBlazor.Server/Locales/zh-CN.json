@@ -6680,6 +6680,8 @@
     "Title": "ImageCropper 图像裁剪",
     "ImageCropperNormalText": "基础用法",
     "ImageCropperNormalIntro": "通过设置 <code>Url</code> 参数设置图片地址，可通过设置 <code>ImageCropperOption.AspectRatio=16/9f</code> 设置裁剪框比例，<code>1</code> 时为正方形",
+    "ImageCropperRoundText": "圆角",
+    "ImageCropperRoundIntro": "通过设置 <code>IsRound</code> 参数设置裁剪方式为圆形",
     "ImageCropperResetText": "复位",
     "ImageCropperReplaceText": "替换",
     "ImageCropperRotateText": "旋转",

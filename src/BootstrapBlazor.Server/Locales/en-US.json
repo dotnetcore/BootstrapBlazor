@@ -6680,6 +6680,8 @@
     "Title": "Image cropper",
     "ImageCropperNormalText": "Basic usage",
     "ImageCropperNormalIntro": "The URL of the image can be set by setting the <code>Url</code> parameter. The cropping ratio can be set by setting <code>ImageCropperOption.AspectRatio=16/9f</code>. <code>1</code> is a square.",
+    "ImageCropperRoundText": "Round",
+    "ImageCropperRoundIntro": "Set the cropping mode to circular by setting the <code>IsRound</code> parameter",
     "ImageCropperResetText": "Reset",
     "ImageCropperReplaceText": "Replace",
     "ImageCropperRotateText": "Rotate",
