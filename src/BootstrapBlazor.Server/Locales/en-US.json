@@ -6679,7 +6679,7 @@
   "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
     "Title": "Image cropper",
     "ImageCropperNormalText": "Basic usage",
-    "ImageCropperNormalIntro": "Url parameter setting image",
+    "ImageCropperNormalIntro": "The URL of the image can be set by setting the <code>Url</code> parameter. The cropping ratio can be set by setting <code>ImageCropperOption.AspectRatio=16/9f</code>. <code>1</code> is a square.",
     "ImageCropperResetText": "Reset",
     "ImageCropperReplaceText": "Replace",
     "ImageCropperRotateText": "Rotate",
