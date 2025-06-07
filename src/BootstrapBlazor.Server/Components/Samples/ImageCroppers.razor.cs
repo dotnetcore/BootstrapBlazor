@@ -58,6 +58,14 @@ public partial class ImageCroppers
 
     private Task Rotate() => _cropper.Rotate(90);
 
+    private ImageCropperData _data = new();
+    private Task OnCropChangedAsync(ImageCropperData data)
+    {
+        _data = data;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private AttributeItem[] GetAttributes() =>
     [
         new()
