@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Stack
 {
-    private string? ClassString => CssBuilder.Default("bb_stack d-flex")
+    private string? ClassString => CssBuilder.Default("bb-stack d-flex")
         .AddClass("flex-row", IsRow)
         .AddClass("flex-row flex-row-reverse", IsRow && IsReverse)
         .AddClass("flex-column", !IsRow)
@@ -23,7 +23,7 @@ public partial class Stack
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private static string? ItemClassString(StackItem item) => CssBuilder.Default("bb_stack_item")
+    private static string? ItemClassString(StackItem item) => CssBuilder.Default("bb-stack-item")
         .AddClass("flex-fill", item.IsFill)
         .AddClass(item.AlignSelf.ToDescriptionString().Replace("align-items", "align-self"), item.AlignSelf != StackAlignItems.Stretch)
         .AddClassFromAttributes(item.AdditionalAttributes)

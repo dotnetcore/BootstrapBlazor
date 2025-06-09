@@ -6,7 +6,7 @@
     margin-top: 1rem;
 }
 
-::deep .bb_stack {
+::deep .bb-stack {
     height: 100%;
 }
 
@@ -14,15 +14,15 @@
     width: 120px;
 }
 
-::deep .bb_stack_item:nth-child(1) {
+::deep .bb-stack-item:nth-child(1) {
     background-color: var(--bs-primary);
 }
 
-::deep .bb_stack_item:nth-child(2) {
+::deep .bb-stack-item:nth-child(2) {
     background-color: var(--bs-success);
 }
 
-::deep .bb_stack_item:nth-child(3) {
+::deep .bb-stack-item:nth-child(3) {
     background-color: var(--bs-danger);
 }
 
