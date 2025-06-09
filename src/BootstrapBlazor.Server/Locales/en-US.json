@@ -3538,7 +3538,7 @@
     "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
-    "UploadsTitle": "CardDrop",
+    "UploadsTitle": "DropUpload",
     "UploadsSubTitle": "Upload one or more files by clicking on the component or by dragging or pasting",
     "UploadsNote": "If the uploaded file is too large, it may trigger <code>signalR</code> communication interruption. Please adjust the <code>HubOptions</code> configuration yourself.",
     "DropUploadTitle": "Basic usage",

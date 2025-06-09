@@ -3538,7 +3538,7 @@
     "UploadBase64Intro": "通过设置 <code>UploadFile</code> 实例的 <code>PrevUrl</code> 参数值使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
-    "UploadsTitle": "CardDrop 拖拽上传组件",
+    "UploadsTitle": "DropUpload 拖拽上传组件",
     "UploadsSubTitle": "通过点击组件或者拖拽或者粘贴上传一个或者多个文件",
     "UploadsNote": "如果上传文件过大，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "DropUploadTitle": "基础用法",
