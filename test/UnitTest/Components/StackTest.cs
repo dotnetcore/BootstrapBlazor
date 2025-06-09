@@ -121,6 +121,6 @@ public class StackTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "<div class=\"stack-item-demo\">Item 2</div>"));
             });
         });
-        cut.Contains($"bb_stack_item {align.ToDescriptionString().Replace("align-items", "align-self")}");
+        cut.Contains($"bb-stack-item {align.ToDescriptionString().Replace("align-items", "align-self")}");
     }
 }

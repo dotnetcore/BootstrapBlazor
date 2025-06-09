@@ -37,7 +37,6 @@
 .header-row {
     display: flex;
     align-items: center;
-    justify-content: center;
     position: relative;
     height: 40px;
     margin-bottom: 20px;
@@ -55,20 +54,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 
 .blazor-text {
     font-family: Arial, sans-serif;
-    font-size: 2rem;
+    font-size: 1.8rem; 
     font-weight: bold;
     text-align: center;
     background: linear-gradient(to right, #8e44ad, #e84393);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin: 0; 
 }
 
 .logo-container {
-    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-left: 40px; 
+    margin-right: 40px; 
 }
 
 .logo {
