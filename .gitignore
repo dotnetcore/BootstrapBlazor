@@ -383,4 +383,4 @@ src/**/wwwroot/**/uploader
 **/BootstrapBlazor/wwwroot/css/nano.min.css
 
 # Bootstrap
-**/BootstrapBlazor/wwwroot/modules/bootstrap.esm.min.js
+**/BootstrapBlazor/wwwroot/js/bootstrap.blazor.bundle.min.js
