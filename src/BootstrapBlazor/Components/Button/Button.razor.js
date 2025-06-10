@@ -1,4 +1,6 @@
-﻿const showTooltip = (id, title) => {
+﻿import '../../js/bootstrap.blazor.bundle.min.js'
+
+const showTooltip = (id, title) => {
     const el = document.getElementById(id)
 
     if (el) {
