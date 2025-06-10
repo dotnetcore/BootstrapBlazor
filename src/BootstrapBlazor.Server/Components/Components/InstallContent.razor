@@ -1,26 +1,16 @@
 ﻿@using Microsoft.Extensions.DependencyInjection
 @inject PackageVersionService VersionManager
 @inject IStringLocalizer<InstallContent> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Title</h3>
 
-<h4>@Localizer["Heading"]</h4>
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+<h5>@Localizer["P5"]</h5>
+<p>@((MarkupString)Localizer["InstallByTemplate"].Value)</p>
 
-<p>@Localizer["P1"]</p>
-<ul class="ul-demo">
-    <li><code>visual studio</code> @Localizer["P2"]</li>
-    <li><code>net5</code> @Localizer["P3"] <code>net6</code> <code>net7</code></li>
-</ul>
-<p><code>BootstrapBlazor</code> @Localizer["P4"] <code>NET6/NET7/NET8/NET9</code></p>
+<h5 class="code-label">@Localizer["P9"]</h5>
 
-<h4>@Localizer["P5"]</h4>
-
-<p>@Localizer["P6"] <a href="template">[@Localizer["P7"]]</a> @Localizer["P8"]</p>
-
-<h4>@Localizer["P9"]</h4>
-
-<h5>@Localizer["P10"]</h5>
+<p class="code-label">@Localizer["P10"]</p>
 <p class="code-label">1. @Localizer["P11"]</p>
 <p class="code-label">2. @Localizer["P12"]</p>
 <p class="code-label">3. @Localizer["P13"] <b>Blazor App</b> @Localizer["P14"] <b>@Localizer["P15"]</b>, @Localizer["P16"] <b>Create</b></p>
@@ -54,7 +44,7 @@
     &lt;link href="BlazorApp1.styles.css" rel="stylesheet"&gt;
 &lt;/head&gt;</Pre>
 
-<p class="code-label">4. @Localizer["P25"]</p>
+<p class="code-label">4. @((MarkupString)Localizer["P25"].Value)</p>
 @ScriptsTemplate
 <Pre>&lt;body&gt;
     ...
@@ -68,25 +58,11 @@
 @ServicesTemplate
 
 <p class="code-label">6. @Localizer["P28"]</p>
-<p>@Localizer["P29"] <code>~/_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</p>
+<p>@Localizer["P29"] <code>_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</p>
 <Pre><b>@@using BootstrapBlazor.Components</b></Pre>
 
-<p class="code-label">7. @Localizer["P32"] <code>BootstrapBlazorRoot</code> @Localizer["P33"] <code>~/App.razor</code> @Localizer["P34"]</p>
-<Pre>&lt;BootstrapBlazorRoot&gt;
-    &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
-        &lt;Found Context="routeData"&gt;
-            &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
-            &lt;RouteView RouteData="@@routeData" DefaultLayout="@@typeof(MainLayout)" /&gt;
-            &lt;FocusOnNavigate RouteData="@@routeData" Selector="h1" /&gt;
-        &lt;/Found&gt;
-        &lt;NotFound&gt;
-            &lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
-            &lt;LayoutView Layout="@@typeof(MainLayout)"&gt;
-                &lt;p&gt; @Localizer["P35"] ...&lt;/p&gt;
-            &lt;/LayoutView&gt;
-        &lt;/NotFound&gt;
-    &lt;/Router&gt;
-&lt;/BootstrapBlazorRoot&gt;</Pre>
+<p class="code-label">7. @((MarkupString)Localizer["AddRootText"].Value)</p>
+@RootTemplate
 
 <h5>@Localizer["P36"]</h5>
 <p>@Localizer["P37"] <code>BootstrapBlazor</code> @Localizer["P38"]：</p>

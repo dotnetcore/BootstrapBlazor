@@ -9,20 +9,19 @@
     </ChooseTemplate>
     <SheetTemplate>
         <ul class="ul-demo">
-            <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
-            <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6/.NET7</b></li>
+            <li><code>~/Pages/_Layout.cshtml</code> <b>NET6/NET7</b></li>
+            <li><code>App.razor</code> <b>NET8/NET9</b></li>
         </ul>
     </SheetTemplate>
     <ScriptsTemplate>
         <ul class="ul-demo">
-            <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
-            <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6/.NET7</b></li>
+            <li><code>~/Pages/_Layout.cshtml</code> <b>NET6/NET7</b></li>
+            <li><code>App.razor</code> <b>NET8/NET9</b></li>
         </ul>
     </ScriptsTemplate>
     <ServicesTemplate>
         <ul class="ul-demo">
-            <li><code>Starup.cs</code> <b>.NET5</b></li>
-            <li><code>Program.cs</code> <b>.NET6/.NET7</b></li>
+            <li><code>Program.cs</code> <b>NET6/NET7/NET8/NET9</b></li>
         </ul>
         <p><b>Startup.cs</b></p>
         <Pre>namespace MyBlazorAppName
@@ -51,4 +50,21 @@ builder.Services.AddServerSideBlazor();
 var app = builder.Build();
 //more code may be present here</Pre>
     </ServicesTemplate>
+    <RootTemplate>
+        <ul class="ul-demo">
+            <li><code>App.razor</code> <b>NET6/NET7</b></li>
+            <li><code>MainLayout.razor</code> <b>NET8/NET9</b></li>
+        </ul>
+
+        <Pre>// NET6/NET7
+&lt;BootstrapBlazorRoot&gt;
+    &lt;Router&gt;&lt;Router&gt;
+&lt;/BootstrapBlazorRoot&gt;
+</Pre>
+
+        <Pre>// NET8/NET9
+&lt;BootstrapBlazorRoot&gt;
+    &lt;@@Body
+&lt;/BootstrapBlazorRoot&gt;</Pre>
+    </RootTemplate>
 </InstallContent>

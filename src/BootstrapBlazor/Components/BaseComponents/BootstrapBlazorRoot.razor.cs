@@ -65,9 +65,9 @@ public partial class BootstrapBlazorRoot
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
 
-    private bool _enableErrorLoggerValue => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+    private bool EnableErrorLoggerValue => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
-    private bool _showToast => ShowToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+    private bool ShowToastValue => ShowToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// SetParametersAsync 方法
