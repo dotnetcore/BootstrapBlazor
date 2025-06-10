@@ -744,7 +744,7 @@
     "DownloadsTitle": "Download 文件下载",
     "DownloadsSubTitle": "用于直接下载物理文件",
     "DownloadsTips1": "特别注意",
-    "DownloadsTips2": "<code>Download</code> 组件底层使用了 <code>DotNetStreamReference</code> 对象，这允许将文件数据流式传输到客户端，此方法会将整个文件加载到客户端内存中，若要下载相对较大的文件 (<code>&gt;= 250 MB</code>)，建议遵循 <code>MVC</code> 从 <code>Url</code> 下载，<b><code>本组件不支持 NET5</code></b>",
+    "DownloadsTips2": "<code>Download</code> 组件底层使用了 <code>DotNetStreamReference</code> 对象，这允许将文件数据流式传输到客户端，此方法会将整个文件加载到客户端内存中，若要下载相对较大的文件 (<code>&gt;= 250 MB</code>)，建议遵循 <code>MVC</code> 从 <code>Url</code> 下载",
     "DownloadsExample": "示例",
     "DownloadsExampleButtonText": "下载文件",
     "DownloadsExampleRazorCodeTitle": "<code>Razor</code> 代码",

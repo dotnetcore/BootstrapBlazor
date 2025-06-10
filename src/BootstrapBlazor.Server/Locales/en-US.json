@@ -744,7 +744,7 @@
     "DownloadsTitle": "Download file download",
     "DownloadsSubTitle": "For direct download of physical files",
     "DownloadsTips1": "pay attention",
-    "DownloadsTips2": "<code>Download</code> use the <code>DotNetStreamReference</code> object which allows streaming file data to the client. This approach loads the entire file into the client's' memory, which can impair performance. To download relatively large files (<code>&gt;=250 MB</code>), it is recommended to follow the <code>MVC</code> download from <code>Url</code>. <b><code>NOT SUPPORT NET5</code></b>",
+    "DownloadsTips2": "<code>Download</code> use the <code>DotNetStreamReference</code> object which allows streaming file data to the client. This approach loads the entire file into the client's' memory, which can impair performance. To download relatively large files (<code>&gt;=250 MB</code>), it is recommended to follow the <code>MVC</code> download from <code>Url</code>.",
     "DownloadsExample": "Example",
     "DownloadsExampleButtonText": "download file",
     "DownloadsExampleRazorCodeTitle": "<code>Razor</code> code",
