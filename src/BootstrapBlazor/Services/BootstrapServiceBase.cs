@@ -23,10 +23,10 @@ public abstract class BootstrapServiceBase<TOption>
     /// <returns></returns>
     protected async Task Invoke(TOption option, ComponentBase? component = null)
     {
-        var (Key, Callback) = component != null
+        var (_, callback) = component != null
             ? Cache.FirstOrDefault(k => k.Key == component)
             : Cache.FirstOrDefault();
-        if (Callback == null)
+        if (callback == null)
         {
 #if NET8_0_OR_GREATER
             throw new InvalidOperationException($"{GetType().Name} not registered. refer doc https://www.blazor.zone/install-webapp step 7 for BootstrapBlazorRoot");
@@ -34,7 +34,7 @@ public abstract class BootstrapServiceBase<TOption>
             throw new InvalidOperationException($"{GetType().Name} not registered. refer doc https://www.blazor.zone/install-server step 7 for BootstrapBlazorRoot");
 #endif
         }
-        await Callback.Invoke(option);
+        await callback(option);
     }
 
     /// <summary>
