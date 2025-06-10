@@ -42,7 +42,6 @@ const print = el => {
             // assign value
             const elements = ["input", "textarea"];
             elements.forEach(tag => {
-                console.log(tag);
                 dialog.querySelectorAll(tag).forEach(ele => {
                     const id = ele.getAttribute('id')
                     const vEl = document.getElementById(id)
