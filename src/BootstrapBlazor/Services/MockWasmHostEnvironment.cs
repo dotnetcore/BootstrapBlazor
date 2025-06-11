@@ -10,7 +10,11 @@ namespace BootstrapBlazor.Components;
 
 class MockWasmHostEnvironment : IHostEnvironment
 {
+#if DEBUG
+    public string EnvironmentName { get; set; } = "Development";
+#else
     public string EnvironmentName { get; set; } = "Production";
+#endif
 
     public string ApplicationName { get; set; } = "BootstrapBlazor";
 
