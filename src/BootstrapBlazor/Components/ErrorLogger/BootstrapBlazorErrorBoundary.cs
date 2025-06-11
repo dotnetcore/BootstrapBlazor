@@ -5,7 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
@@ -35,7 +34,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
     [Inject]
     [NotNull]
-    private IServiceProvider? ServiceProvider { get; set; }
+    private IHostEnvironment? HostEnvironment { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
@@ -153,8 +152,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
         if (handler != null)
         {
-            var host = ServiceProvider.GetService<IHostEnvironment>();
-            if (host?.IsDevelopment() ?? false)
+            if (HostEnvironment.IsDevelopment())
             {
                 // IHandlerException 处理异常逻辑
                 await handler.HandlerException(exception, ExceptionContent);
