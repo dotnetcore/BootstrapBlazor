@@ -1,5 +1,4 @@
-﻿import '../../js/bootstrap.blazor.bundle.min.js'
-import { copy } from "../../modules/utility.js"
+﻿import { copy } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 

@@ -1,5 +1,4 @@
-﻿import '../../js/bootstrap.blazor.bundle.min.js'
-import { getDescribedElement, hackTooltip } from "../../modules/utility.js"
+﻿import { getDescribedElement, hackTooltip } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, options) {
