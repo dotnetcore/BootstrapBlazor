@@ -1,5 +1,4 @@
-﻿import '../js/bootstrap.blazor.bundle.min.js'
-import EventHandler from "./event-handler.js"
+﻿import EventHandler from "./event-handler.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
