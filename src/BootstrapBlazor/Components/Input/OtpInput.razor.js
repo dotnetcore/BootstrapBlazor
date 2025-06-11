@@ -50,6 +50,9 @@ export function init(id, invoke, method) {
         if (e.clipboardData && e.clipboardData.getData) {
             const pastedText = e.clipboardData.getData('text/plain');
             const inputs = [...el.querySelectorAll('.bb-opt-item')];
+            if (inputs.find(i => i.getAttribute('disabled') || i.getAttribute('readonly'))) {
+                return;
+            }
             for (const index in inputs) {
                 const input = inputs[index];
                 if (index < pastedText.length) {
@@ -67,7 +70,6 @@ export function init(id, invoke, method) {
 
 const setValue = (el, invoke, method) => {
     const val = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
-    console.log(val);
     invoke.invokeMethodAsync(method, val);
 }
 

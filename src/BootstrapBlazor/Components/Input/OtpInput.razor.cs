@@ -39,11 +39,6 @@ public partial class OtpInput
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ItemClassString => CssBuilder.Default("bb-opt-item")
-        .AddClass("disabled", IsDisabled)
-        .AddClass(ValidCss)
-        .Build();
-
     private string? InputClassString => CssBuilder.Default("bb-opt-item")
         .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass(ValidCss)
@@ -67,6 +62,10 @@ public partial class OtpInput
         OtpInputType.Number => "numeric",
         _ => null
     };
+
+    private string? ReadonlyString => IsReadonly ? "readonly" : null;
+
+    private string? DisabledString => IsDisabled ? "disabled" : null;
 
     private char[] _values = [];
 
@@ -98,7 +97,6 @@ public partial class OtpInput
     {
         return _values[index] != 0 ? _values[index] : null;
     }
-
 
     /// <summary>
     /// Trigger value changed event callback. Trigger by JavaScript.
