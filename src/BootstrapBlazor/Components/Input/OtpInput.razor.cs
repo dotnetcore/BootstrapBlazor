@@ -95,7 +95,7 @@ public partial class OtpInput
 
     private char? GetValueString(int index)
     {
-        return _values[index] != 0 ? _values[0] : null;
+        return _values[index] != 0 ? _values[index] : null;
     }
 
     /// <summary>
