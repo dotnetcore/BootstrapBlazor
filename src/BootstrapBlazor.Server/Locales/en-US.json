@@ -4223,7 +4223,8 @@
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating",
-    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>"
+    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>",
+    "LocatorsProviderOptions": "<code>BootstrapBlazorOptions</code> section <code>WebClientOptions</code> By default it is <code>false</code>, which means the IP address location function is not enabled. Please change it to <code>true</code> in the configuration file or code."
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",
