@@ -50,6 +50,9 @@ export function init(id, invoke, method) {
         if (e.clipboardData && e.clipboardData.getData) {
             const pastedText = e.clipboardData.getData('text/plain');
             const inputs = [...el.querySelectorAll('.bb-opt-item')];
+            if (inputs.find(i => i.getAttribute('disabled') || i.getAttribute('readonly'))) {
+                return;
+            }
             for (const index in inputs) {
                 const input = inputs[index];
                 if (index < pastedText.length) {
