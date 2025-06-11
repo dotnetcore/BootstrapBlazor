@@ -4223,7 +4223,8 @@
     "LocatorsNormalInputText": "Ip 地址",
     "LocatorsNormalDisplayText": "地理位置",
     "LocatorsNormalButtonText": "定位",
-    "LocatorsProviderDesc": "<p>组件库内置两个免费在线地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>组件库内置一个收费在线地理位置定位器 <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget 包</a> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>"
+    "LocatorsProviderDesc": "<p>组件库内置两个免费在线地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>组件库内置一个收费在线地理位置定位器 <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget 包</a> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>",
+    "LocatorsProviderOptions": "全局配置定位器选项 <code>WebClientOptions</code> 默认 <code>false</code> 没有启用 IP 地址定位功能，请在配置文件中或者代码中更改为 <code>true</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print 打印按钮",
