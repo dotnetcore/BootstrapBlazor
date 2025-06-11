@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace BootstrapBlazor.Components;
 
+[ExcludeFromCodeCoverage]
 class MockWasmHostEnvironment : IHostEnvironment
 {
 #if DEBUG
