@@ -21,19 +21,36 @@ export function init(id, options) {
 
     let counter = 0;
     const getDate = () => {
+        let totalMilliseconds = 0;
         let now;
+
         if (options.viewMode === "Count") {
             counter += 1000;
-            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
+            // 计算累计时间（单位：毫秒）
+            totalMilliseconds = counter - options.startValue;
         }
         else if (countDown) {
             counter += 1000;
-            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 + options.startValue - counter);
+            // 计算剩余时间（单位：毫秒）
+            totalMilliseconds = options.startValue - counter;
+            // 确保不会出现负数
+            if (totalMilliseconds < 0) totalMilliseconds = 0;
         }
         else {
             now = new Date();
+            return {
+                days: now.getDate(),  // 返回当前日期（月份中的第几天）
+                hours: now.getHours(),
+                minutes: now.getMinutes(),
+                seconds: now.getSeconds()
+            };
         }
-        return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds() };
+        // 将时间戳转换为天/时/分/秒
+        const seconds = Math.floor(totalMilliseconds / 1000) % 60;
+        const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
+        const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
+        const days = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
+        return { days, hours, minutes, seconds };
     }
 
     let lastHour;
