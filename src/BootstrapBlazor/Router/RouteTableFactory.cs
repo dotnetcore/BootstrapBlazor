@@ -23,7 +23,7 @@ internal static class RouteTableFactory
     public static RouteContext Create(IEnumerable<Assembly> assemblies, string url)
     {
         RefreshRouteTable(assemblies);
-        if (url.IndexOf("?") > 0) url = url[..url.IndexOf("?")];
+        if (url.IndexOf("?", StringComparison.OrdinalIgnoreCase) > 0) url = url[..url.IndexOf("?")];
         var routeContext = new Microsoft.AspNetCore.Components.Routing.RouteContext(url);
         Routes.Route(routeContext);
         return new RouteContext()
