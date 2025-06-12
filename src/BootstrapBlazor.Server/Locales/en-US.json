@@ -1195,7 +1195,7 @@
     "P22": "Add stylesheet file",
     "P23": "Add a theme style sheet to the host file",
     "P24": "Need to reference BootstrapBlazor.FontAwesome package",
-    "P25": "Add Javascript files. This step can be skipped for versions later than <code>9.7.1</code>",
+    "P25": "Add Javascript files",
     "P26": "add code",
     "P27": "Register the BootstrapBlazor service",
     "P28": "Add namespace reference",
