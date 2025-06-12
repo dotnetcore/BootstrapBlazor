@@ -1195,7 +1195,7 @@
     "P22": "添加样式表文件",
     "P23": "在宿主文件中增加主题样式表",
     "P24": "需引用 BootstrapBlazor.FontAwesome 包",
-    "P25": "添加 JavaScript 文件 <code>9.7.1</code> 版本后可跳过此步骤",
+    "P25": "添加 JavaScript 文件",
     "P26": "增加代码",
     "P27": "注册 BootstrapBlazor 服务",
     "P28": "增加命名空间引用",
