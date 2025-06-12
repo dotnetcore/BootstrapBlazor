@@ -20,19 +20,26 @@ public static class UploadFileExtensions
     /// <param name="maxWidth"></param>
     /// <param name="maxHeight"></param>
     /// <param name="maxAllowedSize"></param>
+    /// <param name="allowExtensions"></param>
     /// <param name="token"></param>
     [ExcludeFromCodeCoverage]
-    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
+    public static async Task RequestBase64ImageFileAsync(this UploadFile upload, string? format = null, int maxWidth = 320, int maxHeight = 240, long? maxAllowedSize = null, List<string>? allowExtensions = null, CancellationToken token = default)
     {
         if (upload.File != null)
         {
             try
             {
-                var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
-                using var fileStream = imageFile.OpenReadStream(maxAllowedSize, token);
-                using var memoryStream = new MemoryStream();
-                await fileStream.CopyToAsync(memoryStream, token);
-                upload.PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+                format ??= upload.File.ContentType;
+                if (upload.IsImage(allowExtensions))
+                {
+                    var imageFile = await upload.File.RequestImageFileAsync(format, maxWidth, maxHeight);
+
+                    maxAllowedSize ??= upload.File.Size;
+                    using var fileStream = imageFile.OpenReadStream(maxAllowedSize.Value, token);
+                    using var memoryStream = new MemoryStream();
+                    await fileStream.CopyToAsync(memoryStream, token);
+                    upload.PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+                }
                 upload.Uploaded = true;
             }
             catch (Exception ex)
@@ -178,6 +185,56 @@ public static class UploadFileExtensions
                 upload.Error = ex.Message;
                 upload.PrevUrl = null;
             }
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// Check item whether is image extension method.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="allowExtensions"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static bool IsImage(this UploadFile item, List<string>? allowExtensions = null, Func<UploadFile, bool>? callback = null)
+    {
+        bool ret;
+        if (callback != null)
+        {
+            ret = callback(item);
+        }
+        else if (item.File != null)
+        {
+            ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || item.IsAllowExtensions(allowExtensions);
+        }
+        else
+        {
+            ret = item.IsBase64Format() || item.IsAllowExtensions(allowExtensions);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// Check item whether is base64 format image extension method.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static bool IsBase64Format(this UploadFile item) => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Check the extension whether in the allowExtensions list.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="allowExtensions"></param>
+    /// <returns></returns>
+    public static bool IsAllowExtensions(this UploadFile item, List<string>? allowExtensions = null)
+    {
+        var ret = false;
+        allowExtensions ??= [".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".webp"];
+        var fileName = item.File?.Name ?? item.FileName ?? item.PrevUrl;
+        if (!string.IsNullOrEmpty(fileName))
+        {
+            ret = allowExtensions.Contains(Path.GetExtension(fileName), StringComparer.OrdinalIgnoreCase);
         }
         return ret;
     }

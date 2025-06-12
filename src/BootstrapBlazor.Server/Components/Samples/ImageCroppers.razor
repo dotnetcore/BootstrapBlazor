@@ -7,34 +7,102 @@
 <PackageTips Name="BootstrapBlazor.ImageCropper" />
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper @ref="_cropper" Url="@_images[0]"></ImageCropper>
+    <ImageCropper @ref="_cropper" Url="@_images[0]" Options="_roundOptions1" OnCropChangedAsync="OnCropChangedAsync"></ImageCropper>
     <section ignore>
         <BootstrapInputGroup>
-            <Button Text="OK" OnClick="Crop" />
-            <Button Text="@Localizer["ImageCropperResetText"]" OnClick="_cropper.Reset" />
-            <Button Text="@Localizer["ImageCropperReplaceText"]" OnClick="OnClickReplace" />
-            <Button Text="@Localizer["ImageCropperRotateText"]" OnClick="Rotate" />
-            <Button Text="@Localizer["ImageCropperEnableText"]" OnClick="_cropper.Enable" />
-            <Button Text="@Localizer["ImageCropperDisabledText"]" OnClick="_cropper.Disable" />
-            <Button Text="@Localizer["ImageCropperClearText"]" OnClick="_cropper.Clear" />
+            <Button Text="OK" OnClick="Crop"></Button>
+            <Button Text="@Localizer["ImageCropperResetText"]" OnClick="_cropper.Reset"></Button>
+            <Button Text="@Localizer["ImageCropperReplaceText"]" OnClick="OnClickReplace"></Button>
+            <Button Text="@Localizer["ImageCropperRotateText"]" OnClick="Rotate"></Button>
+            <Button Text="@Localizer["ImageCropperEnableText"]" OnClick="_cropper.Enable"></Button>
+            <Button Text="@Localizer["ImageCropperDisabledText"]" OnClick="_cropper.Disable"></Button>
+            <Button Text="@Localizer["ImageCropperClearText"]" OnClick="_cropper.Clear"></Button>
         </BootstrapInputGroup>
+
+        <div class="d-flex mt-3" style="gap: 0.5rem;">
+            <div class="bb-cropper-preview bb-cropper-preview1 bb-cropper-preview-lg"></div>
+            <div class="bb-cropper-preview bb-cropper-preview1 bb-cropper-preview-md"></div>
+            <div class="bb-cropper-preview bb-cropper-preview1 bb-cropper-preview-sm"></div>
+            <div class="bb-cropper-preview bb-cropper-preview1 bb-cropper-preview-xs"></div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="X"></BootstrapInputGroupLabel>
+                    <Display Value="_data.X"></Display>
+                    <BootstrapInputGroupLabel DisplayText="px"></BootstrapInputGroupLabel>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Y"></BootstrapInputGroupLabel>
+                    <Display Value="_data.Y"></Display>
+                    <BootstrapInputGroupLabel DisplayText="px"></BootstrapInputGroupLabel>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Width"></BootstrapInputGroupLabel>
+                    <Display Value="_data.Width"></Display>
+                    <BootstrapInputGroupLabel DisplayText="px"></BootstrapInputGroupLabel>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Height"></BootstrapInputGroupLabel>
+                    <Display Value="_data.Height"></Display>
+                    <BootstrapInputGroupLabel DisplayText="px"></BootstrapInputGroupLabel>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Rotate"></BootstrapInputGroupLabel>
+                    <Display Value="_data.Rotate"></Display>
+                    <BootstrapInputGroupLabel DisplayText="deg"></BootstrapInputGroupLabel>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 d-none d-sm-flex">
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ScaleX"></BootstrapInputGroupLabel>
+                    <Display Value="_data.ScaleX"></Display>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ScaleY"></BootstrapInputGroupLabel>
+                    <Display Value="_data.ScaleY"></Display>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+
         @if (!string.IsNullOrEmpty(_base64String))
         {
-            <img src="@_base64String" style="width: 240px;" />
-            <Textarea Value="@_base64String" rows="3" class="mt-3" />
+            <img src="@_base64String" style="width: 240px; margin-top: 1rem;" />
+            <Textarea Value="@_base64String" rows="3" class="mt-3"></Textarea>
         }
     </section>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper @ref="_roundCropper" Url="@_images[0]" CropperShape="ImageCropperShape.Round" Options="_roundOptions" />
+<DemoBlock Title="@Localizer["ImageCropperRoundText"]" Introduction="@Localizer["ImageCropperRoundIntro"]" Name="Round">
+    <ImageCropper @ref="_roundCropper" Url="@_images[0]" Options="_roundOptions2"></ImageCropper>
     <section ignore>
         <BootstrapInputGroup>
-            <Button Text="OK" OnClick="RoundCrop" />
+            <Button Text="OK" OnClick="RoundCrop"></Button>
         </BootstrapInputGroup>
+
+        <div class="d-flex mt-3" style="gap: 0.5rem;">
+            <div class="bb-cropper-preview bb-cropper-preview-round bb-cropper-preview-lg"></div>
+            <div class="bb-cropper-preview bb-cropper-preview-round bb-cropper-preview-md"></div>
+            <div class="bb-cropper-preview bb-cropper-preview-round bb-cropper-preview-sm"></div>
+            <div class="bb-cropper-preview bb-cropper-preview-round bb-cropper-preview-xs"></div>
+        </div>
+
         @if (!string.IsNullOrEmpty(_base64String2))
         {
-            <img src="@_base64String2" style="width: 240px;" />
+            <img src="@_base64String2" style="width: 240px; margin-top: 1rem;" />
         }
     </section>
 </DemoBlock>

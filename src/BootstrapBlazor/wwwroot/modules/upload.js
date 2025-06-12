@@ -1,30 +1,44 @@
 ﻿import Data from "./data.js"
 import EventHandler from "./event-handler.js"
+import { readFileAsync } from "./utility.js"
 
 export function init(id) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
-    const preventHandler = e => e.preventDefault()
-    const upload = { el, preventHandler }
+    const preventHandler = e => e.preventDefault();
+    const body = el.querySelector('.upload-drop-body');
+    const inputFile = el.querySelector('[type="file"]');
+    const upload = { el, body, preventHandler, inputFile };
     Data.set(id, upload)
 
-    const inputFile = el.querySelector('[type="file"]')
     EventHandler.on(el, 'click', '.btn-browser', () => {
         inputFile.click()
     })
-
-    EventHandler.on(el, 'click', '.upload-drop-body', () => {
-        inputFile.click()
-    })
+    EventHandler.on(inputFile, 'change', e => {
+        upload.files = e.delegateTarget.files;
+    });
 
     EventHandler.on(document, "dragleave", preventHandler)
     EventHandler.on(document, 'drop', preventHandler)
     EventHandler.on(document, 'dragenter', preventHandler)
     EventHandler.on(document, 'dragover', preventHandler)
 
-    EventHandler.on(el, 'drop', e => {
+    EventHandler.on(body, 'dragenter', e => {
+        el.classList.add('dropping');
+    })
+
+    EventHandler.on(body, 'dragleave', e => {
+        el.classList.remove('dropping');
+    });
+
+    EventHandler.on(body, 'drop', e => {
+        el.classList.remove('dropping');
+
+        if (el.classList.contains('disabled')) {
+            return;
+        }
         try {
             const fileList = e.dataTransfer.files
             if (fileList.length === 0) {
@@ -40,6 +54,10 @@ export function init(id) {
     })
 
     EventHandler.on(el, 'paste', e => {
+        if (el.classList.contains('disabled')) {
+            return;
+        }
+
         inputFile.files = e.clipboardData.files
         const event = new Event('change', { bubbles: true })
         inputFile.dispatchEvent(event)
@@ -65,19 +83,40 @@ export function init(id) {
     })
 }
 
+export async function getPreviewUrl(id, fileName) {
+    let url = '';
+    const upload = Data.get(id);
+    const { files } = upload;
+    if (files) {
+        const file = [...files].find(v => v.name === fileName);
+        if (file) {
+            const data = await readFileAsync(file);
+            if (data) {
+                url = URL.createObjectURL(data);
+            }
+        }
+    }
+    return url;
+}
+
 export function dispose(id) {
     const upload = Data.get(id)
     Data.remove(id)
 
     if (upload) {
-        const { el, preventHandler } = upload;
+        const { el, body, preventHandler, inputFile } = upload;
 
-        EventHandler.off(el, 'click')
-        EventHandler.off(el, 'drop')
-        EventHandler.off(el, 'paste')
         EventHandler.off(document, 'dragleave', preventHandler)
         EventHandler.off(document, 'drop', preventHandler)
         EventHandler.off(document, 'dragenter', preventHandler)
         EventHandler.off(document, 'dragover', preventHandler)
+
+        EventHandler.off(el, 'click')
+        EventHandler.off(el, 'drop')
+        EventHandler.off(el, 'paste')
+        EventHandler.off(inputFile, 'change')
+        EventHandler.off(body, 'dragleave')
+        EventHandler.off(body, 'drop')
+        EventHandler.off(body, 'dragenter')
     }
 }

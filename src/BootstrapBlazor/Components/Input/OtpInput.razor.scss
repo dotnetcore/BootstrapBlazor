@@ -21,11 +21,6 @@
             margin-right: var(--bb-opt-item-margin);
         }
 
-        &.disabled {
-            background-color: var(--bs-secondary-bg);
-            cursor: not-allowed;
-        }
-
         &[type] {
             padding: 0;
             text-align: center;

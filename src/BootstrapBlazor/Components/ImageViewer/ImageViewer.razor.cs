@@ -28,9 +28,7 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public string? Url { get; set; }
 
     /// <summary>
@@ -117,6 +115,12 @@ public partial class ImageViewer
     /// <remarks>不可见时不加载图片，当图片即将可见时才开始加载图片</remarks>
     [Parameter]
     public bool IsIntersectionObserver { get; set; }
+
+    /// <summary>
+    /// 获得/设置 预览缩放速度 默认 null 未设置取 0.015 值
+    /// </summary>
+    [Parameter]
+    public double? ZoomSpeed { get; set; }
 
     [Inject]
     [NotNull]

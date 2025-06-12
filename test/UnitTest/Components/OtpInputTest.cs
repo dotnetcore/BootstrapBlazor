@@ -37,7 +37,7 @@ public class OtpInputTest : BootstrapBlazorTestBase
         });
 
         var item = cut.Find(".bb-opt-item");
-        Assert.Equal("<span class=\"bb-opt-item\"></span>", item.OuterHtml);
+        Assert.Contains("readonly=\"readonly\"", item.OuterHtml);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -51,7 +51,7 @@ public class OtpInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, true);
         });
         item = cut.Find(".bb-opt-item");
-        Assert.Equal("<span class=\"bb-opt-item disabled\"></span>", item.OuterHtml);
+        Assert.Contains("disabled=\"disabled\"", item.OuterHtml);
     }
 
     [Fact]

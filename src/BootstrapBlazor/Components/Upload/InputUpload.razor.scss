@@ -1,18 +1,19 @@
-.upload {
+﻿.upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
     --bb-upload-body-list-max-height: #{$bb-upload-body-list-max-height};
     --bb-upload-body-list-item-padding: #{$bb-upload-body-list-item-padding};
     --bb-upload-body-list-item-body-padding: #{$bb-upload-body-list-item-body-padding};
     --bb-upload-body-list-item-hover-color: #{$bb-upload-body-list-item-hover-color};
+    --bb-upload-body-list-grap: #{$bb-upload-body-list-grap};
     --bb-upload-card-width: #{$bb-upload-card-width};
     --bb-upload-card-height: #{$bb-upload-card-height};
     --bb-upload-card-shadow: #{$bb-upload-card-shadow};
     --bb-upload-card-padding: #{$bb-upload-card-padding};
-    --bb-upload-card-margin: #{$bb-upload-card-margin};
     --bb-upload-card-item-width: #{$bb-upload-card-item-width};
     --bb-upload-drop-height: #{$bb-upload-drop-height};
     --bb-upload-drop-footer-font-size: #{$bb-upload-drop-footer-font-size};
     --bb-upload-drop-footer-margin-top: #{$bb-upload-drop-footer-margin-top};
+    --bb-upload-item-border-radius: #{$bb-upload-item-border-radius};
 }
 
 .upload .upload-body {
@@ -42,10 +43,6 @@
     background-color: var(--bs-secondary-bg);
 }
 
-.upload .upload-body.is-list .upload-item:hover .fa-trash-can {
-    display: inline-block;
-}
-
 .upload .upload-body.is-list .upload-item .upload-item-body {
     flex: 1;
     padding: var(--bb-upload-body-list-item-body-padding);
@@ -62,9 +59,6 @@
     padding-right: 0.25rem;
 }
 
-.upload .upload-body.is-list .upload-item .fa-trash-can,
-.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-circle-check,
-.upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
 .upload .upload-body.is-avatar .upload-item .upload-item-delete,
 .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
 .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
@@ -98,6 +92,7 @@
     margin: 0;
     display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .upload .upload-body.is-avatar .upload-item {
@@ -105,14 +100,8 @@
     position: relative;
     border: 1px dashed var(--bs-border-color);
     border-radius: 6px;
-    margin-inline-end: 1rem;
-    margin-block-end: 1rem;
     overflow: hidden;
     cursor: pointer;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-single {
-    margin: 0;
 }
 
 .upload .upload-body.is-avatar .upload-item.is-invalid {
@@ -121,10 +110,10 @@
 }
 
 .upload .upload-body.is-avatar .upload-item.is-circle {
-    border-radius: 50%;
+    border-radius: var(--bb-upload-item-border-radius);
 }
 
-.upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
+.upload .upload-body.is-avatar .upload-item:not(.is-form):not(.is-valid):not(.is-invalid):hover,
 .upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
 .upload .upload-body.is-card .upload-item.is-valid,
 .upload .upload-body.is-card .upload-item:not(.disabled):hover {
@@ -146,7 +135,7 @@
 }
 
 .upload .upload-body.is-avatar .upload-item .upload-item-actions,
-.upload .upload-body.is-card .upload-item .upload-item-actions.btn-browser {
+.upload .upload-body.is-card .upload-item .upload-item-actions > .upload-item-plus {
     position: absolute;
     top: 0;
     left: 0;
@@ -179,7 +168,6 @@
     height: var(--bb-upload-card-height);
     position: relative;
     cursor: pointer;
-    margin: var(--bb-upload-card-margin);
     overflow: hidden;
 }
 
@@ -301,6 +289,29 @@
 }
 
 .upload.is-drop {
+
+    &.dropping {
+        .upload-drop-body {
+            border-color: var(--bs-success);
+
+            * {
+                pointer-events: none;
+            }
+        }
+
+        &.disabled {
+            .upload-drop-body {
+                border-color: var(--bs-danger);
+            }
+        }
+    }
+
+    &.disabled {
+        .upload-drop-body {
+            border-color: var(--bs-border-color);
+        }
+    }
+
     .upload-drop-body {
         border: 1px dashed var(--bs-primary);
         border-radius: var(--bs-border-radius);
@@ -317,7 +328,7 @@
         }
 
         .upload-drop-text {
-            margin-top: 1rem;
+            margin-block-start: 1rem;
         }
 
         em {
@@ -328,7 +339,7 @@
 
     .upload-drop-footer {
         font-size: var(--bb-upload-drop-footer-font-size);
-        margin-top: var(--bb-upload-drop-footer-margin-top);
+        margin-block-start: var(--bb-upload-drop-footer-margin-top);
     }
 
     .upload-drop-list {

@@ -35,6 +35,24 @@ private IIpLocatorFactory? IpLocatorFactory { get; set; }
 <DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
     <section ignore>
         @((MarkupString)Localizer["LocatorsProviderDesc"].Value)
+        <Tips>
+            <p>@((MarkupString)Localizer["LocatorsProviderOptions"].Value)</p>
+        </Tips>
+        <Pre>{
+    "BootstrapBlazorOptions": {
+        "WebClientOptions": {
+            "EnableIpLocator": true
+        }
+    }
+}</Pre>
+  <Pre>services.AddBootstrapBlazor(op =>
+{
+    op.WebClientOptions.EnableIpLocator = true;
+});</Pre>
+    <Pre>services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
+{
+    op.WebClientOptions.EnableIpLocator = true;
+});</Pre>
     </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">

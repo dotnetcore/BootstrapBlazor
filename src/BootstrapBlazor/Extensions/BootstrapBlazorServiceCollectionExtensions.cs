@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
+
+        // 增加 IHostEnvironment 服务
+        services.TryAddSingleton<IHostEnvironment, MockWasmHostEnvironment>();
 
         // 增加 OtpOptions 配置支持
         services.AddOptionsMonitor<OtpOptions>();

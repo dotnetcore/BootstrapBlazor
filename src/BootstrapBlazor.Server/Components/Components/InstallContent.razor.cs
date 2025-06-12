@@ -52,6 +52,12 @@ public sealed partial class InstallContent
     public RenderFragment? ServicesTemplate { get; set; }
 
     /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment? RootTemplate { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     [Parameter]

@@ -521,7 +521,7 @@ $bb-select-search-border-color: var(--bs-border-color);
 $bb-select-search-padding-right: 30px;
 $bb-select-search-icon-color: var(--bb-select-search-border-color);
 $bb-select-search-icon-right: 26px;
-$bb-select-search-icon-top: 19px;
+$bb-select-search-icon-top: 18px;
 $bb-select-search-height: 52px;
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;
@@ -689,6 +689,7 @@ $bb-tree-disabled-opacity: .5;
 
 // Upload
 $bb-upload-body-margin-top: 10px;
+$bb-upload-body-list-grap: 1rem;
 $bb-upload-body-list-max-height: 240px;
 $bb-upload-body-list-item-padding: 3px 5px;
 $bb-upload-body-list-item-body-padding: 0 5px;
@@ -697,11 +698,11 @@ $bb-upload-card-width: 240px;
 $bb-upload-card-height: 280px;
 $bb-upload-card-shadow: 0 0 10px 0 rgba(0,0,0,.2);
 $bb-upload-card-padding: 1rem;
-$bb-upload-card-margin: 0 1rem 1rem 0;
 $bb-upload-card-item-width: 168px;
 $bb-upload-drop-height: 140px;
 $bb-upload-drop-footer-font-size: 12px;
 $bb-upload-drop-footer-margin-top: .25rem;
+$bb-upload-item-border-radius: 50%;
 
 // ValidateForm
 $bb-form-control-padding: 0.375rem 0.75rem;

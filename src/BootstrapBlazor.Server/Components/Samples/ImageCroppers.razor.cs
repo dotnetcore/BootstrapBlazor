@@ -22,7 +22,9 @@ public partial class ImageCroppers
 
     private string? _base64String2;
 
-    private readonly ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%" };
+    private readonly ImageCropperOption _roundOptions1 = new() { AspectRatio = 16 / 9f, Preview = ".bb-cropper-preview1" };
+
+    private readonly ImageCropperOption _roundOptions2 = new() { IsRound = true, Preview = ".bb-cropper-preview-round" };
 
     /// <summary>
     /// <inheritdoc/>
@@ -56,11 +58,15 @@ public partial class ImageCroppers
 
     private Task Rotate() => _cropper.Rotate(90);
 
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    protected AttributeItem[] GetAttributes() =>
+    private ImageCropperData _data = new();
+    private Task OnCropChangedAsync(ImageCropperData data)
+    {
+        _data = data;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private AttributeItem[] GetAttributes() =>
     [
         new()
         {

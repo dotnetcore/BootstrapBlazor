@@ -1,0 +1,49 @@
+﻿@page "/upload-input"
+@inject IStringLocalizer<UploadInputs> Localizer
+@inject ToastService ToastService
+
+<h3>@Localizer["UploadsTitle"]</h3>
+
+<h4>@Localizer["UploadsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["UploadsNote"].Value)</p>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["UploadNormalTitle"]"
+           Introduction="@Localizer["UploadNormalIntro"]"
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-12">
+            <InputUpload TValue="string" ShowDeleteButton="true" IsMultiple="true"
+                         ShowLabel="true" DisplayText="@Localizer["UploadNormalLabelPhoto"]"
+                         OnChange="@OnFileChange"></InputUpload>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
+           Introduction="@Localizer["UploadFormSettingsIntro"]"
+           Name="FormSettings">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
+        </ul>
+    </section>
+    <ValidateForm Model="Foo1" OnValidSubmit="OnSubmit">
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Foo1.Name"></BootstrapInput>
+            </div>
+            <div class="col-12">
+                <InputUpload @bind-Value="@Foo1.Picture" ShowDeleteButton="true"></InputUpload>
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
