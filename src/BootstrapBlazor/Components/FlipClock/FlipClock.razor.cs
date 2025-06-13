@@ -15,7 +15,8 @@ public partial class FlipClock
     /// 获得/设置 是否显示 Day 默认 false
     /// </summary>
     [Parameter]
-    public bool ShowDay { get; set; } = false;
+    public bool ShowDay { get; set; }
+
     /// <summary>
     /// 获得/设置 是否显示 Hour 默认 true
     /// </summary>
