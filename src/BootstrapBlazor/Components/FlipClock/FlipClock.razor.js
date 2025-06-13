@@ -14,30 +14,15 @@ export function init(id, options) {
         return;
     }
 
-    const listYear = el.querySelector('.bb-flip-clock-list.year');
-    const listMonth = el.querySelector('.bb-flip-clock-list.month');
-    const listDay = el.querySelector('.bb-flip-clock-list.day');
-    const listHour = el.querySelector('.bb-flip-clock-list.hour');
-    const listMinute = el.querySelector('.bb-flip-clock-list.minute');
-    const listSecond = el.querySelector('.bb-flip-clock-list.second');
-    const countDown = options.viewMode === "CountDown";
-
+    const lastValues = {};
     let counter = 0;
+    let totalMilliseconds = 0;
+    let countDown = false;
     const getDate = () => {
-        let totalMilliseconds = 0;
-        let now;
-
-        if (options.viewMode === "Count") {
-            counter += 1000;
-            totalMilliseconds = counter - options.startValue;
-        }
-        else if (countDown) {
-            counter += 1000;
-            totalMilliseconds = options.startValue - counter;
-            if (totalMilliseconds < 0) totalMilliseconds = 0;
-        }
-        else {
-            now = new Date();
+        const view = options.viewMode;
+        countDown = false;
+        if (view === "DateTime") {
+            const now = new Date();
             return {
                 years: now.getFullYear(),
                 months: now.getMonth() + 1,
@@ -47,51 +32,59 @@ export function init(id, options) {
                 seconds: now.getSeconds()
             };
         }
+        else if (view === "Count") {
+            counter += 1000;
+            totalMilliseconds = counter - options.startValue;
+        }
+        else if (view === "CountDown") {
+            countDown = true;
+            counter += 1000;
+            totalMilliseconds = options.startValue - counter;
+            if (totalMilliseconds < 0) totalMilliseconds = 0;
+        }
 
         const seconds = Math.floor(totalMilliseconds / 1000) % 60;
         const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
         const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
         const days = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
-        const months = new Date().getMonth() + 1;
-        const years = new Date().getFullYear();
+        const months = 0;
+        const years = 0;
         return { years, months, days, hours, minutes, seconds };
-    }
+    };
 
-    let lastYear;
-    let lastMonth;
-    let lastDay;
-    let lastHour;
-    let lastMinute;
-    let lastSecond;
+    const getConfig = () => [
+        { key: 'years', list: el.querySelector('.bb-flip-clock-list.year'), digits: 4 },
+        { key: 'months', list: el.querySelector('.bb-flip-clock-list.month'), digits: 2 },
+        { key: 'days', list: el.querySelector('.bb-flip-clock-list.day'), digits: 2 },
+        { key: 'hours', list: el.querySelector('.bb-flip-clock-list.hour'), digits: 2 },
+        { key: 'minutes', list: el.querySelector('.bb-flip-clock-list.minute'), digits: 2 },
+        { key: 'seconds', list: el.querySelector('.bb-flip-clock-list.second'), digits: 2 },
+    ];
+
+    const setDigits = (list, value, digits, countDown) => {
+        list.classList.remove('flip');
+        for (let i = 0; i < digits; i++) {
+            const place = digits - 1 - i;
+            const digit = Math.floor(value / 10 ** place) % 10;
+            setFlip(list.children[i], digit, countDown);
+        }
+        list.classList.add('flip');
+    };
+
     const go = () => {
-        const { years, months, days, hours, minutes, seconds } = getDate();
+        const d = getDate();
+        const unitConfig = getConfig();
+        unitConfig.forEach(({ key, list, digits }) => {
+            if (list === null) return;
 
-        if (lastSecond !== seconds) {
-            lastSecond = seconds;
-            setTime(listSecond, seconds, countDown);
-        }
-        if (lastMinute !== minutes) {
-            lastMinute = minutes;
-            setTime(listMinute, minutes, countDown);
-        }
-        if (lastHour !== hours) {
-            lastHour = hours;
-            setTime(listHour, hours, countDown);
-        }
-        if (lastDay !== days) {
-            lastDay = days;
-            setTime(listDay, days, countDown);
-        }
-        if (lastMonth !== months) {
-            lastMonth = months;
-            setTime(listMonth, months, countDown);
-        }
-        if (lastYear !== years) {
-            lastYear = years;
-            setYear(listYear, years, countDown);
-        }
-        return { years, months, days, hours, minutes, seconds }
-    }
+            const v = d[key];
+            if (lastValues[key] !== v) {
+                lastValues[key] = v;
+                setDigits(list, v, digits, countDown);
+            }
+        });
+        return d;
+    };
 
     let start = void 0
     let current;
@@ -121,32 +114,6 @@ export function dispose(id) {
     const clock = Data.get(id)
     if (clock) {
 
-    }
-}
-
-const setYear = (list, year, countDown) => {
-    if (list) {
-        list.classList.remove('flip');
-        for (var index = 0; index < 4; index++) {
-            const flip = list.children[index];
-            const flipIndex = Math.floor(year / Math.pow(10, 3 - index)) % 10;
-            setFlip(flip, flipIndex, countDown);
-        }
-        list.classList.add('flip');
-    }
-}
-
-const setTime = (list, time, countDown) => {
-    if (list) {
-        const leftIndex = Math.floor(time / 10);
-        const rightIndex = time % 10;
-        const leftFlip = list.children[0];
-        const rightFlip = list.children[1];
-
-        list.classList.remove('flip');
-        setFlip(leftFlip, leftIndex, countDown);
-        setFlip(rightFlip, rightIndex, countDown);
-        list.classList.add('flip');
     }
 }
 
