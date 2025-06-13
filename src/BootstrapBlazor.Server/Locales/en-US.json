@@ -6802,6 +6802,8 @@
     "FlipClocksDescription": "Used for website timing or countdown",
     "BaseUsageText": "Basic usage",
     "BaseUsageIntro": "Synchronize display of current time",
+    "ShowMonthText": "Show Month",
+    "ShowMonthIntro": "Display month information by setting <code>ShowMonth=\"true\"</code>",
     "ShowDayText": "Show Day",
     "ShowDayIntro": "Display day information by setting <code>ShowDay=\"true\"</code>",
     "ShowMinuteText": "not display hours and minutes",

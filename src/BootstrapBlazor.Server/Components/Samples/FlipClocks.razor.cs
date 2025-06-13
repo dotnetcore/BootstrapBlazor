@@ -52,6 +52,14 @@ public partial class FlipClocks
     [
         new()
         {
+            Name = nameof(FlipClock.ShowMonth),
+            Description = Localizer["ShowMonth_Description"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = nameof(FlipClock.ShowDay),
             Description = Localizer["ShowDay_Description"],
             Type = "boolean",

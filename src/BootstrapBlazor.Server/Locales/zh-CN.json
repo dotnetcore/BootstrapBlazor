@@ -6804,6 +6804,8 @@
     "BaseUsageIntro": "同步显示当前时间",
     "ShowDayText": "显示日",
     "ShowDayIntro": "通过设置 <code>ShowDay=\"true\"</code> 显示日信息",
+    "ShowMonthText": "显示月",
+    "ShowMonthIntro": "通过设置 <code>ShowMonth=\"true\"</code> 显示月信息",
     "ShowMinuteText": "不显示时、分",
     "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
     "ShowSecondText": "不显示秒",
