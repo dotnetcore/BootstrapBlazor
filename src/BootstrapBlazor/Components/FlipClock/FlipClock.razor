@@ -3,6 +3,16 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" id="@Id">
+    @if (ShowYear)
+    {
+        <div class="bb-flip-clock-list year">
+            @RenderItem(10)
+            @RenderItem(10)
+            @RenderItem(10)
+            @RenderItem(10)
+        </div>
+    }
+
     @if (ShowMonth)
     {
         <div class="bb-flip-clock-list month">

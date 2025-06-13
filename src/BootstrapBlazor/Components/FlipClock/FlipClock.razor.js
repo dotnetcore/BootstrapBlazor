@@ -14,6 +14,7 @@ export function init(id, options) {
         return;
     }
 
+    const listYear = el.querySelector('.bb-flip-clock-list.year');
     const listMonth = el.querySelector('.bb-flip-clock-list.month');
     const listDay = el.querySelector('.bb-flip-clock-list.day');
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
@@ -38,6 +39,7 @@ export function init(id, options) {
         else {
             now = new Date();
             return {
+                years: now.getFullYear(),
                 months: now.getMonth() + 1,
                 days: now.getDate(),
                 hours: now.getHours(),
@@ -50,16 +52,19 @@ export function init(id, options) {
         const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
         const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
         const days = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
-        return { months, days, hours, minutes, seconds };
+        const months = new Date().getMonth() + 1;
+        const years = new Date().getFullYear();
+        return { years, months, days, hours, minutes, seconds };
     }
 
+    let lastYear;
     let lastMonth;
     let lastDay;
     let lastHour;
     let lastMinute;
     let lastSecond;
     const go = () => {
-        const { months, days, hours, minutes, seconds } = getDate();
+        const { years, months, days, hours, minutes, seconds } = getDate();
 
         if (lastSecond !== seconds) {
             lastSecond = seconds;
@@ -78,10 +83,14 @@ export function init(id, options) {
             setTime(listDay, days, countDown);
         }
         if (lastMonth !== months) {
-            lastDay = days;
+            lastMonth = months;
             setTime(listMonth, months, countDown);
         }
-        return { months, days, hours, minutes, seconds }
+        if (lastYear !== years) {
+            lastYear = years;
+            setYear(listYear, years, countDown);
+        }
+        return { years, months, days, hours, minutes, seconds }
     }
 
     let start = void 0
@@ -112,6 +121,18 @@ export function dispose(id) {
     const clock = Data.get(id)
     if (clock) {
 
+    }
+}
+
+const setYear = (list, year, countDown) => {
+    if (list) {
+        list.classList.remove('flip');
+        for (var index = 0; index < 4; index++) {
+            const flip = list.children[index];
+            const flipIndex = Math.floor(year / Math.pow(10, 3 - index)) % 10;
+            setFlip(flip, flipIndex, countDown);
+        }
+        list.classList.add('flip');
     }
 }
 
