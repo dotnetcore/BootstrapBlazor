@@ -36,6 +36,12 @@ public partial class FlipClocks
 
 
     private bool _isCompleted;
+    private bool _showYear = false;
+    private bool _showMonth = false;
+    private bool _showDay = false;
+    private bool _showHour = true;
+    private bool _showMinute = true;
+    private bool _showSecond = true;
 
     private Task OnCompletedAsync()
     {
@@ -50,6 +56,14 @@ public partial class FlipClocks
     /// <returns></returns>
     private AttributeItem[] GetAttributes() =>
     [
+        new()
+        {
+            Name = nameof(FlipClock.ShowYear),
+            Description = Localizer["ShowYear_Description"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
         new()
         {
             Name = nameof(FlipClock.ShowMonth),

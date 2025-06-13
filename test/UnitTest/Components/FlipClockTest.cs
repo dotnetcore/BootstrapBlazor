@@ -73,6 +73,19 @@ public class FlipClockTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowYear_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list year");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowYear, true);
+        });
+        cut.Contains("bb-flip-clock-list year");
+    }
+
+    [Fact]
     public async Task ViewMode_Ok()
     {
         var completed = false;
