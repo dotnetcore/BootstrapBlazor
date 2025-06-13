@@ -3,15 +3,14 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" id="@Id">
-   
-   @if (ShowDay)
-{
-    <div class="bb-flip-clock-list day">
-        @RenderItem(10)
-        @RenderItem(10)
-    </div>
-}
-   
+    @if (ShowDay)
+    {
+        <div class="bb-flip-clock-list day">
+            @RenderItem(10)
+            @RenderItem(10)
+        </div>
+    }
+
     @if (ShowHour)
     {
         <div class="bb-flip-clock-list hour">
