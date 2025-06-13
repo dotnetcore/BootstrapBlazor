@@ -14,6 +14,7 @@ export function init(id, options) {
         return;
     }
 
+    const listMonth = el.querySelector('.bb-flip-clock-list.month');
     const listDay = el.querySelector('.bb-flip-clock-list.day');
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
@@ -37,6 +38,7 @@ export function init(id, options) {
         else {
             now = new Date();
             return {
+                months: now.getMonth() + 1,
                 days: now.getDate(),
                 hours: now.getHours(),
                 minutes: now.getMinutes(),
@@ -48,15 +50,16 @@ export function init(id, options) {
         const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
         const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
         const days = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
-        return { days, hours, minutes, seconds };
+        return { months, days, hours, minutes, seconds };
     }
 
+    let lastMonth;
     let lastDay;
     let lastHour;
     let lastMinute;
     let lastSecond;
     const go = () => {
-        const { days, hours, minutes, seconds } = getDate();
+        const { months, days, hours, minutes, seconds } = getDate();
 
         if (lastSecond !== seconds) {
             lastSecond = seconds;
@@ -74,7 +77,11 @@ export function init(id, options) {
             lastDay = days;
             setTime(listDay, days, countDown);
         }
-        return { days, hours, minutes, seconds }
+        if (lastMonth !== months) {
+            lastDay = days;
+            setTime(listMonth, months, countDown);
+        }
+        return { months, days, hours, minutes, seconds }
     }
 
     let start = void 0
