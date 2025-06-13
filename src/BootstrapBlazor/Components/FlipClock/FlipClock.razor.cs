@@ -12,6 +12,12 @@ namespace BootstrapBlazor.Components;
 public partial class FlipClock
 {
     /// <summary>
+    /// 获得/设置 是否显示 Month 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowMonth { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Day 默认 false
     /// </summary>
     [Parameter]
