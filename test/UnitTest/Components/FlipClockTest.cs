@@ -60,6 +60,19 @@ public class FlipClockTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowMonth_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list month");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowMonth, true);
+        });
+        cut.Contains("bb-flip-clock-list month");
+    }
+
+    [Fact]
     public async Task ViewMode_Ok()
     {
         var completed = false;
