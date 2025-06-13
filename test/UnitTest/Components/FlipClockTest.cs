@@ -47,6 +47,19 @@ public class FlipClockTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowDay_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list day");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDay, true);
+        });
+        cut.Contains("bb-flip-clock-list day");
+    }
+
+    [Fact]
     public async Task ViewMode_Ok()
     {
         var completed = false;
