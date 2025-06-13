@@ -1,6 +1,4 @@
-﻿import Data from "../../modules/data.js"
-
-export function init(id, options) {
+﻿export function init(id, options) {
     options = {
         ...{
             viewMode: 'DateTime',
@@ -107,14 +105,6 @@ export function init(id, options) {
     }
 
     requestAnimationFrame(flip);
-    Data.set(id, { el, options });
-}
-
-export function dispose(id) {
-    const clock = Data.get(id)
-    if (clock) {
-
-    }
 }
 
 const setFlip = (flip, index, countDown) => {
