@@ -14,6 +14,7 @@ export function init(id, options) {
         return;
     }
 
+    const listDay = el.querySelector('.bb-flip-clock-list.day');
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
     const listSecond = el.querySelector('.bb-flip-clock-list.second');
@@ -26,26 +27,23 @@ export function init(id, options) {
 
         if (options.viewMode === "Count") {
             counter += 1000;
-            // 计算累计时间（单位：毫秒）
             totalMilliseconds = counter - options.startValue;
         }
         else if (countDown) {
             counter += 1000;
-            // 计算剩余时间（单位：毫秒）
             totalMilliseconds = options.startValue - counter;
-            // 确保不会出现负数
             if (totalMilliseconds < 0) totalMilliseconds = 0;
         }
         else {
             now = new Date();
             return {
-                days: now.getDate(),  // 返回当前日期（月份中的第几天）
+                days: now.getDate(),
                 hours: now.getHours(),
                 minutes: now.getMinutes(),
                 seconds: now.getSeconds()
             };
         }
-        // 将时间戳转换为天/时/分/秒
+
         const seconds = Math.floor(totalMilliseconds / 1000) % 60;
         const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
         const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
@@ -53,11 +51,12 @@ export function init(id, options) {
         return { days, hours, minutes, seconds };
     }
 
+    let lastDay;
     let lastHour;
     let lastMinute;
     let lastSecond;
     const go = () => {
-        const { hours, minutes, seconds } = getDate();
+        const { days, hours, minutes, seconds } = getDate();
 
         if (lastSecond !== seconds) {
             lastSecond = seconds;
@@ -71,7 +70,11 @@ export function init(id, options) {
             lastHour = hours;
             setTime(listHour, hours, countDown);
         }
-        return { hours, minutes, seconds }
+        if (lastDay !== days) {
+            lastDay = days;
+            setTime(listDay, days, countDown);
+        }
+        return { days, hours, minutes, seconds }
     }
 
     let start = void 0
@@ -95,7 +98,6 @@ export function init(id, options) {
     }
 
     requestAnimationFrame(flip);
-
     Data.set(id, { el, options });
 }
 
