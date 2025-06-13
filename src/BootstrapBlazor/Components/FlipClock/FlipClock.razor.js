@@ -14,6 +14,7 @@ export function init(id, options) {
         return;
     }
 
+    const listDay = el.querySelector('.bb-flip-clock-list.day');
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
     const listSecond = el.querySelector('.bb-flip-clock-list.second');
@@ -21,26 +22,41 @@ export function init(id, options) {
 
     let counter = 0;
     const getDate = () => {
+        let totalMilliseconds = 0;
         let now;
+
         if (options.viewMode === "Count") {
             counter += 1000;
-            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
+            totalMilliseconds = counter - options.startValue;
         }
         else if (countDown) {
             counter += 1000;
-            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 + options.startValue - counter);
+            totalMilliseconds = options.startValue - counter;
+            if (totalMilliseconds < 0) totalMilliseconds = 0;
         }
         else {
             now = new Date();
+            return {
+                days: now.getDate(),
+                hours: now.getHours(),
+                minutes: now.getMinutes(),
+                seconds: now.getSeconds()
+            };
         }
-        return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds() };
+
+        const seconds = Math.floor(totalMilliseconds / 1000) % 60;
+        const minutes = Math.floor(totalMilliseconds / (1000 * 60)) % 60;
+        const hours = Math.floor(totalMilliseconds / (1000 * 60 * 60)) % 24;
+        const days = Math.floor(totalMilliseconds / (1000 * 60 * 60 * 24));
+        return { days, hours, minutes, seconds };
     }
 
+    let lastDay;
     let lastHour;
     let lastMinute;
     let lastSecond;
     const go = () => {
-        const { hours, minutes, seconds } = getDate();
+        const { days, hours, minutes, seconds } = getDate();
 
         if (lastSecond !== seconds) {
             lastSecond = seconds;
@@ -54,7 +70,11 @@ export function init(id, options) {
             lastHour = hours;
             setTime(listHour, hours, countDown);
         }
-        return { hours, minutes, seconds }
+        if (lastDay !== days) {
+            lastDay = days;
+            setTime(listDay, days, countDown);
+        }
+        return { days, hours, minutes, seconds }
     }
 
     let start = void 0
@@ -78,7 +98,6 @@ export function init(id, options) {
     }
 
     requestAnimationFrame(flip);
-
     Data.set(id, { el, options });
 }
 

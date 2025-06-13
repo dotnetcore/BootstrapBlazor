@@ -1,4 +1,4 @@
-.bb-flip-clock {
+﻿.bb-flip-clock {
     --bb-flip-clock-height: #{$bb-flip-clock-height};
     --bb-flip-clock-bg: #{$bb-flip-clock-bg};
     --bb-flip-clock-font-size: #{$bb-flip-clock-font-size};
@@ -25,6 +25,7 @@
     position: relative;
     width: 100%;
     flex-shrink: 0;
+    overflow: auto;
 
     .bb-flip-clock-list {
         display: flex;

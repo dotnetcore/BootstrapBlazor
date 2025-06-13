@@ -9,6 +9,10 @@
     <FlipClock></FlipClock>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowDayText"]" Introduction="@Localizer["ShowDayIntro"]" Name="ShowDay">
+    <FlipClock ShowDay="true"></FlipClock>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ShowMinuteText"]" Introduction="@Localizer["ShowMinuteIntro"]" Name="ShowMinute">
     <FlipClock ShowHour="false" ShowMinute="false"></FlipClock>
 </DemoBlock>
@@ -74,7 +78,9 @@
             </div>
         </GroupBox>
     </section>
-    <FlipClock BackgroundColor="radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%)" Height="@HeightValueString" FontSize="@FontSizeValueString" CardHeight="@CardHeightValueString" CardWidth="@CardWidthValueString" CardMargin="@CardMarginValueString" CardGroupMargin="@CardGroupMarginValueString"></FlipClock>
+    <FlipClock BackgroundColor="radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%)" Height="@HeightValueString"
+               FontSize="@FontSizeValueString" CardHeight="@CardHeightValueString" CardWidth="@CardWidthValueString"
+               CardMargin="@CardMarginValueString" CardGroupMargin="@CardGroupMarginValueString"></FlipClock>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
