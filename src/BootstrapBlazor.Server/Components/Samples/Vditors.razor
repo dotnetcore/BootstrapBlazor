@@ -1,4 +1,4 @@
-﻿@page "/vditors"
+﻿@page "/vditor"
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["VditorTitle"]</h3>
@@ -25,14 +25,14 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12">
-            <Button Text="GetValue" OnClick="OnTriggerGetValueAsync"></Button>
-            <Button Text="InsertValue" OnClick="OnTriggerInsertValueAsync"></Button>
-            <Button Text="GetHtml" OnClick="OnTriggerGetHtmlAsync"></Button>
-            <Button Text="GetSelection" OnClick="OnTriggerGetSelectionAsync"></Button>
-            <Button Text="Enable" OnClick="OnTriggerEnableAsync"></Button>
-            <Button Text="Disable" OnClick="OnTriggerDisableAsync"></Button>
-            <Button Text="Focus" OnClick="OnTriggerFocusAsync"></Button>
-            <Button Text="Blur" OnClick="OnTriggerBlurAsync"></Button>
+            <Button Text="GetValue" OnClick="OnTriggerGetValueAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="InsertValue" OnClick="OnTriggerInsertValueAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="GetHtml" OnClick="OnTriggerGetHtmlAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="GetSelection" OnClick="OnTriggerGetSelectionAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="Enable" OnClick="OnTriggerEnableAsync" IsDisabled="!_isDisabled"></Button>
+            <Button Text="Disable" OnClick="OnTriggerDisableAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="Focus" OnClick="OnTriggerFocusAsync" IsDisabled="_isDisabled"></Button>
+            <Button Text="Blur" OnClick="OnTriggerBlurAsync" IsDisabled="_isDisabled"></Button>
         </div>
     </section>
     <Vditor Value="@_vditorValueString" Options="_vditorOptions" @ref="_vditor"

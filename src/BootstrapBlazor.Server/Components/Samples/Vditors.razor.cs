@@ -118,14 +118,17 @@ public partial class Vditors
         _logger.Log($"Trigger OnTriggerGetSelectionAsync: {selection}");
     }
 
+    private bool _isDisabled = false;
     private async Task OnTriggerEnableAsync()
     {
         await _vditor.EnableAsync();
+        _isDisabled = false;
     }
 
     private async Task OnTriggerDisableAsync()
     {
         await _vditor.DisableAsync();
+        _isDisabled = true;
     }
 
     private async Task OnTriggerFocusAsync()

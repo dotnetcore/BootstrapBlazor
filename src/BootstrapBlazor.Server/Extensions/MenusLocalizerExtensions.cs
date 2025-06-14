@@ -521,7 +521,7 @@ internal static class MenusLocalizerExtensions
                 {
                     IsNew = true,
                     Text = Localizer["Vditor"],
-                    Url = "vditors"
+                    Url = "vditor"
                 }
             };
             AddBadge(item);

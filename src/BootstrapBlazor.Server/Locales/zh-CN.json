@@ -7191,5 +7191,11 @@
     "AudioDevicePauseText": "暂停",
     "AudioDeviceResumeText": "恢复",
     "AudioDeviceDownloadText": "下载"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Vditors": {
+    "VditorTitle": "Vditor Markdown 富文本编辑框",
+    "VditorSubTitle": "Vditor 是一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Value</code> 值设置组件显示的内容，通过 <code>Options</code> 参数设置组件配置信息"
   }
 }
