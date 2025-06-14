@@ -63,7 +63,6 @@ public partial class Vditors
         _vditorValueString = value;
         _logger.Log($"Trigger OnBlurAsync");
 
-        // 手动获取 HTML 代码
         _htmlString = await _vditor.GetHtmlAsync();
         StateHasChanged();
     }
@@ -96,6 +95,47 @@ public partial class Vditors
 
         _logger.Log($"Trigger OnCtrlEnterAsync");
         StateHasChanged();
+    }
+
+    private async Task OnTriggerGetValueAsync()
+    {
+        _vditorValueString = await _vditor.GetValueAsync() ?? "";
+    }
+
+    private async Task OnTriggerInsertValueAsync()
+    {
+        await _vditor.InsertValueAsync("光标处插入当前值");
+    }
+
+    private async Task OnTriggerGetHtmlAsync()
+    {
+        _htmlString = await _vditor.GetHtmlAsync();
+    }
+
+    private async Task OnTriggerGetSelectionAsync()
+    {
+        var selection = await _vditor.GetSelectionAsync() ?? "";
+        _logger.Log($"Trigger OnTriggerGetSelectionAsync: {selection}");
+    }
+
+    private async Task OnTriggerEnableAsync()
+    {
+        await _vditor.EnableAsync();
+    }
+
+    private async Task OnTriggerDisableAsync()
+    {
+        await _vditor.DisableAsync();
+    }
+
+    private async Task OnTriggerFocusAsync()
+    {
+        await _vditor.FocusAsync();
+    }
+
+    private async Task OnTriggerBlurAsync()
+    {
+        await _vditor.BlurAsync();
     }
 
     private static AttributeItem[] GetAttributes() =>

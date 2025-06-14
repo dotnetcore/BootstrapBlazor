@@ -1,8 +1,9 @@
 ﻿@page "/vditors"
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<h3>@Localizer["Header"]</h3>
-<h4>@Localizer["Tip"]</h4>
+<h3>@Localizer["VditorTitle"]</h3>
+
+<h4>@Localizer["VditorSubTitle"]</h4>
 
 <PackageTips Name="BootstrapBlazor.Vditor" />
 
@@ -10,17 +11,29 @@
 
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
-<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <section ignore>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="Mode"></BootstrapInputGroupLabel>
-            <Segmented Value="_mode" OnValueChanged="OnModeChanged">
-                @foreach (var item in Enum.GetValues(typeof(VditorMode)).Cast<VditorMode>())
-                {
-                    <SegmentedItem Value="@item" Text="@item.ToString()" />
-                }
-            </Segmented>
-        </BootstrapInputGroup>
+<DemoBlock Title="@Localizer["BaseUsageTitle"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <section ignore class="row g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Mode"></BootstrapInputGroupLabel>
+                <Segmented Value="_mode" OnValueChanged="OnModeChanged">
+                    @foreach (var item in Enum.GetValues(typeof(VditorMode)).Cast<VditorMode>())
+                    {
+                        <SegmentedItem Value="@item" Text="@item.ToString()" />
+                    }
+                </Segmented>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            <Button Text="GetValue" OnClick="OnTriggerGetValueAsync"></Button>
+            <Button Text="InsertValue" OnClick="OnTriggerInsertValueAsync"></Button>
+            <Button Text="GetHtml" OnClick="OnTriggerGetHtmlAsync"></Button>
+            <Button Text="GetSelection" OnClick="OnTriggerGetSelectionAsync"></Button>
+            <Button Text="Enable" OnClick="OnTriggerEnableAsync"></Button>
+            <Button Text="Disable" OnClick="OnTriggerDisableAsync"></Button>
+            <Button Text="Focus" OnClick="OnTriggerFocusAsync"></Button>
+            <Button Text="Blur" OnClick="OnTriggerBlurAsync"></Button>
+        </div>
     </section>
     <Vditor Value="@_vditorValueString" Options="_vditorOptions" @ref="_vditor"
             OnRenderedAsync="OnRenderAsync"
