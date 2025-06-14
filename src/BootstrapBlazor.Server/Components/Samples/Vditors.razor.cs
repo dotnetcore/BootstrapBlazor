@@ -1,0 +1,152 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+namespace BootstrapBlazor.Server.Components.Samples;
+
+/// <summary>
+/// Vditors 组件示例代码
+/// </summary>
+public partial class Vditors
+{
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Vditors>? Localizer { get; set; }
+
+    private VditorOptions _vditorOptions = new()
+    {
+        Height = "500px"
+    };
+
+    private Vditor _vditor = default!;
+    private string? _htmlString;
+    private string _vditorValueString = "## 所见即所得（WYSIWYG）\n所见即所得模式对不熟悉 Markdown 的用户较为友好，熟悉 Markdown 的话也可以无缝使用。";
+    private VditorMode _mode = VditorMode.WYSIWYG;
+    private ConsoleLogger _logger = default!;
+
+    private async Task OnModeChanged(VditorMode mode)
+    {
+        _mode = mode;
+        _vditorOptions.Mode = mode;
+        if (mode == VditorMode.WYSIWYG)
+        {
+            _vditorValueString = "## 所见即所得（WYSIWYG）\n所见即所得模式对不熟悉 Markdown 的用户较为友好，熟悉 Markdown 的话也可以无缝使用。";
+        }
+        else if (mode == VditorMode.IR)
+        {
+            _vditorValueString = "## 即时渲染（IR）\n即时渲染模式对熟悉 Typora 的用户应该不会感到陌生，理论上这是最优雅的 Markdown 编辑方式。";
+        }
+        else if (mode == VditorMode.SV)
+        {
+            _vditorValueString = "## 分屏预览（SV）\n传统的分屏预览模式适合大屏下的 Markdown 编辑。";
+        }
+
+        _htmlString = await _vditor.GetHtmlAsync();
+        StateHasChanged();
+    }
+
+    private Task OnRenderAsync()
+    {
+        _logger.Log($"Trigger OnRenderAsync");
+        return Task.CompletedTask;
+    }
+
+    private Task OnFocusAsync(string value)
+    {
+        _logger.Log($"Trigger OnFocusAsync");
+        return Task.CompletedTask;
+    }
+
+    private async Task OnBlurAsync(string value)
+    {
+        _vditorValueString = value;
+        _logger.Log($"Trigger OnBlurAsync");
+
+        // 手动获取 HTML 代码
+        _htmlString = await _vditor.GetHtmlAsync();
+        StateHasChanged();
+    }
+
+    private Task OnEscapeAsync(string value)
+    {
+        _logger.Log($"Trigger OnEscapeAsync");
+        return Task.CompletedTask;
+    }
+
+    private Task OnSelectAsync(string value)
+    {
+        _logger.Log($"Trigger OnSelectAsync");
+        return Task.CompletedTask;
+    }
+
+    private async Task OnInputAsync(string value)
+    {
+        _vditorValueString = value;
+        _htmlString = await _vditor.GetHtmlAsync();
+
+        _logger.Log($"Trigger OnInputAsync");
+        StateHasChanged();
+    }
+
+    private async Task OnCtrlEnterAsync(string value)
+    {
+        _vditorValueString = value;
+        _htmlString = await _vditor.GetHtmlAsync();
+
+        _logger.Log($"Trigger OnCtrlEnterAsync");
+        StateHasChanged();
+    }
+
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "EditorSettings",
+            Description = "编辑器设置",
+            Type = "EditorSettings",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ToolbarSettings",
+            Description = "工具栏设置",
+            Type = "ToolbarSettings",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Value",
+            Description = "组件值",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Html",
+            Description = "组件 Html 代码",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnFileUpload",
+            Description = "文件上传回调方法",
+            Type = "Func<CherryMarkdownUploadFile, Task<string>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsViewer",
+            Description = "组件是否为浏览器模式",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        }
+    ];
+}
