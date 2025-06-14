@@ -516,6 +516,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["ValidateForm"],
                     Url = "validate-form"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Vditor"],
+                    Url = "vditors"
                 }
             };
             AddBadge(item);
