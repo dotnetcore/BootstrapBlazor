@@ -328,6 +328,7 @@ public partial class MultiSelectGeneric<TValue>
         await base.OnClearValue();
 
         SelectedItems.Clear();
+        await SetValue();
     }
 
     private bool _isToggle;
@@ -435,7 +436,7 @@ public partial class MultiSelectGeneric<TValue>
 
         if (OnSelectedItemsChanged != null)
         {
-            await OnSelectedItemsChanged.Invoke(SelectedItems);
+            await OnSelectedItemsChanged(SelectedItems);
         }
 
         CurrentValue = [.. SelectedItems.Select(i => i.Value)];

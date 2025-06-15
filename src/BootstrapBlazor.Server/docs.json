@@ -239,7 +239,8 @@
     "video-device": "VideoDevices",
     "audio-device": "AudioDevices",
     "fullscreen-button": "FullScreenButtons",
-    "meet": "Meets"
+    "meet": "Meets",
+    "vditor": "Vditors"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

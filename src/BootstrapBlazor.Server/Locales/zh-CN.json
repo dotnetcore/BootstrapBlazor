@@ -1178,7 +1178,7 @@
   },
   "BootstrapBlazor.Server.Components.Components.InstallContent": {
     "P5": "使用 BootstrapBlazor Project Template 扩展创建项目",
-    "InstallByTemplate":"您可以通过 <a href=\"template\">[传送门]</a> 下载安装扩展后，通过扩展创建项目, <code>强烈推荐</code>",
+    "InstallByTemplate": "您可以通过 <a href=\"template\">[传送门]</a> 下载安装扩展后，通过扩展创建项目, <code>强烈推荐</code>",
     "P9": "使用 Visual Studio 创建项目",
     "P10": "步骤一、创建项目",
     "P11": "打开 Visual Studio",
@@ -4948,7 +4948,8 @@
     "ButtonUpload": "按钮上传组件 ButtonUpload",
     "AvatarUpload": "头像上传组件 AvatarUpload",
     "CardUpload": "卡片上传组件 CardUpload",
-    "DropUpload": "拖动上传组件 DropUpload"
+    "DropUpload": "拖动上传组件 DropUpload",
+    "Vditor": "富文本框 Vditor Markdown"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6800,12 +6801,6 @@
   "BootstrapBlazor.Server.Components.Samples.FlipClocks": {
     "FlipClocksTitle": "FlipClock 卡片翻转时钟",
     "FlipClocksDescription": "用于网站计时，或者倒计时使用",
-    "BaseUsageText": "基本功能",
-    "BaseUsageIntro": "同步显示当前时间",
-    "ShowMinuteText": "不显示时、分",
-    "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
-    "ShowSecondText": "不显示秒",
-    "ShowSecondIntro": "通过设置 <code>ShowSecond=\"false\"</code> 不显示秒信息",
     "CountText": "计时器",
     "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
     "IsCountDownText": "倒计时",
@@ -6818,7 +6813,26 @@
     "CardHeight": "卡片高度",
     "CardWidth": "卡片宽度",
     "CardMargin": "卡片边距",
-    "CardGroupMargin": "卡片组边距"
+    "CardGroupMargin": "卡片组边距",
+    "ShowDay_Description": "是否显示日",
+    "ShowHour_Description": "是否显示小时",
+    "ShowMinute_Description": "是否显示分钟",
+    "ShowMonth_Description": "是否显示月",
+    "ShowYear_Description": "是否显示年",
+    "ViewMode_Description": "显示模式",
+    "StartValue_Description": "开始时间",
+    "OnCompletedAsync_Description": "计时结束回调方法",
+    "Height_Description": "高度",
+    "BackgroundColor_Description": "背景色",
+    "FontSize_Description": "字体大小",
+    "CardWidth_Description": "卡片宽度",
+    "CardHeight_Description": "卡片高度",
+    "CardColor_Description": "卡片字体颜色",
+    "CardBackgroundColor_Description": "卡片背景颜色",
+    "CardDividerHeight_Description": "卡片分割线高度",
+    "CardDividerColor_Description": "卡片分割线颜色",
+    "CardMargin_Description": "卡片间隔",
+    "CardGroupMargin_Description": "卡片组间隔"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
@@ -7177,5 +7191,11 @@
     "AudioDevicePauseText": "暂停",
     "AudioDeviceResumeText": "恢复",
     "AudioDeviceDownloadText": "下载"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Vditors": {
+    "VditorTitle": "Vditor Markdown 富文本编辑框",
+    "VditorSubTitle": "Vditor 是一款浏览器端的 Markdown 编辑器，支持所见即所得、即时渲染（类似 Typora）和分屏预览模式",
+    "BaseUsageTitle": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Value</code> 值设置组件显示的内容，通过 <code>Options</code> 参数设置组件配置信息"
   }
 }

@@ -4948,7 +4948,8 @@
     "ButtonUpload": "ButtonUpload",
     "AvatarUpload": "AvatarUpload",
     "CardUpload": "CardUpload",
-    "DropUpload": "DropUpload"
+    "DropUpload": "DropUpload",
+    "Vditor": "Vditor Markdown"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6800,12 +6801,6 @@
   "BootstrapBlazor.Server.Components.Samples.FlipClocks": {
     "FlipClocksTitle": "FlipClock",
     "FlipClocksDescription": "Used for website timing or countdown",
-    "BaseUsageText": "Basic usage",
-    "BaseUsageIntro": "Synchronize display of current time",
-    "ShowMinuteText": "not display hours and minutes",
-    "ShowMinuteIntro": "By setting <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> to not display hour and minute information",
-    "ShowSecondText": "not display seconds",
-    "ShowSecondIntro": "By setting <code>ShowSecond=\"false\"</code> to display hour and minute information",
     "CountText": "Counter",
     "CountIntro": "By setting <code>ViewMode=\"FlipClockViewMode.Count\"</code> to enable the timer function, the start time can be set using <code>StartValue</code>",
     "IsCountDownText": "CountDown",
@@ -6818,7 +6813,26 @@
     "CardHeight": "Card Height",
     "CardWidth": "Card Width",
     "CardMargin": "Card Margin",
-    "CardGroupMargin": "Card Group Margin"
+    "CardGroupMargin": "Card Group Margin",
+    "ShowDay_Description": "Show day",
+    "ShowHour_Description": "Show hour",
+    "ShowMinute_Description": "Show minute",
+    "ShowMonth_Description": "Show month",
+    "ShowYear_Description": "Show year",
+    "ViewMode_Description": "View mode",
+    "StartValue_Description": "Start time",
+    "OnCompletedAsync_Description": "Callback when timer completed",
+    "Height_Description": "Height",
+    "BackgroundColor_Description": "Background color",
+    "FontSize_Description": "Font size",
+    "CardWidth_Description": "Card width",
+    "CardHeight_Description": "Card height",
+    "CardColor_Description": "Card font color",
+    "CardBackgroundColor_Description": "Card background color",
+    "CardDividerHeight_Description": "Card divider height",
+    "CardDividerColor_Description": "Card divider color",
+    "CardMargin_Description": "Card margin",
+    "CardGroupMargin_Description": "Card group margin"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
@@ -7177,5 +7191,11 @@
     "AudioDevicePauseText": "Pause",
     "AudioDeviceResumeText": "Resume",
     "AudioDeviceDownloadText": "Download"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Vditors": {
+    "VditorTitle": "Vditor Markdown",
+    "VditorSubTitle": "Vditor is a browser-based Markdown editor that supports WYSIWYG, instant rendering (similar to Typora), and split-screen preview mode.",
+    "BaseUsageTitle": "Basic usage",
+    "BaseUsageIntro": "Set the content displayed by the component by setting the <code>Value</code> value, and set the component configuration information by setting the <code>Options</code> parameter"
   }
 }

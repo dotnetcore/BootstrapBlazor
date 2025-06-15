@@ -5,18 +5,6 @@
 
 <h4>@((MarkupString)Localizer["FlipClocksDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
-    <FlipClock></FlipClock>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ShowMinuteText"]" Introduction="@Localizer["ShowMinuteIntro"]" Name="ShowMinute">
-    <FlipClock ShowHour="false" ShowMinute="false"></FlipClock>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ShowSecondText"]" Introduction="@Localizer["ShowSecondIntro"]" Name="ShowSecond">
-    <FlipClock ShowSecond="false"></FlipClock>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["CountText"]" Introduction="@Localizer["CountIntro"]" Name="Count">
     <FlipClock ViewMode="FlipClockViewMode.Count"></FlipClock>
 </DemoBlock>
@@ -71,10 +59,50 @@
                         <Slider @bind-Value="CardGroupMarginValue" Max="28" Min="18"></Slider>
                     </BootstrapInputGroup>
                 </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowYear"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showYear"></Switch>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowMonth"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showMonth"></Switch>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowDay"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showDay"></Switch>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowHour"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showHour"></Switch>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowMinute"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showMinute"></Switch>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["ShowSecond"]" Width="150"></BootstrapInputGroupLabel>
+                        <Switch @bind-Value="_showSecond"></Switch>
+                    </BootstrapInputGroup>
+                </div>
             </div>
         </GroupBox>
     </section>
-    <FlipClock BackgroundColor="radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%)" Height="@HeightValueString" FontSize="@FontSizeValueString" CardHeight="@CardHeightValueString" CardWidth="@CardWidthValueString" CardMargin="@CardMarginValueString" CardGroupMargin="@CardGroupMarginValueString"></FlipClock>
+    <FlipClock BackgroundColor="radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%)" Height="@HeightValueString"
+               FontSize="@FontSizeValueString" CardHeight="@CardHeightValueString" CardWidth="@CardWidthValueString"
+               CardMargin="@CardMarginValueString" CardGroupMargin="@CardGroupMarginValueString"
+               ShowYear="_showYear" ShowMonth="_showMonth" ShowDay="_showDay"
+               ShowHour="_showHour" ShowMinute="_showMinute" ShowSecond="_showSecond"></FlipClock>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

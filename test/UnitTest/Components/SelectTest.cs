@@ -135,10 +135,16 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsClearable_Ok()
     {
+        var selectedValue = "Test2";
         var val = "Test2";
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                selectedValue = item.Value;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
                 new("", "请选择"),
@@ -155,6 +161,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var clearButton = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => clearButton.Click());
         Assert.Null(val);
+        Assert.Equal("", selectedValue);
 
         // 提高代码覆盖率
         var select = cut;

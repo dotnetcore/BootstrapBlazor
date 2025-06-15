@@ -13,7 +13,7 @@ public partial class Light
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected string? ClassString => CssBuilder.Default("light")
+    protected string? ClassString => CssBuilder.Default("bb-light")
         .AddClass("is-flat", IsFlat)
         .AddClass("flash", IsFlash && !IsFlat)
         .AddClass("is-flat-flash", IsFlash && IsFlat)

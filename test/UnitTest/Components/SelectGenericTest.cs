@@ -132,9 +132,15 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     public void IsClearable_Ok()
     {
         var val = "Test2";
+        string? selectedValue = "Test2";
         var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                selectedValue = item.Value;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.Items, new List<SelectedItem<string>>()
             {
                 new("", "请选择"),
@@ -151,6 +157,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         var clearButton = cut.Find(".clear-icon");
         cut.InvokeAsync(() => clearButton.Click());
         Assert.Null(val);
+        Assert.Null(selectedValue);
 
         // 提高代码覆盖率
         var select = cut;

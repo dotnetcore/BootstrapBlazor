@@ -1,8 +1,34 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true, AutoInvokeDispose = false)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" id="@Id">
+    @if (ShowYear)
+    {
+        <div class="bb-flip-clock-list year">
+            @RenderItem(10)
+            @RenderItem(10)
+            @RenderItem(10)
+            @RenderItem(10)
+        </div>
+    }
+
+    @if (ShowMonth)
+    {
+        <div class="bb-flip-clock-list month">
+            @RenderItem(3)
+            @RenderItem(10)
+        </div>
+    }
+
+    @if (ShowDay)
+    {
+        <div class="bb-flip-clock-list day">
+            @RenderItem(10)
+            @RenderItem(10)
+        </div>
+    }
+
     @if (ShowHour)
     {
         <div class="bb-flip-clock-list hour">
