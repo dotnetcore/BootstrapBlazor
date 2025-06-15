@@ -690,6 +690,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsVirtualize_Items_Clearable_Ok()
     {
+        IEnumerable<SelectedItem>? selectedItems = null;
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
@@ -703,6 +704,11 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OverscanCount, 4);
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.OnSelectedItemsChanged, items =>
+            {
+                selectedItems = items;
+                return Task.CompletedTask;
+            });
         });
 
         // 覆盖有搜索条件时，点击清空按钮
@@ -718,6 +724,8 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         // 点击 Clear 按钮
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
+        Assert.NotNull(selectedItems);
+        Assert.Empty(selectedItems);
 
         // 下拉框显示所有选项
         items = cut.FindAll(".dropdown-item");
