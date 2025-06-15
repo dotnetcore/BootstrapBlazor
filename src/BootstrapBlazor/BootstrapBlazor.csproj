@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlazorSetParametersAsyncGenerator" Version="10.7.93"  PrivateAssets="all" OutputItemType="Analyzer"/>
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Options" />
