@@ -406,7 +406,10 @@ public partial class Select<TValue> : ISelect, ILookup
         await base.OnClearValue();
 
         SelectedItem = null;
-        _lastSelectedValueString = "";
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(new SelectedItem("", ""));
+        }
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
