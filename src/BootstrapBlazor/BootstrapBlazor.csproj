@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorSetParametersAsyncGenerator" Version="10.7.93"  PrivateAssets="all" OutputItemType="Analyzer"/>
+    <PackageReference Include="BlazorSetParametersAsyncGenerator" Version="10.7.97"  PrivateAssets="all" OutputItemType="Analyzer"/>
   </ItemGroup>
 
   <ItemGroup>
