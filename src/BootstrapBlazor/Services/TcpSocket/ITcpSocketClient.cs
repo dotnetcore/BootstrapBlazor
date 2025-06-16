@@ -16,15 +16,15 @@ public interface ITcpSocketClient : IDisposable
     bool IsConnected { get; }
 
     /// <summary>
-    /// Asynchronously establishes a connection to the server.
+    /// Establishes an asynchronous connection to the specified host and port.
     /// </summary>
-    /// <remarks>This method attempts to connect to the server and returns a value indicating whether the
-    /// connection was successful.  If the connection cannot be established within the timeout period specified by the
-    /// <paramref name="token"/>,  the operation is canceled.</remarks>
-    /// <param name="token">A <see cref="CancellationToken"/> that can be used to cancel the connection attempt.  If not provided, the
-    /// default token is used.</param>
-    /// <returns><see langword="true"/> if the connection is successfully established; otherwise, <see langword="false"/>.</returns>
-    Task<bool> ConnectAsync(CancellationToken token = default);
+    /// <param name="host">The hostname or IP address of the server to connect to. Cannot be null or empty.</param>
+    /// <param name="port">The port number on the server to connect to. Must be a valid port number between 0 and 65535.</param>
+    /// <param name="token">An optional <see cref="CancellationToken"/> to cancel the connection attempt. Defaults to <see
+    /// langword="default"/> if not provided.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
+    /// is successfully established; otherwise, <see langword="false"/>.</returns>
+    Task<bool> ConnectAsync(string host, int port, CancellationToken token = default);
 
     /// <summary>
     /// Sends the specified data asynchronously to the target endpoint.
@@ -36,15 +36,16 @@ public interface ITcpSocketClient : IDisposable
     /// <param name="token">An optional <see cref="CancellationToken"/> to observe while waiting for the operation to complete.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the data was
     /// sent successfully; otherwise, <see langword="false"/>.</returns>
-    Task<bool> SendAsync(byte[] data, CancellationToken token = default);
+    Task<bool> SendAsync(Memory<byte> data, CancellationToken token = default);
 
     /// <summary>
-    /// Asynchronously receives data from the underlying connection.
+    /// Asynchronously receives data into a memory buffer of the specified size.
     /// </summary>
-    /// <remarks>The method waits for data to be available and returns it as a byte array. If the operation is
-    /// canceled via the <paramref name="token"/>, the returned task will be in a canceled state.</remarks>
-    /// <param name="token">A <see cref="CancellationToken"/> that can be used to cancel the operation. The default value is <see
+    /// <param name="bufferSize">The size of the buffer, in bytes, to allocate for receiving data. Must be greater than zero. Defaults to 10,240
+    /// bytes.</param>
+    /// <param name="token">A <see cref="CancellationToken"/> to observe while waiting for the operation to complete. Defaults to <see
     /// langword="default"/>.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a byte array with the received data.</returns>
-    Task<byte[]> ReceiveAsync(CancellationToken token = default);
+    /// <returns>A <see cref="Memory{T}"/> of type <see cref="byte"/> containing the received data. The memory may be empty if no
+    /// data is received.</returns>
+    Task<Memory<byte>> ReceiveAsync(int bufferSize = 1024 * 10, CancellationToken token = default);
 }

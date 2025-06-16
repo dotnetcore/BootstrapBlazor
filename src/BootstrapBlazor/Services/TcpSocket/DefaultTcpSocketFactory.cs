@@ -10,13 +10,13 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketFactory(Logger<DefaultTcpSocketFactory> logger) : ITcpSocketFactory
+class DefaultTcpSocketFactory() : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
     public ITcpSocketClient GetOrCreate(string host, int port, SocketMode mode = SocketMode.Client)
     {
-        return _pool.GetOrAdd($"{host}:{port}", key => new DefaultTcpSocketClient(host, port) { Logger = logger });
+        return _pool.GetOrAdd($"{host}:{port}", key => new DefaultTcpSocketClient(host, port) { });
     }
 
     private void Dispose(bool disposing)

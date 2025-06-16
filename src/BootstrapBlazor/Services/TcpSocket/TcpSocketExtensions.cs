@@ -20,7 +20,7 @@ public static class TcpSocketExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static IServiceCollection AddTcpSocketClient(this IServiceCollection services)
+    public static IServiceCollection AddBootstrapBlazorTcpSocketFactory(this IServiceCollection services)
     {
         // 添加 ITcpSocket 实现
         services.TryAddSingleton<ITcpSocketFactory, DefaultTcpSocketFactory>();
