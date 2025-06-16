@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
 
@@ -16,6 +17,10 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer();
 
         var sc = new ServiceCollection();
+        sc.AddLogging(builder =>
+        {
+            builder.AddProvider(new MockLoggerProvider());
+        });
         sc.AddBootstrapBlazorTcpSocketFactory();
 
         var provider = sc.BuildServiceProvider();
@@ -76,5 +81,36 @@ public class TcpSocketFactoryTest
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
+    }
+
+    class MockLoggerProvider : ILoggerProvider
+    {
+        public ILogger CreateLogger(string categoryName)
+        {
+            return new MockLogger();
+        }
+
+        public void Dispose()
+        {
+
+        }
+    }
+
+    class MockLogger : ILogger
+    {
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        {
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+
+        }
     }
 }
