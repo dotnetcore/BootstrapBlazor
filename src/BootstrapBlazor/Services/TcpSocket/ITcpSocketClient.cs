@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Net;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -25,6 +27,18 @@ public interface ITcpSocketClient : IDisposable
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
     /// is successfully established; otherwise, <see langword="false"/>.</returns>
     Task<bool> ConnectAsync(string host, int port, CancellationToken token = default);
+
+    /// <summary>
+    /// Establishes an asynchronous connection to the specified endpoint.
+    /// </summary>
+    /// <remarks>This method attempts to establish a connection to the specified endpoint. If the connection
+    /// cannot be established, the method returns <see langword="false"/> rather than throwing an exception.</remarks>
+    /// <param name="endPoint">The <see cref="IPEndPoint"/> representing the remote endpoint to connect to. Cannot be null.</param>
+    /// <param name="token">A <see cref="CancellationToken"/> that can be used to cancel the connection attempt. Defaults to <see
+    /// langword="default"/> if not provided.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
+    /// is successfully established; otherwise, <see langword="false"/>.</returns>
+    Task<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default);
 
     /// <summary>
     /// Sends the specified data asynchronously to the target endpoint.

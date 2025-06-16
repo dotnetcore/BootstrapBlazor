@@ -3,20 +3,24 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
 using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketFactory() : ITcpSocketFactory
+class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
     public ITcpSocketClient GetOrCreate(string host, int port, SocketMode mode = SocketMode.Client)
     {
-        return _pool.GetOrAdd($"{host}:{port}", key => new DefaultTcpSocketClient(host, port) { });
+        return _pool.GetOrAdd($"{host}:{port}", key =>
+        {
+            var client = provider.GetRequiredService<ITcpSocketClient>();
+            return client;
+        });
     }
 
     private void Dispose(bool disposing)

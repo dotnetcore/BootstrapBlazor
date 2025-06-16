@@ -5,57 +5,43 @@
 
 using Microsoft.Extensions.Logging;
 using System.Buffers;
+using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketClient(string host, int port) : ITcpSocketClient
+class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocketClient
 {
     private TcpClient? _client;
 
     public bool IsConnected => _client?.Connected ?? false;
 
-    public ILogger? Logger { get; set; }
+    public Task<bool> ConnectAsync(string host, int port, CancellationToken token = default)
+    {
+        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+        {
+            host = IPAddress.Loopback.ToString();
+        }
+        var endPoint = new IPEndPoint(IPAddress.Parse(host), port);
+        return ConnectAsync(endPoint, token);
+    }
 
-    public async Task<bool> ConnectAsync(string host, int port, CancellationToken token = default)
+    public async Task<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
         var ret = false;
         try
         {
             _client ??= new TcpClient();
-            await _client.ConnectAsync(host, port, token);
+            await _client.ConnectAsync(endPoint, token);
             ret = true;
         }
         catch (Exception ex)
         {
-            Logger?.LogError(ex, "TCP Socket connection failed to {Host}:{Port}", host, port);
+            logger.LogError(ex, "TCP Socket connection failed to {EndPoint}", endPoint);
         }
         return ret;
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            // 释放托管资源
-            if (_client != null)
-            {
-                try
-                {
-                    _client.Close();
-                }
-                catch (Exception ex)
-                {
-                    Logger?.LogError(ex, "Error closing TCP Socket connection to {Host}:{Port}", host, port);
-                }
-                finally
-                {
-                    _client = null;
-                }
-            }
-        }
     }
 
     public async Task<bool> SendAsync(Memory<byte> data, CancellationToken token = default)
@@ -74,11 +60,11 @@ class DefaultTcpSocketClient(string host, int port) : ITcpSocketClient
         }
         catch (OperationCanceledException ex)
         {
-            Logger?.LogWarning(ex, "TCP Socket send operation was canceled to {Host}:{Port}", host, port);
+            logger.LogWarning(ex, "TCP Socket send operation was canceled to {EndPoint}", _client.Client.RemoteEndPoint);
         }
         catch (Exception ex)
         {
-            Logger?.LogError(ex, "TCP Socket send failed to {Host}:{Port}", host, port);
+            logger.LogError(ex, "TCP Socket send failed to {EndPoint}", _client.Client.RemoteEndPoint);
         }
         return ret;
     }
@@ -98,7 +84,7 @@ class DefaultTcpSocketClient(string host, int port) : ITcpSocketClient
             var len = await stream.ReadAsync(buffer, token);
             if (len == 0)
             {
-                Logger?.LogInformation("TCP Socket received {len} data from {Host}:{Port}", len, host, port);
+                logger.LogInformation("TCP Socket received {len} data from {EndPoint}", len, _client.Client.RemoteEndPoint);
             }
             else
             {
@@ -107,14 +93,37 @@ class DefaultTcpSocketClient(string host, int port) : ITcpSocketClient
         }
         catch (OperationCanceledException ex)
         {
-            Logger?.LogWarning(ex, "TCP Socket receive operation was canceled to {Host}:{Port}", host, port);
+            logger.LogWarning(ex, "TCP Socket receive operation was canceled to {EndPoint}", _client.Client.RemoteEndPoint);
         }
         catch (Exception ex)
         {
-            Logger?.LogError(ex, "TCP Socket receive failed to {Host}:{Port}", host, port);
+            logger.LogError(ex, "TCP Socket receive failed to {EndPoint}", _client.Client.RemoteEndPoint);
         }
-        ArrayPool<byte>.Shared.Return(block);
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(block);
+        }
         return buffer;
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            // 释放托管资源
+            if (_client != null)
+            {
+                try
+                {
+                    _client.Close();
+                }
+                catch (Exception) { }
+                finally
+                {
+                    _client = null;
+                }
+            }
+        }
     }
 
     /// <summary>
