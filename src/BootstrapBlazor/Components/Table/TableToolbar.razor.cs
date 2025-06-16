@@ -20,7 +20,7 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// </summary>
     private readonly List<IToolbarComponent> _buttons = [];
 
-    private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
+    private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new(ReferenceEqualityComparer.Instance);
 
     /// <summary>
     /// Specifies the content to be rendered inside this
