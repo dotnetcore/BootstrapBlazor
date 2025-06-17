@@ -36,10 +36,10 @@ public partial class IpAddress
         var ipSegments = CurrentValueAsString.Split(".", System.StringSplitOptions.RemoveEmptyEntries);
         if (ipSegments.Length == 4)
         {
-            Value1 = ipSegments[0];
-            Value2 = ipSegments[1];
-            Value3 = ipSegments[2];
-            Value4 = ipSegments[3];
+            Value1 = ipSegments[0].Trim();
+            Value2 = ipSegments[1].Trim();
+            Value3 = ipSegments[2].Trim();
+            Value4 = ipSegments[3].Trim();
         }
         else
         {
