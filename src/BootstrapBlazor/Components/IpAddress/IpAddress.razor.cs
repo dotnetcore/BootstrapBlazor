@@ -36,10 +36,10 @@ public partial class IpAddress
         var ipSegments = CurrentValueAsString.Split(".", System.StringSplitOptions.RemoveEmptyEntries);
         if (ipSegments.Length == 4)
         {
-            Value1 = string.IsNullOrWhiteSpace(ipSegments[0]) ? "0" : ipSegments[0];
-            Value2 = string.IsNullOrWhiteSpace(ipSegments[1]) ? "0" : ipSegments[1];
-            Value3 = string.IsNullOrWhiteSpace(ipSegments[2]) ? "0" : ipSegments[2];
-            Value4 = string.IsNullOrWhiteSpace(ipSegments[3]) ? "0" : ipSegments[3];
+            Value1 = ipSegments[0];
+            Value2 = ipSegments[1];
+            Value3 = ipSegments[2];
+            Value4 = ipSegments[3];
         }
         else
         {
@@ -54,7 +54,7 @@ public partial class IpAddress
     private void ValueChanged1(ChangeEventArgs args)
     {
         Value1 = args.Value?.ToString();
-        if (string.IsNullOrEmpty(Value1))
+        if (string.IsNullOrWhiteSpace(Value1))
         {
             Value1 = "0";
         }
@@ -69,7 +69,7 @@ public partial class IpAddress
     private void ValueChanged2(ChangeEventArgs args)
     {
         Value2 = args.Value?.ToString();
-        if (string.IsNullOrEmpty(Value2))
+        if (string.IsNullOrWhiteSpace(Value2))
         {
             Value2 = "0";
         }
@@ -83,7 +83,7 @@ public partial class IpAddress
     private void ValueChanged3(ChangeEventArgs args)
     {
         Value3 = args.Value?.ToString();
-        if (string.IsNullOrEmpty(Value3))
+        if (string.IsNullOrWhiteSpace(Value3))
         {
             Value3 = "0";
         }
@@ -97,7 +97,7 @@ public partial class IpAddress
     private void ValueChanged4(ChangeEventArgs args)
     {
         Value4 = args.Value?.ToString();
-        if (string.IsNullOrEmpty(Value4))
+        if (string.IsNullOrWhiteSpace(Value4))
         {
             Value4 = "0";
         }
