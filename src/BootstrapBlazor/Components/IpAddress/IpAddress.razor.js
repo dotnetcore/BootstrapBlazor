@@ -60,18 +60,16 @@ export function init(id) {
                     prevCell.selectionEnd = prevCell.value.length
                 }
             }
-            // 空格或右箭头（光标一定要在内容最后面）向后换一格
             else if (current.selectionStart === current.value.length && (e.code === 'Space' || e.code === 'ArrowRight')) {
                 e.preventDefault()
                 selectCell(el, index + 1)
             }
-            // 左箭头（光标一定要在内容最前面）向前换一格
             else if (current.selectionStart === 0 && e.code === 'ArrowLeft') {
                 e.preventDefault()
                 selectCell(el, index - 1)
             }
             else if (e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                //原逻辑不做修改
+
             }
             else {
                 e.preventDefault()
