@@ -54,7 +54,7 @@ public partial class IpAddress
     private void ValueChanged1(ChangeEventArgs args)
     {
         Value1 = args.Value?.ToString();
-        if (string.IsNullOrWhiteSpace(Value1))
+        if (string.IsNullOrEmpty(Value1))
         {
             Value1 = "0";
         }
@@ -69,7 +69,7 @@ public partial class IpAddress
     private void ValueChanged2(ChangeEventArgs args)
     {
         Value2 = args.Value?.ToString();
-        if (string.IsNullOrWhiteSpace(Value2))
+        if (string.IsNullOrEmpty(Value2))
         {
             Value2 = "0";
         }
@@ -83,7 +83,7 @@ public partial class IpAddress
     private void ValueChanged3(ChangeEventArgs args)
     {
         Value3 = args.Value?.ToString();
-        if (string.IsNullOrWhiteSpace(Value3))
+        if (string.IsNullOrEmpty(Value3))
         {
             Value3 = "0";
         }
@@ -97,7 +97,7 @@ public partial class IpAddress
     private void ValueChanged4(ChangeEventArgs args)
     {
         Value4 = args.Value?.ToString();
-        if (string.IsNullOrWhiteSpace(Value4))
+        if (string.IsNullOrEmpty(Value4))
         {
             Value4 = "0";
         }
@@ -110,7 +110,6 @@ public partial class IpAddress
 
     private void UpdateValue()
     {
-        // 如果遇到内容中间存在空格，去掉所有空格
-        CurrentValueAsString = $"{Value1}.{Value2}.{Value3}.{Value4}".Replace(" ", "");
+        CurrentValueAsString = $"{Value1}.{Value2}.{Value3}.{Value4}";
     }
 }
