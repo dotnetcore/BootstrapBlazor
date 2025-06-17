@@ -36,10 +36,10 @@ public partial class IpAddress
         var ipSegments = CurrentValueAsString.Split(".", System.StringSplitOptions.RemoveEmptyEntries);
         if (ipSegments.Length == 4)
         {
-            Value1 = ipSegments[0];
-            Value2 = ipSegments[1];
-            Value3 = ipSegments[2];
-            Value4 = ipSegments[3];
+            Value1 = string.IsNullOrWhiteSpace(ipSegments[0]) ? "0" : ipSegments[0];
+            Value2 = string.IsNullOrWhiteSpace(ipSegments[1]) ? "0" : ipSegments[1];
+            Value3 = string.IsNullOrWhiteSpace(ipSegments[2]) ? "0" : ipSegments[2];
+            Value4 = string.IsNullOrWhiteSpace(ipSegments[3]) ? "0" : ipSegments[3];
         }
         else
         {
@@ -110,6 +110,7 @@ public partial class IpAddress
 
     private void UpdateValue()
     {
-        CurrentValueAsString = $"{Value1}.{Value2}.{Value3}.{Value4}";
+        // 如果遇到内容中间存在空格，去掉所有空格
+        CurrentValueAsString = $"{Value1}.{Value2}.{Value3}.{Value4}".Replace(" ", "");
     }
 }

@@ -24,6 +24,7 @@ export function init(id) {
 
     el.querySelectorAll(".ipv4-cell").forEach((c, index) => {
         EventHandler.on(c, 'keydown', e => {
+            const current = selectCell(el, index)
             if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                 // numbers, backup last status
                 ip.prevValues[index] = c.value
@@ -51,10 +52,24 @@ export function init(id) {
                 c.select()
             }
             else if (e.key === 'Backspace') {
-                if (c.value.length === 0) {
+                if (c.value.length <= 1) {
                     c.value = "0"
-                    selectCell(el, index - 1)
+                    if (index === 0)
+                        e.preventDefault();
+                    const prevCell = selectCell(el, index - 1)
+                    prevCell.selectionStart = prevCell.value.length
+                    prevCell.selectionEnd = prevCell.value.length
                 }
+            }
+            // 空格或右箭头（光标一定要在内容最后面）向后换一格
+            else if (current.selectionStart === current.value.length && (e.code === 'Space' || e.code === 'ArrowRight')) {
+                e.preventDefault()
+                selectCell(el, index + 1)
+            }
+            // 左箭头（光标一定要在内容最前面）向前换一格
+            else if (current.selectionStart === 0 && e.code === 'ArrowLeft') {
+                e.preventDefault()
+                selectCell(el, index - 1)
             }
             else if (e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
 
