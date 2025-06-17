@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -52,6 +53,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// Gets or sets whether to enable show toast popup when global exception capture, default is true
     /// </summary>
     public bool ShowErrorLoggerToast { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether error logging using an <see cref="ILogger"/> is enabled, default is true.
+    /// </summary>
+    public bool EnableErrorLoggerILogger { get; set; } = true;
 
     /// <summary>
     /// Gets or sets whether to fall back to the fallback culture, default is true

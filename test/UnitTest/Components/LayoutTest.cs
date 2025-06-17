@@ -568,6 +568,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 pb.Add(a => a.UseTabSet, false);
                 pb.Add(a => a.EnableErrorLogger, true);
                 pb.Add(a => a.ShowErrorLoggerToast, false);
+                pb.Add(a => a.EnableErrorLoggerILogger, false);
                 pb.Add(a => a.ErrorLoggerToastTitle, "Title");
                 // 按钮触发异常
                 pb.Add(a => a.Main, new RenderFragment(builder =>
