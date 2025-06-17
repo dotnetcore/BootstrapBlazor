@@ -54,8 +54,7 @@ export function init(id) {
             else if (e.key === 'Backspace') {
                 if (c.value.length <= 1) {
                     c.value = "0"
-                    if (index === 0)
-                        e.preventDefault();
+                    e.preventDefault();
                     const prevCell = selectCell(el, index - 1)
                     prevCell.selectionStart = prevCell.value.length
                     prevCell.selectionEnd = prevCell.value.length
@@ -72,7 +71,7 @@ export function init(id) {
                 selectCell(el, index - 1)
             }
             else if (e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-
+                //原逻辑不做修改
             }
             else {
                 e.preventDefault()
