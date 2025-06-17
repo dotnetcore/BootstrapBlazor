@@ -364,9 +364,15 @@
 <DemoBlock Title="@Localizer["SelectsConfirmSelectTitle"]"
            Introduction="@Localizer["SelectsConfirmSelectIntro"]"
            Name="ConfirmSelect">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["SelectConfifrmSelectDesc1"].Value)</li>
+            <li>@((MarkupString)Localizer["SelectConfifrmSelectDesc2"].Value)</li>
+        </ul>
+    </section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
+            <Select TValue="string" Items="Items" ShowSwal="true"
                     SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]" />
         </div>
     </div>
