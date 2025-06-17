@@ -32,8 +32,9 @@ export function init(id) {
                     c.value = ""
                 }
                 else if (c.selectionStart !== c.selectionEnd) {
-                    const v = c.value.substring(c.selectionStart, c.selectionEnd)
-                    const newVal = c.value.replace(v, e.key)
+                    const v1 = c.value.substring(0, c.selectionStart);
+                    const v2 = c.value.substring(c.selectionEnd, c.value.length);
+                    const newVal = `${v1}${e.key}${v2}`;
                     const num = Number(newVal)
                     if (num > 255) {
                         e.preventDefault()
