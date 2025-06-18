@@ -247,6 +247,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowColorWhenToolbarButtonsCollapsed, true);
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
