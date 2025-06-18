@@ -6,13 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Defines an interface for adapting data packages to and from a TCP socket connection.
+/// Provides a base implementation for handling data packages in a communication system.
 /// </summary>
-/// <remarks>Implementations of this interface are responsible for converting raw data received from a TCP socket
-/// into structured data packages and vice versa. This allows for custom serialization and deserialization logic
-/// tailored to specific application protocols.</remarks>
-public interface IDataPackageHandler
+/// <remarks>This abstract class defines the core contract for receiving and sending data packages. Derived
+/// classes should override and extend its functionality to implement specific data handling logic. The default
+/// implementation simply returns the provided data.</remarks>
+public abstract class DataPackageHandlerBase : IDataPackageHandler
 {
+    /// <summary>
+    /// 当接收数据处理完成后，回调该函数执行接收
+    /// </summary>
+    public Func<Memory<byte>, Task>? ReceivedCallBack { get; set; }
+
     /// <summary>
     /// Sends the specified data asynchronously to the target destination.
     /// </summary>
@@ -22,7 +27,10 @@ public interface IDataPackageHandler
     /// <param name="data">The data to be sent, represented as a block of memory.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
     /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
-    Task<Memory<byte>> SendAsync(Memory<byte> data);
+    public virtual Task<Memory<byte>> SendAsync(Memory<byte> data)
+    {
+        return Task.FromResult(data);
+    }
 
     /// <summary>
     /// Asynchronously receives data and writes it into the specified memory buffer.
@@ -32,5 +40,8 @@ public interface IDataPackageHandler
     /// <param name="data">The memory buffer where the received data will be written. The buffer must be large enough to hold the incoming
     /// data.</param>
     /// <returns>A task that represents the asynchronous receive operation.</returns>
-    Task<Memory<byte>> ReceiveAsync(Memory<byte> data);
+    public virtual Task ReceiveAsync(Memory<byte> data)
+    {
+        return Task.FromResult(data);
+    }
 }
