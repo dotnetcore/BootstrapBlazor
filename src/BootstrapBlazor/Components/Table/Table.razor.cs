@@ -1101,7 +1101,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
-    private async Task<List<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
+    private async Task ReloadColumnWidthFromBrowserAsync()
     {
         List<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
@@ -1124,7 +1124,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 catch { }
             }
         }
-        return ret ?? [];
+        _clientColumnWidths = ret ?? [];
     }
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
@@ -1178,7 +1178,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Columns.AddRange(cols.OrderFunc());
 
         // 查看是否开启列宽序列化
-        _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
+        await ReloadColumnWidthFromBrowserAsync();
         ResetColumnWidth();
 
         if (OnColumnCreating != null)
