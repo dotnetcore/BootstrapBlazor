@@ -12,19 +12,28 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocketClient
+class DefaultTcpSocketClient : ITcpSocketClient
 {
     private TcpClient? _client;
 
     public bool IsConnected => _client?.Connected ?? false;
 
+    public IPEndPoint LocalEndPoint { get; }
+
+    public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
+
+    public DefaultTcpSocketClient(string host, int port = 0)
+    {
+        LocalEndPoint = new IPEndPoint(GetIPAddress(host), port);
+    }
+
+    private static IPAddress GetIPAddress(string host) => host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
+        ? IPAddress.Loopback
+        : IPAddress.TryParse(host, out var ip) ? ip : Dns.GetHostAddresses(host).FirstOrDefault() ?? IPAddress.Loopback;
+
     public Task<bool> ConnectAsync(string host, int port, CancellationToken token = default)
     {
-        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
-        {
-            host = IPAddress.Loopback.ToString();
-        }
-        var endPoint = new IPEndPoint(IPAddress.Parse(host), port);
+        var endPoint = new IPEndPoint(GetIPAddress(host), port);
         return ConnectAsync(endPoint, token);
     }
 
@@ -39,7 +48,7 @@ class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocke
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "TCP Socket connection failed to {EndPoint}", endPoint);
+            LogError(ex, $"TCP Socket connection failed to {endPoint}");
         }
         return ret;
     }
@@ -60,11 +69,11 @@ class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocke
         }
         catch (OperationCanceledException ex)
         {
-            logger.LogWarning(ex, "TCP Socket send operation was canceled to {EndPoint}", _client.Client.RemoteEndPoint);
+            LogWarning(ex, $"TCP Socket send operation was canceled to {_client.Client.RemoteEndPoint}");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "TCP Socket send failed to {EndPoint}", _client.Client.RemoteEndPoint);
+            LogError(ex, $"TCP Socket send failed to {_client.Client.RemoteEndPoint}");
         }
         return ret;
     }
@@ -84,7 +93,7 @@ class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocke
             var len = await stream.ReadAsync(buffer, token);
             if (len == 0)
             {
-                logger.LogInformation("TCP Socket received {len} data from {EndPoint}", len, _client.Client.RemoteEndPoint);
+                LogInformation($"TCP Socket received {len} data from {_client.Client.RemoteEndPoint}");
             }
             else
             {
@@ -93,17 +102,32 @@ class DefaultTcpSocketClient(ILogger<DefaultTcpSocketClient> logger) : ITcpSocke
         }
         catch (OperationCanceledException ex)
         {
-            logger.LogWarning(ex, "TCP Socket receive operation was canceled to {EndPoint}", _client.Client.RemoteEndPoint);
+            LogWarning(ex, $"TCP Socket receive operation was canceled to {_client.Client.RemoteEndPoint}");
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "TCP Socket receive failed to {EndPoint}", _client.Client.RemoteEndPoint);
+            LogError(ex, $"TCP Socket receive failed to {_client.Client.RemoteEndPoint}");
         }
         finally
         {
             ArrayPool<byte>.Shared.Return(block);
         }
         return buffer;
+    }
+
+    private void LogInformation(string message)
+    {
+        Logger?.LogInformation("{message}", message);
+    }
+
+    private void LogWarning(Exception ex, string message)
+    {
+        Logger?.LogWarning(ex, "{message}", message);
+    }
+
+    private void LogError(Exception ex, string message)
+    {
+        Logger?.LogError(ex, "{message}", message);
     }
 
     private void Dispose(bool disposing)

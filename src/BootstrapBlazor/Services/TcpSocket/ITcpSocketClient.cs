@@ -18,6 +18,14 @@ public interface ITcpSocketClient : IDisposable
     bool IsConnected { get; }
 
     /// <summary>
+    /// Gets the local network endpoint that the socket is bound to.
+    /// </summary>
+    /// <remarks>This property provides information about the local endpoint of the socket, which is typically
+    /// used to identify the local address and port being used for communication. If the socket is not  bound to a
+    /// specific local endpoint, this property may return <see langword="null"/>.</remarks>
+    IPEndPoint LocalEndPoint { get; }
+
+    /// <summary>
     /// Establishes an asynchronous connection to the specified host and port.
     /// </summary>
     /// <param name="host">The hostname or IP address of the server to connect to. Cannot be null or empty.</param>

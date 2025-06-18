@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Runtime.Versioning;
 
@@ -14,11 +15,14 @@ class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
-    public ITcpSocketClient GetOrCreate(string host, int port, SocketMode mode = SocketMode.Client)
+    public ITcpSocketClient GetOrCreate(string host, int port = 0, SocketMode mode = SocketMode.Client)
     {
         return _pool.GetOrAdd($"{host}:{port}", key =>
         {
-            var client = provider.GetRequiredService<ITcpSocketClient>();
+            var client = new DefaultTcpSocketClient(host, port)
+            {
+                Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
+            };
             return client;
         });
     }

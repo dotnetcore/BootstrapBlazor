@@ -25,8 +25,6 @@ public static class TcpSocketExtensions
         // 添加 ITcpSocket 实现
         services.TryAddSingleton<ITcpSocketFactory, DefaultTcpSocketFactory>();
 
-        // 添加 ITcpSocketClient 实现
-        services.TryAddTransient<ITcpSocketClient, DefaultTcpSocketClient>();
         return services;
     }
 }
