@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Logging;
+using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 
@@ -110,11 +111,11 @@ public class TcpSocketFactoryTest
     {
         public override Task<Memory<byte>> ReceiveAsync(Memory<byte> data)
         {
-            var buffer = new byte[data.Length + 2];
-            data.CopyTo(buffer);
-            buffer[^2] = 0x01;
-            buffer[^1] = 0x02;
-            return Task.FromResult(new Memory<byte>(buffer));
+            using var buffer = MemoryPool<byte>.Shared.Rent(data.Length + 2);
+            data.CopyTo(buffer.Memory);
+            buffer.Memory.Span[data.Length] = 0x01;
+            buffer.Memory.Span[data.Length + 1] = 0x02;
+            return Task.FromResult(buffer.Memory[..(data.Length + 2)]);
         }
     }
 
