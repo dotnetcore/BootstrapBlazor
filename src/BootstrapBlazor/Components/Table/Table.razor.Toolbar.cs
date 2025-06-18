@@ -1102,7 +1102,7 @@ public partial class Table<TItem>
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns();
+            InternalResetVisibleColumns(Columns);
 
             var queryOption = BuildQueryPageOptions();
             // 设置是否为首次查询

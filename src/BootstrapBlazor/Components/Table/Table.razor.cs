@@ -963,7 +963,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             ResetDynamicContext();
 
             // resize column width;
-            ResetColumnWidth();
+            ResetColumnWidth(Columns);
         }
     }
 
@@ -1101,7 +1101,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
-    private async Task ReloadColumnWidthFromBrowserAsync()
+    private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
     {
         List<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
@@ -1125,6 +1125,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
         }
         _clientColumnWidths = ret ?? [];
+
+        ResetColumnWidth(columns);
     }
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
@@ -1222,11 +1224,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void ResetColumnWidth()
+    private void ResetColumnWidth(List<ITableColumn> columns)
     {
         foreach (var cw in _clientColumnWidths.Where(c => c.Width > 0))
         {
-            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            var c = columns.Find(c => c.GetFieldName() == cw.Name);
             if (c != null)
             {
                 c.Width = cw.Width;
@@ -1234,9 +1236,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? items = null)
+    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
-        var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
+        var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
         if (items != null)
         {
             foreach (var column in cols)
@@ -1262,7 +1264,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
-        InternalResetVisibleColumns(columns);
+        InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
 
