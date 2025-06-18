@@ -22,6 +22,8 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
+    public IDataPackageAdapter? DataPackageAdapter { get; set; }
+
     public DefaultTcpSocketClient(string host, int port = 0)
     {
         LocalEndPoint = new IPEndPoint(GetIPAddress(host), port);
@@ -106,6 +108,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
             else
             {
                 buffer = buffer[..len];
+
+                if (DataPackageAdapter != null)
+                {
+                    buffer = await DataPackageAdapter.ReceiveAsync(buffer);
+                }
             }
         }
         catch (OperationCanceledException ex)
