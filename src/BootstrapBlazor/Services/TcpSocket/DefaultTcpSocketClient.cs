@@ -48,7 +48,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
             Close();
 
             // 创建新的 TcpClient 实例
-            _client ??= new TcpClient();
+            _client ??= new TcpClient(LocalEndPoint);
             await _client.ConnectAsync(endPoint, token);
             ret = true;
         }
