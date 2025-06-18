@@ -43,6 +43,26 @@ public class TcpSocketFactoryTest
         StopTcpServer(server);
     }
 
+    [Fact]
+    public void GetOrCreate_Ok()
+    {
+        // 测试 GetOrCreate 方法创建的 Client 销毁后继续 GetOrCreate 得到的对象是否可用
+        var sc = new ServiceCollection();
+        sc.AddLogging(builder =>
+        {
+            builder.AddProvider(new MockLoggerProvider());
+        });
+        sc.AddBootstrapBlazorTcpSocketFactory();
+
+        var provider = sc.BuildServiceProvider();
+        var factory = provider.GetRequiredService<ITcpSocketFactory>();
+        var client1 = factory.GetOrCreate("localhost", 0);
+        client1.Close();
+
+        var client2 = factory.GetOrCreate("localhost", 0);
+        Assert.Equal(client1, client2);
+    }
+
     private static TcpListener StartTcpServer()
     {
         var server = new TcpListener(IPAddress.Loopback, 8888);
