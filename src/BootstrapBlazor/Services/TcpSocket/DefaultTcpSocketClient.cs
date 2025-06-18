@@ -134,18 +134,10 @@ class DefaultTcpSocketClient : ITcpSocketClient
     {
         if (disposing)
         {
-            // 释放托管资源
             if (_client != null)
             {
-                try
-                {
-                    _client.Close();
-                }
-                catch (Exception) { }
-                finally
-                {
-                    _client = null;
-                }
+                _client.Close();
+                _client = null;
             }
         }
     }
