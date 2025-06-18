@@ -40,7 +40,7 @@
         @if (ShowToolbar)
         {
             <div class="table-toolbar">
-                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
+                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton" ShowColorWhenToolbarButtonsCollapsed="ShowColorWhenToolbarButtonsCollapsed">
                     @if (TableToolbarBeforeTemplate != null)
                     {
                         @TableToolbarBeforeTemplate
