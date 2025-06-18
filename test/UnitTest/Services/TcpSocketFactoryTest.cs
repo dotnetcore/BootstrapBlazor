@@ -37,9 +37,12 @@ public class TcpSocketFactoryTest
         var result = await client.SendAsync(data);
         Assert.True(result);
 
+        // 增加数据库处理适配器
+        client.SetDataHandlers([new MockDataHandler()]);
+
         // 测试 ReceiveAsync 方法
         var buffer = await client.ReceiveAsync();
-        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5]);
+        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5, 1, 2]);
         StopTcpServer(server);
     }
 
@@ -101,6 +104,18 @@ public class TcpSocketFactoryTest
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
+    }
+
+    class MockDataHandler : DataPackageHandlerBase
+    {
+        public override Task<Memory<byte>> ReceiveAsync(Memory<byte> data)
+        {
+            var buffer = new byte[data.Length + 2];
+            data.CopyTo(buffer);
+            buffer[^2] = 0x01;
+            buffer[^1] = 0x02;
+            return Task.FromResult(new Memory<byte>(buffer));
+        }
     }
 
     class MockLoggerProvider : ILoggerProvider
