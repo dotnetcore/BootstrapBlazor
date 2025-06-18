@@ -1176,19 +1176,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         await ReloadColumnOrdersFromBrowserAsync(cols);
-        Columns.Clear();
-        Columns.AddRange(cols.OrderFunc());
 
         // 查看是否开启列宽序列化
-        await ReloadColumnWidthFromBrowserAsync();
-        ResetColumnWidth();
+        await ReloadColumnWidthFromBrowserAsync(cols);
 
         if (OnColumnCreating != null)
         {
-            await OnColumnCreating(Columns);
+            await OnColumnCreating(cols);
         }
 
-        InternalResetVisibleColumns();
+        InternalResetVisibleColumns(cols);
+
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
