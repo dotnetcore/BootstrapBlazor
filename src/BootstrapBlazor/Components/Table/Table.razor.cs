@@ -1183,18 +1183,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (OnColumnCreating != null)
         {
-            // 创建一个比较副本
-            var originalOrders = Columns.ToDictionary(c => c, c => c.Order);
-
             await OnColumnCreating(Columns);
-
-            // 如果OnColumnCreating回调中修改了Column项的Order，这里需要重新排序一下
-            if (Columns.Any(c => c.Order != originalOrders[c]))
-            {
-                var sortedColumns = Columns.OrderFunc().ToList();
-                Columns.Clear();
-                Columns.AddRange(sortedColumns);
-            }
         }
 
         InternalResetVisibleColumns();
