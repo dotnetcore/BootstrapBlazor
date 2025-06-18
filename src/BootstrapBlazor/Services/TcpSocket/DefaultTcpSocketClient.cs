@@ -46,6 +46,10 @@ class DefaultTcpSocketClient : ITcpSocketClient
             await _client.ConnectAsync(endPoint, token);
             ret = true;
         }
+        catch (OperationCanceledException ex)
+        {
+            LogWarning(ex, $"TCP Socket connect operation was canceled to {endPoint}");
+        }
         catch (Exception ex)
         {
             LogError(ex, $"TCP Socket connection failed to {endPoint}");
