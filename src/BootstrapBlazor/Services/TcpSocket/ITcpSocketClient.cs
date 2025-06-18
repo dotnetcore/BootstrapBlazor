@@ -70,4 +70,12 @@ public interface ITcpSocketClient : IDisposable
     /// <returns>A <see cref="Memory{T}"/> of type <see cref="byte"/> containing the received data. The memory may be empty if no
     /// data is received.</returns>
     Task<Memory<byte>> ReceiveAsync(int bufferSize = 1024 * 10, CancellationToken token = default);
+
+    /// <summary>
+    /// Closes the current connection or resource, releasing any associated resources.
+    /// </summary>
+    /// <remarks>Once the connection or resource is closed, it cannot be reopened. Ensure that all necessary
+    /// operations  are completed before calling this method. This method is typically used to clean up resources when
+    /// they  are no longer needed.</remarks>
+    void Close();
 }

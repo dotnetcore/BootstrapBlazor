@@ -42,6 +42,10 @@ class DefaultTcpSocketClient : ITcpSocketClient
         var ret = false;
         try
         {
+            // 释放资源
+            Close();
+
+            // 创建新的 TcpClient 实例
             _client ??= new TcpClient();
             await _client.ConnectAsync(endPoint, token);
             ret = true;
@@ -117,6 +121,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
             ArrayPool<byte>.Shared.Return(block);
         }
         return buffer;
+    }
+
+    public void Close()
+    {
+        Dispose(true);
     }
 
     private void LogInformation(string message)
