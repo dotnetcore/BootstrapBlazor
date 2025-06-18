@@ -1022,7 +1022,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("scrollTo", Id);
         }
 
-        if(_shouldScrollTop)
+        if (_shouldScrollTop)
         {
             _shouldScrollTop = false;
             await InvokeVoidAsync("scrollTo", Id);
