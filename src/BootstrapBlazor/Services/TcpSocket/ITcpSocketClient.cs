@@ -26,13 +26,10 @@ public interface ITcpSocketClient : IDisposable
     IPEndPoint LocalEndPoint { get; }
 
     /// <summary>
-    /// Sets the collection of data package handlers to be used for processing data.
+    /// Configures the data handler to process incoming data packages.
     /// </summary>
-    /// <remarks>The provided handlers must implement the <see cref="IDataPackageHandler"/> interface.  Ensure
-    /// that the list contains valid and properly configured handlers to avoid runtime issues.</remarks>
-    /// <param name="handlers">A list of handlers that implement the <see cref="IDataPackageHandler"/> interface. Each handler will be used to
-    /// process data packages in the order they appear in the list.</param>
-    void SetDataHandlers(params List<IDataPackageHandler> handlers);
+    /// <param name="handler">The handler responsible for processing data packages. Cannot be null.</param>
+    void SetDataHandler(IDataPackageHandler handler);
 
     /// <summary>
     /// Establishes an asynchronous connection to the specified host and port.
@@ -68,17 +65,6 @@ public interface ITcpSocketClient : IDisposable
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the data was
     /// sent successfully; otherwise, <see langword="false"/>.</returns>
     Task<bool> SendAsync(Memory<byte> data, CancellationToken token = default);
-
-    /// <summary>
-    /// Asynchronously receives data into a memory buffer of the specified size.
-    /// </summary>
-    /// <param name="bufferSize">The size of the buffer, in bytes, to allocate for receiving data. Must be greater than zero. Defaults to 10,240
-    /// bytes.</param>
-    /// <param name="token">A <see cref="CancellationToken"/> to observe while waiting for the operation to complete. Defaults to <see
-    /// langword="default"/>.</param>
-    /// <returns>A <see cref="Memory{T}"/> of type <see cref="byte"/> containing the received data. The memory may be empty if no
-    /// data is received.</returns>
-    Task<Memory<byte>> ReceiveAsync(int bufferSize = 1024 * 10, CancellationToken token = default);
 
     /// <summary>
     /// Closes the current connection or resource, releasing any associated resources.
