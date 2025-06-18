@@ -33,17 +33,20 @@ public class TcpSocketFactoryTest
         Assert.True(connect);
         Assert.True(client.IsConnected);
 
+        // 增加数据库处理适配器
+        client.SetDataHandler(new MockDataHandler()
+        {
+            //ReceivedCallBack = buffer =>
+            //{
+            //}
+        });
+
         // 测试 SendAsync 方法
         var data = new Memory<byte>([1, 2, 3, 4, 5]);
         var result = await client.SendAsync(data);
         Assert.True(result);
 
-        // 增加数据库处理适配器
-        client.SetDataHandlers([new MockDataHandler()]);
-
-        // 测试 ReceiveAsync 方法
-        var buffer = await client.ReceiveAsync();
-        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5, 1, 2]);
+        //Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5, 1, 2]);
         StopTcpServer(server);
     }
 
@@ -67,9 +70,53 @@ public class TcpSocketFactoryTest
         Assert.Equal(client1, client2);
     }
 
-    private static TcpListener StartTcpServer()
+    [Fact]
+    public async Task FixLengthDataPackageHandler_Ok()
     {
-        var server = new TcpListener(IPAddress.Loopback, 8888);
+        var server = StartDataPackageTcpServer();
+
+        var sc = new ServiceCollection();
+        sc.AddLogging(builder =>
+        {
+            builder.AddProvider(new MockLoggerProvider());
+        });
+        sc.AddBootstrapBlazorTcpSocketFactory();
+
+        var provider = sc.BuildServiceProvider();
+        var factory = provider.GetRequiredService<ITcpSocketFactory>();
+        var client = factory.GetOrCreate("localhost", 0);
+
+        // 测试 ConnectAsync 方法
+        var connect = await client.ConnectAsync("localhost", 8899);
+        Assert.True(connect);
+        Assert.True(client.IsConnected);
+
+        var tcs = new TaskCompletionSource();
+        Memory<byte> receivedBuffer = Memory<byte>.Empty;
+        // 增加数据库处理适配器
+        client.SetDataHandler(new FixLengthDataPackageHandler(7)
+        {
+            ReceivedCallBack = buffer =>
+            {
+                receivedBuffer = buffer;
+                tcs.SetResult();
+                return Task.CompletedTask;
+            }
+        });
+
+        // 测试 SendAsync 方法
+        var data = new Memory<byte>([1, 2, 3, 4, 5]);
+        var result = await client.SendAsync(data);
+        Assert.True(result);
+
+        await tcs.Task;
+        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
+        StopTcpServer(server);
+    }
+
+    private static TcpListener StartTcpServer(int port = 8888)
+    {
+        var server = new TcpListener(IPAddress.Loopback, port);
         server.Start();
         Task.Run(AcceptClientsAsync);
         return server;
@@ -98,6 +145,47 @@ public class TcpSocketFactoryTest
                 // 回写数据到客户端
                 var block = new Memory<byte>(buffer, 0, len);
                 await stream.WriteAsync(block, CancellationToken.None);
+            }
+        }
+    }
+
+    private static TcpListener StartDataPackageTcpServer(int port = 8899)
+    {
+        var server = new TcpListener(IPAddress.Loopback, port);
+        server.Start();
+        Task.Run(AcceptClientsAsync);
+        return server;
+
+        async Task AcceptClientsAsync()
+        {
+            while (true)
+            {
+                var client = await server.AcceptTcpClientAsync();
+                _ = Task.Run(() => HandleClientAsync(client));
+            }
+        }
+
+        async Task HandleClientAsync(TcpClient client)
+        {
+            using var stream = client.GetStream();
+            while (true)
+            {
+                var buffer = new byte[10240];
+                var len = await stream.ReadAsync(buffer);
+                if (len == 0)
+                {
+                    break;
+                }
+
+                // 回写数据到客户端
+                var block = new Memory<byte>(buffer, 0, len);
+                await stream.WriteAsync(block, CancellationToken.None);
+
+                // 模拟延时
+                await Task.Delay(50);
+
+                // 模拟拆包发送第二段数据
+                await stream.WriteAsync(new byte[2] { 0x3, 0x4 }, CancellationToken.None);
             }
         }
     }
