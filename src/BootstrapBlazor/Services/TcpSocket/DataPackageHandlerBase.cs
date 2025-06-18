@@ -18,7 +18,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public Task<Memory<byte>> ReceiveAsync(Memory<byte> data)
+    public virtual Task<Memory<byte>> ReceiveAsync(Memory<byte> data)
     {
         return Task.FromResult(data);
     }
@@ -28,7 +28,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public Task<Memory<byte>> SendAsync(Memory<byte> data)
+    public virtual Task<Memory<byte>> SendAsync(Memory<byte> data)
     {
         return Task.FromResult(data);
     }

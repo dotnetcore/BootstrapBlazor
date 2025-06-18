@@ -23,8 +23,6 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
-    public IDataPackageHandler? DataPackageAdapter { get; set; }
-
     public DefaultTcpSocketClient(string host, int port = 0)
     {
         LocalEndPoint = new IPEndPoint(GetIPAddress(host), port);
@@ -120,9 +118,9 @@ class DefaultTcpSocketClient : ITcpSocketClient
             {
                 buffer = buffer[..len];
 
-                if (DataPackageAdapter != null)
+                foreach (var handler in _dataPackageHandlers)
                 {
-                    buffer = await DataPackageAdapter.ReceiveAsync(buffer);
+                    buffer = await handler.ReceiveAsync(buffer);
                 }
             }
         }
