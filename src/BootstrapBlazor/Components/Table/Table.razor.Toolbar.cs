@@ -167,6 +167,12 @@ public partial class Table<TItem>
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式和中空化 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
+
+    /// <summary>
     /// 获得/设置 工具栏移动端按钮图标
     /// </summary>
     [Parameter]
