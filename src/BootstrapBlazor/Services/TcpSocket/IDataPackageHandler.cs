@@ -11,15 +11,26 @@ namespace BootstrapBlazor.Components;
 /// <remarks>Implementations of this interface are responsible for converting raw data received from a TCP socket
 /// into structured data packages and vice versa. This allows for custom serialization and deserialization logic
 /// tailored to specific application protocols.</remarks>
-public interface IDataPackageAdapter
+public interface IDataPackageHandler
 {
+    /// <summary>
+    /// Sends the specified data asynchronously to the target destination.
+    /// </summary>
+    /// <remarks>The method performs an asynchronous operation to send the provided data. The caller must
+    /// ensure  that the data is valid and non-empty. The returned memory block may contain a response or acknowledgment
+    /// depending on the implementation of the target destination.</remarks>
+    /// <param name="data">The data to be sent, represented as a block of memory.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
+    /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
+    Task<Memory<byte>> SendAsync(Memory<byte> data);
+
     /// <summary>
     /// Asynchronously receives data and writes it into the specified memory buffer.
     /// </summary>
     /// <remarks>The method does not guarantee that the entire buffer will be filled. The amount of data
     /// written depends on the data available to be received.</remarks>
-    /// <param name="memory">The memory buffer where the received data will be written. The buffer must be large enough to hold the incoming
+    /// <param name="data">The memory buffer where the received data will be written. The buffer must be large enough to hold the incoming
     /// data.</param>
     /// <returns>A task that represents the asynchronous receive operation.</returns>
-    Task<Memory<byte>> ReceiveAsync(Memory<byte> memory);
+    Task<Memory<byte>> ReceiveAsync(Memory<byte> data);
 }

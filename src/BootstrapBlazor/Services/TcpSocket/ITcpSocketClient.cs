@@ -26,6 +26,15 @@ public interface ITcpSocketClient : IDisposable
     IPEndPoint LocalEndPoint { get; }
 
     /// <summary>
+    /// Sets the collection of data package handlers to be used for processing data.
+    /// </summary>
+    /// <remarks>The provided handlers must implement the <see cref="IDataPackageHandler"/> interface.  Ensure
+    /// that the list contains valid and properly configured handlers to avoid runtime issues.</remarks>
+    /// <param name="handlers">A list of handlers that implement the <see cref="IDataPackageHandler"/> interface. Each handler will be used to
+    /// process data packages in the order they appear in the list.</param>
+    void SetDataHandlers(params List<IDataPackageHandler> handlers);
+
+    /// <summary>
     /// Establishes an asynchronous connection to the specified host and port.
     /// </summary>
     /// <param name="host">The hostname or IP address of the server to connect to. Cannot be null or empty.</param>

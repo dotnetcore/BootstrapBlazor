@@ -15,6 +15,7 @@ namespace BootstrapBlazor.Components;
 class DefaultTcpSocketClient : ITcpSocketClient
 {
     private TcpClient? _client;
+    private List<IDataPackageHandler> _dataPackageHandlers = [];
 
     public bool IsConnected => _client?.Connected ?? false;
 
@@ -22,7 +23,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
-    public IDataPackageAdapter? DataPackageAdapter { get; set; }
+    public IDataPackageHandler? DataPackageAdapter { get; set; }
 
     public DefaultTcpSocketClient(string host, int port = 0)
     {
@@ -32,6 +33,12 @@ class DefaultTcpSocketClient : ITcpSocketClient
     private static IPAddress GetIPAddress(string host) => host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
         ? IPAddress.Loopback
         : IPAddress.TryParse(host, out var ip) ? ip : Dns.GetHostAddresses(host).FirstOrDefault() ?? IPAddress.Loopback;
+
+    public void SetDataHandlers(params List<IDataPackageHandler> handlers)
+    {
+        _dataPackageHandlers.Clear();
+        _dataPackageHandlers.AddRange(handlers);
+    }
 
     public Task<bool> ConnectAsync(string host, int port, CancellationToken token = default)
     {
@@ -73,6 +80,10 @@ class DefaultTcpSocketClient : ITcpSocketClient
         var ret = false;
         try
         {
+            foreach (var handler in _dataPackageHandlers)
+            {
+                data = await handler.SendAsync(data);
+            }
             var stream = _client.GetStream();
             await stream.WriteAsync(data, token);
             ret = true;
