@@ -20,7 +20,7 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// </summary>
     private readonly List<IToolbarComponent> _buttons = [];
 
-    private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
+    private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new(ReferenceEqualityComparer.Instance);
 
     /// <summary>
     /// Specifies the content to be rendered inside this
@@ -42,6 +42,12 @@ public partial class TableToolbar<TItem> : ComponentBase
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
+
+    /// <summary>
     /// 获得/设置 移动端按钮图标
     /// </summary>
     [Parameter]
@@ -53,6 +59,11 @@ public partial class TableToolbar<TItem> : ComponentBase
 
     private string? GetItemClass(ButtonBase button) => CssBuilder.Default("dropdown-item")
         .AddClass("disabled", GetDisabled(button))
+        .AddClass($"dropdown-item-btn-{button.Color.ToDescriptionString()}",
+            ShowColorWhenToolbarButtonsCollapsed &&
+            !button.IsOutline &&
+            button.Color != Color.None &&
+            button.Color != Color.Link)
         .Build();
 
     private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)

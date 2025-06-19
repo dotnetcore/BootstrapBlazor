@@ -466,6 +466,12 @@ public partial class Layout : IHandlerException, ITabHeader
     public bool? ShowErrorLoggerToast { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否启用日志记录功能 默认 null 启用 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? EnableErrorLoggerILogger { get; set; }
+
+    /// <summary>
     /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
     /// </summary>
     [Parameter]
@@ -502,6 +508,8 @@ public partial class Layout : IHandlerException, ITabHeader
     private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
     private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+
+    private bool _enableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
 
     /// <summary>
     /// <inheritdoc/>

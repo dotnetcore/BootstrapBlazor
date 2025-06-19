@@ -34,6 +34,12 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    public bool EnableILogger { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
     [NotNull]
     public string? ToastTitle { get; set; }
 
@@ -112,6 +118,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.AddAttribute(3, nameof(BootstrapBlazorErrorBoundary.ToastTitle), ToastTitle);
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
+        builder.AddAttribute(6, nameof(BootstrapBlazorErrorBoundary.EnableILogger), EnableILogger);
         builder.AddComponentReferenceCapture(5, obj => _errorBoundary = (BootstrapBlazorErrorBoundary)obj);
         builder.CloseComponent();
     };
