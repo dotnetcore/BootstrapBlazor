@@ -17,11 +17,14 @@ class DefaultTcpSocketClient : ITcpSocketClient
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
     private CancellationTokenSource? _receiveCancellationTokenSource;
+    private IPEndPoint? _localEndPoint;
+    private IPEndPoint? _remoteEndPoint;
 
     public bool IsConnected => _client?.Connected ?? false;
 
     public IPEndPoint LocalEndPoint { get; }
 
+    [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
     public int ReceiveBufferSize { get; set; } = 1024 * 10;
@@ -60,15 +63,18 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
             // 开始接收数据
             _ = Task.Run(ReceiveAsync, token);
+
+            _localEndPoint = LocalEndPoint;
+            _remoteEndPoint = endPoint;
             ret = true;
         }
         catch (OperationCanceledException ex)
         {
-            LogWarning(ex, $"TCP Socket connect operation was canceled to {endPoint}");
+            Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
         }
         catch (Exception ex)
         {
-            LogError(ex, $"TCP Socket connection failed to {endPoint}");
+            Logger.LogError(ex, "TCP Socket connection failed from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
         }
         return ret;
     }
@@ -77,7 +83,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
     {
         if (_client is not { Connected: true })
         {
-            throw new InvalidOperationException("TCP Socket is not connected.");
+            throw new InvalidOperationException($"TCP Socket is not connected {_localEndPoint}.");
         }
 
         var ret = false;
@@ -93,11 +99,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
         }
         catch (OperationCanceledException ex)
         {
-            LogWarning(ex, $"TCP Socket send operation was canceled to {_client.Client.RemoteEndPoint}");
+            Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", _localEndPoint, _remoteEndPoint);
         }
         catch (Exception ex)
         {
-            LogError(ex, $"TCP Socket send failed to {_client.Client.RemoteEndPoint}");
+            Logger.LogError(ex, "TCP Socket send failed from {LocalEndPoint} to {RemoteEndPoint}", _localEndPoint, _remoteEndPoint);
         }
         return ret;
     }
@@ -111,7 +117,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
         {
             if (_client is not { Connected: true })
             {
-                throw new InvalidOperationException("TCP Socket is not connected.");
+                throw new InvalidOperationException($"TCP Socket is not connected.");
             }
 
             try
@@ -121,7 +127,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
                 if (len == 0)
                 {
                     // 远端主机关闭链路
-                    LogInformation($"TCP Socket received {len} data from {_client.Client.RemoteEndPoint}");
+                    Logger.LogInformation("TCP Socket {LocalEndPoint} received 0 data closed by {RemoteEndPoint}", _localEndPoint, _remoteEndPoint);
                     break;
                 }
                 else
@@ -136,11 +142,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
             }
             catch (OperationCanceledException ex)
             {
-                LogWarning(ex, $"TCP Socket receive operation was canceled to {_client.Client.RemoteEndPoint}");
+                Logger.LogWarning(ex, "TCP Socket receive operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", _localEndPoint, _remoteEndPoint);
             }
             catch (Exception ex)
             {
-                LogError(ex, $"TCP Socket receive failed to {_client.Client.RemoteEndPoint}");
+                Logger.LogError(ex, "TCP Socket receive failed from {LocalEndPoint} to {RemoteEndPoint}", _localEndPoint, _remoteEndPoint);
             }
         }
     }
@@ -150,25 +156,13 @@ class DefaultTcpSocketClient : ITcpSocketClient
         Dispose(true);
     }
 
-    private void LogInformation(string message)
-    {
-        Logger?.LogInformation("{message}", message);
-    }
-
-    private void LogWarning(Exception ex, string message)
-    {
-        Logger?.LogWarning(ex, "{message}", message);
-    }
-
-    private void LogError(Exception ex, string message)
-    {
-        Logger?.LogError(ex, "{message}", message);
-    }
-
     private void Dispose(bool disposing)
     {
         if (disposing)
         {
+            _localEndPoint = null;
+            _remoteEndPoint = null;
+
             // 取消接收数据的任务
             if (_receiveCancellationTokenSource is not null)
             {
