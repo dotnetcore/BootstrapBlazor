@@ -112,8 +112,6 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     private async Task ReceiveAsync()
     {
-        using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
-        var buffer = block.Memory;
         _receiveCancellationTokenSource ??= new();
         while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
         {
@@ -124,6 +122,8 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
             try
             {
+                using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+                var buffer = block.Memory;
                 var stream = _client.GetStream();
                 var len = await stream.ReadAsync(buffer, _receiveCancellationTokenSource.Token);
                 if (len == 0)
