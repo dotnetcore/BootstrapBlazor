@@ -38,6 +38,9 @@ public class TcpSocketFactoryTest
 
         var client5 = factory.Remove("256.0.0.1", 0);
         Assert.Equal(client4, client5);
+        Assert.NotNull(client5);
+
+        client5.Dispose();
 
         factory.Dispose();
     }
@@ -147,8 +150,6 @@ public class TcpSocketFactoryTest
         var data = new Memory<byte>([1, 2, 3, 4, 5]);
         await client.SendAsync(data);
 
-        client.Dispose();
-
         // 关闭连接
         StopTcpServer(server);
     }
@@ -178,17 +179,7 @@ public class TcpSocketFactoryTest
     {
         var port = 8888;
         var server = StartTcpServer(port, MockSplitPackageAsync);
-
-        var sc = new ServiceCollection();
-        sc.AddLogging(builder =>
-        {
-            builder.AddProvider(new MockLoggerProvider());
-        });
-        sc.AddBootstrapBlazorTcpSocketFactory();
-
-        var provider = sc.BuildServiceProvider();
-        var factory = provider.GetRequiredService<ITcpSocketFactory>();
-        var client = factory.GetOrCreate("localhost", 0);
+        var client = CreateClient();
 
         // 测试 ConnectAsync 方法
         var connect = await client.ConnectAsync("localhost", port);
@@ -230,17 +221,7 @@ public class TcpSocketFactoryTest
     {
         var port = 8899;
         var server = StartTcpServer(port, MockStickyPackageAsync);
-
-        var sc = new ServiceCollection();
-        sc.AddLogging(builder =>
-        {
-            builder.AddProvider(new MockLoggerProvider());
-        });
-        sc.AddBootstrapBlazorTcpSocketFactory();
-
-        var provider = sc.BuildServiceProvider();
-        var factory = provider.GetRequiredService<ITcpSocketFactory>();
-        var client = factory.GetOrCreate("localhost", 0);
+        var client = CreateClient();
 
         // 连接 TCP Server
         var connect = await client.ConnectAsync("localhost", port);
@@ -428,8 +409,10 @@ public class TcpSocketFactoryTest
             return Task.FromResult(data);
         }
 
-        public override Task ReceiveAsync(Memory<byte> data)
+        public override async Task ReceiveAsync(Memory<byte> data)
         {
+            await base.ReceiveAsync(data);
+
             // 模拟接收数据时报错
             throw new InvalidOperationException("Test Error");
         }
