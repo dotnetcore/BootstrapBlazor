@@ -111,6 +111,11 @@ public class TcpSocketFactoryTest
 
         await tcs.Task;
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
+
+        // 关闭连接
+        await Task.Delay(200);
+        client.Close();
+        await Task.Delay(100);
         StopTcpServer(server);
     }
 

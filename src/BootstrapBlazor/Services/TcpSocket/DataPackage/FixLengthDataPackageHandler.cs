@@ -40,7 +40,7 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
             _receivedLength = 0;
             if (ReceivedCallBack != null)
             {
-                await ReceivedCallBack(data);
+                await ReceivedCallBack(_data);
             }
         }
     }
