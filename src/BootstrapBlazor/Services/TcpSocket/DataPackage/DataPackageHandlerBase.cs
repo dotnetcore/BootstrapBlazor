@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Buffers;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -56,12 +54,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <param name="length">The length of the valid data within the buffer.</param>
     protected void HandlerStickyPackage(Memory<byte> buffer, int length)
     {
-        var len = buffer.Length - length;
-        if (len > 0)
+        if (buffer.Length > length)
         {
-            var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
-            buffer[length..].CopyTo(memoryBlock.Memory);
-            _lastReceiveBuffer = memoryBlock.Memory[..len];
+            _lastReceiveBuffer = buffer[length..].ToArray().AsMemory();
         }
     }
 
@@ -82,17 +77,13 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
         }
 
         // 计算缓存区长度
-        var len = _lastReceiveBuffer.Length + buffer.Length;
+        var total = _lastReceiveBuffer.Length + buffer.Length;
+        var merged = new byte[total];
+        _lastReceiveBuffer.CopyTo(merged);
+        buffer.CopyTo(merged.AsMemory(_lastReceiveBuffer.Length));
 
-        // 申请缓存
-        var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
-
-        // 拷贝数据到缓存区
-        _lastReceiveBuffer.CopyTo(memoryBlock.Memory);
-        buffer.CopyTo(memoryBlock.Memory[_lastReceiveBuffer.Length..]);
-
-        // 清空粘包缓存数据
+        // Clear the sticky buffer
         _lastReceiveBuffer = Memory<byte>.Empty;
-        return memoryBlock.Memory[..len];
+        return merged;
     }
 }
