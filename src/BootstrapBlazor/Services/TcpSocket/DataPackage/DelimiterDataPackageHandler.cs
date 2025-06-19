@@ -55,26 +55,31 @@ public class DelimiterDataPackageHandler : DataPackageHandlerBase
     {
         data = ConcatBuffer(data);
 
-        var index = data.Span.IndexOfAny(_delimiter.Span);
-        var segment = index == -1 ? data : data[..index];
-
-        var length = segment.Length + _delimiter.Length;
-        using var buffer = MemoryPool<byte>.Shared.Rent(length);
-        segment.CopyTo(buffer.Memory);
-
-        if (index != -1)
+        while (data.Length > 0)
         {
-            SlicePackage(data, index + _delimiter.Length);
+            var index = data.Span.IndexOfAny(_delimiter.Span);
+            var segment = index == -1 ? data : data[..index];
+            var length = segment.Length + _delimiter.Length;
+            using var buffer = MemoryPool<byte>.Shared.Rent(length);
+            segment.CopyTo(buffer.Memory);
 
-            _delimiter.CopyTo(buffer.Memory[index..]);
-            if (ReceivedCallBack != null)
+            if (index != -1)
             {
-                await ReceivedCallBack(buffer.Memory[..length].ToArray());
+                SlicePackage(data, index + _delimiter.Length);
+
+                _delimiter.CopyTo(buffer.Memory[index..]);
+                if (ReceivedCallBack != null)
+                {
+                    await ReceivedCallBack(buffer.Memory[..length].ToArray());
+                }
+
+                data = data[(index + _delimiter.Length)..];
             }
-        }
-        else
-        {
-            SlicePackage(data, 0);
+            else
+            {
+                SlicePackage(data, 0);
+                break;
+            }
         }
     }
 }
