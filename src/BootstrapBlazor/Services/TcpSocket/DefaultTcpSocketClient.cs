@@ -35,7 +35,10 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     private static IPAddress GetIPAddress(string host) => host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
         ? IPAddress.Loopback
-        : IPAddress.TryParse(host, out var ip) ? ip : Dns.GetHostAddresses(host).FirstOrDefault() ?? IPAddress.Loopback;
+        : IPAddress.TryParse(host, out var ip) ? ip : IPAddressByHostName;
+
+    [ExcludeFromCodeCoverage]
+    private static IPAddress IPAddressByHostName => Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Loopback;
 
     public void SetDataHandler(IDataPackageHandler handler)
     {

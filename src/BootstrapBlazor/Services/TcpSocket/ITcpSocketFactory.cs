@@ -16,8 +16,16 @@ public interface ITcpSocketFactory : IDisposable
     /// </summary>
     /// <param name="host">The hostname or IP address of the remote endpoint. Cannot be null or empty.</param>
     /// <param name="port">The port number of the remote endpoint. Must be a valid port number between 0 and 65535.</param>
-    /// <param name="mode">The mode of the socket, specifying whether it operates as a client or server. Defaults to <see
-    /// cref="SocketMode.Client"/>.</param>
     /// <returns>An <see cref="ITcpSocketClient"/> instance representing the TCP socket for the specified host and port.</returns>
-    ITcpSocketClient GetOrCreate(string host, int port, SocketMode mode = SocketMode.Client);
+    ITcpSocketClient GetOrCreate(string host, int port);
+
+    /// <summary>
+    /// Removes the specified host and port combination from the collection.
+    /// </summary>
+    /// <remarks>If the specified host and port combination does not exist in the collection, the method has
+    /// no effect.</remarks>
+    /// <param name="host">The hostname to remove. Cannot be null or empty.</param>
+    /// <param name="port">The port number associated with the host to remove. Must be a valid port number (0-65535).</param>
+    /// <returns>An <see cref="ITcpSocketClient"/> instance representing the TCP socket for the specified host and port.</returns>
+    ITcpSocketClient? Remove(string host, int port);
 }

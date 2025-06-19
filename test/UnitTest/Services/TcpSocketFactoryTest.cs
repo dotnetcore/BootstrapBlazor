@@ -29,6 +29,17 @@ public class TcpSocketFactoryTest
 
         var client2 = factory.GetOrCreate("localhost", 0);
         Assert.Equal(client1, client2);
+
+        var ip = Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Loopback;
+        var client3 = factory.GetOrCreate(ip.ToString(), 0);
+
+        // 测试不合格 IP 地址
+        var client4 = factory.GetOrCreate("256.0.0.1", 0);
+
+        var client5 = factory.Remove("256.0.0.1", 0);
+        Assert.Equal(client4, client5);
+
+        factory.Dispose();
     }
 
     [Fact]
@@ -71,6 +82,9 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
+        Assert.False(client.IsConnected);
+
+        // 连接 TCP Server
         await client.ConnectAsync("localhost", port);
         Assert.True(client.IsConnected);
 
@@ -84,7 +98,7 @@ public class TcpSocketFactoryTest
 
         // 设置延时发送适配器
         // 延时发送期间关闭 Socket 连接导致内部报错
-        client.SetDataHandler(new MockDelaySendHandler()
+        client.SetDataHandler(new MockSendErrorHandler()
         {
             Socket = client
         });
@@ -100,6 +114,60 @@ public class TcpSocketFactoryTest
 
         await tcs.Task;
         Assert.False(sendResult);
+
+        // 关闭连接
+        StopTcpServer(server);
+    }
+
+    [Fact]
+    public async Task ReceiveAsync_Error()
+    {
+        var client = CreateClient();
+
+        // 测试未建立连接前调用 ReceiveAsync 方法报异常逻辑
+        var methodInfo = client.GetType().GetMethod("ReceiveAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(methodInfo);
+
+        var task = (Task)methodInfo.Invoke(client, null)!;
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await task);
+        Assert.NotNull(ex);
+
+        var port = 8882;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        Assert.Equal(1024 * 10, client.ReceiveBufferSize);
+
+        client.ReceiveBufferSize = 1024 * 20;
+        Assert.Equal(1024 * 20, client.ReceiveBufferSize);
+
+        client.SetDataHandler(new MockReceiveErrorHandler());
+        await client.ConnectAsync("localhost", port);
+
+        // 发送数据导致接收数据异常
+        var data = new Memory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+
+        client.Dispose();
+
+        // 关闭连接
+        StopTcpServer(server);
+    }
+
+    [Fact]
+    public async Task CloseByRemote_Ok()
+    {
+        var client = CreateClient();
+
+        var port = 8883;
+        var server = StartTcpServer(port, MockAutoClosePackageAsync);
+
+        client.SetDataHandler(new MockReceiveErrorHandler());
+
+        // 连接 TCP Server
+        await client.ConnectAsync("localhost", port);
+
+        // 发送数据
+        await client.SendAsync(new Memory<byte>([1, 2, 3, 4, 5]));
 
         // 关闭连接
         StopTcpServer(server);
@@ -285,6 +353,12 @@ public class TcpSocketFactoryTest
         }
     }
 
+    private static Task MockAutoClosePackageAsync(TcpClient client)
+    {
+        client.Close();
+        return Task.CompletedTask;
+    }
+
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
@@ -335,15 +409,29 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockDelaySendHandler : DataPackageHandlerBase
+    class MockSendErrorHandler : DataPackageHandlerBase
     {
         public ITcpSocketClient? Socket { get; set; }
 
         public override async Task<Memory<byte>> SendAsync(Memory<byte> data)
         {
             Socket?.Close();
-            await Task.Delay(20);
+            await Task.Delay(10);
             return data;
+        }
+    }
+
+    class MockReceiveErrorHandler : DataPackageHandlerBase
+    {
+        public override Task<Memory<byte>> SendAsync(Memory<byte> data)
+        {
+            return Task.FromResult(data);
+        }
+
+        public override Task ReceiveAsync(Memory<byte> data)
+        {
+            // 模拟接收数据时报错
+            throw new InvalidOperationException("Test Error");
         }
     }
 }

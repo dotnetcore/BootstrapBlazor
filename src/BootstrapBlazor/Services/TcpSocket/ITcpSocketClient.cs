@@ -13,6 +13,11 @@ namespace BootstrapBlazor.Components;
 public interface ITcpSocketClient : IDisposable
 {
     /// <summary>
+    /// Gets or sets the size, in bytes, of the receive buffer used for network operations.
+    /// </summary>
+    int ReceiveBufferSize { get; set; }
+
+    /// <summary>
     /// Gets a value indicating whether the system is currently connected.
     /// </summary>
     bool IsConnected { get; }
