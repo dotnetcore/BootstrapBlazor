@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Drawing;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -27,13 +25,6 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// <returns></returns>
     public override async Task ReceiveAsync(Memory<byte> data)
     {
-        if (_receivedLength == 0)
-        {
-            data.CopyTo(_data);
-            _receivedLength = data.Length;
-            return;
-        }
-
         // 拷贝数据
         var len = length - _receivedLength;
         var segment = data.Length > len ? data[..len] : data;
@@ -45,9 +36,11 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
         // 如果已接收长度等于总长度则触发回调
         if (_receivedLength == length)
         {
+            // 重置已接收长度
+            _receivedLength = 0;
             if (ReceivedCallBack != null)
             {
-                await ReceivedCallBack(_data);
+                await ReceivedCallBack(data);
             }
         }
     }
