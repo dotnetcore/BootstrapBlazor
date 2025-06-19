@@ -297,12 +297,19 @@ public class TcpSocketFactoryTest
         // 验证接收到的数据
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 0x13, 0x10]);
 
+        // 等待第二次数据
+        receivedBuffer = Memory<byte>.Empty;
+        tcs = new TaskCompletionSource();
+        await tcs.Task;
+
+        // 验证接收到的数据
+        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
+
         // 关闭连接
         client.Close();
         StopTcpServer(server);
 
         var handler = new DelimiterDataPackageHandler("\r\n");
-
         var ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler(string.Empty));
         Assert.NotNull(ex);
 
@@ -343,8 +350,10 @@ public class TcpSocketFactoryTest
             var block = new Memory<byte>(buffer, 0, len);
             await stream.WriteAsync(block, CancellationToken.None);
 
+            await Task.Delay(20);
+
             // 模拟拆包发送第二段数据
-            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6, 0x13, 0x10 }, CancellationToken.None);
         }
     }
 
