@@ -17,8 +17,6 @@ public class DelimiterDataPackageHandler : DataPackageHandlerBase
 {
     private readonly ReadOnlyMemory<byte> _delimiter;
 
-    private Memory<byte> _lastReceiveBuffer = Memory<byte>.Empty;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DelimiterDataPackageHandler"/> class with the specified delimiter
     /// and optional encoding.
@@ -55,25 +53,28 @@ public class DelimiterDataPackageHandler : DataPackageHandlerBase
     /// <returns></returns>
     public override async Task ReceiveAsync(Memory<byte> data)
     {
+        data = ConcatBuffer(data);
+
         var index = data.Span.IndexOfAny(_delimiter.Span);
         var segment = index == -1 ? data : data[..index];
 
-        var total = _lastReceiveBuffer.Length + segment.Length;
-        using var buffer = MemoryPool<byte>.Shared.Rent(total);
-
-        if (_lastReceiveBuffer.Length > 0)
-        {
-            _lastReceiveBuffer.CopyTo(buffer.Memory);
-        }
-        segment.CopyTo(buffer.Memory[_lastReceiveBuffer.Length..]);
+        var length = segment.Length + _delimiter.Length;
+        using var buffer = MemoryPool<byte>.Shared.Rent(length);
+        segment.CopyTo(buffer.Memory);
 
         if (index != -1)
         {
-            _lastReceiveBuffer = data[(index + _delimiter.Length)..].ToArray();
+            SlicePackage(data, index + _delimiter.Length);
+
+            _delimiter.CopyTo(buffer.Memory[index..]);
             if (ReceivedCallBack != null)
             {
-                await ReceivedCallBack(buffer.Memory[..total].ToArray());
+                await ReceivedCallBack(buffer.Memory[..length].ToArray());
             }
+        }
+        else
+        {
+            SlicePackage(data, 0);
         }
     }
 }
