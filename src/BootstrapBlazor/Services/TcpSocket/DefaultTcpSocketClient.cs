@@ -16,7 +16,6 @@ class DefaultTcpSocketClient : ITcpSocketClient
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
-    private Task? _receiveTask;
     private CancellationTokenSource? _receiveCancellationTokenSource;
 
     public bool IsConnected => _client?.Connected ?? false;
@@ -60,7 +59,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
             await _client.ConnectAsync(endPoint, token);
 
             // 开始接收数据
-            _ = Task.Run(ReceiveAsync);
+            _ = Task.Run(ReceiveAsync, token);
             ret = true;
         }
         catch (OperationCanceledException ex)
@@ -170,6 +169,15 @@ class DefaultTcpSocketClient : ITcpSocketClient
     {
         if (disposing)
         {
+            // 取消接收数据的任务
+            if (_receiveCancellationTokenSource is not null)
+            {
+                _receiveCancellationTokenSource.Cancel();
+                _receiveCancellationTokenSource.Dispose();
+                _receiveCancellationTokenSource = null;
+            }
+
+            // 释放 TcpClient 资源
             if (_client != null)
             {
                 _client.Close();
