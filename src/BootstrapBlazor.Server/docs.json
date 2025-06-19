@@ -240,7 +240,8 @@
     "audio-device": "AudioDevices",
     "fullscreen-button": "FullScreenButtons",
     "meet": "Meets",
-    "vditor": "Vditors"
+    "vditor": "Vditors",
+    "socket-factory": "SocketFactories"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

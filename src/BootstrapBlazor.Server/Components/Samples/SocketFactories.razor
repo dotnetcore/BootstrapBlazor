@@ -1,0 +1,66 @@
+﻿@page "/socket-factory"
+@inject IStringLocalizer<SocketFactories> Localizer
+
+<h3>Tcp 套接字服务 <code>ITcpSocketFactory</code></h3>
+<h4>组件库内置了 Socket 套接字通讯服务</h4>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>TcpSocketFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ITcpSocketClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ITcpSocketClient</code> 为同一对象</p>
+
+<Pre>var client = factory.GetOrCreate("192.168.1.100", 0);</Pre>
+
+<p class="code-label">3. 使用方法</p>
+
+<ul class="ul-demo">
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>ConnectAsync</code> 连接远端节点</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SendAsync</code> 发送协议数据</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>Close</code> 关闭连接</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SetDataHandler</code> 方法设置数据处理器</li>
+</ul>
+
+<p class="code-label">4. 数据处理器</p>
+
+<p>在我们实际应用中，建立套接字连接后就会进行数据通信，数据通信不会是杂乱无章的随机数据，在应用中都是有双方遵守的规约简称通讯协议，在通讯协议的约束下，发送方与接收方均根据通讯协议进行编码或解码工作，将数据有条不紊的传输</p>
+
+<p>数据处理器设计初衷就是为了契合通讯协议大大简化我们开发逻辑，我们已通讯协议每次通讯电文均为 <b>4</b> 位定长举例说明，在实际的通讯过程中，我们接收到的通讯数据存在粘包或者分包的现象</p>
+
+<ul class="ul-demo">
+    <li>粘包：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>123412</b> 多出来的 <b>12</b> 其实是下一个通讯电文的内容，相邻两个通讯数据包的粘连称为粘包</li>
+    <li>分包：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>12</b> 和 <b>34</b> 两个数据包，这种情况称为分包</li>
+</ul>
+
+<p>我们内置了 <code>IDataPackageHandler</code> 数据包处理接口，已经虚类 <code>DataPackageHandlerBase</code> 作为数据处理器基类已经内置了 <b>粘包</b> <b>分包</b> 的逻辑，继承此类后专注自己处理的业务即可</p>
+
+<p>此外我们还内置了 <code>FixLengthDataPackageHandler</code> <b>固定长度数据处理器</b> 使用方法如下：</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketFactory? TcpSocketFactory { get; set; }
+
+private async Task CreateClient()
+{
+    // 创建 ITcpSocketClient 实例
+    var client = TcpSocketFactory.GetOrCreate("localhost", 0);
+
+    // 设置 FixLengthDataPackageHandler 数据处理器处理数据定长 4 的数据
+    client.SetDataHandler(new FixLengthDataPackageHandler(4)
+    {
+        // 设置接收数据回调方法
+        ReceivedCallBack = buffer =>
+        {
+            // 内部自动处理粘包分包问题，这里参数 buffer 一定是定长为 4 的业务数据
+            receivedBuffer = buffer;
+            return Task.CompletedTask;
+        }
+    });
+
+    // 连接远端节点 连接成功后自动开始接收数据
+    var connected = await client.ConnectAsync("192.168.10.100", 6688);
+}
+</Pre>
