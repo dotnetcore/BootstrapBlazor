@@ -277,7 +277,7 @@ public class TcpSocketFactoryTest
         Memory<byte> receivedBuffer = Memory<byte>.Empty;
 
         // 增加数据库处理适配器
-        client.SetDataHandler(new DelimiterDataPackageHandler(new byte[] { 0x13, 0x10 })
+        client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
         {
             ReceivedCallBack = buffer =>
             {
@@ -300,6 +300,14 @@ public class TcpSocketFactoryTest
         // 关闭连接
         client.Close();
         StopTcpServer(server);
+
+        var handler = new DelimiterDataPackageHandler("\r\n");
+
+        var ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler(string.Empty));
+        Assert.NotNull(ex);
+
+        ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler((byte[])null!));
+        Assert.NotNull(ex);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
