@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// ISocketFactory 服务说明文档
 /// </summary>
-public partial class SocketFactorys
+public partial class SocketFactories
 {
 
 }
