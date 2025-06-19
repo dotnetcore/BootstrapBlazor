@@ -25,10 +25,18 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// <returns></returns>
     public override async Task ReceiveAsync(Memory<byte> data)
     {
+        // 处理上次粘包数据
+        data = ConcatBuffer(data);
+
         // 拷贝数据
         var len = length - _receivedLength;
         var segment = data.Length > len ? data[..len] : data;
         segment.CopyTo(_data[_receivedLength..]);
+
+        if(data.Length > len)
+        {
+            HandlerStickyPackage(data, data.Length - len);
+        }
 
         // 更新已接收长度
         _receivedLength += segment.Length;

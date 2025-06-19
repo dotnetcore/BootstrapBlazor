@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Buffers;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -13,6 +15,8 @@ namespace BootstrapBlazor.Components;
 /// implementation simply returns the provided data.</remarks>
 public abstract class DataPackageHandlerBase : IDataPackageHandler
 {
+    private Memory<byte> _lastReceiveBuffer = Memory<byte>.Empty;
+
     /// <summary>
     /// 当接收数据处理完成后，回调该函数执行接收
     /// </summary>
@@ -33,15 +37,62 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     }
 
     /// <summary>
-    /// Asynchronously receives data and writes it into the specified memory buffer.
+    /// Processes the received data asynchronously.
     /// </summary>
-    /// <remarks>The method does not guarantee that the entire buffer will be filled. The amount of data
-    /// written depends on the data available to be received.</remarks>
-    /// <param name="data">The memory buffer where the received data will be written. The buffer must be large enough to hold the incoming
-    /// data.</param>
-    /// <returns>A task that represents the asynchronous receive operation.</returns>
+    /// <param name="data">A memory buffer containing the data to be processed. The buffer must not be empty.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public virtual Task ReceiveAsync(Memory<byte> data)
     {
-        return Task.FromResult(data);
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Handles the processing of a sticky package by adjusting the provided buffer and length.
+    /// </summary>
+    /// <remarks>This method processes the portion of the buffer beyond the specified length and updates the
+    /// internal state accordingly. The caller must ensure that the <paramref name="buffer"/> contains sufficient data
+    /// for the specified <paramref name="length"/>.</remarks>
+    /// <param name="buffer">The memory buffer containing the data to process.</param>
+    /// <param name="length">The length of the valid data within the buffer.</param>
+    protected void HandlerStickyPackage(Memory<byte> buffer, int length)
+    {
+        var len = buffer.Length - length;
+        if (len > 0)
+        {
+            using var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
+            buffer[length..].CopyTo(memoryBlock.Memory);
+            _lastReceiveBuffer = memoryBlock.Memory[..len];
+        }
+    }
+
+    /// <summary>
+    /// Concatenates the provided buffer with any previously stored data and returns the combined result.
+    /// </summary>
+    /// <remarks>This method combines the provided buffer with any data stored in the internal buffer.  After
+    /// concatenation, the internal buffer is cleared. The returned memory block is allocated  from a shared memory pool
+    /// and should be used promptly to avoid holding onto pooled resources.</remarks>
+    /// <param name="buffer">The buffer to concatenate with the previously stored data. Must not be empty.</param>
+    /// <returns>A <see cref="Memory{T}"/> instance containing the concatenated data.  If no previously stored data exists, the
+    /// method returns the input <paramref name="buffer"/>.</returns>
+    protected Memory<byte> ConcatBuffer(Memory<byte> buffer)
+    {
+        if (_lastReceiveBuffer.IsEmpty)
+        {
+            return buffer;
+        }
+
+        // 计算缓存区长度
+        var len = _lastReceiveBuffer.Length + buffer.Length;
+
+        // 申请缓存
+        using var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
+
+        // 拷贝数据到缓存区
+        _lastReceiveBuffer.CopyTo(memoryBlock.Memory);
+        buffer.CopyTo(memoryBlock.Memory[_lastReceiveBuffer.Length..]);
+
+        // 清空粘包缓存数据
+        _lastReceiveBuffer = Memory<byte>.Empty;
+        return memoryBlock.Memory[..len];
     }
 }

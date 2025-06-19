@@ -30,12 +30,12 @@ public interface IDataPackageHandler
     Task<Memory<byte>> SendAsync(Memory<byte> data);
 
     /// <summary>
-    /// Asynchronously receives data and writes it into the specified memory buffer.
+    /// Asynchronously receives data from a source and writes it into the provided memory buffer.
     /// </summary>
-    /// <remarks>The method does not guarantee that the entire buffer will be filled. The amount of data
-    /// written depends on the data available to be received.</remarks>
-    /// <param name="data">The memory buffer where the received data will be written. The buffer must be large enough to hold the incoming
-    /// data.</param>
-    /// <returns>A task that represents the asynchronous receive operation.</returns>
+    /// <remarks>This method does not guarantee that the entire buffer will be filled. The number of bytes
+    /// written depends on the availability of data.</remarks>
+    /// <param name="data">The memory buffer to store the received data. The buffer must be writable and have sufficient capacity.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the number of bytes written to the
+    /// buffer. Returns 0 if the end of the data stream is reached.</returns>
     Task ReceiveAsync(Memory<byte> data);
 }
