@@ -177,7 +177,7 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task FixLengthDataPackageHandler_Ok()
     {
-        var port = 8888;
+        var port = 8884;
         var server = StartTcpServer(port, MockSplitPackageAsync);
         var client = CreateClient();
 
@@ -219,7 +219,7 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task FixLengthDataPackageHandler_Sticky()
     {
-        var port = 8899;
+        var port = 8885;
         var server = StartTcpServer(port, MockStickyPackageAsync);
         var client = CreateClient();
 
@@ -263,6 +263,60 @@ public class TcpSocketFactoryTest
         StopTcpServer(server);
     }
 
+    [Fact]
+    public async Task DelimiterDataPackageHandler_Ok()
+    {
+        var port = 8886;
+        var server = StartTcpServer(port, MockDelimiterPackageAsync);
+        var client = CreateClient();
+
+        // 连接 TCP Server
+        var connect = await client.ConnectAsync("localhost", port);
+
+        var tcs = new TaskCompletionSource();
+        Memory<byte> receivedBuffer = Memory<byte>.Empty;
+
+        // 增加数据库处理适配器
+        client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
+        {
+            ReceivedCallBack = buffer =>
+            {
+                receivedBuffer = buffer;
+                tcs.SetResult();
+                return Task.CompletedTask;
+            }
+        });
+
+        // 发送数据
+        var data = new Memory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+
+        // 等待接收数据处理完成
+        await tcs.Task;
+
+        // 验证接收到的数据
+        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 0x13, 0x10]);
+
+        // 等待第二次数据
+        receivedBuffer = Memory<byte>.Empty;
+        tcs = new TaskCompletionSource();
+        await tcs.Task;
+
+        // 验证接收到的数据
+        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
+
+        // 关闭连接
+        client.Close();
+        StopTcpServer(server);
+
+        var handler = new DelimiterDataPackageHandler("\r\n");
+        var ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler(string.Empty));
+        Assert.NotNull(ex);
+
+        ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler((byte[])null!));
+        Assert.NotNull(ex);
+    }
+
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
     {
         var server = new TcpListener(IPAddress.Loopback, port);
@@ -277,6 +331,29 @@ public class TcpSocketFactoryTest
         {
             var client = await server.AcceptTcpClientAsync();
             _ = Task.Run(() => handler(client));
+        }
+    }
+
+    private static async Task MockDelimiterPackageAsync(TcpClient client)
+    {
+        using var stream = client.GetStream();
+        while (true)
+        {
+            var buffer = new byte[10240];
+            var len = await stream.ReadAsync(buffer);
+            if (len == 0)
+            {
+                break;
+            }
+
+            // 回写数据到客户端
+            var block = new Memory<byte>(buffer, 0, len);
+            await stream.WriteAsync(block, CancellationToken.None);
+
+            await Task.Delay(20);
+
+            // 模拟拆包发送第二段数据
+            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6, 0x13, 0x10 }, CancellationToken.None);
         }
     }
 
