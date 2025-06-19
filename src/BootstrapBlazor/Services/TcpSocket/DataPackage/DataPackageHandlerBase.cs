@@ -52,12 +52,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// for the specified <paramref name="length"/>.</remarks>
     /// <param name="buffer">The memory buffer containing the data to process.</param>
     /// <param name="length">The length of the valid data within the buffer.</param>
-    protected void HandleStickyPackage(Memory<byte> buffer, int length)
+    protected void SlicePackage(Memory<byte> buffer, int length)
     {
-        if (buffer.Length > length)
-        {
-            _lastReceiveBuffer = buffer[length..].ToArray().AsMemory();
-        }
+        _lastReceiveBuffer = buffer[length..].ToArray().AsMemory();
     }
 
     /// <summary>
@@ -77,10 +74,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
         }
 
         // 计算缓存区长度
-        var total = _lastReceiveBuffer.Length + buffer.Length;
-        var merged = new byte[total];
+        Memory<byte> merged = new byte[_lastReceiveBuffer.Length + buffer.Length];
         _lastReceiveBuffer.CopyTo(merged);
-        buffer.CopyTo(merged.AsMemory(_lastReceiveBuffer.Length));
+        buffer.CopyTo(merged[_lastReceiveBuffer.Length..]);
 
         // Clear the sticky buffer
         _lastReceiveBuffer = Memory<byte>.Empty;

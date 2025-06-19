@@ -33,9 +33,9 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
         var segment = data.Length > len ? data[..len] : data;
         segment.CopyTo(_data[_receivedLength..]);
 
-        if(data.Length > len)
+        if (data.Length > len)
         {
-            HandleStickyPackage(data, data.Length - len);
+            SlicePackage(data, data.Length - len);
         }
 
         // 更新已接收长度
