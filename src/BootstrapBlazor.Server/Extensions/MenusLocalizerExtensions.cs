@@ -1578,6 +1578,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["TcpSocketFactory"],
+                    Url = "socket-factory"
+                },
+                new()
+                {
                     Text = Localizer["ThemeProvider"],
                     Url = "theme-provider"
                 },
