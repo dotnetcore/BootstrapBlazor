@@ -59,7 +59,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
         var len = buffer.Length - length;
         if (len > 0)
         {
-            using var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
+            var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
             buffer[length..].CopyTo(memoryBlock.Memory);
             _lastReceiveBuffer = memoryBlock.Memory[..len];
         }
@@ -85,7 +85,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
         var len = _lastReceiveBuffer.Length + buffer.Length;
 
         // 申请缓存
-        using var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
+        var memoryBlock = MemoryPool<byte>.Shared.Rent(len);
 
         // 拷贝数据到缓存区
         _lastReceiveBuffer.CopyTo(memoryBlock.Memory);
