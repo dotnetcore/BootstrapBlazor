@@ -35,7 +35,7 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
 
         if(data.Length > len)
         {
-            HandlerStickyPackage(data, data.Length - len);
+            HandleStickyPackage(data, data.Length - len);
         }
 
         // 更新已接收长度

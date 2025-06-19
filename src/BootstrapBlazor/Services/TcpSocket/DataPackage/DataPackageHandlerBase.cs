@@ -52,7 +52,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// for the specified <paramref name="length"/>.</remarks>
     /// <param name="buffer">The memory buffer containing the data to process.</param>
     /// <param name="length">The length of the valid data within the buffer.</param>
-    protected void HandlerStickyPackage(Memory<byte> buffer, int length)
+    protected void HandleStickyPackage(Memory<byte> buffer, int length)
     {
         if (buffer.Length > length)
         {
