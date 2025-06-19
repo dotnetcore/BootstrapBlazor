@@ -119,8 +119,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
         {
             if (_client is not { Connected: true })
             {
-                Logger.LogError("TCP Socket is not connected {LocalEndPoint}", LocalEndPoint);
-                break;
+                throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
             }
 
             try
