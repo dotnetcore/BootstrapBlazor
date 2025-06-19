@@ -54,6 +54,58 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
+    public async Task SendAsync_Error()
+    {
+        var client = CreateClient();
+
+        // 测试未建立连接前调用 SendAsync 方法报异常逻辑
+        var data = new Memory<byte>([1, 2, 3, 4, 5]);
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => client.SendAsync(data));
+        Assert.Equal("TCP Socket is not connected 127.0.0.1:0", ex.Message);
+    }
+
+    [Fact]
+    public async Task SendAsync_Cancel()
+    {
+        var port = 8881;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+        await client.ConnectAsync("localhost", port);
+        Assert.True(client.IsConnected);
+
+        // 测试 SendAsync 方法发送取消逻辑
+        var cst = new CancellationTokenSource();
+        cst.Cancel();
+
+        var data = new Memory<byte>([1, 2, 3, 4, 5]);
+        var result = await client.SendAsync(data, cst.Token);
+        Assert.False(result);
+
+        // 设置延时发送适配器
+        // 延时发送期间关闭 Socket 连接导致内部报错
+        client.SetDataHandler(new MockDelaySendHandler()
+        {
+            Socket = client
+        });
+
+        var tcs = new TaskCompletionSource();
+        bool? sendResult = null;
+        // 测试发送失败逻辑
+        _ = Task.Run(async () =>
+        {
+            sendResult = await client.SendAsync(data);
+            tcs.SetResult();
+        });
+
+        await tcs.Task;
+        Assert.False(sendResult);
+
+        // 关闭连接
+        StopTcpServer(server);
+    }
+
+    [Fact]
     public async Task FixLengthDataPackageHandler_Ok()
     {
         var port = 8888;
@@ -280,6 +332,18 @@ public class TcpSocketFactoryTest
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
         {
 
+        }
+    }
+
+    class MockDelaySendHandler : DataPackageHandlerBase
+    {
+        public ITcpSocketClient? Socket { get; set; }
+
+        public override async Task<Memory<byte>> SendAsync(Memory<byte> data)
+        {
+            Socket?.Close();
+            await Task.Delay(20);
+            return data;
         }
     }
 }
