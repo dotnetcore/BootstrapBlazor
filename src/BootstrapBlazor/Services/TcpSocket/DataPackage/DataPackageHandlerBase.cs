@@ -18,7 +18,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <summary>
     /// 当接收数据处理完成后，回调该函数执行接收
     /// </summary>
-    public Func<Memory<byte>, Task>? ReceivedCallBack { get; set; }
+    public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
     /// Sends the specified data asynchronously to the target destination.
@@ -29,9 +29,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <param name="data">The data to be sent, represented as a block of memory.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
     /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
-    public virtual Task<Memory<byte>> SendAsync(Memory<byte> data)
+    public virtual ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
     {
-        return Task.FromResult(data);
+        return ValueTask.FromResult(data);
     }
 
     /// <summary>
@@ -39,9 +39,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// </summary>
     /// <param name="data">A memory buffer containing the data to be processed. The buffer must not be empty.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    public virtual Task ReceiveAsync(Memory<byte> data)
+    public virtual ValueTask ReceiveAsync(ReadOnlyMemory<byte> data)
     {
-        return Task.CompletedTask;
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// for the specified <paramref name="length"/>.</remarks>
     /// <param name="buffer">The memory buffer containing the data to process.</param>
     /// <param name="length">The length of the valid data within the buffer.</param>
-    protected void SlicePackage(Memory<byte> buffer, int length)
+    protected void SlicePackage(ReadOnlyMemory<byte> buffer, int length)
     {
         _lastReceiveBuffer = buffer[length..].ToArray().AsMemory();
     }
@@ -66,7 +66,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <param name="buffer">The buffer to concatenate with the previously stored data. Must not be empty.</param>
     /// <returns>A <see cref="Memory{T}"/> instance containing the concatenated data.  If no previously stored data exists, the
     /// method returns the input <paramref name="buffer"/>.</returns>
-    protected Memory<byte> ConcatBuffer(Memory<byte> buffer)
+    protected ReadOnlyMemory<byte> ConcatBuffer(ReadOnlyMemory<byte> buffer)
     {
         if (_lastReceiveBuffer.IsEmpty)
         {
