@@ -35,6 +35,9 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
             var segment = data.Length > len ? data[..len] : data;
             segment.CopyTo(_data[_receivedLength..]);
 
+            // 更新数据
+            data = data[segment.Length..];
+
             // 更新已接收长度
             _receivedLength += segment.Length;
 
@@ -47,19 +50,13 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
                 {
                     await ReceivedCallBack(_data);
                 }
-            }
-
-            // 检查剩余长度是否大于总长度
-            if (data.Length >= segment.Length + length)
-            {
-                data = data[segment.Length..];
                 continue;
             }
 
             // 缓存剩余数据
-            if (data.Length > len)
+            if (data.Length > 0)
             {
-                SlicePackage(data, data.Length - len);
+                SlicePackage(data, data.Length);
             }
             break;
         }
