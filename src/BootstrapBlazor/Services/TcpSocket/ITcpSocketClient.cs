@@ -31,6 +31,14 @@ public interface ITcpSocketClient : IDisposable
     IPEndPoint LocalEndPoint { get; }
 
     /// <summary>
+    /// Gets or sets the callback function to handle received data.
+    /// </summary>
+    /// <remarks>The callback function should be designed to handle the received data efficiently and
+    /// asynchronously.  Ensure that the implementation does not block or perform long-running operations, as this may
+    /// impact performance.</remarks>
+    Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
+
+    /// <summary>
     /// Configures the data handler to process incoming data packages.
     /// </summary>
     /// <param name="handler">The handler responsible for processing data packages. Cannot be null.</param>

@@ -28,6 +28,8 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public int ReceiveBufferSize { get; set; } = 1024 * 10;
 
+    public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
+
     public DefaultTcpSocketClient(string host, int port = 0)
     {
         LocalEndPoint = new IPEndPoint(GetIPAddress(host), port);
@@ -135,6 +137,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
                 else
                 {
                     buffer = buffer[..len];
+
+                    if (ReceivedCallBack != null)
+                    {
+                        await ReceivedCallBack(buffer);
+                    }
 
                     if (_dataPackageHandler != null)
                     {
