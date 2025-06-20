@@ -85,5 +85,5 @@ public interface ITcpSocketClient : IDisposable
     /// <remarks>Once the connection or resource is closed, it cannot be reopened. Ensure that all necessary
     /// operations  are completed before calling this method. This method is typically used to clean up resources when
     /// they  are no longer needed.</remarks>
-    void Close();
+    ValueTask<bool> CloseAsync(string msg, CancellationToken token = default);
 }
