@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\extensions\BootstrapBlazor.TouchSocket\BootstrapBlazor.TouchSocket.csproj" />
     <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
