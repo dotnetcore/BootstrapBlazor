@@ -49,7 +49,7 @@ public class TouchSocketTest
         await Task.Delay(10);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync(string.Empty);
         StopTcpServer(server);
     }
 

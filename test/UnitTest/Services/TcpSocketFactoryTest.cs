@@ -13,7 +13,7 @@ namespace UnitTest.Services;
 public class TcpSocketFactoryTest
 {
     [Fact]
-    public void GetOrCreate_Ok()
+    public async Task GetOrCreate_Ok()
     {
         // 测试 GetOrCreate 方法创建的 Client 销毁后继续 GetOrCreate 得到的对象是否可用
         var sc = new ServiceCollection();
@@ -21,12 +21,12 @@ public class TcpSocketFactoryTest
         {
             builder.AddProvider(new MockLoggerProvider());
         });
-        sc.AddBootstrapBlazorTcpSocketFactory();
-
+        //sc.AddBootstrapBlazorTcpSocketFactory();
+        sc.AddBootstrapBlazorTouchSocketService();
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client1 = factory.GetOrCreate("localhost", 0);
-        client1.Close();
+        await client1.CloseAsync(string.Empty);
 
         var client2 = factory.GetOrCreate("localhost", 0);
         Assert.Equal(client1, client2);
@@ -226,7 +226,7 @@ public class TcpSocketFactoryTest
         await Task.Delay(10);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync(string.Empty);
         StopTcpServer(server);
     }
 
@@ -281,7 +281,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync(string.Empty);
         StopTcpServer(server);
     }
 
@@ -328,7 +328,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync(string.Empty);
         StopTcpServer(server);
 
         var handler = new DelimiterDataPackageHandler("\r\n");
@@ -495,7 +495,10 @@ public class TcpSocketFactoryTest
 
         public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
         {
-            Socket?.Close();
+            if (Socket!=null)
+            {
+                await Socket.CloseAsync(string.Empty);
+            }
             await Task.Delay(10);
             return data;
         }
