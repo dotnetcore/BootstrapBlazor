@@ -143,11 +143,26 @@ public class TcpSocketFactoryTest
         Assert.Equal(1024 * 20, client.ReceiveBufferSize);
 
         client.SetDataHandler(new MockReceiveErrorHandler());
+
+        ReadOnlyMemory<byte> buffer = ReadOnlyMemory<byte>.Empty;
+        var tcs = new TaskCompletionSource();
+
+        // 增加接收回调方法
+        client.ReceivedCallBack = b =>
+        {
+            buffer = b;
+            tcs.SetResult();
+            return ValueTask.CompletedTask;
+        };
+
         await client.ConnectAsync("localhost", port);
 
         // 发送数据导致接收数据异常
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
         await client.SendAsync(data);
+
+        await tcs.Task;
+        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5]);
 
         // 关闭连接
         StopTcpServer(server);
