@@ -16,8 +16,11 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     private Memory<byte> _lastReceiveBuffer = Memory<byte>.Empty;
 
     /// <summary>
-    /// 当接收数据处理完成后，回调该函数执行接收
+    /// Gets or sets the callback function to handle received data.
     /// </summary>
+    /// <remarks>The callback function should be designed to handle the received data efficiently and
+    /// asynchronously.  Ensure that the implementation does not block or perform long-running operations, as this may
+    /// impact performance.</remarks>
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
