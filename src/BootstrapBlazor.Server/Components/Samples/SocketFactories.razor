@@ -22,6 +22,7 @@ private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
     <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SendAsync</code> 发送协议数据</li>
     <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>Close</code> 关闭连接</li>
     <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SetDataHandler</code> 方法设置数据处理器</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例属性 <code>ReceivedCallBack</code> 方法设置接收数据处理器（注意：此回调未做任何数据处理为原始数据）</li>
 </ul>
 
 <p class="code-label">4. 数据处理器</p>
@@ -31,13 +32,13 @@ private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
 <p>数据处理器设计初衷就是为了契合通讯协议大大简化我们开发逻辑，我们已通讯协议每次通讯电文均为 <b>4</b> 位定长举例说明，在实际的通讯过程中，我们接收到的通讯数据存在粘包或者分包的现象</p>
 
 <ul class="ul-demo">
-    <li>粘包：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>123412</b> 多出来的 <b>12</b> 其实是下一个通讯电文的内容，相邻两个通讯数据包的粘连称为粘包</li>
-    <li>分包：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>12</b> 和 <b>34</b> 两个数据包，这种情况称为分包</li>
+    <li><b>粘包</b>：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>123412</b> 多出来的 <b>12</b> 其实是下一个通讯电文的内容，相邻两个通讯数据包的粘连称为<b>粘包</b></li>
+    <li><b>分包</b>：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>12</b> 和 <b>34</b> 两个数据包，这种情况称为<b>分包</b></li>
 </ul>
 
-<p>我们内置了 <code>IDataPackageHandler</code> 数据包处理接口，已经虚类 <code>DataPackageHandlerBase</code> 作为数据处理器基类已经内置了 <b>粘包</b> <b>分包</b> 的逻辑，继承此类后专注自己处理的业务即可</p>
+<p>我们内置了一些常用的数据处理类 <code>IDataPackageHandler</code> 接口为数据包处理接口，虚类 <code>DataPackageHandlerBase</code> 作为数据处理器基类已经内置了 <b>粘包</b> <b>分包</b> 的逻辑，继承此类后专注自己处理的业务即可</p>
 
-<p>此外我们还内置了 <code>FixLengthDataPackageHandler</code> <b>固定长度数据处理器</b> 使用方法如下：</p>
+<p>使用方法如下：</p>
 
 <Pre>[Inject]
 [NotNull]
@@ -64,3 +65,10 @@ private async Task CreateClient()
     var connected = await client.ConnectAsync("192.168.10.100", 6688);
 }
 </Pre>
+
+<p>内置数据库处理器</p>
+
+<ul class="ul-demo">
+    <li><code>FixLengthDataPackageHandler</code> <b>固定长度数据处理器</b> 即每个通讯包都是固定长度</li>
+    <li><code>DelimiterDataPackageHandler</code> <b>分隔符数据处理器</b> 即通讯包以特定一个或一组字节分割</li>
+</ul>
