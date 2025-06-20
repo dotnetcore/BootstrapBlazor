@@ -6,6 +6,7 @@
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace UnitTest.Services;
 
@@ -94,8 +95,7 @@ public class TcpSocketFactoryTest
         var cst = new CancellationTokenSource();
         cst.Cancel();
 
-        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
-        var result = await client.SendAsync(data, cst.Token);
+        var result = await client.SendAsync("test", null, cst.Token);
         Assert.False(result);
 
         // 设置延时发送适配器
@@ -110,7 +110,7 @@ public class TcpSocketFactoryTest
         // 测试发送失败逻辑
         _ = Task.Run(async () =>
         {
-            sendResult = await client.SendAsync(data);
+            sendResult = await client.SendAsync("test", Encoding.UTF8);
             tcs.SetResult();
         });
 
