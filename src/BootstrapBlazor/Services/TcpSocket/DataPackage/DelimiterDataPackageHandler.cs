@@ -51,7 +51,7 @@ public class DelimiterDataPackageHandler : DataPackageHandlerBase
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public override async Task ReceiveAsync(Memory<byte> data)
+    public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data)
     {
         data = ConcatBuffer(data);
 

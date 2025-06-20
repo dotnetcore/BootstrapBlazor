@@ -16,7 +16,7 @@ public interface IDataPackageHandler
     /// <summary>
     /// Gets or sets the callback function to be invoked when data is received asynchronously.
     /// </summary>
-    Func<Memory<byte>, Task>? ReceivedCallBack { get; set; }
+    Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
     /// Sends the specified data asynchronously to the target destination.
@@ -27,7 +27,7 @@ public interface IDataPackageHandler
     /// <param name="data">The data to be sent, represented as a block of memory.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
     /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
-    Task<Memory<byte>> SendAsync(Memory<byte> data);
+    ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data);
 
     /// <summary>
     /// Asynchronously receives data from a source and writes it into the provided memory buffer.
@@ -37,5 +37,5 @@ public interface IDataPackageHandler
     /// <param name="data">The memory buffer to store the received data. The buffer must be writable and have sufficient capacity.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the number of bytes written to the
     /// buffer. Returns 0 if the end of the data stream is reached.</returns>
-    Task ReceiveAsync(Memory<byte> data);
+    ValueTask ReceiveAsync(ReadOnlyMemory<byte> data);
 }

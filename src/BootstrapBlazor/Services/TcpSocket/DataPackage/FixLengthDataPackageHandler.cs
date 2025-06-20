@@ -23,7 +23,7 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public override async Task ReceiveAsync(Memory<byte> data)
+    public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data)
     {
         while (data.Length > 0)
         {

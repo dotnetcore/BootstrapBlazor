@@ -45,7 +45,7 @@ public interface ITcpSocketClient : IDisposable
     /// langword="default"/> if not provided.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
     /// is successfully established; otherwise, <see langword="false"/>.</returns>
-    Task<bool> ConnectAsync(string host, int port, CancellationToken token = default);
+    ValueTask<bool> ConnectAsync(string host, int port, CancellationToken token = default);
 
     /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.
@@ -57,7 +57,7 @@ public interface ITcpSocketClient : IDisposable
     /// langword="default"/> if not provided.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
     /// is successfully established; otherwise, <see langword="false"/>.</returns>
-    Task<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default);
+    ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default);
 
     /// <summary>
     /// Sends the specified data asynchronously to the target endpoint.
@@ -69,7 +69,7 @@ public interface ITcpSocketClient : IDisposable
     /// <param name="token">An optional <see cref="CancellationToken"/> to observe while waiting for the operation to complete.</param>
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the data was
     /// sent successfully; otherwise, <see langword="false"/>.</returns>
-    Task<bool> SendAsync(Memory<byte> data, CancellationToken token = default);
+    ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 
     /// <summary>
     /// Closes the current connection or resource, releasing any associated resources.
