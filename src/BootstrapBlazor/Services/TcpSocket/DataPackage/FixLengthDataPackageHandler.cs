@@ -25,30 +25,29 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// <returns></returns>
     public override async Task ReceiveAsync(Memory<byte> data)
     {
-        // 处理上次粘包数据
-        data = ConcatBuffer(data);
-
-        // 拷贝数据
-        var len = length - _receivedLength;
-        var segment = data.Length > len ? data[..len] : data;
-        segment.CopyTo(_data[_receivedLength..]);
-
-        if (data.Length > len)
+        while (data.Length > 0)
         {
-            SlicePackage(data, data.Length - len);
-        }
+            // 拷贝数据
+            var len = length - _receivedLength;
+            var segment = data.Length > len ? data[..len] : data;
+            segment.CopyTo(_data[_receivedLength..]);
 
-        // 更新已接收长度
-        _receivedLength += segment.Length;
+            // 更新数据
+            data = data[segment.Length..];
 
-        // 如果已接收长度等于总长度则触发回调
-        if (_receivedLength == length)
-        {
-            // 重置已接收长度
-            _receivedLength = 0;
-            if (ReceivedCallBack != null)
+            // 更新已接收长度
+            _receivedLength += segment.Length;
+
+            // 如果已接收长度等于总长度则触发回调
+            if (_receivedLength == length)
             {
-                await ReceivedCallBack(_data);
+                // 重置已接收长度
+                _receivedLength = 0;
+                if (ReceivedCallBack != null)
+                {
+                    await ReceivedCallBack(_data);
+                }
+                continue;
             }
         }
     }
