@@ -25,9 +25,6 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// <returns></returns>
     public override async Task ReceiveAsync(Memory<byte> data)
     {
-        // 处理上次粘包数据
-        data = ConcatBuffer(data);
-
         while (data.Length > 0)
         {
             // 拷贝数据
@@ -52,13 +49,6 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
                 }
                 continue;
             }
-
-            // 缓存剩余数据
-            if (data.Length > 0)
-            {
-                SlicePackage(data, data.Length);
-            }
-            break;
         }
     }
 }
