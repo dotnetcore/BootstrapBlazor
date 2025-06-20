@@ -249,14 +249,22 @@ public class TcpSocketFactoryTest
 
         // 验证接收到的数据
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
-
-        // 等待第二次数据
         receivedBuffer = Memory<byte>.Empty;
         tcs = new TaskCompletionSource();
+
+        // 等待第二次数据
         await tcs.Task;
 
         // 验证第二次收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 6, 7]);
+        Assert.Equal(receivedBuffer.ToArray(), [2, 2, 3, 4, 5, 6, 7]);
+        tcs = new TaskCompletionSource();
+        await tcs.Task;
+
+        // 等待第二次数据
+        await tcs.Task;
+
+        // 验证第三次收到的数据
+        Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
 
         // 关闭连接
         client.Close();
@@ -398,16 +406,16 @@ public class TcpSocketFactoryTest
             await stream.WriteAsync(block, CancellationToken.None);
 
             // 模拟延时
-            await Task.Delay(50);
+            await Task.Delay(10);
 
             // 模拟拆包发送第二段数据
-            await stream.WriteAsync(new byte[] { 0x3, 0x4, 0x1, 0x2 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 0x3, 0x4, 0x2, 0x2 }, CancellationToken.None);
 
             // 模拟延时
-            await Task.Delay(50);
+            await Task.Delay(10);
 
             // 模拟粘包发送后续数据
-            await stream.WriteAsync(new byte[] { 0x3, 0x4, 0x5, 0x6, 0x7 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 0x3, 0x4, 0x5, 0x6, 0x7, 0x3, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x1 }, CancellationToken.None);
         }
     }
 
