@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace UnitTest.Components;
 
 public class TreeViewTest : BootstrapBlazorTestBase
@@ -1219,6 +1221,158 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("test-toolbar-template", cut.Markup);
+    }
+
+    [Fact]
+    public async Task Draggable_Basic_MoveAsLastChild()
+    {
+        // Arrange
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Root", Id = "1" },
+            new() { Text = "Child1", Id = "2", ParentId = "1" },
+            new() { Text = "Child2", Id = "3", ParentId = "1" },
+            new() { Text = "Root2", Id = "4" },
+            new() { Text = "Child3", Id = "5", ParentId = "4" }
+        };
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ItemDraggable, true);
+        });
+
+        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
+        var dragSource = rows[1]; // Child1
+        var dragTarget = rows[3]; // Root2
+
+        var dragSourceElement = dragSource.Find(".tree-node");
+        var dragTargetDropZone = dragTarget.Find(".tree-drop-child-inside");
+        // 1. 触发 dragstart
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        // 2. 触发 dragenter 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
+        // 3. 触发 drop 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 成功移动，原对象销毁，不触发dragend
+
+        // Assert
+        Assert.Equal("Root2", nodes[1].Text);
+        Assert.Equal(2, nodes[1].Items.Count);
+        Assert.Equal("Child1", nodes[1].Items[1].Text);
+        Assert.Equal(nodes[1], nodes[1].Items[1].Parent);
+    }
+
+    [Fact]
+    public async Task Draggable_Basic_MoveAsSiblingBelow()
+    {
+        // Arrange
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Root", Id = "1" },
+            new() { Text = "Child1", Id = "2", ParentId = "1" },
+            new() { Text = "Child2", Id = "3", ParentId = "1" }
+        };
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ItemDraggable, true);
+        });
+
+        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
+        var dragSource = rows[1]; // Child1
+        var dragTarget = rows[2]; // Child2
+
+        // 获取可拖拽的 DOM 元素（DynamicElement）
+        var dragSourceElement = dragSource.Find(".tree-node");
+        var dragTargetDropZone = dragTarget.Find(".tree-drop-child-below");
+        // 1. 触发 dragstart
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        // 2. 触发 dragenter 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
+        // 3. 触发 drop 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 成功移动，原对象销毁，不触发dragend
+
+        // Assert
+        var parent = nodes[0];
+        Assert.Equal(2, parent.Items.Count);
+        Assert.Equal("Child2", parent.Items[0].Text);
+        Assert.Equal("Child1", parent.Items[1].Text);
+    }
+
+    [Fact]
+    public async Task Draggable_OnDrop_Cancel()
+    {
+        // Arrange
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Root", Id = "1" },
+            new() { Text = "Child1", Id = "2", ParentId = "1" },
+            new() { Text = "Child2", Id = "3", ParentId = "1" }
+        };
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ItemDraggable, true);
+            pb.Add(a => a.OnDrop, args => Task.FromResult(false)); // 拒绝拖拽
+        });
+
+        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
+        var dragSource = rows[1]; // Child1
+        var dragTarget = rows[2]; // Child2
+
+        // 获取可拖拽的 DOM 元素（DynamicElement）
+        var dragSourceElement = dragSource.Find(".tree-node");
+        var dragTargetDropZone = dragTarget.Find(".tree-drop-child-below");
+        // 1. 触发 dragstart
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        // 2. 触发 dragenter 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
+        // 3. 触发 drop 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 4. 触发 dragend
+        await dragSourceElement.TriggerEventAsync("ondragend", new DragEventArgs());
+
+        // Assert: 顺序未变
+        var parent = nodes[0];
+        Assert.Equal("Child1", parent.Items[0].Text);
+        Assert.Equal("Child2", parent.Items[1].Text);
+    }
+
+    [Fact]
+    public async Task Draggable_DragClassState()
+    {
+        // Arrange
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Root", Id = "1" }
+        };
+        var nodes = TreeFoo.CascadingTree(items);
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ItemDraggable, true);
+        });
+
+        var row = cut.FindComponent<TreeViewRow<TreeFoo>>();
+        var dragEvent = new DragEventArgs();
+
+        // 获取可拖拽的 DOM 元素
+        var dragSourceElement = row.Find(".tree-node");
+
+        // 触发拖拽开始
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        Assert.Contains("tree-drop-pass", row.Markup);
+
+        // 触发拖拽结束
+        await dragSourceElement.TriggerEventAsync("ondragend", new DragEventArgs());
+        Assert.DoesNotContain("tree-drop-pass", row.Markup);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
