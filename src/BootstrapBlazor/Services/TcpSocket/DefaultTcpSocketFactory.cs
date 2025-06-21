@@ -6,6 +6,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Net;
 using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
@@ -19,7 +20,8 @@ class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
     {
         return _pool.GetOrAdd($"{host}:{port}", key =>
         {
-            var client = new DefaultTcpSocketClient(host, port)
+            var endPoint = Utility.ConvertToIpEndPoint(host, port);
+            var client = new DefaultTcpSocketClient(endPoint)
             {
                 Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
             };

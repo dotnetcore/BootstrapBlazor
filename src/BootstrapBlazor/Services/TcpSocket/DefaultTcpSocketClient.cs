@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketClient : ITcpSocketClient
+class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
@@ -21,7 +21,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public bool IsConnected => _client?.Connected ?? false;
 
-    public IPEndPoint LocalEndPoint { get; set; }
+    public IPEndPoint LocalEndPoint { get; set; } = endPoint;
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
@@ -30,27 +30,9 @@ class DefaultTcpSocketClient : ITcpSocketClient
 
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
-    public DefaultTcpSocketClient(string host, int port = 0)
-    {
-        LocalEndPoint = new IPEndPoint(GetIPAddress(host), port);
-    }
-
-    private static IPAddress GetIPAddress(string host) => host.Equals("localhost", StringComparison.OrdinalIgnoreCase)
-        ? IPAddress.Loopback
-        : IPAddress.TryParse(host, out var ip) ? ip : IPAddressByHostName;
-
-    [ExcludeFromCodeCoverage]
-    private static IPAddress IPAddressByHostName => Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Loopback;
-
     public void SetDataHandler(IDataPackageHandler handler)
     {
         _dataPackageHandler = handler;
-    }
-
-    public ValueTask<bool> ConnectAsync(string host, int port, CancellationToken token = default)
-    {
-        var endPoint = new IPEndPoint(GetIPAddress(host), port);
-        return ConnectAsync(endPoint, token);
     }
 
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)

@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Net;
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace BootstrapBlazor.Components;
@@ -11,6 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <see cref="ITcpSocketClient"/> 扩展方法类
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 public static class ITcpSocketClientExtensions
 {
     /// <summary>
@@ -44,22 +45,7 @@ public static class ITcpSocketClientExtensions
     /// is successfully established; otherwise, <see langword="false"/>.</returns>
     public static ValueTask<bool> ConnectAsync(this ITcpSocketClient client, string ipString, int port, CancellationToken token = default)
     {
-        if (string.IsNullOrEmpty(ipString))
-        {
-            throw new ArgumentNullException(nameof(ipString), "IP address cannot be null or empty.");
-        }
-
-        if (port < 0 || port > 65535)
-        {
-            throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 0 and 65535.");
-        }
-
-        if (!IPAddress.TryParse(ipString, out var address))
-        {
-            throw new InvalidOperationException($"Invalid IP address format: {ipString}");
-        }
-
-        var endPoint = new IPEndPoint(address, port);
+        var endPoint = Utility.ConvertToIpEndPoint(ipString, port);
         return client.ConnectAsync(endPoint, token);
     }
 }
