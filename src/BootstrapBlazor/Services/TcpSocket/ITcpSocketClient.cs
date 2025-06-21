@@ -45,17 +45,6 @@ public interface ITcpSocketClient : IDisposable
     void SetDataHandler(IDataPackageHandler handler);
 
     /// <summary>
-    /// Establishes an asynchronous connection to the specified host and port.
-    /// </summary>
-    /// <param name="host">The hostname or IP address of the server to connect to. Cannot be null or empty.</param>
-    /// <param name="port">The port number on the server to connect to. Must be a valid port number between 0 and 65535.</param>
-    /// <param name="token">An optional <see cref="CancellationToken"/> to cancel the connection attempt. Defaults to <see
-    /// langword="default"/> if not provided.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
-    /// is successfully established; otherwise, <see langword="false"/>.</returns>
-    ValueTask<bool> ConnectAsync(string host, int port, CancellationToken token = default);
-
-    /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.
     /// </summary>
     /// <remarks>This method attempts to establish a connection to the specified endpoint. If the connection
