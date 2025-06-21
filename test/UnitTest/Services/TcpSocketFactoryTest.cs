@@ -26,7 +26,7 @@ public class TcpSocketFactoryTest
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client1 = factory.GetOrCreate("localhost", 0);
-        await client1.CloseAsync(string.Empty);
+        client1.Close();
 
         var client2 = factory.GetOrCreate("localhost", 0);
         Assert.Equal(client1, client2);
@@ -226,7 +226,7 @@ public class TcpSocketFactoryTest
         await Task.Delay(10);
 
         // 关闭连接
-        await client.CloseAsync(string.Empty);
+        client.Close();
         StopTcpServer(server);
     }
 
@@ -281,7 +281,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
 
         // 关闭连接
-        await client.CloseAsync(string.Empty);
+        client.Close();
         StopTcpServer(server);
     }
 
@@ -328,7 +328,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
 
         // 关闭连接
-        await client.CloseAsync(string.Empty);
+        client.Close();
         StopTcpServer(server);
 
         var handler = new DelimiterDataPackageHandler("\r\n");
@@ -495,10 +495,7 @@ public class TcpSocketFactoryTest
 
         public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
         {
-            if (Socket!=null)
-            {
-                await Socket.CloseAsync(string.Empty);
-            }
+            Socket?.Close();
             await Task.Delay(10);
             return data;
         }
