@@ -59,7 +59,7 @@ class DefaultTcpSocketClient : ITcpSocketClient
         try
         {
             // 释放资源
-            await CloseAsync("Already connected", token);
+            Close();
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(LocalEndPoint);
@@ -160,6 +160,11 @@ class DefaultTcpSocketClient : ITcpSocketClient
         }
     }
 
+    public void Close()
+    {
+        Dispose(true);
+    }
+
     private void Dispose(bool disposing)
     {
         if (disposing)
@@ -190,11 +195,5 @@ class DefaultTcpSocketClient : ITcpSocketClient
     {
         Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    public ValueTask<bool> CloseAsync(string msg, CancellationToken token = default)
-    {
-        Dispose(true);
-        return new ValueTask<bool>(true);
     }
 }
