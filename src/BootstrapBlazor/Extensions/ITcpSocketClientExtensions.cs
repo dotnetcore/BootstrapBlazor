@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace BootstrapBlazor.Components;
@@ -10,6 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <see cref="ITcpSocketClient"/> 扩展方法类
 /// </summary>
+[UnsupportedOSPlatform("browser")]
 public static class ITcpSocketClientExtensions
 {
     /// <summary>
@@ -29,5 +31,21 @@ public static class ITcpSocketClientExtensions
     {
         var buffer = encoding?.GetBytes(content) ?? Encoding.UTF8.GetBytes(content);
         return client.SendAsync(buffer, token);
+    }
+
+    /// <summary>
+    /// Establishes an asynchronous connection to the specified host and port.
+    /// </summary>
+    /// <param name="client">The TCP socket client to which the content will be sent. Cannot be <see langword="null"/>.</param>
+    /// <param name="ipString">The hostname or IP address of the server to connect to. Cannot be null or empty.</param>
+    /// <param name="port">The port number on the server to connect to. Must be a valid port number between 0 and 65535.</param>
+    /// <param name="token">An optional <see cref="CancellationToken"/> to cancel the connection attempt. Defaults to <see
+    /// langword="default"/> if not provided.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the connection
+    /// is successfully established; otherwise, <see langword="false"/>.</returns>
+    public static ValueTask<bool> ConnectAsync(this ITcpSocketClient client, string ipString, int port, CancellationToken token = default)
+    {
+        var endPoint = Utility.ConvertToIpEndPoint(ipString, port);
+        return client.ConnectAsync(endPoint, token);
     }
 }

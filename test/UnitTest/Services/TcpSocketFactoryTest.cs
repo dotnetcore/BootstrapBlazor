@@ -274,9 +274,6 @@ public class TcpSocketFactoryTest
         tcs = new TaskCompletionSource();
         await tcs.Task;
 
-        // 等待第二次数据
-        await tcs.Task;
-
         // 验证第三次收到的数据
         Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
 
