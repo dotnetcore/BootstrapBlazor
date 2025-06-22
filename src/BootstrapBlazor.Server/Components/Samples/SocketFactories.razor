@@ -72,3 +72,9 @@ private async Task CreateClient()
     <li><code>FixLengthDataPackageHandler</code> <b>固定长度数据处理器</b> 即每个通讯包都是固定长度</li>
     <li><code>DelimiterDataPackageHandler</code> <b>分隔符数据处理器</b> 即通讯包以特定一个或一组字节分割</li>
 </ul>
+
+<p class="code-label">5. 数据适配器（设计中）</p>
+
+<p>在我们实际应用中，接收到数据包后（已经过数据处理器）大多情况下是需要将电文转化为应用中的具体数据类型 <code>Class</code> 或 <code>Struct</code>。将原始数据包转化为类或者结构体的过程由我们的数据适配器来实现</p>
+
+<p>数据适配器设计思路如下</p>
