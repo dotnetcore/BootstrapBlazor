@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Net;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -11,21 +13,21 @@ namespace BootstrapBlazor.Components;
 public interface ITcpSocketFactory : IDisposable
 {
     /// <summary>
-    /// Retrieves an existing TCP socket associated with the specified host and port, or creates a new one if none
-    /// exists.
+    /// Retrieves an existing TCP socket client by name or creates a new one if it does not exist.
     /// </summary>
-    /// <param name="host">The hostname or IP address of the remote endpoint. Cannot be null or empty.</param>
-    /// <param name="port">The port number of the remote endpoint. Must be a valid port number between 0 and 65535.</param>
-    /// <returns>An <see cref="ITcpSocketClient"/> instance representing the TCP socket for the specified host and port.</returns>
-    ITcpSocketClient GetOrCreate(string host, int port);
+    /// <param name="name">The unique name used to identify the TCP socket client. Cannot be null or empty.</param>
+    /// <param name="endPoint">The network endpoint to associate with the TCP socket client. Must be a valid <see
+    /// cref="System.Net.IPEndPoint"/> instance.</param>
+    /// <returns>An instance of <see cref="ITcpSocketClient"/> representing the TCP socket client associated with the specified
+    /// name and endpoint. If a client with the given name already exists, the existing instance is returned; otherwise,
+    /// a new client is created.</returns>
+    ITcpSocketClient GetOrCreate(string name, IPEndPoint endPoint);
 
     /// <summary>
-    /// Removes the specified host and port combination from the collection.
+    /// Removes the TCP socket client associated with the specified name.
     /// </summary>
-    /// <remarks>If the specified host and port combination does not exist in the collection, the method has
-    /// no effect.</remarks>
-    /// <param name="host">The hostname to remove. Cannot be null or empty.</param>
-    /// <param name="port">The port number associated with the host to remove. Must be a valid port number (0-65535).</param>
-    /// <returns>An <see cref="ITcpSocketClient"/> instance representing the TCP socket for the specified host and port.</returns>
-    ITcpSocketClient? Remove(string host, int port);
+    /// <param name="name">The name of the TCP socket client to remove. Cannot be <see langword="null"/> or empty.</param>
+    /// <returns>The removed <see cref="ITcpSocketClient"/> instance if a client with the specified name exists;  otherwise, <see
+    /// langword="null"/>.</returns>
+    ITcpSocketClient? Remove(string name);
 }
