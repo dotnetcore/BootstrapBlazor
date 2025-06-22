@@ -758,6 +758,10 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Utility.ConvertToIpEndPoint("localhost", 88990));
         Assert.NotNull(ex);
+
+        ex = null;
+        ex = Assert.Throws<ArgumentOutOfRangeException>(() => Utility.ConvertToIpEndPoint("localhost", -1000));
+        Assert.NotNull(ex);
     }
 
     [AutoGenerateClass(Align = Alignment.Center)]
