@@ -16,11 +16,10 @@ class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
-    public ITcpSocketClient GetOrCreate(string host, int port = 0)
+    public ITcpSocketClient GetOrCreate(string name, IPEndPoint endPoint)
     {
-        return _pool.GetOrAdd($"{host}:{port}", key =>
+        return _pool.GetOrAdd(name, key =>
         {
-            var endPoint = Utility.ConvertToIpEndPoint(host, port);
             var client = new DefaultTcpSocketClient(endPoint)
             {
                 Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
@@ -29,10 +28,10 @@ class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
         });
     }
 
-    public ITcpSocketClient? Remove(string host, int port)
+    public ITcpSocketClient? Remove(string name)
     {
         ITcpSocketClient? client = null;
-        if (_pool.TryRemove($"{host}:{port}", out var c))
+        if (_pool.TryRemove(name, out var c))
         {
             client = c;
         }
