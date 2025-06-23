@@ -13,15 +13,14 @@ namespace BootstrapBlazor.Components;
 public interface ITcpSocketFactory : IDisposable
 {
     /// <summary>
-    /// Retrieves an existing TCP socket client by name or creates a new one if it does not exist.
+    /// Retrieves an existing TCP socket client by name or creates a new one using the specified factory function.
     /// </summary>
-    /// <param name="name">The unique name used to identify the TCP socket client. Cannot be null or empty.</param>
-    /// <param name="endPoint">The network endpoint to associate with the TCP socket client. Must be a valid <see
-    /// cref="System.Net.IPEndPoint"/> instance.</param>
-    /// <returns>An instance of <see cref="ITcpSocketClient"/> representing the TCP socket client associated with the specified
-    /// name and endpoint. If a client with the given name already exists, the existing instance is returned; otherwise,
-    /// a new client is created.</returns>
-    ITcpSocketClient GetOrCreate(string name, IPEndPoint endPoint);
+    /// <param name="name">The unique name identifying the TCP socket client. Cannot be null or empty.</param>
+    /// <param name="valueFactory">A factory function that generates an <see cref="IPEndPoint"/> for the client.  The function is invoked if a
+    /// client with the specified name does not already exist.</param>
+    /// <returns>An instance of <see cref="ITcpSocketClient"/> associated with the specified name.  If a client with the given
+    /// name already exists, the existing instance is returned; otherwise, a new instance is created.</returns>
+    ITcpSocketClient GetOrCreate(string name, Func<string, IPEndPoint> valueFactory);
 
     /// <summary>
     /// Removes the TCP socket client associated with the specified name.

@@ -16,10 +16,11 @@ class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
-    public ITcpSocketClient GetOrCreate(string name, IPEndPoint endPoint)
+    public ITcpSocketClient GetOrCreate(string name, Func<string, IPEndPoint> valueFactory)
     {
         return _pool.GetOrAdd(name, key =>
         {
+            var endPoint = valueFactory(key);
             var client = new DefaultTcpSocketClient(endPoint)
             {
                 Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
