@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
+sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFactory
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 

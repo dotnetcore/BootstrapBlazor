@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
+sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
