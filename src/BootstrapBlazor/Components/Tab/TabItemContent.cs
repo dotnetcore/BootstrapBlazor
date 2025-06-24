@@ -53,8 +53,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     {
         builder.OpenElement(0, "div");
         builder.SetKey(_key);
-        builder.AddAttribute(5, "class", ClassString);
-        builder.AddAttribute(6, "id", Item.Id);
+        builder.AddAttribute(5, "class", "tabs-body-content-wrap");
         builder.AddContent(10, RenderItemContent(Item.ChildContent));
         builder.CloseElement();
     }
@@ -78,10 +77,6 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         }));
         builder.CloseComponent();
     };
-
-    private string? ClassString => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !Item.IsActive)
-        .Build();
 
     /// <summary>
     /// Render method
