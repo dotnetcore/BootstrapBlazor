@@ -35,11 +35,11 @@ public partial class OtpInput
     [Parameter]
     public string? PlaceHolder { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-opt-input")
+    private string? ClassString => CssBuilder.Default("bb-otp-input")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? InputClassString => CssBuilder.Default("bb-opt-item")
+    private string? InputClassString => CssBuilder.Default("bb-otp-item")
         .AddClass("input-number-fix", Type == OtpInputType.Number)
         .AddClass(ValidCss)
         .Build();
