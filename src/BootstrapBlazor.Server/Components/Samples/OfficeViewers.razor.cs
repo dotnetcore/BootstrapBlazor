@@ -13,9 +13,14 @@ public partial class OfficeViewers
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
-    private List<SelectedItem> _docs = [
-        new SelectedItem("https://www.blazor.zone/samples/sample.docx", "sample"),
-        ]
+    private readonly List<SelectedItem> _docs =
+    [
+        new SelectedItem("https://www.blazor.zone/samples/sample.docx", "sample.docx"),
+        new SelectedItem("https://www.blazor.zone/samples/sample.xlsx", "sample.xlsx"),
+        new SelectedItem("https://www.blazor.zone/samples/sample.pptx", "sample.pptx"),
+    ];
+
+    private string _doc = "https://www.blazor.zone/samples/sample.docx";
 
     private Task OnLoaded() => ToastService.Success("Office Documentation Viewer", Localizer["OfficeViewerToastSuccessfulContent"]);
 }

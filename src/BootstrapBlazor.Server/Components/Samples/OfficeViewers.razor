@@ -9,7 +9,7 @@
 
 <DemoBlock Title="@Localizer["OfficeViewerNormalTitle"]" Introduction="@Localizer["OfficeViewerNormalIntro"]" Name="Normal">
     <section ignore>
-        <Select @bind-Value="" Items="_docs"></Select>
+        <Select @bind-Value="@_doc" Items="_docs"></Select>
     </section>
-    <OfficeDocumentViewer Url="https://www.blazor.zone/samples/sample.xlsx" Height="620px" OnLoaded="OnLoaded"></OfficeDocumentViewer>
+    <OfficeDocumentViewer Url="@_doc" Height="620px" OnLoaded="OnLoaded"></OfficeDocumentViewer>
 </DemoBlock>
