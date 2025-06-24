@@ -1054,7 +1054,7 @@ public partial class Tab
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
-        var item = TabItems.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.Find(i => i.IsActive);
 
         if (item is not null)
         {
