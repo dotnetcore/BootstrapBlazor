@@ -14,7 +14,7 @@
         }
         @foreach (var item in Files)
         {
-            <div @key="item" class="@GetItemClassString()" id="@item.ValidateId" style="@ItemStyleString">
+            <div @key="item" class="@ItemClassString" id="@item.ValidateId" style="@ItemStyleString">
                 <Avatar Url="@item.PrevUrl" />
                 <div class="upload-item-actions">
                     <span class="upload-item-delete" @onclick="@(e => OnFileDelete(item))">
@@ -46,11 +46,9 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div id="@AddId" class="@GetItemClassString("upload-drop-body")" style="@ItemStyleString">
-        <div class="@ActionClassString">
-            <span class="upload-item-plus">
-                <i class="@AddIcon"></i>
-            </span>
+    @<div id="@AddId" class="@ItemClassString" style="@ItemStyleString">
+        <div class="upload-item-plus upload-drop-body btn-browser">
+            <i class="@AddIcon"></i>
         </div>
     </div>;
 }

@@ -91,8 +91,7 @@ public partial class AvatarUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetItemClassString(string? classString = null) => CssBuilder.Default("upload-item")
-        .AddClass(classString)
+    private string? ItemClassString => CssBuilder.Default("upload-item")
         .AddClass("is-circle", IsCircle)
         .AddClass("disabled", IsDisabled)
         .Build();
@@ -105,10 +104,6 @@ public partial class AvatarUpload<TValue>
         .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
         .AddClass($"height: {Width}px;", IsCircle)
         .AddClass($"--bb-upload-item-border-radius: {BorderRadius};", IsCircle && !string.IsNullOrEmpty(BorderRadius))
-        .Build();
-
-    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
-        .AddClass("btn-browser", IsDisabled == false)
         .Build();
 
     private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
