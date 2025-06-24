@@ -4952,7 +4952,8 @@
     "CardUpload": "CardUpload",
     "DropUpload": "DropUpload",
     "Vditor": "Vditor Markdown",
-    "TcpSocketFactory": "ITcpSocketFactory"
+    "TcpSocketFactory": "ITcpSocketFactory",
+    "OfficeViewer": "Office Viewer"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7200,5 +7201,12 @@
     "VditorSubTitle": "Vditor is a browser-based Markdown editor that supports WYSIWYG, instant rendering (similar to Typora), and split-screen preview mode.",
     "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "Set the content displayed by the component by setting the <code>Value</code> value, and set the component configuration information by setting the <code>Options</code> parameter"
+  },
+  "BootstrapBlazor.Server.Components.Samples.OfficeViewers": {
+    "OfficeViewerTitle": "Office Document Viewer",
+    "OfficeViewerDescription": "This component previews Office documents using Microsoft's online document preview feature",
+    "OfficeViewerNormalTitle": "Basic Usage",
+    "OfficeViewerNormalIntro": "Set the document URL for preview by configuring the <code>Url</code> value",
+    "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
   }
 }

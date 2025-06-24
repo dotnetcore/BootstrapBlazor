@@ -25,9 +25,6 @@ public partial class FileViewers
         ExcelSampleFile = CombineFilename("sample.xlsx");
 
         FileList.Add("sample.xlsx");
-        FileList.Add("sample2.xlsx");
-        FileList.Add("sample3.xlsx");
-        FileList.Add("sample2.docx");
         FileList.Add("sample.docx");
         Url = FileList[0];
 
