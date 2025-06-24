@@ -47,7 +47,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         _renderHandle.Render(BuildRenderTree);
     }
 
-    private object _key = new();
+    private Guid _key = Guid.NewGuid();
 
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
@@ -88,7 +88,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     /// </summary>
     public void Render()
     {
-        _key = new object();
+        _key = Guid.NewGuid();
         RenderContent();
     }
 
