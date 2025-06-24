@@ -1,0 +1,15 @@
+﻿@page "/office-viewer"
+@inject IStringLocalizer<OfficeViewers> Localizer
+
+<h3>@Localizer["OfficeViewerTitle"]</h3>
+
+<h4>@Localizer["OfficeViewerDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.OfficeDocumentViewer" />
+
+<DemoBlock Title="@Localizer["OfficeViewerNormalTitle"]" Introduction="@Localizer["OfficeViewerNormalIntro"]" Name="Normal">
+    <section ignore>
+        <Select @bind-Value="" Items="_docs"></Select>
+    </section>
+    <OfficeDocumentViewer Url="https://www.blazor.zone/samples/sample.xlsx" Height="620px" OnLoaded="OnLoaded"></OfficeDocumentViewer>
+</DemoBlock>

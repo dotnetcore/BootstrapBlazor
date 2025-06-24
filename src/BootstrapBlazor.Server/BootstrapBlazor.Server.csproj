@@ -79,6 +79,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.OfficeDocumentViewer\BootstrapBlazor.OfficeDocumentViewer.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
