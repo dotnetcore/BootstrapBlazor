@@ -48,7 +48,8 @@ export function init(id) {
             inputFile.files = fileList
             const event = new Event('change', { bubbles: true })
             inputFile.dispatchEvent(event)
-        } catch (e) {
+        }
+        catch (e) {
             console.error(e)
         }
     })
