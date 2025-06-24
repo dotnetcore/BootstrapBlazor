@@ -93,6 +93,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    position: relative;
 }
 
 .upload .upload-body.is-avatar .upload-item {
@@ -135,15 +136,16 @@
 }
 
 .upload .upload-body.is-avatar .upload-item .upload-item-actions,
-.upload .upload-body.is-card .upload-item .upload-item-actions > .upload-item-plus {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.upload .upload-body.is-avatar .upload-item-plus,
+.upload .upload-body.is-card .upload-item-plus {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.upload .upload-body.is-avatar .upload-item .upload-item-actions {
+    position: absolute;
+    inset: 0;
 }
 
 .upload .upload-body.is-avatar .upload-item .upload-item-actions i {

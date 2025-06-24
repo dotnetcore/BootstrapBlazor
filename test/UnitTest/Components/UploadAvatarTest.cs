@@ -80,12 +80,11 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         var button = cut.Find(".upload-item-delete");
         await cut.InvokeAsync(() => button.Click());
 
-        cut.Contains("upload-item-actions btn-browser");
+        cut.Contains("btn-browser");
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        cut.Contains("upload-item-actions");
 
         // IsUploadButtonAtFirst
         cut.SetParametersAndRender(pb =>

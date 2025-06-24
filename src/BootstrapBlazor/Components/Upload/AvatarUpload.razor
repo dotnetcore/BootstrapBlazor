@@ -46,11 +46,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div id="@AddId" class="@GetItemClassString()" style="@ItemStyleString">
-        <div class="@ActionClassString">
-            <span class="upload-item-plus">
-                <i class="@AddIcon"></i>
-            </span>
-        </div>
+    @<div id="@AddId" class="@GetItemClassString("upload-item-plus upload-drop-body btn-browser")" style="@ItemStyleString">
+        <i class="@AddIcon"></i>
     </div>;
 }
