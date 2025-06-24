@@ -56,6 +56,7 @@
     <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.6" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
+    <PackageReference Include="BootstrapBlazor.OfficeDocumentViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.3" />
@@ -79,7 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.OfficeDocumentViewer\BootstrapBlazor.OfficeDocumentViewer.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
