@@ -91,7 +91,8 @@ public partial class AvatarUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ItemClassString => CssBuilder.Default("upload-item")
+    private string? GetItemClassString(string? classString = null) => CssBuilder.Default("upload-item")
+        .AddClass(classString)
         .AddClass("is-circle", IsCircle)
         .AddClass("disabled", IsDisabled)
         .Build();
