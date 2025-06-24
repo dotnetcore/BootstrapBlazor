@@ -486,6 +486,10 @@ public partial class Tab
 
     private bool IsPreventDefault => _contextMenuZone != null;
 
+    private static string? GetTabItemClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
+        .AddClass("d-none", item is { IsActive: false })
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -1054,7 +1058,7 @@ public partial class Tab
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
-        var item = TabItems.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.Find(i => i.IsActive);
 
         if (item is not null)
         {
