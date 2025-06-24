@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
@@ -26,7 +26,7 @@
                     }
                     else
                     {
-                        <FileIcon Extension="@item.GetExtension()" />
+                        <FileIcon Extension="@item.GetExtension()"></FileIcon>
                     }
                 </div>
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
@@ -77,9 +77,9 @@
     </div>
     @if (ShowPreviewList)
     {
-        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
+        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList"></ImagePreviewer>
     }
-    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"></InputFile>
 </div>
 
 @code {
