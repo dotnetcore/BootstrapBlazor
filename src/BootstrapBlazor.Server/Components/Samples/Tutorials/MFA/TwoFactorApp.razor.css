@@ -36,7 +36,7 @@
         font-weight: 400;
     }
 
-::deep .bb-opt-input .bb-opt-item {
-    --bb-opt-item-width: 50px;
-    --bb-opt-font-size: 2em;
+::deep .bb-otp-input .bb-otp-item {
+    --bb-otp-item-width: 50px;
+    --bb-otp-font-size: 2em;
 }
