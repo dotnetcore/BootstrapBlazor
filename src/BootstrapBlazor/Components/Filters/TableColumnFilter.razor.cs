@@ -50,10 +50,6 @@ public partial class TableColumnFilter : IFilter
     [NotNull]
     public ITable? Table { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
-
     /// <summary>
     /// 获得 过滤小图标样式
     /// </summary>
@@ -85,16 +81,6 @@ public partial class TableColumnFilter : IFilter
 
         Column.Filter = this;
         _fieldKey = Column.GetFieldName();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
     }
 
     /// <summary>
