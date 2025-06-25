@@ -160,7 +160,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.TableExportExcelIcon, "mdi mdi-file-excel-box" },
         { ComponentIcons.TableExportPdfIcon, "mdi mdi-file-pdf-box" },
         { ComponentIcons.TableSearchButtonIcon, "mdi mdi-magnify" },
-        { ComponentIcons.TableResetSearchButtonIcon, "mdi mdi-trash-can-outline" },
+        { ComponentIcons.TableResetSearchButtonIcon, "mdi mdi-backspace" },
         { ComponentIcons.TableCloseButtonIcon, "mdi mdi-close" },
         { ComponentIcons.TableCancelButtonIcon, "mdi mdi-close" },
         { ComponentIcons.TableSaveButtonIcon, "mdi mdi-content-save" },
