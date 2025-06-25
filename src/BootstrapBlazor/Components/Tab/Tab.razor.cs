@@ -487,7 +487,7 @@ public partial class Tab
     private bool IsPreventDefault => _contextMenuZone != null;
 
     private static string? GetTabItemClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", item is { IsActive: false })
+        .AddClass("d-none", !item.IsActive)
         .Build();
 
     /// <summary>
