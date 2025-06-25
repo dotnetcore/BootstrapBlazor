@@ -727,6 +727,120 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
+
+    #region Draggable
+
+
+    /// <summary>
+    /// Gets or sets whether to enable item dragging. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ItemDraggable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method to be invoked when an item is dropped.
+    /// Drop action can be cancelled by returning false.
+    /// </summary>
+    [Parameter]
+    public Func<TreeDropEventArgs<TItem>, Task<bool>> OnDrop { get; set; } = _ => Task.FromResult(true);
+
+    private bool _previewDrop;
+    private TreeViewItem<TItem>? _draggingItem;
+
+    private void OnItemDragStart(TreeViewItem<TItem> treeViewItem)
+    {
+        _previewDrop = true;
+        _draggingItem = treeViewItem;
+        StateHasChanged();
+    }
+
+    private void OnItemDragEnd()
+    {
+        _previewDrop = false;
+        _draggingItem = null;
+        StateHasChanged();
+    }
+
+    private async Task OnItemDrop(TreeDropEventArgs<TItem> e)
+    {
+        if (_draggingItem is not null)
+        {
+            e.Source = _draggingItem;
+            var allowChangeSource = await OnDrop.Invoke(e);
+            if (!allowChangeSource)
+            {
+                return;
+            }
+
+            // 如果允许改变源节点则更新拖拽项的父对象以及排序
+            _draggingItem.Parent?.Items.Remove(_draggingItem);
+            _draggingItem.IsExpand = e.ExpandAfterDrop;
+
+            switch (e.DropType)
+            {
+                case TreeDropType.AsFirstChild:
+                    // 插入到目标的第一个子节点
+                    e.Target.Items.Insert(0, _draggingItem);
+                    _draggingItem.Parent = e.Target;
+                    break;
+                case TreeDropType.AsLastChild:
+                    // 插入到目标的最后一个子节点
+                    e.Target.Items.Add(_draggingItem);
+                    _draggingItem.Parent = e.Target;
+                    break;
+                case TreeDropType.AsSiblingBelow:
+                    // 作为目标的下一个兄弟节点
+                    if (e.Target.Parent is not null)
+                    {
+                        var index = e.Target.Parent.Items.IndexOf(e.Target);
+                        if (index >= 0 && index < e.Target.Parent.Items.Count - 1)
+                        {
+                            e.Target.Parent.Items.Insert(index + 1, _draggingItem);
+                        }
+                        else
+                        {
+                            e.Target.Parent.Items.Add(_draggingItem);
+                        }
+
+                        _draggingItem.Parent = e.Target.Parent;
+                    }
+                    // 如果目标没有父节点，则作为顶层节点处理
+                    else
+                    {
+                        // 目标节点的Index
+                        var index = Items.IndexOf(e.Target);
+                        if (index >= 0 && index < Items.Count - 1)
+                        {
+                            Items.Insert(index + 1, _draggingItem);
+                        }
+                        else
+                        {
+                            Items.Add(_draggingItem);
+                        }
+
+                        _draggingItem.Parent = null;
+                    }
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
+            _draggingItem = null;
+            _previewDrop = false;
+            _rows = GetTreeItems().ToFlat();
+
+            StateHasChanged();
+        }
+        else
+        {
+            throw new InvalidOperationException("拖拽的项为空");
+        }
+    }
+
+    #endregion
+
     /// <summary>
     /// Gets all selected node collections
     /// </summary>
@@ -762,4 +876,31 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
 
     private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
+}
+
+/// <summary>
+/// Represents the event arguments for the TreeView drop event.
+/// </summary>
+public class TreeDropEventArgs<TItem>
+{
+    /// <summary>
+    /// Gets or sets the source item that is being dropped.
+    /// </summary>
+    public TreeViewItem<TItem>? Source { get; set; }
+
+    /// <summary>
+    /// Gets or sets the target item.
+    /// </summary>
+    public TreeViewItem<TItem> Target { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or sets the drop type.
+    /// </summary>
+    public TreeDropType DropType { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to expand the source item's children when dropping.
+    /// </summary>
+    public bool ExpandAfterDrop { get; set; }
+
 }
