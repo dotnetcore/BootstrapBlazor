@@ -377,7 +377,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnSearchKeyUp_Ok()
+    public async Task OnSearchKeyUp_Ok()
     {
         var resetSearch = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -389,6 +389,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.ShowSearchText, true);
+                pb.Add(a => a.AutoSearchOnInput, false);
                 pb.Add(a => a.ShowSearchTextTooltip, false);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
@@ -407,8 +408,9 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var searchBox = cut.Find(".table-toolbar-search");
-        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
-        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
+        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
+        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
+        await cut.InvokeAsync(() => searchBox.Change("0"));
         Assert.True(resetSearch);
     }
 
