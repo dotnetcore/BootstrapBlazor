@@ -50,10 +50,6 @@ public partial class TableColumnFilter : IFilter
     [NotNull]
     public ITable? Table { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
-
     /// <summary>
     /// 获得 过滤小图标样式
     /// </summary>

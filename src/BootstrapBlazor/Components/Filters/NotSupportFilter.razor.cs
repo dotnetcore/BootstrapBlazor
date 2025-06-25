@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,10 +10,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class NotSupportFilter
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
-
     /// <summary>
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
