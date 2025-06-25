@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,9 +12,25 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class NotSupportFilter
 {
-    private string? FilterRowClassString => CssBuilder.Default("filter-row")
-        .AddClass("active", TableColumnFilter.HasFilter())
-        .Build();
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
+
+    /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedMessage { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -26,8 +44,8 @@ public partial class NotSupportFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
+    public override void Reset()
     {
-        await base.SetFilterConditionsAsync(filter);
+
     }
 }
