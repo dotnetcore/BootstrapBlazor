@@ -90,16 +90,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
