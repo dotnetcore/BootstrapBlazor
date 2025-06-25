@@ -27,6 +27,12 @@ public partial class Select<TValue> : ISelect, ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the "active" state should be used when the associated value is null.
+    /// </summary>
+    [Parameter]
+    public bool IsUseActiveWhenValueIsNull { get; set; }
+
+    /// <summary>
     /// Gets or sets the display template. Default is null.
     /// </summary>
     [Parameter]
@@ -444,10 +450,18 @@ public partial class Select<TValue> : ISelect, ILookup
         {
             _lastSelectedValueString = "";
             _init = false;
-            return null;
+
+            return IsUseActiveWhenValueIsNull && !IsVirtualize
+                ? SetSelectedItemState(GetItemByRows())
+                : null;
         }
 
         var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
+        return SetSelectedItemState(item);
+    }
+
+    private SelectedItem? SetSelectedItemState(SelectedItem? item)
+    {
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)
