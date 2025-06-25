@@ -177,7 +177,10 @@
                                 }
                                 else
                                 {
-                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                    Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                    ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                    </BootstrapInput>
                                 }
                             }
                             @if (ShowSearchButton)
