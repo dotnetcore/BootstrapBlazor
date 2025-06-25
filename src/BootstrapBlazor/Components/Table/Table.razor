@@ -169,7 +169,10 @@
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyUp" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                        ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                        </BootstrapInput>
                                     </Tooltip>
                                 }
                                 else
@@ -984,13 +987,17 @@
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" ShowLabel="false" SkipValidate="true">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                            @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                            ShowLabel="false" SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                             </BootstrapInput>
                         </Tooltip>
                     }
                     else
                     {
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" SkipValidate="true">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                        SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                         </BootstrapInput>
                     }
                 }

@@ -279,6 +279,13 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
+    private async Task OnSearchTextValueChanged(string? value)
+    {
+        SearchText = value;
+
+        await SearchClick();
+    }
+
     private async Task OnSearchKeyUp(KeyboardEventArgs args)
     {
         if (args.Key == "Enter")

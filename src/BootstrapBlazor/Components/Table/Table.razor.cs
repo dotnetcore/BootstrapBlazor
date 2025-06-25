@@ -17,6 +17,12 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
+    /// Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false.
+    /// </summary>
+    [Parameter]
+    public bool AutoSearchOnInput { get; set; }
+
+    /// <summary>
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
