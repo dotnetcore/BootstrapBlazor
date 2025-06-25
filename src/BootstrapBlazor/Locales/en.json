@@ -274,7 +274,7 @@
     "Contains": "Contains",
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All",
-    "NotSupportedColumnFilterMessage": "Unsupported filter type, Please customize the filter use FilterTemplate, Please refer https://www.blazor.zone/table/filter#CustomFilter",
+    "NotSupportedColumnFilterMessage": "<p>Unsupported filter type, Please customize the filter use <code>FilterTemplate</code></p><div>Please refer <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Please enter ...",
     "MultiFilterSelectAllText": "Select All"
   },
