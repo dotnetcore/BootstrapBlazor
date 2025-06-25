@@ -17,6 +17,12 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 Loading 模板
     /// </summary>
     [Parameter]
