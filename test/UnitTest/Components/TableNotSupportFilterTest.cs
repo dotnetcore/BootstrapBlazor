@@ -12,7 +12,7 @@ public class TableNotSupportFilterTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<TableColumnFilter>(pb =>
         {
-            pb.Add(a => a.NotSupportedMessage, "不支持的类型");
+            pb.Add(a => a.NotSupportedColumnFilterMessage, "不支持的类型");
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, new MockColumn());
         });

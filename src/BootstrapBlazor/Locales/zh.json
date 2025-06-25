@@ -274,7 +274,7 @@
     "Contains": "包含",
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选",
-    "NotSupportedMessage": "不支持的类型，请使用 FilterTemplate 自定义过滤组件，请参考文档 https://www.blazor.zone/table/filter#CustomFilter",
+    "NotSupportedColumnFilterMessage": "不支持的类型，请使用 FilterTemplate 自定义过滤组件，请参考文档 https://www.blazor.zone/table/filter#CustomFilter",
     "MultiFilterSearchPlaceHolderText": "请输入 ...",
     "MultiFilterSelectAllText": "全选"
   },

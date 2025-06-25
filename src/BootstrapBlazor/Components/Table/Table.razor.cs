@@ -20,7 +20,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
-    public string? NotSupportedMessage { get; set; }
+    public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
     /// 获得/设置 Loading 模板

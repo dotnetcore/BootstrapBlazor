@@ -586,8 +586,9 @@
                             }
                             @if (col.GetFilterable() && !ShowFilterHeader)
                             {
-                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)"
-                                                   NotSupportedMessage="@NotSupportedMessage"
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this"
+                                                   IsActive="@Filters.ContainsKey(fieldName)"
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage"
                                                    @onclick:stopPropagation>
                                 </TableColumnFilter>
                             }
@@ -659,7 +660,7 @@
                             @if(col.GetFilterable())
                             {
                                 <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"
-                                                   NotSupportedMessage="@NotSupportedMessage">
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage">
                                 </TableColumnFilter>
                             }
                         </div>
