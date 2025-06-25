@@ -3861,7 +3861,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(searchModel.Name);
 
@@ -3935,7 +3935,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.Instance.SearchModel.Name = "Test";
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(table.Instance.SearchModel.Name);
     }
@@ -4119,7 +4119,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
 
         Assert.True(reset);
