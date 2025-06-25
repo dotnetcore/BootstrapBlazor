@@ -451,6 +451,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.NotSupportedColumnFilterMessage, "test-not-support");
                 pb.Add(a => a.SearchText, "张三");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
