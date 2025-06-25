@@ -14,6 +14,7 @@ public partial class NotSupportFilter
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
+    [NotNull]
     public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
