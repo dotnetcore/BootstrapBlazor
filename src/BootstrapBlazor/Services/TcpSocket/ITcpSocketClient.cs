@@ -18,7 +18,7 @@ public interface ITcpSocketClient : IDisposable
     int ReceiveBufferSize { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether the system is currently connected.
+    /// Gets a value indicating whether the system is currently connected. Default is false.
     /// </summary>
     bool IsConnected { get; }
 
