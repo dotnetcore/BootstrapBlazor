@@ -53,18 +53,37 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(LocalEndPoint);
-            await _client.ConnectAsync(endPoint, token);
 
-            // 开始接收数据
-            _ = Task.Run(ReceiveAsync, token);
+            var connectionToken = token;
+            if (ConnectTimeout > 0)
+            {
+                // 设置连接超时时间
+                var connectTokenSource = new CancellationTokenSource(ConnectTimeout);
+                connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
+            }
+            await _client.ConnectAsync(endPoint, connectionToken);
 
+            // 设置本地以及远端端点信息
             LocalEndPoint = (IPEndPoint)_client.Client.LocalEndPoint!;
             _remoteEndPoint = endPoint;
+
+            if (IsAutoReceive)
+            {
+                // 开始接收数据
+                _ = Task.Run(ReceiveAsync, token);
+            }
             ret = true;
         }
         catch (OperationCanceledException ex)
         {
-            Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            if (token.IsCancellationRequested)
+            {
+                Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            }
+            else
+            {
+                Logger.LogWarning(ex, "TCP Socket connect operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            }
         }
         catch (Exception ex)
         {
