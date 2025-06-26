@@ -57,10 +57,11 @@ public static class UploadFileExtensions
     /// <param name="upload"></param>
     /// <param name="fileName"></param>
     /// <param name="maxAllowedSize"></param>
+    /// <param name="bufferSize"></param>
     /// <param name="token"></param>
     /// <returns></returns>
     [ExcludeFromCodeCoverage]
-    public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
+    public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, int bufferSize = 64 * 1024, CancellationToken token = default)
     {
         var ret = false;
         if (upload.File != null)
@@ -92,7 +93,7 @@ public static class UploadFileExtensions
                 {
                     // 打开文件流
                     var stream = upload.File.OpenReadStream(maxAllowedSize, token);
-                    var buffer = new byte[4 * 1096];
+                    var buffer = new byte[bufferSize];
                     int bytesRead = 0;
                     double totalRead = 0;
 
@@ -100,7 +101,7 @@ public static class UploadFileExtensions
                     while ((bytesRead = await stream.ReadAsync(buffer, token)) > 0)
                     {
                         totalRead += bytesRead;
-                        await uploadFile.WriteAsync(buffer.AsMemory(0, bytesRead), token);
+                        await uploadFile.WriteAsync(buffer, 0, bytesRead, token);
 
                         if (upload.UpdateCallback != null)
                         {
