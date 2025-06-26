@@ -26,7 +26,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
-    public int ReceiveBufferSize { get; set; } = 1024 * 10;
+    public int ReceiveBufferSize { get; set; } = 1024 * 64;
 
     public bool IsAutoReceive { get; set; } = true;
 
