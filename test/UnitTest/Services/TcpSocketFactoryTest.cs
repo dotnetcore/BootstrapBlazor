@@ -45,6 +45,16 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
+    public async Task ConnectAsync_Timeout()
+    {
+        var client = CreateClient();
+        client.ConnectTimeout = 1000;
+
+        var connect = await client.ConnectAsync("localhost", 9999);
+        Assert.False(connect);
+    }
+
+    [Fact]
     public async Task ConnectAsync_Cancel()
     {
         var client = CreateClient();
@@ -136,7 +146,7 @@ public class TcpSocketFactoryTest
         var port = 8882;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        Assert.Equal(1024 * 10, client.ReceiveBufferSize);
+        Assert.Equal(1024 * 64, client.ReceiveBufferSize);
 
         client.ReceiveBufferSize = 1024 * 20;
         Assert.Equal(1024 * 20, client.ReceiveBufferSize);
