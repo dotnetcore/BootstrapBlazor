@@ -51,17 +51,9 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
 
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "div");
-        builder.SetKey(_key);
-        builder.AddAttribute(5, "class", "tabs-body-content-wrap");
-        builder.AddContent(10, RenderItemContent(Item.ChildContent));
-        builder.CloseElement();
-    }
-
-    private RenderFragment RenderItemContent(RenderFragment? content) => builder =>
-    {
         builder.OpenComponent<ErrorLogger>(0);
-        builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
+        builder.SetKey(_key);
+        builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), Item.ChildContent);
 
         var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
@@ -76,7 +68,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
             return Task.CompletedTask;
         }));
         builder.CloseComponent();
-    };
+    }
 
     /// <summary>
     /// Render method
