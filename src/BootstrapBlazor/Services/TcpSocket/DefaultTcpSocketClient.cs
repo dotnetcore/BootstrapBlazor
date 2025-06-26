@@ -28,7 +28,15 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 
     public int ReceiveBufferSize { get; set; } = 1024 * 10;
 
+    public bool IsAutoReceive { get; set; } = true;
+
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
+
+    public int ConnectTimeout { get; set; }
+
+    public int SendTimeout { get; set; }
+
+    public int ReceiveTimeout { get; set; }
 
     public void SetDataHandler(IDataPackageHandler handler)
     {
