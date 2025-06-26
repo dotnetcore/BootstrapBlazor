@@ -77,6 +77,23 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
+    public async Task Send_Timeout()
+    {
+        var port = 8887;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+        client.SendTimeout = 100;
+        client.SetDataHandler(new MockSendTimeoutHandler());
+
+        await client.ConnectAsync("localhost", port);
+
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        var result = await client.SendAsync(data);
+        Assert.False(result);
+    }
+
+    [Fact]
     public async Task SendAsync_Error()
     {
         var client = CreateClient();
@@ -499,27 +516,37 @@ public class TcpSocketFactoryTest
     {
         public ITcpSocketClient? Socket { get; set; }
 
-        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
+        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
             Socket?.Close();
-            await Task.Delay(10);
+            await Task.Delay(10, token);
             return data;
         }
     }
 
     class MockReceiveErrorHandler : DataPackageHandlerBase
     {
-        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
+        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
             return ValueTask.FromResult(data);
         }
 
-        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data)
+        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
-            await base.ReceiveAsync(data);
+            await base.ReceiveAsync(data, token);
 
             // 模拟接收数据时报错
             throw new InvalidOperationException("Test Error");
+        }
+    }
+
+    class MockSendTimeoutHandler : DataPackageHandlerBase
+    {
+        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            // 模拟发送超时
+            await Task.Delay(200, token);
+            return data;
         }
     }
 }

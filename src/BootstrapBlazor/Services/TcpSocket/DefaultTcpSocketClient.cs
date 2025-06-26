@@ -102,17 +102,34 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
         var ret = false;
         try
         {
+            var stream = _client.GetStream();
+
+            var sendToken = token;
+            if (SendTimeout > 0)
+            {
+                // 设置发送超时时间
+                var sendTokenSource = new CancellationTokenSource(SendTimeout);
+                sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
+            }
+
             if (_dataPackageHandler != null)
             {
-                data = await _dataPackageHandler.SendAsync(data);
+                data = await _dataPackageHandler.SendAsync(data, sendToken);
             }
-            var stream = _client.GetStream();
-            await stream.WriteAsync(data, token);
+
+            await stream.WriteAsync(data, sendToken);
             ret = true;
         }
         catch (OperationCanceledException ex)
         {
-            Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            if (token.IsCancellationRequested)
+            {
+                Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+            else
+            {
+                Logger.LogWarning(ex, "TCP Socket send operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
         }
         catch (Exception ex)
         {
