@@ -23,6 +23,10 @@ public interface ITcpSocketClient : IDisposable
     bool IsConnected { get; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether automatic receiving data is enabled. Default is true.
+    /// </summary>
+    bool IsAutoReceive { get; set; }
+    /// <summary>
     /// Gets the local network endpoint that the socket is bound to.
     /// </summary>
     /// <remarks>This property provides information about the local endpoint of the socket, which is typically
