@@ -100,7 +100,7 @@ public static class UploadFileExtensions
                     while ((bytesRead = await stream.ReadAsync(buffer, token)) > 0)
                     {
                         totalRead += bytesRead;
-                        await uploadFile.WriteAsync(buffer.AsMemory(0, bytesRead), token);
+                        await uploadFile.WriteAsync(buffer, 0, bytesRead, token);
 
                         if (upload.UpdateCallback != null)
                         {
