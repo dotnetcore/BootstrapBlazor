@@ -148,12 +148,100 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
+    public async Task ReceiveAsync_Timeout()
+    {
+        var port = 8888;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+        client.ReceiveTimeout = 100;
+        client.SetDataHandler(new MockReceiveTimeoutHandler());
+
+        await client.ConnectAsync("localhost", port);
+
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+        await Task.Delay(220); // 等待接收超时
+    }
+
+    [Fact]
+    public async Task ReceiveAsync_Cancel()
+    {
+        var port = 8889;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+        client.SetDataHandler(new MockReceiveTimeoutHandler());
+
+        await client.ConnectAsync("localhost", port);
+
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+
+        // 通过反射取消令牌
+        var fieldInfo = client.GetType().GetField("_receiveCancellationTokenSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(fieldInfo);
+        var tokenSource = fieldInfo.GetValue(client) as CancellationTokenSource;
+        Assert.NotNull(tokenSource);
+        tokenSource.Cancel();
+        await Task.Delay(50);
+    }
+
+    [Fact]
+    public async Task ReceiveAsync_InvalidOperationException()
+    {
+        var port = 8890;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+
+        // 未连接
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
+        Assert.NotNull(ex);
+
+        // 反射给 _client 赋值但是未连接
+        var fieldInfo = client.GetType().GetField("_client", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(fieldInfo);
+        fieldInfo.SetValue(client, new TcpClient());
+        ex = null;
+        ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
+        Assert.NotNull(ex);
+
+        await client.ConnectAsync("localhost", port);
+        ex = null;
+        ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
+
+        //client.Close();
+        //client.IsAutoReceive = false;
+        //await client.ConnectAsync("localhost", port);
+        //var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        //await client.SendAsync(data);
+        //var payload = await client.ReceiveAsync();
+        //Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+    }
+
+    [Fact]
+    public async Task ReceiveAsync_Ok()
+    {
+        var port = 8891;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient();
+        client.IsAutoReceive = false;
+        await client.ConnectAsync("localhost", port);
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+        var payload = await client.ReceiveAsync();
+        Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+    }
+
+    [Fact]
     public async Task ReceiveAsync_Error()
     {
         var client = CreateClient();
 
         // 测试未建立连接前调用 ReceiveAsync 方法报异常逻辑
-        var methodInfo = client.GetType().GetMethod("ReceiveAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var methodInfo = client.GetType().GetMethod("AutoReceiveAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         Assert.NotNull(methodInfo);
 
         var task = (ValueTask)methodInfo.Invoke(client, null)!;
@@ -547,6 +635,16 @@ public class TcpSocketFactoryTest
             // 模拟发送超时
             await Task.Delay(200, token);
             return data;
+        }
+    }
+
+    class MockReceiveTimeoutHandler : DataPackageHandlerBase
+    {
+        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            // 模拟接收超时
+            await Task.Delay(200, token);
+            await base.ReceiveAsync(data, token);
         }
     }
 }
