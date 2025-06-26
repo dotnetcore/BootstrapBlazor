@@ -195,7 +195,7 @@ public class TcpSocketFactoryTest
 
         var client = CreateClient();
 
-        // 未连接
+        //未连接
         var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
         Assert.NotNull(ex);
 
@@ -211,13 +211,15 @@ public class TcpSocketFactoryTest
         ex = null;
         ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
 
-        //client.Close();
-        //client.IsAutoReceive = false;
-        //await client.ConnectAsync("localhost", port);
-        //var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
-        //await client.SendAsync(data);
-        //var payload = await client.ReceiveAsync();
-        //Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+        client.Close();
+        client.IsAutoReceive = false;
+        var connected = await client.ConnectAsync("localhost", port);
+        Assert.True(connected);
+
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+        var payload = await client.ReceiveAsync();
+        Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
     }
 
     [Fact]
