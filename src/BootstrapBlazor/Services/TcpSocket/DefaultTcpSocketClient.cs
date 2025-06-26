@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
+sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
@@ -21,7 +21,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 
     public bool IsConnected => _client?.Connected ?? false;
 
-    public IPEndPoint LocalEndPoint { get; set; } = endPoint;
+    public IPEndPoint LocalEndPoint => localEndPoint;
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
@@ -52,7 +52,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
             Close();
 
             // 创建新的 TcpClient 实例
-            _client ??= new TcpClient(LocalEndPoint);
+            _client ??= new TcpClient(localEndPoint);
 
             var connectionToken = token;
             if (ConnectTimeout > 0)
