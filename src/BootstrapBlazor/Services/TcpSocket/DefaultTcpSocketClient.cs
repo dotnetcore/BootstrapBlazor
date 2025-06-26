@@ -102,6 +102,59 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
         return ret;
     }
 
+    public async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
+    {
+        if (IsAutoReceive)
+        {
+            throw new InvalidOperationException("Cannot call ReceiveAsync when IsAutoReceive is true. Use the auto-receive mechanism instead.");
+        }
+
+        if (_client == null || !_client.Connected)
+        {
+            throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
+        }
+
+        var ret = Memory<byte>.Empty;
+        try
+        {
+            _receiveCancellationTokenSource ??= new();
+            using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+            var buffer = block.Memory;
+            var stream = _client.GetStream();
+            var len = await stream.ReadAsync(buffer, _receiveCancellationTokenSource.Token);
+            if (len == 0)
+            {
+                // 远端主机关闭链路
+                Logger.LogInformation("TCP Socket {LocalEndPoint} received 0 data closed by {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+            else
+            {
+                buffer = buffer[..len];
+
+                if (ReceivedCallBack != null)
+                {
+                    await ReceivedCallBack(buffer);
+                }
+
+                if (_dataPackageHandler != null)
+                {
+                    await _dataPackageHandler.ReceiveAsync(buffer);
+                }
+
+                ret = buffer;
+            }
+        }
+        catch (OperationCanceledException ex)
+        {
+            Logger.LogWarning(ex, "TCP Socket receive operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "TCP Socket receive failed from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+        }
+        return ret;
+    }
+
     private async ValueTask ReceiveAsync()
     {
         _receiveCancellationTokenSource ??= new();
