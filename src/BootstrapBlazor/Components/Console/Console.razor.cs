@@ -150,7 +150,7 @@ public partial class Console
     /// <summary>
     /// 获得 是否显示 Footer
     /// </summary>
-    protected bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;
+    private bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;
 
     [Inject]
     [NotNull]
