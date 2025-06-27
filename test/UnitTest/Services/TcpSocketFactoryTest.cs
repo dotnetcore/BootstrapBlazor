@@ -13,7 +13,7 @@ namespace UnitTest.Services;
 public class TcpSocketFactoryTest
 {
     [Fact]
-    public void GetOrCreate_Ok()
+    public async Task GetOrCreate_Ok()
     {
         // 测试 GetOrCreate 方法创建的 Client 销毁后继续 GetOrCreate 得到的对象是否可用
         var sc = new ServiceCollection();
@@ -25,7 +25,7 @@ public class TcpSocketFactoryTest
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client1 = factory.GetOrCreate("demo", key => Utility.ConvertToIpEndPoint("localhost", 0));
-        client1.Close();
+        await client1.CloseAsync();
 
         var client2 = factory.GetOrCreate("demo", key => Utility.ConvertToIpEndPoint("localhost", 0));
         Assert.Equal(client1, client2);
@@ -40,8 +40,8 @@ public class TcpSocketFactoryTest
         Assert.Equal(client4, client5);
         Assert.NotNull(client5);
 
-        client5.Dispose();
-        factory.Dispose();
+        await client5.DisposeAsync();
+        await factory.DisposeAsync();
     }
 
     [Fact]
@@ -211,7 +211,7 @@ public class TcpSocketFactoryTest
         ex = null;
         ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
 
-        client.Close();
+        await client.CloseAsync();
         client.IsAutoReceive = false;
         var connected = await client.ConnectAsync("localhost", port);
         Assert.True(connected);
@@ -342,7 +342,7 @@ public class TcpSocketFactoryTest
         await Task.Delay(10);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync();
         StopTcpServer(server);
     }
 
@@ -394,7 +394,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync();
         StopTcpServer(server);
     }
 
@@ -441,7 +441,7 @@ public class TcpSocketFactoryTest
         Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
 
         // 关闭连接
-        client.Close();
+        await client.CloseAsync();
         StopTcpServer(server);
 
         var handler = new DelimiterDataPackageHandler("\r\n");
@@ -608,7 +608,10 @@ public class TcpSocketFactoryTest
 
         public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
-            Socket?.Close();
+            if (Socket != null)
+            {
+                await Socket.CloseAsync();
+            }
             await Task.Delay(10, token);
             return data;
         }
