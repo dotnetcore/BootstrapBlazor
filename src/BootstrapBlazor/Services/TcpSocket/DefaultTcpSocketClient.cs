@@ -33,6 +33,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(localEndPoint);
+            _remoteEndPoint = endPoint;
 
             var connectionToken = token;
             if (ConnectTimeout > 0)
