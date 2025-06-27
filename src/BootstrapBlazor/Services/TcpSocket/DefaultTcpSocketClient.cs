@@ -119,7 +119,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
     public override async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
     {
-        if (_client == null || !_client.Connected)
+        if (_client is not { Connected: true })
         {
             throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
         }
