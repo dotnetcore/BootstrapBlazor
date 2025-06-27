@@ -11,7 +11,7 @@ namespace Longbow.Tasks.Services;
 /// <summary>
 /// 模拟 Socket 服务端服务类
 /// </summary>
-internal class MockSocketServerService : BackgroundService
+internal class MockSocketServerService(ILogger<MockSocketServerService> logger) : BackgroundService
 {
     /// <summary>
     /// 运行任务
@@ -27,33 +27,40 @@ internal class MockSocketServerService : BackgroundService
             try
             {
                 var client = await server.AcceptTcpClientAsync(stoppingToken);
-                _ = Task.Run(() => MockDelimiterPackageAsync(client), stoppingToken);
+                _ = Task.Run(() => MockSendAsync(client, stoppingToken), stoppingToken);
             }
             catch { }
         }
     }
 
-    private static async Task MockDelimiterPackageAsync(TcpClient client)
+    private async Task MockSendAsync(TcpClient client, CancellationToken stoppingToken)
     {
-        using var stream = client.GetStream();
-        while (true)
+        // 方法目的:
+        // 1. 模拟服务器间隔 10秒 发送当前时间戳数据包到客户端
+        await using var stream = client.GetStream();
+        while (stoppingToken is { IsCancellationRequested: false })
         {
-            var buffer = new byte[10240];
-            var len = await stream.ReadAsync(buffer);
-            if (len == 0)
+            try
+            {
+                var data = System.Text.Encoding.UTF8.GetBytes(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                await stream.WriteAsync(data, stoppingToken);
+
+                await Task.Delay(10 * 1000, stoppingToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // 任务被取消时退出
+                break;
+            }
+            catch (SocketException)
             {
                 break;
             }
-
-            // 回写数据到客户端
-            var block = new ReadOnlyMemory<byte>(buffer, 0, len);
-            await stream.WriteAsync(block, CancellationToken.None);
-
-            await Task.Delay(20);
-
-            // 模拟拆包发送第二段数据
-            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6, 0x13, 0x10 }, CancellationToken.None);
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "MockSocketServerService encountered an error while sending data.");
+                break;
+            }
         }
     }
-
 }
