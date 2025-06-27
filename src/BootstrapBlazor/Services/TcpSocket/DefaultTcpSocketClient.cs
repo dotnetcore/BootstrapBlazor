@@ -12,44 +12,30 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
+sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientBase
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private IPEndPoint? _remoteEndPoint;
 
-    public bool IsConnected => _client?.Connected ?? false;
-
-    public IPEndPoint? LocalEndPoint { get; set; }
+    public override bool IsConnected => _client?.Connected ?? false;
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
-    public int ReceiveBufferSize { get; set; } = 1024 * 64;
-
-    public bool IsAutoReceive { get; set; } = true;
-
-    public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
-
-    public int ConnectTimeout { get; set; }
-
-    public int SendTimeout { get; set; }
-
-    public int ReceiveTimeout { get; set; }
-
-    public void SetDataHandler(IDataPackageHandler handler)
+    public override void SetDataHandler(IDataPackageHandler handler)
     {
         _dataPackageHandler = handler;
     }
 
-    public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+    public override async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
         var ret = false;
         try
         {
             // 释放资源
-            Close();
+            await Close();
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(localEndPoint);
@@ -91,7 +77,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
         return ret;
     }
 
-    public async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+    public override async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         if (_client is not { Connected: true })
         {
@@ -137,7 +123,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
         return ret;
     }
 
-    public async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
+    public override async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
     {
         if (_client == null || !_client.Connected)
         {
@@ -228,12 +214,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
         return len;
     }
 
-    public void Close()
-    {
-        Dispose(true);
-    }
-
-    private void Dispose(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -255,14 +236,6 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
                 _client = null;
             }
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        return ValueTask.CompletedTask;
     }
 }
