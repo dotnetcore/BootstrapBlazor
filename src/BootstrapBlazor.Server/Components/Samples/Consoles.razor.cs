@@ -19,7 +19,11 @@ public sealed partial class Consoles
     /// <summary>
     /// OnClear
     /// </summary>
-    private void OnClear() => Messages.Clear();
+    private Task OnClear()
+    {
+        Messages.Clear();
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// GetColor
