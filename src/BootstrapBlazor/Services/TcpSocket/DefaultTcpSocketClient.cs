@@ -44,13 +44,17 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
             }
             await _client.ConnectAsync(endPoint, connectionToken);
 
-            // 设置本地以及远端端点信息
-            LocalEndPoint = (IPEndPoint)_client.Client.LocalEndPoint!;
-            _remoteEndPoint = endPoint;
-
-            if (IsAutoReceive)
+            if (_client.Connected)
             {
-                _ = Task.Run(AutoReceiveAsync);
+                // 设置本地端点信息
+                if (_client.Client.LocalEndPoint is IPEndPoint local)
+                {
+                    LocalEndPoint = local;
+                }
+                if (IsAutoReceive)
+                {
+                    _ = Task.Run(AutoReceiveAsync);
+                }
             }
             ret = _client.Connected;
         }
