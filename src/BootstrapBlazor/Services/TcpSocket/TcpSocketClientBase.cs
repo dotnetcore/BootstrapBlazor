@@ -105,10 +105,6 @@ public abstract class TcpSocketClientBase : ITcpSocketClient
     /// unmanaged resources.</param>
     protected virtual ValueTask DisposeAsync(bool disposing)
     {
-        if (disposing)
-        {
-            LocalEndPoint = null;
-        }
         return ValueTask.CompletedTask;
     }
 

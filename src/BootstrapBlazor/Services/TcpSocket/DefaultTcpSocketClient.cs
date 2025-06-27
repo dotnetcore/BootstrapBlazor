@@ -26,6 +26,8 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
     public override void SetDataHandler(IDataPackageHandler handler)
     {
+        base.SetDataHandler(handler);
+
         _dataPackageHandler = handler;
     }
 
@@ -214,8 +216,10 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
         return len;
     }
 
-    protected override ValueTask DisposeAsync(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             LocalEndPoint = null;
@@ -236,6 +240,5 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
                 _client = null;
             }
         }
-        return ValueTask.CompletedTask;
     }
 }
