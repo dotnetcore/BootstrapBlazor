@@ -57,11 +57,16 @@ public abstract class TcpSocketClientBase : ITcpSocketClient
     public int ReceiveTimeout { get; set; }
 
     /// <summary>
+    /// Gets or sets the handler responsible for processing data packages.
+    /// </summary>
+    public IDataPackageHandler? DataPackageHandler { get; protected set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public virtual void SetDataHandler(IDataPackageHandler handler)
     {
-
+        DataPackageHandler = handler;
     }
 
     /// <summary>

@@ -15,7 +15,6 @@ namespace BootstrapBlazor.Components;
 sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientBase
 {
     private TcpClient? _client;
-    private IDataPackageHandler? _dataPackageHandler;
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private IPEndPoint? _remoteEndPoint;
 
@@ -23,13 +22,6 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
-
-    public override void SetDataHandler(IDataPackageHandler handler)
-    {
-        base.SetDataHandler(handler);
-
-        _dataPackageHandler = handler;
-    }
 
     public override async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
@@ -99,9 +91,9 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
 
-            if (_dataPackageHandler != null)
+            if (DataPackageHandler != null)
             {
-                data = await _dataPackageHandler.SendAsync(data, sendToken);
+                data = await DataPackageHandler.SendAsync(data, sendToken);
             }
 
             await stream.WriteAsync(data, sendToken);
@@ -192,9 +184,9 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
                     await ReceivedCallBack(buffer);
                 }
 
-                if (_dataPackageHandler != null)
+                if (DataPackageHandler != null)
                 {
-                    await _dataPackageHandler.ReceiveAsync(buffer, receiveToken);
+                    await DataPackageHandler.ReceiveAsync(buffer, receiveToken);
                 }
             }
         }
