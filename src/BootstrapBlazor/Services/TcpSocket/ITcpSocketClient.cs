@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Represents a TCP socket for network communication.
 /// </summary>
-public interface ITcpSocketClient : IDisposable
+public interface ITcpSocketClient : IAsyncDisposable
 {
     /// <summary>
     /// Gets or sets the size, in bytes, of the receive buffer used for network operations.
@@ -110,5 +110,5 @@ public interface ITcpSocketClient : IDisposable
     /// <remarks>Once the connection or resource is closed, it cannot be reopened. Ensure that all necessary
     /// operations  are completed before calling this method. This method is typically used to clean up resources when
     /// they  are no longer needed.</remarks>
-    void Close();
+    ValueTask Close();
 }
