@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
+sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
 {
     private TcpClient? _client;
     private IDataPackageHandler? _dataPackageHandler;
@@ -21,14 +21,22 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
 
     public bool IsConnected => _client?.Connected ?? false;
 
-    public IPEndPoint LocalEndPoint { get; set; } = endPoint;
+    public IPEndPoint? LocalEndPoint { get; set; }
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
 
-    public int ReceiveBufferSize { get; set; } = 1024 * 10;
+    public int ReceiveBufferSize { get; set; } = 1024 * 64;
+
+    public bool IsAutoReceive { get; set; } = true;
 
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
+
+    public int ConnectTimeout { get; set; }
+
+    public int SendTimeout { get; set; }
+
+    public int ReceiveTimeout { get; set; }
 
     public void SetDataHandler(IDataPackageHandler handler)
     {
@@ -44,19 +52,37 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
             Close();
 
             // 创建新的 TcpClient 实例
-            _client ??= new TcpClient(LocalEndPoint);
-            await _client.ConnectAsync(endPoint, token);
+            _client ??= new TcpClient(localEndPoint);
 
-            // 开始接收数据
-            _ = Task.Run(ReceiveAsync, token);
+            var connectionToken = token;
+            if (ConnectTimeout > 0)
+            {
+                // 设置连接超时时间
+                var connectTokenSource = new CancellationTokenSource(ConnectTimeout);
+                connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
+            }
+            await _client.ConnectAsync(endPoint, connectionToken);
 
+            // 设置本地以及远端端点信息
             LocalEndPoint = (IPEndPoint)_client.Client.LocalEndPoint!;
             _remoteEndPoint = endPoint;
+
+            if (IsAutoReceive)
+            {
+                _ = Task.Run(AutoReceiveAsync);
+            }
             ret = true;
         }
         catch (OperationCanceledException ex)
         {
-            Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            if (token.IsCancellationRequested)
+            {
+                Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            }
+            else
+            {
+                Logger.LogWarning(ex, "TCP Socket connect operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
+            }
         }
         catch (Exception ex)
         {
@@ -75,17 +101,34 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
         var ret = false;
         try
         {
+            var stream = _client.GetStream();
+
+            var sendToken = token;
+            if (SendTimeout > 0)
+            {
+                // 设置发送超时时间
+                var sendTokenSource = new CancellationTokenSource(SendTimeout);
+                sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
+            }
+
             if (_dataPackageHandler != null)
             {
-                data = await _dataPackageHandler.SendAsync(data);
+                data = await _dataPackageHandler.SendAsync(data, sendToken);
             }
-            var stream = _client.GetStream();
-            await stream.WriteAsync(data, token);
+
+            await stream.WriteAsync(data, sendToken);
             ret = true;
         }
         catch (OperationCanceledException ex)
         {
-            Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            if (token.IsCancellationRequested)
+            {
+                Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+            else
+            {
+                Logger.LogWarning(ex, "TCP Socket send operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
         }
         catch (Exception ex)
         {
@@ -94,7 +137,25 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
         return ret;
     }
 
-    private async ValueTask ReceiveAsync()
+    public async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
+    {
+        if (_client == null || !_client.Connected)
+        {
+            throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
+        }
+
+        if (IsAutoReceive)
+        {
+            throw new InvalidOperationException("Cannot call ReceiveAsync when IsAutoReceive is true. Use the auto-receive mechanism instead.");
+        }
+
+        using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+        var buffer = block.Memory;
+        var len = await ReceiveCoreAsync(_client, buffer, token);
+        return buffer[0..len];
+    }
+
+    private async ValueTask AutoReceiveAsync()
     {
         _receiveCancellationTokenSource ??= new();
         while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
@@ -104,42 +165,67 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
                 throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
             }
 
-            try
+            using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+            var buffer = block.Memory;
+            var len = await ReceiveCoreAsync(_client, buffer, _receiveCancellationTokenSource.Token);
+            if (len == 0)
             {
-                using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
-                var buffer = block.Memory;
-                var stream = _client.GetStream();
-                var len = await stream.ReadAsync(buffer, _receiveCancellationTokenSource.Token);
-                if (len == 0)
-                {
-                    // 远端主机关闭链路
-                    Logger.LogInformation("TCP Socket {LocalEndPoint} received 0 data closed by {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-                    break;
-                }
-                else
-                {
-                    buffer = buffer[..len];
-
-                    if (ReceivedCallBack != null)
-                    {
-                        await ReceivedCallBack(buffer);
-                    }
-
-                    if (_dataPackageHandler != null)
-                    {
-                        await _dataPackageHandler.ReceiveAsync(buffer);
-                    }
-                }
-            }
-            catch (OperationCanceledException ex)
-            {
-                Logger.LogWarning(ex, "TCP Socket receive operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(ex, "TCP Socket receive failed from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+                break;
             }
         }
+    }
+
+    private async ValueTask<int> ReceiveCoreAsync(TcpClient client, Memory<byte> buffer, CancellationToken token)
+    {
+        var len = 0;
+        try
+        {
+            var stream = client.GetStream();
+
+            var receiveToken = token;
+            if (ReceiveTimeout > 0)
+            {
+                // 设置接收超时时间
+                var receiveTokenSource = new CancellationTokenSource(ReceiveTimeout);
+                receiveToken = CancellationTokenSource.CreateLinkedTokenSource(receiveToken, receiveTokenSource.Token).Token;
+            }
+            len = await stream.ReadAsync(buffer, receiveToken);
+            if (len == 0)
+            {
+                // 远端主机关闭链路
+                Logger.LogInformation("TCP Socket {LocalEndPoint} received 0 data closed by {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+            else
+            {
+                buffer = buffer[..len];
+
+                if (ReceivedCallBack != null)
+                {
+                    await ReceivedCallBack(buffer);
+                }
+
+                if (_dataPackageHandler != null)
+                {
+                    await _dataPackageHandler.ReceiveAsync(buffer, receiveToken);
+                }
+            }
+        }
+        catch (OperationCanceledException ex)
+        {
+            if (token.IsCancellationRequested)
+            {
+                Logger.LogWarning(ex, "TCP Socket receive operation canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+            else
+            {
+                Logger.LogWarning(ex, "TCP Socket receive operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "TCP Socket receive failed from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
+        }
+        return len;
     }
 
     public void Close()
@@ -151,10 +237,11 @@ sealed class DefaultTcpSocketClient(IPEndPoint endPoint) : ITcpSocketClient
     {
         if (disposing)
         {
+            LocalEndPoint = null;
             _remoteEndPoint = null;
 
             // 取消接收数据的任务
-            if (_receiveCancellationTokenSource is not null)
+            if (_receiveCancellationTokenSource != null)
             {
                 _receiveCancellationTokenSource.Cancel();
                 _receiveCancellationTokenSource.Dispose();

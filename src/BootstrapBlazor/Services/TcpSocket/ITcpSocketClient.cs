@@ -18,9 +18,34 @@ public interface ITcpSocketClient : IDisposable
     int ReceiveBufferSize { get; set; }
 
     /// <summary>
-    /// Gets a value indicating whether the system is currently connected.
+    /// Gets a value indicating whether the system is currently connected. Default is false.
     /// </summary>
     bool IsConnected { get; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether automatic receiving data is enabled. Default is true.
+    /// </summary>
+    bool IsAutoReceive { get; set; }
+
+    /// <summary>
+    /// Gets or sets the timeout duration, in milliseconds, for establishing a connection.
+    /// </summary>
+    int ConnectTimeout { get; set; }
+
+    /// <summary>
+    /// Gets or sets the duration, in milliseconds, to wait for a send operation to complete before timing out.
+    /// </summary>
+    /// <remarks>If the send operation does not complete within the specified timeout period, an exception may
+    /// be thrown.</remarks>
+    int SendTimeout { get; set; }
+
+    /// <summary>
+    /// Gets or sets the amount of time, in milliseconds, that the receiver will wait for a response before timing out.
+    /// </summary>
+    /// <remarks>Use this property to configure the maximum wait time for receiving a response. Setting an
+    /// appropriate timeout can help prevent indefinite blocking in scenarios where responses may be delayed or
+    /// unavailable.</remarks>
+    int ReceiveTimeout { get; set; }
 
     /// <summary>
     /// Gets the local network endpoint that the socket is bound to.
@@ -28,7 +53,7 @@ public interface ITcpSocketClient : IDisposable
     /// <remarks>This property provides information about the local endpoint of the socket, which is typically
     /// used to identify the local address and port being used for communication. If the socket is not  bound to a
     /// specific local endpoint, this property may return <see langword="null"/>.</remarks>
-    IPEndPoint LocalEndPoint { get; }
+    IPEndPoint? LocalEndPoint { get; }
 
     /// <summary>
     /// Gets or sets the callback function to handle received data.
@@ -67,6 +92,17 @@ public interface ITcpSocketClient : IDisposable
     /// <returns>A task that represents the asynchronous operation. The task result is <see langword="true"/> if the data was
     /// sent successfully; otherwise, <see langword="false"/>.</returns>
     ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+
+    /// <summary>
+    /// Asynchronously receives a block of data from the underlying source.
+    /// </summary>
+    /// <remarks>This method is non-blocking and completes when data is available or the operation is
+    /// canceled. If the operation is canceled, the returned task will be in a faulted state with a <see
+    /// cref="OperationCanceledException"/>.</remarks>
+    /// <param name="token">A cancellation token that can be used to cancel the operation. The default value is <see langword="default"/>.</param>
+    /// <returns>A <see cref="ValueTask{TResult}"/> containing a <see cref="Memory{T}"/> of bytes representing the received data.
+    /// The returned memory may be empty if no data is available.</returns>
+    ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default);
 
     /// <summary>
     /// Closes the current connection or resource, releasing any associated resources.
