@@ -21,7 +21,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
 
     public bool IsConnected => _client?.Connected ?? false;
 
-    public IPEndPoint LocalEndPoint => localEndPoint;
+    public IPEndPoint? LocalEndPoint { get; set; }
 
     [NotNull]
     public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
@@ -237,10 +237,11 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : ITcpSocketClient
     {
         if (disposing)
         {
+            LocalEndPoint = null;
             _remoteEndPoint = null;
 
             // 取消接收数据的任务
-            if (_receiveCancellationTokenSource is not null)
+            if (_receiveCancellationTokenSource != null)
             {
                 _receiveCancellationTokenSource.Cancel();
                 _receiveCancellationTokenSource.Dispose();
