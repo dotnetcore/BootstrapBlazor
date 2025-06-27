@@ -90,7 +90,7 @@ public abstract class TcpSocketClientBase : ITcpSocketClient
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual ValueTask Close()
+    public virtual ValueTask CloseAsync()
     {
         return DisposeAsync(true);
     }

@@ -39,14 +39,14 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
         return client;
     }
 
-    private void Dispose(bool disposing)
+    private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             // 释放托管资源
             foreach (var socket in _pool.Values)
             {
-                socket.Dispose();
+                await socket.DisposeAsync();
             }
             _pool.Clear();
         }
@@ -55,9 +55,9 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

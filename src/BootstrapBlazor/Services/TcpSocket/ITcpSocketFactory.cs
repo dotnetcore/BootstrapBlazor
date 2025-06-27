@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ITcpSocketFactory Interface
 /// </summary>
-public interface ITcpSocketFactory : IDisposable
+public interface ITcpSocketFactory : IAsyncDisposable
 {
     /// <summary>
     /// Retrieves an existing TCP socket client by name or creates a new one using the specified factory function.

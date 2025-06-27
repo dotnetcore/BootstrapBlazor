@@ -35,7 +35,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
         try
         {
             // 释放资源
-            await Close();
+            await CloseAsync();
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(localEndPoint);
