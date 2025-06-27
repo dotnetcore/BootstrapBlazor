@@ -21,7 +21,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
     public override bool IsConnected => _client?.Connected ?? false;
 
     [NotNull]
-    public ILogger<DefaultTcpSocketClient>? Logger { get; set; }
+    public ILogger<DefaultTcpSocketClient>? Logger { get; init; }
 
     public override async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
@@ -33,7 +33,8 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
             // 创建新的 TcpClient 实例
             _client ??= new TcpClient(localEndPoint);
-            _remoteEndPoint = endPoint;
+            LocalEndPoint = localEndPoint;
+            _remoteEndPoint = null;
 
             var connectionToken = token;
             if (ConnectTimeout > 0)
@@ -46,6 +47,8 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
             if (_client.Connected)
             {
+                _remoteEndPoint = endPoint;
+
                 // 设置本地端点信息
                 if (_client.Client.LocalEndPoint is IPEndPoint local)
                 {
@@ -53,21 +56,16 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
                 }
                 if (IsAutoReceive)
                 {
-                    _ = Task.Run(AutoReceiveAsync);
+                    _ = Task.Run(AutoReceiveAsync, token);
                 }
             }
             ret = _client.Connected;
         }
         catch (OperationCanceledException ex)
         {
-            if (token.IsCancellationRequested)
-            {
-                Logger.LogWarning(ex, "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
-            }
-            else
-            {
-                Logger.LogWarning(ex, "TCP Socket connect operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
-            }
+            Logger.LogWarning(ex, token.IsCancellationRequested
+                ? "TCP Socket connect operation was canceled from {LocalEndPoint} to {RemoteEndPoint}"
+                : "TCP Socket connect operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, endPoint);
         }
         catch (Exception ex)
         {
@@ -106,14 +104,9 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
         }
         catch (OperationCanceledException ex)
         {
-            if (token.IsCancellationRequested)
-            {
-                Logger.LogWarning(ex, "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-            }
-            else
-            {
-                Logger.LogWarning(ex, "TCP Socket send operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-            }
+            Logger.LogWarning(ex, token.IsCancellationRequested
+                ? "TCP Socket send operation was canceled from {LocalEndPoint} to {RemoteEndPoint}"
+                : "TCP Socket send operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
         }
         catch (Exception ex)
         {
@@ -137,7 +130,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
         using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
         var buffer = block.Memory;
         var len = await ReceiveCoreAsync(_client, buffer, token);
-        return buffer[0..len];
+        return buffer[..len];
     }
 
     private async ValueTask AutoReceiveAsync()
@@ -198,14 +191,9 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
         }
         catch (OperationCanceledException ex)
         {
-            if (token.IsCancellationRequested)
-            {
-                Logger.LogWarning(ex, "TCP Socket receive operation canceled from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-            }
-            else
-            {
-                Logger.LogWarning(ex, "TCP Socket receive operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
-            }
+            Logger.LogWarning(ex, token.IsCancellationRequested
+                ? "TCP Socket receive operation canceled from {LocalEndPoint} to {RemoteEndPoint}"
+                : "TCP Socket receive operation timed out from {LocalEndPoint} to {RemoteEndPoint}", LocalEndPoint, _remoteEndPoint);
         }
         catch (Exception ex)
         {
@@ -220,9 +208,6 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
 
         if (disposing)
         {
-            LocalEndPoint = null;
-            _remoteEndPoint = null;
-
             // 取消接收数据的任务
             if (_receiveCancellationTokenSource != null)
             {
