@@ -47,15 +47,9 @@ internal class MockSocketServerService(ILogger<MockSocketServerService> logger) 
 
                 await Task.Delay(10 * 1000, stoppingToken);
             }
-            catch (OperationCanceledException)
-            {
-                // 任务被取消时退出
-                break;
-            }
-            catch (SocketException)
-            {
-                break;
-            }
+            catch (OperationCanceledException) { break; }
+            catch (IOException) { break; }
+            catch (SocketException) { break; }
             catch (Exception ex)
             {
                 logger.LogError(ex, "MockSocketServerService encountered an error while sending data.");
