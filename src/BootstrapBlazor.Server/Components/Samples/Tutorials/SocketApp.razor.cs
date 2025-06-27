@@ -7,7 +7,7 @@ using System.Net;
 
 namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 
-public partial class SocketApp : ComponentBase
+public partial class SocketApp : ComponentBase, IDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
@@ -16,7 +16,9 @@ public partial class SocketApp : ComponentBase
 
     private bool _flash = false;
 
-    private ITcpSocketClient _client = default!;
+    private ITcpSocketClient _client = null!;
+
+    private List<ConsoleMessageItem> _items = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -27,8 +29,8 @@ public partial class SocketApp : ComponentBase
 
         // 从服务中获取 Socket 实例
         _client = TcpSocketFactory.GetOrCreate("bb", key => new IPEndPoint(IPAddress.Loopback, 0));
-        _flash = _client.IsConnected;
-        _connectColor = _client.IsConnected ? Color.Success : Color.None;
+        _client.ReceivedCallBack += OnReceivedAsync;
+        ResetLight();
     }
 
     private async Task OnConnectAsync()
@@ -36,8 +38,65 @@ public partial class SocketApp : ComponentBase
         if (_client is { IsConnected: false })
         {
             await _client.ConnectAsync("127.0.0.1", 8800, CancellationToken.None);
-            _flash = _client.IsConnected;
-            _connectColor = _client.IsConnected ? Color.Success : Color.None;
+            ResetLight();
         }
+    }
+
+    private async Task OnCloseAsync()
+    {
+        if (_client is { IsConnected: true })
+        {
+            await _client.CloseAsync();
+            ResetLight();
+        }
+    }
+
+    private void ResetLight()
+    {
+        _flash = _client.IsConnected;
+        _connectColor = _client.IsConnected ? Color.Success : Color.None;
+    }
+
+    private Task OnClear()
+    {
+        _items = [];
+        return Task.CompletedTask;
+    }
+
+    private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
+    {
+        // 将数据显示为十六进制字符串
+        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
+        _items.Add(new ConsoleMessageItem
+        {
+            Message = $"接收到来自站点的数据为 {payload}"
+        });
+
+        // 保持队列中最大数量为 50
+        if (_items.Count > 50)
+        {
+            _items.RemoveAt(0);
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_client is { IsConnected: true })
+            {
+                _client.ReceivedCallBack -= OnReceivedAsync;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

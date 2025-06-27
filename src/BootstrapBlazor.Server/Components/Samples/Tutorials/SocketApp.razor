@@ -1,14 +1,21 @@
 ﻿@page "/socket"
 
 <div>
-    <p>由于是示例演示，所以不提供选择 <code>IP 地址</code> 与 <code>端口</code> 功能，服务器也不提供公网链接防止被攻击。示例使用 <code>127.0.0.1</code> 地址进行通讯</p>
+    <p>由于是示例演示，不提供选择 <code>IP 地址</code> 与 <code>端口</code> 功能。点击 <b>连接</b> <b>断开</b> 测试功能</p>
 
     <div class="row forn-inline g-3">
         <div class="col-12 col-sm-6 align-content-center">
             <Light Color="@_connectColor" IsFlash="_flash"></Light>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Text="连接 127.0.0.1:8000" OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="连接" Icon="fa-solid fa-play"
+                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="断开" Icon="fa-solid fa-stop"
+                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+        </div>
+        <div class="col-12">
+            <Console Items="@_items" Height="500" HeaderText="接收数据（间隔 10 秒）"
+                     ShowAutoScroll="true" OnClear="@OnClear"></Console>
         </div>
     </div>
 </div>
