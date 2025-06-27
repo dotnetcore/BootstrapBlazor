@@ -188,6 +188,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
                 {
                     await DataPackageHandler.ReceiveAsync(buffer, receiveToken);
                 }
+                len = buffer.Length;
             }
         }
         catch (OperationCanceledException ex)
