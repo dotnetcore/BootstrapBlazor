@@ -51,7 +51,7 @@ sealed class DefaultTcpSocketClient(IPEndPoint localEndPoint) : TcpSocketClientB
             {
                 _ = Task.Run(AutoReceiveAsync);
             }
-            ret = true;
+            ret = _client.Connected;
         }
         catch (OperationCanceledException ex)
         {
