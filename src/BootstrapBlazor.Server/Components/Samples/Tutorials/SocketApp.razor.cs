@@ -12,10 +12,6 @@ public partial class SocketApp : ComponentBase, IDisposable
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
 
-    private Color _connectColor = Color.None;
-
-    private bool _flash = false;
-
     private ITcpSocketClient _client = null!;
 
     private List<ConsoleMessageItem> _items = [];
@@ -30,7 +26,6 @@ public partial class SocketApp : ComponentBase, IDisposable
         // 从服务中获取 Socket 实例
         _client = TcpSocketFactory.GetOrCreate("bb", key => new IPEndPoint(IPAddress.Loopback, 0));
         _client.ReceivedCallBack += OnReceivedAsync;
-        ResetLight();
     }
 
     private async Task OnConnectAsync()
@@ -38,7 +33,6 @@ public partial class SocketApp : ComponentBase, IDisposable
         if (_client is { IsConnected: false })
         {
             await _client.ConnectAsync("127.0.0.1", 8800, CancellationToken.None);
-            ResetLight();
         }
     }
 
@@ -47,14 +41,7 @@ public partial class SocketApp : ComponentBase, IDisposable
         if (_client is { IsConnected: true })
         {
             await _client.CloseAsync();
-            ResetLight();
         }
-    }
-
-    private void ResetLight()
-    {
-        _flash = _client.IsConnected;
-        _connectColor = _client.IsConnected ? Color.Success : Color.None;
     }
 
     private Task OnClear()
