@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// TcpSocket 客户端默认实现
 /// </summary>
 [UnsupportedOSPlatform("browser")]
-public class SocketClientBase(IPEndPoint localEndPoint) : ISocketClient
+class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
 {
     private TcpClient? _client;
 
@@ -25,15 +25,22 @@ public class SocketClientBase(IPEndPoint localEndPoint) : ISocketClient
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
+    public IPEndPoint LocalEndPoint { get; set; } = localEndPoint;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
-        _client = new TcpClient(localEndPoint);
+        _client = new TcpClient(LocalEndPoint);
         await _client.ConnectAsync(endPoint, token);
+        if (_client.Connected)
+        {
+            if (_client.Client.LocalEndPoint is IPEndPoint localEndPoint)
+            {
+                LocalEndPoint = localEndPoint;
+            }
+        }
         return _client.Connected;
     }
 

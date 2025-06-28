@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-sealed class DefaultTcpSocketClient : TcpSocketClientBase<SocketClientBase>
+sealed class DefaultTcpSocketClient : TcpSocketClientBase<DefaultSocketClient>
 {
     public DefaultTcpSocketClient(SocketClientOptions options)
     {
@@ -27,8 +27,8 @@ sealed class DefaultTcpSocketClient : TcpSocketClientBase<SocketClientBase>
     /// <param name="localEndPoint"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    protected override SocketClientBase CreateSocketClient(IPEndPoint localEndPoint)
+    protected override DefaultSocketClient CreateSocketClient(IPEndPoint localEndPoint)
     {
-        return new SocketClientBase(localEndPoint);
+        return new DefaultSocketClient(localEndPoint);
     }
 }
