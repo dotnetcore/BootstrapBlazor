@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UnitTest.Services;
 
@@ -459,6 +458,15 @@ public class TcpSocketFactoryTest
         Assert.NotNull(ex);
     }
 
+    [Fact]
+    public void Logger_Null()
+    {
+        // 测试 Logger 为 null 的情况
+        var client = new MockTcpSocketClient();
+        client.TestLog();
+        Assert.Null(client.Logger);
+    }
+
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
     {
         var server = new TcpListener(IPAddress.Loopback, port);
@@ -667,6 +675,23 @@ public class TcpSocketFactoryTest
             // 模拟接收超时
             await Task.Delay(200, token);
             await base.ReceiveAsync(data, token);
+        }
+    }
+
+    class MockSoketClient(IPEndPoint localEndPoint) : SocketClientBase(localEndPoint)
+    {
+    }
+
+    class MockTcpSocketClient : TcpSocketClientBase<MockSoketClient>
+    {
+        protected override MockSoketClient CreateSocketClient(IPEndPoint localEndPoint)
+        {
+            return new MockSoketClient(localEndPoint);
+        }
+
+        public void TestLog()
+        {
+            Log(LogLevel.Information, null, "test");
         }
     }
 }
