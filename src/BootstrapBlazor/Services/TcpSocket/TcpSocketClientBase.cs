@@ -39,7 +39,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <summary>
     /// Gets or sets the service provider used to resolve dependencies.
     /// </summary>
-    [NotNull]
     public IServiceProvider? ServiceProvider { get; set; }
 
     /// <summary>
@@ -88,13 +87,15 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
         var ret = false;
+        SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
+            ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
+
         try
         {
             // 释放资源
             await CloseAsync();
 
             // 创建新的 TcpClient 实例
-            SocketClientProvider = ServiceProvider.GetRequiredService<ISocketClientProvider>();
             SocketClientProvider.LocalEndPoint = Options.LocalEndPoint;
 
             _localEndPoint = Options.LocalEndPoint;
@@ -123,10 +124,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
         catch (OperationCanceledException ex)
         {
-            //var message = token.IsCancellationRequested
-            //    ? $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}"
-            //    : $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}";
-            //Log(LogLevel.Warning, ex, message);
+            var message = token.IsCancellationRequested
+                ? $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}"
+                : $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}";
+            Log(LogLevel.Warning, ex, message);
         }
         catch (Exception ex)
         {
@@ -275,8 +276,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// </summary>
     protected void Log(LogLevel logLevel, Exception? ex, string? message)
     {
-        Logger ??= ServiceProvider.GetRequiredService<ILogger<TcpSocketClientBase>>();
-        Logger.Log(logLevel, ex, "{Message}", message);
+        Logger ??= ServiceProvider?.GetRequiredService<ILogger<TcpSocketClientBase>>();
+        Logger?.Log(logLevel, ex, "{Message}", message);
     }
 
     /// <summary>
