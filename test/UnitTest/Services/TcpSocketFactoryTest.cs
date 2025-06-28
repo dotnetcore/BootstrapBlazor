@@ -49,7 +49,7 @@ public class TcpSocketFactoryTest
     public async Task ConnectAsync_Timeout()
     {
         var client = CreateClient();
-        client.ConnectTimeout = 1000;
+        client.ConnectTimeout = 100;
 
         var connect = await client.ConnectAsync("localhost", 9999);
         Assert.False(connect);
