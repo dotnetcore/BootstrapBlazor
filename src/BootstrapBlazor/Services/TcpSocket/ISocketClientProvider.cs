@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 /// establishing connections, transmitting data, and receiving data asynchronously. Implementations of this interface
 /// should ensure proper resource management, including closing connections and releasing resources when no longer
 /// needed.</remarks>
-public interface ISocketClient
+public interface ISocketClientProvider
 {
     /// <summary>
     /// Gets a value indicating whether the connection is currently active.
@@ -25,10 +25,7 @@ public interface ISocketClient
     /// <summary>
     /// Gets the local network endpoint that the socket is bound to.
     /// </summary>
-    /// <remarks>This property provides information about the local endpoint of the socket, which is typically
-    /// used to identify the local address and port being used for communication. If the socket is not  bound to a
-    /// specific local endpoint, this property may return <see langword="null"/>.</remarks>
-    IPEndPoint LocalEndPoint { get; }
+    IPEndPoint LocalEndPoint { get; set; }
 
     /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.

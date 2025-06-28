@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Buffers;
 using System.Net;
@@ -10,63 +11,56 @@ using System.Net;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Provides a base implementation for a TCP socket client, enabling connection, data transmission, and reception over
-/// TCP.
+/// Provides a base implementation for TCP socket clients, enabling connection management, data transmission,  and
+/// reception over TCP sockets. This class is designed to be extended by specific implementations of  TCP socket
+/// clients.
 /// </summary>
-/// <remarks>This abstract class serves as a foundation for implementing TCP socket clients. It provides methods
-/// for connecting to a remote endpoint, sending and receiving data, and managing connection state. Derived classes can
-/// extend or customize the behavior as needed.</remarks>
-public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient where TSocketClient : class, ISocketClient
+/// <remarks>The <see cref="TcpSocketClientBase"/> class offers core functionality for managing TCP socket
+/// connections,  including connecting to remote endpoints, sending and receiving data, and handling data packages. 
+/// Derived classes can extend or override its behavior to implement specific client logic.  Key features include: -
+/// Connection management with support for timeouts and cancellation tokens. - Data transmission and reception with
+/// optional data package handling. - Logging capabilities for tracking events and errors. - Dependency injection
+/// support via <see cref="IServiceProvider"/>.  This class is abstract and cannot be instantiated directly. Use a
+/// derived class to implement specific  functionality.</remarks>
+/// <param name="options"></param>
+public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSocketClient
 {
     /// <summary>
-    /// Gets or sets the underlying socket client used for network communication.
+    /// Gets or sets the socket client provider used for managing socket connections.
     /// </summary>
-    protected TSocketClient? Client { get; set; }
+    protected ISocketClientProvider? SocketClientProvider { get; set; }
+
+
+    /// <summary>
+    /// Gets or sets the logger instance used for logging messages and events.
+    /// </summary>
+    protected ILogger? Logger { get; set; }
+
+    /// <summary>
+    /// Gets or sets the service provider used to resolve dependencies.
+    /// </summary>
+    [NotNull]
+    public IServiceProvider? ServiceProvider { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public ILogger? Logger { get; set; }
+    public SocketClientOptions Options => options;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsConnected => Client?.IsConnected ?? false;
+    public bool IsConnected => SocketClientProvider?.IsConnected ?? false;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public int ReceiveBufferSize { get; set; } = 1024 * 64;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool IsAutoReceive { get; set; } = true;
+    public IPEndPoint LocalEndPoint => SocketClientProvider?.LocalEndPoint ?? new IPEndPoint(IPAddress.Any, 0);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public int ConnectTimeout { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public int SendTimeout { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public int ReceiveTimeout { get; set; }
 
     /// <summary>
     /// Gets or sets the handler responsible for processing data packages.
@@ -76,13 +70,6 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     private IPEndPoint? _remoteEndPoint;
     private IPEndPoint? _localEndPoint;
     private CancellationTokenSource? _receiveCancellationTokenSource;
-
-    /// <summary>
-    /// Creates and initializes a new instance of the socket client for the specified endpoint.
-    /// </summary>
-    /// <param name="localEndPoint">The network endpoint to which the socket client will connect. Cannot be null.</param>
-    /// <returns>An instance of <typeparamref name="TSocketClient"/> configured for the specified endpoint.</returns>
-    protected abstract TSocketClient CreateSocketClient(IPEndPoint localEndPoint);
 
     /// <summary>
     /// <inheritdoc/>
@@ -107,30 +94,32 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
             await CloseAsync();
 
             // 创建新的 TcpClient 实例
-            Client ??= CreateSocketClient(LocalEndPoint);
-            _localEndPoint = LocalEndPoint;
+            SocketClientProvider = ServiceProvider.GetRequiredService<ISocketClientProvider>();
+            SocketClientProvider.LocalEndPoint = Options.LocalEndPoint;
+
+            _localEndPoint = Options.LocalEndPoint;
             _remoteEndPoint = null;
 
             var connectionToken = token;
-            if (ConnectTimeout > 0)
+            if (Options.ConnectTimeout > 0)
             {
                 // 设置连接超时时间
-                var connectTokenSource = new CancellationTokenSource(ConnectTimeout);
+                var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
                 connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
             }
-            await Client.ConnectAsync(endPoint, connectionToken);
+            await SocketClientProvider.ConnectAsync(endPoint, connectionToken);
 
-            if (Client.IsConnected)
+            if (SocketClientProvider.IsConnected)
             {
-                _localEndPoint = Client.LocalEndPoint;
+                _localEndPoint = SocketClientProvider.LocalEndPoint;
                 _remoteEndPoint = endPoint;
 
-                if (IsAutoReceive)
+                if (options.IsAutoReceive)
                 {
                     _ = Task.Run(AutoReceiveAsync, token);
                 }
             }
-            ret = Client.IsConnected;
+            ret = SocketClientProvider.IsConnected;
         }
         catch (OperationCanceledException ex)
         {
@@ -154,7 +143,7 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     /// <returns></returns>
     public virtual async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
-        if (Client is not { IsConnected: true })
+        if (SocketClientProvider is not { IsConnected: true })
         {
             throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
         }
@@ -163,10 +152,10 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
         try
         {
             var sendToken = token;
-            if (SendTimeout > 0)
+            if (options.SendTimeout > 0)
             {
                 // 设置发送超时时间
-                var sendTokenSource = new CancellationTokenSource(SendTimeout);
+                var sendTokenSource = new CancellationTokenSource(options.SendTimeout);
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
 
@@ -175,7 +164,7 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
                 data = await DataPackageHandler.SendAsync(data, sendToken);
             }
 
-            ret = await Client.SendAsync(data, sendToken);
+            ret = await SocketClientProvider.SendAsync(data, sendToken);
         }
         catch (OperationCanceledException ex)
         {
@@ -197,19 +186,19 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     /// <returns></returns>
     public virtual async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
     {
-        if (Client is not { IsConnected: true })
+        if (SocketClientProvider is not { IsConnected: true })
         {
             throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
         }
 
-        if (IsAutoReceive)
+        if (options.IsAutoReceive)
         {
             throw new InvalidOperationException("Cannot call ReceiveAsync when IsAutoReceive is true. Use the auto-receive mechanism instead.");
         }
 
-        using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+        using var block = MemoryPool<byte>.Shared.Rent(options.ReceiveBufferSize);
         var buffer = block.Memory;
-        var len = await ReceiveCoreAsync(Client, buffer, token);
+        var len = await ReceiveCoreAsync(SocketClientProvider, buffer, token);
         return buffer[..len];
     }
 
@@ -218,14 +207,14 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
         _receiveCancellationTokenSource ??= new();
         while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
         {
-            if (Client is not { IsConnected: true })
+            if (SocketClientProvider is not { IsConnected: true })
             {
                 throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
             }
 
-            using var block = MemoryPool<byte>.Shared.Rent(ReceiveBufferSize);
+            using var block = MemoryPool<byte>.Shared.Rent(options.ReceiveBufferSize);
             var buffer = block.Memory;
-            var len = await ReceiveCoreAsync(Client, buffer, _receiveCancellationTokenSource.Token);
+            var len = await ReceiveCoreAsync(SocketClientProvider, buffer, _receiveCancellationTokenSource.Token);
             if (len == 0)
             {
                 break;
@@ -233,16 +222,16 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
         }
     }
 
-    private async ValueTask<int> ReceiveCoreAsync(ISocketClient client, Memory<byte> buffer, CancellationToken token)
+    private async ValueTask<int> ReceiveCoreAsync(ISocketClientProvider client, Memory<byte> buffer, CancellationToken token)
     {
         var len = 0;
         try
         {
             var receiveToken = token;
-            if (ReceiveTimeout > 0)
+            if (options.ReceiveTimeout > 0)
             {
                 // 设置接收超时时间
-                var receiveTokenSource = new CancellationTokenSource(ReceiveTimeout);
+                var receiveTokenSource = new CancellationTokenSource(options.ReceiveTimeout);
                 receiveToken = CancellationTokenSource.CreateLinkedTokenSource(receiveToken, receiveTokenSource.Token).Token;
             }
 
@@ -286,7 +275,8 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     /// </summary>
     protected void Log(LogLevel logLevel, Exception? ex, string? message)
     {
-        Logger?.Log(logLevel, ex, "{Message}", message);
+        Logger ??= ServiceProvider.GetRequiredService<ILogger<TcpSocketClientBase>>();
+        Logger.Log(logLevel, ex, "{Message}", message);
     }
 
     /// <summary>
@@ -317,9 +307,9 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
                 _receiveCancellationTokenSource = null;
             }
 
-            if (Client != null)
+            if (SocketClientProvider != null)
             {
-                await Client.CloseAsync();
+                await SocketClientProvider.CloseAsync();
             }
         }
     }

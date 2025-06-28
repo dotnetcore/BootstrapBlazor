@@ -49,7 +49,7 @@ public class TcpSocketFactoryTest
     public async Task ConnectAsync_Timeout()
     {
         var client = CreateClient();
-        client.ConnectTimeout = 100;
+        client.Options.ConnectTimeout = 100;
 
         var connect = await client.ConnectAsync("localhost", 9999);
         Assert.False(connect);
@@ -84,7 +84,7 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
-        client.SendTimeout = 100;
+        client.Options.SendTimeout = 100;
         client.SetDataHandler(new MockSendTimeoutHandler());
 
         await client.ConnectAsync("localhost", port);
@@ -166,7 +166,7 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
-        client.ReceiveTimeout = 100;
+        client.Options.ReceiveTimeout = 100;
         client.SetDataHandler(new MockReceiveTimeoutHandler());
 
         await client.ConnectAsync("localhost", port);
@@ -214,7 +214,7 @@ public class TcpSocketFactoryTest
         var port = 8893;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        client.IsAutoReceive = true;
+        client.Options.IsAutoReceive = true;
         var connected = await client.ConnectAsync("localhost", port);
         Assert.True(connected);
 
@@ -229,7 +229,7 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
-        client.IsAutoReceive = false;
+        client.Options.IsAutoReceive = false;
         var connected = await client.ConnectAsync("localhost", port);
         Assert.True(connected);
 
@@ -260,10 +260,10 @@ public class TcpSocketFactoryTest
         var port = 8882;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        Assert.Equal(1024 * 64, client.ReceiveBufferSize);
+        Assert.Equal(1024 * 64, client.Options.ReceiveBufferSize);
 
-        client.ReceiveBufferSize = 1024 * 20;
-        Assert.Equal(1024 * 20, client.ReceiveBufferSize);
+        client.Options.ReceiveBufferSize = 1024 * 20;
+        Assert.Equal(1024 * 20, client.Options.ReceiveBufferSize);
 
         client.SetDataHandler(new MockReceiveErrorHandler());
 

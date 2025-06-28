@@ -22,9 +22,11 @@ public static class TcpSocketExtensions
     /// <returns></returns>
     public static IServiceCollection AddBootstrapBlazorTcpSocketFactory(this IServiceCollection services)
     {
-        // 添加 ITcpSocket 实现
-        services.TryAddSingleton<ITcpSocketFactory, DefaultTcpSocketFactory>();
+        // 添加 ITcpSocketFactory 服务
+        services.AddSingleton<ITcpSocketFactory, DefaultTcpSocketFactory>();
 
+        // 增加 ISocketClientProvider 服务
+        services.TryAddTransient<ISocketClientProvider, DefaultSocketClientProvider>();
         return services;
     }
 }

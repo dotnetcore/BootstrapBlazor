@@ -13,39 +13,14 @@ namespace BootstrapBlazor.Components;
 public interface ITcpSocketClient : IAsyncDisposable
 {
     /// <summary>
-    /// Gets or sets the size, in bytes, of the receive buffer used for network operations.
-    /// </summary>
-    int ReceiveBufferSize { get; set; }
-
-    /// <summary>
     /// Gets a value indicating whether the system is currently connected. Default is false.
     /// </summary>
     bool IsConnected { get; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether automatic receiving data is enabled. Default is true.
+    /// Gets or sets the configuration options for the socket client.
     /// </summary>
-    bool IsAutoReceive { get; set; }
-
-    /// <summary>
-    /// Gets or sets the timeout duration, in milliseconds, for establishing a connection.
-    /// </summary>
-    int ConnectTimeout { get; set; }
-
-    /// <summary>
-    /// Gets or sets the duration, in milliseconds, to wait for a send operation to complete before timing out.
-    /// </summary>
-    /// <remarks>If the send operation does not complete within the specified timeout period, an exception may
-    /// be thrown.</remarks>
-    int SendTimeout { get; set; }
-
-    /// <summary>
-    /// Gets or sets the amount of time, in milliseconds, that the receiver will wait for a response before timing out.
-    /// </summary>
-    /// <remarks>Use this property to configure the maximum wait time for receiving a response. Setting an
-    /// appropriate timeout can help prevent indefinite blocking in scenarios where responses may be delayed or
-    /// unavailable.</remarks>
-    int ReceiveTimeout { get; set; }
+    SocketClientOptions Options { get; }
 
     /// <summary>
     /// Gets the local network endpoint that the socket is bound to.

@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// TcpSocket 客户端默认实现
 /// </summary>
 [UnsupportedOSPlatform("browser")]
-class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
+class DefaultSocketClientProvider : ISocketClientProvider
 {
     private TcpClient? _client;
 
@@ -25,7 +25,7 @@ class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public IPEndPoint LocalEndPoint { get; set; } = localEndPoint;
+    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
 
     /// <summary>
     /// <inheritdoc/>
