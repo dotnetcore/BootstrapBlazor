@@ -53,7 +53,7 @@ public interface ITcpSocketClient : IAsyncDisposable
     /// <remarks>This property provides information about the local endpoint of the socket, which is typically
     /// used to identify the local address and port being used for communication. If the socket is not  bound to a
     /// specific local endpoint, this property may return <see langword="null"/>.</remarks>
-    IPEndPoint? LocalEndPoint { get; }
+    IPEndPoint LocalEndPoint { get; }
 
     /// <summary>
     /// Gets or sets the callback function to handle received data.
