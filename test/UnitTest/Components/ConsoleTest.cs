@@ -52,7 +52,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnClear_OK()
+    public async Task OnClear_OK()
     {
         var clearClicked = false;
         var cut = Context.RenderComponent<Console>(builder =>
@@ -66,13 +66,14 @@ public class ConsoleTest : BootstrapBlazorTestBase
         Assert.False(clearClicked);
 
         // 实例触发 OnClear 方法
-        cut.Instance.ClearConsole();
+        await cut.Instance.OnClearConsole();
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnClear, new Action(() =>
+            pb.Add(a => a.OnClear, new Func<Task>(() =>
             {
                 clearClicked = true;
+                return Task.CompletedTask;
             }));
         });
         cut.Find(".btn-secondary").Click();
@@ -88,7 +89,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
             {
                 new() { Message = "Test1" }, new() { Message = "Test2" }
             });
-            builder.Add(a => a.OnClear, new Action(() => { }));
+            builder.Add(a => a.OnClear, () => Task.CompletedTask);
             builder.Add(a => a.ClearButtonText, "Console Clear");
         });
 
@@ -104,7 +105,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
             {
                 new() { Message = "Test1" }, new() { Message = "Test2" }
             });
-            builder.Add(a => a.OnClear, new Action(() => { }));
+            builder.Add(a => a.OnClear, () => Task.CompletedTask);
             builder.Add(a => a.ClearButtonIcon, "fa-solid fa-xmark");
         });
 
@@ -121,7 +122,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
             {
                 new() { Message = "Test1" }, new() { Message = "Test2" }
             });
-            builder.Add(a => a.OnClear, new Action(() => { }));
+            builder.Add(a => a.OnClear, () => Task.CompletedTask);
             builder.Add(a => a.ClearButtonColor, Color.Primary);
         });
 
