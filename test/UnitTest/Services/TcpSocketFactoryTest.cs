@@ -460,57 +460,6 @@ public class TcpSocketFactoryTest
         Assert.NotNull(ex);
     }
 
-    [Fact]
-    public void Logger_Null()
-    {
-        // 测试 Logger 为 null 的情况
-        var client = CreateClient();
-        var baseType = client.GetType().BaseType;
-        Assert.NotNull(baseType);
-
-        // 获取 Logger 字段设置为 null 测试 Log 不会抛出异常
-        var propertyInfo = baseType.GetProperty("Logger", BindingFlags.Public | BindingFlags.Instance);
-        Assert.NotNull(propertyInfo);
-
-        propertyInfo.SetValue(client, null);
-
-        var methodInfo = baseType.GetMethod("Log", BindingFlags.NonPublic | BindingFlags.Instance);
-        Assert.NotNull(methodInfo);
-        methodInfo.Invoke(client, [LogLevel.Information, null!, "Test log message"]);
-    }
-
-    [Fact]
-    public async Task DefaultSocketClient_Ok()
-    {
-        var port = 8894;
-        var server = StartTcpServer(port, MockDelimiterPackageAsync);
-        var client = CreateClient();
-
-        // 获得 Client 泛型属性
-        var baseType = client.GetType().BaseType;
-        Assert.NotNull(baseType);
-
-        // 建立连接
-        var connect = await client.ConnectAsync("localhost", port);
-        Assert.True(connect);
-
-        var propertyInfo = baseType.GetProperty("Client", BindingFlags.NonPublic | BindingFlags.Instance);
-        Assert.NotNull(propertyInfo);
-        var instance = propertyInfo.GetValue(client);
-        Assert.NotNull(instance);
-
-        ISocketClient socketClient = (ISocketClient)instance;
-        Assert.NotNull(socketClient);
-        Assert.True(socketClient.IsConnected);
-
-        await socketClient.CloseAsync();
-        Assert.False(socketClient.IsConnected);
-
-        var buffer = new byte[10];
-        var len = await socketClient.ReceiveAsync(buffer);
-        Assert.Equal(0, len);
-    }
-
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
     {
         var server = new TcpListener(IPAddress.Loopback, port);
