@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Runtime.Versioning;
 
@@ -23,7 +21,7 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
             valueFactory(options);
             var client = new DefaultTcpSocketClient(options)
             {
-                Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
+                ServiceProvider = provider,
             };
             return client;
         });
