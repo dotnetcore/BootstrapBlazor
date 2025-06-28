@@ -13,14 +13,23 @@ namespace BootstrapBlazor.Components;
 /// TcpSocket 客户端默认实现
 /// </summary>
 [UnsupportedOSPlatform("browser")]
-class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
+public class SocketClientBase(IPEndPoint localEndPoint) : ISocketClient
 {
     private TcpClient? _client;
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public bool IsConnected => _client?.Connected ?? false;
 
-    public IPEndPoint? LocalEndPoint { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
         _client = new TcpClient(localEndPoint);
@@ -28,6 +37,9 @@ class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
         return _client.Connected;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         var ret = false;
@@ -40,6 +52,9 @@ class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
         return ret;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public async ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
     {
         var len = 0;
@@ -51,6 +66,9 @@ class DefaultSocketClient(IPEndPoint localEndPoint) : ISocketClient
         return len;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public ValueTask CloseAsync()
     {
         if (_client != null)

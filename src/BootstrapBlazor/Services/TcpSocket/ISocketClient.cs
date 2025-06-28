@@ -28,7 +28,7 @@ public interface ISocketClient
     /// <remarks>This property provides information about the local endpoint of the socket, which is typically
     /// used to identify the local address and port being used for communication. If the socket is not  bound to a
     /// specific local endpoint, this property may return <see langword="null"/>.</remarks>
-    IPEndPoint? LocalEndPoint { get; }
+    IPEndPoint LocalEndPoint { get; }
 
     /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.

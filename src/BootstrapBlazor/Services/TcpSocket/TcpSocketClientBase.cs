@@ -36,7 +36,7 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public IPEndPoint? LocalEndPoint { get; set; }
+    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
 
     /// <summary>
     /// <inheritdoc/>
@@ -82,7 +82,7 @@ public abstract class TcpSocketClientBase<TSocketClient> : ITcpSocketClient wher
     /// </summary>
     /// <param name="localEndPoint">The network endpoint to which the socket client will connect. Cannot be null.</param>
     /// <returns>An instance of <typeparamref name="TSocketClient"/> configured for the specified endpoint.</returns>
-    protected abstract TSocketClient CreateSocketClient(IPEndPoint? localEndPoint);
+    protected abstract TSocketClient CreateSocketClient(IPEndPoint localEndPoint);
 
     /// <summary>
     /// <inheritdoc/>

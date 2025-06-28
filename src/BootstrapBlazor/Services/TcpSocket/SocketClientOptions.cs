@@ -46,8 +46,8 @@ public class SocketClientOptions
     public int ReceiveTimeout { get; set; }
 
     /// <summary>
-    /// Gets or sets the local endpoint for the socket client.
+    /// Gets or sets the local endpoint for the socket client. Default value is <see cref="IPAddress.Loopback"/>
     /// </summary>
     /// <remarks>This property specifies the local network endpoint that the socket client will bind to when establishing a connection.</remarks>
-    public IPEndPoint? LocalEndPoint { get; set; }
+    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
 }
