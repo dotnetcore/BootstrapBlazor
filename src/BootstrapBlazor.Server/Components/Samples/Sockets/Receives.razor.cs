@@ -5,9 +5,12 @@
 
 using System.Net;
 
-namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
+namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
-public partial class SocketApp : ComponentBase, IDisposable
+/// <summary>
+/// 
+/// </summary>
+public partial class Receives : ComponentBase, IDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
