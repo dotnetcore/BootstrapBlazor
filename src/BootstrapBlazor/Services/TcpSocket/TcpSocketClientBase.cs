@@ -123,10 +123,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
         catch (OperationCanceledException ex)
         {
-            var message = token.IsCancellationRequested
-                ? $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}"
-                : $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}";
-            Log(LogLevel.Warning, ex, message);
+            //var message = token.IsCancellationRequested
+            //    ? $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}"
+            //    : $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}";
+            //Log(LogLevel.Warning, ex, message);
         }
         catch (Exception ex)
         {
