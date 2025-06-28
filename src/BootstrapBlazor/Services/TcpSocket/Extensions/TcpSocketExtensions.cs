@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components;
 public static class TcpSocketExtensions
 {
     /// <summary>
-    /// 增加
+    /// 增加 ITcpSocketFactory 服务
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>

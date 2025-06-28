@@ -497,7 +497,7 @@ public class TcpSocketFactoryTest
         using var stream = client.GetStream();
         while (true)
         {
-            var buffer = new byte[10240];
+            var buffer = new byte[1024];
             var len = await stream.ReadAsync(buffer);
             if (len == 0)
             {
