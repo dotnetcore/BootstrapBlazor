@@ -108,9 +108,9 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
                 connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
             }
-            await SocketClientProvider.ConnectAsync(endPoint, connectionToken);
+            ret = await SocketClientProvider.ConnectAsync(endPoint, connectionToken);
 
-            if (SocketClientProvider.IsConnected)
+            if (ret)
             {
                 _localEndPoint = SocketClientProvider.LocalEndPoint;
                 _remoteEndPoint = endPoint;
@@ -120,7 +120,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                     _ = Task.Run(AutoReceiveAsync, token);
                 }
             }
-            ret = SocketClientProvider.IsConnected;
         }
         catch (OperationCanceledException ex)
         {
