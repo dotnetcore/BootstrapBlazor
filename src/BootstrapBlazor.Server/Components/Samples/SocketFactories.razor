@@ -15,7 +15,10 @@
 [NotNull]
 private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
 
-<Pre>var client = factory.GetOrCreate("192.168.1.100", 0);</Pre>
+<Pre>var client = TcpSocketFactory.GetOrCreate("bb", options =>
+{
+    options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+});</Pre>
 
 <p class="code-label">3. 使用方法</p>
 
