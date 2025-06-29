@@ -11,7 +11,7 @@ namespace Longbow.Tasks.Services;
 /// <summary>
 /// 模拟 Socket 服务端服务类
 /// </summary>
-internal class MockSocketServerService(ILogger<MockSocketServerService> logger) : BackgroundService
+class MockReceiveSocketServerService(ILogger<MockReceiveSocketServerService> logger) : BackgroundService
 {
     /// <summary>
     /// 运行任务
@@ -52,7 +52,7 @@ internal class MockSocketServerService(ILogger<MockSocketServerService> logger) 
             catch (SocketException) { break; }
             catch (Exception ex)
             {
-                logger.LogError(ex, "MockSocketServerService encountered an error while sending data.");
+                logger.LogError(ex, "MockReceiveSocketServerService encountered an error while sending data.");
                 break;
             }
         }
