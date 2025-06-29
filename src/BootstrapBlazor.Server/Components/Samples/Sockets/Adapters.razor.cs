@@ -3,7 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using BootstrapBlazor.Server.Components.Components;
 using System.Net;
+using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
@@ -21,8 +23,9 @@ public partial class Adapters : IDisposable
 
     private readonly IPEndPoint _serverEndPoint = new(IPAddress.Loopback, 8900);
 
-    private CancellationTokenSource _connectTokenSource = new();
-    private CancellationTokenSource _sendTokenSource = new();
+    private readonly CancellationTokenSource _connectTokenSource = new();
+    private readonly CancellationTokenSource _sendTokenSource = new();
+    private readonly CancellationTokenSource _receiveTokenSource = new();
 
     /// <summary>
     /// <inheritdoc/>
@@ -31,10 +34,12 @@ public partial class Adapters : IDisposable
     {
         base.OnInitialized();
 
-        // 从服务中获取 Socket 实例
+        // 从服务中获取 ITcpSocketClient 实例
         _client = TcpSocketFactory.GetOrCreate("demo-adapter", options =>
         {
+            // 关闭自动接收功能
             options.IsAutoReceive = false;
+            // 设置本地使用的 IP地址与端口
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
     }
@@ -44,16 +49,41 @@ public partial class Adapters : IDisposable
         if (_client is { IsConnected: false })
         {
             await _client.ConnectAsync(_serverEndPoint, _connectTokenSource.Token);
+            var state = _client.IsConnected ? "成功" : "失败";
+            _items.Add(new ConsoleMessageItem()
+            {
+                Message = $"{DateTime.Now}: 连接 {_client.LocalEndPoint} - {_serverEndPoint} {state}",
+                Color = _client.IsConnected ? Color.Success : Color.Danger
+            });
         }
     }
 
-    private async Task SendAsync()
+    private async Task OnSendAsync()
     {
-        if (_client is { IsConnected: false })
+        if (_client is { IsConnected: true })
         {
             // 准备通讯数据
-            var data = new byte[1024];
-            await _client.SendAsync(data, _sendTokenSource.Token);
+            var data = new byte[12];
+            "2025"u8.CopyTo(data);
+            Encoding.UTF8.GetBytes(DateTime.Now.ToString("ddHHmmss")).CopyTo(data, 4);
+            var result = await _client.SendAsync(data, _sendTokenSource.Token);
+            if (result)
+            {
+                // 发送成功
+                var payload = await _client.ReceiveAsync(_receiveTokenSource.Token);
+                if (!payload.IsEmpty)
+                {
+                    // 解析接收到的数据
+                    // 响应头: 4 字节表示响应体长度 [0x32, 0x30, 0x32, 0x35]
+                    // 响应体: 8 字节当前时间戳字符串
+                    data = payload.ToArray();
+                    var body = BitConverter.ToString(data);
+                    _items.Add(new ConsoleMessageItem()
+                    {
+                        Message = $"{DateTime.Now}: 接收到来自 {_serverEndPoint} 数据: {Encoding.UTF8.GetString(data)} HEX: {body}"
+                    });
+                }
+            }
         }
     }
 
@@ -62,6 +92,12 @@ public partial class Adapters : IDisposable
         if (_client is { IsConnected: true })
         {
             await _client.CloseAsync();
+            var state = _client.IsConnected ? "失败" : "成功";
+            _items.Add(new ConsoleMessageItem()
+            {
+                Message = $"{DateTime.Now}: 关闭 {_client.LocalEndPoint} - {_serverEndPoint} {state}",
+                Color = _client.IsConnected ? Color.Danger : Color.Success
+            });
         }
     }
 
@@ -71,31 +107,21 @@ public partial class Adapters : IDisposable
         return Task.CompletedTask;
     }
 
-    private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
-    {
-        // 将数据显示为十六进制字符串
-        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
-        _items.Add(new ConsoleMessageItem
-        {
-            Message = $"接收到来自站点的数据为 {payload}"
-        });
-
-        // 保持队列中最大数量为 50
-        if (_items.Count > 50)
-        {
-            _items.RemoveAt(0);
-        }
-        await InvokeAsync(StateHasChanged);
-    }
-
     private void Dispose(bool disposing)
     {
         if (disposing)
         {
-            if (_client is { IsConnected: true })
-            {
+            // 释放连接令牌资源
+            _connectTokenSource.Cancel();
+            _connectTokenSource.Dispose();
 
-            }
+            // 释放发送令牌资源
+            _sendTokenSource.Cancel();
+            _sendTokenSource.Dispose();
+
+            // 释放接收令牌资源
+            _receiveTokenSource.Cancel();
+            _receiveTokenSource.Dispose();
         }
     }
 

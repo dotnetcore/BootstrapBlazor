@@ -21,7 +21,16 @@
         <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
         <li>点击 <b>发送</b> 按钮调用 <code>SendAsync</code> 方法发送请求数据</li>
     </ul>
-    <p>本例中已关闭自动接收功能，调用 <code>ReceivedAsync</code> 方法主动接收服务端返回数据</p>
+    <p class="code-label">通讯协议讲解：</p>
+    <p>在实际应用开发中，通讯数据协议很多时候是双方约定的。我们假设本示例通讯协议规约为定长格式具体如下：</p>
+    <ul class="ul-demo">
+        <li>发送数据包格式为 <code>请求头（Header）+ 请求体（Body）</code> 长度总和为 12 个字节</li>
+        <li>请求头为 4 字节定长，请求体为 8 个字节定长</li>
+        <li>请求体为字符串类型数据</li>
+        <li>返回数据包格式为 <code>响应头（Header）+ 响应体（Body）</code> 长度总和为 12 个字节</li>
+        <li>响应头为 4 字节定长，响应体为 8 个字节定长</li>
+        <li>响应体为字符串类型数据</li>
+    </ul>
 
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
@@ -33,7 +42,7 @@
                     OnClick="OnSendAsync" IsDisabled="@(!_client.IsConnected)"></Button>
         </div>
         <div class="col-12">
-            <Console Items="@_items" Height="496" HeaderText="接收数据（间隔 10 秒）"
+            <Console Items="@_items" Height="496" HeaderText="模拟通讯示例"
                      ShowAutoScroll="true" OnClear="@OnClear"></Console>
         </div>
     </div>
