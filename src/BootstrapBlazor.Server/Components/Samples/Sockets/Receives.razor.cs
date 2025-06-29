@@ -8,7 +8,7 @@ using System.Net;
 namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
 /// <summary>
-/// 
+/// 接收电文示例
 /// </summary>
 public partial class Receives : ComponentBase, IDisposable
 {
@@ -27,7 +27,10 @@ public partial class Receives : ComponentBase, IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("bb", key => new IPEndPoint(IPAddress.Loopback, 0));
+        _client = TcpSocketFactory.GetOrCreate("bb", options =>
+        {
+            options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+        });
         _client.ReceivedCallBack += OnReceivedAsync;
     }
 

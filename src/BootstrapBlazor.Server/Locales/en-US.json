@@ -7210,5 +7210,11 @@
     "OfficeViewerNormalTitle": "Basic Usage",
     "OfficeViewerNormalIntro": "Set the document URL for preview by configuring the <code>Url</code> value",
     "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.Receives": {
+    "ReceivesTitle": "Socket Receive",
+    "ReceivesDescription": "Receive data through Socket and display it",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "After connecting, the timestamp data sent by the server is automatically received through the <code>ReceivedCallBack</code> callback method"
   }
 }
