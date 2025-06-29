@@ -37,6 +37,8 @@ public class StepTest : BootstrapBlazorTestBase
 
         body = cut.FindAll(".step-body-item");
         Assert.Empty(body);
+
+        Assert.Equal(0, cut.Instance.CurrentStepIndex);
     }
 
     [Fact]
