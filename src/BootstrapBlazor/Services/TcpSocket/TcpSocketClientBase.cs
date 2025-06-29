@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components;
 /// clients.
 /// </summary>
 /// <remarks>The <see cref="TcpSocketClientBase"/> class offers core functionality for managing TCP socket
-/// connections,  including connecting to remote endpoints, sending and receiving data, and handling data packages. 
+/// connections,  including connecting to remote endpoints, sending and receiving data, and handling data packages.
 /// Derived classes can extend or override its behavior to implement specific client logic.  Key features include: -
 /// Connection management with support for timeouts and cancellation tokens. - Data transmission and reception with
 /// optional data package handling. - Logging capabilities for tracking events and errors. - Dependency injection
@@ -29,7 +29,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// Gets or sets the socket client provider used for managing socket connections.
     /// </summary>
     protected ISocketClientProvider? SocketClientProvider { get; set; }
-
 
     /// <summary>
     /// Gets or sets the logger instance used for logging messages and events.
@@ -273,7 +272,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <summary>
     /// Logs a message with the specified log level, exception, and additional context.
     /// </summary>
-    protected void Log(LogLevel logLevel, Exception? ex, string? message)
+    protected virtual void Log(LogLevel logLevel, Exception? ex, string? message)
     {
         Logger ??= ServiceProvider?.GetRequiredService<ILogger<TcpSocketClientBase>>();
         Logger?.Log(logLevel, ex, "{Message}", message);
