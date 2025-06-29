@@ -16,33 +16,28 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     private Memory<byte> _lastReceiveBuffer = Memory<byte>.Empty;
 
     /// <summary>
-    /// Gets or sets the callback function to handle received data.
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>The callback function should be designed to handle the received data efficiently and
-    /// asynchronously.  Ensure that the implementation does not block or perform long-running operations, as this may
-    /// impact performance.</remarks>
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
-    /// Sends the specified data asynchronously to the target destination.
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>The method performs an asynchronous operation to send the provided data. The caller must
-    /// ensure  that the data is valid and non-empty. The returned memory block may contain a response or acknowledgment
-    /// depending on the implementation of the target destination.</remarks>
-    /// <param name="data">The data to be sent, represented as a block of memory.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
-    /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
-    public virtual ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data)
+    /// <param name="data"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public virtual ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         return ValueTask.FromResult(data);
     }
 
     /// <summary>
-    /// Processes the received data asynchronously.
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="data">A memory buffer containing the data to be processed. The buffer must not be empty.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    public virtual ValueTask ReceiveAsync(ReadOnlyMemory<byte> data)
+    /// <param name="data"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public virtual ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         return ValueTask.CompletedTask;
     }

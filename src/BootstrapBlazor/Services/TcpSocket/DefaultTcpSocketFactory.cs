@@ -3,10 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
-using System.Net;
 using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
@@ -16,14 +13,15 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
 {
     private readonly ConcurrentDictionary<string, ITcpSocketClient> _pool = new();
 
-    public ITcpSocketClient GetOrCreate(string name, Func<string, IPEndPoint> valueFactory)
+    public ITcpSocketClient GetOrCreate(string name, Action<SocketClientOptions> valueFactory)
     {
         return _pool.GetOrAdd(name, key =>
         {
-            var endPoint = valueFactory(key);
-            var client = new DefaultTcpSocketClient(endPoint)
+            var options = new SocketClientOptions();
+            valueFactory(options);
+            var client = new DefaultTcpSocketClient(options)
             {
-                Logger = provider.GetService<ILogger<DefaultTcpSocketClient>>()
+                ServiceProvider = provider,
             };
             return client;
         });
@@ -39,14 +37,14 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
         return client;
     }
 
-    private void Dispose(bool disposing)
+    private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             // 释放托管资源
             foreach (var socket in _pool.Values)
             {
-                socket.Dispose();
+                await socket.DisposeAsync();
             }
             _pool.Clear();
         }
@@ -55,9 +53,9 @@ sealed class DefaultTcpSocketFactory(IServiceProvider provider) : ITcpSocketFact
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

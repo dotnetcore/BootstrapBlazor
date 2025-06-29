@@ -10,17 +10,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Represents a TCP socket for network communication.
 /// </summary>
-public interface ITcpSocketClient : IDisposable
+public interface ITcpSocketClient : IAsyncDisposable
 {
     /// <summary>
-    /// Gets or sets the size, in bytes, of the receive buffer used for network operations.
-    /// </summary>
-    int ReceiveBufferSize { get; set; }
-
-    /// <summary>
-    /// Gets a value indicating whether the system is currently connected.
+    /// Gets a value indicating whether the system is currently connected. Default is false.
     /// </summary>
     bool IsConnected { get; }
+
+    /// <summary>
+    /// Gets or sets the configuration options for the socket client.
+    /// </summary>
+    SocketClientOptions Options { get; }
 
     /// <summary>
     /// Gets the local network endpoint that the socket is bound to.
@@ -69,10 +69,21 @@ public interface ITcpSocketClient : IDisposable
     ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 
     /// <summary>
+    /// Asynchronously receives a block of data from the underlying source.
+    /// </summary>
+    /// <remarks>This method is non-blocking and completes when data is available or the operation is
+    /// canceled. If the operation is canceled, the returned task will be in a faulted state with a <see
+    /// cref="OperationCanceledException"/>.</remarks>
+    /// <param name="token">A cancellation token that can be used to cancel the operation. The default value is <see langword="default"/>.</param>
+    /// <returns>A <see cref="ValueTask{TResult}"/> containing a <see cref="Memory{T}"/> of bytes representing the received data.
+    /// The returned memory may be empty if no data is available.</returns>
+    ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default);
+
+    /// <summary>
     /// Closes the current connection or resource, releasing any associated resources.
     /// </summary>
     /// <remarks>Once the connection or resource is closed, it cannot be reopened. Ensure that all necessary
     /// operations  are completed before calling this method. This method is typically used to clean up resources when
     /// they  are no longer needed.</remarks>
-    void Close();
+    ValueTask CloseAsync();
 }

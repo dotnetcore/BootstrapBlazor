@@ -939,7 +939,7 @@ public static class Utility
     [ExcludeFromCodeCoverage]
 
     [UnsupportedOSPlatform("browser")]
-    private static IPAddress IPAddressByHostName => Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Loopback;
+    private static IPAddress IPAddressByHostName => Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Any;
 
     /// <summary>
     /// Converts a string representation of an IP address and a port number into an <see cref="IPEndPoint"/> instance.

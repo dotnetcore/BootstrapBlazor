@@ -93,6 +93,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["SocketComponents"],
+            Icon = "fa-solid fa-square-binary text-danger"
+        };
+        AddSocket(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Services"],
             Icon = "fa-fw fa-solid fa-screwdriver-wrench",
         };
@@ -203,6 +210,19 @@ internal static class MenusLocalizerExtensions
                 }
             };
             AddBadge(item, count: 5);
+        }
+
+        void AddSocket(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["SocketReceive"],
+                    Url = "socket/receive"
+                }
+            };
+            AddBadge(item, count: 1);
         }
 
         void AddQuickStar(DemoMenuItem item)
