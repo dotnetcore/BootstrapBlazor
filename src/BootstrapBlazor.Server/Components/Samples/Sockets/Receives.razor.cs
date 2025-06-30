@@ -8,9 +8,9 @@ using System.Net;
 namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
 /// <summary>
-/// 
+/// 接收电文示例
 /// </summary>
-public partial class Receives : ComponentBase, IDisposable
+public partial class Receives : IDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
@@ -18,6 +18,8 @@ public partial class Receives : ComponentBase, IDisposable
     private ITcpSocketClient _client = null!;
 
     private List<ConsoleMessageItem> _items = [];
+
+    private readonly IPEndPoint _serverEndPoint = new(IPAddress.Loopback, 8800);
 
     /// <summary>
     /// <inheritdoc/>
@@ -27,7 +29,10 @@ public partial class Receives : ComponentBase, IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("bb", key => new IPEndPoint(IPAddress.Loopback, 0));
+        _client = TcpSocketFactory.GetOrCreate("demo-receive", options =>
+        {
+            options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+        });
         _client.ReceivedCallBack += OnReceivedAsync;
     }
 
@@ -35,7 +40,7 @@ public partial class Receives : ComponentBase, IDisposable
     {
         if (_client is { IsConnected: false })
         {
-            await _client.ConnectAsync("127.0.0.1", 8800, CancellationToken.None);
+            await _client.ConnectAsync(_serverEndPoint, CancellationToken.None);
         }
     }
 

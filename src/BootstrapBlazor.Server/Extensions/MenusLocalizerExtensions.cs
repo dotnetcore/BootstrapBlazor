@@ -218,8 +218,15 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["SocketReceive"],
                     Url = "socket/receive"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SocketDataAdapter"],
+                    Url = "socket/adapter"
                 }
             };
             AddBadge(item, count: 1);
@@ -257,7 +264,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Labels"],
                     Url = "label"
                 },
@@ -430,7 +436,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["OtpInput"],
                     Url = "otp-input"
                 },
@@ -467,13 +472,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["SelectTable"],
                     Url = "select-table"
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["SelectTree"],
                     Url = "select-tree"
                 },
@@ -539,7 +542,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Vditor"],
                     Url = "vditor"
                 }
@@ -830,13 +832,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Typed"],
                     Url = "typed"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["UniverSheet"],
                     Url = "univer-sheet"
                 },
@@ -1241,7 +1241,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["FullScreenButton"],
                     Url = "fullscreen-button"
                 },
@@ -1267,7 +1266,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Meet"],
                     Url = "meet"
                 },
@@ -1568,7 +1566,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Html2Image"],
                     Url = "html2image"
                 },
@@ -1615,7 +1612,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["TotpService"],
                     Url = "otp-service"
                 },
@@ -1626,13 +1622,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["AudioDevice"],
                     Url = "audio-device"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["VideoDevice"],
                     Url = "video-device"
                 },

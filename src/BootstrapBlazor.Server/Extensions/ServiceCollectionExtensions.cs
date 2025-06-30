@@ -45,7 +45,8 @@ static class ServiceCollectionExtensions
         services.AddTaskServices();
         services.AddHostedService<ClearTempFilesService>();
         services.AddHostedService<MockOnlineContributor>();
-        services.AddHostedService<MockSocketServerService>();
+        services.AddHostedService<MockReceiveSocketServerService>();
+        services.AddHostedService<MockCustomProtocolSocketServerService>();
 
         // 增加通用服务
         services.AddBootstrapBlazorServices();
