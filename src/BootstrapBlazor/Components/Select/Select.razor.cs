@@ -27,7 +27,8 @@ public partial class Select<TValue> : ISelect, ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the "active" state should be used when the associated value is null.
+    /// 获得/设置 值为 null 时是否使用第一个选项作为默认值
+    /// <para>Gets or sets a value indicating whether the "active" state should be used when the associated value is null.</para>
     /// </summary>
     [Parameter]
     public bool IsUseActiveWhenValueIsNull { get; set; }
