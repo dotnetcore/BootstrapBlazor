@@ -18,9 +18,9 @@ public partial class LookupFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
         if (TableColumnFilter != null)
         {
@@ -28,6 +28,19 @@ public partial class LookupFilter
             _isShowSearch = column.ShowSearchWhenSelect;
             _type = column.PropertyType;
             _lookup = column;
+
+            if (string.IsNullOrEmpty(_value))
+            {
+                var service = _lookup.LookupService;
+                if (service != null)
+                {
+                    var items = await _lookup.GetItemsAsync(service, _lookup.LookupServiceKey, _lookup.LookupServiceData);
+                    if(items != null)
+                    {
+                        _value = items.FirstOrDefault()?.Value;
+                    }
+                }
+            }
         }
     }
 
