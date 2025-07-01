@@ -16,7 +16,7 @@ public partial class BoolFilter
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    private string? _value;
+    private string _value = "";
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,7 +38,7 @@ public partial class BoolFilter
     /// </summary>
     public override void Reset()
     {
-        _value = null;
+        _value = "";
         StateHasChanged();
     }
 
