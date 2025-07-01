@@ -23,7 +23,7 @@ public partial class Dialog : IDisposable
     [NotNull]
     private Func<Task>? _onCloseAsync = null;
 
-    private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters = [];
+    private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop, Func<Task>? OnCloseCallback)> DialogParameters = [];
     private Dictionary<string, object>? _currentParameter;
     private bool _isKeyboard = false;
     private bool _isBackdrop = false;
@@ -72,16 +72,14 @@ public partial class Dialog : IDisposable
 
         _onCloseAsync = async () =>
         {
-            // Callback OnCloseAsync
-            if (option.OnCloseAsync != null)
-            {
-                await option.OnCloseAsync();
-            }
-
             // Remove current DialogParameter
             if (_currentParameter != null)
             {
-                DialogParameters.Remove(_currentParameter);
+                DialogParameters.Remove(_currentParameter, out var v);
+                if (v.OnCloseCallback != null)
+                {
+                    await v.OnCloseCallback();
+                }
 
                 // Support for multiple dialogs
                 var p = DialogParameters.LastOrDefault();
@@ -162,7 +160,7 @@ public partial class Dialog : IDisposable
         _currentParameter = parameters;
 
         // Add ModalDialog to the container
-        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop));
+        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop, option.OnCloseAsync));
         await InvokeAsync(StateHasChanged);
     }
 
