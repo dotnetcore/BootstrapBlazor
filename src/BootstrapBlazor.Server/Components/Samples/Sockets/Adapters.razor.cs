@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Server.Components.Components;
 using System.Net;
 using System.Text;
 
@@ -26,6 +25,11 @@ public partial class Adapters : IDisposable
     private readonly CancellationTokenSource _connectTokenSource = new();
     private readonly CancellationTokenSource _sendTokenSource = new();
     private readonly CancellationTokenSource _receiveTokenSource = new();
+    private readonly DataPackageAdapter _dataAdapter = new()
+    {
+        DataPackageHandler = new FixLengthDataPackageHandler(12)
+    };
+    private bool _useDataAdapter = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,10 +42,17 @@ public partial class Adapters : IDisposable
         _client = TcpSocketFactory.GetOrCreate("demo-adapter", options =>
         {
             // 关闭自动接收功能
-            options.IsAutoReceive = false;
+            options.IsAutoReceive = true;
             // 设置本地使用的 IP地址与端口
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
+        _client.ReceivedCallBack += OnReceivedAsync;
+
+        _dataAdapter.ReceivedCallBack += async Data =>
+        {
+            // 直接处理接收的数据
+            await UpdateReceiveLog(Data);
+        };
     }
 
     private async Task OnConnectAsync()
@@ -67,24 +78,47 @@ public partial class Adapters : IDisposable
             "2025"u8.CopyTo(data);
             Encoding.UTF8.GetBytes(DateTime.Now.ToString("ddHHmmss")).CopyTo(data, 4);
             var result = await _client.SendAsync(data, _sendTokenSource.Token);
-            if (result)
+            var state = result ? "成功" : "失败";
+
+            // 记录日志
+            _items.Add(new ConsoleMessageItem()
             {
-                // 发送成功
-                var payload = await _client.ReceiveAsync(_receiveTokenSource.Token);
-                if (!payload.IsEmpty)
-                {
-                    // 解析接收到的数据
-                    // 响应头: 4 字节表示响应体长度 [0x32, 0x30, 0x32, 0x35]
-                    // 响应体: 8 字节当前时间戳字符串
-                    data = payload.ToArray();
-                    var body = BitConverter.ToString(data);
-                    _items.Add(new ConsoleMessageItem()
-                    {
-                        Message = $"{DateTime.Now}: 接收到来自 {_serverEndPoint} 数据: {Encoding.UTF8.GetString(data)} HEX: {body}"
-                    });
-                }
-            }
+                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(data)} {state}"
+            });
         }
+    }
+
+    private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
+    {
+        if (_useDataAdapter)
+        {
+            // 使用数据适配器处理接收的数据
+            await _dataAdapter.ReceiveAsync(data, _receiveTokenSource.Token);
+        }
+        else
+        {
+            // 直接处理接收的数据
+            await UpdateReceiveLog(data);
+        }
+    }
+
+    private async Task UpdateReceiveLog(ReadOnlyMemory<byte> data)
+    {
+        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
+        var body = BitConverter.ToString(data.ToArray());
+
+        _items.Add(new ConsoleMessageItem
+        {
+            Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {payload} HEX: {body}",
+            Color = Color.Success
+        });
+
+        // 保持队列中最大数量为 50
+        if (_items.Count > 50)
+        {
+            _items.RemoveAt(0);
+        }
+        await InvokeAsync(StateHasChanged);
     }
 
     private async Task OnCloseAsync()
@@ -111,6 +145,8 @@ public partial class Adapters : IDisposable
     {
         if (disposing)
         {
+            _client.ReceivedCallBack -= OnReceivedAsync;
+
             // 释放连接令牌资源
             _connectTokenSource.Cancel();
             _connectTokenSource.Dispose();
