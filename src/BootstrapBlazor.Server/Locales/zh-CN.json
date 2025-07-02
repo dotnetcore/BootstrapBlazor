@@ -7216,5 +7216,11 @@
     "ReceivesDescription": "通过 Socket 接收数据并且显示",
     "NormalTitle": "基本用法",
     "NormalIntro": "连接后通过 <code>ReceivedCallBack</code> 回调方法自动接收服务端发送来的时间戳数据"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
+    "AdaptersTitle": "Socket 数据适配器示例",
+    "AdaptersDescription": "通过数据适配器接收数据并且显示",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "连接后通过 <code>DataPackageAdapter</code> 数据适配器的 <code>ReceivedCallBack</code> 回调方法接收服务端发送来的时间戳数据"
   }
 }
