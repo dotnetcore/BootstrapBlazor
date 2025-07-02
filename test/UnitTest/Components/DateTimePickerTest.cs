@@ -11,6 +11,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 {
     #region DateTimePicker
     [Fact]
+    public void Color_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.Color, Color.Primary);
+        });
+        cut.Contains("border-primary");
+    }
+
+    [Fact]
     public void AutoToday_DateTime()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
