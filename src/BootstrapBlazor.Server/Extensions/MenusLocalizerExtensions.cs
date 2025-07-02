@@ -94,7 +94,7 @@ internal static class MenusLocalizerExtensions
         item = new DemoMenuItem()
         {
             Text = Localizer["SocketComponents"],
-            Icon = "fa-solid fa-square-binary text-danger"
+            Icon = "fa-fw fa-solid fa-square-binary text-danger"
         };
         AddSocket(item);
 
@@ -130,7 +130,7 @@ internal static class MenusLocalizerExtensions
         item = new DemoMenuItem()
         {
             Text = Localizer["Components"],
-            Icon = "fa-solid fa-fw fa-heart fa-beat icon-summary",
+            Icon = "fa-fw fa-solid fa-heart fa-beat icon-summary",
             Url = "components"
         };
         AddSummary(item);
