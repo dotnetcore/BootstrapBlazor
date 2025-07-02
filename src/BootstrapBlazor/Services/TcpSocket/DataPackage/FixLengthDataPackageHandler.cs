@@ -48,7 +48,6 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
                 {
                     await ReceivedCallBack(_data);
                 }
-                continue;
             }
         }
     }

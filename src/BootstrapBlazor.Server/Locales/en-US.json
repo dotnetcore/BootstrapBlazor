@@ -7216,5 +7216,11 @@
     "ReceivesDescription": "Receive data through Socket and display it",
     "NormalTitle": "Basic usage",
     "NormalIntro": "After connecting, the timestamp data sent by the server is automatically received through the <code>ReceivedCallBack</code> callback method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.Adapters": {
+    "AdaptersTitle": "DataPackageAdapter",
+    "AdaptersDescription": "Receive data through the data adapter and display",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "After the connection is established, the timestamp data sent by the server is received through the <code>ReceivedCallBack</code> callback method of the <code>DataPackageAdapter</code> data adapter."
   }
 }

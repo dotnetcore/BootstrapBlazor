@@ -5,6 +5,7 @@
 
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Longbow.Tasks.Services;
 
@@ -55,11 +56,12 @@ internal class MockCustomProtocolSocketServerService(ILogger<MockCustomProtocolS
 
                 // 发送响应数据
                 // 响应头: 4 字节表示响应体长度 [0x32, 0x30, 0x32, 0x35]
-                // 响应体: 8 字节当前时间戳字符串 
-                var data = new byte[12];
-                "2025"u8.ToArray().CopyTo(data, 0);
-                System.Text.Encoding.UTF8.GetBytes(DateTime.Now.ToString("ddHHmmss")).CopyTo(data, 4);
-                await stream.WriteAsync(data, stoppingToken);
+                // 响应体: 8 字节当前时间戳字符串
+                // 此处模拟分包操作故意分 2 次写入数据，导致客户端接收 2 次才能得到完整数据
+                await stream.WriteAsync("2025"u8.ToArray(), stoppingToken);
+                // 模拟延时
+                await Task.Delay(40, stoppingToken);
+                await stream.WriteAsync(Encoding.UTF8.GetBytes(DateTime.Now.ToString("ddHHmmss")), stoppingToken);
             }
             catch (OperationCanceledException) { break; }
             catch (IOException) { break; }
