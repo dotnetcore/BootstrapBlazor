@@ -37,9 +37,9 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <param name="data"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public virtual ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+    public virtual ValueTask<bool> ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
-        return ValueTask.CompletedTask;
+        return ValueTask.FromResult(true);
     }
 
     /// <summary>
