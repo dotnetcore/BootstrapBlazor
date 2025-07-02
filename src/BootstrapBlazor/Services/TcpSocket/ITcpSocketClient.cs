@@ -39,12 +39,6 @@ public interface ITcpSocketClient : IAsyncDisposable
     Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
-    /// Configures the data handler to process incoming data packages.
-    /// </summary>
-    /// <param name="handler">The handler responsible for processing data packages. Cannot be null.</param>
-    void SetDataHandler(IDataPackageHandler handler);
-
-    /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.
     /// </summary>
     /// <remarks>This method attempts to establish a connection to the specified endpoint. If the connection

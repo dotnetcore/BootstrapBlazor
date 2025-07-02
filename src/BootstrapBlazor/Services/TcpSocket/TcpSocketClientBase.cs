@@ -60,22 +60,9 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// </summary>
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
-    /// <summary>
-    /// Gets or sets the handler responsible for processing data packages.
-    /// </summary>
-    public IDataPackageHandler? DataPackageHandler { get; protected set; }
-
     private IPEndPoint? _remoteEndPoint;
     private IPEndPoint? _localEndPoint;
     private CancellationTokenSource? _receiveCancellationTokenSource;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public virtual void SetDataHandler(IDataPackageHandler handler)
-    {
-        DataPackageHandler = handler;
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -157,12 +144,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 var sendTokenSource = new CancellationTokenSource(options.SendTimeout);
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
-
-            if (DataPackageHandler != null)
-            {
-                data = await DataPackageHandler.SendAsync(data, sendToken);
-            }
-
             ret = await SocketClientProvider.SendAsync(data, sendToken);
         }
         catch (OperationCanceledException ex)
@@ -246,14 +227,9 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
 
                 if (ReceivedCallBack != null)
                 {
+                    // 如果订阅回调则触发回调
                     await ReceivedCallBack(buffer);
                 }
-
-                if (DataPackageHandler != null)
-                {
-                    await DataPackageHandler.ReceiveAsync(buffer, receiveToken);
-                }
-                len = buffer.Length;
             }
         }
         catch (OperationCanceledException ex)
