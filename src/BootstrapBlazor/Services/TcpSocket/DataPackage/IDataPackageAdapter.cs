@@ -14,36 +14,29 @@ namespace BootstrapBlazor.Components;
 public interface IDataPackageAdapter
 {
     /// <summary>
+    /// Gets or sets the callback function to be invoked when data is received.
+    /// </summary>
+    /// <remarks>The callback function is expected to handle the received data asynchronously. Ensure that the
+    /// implementation of the callback does not block the calling thread and completes promptly to avoid performance
+    /// issues.</remarks>
+    Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
+
+    /// <summary>
     /// Gets the handler responsible for processing data packages.
     /// </summary>
     IDataPackageHandler? DataPackageHandler { get; }
 
     /// <summary>
-    /// Gets or sets the TCP socket client used for network communication.
+    /// Asynchronously receives data from a source and processes it.
     /// </summary>
-    ITcpSocketClient? TcpSocketClient { get; set; }
-
-    /// <summary>
-    /// Asynchronously receives data from the underlying source.
-    /// </summary>
-    /// <remarks>This method is non-blocking and returns immediately with a task representing the asynchronous
-    /// operation.  The caller can await the task to retrieve the received data. If the operation is canceled, the task
-    /// will  complete with a <see cref="TaskCanceledException"/>.</remarks>
-    /// <param name="token">A <see cref="CancellationToken"/> that can be used to cancel the operation.</param>
-    /// <returns>A <see cref="ValueTask{TResult}"/> containing a <see cref="ReadOnlyMemory{T}"/> of bytes representing the
-    /// received data.  If no data is available, the returned memory may be empty.</returns>
-    ValueTask<ReadOnlyMemory<byte>> ReceiveAsync(CancellationToken token = default);
-
-    /// <summary>
-    /// Processes the provided data asynchronously and returns a value indicating whether the operation was successful.
-    /// </summary>
-    /// <remarks>The method performs an asynchronous operation and supports cancellation via the <paramref
-    /// name="token"/> parameter. Ensure that the <paramref name="data"/> parameter contains valid input for the
-    /// operation to succeed.</remarks>
-    /// <param name="data">The data to be processed, represented as a read-only block of memory.</param>
-    /// <param name="token">A cancellation token that can be used to cancel the operation. Defaults to <see langword="default"/> if not
-    /// provided.</param>
-    /// <returns>A <see cref="ValueTask{TResult}"/> containing <see langword="true"/> if the operation was successful; otherwise,
-    /// <see langword="false"/>.</returns>
-    ValueTask<bool> HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+    /// <remarks>This method does not return any result directly. It is intended for scenarios where data is received
+    /// and processed asynchronously. Ensure that the <paramref name="data"/> parameter contains valid data before calling
+    /// this method.</remarks>
+    /// <param name="data">A read-only memory region containing the data to be received. The caller must ensure the memory is valid and
+    /// populated.</param>
+    /// <param name="token">An optional cancellation token that can be used to cancel the operation. Defaults to <see langword="default"/> if
+    /// not provided.</param>
+    /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation. The task completes when the data has been
+    /// successfully received and processed.</returns>
+    ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 }
