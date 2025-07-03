@@ -322,7 +322,7 @@ public class TcpSocketFactoryTest
         client.ReceivedCallBack = async buffer =>
         {
             // 将接收到的数据传递给 DataPackageAdapter
-            await adapter.ReceiveAsync(buffer);
+            await adapter.HandlerAsync(buffer);
         };
 
         // 测试 ConnectAsync 方法
@@ -372,7 +372,7 @@ public class TcpSocketFactoryTest
         client.ReceivedCallBack = async buffer =>
         {
             // 将接收到的数据传递给 DataPackageAdapter
-            await adapter.ReceiveAsync(buffer);
+            await adapter.HandlerAsync(buffer);
         };
 
         // 发送数据
@@ -417,7 +417,7 @@ public class TcpSocketFactoryTest
         // 设置数据适配器
         var adapter = new DataPackageAdapter
         {
-            DataPackageHandler = new DelimiterDataPackageHandler(new byte[] { 13, 10 }),
+            DataPackageHandler = new DelimiterDataPackageHandler([13, 10]),
             ReceivedCallBack = buffer =>
             {
                 // buffer 即是接收到的数据
@@ -431,7 +431,7 @@ public class TcpSocketFactoryTest
         client.ReceivedCallBack = async buffer =>
         {
             // 将接收到的数据传递给 DataPackageAdapter
-            await adapter.ReceiveAsync(buffer);
+            await adapter.HandlerAsync(buffer);
         };
 
         // 连接 TCP Server
@@ -574,10 +574,8 @@ public class TcpSocketFactoryTest
             builder.AddProvider(new MockLoggerProvider());
         });
         sc.AddBootstrapBlazorTcpSocketFactory();
-        if (builder != null)
-        {
-            builder(sc);
-        }
+        builder?.Invoke(sc);
+
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client = factory.GetOrCreate("test", op => op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0));
@@ -619,7 +617,7 @@ public class TcpSocketFactoryTest
     {
         public bool IsConnected { get; private set; }
 
-        public IPEndPoint LocalEndPoint { get; set; }
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
 
         public ValueTask CloseAsync()
         {
@@ -647,7 +645,7 @@ public class TcpSocketFactoryTest
     {
         public bool IsConnected { get; private set; }
 
-        public IPEndPoint LocalEndPoint { get; set; }
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
 
         public ValueTask CloseAsync()
         {

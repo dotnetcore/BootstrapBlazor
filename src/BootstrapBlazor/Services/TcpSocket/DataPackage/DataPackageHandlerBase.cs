@@ -26,7 +26,7 @@ public abstract class DataPackageHandlerBase : IDataPackageHandler
     /// <param name="data"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public abstract ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+    public abstract ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 
     /// <summary>
     /// Handles the processing of a sticky package by adjusting the provided buffer and length.

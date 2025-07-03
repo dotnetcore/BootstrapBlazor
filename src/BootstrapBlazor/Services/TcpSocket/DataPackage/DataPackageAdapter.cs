@@ -30,7 +30,7 @@ public class DataPackageAdapter : IDataPackageAdapter
     /// <param name="data"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public virtual async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+    public virtual async ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         if (DataPackageHandler != null)
         {
@@ -40,7 +40,7 @@ public class DataPackageAdapter : IDataPackageAdapter
             }
 
             // 如果存在数据处理器则调用其处理方法
-            await DataPackageHandler.ReceiveAsync(data, token);
+            await DataPackageHandler.HandlerAsync(data, token);
         }
     }
 

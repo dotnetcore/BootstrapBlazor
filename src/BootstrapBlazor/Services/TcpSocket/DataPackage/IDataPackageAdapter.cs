@@ -38,5 +38,5 @@ public interface IDataPackageAdapter
     /// not provided.</param>
     /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation. The task completes when the data has been
     /// successfully received and processed.</returns>
-    ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+    ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 }
