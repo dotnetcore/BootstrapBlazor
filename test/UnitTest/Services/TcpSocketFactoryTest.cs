@@ -611,47 +611,6 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockSendErrorHandler : DataPackageHandlerBase
-    {
-        public ITcpSocketClient? Socket { get; set; }
-
-        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            throw new Exception("Mock send failed");
-        }
-    }
-
-    class MockSendCancelHandler : DataPackageHandlerBase
-    {
-        public ITcpSocketClient? Socket { get; set; }
-
-        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            if (Socket != null)
-            {
-                await Socket.CloseAsync();
-            }
-            await Task.Delay(10, token);
-            return data;
-        }
-    }
-
-    class MockReceiveErrorHandler : DataPackageHandlerBase
-    {
-        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            return ValueTask.FromResult(data);
-        }
-
-        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            await base.ReceiveAsync(data, token);
-
-            // 模拟接收数据时报错
-            throw new InvalidOperationException("Test Error");
-        }
-    }
-
     class MockSendErrorSocketProvider : ISocketClientProvider
     {
         public bool IsConnected { get; private set; }
