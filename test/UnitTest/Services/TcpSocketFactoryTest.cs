@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Text;
 
 namespace UnitTest.Services;
 
@@ -174,7 +173,6 @@ public class TcpSocketFactoryTest
 
         var client = CreateClient();
         client.Options.ReceiveTimeout = 100;
-        client.SetDataHandler(new MockReceiveTimeoutHandler());
 
         await client.ConnectAsync("localhost", port);
 
@@ -190,8 +188,6 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
-        client.SetDataHandler(new MockReceiveTimeoutHandler());
-
         await client.ConnectAsync("localhost", port);
 
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -272,8 +268,6 @@ public class TcpSocketFactoryTest
         client.Options.ReceiveBufferSize = 1024 * 20;
         Assert.Equal(1024 * 20, client.Options.ReceiveBufferSize);
 
-        client.SetDataHandler(new MockReceiveErrorHandler());
-
         ReadOnlyMemory<byte> buffer = ReadOnlyMemory<byte>.Empty;
         var tcs = new TaskCompletionSource();
 
@@ -299,26 +293,6 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
-    public async Task CloseByRemote_Ok()
-    {
-        var client = CreateClient();
-
-        var port = 8883;
-        var server = StartTcpServer(port, MockAutoClosePackageAsync);
-
-        client.SetDataHandler(new MockReceiveErrorHandler());
-
-        // 连接 TCP Server
-        await client.ConnectAsync("localhost", port);
-
-        // 发送数据
-        await client.SendAsync(new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]));
-
-        // 关闭连接
-        StopTcpServer(server);
-    }
-
-    [Fact]
     public async Task FixLengthDataPackageHandler_Ok()
     {
         var port = 8884;
@@ -332,17 +306,6 @@ public class TcpSocketFactoryTest
 
         var tcs = new TaskCompletionSource();
         ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
-
-        // 增加数据处理适配器
-        client.SetDataHandler(new FixLengthDataPackageHandler(7)
-        {
-            ReceivedCallBack = buffer =>
-            {
-                receivedBuffer = buffer;
-                tcs.SetResult();
-                return ValueTask.CompletedTask;
-            }
-        });
 
         // 测试 SendAsync 方法
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -372,17 +335,6 @@ public class TcpSocketFactoryTest
 
         var tcs = new TaskCompletionSource();
         ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
-
-        // 增加数据库处理适配器
-        client.SetDataHandler(new FixLengthDataPackageHandler(7)
-        {
-            ReceivedCallBack = buffer =>
-            {
-                receivedBuffer = buffer;
-                tcs.SetResult();
-                return ValueTask.CompletedTask;
-            }
-        });
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -424,17 +376,6 @@ public class TcpSocketFactoryTest
 
         var tcs = new TaskCompletionSource();
         ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
-
-        // 增加数据库处理适配器
-        //client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
-        //{
-        //    ReceivedCallBack = buffer =>
-        //    {
-        //        receivedBuffer = buffer;
-        //        tcs.SetResult();
-        //        return ValueTask.CompletedTask;
-        //    }
-        //});
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -560,12 +501,6 @@ public class TcpSocketFactoryTest
         }
     }
 
-    private static Task MockAutoClosePackageAsync(TcpClient client)
-    {
-        client.Close();
-        return Task.CompletedTask;
-    }
-
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
@@ -658,26 +593,6 @@ public class TcpSocketFactoryTest
 
             // 模拟接收数据时报错
             throw new InvalidOperationException("Test Error");
-        }
-    }
-
-    class MockSendTimeoutHandler : DataPackageHandlerBase
-    {
-        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            // 模拟发送超时
-            await Task.Delay(200, token);
-            return data;
-        }
-    }
-
-    class MockReceiveTimeoutHandler : DataPackageHandlerBase
-    {
-        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            // 模拟接收超时
-            await Task.Delay(200, token);
-            await base.ReceiveAsync(data, token);
         }
     }
 

@@ -184,8 +184,9 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
 
     private async ValueTask AutoReceiveAsync()
     {
+        // 自动接收方法
         _receiveCancellationTokenSource ??= new();
-        while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
+        while (true)
         {
             if (SocketClientProvider is not { IsConnected: true })
             {
@@ -197,6 +198,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             var len = await ReceiveCoreAsync(SocketClientProvider, buffer, _receiveCancellationTokenSource.Token);
             if (len == 0)
             {
+                // 远端关闭或者 DisposeAsync 方法被调用时退出
                 break;
             }
         }
