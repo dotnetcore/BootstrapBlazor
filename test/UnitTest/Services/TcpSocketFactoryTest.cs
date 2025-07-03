@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Text;
 
 namespace UnitTest.Services;
 
@@ -159,6 +160,9 @@ public class TcpSocketFactoryTest
         cst.Cancel();
 
         var result = await client.SendAsync("test", null, cst.Token);
+        Assert.False(result);
+
+        result = await client.SendAsync("test", Encoding.UTF8, cst.Token);
         Assert.False(result);
 
         // 关闭连接
