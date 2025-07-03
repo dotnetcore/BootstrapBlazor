@@ -298,14 +298,33 @@ public class TcpSocketFactoryTest
         var port = 8884;
         var server = StartTcpServer(port, MockSplitPackageAsync);
         var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[1024];
+
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
+        {
+            DataPackageHandler = new FixLengthDataPackageHandler(7),
+            ReceivedCallBack = buffer =>
+            {
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
+                tcs.SetResult();
+                return ValueTask.CompletedTask;
+            }
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
 
         // 测试 ConnectAsync 方法
         var connect = await client.ConnectAsync("localhost", port);
         Assert.True(connect);
         Assert.True(client.IsConnected);
-
-        var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
 
         // 测试 SendAsync 方法
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -314,9 +333,6 @@ public class TcpSocketFactoryTest
 
         await tcs.Task;
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
-
-        // 模拟延时等待内部继续读取逻辑完成，测试内部 _receiveCancellationTokenSource 取消逻辑
-        await Task.Delay(10);
 
         // 关闭连接
         await client.CloseAsync();
