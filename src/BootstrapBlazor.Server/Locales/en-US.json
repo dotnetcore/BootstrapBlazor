@@ -4503,7 +4503,8 @@
     "DownloadText": "Download",
     "HomeText": "Home",
     "IntroductionText": "Documents",
-    "TutorialsText": "Tutorials"
+    "TutorialsText": "Tutorials",
+    "FullScreenTooltipText": "Full Screen"
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
