@@ -407,12 +407,31 @@ public class TcpSocketFactoryTest
         var port = 8886;
         var server = StartTcpServer(port, MockDelimiterPackageAsync);
         var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[1024];
+
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
+        {
+            DataPackageHandler = new DelimiterDataPackageHandler(new byte[] { 13, 10 }),
+            ReceivedCallBack = buffer =>
+            {
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
+                tcs.SetResult();
+                return ValueTask.CompletedTask;
+            }
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
 
         // 连接 TCP Server
         var connect = await client.ConnectAsync("localhost", port);
-
-        var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -422,15 +441,15 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 0x13, 0x10]);
+        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 13, 10]);
 
         // 等待第二次数据
-        receivedBuffer = ReadOnlyMemory<byte>.Empty;
+        receivedBuffer = new byte[1024];
         tcs = new TaskCompletionSource();
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
+        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 13, 10]);
 
         // 关闭连接
         await client.CloseAsync();
@@ -480,7 +499,7 @@ public class TcpSocketFactoryTest
             await Task.Delay(20);
 
             // 模拟拆包发送第二段数据
-            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6, 0x13, 0x10 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 13, 10, 0x5, 0x6, 13, 10 }, CancellationToken.None);
         }
     }
 
