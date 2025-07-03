@@ -39,4 +39,16 @@ public interface IDataPackageAdapter
     /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation. The task completes when the data has been
     /// successfully received and processed.</returns>
     ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+
+    /// <summary>
+    /// Attempts to convert the specified binary data into an object representation.
+    /// </summary>
+    /// <remarks>This method does not throw exceptions for invalid input. Instead, it returns <see
+    /// langword="false"/>  if the conversion fails, and <paramref name="entity"/> will be <see
+    /// langword="null"/>.</remarks>
+    /// <param name="data">The binary data to be converted. Must not be empty.</param>
+    /// <param name="entity">When this method returns <see langword="true"/>, contains the converted object.  When this method returns <see
+    /// langword="false"/>, the value is <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the conversion was successful; otherwise, <see langword="false"/>.</returns>
+    bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity);
 }

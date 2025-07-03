@@ -45,6 +45,18 @@ public class DataPackageAdapter : IDataPackageAdapter
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="entity"></param>
+    /// <returns></returns>
+    public virtual bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
+    {
+        entity = null;
+        return false;
+    }
+
+    /// <summary>
     /// Handles incoming data by invoking a callback method, if one is defined.
     /// </summary>
     /// <remarks>This method is designed to be overridden in derived classes to provide custom handling of

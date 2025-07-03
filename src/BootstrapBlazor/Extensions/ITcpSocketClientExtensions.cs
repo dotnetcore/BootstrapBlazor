@@ -74,4 +74,42 @@ public static class ITcpSocketClientExtensions
         // 设置 DataPackageAdapter 的回调函数
         adapter.ReceivedCallBack = buffer => callback(buffer);
     }
+
+    /// <summary>
+    /// Configures the specified <see cref="ITcpSocketClient"/> to use a custom data package adapter and a callback
+    /// function for processing received data.
+    /// </summary>
+    /// <remarks>This method sets up the <paramref name="client"/> to use the provided <paramref
+    /// name="adapter"/> for handling incoming data. The adapter processes the raw data received by the client and
+    /// attempts to convert it into an instance of <typeparamref name="TEntity"/>. If the conversion is successful, the
+    /// <paramref name="callback"/> is invoked with the converted entity; otherwise, it is invoked with <see
+    /// langword="null"/>.</remarks>
+    /// <typeparam name="TEntity">The type of the entity that the data package adapter will attempt to convert the received data into.</typeparam>
+    /// <param name="client">The <see cref="ITcpSocketClient"/> instance to configure.</param>
+    /// <param name="adapter">The <see cref="IDataPackageAdapter"/> instance responsible for handling and processing incoming data.</param>
+    /// <param name="callback">A callback function to be invoked with the processed data of type <typeparamref name="TEntity"/>.  The callback
+    /// receives <see langword="null"/> if the data cannot be converted to <typeparamref name="TEntity"/>.</param>
+    public static void SetDataPackageAdapter<TEntity>(this ITcpSocketClient client, IDataPackageAdapter adapter, Func<TEntity?, Task> callback)
+    {
+        // 设置 ITcpSocketClient 的回调函数
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter 进行数据处理合规数据触发 ReceivedCallBack 回调
+            await adapter.HandlerAsync(buffer);
+        };
+
+        // 设置 DataPackageAdapter 的回调函数
+        adapter.ReceivedCallBack = async buffer =>
+        {
+            TEntity? ret = default;
+            if (adapter.TryConvertTo(buffer, out var t))
+            {
+                if (t is TEntity entity)
+                {
+                    ret = entity;
+                }
+            }
+            await callback(ret);
+        };
+    }
 }
