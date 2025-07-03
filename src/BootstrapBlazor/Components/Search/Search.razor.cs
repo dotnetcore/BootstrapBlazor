@@ -200,6 +200,9 @@ public partial class Search<TValue>
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         _filterItems ??= [];
 
+        // 这里应该获得初始值
+        _displayText = GetDisplayText(Value);
+
         if (Debounce == 0)
         {
             Debounce = 200;
