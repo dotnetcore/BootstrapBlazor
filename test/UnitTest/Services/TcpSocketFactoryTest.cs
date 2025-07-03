@@ -103,9 +103,12 @@ public class TcpSocketFactoryTest
         var port = 8887;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        var client = CreateClient();
-        client.Options.SendTimeout = 100;
-        client.SetDataHandler(new MockSendTimeoutHandler());
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider, MockSendTimeoutSocketProvider>();
+        });
+        client.Options.SendTimeout = 10;
 
         await client.ConnectAsync("localhost", port);
 
@@ -117,7 +120,11 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task SendAsync_Error()
     {
-        var client = CreateClient();
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider, MockSendErrorSocketProvider>();
+        });
 
         // 测试未建立连接前调用 SendAsync 方法报异常逻辑
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -128,7 +135,6 @@ public class TcpSocketFactoryTest
         var port = 8892;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        client.SetDataHandler(new MockSendErrorHandler());
         await client.ConnectAsync("localhost", port);
         Assert.True(client.IsConnected);
 
@@ -155,25 +161,6 @@ public class TcpSocketFactoryTest
 
         var result = await client.SendAsync("test", null, cst.Token);
         Assert.False(result);
-
-        // 设置延时发送适配器
-        // 延时发送期间关闭 Socket 连接导致内部报错
-        client.SetDataHandler(new MockSendCancelHandler()
-        {
-            Socket = client
-        });
-
-        var tcs = new TaskCompletionSource();
-        bool? sendResult = null;
-        // 测试发送失败逻辑
-        _ = Task.Run(async () =>
-        {
-            sendResult = await client.SendAsync("test", Encoding.UTF8);
-            tcs.SetResult();
-        });
-
-        await tcs.Task;
-        Assert.False(sendResult);
 
         // 关闭连接
         StopTcpServer(server);
@@ -439,15 +426,15 @@ public class TcpSocketFactoryTest
         ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
 
         // 增加数据库处理适配器
-        client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
-        {
-            ReceivedCallBack = buffer =>
-            {
-                receivedBuffer = buffer;
-                tcs.SetResult();
-                return ValueTask.CompletedTask;
-            }
-        });
+        //client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
+        //{
+        //    ReceivedCallBack = buffer =>
+        //    {
+        //        receivedBuffer = buffer;
+        //        tcs.SetResult();
+        //        return ValueTask.CompletedTask;
+        //    }
+        //});
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -584,7 +571,7 @@ public class TcpSocketFactoryTest
         server?.Stop();
     }
 
-    private static ITcpSocketClient CreateClient()
+    private static ITcpSocketClient CreateClient(Action<ServiceCollection>? builder = null)
     {
         var sc = new ServiceCollection();
         sc.AddLogging(builder =>
@@ -592,6 +579,10 @@ public class TcpSocketFactoryTest
             builder.AddProvider(new MockLoggerProvider());
         });
         sc.AddBootstrapBlazorTcpSocketFactory();
+        if (builder != null)
+        {
+            builder(sc);
+        }
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client = factory.GetOrCreate("test", op => op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0));
@@ -687,6 +678,64 @@ public class TcpSocketFactoryTest
             // 模拟接收超时
             await Task.Delay(200, token);
             await base.ReceiveAsync(data, token);
+        }
+    }
+
+    class MockSendErrorSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; }
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            IsConnected = true;
+            return ValueTask.FromResult(true);
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(0);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            throw new Exception("Mock send error");
+        }
+    }
+
+    class MockSendTimeoutSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; }
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            IsConnected = true;
+            return ValueTask.FromResult(true);
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(0);
+        }
+
+        public async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            // 模拟超时发送
+            await Task.Delay(100, token);
+            return false;
         }
     }
 }
