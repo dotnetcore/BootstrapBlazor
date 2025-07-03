@@ -133,7 +133,7 @@ public partial class Search<TValue>
     /// Gets or sets the callback delegate when the search button is clicked.
     /// </summary>
     [Parameter]
-    public Func<string, Task<IEnumerable<TValue>>>? OnSearch { get; set; }
+    public Func<string?, Task<IEnumerable<TValue>>>? OnSearch { get; set; }
 
     /// <summary>
     /// Gets or sets the callback method to get display text. Default is null, using ToString() method.
@@ -209,7 +209,7 @@ public partial class Search<TValue>
         }
     }
 
-    private string _displayText = "";
+    private string? _displayText;
     private async Task OnSearchClick()
     {
         if (OnSearch != null)
@@ -229,7 +229,7 @@ public partial class Search<TValue>
 
     private async Task OnClearClick()
     {
-        _displayText = "";
+        _displayText = null;
         if (OnClear != null)
         {
             await OnClear();
@@ -250,7 +250,7 @@ public partial class Search<TValue>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
-        _displayText = GetDisplayText(val) ?? "";
+        _displayText = GetDisplayText(val);
 
         if (OnSelectedItemChanged != null)
         {
