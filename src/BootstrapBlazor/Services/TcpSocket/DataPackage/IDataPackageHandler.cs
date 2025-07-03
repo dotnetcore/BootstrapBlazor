@@ -19,18 +19,6 @@ public interface IDataPackageHandler
     Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
-    /// Sends the specified data asynchronously to the target destination.
-    /// </summary>
-    /// <remarks>The method performs an asynchronous operation to send the provided data. The caller must
-    /// ensure  that the data is valid and non-empty. The returned memory block may contain a response or acknowledgment
-    /// depending on the implementation of the target destination.</remarks>
-    /// <param name="data">The data to be sent, represented as a block of memory.</param>
-    /// <param name="token">An optional <see cref="CancellationToken"/> to observe while waiting for the operation to complete.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains a  <see cref="Memory{T}"/> of <see
-    /// cref="byte"/> representing the response or acknowledgment  received from the target destination.</returns>
-    ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
-
-    /// <summary>
     /// Asynchronously receives data and processes it.
     /// </summary>
     /// <remarks>The method is designed for asynchronous operations and may be used in scenarios where
