@@ -13,15 +13,7 @@ internal static class MenusLocalizerExtensions
     {
         var menus = new List<MenuItem>();
 
-        // 快速入门
         var item = new DemoMenuItem()
-        {
-            Text = Localizer["GetStarted"],
-            Icon = "fa-solid fa-fw fa-font-awesome"
-        };
-        AddQuickStar(item);
-
-        item = new DemoMenuItem()
         {
             Text = Localizer["LayoutComponents"],
             Icon = "fa-fw fa-solid fa-desktop"
@@ -125,6 +117,14 @@ internal static class MenusLocalizerExtensions
             Icon = "fa-fw fa-solid fa-code"
         };
         AddBootstrapBlazorUtility(item);
+
+        // 快速入门
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["GetStarted"],
+            Icon = "fa-solid fa-fw fa-font-awesome"
+        };
+        AddQuickStar(item);
 
         return menus;
 
@@ -310,7 +310,7 @@ internal static class MenusLocalizerExtensions
                     Url = "layout-page"
                 }
             };
-            AddBadge(item, count: 0);
+            AddSummary(item);
         }
 
         void AddForm(DemoMenuItem item)
@@ -1689,7 +1689,7 @@ internal static class MenusLocalizerExtensions
             var count = 0;
             count = menus.OfType<DemoMenuItem>().Sum(i => i.Count);
             AddBadge(item, false, count);
-            menus.Insert(1, item);
+            menus.Insert(0, item);
         }
 
         void AddBadge(DemoMenuItem item, bool append = true, int? count = null)
