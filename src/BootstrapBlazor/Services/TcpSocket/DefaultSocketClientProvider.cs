@@ -50,7 +50,7 @@ class DefaultSocketClientProvider : ISocketClientProvider
     public async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         var ret = false;
-        if (_client is { Connected: true })
+        if (_client != null)
         {
             var stream = _client.GetStream();
             await stream.WriteAsync(data, token);
