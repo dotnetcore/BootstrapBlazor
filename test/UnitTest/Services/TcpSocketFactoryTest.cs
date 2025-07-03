@@ -103,9 +103,12 @@ public class TcpSocketFactoryTest
         var port = 8887;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        var client = CreateClient();
-        client.Options.SendTimeout = 100;
-        client.SetDataHandler(new MockSendTimeoutHandler());
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider, MockSendTimeoutSocketProvider>();
+        });
+        client.Options.SendTimeout = 10;
 
         await client.ConnectAsync("localhost", port);
 
@@ -117,7 +120,11 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task SendAsync_Error()
     {
-        var client = CreateClient();
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider, MockSendErrorSocketProvider>();
+        });
 
         // 测试未建立连接前调用 SendAsync 方法报异常逻辑
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -128,7 +135,6 @@ public class TcpSocketFactoryTest
         var port = 8892;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        client.SetDataHandler(new MockSendErrorHandler());
         await client.ConnectAsync("localhost", port);
         Assert.True(client.IsConnected);
 
@@ -156,24 +162,8 @@ public class TcpSocketFactoryTest
         var result = await client.SendAsync("test", null, cst.Token);
         Assert.False(result);
 
-        // 设置延时发送适配器
-        // 延时发送期间关闭 Socket 连接导致内部报错
-        client.SetDataHandler(new MockSendCancelHandler()
-        {
-            Socket = client
-        });
-
-        var tcs = new TaskCompletionSource();
-        bool? sendResult = null;
-        // 测试发送失败逻辑
-        _ = Task.Run(async () =>
-        {
-            sendResult = await client.SendAsync("test", Encoding.UTF8);
-            tcs.SetResult();
-        });
-
-        await tcs.Task;
-        Assert.False(sendResult);
+        result = await client.SendAsync("test", Encoding.UTF8, cst.Token);
+        Assert.False(result);
 
         // 关闭连接
         StopTcpServer(server);
@@ -187,7 +177,6 @@ public class TcpSocketFactoryTest
 
         var client = CreateClient();
         client.Options.ReceiveTimeout = 100;
-        client.SetDataHandler(new MockReceiveTimeoutHandler());
 
         await client.ConnectAsync("localhost", port);
 
@@ -203,8 +192,6 @@ public class TcpSocketFactoryTest
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
-        client.SetDataHandler(new MockReceiveTimeoutHandler());
-
         await client.ConnectAsync("localhost", port);
 
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -285,8 +272,6 @@ public class TcpSocketFactoryTest
         client.Options.ReceiveBufferSize = 1024 * 20;
         Assert.Equal(1024 * 20, client.Options.ReceiveBufferSize);
 
-        client.SetDataHandler(new MockReceiveErrorHandler());
-
         ReadOnlyMemory<byte> buffer = ReadOnlyMemory<byte>.Empty;
         var tcs = new TaskCompletionSource();
 
@@ -312,50 +297,38 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
-    public async Task CloseByRemote_Ok()
-    {
-        var client = CreateClient();
-
-        var port = 8883;
-        var server = StartTcpServer(port, MockAutoClosePackageAsync);
-
-        client.SetDataHandler(new MockReceiveErrorHandler());
-
-        // 连接 TCP Server
-        await client.ConnectAsync("localhost", port);
-
-        // 发送数据
-        await client.SendAsync(new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]));
-
-        // 关闭连接
-        StopTcpServer(server);
-    }
-
-    [Fact]
     public async Task FixLengthDataPackageHandler_Ok()
     {
         var port = 8884;
         var server = StartTcpServer(port, MockSplitPackageAsync);
         var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[1024];
+
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
+        {
+            DataPackageHandler = new FixLengthDataPackageHandler(7),
+            ReceivedCallBack = buffer =>
+            {
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
+                tcs.SetResult();
+                return ValueTask.CompletedTask;
+            }
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
 
         // 测试 ConnectAsync 方法
         var connect = await client.ConnectAsync("localhost", port);
         Assert.True(connect);
         Assert.True(client.IsConnected);
-
-        var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
-
-        // 增加数据处理适配器
-        client.SetDataHandler(new FixLengthDataPackageHandler(7)
-        {
-            ReceivedCallBack = buffer =>
-            {
-                receivedBuffer = buffer;
-                tcs.SetResult();
-                return ValueTask.CompletedTask;
-            }
-        });
 
         // 测试 SendAsync 方法
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -364,9 +337,6 @@ public class TcpSocketFactoryTest
 
         await tcs.Task;
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
-
-        // 模拟延时等待内部继续读取逻辑完成，测试内部 _receiveCancellationTokenSource 取消逻辑
-        await Task.Delay(10);
 
         // 关闭连接
         await client.CloseAsync();
@@ -379,23 +349,31 @@ public class TcpSocketFactoryTest
         var port = 8885;
         var server = StartTcpServer(port, MockStickyPackageAsync);
         var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[1024];
 
         // 连接 TCP Server
         var connect = await client.ConnectAsync("localhost", port);
 
-        var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
-
-        // 增加数据库处理适配器
-        client.SetDataHandler(new FixLengthDataPackageHandler(7)
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
         {
+            DataPackageHandler = new FixLengthDataPackageHandler(7),
             ReceivedCallBack = buffer =>
             {
-                receivedBuffer = buffer;
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
                 tcs.SetResult();
                 return ValueTask.CompletedTask;
             }
-        });
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -406,7 +384,9 @@ public class TcpSocketFactoryTest
 
         // 验证接收到的数据
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
-        receivedBuffer = ReadOnlyMemory<byte>.Empty;
+
+        // 重置接收缓冲区
+        receivedBuffer = new byte[1024];
         tcs = new TaskCompletionSource();
 
         // 等待第二次数据
@@ -431,23 +411,31 @@ public class TcpSocketFactoryTest
         var port = 8886;
         var server = StartTcpServer(port, MockDelimiterPackageAsync);
         var client = CreateClient();
-
-        // 连接 TCP Server
-        var connect = await client.ConnectAsync("localhost", port);
-
         var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
+        var receivedBuffer = new byte[1024];
 
-        // 增加数据库处理适配器
-        client.SetDataHandler(new DelimiterDataPackageHandler([0x13, 0x10])
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
         {
+            DataPackageHandler = new DelimiterDataPackageHandler(new byte[] { 13, 10 }),
             ReceivedCallBack = buffer =>
             {
-                receivedBuffer = buffer;
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
                 tcs.SetResult();
                 return ValueTask.CompletedTask;
             }
-        });
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
+
+        // 连接 TCP Server
+        var connect = await client.ConnectAsync("localhost", port);
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -457,15 +445,15 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 0x13, 0x10]);
+        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 13, 10]);
 
         // 等待第二次数据
-        receivedBuffer = ReadOnlyMemory<byte>.Empty;
+        receivedBuffer = new byte[1024];
         tcs = new TaskCompletionSource();
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 0x13, 0x10]);
+        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 13, 10]);
 
         // 关闭连接
         await client.CloseAsync();
@@ -515,7 +503,7 @@ public class TcpSocketFactoryTest
             await Task.Delay(20);
 
             // 模拟拆包发送第二段数据
-            await stream.WriteAsync(new byte[] { 0x13, 0x10, 0x5, 0x6, 0x13, 0x10 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 13, 10, 0x5, 0x6, 13, 10 }, CancellationToken.None);
         }
     }
 
@@ -573,18 +561,12 @@ public class TcpSocketFactoryTest
         }
     }
 
-    private static Task MockAutoClosePackageAsync(TcpClient client)
-    {
-        client.Close();
-        return Task.CompletedTask;
-    }
-
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
     }
 
-    private static ITcpSocketClient CreateClient()
+    private static ITcpSocketClient CreateClient(Action<ServiceCollection>? builder = null)
     {
         var sc = new ServiceCollection();
         sc.AddLogging(builder =>
@@ -592,6 +574,10 @@ public class TcpSocketFactoryTest
             builder.AddProvider(new MockLoggerProvider());
         });
         sc.AddBootstrapBlazorTcpSocketFactory();
+        if (builder != null)
+        {
+            builder(sc);
+        }
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
         var client = factory.GetOrCreate("test", op => op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0));
@@ -629,64 +615,61 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockSendErrorHandler : DataPackageHandlerBase
+    class MockSendErrorSocketProvider : ISocketClientProvider
     {
-        public ITcpSocketClient? Socket { get; set; }
+        public bool IsConnected { get; private set; }
 
-        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public IPEndPoint LocalEndPoint { get; set; }
+
+        public ValueTask CloseAsync()
         {
-            throw new Exception("Mock send failed");
+            return ValueTask.CompletedTask;
+        }
+
+        public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            IsConnected = true;
+            return ValueTask.FromResult(true);
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(0);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            throw new Exception("Mock send error");
         }
     }
 
-    class MockSendCancelHandler : DataPackageHandlerBase
+    class MockSendTimeoutSocketProvider : ISocketClientProvider
     {
-        public ITcpSocketClient? Socket { get; set; }
+        public bool IsConnected { get; private set; }
 
-        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
-        {
-            if (Socket != null)
-            {
-                await Socket.CloseAsync();
-            }
-            await Task.Delay(10, token);
-            return data;
-        }
-    }
+        public IPEndPoint LocalEndPoint { get; set; }
 
-    class MockReceiveErrorHandler : DataPackageHandlerBase
-    {
-        public override ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public ValueTask CloseAsync()
         {
-            return ValueTask.FromResult(data);
+            return ValueTask.CompletedTask;
         }
 
-        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
         {
-            await base.ReceiveAsync(data, token);
-
-            // 模拟接收数据时报错
-            throw new InvalidOperationException("Test Error");
+            IsConnected = true;
+            return ValueTask.FromResult(true);
         }
-    }
 
-    class MockSendTimeoutHandler : DataPackageHandlerBase
-    {
-        public override async ValueTask<ReadOnlyMemory<byte>> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
         {
-            // 模拟发送超时
-            await Task.Delay(200, token);
-            return data;
+            return ValueTask.FromResult(0);
         }
-    }
 
-    class MockReceiveTimeoutHandler : DataPackageHandlerBase
-    {
-        public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public async ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
-            // 模拟接收超时
-            await Task.Delay(200, token);
-            await base.ReceiveAsync(data, token);
+            // 模拟超时发送
+            await Task.Delay(100, token);
+            return false;
         }
     }
 }
