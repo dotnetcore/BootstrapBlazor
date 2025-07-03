@@ -4502,7 +4502,6 @@
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "首页",
-    "ComponentsText": "组件",
     "IntroductionText": "文档",
     "TutorialsText": "实战"
   },
