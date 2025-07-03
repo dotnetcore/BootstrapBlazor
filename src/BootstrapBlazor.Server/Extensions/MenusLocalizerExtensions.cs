@@ -124,16 +124,7 @@ internal static class MenusLocalizerExtensions
             Text = Localizer["Utility"],
             Icon = "fa-fw fa-solid fa-code"
         };
-
         AddBootstrapBlazorUtility(item);
-
-        item = new DemoMenuItem()
-        {
-            Text = Localizer["Components"],
-            Icon = "fa-fw fa-solid fa-heart fa-beat icon-summary",
-            Url = "components"
-        };
-        AddSummary(item);
 
         return menus;
 
