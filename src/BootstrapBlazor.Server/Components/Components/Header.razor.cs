@@ -31,9 +31,6 @@ public partial class Header
     private string? IntroductionText { get; set; }
 
     [NotNull]
-    private string? ComponentsText { get; set; }
-
-    [NotNull]
     private string? DownloadText { get; set; }
 
     [NotNull]
@@ -53,7 +50,6 @@ public partial class Header
         DownloadText ??= Localizer[nameof(DownloadText)];
         HomeText ??= Localizer[nameof(HomeText)];
         IntroductionText ??= Localizer[nameof(IntroductionText)];
-        ComponentsText ??= Localizer[nameof(ComponentsText)];
         TutorialsText ??= Localizer[nameof(TutorialsText)];
         _versionString = $"v{PackageVersionService.Version}";
     }
