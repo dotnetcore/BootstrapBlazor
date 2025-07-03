@@ -48,4 +48,30 @@ public static class ITcpSocketClientExtensions
         var endPoint = Utility.ConvertToIpEndPoint(ipString, port);
         return client.ConnectAsync(endPoint, token);
     }
+
+    /// <summary>
+    /// Configures the specified <see cref="ITcpSocketClient"/> to use the provided <see cref="IDataPackageAdapter"/> 
+    /// for processing received data and sets a callback to handle processed data.
+    /// </summary>
+    /// <remarks>This method sets up a two-way data processing pipeline: <list type="bullet"> <item>
+    /// <description>The <paramref name="client"/> is configured to pass received data to the <paramref name="adapter"/>
+    /// for processing.</description> </item> <item> <description>The <paramref name="adapter"/> is configured to invoke
+    /// the provided <paramref name="callback"/> with the processed data.</description> </item> </list> Use this method
+    /// to integrate a custom data processing adapter with a TCP socket client.</remarks>
+    /// <param name="client">The <see cref="ITcpSocketClient"/> instance to configure.</param>
+    /// <param name="adapter">The <see cref="IDataPackageAdapter"/> used to process incoming data.</param>
+    /// <param name="callback">A callback function invoked with the processed data. The function receives a <see cref="ReadOnlyMemory{T}"/> 
+    /// containing the processed data and returns a <see cref="ValueTask"/>.</param>
+    public static void SetDataPackageAdapter(this ITcpSocketClient client, IDataPackageAdapter adapter, Func<ReadOnlyMemory<byte>, ValueTask> callback)
+    {
+        // 设置 ITcpSocketClient 的回调函数
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter 进行数据处理合规数据触发 ReceivedCallBack 回调
+            await adapter.HandlerAsync(buffer);
+        };
+
+        // 设置 DataPackageAdapter 的回调函数
+        adapter.ReceivedCallBack = buffer => callback(buffer);
+    }
 }
