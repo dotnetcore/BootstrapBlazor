@@ -345,12 +345,31 @@ public class TcpSocketFactoryTest
         var port = 8885;
         var server = StartTcpServer(port, MockStickyPackageAsync);
         var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[1024];
 
         // 连接 TCP Server
         var connect = await client.ConnectAsync("localhost", port);
 
-        var tcs = new TaskCompletionSource();
-        ReadOnlyMemory<byte> receivedBuffer = ReadOnlyMemory<byte>.Empty;
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
+        {
+            DataPackageHandler = new FixLengthDataPackageHandler(7),
+            ReceivedCallBack = buffer =>
+            {
+                // buffer 即是接收到的数据
+                buffer.CopyTo(receivedBuffer);
+                receivedBuffer = receivedBuffer[..buffer.Length];
+                tcs.SetResult();
+                return ValueTask.CompletedTask;
+            }
+        };
+
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter
+            await adapter.ReceiveAsync(buffer);
+        };
 
         // 发送数据
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
@@ -361,7 +380,9 @@ public class TcpSocketFactoryTest
 
         // 验证接收到的数据
         Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
-        receivedBuffer = ReadOnlyMemory<byte>.Empty;
+
+        // 重置接收缓冲区
+        receivedBuffer = new byte[1024];
         tcs = new TaskCompletionSource();
 
         // 等待第二次数据
