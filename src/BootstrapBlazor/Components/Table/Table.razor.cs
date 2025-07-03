@@ -14,6 +14,7 @@ namespace BootstrapBlazor.Components;
 /// Table 组件基类
 /// </summary>
 [CascadingTypeParameter(nameof(TItem))]
+[BlazorSetParametersAsyncGenerator.GenerateSetParametersAsync]
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
