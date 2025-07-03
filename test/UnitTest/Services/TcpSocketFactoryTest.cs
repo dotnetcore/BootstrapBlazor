@@ -482,6 +482,44 @@ public class TcpSocketFactoryTest
         Assert.NotNull(entity);
         Assert.Equal(entity.Header, [1, 2, 3, 4, 5]);
         Assert.Equal(entity.Body, [3, 4]);
+
+        // 测试异常流程
+        var adapter2 = new DataPackageAdapter();
+        var result = adapter2.TryConvertTo(data, out var t);
+        Assert.False(result);
+        Assert.Null(t);
+    }
+
+    [Fact]
+    public async Task TryConvertTo_Null()
+    {
+        var port = 8890;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+        var client = CreateClient();
+        var tcs = new TaskCompletionSource();
+        MockEntity? entity = null;
+
+        // 设置数据适配器
+        var adapter = new MockErrorEntityDataPackageAdapter
+        {
+            DataPackageHandler = new FixLengthDataPackageHandler(7),
+        };
+        client.SetDataPackageAdapter<MockEntity>(adapter, t =>
+        {
+            entity = t;
+            tcs.SetResult();
+            return Task.CompletedTask;
+        });
+
+        // 连接 TCP Server
+        var connect = await client.ConnectAsync("localhost", port);
+
+        // 发送数据
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+        await tcs.Task;
+
+        Assert.Null(entity);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -697,6 +735,15 @@ public class TcpSocketFactoryTest
                 Header = data[..5].ToArray(),
                 Body = data[5..].ToArray()
             };
+            return true;
+        }
+    }
+
+    class MockErrorEntityDataPackageAdapter : DataPackageAdapter
+    {
+        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
+        {
+            entity = new Foo();
             return true;
         }
     }
