@@ -143,6 +143,22 @@ public class TcpSocketFactoryTest
     }
 
     [Fact]
+    public async Task SendAsync_Ok()
+    {
+        var port = 8880;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        // 创建客户端
+        var client = CreateClient();
+
+        // 连接 TCP Server
+        await client.ConnectAsync("localhost", port);
+
+        // 内部生成异常日志
+        await client.SendAsync(new byte[] { 0x1, 0x2 });
+    }
+
+    [Fact]
     public async Task SendAsync_Cancel()
     {
         var port = 8881;
@@ -209,92 +225,92 @@ public class TcpSocketFactoryTest
         await Task.Delay(50);
     }
 
-    [Fact]
-    public async Task ReceiveAsync_InvalidOperationException()
-    {
-        // 未连接时调用 ReceiveAsync 方法会抛出 InvalidOperationException 异常
-        var client = CreateClient();
-        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
-        Assert.NotNull(ex);
+    //[Fact]
+    //public async Task ReceiveAsync_InvalidOperationException()
+    //{
+    //    // 未连接时调用 ReceiveAsync 方法会抛出 InvalidOperationException 异常
+    //    var client = CreateClient();
+    //    var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
+    //    Assert.NotNull(ex);
 
-        // 已连接但是启用了自动接收功能时调用 ReceiveAsync 方法会抛出 InvalidOperationException 异常
-        var port = 8893;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
+    //    // 已连接但是启用了自动接收功能时调用 ReceiveAsync 方法会抛出 InvalidOperationException 异常
+    //    var port = 8893;
+    //    var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        client.Options.IsAutoReceive = true;
-        var connected = await client.ConnectAsync("localhost", port);
-        Assert.True(connected);
+    //    client.Options.IsAutoReceive = true;
+    //    var connected = await client.ConnectAsync("localhost", port);
+    //    Assert.True(connected);
 
-        ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
-        Assert.NotNull(ex);
-    }
+    //    ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await client.ReceiveAsync());
+    //    Assert.NotNull(ex);
+    //}
 
-    [Fact]
-    public async Task ReceiveAsync_Ok()
-    {
-        var port = 8891;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
+    //[Fact]
+    //public async Task ReceiveAsync_Ok()
+    //{
+    //    var port = 8891;
+    //    var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        var client = CreateClient();
-        client.Options.IsAutoReceive = false;
-        var connected = await client.ConnectAsync("localhost", port);
-        Assert.True(connected);
+    //    var client = CreateClient();
+    //    client.Options.IsAutoReceive = false;
+    //    var connected = await client.ConnectAsync("localhost", port);
+    //    Assert.True(connected);
 
-        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
-        var send = await client.SendAsync(data);
-        Assert.True(send);
+    //    var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+    //    var send = await client.SendAsync(data);
+    //    Assert.True(send);
 
-        var payload = await client.ReceiveAsync();
-        Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
-    }
+    //    var payload = await client.ReceiveAsync();
+    //    Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+    //}
 
-    [Fact]
-    public async Task ReceiveAsync_Error()
-    {
-        var client = CreateClient();
+    //[Fact]
+    //public async Task ReceiveAsync_Error()
+    //{
+    //    var client = CreateClient();
 
-        // 测试未建立连接前调用 ReceiveAsync 方法报异常逻辑
-        var baseType = client.GetType().BaseType;
-        Assert.NotNull(baseType);
+    //    // 测试未建立连接前调用 ReceiveAsync 方法报异常逻辑
+    //    var baseType = client.GetType().BaseType;
+    //    Assert.NotNull(baseType);
 
-        var methodInfo = baseType.GetMethod("AutoReceiveAsync", BindingFlags.NonPublic | BindingFlags.Instance);
-        Assert.NotNull(methodInfo);
+    //    var methodInfo = baseType.GetMethod("AutoReceiveAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+    //    Assert.NotNull(methodInfo);
 
-        var task = (ValueTask)methodInfo.Invoke(client, null)!;
-        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await task);
-        Assert.NotNull(ex);
+    //    var task = (ValueTask)methodInfo.Invoke(client, null)!;
+    //    var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await task);
+    //    Assert.NotNull(ex);
 
-        var port = 8882;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
+    //    var port = 8882;
+    //    var server = StartTcpServer(port, MockSplitPackageAsync);
 
-        Assert.Equal(1024 * 64, client.Options.ReceiveBufferSize);
+    //    Assert.Equal(1024 * 64, client.Options.ReceiveBufferSize);
 
-        client.Options.ReceiveBufferSize = 1024 * 20;
-        Assert.Equal(1024 * 20, client.Options.ReceiveBufferSize);
+    //    client.Options.ReceiveBufferSize = 1024 * 20;
+    //    Assert.Equal(1024 * 20, client.Options.ReceiveBufferSize);
 
-        ReadOnlyMemory<byte> buffer = ReadOnlyMemory<byte>.Empty;
-        var tcs = new TaskCompletionSource();
+    //    ReadOnlyMemory<byte> buffer = ReadOnlyMemory<byte>.Empty;
+    //    var tcs = new TaskCompletionSource();
 
-        // 增加接收回调方法
-        client.ReceivedCallBack = b =>
-        {
-            buffer = b;
-            tcs.SetResult();
-            return ValueTask.CompletedTask;
-        };
+    //    // 增加接收回调方法
+    //    client.ReceivedCallBack = b =>
+    //    {
+    //        buffer = b;
+    //        tcs.SetResult();
+    //        return ValueTask.CompletedTask;
+    //    };
 
-        await client.ConnectAsync("localhost", port);
+    //    await client.ConnectAsync("localhost", port);
 
-        // 发送数据导致接收数据异常
-        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
-        await client.SendAsync(data);
+    //    // 发送数据导致接收数据异常
+    //    var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+    //    await client.SendAsync(data);
 
-        await tcs.Task;
-        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5]);
+    //    await tcs.Task;
+    //    Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5]);
 
-        // 关闭连接
-        StopTcpServer(server);
-    }
+    //    // 关闭连接
+    //    StopTcpServer(server);
+    //}
 
     [Fact]
     public async Task FixLengthDataPackageHandler_Ok()

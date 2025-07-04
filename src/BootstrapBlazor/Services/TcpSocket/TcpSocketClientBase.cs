@@ -164,29 +164,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         return ret;
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    public virtual async ValueTask<Memory<byte>> ReceiveAsync(CancellationToken token = default)
-    {
-        if (SocketClientProvider is not { IsConnected: true })
-        {
-            throw new InvalidOperationException($"TCP Socket is not connected {LocalEndPoint}");
-        }
-
-        if (options.IsAutoReceive)
-        {
-            throw new InvalidOperationException("Cannot call ReceiveAsync when IsAutoReceive is true. Use the auto-receive mechanism instead.");
-        }
-
-        using var block = MemoryPool<byte>.Shared.Rent(options.ReceiveBufferSize);
-        var buffer = block.Memory;
-        var len = await ReceiveCoreAsync(SocketClientProvider, buffer, token);
-        return buffer[..len];
-    }
-
     private async ValueTask AutoReceiveAsync()
     {
         // 自动接收方法
