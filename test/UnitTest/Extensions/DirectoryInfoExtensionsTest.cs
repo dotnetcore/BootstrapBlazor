@@ -32,7 +32,7 @@ public class DirectoryInfoExtensionsTest
         }
 
         var sourceDirInfo = new DirectoryInfo(sourceDir);
-        sourceDirInfo.Copy(destDir);
+        sourceDirInfo.Copy(destDir, true);
         Assert.True(Directory.Exists(destDir));
     }
 
