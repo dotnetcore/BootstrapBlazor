@@ -24,7 +24,7 @@ public class FixLengthDataPackageHandler(int length) : DataPackageHandlerBase
     /// <param name="data"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public override async ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+    public override async ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
     {
         while (data.Length > 0)
         {

@@ -93,7 +93,7 @@ public partial class Adapters : IDisposable
         if (_useDataAdapter)
         {
             // 使用数据适配器处理接收的数据
-            await _dataAdapter.ReceiveAsync(data, _receiveTokenSource.Token);
+            await _dataAdapter.HandlerAsync(data, _receiveTokenSource.Token);
         }
         else
         {

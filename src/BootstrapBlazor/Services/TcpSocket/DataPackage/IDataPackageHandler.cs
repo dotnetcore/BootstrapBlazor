@@ -29,5 +29,5 @@ public interface IDataPackageHandler
     /// provided.</param>
     /// <returns>A <see cref="ValueTask{TResult}"/> containing <see langword="true"/> if the data was successfully received and
     /// processed; otherwise, <see langword="false"/>.</returns>
-    ValueTask ReceiveAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
+    ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 }

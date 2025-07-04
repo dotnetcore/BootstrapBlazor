@@ -148,9 +148,14 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
         catch (OperationCanceledException ex)
         {
-            Log(LogLevel.Warning, ex, token.IsCancellationRequested
-                ? $"TCP Socket send operation was canceled from {_localEndPoint} to {_remoteEndPoint}"
-                : $"TCP Socket send operation timed out from {_localEndPoint} to {_remoteEndPoint}");
+            if (token.IsCancellationRequested)
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket send operation was canceled from {_localEndPoint} to {_remoteEndPoint}");
+            }
+            else
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket send operation timed out from {_localEndPoint} to {_remoteEndPoint}");
+            }
         }
         catch (Exception ex)
         {
