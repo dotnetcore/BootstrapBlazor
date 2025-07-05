@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -85,7 +87,7 @@ public partial class Progress
     /// 获得 Style 集合
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddClass($"width: {InternalValue}%;")
+        .AddClass($"width: {InternalValue.ToString(CultureInfo.InvariantCulture)}%;")
         .Build();
 
     /// <summary>
