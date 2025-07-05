@@ -247,11 +247,11 @@ public class TcpSocketFactoryTest
         // 未设置数据处理器未开启自动接收时，调用 ReceiveAsync 方法获取数据
         // 需要自己处理粘包分包和业务问题
         var payload = await client.ReceiveAsync();
-        Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+        Assert.Equal([1, 2, 3, 4, 5], payload.ToArray());
 
         // 由于服务器端模拟了拆包发送第二段数据，所以这里可以再次调用 ReceiveAsync 方法获取第二段数据
         payload = await client.ReceiveAsync();
-        Assert.Equal(payload.ToArray(), [3, 4]);
+        Assert.Equal([3, 4], payload.ToArray());
     }
 
     [Fact]
@@ -296,7 +296,7 @@ public class TcpSocketFactoryTest
         await client.SendAsync(data);
 
         await tcs.Task;
-        Assert.Equal(buffer.ToArray(), [1, 2, 3, 4, 5]);
+        Assert.Equal([1, 2, 3, 4, 5], buffer.ToArray());
 
         // 关闭连接
         StopTcpServer(server);
@@ -336,7 +336,7 @@ public class TcpSocketFactoryTest
         Assert.True(result);
 
         await tcs.Task;
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
+        Assert.Equal([1, 2, 3, 4, 5, 3, 4], receivedBuffer.ToArray());
 
         // 关闭连接
         await client.CloseAsync();
@@ -378,7 +378,7 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 3, 4]);
+        Assert.Equal([1, 2, 3, 4, 5, 3, 4], receivedBuffer.ToArray());
 
         // 重置接收缓冲区
         receivedBuffer = new byte[1024];
@@ -388,12 +388,12 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证第二次收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [2, 2, 3, 4, 5, 6, 7]);
+        Assert.Equal([2, 2, 3, 4, 5, 6, 7], receivedBuffer.ToArray());
         tcs = new TaskCompletionSource();
         await tcs.Task;
 
         // 验证第三次收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [3, 2, 3, 4, 5, 6, 7]);
+        Assert.Equal([3, 2, 3, 4, 5, 6, 7], receivedBuffer.ToArray());
 
         // 关闭连接
         await client.CloseAsync();
@@ -434,7 +434,7 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [1, 2, 3, 4, 5, 13, 10]);
+        Assert.Equal([1, 2, 3, 4, 5, 13, 10], receivedBuffer.ToArray());
 
         // 等待第二次数据
         receivedBuffer = new byte[1024];
@@ -442,7 +442,7 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         // 验证接收到的数据
-        Assert.Equal(receivedBuffer.ToArray(), [5, 6, 13, 10]);
+        Assert.Equal([5, 6, 13, 10], receivedBuffer.ToArray());
 
         // 关闭连接
         await client.CloseAsync();
@@ -486,8 +486,8 @@ public class TcpSocketFactoryTest
         await tcs.Task;
 
         Assert.NotNull(entity);
-        Assert.Equal(entity.Header, [1, 2, 3, 4, 5]);
-        Assert.Equal(entity.Body, [3, 4]);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+        Assert.Equal([3, 4], entity.Body);
 
         // 测试异常流程
         var adapter2 = new DataPackageAdapter();
