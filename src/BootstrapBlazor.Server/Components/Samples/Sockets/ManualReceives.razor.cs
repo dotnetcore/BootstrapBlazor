@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 /// <summary>
 /// 接收电文示例
 /// </summary>
-public partial class ManualReceives : IDisposable
+public partial class ManualReceives
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
@@ -19,7 +19,7 @@ public partial class ManualReceives : IDisposable
 
     private List<ConsoleMessageItem> _items = [];
 
-    private readonly IPEndPoint _serverEndPoint = new(IPAddress.Loopback, 8800);
+    private readonly IPEndPoint _serverEndPoint = new(IPAddress.Loopback, 8810);
 
     /// <summary>
     /// <inheritdoc/>
@@ -29,11 +29,11 @@ public partial class ManualReceives : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-receive", options =>
+        _client = TcpSocketFactory.GetOrCreate("demo-manual-receive", options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+            options.IsAutoReceive = false;
         });
-        _client.ReceivedCallBack += OnReceivedAsync;
     }
 
     private async Task OnConnectAsync()
@@ -58,40 +58,27 @@ public partial class ManualReceives : IDisposable
         return Task.CompletedTask;
     }
 
-    private async ValueTask OnReceivedAsync(ReadOnlyMemory<byte> data)
+    private async Task OnSendAsync()
     {
-        // 将数据显示为十六进制字符串
-        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
-        _items.Add(new ConsoleMessageItem
+        if (_client is { IsConnected: true })
         {
-            Message = $"接收到来自站点的数据为 {payload}"
-        });
+            // 准备通讯数据
+            var data = new byte[12];
+            var result = await _client.SendAsync(new byte[2] { 0x01, 0x02 }, CancellationToken.None);
+            var state = result ? "成功" : "失败";
 
-        // 保持队列中最大数量为 50
-        if (_items.Count > 50)
-        {
-            _items.RemoveAt(0);
-        }
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (_client is { IsConnected: true })
+            // 记录日志
+            _items.Add(new ConsoleMessageItem()
             {
-                _client.ReceivedCallBack -= OnReceivedAsync;
-            }
-        }
-    }
+                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(data)} {state}"
+            });
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+            var buffer = await _client.ReceiveAsync(CancellationToken.None);
+            _items.Add(new ConsoleMessageItem()
+            {
+                Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(buffer.ToArray())} 成功",
+                Color = Color.Success
+            });
+        }
     }
 }
