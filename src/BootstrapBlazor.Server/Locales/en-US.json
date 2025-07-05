@@ -7086,7 +7086,7 @@
     "ReceivesTitle": "Manual Receive",
     "ReceivesDescription": "Receive data through call ReceiveAsync and display it",
     "NormalTitle": "Basic usage",
-    "NormalIntro": "After connecting, the timestamp data sent by the server is automatically received through the <code>ReceiveAsync</code> callback method"
+    "NormalIntro": "After the connection is established, the data sent by the server is received through the <code>ReceiveAsync</code> callback method. The data problems of sticking and splitting packets need to be handled by the client."
   },
   "BootstrapBlazor.Server.Components.Samples.Sockets.AutoReceives": {
     "ReceivesTitle": "Socket Receive",

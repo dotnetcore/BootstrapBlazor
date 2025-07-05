@@ -7086,7 +7086,7 @@
     "ReceivesTitle": "手动接收示例",
     "ReceivesDescription": "通过调用 ReceiveAsync 接收数据并且显示",
     "NormalTitle": "基本用法",
-    "NormalIntro": "连接后通过 <code>ReceiveAsync</code> 回调方法自动接收服务端发送来的时间戳数据"
+    "NormalIntro": "连接后通过 <code>ReceiveAsync</code> 回调方法接收服务端发送来的数据，需要自行处理粘包分包的数据问题"
   },
   "BootstrapBlazor.Server.Components.Samples.Sockets.AutoReceives": {
     "ReceivesTitle": "自动接收示例",
