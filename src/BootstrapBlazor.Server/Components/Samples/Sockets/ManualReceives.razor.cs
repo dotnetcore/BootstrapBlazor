@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 /// <summary>
 /// 接收电文示例
 /// </summary>
-public partial class Receives : IDisposable
+public partial class ManualReceives : IDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }

@@ -1,0 +1,44 @@
+﻿@page "/socket/manual-receive"
+@inject IStringLocalizer<ManualReceives> Localizer
+
+<h3>@Localizer["ReceivesTitle"]</h3>
+<h4>@Localizer["ReceivesDescription"]</h4>
+
+<Notice></Notice>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal" ShowCode="false">
+    <p>本例中连接一个模拟时间同步服务，每间隔 10s 自动发送服务器时间戳，连接后无需发送任何数据即可持续收到时间戳数据</p>
+    <ul class="ul-demo">
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
+    </ul>
+    <p>使用 <code>ReceivedCallBack</code> 委托获得接收到的数据，可通过 <code>+=</code> 方法支持多个客户端接收数据</p>
+    <Pre>_client.ReceivedCallBack += OnReceivedAsync;</Pre>
+    <p>特别注意页面需要继承 <code>IDisposable</code> 或者 <code>IAsyncDisposable</code> 接口，在 <code>Dispose</code> 或者 <code>DisposeAsync</code> 中移除委托</p>
+    <Pre>private void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        if (_client is { IsConnected: true })
+        {
+            _client.ReceivedCallBack -= OnReceivedAsync;
+        }
+    }
+}</Pre>
+
+    <div class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <Button Text="连接" Icon="fa-solid fa-play"
+                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="断开" Icon="fa-solid fa-stop" class="ms-2"
+                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+        </div>
+        <div class="col-12">
+            <Console Items="@_items" Height="496" HeaderText="接收数据（间隔 10 秒）"
+                     ShowAutoScroll="true" OnClear="@OnClear"></Console>
+        </div>
+    </div>
+</DemoBlock>
+
