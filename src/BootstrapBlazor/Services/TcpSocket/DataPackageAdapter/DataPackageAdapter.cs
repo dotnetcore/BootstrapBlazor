@@ -44,6 +44,11 @@ public class DataPackageAdapter : IDataPackageAdapter
         }
     }
 
+    public ValueTask<ReadOnlyMemory<byte>> ReceiveAsync(CancellationToken token = default)
+    {
+
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
