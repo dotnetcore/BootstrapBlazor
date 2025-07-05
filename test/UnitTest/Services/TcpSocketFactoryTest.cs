@@ -244,8 +244,14 @@ public class TcpSocketFactoryTest
         var send = await client.SendAsync(data);
         Assert.True(send);
 
+        // 未设置数据处理器未开启自动接收时，调用 ReceiveAsync 方法获取数据
+        // 需要自己处理粘包分包和业务问题
         var payload = await client.ReceiveAsync();
         Assert.Equal(payload.ToArray(), [1, 2, 3, 4, 5]);
+
+        // 由于服务器端模拟了拆包发送第二段数据，所以这里可以再次调用 ReceiveAsync 方法获取第二段数据
+        payload = await client.ReceiveAsync();
+        Assert.Equal(payload.ToArray(), [3, 4]);
     }
 
     [Fact]
