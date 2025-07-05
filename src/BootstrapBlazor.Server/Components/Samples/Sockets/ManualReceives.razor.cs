@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Net;
+using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
@@ -63,8 +64,8 @@ public partial class ManualReceives
         if (_client is { IsConnected: true })
         {
             // 准备通讯数据
-            var data = new byte[12];
-            var result = await _client.SendAsync(new byte[2] { 0x01, 0x02 }, CancellationToken.None);
+            var data = new byte[2] { 0x01, 0x02 };
+            var result = await _client.SendAsync(data, CancellationToken.None);
             var state = result ? "成功" : "失败";
 
             // 记录日志
@@ -73,12 +74,16 @@ public partial class ManualReceives
                 Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(data)} {state}"
             });
 
-            var buffer = await _client.ReceiveAsync(CancellationToken.None);
-            _items.Add(new ConsoleMessageItem()
+            if (result)
             {
-                Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(buffer.ToArray())} 成功",
-                Color = Color.Success
-            });
+                var buffer = await _client.ReceiveAsync(CancellationToken.None);
+                var payload = buffer.ToArray();
+                _items.Add(new ConsoleMessageItem()
+                {
+                    Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {Encoding.UTF8.GetString(payload)} HEX: {BitConverter.ToString(payload)} 成功",
+                    Color = Color.Success
+                });
+            }
         }
     }
 }
