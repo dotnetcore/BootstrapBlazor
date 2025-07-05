@@ -29,7 +29,7 @@ public partial class AutoReceives : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-receive", options =>
+        _client = TcpSocketFactory.GetOrCreate("demo-auto-receive", options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
