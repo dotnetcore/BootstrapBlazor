@@ -50,6 +50,4 @@ public interface IDataPackageAdapter
     /// langword="false"/>, contains <see langword="null"/>.</param>
     /// <returns><see langword="true"/> if the conversion was successful; otherwise, <see langword="false"/>.</returns>
     bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity);
-
-    ValueTask<ReadOnlyMemory<byte>> ReceiveAsync(CancellationToken token = default);
 }
