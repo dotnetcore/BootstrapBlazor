@@ -210,13 +210,19 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["SocketReceive"],
-                    Url = "socket/receive"
+                    Text = Localizer["SocketManualReceive"],
+                    Url = "socket/manual-receive"
                 },
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["SocketDataAdapter"],
+                    Text = Localizer["SocketAutoReceive"],
+                    Url = "socket/auto-receive"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["DataPackageAdapter"],
                     Url = "socket/adapter"
                 }
             };

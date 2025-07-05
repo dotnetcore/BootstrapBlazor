@@ -4824,7 +4824,9 @@
     "TcpSocketFactory": "ITcpSocketFactory",
     "OfficeViewer": "Office Viewer",
     "SocketComponents": "ITcpSocketFactory",
-    "SocketReceive": "Receive"
+    "SocketAutoReceive": "Auto Receive",
+    "SocketManualReceive": "Manual Receive",
+    "DataPackageAdapter": "DataPackageAdapter"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7080,9 +7082,15 @@
     "OfficeViewerNormalIntro": "Set the document URL for preview by configuring the <code>Url</code> value",
     "OfficeViewerToastSuccessfulContent": "Office document loaded successfully"
   },
-  "BootstrapBlazor.Server.Components.Samples.Sockets.Receives": {
+  "BootstrapBlazor.Server.Components.Samples.Sockets.ManualReceives": {
+    "ReceivesTitle": "Manual Receive",
+    "ReceivesDescription": "Receive data through call ReceiveAsync and display it",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "After the connection is established, the data sent by the server is received through the <code>ReceiveAsync</code> callback method. The data problems of sticking and splitting packets need to be handled by the client."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.AutoReceives": {
     "ReceivesTitle": "Socket Receive",
-    "ReceivesDescription": "Receive data through Socket and display it",
+    "ReceivesDescription": "Receive data through ReceivedCallBack and display it",
     "NormalTitle": "Basic usage",
     "NormalIntro": "After connecting, the timestamp data sent by the server is automatically received through the <code>ReceivedCallBack</code> callback method"
   },
