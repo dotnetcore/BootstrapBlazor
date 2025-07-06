@@ -50,4 +50,14 @@ public class SocketClientOptions
     /// </summary>
     /// <remarks>This property specifies the local network endpoint that the socket client will bind to when establishing a connection.</remarks>
     public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the system should automatically attempt to reconnect  after a connection is lost. Default value is false.
+    /// </summary>
+    public bool AutoReconnect { get; set; }
+
+    /// <summary>
+    /// Gets or sets the interval, in milliseconds, between reconnection attempts. Default value is 5000.
+    /// </summary>
+    public int ReconnectInterval { get; set; } = 5000;
 }
