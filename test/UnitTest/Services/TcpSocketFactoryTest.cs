@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Logging;
+using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -304,6 +305,46 @@ public class TcpSocketFactoryTest
 
         // 关闭连接
         StopTcpServer(server);
+    }
+
+    [Fact]
+    public async Task AutoReconnect_Ok()
+    {
+        var provider = new MockAutoReconnectSocketProvider();
+        // 测试自动重连功能
+        var port = 8894;
+        var server = StartTcpServer(port, LoopSendPackageAsync);
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider>(p => provider);
+        },
+        options =>
+        {
+            options.IsAutoReconnect = true;
+            options.ReconnectInterval = 500;
+            options.IsAutoReceive = true;
+        });
+
+        byte[] data = [];
+        var tcs = new TaskCompletionSource();
+        // 连接后即开始自动接收
+        client.ReceivedCallBack = buffer =>
+        {
+            data = buffer.ToArray();
+            tcs.SetResult();
+            return ValueTask.CompletedTask;
+        };
+
+        // 使用场景自动接收数据，短线后自动重连
+        var connect = await client.ConnectAsync("localhost", port);
+        await tcs.Task;
+        Assert.Equal([1, 2, 3, 4, 5], data);
+
+        tcs = new TaskCompletionSource();
+        // 模拟断线
+        provider.MockDisconnect();
+        await tcs.Task;
     }
 
     [Fact]
@@ -626,12 +667,25 @@ public class TcpSocketFactoryTest
         }
     }
 
+    private static async Task LoopSendPackageAsync(TcpClient client)
+    {
+        using var stream = client.GetStream();
+        while (true)
+        {
+            // 模拟发送数据
+            var data = new byte[] { 1, 2, 3, 4, 5 };
+            await stream.WriteAsync(data, CancellationToken.None);
+            // 模拟延时
+            await Task.Delay(500);
+        }
+    }
+
     private static void StopTcpServer(TcpListener server)
     {
         server?.Stop();
     }
 
-    private static ITcpSocketClient CreateClient(Action<ServiceCollection>? builder = null)
+    private static ITcpSocketClient CreateClient(Action<ServiceCollection>? builder = null, Action<SocketClientOptions>? optionConfigure = null)
     {
         var sc = new ServiceCollection();
         sc.AddLogging(builder =>
@@ -643,7 +697,11 @@ public class TcpSocketFactoryTest
 
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
-        var client = factory.GetOrCreate("test", op => op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0));
+        var client = factory.GetOrCreate("test", op =>
+        {
+            op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0);
+            optionConfigure?.Invoke(op);
+        });
         return client;
     }
 
@@ -762,6 +820,41 @@ public class TcpSocketFactoryTest
             // 模拟超时发送
             await Task.Delay(100, token);
             return false;
+        }
+    }
+
+    class MockAutoReconnectSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            IsConnected = true;
+            return ValueTask.FromResult(true);
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            byte[] data = [1, 2, 3, 4, 5];
+            data.CopyTo(buffer);
+            return ValueTask.FromResult(5);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(true);
+        }
+
+        public void MockDisconnect()
+        {
+            IsConnected = false;
         }
     }
 
