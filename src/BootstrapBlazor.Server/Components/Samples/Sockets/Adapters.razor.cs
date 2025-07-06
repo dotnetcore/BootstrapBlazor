@@ -83,7 +83,7 @@ public partial class Adapters : IDisposable
             // 记录日志
             _items.Add(new ConsoleMessageItem()
             {
-                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(data)} {state}"
+                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data: {BitConverter.ToString(data)} {state}"
             });
         }
     }
@@ -109,7 +109,7 @@ public partial class Adapters : IDisposable
 
         _items.Add(new ConsoleMessageItem
         {
-            Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {payload} HEX: {body}",
+            Message = $"{DateTime.Now}: 接收数据 {_client.LocalEndPoint} - {_serverEndPoint} Data: {payload} HEX: {body}",
             Color = Color.Success
         });
 

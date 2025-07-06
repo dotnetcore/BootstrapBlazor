@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 /// <summary>
 /// 接收电文示例
 /// </summary>
-public partial class Receives : IDisposable
+public partial class AutoReceives : IDisposable
 {
     [Inject, NotNull]
     private ITcpSocketFactory? TcpSocketFactory { get; set; }
@@ -29,7 +29,7 @@ public partial class Receives : IDisposable
         base.OnInitialized();
 
         // 从服务中获取 Socket 实例
-        _client = TcpSocketFactory.GetOrCreate("demo-receive", options =>
+        _client = TcpSocketFactory.GetOrCreate("demo-auto-receive", options =>
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });

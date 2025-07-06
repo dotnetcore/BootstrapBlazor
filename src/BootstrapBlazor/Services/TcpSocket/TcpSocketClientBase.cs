@@ -109,10 +109,14 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
         catch (OperationCanceledException ex)
         {
-            var message = token.IsCancellationRequested
-                ? $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}"
-                : $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}";
-            Log(LogLevel.Warning, ex, message);
+            if (token.IsCancellationRequested)
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}");
+            }
+            else
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}");
+            }
         }
         catch (Exception ex)
         {
@@ -241,9 +245,14 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
         catch (OperationCanceledException ex)
         {
-            Log(LogLevel.Warning, ex, token.IsCancellationRequested
-                ? $"TCP Socket receive operation canceled from {_localEndPoint} to {_remoteEndPoint}"
-                : $"TCP Socket receive operation timed out from {_localEndPoint} to {_remoteEndPoint}");
+            if (token.IsCancellationRequested)
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket receive operation canceled from {_localEndPoint} to {_remoteEndPoint}");
+            }
+            else
+            {
+                Log(LogLevel.Warning, ex, $"TCP Socket receive operation timed out from {_localEndPoint} to {_remoteEndPoint}");
+            }
         }
         catch (Exception ex)
         {

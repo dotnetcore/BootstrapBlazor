@@ -46,6 +46,7 @@ static class ServiceCollectionExtensions
         services.AddHostedService<ClearTempFilesService>();
         services.AddHostedService<MockOnlineContributor>();
         services.AddHostedService<MockReceiveSocketServerService>();
+        services.AddHostedService<MockSendReceiveSocketServerService>();
         services.AddHostedService<MockCustomProtocolSocketServerService>();
 
         // 增加通用服务

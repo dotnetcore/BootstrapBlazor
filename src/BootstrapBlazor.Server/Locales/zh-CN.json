@@ -4824,7 +4824,9 @@
     "TcpSocketFactory": "套接字服务 ITcpSocketFactory",
     "OfficeViewer": "Office 文档预览组件",
     "SocketComponents": "Socket 服务",
-    "SocketReceive": "接收数据"
+    "SocketAutoReceive": "自动接收数据",
+    "SocketManualReceive": "手动接收数据",
+    "DataPackageAdapter": "数据处理器"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7080,9 +7082,15 @@
     "OfficeViewerNormalIntro": "通过设置 <code>Url</code> 值设置预览文档地址",
     "OfficeViewerToastSuccessfulContent": "Office 文档加载成功"
   },
-  "BootstrapBlazor.Server.Components.Samples.Sockets.Receives": {
-    "ReceivesTitle": "Socket 接收示例",
-    "ReceivesDescription": "通过 Socket 接收数据并且显示",
+  "BootstrapBlazor.Server.Components.Samples.Sockets.ManualReceives": {
+    "ReceivesTitle": "手动接收示例",
+    "ReceivesDescription": "通过调用 ReceiveAsync 接收数据并且显示",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "连接后通过 <code>ReceiveAsync</code> 回调方法接收服务端发送来的数据，需要自行处理粘包分包的数据问题"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.AutoReceives": {
+    "ReceivesTitle": "自动接收示例",
+    "ReceivesDescription": "通过 ReceiveCallback 接收数据并且显示",
     "NormalTitle": "基本用法",
     "NormalIntro": "连接后通过 <code>ReceivedCallBack</code> 回调方法自动接收服务端发送来的时间戳数据"
   },
