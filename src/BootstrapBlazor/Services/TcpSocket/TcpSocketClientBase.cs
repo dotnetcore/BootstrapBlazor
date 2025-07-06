@@ -195,7 +195,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     {
         // 自动接收方法
         _receiveCancellationTokenSource ??= new();
-        while (true)
+        while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
         {
             if (SocketClientProvider is not { IsConnected: true })
             {
