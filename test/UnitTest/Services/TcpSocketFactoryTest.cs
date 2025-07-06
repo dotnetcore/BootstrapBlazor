@@ -48,11 +48,14 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task ConnectAsync_Timeout()
     {
-        var client = CreateClient();
-        client.Options.ConnectTimeout = 1;
+        var client = CreateClient(builder =>
+        {
+            // 增加发送报错 MockSocket
+            builder.AddTransient<ISocketClientProvider, MockConnectTimeoutSocketProvider>();
+        });
+        client.Options.ConnectTimeout = 10;
 
         var connect = await client.ConnectAsync("localhost", 9999);
-        await Task.Delay(5);
         Assert.False(connect);
     }
 
@@ -700,6 +703,35 @@ public class TcpSocketFactoryTest
         public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
         {
             throw new Exception("Mock send error");
+        }
+    }
+
+    class MockConnectTimeoutSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            await Task.Delay(1000, token);
+            IsConnected = false;
+            return false;
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(0);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(true);
         }
     }
 
