@@ -71,7 +71,7 @@ public partial class ManualReceives
             // 记录日志
             _items.Add(new ConsoleMessageItem()
             {
-                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data {BitConverter.ToString(data)} {state}"
+                Message = $"{DateTime.Now}: 发送数据 {_client.LocalEndPoint} - {_serverEndPoint} Data: {BitConverter.ToString(data)} {state}"
             });
 
             if (result)
