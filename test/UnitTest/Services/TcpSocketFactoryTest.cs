@@ -52,6 +52,7 @@ public class TcpSocketFactoryTest
         client.Options.ConnectTimeout = 1;
 
         var connect = await client.ConnectAsync("localhost", 9999);
+        await Task.Delay(5);
         Assert.False(connect);
     }
 
