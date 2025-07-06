@@ -86,7 +86,7 @@ internal static class MenusLocalizerExtensions
         item = new DemoMenuItem()
         {
             Text = Localizer["SocketComponents"],
-            Icon = "fa-fw fa-solid fa-square-binary text-danger"
+            Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
         };
         AddSocket(item);
 
