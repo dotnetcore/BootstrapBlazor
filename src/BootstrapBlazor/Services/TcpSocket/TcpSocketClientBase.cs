@@ -231,16 +231,17 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             {
                 // 远端主机关闭链路
                 Log(LogLevel.Information, null, $"TCP Socket {_localEndPoint} received 0 data closed by {_remoteEndPoint}");
+                buffer = Memory<byte>.Empty;
             }
             else
             {
                 buffer = buffer[..len];
+            }
 
-                if (ReceivedCallBack != null)
-                {
-                    // 如果订阅回调则触发回调
-                    await ReceivedCallBack(buffer);
-                }
+            if (ReceivedCallBack != null)
+            {
+                // 如果订阅回调则触发回调
+                await ReceivedCallBack(buffer);
             }
         }
         catch (OperationCanceledException ex)
