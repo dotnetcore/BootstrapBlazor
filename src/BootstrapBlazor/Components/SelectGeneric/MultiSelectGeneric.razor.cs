@@ -195,7 +195,9 @@ public partial class MultiSelectGeneric<TValue>
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth
+        ? null
+        : ScrollIntoViewBehavior.ToDescriptionString();
 
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
