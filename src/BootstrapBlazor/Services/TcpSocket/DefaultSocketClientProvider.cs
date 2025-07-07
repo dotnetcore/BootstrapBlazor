@@ -33,7 +33,7 @@ class DefaultSocketClientProvider : ISocketClientProvider
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
         _client = new TcpClient(LocalEndPoint);
-        await _client.ConnectAsync(endPoint, token);
+        await _client.ConnectAsync(endPoint, token).ConfigureAwait(false);
         if (_client.Connected)
         {
             if (_client.Client.LocalEndPoint is IPEndPoint localEndPoint)
@@ -53,7 +53,7 @@ class DefaultSocketClientProvider : ISocketClientProvider
         if (_client != null)
         {
             var stream = _client.GetStream();
-            await stream.WriteAsync(data, token);
+            await stream.WriteAsync(data, token).ConfigureAwait(false);
             ret = true;
         }
         return ret;
@@ -68,7 +68,7 @@ class DefaultSocketClientProvider : ISocketClientProvider
         if (_client is { Connected: true })
         {
             var stream = _client.GetStream();
-            len = await stream.ReadAsync(buffer, token);
+            len = await stream.ReadAsync(buffer, token).ConfigureAwait(false);
         }
         return len;
     }

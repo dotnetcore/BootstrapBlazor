@@ -55,4 +55,14 @@ public class SocketClientOptions
     /// Gets or sets a value indicating whether logging is enabled. Default value is false.
     /// </summary>
     public bool EnableLog { get; set; }
+    
+    /// <summary>    
+    /// Gets or sets a value indicating whether the system should automatically attempt to reconnect  after a connection is lost. Default value is false.
+    /// </summary>
+    public bool IsAutoReconnect { get; set; }
+
+    /// <summary>
+    /// Gets or sets the interval, in milliseconds, between reconnection attempts. Default value is 5000.
+    /// </summary>
+    public int ReconnectInterval { get; set; } = 5000;
 }

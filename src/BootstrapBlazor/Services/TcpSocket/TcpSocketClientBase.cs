@@ -63,6 +63,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private IPEndPoint? _remoteEndPoint;
     private IPEndPoint? _localEndPoint;
     private CancellationTokenSource? _receiveCancellationTokenSource;
+    private CancellationTokenSource? _autoConnectTokenSource;
 
     /// <summary>
     /// <inheritdoc/>
@@ -72,39 +73,21 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <returns></returns>
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
+        if (IsConnected)
+        {
+            return true;
+        }
+
         var ret = false;
         SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
             ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
 
         try
         {
-            // 释放资源
-            await CloseAsync();
-
-            // 创建新的 TcpClient 实例
-            SocketClientProvider.LocalEndPoint = Options.LocalEndPoint;
-
-            _localEndPoint = Options.LocalEndPoint;
-            _remoteEndPoint = null;
-
-            var connectionToken = token;
-            if (Options.ConnectTimeout > 0)
+            ret = await ConnectCoreAsync(SocketClientProvider, endPoint, token);
+            if (ret == false)
             {
-                // 设置连接超时时间
-                var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
-                connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
-            }
-            ret = await SocketClientProvider.ConnectAsync(endPoint, connectionToken);
-
-            if (ret)
-            {
-                _localEndPoint = SocketClientProvider.LocalEndPoint;
-                _remoteEndPoint = endPoint;
-
-                if (options.IsAutoReceive)
-                {
-                    _ = Task.Run(AutoReceiveAsync, token);
-                }
+                Reconnect();
             }
         }
         catch (OperationCanceledException ex)
@@ -116,13 +99,73 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             else
             {
                 Log(LogLevel.Warning, ex, $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}");
+                Reconnect();
             }
         }
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket connection failed from {LocalEndPoint} to {endPoint}");
+            Reconnect();
         }
         return ret;
+    }
+
+    private void Reconnect()
+    {
+        if (options.IsAutoReconnect)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    _autoConnectTokenSource ??= new();
+                    await Task.Delay(options.ReconnectInterval, _autoConnectTokenSource.Token).ConfigureAwait(false);
+                    HandleDisconnection();
+                }
+                catch { }
+            }, CancellationToken.None).ConfigureAwait(false);
+        }
+    }
+
+    private async ValueTask<bool> ConnectCoreAsync(ISocketClientProvider provider, IPEndPoint endPoint, CancellationToken token)
+    {
+        // 释放资源
+        await CloseAsync();
+
+        // 创建新的 TcpClient 实例
+        provider.LocalEndPoint = Options.LocalEndPoint;
+
+        _localEndPoint = Options.LocalEndPoint;
+        _remoteEndPoint = endPoint;
+
+        var connectionToken = token;
+        if (Options.ConnectTimeout > 0)
+        {
+            // 设置连接超时时间
+            var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
+            connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
+        }
+        var ret = await provider.ConnectAsync(endPoint, connectionToken);
+
+        if (ret)
+        {
+            _localEndPoint = provider.LocalEndPoint;
+
+            if (options.IsAutoReceive)
+            {
+                _ = Task.Run(AutoReceiveAsync, CancellationToken.None).ConfigureAwait(false);
+            }
+        }
+        return ret;
+    }
+
+    private void HandleDisconnection()
+    {
+        if (options.IsAutoReconnect && _remoteEndPoint != null)
+        {
+            _autoConnectTokenSource ??= new();
+            _ = Task.Run(() => ConnectAsync(_remoteEndPoint, _autoConnectTokenSource.Token)).ConfigureAwait(false);
+        }
     }
 
     /// <summary>
@@ -149,6 +192,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
             ret = await SocketClientProvider.SendAsync(data, sendToken);
+            if (ret == false)
+            {
+                HandleDisconnection();
+            }
         }
         catch (OperationCanceledException ex)
         {
@@ -164,6 +211,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket send failed from {_localEndPoint} to {_remoteEndPoint}");
+
+            HandleDisconnection();
         }
 
         if (options.EnableLog)
@@ -193,6 +242,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         using var block = MemoryPool<byte>.Shared.Rent(options.ReceiveBufferSize);
         var buffer = block.Memory;
         var len = await ReceiveCoreAsync(SocketClientProvider, buffer, token);
+        if (len == 0)
+        {
+            HandleDisconnection();
+        }
         return buffer[..len];
     }
 
@@ -200,7 +253,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     {
         // 自动接收方法
         _receiveCancellationTokenSource ??= new();
-        while (true)
+        while (_receiveCancellationTokenSource is { IsCancellationRequested: false })
         {
             if (SocketClientProvider is not { IsConnected: true })
             {
@@ -216,6 +269,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 break;
             }
         }
+
+        HandleDisconnection();
     }
 
     private async ValueTask<int> ReceiveCoreAsync(ISocketClientProvider client, Memory<byte> buffer, CancellationToken token)
@@ -236,16 +291,19 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             {
                 // 远端主机关闭链路
                 Log(LogLevel.Information, null, $"TCP Socket {_localEndPoint} received 0 data closed by {_remoteEndPoint}");
+                buffer = Memory<byte>.Empty;
+
+                HandleDisconnection();
             }
             else
             {
                 buffer = buffer[..len];
+            }
 
-                if (ReceivedCallBack != null)
-                {
-                    // 如果订阅回调则触发回调
-                    await ReceivedCallBack(buffer);
-                }
+            if (ReceivedCallBack != null)
+            {
+                // 如果订阅回调则触发回调
+                await ReceivedCallBack(buffer);
             }
         }
         catch (OperationCanceledException ex)
@@ -262,6 +320,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket receive failed from {_localEndPoint} to {_remoteEndPoint}");
+
+            HandleDisconnection();
         }
 
         if (options.EnableLog)
@@ -283,9 +343,19 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual ValueTask CloseAsync()
+    public virtual async ValueTask CloseAsync()
     {
-        return DisposeAsync(true);
+        // 取消接收数据的任务
+        if (_receiveCancellationTokenSource != null)
+        {
+            _receiveCancellationTokenSource.Cancel();
+            _receiveCancellationTokenSource.Dispose();
+            _receiveCancellationTokenSource = null;
+        }
+        if (SocketClientProvider != null)
+        {
+            await SocketClientProvider.CloseAsync();
+        }
     }
 
     /// <summary>
@@ -300,18 +370,15 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     {
         if (disposing)
         {
-            // 取消接收数据的任务
-            if (_receiveCancellationTokenSource != null)
+            // 取消重连任务
+            if (_autoConnectTokenSource != null)
             {
-                _receiveCancellationTokenSource.Cancel();
-                _receiveCancellationTokenSource.Dispose();
-                _receiveCancellationTokenSource = null;
+                _autoConnectTokenSource.Cancel();
+                _autoConnectTokenSource.Dispose();
+                _autoConnectTokenSource = null;
             }
 
-            if (SocketClientProvider != null)
-            {
-                await SocketClientProvider.CloseAsync();
-            }
+            await CloseAsync();
         }
     }
 
