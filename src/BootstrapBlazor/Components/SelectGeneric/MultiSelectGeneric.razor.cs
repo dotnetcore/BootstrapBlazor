@@ -24,8 +24,6 @@ public partial class MultiSelectGeneric<TValue>
         .AddClass("is-fixed-toolbar", ShowToolbar)
         .Build();
 
-    private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
-
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
@@ -197,7 +195,9 @@ public partial class MultiSelectGeneric<TValue>
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth
+        ? null
+        : ScrollIntoViewBehavior.ToDescriptionString();
 
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
@@ -224,6 +224,11 @@ public partial class MultiSelectGeneric<TValue>
         ResetRules();
 
         _itemsCache = null;
+
+        if (IsVirtualize == false)
+        {
+            ResetSelectedItems();
+        }
     }
 
     /// <summary>
@@ -512,6 +517,22 @@ public partial class MultiSelectGeneric<TValue>
         if (valid != null)
         {
             Color = valid.Value ? Color.Success : Color.Danger;
+        }
+    }
+
+    private void ResetSelectedItems()
+    {
+        SelectedItems.Clear();
+        if (Value != null)
+        {
+            foreach (var v in Value)
+            {
+                var item = Rows.Find(i => Equals(i.Value, v));
+                if (item != null)
+                {
+                    SelectedItems.Add(item);
+                }
+            }
         }
     }
 }
