@@ -50,4 +50,9 @@ public class SocketClientOptions
     /// </summary>
     /// <remarks>This property specifies the local network endpoint that the socket client will bind to when establishing a connection.</remarks>
     public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+
+    /// <summary>
+    /// Gets or sets a value indicating whether logging is enabled. Default value is false.
+    /// </summary>
+    public bool EnableLog { get; set; }
 }

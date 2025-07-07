@@ -643,7 +643,11 @@ public class TcpSocketFactoryTest
 
         var provider = sc.BuildServiceProvider();
         var factory = provider.GetRequiredService<ITcpSocketFactory>();
-        var client = factory.GetOrCreate("test", op => op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0));
+        var client = factory.GetOrCreate("test", op =>
+        {
+            op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0);
+            op.EnableLog = true;
+        });
         return client;
     }
 
