@@ -24,8 +24,6 @@ public partial class MultiSelectGeneric<TValue>
         .AddClass("is-fixed-toolbar", ShowToolbar)
         .Build();
 
-    private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
-
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
