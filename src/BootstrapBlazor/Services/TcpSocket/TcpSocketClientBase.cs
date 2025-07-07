@@ -64,6 +64,12 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private IPEndPoint? _localEndPoint;
     private CancellationTokenSource? _receiveCancellationTokenSource;
 
+#if NET9_0_OR_GREATER
+    private readonly Lock _lock = new();
+#else
+    private readonly object _lock = new();
+#endif
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -72,6 +78,19 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <returns></returns>
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
+        if (IsConnected)
+        {
+            return true;
+        }
+
+        lock (_lock)
+        {
+            if (IsConnected)
+            {
+                return true;
+            }
+        }
+
         var ret = false;
         SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
             ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
