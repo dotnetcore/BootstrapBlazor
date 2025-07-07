@@ -65,15 +65,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private CancellationTokenSource? _autoConnectTokenSource;
 
-    // 当前状态是否正在连接
-    private bool _isConnecting = false;
-
-#if NET9_0_OR_GREATER
-    private readonly Lock _lock = new();
-#else
-    private readonly object _lock = new();
-#endif
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -82,6 +73,11 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     /// <returns></returns>
     public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
     {
+        if (IsConnected)
+        {
+            return true;
+        }
+
         var ret = false;
         SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
             ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
@@ -196,6 +192,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
             ret = await SocketClientProvider.SendAsync(data, sendToken);
+            if (ret == false)
+            {
+                HandleDisconnection();
+            }
         }
         catch (OperationCanceledException ex)
         {
@@ -242,6 +242,10 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         using var block = MemoryPool<byte>.Shared.Rent(options.ReceiveBufferSize);
         var buffer = block.Memory;
         var len = await ReceiveCoreAsync(SocketClientProvider, buffer, token);
+        if (len == 0)
+        {
+            HandleDisconnection();
+        }
         return buffer[..len];
     }
 
@@ -265,6 +269,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 break;
             }
         }
+
+        HandleDisconnection();
     }
 
     private async ValueTask<int> ReceiveCoreAsync(ISocketClientProvider client, Memory<byte> buffer, CancellationToken token)
