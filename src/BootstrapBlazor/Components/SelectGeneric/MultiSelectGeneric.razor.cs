@@ -224,6 +224,11 @@ public partial class MultiSelectGeneric<TValue>
         ResetRules();
 
         _itemsCache = null;
+
+        if (IsVirtualize == false)
+        {
+            ResetSelectedItems();
+        }
     }
 
     /// <summary>
@@ -512,6 +517,22 @@ public partial class MultiSelectGeneric<TValue>
         if (valid != null)
         {
             Color = valid.Value ? Color.Success : Color.Danger;
+        }
+    }
+
+    private void ResetSelectedItems()
+    {
+        SelectedItems.Clear();
+        if (Value != null)
+        {
+            foreach (var v in Value)
+            {
+                var item = Rows.Find(i => Equals(i.Value, v));
+                if (item != null)
+                {
+                    SelectedItems.Add(item);
+                }
+            }
         }
     }
 }
