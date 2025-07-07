@@ -165,6 +165,11 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         {
             Log(LogLevel.Error, ex, $"TCP Socket send failed from {_localEndPoint} to {_remoteEndPoint}");
         }
+
+        if (options.EnableLog)
+        {
+            Log(LogLevel.Information, null, $"Sending data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {data.Length} Data Content: {BitConverter.ToString(data.ToArray())} Result: {ret}");
+        }
         return ret;
     }
 
@@ -258,6 +263,11 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket receive failed from {_localEndPoint} to {_remoteEndPoint}");
+        }
+
+        if (options.EnableLog)
+        {
+            Log(LogLevel.Information, null, $"Receiving data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {len} Data Content: {BitConverter.ToString(buffer.ToArray())}");
         }
         return len;
     }

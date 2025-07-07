@@ -52,6 +52,11 @@ public class SocketClientOptions
     public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
 
     /// <summary>
+    /// Gets or sets a value indicating whether logging is enabled. Default value is false.
+    /// </summary>
+    public bool EnableLog { get; set; }
+    
+    /// <summary>    
     /// Gets or sets a value indicating whether the system should automatically attempt to reconnect  after a connection is lost. Default value is false.
     /// </summary>
     public bool IsAutoReconnect { get; set; }

@@ -700,6 +700,7 @@ public class TcpSocketFactoryTest
         var client = factory.GetOrCreate("test", op =>
         {
             op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0);
+            op.EnableLog = true;
             optionConfigure?.Invoke(op);
         });
         return client;
