@@ -310,41 +310,49 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task AutoReconnect_Ok()
     {
-        var provider = new MockAutoReconnectSocketProvider();
-        // 测试自动重连功能
+        var client = CreateClient(optionConfigure: options =>
+        {
+            options.IsAutoReconnect = true;
+            options.ReconnectInterval = 200;
+            options.IsAutoReceive = true;
+        });
+
+        // 使用场景自动接收数据，短线后自动重连
         var port = 8894;
+        var connect = await client.ConnectAsync("localhost", port);
+        Assert.False(connect);
+
+        // 开启服务端后，可以自动重连上
         var server = StartTcpServer(port, LoopSendPackageAsync);
+        await Task.Delay(250);
+        Assert.True(client.IsConnected);
+
+        await client.DisposeAsync();
+    }
+
+    [Fact]
+    public async Task AutoReconnect_False()
+    {
+        var provider = new MockAutoReconnectSocketProvider();
         var client = CreateClient(builder =>
         {
             // 增加发送报错 MockSocket
             builder.AddTransient<ISocketClientProvider>(p => provider);
         },
-        options =>
+        optionConfigure: options =>
         {
             options.IsAutoReconnect = true;
-            options.ReconnectInterval = 500;
+            options.ReconnectInterval = 200;
             options.IsAutoReceive = true;
         });
 
-        byte[] data = [];
-        var tcs = new TaskCompletionSource();
-        // 连接后即开始自动接收
-        client.ReceivedCallBack = buffer =>
-        {
-            data = buffer.ToArray();
-            tcs.SetResult();
-            return ValueTask.CompletedTask;
-        };
-
         // 使用场景自动接收数据，短线后自动重连
-        var connect = await client.ConnectAsync("localhost", port);
-        await tcs.Task;
-        Assert.Equal([1, 2, 3, 4, 5], data);
+        var connect = await client.ConnectAsync("localhost", 0);
+        Assert.False(connect);
 
-        tcs = new TaskCompletionSource();
-        // 模拟断线
-        provider.MockDisconnect();
-        await tcs.Task;
+        provider.SetConnected(true);
+        await Task.Delay(250);
+        Assert.True(client.IsConnected);
     }
 
     [Fact]
@@ -828,16 +836,15 @@ public class TcpSocketFactoryTest
     {
         public bool IsConnected { get; private set; }
 
-        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
-
-        public ValueTask CloseAsync()
-        {
-            return ValueTask.CompletedTask;
-        }
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
 
         public ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
         {
-            IsConnected = true;
+            return ValueTask.FromResult(IsConnected);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
             return ValueTask.FromResult(true);
         }
 
@@ -848,14 +855,14 @@ public class TcpSocketFactoryTest
             return ValueTask.FromResult(5);
         }
 
-        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        public ValueTask CloseAsync()
         {
-            return ValueTask.FromResult(true);
+            return ValueTask.CompletedTask;
         }
 
-        public void MockDisconnect()
+        public void SetConnected(bool state)
         {
-            IsConnected = false;
+            IsConnected = state;
         }
     }
 
