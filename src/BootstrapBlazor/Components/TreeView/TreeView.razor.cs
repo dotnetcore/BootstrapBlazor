@@ -773,7 +773,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             }
 
             // 如果允许改变源节点则更新拖拽项的父对象以及排序
-            _draggingItem.Parent?.Items.Remove(_draggingItem);
+            if (_draggingItem.Parent is not null)
+            {
+                _draggingItem.Parent.Items.Remove(_draggingItem);
+            }
+            else
+            {
+                // 没有父对象，则从顶层节点集合中移除
+                Items.Remove(_draggingItem);
+            }
+
             _draggingItem.IsExpand = e.ExpandAfterDrop;
 
             switch (e.DropType)
