@@ -380,7 +380,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
+    protected override Task InvokeInitAsync() =>
+        InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
 
     private bool _keyboardArrowUpDownTrigger;
 
@@ -730,7 +731,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     #region Draggable
 
-
     /// <summary>
     /// Gets or sets whether to enable item dragging. Default is false.
     /// </summary>
@@ -831,10 +831,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     }
 
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-
 
             _draggingItem = null;
             _previewDrop = false;
@@ -911,5 +908,4 @@ public class TreeDropEventArgs<TItem>
     /// Gets or sets whether to expand the source item's children when dropping.
     /// </summary>
     public bool ExpandAfterDrop { get; set; }
-
 }

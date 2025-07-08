@@ -326,8 +326,8 @@ public partial class TreeViewRow<TItem>
     /// <summary>
     /// Triggered when an item is dropped
     /// </summary>
-    [Parameter]
-    public Func<TreeDropEventArgs<TItem>, Task>? OnItemDrop { get; set; }
+    [Parameter][Required]
+    public Func<TreeDropEventArgs<TItem>, Task> OnItemDrop { get; set; } = null!;
 
     private async Task DragStart(DragEventArgs e)
     {
@@ -336,7 +336,6 @@ public partial class TreeViewRow<TItem>
         {
             _expandAfterDrop = true;
             await ToggleNodeAsync();
-            StateHasChanged();
         }else
         {
             _expandAfterDrop = false;
@@ -389,10 +388,6 @@ public partial class TreeViewRow<TItem>
 
     private async Task DropChildInside(DragEventArgs e)
     {
-        if (OnItemDrop is null)
-        {
-            return;
-        }
         _previewChildFirst = false;
         _previewChildLast = false;
         _previewBelow = false;
@@ -409,10 +404,6 @@ public partial class TreeViewRow<TItem>
 
     private async Task DropChildBelow(DragEventArgs e)
     {
-        if (OnItemDrop is null)
-        {
-            return;
-        }
         _previewChildFirst = false;
         _previewChildLast = false;
         _previewBelow = false;

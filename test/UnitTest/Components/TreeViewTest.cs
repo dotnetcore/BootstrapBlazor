@@ -1391,6 +1391,30 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Draggable_NothingDrop()
+    {
+        var items = new List<TreeFoo>
+        {
+            new() { Text = "Root1", Id = "1" },
+            new() { Text = "Child1", Id = "2", ParentId = "1" }
+        };
+
+        var nodes = TreeFoo.CascadingTree(items);
+        nodes[0].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, nodes);
+            pb.Add(a => a.ItemDraggable, true);
+        });
+
+        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
+        var dropTarget = rows[1]; // Child1
+        var targetDropZone = dropTarget.Find(".tree-drop-child-below");
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => targetDropZone.TriggerEventAsync("ondrop", new DragEventArgs()));
+    }
+
+    [Fact]
     public async Task Draggable_OnDrop_Cancel()
     {
         // Arrange
@@ -1447,7 +1471,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var row = cut.FindComponent<TreeViewRow<TreeFoo>>();
-        var dragEvent = new DragEventArgs();
 
         // 获取可拖拽的 DOM 元素
         var dragSourceElement = row.Find(".tree-node");
@@ -1459,6 +1482,18 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 触发拖拽结束
         await dragSourceElement.TriggerEventAsync("ondragend", new DragEventArgs());
         Assert.DoesNotContain("tree-drop-pass", row.Markup);
+
+        var dropBelow = cut.Find(".tree-drop-child-below");
+        await dropBelow.TriggerEventAsync("ondragenter", new DragEventArgs());
+        Assert.Contains("tree-preview-below", cut.Markup); // 检查是否有拖拽进入的样式
+        await dropBelow.TriggerEventAsync("ondragleave", new DragEventArgs());
+        Assert.DoesNotContain("tree-preview-below", cut.Markup); // 检查是否移除拖拽进入的样式
+
+        var dropInside = cut.Find(".tree-drop-child-inside");
+        await dropInside.TriggerEventAsync("ondragenter", new DragEventArgs());
+        Assert.Contains("tree-preview-child-last", cut.Markup); // 检查是否有拖拽进入的样式
+        await dropInside.TriggerEventAsync("ondragleave", new DragEventArgs());
+        Assert.DoesNotContain("tree-preview-child-last", cut.Markup); // 检查是否移除拖拽进入的样式
     }
 
     #endregion
