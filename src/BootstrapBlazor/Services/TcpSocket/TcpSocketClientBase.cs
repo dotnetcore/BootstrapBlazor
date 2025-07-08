@@ -65,6 +65,12 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private CancellationTokenSource? _autoConnectTokenSource;
 
+#if NET9_0_OR_GREATER
+    private readonly Lock _lock = new();
+#else
+    private readonly object _lock = new();
+#endif
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -78,6 +84,15 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             return true;
         }
 
+        lock (_lock)
+        {
+            if (IsConnected)
+            {
+                return true;
+            }
+        }
+
+        var reconnect = true;
         var ret = false;
         SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
             ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
