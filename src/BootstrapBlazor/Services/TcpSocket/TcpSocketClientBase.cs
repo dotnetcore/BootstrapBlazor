@@ -65,11 +65,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private CancellationTokenSource? _autoConnectTokenSource;
 
-#if NET9_0_OR_GREATER
-    private readonly Lock _lock = new();
-#else
-    private readonly object _lock = new();
-#endif
+    private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
 
     /// <summary>
     /// <inheritdoc/>
@@ -84,12 +80,22 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             return true;
         }
 
-        lock (_lock)
+        var connectionToken = GenerateConnectionToken(token);
+        try
         {
-            if (IsConnected)
-            {
-                return true;
-            }
+            await _semaphoreSlim.WaitAsync(connectionToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // 如果信号量等待被取消，则直接返回 IsConnected
+            // 不管是超时还是被取消，都不需要重连，肯定有其他线程在连接中
+            return IsConnected;
+        }
+
+        if (IsConnected)
+        {
+            _semaphoreSlim.Release();
+            return true;
         }
 
         var reconnect = true;
@@ -99,7 +105,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
 
         try
         {
-            ret = await ConnectCoreAsync(SocketClientProvider, endPoint, token);
+            ret = await ConnectCoreAsync(SocketClientProvider, endPoint, connectionToken);
         }
         catch (OperationCanceledException ex)
         {
@@ -118,10 +124,14 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             Log(LogLevel.Error, ex, $"TCP Socket connection failed from {LocalEndPoint} to {endPoint}");
         }
 
+        // 释放信号量
+        _semaphoreSlim.Release();
+
         if (!ret && reconnect)
         {
             Reconnect();
         }
+
         return ret;
     }
 
@@ -153,14 +163,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         _localEndPoint = Options.LocalEndPoint;
         _remoteEndPoint = endPoint;
 
-        var connectionToken = token;
-        if (Options.ConnectTimeout > 0)
-        {
-            // 设置连接超时时间
-            var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
-            connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
-        }
-        var ret = await provider.ConnectAsync(endPoint, connectionToken);
+        var ret = await provider.ConnectAsync(endPoint, token);
 
         if (ret)
         {
@@ -172,6 +175,18 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             }
         }
         return ret;
+    }
+
+    private CancellationToken GenerateConnectionToken(CancellationToken token)
+    {
+        var connectionToken = token;
+        if (Options.ConnectTimeout > 0)
+        {
+            // 设置连接超时时间
+            var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
+            connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
+        }
+        return connectionToken;
     }
 
     /// <summary>
