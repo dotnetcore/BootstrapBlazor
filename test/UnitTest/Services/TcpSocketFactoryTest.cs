@@ -69,6 +69,18 @@ public class TcpSocketFactoryTest
         var cst = new CancellationTokenSource();
         cst.Cancel();
         var connect = await client.ConnectAsync("localhost", 9999, cst.Token);
+
+        // 由于信号量被取消，所以连接会失败
+        Assert.False(connect);
+
+        // 测试真正的连接被取消逻辑
+        cst = new CancellationTokenSource();
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(50);
+            cst.Cancel();
+        });
+        connect = await client.ConnectAsync("localhost", 9999, cst.Token);
         Assert.False(connect);
     }
 
@@ -100,6 +112,29 @@ public class TcpSocketFactoryTest
         var methodInfo = client.GetType().GetMethod("Log", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(methodInfo);
         methodInfo.Invoke(client, [LogLevel.Error, null!, "Test error log"]);
+    }
+
+    [Fact]
+    public async Task ConnectAsync_Lock()
+    {
+        // 测试并发锁问题
+        var provider = new MockAutoReconnectLockSocketProvider();
+        var client = CreateClient(builder =>
+        {
+            builder.AddTransient<ISocketClientProvider>(p => provider);
+        });
+
+        // 开 5 个线程同时连接
+        _ = Task.Run(async () =>
+        {
+            // 延时 150 保证有一个连接失败
+            await Task.Delay(150);
+            provider.SetConnected(true);
+        });
+        var results = await Task.WhenAll(Enumerable.Range(1, 5).Select(i => client.ConnectAsync("localhost", 0).AsTask()));
+        // 期望结果是 1个 false 4个 true
+        Assert.Equal(1, results.Count(r => !r));
+        Assert.Equal(4, results.Count(r => r));
     }
 
     [Fact]
@@ -432,6 +467,7 @@ public class TcpSocketFactoryTest
         });
 
         await client.ConnectAsync("localhost", 0);
+        await Task.Delay(100);
         await client.DisposeAsync();
     }
 
@@ -909,6 +945,41 @@ public class TcpSocketFactoryTest
             // 模拟超时发送
             await Task.Delay(100, token);
             return false;
+        }
+    }
+
+    class MockAutoReconnectLockSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Loopback, 0);
+
+        public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            await Task.Delay(100, token);
+            return IsConnected;
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(true);
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            byte[] data = [1, 2, 3, 4, 5];
+            data.CopyTo(buffer);
+            return ValueTask.FromResult(5);
+        }
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public void SetConnected(bool state)
+        {
+            IsConnected = state;
         }
     }
 
