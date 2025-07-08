@@ -33,6 +33,8 @@ public sealed partial class TreeViews
 
     private bool AutoCheckParent { get; set; }
 
+    private List<TreeViewItem<TreeFoo>> DraggableItems { get; } = GetDraggableItems();
+
     private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
     private List<TreeViewItem<TreeFoo>>? AccordionItems { get; } = TreeFoo.GetAccordionItems();
@@ -84,7 +86,21 @@ public sealed partial class TreeViews
     }
     private Task<bool> OnDrop(TreeDropEventArgs<TreeFoo> arg)
     {
-        Logger1.Log("Move node from " + arg.Source?.Text + " to " + arg.Target.Text + " " + arg.DropType);
+        // 如果拖拽到 Id=2 的节点下则不允许
+        if (arg.Target.Value.Id == "2" && arg.DropType is TreeDropType.AsFirstChild or TreeDropType.AsLastChild)
+        {
+            return Task.FromResult(false);
+        }
+        // 如果拖拽到 Id=2 的节点下的兄弟节点则不允许
+        if (arg.DropType is TreeDropType.AsSiblingBelow && arg.Target.Parent?.Value.Id == "2")
+        {
+            return Task.FromResult(false);
+        }
+        // 如果 Id=6 的节点则不允许拖出
+        if (arg.Source?.Value.Id == "6")
+        {
+            return Task.FromResult(false);
+        }
         return Task.FromResult(true);
     }
 
@@ -125,6 +141,29 @@ public sealed partial class TreeViews
     {
         Logger2.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
+    }
+
+    private static List<TreeViewItem<TreeFoo>> GetDraggableItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "Item A", Id = "1", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
+
+            new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item G (Can not move out)", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item H", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item I", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+
+        ];
+        var ret = TreeFoo.CascadingTree(items);
+        ret[0].IsExpand = true;
+        ret[1].IsExpand = true;
+        ret[2].IsExpand = true;
+        return ret;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetDisabledItems()
