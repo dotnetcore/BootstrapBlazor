@@ -3,14 +3,14 @@
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
-    EventHandler.on(el, 'input', '.bb-opt-item', e => {
+    EventHandler.on(el, 'input', '.bb-otp-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (isNumber && e.target.value.length > 1) {
             e.target.value = e.target.value.slice(1, 2);
         }
         setValue(el, invoke, method);
     });
-    EventHandler.on(el, 'keydown', '.bb-opt-item', e => {
+    EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
         if (e.ctrlKey) {
             return;
         }
@@ -40,7 +40,7 @@ export function init(id, invoke, method) {
             e.preventDefault();
         }
     });
-    EventHandler.on(el, 'focus', '.bb-opt-item', e => {
+    EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
             e.target.select();
         }
@@ -49,7 +49,7 @@ export function init(id, invoke, method) {
     EventHandler.on(el, 'paste', e => {
         if (e.clipboardData && e.clipboardData.getData) {
             const pastedText = e.clipboardData.getData('text/plain');
-            const inputs = [...el.querySelectorAll('.bb-opt-item')];
+            const inputs = [...el.querySelectorAll('.bb-otp-item')];
             if (inputs.find(i => i.getAttribute('disabled') || i.getAttribute('readonly'))) {
                 return;
             }
@@ -69,12 +69,12 @@ export function init(id, invoke, method) {
 }
 
 const setValue = (el, invoke, method) => {
-    const val = [...el.querySelectorAll('.bb-opt-item')].map(input => input.value).join('');
+    const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('');
     invoke.invokeMethodAsync(method, val);
 }
 
 const setPrevFocus = (el, target) => {
-    const inputs = [...el.querySelectorAll('.bb-opt-item')];
+    const inputs = [...el.querySelectorAll('.bb-otp-item')];
     let index = inputs.indexOf(target);
     if (index > 0) {
         setFocus(inputs[index - 1]);
@@ -82,7 +82,7 @@ const setPrevFocus = (el, target) => {
 }
 
 const setNextFocus = (el, target) => {
-    const inputs = [...el.querySelectorAll('.bb-opt-item')];
+    const inputs = [...el.querySelectorAll('.bb-otp-item')];
     let index = inputs.indexOf(target);
     if (index < inputs.length - 1) {
         setFocus(inputs[index + 1]);

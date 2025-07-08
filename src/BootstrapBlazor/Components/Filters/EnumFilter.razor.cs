@@ -29,8 +29,8 @@ public partial class EnumFilter
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    private string? _value1;
-    private string? _value2;
+    private string? _value1 = "";
+    private string? _value2 = "";
 
     /// <summary>
     /// <inheritdoc/>
@@ -51,8 +51,8 @@ public partial class EnumFilter
     /// </summary>
     public override void Reset()
     {
-        _value1 = null;
-        _value2 = null;
+        _value1 = "";
+        _value2 = "";
         Count = 0;
         StateHasChanged();
     }
@@ -100,7 +100,7 @@ public partial class EnumFilter
         }
         else
         {
-            _value1 = null;
+            _value1 = "";
         }
 
         if (filter.Filters.Count > 1)
@@ -113,7 +113,7 @@ public partial class EnumFilter
             }
             else
             {
-                _value2 = null;
+                _value2 = "";
             }
             Logic = filter.FilterLogic;
         }

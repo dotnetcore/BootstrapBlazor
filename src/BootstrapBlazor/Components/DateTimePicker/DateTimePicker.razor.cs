@@ -27,6 +27,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private string? InputClassName => CssBuilder.Default("dropdown-toggle form-control datetime-picker-input")
         .AddClass("has-icon", ShowIcon)
+        .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass(ValidCss)
         .Build();
 
@@ -104,6 +105,12 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置  控件边框颜色样式 默认为 None 显示
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.None;
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式

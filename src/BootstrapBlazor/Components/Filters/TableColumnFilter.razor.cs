@@ -28,7 +28,15 @@ public partial class TableColumnFilter : IFilter
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
-    public string? NotSupportedMessage { get; set; }
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，请使用 NotSupportedColumnFilterMessage 参数; Deprecated, please use NotSupportedColumnFilterMessage parameter")]
+    public string? NotSupportedMessage { get => NotSupportedColumnFilterMessage; set => NotSupportedColumnFilterMessage = value; }
+
+    /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
     /// 获得 相关联 ITableColumn 实例
@@ -49,10 +57,6 @@ public partial class TableColumnFilter : IFilter
     [Parameter]
     [NotNull]
     public ITable? Table { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
 
     /// <summary>
     /// 获得 过滤小图标样式
@@ -85,16 +89,6 @@ public partial class TableColumnFilter : IFilter
 
         Column.Filter = this;
         _fieldKey = Column.GetFieldName();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
     }
 
     /// <summary>

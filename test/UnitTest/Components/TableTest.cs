@@ -247,6 +247,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowColorWhenToolbarButtonsCollapsed, true);
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -376,7 +377,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnSearchKeyUp_Ok()
+    public async Task OnSearchKeyUp_Ok()
     {
         var resetSearch = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -388,6 +389,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.ShowSearchText, true);
+                pb.Add(a => a.AutoSearchOnInput, false);
                 pb.Add(a => a.ShowSearchTextTooltip, false);
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
@@ -406,8 +408,9 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var searchBox = cut.Find(".table-toolbar-search");
-        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
-        cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
+        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
+        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
+        await cut.InvokeAsync(() => searchBox.Change("0"));
         Assert.True(resetSearch);
     }
 
@@ -450,6 +453,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.NotSupportedColumnFilterMessage, "test-not-support");
                 pb.Add(a => a.SearchText, "张三");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -3860,7 +3864,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(searchModel.Name);
 
@@ -3934,7 +3938,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.Instance.SearchModel.Name = "Test";
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
         Assert.Null(table.Instance.SearchModel.Name);
     }
@@ -4118,7 +4122,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var resetButton = cut.Find(".fa-trash-can");
+        var resetButton = cut.Find(".btn-table-reset");
         await cut.InvokeAsync(() => resetButton.Click());
 
         Assert.True(reset);

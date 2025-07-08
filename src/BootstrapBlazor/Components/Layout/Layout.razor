@@ -127,7 +127,7 @@
         else
         {
             <ErrorLogger EnableErrorLogger="@_enableErrorLogger" ShowToast="@_showToast" ToastTitle="@ErrorLoggerToastTitle" 
-                         OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
+                         EnableILogger="@_enableILogger" OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
                 @HandlerMain()
             </ErrorLogger>
         }

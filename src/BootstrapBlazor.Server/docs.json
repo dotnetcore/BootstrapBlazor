@@ -240,7 +240,12 @@
     "audio-device": "AudioDevices",
     "fullscreen-button": "FullScreenButtons",
     "meet": "Meets",
-    "vditor": "Vditors"
+    "vditor": "Vditors",
+    "socket-factory": "SocketFactories",
+    "office-viewer": "OfficeViewers",
+    "socket/manual-receive": "Sockets\\ManualReceives",
+    "socket/auto-receive": "Sockets\\AutoReceives",
+    "socket/adapter": "Sockets\\Adapters"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

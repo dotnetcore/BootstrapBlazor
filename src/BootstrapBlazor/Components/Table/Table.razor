@@ -40,7 +40,7 @@
         @if (ShowToolbar)
         {
             <div class="table-toolbar">
-                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
+                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton" ShowColorWhenToolbarButtonsCollapsed="ShowColorWhenToolbarButtonsCollapsed">
                     @if (TableToolbarBeforeTemplate != null)
                     {
                         @TableToolbarBeforeTemplate
@@ -169,12 +169,18 @@
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyUp" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                        ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                        </BootstrapInput>
                                     </Tooltip>
                                 }
                                 else
                                 {
-                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                    Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                    ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                    </BootstrapInput>
                                 }
                             }
                             @if (ShowSearchButton)
@@ -586,7 +592,11 @@
                             }
                             @if (col.GetFilterable() && !ShowFilterHeader)
                             {
-                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation></TableColumnFilter>
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this"
+                                                   IsActive="@Filters.ContainsKey(fieldName)"
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage"
+                                                   @onclick:stopPropagation>
+                                </TableColumnFilter>
                             }
                             @if (col.GetSortable())
                             {
@@ -655,7 +665,9 @@
                         <div class="table-cell">
                             @if(col.GetFilterable())
                             {
-                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"></TableColumnFilter>
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage">
+                                </TableColumnFilter>
                             }
                         </div>
                     </th>
@@ -978,25 +990,31 @@
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" ShowLabel="false" SkipValidate="true">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                            @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                            ShowLabel="false" SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                             </BootstrapInput>
                         </Tooltip>
                     }
                     else
                     {
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" SkipValidate="true">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                        SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                         </BootstrapInput>
                     }
                 }
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick"
+                            class="btn-table-reset">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick"
+                            class="btn-table-search">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }

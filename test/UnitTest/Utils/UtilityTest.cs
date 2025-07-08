@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Globalization;
+using System.Net;
 using System.Reflection;
 using UnitTest.Components;
 
@@ -740,6 +741,27 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var result = "192.168.1.192".MaskIpString();
         Assert.Equal("192.168.1.###", result);
+    }
+
+    [Fact]
+    public void ConvertToIPAddress_Ok()
+    {
+        var ex = Assert.Throws<ArgumentNullException>(() => Utility.ConvertToIPAddress(""));
+        Assert.NotNull(ex);
+
+        var address = Utility.ConvertToIPAddress("any");
+        Assert.Equal(IPAddress.Any, address);
+    }
+
+    [Fact]
+    public void ConvertToIpEndPoint_Ok()
+    {
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => Utility.ConvertToIpEndPoint("localhost", 88990));
+        Assert.NotNull(ex);
+
+        ex = null;
+        ex = Assert.Throws<ArgumentOutOfRangeException>(() => Utility.ConvertToIpEndPoint("localhost", -1000));
+        Assert.NotNull(ex);
     }
 
     [AutoGenerateClass(Align = Alignment.Center)]

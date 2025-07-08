@@ -11,29 +11,44 @@ namespace BootstrapBlazor.Components;
 public static class DirectoryInfoExtensions
 {
     /// <summary>
-    /// 文件夹拷贝方法
+    /// Copies the contents of the current directory to a specified destination directory.
     /// </summary>
-    /// <param name="sourceDirInfo"></param>
-    /// <param name="destDirName"></param>
-    public static void Copy(this DirectoryInfo sourceDirInfo, string destDirName)
+    /// <remarks>This method creates the destination directory if it does not already exist. Files in the
+    /// source directory are copied to the destination directory, and if <paramref name="recursive"/> is <see
+    /// langword="true"/>, all subdirectories and their contents are also copied recursively.</remarks>
+    /// <param name="dir">The source directory to copy from.</param>
+    /// <param name="destinationDir">The path of the destination directory where the contents will be copied.</param>
+    /// <param name="recursive"><see langword="true"/> to copy all subdirectories and their contents recursively; otherwise, <see
+    /// langword="false"/>.</param>
+    /// <exception cref="DirectoryNotFoundException">Thrown if the source directory specified by <paramref name="dir"/> does not exist.</exception>
+    public static void Copy(this DirectoryInfo dir, string destinationDir, bool recursive = true)
     {
-        if (!Directory.Exists(destDirName))
+        // Check if the source directory exists
+        if (!dir.Exists)
         {
-            Directory.CreateDirectory(destDirName);
+            throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
         }
 
-        // CopyFile
-        foreach (var info in sourceDirInfo.EnumerateFileSystemInfos())
+        // Create the destination directory
+        Directory.CreateDirectory(destinationDir);
+
+        // Get the files in the source directory and copy to the destination directory
+        foreach (FileInfo file in dir.GetFiles())
         {
-            if (info is FileInfo fi)
+            string targetFilePath = Path.Combine(destinationDir, file.Name);
+            file.CopyTo(targetFilePath);
+        }
+
+        // If recursive and copying subdirectories, recursively call this method
+        if (recursive)
+        {
+            // Cache directories before we start copying
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            foreach (DirectoryInfo subDir in dirs)
             {
-                var targetFileName = Path.Combine(destDirName, info.Name);
-                fi.CopyTo(targetFileName, true);
-            }
-            else if (info is DirectoryInfo di)
-            {
-                var targetFolderName = Path.Combine(destDirName, di.Name);
-                Copy(di, targetFolderName);
+                string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                Copy(subDir, newDestinationDir, true);
             }
         }
     }

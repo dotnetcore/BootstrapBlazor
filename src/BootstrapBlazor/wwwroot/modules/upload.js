@@ -48,7 +48,8 @@ export function init(id) {
             inputFile.files = fileList
             const event = new Event('change', { bubbles: true })
             inputFile.dispatchEvent(event)
-        } catch (e) {
+        }
+        catch (e) {
             console.error(e)
         }
     })
@@ -112,9 +113,10 @@ export function dispose(id) {
         EventHandler.off(document, 'dragover', preventHandler)
 
         EventHandler.off(el, 'click')
-        EventHandler.off(el, 'drop')
         EventHandler.off(el, 'paste')
-        EventHandler.off(inputFile, 'change')
+
+        EventHandler.off(inputFile, 'change');
+
         EventHandler.off(body, 'dragleave')
         EventHandler.off(body, 'drop')
         EventHandler.off(body, 'dragenter')

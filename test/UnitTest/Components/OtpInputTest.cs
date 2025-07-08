@@ -19,7 +19,7 @@ public class OtpInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.Digits, 6);
         });
 
-        var items = cut.FindAll(".bb-opt-item");
+        var items = cut.FindAll(".bb-otp-item");
         Assert.Equal(6, items.Count);
 
         var item = items[0];
@@ -36,21 +36,21 @@ public class OtpInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsReadonly, true);
         });
 
-        var item = cut.Find(".bb-opt-item");
+        var item = cut.Find(".bb-otp-item");
         Assert.Contains("readonly=\"readonly\"", item.OuterHtml);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsReadonly, false);
         });
-        item = cut.Find(".bb-opt-item");
-        Assert.Equal("<input type=\"number\" class=\"bb-opt-item input-number-fix\" inputmode=\"numeric\">", item.OuterHtml);
+        item = cut.Find(".bb-otp-item");
+        Assert.Equal("<input type=\"number\" class=\"bb-otp-item input-number-fix\" inputmode=\"numeric\">", item.OuterHtml);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        item = cut.Find(".bb-opt-item");
+        item = cut.Find(".bb-otp-item");
         Assert.Contains("disabled=\"disabled\"", item.OuterHtml);
     }
 
@@ -63,16 +63,16 @@ public class OtpInputTest : BootstrapBlazorTestBase
             pb.Add(a => a.PlaceHolder, "X");
         });
 
-        var item = cut.Find(".bb-opt-item");
-        Assert.Equal("<input type=\"text\" class=\"bb-opt-item\" maxlength=\"1\" placeholder=\"X\">", item.OuterHtml);
+        var item = cut.Find(".bb-otp-item");
+        Assert.Equal("<input type=\"text\" class=\"bb-otp-item\" maxlength=\"1\" placeholder=\"X\">", item.OuterHtml);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Type, OtpInputType.Password);
             pb.Add(a => a.PlaceHolder, null);
         });
-        item = cut.Find(".bb-opt-item");
-        Assert.Equal("<input type=\"password\" class=\"bb-opt-item\" maxlength=\"1\">", item.OuterHtml);
+        item = cut.Find(".bb-otp-item");
+        Assert.Equal("<input type=\"password\" class=\"bb-otp-item\" maxlength=\"1\">", item.OuterHtml);
     }
 
     [Fact]

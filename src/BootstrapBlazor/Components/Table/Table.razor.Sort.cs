@@ -229,7 +229,7 @@ public partial class Table<TItem>
 
     private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !(GetVisibleColumns().FirstOrDefault()?.Fixed ?? false);
 
-    private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
+    private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new(ReferenceEqualityComparer.Instance);
 
     private bool IsLastColumn(ITableColumn col) => LastFixedColumnCache.GetOrAdd(col, col =>
     {
@@ -244,7 +244,7 @@ public partial class Table<TItem>
 
     private bool IsLastExtendButtonColumn() => IsExtendButtonsInRowHeader && !GetVisibleColumns().Any(i => i.Fixed);
 
-    private ConcurrentDictionary<ITableColumn, bool> FirstFixedColumnCache { get; } = new();
+    private ConcurrentDictionary<ITableColumn, bool> FirstFixedColumnCache { get; } = new(ReferenceEqualityComparer.Instance);
 
     private bool IsFirstColumn(ITableColumn col) => FirstFixedColumnCache.GetOrAdd(col, col =>
     {

@@ -15,17 +15,8 @@
                 <a class="nav-link" href="introduction">@IntroductionText</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="components">@ComponentsText</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="tutorials">@TutorialsText</a>
             </li>
-            @* @if (CultureInfo.CurrentUICulture.Name == "zh-CN")
-            {
-                <li class="nav-item">
-                    <a class="nav-link" href="https://theme.blazor.zone">主题</a>
-                </li>
-            } *@
         </ul>
     </div>
     <div class="d-flex flex-fill"></div>
@@ -43,7 +34,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <FullScreenButton class="nav-link p-2" TooltipText="点击切换全屏模式" />
+            <FullScreenButton class="nav-link p-2" TooltipText="@Localizer["FullScreenTooltipText"]" />
         </li>
     </ul>
     <a class="btn btn-bd-download d-none d-lg-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>

@@ -121,7 +121,7 @@ public partial class Console
     /// 获得/设置 清空委托方法
     /// </summary>
     [Parameter]
-    public Action? OnClear { get; set; }
+    public Func<Task>? OnClear { get; set; }
 
     /// <summary>
     /// 获得/设置 组件高度 默认为 126px;
@@ -150,7 +150,7 @@ public partial class Console
     /// <summary>
     /// 获得 是否显示 Footer
     /// </summary>
-    protected bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;
+    private bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;
 
     [Inject]
     [NotNull]
@@ -194,8 +194,11 @@ public partial class Console
     /// <summary>
     /// 清空控制台消息方法
     /// </summary>
-    public void ClearConsole()
+    public async Task OnClearConsole()
     {
-        OnClear?.Invoke();
+        if (OnClear != null)
+        {
+            await OnClear();
+        }
     }
 }
