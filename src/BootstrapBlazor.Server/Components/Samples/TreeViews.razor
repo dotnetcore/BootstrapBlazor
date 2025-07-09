@@ -56,8 +56,8 @@
            Introduction="@Localizer["TreeViewDraggableIntro"]"
            Name="TreeDraggable">
     <section ignore>@((MarkupString)Localizer["TreeViewDraggableDescription"].Value)</section>
-    <TreeView Items="@DraggableItems" ItemDraggable="true" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
-              OnDrop="OnDrop">
+    <TreeView Items="@DraggableItems" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
+              AllowDrag="true" OnDragItemEndAsync="OnDragItemEndAsync">
     </TreeView>
 </DemoBlock>
 

@@ -85,24 +85,25 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static Task<bool> OnDrop(TreeDropEventArgs<TreeFoo> arg)
+    private static Task OnDragItemEndAsync(TreeViewItem<TreeFoo> item)
     {
         // 如果拖拽到 Id=2 的节点下则不允许
-        if (arg.Target.Value.Id == "2" && arg.DropType is TreeDropType.AsFirstChild or TreeDropType.AsLastChild)
-        {
-            return Task.FromResult(false);
-        }
-        // 如果拖拽到 Id=2 的节点下的兄弟节点则不允许
-        if (arg.DropType is TreeDropType.AsSiblingBelow && arg.Target.Parent?.Value.Id == "2")
-        {
-            return Task.FromResult(false);
-        }
-        // 如果 Id=6 的节点则不允许拖出
-        if (arg.Source?.Value.Id == "6")
-        {
-            return Task.FromResult(false);
-        }
-        return Task.FromResult(true);
+        //if (arg.Target.Value.Id == "2" && arg.DropType is TreeDropType.AsFirstChild or TreeDropType.AsLastChild)
+        //{
+        //    return Task.FromResult(false);
+        //}
+        //// 如果拖拽到 Id=2 的节点下的兄弟节点则不允许
+        //if (arg.DropType is TreeDropType.AsSiblingBelow && arg.Target.Parent?.Value.Id == "2")
+        //{
+        //    return Task.FromResult(false);
+        //}
+        //// 如果 Id=6 的节点则不允许拖出
+        //if (arg.Source?.Value.Id == "6")
+        //{
+        //    return Task.FromResult(false);
+        //}
+        //return Task.FromResult(true);
+        return Task.CompletedTask;
     }
 
     private Task OnTreeItemKeyboardClick(TreeViewItem<TreeFoo> item)

@@ -274,6 +274,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool AllowDrag { get; set; }
 
+    /// <summary>
+    /// 获得/设置 拖动标签页结束回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewItem<TItem>, Task>? OnDragItemEndAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
