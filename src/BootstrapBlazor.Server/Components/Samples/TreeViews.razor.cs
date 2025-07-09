@@ -149,15 +149,17 @@ public sealed partial class TreeViews
         List<TreeFoo> items =
         [
             new() { Text = "Item A", Id = "1", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
-
             new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
+
+            new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item G (Can not move out)", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+
+            new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item H", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item I", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+
+            new() { Text = "Item G (Can not move out)", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
         ];
         var ret = TreeFoo.CascadingTree(items);
