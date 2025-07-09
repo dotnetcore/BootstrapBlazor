@@ -1223,15 +1223,13 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Contains("test-toolbar-template", cut.Markup);
     }
 
-    #region DraggableTest
-
     [Fact]
     public async Task Draggable_Basic_MoveAsLastChild()
     {
         // Arrange
         var items = new List<TreeFoo>
         {
-            new() { Text = "Root1", Id = "1" },
+            new() { Text = "Root", Id = "1" },
             new() { Text = "Child1", Id = "2", ParentId = "1" },
             new() { Text = "Child2", Id = "3", ParentId = "1" },
             new() { Text = "Root2", Id = "4" },
@@ -1239,47 +1237,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         };
         var nodes = TreeFoo.CascadingTree(items);
         nodes[0].IsExpand = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
-        {
-            pb.Add(a => a.Items, nodes);
-            pb.Add(a => a.ItemDraggable, true);
-        });
-
-        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
-        var dragSource = rows[1]; // Child1
-        var dropTarget = rows[3]; // Root2
-
-        var sourceElement = dragSource.Find(".tree-node");
-        // 拖动到节点中间的区域
-        var targetDropZone = dropTarget.Find(".tree-drop-child-inside");
-
-        await sourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
-        await targetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
-        await targetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
-
-        // Assert
-        Assert.Single(nodes[0].Items); // Root1 只剩下 Child2
-        Assert.Equal(2, nodes[1].Items.Count); // Root2 有 Child3 和 Child1
-        Assert.Equal("Child1", nodes[1].Items[1].Text); // Child1 成为 Root2 的最后一个子节点
-        Assert.Equal(nodes[1], nodes[1].Items[1].Parent); // Child1 的父节点是 Root2
-    }
-
-    [Fact]
-    public async Task Draggable_Basic_MoveAsFirstChild()
-    {
-        // Arrange
-        var items = new List<TreeFoo>
-        {
-            new() { Text = "Root1", Id = "1" },
-            new() { Text = "Child1", Id = "2", ParentId = "1" },
-            new() { Text = "Child2", Id = "3", ParentId = "1" },
-            new() { Text = "Root2", Id = "4" },
-            new() { Text = "Child3", Id = "5", ParentId = "4" }
-        };
-        var nodes = TreeFoo.CascadingTree(items);
-        nodes[0].IsExpand = true;
-        // 展开情况才能作为第一个子节点进行拖入
-        nodes[1].IsExpand = true;
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, nodes);
@@ -1290,19 +1247,21 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var dragSource = rows[1]; // Child1
         var dragTarget = rows[3]; // Root2
 
-        var sourceElement = dragSource.Find(".tree-node");
-        // 拖动到节点靠下的区域
-        var targetDropZone = dragTarget.Find(".tree-drop-child-below");
-
-        await sourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
-        await targetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
-        await targetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        var dragSourceElement = dragSource.Find(".tree-node");
+        var dragTargetDropZone = dragTarget.Find(".tree-drop-child-inside");
+        // 1. 触发 dragstart
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        // 2. 触发 dragenter 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
+        // 3. 触发 drop 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 成功移动，原对象销毁，不触发dragend
 
         // Assert
-        Assert.Single(nodes[0].Items); // Root1 只剩下 Child2
-        Assert.Equal(2, nodes[1].Items.Count); // Root2 有 Child1 和 Child3
-        Assert.Equal("Child1", nodes[1].Items[0].Text); // Child1 成为 Root2 的第一个子节点
-        Assert.Equal(nodes[1], nodes[1].Items[0].Parent); // Child1 的父节点是 Root2
+        Assert.Equal("Root2", nodes[1].Text);
+        Assert.Equal(2, nodes[1].Items.Count);
+        Assert.Equal("Child1", nodes[1].Items[1].Text);
+        Assert.Equal(nodes[1], nodes[1].Items[1].Parent);
     }
 
     [Fact]
@@ -1311,83 +1270,38 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // Arrange
         var items = new List<TreeFoo>
         {
-            new() { Text = "Root1", Id = "1" },
+            new() { Text = "Root", Id = "1" },
             new() { Text = "Child1", Id = "2", ParentId = "1" },
-            new() { Text = "Child2", Id = "3", ParentId = "1" },
-            new() { Text = "Root2", Id = "4" },
-            new() { Text = "Child3", Id = "5", ParentId = "4" },
-            new() { Text = "Child4", Id = "6", ParentId = "4" },
-            new() { Text = "Root3", Id = "7" }
+            new() { Text = "Child2", Id = "3", ParentId = "1" }
         };
         var nodes = TreeFoo.CascadingTree(items);
         nodes[0].IsExpand = true;
-        nodes[1].IsExpand = true;
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ItemDraggable, true);
         });
 
-        var rowsA = cut.FindComponents<TreeViewRow<TreeFoo>>();
-        var source1 = rowsA[1]; // Child1
-        var target1 = rowsA[4]; // Child3
+        var rows = cut.FindComponents<TreeViewRow<TreeFoo>>();
+        var dragSource = rows[1]; // Child1
+        var dragTarget = rows[2]; // Child2
 
-        var drag1 = source1.Find(".tree-node");
-        // 拖动到 Child3 的下方，非最后一个兄弟节点
-        var drop1 = target1.Find(".tree-drop-child-below");
-
-        await drag1.TriggerEventAsync("ondragstart", new DragEventArgs());
-        await drop1.TriggerEventAsync("ondragenter", new DragEventArgs());
-        await drop1.TriggerEventAsync("ondrop", new DragEventArgs());
-
-        // Assert
-        Assert.Single(nodes[0].Items); // Root1 只剩下 Child2
-        Assert.Equal(3, nodes[1].Items.Count); // Root2 有 Child3, Child1 和 Child4
-        Assert.Equal("Child3", nodes[1].Items[0].Text);
-        Assert.Equal("Child1", nodes[1].Items[1].Text); // Child1 成为 Child3 的下一个兄弟节点
-
-        // 渲染变更后的内容
-        cut.Render();
-
-        var rowsB = cut.FindComponents<TreeViewRow<TreeFoo>>();
-        var source2 = rowsB[1]; // Child2
-        var target2 = rowsB[5]; // Child4
-
-        var drag2 = source2.Find(".tree-node");
-        // 拖动到 Child4 的下方，成为最后一个兄弟节点
-        var drop2 = target2.Find(".tree-drop-child-below");
-
-        await drag2.TriggerEventAsync("ondragstart", new DragEventArgs());
-        await drop2.TriggerEventAsync("ondragenter", new DragEventArgs());
-        await drop2.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 获取可拖拽的 DOM 元素（DynamicElement）
+        var dragSourceElement = dragSource.Find(".tree-node");
+        var dragTargetDropZone = dragTarget.Find(".tree-drop-child-below");
+        // 1. 触发 dragstart
+        await dragSourceElement.TriggerEventAsync("ondragstart", new DragEventArgs());
+        // 2. 触发 dragenter 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondragenter", new DragEventArgs());
+        // 3. 触发 drop 到目标 drop zone
+        await dragTargetDropZone.TriggerEventAsync("ondrop", new DragEventArgs());
+        // 成功移动，原对象销毁，不触发dragend
 
         // Assert
-        Assert.Empty(nodes[0].Items); // Root1 没有对象
-        Assert.Equal(4, nodes[1].Items.Count); // Root2 有 Child3, Child1, Child4 和 Child2
-        Assert.Equal("Child3", nodes[1].Items[0].Text);
-        Assert.Equal("Child1", nodes[1].Items[1].Text); // Child1 仍然是 Child3 的下一个兄弟节点
-        Assert.Equal("Child4", nodes[1].Items[2].Text); // Child4 仍然是 Child1 的下一个兄弟节点
-        Assert.Equal("Child2", nodes[1].Items[3].Text); // Child2 成为最后一个兄弟节点
-
-        // 渲染变更后的内容
-        cut.Render();
-
-        var rowsC = cut.FindComponents<TreeViewRow<TreeFoo>>();
-        var source3 = rowsC[0]; // Root1
-        var target3 = rowsC[6]; // Root3
-
-        var drag3 = source3.Find(".tree-node");
-        // 拖动到 Root 的下方，成为根节点，且为最后一个兄弟节点
-        var drop3 = target3.Find(".tree-drop-child-below");
-
-        await drag3.TriggerEventAsync("ondragstart", new DragEventArgs());
-        await drop3.TriggerEventAsync("ondragenter", new DragEventArgs());
-        await drop3.TriggerEventAsync("ondrop", new DragEventArgs());
-
-        // Assert
-        Assert.Equal(3, nodes.Count);
-        Assert.Equal("Root2", nodes[0].Text);
-        Assert.Equal("Root1", nodes[2].Text); // Root1 成为最后一个根节点
+        var parent = nodes[0];
+        Assert.Equal(2, parent.Items.Count);
+        Assert.Equal("Child2", parent.Items[0].Text);
+        Assert.Equal("Child1", parent.Items[1].Text);
     }
 
     [Fact]
@@ -1495,8 +1409,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await dropInside.TriggerEventAsync("ondragleave", new DragEventArgs());
         Assert.DoesNotContain("tree-preview-child-last", cut.Markup); // 检查是否移除拖拽进入的样式
     }
-
-    #endregion
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {

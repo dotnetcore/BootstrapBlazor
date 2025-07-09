@@ -62,12 +62,10 @@
                 }
             }
 
-            @* 鼠标拖到节点中央，表示放置到当前节点内部作为最后一个子节点，显示边框预览 *@
             @if (_previewChildLast)
             {
                 <div class="tree-preview-child-last"></div>
             }
-            @* 展开状态下，拖到当前节点靠下的位置，插入到内部作为第一个子节点，显示线条预览 *@
             @if (_previewChildFirst)
             {
                 <div class="tree-preview-child-first">
@@ -75,7 +73,6 @@
                     <div class="tree-preview-line"></div>
                 </div>
             }
-            @* 折叠状态或者没有子节点，拖到当前节点靠下的位置，作为同级节点，显示线条预览 *@
             @if (_previewBelow)
             {
                 <div class="tree-preview-below">

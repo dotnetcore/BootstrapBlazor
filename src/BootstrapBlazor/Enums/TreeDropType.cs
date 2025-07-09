@@ -19,7 +19,7 @@ public enum TreeDropType
     /// </summary>
     AsLastChild,
     /// <summary>
-    /// 作为下方同级节点
+    /// 作为同级节点
     /// </summary>
     AsSiblingBelow,
 }
