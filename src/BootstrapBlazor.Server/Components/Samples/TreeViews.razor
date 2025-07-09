@@ -27,7 +27,8 @@
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
-    <TreeView Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"></TreeView>
+    <TreeView Items="@NormalItems" ItemDraggable="true" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
+              OnDrop="OnDrop"></TreeView>
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
@@ -50,15 +51,6 @@
     </section>
     <TreeView Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
     <ConsoleLogger @ref="Logger2"></ConsoleLogger>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TreeViewDraggableTitle"]"
-           Introduction="@Localizer["TreeViewDraggableIntro"]"
-           Name="TreeDraggable">
-    <section ignore>@((MarkupString)Localizer["TreeViewDraggableDescription"].Value)</section>
-    <TreeView Items="@DraggableItems" ItemDraggable="true" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
-              OnDrop="OnDrop">
-    </TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
