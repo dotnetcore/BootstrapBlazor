@@ -9,23 +9,6 @@
     <div class="tree-content-body">
         <DynamicElement TagName="i" class="@CaretClassString" TriggerClick="CanTriggerClickNode" OnClick="ToggleNodeAsync"></DynamicElement>
         <i class="@NodeLoadingClassString"></i>
-
-        @if (Draggable && !_draggingItem)
-        {
-            <div class="tree-drop-zone">
-                <div class="tree-drop-child-inside"
-                     ondragover="event.preventDefault();"
-                     @ondragenter="DragEnterChildInside"
-                     @ondragleave="DragLeaveChildInside"
-                     @ondrop="DropChildInside"></div>
-                <div class="tree-drop-child-below"
-                     ondragover="event.preventDefault();"
-                     @ondragenter="DragEnterChildBelow"
-                     @ondragleave="DragLeaveChildBelow"
-                     @ondrop="DropChildBelow"></div>
-            </div>
-        }
-
         @if (ShowCheckbox)
         {
             <Checkbox Value="@Item" IsDisabled="ItemDisabledState"
@@ -35,7 +18,7 @@
             </Checkbox>
         }
         <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow"
-                        draggable="@(Draggable ? "true" : "false")"
+                        draggable="@DraggableString"
                         @ondragstart="DragStart" @ondragend="DragEnd">
             @if (ShowIcon)
             {

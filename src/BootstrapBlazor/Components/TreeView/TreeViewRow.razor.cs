@@ -139,6 +139,12 @@ public partial class TreeViewRow<TItem>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the node can be dragged. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool AllowDrag { get; set; }
+
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
@@ -176,11 +182,8 @@ public partial class TreeViewRow<TItem>
         .Build();
 
     private bool IsPreventDefault => ContextMenuZone != null;
-
     private bool _touchStart = false;
-
     private bool _isBusy = false;
-
     private bool _showToolbar = false;
 
     /// <summary>
@@ -293,15 +296,6 @@ public partial class TreeViewRow<TItem>
         }
     }
 
-    #region Draggable
-
-
-    /// <summary>
-    /// Gets or sets whether the node can be dragged. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool Draggable { get; set; }
-
     /// <summary>
     /// Gets or sets whether to preview the drop target when dragging. Default is false.
     /// </summary>
@@ -326,7 +320,8 @@ public partial class TreeViewRow<TItem>
     /// <summary>
     /// Triggered when an item is dropped
     /// </summary>
-    [Parameter][Required]
+    [Parameter]
+    [Required]
     public Func<TreeDropEventArgs<TItem>, Task> OnItemDrop { get; set; } = null!;
 
     private async Task DragStart(DragEventArgs e)
@@ -336,7 +331,8 @@ public partial class TreeViewRow<TItem>
         {
             _expandAfterDrop = true;
             await ToggleNodeAsync();
-        }else
+        }
+        else
         {
             _expandAfterDrop = false;
         }
@@ -351,6 +347,8 @@ public partial class TreeViewRow<TItem>
         _previewBelow = false;
         OnItemDragEnd?.Invoke();
     }
+
+    private string? DraggableString => AllowDrag ? "true" : null;
 
     private bool _previewChildLast;
     private bool _previewChildFirst;
@@ -424,7 +422,4 @@ public partial class TreeViewRow<TItem>
         var dropTask = OnItemDrop.Invoke(args);
         await dropTask;
     }
-
-
-    #endregion
 }

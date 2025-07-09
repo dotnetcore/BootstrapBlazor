@@ -269,17 +269,19 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to enable item dragging. Default is false.
+    /// Gets or sets a value indicating whether drag-and-drop operations are allowed. Default is false
     /// </summary>
     [Parameter]
-    public bool ItemDraggable { get; set; }
+    public bool AllowDrag { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method to be invoked when an item is dropped.
-    /// Drop action can be cancelled by returning false.
+    /// Gets or sets the asynchronous callback that is invoked when a drag-and-drop operation ends.
     /// </summary>
+    /// <remarks>This callback allows handling of the finalization of a drag-and-drop operation, such as
+    /// updating the data model or providing feedback to the user. If not set, no action is taken when the drag
+    /// operation ends.</remarks>
     [Parameter]
-    public Func<TreeDropEventArgs<TItem>, Task<bool>> OnDrop { get; set; } = _ => Task.FromResult(true);
+    public Func<TreeDropEventArgs<TItem>, Task<bool>>? OnDragItemEndAsync { get; set; }
 
     [Inject]
     [NotNull]

@@ -68,7 +68,7 @@ else
     RenderFragment RenderRow(TreeViewItem<TItem> item) =>
     @<TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
                   NodeIcon="@NodeIcon" ExpandNodeIcon="@ExpandNodeIcon" LoadingIcon="@LoadingIcon"
-                  MaxSelectedCount="MaxSelectedCount" Draggable="ItemDraggable" PreviewDrop="_previewDrop"
+                  MaxSelectedCount="MaxSelectedCount" AllowDrag="AllowDrag" PreviewDrop="_previewDrop"
                   ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
                   IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
                   ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
