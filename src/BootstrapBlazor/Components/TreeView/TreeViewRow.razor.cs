@@ -154,7 +154,6 @@ public partial class TreeViewRow<TItem>
 
     private string? ContentClassString => CssBuilder.Default("tree-content")
         .AddClass("active", IsActive)
-        .AddClass("tree-drop-pass", PreviewDrop)
         .Build();
 
     private string? CaretClassString => CssBuilder.Default("node-icon")
@@ -181,10 +180,14 @@ public partial class TreeViewRow<TItem>
         .AddClass(Item.ExpandIcon, Item.IsExpand && !string.IsNullOrEmpty(Item.ExpandIcon))
         .Build();
 
+    private string? DraggableString => AllowDrag ? "true" : null;
+
     private bool IsPreventDefault => ContextMenuZone != null;
+
     private bool _touchStart = false;
     private bool _isBusy = false;
     private bool _showToolbar = false;
+
 
     /// <summary>
     /// <inheritdoc/>
@@ -294,132 +297,5 @@ public partial class TreeViewRow<TItem>
         {
             await OnClick(Item);
         }
-    }
-
-    /// <summary>
-    /// Gets or sets whether to preview the drop target when dragging. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool PreviewDrop { get; set; }
-
-    private bool _draggingItem;
-    private bool _expandAfterDrop;
-
-    /// <summary>
-    /// Triggered when the item is dragged
-    /// </summary>
-    [Parameter]
-    public Action<TreeViewItem<TItem>>? OnItemDragStart { get; set; }
-
-    /// <summary>
-    /// Triggered when the item drag ends
-    /// </summary>
-    [Parameter]
-    public Action? OnItemDragEnd { get; set; }
-
-    /// <summary>
-    /// Triggered when an item is dropped
-    /// </summary>
-    [Parameter]
-    [Required]
-    public Func<TreeDropEventArgs<TItem>, Task> OnItemDrop { get; set; } = null!;
-
-    private async Task DragStart(DragEventArgs e)
-    {
-        _draggingItem = true;
-        if (Item.IsExpand)
-        {
-            _expandAfterDrop = true;
-            await ToggleNodeAsync();
-        }
-        else
-        {
-            _expandAfterDrop = false;
-        }
-        OnItemDragStart?.Invoke(Item);
-    }
-
-    private void DragEnd(DragEventArgs e)
-    {
-        _draggingItem = false;
-        _previewChildLast = false;
-        _previewChildFirst = false;
-        _previewBelow = false;
-        OnItemDragEnd?.Invoke();
-    }
-
-    private string? DraggableString => AllowDrag ? "true" : null;
-
-    private bool _previewChildLast;
-    private bool _previewChildFirst;
-    private bool _previewBelow;
-
-    private void DragEnterChildInside(DragEventArgs e)
-    {
-        _previewChildLast = true;
-    }
-
-    private void DragLeaveChildInside(DragEventArgs e)
-    {
-        _previewChildLast = false;
-    }
-
-    private void DragEnterChildBelow(DragEventArgs e)
-    {
-        if ((Item.HasChildren || Item.Items.Any()) && Item.IsExpand)
-        {
-            _previewChildFirst = true;
-            _previewBelow = false;
-        }
-        else
-        {
-            _previewChildFirst = false;
-            _previewBelow = true;
-        }
-    }
-
-    private void DragLeaveChildBelow(DragEventArgs e)
-    {
-        _previewChildFirst = false;
-        _previewBelow = false;
-    }
-
-    private async Task DropChildInside(DragEventArgs e)
-    {
-        _previewChildFirst = false;
-        _previewChildLast = false;
-        _previewBelow = false;
-        // 拖放到内部，作为最后一个子节点
-        var args = new TreeDropEventArgs<TItem>
-        {
-            Target = Item,
-            DropType = TreeDropType.AsLastChild,
-            ExpandAfterDrop = _expandAfterDrop
-        };
-        var dropTask = OnItemDrop.Invoke(args);
-        await dropTask;
-    }
-
-    private async Task DropChildBelow(DragEventArgs e)
-    {
-        _previewChildFirst = false;
-        _previewChildLast = false;
-        _previewBelow = false;
-        var args = new TreeDropEventArgs<TItem>
-        {
-            Target = Item,
-            ExpandAfterDrop = _expandAfterDrop,
-        };
-        // 对象展开状态，则作为第一个子节点
-        if ((Item.HasChildren || Item.Items.Any()) && Item.IsExpand)
-        {
-            args.DropType = TreeDropType.AsFirstChild;
-        }
-        else
-        {
-            args.DropType = TreeDropType.AsSiblingBelow;
-        }
-        var dropTask = OnItemDrop.Invoke(args);
-        await dropTask;
     }
 }
