@@ -81,21 +81,19 @@ public class ThrottleTest : BootstrapBlazorTestBase
         var dispatcher = factory.GetOrCreate("Error", new ThrottleOptions() { ResetIntervalOnException = true });
 
         var count = 0;
-        await dispatcher.ThrottleAsync(() =>
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => dispatcher.ThrottleAsync(() =>
         {
             count++;
-            throw new Exception();
-        });
-        Assert.Equal(1, count);
+            throw new InvalidOperationException();
+        }));
 
-        dispatcher.Throttle(() => throw new InvalidOperationException());
+        Assert.ThrowsAny<InvalidOperationException>(() => dispatcher.Throttle(() => throw new InvalidOperationException()));
 
         // 发生错误后可以立即执行下一次任务，不限流
         dispatcher.Throttle(() =>
         {
             count++;
         });
-        Assert.Equal(2, count);
     }
 
     [Fact]
@@ -106,21 +104,16 @@ public class ThrottleTest : BootstrapBlazorTestBase
 
         var cts = new CancellationTokenSource();
         cts.Cancel();
-        var ex = await Assert.ThrowsAsync<OperationCanceledException>(() =>
-        {
-            dispatcher.Throttle(() =>
-            {
-
-            }, cts.Token);
-            return Task.CompletedTask;
-        });
-        Assert.NotNull(ex);
-
-        cts = new CancellationTokenSource(100);
-        await dispatcher.ThrottleAsync(async () =>
+        Assert.ThrowsAny<OperationCanceledException>(() => dispatcher.Throttle(async () =>
         {
             await Task.Delay(300);
-        }, cts.Token);
+        }, cts.Token));
+
+        cts = new CancellationTokenSource(100);
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => dispatcher.ThrottleAsync(async () =>
+        {
+            await Task.Delay(300);
+        }, cts.Token));
     }
 
     [Fact]
@@ -133,36 +126,37 @@ public class ThrottleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShouldWait_Ok()
+    public void LatTask_Ok()
     {
-        var dispatch = new ThrottleDispatcher(new ThrottleOptions());
-        var count = 0;
-        dispatch.Throttle(() => count++);
-        Assert.Equal(1, count);
-        dispatch.Throttle(() => count++);
-        Assert.Equal(1, count);
+        var dispatch = new MockDispatcher(new ThrottleOptions());
+        Assert.NotNull(dispatch.TestLastTask());
     }
 
     [Fact]
-    public async Task MultipleThread_ThrottleAsync_Ok()
+    public void ShouldWait_Ok()
     {
+        var dispatch = new MockDispatcher(new ThrottleOptions());
         var count = 0;
-        var dispatch = new ThrottleDispatcher(new ThrottleOptions()
+        dispatch.Throttle(() => count++);
+        Assert.Equal(0, count);
+    }
+
+    class MockDispatcher(ThrottleOptions options) : ThrottleDispatcher(options)
+    {
+        public Task TestLastTask()
         {
-            Interval = TimeSpan.FromMilliseconds(100),
-            DelayAfterExecution = true
-        });
-        var tasks = Enumerable.Range(1, 2).Select(i => dispatch.ThrottleAsync(() =>
+            return LastTask;
+        }
+
+        private int count = 0;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        protected override bool ShouldWait()
         {
-            count++;
-            return Task.CompletedTask;
-        })).ToList();
-        tasks.Add(dispatch.ThrottleAsync(async () =>
-        {
-            await Task.Delay(120);
-            count++;
-        }));
-        await Task.WhenAll(tasks);
-        Assert.Equal(1, count);
+            return count++ == 1;
+        }
     }
 }

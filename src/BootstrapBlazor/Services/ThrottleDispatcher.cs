@@ -10,13 +10,16 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ThrottleDispatcher(ThrottleOptions options)
 {
+    private readonly object _locker = new();
+    private Task? _lastTask;
     private DateTime? _invokeTime;
+    private bool _busy;
 
     /// <summary>
     /// 判断是否等待方法
     /// </summary>
     /// <returns></returns>
-    protected virtual bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value) < options.Interval;
+    protected virtual bool ShouldWait() => _busy || _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value) < options.Interval;
 
     /// <summary>
     /// 异步限流方法
@@ -29,53 +32,83 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// 同步限流方法
     /// </summary>
     /// <param name="action">同步回调方法</param>
-    /// <param name="token">取消令牌</param>
-    public void Throttle(Action action, CancellationToken token = default)
+    /// <param name="cancellationToken">取消令牌</param>
+    public void Throttle(Action action, CancellationToken cancellationToken = default)
     {
         var task = InternalThrottleAsync(() => Task.Run(() =>
         {
             action();
             return Task.CompletedTask;
-        }, CancellationToken.None), token);
-        try
-        {
-            task.Wait(token);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        }, cancellationToken), cancellationToken);
+        Wait();
         return;
+
+        [ExcludeFromCodeCoverage]
+        void Wait()
+        {
+            try
+            {
+                task.Wait(cancellationToken);
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException is not null)
+                {
+                    throw ex.InnerException;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
+
+    /// <summary>
+    /// 任务实例
+    /// </summary>
+    protected Task LastTask => _lastTask ?? Task.CompletedTask;
 
     /// <summary>
     /// 限流异步方法
     /// </summary>
     /// <param name="function">异步回调方法</param>
     /// <param name="cancellationToken">取消令牌</param>
-    private async Task InternalThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default)
+    private Task InternalThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default)
     {
         if (ShouldWait())
         {
-            return;
+            return LastTask;
         }
 
-        _invokeTime = DateTime.UtcNow;
-
-        try
+        lock (_locker)
         {
-            await function();
-            if (options.DelayAfterExecution)
+            if (ShouldWait())
             {
-                _invokeTime = DateTime.UtcNow;
+                return LastTask;
             }
-        }
-        catch
-        {
+
+            _busy = true;
+            _invokeTime = DateTime.UtcNow;
+            _lastTask = function();
+            _lastTask.ContinueWith(_ =>
+            {
+                if (options.DelayAfterExecution)
+                {
+                    _invokeTime = DateTime.UtcNow;
+                }
+                _busy = false;
+            }, cancellationToken);
+
             if (options.ResetIntervalOnException)
             {
-                _invokeTime = null;
+                _lastTask.ContinueWith((_, _) =>
+                {
+                    _lastTask = null;
+                    _invokeTime = null;
+                }, cancellationToken, TaskContinuationOptions.OnlyOnFaulted);
             }
+            return LastTask;
         }
     }
 }
