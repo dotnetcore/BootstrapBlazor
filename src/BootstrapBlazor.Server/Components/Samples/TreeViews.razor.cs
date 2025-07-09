@@ -84,7 +84,8 @@ public sealed partial class TreeViews
         Logger1.Log($"TreeItem: {item.Text} clicked");
         return Task.CompletedTask;
     }
-    private Task<bool> OnDrop(TreeDropEventArgs<TreeFoo> arg)
+
+    private static Task<bool> OnDrop(TreeDropEventArgs<TreeFoo> arg)
     {
         // 如果拖拽到 Id=2 的节点下则不允许
         if (arg.Target.Value.Id == "2" && arg.DropType is TreeDropType.AsFirstChild or TreeDropType.AsLastChild)
