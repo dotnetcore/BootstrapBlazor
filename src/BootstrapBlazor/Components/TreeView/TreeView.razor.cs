@@ -380,8 +380,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() =>
-        InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
 
     private bool _keyboardArrowUpDownTrigger;
 
@@ -728,9 +727,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
-
-    #region Draggable
-
     /// <summary>
     /// Gets or sets whether to enable item dragging. Default is false.
     /// </summary>
@@ -844,8 +840,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             throw new InvalidOperationException("拖拽的项为空");
         }
     }
-
-    #endregion
 
     /// <summary>
     /// Gets all selected node collections
