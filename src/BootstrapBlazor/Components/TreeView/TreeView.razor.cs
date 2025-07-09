@@ -274,15 +274,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool AllowDrag { get; set; }
 
-    /// <summary>
-    /// Gets or sets the asynchronous callback that is invoked when a drag-and-drop operation ends.
-    /// </summary>
-    /// <remarks>This callback allows handling of the finalization of a drag-and-drop operation, such as
-    /// updating the data model or providing feedback to the user. If not set, no action is taken when the drag
-    /// operation ends.</remarks>
-    [Parameter]
-    public Func<TreeDropEventArgs<TItem>, Task<bool>>? OnDragItemEndAsync { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
@@ -775,30 +766,4 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
 
     private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
-}
-
-/// <summary>
-/// Represents the event arguments for the TreeView drop event.
-/// </summary>
-public class TreeDropEventArgs<TItem>
-{
-    /// <summary>
-    /// Gets or sets the source item that is being dropped.
-    /// </summary>
-    public TreeViewItem<TItem>? Source { get; set; }
-
-    /// <summary>
-    /// Gets or sets the target item.
-    /// </summary>
-    public TreeViewItem<TItem> Target { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the drop type.
-    /// </summary>
-    public TreeDropType DropType { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether to expand the source item's children when dropping.
-    /// </summary>
-    public bool ExpandAfterDrop { get; set; }
 }
