@@ -3395,7 +3395,12 @@
     "UploadFileIconTemplateTitle": "自定义文件图标",
     "UploadFileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/file-icon\">[FileIcon 示例]</a>",
     "UploadBase64Title": "Base64 格式文件",
-    "UploadBase64Intro": "通过设置 <code>UploadFile</code> 实例的 <code>PrevUrl</code> 参数值使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径"
+    "UploadBase64Intro": "通过设置 <code>UploadFile</code> 实例的 <code>PrevUrl</code> 参数值使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径",
+    "UploadsFileTitle": "文件上传",
+    "UploadsFileError": "文件大于 5M 请重新选择文件上传",
+    "UploadsSuccess": "文件保存成功",
+    "UploadsSaveFileError": "文件保存失败",
+    "UploadsWasmError": "wasm 模式请调用 api 进行保存"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
     "UploadsTitle": "DropUpload 拖拽上传组件",
