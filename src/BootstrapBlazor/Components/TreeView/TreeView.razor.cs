@@ -818,7 +818,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     }
 
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
+
 
             _draggingItem = null;
             _previewDrop = false;
@@ -893,4 +896,5 @@ public class TreeDropEventArgs<TItem>
     /// Gets or sets whether to expand the source item's children when dropping.
     /// </summary>
     public bool ExpandAfterDrop { get; set; }
+
 }
