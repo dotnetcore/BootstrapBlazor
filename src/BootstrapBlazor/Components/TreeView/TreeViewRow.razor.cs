@@ -139,12 +139,6 @@ public partial class TreeViewRow<TItem>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
-    /// <summary>
-    /// Gets or sets whether the node can be dragged. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool AllowDrag { get; set; }
-
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
@@ -179,8 +173,6 @@ public partial class TreeViewRow<TItem>
         .AddClass(Item.Icon)
         .AddClass(Item.ExpandIcon, Item.IsExpand && !string.IsNullOrEmpty(Item.ExpandIcon))
         .Build();
-
-    private string? DraggableString => AllowDrag ? "true" : null;
 
     private bool IsPreventDefault => ContextMenuZone != null;
 
