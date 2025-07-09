@@ -83,12 +83,6 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static Task<bool> OnDrop(TreeDropEventArgs<TreeFoo> arg)
-    {
-        Logger1.Log("Move node from " + arg.Source?.Text + " to " + arg.Target.Text + " " + arg.DropType);
-        return Task.FromResult(true);
-    }
-
     private Task OnTreeItemKeyboardClick(TreeViewItem<TreeFoo> item)
     {
         _selectedValue = item.Value.Text;

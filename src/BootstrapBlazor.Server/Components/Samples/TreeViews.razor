@@ -27,8 +27,7 @@
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
-    <TreeView Items="@NormalItems" ItemDraggable="true" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
-              OnDrop="OnDrop"></TreeView>
+    <TreeView Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"></TreeView>
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 

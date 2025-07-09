@@ -14,7 +14,6 @@
     --bb-tree-disabled-opacity: #{$bb-tree-disabled-opacity};
     --bb-tree-search-height: #{$bb-tree-search-height};
     --bb-tree-item-bg-radius: var(--bs-border-radius);
-    --bb-tree-drop-preview-color: #{$bb-primary-color};
     position: relative;
     height: 100%;
     display: flex;
@@ -39,7 +38,6 @@
         flex-wrap: nowrap;
         align-items: center;
         cursor: pointer;
-        user-select: none;
 
         .tree-content-toolbar {
             display: none;
@@ -57,30 +55,6 @@
             flex-shrink: 0;
             align-items: center;
             border-radius: var(--bs-border-radius);
-            position: relative;
-
-            .tree-drop-zone {
-                position: absolute;
-                top: 4px;
-                left: 20px;
-                right: 0;
-                bottom: -12px;
-                pointer-events: all;
-                background-color: transparent;
-                display: grid;
-                grid-template-rows: 1fr 16px;
-
-                .tree-drop-child-inside {
-                    grid-row: 1 / 2;
-                    //background-color: rgba(236, 209, 62, 0.5);
-                }
-
-                .tree-drop-child-below {
-                    grid-row: 2 / 3;
-                    //background-color: rgba(94, 236, 62, 0.5);
-                }
-
-            }
         }
 
         .node-icon {
@@ -147,7 +121,6 @@
         display: inline-flex;
         align-items: center;
         padding: var(--bb-tree-node-padding);
-        position: relative;
         flex: 1;
 
         .tree-icon {
@@ -158,69 +131,6 @@
 
         .tree-node-text {
             white-space: nowrap;
-        }
-
-        .tree-preview-child-last {
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border: 2px solid var(--bb-tree-drop-preview-color);
-            border-radius: 6px;
-            pointer-events: none;
-            z-index: 1;
-            background: transparent;
-        }
-
-        .tree-preview-child-first {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 20px;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-preview-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-preview-line {
-                flex: 1;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-        }
-
-        .tree-preview-below {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-preview-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-preview-line {
-                flex: 1;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
         }
 
         &.disabled {
@@ -238,10 +148,6 @@
         &:not(:hover) .tree-node-toolbar-edit {
             display: none;
         }
-    }
-
-    .tree-drop-pass {
-        pointer-events: none;
     }
 }
 
