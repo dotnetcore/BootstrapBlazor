@@ -188,7 +188,6 @@ public partial class TreeViewRow<TItem>
     private bool _isBusy = false;
     private bool _showToolbar = false;
 
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
