@@ -65,6 +65,8 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
     private CancellationTokenSource? _receiveCancellationTokenSource;
     private CancellationTokenSource? _autoConnectTokenSource;
 
+    private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -78,41 +80,64 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             return true;
         }
 
+        var connectionToken = GenerateConnectionToken(token);
+        try
+        {
+            await _semaphoreSlim.WaitAsync(connectionToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // 如果信号量等待被取消，则直接返回 IsConnected
+            // 不管是超时还是被取消，都不需要重连，肯定有其他线程在连接中
+            return IsConnected;
+        }
+
+        if (IsConnected)
+        {
+            _semaphoreSlim.Release();
+            return true;
+        }
+
+        var reconnect = true;
         var ret = false;
         SocketClientProvider = ServiceProvider?.GetRequiredService<ISocketClientProvider>()
             ?? throw new InvalidOperationException("SocketClientProvider is not registered in the service provider.");
 
         try
         {
-            ret = await ConnectCoreAsync(SocketClientProvider, endPoint, token);
-            if (ret == false)
-            {
-                Reconnect();
-            }
+            ret = await ConnectCoreAsync(SocketClientProvider, endPoint, connectionToken);
         }
         catch (OperationCanceledException ex)
         {
             if (token.IsCancellationRequested)
             {
                 Log(LogLevel.Warning, ex, $"TCP Socket connect operation was canceled from {LocalEndPoint} to {endPoint}");
+                reconnect = false;
             }
             else
             {
                 Log(LogLevel.Warning, ex, $"TCP Socket connect operation timed out from {LocalEndPoint} to {endPoint}");
-                Reconnect();
             }
         }
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket connection failed from {LocalEndPoint} to {endPoint}");
+        }
+
+        // 释放信号量
+        _semaphoreSlim.Release();
+
+        if (!ret && reconnect)
+        {
             Reconnect();
         }
+
         return ret;
     }
 
     private void Reconnect()
     {
-        if (options.IsAutoReconnect)
+        if (options.IsAutoReconnect && _remoteEndPoint != null)
         {
             Task.Run(async () =>
             {
@@ -120,7 +145,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 {
                     _autoConnectTokenSource ??= new();
                     await Task.Delay(options.ReconnectInterval, _autoConnectTokenSource.Token).ConfigureAwait(false);
-                    HandleDisconnection();
+                    await ConnectAsync(_remoteEndPoint, _autoConnectTokenSource.Token).ConfigureAwait(false);
                 }
                 catch { }
             }, CancellationToken.None).ConfigureAwait(false);
@@ -138,14 +163,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         _localEndPoint = Options.LocalEndPoint;
         _remoteEndPoint = endPoint;
 
-        var connectionToken = token;
-        if (Options.ConnectTimeout > 0)
-        {
-            // 设置连接超时时间
-            var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
-            connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
-        }
-        var ret = await provider.ConnectAsync(endPoint, connectionToken);
+        var ret = await provider.ConnectAsync(endPoint, token);
 
         if (ret)
         {
@@ -159,13 +177,16 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         return ret;
     }
 
-    private void HandleDisconnection()
+    private CancellationToken GenerateConnectionToken(CancellationToken token)
     {
-        if (options.IsAutoReconnect && _remoteEndPoint != null)
+        var connectionToken = token;
+        if (Options.ConnectTimeout > 0)
         {
-            _autoConnectTokenSource ??= new();
-            _ = Task.Run(() => ConnectAsync(_remoteEndPoint, _autoConnectTokenSource.Token)).ConfigureAwait(false);
+            // 设置连接超时时间
+            var connectTokenSource = new CancellationTokenSource(options.ConnectTimeout);
+            connectionToken = CancellationTokenSource.CreateLinkedTokenSource(token, connectTokenSource.Token).Token;
         }
+        return connectionToken;
     }
 
     /// <summary>
@@ -182,6 +203,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         }
 
         var ret = false;
+        var reconnect = true;
         try
         {
             var sendToken = token;
@@ -192,15 +214,12 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 sendToken = CancellationTokenSource.CreateLinkedTokenSource(token, sendTokenSource.Token).Token;
             }
             ret = await SocketClientProvider.SendAsync(data, sendToken);
-            if (ret == false)
-            {
-                HandleDisconnection();
-            }
         }
         catch (OperationCanceledException ex)
         {
             if (token.IsCancellationRequested)
             {
+                reconnect = false;
                 Log(LogLevel.Warning, ex, $"TCP Socket send operation was canceled from {_localEndPoint} to {_remoteEndPoint}");
             }
             else
@@ -211,13 +230,17 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket send failed from {_localEndPoint} to {_remoteEndPoint}");
-
-            HandleDisconnection();
         }
 
         if (options.EnableLog)
         {
             Log(LogLevel.Information, null, $"Sending data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {data.Length} Data Content: {BitConverter.ToString(data.ToArray())} Result: {ret}");
+        }
+
+        if (!ret && reconnect)
+        {
+            // 如果发送失败并且需要重连则尝试重连
+            Reconnect();
         }
         return ret;
     }
@@ -244,7 +267,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         var len = await ReceiveCoreAsync(SocketClientProvider, buffer, token);
         if (len == 0)
         {
-            HandleDisconnection();
+            Reconnect();
         }
         return buffer[..len];
     }
@@ -270,11 +293,12 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             }
         }
 
-        HandleDisconnection();
+        Reconnect();
     }
 
     private async ValueTask<int> ReceiveCoreAsync(ISocketClientProvider client, Memory<byte> buffer, CancellationToken token)
     {
+        var reconnect = true;
         var len = 0;
         try
         {
@@ -292,8 +316,6 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
                 // 远端主机关闭链路
                 Log(LogLevel.Information, null, $"TCP Socket {_localEndPoint} received 0 data closed by {_remoteEndPoint}");
                 buffer = Memory<byte>.Empty;
-
-                HandleDisconnection();
             }
             else
             {
@@ -311,6 +333,7 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
             if (token.IsCancellationRequested)
             {
                 Log(LogLevel.Warning, ex, $"TCP Socket receive operation canceled from {_localEndPoint} to {_remoteEndPoint}");
+                reconnect = false;
             }
             else
             {
@@ -320,13 +343,17 @@ public abstract class TcpSocketClientBase(SocketClientOptions options) : ITcpSoc
         catch (Exception ex)
         {
             Log(LogLevel.Error, ex, $"TCP Socket receive failed from {_localEndPoint} to {_remoteEndPoint}");
-
-            HandleDisconnection();
         }
 
         if (options.EnableLog)
         {
             Log(LogLevel.Information, null, $"Receiving data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {len} Data Content: {BitConverter.ToString(buffer.ToArray())}");
+        }
+
+        if (len == 0 && reconnect)
+        {
+            // 如果接收数据长度为 0 并且需要重连则尝试重连
+            Reconnect();
         }
         return len;
     }
