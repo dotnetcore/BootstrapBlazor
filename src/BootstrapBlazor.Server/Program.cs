@@ -35,6 +35,9 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
+// 增加上传目录静态资源文件
+app.UseUploaderStaticFiles();
+
 app.UseAntiforgery();
 app.UseBootstrapBlazor();
 
