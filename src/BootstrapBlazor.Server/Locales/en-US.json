@@ -3395,7 +3395,12 @@
     "UploadFileIconTemplateTitle": "Custom file icon",
     "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/file-icon\">[FileIcon example]</a>",
     "UploadBase64Title": "Base64 format",
-    "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path"
+    "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path",
+    "UploadsFileTitle": "Upload",
+    "UploadsFileError": "The file is larger than 5M. Please reselect the file to upload.",
+    "UploadsSuccess": "File saved successfully",
+    "UploadsSaveFileError": "File save failed",
+    "UploadsWasmError": "In wasm mode, please call the api to save"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
     "UploadsTitle": "DropUpload",
