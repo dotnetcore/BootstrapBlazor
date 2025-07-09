@@ -304,6 +304,14 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
+    /// Clear the cache of the tree node state.
+    /// </summary>
+    public void ClearCache()
+    {
+        _treeNodeStateCache?.Reset();
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
