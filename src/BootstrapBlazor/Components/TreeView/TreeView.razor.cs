@@ -256,20 +256,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
-    [NotNull]
-    private string? NotSetOnTreeExpandErrorMessage { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [NotNull]
-    private TreeNodeCache<TreeViewItem<TItem>, TItem>? _treeNodeStateCache = null;
-
     /// <summary>
     /// Gets or sets whether to automatically update child nodes when the node state changes. Default is false.
     /// </summary>
@@ -282,12 +268,37 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool AutoCheckParent { get; set; }
 
-    private string? _searchText;
+    /// <summary>
+    /// Gets or sets whether to enable item dragging. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool ItemDraggable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method to be invoked when an item is dropped.
+    /// Drop action can be cancelled by returning false.
+    /// </summary>
+    [Parameter]
+    public Func<TreeDropEventArgs<TItem>, Task<bool>> OnDrop { get; set; } = _ => Task.FromResult(true);
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
-    private bool _shouldRender = true;
+    [NotNull]
+    private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
+    [NotNull]
+    private TreeNodeCache<TreeViewItem<TItem>, TItem>? _treeNodeStateCache = null;
+
+    private string? _searchText;
+    private bool _shouldRender = true;
     private bool _init;
 
     /// <summary>
@@ -726,19 +737,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         });
         StateHasChanged();
     }
-
-    /// <summary>
-    /// Gets or sets whether to enable item dragging. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool ItemDraggable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method to be invoked when an item is dropped.
-    /// Drop action can be cancelled by returning false.
-    /// </summary>
-    [Parameter]
-    public Func<TreeDropEventArgs<TItem>, Task<bool>> OnDrop { get; set; } = _ => Task.FromResult(true);
 
     private bool _previewDrop;
     private TreeViewItem<TItem>? _draggingItem;
