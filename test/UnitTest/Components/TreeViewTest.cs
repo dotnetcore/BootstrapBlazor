@@ -1221,6 +1221,30 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Contains("test-toolbar-template", cut.Markup);
     }
 
+    [Fact]
+    public async Task AllowDrag_Ok()
+    {
+        TreeViewDragContext<TreeFoo>? treeDragContext = null;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AllowDrag, true);
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
+            pb.Add(a => a.OnDragItemEndAsync, context =>
+            {
+                treeDragContext = context;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.Instance.TriggerDragEnd(1, 2, false);
+        cut.SetParametersAndRender();
+
+        Assert.NotNull(treeDragContext);
+        Assert.NotNull(treeDragContext.Target);
+        Assert.NotNull(treeDragContext.Source);
+        Assert.False(treeDragContext.IsChildren);
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
