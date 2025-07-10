@@ -57,8 +57,8 @@ export function init(id, options) {
             }
             else {
                 const belowItem = el.querySelector('.tree-node-placeholder');
-                targetItem = belowItem.closest('.tree-content');
                 if (belowItem) {
+                    targetItem = belowItem.closest('.tree-content');
                     belowItem.remove();
                 }
             }
