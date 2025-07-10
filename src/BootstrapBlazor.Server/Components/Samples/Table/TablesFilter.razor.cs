@@ -64,13 +64,7 @@ public partial class TablesFilter
             isSorted = true;
         }
 
-        // 此段代码可不写，组件内部自行处理
-        if (options.SortName == nameof(Foo.DateTime))
-        {
-            items = items.Sort(options.SortList);
-            isSorted = true;
-        }
-        else if (!string.IsNullOrEmpty(options.SortName))
+        if (!string.IsNullOrEmpty(options.SortName))
         {
             // 外部未进行排序，内部自动进行排序处理
             items = items.Sort(options.SortName, options.SortOrder);
