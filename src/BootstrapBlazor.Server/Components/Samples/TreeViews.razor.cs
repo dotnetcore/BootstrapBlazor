@@ -109,6 +109,7 @@ public sealed partial class TreeViews
 
     private Task OnDragItemEndAsync(TreeViewDragContext<TreeFoo> context)
     {
+        // 本例是使用静态数据模拟数据库操作的，实战中应该是更新节点的父级 Id 可能还需要更改排序字段等信息，然后重构 TreeView 数据源即可
         // 根据 context 处理原始数据
         var items = GetDraggableItems();
         var source = items.Find(i => i.Id == context.Source.Value.Id);
