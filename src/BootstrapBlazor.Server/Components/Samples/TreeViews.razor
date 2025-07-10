@@ -52,6 +52,14 @@
     <ConsoleLogger @ref="Logger2"></ConsoleLogger>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewDraggableTitle"]"
+           Introduction="@Localizer["TreeViewDraggableIntro"]"
+           Name="TreeDraggable">
+    <section ignore>@((MarkupString)Localizer["TreeViewDraggableDescription"].Value)</section>
+    <TreeView Items="@DraggableItems" AllowDrag="true" OnDragItemEndAsync="OnDragItemEndAsync">
+    </TreeView>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
            Introduction="@Localizer["TreeViewTreeDisableIntro"]"
            Name="TreeDisable">

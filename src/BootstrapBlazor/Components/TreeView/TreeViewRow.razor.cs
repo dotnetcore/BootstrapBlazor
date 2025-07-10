@@ -177,9 +177,7 @@ public partial class TreeViewRow<TItem>
     private bool IsPreventDefault => ContextMenuZone != null;
 
     private bool _touchStart = false;
-
     private bool _isBusy = false;
-
     private bool _showToolbar = false;
 
     /// <summary>
