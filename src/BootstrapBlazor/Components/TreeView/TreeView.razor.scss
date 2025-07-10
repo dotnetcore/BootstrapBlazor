@@ -175,97 +175,53 @@
 
     .tree-drop-zone {
         position: absolute;
-        top: 4px;
-        left: 18px;
+        top: 0px;
+        left: 0;
         right: 0;
-        bottom: -5px;
+        bottom: -6px;
         background-color: transparent;
         display: grid;
-        grid-template-rows: 1fr 8px;
-        background-color: #f2747440;
-        pointer-events: all;
+        grid-template-rows: 1fr 5px;
 
         .tree-drop-child-inside {
             grid-row: 1 / 2;
-            background-color: #aad4ff;
 
-            &.tree-drag-over {
-                border: solid 1px var(--bb-tree-drop-preview-color);
+            &.tree-drag-inside-over {
+                border: solid 2px var(--bb-tree-drop-preview-color);
                 border-radius: var(--bs-border-radius);
             }
         }
 
         .tree-drop-child-below {
             grid-row: 2 / 3;
-            background-color: #f2747440;
+            z-index: 2;
+
+            .tree-node-placeholder {
+                position: absolute;
+                bottom: 0px;
+                left: 18px;
+                right: 0;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                pointer-events: none;
+
+                .tree-node-ph-circle {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background-color: var(--bb-tree-drop-preview-color);
+                }
+
+                .tree-node-ph-line {
+                    flex: 1;
+                    min-width: 0px;
+                    width: 1%;
+                    height: 2px;
+                    background-color: var(--bb-tree-drop-preview-color);
+                }
+            }
         }
-    }
-
-    .tree-preview-child-last {
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        border: 2px solid var(--bb-tree-drop-preview-color);
-        border-radius: 6px;
-        pointer-events: none;
-        z-index: 1;
-        background: transparent;
-    }
-
-    .tree-preview-child-first {
-        position: absolute;
-        bottom: -4px;
-        height: 8px;
-        left: 20px;
-        right: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        pointer-events: none;
-
-        .tree-preview-circle {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--bb-tree-drop-preview-color);
-        }
-
-        .tree-preview-line {
-            flex: 1;
-            height: 2px;
-            background-color: var(--bb-tree-drop-preview-color);
-        }
-    }
-
-    .tree-preview-below {
-        position: absolute;
-        bottom: -4px;
-        height: 8px;
-        left: 0;
-        right: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        pointer-events: none;
-
-        .tree-preview-circle {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--bb-tree-drop-preview-color);
-        }
-
-        .tree-preview-line {
-            flex: 1;
-            height: 2px;
-            background-color: var(--bb-tree-drop-preview-color);
-        }
-    }
-
-    .tree-drop-pass {
-        pointer-events: none;
     }
 
     &.dragging {
@@ -279,33 +235,6 @@
         &.drag-item {
             opacity: 0.5;
             background-color: #d4edff;
-        }
-
-        .tree-node-placeholder {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-node-ph-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-node-ph-line {
-                flex: 1;
-                min-width: 0px;
-                width: 1%;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
         }
     }
 }

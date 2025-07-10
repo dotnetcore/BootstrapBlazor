@@ -5,7 +5,7 @@
 <h3>@Localizer["TreeViewsTitle"]</h3>
 <h4>@Localizer["TreeViewsDescription"]</h4>
 
-<Tips class="mt-3">
+@* <Tips class="mt-3">
     <div class="mb-3"><code>Tree</code> @((MarkupString)Localizer["TreeViewsTips1"].Value) <code>TItem="TreeFoo"</code></div>
     <ul class="ul-demo mb-0">
         <li>@((MarkupString)Localizer["TreeViewsTips2"].Value)</li>
@@ -50,18 +50,17 @@
     </section>
     <TreeView Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
     <ConsoleLogger @ref="Logger2"></ConsoleLogger>
-</DemoBlock>
+</DemoBlock> *@
 
 <DemoBlock Title="@Localizer["TreeViewDraggableTitle"]"
            Introduction="@Localizer["TreeViewDraggableIntro"]"
            Name="TreeDraggable">
     <section ignore>@((MarkupString)Localizer["TreeViewDraggableDescription"].Value)</section>
-    <TreeView Items="@DraggableItems" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"
-              AllowDrag="true" OnDragItemEndAsync="OnDragItemEndAsync">
+    <TreeView Items="@DraggableItems" AllowDrag="true" OnDragItemEndAsync="OnDragItemEndAsync">
     </TreeView>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
+@* <DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
            Introduction="@Localizer["TreeViewTreeDisableIntro"]"
            Name="TreeDisable">
     <section ignore>@((MarkupString)Localizer["TreeViewTreeDisableDescription"].Value)</section>
@@ -218,4 +217,4 @@
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
-<AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>
+<AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable> *@

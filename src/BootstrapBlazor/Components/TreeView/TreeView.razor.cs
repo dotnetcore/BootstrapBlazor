@@ -390,7 +390,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
+    {
+        Invoke = Interop,
+        Method = nameof(TriggerKeyDown),
+        AllowDrag
+    });
 
     private bool _keyboardArrowUpDownTrigger;
 
