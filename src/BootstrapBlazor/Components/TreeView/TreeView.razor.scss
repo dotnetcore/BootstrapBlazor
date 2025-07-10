@@ -1,4 +1,4 @@
-.tree-view {
+﻿.tree-view {
     --bb-tree-padding: #{$bb-tree-padding};
     --bb-tree-margin: #{$bb-tree-margin};
     --bb-tree-padding-left: #{$bb-tree-padding-left};
@@ -14,7 +14,6 @@
     --bb-tree-disabled-opacity: #{$bb-tree-disabled-opacity};
     --bb-tree-search-height: #{$bb-tree-search-height};
     --bb-tree-item-bg-radius: var(--bs-border-radius);
-    --bb-tree-drop-preview-color: #{$bb-primary-color};
     position: relative;
     height: 100%;
     display: flex;
@@ -58,29 +57,6 @@
             align-items: center;
             border-radius: var(--bs-border-radius);
             position: relative;
-
-            .tree-drop-zone {
-                position: absolute;
-                top: 4px;
-                left: 20px;
-                right: 0;
-                bottom: -12px;
-                pointer-events: all;
-                background-color: transparent;
-                display: grid;
-                grid-template-rows: 1fr 16px;
-
-                .tree-drop-child-inside {
-                    grid-row: 1 / 2;
-                    //background-color: rgba(236, 209, 62, 0.5);
-                }
-
-                .tree-drop-child-below {
-                    grid-row: 2 / 3;
-                    //background-color: rgba(94, 236, 62, 0.5);
-                }
-
-            }
         }
 
         .node-icon {
@@ -160,69 +136,6 @@
             white-space: nowrap;
         }
 
-        .tree-preview-child-last {
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border: 2px solid var(--bb-tree-drop-preview-color);
-            border-radius: 6px;
-            pointer-events: none;
-            z-index: 1;
-            background: transparent;
-        }
-
-        .tree-preview-child-first {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 20px;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-preview-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-preview-line {
-                flex: 1;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-        }
-
-        .tree-preview-below {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-preview-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-preview-line {
-                flex: 1;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-        }
-
         &.disabled {
             opacity: var(--bb-tree-disabled-opacity);
         }
@@ -238,10 +151,48 @@
         &:not(:hover) .tree-node-toolbar-edit {
             display: none;
         }
+
+        &.drag-item {
+            opacity: 0.5;
+            background-color: #d4edff;
+        }
+
+        .tree-node-placeholder {
+            position: absolute;
+            bottom: -4px;
+            height: 8px;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            pointer-events: none;
+
+            .tree-node-ph-circle {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
+
+            .tree-node-ph-line {
+                flex: 1;
+                min-width: 0px;
+                width: 1%;
+                height: 2px;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
+        }
     }
 
     .tree-drop-pass {
         pointer-events: none;
+    }
+
+    &.dragging {
+        .tree-node:not(.drag-item) {
+            pointer-events: none;
+        }
     }
 }
 
@@ -257,6 +208,102 @@
             flex: 1;
             width: 1%;
             min-width: 0;
+        }
+    }
+}
+
+.tree-view {
+    --bb-tree-drop-preview-color: #{$bb-primary-color};
+
+    .tree-drop-zone {
+        position: absolute;
+        top: 4px;
+        left: 18px;
+        right: 0;
+        bottom: -5px;
+        background-color: transparent;
+        display: grid;
+        grid-template-rows: 1fr 8px;
+        background-color: #f2747440;
+        pointer-events: all;
+
+        .tree-drop-child-inside {
+            grid-row: 1 / 2;
+            background-color: #aad4ff;
+
+            &.tree-drag-over {
+                border: solid 1px var(--bb-tree-drop-preview-color);
+                border-radius: var(--bs-border-radius);
+            }
+        }
+
+        .tree-drop-child-below {
+            grid-row: 2 / 3;
+            background-color: #f2747440;
+        }
+    }
+
+
+    .tree-preview-child-last {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border: 2px solid var(--bb-tree-drop-preview-color);
+        border-radius: 6px;
+        pointer-events: none;
+        z-index: 1;
+        background: transparent;
+    }
+
+    .tree-preview-child-first {
+        position: absolute;
+        bottom: -4px;
+        height: 8px;
+        left: 20px;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        pointer-events: none;
+
+        .tree-preview-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--bb-tree-drop-preview-color);
+        }
+
+        .tree-preview-line {
+            flex: 1;
+            height: 2px;
+            background-color: var(--bb-tree-drop-preview-color);
+        }
+    }
+
+    .tree-preview-below {
+        position: absolute;
+        bottom: -4px;
+        height: 8px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        pointer-events: none;
+
+        .tree-preview-circle {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--bb-tree-drop-preview-color);
+        }
+
+        .tree-preview-line {
+            flex: 1;
+            height: 2px;
+            background-color: var(--bb-tree-drop-preview-color);
         }
     }
 }
