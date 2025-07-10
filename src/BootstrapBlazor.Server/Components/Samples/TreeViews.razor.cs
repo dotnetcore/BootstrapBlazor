@@ -91,8 +91,14 @@ public sealed partial class TreeViews
         var items = GetDraggableItems();
         DraggableItems = TreeFoo.CascadingTree(items);
         DraggableItems[0].IsExpand = true;
-        DraggableItems[1].IsExpand = true;
-        DraggableItems[2].IsExpand = true;
+        if (DraggableItems.Count > 1)
+        {
+            DraggableItems[1].IsExpand = true;
+        }
+        if (DraggableItems.Count > 2)
+        {
+            DraggableItems[2].IsExpand = true;
+        }
     }
 
     private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
@@ -116,8 +122,14 @@ public sealed partial class TreeViews
         }
         DraggableItems = TreeFoo.CascadingTree(items);
         DraggableItems[0].IsExpand = true;
-        DraggableItems[1].IsExpand = true;
-        DraggableItems[2].IsExpand = true;
+        if (DraggableItems.Count > 1)
+        {
+            DraggableItems[1].IsExpand = true;
+        }
+        if (DraggableItems.Count > 2)
+        {
+            DraggableItems[2].IsExpand = true;
+        }
 
         StateHasChanged();
         return Task.CompletedTask;
@@ -162,9 +174,10 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
+    private static List<TreeFoo>? _dragItems = null;
     private static List<TreeFoo> GetDraggableItems()
     {
-        List<TreeFoo> items =
+        _dragItems ??=
         [
             new() { Text = "Item A", Id = "1", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
@@ -180,7 +193,7 @@ public sealed partial class TreeViews
 
 
         ];
-        return items;
+        return _dragItems;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetDisabledItems()
