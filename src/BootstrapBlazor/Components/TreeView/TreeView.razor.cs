@@ -278,7 +278,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 获得/设置 拖动标签页结束回调方法
     /// </summary>
     [Parameter]
-    public Func<TreeViewItem<TItem>, Task>? OnDragItemEndAsync { get; set; }
+    public Func<TreeViewDragContext<TItem>, Task>? OnDragItemEndAsync { get; set; }
 
     [Inject]
     [NotNull]
@@ -427,7 +427,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [JSInvokable]
     public async ValueTask TriggerDragEnd(int originIndex, int currentIndex, bool isChildren)
     {
-
+        if (OnDragItemEndAsync != null)
+        {
+            var context = new TreeViewDragContext<TItem>(
+                source: Rows[originIndex],
+                target: Rows[currentIndex],
+                children: isChildren
+            );
+            await OnDragItemEndAsync(context);
+        }
     }
 
     /// <summary>
