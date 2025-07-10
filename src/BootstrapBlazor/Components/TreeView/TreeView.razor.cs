@@ -394,7 +394,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         Invoke = Interop,
         Method = nameof(TriggerKeyDown),
-        AllowDrag
+        AllowDrag,
+        TriggerDragEnd = nameof(TriggerDragEnd)
     });
 
     private bool _keyboardArrowUpDownTrigger;
@@ -421,6 +422,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 await OnToggleNodeAsync(_activeItem);
             }
         }
+    }
+
+    [JSInvokable]
+    public async ValueTask TriggerDragEnd(int originIndex, int currentIndex, bool isChildren)
+    {
+
     }
 
     /// <summary>
