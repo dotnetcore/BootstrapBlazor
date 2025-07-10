@@ -7,7 +7,7 @@ export function init(id, options) {
         return
     }
 
-    const { invoke, method, allowDrag } = options
+    const { invoke, method, allowDrag, triggerDragEnd } = options
     EventHandler.on(el, 'keydown', '.tree-root', e => {
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             const v = el.getAttribute('data-bb-keyboard');
@@ -32,28 +32,40 @@ export function init(id, options) {
         resetTreeViewRow(el);
 
         EventHandler.on(el, 'dragstart', e => {
-            console.log(e.target);
             el.targetItem = e.target;
             el.targetItem.classList.add('drag-item');
+
             e.dataTransfer.setData('text/plain', '');
             e.dataTransfer.effectAllowed = 'move';
             el.classList.add('dragging');
-            console.log('Drag start event triggered');
         });
 
         EventHandler.on(el, 'dragend', e => {
             el.classList.remove('dragging');
             el.targetItem.classList.remove('drag-item');
+
+            const item = el.targetItem.closest('.tree-content');
+            const originalIndex = parseInt(item.getAttribute("data-bb-tree-view-index"));
+
+            let isChildren = false;
+            let targetItem = null;
             const overItem = el.querySelector('.tree-drag-inside-over');
             if (overItem) {
                 overItem.classList.remove('tree-drag-inside-over');
+                isChildren = true;
+                targetItem = overItem.closest('.tree-content');
             }
-            const belowItem = el.querySelector('.tree-node-placeholder');
-            if (belowItem) {
-                belowItem.remove();
+            else {
+                const belowItem = el.querySelector('.tree-node-placeholder');
+                targetItem = belowItem.closest('.tree-content');
+                if (belowItem) {
+                    belowItem.remove();
+                }
             }
             delete el.targetItem;
-            console.log('Drag end event triggered');
+
+            const currentIndex = parseInt(targetItem.getAttribute("data-bb-tree-view-index"));
+            invoke.invokeMethodAsync(triggerDragEnd, originalIndex, currentIndex, isChildren);
         });
 
         EventHandler.on(el, 'dragenter', '.tree-drop-child-inside', e => {
@@ -61,7 +73,6 @@ export function init(id, options) {
 
             const item = e.delegateTarget;
             item.classList.add('tree-drag-inside-over');
-            console.log('inside Drag enter event triggered');
         });
         EventHandler.on(el, 'dragenter', '.tree-drop-child-below', e => {
             e.preventDefault()
@@ -69,7 +80,6 @@ export function init(id, options) {
             const item = e.delegateTarget;
             const placeholder = createPlaceholder();
             item.appendChild(placeholder);
-            console.log('below Drag enter event triggered');
         });
 
         EventHandler.on(el, 'dragleave', '.tree-drop-child-inside', e => {
@@ -77,7 +87,6 @@ export function init(id, options) {
 
             const item = e.delegateTarget;
             item.classList.remove('tree-drag-inside-over');
-            console.log('inside Drag leave event triggered');
         });
         EventHandler.on(el, 'dragleave', '.tree-drop-child-below', e => {
             e.preventDefault()
@@ -85,7 +94,6 @@ export function init(id, options) {
             const item = e.delegateTarget;
             item.classList.remove('tree-drag-below-over');
             item.innerHTML = "";
-            console.log('below Drag leave event triggered');
         });
 
         EventHandler.on(el, 'dragover', '.tree-drop-zone', e => {
@@ -100,8 +108,11 @@ const resetTreeViewRow = el => {
         const node = row.querySelector('.tree-node');
         if (node) {
             node.setAttribute('draggable', 'true');
-            const dropzone = createDropzone();
-            insertBefore(node, dropzone);
+            const prevElement = node.previousElementSibling;
+            if (prevElement && !prevElement.classList.contains('tree-drop-zone')) {
+                const dropzone = createDropzone();
+                insertBefore(node, dropzone);
+            }
         }
     });
 }
@@ -223,5 +234,10 @@ export function dispose(id) {
 
     if (el) {
         EventHandler.off(el, 'keyup', '.tree-root');
+        EventHandler.off(el, 'dragstart');
+        EventHandler.off(el, 'dragend');
+        EventHandler.off(el, 'dragenter');
+        EventHandler.off(el, 'dragleave');
+        EventHandler.off(el, 'dragover');
     }
 }
