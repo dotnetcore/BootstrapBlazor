@@ -29,7 +29,7 @@ export function init(id, options) {
     });
 
     if (allowDrag) {
-        resetTreeViewRow(el);
+        resetTreeViewRow(id);
 
         EventHandler.on(el, 'dragstart', e => {
             el.targetItem = e.target;
@@ -102,7 +102,8 @@ export function init(id, options) {
     }
 }
 
-const resetTreeViewRow = el => {
+export function resetTreeViewRow(id) {
+    const el = document.getElementById(id);
     const rows = [...el.querySelectorAll('.tree-content')];
     rows.forEach(row => {
         const node = row.querySelector('.tree-node');

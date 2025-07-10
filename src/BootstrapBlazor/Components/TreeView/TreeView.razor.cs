@@ -378,6 +378,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             _keyboardArrowUpDownTrigger = false;
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
+
+        if(!firstRender && AllowDrag)
+        {
+            await InvokeVoidAsync("resetTreeViewRow", Id);
+        }
     }
 
     /// <summary>
