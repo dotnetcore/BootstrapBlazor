@@ -182,6 +182,7 @@
         background-color: transparent;
         display: grid;
         grid-template-rows: 1fr 5px;
+        pointer-events: none;
 
         .tree-drop-child-inside {
             grid-row: 1 / 2;
@@ -195,46 +196,42 @@
         .tree-drop-child-below {
             grid-row: 2 / 3;
             z-index: 2;
+        }
 
-            .tree-node-placeholder {
-                position: absolute;
-                bottom: 0px;
-                left: 18px;
-                right: 0;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                pointer-events: none;
+        .tree-node-placeholder {
+            position: absolute;
+            bottom: 0px;
+            left: 18px;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            pointer-events: none;
 
-                .tree-node-ph-circle {
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 50%;
-                    background-color: var(--bb-tree-drop-preview-color);
-                }
+            .tree-node-ph-circle {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
 
-                .tree-node-ph-line {
-                    flex: 1;
-                    min-width: 0px;
-                    width: 1%;
-                    height: 2px;
-                    background-color: var(--bb-tree-drop-preview-color);
-                }
+            .tree-node-ph-line {
+                flex: 1;
+                min-width: 0px;
+                width: 1%;
+                height: 2px;
+                background-color: var(--bb-tree-drop-preview-color);
             }
         }
     }
 
     &.dragging {
+        .tree-drop-zone {
+            pointer-events: all;
+        }
+
         .tree-node:not(.drag-item) {
             pointer-events: none;
-        }
-    }
-
-    .tree-node {
-
-        &.drag-item {
-            opacity: 0.5;
-            background-color: #d4edff;
         }
     }
 }
