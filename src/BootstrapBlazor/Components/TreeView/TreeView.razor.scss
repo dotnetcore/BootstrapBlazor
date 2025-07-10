@@ -151,48 +151,6 @@
         &:not(:hover) .tree-node-toolbar-edit {
             display: none;
         }
-
-        &.drag-item {
-            opacity: 0.5;
-            background-color: #d4edff;
-        }
-
-        .tree-node-placeholder {
-            position: absolute;
-            bottom: -4px;
-            height: 8px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            pointer-events: none;
-
-            .tree-node-ph-circle {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-
-            .tree-node-ph-line {
-                flex: 1;
-                min-width: 0px;
-                width: 1%;
-                height: 2px;
-                background-color: var(--bb-tree-drop-preview-color);
-            }
-        }
-    }
-
-    .tree-drop-pass {
-        pointer-events: none;
-    }
-
-    &.dragging {
-        .tree-node:not(.drag-item) {
-            pointer-events: none;
-        }
     }
 }
 
@@ -242,7 +200,6 @@
             background-color: #f2747440;
         }
     }
-
 
     .tree-preview-child-last {
         position: absolute;
@@ -304,6 +261,51 @@
             flex: 1;
             height: 2px;
             background-color: var(--bb-tree-drop-preview-color);
+        }
+    }
+
+    .tree-drop-pass {
+        pointer-events: none;
+    }
+
+    &.dragging {
+        .tree-node:not(.drag-item) {
+            pointer-events: none;
+        }
+    }
+
+    .tree-node {
+
+        &.drag-item {
+            opacity: 0.5;
+            background-color: #d4edff;
+        }
+
+        .tree-node-placeholder {
+            position: absolute;
+            bottom: -4px;
+            height: 8px;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            pointer-events: none;
+
+            .tree-node-ph-circle {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
+
+            .tree-node-ph-line {
+                flex: 1;
+                min-width: 0px;
+                width: 1%;
+                height: 2px;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
         }
     }
 }
