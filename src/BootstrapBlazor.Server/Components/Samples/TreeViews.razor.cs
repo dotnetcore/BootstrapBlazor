@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using DocumentFormat.OpenXml.Spreadsheet;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -33,7 +35,7 @@ public sealed partial class TreeViews
 
     private bool AutoCheckParent { get; set; }
 
-    private List<TreeViewItem<TreeFoo>> DraggableItems { get; } = GetDraggableItems();
+    private List<TreeViewItem<TreeFoo>> DraggableItems { get; set; } = [];
 
     private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
@@ -79,30 +81,45 @@ public sealed partial class TreeViews
 
     private string? _selectedValue;
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        var items = GetDraggableItems();
+        DraggableItems = TreeFoo.CascadingTree(items);
+        DraggableItems[0].IsExpand = true;
+        DraggableItems[1].IsExpand = true;
+        DraggableItems[2].IsExpand = true;
+    }
+
     private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
     {
         Logger1.Log($"TreeItem: {item.Text} clicked");
         return Task.CompletedTask;
     }
 
-    private static Task OnDragItemEndAsync(TreeViewItem<TreeFoo> item)
+    private Task OnDragItemEndAsync(TreeViewDragContext<TreeFoo> context)
     {
-        // 如果拖拽到 Id=2 的节点下则不允许
-        //if (arg.Target.Value.Id == "2" && arg.DropType is TreeDropType.AsFirstChild or TreeDropType.AsLastChild)
-        //{
-        //    return Task.FromResult(false);
-        //}
-        //// 如果拖拽到 Id=2 的节点下的兄弟节点则不允许
-        //if (arg.DropType is TreeDropType.AsSiblingBelow && arg.Target.Parent?.Value.Id == "2")
-        //{
-        //    return Task.FromResult(false);
-        //}
-        //// 如果 Id=6 的节点则不允许拖出
-        //if (arg.Source?.Value.Id == "6")
-        //{
-        //    return Task.FromResult(false);
-        //}
-        //return Task.FromResult(true);
+        // 根据 context 处理原始数据
+        var items = GetDraggableItems();
+        var source = items.Find(i => i.Id == context.Source.Value.Id);
+        if (source != null)
+        {
+            var target = items.Find(i => i.Id == context.Target.Value.Id);
+            if (target != null)
+            {
+                source.ParentId = context.IsChildren ? target.Id : target.ParentId;
+            }
+        }
+        DraggableItems = TreeFoo.CascadingTree(items);
+        DraggableItems[0].IsExpand = true;
+        DraggableItems[1].IsExpand = true;
+        DraggableItems[2].IsExpand = true;
+
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -145,7 +162,7 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static List<TreeViewItem<TreeFoo>> GetDraggableItems()
+    private static List<TreeFoo> GetDraggableItems()
     {
         List<TreeFoo> items =
         [
@@ -155,19 +172,15 @@ public sealed partial class TreeViews
 
             new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item G (Can not move out)", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
             new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item H", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item I", Id = "6", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
 
-            new() { Text = "Item G (Can not move out)", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
         ];
-        var ret = TreeFoo.CascadingTree(items);
-        ret[0].IsExpand = true;
-        ret[1].IsExpand = true;
-        ret[2].IsExpand = true;
-        return ret;
+        return items;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetDisabledItems()

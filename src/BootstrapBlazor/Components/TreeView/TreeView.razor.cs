@@ -424,6 +424,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
+    /// <summary>
+    /// Triggers the end of a drag-and-drop operation within the tree view.
+    /// </summary>
+    /// <remarks>This method is invoked via JavaScript interop to signal the completion of a drag-and-drop
+    /// action. If a handler is assigned to <see cref="OnDragItemEndAsync"/>, it will be invoked with the drag
+    /// context.</remarks>
+    /// <param name="originIndex">The zero-based index of the item being dragged from its original position.</param>
+    /// <param name="currentIndex">The zero-based index of the item's current position after the drag operation.</param>
+    /// <param name="isChildren">A value indicating whether the drag operation involves child items.</param>
+    /// <returns></returns>
     [JSInvokable]
     public async ValueTask TriggerDragEnd(int originIndex, int currentIndex, bool isChildren)
     {
