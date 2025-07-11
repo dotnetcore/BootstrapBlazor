@@ -49,6 +49,16 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
     /// </summary>
     public Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Func<Task>? OnConnecting { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Func<Task>? OnConnected { get; set; }
+
     private IPEndPoint? _remoteEndPoint;
     private IPEndPoint? _localEndPoint;
     private CancellationTokenSource? _receiveCancellationTokenSource;
@@ -94,7 +104,15 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
 
         try
         {
+            if (OnConnecting != null)
+            {
+                await OnConnecting();
+            }
             ret = await ConnectCoreAsync(SocketClientProvider, endPoint, connectionToken);
+            if (OnConnected != null)
+            {
+                await OnConnected();
+            }
         }
         catch (OperationCanceledException ex)
         {
