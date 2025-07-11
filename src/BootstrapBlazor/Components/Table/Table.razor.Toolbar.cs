@@ -712,7 +712,7 @@ public partial class Table<TItem>
                     }
                     else
                     {
-                        await QueryData();
+                        await QueryAsync();
                     }
                 }
 

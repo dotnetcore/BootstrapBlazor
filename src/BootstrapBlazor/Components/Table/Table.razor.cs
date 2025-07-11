@@ -1293,7 +1293,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
 
             // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-            await QueryData();
+            await QueryAsync();
             StateHasChanged();
         }
         catch (TaskCanceledException) { }
@@ -1516,7 +1516,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortName = null;
         SortOrder = SortOrder.Unset;
 
-        await QueryData();
+        await QueryAsync();
     }
 
     private bool GetAddButtonStatus() => DisableAddButtonCallback?.Invoke(SelectedRows) ?? false;
