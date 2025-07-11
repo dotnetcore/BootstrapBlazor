@@ -63,7 +63,11 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task ConnectAsync_Cancel()
     {
-        var client = CreateClient(optionConfigure: options =>
+        var client = CreateClient(builder =>
+        {
+            builder.AddTransient<ISocketClientProvider, MockConnectCancelSocketProvider>();
+        },
+        options =>
         {
             options.ConnectTimeout = 500;
         });
@@ -929,8 +933,7 @@ public class TcpSocketFactoryTest
 
         public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
         {
-            await Task.Delay(1000, token);
-            IsConnected = false;
+            await Task.Delay(250, token);
             return false;
         }
 
