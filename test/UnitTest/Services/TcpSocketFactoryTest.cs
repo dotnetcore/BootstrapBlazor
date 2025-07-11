@@ -274,13 +274,27 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task ReceiveAsync_Ok()
     {
+        var onConnecting = false;
+        var onConnected = false;
         var port = 8891;
         var server = StartTcpServer(port, MockSplitPackageAsync);
 
         var client = CreateClient();
         client.Options.IsAutoReceive = false;
+        client.OnConnecting = () =>
+        {
+            onConnecting = true;
+            return Task.CompletedTask;
+        };
+        client.OnConnected = () =>
+        {
+            onConnected = true;
+            return Task.CompletedTask;
+        };
         var connected = await client.ConnectAsync("localhost", port);
         Assert.True(connected);
+        Assert.True(onConnecting);
+        Assert.True(onConnected);
 
         var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
         var send = await client.SendAsync(data);
