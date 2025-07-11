@@ -98,30 +98,30 @@ public class ThrottleTest : BootstrapBlazorTestBase
         Assert.Equal(2, count);
     }
 
-    //[Fact]
-    //public async Task Cancel_Ok()
-    //{
-    //    var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-    //    var dispatcher = factory.GetOrCreate("Cancel");
+    [Fact]
+    public async Task Cancel_Ok()
+    {
+        var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
+        var dispatcher = factory.GetOrCreate("Cancel");
 
-    //    var cts = new CancellationTokenSource();
-    //    cts.Cancel();
-    //    var ex = await Assert.ThrowsAsync<OperationCanceledException>(() =>
-    //    {
-    //        dispatcher.Throttle(() =>
-    //        {
+        var cts = new CancellationTokenSource();
+        cts.Cancel();
+        var ex = await Assert.ThrowsAsync<OperationCanceledException>(() =>
+        {
+            dispatcher.Throttle(() =>
+            {
 
-    //        }, cts.Token);
-    //        return Task.CompletedTask;
-    //    });
-    //    Assert.NotNull(ex);
+            }, cts.Token);
+            return Task.CompletedTask;
+        });
+        Assert.NotNull(ex);
 
-    //    cts = new CancellationTokenSource(100);
-    //    await dispatcher.ThrottleAsync(async () =>
-    //    {
-    //        await Task.Delay(300);
-    //    }, cts.Token);
-    //}
+        cts = new CancellationTokenSource(100);
+        await dispatcher.ThrottleAsync(async () =>
+        {
+            await Task.Delay(300);
+        }, cts.Token);
+    }
 
     [Fact]
     public void Clear()
