@@ -27,11 +27,24 @@ public partial class Select<TValue> : ISelect, ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 值为 null 时是否使用第一个选项作为默认值
-    /// <para>Gets or sets a value indicating whether the "active" state should be used when the associated value is null.</para>
+    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
+    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
     /// </summary>
     [Parameter]
-    public bool IsUseActiveWhenValueIsNull { get; set; }
+    [Obsolete("已弃用，请使用 IsUseDefaultItemWhenValueIsNull 参数代替；Deprecated, use the IsUseDefaultItemWhenValueIsNull parameter instead")]
+    [ExcludeFromCodeCoverage]
+    public bool IsUseActiveWhenValueIsNull
+    {
+        get => IsUseDefaultItemWhenValueIsNull;
+        set => IsUseDefaultItemWhenValueIsNull = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
+    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// </summary>
+    [Parameter]
+    public bool IsUseDefaultItemWhenValueIsNull { get; set; }
 
     /// <summary>
     /// Gets or sets the display template. Default is null.
@@ -452,7 +465,7 @@ public partial class Select<TValue> : ISelect, ILookup
             _lastSelectedValueString = "";
             _init = false;
 
-            return IsUseActiveWhenValueIsNull && !IsVirtualize
+            return IsUseDefaultItemWhenValueIsNull && !IsVirtualize
                 ? SetSelectedItemState(GetItemByRows())
                 : null;
         }
