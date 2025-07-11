@@ -47,11 +47,11 @@
                     }
                     @if (ShowDefaultButtons)
                     {
-                        @if (ShowAddButton)
+                        @if (ShowAddButton && ScrollMode == ScrollMode.None)
                         {
                             <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="@AddButtonIcon" Text="@AddButtonText" IsDisabled="GetAddButtonStatus()" />
                         }
-                        @if (!IsExcel && ShowEditButton)
+                        @if (!IsExcel && ShowEditButton && ScrollMode == ScrollMode.None)
                         {
                             <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="@EditButtonIcon" Text="@EditButtonText" IsEnableWhenSelectedOneRow="true" />
                         }
@@ -366,17 +366,6 @@
             @RenderHeader(false)
         }
         <tbody>
-            @if (InsertRowMode == InsertRowMode.First)
-            {
-                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
-                {
-                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-                }
-                if (AddInCell)
-                {
-                    @RenderRow(EditModel)
-                }
-            }
             @if (ScrollMode == ScrollMode.Virtual)
             {
                 @if (Items != null)
@@ -394,7 +383,18 @@
             }
             else
             {
-                @foreach (var item in Rows)
+                if (InsertRowMode == InsertRowMode.First)
+                {
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                    {
+                        @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                    }
+                    if (AddInCell)
+                    {
+                        @RenderRow(EditModel)
+                    }
+                }
+                foreach (var item in Rows)
                 {
                     OnBeforeRenderRow?.Invoke(item);
                     if (RowTemplate != null)
@@ -439,7 +439,18 @@
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
                 }
-                @if (IsShowEmpty)
+                if (InsertRowMode == InsertRowMode.Last)
+                {
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                    {
+                        @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                    }
+                    if (AddInCell)
+                    {
+                        @RenderRow(EditModel)
+                    }
+                }
+                if (IsShowEmpty)
                 {
                     <tr>
                         <td colspan="@GetEmptyColumnCount()">
@@ -447,17 +458,6 @@
                             </Empty>
                         </td>
                     </tr>
-                }
-            }
-            @if (InsertRowMode == InsertRowMode.Last)
-            {
-                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
-                {
-                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-                }
-                if (AddInCell)
-                {
-                    @RenderRow(EditModel)
                 }
             }
         </tbody>
