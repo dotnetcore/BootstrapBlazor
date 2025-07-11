@@ -69,6 +69,11 @@ class DefaultSocketClientProvider : ISocketClientProvider
         {
             var stream = _client.GetStream();
             len = await stream.ReadAsync(buffer, token).ConfigureAwait(false);
+
+            if (len == 0)
+            {
+                _client.Close();
+            }
         }
         return len;
     }
