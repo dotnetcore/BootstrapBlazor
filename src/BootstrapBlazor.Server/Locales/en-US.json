@@ -4834,7 +4834,8 @@
     "SocketComponents": "ITcpSocketFactory",
     "SocketAutoReceive": "Auto Receive",
     "SocketManualReceive": "Manual Receive",
-    "DataPackageAdapter": "DataPackageAdapter"
+    "DataPackageAdapter": "DataPackageAdapter",
+    "SocketAutoConnect": "Reconnect"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7107,5 +7108,11 @@
     "AdaptersDescription": "Receive data through the data adapter and display",
     "NormalTitle": "Basic usage",
     "NormalIntro": "After the connection is established, the timestamp data sent by the server is received through the <code>ReceivedCallBack</code> callback method of the <code>DataPackageAdapter</code> data adapter."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.AutoReconnects": {
+    "AutoReconnectsTitle": "DataPackageAdapter",
+    "AutoReconnectsDescription": "Receive data through the data adapter and display",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Enable automatic reconnection by setting <code>IsAutoReconnect</code>"
   }
 }

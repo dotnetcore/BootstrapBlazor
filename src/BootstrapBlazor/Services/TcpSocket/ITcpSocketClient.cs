@@ -39,6 +39,16 @@ public interface ITcpSocketClient : IAsyncDisposable
     Func<ReadOnlyMemory<byte>, ValueTask>? ReceivedCallBack { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback function that is invoked when a connection attempt is initiated.
+    /// </summary>
+    Func<Task>? OnConnecting { get; set; }
+
+    /// <summary>
+    /// Gets or sets the delegate to be invoked when a connection is successfully established.
+    /// </summary>
+    Func<Task>? OnConnected { get; set; }
+
+    /// <summary>
     /// Establishes an asynchronous connection to the specified endpoint.
     /// </summary>
     /// <remarks>This method attempts to establish a connection to the specified endpoint. If the connection

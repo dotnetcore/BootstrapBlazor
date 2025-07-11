@@ -1,0 +1,39 @@
+﻿@page "/socket/auto-connect"
+@inject IStringLocalizer<AutoReconnects> Localizer
+
+<h3>@Localizer["AutoReconnectsTitle"]</h3>
+<h4>@Localizer["AutoReconnectsDescription"]</h4>
+
+<Notice></Notice>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal" ShowCode="false">
+    <p>本例中模拟自动重连的业务场景，在实际应用中我们可能建立的链路可能由于种种原因断开，所以就有自动重连的业务需求</p>
+    <p>例如：我们与一个远端节点建立连接后，不停地接收远端发送过来的数据，如果断开连接后需要自动重连后继续接收数据</p>
+    <p>通过 <code>SocketClientOptions</code> 配置类来开启本功能</p>
+    <Pre>var client = factory.GetOrCreate("demo-reconnect", op =>
+{
+    op.LocalEndPoint = Utility.ConvertToIpEndPoint("localhost", 0);
+    options.IsAutoReconnect = true;
+    options.ReconnectInterval = 5000;
+});</Pre>
+    <p>参数说明：</p>
+    <ul class="ul-demo">
+        <li><code>IsAutoReconnect</code> 是否开启自动重连功能</li>
+        <li><code>ReconnectInterval</code> 自动重连等待间隔 默认 5000 毫秒</li>
+    </ul>
+    <p>本例中点击 <b>连接</b> 按钮后程序连接到一个发送数据后自动关闭的模拟服务端，通过输出日志查看运行情况，点击 <code>断开</code> 按钮后程序停止自动重连</p>
+    <div class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <Button Text="连接" Icon="fa-solid fa-play"
+                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="断开" Icon="fa-solid fa-stop" class="ms-2"
+                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+        </div>
+        <div class="col-12">
+            <Console Items="@_items" Height="496" HeaderText="接收数据（间隔 10 秒）"
+                     ShowAutoScroll="true" OnClear="@OnClear"></Console>
+        </div>
+    </div>
+</DemoBlock>

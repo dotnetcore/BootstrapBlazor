@@ -245,7 +245,8 @@
     "office-viewer": "OfficeViewers",
     "socket/manual-receive": "Sockets\\ManualReceives",
     "socket/auto-receive": "Sockets\\AutoReceives",
-    "socket/adapter": "Sockets\\Adapters"
+    "socket/adapter": "Sockets\\Adapters",
+    "socket/auto-connect": "Sockets\\AutoReconnects"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

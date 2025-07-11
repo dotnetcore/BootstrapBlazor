@@ -224,6 +224,12 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["DataPackageAdapter"],
                     Url = "socket/adapter"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SocketAutoConnect"],
+                    Url = "socket/auto-connect"
                 }
             };
             AddBadge(item, count: 1);
