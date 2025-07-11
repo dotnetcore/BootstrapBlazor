@@ -242,10 +242,7 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
             Log(LogLevel.Error, ex, $"TCP Socket send failed from {_localEndPoint} to {_remoteEndPoint}");
         }
 
-        if (options.EnableLog)
-        {
-            Log(LogLevel.Information, null, $"Sending data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {data.Length} Data Content: {BitConverter.ToString(data.ToArray())} Result: {ret}");
-        }
+        Log(LogLevel.Information, null, $"Sending data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {data.Length} Data Content: {BitConverter.ToString(data.ToArray())} Result: {ret}");
 
         if (!ret && reconnect)
         {
@@ -355,10 +352,7 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
             Log(LogLevel.Error, ex, $"TCP Socket receive failed from {_localEndPoint} to {_remoteEndPoint}");
         }
 
-        if (options.EnableLog)
-        {
-            Log(LogLevel.Information, null, $"Receiving data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {len} Data Content: {BitConverter.ToString(buffer.ToArray())}");
-        }
+        Log(LogLevel.Information, null, $"Receiving data from {_localEndPoint} to {_remoteEndPoint}, Data Length: {len} Data Content: {BitConverter.ToString(buffer.ToArray())}");
 
         if (len == 0 && reconnect)
         {
@@ -373,8 +367,11 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
     /// </summary>
     private void Log(LogLevel logLevel, Exception? ex, string? message)
     {
-        Logger ??= ServiceProvider?.GetRequiredService<ILogger<DefaultTcpSocketClient>>();
-        Logger?.Log(logLevel, ex, "{Message}", message);
+        if (options.EnableLog)
+        {
+            Logger ??= ServiceProvider?.GetRequiredService<ILogger<DefaultTcpSocketClient>>();
+            Logger?.Log(logLevel, ex, "{Message}", message);
+        }
     }
 
     /// <summary>
