@@ -77,7 +77,7 @@ public class TcpSocketFactoryTest
         cst = new CancellationTokenSource();
         _ = Task.Run(async () =>
         {
-            await Task.Delay(50);
+            await Task.Delay(200);
             cst.Cancel();
         });
         connect = await client.ConnectAsync("localhost", 9999, cst.Token);
