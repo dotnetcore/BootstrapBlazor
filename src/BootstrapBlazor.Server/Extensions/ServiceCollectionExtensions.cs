@@ -48,6 +48,7 @@ static class ServiceCollectionExtensions
         services.AddHostedService<MockReceiveSocketServerService>();
         services.AddHostedService<MockSendReceiveSocketServerService>();
         services.AddHostedService<MockCustomProtocolSocketServerService>();
+        services.AddHostedService<MockDisconnectServerService>();
 
         // 增加通用服务
         services.AddBootstrapBlazorServices();
