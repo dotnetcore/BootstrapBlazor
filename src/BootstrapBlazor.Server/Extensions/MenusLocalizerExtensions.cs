@@ -228,7 +228,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["AutoConnect"],
+                    Text = Localizer["SocketAutoConnect"],
                     Url = "socket/auto-connect"
                 }
             };

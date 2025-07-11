@@ -4834,7 +4834,8 @@
     "SocketComponents": "Socket 服务",
     "SocketAutoReceive": "自动接收数据",
     "SocketManualReceive": "手动接收数据",
-    "DataPackageAdapter": "数据处理器"
+    "DataPackageAdapter": "数据处理器",
+    "SocketAutoConnect": "自动重连"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
