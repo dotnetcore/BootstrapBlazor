@@ -63,7 +63,10 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task ConnectAsync_Cancel()
     {
-        var client = CreateClient();
+        var client = CreateClient(optionConfigure: options =>
+        {
+            options.ConnectTimeout = 500;
+        });
 
         // 测试 ConnectAsync 方法连接取消逻辑
         var cst = new CancellationTokenSource();
@@ -74,12 +77,7 @@ public class TcpSocketFactoryTest
         Assert.False(connect);
 
         // 测试真正的连接被取消逻辑
-        cst = new CancellationTokenSource();
-        _ = Task.Run(async () =>
-        {
-            await Task.Delay(200);
-            cst.Cancel();
-        });
+        cst = new CancellationTokenSource(200);
         connect = await client.ConnectAsync("localhost", 9999, cst.Token);
         Assert.False(connect);
     }
