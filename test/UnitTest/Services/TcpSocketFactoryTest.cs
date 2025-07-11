@@ -63,7 +63,14 @@ public class TcpSocketFactoryTest
     [Fact]
     public async Task ConnectAsync_Cancel()
     {
-        var client = CreateClient();
+        var client = CreateClient(builder =>
+        {
+            builder.AddTransient<ISocketClientProvider, MockConnectCancelSocketProvider>();
+        },
+        options =>
+        {
+            options.ConnectTimeout = 500;
+        });
 
         // 测试 ConnectAsync 方法连接取消逻辑
         var cst = new CancellationTokenSource();
@@ -74,12 +81,7 @@ public class TcpSocketFactoryTest
         Assert.False(connect);
 
         // 测试真正的连接被取消逻辑
-        cst = new CancellationTokenSource();
-        _ = Task.Run(async () =>
-        {
-            await Task.Delay(50);
-            cst.Cancel();
-        });
+        cst = new CancellationTokenSource(200);
         connect = await client.ConnectAsync("localhost", 9999, cst.Token);
         Assert.False(connect);
     }
@@ -238,10 +240,10 @@ public class TcpSocketFactoryTest
         await client.SendAsync(data);
 
         // 通过反射取消令牌
-        var baseType = client.GetType().BaseType;
-        Assert.NotNull(baseType);
+        var type = client.GetType();
+        Assert.NotNull(type);
 
-        var fieldInfo = baseType.GetField("_receiveCancellationTokenSource", BindingFlags.NonPublic | BindingFlags.Instance);
+        var fieldInfo = type.GetField("_receiveCancellationTokenSource", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(fieldInfo);
         var tokenSource = fieldInfo.GetValue(client) as CancellationTokenSource;
         Assert.NotNull(tokenSource);
@@ -300,10 +302,10 @@ public class TcpSocketFactoryTest
         var client = CreateClient();
 
         // 测试未建立连接前调用 ReceiveAsync 方法报异常逻辑
-        var baseType = client.GetType().BaseType;
-        Assert.NotNull(baseType);
+        var type = client.GetType();
+        Assert.NotNull(type);
 
-        var methodInfo = baseType.GetMethod("AutoReceiveAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+        var methodInfo = type.GetMethod("AutoReceiveAsync", BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(methodInfo);
 
         var task = (ValueTask)methodInfo.Invoke(client, null)!;
@@ -904,6 +906,34 @@ public class TcpSocketFactoryTest
         {
             await Task.Delay(1000, token);
             IsConnected = false;
+            return false;
+        }
+
+        public ValueTask<int> ReceiveAsync(Memory<byte> buffer, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(0);
+        }
+
+        public ValueTask<bool> SendAsync(ReadOnlyMemory<byte> data, CancellationToken token = default)
+        {
+            return ValueTask.FromResult(true);
+        }
+    }
+
+    class MockConnectCancelSocketProvider : ISocketClientProvider
+    {
+        public bool IsConnected { get; private set; }
+
+        public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+
+        public ValueTask CloseAsync()
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        public async ValueTask<bool> ConnectAsync(IPEndPoint endPoint, CancellationToken token = default)
+        {
+            await Task.Delay(250, token);
             return false;
         }
 

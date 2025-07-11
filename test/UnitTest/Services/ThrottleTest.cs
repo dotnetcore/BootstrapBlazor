@@ -105,12 +105,11 @@ public class ThrottleTest : BootstrapBlazorTestBase
         var dispatcher = factory.GetOrCreate("Cancel");
 
         var cts = new CancellationTokenSource();
-        cts.Cancel();
         var ex = await Assert.ThrowsAsync<OperationCanceledException>(() =>
         {
             dispatcher.Throttle(() =>
             {
-
+                cts.Cancel();
             }, cts.Token);
             return Task.CompletedTask;
         });
