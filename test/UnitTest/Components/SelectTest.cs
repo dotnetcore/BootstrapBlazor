@@ -27,7 +27,7 @@ public class SelectTest : BootstrapBlazorTestBase
                     new("1", "Test1"),
                     new("2", "Test2") { Active = true }
                 });
-                pb.Add(a => a.IsUseActiveWhenValueIsNull, true);
+                pb.Add(a => a.IsUseDefaultItemWhenValueIsNull, true);
                 pb.Add(a => a.OnSelectedItemChanged, item =>
                 {
                     selectedValue = item.Value;
