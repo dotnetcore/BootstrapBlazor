@@ -7,6 +7,9 @@ using System.Net;
 
 namespace BootstrapBlazor.Server.Components.Samples.Sockets;
 
+/// <summary>
+/// 自动重连示例组件
+/// </summary>
 public partial class AutoReconnects : IDisposable
 {
     [Inject, NotNull]
@@ -33,6 +36,16 @@ public partial class AutoReconnects : IDisposable
             options.ReconnectInterval = 5000;
         });
         _client.ReceivedCallBack += OnReceivedAsync;
+        _client.OnConnecting = async () =>
+        {
+           _items.Add(new ConsoleMessageItem { Message = $"{DateTime.Now} 正在连接到 {_serverEndPoint}，请稍候..." });
+            await InvokeAsync(StateHasChanged);
+        };
+        _client.OnConnected = async () =>
+        {
+            _items.Add(new ConsoleMessageItem { Message = $"{DateTime.Now} 已连接到 {_serverEndPoint}，等待接收数据", Color = Color.Success });
+            await InvokeAsync(StateHasChanged);
+        };
     }
 
     private async Task OnConnectAsync()
@@ -62,8 +75,8 @@ public partial class AutoReconnects : IDisposable
         // 将数据显示为十六进制字符串
         var payload = System.Text.Encoding.UTF8.GetString(data.Span);
         _items.Add(data.IsEmpty
-            ? new ConsoleMessageItem { Message = $"当前连接已关闭，5s 后自动重连", Color = Color.Danger }
-            : new ConsoleMessageItem { Message = $"接收到来自站点的数据为 {payload}" });
+            ? new ConsoleMessageItem { Message = $"{DateTime.Now} 当前连接已关闭，5s 后自动重连", Color = Color.Danger }
+            : new ConsoleMessageItem { Message = $"{DateTime.Now} 接收到来自站点的数据为 {payload}" });
 
         // 保持队列中最大数量为 50
         while (_items.Count > 50)
