@@ -22,8 +22,12 @@
     }
 
     &.offline {
-        background-color: var(--bs-secondary) !important;
+        background-color: var(--bs-secondary);
     }
+}
+
+[data-bs-toggle="popover"]:has(.offline) {
+    pointer-events: none;
 }
 
 .bb-nt-main {
