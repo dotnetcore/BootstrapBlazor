@@ -18,14 +18,32 @@ public class NetworkMonitorIndicatorTest : BootstrapBlazorTestBase
         var com = cut.FindComponent<NetworkMonitor>();
         await cut.InvokeAsync(() => com.Instance.TriggerNetworkStateChanged(new NetworkMonitorState
         {
-            IsOnline = true,
+            IsOnline = false,
             NetworkType = "4g",
             Downlink = 10.0,
             RTT = 50
         }));
         Assert.DoesNotContain("offline", cut.Markup);
 
-        await cut.InvokeAsync(() => com.Instance.TriggerOnlineStateChanged(false));
+        await cut.InvokeAsync(() => com.Instance.TriggerOnlineStateChanged(true));
         Assert.DoesNotContain("offline", cut.Markup);
+    }
+
+    [Fact]
+    public async Task NetworkMonitor_Ok()
+    {
+        NetworkMonitorState? state = null;
+        var cut = Context.RenderComponent<NetworkMonitor>(pb =>
+        {
+            pb.Add(a => a.OnNetworkStateChanged, v =>
+            {
+                state = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnlineStateChanged(false));
+        Assert.NotNull(state);
+        Assert.False(state.IsOnline);
     }
 }

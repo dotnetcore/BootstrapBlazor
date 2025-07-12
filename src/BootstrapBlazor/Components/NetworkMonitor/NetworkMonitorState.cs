@@ -29,13 +29,4 @@ public class NetworkMonitorState
     /// Gets or sets the round-trip time (RTT) in milliseconds.
     /// </summary>
     public int RTT { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
-    {
-        return $"IsOnline: {IsOnline} NetworkType: {NetworkType} Downlink: {Downlink} RTT: {RTT}";
-    }
 }
