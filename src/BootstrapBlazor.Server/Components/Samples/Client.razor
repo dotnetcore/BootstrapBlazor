@@ -6,13 +6,14 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <p>@Localizer["BasicUsageP1"]</p>
-    <div class="mb-3">
+    <section ignore>
+        <p>@Localizer["BasicUsageP1"]</p>
         <p class="code-label">@((MarkupString)Localizer["BasicUsageP2"].Value)</p>
         <Pre>public void Configure(IApplicationBuilder app)
 {
     // ...
     // 增加下面这一行
+    // add this line
     app.UseBootstrapBlazor();
     app.UseEndpoints(endpoints =>
     {
@@ -21,13 +22,11 @@
         endpoints.MapFallbackToPage("/_Host");
     });
 }</Pre>
-    </div>
 
-    <Tips>
-        <p>@((MarkupString)Localizer["BasicUsageTips"].Value)</p>
-    </Tips>
+        <Tips>
+            <p>@((MarkupString)Localizer["BasicUsageTips"].Value)</p>
+        </Tips>
 
-    <div class="mb-3">
         <p class="code-label">@((MarkupString)Localizer["BasicUsageP3"].Value)</p>
         <Pre>[Inject]
 [NotNull]
@@ -44,9 +43,29 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
         ClientInfo = await ClientService.GetClientInfo();
         StateHasChanged();
     }
-}
-</Pre>
-    </div>
+}</Pre>
+
+        <p class="code-label">@((MarkupString)Localizer["BasicUsageP4"].Value)</p>
+        <p>@((MarkupString)Localizer["LocatorsProviderOptions"].Value)</p>
+        <p>@((MarkupString)Localizer["LocatorsProviderDesc1"].Value)</p>
+        <Pre>{
+    "BootstrapBlazorOptions": {
+        "WebClientOptions": {
+            "EnableIpLocator": true
+    }
+}</Pre>
+        <p>@((MarkupString)Localizer["LocatorsProviderDesc2"].Value)</p>
+        <Pre>services.AddBootstrapBlazor(op =>
+{
+    op.WebClientOptions.EnableIpLocator = true;
+});</Pre>
+        <p>@((MarkupString)Localizer["LocatorsProviderDesc3"].Value)</p>
+        <Pre>services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
+{
+    op.WebClientOptions.EnableIpLocator = true;
+});</Pre>
+
+    </section>
     <GroupBox Title="@Localizer["GroupBoxTitle"]">
         <p class="code-label">@Localizer["IpLocatorFactoryDesc"] <a href="locator" target="_blank">IpLocatorFactory</a></p>
 
