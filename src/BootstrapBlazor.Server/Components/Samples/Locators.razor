@@ -40,6 +40,9 @@ Location = await provider.Locate(Ip);</Pre>
 <p><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</p>
 
 <DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
+    <section ignore>
+        @((MarkupString)Localizer["LocatorsProviderDesc"].Value)
+    </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">
             <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged" ShowLabel="true" DisplayText="LocatorProvider">
