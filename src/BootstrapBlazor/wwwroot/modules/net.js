@@ -17,7 +17,6 @@ export function init(id, options) {
                 const el = document.getElementById(indicator);
                 if (el) {
                     el.classList.remove('offline');
-                    el.classList.add('online');
                 }
             });
         }
@@ -28,7 +27,6 @@ export function init(id, options) {
             indicators.forEach(indicator => {
                 const el = document.getElementById(indicator);
                 if (el) {
-                    el.classList.remove('online');
                     el.classList.add('offline');
                 }
             });

@@ -20,6 +20,10 @@
     &.bb-nt-indicator-2g {
         background-color: var(--bs-danger);
     }
+
+    &.offline {
+        background-color: var(--bs-secondary) !important;
+    }
 }
 
 .bb-nt-main {
