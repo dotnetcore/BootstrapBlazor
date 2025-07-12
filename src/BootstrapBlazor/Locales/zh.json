@@ -389,5 +389,8 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0}是必填项"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NetworkMonitorIndicatorTitle": "网络状态"
   }
 }

@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -32,8 +34,11 @@ public partial class NetworkMonitorIndicator
     [NotNull]
     public string? Trigger { get; set; }
 
+    [Inject, NotNull]
+    private IStringLocalizer<NetworkMonitorIndicator>? Localizer { get; set; }
+
     private NetworkMonitorState _state = new();
-    private List<string> _indicators = [];
+    private readonly List<string> _indicators = [];
 
     private string? ClassString => CssBuilder.Default("bb-nt-indicator")
         .AddClass("bb-nt-indicator-4g", _state.NetworkType == "4g")
@@ -60,7 +65,7 @@ public partial class NetworkMonitorIndicator
         base.OnParametersSet();
 
         Trigger ??= "hover focus";
-        Title ??= "网络状态";
+        Title ??= Localizer["NetworkMonitorIndicatorTitle"];
     }
 
     private Task OnNetworkStateChanged(NetworkMonitorState state)
