@@ -11,12 +11,20 @@ export function init(id, options) {
         });
     }
 
+    const resetState = () => {
+        const { downlink, effectiveType, rtt } = navigator.connection;
+        invoke.invokeMethodAsync(onNetworkStateChangedCallback, {
+            downlink, networkType: effectiveType, rTT: rtt
+        });
+    }
+
     const onlineStateChanged = () => {
         if (Array.isArray(indicators)) {
             indicators.forEach(indicator => {
                 const el = document.getElementById(indicator);
                 if (el) {
                     el.classList.remove('offline');
+                    resetState();
                 }
             });
         }
@@ -40,11 +48,7 @@ export function init(id, options) {
         onlineStateChanged,
         offlineStateChanged
     });
-
-    const { downlink, effectiveType, rtt } = navigator.connection;
-    invoke.invokeMethodAsync(onNetworkStateChangedCallback, {
-        downlink, networkType: effectiveType, rTT: rtt
-    });
+    resetState();
 }
 
 export async function dispose(id) {
