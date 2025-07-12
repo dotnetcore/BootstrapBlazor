@@ -17,6 +17,12 @@ public class NetworkMonitor : BootstrapModuleComponentBase
     [Parameter]
     public Func<NetworkMonitorState, Task>? OnNetworkStateChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of indicators used for display info.
+    /// </summary>
+    [Parameter]
+    public List<string>? Indicators { get; set; }
+
     private NetworkMonitorState _state = new();
 
     /// <summary>
@@ -27,7 +33,8 @@ public class NetworkMonitor : BootstrapModuleComponentBase
     {
         Invoke = Interop,
         OnlineStateChangedCallback = nameof(TriggerOnlineStateChanged),
-        OnNetworkStateChangedCallback = nameof(TriggerNetworkStateChanged)
+        OnNetworkStateChangedCallback = nameof(TriggerNetworkStateChanged),
+        Indicators
     });
 
     /// <summary>

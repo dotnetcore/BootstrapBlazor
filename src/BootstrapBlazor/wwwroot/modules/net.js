@@ -2,7 +2,7 @@
 import EventHandler from "./event-handler.js";
 
 export function init(id, options) {
-    const { invoke, onlineStateChangedCallback, onNetworkStateChangedCallback } = options;
+    const { invoke, onlineStateChangedCallback, onNetworkStateChangedCallback, indicators } = options;
     navigator.connection.onchange = e => {
         const nt = e.target;
         const { downlink, effectiveType, rtt } = nt;
@@ -12,9 +12,27 @@ export function init(id, options) {
     }
 
     const onlineStateChanged = () => {
+        if (Array.isArray(indicators)) {
+            indicators.forEach(indicator => {
+                const el = document.getElementById(indicator);
+                if (el) {
+                    el.classList.remove('offline');
+                    el.classList.add('online');
+                }
+            });
+        }
         invoke.invokeMethodAsync(onlineStateChangedCallback, true);
     }
     const offlineStateChanged = () => {
+        if (Array.isArray(indicators)) {
+            indicators.forEach(indicator => {
+                const el = document.getElementById(indicator);
+                if (el) {
+                    el.classList.remove('online');
+                    el.classList.add('offline');
+                }
+            });
+        }
         invoke.invokeMethodAsync(onlineStateChangedCallback, false);
     }
     EventHandler.on(window, 'online', onlineStateChanged);
@@ -23,7 +41,12 @@ export function init(id, options) {
     Data.set(id, {
         onlineStateChanged,
         offlineStateChanged
-    })
+    });
+
+    const { downlink, effectiveType, rtt } = navigator.connection;
+    invoke.invokeMethodAsync(onNetworkStateChangedCallback, {
+        downlink, networkType: effectiveType, rTT: rtt
+    });
 }
 
 export async function dispose(id) {
