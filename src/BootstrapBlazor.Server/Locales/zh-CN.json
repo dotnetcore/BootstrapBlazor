@@ -4095,6 +4095,7 @@
     "LocatorsNormalExtendDescription": "扩展自定义地理位置查询接口",
     "LocatorsNormalExtend1": "1. 实现自定义定位器",
     "LocatorsNormalExtend2": "2. 配置自定义定位器",
+    "LocatorsNormalExtend3": "3. 通过定位器定位",
     "LocatorsNormalCustomerLocator": "通过 <code>AddSingleton</code> 方法将自定义定位器 <code>CustomerLocatorProvider</code> 添加到服务容器中",
     "LocatorsNormalIpTitle": "IP 测试数据",
     "LocatorsNormalTips3": "山东省 中国联通",
