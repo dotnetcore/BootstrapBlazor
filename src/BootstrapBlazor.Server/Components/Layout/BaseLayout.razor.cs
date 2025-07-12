@@ -95,12 +95,6 @@ public partial class BaseLayout : IDisposable
         }
     }
 
-    private static Task OnNetworkStateChanged(NetworkMonitorState state)
-    {
-        System.Console.WriteLine(state.ToString());
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// 释放资源
     /// </summary>
