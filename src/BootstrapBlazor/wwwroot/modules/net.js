@@ -24,7 +24,6 @@ export function init(id, options) {
                 const el = document.getElementById(indicator);
                 if (el) {
                     el.classList.remove('offline');
-                    resetState();
                 }
             });
         }
