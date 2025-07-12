@@ -39,6 +39,9 @@ public partial class NetworkMonitorIndicator
 
     private NetworkMonitorState _state = new();
     private readonly List<string> _indicators = [];
+    private string _networkTypeString = "";
+    private string _downlinkString = "";
+    private string _rttString = "";
 
     private string? ClassString => CssBuilder.Default("bb-nt-indicator")
         .AddClass("bb-nt-indicator-4g", _state.NetworkType == "4g")
@@ -65,7 +68,10 @@ public partial class NetworkMonitorIndicator
         base.OnParametersSet();
 
         Trigger ??= "hover focus";
-        Title ??= Localizer["NetworkMonitorIndicatorTitle"];
+        Title ??= Localizer["Title"];
+        _networkTypeString = Localizer["NetworkType"];
+        _downlinkString = Localizer["Downlink"];
+        _rttString = Localizer["RTT"];
     }
 
     private Task OnNetworkStateChanged(NetworkMonitorState state)
