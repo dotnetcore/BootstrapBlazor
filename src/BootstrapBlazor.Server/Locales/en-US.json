@@ -4095,6 +4095,7 @@
     "LocatorsNormalExtendDescription": "Extend the custom geo-location query interface",
     "LocatorsNormalExtend1": "1. Implement a custom locator",
     "LocatorsNormalExtend2": "2. Configure a custom locator",
+    "LocatorsNormalExtend3": "3. Use locator",
     "LocatorsNormalCustomerLocator": "Add <code>CustomerLocatorProvider</code> to the service container using the <code>AddSingleton</code> method",
     "LocatorsNormalIpTitle": "IP test data",
     "LocatorsNormalTips3": "Shandong, China Unicom",
