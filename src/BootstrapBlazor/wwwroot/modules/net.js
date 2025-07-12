@@ -3,19 +3,14 @@ import EventHandler from "./event-handler.js";
 
 export function init(id, options) {
     const { invoke, onlineStateChangedCallback, onNetworkStateChangedCallback, indicators } = options;
-    navigator.connection.onchange = e => {
-        const nt = e.target;
+    const updateState = nt => {
         const { downlink, effectiveType, rtt } = nt;
         invoke.invokeMethodAsync(onNetworkStateChangedCallback, {
             downlink, networkType: effectiveType, rTT: rtt
         });
     }
-
-    const resetState = () => {
-        const { downlink, effectiveType, rtt } = navigator.connection;
-        invoke.invokeMethodAsync(onNetworkStateChangedCallback, {
-            downlink, networkType: effectiveType, rTT: rtt
-        });
+    navigator.connection.onchange = e => {
+        updateState(e.target);
     }
 
     const onlineStateChanged = () => {
@@ -47,7 +42,8 @@ export function init(id, options) {
         onlineStateChanged,
         offlineStateChanged
     });
-    resetState();
+
+    updateState(navigator.connection);
 }
 
 export async function dispose(id) {
