@@ -246,7 +246,8 @@
     "socket/manual-receive": "Sockets\\ManualReceives",
     "socket/auto-receive": "Sockets\\AutoReceives",
     "socket/adapter": "Sockets\\Adapters",
-    "socket/auto-connect": "Sockets\\AutoReconnects"
+    "socket/auto-connect": "Sockets\\AutoReconnects",
+    "network-monitor": "NetworkMonitors"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
