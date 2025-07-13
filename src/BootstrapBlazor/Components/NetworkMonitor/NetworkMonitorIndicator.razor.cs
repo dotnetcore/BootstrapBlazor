@@ -77,11 +77,10 @@ public partial class NetworkMonitorIndicator : IDisposable
         _rttString = Localizer["RTT"];
     }
 
-    private Task OnNetworkStateChanged(NetworkMonitorState state)
+    private async Task OnNetworkStateChanged(NetworkMonitorState state)
     {
         _state = state;
-        StateHasChanged();
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
     }
 
     private void Dispose(bool disposing)

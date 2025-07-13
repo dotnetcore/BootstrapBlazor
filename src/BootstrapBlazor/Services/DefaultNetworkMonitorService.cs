@@ -107,6 +107,6 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
             await _networkModule.DisposeAsync();
             _networkModule = null;
         }
-        _interop?.Dispose();
+        _interop.Dispose();
     }
 }
