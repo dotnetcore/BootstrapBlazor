@@ -7126,6 +7126,11 @@
     "NetworkMonitorDescription": "链路断开后自动重连示例",
     "NormalTitle": "基本用法",
     "NormalIntro": "通过设置 <code>IsAutoReconnect</code> 开启自动重连机制",
-    "NormalDesc": "网络变化时，通过 <code>OnNetworkStateChanged</code> 回调获得当前网络状态信息"
+    "IndicatorTitle": "网络状态指示灯",
+    "IndicatorIntro": "使用组件 <code>NetworkMonitorIndicator</code> 当网络状态变化时，显示不同颜色的指示灯，鼠标移动到上面时显示网络状态明细",
+    "IndicatorLi1": "绿色：网络非常好 (4G)",
+    "IndicatorLi2": "黄色：网络一般 (3G)",
+    "IndicatorLi3": "红色：网络差 (2G)",
+    "IndicatorLi4": "灰色：离线状态"
   }
 }
