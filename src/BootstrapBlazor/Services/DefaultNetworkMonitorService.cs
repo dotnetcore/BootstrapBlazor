@@ -55,7 +55,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
 
         if (!_init)
         {
-            await _semaphoreSlim.WaitAsync();
+            await _semaphoreSlim.WaitAsync(3000);
             if (!_init)
             {
                 _init = true;
