@@ -1,5 +1,6 @@
-﻿//import Data from "./data.js"
-//import EventHandler from "./event-handler.js";
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js";
+import { registerBootstrapBlazorModule } from './utility.js'
 
 export function init(options) {
     const { invoke, onNetworkStateChangedCallback } = options;
@@ -13,46 +14,23 @@ export function init(options) {
         updateState(e.target);
     }
 
-    //const onlineStateChanged = () => {
-    //    //if (Array.isArray(indicators)) {
-    //    //    indicators.forEach(indicator => {
-    //    //        const el = document.getElementById(indicator);
-    //    //        if (el) {
-    //    //            el.classList.remove('offline');
-    //    //        }
-    //    //    });
-    //    //}
-    //    invoke.invokeMethodAsync(onlineStateChangedCallback, true);
-    //}
-    //const offlineStateChanged = () => {
-    //    //if (Array.isArray(indicators)) {
-    //    //    indicators.forEach(indicator => {
-    //    //        const el = document.getElementById(indicator);
-    //    //        if (el) {
-    //    //            el.classList.add('offline');
-    //    //        }
-    //    //    });
-    //    //}
-    //    invoke.invokeMethodAsync(onlineStateChangedCallback, false);
-    //}
-    //EventHandler.on(window, 'online', onlineStateChanged);
-    //EventHandler.on(window, 'offline', offlineStateChanged);
+    const onlineStateChanged = () => {
+        const indicators = [...document.querySelectorAll('.bb-nt-indicator')];
+        indicators.forEach(indicator => {
+            indicator.classList.remove('offline');
+        });
+    }
+    const offlineStateChanged = () => {
+        const indicators = [...document.querySelectorAll('.bb-nt-indicator')];
+        indicators.forEach(indicator => {
+            indicator.classList.add('offline');
+        });
+    }
 
-    //Data.set(id, {
-    //    onlineStateChanged,
-    //    offlineStateChanged
-    //});
+    registerBootstrapBlazorModule("NetworkMonitor", null, () => {
+        EventHandler.on(window, 'online', onlineStateChanged);
+        EventHandler.on(window, 'offline', offlineStateChanged);
+    });
 
     updateState(navigator.connection);
 }
-
-//export async function dispose(id) {
-//    const nt = Data.get(id);
-//    Data.remove(id);
-
-////    if (nt) {
-////        const { onlineStateChanged, offlineStateChanged } = nt;
-////        EventHandler.off(window, 'online', onlineStateChanged);
-////        EventHandler.off(window, 'offline', offlineStateChanged);
-////    }
-//}
