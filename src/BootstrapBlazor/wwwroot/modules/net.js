@@ -1,5 +1,4 @@
-﻿import Data from "./data.js"
-import EventHandler from "./event-handler.js";
+﻿import EventHandler from "./event-handler.js";
 import { registerBootstrapBlazorModule } from './utility.js'
 
 export function init(options) {
