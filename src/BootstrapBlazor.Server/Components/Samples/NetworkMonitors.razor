@@ -8,15 +8,6 @@
 <DemoBlock Title="@Localizer["NormalTitle"]"
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal">
-    <NetworkMonitor OnNetworkStateChanged="OnNetworkStateChanged"></NetworkMonitor>
-    <section ignore>
-        <ConsoleLogger @ref="_logger"></ConsoleLogger>
-    </section>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["IndicatorTitle"]"
-           Introduction="@Localizer["IndicatorIntro"]"
-           Name="Indicator">
     <section ignore>
         <ul class="ul-demo">
             <li>@Localizer["IndicatorLi1"]</li>
@@ -26,4 +17,7 @@
         </ul>
     </section>
     <NetworkMonitorIndicator></NetworkMonitorIndicator>
+    <section ignore>
+        <ConsoleLogger @ref="_logger"></ConsoleLogger>
+    </section>
 </DemoBlock>
