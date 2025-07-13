@@ -4840,7 +4840,8 @@
     "SocketAutoReceive": "自动接收数据",
     "SocketManualReceive": "手动接收数据",
     "DataPackageAdapter": "数据处理器",
-    "SocketAutoConnect": "自动重连"
+    "SocketAutoConnect": "自动重连",
+    "NetworkMonitor": "网络状态 NetworkMonitor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7119,5 +7120,15 @@
     "AutoReconnectsDescription": "链路断开后自动重连示例",
     "NormalTitle": "基本用法",
     "NormalIntro": "通过设置 <code>IsAutoReconnect</code> 开启自动重连机制"
+  },
+  "BootstrapBlazor.Server.Components.Samples.NetworkMonitors": {
+    "NetworkMonitorTitle": "NetworkMonitor 网络状态",
+    "NetworkMonitorDescription": "使用浏览器原生 api <code>navigator.connection</code> 实时显示当前网络状态",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "使用组件 <code>NetworkMonitorIndicator</code> 当网络状态变化时，显示不同颜色的指示灯，鼠标移动到上面时显示网络状态明细",
+    "IndicatorLi1": "绿色：网络非常好 (4G)",
+    "IndicatorLi2": "黄色：网络一般 (3G)",
+    "IndicatorLi3": "红色：网络差 (2G)",
+    "IndicatorLi4": "灰色：离线状态"
   }
 }

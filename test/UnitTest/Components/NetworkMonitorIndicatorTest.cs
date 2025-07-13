@@ -8,42 +8,47 @@ namespace UnitTest.Components;
 public class NetworkMonitorIndicatorTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task NetworkMonitorIndicator_Ok()
+    public void NetworkMonitorIndicator_Ok()
     {
         var cut = Context.RenderComponent<NetworkMonitorIndicator>(pb =>
         {
             pb.Add(a => a.PopoverPlacement, Placement.Top);
         });
 
-        var com = cut.FindComponent<NetworkMonitor>();
-        await cut.InvokeAsync(() => com.Instance.TriggerNetworkStateChanged(new NetworkMonitorState
-        {
-            IsOnline = false,
-            NetworkType = "4g",
-            Downlink = 10.0,
-            RTT = 50
-        }));
-        Assert.DoesNotContain("offline", cut.Markup);
-
-        await cut.InvokeAsync(() => com.Instance.TriggerOnlineStateChanged(true));
         Assert.DoesNotContain("offline", cut.Markup);
     }
 
     [Fact]
-    public async Task NetworkMonitor_Ok()
+    public async Task RegisterStateChangedCallback_Ok()
     {
-        NetworkMonitorState? state = null;
-        var cut = Context.RenderComponent<NetworkMonitor>(pb =>
+        var service = Context.Services.GetRequiredService<INetworkMonitorService>();
+        var cut = Context.RenderComponent<NetworkMonitorIndicator>(pb =>
         {
-            pb.Add(a => a.OnNetworkStateChanged, v =>
-            {
-                state = v;
-                return Task.CompletedTask;
-            });
+            pb.Add(a => a.PopoverPlacement, Placement.Top);
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnlineStateChanged(false));
-        Assert.NotNull(state);
-        Assert.False(state.IsOnline);
+        // 测试 TriggerNetworkStateChanged 方法
+        var innerServicePropertyInfo = cut.Instance.GetType().GetProperty("NetworkMonitorService", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(innerServicePropertyInfo);
+
+        var innerService = innerServicePropertyInfo.GetValue(cut.Instance);
+        Assert.NotNull(innerService);
+
+        var methodInfo = innerService.GetType().GetMethod("TriggerNetworkStateChanged");
+        Assert.NotNull(methodInfo);
+
+        var result = methodInfo.Invoke(service, [new NetworkMonitorState() { Downlink = 10, RTT = 100, NetworkType = "4g" }]);
+        if (result is Task task)
+        {
+            await task;
+        }
+
+        // 测试重复注册回调
+        var callback = new Func<NetworkMonitorState, Task>(state =>
+        {
+            return Task.CompletedTask;
+        });
+        await service.RegisterStateChangedCallback(cut.Instance, callback);
+        await service.RegisterStateChangedCallback(cut.Instance, callback);
     }
 }

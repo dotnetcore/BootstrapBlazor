@@ -93,6 +93,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<IMediaDevices, DefaultMediaDevices>();
         services.TryAddScoped<IVideoDevice, DefaultVideoDevice>();
         services.TryAddScoped<IAudioDevice, DefaultAudioDevice>();
+        services.TryAddScoped<INetworkMonitorService, DefaultNetowrkMonitorService>();
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();
         services.AddScoped<MaskService>();

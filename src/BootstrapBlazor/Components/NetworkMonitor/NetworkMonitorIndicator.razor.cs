@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <remarks>This component allows you to configure the text, placement, and trigger behavior of a tooltip that
 /// appears when interacting with the network monitor indicator. The tooltip can be customized to provide additional
 /// information to users.</remarks>
-public partial class NetworkMonitorIndicator
+public partial class NetworkMonitorIndicator : IDisposable
 {
     /// <summary>
     /// 获得/设置 Popover 弹窗标题 默认为 null
@@ -37,8 +37,10 @@ public partial class NetworkMonitorIndicator
     [Inject, NotNull]
     private IStringLocalizer<NetworkMonitorIndicator>? Localizer { get; set; }
 
+    [Inject, NotNull]
+    private INetworkMonitorService? NetworkMonitorService { get; set; }
+
     private NetworkMonitorState _state = new();
-    private readonly List<string> _indicators = [];
     private string _networkTypeString = "";
     private string _downlinkString = "";
     private string _rttString = "";
@@ -53,11 +55,11 @@ public partial class NetworkMonitorIndicator
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
-        _indicators.Add(Id);
+        await NetworkMonitorService.RegisterStateChangedCallback(this, OnNetworkStateChanged);
     }
 
     /// <summary>
@@ -69,15 +71,33 @@ public partial class NetworkMonitorIndicator
 
         Trigger ??= "hover focus";
         Title ??= Localizer["Title"];
+
         _networkTypeString = Localizer["NetworkType"];
         _downlinkString = Localizer["Downlink"];
         _rttString = Localizer["RTT"];
     }
 
-    private Task OnNetworkStateChanged(NetworkMonitorState state)
+    private async Task OnNetworkStateChanged(NetworkMonitorState state)
     {
         _state = state;
-        StateHasChanged();
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            NetworkMonitorService.UnregisterStateChangedCallback(this);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
