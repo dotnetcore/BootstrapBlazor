@@ -47,7 +47,7 @@ export function init(id, options) {
 }
 
 export async function dispose(id) {
-    var nt = Data.get(id);
+    const nt = Data.get(id);
     Data.remove(id);
 
     if (nt) {
