@@ -3,24 +3,110 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Collections.Concurrent;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 网络状态服务
 /// </summary>
-class DefaultNetowrkMonitorService(IJSRuntime jSRuntime)
+class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
 {
     [NotNull]
     private JSModule? _module = null;
+    [NotNull]
+    private JSModule? _networkModule = null;
+    private readonly IJSRuntime _runtime;
+    private readonly DotNetObjectReference<DefaultNetowrkMonitorService> _interop;
+    private readonly ConcurrentDictionary<IComponent, Func<NetworkMonitorState, Task>> _callbacks = new();
+    private bool _init = false;
+    private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
 
-    private Task<JSModule> LoadModule() => jSRuntime.LoadUtility();
+    public DefaultNetowrkMonitorService(IJSRuntime jsRuntime)
+    {
+        _runtime = jsRuntime;
+        _interop = DotNetObjectReference.Create(this);
+    }
+
+    private Task<JSModule> LoadModule() => _runtime.LoadUtility();
 
     /// <summary>
-    /// 获取剪切板数据方法
+    /// <inheritdoc/>
     /// </summary>
     public async Task<NetworkMonitorState> GetNetworkMonitorState(CancellationToken token = default)
     {
         _module ??= await LoadModule();
         return await _module.InvokeAsync<NetworkMonitorState?>("getNetworkInfo", token) ?? new();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="component"></param>
+    /// <param name="callback"></param>
+    public async Task RegisterStateChangedCallback(IComponent component, Func<NetworkMonitorState, Task> callback)
+    {
+        _callbacks.AddOrUpdate(component, key => callback, (k, v) => callback);
+
+        if (!_init)
+        {
+            await _semaphoreSlim.WaitAsync();
+            if (!_init)
+            {
+                _init = true;
+
+                _networkModule ??= await _runtime.LoadModuleByName("net");
+                await _networkModule.InvokeVoidAsync("init", new
+                {
+                    Invoke = _interop,
+                    OnNetworkStateChangedCallback = nameof(TriggerNetworkStateChanged)
+                });
+            }
+            _semaphoreSlim.Release();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="component"></param>
+    public void UnregisterStateChangedCallback(IComponent component)
+    {
+        _callbacks.TryRemove(component, out _);
+    }
+
+    /// <summary>
+    /// JSInvoke 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerNetworkStateChanged(NetworkMonitorState state)
+    {
+        foreach (var callback in _callbacks.Values)
+        {
+            if (callback != null)
+            {
+                await callback(state);
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        if (_module != null)
+        {
+            await _module.DisposeAsync();
+            _module = null;
+        }
+        if (_networkModule != null)
+        {
+            await _networkModule.DisposeAsync();
+            _networkModule = null;
+        }
+        _interop?.Dispose();
     }
 }

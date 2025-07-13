@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Components;
 public class NetworkMonitorState
 {
     /// <summary>
-    /// Gets or sets a value indicating whether the network is online
-    /// </summary>
-    public bool IsOnline { get; set; }
-
-    /// <summary>
     /// Gets or sets the current network type
     /// </summary>
     public string? NetworkType { get; set; }
