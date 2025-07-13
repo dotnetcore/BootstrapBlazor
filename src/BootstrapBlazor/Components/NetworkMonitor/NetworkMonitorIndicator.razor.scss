@@ -1,0 +1,52 @@
+﻿.bb-nt-indicator {
+    --bb-nt-indicator-width: .5rem;
+    --bb-nt-indicator-border-radius: 50%;
+    --bb-nt-indicator-bg: var(--bs-secondary);
+    background: var(--bb-nt-indicator-bg);
+    cursor: pointer;
+    width: var(--bb-nt-indicator-width);
+    height: var(--bb-nt-indicator-width);
+    border-radius: var(--bb-nt-indicator-border-radius);
+    display: inline-block;
+
+    &.bb-nt-indicator-4g {
+        background-color: var(--bs-success);
+    }
+
+    &.bb-nt-indicator-3g {
+        background-color: var(--bs-warning);
+    }
+
+    &.bb-nt-indicator-2g {
+        background-color: var(--bs-danger);
+    }
+
+    &.offline {
+        background-color: var(--bs-secondary);
+    }
+}
+
+[data-bs-toggle="popover"]:has(.offline) {
+    pointer-events: none;
+}
+
+.bb-nt-main {
+    .bb-nt-item {
+        display: flex;
+        align-items: center;
+
+        > span {
+            width: 120px;
+        }
+
+        > div {
+            flex: 1;
+            min-width: 0;
+            width: 1%;
+        }
+
+        &:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+    }
+}

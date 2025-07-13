@@ -389,5 +389,11 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0}是必填项"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "Title": "网络状态",
+    "NetworkType": "网络类型",
+    "Downlink": "下载速度",
+    "RTT": "响应时间"
   }
 }

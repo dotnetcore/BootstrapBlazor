@@ -389,5 +389,11 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0} is required."
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "Network",
+    "NetworkType": "NetworkType",
+    "Downlink": "Downlink",
+    "RTT": "RTT"
   }
 }
