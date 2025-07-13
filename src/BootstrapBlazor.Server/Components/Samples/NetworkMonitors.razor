@@ -1,0 +1,21 @@
+﻿@page "/network-monitor"
+@inject IStringLocalizer<NetworkMonitors> Localizer
+
+<h3>@Localizer["NetworkMonitorTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["NetworkMonitorDescription"].Value)</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal">
+    <NetworkMonitor OnNetworkStateChanged="OnNetworkStateChanged"></NetworkMonitor>
+    <section ignore>
+        <ConsoleLogger @ref="_logger"></ConsoleLogger>
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IndicatorTitle"]"
+           Introduction="@Localizer["IndicatorIntro"]"
+           Name="Indicator">
+    <NetworkMonitorIndicator></NetworkMonitorIndicator>
+</DemoBlock>
