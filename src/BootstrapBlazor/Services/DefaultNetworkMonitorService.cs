@@ -21,6 +21,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     private readonly ConcurrentDictionary<IComponent, Func<NetworkMonitorState, Task>> _callbacks = new();
     private bool _init = false;
     private readonly SemaphoreSlim _semaphoreSlim = new(1, 1);
+    private NetworkMonitorState? _state;
 
     public DefaultNetowrkMonitorService(IJSRuntime jsRuntime)
     {
@@ -47,10 +48,14 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     public async Task RegisterStateChangedCallback(IComponent component, Func<NetworkMonitorState, Task> callback)
     {
         _callbacks.AddOrUpdate(component, key => callback, (k, v) => callback);
+        if (_state != null)
+        {
+            await callback(_state);
+        }
 
         if (!_init)
         {
-            await _semaphoreSlim.WaitAsync();
+            await _semaphoreSlim.WaitAsync(3000);
             if (!_init)
             {
                 _init = true;
@@ -82,6 +87,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     [JSInvokable]
     public async Task TriggerNetworkStateChanged(NetworkMonitorState state)
     {
+        _state = state;
         foreach (var callback in _callbacks.Values)
         {
             if (callback != null)
