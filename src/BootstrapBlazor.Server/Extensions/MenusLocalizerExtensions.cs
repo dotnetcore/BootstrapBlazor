@@ -1249,6 +1249,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["NetworkMonitor"],
+                    Url = "network-monitor"
+                },
+                new()
+                {
                     Text = Localizer["Light"],
                     Url = "light"
                 },
