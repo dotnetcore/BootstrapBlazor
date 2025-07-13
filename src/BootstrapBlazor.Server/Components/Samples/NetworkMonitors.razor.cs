@@ -13,7 +13,7 @@ public partial class NetworkMonitors : IDisposable
     [Inject, NotNull]
     private INetworkMonitorService? NetworkMonitorService { get; set; }
 
-    private ConsoleLogger _logger = null!;
+    private ConsoleLogger? _logger;
 
     /// <summary>
     /// <inheritdoc/>
@@ -27,7 +27,7 @@ public partial class NetworkMonitors : IDisposable
 
     private Task OnNetworkStateChanged(NetworkMonitorState state)
     {
-        _logger.Log($"Online: NetworkType: {state.NetworkType} Downlink: {state.Downlink} RTT: {state.RTT}");
+        _logger?.Log($"Online: NetworkType: {state.NetworkType} Downlink: {state.Downlink} RTT: {state.RTT}");
         return Task.CompletedTask;
     }
 
