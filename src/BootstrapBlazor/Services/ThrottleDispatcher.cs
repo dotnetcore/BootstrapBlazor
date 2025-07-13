@@ -32,11 +32,10 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// <param name="token">取消令牌</param>
     public void Throttle(Action action, CancellationToken token = default)
     {
-        var task = InternalThrottleAsync(() => Task.Run(() =>
-        {
+        var task = InternalThrottleAsync(() => {
             action();
             return Task.CompletedTask;
-        }, CancellationToken.None), token);
+        }, token);
         try
         {
             task.Wait(token);
