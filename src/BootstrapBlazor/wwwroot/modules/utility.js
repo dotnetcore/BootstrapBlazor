@@ -907,6 +907,18 @@ export function readFileAsync(file) {
     });
 }
 
+export function getNetworkInfo() {
+    if (navigator.connection) {
+        const { downlink, effectiveType, rtt } = navigator.connection;
+        return {
+            downlink: downlink,
+            networkType: effectiveType,
+            rTT: rtt
+        };
+    }
+    return null;
+}
+
 export {
     autoAdd,
     autoRemove,
