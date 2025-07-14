@@ -16,7 +16,7 @@ public interface INetworkMonitorService
     /// <param name="token">A cancellation token that can be used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains the current <see
     /// cref="NetworkMonitorState"/>.</returns>
-    Task<NetworkMonitorState> GetNetworkMonitorState(CancellationToken token = default);
+    Task<NetworkMonitorState?> GetNetworkMonitorState(CancellationToken token = default);
 
     /// <summary>
     /// Registers a callback to be invoked when the network monitor state changes.

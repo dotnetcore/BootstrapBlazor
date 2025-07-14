@@ -34,10 +34,10 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<NetworkMonitorState> GetNetworkMonitorState(CancellationToken token = default)
+    public async Task<NetworkMonitorState?> GetNetworkMonitorState(CancellationToken token = default)
     {
         _module ??= await LoadModule();
-        return await _module.InvokeAsync<NetworkMonitorState?>("getNetworkInfo", token) ?? new();
+        return await _module.InvokeAsync<NetworkMonitorState?>("getNetworkInfo", token);
     }
 
     /// <summary>
