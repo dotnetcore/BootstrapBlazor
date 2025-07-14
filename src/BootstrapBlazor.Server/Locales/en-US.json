@@ -3075,7 +3075,7 @@
     "SelectsEnumTitle": "Enumerate the data",
     "SelectsEnumIntro": "an example of a type enumerated a <code>select</code> component binding",
     "SelectsEnumDescription1": "Enumeration When the binding value is an empty enumeration type, the component automatically adds preferences internally through the <code>PlaceHolder</code> value, and when the <code>PlaceHolder</code> value is not set, <b>please select ... </b>as a preference, and this example binds <code>the EnumEducation</code> enumeration type data",
-    "SelectsEnumDescription2": "Setting <code>PalceHolder</code> is not valid when the binding value is an enumerated type",
+    "SelectsEnumDescription2": "Setting <code>PlaceHolder</code> is not valid when the binding value is an enumerated type",
     "SelectsEnumSelectText1": "Can be empty",
     "SelectsEnumSelectText2": "Not empty",
     "SelectsEnumSelectText3": "Using enum integer values ​​as Items",
