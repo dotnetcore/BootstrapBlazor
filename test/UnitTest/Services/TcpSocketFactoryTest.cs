@@ -637,7 +637,7 @@ public class TcpSocketFactoryTest
         var ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler(string.Empty));
         Assert.NotNull(ex);
 
-        ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler((byte[])null!));
+        ex = Assert.Throws<ArgumentNullException>(() => new DelimiterDataPackageHandler(null!));
         Assert.NotNull(ex);
     }
 

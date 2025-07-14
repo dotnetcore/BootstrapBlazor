@@ -18,6 +18,7 @@ public class DefaultNetworkMonitorServiceTest : BootstrapBlazorTestBase
         });
         var service = Context.Services.GetRequiredService<INetworkMonitorService>();
         var state = await service.GetNetworkMonitorState(CancellationToken.None);
+        Assert.NotNull(state);
         Assert.Equal("4g", state.NetworkType);
         Assert.Equal(10, state.Downlink);
         Assert.Equal(100, state.RTT);
