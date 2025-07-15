@@ -674,44 +674,24 @@ public class TcpSocketFactoryTest
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
         Assert.Equal([3, 4], entity.Body);
 
-        // 测试异常流程
-        var adapter2 = new DataPackageAdapter();
-        var result = adapter2.TryConvertTo(data, new MockEntitySocketDataConverter(), out var t);
-        Assert.True(result);
-        Assert.NotNull(t);
-        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
-    }
-
-    [Fact]
-    public async Task TryConvertTo_Null()
-    {
-        var port = 8890;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
-        var client = CreateClient();
-        var tcs = new TaskCompletionSource();
-        MockEntity? entity = null;
-
-        // 设置数据适配器
-        var adapter = new DataPackageAdapter
-        {
-            DataPackageHandler = new FixLengthDataPackageHandler(7),
-        };
-        client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
+        // 测试 SocketDataConverter 标签功能
+        tcs = new TaskCompletionSource();
+        client.SetDataPackageAdapter<MockEntity>(adapter, t =>
         {
             entity = t;
             tcs.SetResult();
             return Task.CompletedTask;
         });
-
-        // 连接 TCP Server
-        var connect = await client.ConnectAsync("localhost", port);
-
-        // 发送数据
-        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
         await client.SendAsync(data);
-        await tcs.Task;
-
         Assert.NotNull(entity);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+
+        // 测试数据适配器直接调用 TryConvertTo 方法转换数据
+        var adapter2 = new DataPackageAdapter();
+        var result = adapter2.TryConvertTo(data, new MockEntitySocketDataConverter(), out var t);
+        Assert.True(result);
+        Assert.NotNull(t);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1085,19 +1065,20 @@ public class TcpSocketFactoryTest
     {
         public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out MockEntity? entity)
         {
-            entity = new MockEntity
-            {
-                Header = data[..5].ToArray(),
-                Body = data[5..].ToArray()
-            };
-            return true;
+            var v = new MockEntity();
+            var ret = Parse(data, v);
+            entity = ret ? v : null;
+            return ret;
         }
     }
 
+    [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
     class MockEntity
     {
+        [SocketDataField(Type = typeof(byte[]), Start = 0, Length = 5)]
         public byte[]? Header { get; set; }
 
+        [SocketDataField(Type = typeof(byte[]), Start = 5, Length = 2)]
         public byte[]? Body { get; set; }
     }
 }
