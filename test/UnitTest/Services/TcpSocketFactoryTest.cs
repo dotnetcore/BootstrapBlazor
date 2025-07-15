@@ -651,11 +651,11 @@ public class TcpSocketFactoryTest
         MockEntity? entity = null;
 
         // 设置数据适配器
-        var adapter = new MockEntityDataPackageAdapter
+        var adapter = new DataPackageAdapter
         {
             DataPackageHandler = new FixLengthDataPackageHandler(7),
         };
-        client.SetDataPackageAdapter<MockEntity>(adapter, t =>
+        client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
             entity = t;
             tcs.SetResult();
@@ -676,9 +676,10 @@ public class TcpSocketFactoryTest
 
         // 测试异常流程
         var adapter2 = new DataPackageAdapter();
-        var result = adapter2.TryConvertTo(data, out var t);
-        Assert.False(result);
-        Assert.Null(t);
+        var result = adapter2.TryConvertTo(data, new MockEntitySocketDataConverter(), out var t);
+        Assert.True(result);
+        Assert.NotNull(t);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
     }
 
     [Fact]
@@ -691,11 +692,11 @@ public class TcpSocketFactoryTest
         MockEntity? entity = null;
 
         // 设置数据适配器
-        var adapter = new MockErrorEntityDataPackageAdapter
+        var adapter = new DataPackageAdapter
         {
             DataPackageHandler = new FixLengthDataPackageHandler(7),
         };
-        client.SetDataPackageAdapter<MockEntity>(adapter, t =>
+        client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
             entity = t;
             tcs.SetResult();
@@ -710,7 +711,7 @@ public class TcpSocketFactoryTest
         await client.SendAsync(data);
         await tcs.Task;
 
-        Assert.Null(entity);
+        Assert.NotNull(entity);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1080,24 +1081,15 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockEntityDataPackageAdapter : DataPackageAdapter
+    class MockEntitySocketDataConverter : SocketDataConverterBase<MockEntity>
     {
-        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
+        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out MockEntity? entity)
         {
             entity = new MockEntity
             {
                 Header = data[..5].ToArray(),
                 Body = data[5..].ToArray()
             };
-            return true;
-        }
-    }
-
-    class MockErrorEntityDataPackageAdapter : DataPackageAdapter
-    {
-        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
-        {
-            entity = new Foo();
             return true;
         }
     }
