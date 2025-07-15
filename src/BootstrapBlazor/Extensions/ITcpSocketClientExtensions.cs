@@ -76,20 +76,18 @@ public static class ITcpSocketClientExtensions
     }
 
     /// <summary>
-    /// Configures the specified <see cref="ITcpSocketClient"/> to use a custom data package adapter and a callback
-    /// function for processing received data.
+    /// Configures the specified <see cref="ITcpSocketClient"/> to use a data package adapter and a callback function
+    /// for processing received data.
     /// </summary>
-    /// <remarks>This method sets up the <paramref name="client"/> to use the provided <paramref
-    /// name="adapter"/> for handling incoming data. The adapter processes the raw data received by the client and
-    /// attempts to convert it into an instance of <typeparamref name="TEntity"/>. If the conversion is successful, the
-    /// <paramref name="callback"/> is invoked with the converted entity; otherwise, it is invoked with <see
-    /// langword="null"/>.</remarks>
-    /// <typeparam name="TEntity">The type of the entity that the data package adapter will attempt to convert the received data into.</typeparam>
-    /// <param name="client">The <see cref="ITcpSocketClient"/> instance to configure.</param>
-    /// <param name="adapter">The <see cref="IDataPackageAdapter"/> instance responsible for handling and processing incoming data.</param>
-    /// <param name="callback">A callback function to be invoked with the processed data of type <typeparamref name="TEntity"/>.  The callback
-    /// receives <see langword="null"/> if the data cannot be converted to <typeparamref name="TEntity"/>.</param>
-    public static void SetDataPackageAdapter<TEntity>(this ITcpSocketClient client, IDataPackageAdapter adapter, Func<TEntity?, Task> callback)
+    /// <remarks>This method sets up the <paramref name="client"/> to process incoming data using the
+    /// specified <paramref name="adapter"/> and  <paramref name="socketDataConverter"/>. The <paramref
+    /// name="callback"/> is called with the converted entity whenever data is received.</remarks>
+    /// <typeparam name="TEntity">The type of the entity that the data will be converted to.</typeparam>
+    /// <param name="client">The TCP socket client to configure.</param>
+    /// <param name="adapter">The data package adapter responsible for handling incoming data.</param>
+    /// <param name="socketDataConverter">The converter used to transform the received data into the specified entity type.</param>
+    /// <param name="callback">The callback function to be invoked with the converted entity.</param>
+    public static void SetDataPackageAdapter<TEntity>(this ITcpSocketClient client, IDataPackageAdapter adapter, ISocketDataConverter<TEntity> socketDataConverter, Func<TEntity?, Task> callback)
     {
         // 设置 ITcpSocketClient 的回调函数
         client.ReceivedCallBack = async buffer =>
@@ -102,12 +100,9 @@ public static class ITcpSocketClientExtensions
         adapter.ReceivedCallBack = async buffer =>
         {
             TEntity? ret = default;
-            if (adapter.TryConvertTo(buffer, out var t))
+            if (socketDataConverter.TryConvertTo(buffer, out var t))
             {
-                if (t is TEntity entity)
-                {
-                    ret = entity;
-                }
+                ret = t;
             }
             await callback(ret);
         };
