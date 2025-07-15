@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Buffers.Binary;
 using System.Reflection;
 using System.Text;
 
@@ -72,46 +73,37 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
     protected virtual object? ParseValue(ReadOnlyMemory<byte> buffer, Type type, string? encodingName)
     {
         // 根据类型转换数据
-        if (type == typeof(string))
+        if (type == typeof(byte[]))
         {
-            var encoding = string.IsNullOrEmpty(encodingName) ? Encoding.UTF8 : Encoding.GetEncoding(encodingName);
-            return encoding.GetString(buffer.Span);
+            return ParseByte(buffer);
+        }
+        else if (type == typeof(string))
+        {
+            return ParseString(buffer, encodingName);
         }
         else if (type == typeof(int))
         {
-            return BitConverter.ToInt32(buffer.Span);
+            return ParseInt(buffer);
         }
         else if (type == typeof(long))
         {
-            return BitConverter.ToInt64(buffer.Span);
+            return ParseLong(buffer);
         }
         else if (type == typeof(double))
         {
-            return BitConverter.ToDouble(buffer.Span);
-        }
-        else if (type == typeof(byte[]))
-        {
-            return buffer.ToArray();
-        }
-        if (type.IsEnum)
-        {
-            return Enum.ToObject(type, BitConverter.ToInt32(buffer.Span));
-        }
-        else if (type == typeof(bool))
-        {
-            return BitConverter.ToBoolean(buffer.Span);
+            return ParseDouble(buffer);
         }
         else if (type == typeof(float))
         {
-            return BitConverter.ToSingle(buffer.Span);
+            return ParseSingle(buffer);
         }
         else if (type == typeof(short))
         {
-            return BitConverter.ToInt16(buffer.Span);
+            return ParseShort(buffer);
         }
         else if (type == typeof(ushort))
         {
-            return BitConverter.ToUInt16(buffer.Span);
+            return ParseUShort(buffer);
         }
         else if (type == typeof(uint))
         {
@@ -121,10 +113,143 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
         {
             return BitConverter.ToUInt64(buffer.Span);
         }
+        else if (type == typeof(bool))
+        {
+            return BitConverter.ToBoolean(buffer.Span);
+        }
+        else if (type.IsEnum)
+        {
+            return Enum.ToObject(type, BitConverter.ToInt32(buffer.Span));
+        }
         else
         {
             return ParseValueResolve(buffer, type, encodingName);
         }
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为字节数组
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual byte[] ParseByte(ReadOnlyMemory<byte> buffer)
+    {
+        return buffer.ToArray();
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为字符串
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual string? ParseString(ReadOnlyMemory<byte> buffer, string? encodingName)
+    {
+        var encoding = string.IsNullOrEmpty(encodingName) ? Encoding.UTF8 : Encoding.GetEncoding(encodingName);
+        return encoding.GetString(buffer.Span);
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为整形
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual int ParseInt(ReadOnlyMemory<byte> buffer)
+    {
+        var ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[4];
+        buffer.Span.CopyTo(paddedSpan[(4 - buffer.Length)..]);
+
+        if (BinaryPrimitives.TryReadInt32BigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为长整形
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual long ParseLong(ReadOnlyMemory<byte> buffer)
+    {
+        long ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[8];
+        buffer.Span.CopyTo(paddedSpan[(8 - buffer.Length)..]);
+
+        if (BinaryPrimitives.TryReadInt64BigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为双精度浮点数
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual float ParseSingle(ReadOnlyMemory<byte> buffer)
+    {
+        float ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[4];
+        buffer.Span.CopyTo(paddedSpan[(4 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadSingleBigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为双精度浮点数
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual short ParseShort(ReadOnlyMemory<byte> buffer)
+    {
+        short ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[2];
+        buffer.Span.CopyTo(paddedSpan[(2 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadInt16BigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为双精度浮点数
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual ushort ParseUShort(ReadOnlyMemory<byte> buffer)
+    {
+        ushort ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[2];
+        buffer.Span.CopyTo(paddedSpan[(2 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadUInt16BigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为双精度浮点数
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual double ParseDouble(ReadOnlyMemory<byte> buffer)
+    {
+        double ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[8];
+        buffer.Span.CopyTo(paddedSpan[(8 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadDoubleBigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
     }
 
     /// <summary>
