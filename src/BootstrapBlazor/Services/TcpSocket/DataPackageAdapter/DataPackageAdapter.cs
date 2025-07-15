@@ -54,11 +54,12 @@ public class DataPackageAdapter : IDataPackageAdapter
     public virtual bool TryConvertTo<TEntity>(ReadOnlyMemory<byte> data, ISocketDataConverter<TEntity> socketDataConverter, out TEntity? entity)
     {
         entity = default;
-        if (socketDataConverter.TryConvertTo(data, out var v))
+        var ret = socketDataConverter.TryConvertTo(data, out var v);
+        if (ret)
         {
             entity = v;
         }
-        return entity != null;
+        return ret;
     }
 
     /// <summary>
