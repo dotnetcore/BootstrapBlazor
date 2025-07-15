@@ -653,7 +653,7 @@ public class TcpSocketFactoryTest
         // 设置数据适配器
         var adapter = new DataPackageAdapter
         {
-            DataPackageHandler = new FixLengthDataPackageHandler(24),
+            DataPackageHandler = new FixLengthDataPackageHandler(28),
         };
         client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
@@ -692,6 +692,18 @@ public class TcpSocketFactoryTest
 
         // ushort
         Assert.Equal(0x24, entity.Value7);
+
+        // uint
+        Assert.Equal((uint)0x25, entity.Value8);
+
+        // ulong
+        Assert.Equal((ulong)0x26, entity.Value9);
+
+        // bool
+        Assert.True(entity.Value10);
+
+        // enum
+        Assert.Equal(EnumEducation.Middle, entity.Value11);
 
         // 测试 SocketDataConverter 标签功能
         tcs = new TaskCompletionSource();
@@ -790,7 +802,7 @@ public class TcpSocketFactoryTest
             }
 
             // 回写数据到客户端
-            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24, 0x25, 0x26, 0x01, 0x01 }, CancellationToken.None);
         }
     }
 
@@ -1138,12 +1150,16 @@ public class TcpSocketFactoryTest
         [SocketDataField(Type = typeof(ushort), Start = 23, Length = 1)]
         public ushort Value7 { get; set; }
 
-        public uint Value9 { get; set; }
+        [SocketDataField(Type = typeof(uint), Start = 24, Length = 1)]
+        public uint Value8 { get; set; }
 
-        public ushort Value10 { get; set; }
+        [SocketDataField(Type = typeof(ulong), Start = 25, Length = 1)]
+        public ulong Value9 { get; set; }
 
-        public ulong Value11 { get; set; }
+        [SocketDataField(Type = typeof(bool), Start = 26, Length = 1)]
+        public bool Value10 { get; set; }
 
-        public EnumEducation Value12 { get; set; }
+        [SocketDataField(Type = typeof(EnumEducation), Start = 27, Length = 1)]
+        public EnumEducation Value11 { get; set; }
     }
 }
