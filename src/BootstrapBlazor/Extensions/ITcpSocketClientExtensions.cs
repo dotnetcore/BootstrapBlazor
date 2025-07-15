@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Reflection;
 using System.Runtime.Versioning;
 using System.Text;
 
@@ -106,5 +107,47 @@ public static class ITcpSocketClientExtensions
             }
             await callback(ret);
         };
+    }
+
+    /// <summary>
+    /// Configures the specified <see cref="ITcpSocketClient"/> to use a custom data package adapter and callback
+    /// function.
+    /// </summary>
+    /// <remarks>This method sets up the <paramref name="client"/> to use the specified <paramref
+    /// name="adapter"/> for handling incoming data. If the <typeparamref name="TEntity"/> type is decorated with a <see
+    /// cref="SocketDataConverterAttribute"/>, the associated converter is used to transform the data before invoking
+    /// the <paramref name="callback"/>. The callback is called with the converted entity or <see langword="null"/> if
+    /// conversion fails.</remarks>
+    /// <typeparam name="TEntity">The type of entity that the data package adapter will handle.</typeparam>
+    /// <param name="client">The TCP socket client to configure.</param>
+    /// <param name="adapter">The data package adapter responsible for processing incoming data.</param>
+    /// <param name="callback">The callback function to invoke with the processed entity of type <typeparamref name="TEntity"/>.</param>
+    public static void SetDataPackageAdapter<TEntity>(this ITcpSocketClient client, IDataPackageAdapter adapter, Func<TEntity?, Task> callback)
+    {
+        // 设置 ITcpSocketClient 的回调函数
+        client.ReceivedCallBack = async buffer =>
+        {
+            // 将接收到的数据传递给 DataPackageAdapter 进行数据处理合规数据触发 ReceivedCallBack 回调
+            await adapter.HandlerAsync(buffer);
+        };
+
+        var type = typeof(TEntity);
+        var converterType = type.GetCustomAttribute<SocketDataConverterAttribute>();
+        if (converterType is { Type: not null })
+        {
+            if (Activator.CreateInstance(converterType.Type) is ISocketDataConverter<TEntity> socketDataConverter)
+            {
+                // 设置 DataPackageAdapter 的回调函数
+                adapter.ReceivedCallBack = async buffer =>
+                {
+                    TEntity? ret = default;
+                    if (socketDataConverter.TryConvertTo(buffer, out var t))
+                    {
+                        ret = t;
+                    }
+                    await callback(ret);
+                };
+            }
+        }
     }
 }
