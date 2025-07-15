@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="upload-body is-avatar">
         @if (IsUploadButtonAtFirst && ShowAddButton())
         {
@@ -41,6 +41,10 @@
             @RenderAdd
         }
     </div>
+    @if (ShowPreviewList)
+    {
+        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList"></ImagePreviewer>
+    }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
 
