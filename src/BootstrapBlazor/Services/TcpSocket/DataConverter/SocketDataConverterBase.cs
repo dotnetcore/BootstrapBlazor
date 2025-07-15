@@ -107,19 +107,19 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
         }
         else if (type == typeof(uint))
         {
-            return BitConverter.ToUInt32(buffer.Span);
+            return ParseUInt(buffer);
         }
         else if (type == typeof(ulong))
         {
-            return BitConverter.ToUInt64(buffer.Span);
+            return ParseULong(buffer);
         }
         else if (type == typeof(bool))
         {
-            return BitConverter.ToBoolean(buffer.Span);
+            return ParseBool(buffer);
         }
         else if (type.IsEnum)
         {
-            return Enum.ToObject(type, BitConverter.ToInt32(buffer.Span));
+            return ParseEnum(buffer, type);
         }
         else
         {
@@ -140,7 +140,6 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
     /// <summary>
     /// 将字节缓冲区转换为字符串
     /// </summary>
-    /// <param name="buffer"></param>
     /// <returns></returns>
     protected virtual string? ParseString(ReadOnlyMemory<byte> buffer, string? encodingName)
     {
@@ -223,6 +222,23 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
+    protected virtual double ParseDouble(ReadOnlyMemory<byte> buffer)
+    {
+        double ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[8];
+        buffer.Span.CopyTo(paddedSpan[(8 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadDoubleBigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为无符号短整形
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
     protected virtual ushort ParseUShort(ReadOnlyMemory<byte> buffer)
     {
         ushort ret = 0;
@@ -236,18 +252,70 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
     }
 
     /// <summary>
-    /// 将字节缓冲区转换为双精度浮点数
+    /// 将字节缓冲区转换为无符号整形
     /// </summary>
     /// <param name="buffer"></param>
     /// <returns></returns>
-    protected virtual double ParseDouble(ReadOnlyMemory<byte> buffer)
+    protected virtual uint ParseUInt(ReadOnlyMemory<byte> buffer)
     {
-        double ret = 0;
-        Span<byte> paddedSpan = stackalloc byte[8];
-        buffer.Span.CopyTo(paddedSpan[(8 - buffer.Length)..]);
-        if (BinaryPrimitives.TryReadDoubleBigEndian(paddedSpan, out var v))
+        uint ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[4];
+        buffer.Span.CopyTo(paddedSpan[(4 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadUInt32BigEndian(paddedSpan, out var v))
         {
             ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为无符号长整形
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual ulong ParseULong(ReadOnlyMemory<byte> buffer)
+    {
+        ulong ret = 0;
+        Span<byte> paddedSpan = stackalloc byte[8];
+        buffer.Span.CopyTo(paddedSpan[(8 - buffer.Length)..]);
+        if (BinaryPrimitives.TryReadUInt64BigEndian(paddedSpan, out var v))
+        {
+            ret = v;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为布尔类型
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    protected virtual bool ParseBool(ReadOnlyMemory<byte> buffer)
+    {
+        var ret = false;
+        if (buffer.Length == 1)
+        {
+            ret = buffer.Span[0] != 0x00;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 将字节缓冲区转换为枚举类型
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    protected virtual object? ParseEnum(ReadOnlyMemory<byte> buffer, Type type)
+    {
+        object? ret = null;
+        if (buffer.Length == 1)
+        {
+            var v = buffer.Span[0];
+            if (Enum.TryParse(type, v.ToString(), out var enumValue))
+            {
+                ret = enumValue;
+            }
         }
         return ret;
     }
