@@ -150,11 +150,15 @@ public partial class AvatarUpload<TValue>
         await base.TriggerOnChanged(file);
     }
 
+    /// <summary>
+    /// 预览当前头像方法
+    /// </summary>
+    /// <returns></returns>
     public async Task Preview()
     {
         if(ShowPreviewList)
         {
-
+            await InvokeVoidAsync("preview", PreviewerId, 0);
         }
     }
 
