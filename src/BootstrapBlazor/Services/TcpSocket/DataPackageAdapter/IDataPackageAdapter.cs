@@ -41,13 +41,15 @@ public interface IDataPackageAdapter
     ValueTask HandlerAsync(ReadOnlyMemory<byte> data, CancellationToken token = default);
 
     /// <summary>
-    /// Attempts to convert the specified binary data into an object representation.
+    /// Attempts to convert the specified byte data into an entity of type <typeparamref name="TEntity"/>.
     /// </summary>
-    /// <remarks>This method does not throw an exception if the conversion fails. Instead, it returns  <see
-    /// langword="false"/> and sets <paramref name="entity"/> to <see langword="null"/>.</remarks>
-    /// <param name="data">The binary data to be converted. Must not be empty.</param>
-    /// <param name="entity">When this method returns <see langword="true"/>, contains the converted object.  When this method returns <see
-    /// langword="false"/>, contains <see langword="null"/>.</param>
+    /// <remarks>This method does not throw an exception if the conversion fails. Instead, it returns <see
+    /// langword="false"/> and sets <paramref name="entity"/> to its default value.</remarks>
+    /// <typeparam name="TEntity">The type of the entity to convert the data to.</typeparam>
+    /// <param name="data">The byte data to be converted.</param>
+    /// <param name="socketDataConverter">The converter used to transform the byte data into an entity.</param>
+    /// <param name="entity">When this method returns, contains the converted entity if the conversion was successful; otherwise, the default
+    /// value for the type of the entity.</param>
     /// <returns><see langword="true"/> if the conversion was successful; otherwise, <see langword="false"/>.</returns>
-    bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity);
+    bool TryConvertTo<TEntity>(ReadOnlyMemory<byte> data, ISocketDataConverter<TEntity> socketDataConverter, out TEntity? entity);
 }

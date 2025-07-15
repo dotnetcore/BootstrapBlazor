@@ -48,12 +48,17 @@ public class DataPackageAdapter : IDataPackageAdapter
     /// <inheritdoc/>
     /// </summary>
     /// <param name="data"></param>
+    /// <param name="socketDataConverter"></param>
     /// <param name="entity"></param>
     /// <returns></returns>
-    public virtual bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
+    public virtual bool TryConvertTo<TEntity>(ReadOnlyMemory<byte> data, ISocketDataConverter<TEntity> socketDataConverter, out TEntity? entity)
     {
-        entity = null;
-        return false;
+        entity = default;
+        if (socketDataConverter.TryConvertTo(data, out var v))
+        {
+            entity = v;
+        }
+        return entity != null;
     }
 
     /// <summary>
