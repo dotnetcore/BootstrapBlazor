@@ -84,6 +84,13 @@ export function init(id) {
     })
 }
 
+export function preview(previewerId, index) {
+    const prev = Data.get(previewerId);
+    if (prev) {
+        prev.viewer.show(index);
+    }
+}
+
 export async function getPreviewUrl(id, fileName) {
     let url = '';
     const upload = Data.get(id);

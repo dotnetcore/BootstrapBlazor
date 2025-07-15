@@ -3075,7 +3075,7 @@
     "SelectsEnumTitle": "枚举数据",
     "SelectsEnumIntro": "<code>Select</code> 组件绑定枚举类型示例",
     "SelectsEnumDescription1": "当绑定值为可为空枚举类型时，组件内部自动通过 <code>PlaceHolder</code> 值添加首选项，未设置 <code>PlaceHolder</code> 值时，使用资源文件中的 <b>请选择 ...</b> 作为首选项，本示例绑定 <code>EnumEducation</code> 枚举类型",
-    "SelectsEnumDescription2": "绑定值为枚举类型时，设置 <code>PalceHolder</code> 无效",
+    "SelectsEnumDescription2": "绑定值为枚举类型时，设置 <code>PlaceHolder</code> 无效",
     "SelectsEnumSelectText1": "可为空",
     "SelectsEnumSelectText2": "不为空",
     "SelectsEnumSelectText3": "使用枚举整形值作为集合",
