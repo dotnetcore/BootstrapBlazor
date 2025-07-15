@@ -645,7 +645,7 @@ public class TcpSocketFactoryTest
     public async Task TryConvertTo_Ok()
     {
         var port = 8886;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
+        var server = StartTcpServer(port, MockEntityPackageAsync);
         var client = CreateClient();
         var tcs = new TaskCompletionSource();
         MockEntity? entity = null;
@@ -653,7 +653,7 @@ public class TcpSocketFactoryTest
         // 设置数据适配器
         var adapter = new DataPackageAdapter
         {
-            DataPackageHandler = new FixLengthDataPackageHandler(7),
+            DataPackageHandler = new FixLengthDataPackageHandler(24),
         };
         client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
@@ -673,6 +673,25 @@ public class TcpSocketFactoryTest
         Assert.NotNull(entity);
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
         Assert.Equal([3, 4], entity.Body);
+        Assert.Equal("1", entity.Value1);
+
+        // int
+        Assert.Equal(9, entity.Value2);
+
+        // long
+        Assert.Equal(16, entity.Value3);
+
+        // double
+        Assert.Equal(3.14, entity.Value4);
+
+        // single
+        Assert.NotEqual(0, entity.Value5);
+
+        // short
+        Assert.Equal(0x23, entity.Value6);
+
+        // ushort
+        Assert.Equal(0x24, entity.Value7);
 
         // 测试 SocketDataConverter 标签功能
         tcs = new TaskCompletionSource();
@@ -755,6 +774,23 @@ public class TcpSocketFactoryTest
 
             // 模拟拆包发送第二段数据
             await stream.WriteAsync(new byte[] { 0x3, 0x4 }, CancellationToken.None);
+        }
+    }
+
+    private static async Task MockEntityPackageAsync(TcpClient client)
+    {
+        using var stream = client.GetStream();
+        while (true)
+        {
+            var buffer = new byte[1024];
+            var len = await stream.ReadAsync(buffer);
+            if (len == 0)
+            {
+                break;
+            }
+
+            // 回写数据到客户端
+            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24 }, CancellationToken.None);
         }
     }
 
@@ -1080,5 +1116,34 @@ public class TcpSocketFactoryTest
 
         [SocketDataField(Type = typeof(byte[]), Start = 5, Length = 2)]
         public byte[]? Body { get; set; }
+
+        [SocketDataField(Type = typeof(string), Start = 7, Length = 1, EncodingName = "utf-8")]
+        public string? Value1 { get; set; }
+
+        [SocketDataField(Type = typeof(int), Start = 8, Length = 1)]
+        public int Value2 { get; set; }
+
+        [SocketDataField(Type = typeof(long), Start = 9, Length = 1)]
+        public long Value3 { get; set; }
+
+        [SocketDataField(Type = typeof(double), Start = 10, Length = 8)]
+        public double Value4 { get; set; }
+
+        [SocketDataField(Type = typeof(float), Start = 18, Length = 4)]
+        public float Value5 { get; set; }
+
+        [SocketDataField(Type = typeof(short), Start = 22, Length = 1)]
+        public short Value6 { get; set; }
+
+        [SocketDataField(Type = typeof(ushort), Start = 23, Length = 1)]
+        public ushort Value7 { get; set; }
+
+        public uint Value9 { get; set; }
+
+        public ushort Value10 { get; set; }
+
+        public ulong Value11 { get; set; }
+
+        public EnumEducation Value12 { get; set; }
     }
 }
