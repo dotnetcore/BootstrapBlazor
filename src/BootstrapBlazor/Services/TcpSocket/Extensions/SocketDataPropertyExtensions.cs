@@ -9,6 +9,27 @@ static class SocketDataPropertyExtensions
 {
     public static ISocketDataPropertyConverter? GetConverter(this SocketDataPropertyAttribute attribute)
     {
+        return attribute.GetConverterByType() ?? attribute.GetDefaultConverter();
+    }
+
+    private static ISocketDataPropertyConverter? GetConverterByType(this SocketDataPropertyAttribute attribute)
+    {
+        ISocketDataPropertyConverter? converter = null;
+        var converterType = attribute.ConverterType;
+        if (converterType != null)
+        {
+            var converterParameters = attribute.ConverterParameters;
+            var c = Activator.CreateInstance(converterType, converterParameters);
+            if(c is ISocketDataPropertyConverter v)
+            {
+                converter = v;
+            }
+        }
+        return converter;
+    }
+
+    private static ISocketDataPropertyConverter? GetDefaultConverter(this SocketDataPropertyAttribute attribute)
+    {
         ISocketDataPropertyConverter? converter = null;
         var type = attribute.Type;
         if (type != null)

@@ -15,22 +15,32 @@ namespace BootstrapBlazor.Components;
 public class SocketDataPropertyAttribute : Attribute
 {
     /// <summary>
-    /// 获得 数据类型
+    /// 获得/设置 数据类型
     /// </summary>
     public Type? Type { get; set; }
 
     /// <summary>
-    /// 获得 数据偏移量
+    /// 获得/设置 数据偏移量
     /// </summary>
     public int Offset { get; set; }
 
     /// <summary>
-    /// 获得 数据长度
+    /// 获得/设置 数据长度
     /// </summary>
     public int Length { get; set; }
 
     /// <summary>
-    /// 获得 数据编码名称
+    /// 获得/设置 数据编码名称
     /// </summary>
     public string? EncodingName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数据转换器类型
+    /// </summary>
+    public Type? ConverterType { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数据转换器构造函数参数
+    /// </summary>
+    public object?[]? ConverterParameters { get; set; }
 }
