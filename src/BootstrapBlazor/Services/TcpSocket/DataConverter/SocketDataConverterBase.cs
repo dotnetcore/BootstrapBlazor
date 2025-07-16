@@ -34,15 +34,14 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
         var ret = false;
         if (entity != null)
         {
-            var properties = entity.GetType().GetProperties()
-                .Where(p => p.CanWrite).ToList();
+            var properties = entity.GetType().GetProperties().Where(p => p.CanWrite).ToList();
             foreach (var p in properties)
             {
-                var attr = p.GetCustomAttribute<SocketDataFieldAttribute>(false);
+                var attr = p.GetCustomAttribute<SocketDataPropertyAttribute>(false);
                 if (attr is { Type: not null })
                 {
                     var encodingName = attr.EncodingName;
-                    var start = attr.Start;
+                    var start = attr.Offset;
                     var length = attr.Length;
 
                     if (data.Length >= start + length)

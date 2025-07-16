@@ -12,25 +12,25 @@ namespace BootstrapBlazor.Components;
 /// socket connection. It is intended for use in scenarios where socket communication requires specific fields to be
 /// identified for processing.</remarks>
 [AttributeUsage(AttributeTargets.Property)]
-public class SocketDataFieldAttribute : Attribute
+public class SocketDataPropertyAttribute : Attribute
 {
     /// <summary>
-    /// 
+    /// 获得 数据类型
     /// </summary>
     public Type? Type { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 数据偏移量
     /// </summary>
-    public int Start { get; set; }
+    public int Offset { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 数据长度
     /// </summary>
     public int Length { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 数据编码名称
     /// </summary>
     public string? EncodingName { get; set; }
 }

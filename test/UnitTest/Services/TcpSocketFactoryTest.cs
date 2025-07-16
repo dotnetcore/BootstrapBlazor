@@ -1161,49 +1161,49 @@ public class TcpSocketFactoryTest
     [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
     class MockEntity
     {
-        [SocketDataField(Type = typeof(byte[]), Start = 0, Length = 5)]
+        [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
         public byte[]? Header { get; set; }
 
-        [SocketDataField(Type = typeof(byte[]), Start = 5, Length = 2)]
+        [SocketDataProperty(Type = typeof(byte[]), Offset = 5, Length = 2)]
         public byte[]? Body { get; set; }
 
-        [SocketDataField(Type = typeof(string), Start = 7, Length = 1, EncodingName = "utf-8")]
+        [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1, EncodingName = "utf-8")]
         public string? Value1 { get; set; }
 
-        [SocketDataField(Type = typeof(int), Start = 8, Length = 1)]
+        [SocketDataProperty(Type = typeof(int), Offset = 8, Length = 1)]
         public int Value2 { get; set; }
 
-        [SocketDataField(Type = typeof(long), Start = 9, Length = 1)]
+        [SocketDataProperty(Type = typeof(long), Offset = 9, Length = 1)]
         public long Value3 { get; set; }
 
-        [SocketDataField(Type = typeof(double), Start = 10, Length = 8)]
+        [SocketDataProperty(Type = typeof(double), Offset = 10, Length = 8)]
         public double Value4 { get; set; }
 
-        [SocketDataField(Type = typeof(float), Start = 18, Length = 4)]
+        [SocketDataProperty(Type = typeof(float), Offset = 18, Length = 4)]
         public float Value5 { get; set; }
 
-        [SocketDataField(Type = typeof(short), Start = 22, Length = 1)]
+        [SocketDataProperty(Type = typeof(short), Offset = 22, Length = 1)]
         public short Value6 { get; set; }
 
-        [SocketDataField(Type = typeof(ushort), Start = 23, Length = 1)]
+        [SocketDataProperty(Type = typeof(ushort), Offset = 23, Length = 1)]
         public ushort Value7 { get; set; }
 
-        [SocketDataField(Type = typeof(uint), Start = 24, Length = 1)]
+        [SocketDataProperty(Type = typeof(uint), Offset = 24, Length = 1)]
         public uint Value8 { get; set; }
 
-        [SocketDataField(Type = typeof(ulong), Start = 25, Length = 1)]
+        [SocketDataProperty(Type = typeof(ulong), Offset = 25, Length = 1)]
         public ulong Value9 { get; set; }
 
-        [SocketDataField(Type = typeof(bool), Start = 26, Length = 1)]
+        [SocketDataProperty(Type = typeof(bool), Offset = 26, Length = 1)]
         public bool Value10 { get; set; }
 
-        [SocketDataField(Type = typeof(EnumEducation), Start = 27, Length = 1)]
+        [SocketDataProperty(Type = typeof(EnumEducation), Offset = 27, Length = 1)]
         public EnumEducation Value11 { get; set; }
 
-        [SocketDataField(Type = typeof(Foo), Start = 28, Length = 1)]
+        [SocketDataProperty(Type = typeof(Foo), Offset = 28, Length = 1)]
         public Foo? Value12 { get; set; }
 
-        [SocketDataField(Type = typeof(string), Start = 7, Length = 1)]
+        [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1)]
         public string? Value14 { get; set; }
 
         public string? Value13 { get; set; }
