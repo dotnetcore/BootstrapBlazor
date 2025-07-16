@@ -7122,6 +7122,12 @@
     "NormalTitle": "Basic usage",
     "NormalIntro": "Enable automatic reconnection by setting <code>IsAutoReconnect</code>"
   },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.DataEntities": {
+    "DataEntityTitle": "Socket Auto Entity",
+    "DataEntityDescription": "After receiving the communication data, it is automatically converted into the entity class required by the business",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Enable automatic data conversion through the <code>SocketDataConverterAttribute</code> tag"
+  },
   "BootstrapBlazor.Server.Components.Samples.NetworkMonitors": {
     "NetworkMonitorTitle": "NetworkMonitor",
     "NetworkMonitorDescription": "Use the browser native API <code>navigator.connection</code> to display the current network status in real time",
