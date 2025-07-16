@@ -303,7 +303,7 @@ public partial class DateTimePicker<TValue>
         }
         else
         {
-            SelectedValue = Value == null ? DateTime.MinValue : (DateTime)(object)Value;
+            SelectedValue = Value == null ? (MinValue ?? DateTime.MinValue) : (DateTime)(object)Value;
         }
 
         if (MinValue > SelectedValue)

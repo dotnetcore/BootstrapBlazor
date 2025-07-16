@@ -132,7 +132,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnClear_Ok()
+    public async Task OnClear_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
@@ -143,14 +143,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 点击 0001-01-01 单元格
         var cell = cut.Find(".current .cell");
-        cut.InvokeAsync(() => cell.Click());
+        await cut.InvokeAsync(() => cell.Click());
         // 文本框内容
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTime.MinValue:yyyy-MM-dd}", input.GetAttribute("value"));
 
         // 点击清空按钮
         var clear = cut.Find(".picker-panel-footer button");
-        cut.InvokeAsync(() => clear.Click());
+        await cut.InvokeAsync(() => clear.Click());
 
         // 文本框内容 为 ""
         input = cut.Find(".datetime-picker-input");
@@ -162,7 +162,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisplayMinValueAsEmpty, true);
         });
         cell = cut.Find(".current .cell");
-        cut.InvokeAsync(() => cell.Click());
+        await cut.InvokeAsync(() => cell.Click());
 
         // 文本框内容
         input = cut.Find(".datetime-picker-input");
@@ -170,11 +170,20 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 点击清空按钮
         clear = cut.Find(".picker-panel-footer button");
-        cut.InvokeAsync(() => clear.Click());
+        await cut.InvokeAsync(() => clear.Click());
 
         // 文本框内容 为 ""
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
+
+        // 设置最小时间值
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.MinValue, DateTime.Today);
+            pb.Add(a => a.Value, null);
+        });
+        clear = cut.Find(".picker-panel-footer button");
+        await cut.InvokeAsync(() => clear.Click());
     }
 
     [Fact]
@@ -249,7 +258,10 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void MinValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1)));
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
+        });
 
         cut.SetParametersAndRender(pb =>
         {
