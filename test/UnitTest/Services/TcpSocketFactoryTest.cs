@@ -653,7 +653,7 @@ public class TcpSocketFactoryTest
         // 设置数据适配器
         var adapter = new DataPackageAdapter
         {
-            DataPackageHandler = new FixLengthDataPackageHandler(28),
+            DataPackageHandler = new FixLengthDataPackageHandler(29),
         };
         client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
@@ -673,7 +673,12 @@ public class TcpSocketFactoryTest
         Assert.NotNull(entity);
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
         Assert.Equal([3, 4], entity.Body);
+
+        // string
         Assert.Equal("1", entity.Value1);
+
+        // string
+        Assert.Equal("1", entity.Value14);
 
         // int
         Assert.Equal(9, entity.Value2);
@@ -704,6 +709,13 @@ public class TcpSocketFactoryTest
 
         // enum
         Assert.Equal(EnumEducation.Middle, entity.Value11);
+
+        // foo
+        Assert.NotNull(entity.Value12);
+        Assert.Equal(0x29, entity.Value12.Id);
+
+        // no attribute
+        Assert.Null(entity.Value13);
 
         // 测试 SocketDataConverter 标签功能
         tcs = new TaskCompletionSource();
@@ -802,7 +814,7 @@ public class TcpSocketFactoryTest
             }
 
             // 回写数据到客户端
-            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24, 0x25, 0x26, 0x01, 0x01 }, CancellationToken.None);
+            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24, 0x25, 0x26, 0x01, 0x01, 0x29 }, CancellationToken.None);
         }
     }
 
@@ -1118,6 +1130,17 @@ public class TcpSocketFactoryTest
             entity = ret ? v : null;
             return ret;
         }
+
+        protected override object? ParseValueResolve(ReadOnlyMemory<byte> buffer, Type type, string? encodingName)
+        {
+            var val = base.ParseValueResolve(buffer, type, encodingName);
+            val ??= type switch
+            {
+                Type t when t == typeof(Foo) => new Foo() { Id = buffer.Span[0] },
+                _ => null
+            };
+            return val;
+        }
     }
 
     [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
@@ -1161,5 +1184,13 @@ public class TcpSocketFactoryTest
 
         [SocketDataField(Type = typeof(EnumEducation), Start = 27, Length = 1)]
         public EnumEducation Value11 { get; set; }
+
+        [SocketDataField(Type = typeof(Foo), Start = 28, Length = 1)]
+        public Foo? Value12 { get; set; }
+
+        [SocketDataField(Type = typeof(string), Start = 7, Length = 1)]
+        public string? Value14 { get; set; }
+
+        public string? Value13 { get; set; }
     }
 }
