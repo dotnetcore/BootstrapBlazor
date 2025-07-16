@@ -35,18 +35,12 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
         if (entity != null)
         {
             var properties = entity.GetType().GetProperties()
-                .Where(p => p.GetCustomAttribute(typeof(SocketDataFieldAttribute), false) != null && p.CanWrite).ToList();
+                .Where(p => p.CanWrite).ToList();
             foreach (var p in properties)
             {
                 var attr = p.GetCustomAttribute<SocketDataFieldAttribute>(false);
-                if (attr != null)
+                if (attr is { Type: not null })
                 {
-                    var type = attr.Type;
-                    if (type == null)
-                    {
-                        continue;
-                    }
-
                     var encodingName = attr.EncodingName;
                     var start = attr.Start;
                     var length = attr.Length;
@@ -54,7 +48,7 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
                     if (data.Length >= start + length)
                     {
                         var buffer = data.Slice(start, length);
-                        p.SetValue(entity, ParseValue(buffer, type, encodingName));
+                        p.SetValue(entity, ParseValue(buffer, attr.Type, encodingName));
                     }
                 }
             }
