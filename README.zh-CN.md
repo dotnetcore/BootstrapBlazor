@@ -46,11 +46,11 @@ WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开�
 ## 生态伙伴 ThingsGateway
 ThingsGateway 边缘网关，致力于打造“高性能、插件扩展、易集成”的工业物联网网关解决方案。
 
-<a href="https://https://thingsgateway.cn/" target="_blank"><img src="https://foruda.gitee.com/images/1752651511062082157/c6a923f8_554725.png" width="100px" /></a>
+<a href="https://thingsgateway.cn" target="_blank"><img src="https://foruda.gitee.com/images/1752651511062082157/c6a923f8_554725.png" width="100px" /></a>
 
 ThingsGateway 将设备接入、数据上传等功能模块化，降低工业协议开发门槛，自动处理线程调度与数据缓存，极大提升开发效率与系统稳定性。
 它不仅是一个网关框架，更是构建数字化工厂、边缘智能系统的核心工具！
-ThingsGateway 已集成 Bootstrap Blazor 实现配置管理界面，轻松构建跨平台的边缘网关管理系统
+ThingsGateway 已集成 Bootstrap Blazor 实现配置管理界面，轻松构建跨平台的边缘网关管理系统 [传送门](https://thingsgateway.cn)
 
 
 
