@@ -645,17 +645,17 @@ public class TcpSocketFactoryTest
     public async Task TryConvertTo_Ok()
     {
         var port = 8886;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
+        var server = StartTcpServer(port, MockEntityPackageAsync);
         var client = CreateClient();
         var tcs = new TaskCompletionSource();
         MockEntity? entity = null;
 
         // 设置数据适配器
-        var adapter = new MockEntityDataPackageAdapter
+        var adapter = new DataPackageAdapter
         {
-            DataPackageHandler = new FixLengthDataPackageHandler(7),
+            DataPackageHandler = new FixLengthDataPackageHandler(29),
         };
-        client.SetDataPackageAdapter<MockEntity>(adapter, t =>
+        client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
         {
             entity = t;
             tcs.SetResult();
@@ -674,43 +674,83 @@ public class TcpSocketFactoryTest
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
         Assert.Equal([3, 4], entity.Body);
 
-        // 测试异常流程
-        var adapter2 = new DataPackageAdapter();
-        var result = adapter2.TryConvertTo(data, out var t);
-        Assert.False(result);
-        Assert.Null(t);
-    }
+        // string
+        Assert.Equal("1", entity.Value1);
 
-    [Fact]
-    public async Task TryConvertTo_Null()
-    {
-        var port = 8890;
-        var server = StartTcpServer(port, MockSplitPackageAsync);
-        var client = CreateClient();
-        var tcs = new TaskCompletionSource();
-        MockEntity? entity = null;
+        // string
+        Assert.Equal("1", entity.Value14);
 
-        // 设置数据适配器
-        var adapter = new MockErrorEntityDataPackageAdapter
-        {
-            DataPackageHandler = new FixLengthDataPackageHandler(7),
-        };
+        // int
+        Assert.Equal(9, entity.Value2);
+
+        // long
+        Assert.Equal(16, entity.Value3);
+
+        // double
+        Assert.Equal(3.14, entity.Value4);
+
+        // single
+        Assert.NotEqual(0, entity.Value5);
+
+        // short
+        Assert.Equal(0x23, entity.Value6);
+
+        // ushort
+        Assert.Equal(0x24, entity.Value7);
+
+        // uint
+        Assert.Equal((uint)0x25, entity.Value8);
+
+        // ulong
+        Assert.Equal((ulong)0x26, entity.Value9);
+
+        // bool
+        Assert.True(entity.Value10);
+
+        // enum
+        Assert.Equal(EnumEducation.Middle, entity.Value11);
+
+        // foo
+        Assert.NotNull(entity.Value12);
+        Assert.Equal(0x29, entity.Value12.Id);
+        Assert.Equal("test", entity.Value12.Name);
+
+        // no attribute
+        Assert.Null(entity.Value13);
+
+        // 测试 SocketDataConverter 标签功能
+        tcs = new TaskCompletionSource();
         client.SetDataPackageAdapter<MockEntity>(adapter, t =>
         {
             entity = t;
             tcs.SetResult();
             return Task.CompletedTask;
         });
-
-        // 连接 TCP Server
-        var connect = await client.ConnectAsync("localhost", port);
-
-        // 发送数据
-        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
         await client.SendAsync(data);
         await tcs.Task;
 
-        Assert.Null(entity);
+        Assert.NotNull(entity);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+
+        // 测试数据适配器直接调用 TryConvertTo 方法转换数据
+        var adapter2 = new DataPackageAdapter();
+        var result = adapter2.TryConvertTo(data, new MockEntitySocketDataConverter(), out var t);
+        Assert.True(result);
+        Assert.NotNull(t);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+
+        // 测试 SetDataPackageAdapter 泛型无标签情况
+        tcs = new TaskCompletionSource();
+        NoConvertEntity? noConvertEntity = null;
+        client.SetDataPackageAdapter<NoConvertEntity>(adapter, t =>
+        {
+            noConvertEntity = t;
+            tcs.SetResult();
+            return Task.CompletedTask;
+        });
+        await client.SendAsync(data);
+        await tcs.Task;
+        Assert.Null(noConvertEntity);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -774,6 +814,23 @@ public class TcpSocketFactoryTest
 
             // 模拟拆包发送第二段数据
             await stream.WriteAsync(new byte[] { 0x3, 0x4 }, CancellationToken.None);
+        }
+    }
+
+    private static async Task MockEntityPackageAsync(TcpClient client)
+    {
+        using var stream = client.GetStream();
+        while (true)
+        {
+            var buffer = new byte[1024];
+            var len = await stream.ReadAsync(buffer);
+            if (len == 0)
+            {
+                break;
+            }
+
+            // 回写数据到客户端
+            await stream.WriteAsync(new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x3, 0x4, 0x31, 0x09, 0x10, 0x40, 0x09, 0x1E, 0xB8, 0x51, 0xEB, 0x85, 0x1F, 0x40, 0x49, 0x0F, 0xDB, 0x23, 0x24, 0x25, 0x26, 0x01, 0x01, 0x29 }, CancellationToken.None);
         }
     }
 
@@ -1080,29 +1137,77 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockEntityDataPackageAdapter : DataPackageAdapter
+    class MockEntitySocketDataConverter : SocketDataConverterBase<MockEntity>
     {
-        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
+        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out MockEntity? entity)
         {
-            entity = new MockEntity
-            {
-                Header = data[..5].ToArray(),
-                Body = data[5..].ToArray()
-            };
-            return true;
+            var v = new MockEntity();
+            var ret = Parse(data, v);
+            entity = ret ? v : null;
+            return ret;
         }
     }
 
-    class MockErrorEntityDataPackageAdapter : DataPackageAdapter
-    {
-        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out object? entity)
-        {
-            entity = new Foo();
-            return true;
-        }
-    }
-
+    [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
     class MockEntity
+    {
+        [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
+        public byte[]? Header { get; set; }
+
+        [SocketDataProperty(Type = typeof(byte[]), Offset = 5, Length = 2)]
+        public byte[]? Body { get; set; }
+
+        [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1, EncodingName = "utf-8")]
+        public string? Value1 { get; set; }
+
+        [SocketDataProperty(Type = typeof(int), Offset = 8, Length = 1)]
+        public int Value2 { get; set; }
+
+        [SocketDataProperty(Type = typeof(long), Offset = 9, Length = 1)]
+        public long Value3 { get; set; }
+
+        [SocketDataProperty(Type = typeof(double), Offset = 10, Length = 8)]
+        public double Value4 { get; set; }
+
+        [SocketDataProperty(Type = typeof(float), Offset = 18, Length = 4)]
+        public float Value5 { get; set; }
+
+        [SocketDataProperty(Type = typeof(short), Offset = 22, Length = 1)]
+        public short Value6 { get; set; }
+
+        [SocketDataProperty(Type = typeof(ushort), Offset = 23, Length = 1)]
+        public ushort Value7 { get; set; }
+
+        [SocketDataProperty(Type = typeof(uint), Offset = 24, Length = 1)]
+        public uint Value8 { get; set; }
+
+        [SocketDataProperty(Type = typeof(ulong), Offset = 25, Length = 1)]
+        public ulong Value9 { get; set; }
+
+        [SocketDataProperty(Type = typeof(bool), Offset = 26, Length = 1)]
+        public bool Value10 { get; set; }
+
+        [SocketDataProperty(Type = typeof(EnumEducation), Offset = 27, Length = 1)]
+        public EnumEducation Value11 { get; set; }
+
+        [SocketDataProperty(Type = typeof(Foo), Offset = 28, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
+        public Foo? Value12 { get; set; }
+
+        [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1)]
+        public string? Value14 { get; set; }
+
+        public string? Value13 { get; set; }
+    }
+
+    class FooConverter(string name) : ISocketDataPropertyConverter
+    {
+        public object? Convert(ReadOnlyMemory<byte> data)
+        {
+            return new Foo() { Id = data.Span[0], Name = name };
+        }
+    }
+
+    class NoConvertEntity
     {
         public byte[]? Header { get; set; }
 
