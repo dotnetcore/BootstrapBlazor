@@ -4841,6 +4841,7 @@
     "SocketManualReceive": "手动接收数据",
     "DataPackageAdapter": "数据处理器",
     "SocketAutoConnect": "自动重连",
+    "SocketDataEntity": "通讯数据转实体类",
     "NetworkMonitor": "网络状态 NetworkMonitor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
@@ -7120,6 +7121,12 @@
     "AutoReconnectsDescription": "链路断开后自动重连示例",
     "NormalTitle": "基本用法",
     "NormalIntro": "通过设置 <code>IsAutoReconnect</code> 开启自动重连机制"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.DataEntities": {
+    "DataEntityTitle": "Socket 数据转化实体类",
+    "DataEntityDescription": "接收到通讯数据后自动转成业务需要的实体类",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "通过 <code>SocketDataConverterAttribute</code> 标签开启数据自动转换功能"
   },
   "BootstrapBlazor.Server.Components.Samples.NetworkMonitors": {
     "NetworkMonitorTitle": "NetworkMonitor 网络状态",

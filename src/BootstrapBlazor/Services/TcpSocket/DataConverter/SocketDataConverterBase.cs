@@ -28,7 +28,7 @@ public abstract class SocketDataConverterBase<TEntity> : ISocketDataConverter<TE
     /// <param name="entity"></param>
     protected virtual bool Parse(ReadOnlyMemory<byte> data, TEntity entity)
     {
-        // 使用 SocketDataFieldAttribute 特性获取数据转换规则
+        // 使用 SocketDataPropertyAttribute 特性获取数据转换规则
         var ret = false;
         if (entity != null)
         {

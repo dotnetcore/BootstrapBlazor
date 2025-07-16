@@ -19,11 +19,14 @@ public class SocketDataDoubleLittleEndianConverter : ISocketDataPropertyConverte
     public object? Convert(ReadOnlyMemory<byte> data)
     {
         double ret = 0;
-        Span<byte> paddedSpan = stackalloc byte[8];
-        data.Span.CopyTo(paddedSpan[(8 - data.Length)..]);
-        if (BinaryPrimitives.TryReadDoubleLittleEndian(paddedSpan, out var v))
+        if (data.Length <= 8)
         {
-            ret = v;
+            Span<byte> paddedSpan = stackalloc byte[8];
+            data.Span.CopyTo(paddedSpan[(8 - data.Length)..]);
+            if (BinaryPrimitives.TryReadDoubleLittleEndian(paddedSpan, out var v))
+            {
+                ret = v;
+            }
         }
         return ret;
     }

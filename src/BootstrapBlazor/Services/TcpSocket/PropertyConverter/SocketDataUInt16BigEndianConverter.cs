@@ -19,11 +19,14 @@ public class SocketDataUInt16BigEndianConverter : ISocketDataPropertyConverter
     public object? Convert(ReadOnlyMemory<byte> data)
     {
         ushort ret = 0;
-        Span<byte> paddedSpan = stackalloc byte[2];
-        data.Span.CopyTo(paddedSpan[(2 - data.Length)..]);
-        if (BinaryPrimitives.TryReadUInt16BigEndian(paddedSpan, out var v))
+        if (data.Length <= 2)
         {
-            ret = v;
+            Span<byte> paddedSpan = stackalloc byte[2];
+            data.Span.CopyTo(paddedSpan[(2 - data.Length)..]);
+            if (BinaryPrimitives.TryReadUInt16BigEndian(paddedSpan, out var v))
+            {
+                ret = v;
+            }
         }
         return ret;
     }

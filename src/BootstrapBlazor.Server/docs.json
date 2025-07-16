@@ -247,6 +247,7 @@
     "socket/auto-receive": "Sockets\\AutoReceives",
     "socket/adapter": "Sockets\\Adapters",
     "socket/auto-connect": "Sockets\\AutoReconnects",
+    "socket/data-entity": "Sockets\\DataEntities",
     "network-monitor": "NetworkMonitors"
   },
   "video": {

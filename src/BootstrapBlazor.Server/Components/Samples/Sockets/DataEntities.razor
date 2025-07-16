@@ -1,0 +1,120 @@
+﻿@page "/socket/data-entity"
+@inject IStringLocalizer<DataEntities> Localizer
+
+<h3>@Localizer["DataEntityTitle"]</h3>
+<h4>@Localizer["DataEntityDescription"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal" ShowCode="false">
+    <p>通过 <code>SocketDataConverterAttribute</code> 类标签与 <code>SocketDataPropertyAttribute</code>
+        属性标签可以将通讯数据自动转化为我们系统中需要的业务实体类，示例如下：</p>
+    <Pre>[SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
+class MockEntity
+{
+    [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    public byte[]? Header { get; set; }
+
+    [SocketDataProperty(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    public byte[]? Body { get; set; }
+
+    [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1, EncodingName = "utf-8")]
+    public string? Value1 { get; set; }
+
+    [SocketDataProperty(Type = typeof(int), Offset = 8, Length = 1)]
+    public int Value2 { get; set; }
+}</Pre>
+    <p class="code-label">1. <code>SocketDataConverter</code> 参数说明：</p>
+    <ul class="ul-demo">
+        <li><b>Type</b>: 自定义转换器类型，组件库内置了 <code>SocketDataConverterBase</code> 泛型基类，继承后非常方便扩展出自己的转换器，重载
+            <code>TryConvertTo</code> 方法调用基类的 <code>Parse</code> 基本就完成了 99% 的工作量，也可以完全自己解析通讯电文到实体类的各个属性上
+        </li>
+    </ul>
+    <Pre>class MockEntitySocketDataConverter : SocketDataConverterBase&lt;MockEntity&gt;
+{
+    public override bool TryConvertTo(ReadOnlyMemory&lt;byte&gt; data, [NotNullWhen(true)] out MockEntity? entity)
+    {
+        var v = new MockEntity();
+
+        // 调用基类的 Parse 方法即可
+        var ret = Parse(data, v);
+        entity = ret ? v : null;
+        return ret;
+    }
+}</Pre>
+    <p><code>Parse</code> 方法也是可以重载自定义实现的，内置实现逻辑如下：</p>
+    <Pre>protected virtual bool Parse(ReadOnlyMemory&lt;byte&gt; data, TEntity entity)
+{
+    // 使用 SocketDataPropertyAttribute 特性获取数据转换规则
+    var ret = false;
+    if (entity != null)
+    {
+        var properties = entity.GetType().GetProperties().Where(p => p.CanWrite).ToList();
+        foreach (var p in properties)
+        {
+            var attr = p.GetCustomAttribute&lt;SocketDataPropertyAttribute&gt;(false);
+            if (attr != null)
+            {
+                p.SetValue(entity, attr.ConvertTo(data));
+            }
+        }
+        ret = true;
+    }
+    return ret;
+}</Pre>
+    <p>即遍历所有有 <code>SocketDataPropertyAttribute</code> 标签的属性对其进行过自动赋值</p>
+    <p class="code-label">2. <code>SocketDataPropertyAttribute</code> 参数说明</p>
+    <ul class="ul-demo">
+        <li><b>Type</b>: 转换目标数据类型</li>
+        <li><b>Offset</b>: 数据偏移量，即在接收到的数据中起始位置</li>
+        <li><b>Length</b>: 数据长度，即在接收到的数据中占的长度</li>
+        <li><b>EncodingName</b>: 转成字符串时需要的编码名称，默认 null 使用 <code>utf-8</code> 编码</li>
+        <li><b>ConverterType</b>: 自定义转化器类型，继承 <code>ISocketDataPropertyConverter</code> 接口</li>
+        <li><b>ConverterParameters</b>: 自定义转化器类型构造函数所需的参数，默认 null</li>
+    </ul>
+    <p>组件库内置了大量数据类型转换器</p>
+    <ul class="ul-demo">
+        <li><code>SocketDataByteArrayConverter</code> 转成 byte[] 数组类型</li>
+        <li><code>SocketDataStringConverter</code> 转成 string 字符串类型</li>
+        <li><code>SocketDataEnumConverter</code> 转成 enum 枚举类型</li>
+        <li><code>SocketDataBoolConverter</code> 转成 bool 布尔类型</li>
+        <li><code>SocketDataInt16BigEndianConverter</code> 转成 short 整形大端读取</li>
+        <li><code>SocketDataInt32BigEndianConverter</code> 转成 int 整形大端读取</li>
+        <li><code>SocketDataInt64BigEndianConverter</code> 转成 long 长整形大端读取</li>
+        <li><code>SocketDataSingleBigEndianConverter</code> 转成 float 单精度浮点数大端读取</li>
+        <li><code>SocketDataDoubleBigEndianConverter</code> 转成 double 双精度浮点数大端读取</li>
+        <li><code>SocketDataUInt16BigEndianConverter</code> 转成 ushort 无符号整形大端读取</li>
+        <li><code>SocketDataUInt32BigEndianConverter</code> 转成 uint 无符号整形大端读取</li>
+        <li><code>SocketDataUInt64BigEndianConverter</code> 转成 ulong 无符号长整形大端读取</li>
+        <li><code>SocketDataInt16LittleEndianConverter</code> 转成 short 整形小端读取</li>
+        <li><code>SocketDataInt32LittleEndianConverter</code> 转成 int 整形小端读取</li>
+        <li><code>SocketDataInt64LittleEndianConverter</code> 转成 long 长整形小端读取</li>
+        <li><code>SocketDataSingleLittleEndianConverter</code> 转成 float 单精度浮点数小端读取</li>
+        <li><code>SocketDataDoubleLittleEndianConverter</code> 转成 double 双精度浮点数小端读取</li>
+        <li><code>SocketDataUInt16LittleEndianConverter</code> 转成 ushort 无符号整形小端读取</li>
+        <li><code>SocketDataUInt32LittleEndianConverter</code> 转成 uint 无符号整形小端读取</li>
+        <li><code>SocketDataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
+    </ul>
+    <p>自定义数据类型转化器示例</p>
+    <Pre>[SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
+class MockEntity
+{
+    [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    public byte[]? Header { get; set; }
+
+    [SocketDataProperty(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    public byte[]? Body { get; set; }
+
+    [SocketDataProperty(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
+    public string? Value1 { get; set; }
+}
+
+class FooConverter(string name) : ISocketDataPropertyConverter
+{
+    public object? Convert(ReadOnlyMemory&lt;byte&gt; data)
+    {
+        return new Foo() { Id = data.Span[0], Name = name };
+    }
+}</Pre>
+    <p>更多技术细节可以参考以上内置提供的转换器源码</p>
+</DemoBlock>
