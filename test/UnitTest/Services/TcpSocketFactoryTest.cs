@@ -726,6 +726,8 @@ public class TcpSocketFactoryTest
             return Task.CompletedTask;
         });
         await client.SendAsync(data);
+        await tcs.Task;
+
         Assert.NotNull(entity);
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
 
@@ -735,6 +737,19 @@ public class TcpSocketFactoryTest
         Assert.True(result);
         Assert.NotNull(t);
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+
+        // 测试 SetDataPackageAdapter 泛型无标签情况
+        tcs = new TaskCompletionSource();
+        NoConvertEntity? noConvertEntity = null;
+        client.SetDataPackageAdapter<NoConvertEntity>(adapter, t =>
+        {
+            noConvertEntity = t;
+            tcs.SetResult();
+            return Task.CompletedTask;
+        });
+        await client.SendAsync(data);
+        await tcs.Task;
+        Assert.Null(noConvertEntity);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1192,5 +1207,12 @@ public class TcpSocketFactoryTest
         public string? Value14 { get; set; }
 
         public string? Value13 { get; set; }
+    }
+
+    class NoConvertEntity
+    {
+        public byte[]? Header { get; set; }
+
+        public byte[]? Body { get; set; }
     }
 }
