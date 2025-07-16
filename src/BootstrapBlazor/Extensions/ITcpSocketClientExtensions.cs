@@ -149,5 +149,9 @@ public static class ITcpSocketClientExtensions
                 };
             }
         }
+        else
+        {
+            adapter.ReceivedCallBack = async buffer => await callback(default);
+        }
     }
 }
