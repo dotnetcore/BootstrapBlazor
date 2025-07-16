@@ -209,27 +209,29 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SocketManualReceive"],
                     Url = "socket/manual-receive"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SocketAutoReceive"],
                     Url = "socket/auto-receive"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DataPackageAdapter"],
                     Url = "socket/adapter"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SocketAutoConnect"],
                     Url = "socket/auto-connect"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SocketDataEntity"],
+                    Url = "socket/data-entity"
                 }
             };
             AddBadge(item, count: 1);

@@ -4841,6 +4841,7 @@
     "SocketManualReceive": "Manual Receive",
     "DataPackageAdapter": "DataPackageAdapter",
     "SocketAutoConnect": "Reconnect",
+    "SocketDataEntity": "DataEntity",
     "NetworkMonitor": "Network Monitor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {

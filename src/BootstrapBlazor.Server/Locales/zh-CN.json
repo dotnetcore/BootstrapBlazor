@@ -4841,6 +4841,7 @@
     "SocketManualReceive": "手动接收数据",
     "DataPackageAdapter": "数据处理器",
     "SocketAutoConnect": "自动重连",
+    "SocketDataEntity": "通讯数据转实体类",
     "NetworkMonitor": "网络状态 NetworkMonitor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
