@@ -713,6 +713,7 @@ public class TcpSocketFactoryTest
         // foo
         Assert.NotNull(entity.Value12);
         Assert.Equal(0x29, entity.Value12.Id);
+        Assert.Equal("test", entity.Value12.Name);
 
         // no attribute
         Assert.Null(entity.Value13);
@@ -1145,17 +1146,6 @@ public class TcpSocketFactoryTest
             entity = ret ? v : null;
             return ret;
         }
-
-        protected override object? ParseValueResolve(ReadOnlyMemory<byte> buffer, Type type, string? encodingName)
-        {
-            var val = base.ParseValueResolve(buffer, type, encodingName);
-            val ??= type switch
-            {
-                Type t when t == typeof(Foo) => new Foo() { Id = buffer.Span[0] },
-                _ => null
-            };
-            return val;
-        }
     }
 
     [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
@@ -1200,13 +1190,21 @@ public class TcpSocketFactoryTest
         [SocketDataProperty(Type = typeof(EnumEducation), Offset = 27, Length = 1)]
         public EnumEducation Value11 { get; set; }
 
-        [SocketDataProperty(Type = typeof(Foo), Offset = 28, Length = 1)]
+        [SocketDataProperty(Type = typeof(Foo), Offset = 28, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
         public Foo? Value12 { get; set; }
 
         [SocketDataProperty(Type = typeof(string), Offset = 7, Length = 1)]
         public string? Value14 { get; set; }
 
         public string? Value13 { get; set; }
+    }
+
+    class FooConverter(string name) : ISocketDataPropertyConverter
+    {
+        public object? Convert(ReadOnlyMemory<byte> data)
+        {
+            return new Foo() { Id = data.Span[0], Name = name };
+        }
     }
 
     class NoConvertEntity
