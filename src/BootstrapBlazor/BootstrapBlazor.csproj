@@ -10,13 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
     <Content Remove="sasscompiler.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\scss\**\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
-    <None Include="compilerconfig.json" />
     <None Include="sasscompiler.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.css" />
