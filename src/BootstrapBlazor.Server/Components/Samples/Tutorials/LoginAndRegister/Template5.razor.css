@@ -18,7 +18,7 @@
     background: white;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: auto;
     font-family: "Segoe UI", sans-serif;
     text-align: left;
@@ -102,14 +102,14 @@
     font-size: 14px;
 }
 
-    .links a {
-        color: #0066cc;
-        text-decoration: none;
-    }
+.links a {
+    color: #0066cc;
+    text-decoration: none;
+}
 
-        .links a:hover {
-            text-decoration: underline;
-        }
+.links a:hover {
+    text-decoration: underline;
+}
 
 .small {
     font-size: 12px;
@@ -128,11 +128,17 @@
     text-align: center;
 }
 
-.email-display2:after {
+.email-display2 > span {
+    position: relative;
+    padding: 0.5rem 1rem;
+}
+
+.email-display2 > span:after {
     content: "";
+    position: absolute;
+    inset: 0;
     border: 1px solid var(--bs-border-color);
     border-radius: 20px;
-    padding: .5rem;
 }
 
 .login-video-wrap {

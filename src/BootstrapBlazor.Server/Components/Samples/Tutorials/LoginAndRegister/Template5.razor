@@ -40,7 +40,9 @@
                 }
                 else
                 {
-
+                    <div class="logo-container">
+                        <h1 class="blazor-text">BootstrapBlazor</h1>
+                    </div>
                 }
             </div>
             @if (!isEmailEntered)
@@ -72,8 +74,8 @@
             }
             else
             {
-                <h3>欢迎加入 BootstrapBlazor</h3>
-                <div class="email-display2">@email</div>
+                <div class="email-display2"><span>@email</span></div>
+                <h5 class="text-center mt-3 mb-0">欢迎，您已成功登录</h5>
                 <div class="login-video-wrap">
                     <video class="login-video" autoplay="autoplay" playsinline="playsinline" disablepictureinpicture="">
                         <source src="samples/login5/loading1.mp4" type="video/mp4; codecs=av01.0.05M.08">
@@ -83,6 +85,7 @@
                         <img src="samples/login5/loading.png" alt="" role="presentation">
                     </video>
                 </div>
+                <p class="text-center text-muted" style="font-size: 0.75rem;">此登录高仿微软登录 UI</p>
                 <Button class="button" Color="Color.Primary" OnClick="OnEnterSubmit">进入</Button>
             }
         </div>
@@ -90,8 +93,8 @@
 </div>
 
 @code {
-    private bool isEmailEntered = true;
-    private bool isAuth = true;
+    private bool isEmailEntered = false;
+    private bool isAuth = false;
     private string email = "a@blazor.zone";
     private string password = "123456";
     private bool showEmailError = false;
