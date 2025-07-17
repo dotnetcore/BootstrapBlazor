@@ -384,5 +384,3 @@ src/**/wwwroot/**/uploader
 
 # Bootstrap
 **/BootstrapBlazor/wwwroot/js/bootstrap.blazor.bundle.min.js
-/src/BootstrapBlazor/compilerconfig.json
-/src/BootstrapBlazor/compilerconfig.json.defaults
