@@ -1,0 +1,43 @@
+﻿<IntersectionObserver OnIntersecting="OnIntersecting" Threshold="1" AutoUnobserveWhenIntersection="false" UseElementViewport="true">
+    <IntersectionObserverItem>
+        @if(NumOfCurrentPage < PageSize)
+        {
+            <div class="nomore">@NoMoreText</div>
+        }
+        else
+        {
+            <div class="loading">
+                <Spinner></Spinner>
+            </div>
+        }
+    </IntersectionObserverItem>
+</IntersectionObserver>
+
+@code {
+    /// <summary>
+    /// 触底时加载的调用
+    /// </summary>
+    [Parameter] public Func<Task>? OnLoadMore { get; set; }
+    /// <summary>
+    /// 当前页加载的记录数
+    /// </summary>
+    [Parameter] public int NumOfCurrentPage{ get; set; }
+    /// <summary>
+    /// 分页大小
+    /// </summary>
+    [Parameter] public int PageSize { get; set; }
+    /// <summary>
+    /// 没有更多时显示的文字
+    /// </summary>
+    [Parameter] public string NoMoreText { get; set; } = "没有更多了";
+    /// <summary>
+    /// 触底时加载的调用
+    /// </summary>
+    async Task OnIntersecting( IntersectionObserverEntry entry )
+    {
+        if(entry.IsIntersecting)
+        {
+            if(OnLoadMore != null) await OnLoadMore.Invoke();
+        }
+    }
+}
