@@ -102,14 +102,14 @@
     font-size: 14px;
 }
 
-.links a {
-    color: #0066cc;
-    text-decoration: none;
-}
+    .links a {
+        color: #0066cc;
+        text-decoration: none;
+    }
 
-.links a:hover {
-    text-decoration: underline;
-}
+        .links a:hover {
+            text-decoration: underline;
+        }
 
 .small {
     font-size: 12px;
@@ -128,18 +128,18 @@
     text-align: center;
 }
 
-.email-display2 > span {
-    position: relative;
-    padding: 0.5rem 1rem;
-}
+    .email-display2 > span {
+        position: relative;
+        padding: 0.5rem 1rem;
+    }
 
-.email-display2 > span:after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 1px solid var(--bs-border-color);
-    border-radius: 20px;
-}
+        .email-display2 > span:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--bs-border-color);
+            border-radius: 20px;
+        }
 
 .login-video-wrap {
     text-align: center;
