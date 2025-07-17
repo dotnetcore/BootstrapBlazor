@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +11,7 @@ namespace BootstrapBlazor.Components;
 public partial class IntersectionObserver
 {
     /// <summary>
-    /// The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null
+    /// The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if value is false. Default value is false
     /// </summary>
     [Parameter]
     public bool UseElementViewport { get; set; }
