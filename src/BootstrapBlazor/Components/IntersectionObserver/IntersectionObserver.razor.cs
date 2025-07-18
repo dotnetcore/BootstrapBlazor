@@ -12,7 +12,7 @@ public partial class IntersectionObserver
 {
     /// <summary>
     /// 获得/设置 是否使用元素视口作为根元素 默认为 false 使用浏览器视口作为根元素
-    /// <para>The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if value is false. Default value is false</para>
+    /// <para>The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if value is false. Default value is true</para>
     /// </summary>
     [Parameter]
     public bool UseElementViewport { get; set; }
