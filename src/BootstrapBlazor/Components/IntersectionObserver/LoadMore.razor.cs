@@ -56,12 +56,9 @@ public partial class LoadMore
 
     private async Task OnIntersecting(IntersectionObserverEntry entry)
     {
-        if (entry.IsIntersecting)
+        if (entry.IsIntersecting && CanLoading && OnLoadMore != null)
         {
-            if (OnLoadMore != null)
-            {
-                await OnLoadMore();
-            }
+            await OnLoadMore();
         }
     }
 }
