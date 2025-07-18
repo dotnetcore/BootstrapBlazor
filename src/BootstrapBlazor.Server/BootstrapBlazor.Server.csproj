@@ -41,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
