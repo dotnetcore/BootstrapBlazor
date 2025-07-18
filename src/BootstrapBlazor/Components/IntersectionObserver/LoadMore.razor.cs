@@ -13,6 +13,12 @@ namespace BootstrapBlazor.Components;
 public partial class LoadMore
 {
     /// <summary>
+    /// 获得/设置 触底元素触发 <see cref="OnLoadMoreAsync"/> 阈值 默认为 1
+    /// </summary>
+    [Parameter]
+    public string Threshold { get; set; } = "1";
+
+    /// <summary>
     /// 获得/设置 触底回调方法 <see cref="CanLoading"/> 为 true 时才触发此回调方法
     /// </summary>
     [Parameter] public Func<Task>? OnLoadMoreAsync { get; set; }

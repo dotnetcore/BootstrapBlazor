@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 
-<IntersectionObserver OnIntersecting="OnIntersecting" Threshold="1" AutoUnobserveWhenIntersection="false">
+<IntersectionObserver OnIntersecting="OnIntersecting" Threshold="@Threshold" AutoUnobserveWhenIntersection="false">
     <IntersectionObserverItem>
         <div class="bb-intersection-loading">
             @if (CanLoading)
