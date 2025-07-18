@@ -15,7 +15,7 @@ public partial class LoadMore
     /// <summary>
     /// 获得/设置 触底回调方法 <see cref="CanLoading"/> 为 true 时才触发此回调方法
     /// </summary>
-    [Parameter] public Func<Task>? OnLoadMore { get; set; }
+    [Parameter] public Func<Task>? OnLoadMoreAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否可以加载更多数据 默认为 true
@@ -56,9 +56,9 @@ public partial class LoadMore
 
     private async Task OnIntersecting(IntersectionObserverEntry entry)
     {
-        if (entry.IsIntersecting && CanLoading && OnLoadMore != null)
+        if (entry.IsIntersecting && CanLoading && OnLoadMoreAsync != null)
         {
-            await OnLoadMore();
+            await OnLoadMoreAsync();
         }
     }
 }
