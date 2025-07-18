@@ -107,7 +107,7 @@
            Introduction="@Localizer["LoadMoreIntro"]"
            Name="LoadMoreComponent">
     <section ignore>
-        <div>@Localizer["LoadMoreDesc"]</div>
+        <div>@((MarkupString)Localizer["LoadMoreDesc"].Value)</div>
     </section>
     <div style="height: 400px; overflow: auto;">
         <div class="bb-list-demo">
@@ -118,7 +118,7 @@
                 </div>
             }
         </div>
-        <LoadMore OnLoadMore="OnLoadMoreItemAsync" CanLoading="_canLoading">
+        <LoadMore OnLoadMoreAsync="OnLoadMoreItemAsync" CanLoading="_canLoading">
         </LoadMore>
     </div>
 </DemoBlock>

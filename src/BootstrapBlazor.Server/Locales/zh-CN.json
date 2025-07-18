@@ -6855,7 +6855,10 @@
     "AttributeAutoUnobserveWhenIntersection": "元素可见时是否自动取消观察",
     "AttributeAutoUnobserveWhenNotIntersection": "元素不可见时是否自动取消观察",
     "AttributeOnIntersectingAsync": "可见回调方法",
-    "AttributeChildContent": "子组件"
+    "AttributeChildContent": "子组件",
+    "LoadMoreTitle": "LoadMore 组件",
+    "LoadMoreIntro": "通过设置 <code>LoadMore</code> 组件参数 <code>CanLoading</code> 控制加载状态，<code>OnLoadMoreAsync</code> 回调方法加载更多数据",
+    "LoadMoreDesc": "本例中通过设置 <code>CanLoading</code> 为 <code>true</code> 显示加载指示符，加载完成后设置为 <code>false</code> 显示 <b>没有更多数据</b> 提示文本，可以通过 <code>LoadingTemplate</code> 自定义加载更多的 UI，通过 <code>NoMoreTemplate</code> 自定义没有更多数据时显示的 UI，可以通过 <code>NoMoreText</code> 参数设置没有更多加载项时显示的指示文本"
   },
   "BootstrapBlazor.Server.Components.Samples.SortableLists": {
     "SortableListTitle": "SortableList 拖拽组件",
