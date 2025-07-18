@@ -62,4 +62,59 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
         }));
         Assert.Equal(10, count);
     }
+
+    [Fact]
+    public async Task LoadMore_Ok()
+    {
+        var loading = false;
+        var cut = Context.RenderComponent<LoadMore>(pb =>
+        {
+            pb.Add(a => a.Threshold, "1");
+            pb.Add(a => a.CanLoading, true);
+            pb.Add(a => a.OnLoadMoreAsync, () =>
+            {
+                loading = true;
+                return Task.CompletedTask;
+            });
+        });
+        cut.Contains("<div class=\"bb-intersection-observer-item\"><div class=\"bb-intersection-loading\"><div class=\"spinner spinner-border\" role=\"status\"><span class=\"visually-hidden\">Loading...</span></div></div></div>");
+
+        // trigger intersecting
+        var observerItem = cut.FindComponent<IntersectionObserver>();
+        await cut.InvokeAsync(() => observerItem.Instance.TriggerIntersecting(new IntersectionObserverEntry()
+        {
+            IsIntersecting = true,
+            Index = 10,
+            Time = 100.00,
+            IntersectionRatio = 0.5f
+        }));
+        Assert.True(loading);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.LoadingTemplate, new RenderFragment(builder => builder.AddContent(0, "loading template")));
+        });
+        cut.Contains("loading template");
+
+        loading = false;
+        cut.SetParametersAndRender(pb =>
+        {
+           pb.Add(a => a.CanLoading, false);
+        });
+        observerItem = cut.FindComponent<IntersectionObserver>();
+        await cut.InvokeAsync(() => observerItem.Instance.TriggerIntersecting(new IntersectionObserverEntry()
+        {
+            IsIntersecting = true,
+            Index = 10,
+            Time = 100.00,
+            IntersectionRatio = 0.5f
+        }));
+        Assert.False(loading);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.NoMoreTemplate, new RenderFragment(builder => builder.AddContent(0, "没有更多数据模板")));
+        });
+        cut.Contains("没有更多数据模板");
+    }
 }
