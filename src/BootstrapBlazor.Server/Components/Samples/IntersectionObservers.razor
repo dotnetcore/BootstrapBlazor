@@ -103,4 +103,24 @@
     </IntersectionObserver>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["LoadMoreTitle"]"
+           Introduction="@Localizer["LoadMoreIntro"]"
+           Name="LoadMoreComponent">
+    <section ignore>
+        <div>@Localizer["LoadMoreDesc"]</div>
+    </section>
+    <div style="height: 400px; overflow: auto;">
+        <div class="bb-list-demo">
+            @foreach (var image in _items)
+            {
+                <div class="bb-list-item">
+                    <img src="@image" />
+                </div>
+            }
+        </div>
+        <LoadMore OnLoadMore="OnLoadMoreItemAsync" CanLoading="_canLoading">
+        </LoadMore>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
