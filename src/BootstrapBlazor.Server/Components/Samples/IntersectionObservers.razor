@@ -92,7 +92,8 @@
         <p>@((MarkupString)Localizer["IntersectionObserverThresholdDesc"].Value)</p>
         <div class="text-center">@_thresholdValueString</div>
     </section>
-    <IntersectionObserver OnIntersecting="OnThresholdChanged" Threshold="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1" AutoUnobserveWhenIntersection="false">
+    <IntersectionObserver OnIntersecting="OnThresholdChanged" Threshold="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1"
+                          AutoUnobserveWhenIntersection="false">
         <div class="bb-list-load scroll" style="height: 200px;">
             <div class="d-flex" style="height: 600px; justify-content: center; align-items: center;">
                 <IntersectionObserverItem>
@@ -118,8 +119,7 @@
                 </div>
             }
         </div>
-        <LoadMore OnLoadMoreAsync="OnLoadMoreItemAsync" CanLoading="_canLoading">
-        </LoadMore>
+        <LoadMore OnLoadMoreAsync="OnLoadMoreItemAsync" CanLoading="_canLoading"></LoadMore>
     </div>
 </DemoBlock>
 
