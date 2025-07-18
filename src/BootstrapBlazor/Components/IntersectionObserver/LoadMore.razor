@@ -1,0 +1,28 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+
+<IntersectionObserver OnIntersecting="OnIntersecting" Threshold="1" AutoUnobserveWhenIntersection="false">
+    <IntersectionObserverItem>
+        @if (CanLoading)
+        {
+            if (LoadingTemplate != null)
+            {
+                @LoadingTemplate
+            }
+            else
+            {
+                <div class="bb-intersection-loading">
+                    <Spinner></Spinner>
+                </div>
+            }
+        }
+        else if (NoMoreTemplate != null)
+        {
+            @NoMoreTemplate
+        }
+        else if (!string.IsNullOrEmpty(NoMoreText))
+        {
+            <div class="bb-intersection-stop-text">@NoMoreText</div>
+        }
+    </IntersectionObserverItem>
+</IntersectionObserver>
