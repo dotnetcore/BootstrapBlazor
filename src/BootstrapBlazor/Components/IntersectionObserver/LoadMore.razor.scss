@@ -1,0 +1,14 @@
+﻿.bb-intersection-observer {
+    --bb-intersection-observer-loading-bg: #{$bb-intersection-observer-loading-bg};
+    --bb-intersection-observer-loading-color: #{$bb-intersection-observer-loading-color};
+    --bb-intersection-observer-loading-padding: #{$bb-intersection-observer-loading-padding};
+
+    .bb-intersection-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bb-intersection-observer-loading-bg);
+        color: var(--bb-intersection-observer-loading-color);
+        padding: var(--bb-intersection-observer-loading-padding)
+    }
+}

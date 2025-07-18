@@ -8,7 +8,7 @@ export function init(id, invoke, options) {
 
     const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
 
-    if (options.useElementViewport === false) {
+    if (options.useElementViewport === true) {
         options.root = el;
     }
     if (options.threshold && options.threshold.indexOf(' ') > 0) {

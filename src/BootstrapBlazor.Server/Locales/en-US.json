@@ -6855,7 +6855,10 @@
     "AttributeAutoUnobserveWhenIntersection": "Whether to automatically cancel the observation when element visible",
     "AttributeAutoUnobserveWhenNotIntersection": "Whether to automatically cancel the observation when element invisible",
     "AttributeOnIntersectingAsync": "The callback when intersecting",
-    "AttributeChildContent": "Child component"
+    "AttributeChildContent": "Child component",
+    "LoadMoreTitle": "LoadMore Component",
+    "LoadMoreIntro": "By setting the <code>LoadMore</code> component parameter <code>IsLoading</code> to control the loading state, the <code>OnLoadMoreAsync</code> callback method loads more data",
+    "LoadMoreDesc": "In this example, the loading indicator is displayed by setting <code>CanLoading</code> to <code>true</code>, and the <b>No More Data</b> prompt text is displayed by setting it to <code>false</code> after loading is complete. The UI for loading more data can be customized through <code>LoadingTemplate</code>, the UI displayed when there is no more data can be customized through <code>NoMoreTemplate</code>, and the indicator text displayed when there are no more add-ons can be set through the <code>NoMoreText</code> parameter."
   },
   "BootstrapBlazor.Server.Components.Samples.SortableLists": {
     "SortableListTitle": "SortableList",

@@ -311,6 +311,11 @@ $bb-svg-icon-width: 12px;
 $bb-viewer-button-bg: #606266;
 $bb-viewer-border-radius: 50%;
 
+// IntersectionObserver
+$bb-intersection-observer-loading-bg: var(--bs-body-bg);
+$bb-intersection-observer-loading-color: var(--bs-body-color);
+$bb-intersection-observer-loading-padding: 0.5rem;
+
 // Ip Address
 $bb-ip-cell-max-width: 30px;
 
