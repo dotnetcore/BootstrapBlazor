@@ -395,5 +395,8 @@
     "NetworkType": "网络类型",
     "Downlink": "下载速度",
     "RTT": "响应时间"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "没有更多数据了"
   }
 }

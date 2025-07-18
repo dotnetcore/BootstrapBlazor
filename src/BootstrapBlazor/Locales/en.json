@@ -395,5 +395,8 @@
     "NetworkType": "NetworkType",
     "Downlink": "Downlink",
     "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "No More Data"
   }
 }
