@@ -27,14 +27,15 @@ public class SocketDataConverterCollections
     /// 获得指定数据类型转换器方法
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public ISocketDataConverter<TEntity>? GetConverter<TEntity>()
+    public bool TryGetConverter<TEntity>([NotNullWhen(true)] out ISocketDataConverter<TEntity>? converter)
     {
-        ISocketDataConverter<TEntity>? converter = null;
-        var type = typeof(TEntity);
-        if (_converters.TryGetValue(type, out var v) && v is ISocketDataConverter<TEntity> c)
+        converter = null;
+        var ret = false;
+        if (_converters.TryGetValue(typeof(TEntity), out var v) && v is ISocketDataConverter<TEntity> c)
         {
             converter = c;
+            ret = true;
         }
-        return converter;
+        return ret;
     }
 }

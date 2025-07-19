@@ -26,11 +26,13 @@ public class SocketDataConverterCollectionsTest : BootstrapBlazorTestBase
         var service = Context.Services.GetRequiredService<IOptions<SocketDataConverterCollections>>();
         Assert.NotNull(service.Value);
 
-        var converter = service.Value.GetConverter<MockEntity>();
+        var ret = service.Value.TryGetConverter<MockEntity>(out var converter);
+        Assert.True(ret);
         Assert.NotNull(converter);
 
-        var fakeConverter = service.Value.GetConverter<Foo>();
-        Assert.Null(fakeConverter);
+        var fakeConverter = service.Value.TryGetConverter<Foo>(out var fooConverter);
+        Assert.False(fakeConverter);
+        Assert.Null(fooConverter);
     }
 
     class MockEntity
