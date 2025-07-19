@@ -9,7 +9,7 @@
            Name="Normal" ShowCode="false">
     <p>通过 <code>SocketDataConverterAttribute</code> 类标签与 <code>SocketDataPropertyAttribute</code>
         属性标签可以将通讯数据自动转化为我们系统中需要的业务实体类，示例如下：</p>
-    <Pre>[SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
+    <Pre>[SocketDataConverter(Type = typeof(SocketDataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
     [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
@@ -26,8 +26,7 @@ class MockEntity
 }</Pre>
     <p class="code-label">1. <code>SocketDataConverter</code> 参数说明：</p>
     <ul class="ul-demo">
-        <li><b>Type</b>: 自定义转换器类型，组件库内置了 <code>SocketDataConverterBase</code> 泛型基类，继承后非常方便扩展出自己的转换器，重载
-            <code>TryConvertTo</code> 方法调用基类的 <code>Parse</code> 基本就完成了 99% 的工作量，也可以完全自己解析通讯电文到实体类的各个属性上
+        <li><b>Type</b>: 自定义转换器类型，组件库内置了 <code>SocketDataConverter</code> 泛型类，建议看一下源码非常方便扩展出自己的转换器
         </li>
     </ul>
     <Pre>class MockEntitySocketDataConverter : SocketDataConverterBase&lt;MockEntity&gt;
@@ -96,7 +95,7 @@ class MockEntity
         <li><code>SocketDataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
     </ul>
     <p>自定义数据类型转化器示例</p>
-    <Pre>[SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
+    <Pre>[SocketDataConverter(Type = typeof(SocketDataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
     [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
@@ -107,9 +106,8 @@ class MockEntity
 
     [SocketDataProperty(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
     public string? Value1 { get; set; }
-}
-
-class FooConverter(string name) : ISocketDataPropertyConverter
+}</Pre>
+    <Pre>class FooConverter(string name) : ISocketDataPropertyConverter
 {
     public object? Convert(ReadOnlyMemory&lt;byte&gt; data)
     {
