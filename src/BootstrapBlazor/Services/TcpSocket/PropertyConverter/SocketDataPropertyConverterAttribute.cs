@@ -11,8 +11,8 @@ namespace BootstrapBlazor.Components;
 /// <remarks>This attribute can be applied to fields to indicate that they are part of the data transmitted over a
 /// socket connection. It is intended for use in scenarios where socket communication requires specific fields to be
 /// identified for processing.</remarks>
-[AttributeUsage(AttributeTargets.Property)]
-public class SocketDataPropertyAttribute : Attribute
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public class SocketDataPropertyConverterAttribute : Attribute
 {
     /// <summary>
     /// 获得/设置 数据类型

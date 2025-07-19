@@ -115,7 +115,7 @@ public static class ITcpSocketClientExtensions
     /// </summary>
     /// <remarks>This method sets up the <paramref name="client"/> to use the specified <paramref
     /// name="adapter"/> for handling incoming data. If the <typeparamref name="TEntity"/> type is decorated with a <see
-    /// cref="SocketDataConverterAttribute"/>, the associated converter is used to transform the data before invoking
+    /// cref="SocketDataTypeConverterAttribute"/>, the associated converter is used to transform the data before invoking
     /// the <paramref name="callback"/>. The callback is called with the converted entity or <see langword="null"/> if
     /// conversion fails.</remarks>
     /// <typeparam name="TEntity">The type of entity that the data package adapter will handle.</typeparam>
@@ -132,7 +132,7 @@ public static class ITcpSocketClientExtensions
         };
 
         var type = typeof(TEntity);
-        var converterType = type.GetCustomAttribute<SocketDataConverterAttribute>();
+        var converterType = type.GetCustomAttribute<SocketDataTypeConverterAttribute>();
         if (converterType is { Type: not null })
         {
             if (Activator.CreateInstance(converterType.Type) is ISocketDataConverter<TEntity> socketDataConverter)

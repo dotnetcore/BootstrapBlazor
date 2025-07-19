@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// 
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class SocketDataConverterAttribute : Attribute
+public class SocketDataTypeConverterAttribute : Attribute
 {
     /// <summary>
     /// Gets or sets the type of the <see cref="ISocketDataConverter{TEntity}"/>.

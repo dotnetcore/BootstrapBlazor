@@ -47,7 +47,7 @@ public class SocketDataConverter<TEntity> : ISocketDataConverter<TEntity>
             var properties = entity.GetType().GetProperties().Where(p => p.CanWrite).ToList();
             foreach (var p in properties)
             {
-                var attr = p.GetCustomAttribute<SocketDataPropertyAttribute>(false);
+                var attr = p.GetCustomAttribute<SocketDataPropertyConverterAttribute>(false);
                 if (attr != null)
                 {
                     p.SetValue(entity, attr.ConvertTo(data));

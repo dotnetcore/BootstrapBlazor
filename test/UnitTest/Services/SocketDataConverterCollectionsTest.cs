@@ -16,23 +16,53 @@ public class SocketDataConverterCollectionsTest : BootstrapBlazorTestBase
 
         services.ConfigureSocketDataConverters(options =>
         {
-            options.Add(new SocketDataConverter<MockEntity>());
+            options.AddOrUpdateConverter(new SocketDataConverter<MockEntity>());
+            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+            {
+                Offset = 0,
+                Length = 5
+            });
+            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
+            {
+                Offset = 5,
+                Length = 2
+            });
+
+            // 为提高代码覆盖率 重复添加转换器以后面的为准
+            options.AddOrUpdateConverter(new SocketDataConverter<MockEntity>());
+            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+            {
+                Offset = 0,
+                Length = 5
+            });
         });
     }
 
     [Fact]
-    public void Test_Ok()
+    public void TryGetConverter_Ok()
     {
         var service = Context.Services.GetRequiredService<IOptions<SocketDataConverterCollections>>();
         Assert.NotNull(service.Value);
 
-        var ret = service.Value.TryGetConverter<MockEntity>(out var converter);
+        var ret = service.Value.TryGetTypeConverter<MockEntity>(out var converter);
         Assert.True(ret);
         Assert.NotNull(converter);
 
-        var fakeConverter = service.Value.TryGetConverter<Foo>(out var fooConverter);
+        var fakeConverter = service.Value.TryGetTypeConverter<Foo>(out var fooConverter);
         Assert.False(fakeConverter);
         Assert.Null(fooConverter);
+
+        ret = service.Value.TryGetPropertyConverter<MockEntity>(entity => entity.Header, out var propertyConverterAttribute);
+        Assert.True(ret);
+        Assert.NotNull(propertyConverterAttribute);
+        Assert.True(propertyConverterAttribute is { Offset: 0, Length: 5 });
+
+        ret = service.Value.TryGetPropertyConverter<Foo>(entity => entity.Name, out var fooPropertyConverterAttribute);
+        Assert.False(ret);
+        Assert.Null(fooPropertyConverterAttribute);
+
+        ret = service.Value.TryGetPropertyConverter<MockEntity>(entity => entity.ToString(), out _);
+        Assert.False(ret);
     }
 
     class MockEntity
