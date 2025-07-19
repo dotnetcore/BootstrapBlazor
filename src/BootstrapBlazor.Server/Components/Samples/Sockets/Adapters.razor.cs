@@ -48,10 +48,10 @@ public partial class Adapters : IDisposable
         });
         _client.ReceivedCallBack += OnReceivedAsync;
 
-        _dataAdapter.ReceivedCallBack += async Data =>
+        _dataAdapter.ReceivedCallBack += async data =>
         {
             // 直接处理接收的数据
-            await UpdateReceiveLog(Data);
+            await UpdateReceiveLog(data);
         };
     }
 
@@ -104,7 +104,7 @@ public partial class Adapters : IDisposable
 
     private async Task UpdateReceiveLog(ReadOnlyMemory<byte> data)
     {
-        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
+        var payload = Encoding.UTF8.GetString(data.Span);
         var body = BitConverter.ToString(data.ToArray());
 
         _items.Add(new ConsoleMessageItem

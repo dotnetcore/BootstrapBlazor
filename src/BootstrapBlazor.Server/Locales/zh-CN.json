@@ -4839,7 +4839,7 @@
     "SocketComponents": "Socket 服务",
     "SocketAutoReceive": "自动接收数据",
     "SocketManualReceive": "手动接收数据",
-    "DataPackageAdapter": "数据处理器",
+    "DataPackageAdapter": "数据适配器",
     "SocketAutoConnect": "自动重连",
     "SocketDataEntity": "通讯数据转实体类",
     "NetworkMonitor": "网络状态 NetworkMonitor"

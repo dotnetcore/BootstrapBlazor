@@ -655,7 +655,7 @@ public class TcpSocketFactoryTest
         {
             DataPackageHandler = new FixLengthDataPackageHandler(29),
         };
-        client.SetDataPackageAdapter(adapter, new MockEntitySocketDataConverter(), t =>
+        client.SetDataPackageAdapter(adapter, new SocketDataConverter<MockEntity>(), t =>
         {
             entity = t;
             tcs.SetResult();
@@ -734,7 +734,7 @@ public class TcpSocketFactoryTest
 
         // 测试数据适配器直接调用 TryConvertTo 方法转换数据
         var adapter2 = new DataPackageAdapter();
-        var result = adapter2.TryConvertTo(data, new MockEntitySocketDataConverter(), out var t);
+        var result = adapter2.TryConvertTo(data, new SocketDataConverter<MockEntity>(), out var t);
         Assert.True(result);
         Assert.NotNull(t);
         Assert.Equal([1, 2, 3, 4, 5], entity.Header);
@@ -751,6 +751,10 @@ public class TcpSocketFactoryTest
         await client.SendAsync(data);
         await tcs.Task;
         Assert.Null(noConvertEntity);
+
+        var converter = new MockSocketDataConverter();
+        result = converter.TryConvertTo(new byte[] { 0x1, 0x2 }, out t);
+        Assert.False(result);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1137,18 +1141,7 @@ public class TcpSocketFactoryTest
         }
     }
 
-    class MockEntitySocketDataConverter : SocketDataConverterBase<MockEntity>
-    {
-        public override bool TryConvertTo(ReadOnlyMemory<byte> data, [NotNullWhen(true)] out MockEntity? entity)
-        {
-            var v = new MockEntity();
-            var ret = Parse(data, v);
-            entity = ret ? v : null;
-            return ret;
-        }
-    }
-
-    [SocketDataConverter(Type = typeof(MockEntitySocketDataConverter))]
+    [SocketDataConverter(Type = typeof(SocketDataConverter<MockEntity>))]
     class MockEntity
     {
         [SocketDataProperty(Type = typeof(byte[]), Offset = 0, Length = 5)]
@@ -1197,6 +1190,14 @@ public class TcpSocketFactoryTest
         public string? Value14 { get; set; }
 
         public string? Value13 { get; set; }
+    }
+
+    class MockSocketDataConverter: SocketDataConverter<MockEntity>
+    {
+        protected override bool Parse(ReadOnlyMemory<byte> data, MockEntity entity)
+        {
+            return false;
+        }
     }
 
     class FooConverter(string name) : ISocketDataPropertyConverter

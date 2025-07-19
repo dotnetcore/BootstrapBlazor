@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Represents configuration options for a socket client, including buffer sizes, timeouts, and endpoints.
 /// </summary>
-/// <remarks>Use this class to configure various settings for a socket client, such as connection timeouts, 
+/// <remarks>Use this class to configure various settings for a socket client, such as connection timeouts,
 /// buffer sizes, and local or remote endpoints. These options allow fine-tuning of socket behavior  to suit specific
 /// networking scenarios.</remarks>
 public class SocketClientOptions
@@ -49,14 +49,14 @@ public class SocketClientOptions
     /// Gets or sets the local endpoint for the socket client. Default value is <see cref="IPAddress.Any"/>
     /// </summary>
     /// <remarks>This property specifies the local network endpoint that the socket client will bind to when establishing a connection.</remarks>
-    public IPEndPoint LocalEndPoint { get; set; } = new IPEndPoint(IPAddress.Any, 0);
+    public IPEndPoint LocalEndPoint { get; set; } = new(IPAddress.Any, 0);
 
     /// <summary>
     /// Gets or sets a value indicating whether logging is enabled. Default value is false.
     /// </summary>
     public bool EnableLog { get; set; }
-    
-    /// <summary>    
+
+    /// <summary>
     /// Gets or sets a value indicating whether the system should automatically attempt to reconnect  after a connection is lost. Default value is false.
     /// </summary>
     public bool IsAutoReconnect { get; set; }
