@@ -751,6 +751,10 @@ public class TcpSocketFactoryTest
         await client.SendAsync(data);
         await tcs.Task;
         Assert.Null(noConvertEntity);
+
+        var converter = new MockSocketDataConverter();
+        result = converter.TryConvertTo(new byte[] { 0x1, 0x2 }, out t);
+        Assert.False(result);
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1186,6 +1190,14 @@ public class TcpSocketFactoryTest
         public string? Value14 { get; set; }
 
         public string? Value13 { get; set; }
+    }
+
+    class MockSocketDataConverter: SocketDataConverter<MockEntity>
+    {
+        protected override bool Parse(ReadOnlyMemory<byte> data, MockEntity entity)
+        {
+            return false;
+        }
     }
 
     class FooConverter(string name) : ISocketDataPropertyConverter
