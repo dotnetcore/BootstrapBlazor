@@ -9,6 +9,7 @@
         align-items: center;
         background-color: var(--bb-intersection-observer-loading-bg);
         color: var(--bb-intersection-observer-loading-color);
-        padding: var(--bb-intersection-observer-loading-padding)
+        padding: var(--bb-intersection-observer-loading-padding);
+        margin-bottom: 1px;
     }
 }
