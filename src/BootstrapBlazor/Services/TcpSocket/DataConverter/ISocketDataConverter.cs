@@ -6,10 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
+/// Socket 数据转换器接口
+/// </summary>
+public interface ISocketDataConverter
+{
+
+}
+
+/// <summary>
 /// Defines a method to convert raw socket data into a specified entity type.
 /// </summary>
 /// <typeparam name="TEntity">The type of entity to convert the data into.</typeparam>
-public interface ISocketDataConverter<TEntity>
+public interface ISocketDataConverter<TEntity> : ISocketDataConverter
 {
     /// <summary>
     /// Attempts to convert the specified data to an instance of <typeparamref name="TEntity"/>.
