@@ -14,15 +14,15 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class SocketDataConverterCollections
 {
-    ConcurrentDictionary<Type, ISocketDataConverter> _converters = new();
-    ConcurrentDictionary<MemberInfo, SocketDataPropertyConverterAttribute> _propertyConverters = new();
+    readonly ConcurrentDictionary<Type, ISocketDataConverter> _converters = new();
+    readonly ConcurrentDictionary<MemberInfo, SocketDataPropertyConverterAttribute> _propertyConverters = new();
 
     /// <summary>
     /// 增加数据类型转换器方法
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="converter"></param>
-    public void AddOrUpdateConverter<TEntity>(ISocketDataConverter<TEntity> converter)
+    public void AddOrUpdateTypeConverter<TEntity>(ISocketDataConverter<TEntity> converter)
     {
         var type = typeof(TEntity);
         _converters.AddOrUpdate(type, t => converter, (t, v) => converter);
@@ -38,6 +38,10 @@ public class SocketDataConverterCollections
     {
         if (propertyExpression.Body is MemberExpression memberExpression)
         {
+            if(attribute.Type == null)
+            {
+                attribute.Type = memberExpression.Type;
+            }
             _propertyConverters.AddOrUpdate(memberExpression.Member, m => attribute, (m, v) => attribute);
         }
     }
@@ -66,7 +70,23 @@ public class SocketDataConverterCollections
     {
         converterAttribute = null;
         var ret = false;
-        if (propertyExpression.Body is MemberExpression memberExpression && _propertyConverters.TryGetValue(memberExpression.Member, out var v))
+        if (propertyExpression.Body is MemberExpression memberExpression && TryGetPropertyConverter<TEntity>(memberExpression.Member, out var v))
+        {
+            converterAttribute = v;
+            ret = true;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 获得指定数据类型属性转换器方法
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    public bool TryGetPropertyConverter<TEntity>(MemberInfo memberInfo, [NotNullWhen(true)] out SocketDataPropertyConverterAttribute? converterAttribute)
+    {
+        converterAttribute = null;
+        var ret = false;
+        if (_propertyConverters.TryGetValue(memberInfo, out var v))
         {
             converterAttribute = v;
             ret = true;

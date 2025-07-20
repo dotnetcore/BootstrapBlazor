@@ -755,6 +755,66 @@ public class TcpSocketFactoryTest
         var converter = new MockSocketDataConverter();
         result = converter.TryConvertTo(new byte[] { 0x1, 0x2 }, out t);
         Assert.False(result);
+
+        server.Stop();
+    }
+
+    [Fact]
+    public async Task TryGetTypeConverter_Ok()
+    {
+        // 测试服务配置转换器
+        var port = 8895;
+        var server = StartTcpServer(port, MockSplitPackageAsync);
+
+        var client = CreateClient(builder =>
+        {
+            builder.ConfigureSocketDataConverters(options =>
+            {
+                options.AddOrUpdateTypeConverter(new SocketDataConverter<OptionConvertEntity>(options));
+                options.AddOrUpdatePropertyConverter<OptionConvertEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+                {
+                    Offset = 0,
+                    Length = 5
+                });
+                options.AddOrUpdatePropertyConverter<OptionConvertEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
+                {
+                    Offset = 5,
+                    Length = 2
+                });
+            });
+        });
+        var tcs = new TaskCompletionSource();
+        var receivedBuffer = new byte[128];
+
+        // 连接 TCP Server
+        var connect = await client.ConnectAsync("localhost", port);
+
+        // 设置数据适配器
+        var adapter = new DataPackageAdapter
+        {
+            DataPackageHandler = new FixLengthDataPackageHandler(7)
+        };
+
+        OptionConvertEntity? entity = null;
+        client.SetDataPackageAdapter<OptionConvertEntity>(adapter, data =>
+        {
+            // buffer 即是接收到的数据
+            entity = data;
+            tcs.SetResult();
+            return Task.CompletedTask;
+        });
+
+        // 发送数据
+        var data = new ReadOnlyMemory<byte>([1, 2, 3, 4, 5]);
+        await client.SendAsync(data);
+
+        // 等待接收数据处理完成
+        await tcs.Task;
+        Assert.NotNull(entity);
+        Assert.Equal([1, 2, 3, 4, 5], entity.Header);
+        Assert.Equal([3, 4], entity.Body);
+
+        server.Stop();
     }
 
     private static TcpListener StartTcpServer(int port, Func<TcpClient, Task> handler)
@@ -1192,7 +1252,7 @@ public class TcpSocketFactoryTest
         public string? Value13 { get; set; }
     }
 
-    class MockSocketDataConverter: SocketDataConverter<MockEntity>
+    class MockSocketDataConverter : SocketDataConverter<MockEntity>
     {
         protected override bool Parse(ReadOnlyMemory<byte> data, MockEntity entity)
         {
@@ -1209,6 +1269,13 @@ public class TcpSocketFactoryTest
     }
 
     class NoConvertEntity
+    {
+        public byte[]? Header { get; set; }
+
+        public byte[]? Body { get; set; }
+    }
+
+    class OptionConvertEntity
     {
         public byte[]? Header { get; set; }
 
