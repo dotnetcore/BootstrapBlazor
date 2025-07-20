@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Text;
@@ -115,7 +116,7 @@ public static class ITcpSocketClientExtensions
     /// </summary>
     /// <remarks>This method sets up the <paramref name="client"/> to use the specified <paramref
     /// name="adapter"/> for handling incoming data. If the <typeparamref name="TEntity"/> type is decorated with a <see
-    /// cref="SocketDataConverterAttribute"/>, the associated converter is used to transform the data before invoking
+    /// cref="SocketDataTypeConverterAttribute"/>, the associated converter is used to transform the data before invoking
     /// the <paramref name="callback"/>. The callback is called with the converted entity or <see langword="null"/> if
     /// conversion fails.</remarks>
     /// <typeparam name="TEntity">The type of entity that the data package adapter will handle.</typeparam>
@@ -131,27 +132,60 @@ public static class ITcpSocketClientExtensions
             await adapter.HandlerAsync(buffer);
         };
 
+        ISocketDataConverter<TEntity>? converter = null;
+
         var type = typeof(TEntity);
-        var converterType = type.GetCustomAttribute<SocketDataConverterAttribute>();
+        var converterType = type.GetCustomAttribute<SocketDataTypeConverterAttribute>();
         if (converterType is { Type: not null })
         {
+            // 如果类型上有 SocketDataTypeConverterAttribute 特性则使用特性中指定的转换器
             if (Activator.CreateInstance(converterType.Type) is ISocketDataConverter<TEntity> socketDataConverter)
             {
-                // 设置 DataPackageAdapter 的回调函数
-                adapter.ReceivedCallBack = async buffer =>
-                {
-                    TEntity? ret = default;
-                    if (socketDataConverter.TryConvertTo(buffer, out var t))
-                    {
-                        ret = t;
-                    }
-                    await callback(ret);
-                };
+                converter = socketDataConverter;
             }
         }
         else
         {
+            // 如果没有特性则从 ITcpSocketClient 中的服务容器获取转换器
+            converter = client.GetSocketDataConverter<TEntity>();
+        }
+
+        if (converter == null)
+        {
+            // 设置正常回调
             adapter.ReceivedCallBack = async buffer => await callback(default);
         }
+        else
+        {
+            // 设置转化器
+            adapter.SetDataAdapterCallback(converter, callback);
+        }
+    }
+
+    private static void SetDataAdapterCallback<TEntity>(this IDataPackageAdapter adapter, ISocketDataConverter<TEntity> converter, Func<TEntity?, Task> callback)
+    {
+        adapter.ReceivedCallBack = async buffer =>
+        {
+            TEntity? ret = default;
+            if (converter.TryConvertTo(buffer, out var t))
+            {
+                ret = t;
+            }
+            await callback(ret);
+        };
+    }
+
+    private static ISocketDataConverter<TEntity>? GetSocketDataConverter<TEntity>(this ITcpSocketClient client)
+    {
+        ISocketDataConverter<TEntity>? converter = null;
+        if (client is IServiceProvider provider)
+        {
+            var converters = provider.GetRequiredService<IOptions<SocketDataConverterCollections>>().Value;
+            if (converters.TryGetTypeConverter<TEntity>(out var v))
+            {
+                converter = v;
+            }
+        }
+        return converter;
     }
 }

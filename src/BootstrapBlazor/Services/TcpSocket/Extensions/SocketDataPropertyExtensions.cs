@@ -7,12 +7,12 @@ namespace BootstrapBlazor.Components;
 
 static class SocketDataPropertyExtensions
 {
-    public static ISocketDataPropertyConverter? GetConverter(this SocketDataPropertyAttribute attribute)
+    public static ISocketDataPropertyConverter? GetConverter(this SocketDataPropertyConverterAttribute attribute)
     {
         return attribute.GetConverterByType() ?? attribute.GetDefaultConverter();
     }
 
-    private static ISocketDataPropertyConverter? GetConverterByType(this SocketDataPropertyAttribute attribute)
+    private static ISocketDataPropertyConverter? GetConverterByType(this SocketDataPropertyConverterAttribute attribute)
     {
         ISocketDataPropertyConverter? converter = null;
         var converterType = attribute.ConverterType;
@@ -28,7 +28,7 @@ static class SocketDataPropertyExtensions
         return converter;
     }
 
-    private static ISocketDataPropertyConverter? GetDefaultConverter(this SocketDataPropertyAttribute attribute)
+    private static ISocketDataPropertyConverter? GetDefaultConverter(this SocketDataPropertyConverterAttribute attribute)
     {
         ISocketDataPropertyConverter? converter = null;
         var type = attribute.Type;
@@ -86,7 +86,7 @@ static class SocketDataPropertyExtensions
         return converter;
     }
 
-    public static object? ConvertTo(this SocketDataPropertyAttribute attribute, ReadOnlyMemory<byte> data)
+    public static object? ConvertTo(this SocketDataPropertyConverterAttribute attribute, ReadOnlyMemory<byte> data)
     {
         object? ret = null;
         var start = attribute.Offset;

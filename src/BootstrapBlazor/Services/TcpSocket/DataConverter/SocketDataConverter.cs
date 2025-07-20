@@ -11,8 +11,16 @@ namespace BootstrapBlazor.Components;
 /// Provides a base class for converting socket data into a specified entity type.
 /// </summary>
 /// <typeparam name="TEntity">The type of entity to convert the socket data into.</typeparam>
-public class SocketDataConverter<TEntity> : ISocketDataConverter<TEntity>
+public class SocketDataConverter<TEntity>(SocketDataConverterCollections converters) : ISocketDataConverter<TEntity>
 {
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    public SocketDataConverter() : this(new())
+    {
+
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -44,10 +52,14 @@ public class SocketDataConverter<TEntity> : ISocketDataConverter<TEntity>
         var ret = false;
         if (entity != null)
         {
+            var unuseProperties = new List<PropertyInfo>(32);
+
+            // 通过 SocketDataPropertyConverterAttribute 特性获取属性转换器
             var properties = entity.GetType().GetProperties().Where(p => p.CanWrite).ToList();
             foreach (var p in properties)
             {
-                var attr = p.GetCustomAttribute<SocketDataPropertyAttribute>(false);
+                var attr = p.GetCustomAttribute<SocketDataPropertyConverterAttribute>(false)
+                    ?? GetPropertyConverterAttribute(p);
                 if (attr != null)
                 {
                     p.SetValue(entity, attr.ConvertTo(data));
@@ -56,5 +68,15 @@ public class SocketDataConverter<TEntity> : ISocketDataConverter<TEntity>
             ret = true;
         }
         return ret;
+    }
+
+    private SocketDataPropertyConverterAttribute? GetPropertyConverterAttribute(PropertyInfo propertyInfo)
+    {
+        SocketDataPropertyConverterAttribute? attr = null;
+        if (converters.TryGetPropertyConverter<TEntity>(propertyInfo, out var v))
+        {
+            attr = v;
+        }
+        return attr;
     }
 }

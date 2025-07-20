@@ -117,6 +117,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.AddTabItemBindOptions();
         services.AddIconTheme();
+        services.AddSocketDataConverters();
         return services;
     }
 
@@ -212,7 +213,30 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    /// 增加第三方菜单路由与 Tab 捆绑字典配置
+    /// 增加 Socket 数据转换器集合配置项服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    static IServiceCollection AddSocketDataConverters(this IServiceCollection services)
+    {
+        services.AddOptionsMonitor<SocketDataConverterCollections>();
+        return services;
+    }
+
+    /// <summary>
+    /// 配置第三方数据模型与 <see cref="SocketDataConverterCollections"/> 数据转换器集合配置扩展方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureSocketDataConverters(this IServiceCollection services, Action<SocketDataConverterCollections> configureOptions)
+    {
+        services.Configure(configureOptions);
+        return services;
+    }
+
+    /// <summary>
+    /// 配置第三方菜单路由与 Tab 标签页捆绑字典扩展方法
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
@@ -236,7 +260,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    /// IconThemeOptions 扩展配置方法
+    /// 配置 <see cref="IconThemeOptions"/> 扩展方法
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>

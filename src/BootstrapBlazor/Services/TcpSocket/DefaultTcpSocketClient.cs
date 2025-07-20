@@ -12,7 +12,7 @@ using System.Runtime.Versioning;
 namespace BootstrapBlazor.Components;
 
 [UnsupportedOSPlatform("browser")]
-class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
+class DefaultTcpSocketClient(SocketClientOptions options) : IServiceProvider, ITcpSocketClient
 {
     /// <summary>
     /// Gets or sets the socket client provider used for managing socket connections.
@@ -27,6 +27,7 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
     /// <summary>
     /// Gets or sets the service provider used to resolve dependencies.
     /// </summary>
+    [NotNull]
     public IServiceProvider? ServiceProvider { get; set; }
 
     /// <summary>
@@ -405,6 +406,13 @@ class DefaultTcpSocketClient(SocketClientOptions options) : ITcpSocketClient
             await SocketClientProvider.CloseAsync();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="serviceType"></param>
+    /// <returns></returns>
+    public object? GetService(Type serviceType) => ServiceProvider.GetService(serviceType);
 
     /// <summary>
     /// Releases the resources used by the current instance of the class.
