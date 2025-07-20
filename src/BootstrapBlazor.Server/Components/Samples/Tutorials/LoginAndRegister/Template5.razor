@@ -49,9 +49,12 @@
             {
                 <h3>登录</h3>
                 <p class="subtitle">使用你的 BootstrapBlazor 帐户。</p>
-                <BootstrapInput type="email" class="input" placeholder="电子邮件或电话号码" @bind-Value="email"></BootstrapInput>
-                <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
-                <Button class="button" Color="Color.Primary" OnClick="OnEmailSubmit">下一步</Button>
+                <ValidateForm Model="_loginModel" OnValidSubmit="OnEmailSubmit">
+                    <BootstrapInput type="email" class="input" SkipValidate="true" IsAutoFocus="true"
+                                    placeholder="电子邮件或电话号码" @bind-Value="@_loginModel.Email"></BootstrapInput>
+                    <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
+                    <Button class="button" Color="Color.Primary" ButtonType="ButtonType.Submit" Text="下一步"></Button>
+                </ValidateForm>
                 <div class="links">
                     <a href="#" @onclick:preventDefault>忘记用户名？</a>
                 </div>
@@ -62,19 +65,22 @@
             else if (!isAuth)
             {
                 <h3>输入你的密码</h3>
-                <p class="email-display">@email</p>
-                <BootstrapInput type="password" class="input" placeholder="密码" @bind-Value="password"></BootstrapInput>
-                <div class="links">
-                    <a href="#" @onclick:preventDefault>忘记了密码？</a>
-                </div>
-                <Button class="button" Color="Color.Primary" OnClick="OnPasswordSubmit">下一步</Button>
+                <p class="email-display">@_loginModel.Email</p>
+                <ValidateForm Model="_loginModel" OnValidSubmit="OnPasswordSubmit">
+                    <BootstrapInput type="password" class="input" SkipValidate="true" IsAutoFocus="true"
+                                    placeholder="密码" @bind-Value="@_loginModel.Password"></BootstrapInput>
+                    <div class="links">
+                        <a href="#" @onclick:preventDefault>忘记了密码？</a>
+                    </div>
+                    <Button class="button" Color="Color.Primary" ButtonType="ButtonType.Submit" Text="下一步"></Button>
+                </ValidateForm>
                 <div class="links">
                     <a href="#" @onclick:preventDefault>其他登录方法</a>
                 </div>
             }
             else
             {
-                <div class="email-display2"><span>@email</span></div>
+                <div class="email-display2"><span>@_loginModel.Email</span></div>
                 <h5 class="text-center mt-3 mb-0">欢迎，您已成功登录</h5>
                 <div class="login-video-wrap">
                     <video class="login-video" autoplay="autoplay" playsinline="playsinline" disablepictureinpicture="">
@@ -86,7 +92,7 @@
                     </video>
                 </div>
                 <p class="text-center text-muted" style="font-size: 0.75rem;">此登录高仿微软登录 UI</p>
-                <Button class="button" Color="Color.Primary" OnClick="OnEnterSubmit">进入</Button>
+                <Button class="button" Color="Color.Primary">进入</Button>
             }
         </div>
     </div>
@@ -95,13 +101,16 @@
 @code {
     private bool isEmailEntered = false;
     private bool isAuth = false;
-    private string email = "a@blazor.zone";
-    private string password = "123456";
     private bool showEmailError = false;
-
-    private void OnEmailSubmit()
+    private LoginModel _loginModel = new LoginModel()
     {
-        if (string.IsNullOrWhiteSpace(email))
+        Email = "a@blazor.zone",
+        Password = "123456"
+    };
+
+    private Task OnEmailSubmit(EditContext context)
+    {
+        if (string.IsNullOrWhiteSpace(_loginModel.Email))
         {
             showEmailError = true;
         }
@@ -110,22 +119,28 @@
             showEmailError = false;
             isEmailEntered = true;
         }
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
-    private void OnPasswordSubmit()
+    private Task OnPasswordSubmit(EditContext context)
     {
         // 数据库检查密码逻辑可以在这里实现
         // 演示代码一律通过
         isAuth = true;
-    }
-
-    private void OnEnterSubmit()
-    {
-
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private void GoBack()
     {
         isEmailEntered = false;
+    }
+
+    class LoginModel
+    {
+        public string? Email { get; set; }
+
+        public string? Password { get; set; }
     }
 }
