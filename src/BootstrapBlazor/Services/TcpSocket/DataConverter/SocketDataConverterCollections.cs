@@ -38,7 +38,7 @@ public class SocketDataConverterCollections
     {
         if (propertyExpression.Body is MemberExpression memberExpression)
         {
-            if(attribute.Type == null)
+            if (attribute.Type == null)
             {
                 attribute.Type = memberExpression.Type;
             }
