@@ -10,9 +10,9 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 数据转换器集合类
 /// </summary>
-public class SocketDataConverterCollections
+public sealed class SocketDataConverterCollections
 {
     readonly ConcurrentDictionary<Type, ISocketDataConverter> _converters = new();
     readonly ConcurrentDictionary<MemberInfo, SocketDataPropertyConverterAttribute> _propertyConverters = new();
@@ -22,7 +22,7 @@ public class SocketDataConverterCollections
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="converter"></param>
-    public void AddOrUpdateTypeConverter<TEntity>(ISocketDataConverter<TEntity> converter)
+    public void AddTypeConverter<TEntity>(ISocketDataConverter<TEntity> converter)
     {
         var type = typeof(TEntity);
         _converters.AddOrUpdate(type, t => converter, (t, v) => converter);
@@ -32,7 +32,7 @@ public class SocketDataConverterCollections
     /// 增加默认数据类型转换器方法 转换器使用 <see cref="SocketDataConverter{TEntity}"/>
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public void AddOrUpdateTypeConverter<TEntity>() => AddOrUpdateTypeConverter(new SocketDataConverter<TEntity>(this));
+    public void AddTypeConverter<TEntity>() => AddTypeConverter(new SocketDataConverter<TEntity>(this));
 
     /// <summary>
     /// 添加属性类型转化器方法
@@ -40,7 +40,7 @@ public class SocketDataConverterCollections
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="propertyExpression"></param>
     /// <param name="attribute"></param>
-    public void AddOrUpdatePropertyConverter<TEntity>(Expression<Func<TEntity, object?>> propertyExpression, SocketDataPropertyConverterAttribute attribute)
+    public void AddPropertyConverter<TEntity>(Expression<Func<TEntity, object?>> propertyExpression, SocketDataPropertyConverterAttribute attribute)
     {
         if (propertyExpression.Body is MemberExpression memberExpression)
         {
