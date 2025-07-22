@@ -15,6 +15,9 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
     [CascadingParameter, NotNull]
     private Tab? TabSet { get; set; }
 
@@ -67,6 +70,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
             _logger.Register(this);
             return Task.CompletedTask;
         }));
+        builder.AddAttribute(6, nameof(ErrorLogger.OnErrorHandleAsync), Layout?.OnErrorHandleAsync);
         builder.CloseComponent();
     }
 
