@@ -18,7 +18,7 @@ public class SocketDataConverterCollections
     readonly ConcurrentDictionary<MemberInfo, SocketDataPropertyConverterAttribute> _propertyConverters = new();
 
     /// <summary>
-    /// 增加数据类型转换器方法
+    /// 增加指定 <see cref="ISocketDataConverter{TEntity}"/> 数据类型转换器方法
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="converter"></param>
@@ -27,6 +27,12 @@ public class SocketDataConverterCollections
         var type = typeof(TEntity);
         _converters.AddOrUpdate(type, t => converter, (t, v) => converter);
     }
+
+    /// <summary>
+    /// 增加默认数据类型转换器方法 转换器使用 <see cref="SocketDataConverter{TEntity}"/>
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
+    public void AddOrUpdateTypeConverter<TEntity>() => AddOrUpdateTypeConverter(new SocketDataConverter<TEntity>(this));
 
     /// <summary>
     /// 添加属性类型转化器方法
