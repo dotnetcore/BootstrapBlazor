@@ -10,20 +10,23 @@
         {
             <div @key="item" class="@GetItemClassString(item)">
                 <div class="@GetHeaderClassString(item)">
-                    @if (item.HeaderTemplate != null)
-                    {
-                        <div class="accordion-header-body">
-                            @item.HeaderTemplate
-                        </div>
-                    }
                     <div class="@GetHeaderButtonClassString(item)"
                          data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)"
                          aria-expanded="@(item.IsCollapsed ? "false" : "true")" @onclick="() => OnClickItem(item)">
-                        @if(!string.IsNullOrEmpty(item.Icon))
+                        @if (item.HeaderTemplate != null)
+                        {
+                            <div class="accordion-header-body">
+                                @item.HeaderTemplate
+                            </div>
+                        }
+                        else if(!string.IsNullOrEmpty(item.Icon))
                         {
                             <i class="@GetItemIconString(item)"></i>
                         }
-                        <span>@item.Text</span>
+                        else
+                        {
+                            <span>@item.Text</span>
+                        }
                     </div>
                 </div>
                 <div class="@GetClassString(item.IsCollapsed)" id="@GetTargetId(item)" data-bs-parent="@ParentIdString">
