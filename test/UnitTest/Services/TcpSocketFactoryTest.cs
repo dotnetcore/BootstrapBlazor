@@ -770,13 +770,13 @@ public class TcpSocketFactoryTest
         {
             builder.ConfigureSocketDataConverters(options =>
             {
-                options.AddOrUpdateTypeConverter(new SocketDataConverter<OptionConvertEntity>(options));
-                options.AddOrUpdatePropertyConverter<OptionConvertEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+                options.AddTypeConverter<OptionConvertEntity>();
+                options.AddPropertyConverter<OptionConvertEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
                 {
                     Offset = 0,
                     Length = 5
                 });
-                options.AddOrUpdatePropertyConverter<OptionConvertEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
+                options.AddPropertyConverter<OptionConvertEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
                 {
                     Offset = 5,
                     Length = 2

@@ -16,21 +16,21 @@ public class SocketDataConverterCollectionsTest : BootstrapBlazorTestBase
 
         services.ConfigureSocketDataConverters(options =>
         {
-            options.AddOrUpdateTypeConverter(new SocketDataConverter<MockEntity>());
-            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+            options.AddTypeConverter<MockEntity>();
+            options.AddPropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
             {
                 Offset = 0,
                 Length = 5
             });
-            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
+            options.AddPropertyConverter<MockEntity>(entity => entity.Body, new SocketDataPropertyConverterAttribute()
             {
                 Offset = 5,
                 Length = 2
             });
 
             // 为提高代码覆盖率 重复添加转换器以后面的为准
-            options.AddOrUpdateTypeConverter(new SocketDataConverter<MockEntity>());
-            options.AddOrUpdatePropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
+            options.AddTypeConverter<MockEntity>();
+            options.AddPropertyConverter<MockEntity>(entity => entity.Header, new SocketDataPropertyConverterAttribute()
             {
                 Offset = 0,
                 Length = 5

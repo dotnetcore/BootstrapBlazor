@@ -110,3 +110,22 @@ class MockEntity
         return new Foo() { Id = data.Span[0], Name = name };
     }
 }</Pre>
+
+<p class="code-label">针对第三方程序集的数据类型解决方案如下：</p>
+<p>使用 <code></code></p>
+
+<Pre>builder.Services.ConfigureSocketDataConverters(options =>
+{
+    options.AddTypeConverter&lt;MockEntity&gt;();
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Header, new SocketDataPropertyConverterAttribute()
+    {
+        Offset = 0,
+        Length = 5
+    });
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Body, new SocketDataPropertyConverterAttribute()
+    {
+        Offset = 5,
+        Length = 2
+    });
+});
+</Pre>
