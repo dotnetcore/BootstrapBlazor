@@ -11,6 +11,7 @@ namespace BootstrapBlazor.Components;
 /// Checkbox 组件
 /// </summary>
 [BootstrapModuleAutoLoader(JSObjectReference = true)]
+[BlazorSetParametersAsyncGenerator.GenerateSetParametersAsync]
 public partial class Checkbox<TValue> : ValidateBase<TValue>
 {
     /// <summary>
