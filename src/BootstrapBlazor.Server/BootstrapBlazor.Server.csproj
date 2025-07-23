@@ -69,6 +69,7 @@
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.6" />
+    <PackageReference Include="BootstrapBlazor.TcpSocket" Version="9.0.0-beta01" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.5" />
@@ -85,6 +86,10 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.DataAdapters" />
+    <Using Include="BootstrapBlazor.DataHandlers" />
+    <Using Include="BootstrapBlazor.DataConverters" />
+    <Using Include="BootstrapBlazor.TcpSocket" />
     <Using Include="BootstrapBlazor.Server.Components.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Layout" />
     <Using Include="BootstrapBlazor.Server.Data" />
