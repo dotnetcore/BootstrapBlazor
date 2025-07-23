@@ -34,7 +34,7 @@
     border-radius: 4px;
 }
 
-.header-row {
+.login-header {
     display: flex;
     align-items: center;
     position: relative;
@@ -177,7 +177,7 @@
 }
 
 .animate-fade-out {
-    animation: fadeOut 0.5s ease-in-out forwards;
+    animation: fadeOut 0.2s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
@@ -191,3 +191,18 @@
         transform: translateY(-20px);
     }
 }
+
+.login-body {
+    position: relative;
+    height: 290px;
+}
+
+.login-item {
+    position: absolute;
+    inset: 0;
+}
+
+    .login-item:not(.show) {
+        opacity: 0;
+        pointer-events: none;
+    }
