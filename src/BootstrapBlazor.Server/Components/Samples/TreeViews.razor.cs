@@ -121,7 +121,21 @@ public sealed partial class TreeViews
                 source.ParentId = context.IsChildren ? target.Id : target.ParentId;
             }
         }
-        DraggableItems = TreeFoo.CascadingTree(items);
+
+        var expandNodeIds = new List<string>();
+        Action<TreeViewItem<TreeFoo>>? cb = null;
+        if (context.IsChildren)
+        {
+            // 自动展开目标节点
+            cb = item =>
+            {
+                if (item.Value.Id == context.Target.Value.Id)
+                {
+                    item.IsExpand = true;
+                }
+            };
+        }
+        DraggableItems = TreeFoo.CascadingTree(items, cb);
         DraggableItems[0].IsExpand = true;
         if (DraggableItems.Count > 1)
         {
