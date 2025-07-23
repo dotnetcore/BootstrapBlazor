@@ -184,9 +184,9 @@ public sealed partial class TreeViews
             new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
 
-            new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item B", Id = "2", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item G (Can not move out)", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item G", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
             new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
