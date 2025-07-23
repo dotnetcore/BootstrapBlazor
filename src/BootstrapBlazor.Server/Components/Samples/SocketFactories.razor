@@ -4,6 +4,8 @@
 <h3>Tcp 套接字服务 <code>ITcpSocketFactory</code></h3>
 <h4>组件库内置了 Socket 套接字通讯服务</h4>
 
+<PackageTips Name="BootstrapBlazor.TcpSocket" />
+
 <p class="code-label">1. 服务注入</p>
 
 <Pre>services.AddBootstrapBlazorTcpSocketFactory();</Pre>
@@ -84,26 +86,26 @@ private async Task CreateClient()
 <p>数据适配器设计思路如下</p>
 
 <ol class="ul-demo">
-    <li>使用 <code>SocketDataTypeConverterAttribute</code> 标签约定通讯数据使用那个转换类型进行转换 指定类型需继承 <code>ISocketDataConverter</code>
+    <li>使用 <code>DataTypeConverterAttribute</code> 标签约定通讯数据使用那个转换类型进行转换 指定类型需继承 <code>IDataConverter</code>
         接口
     </li>
-    <li>使用 <code>SocketDataPropertyConverterAttribute</code> 标签约定如何转换数据类型 （Property） 属性值</li>
+    <li>使用 <code>DataPropertyConverterAttribute</code> 标签约定如何转换数据类型 （Property） 属性值</li>
 </ol>
 
-<Pre>[SocketDataTypeConverter(Type = typeof(SocketDataConverter&lt;MockEntity&gt;))]
+<Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
     public byte[]? Header { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
     public byte[]? Body { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
+    [DataPropertyConverter(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
     public string? Value1 { get; set; }
 }</Pre>
 
-<Pre>class FooConverter(string name) : ISocketDataPropertyConverter
+<Pre>class FooConverter(string name) : IDataPropertyConverter
 {
     public object? Convert(ReadOnlyMemory&lt;byte&gt; data)
     {
@@ -114,15 +116,15 @@ class MockEntity
 <p class="code-label">针对第三方程序集的数据类型解决方案如下：</p>
 <p>使用 <code></code></p>
 
-<Pre>builder.Services.ConfigureSocketDataConverters(options =>
+<Pre>builder.Services.ConfigureDataConverters(options =>
 {
     options.AddTypeConverter&lt;MockEntity&gt;();
-    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Header, new SocketDataPropertyConverterAttribute()
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Header, new DataPropertyConverterAttribute()
     {
         Offset = 0,
         Length = 5
     });
-    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Body, new SocketDataPropertyConverterAttribute()
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Body, new DataPropertyConverterAttribute()
     {
         Offset = 5,
         Length = 2

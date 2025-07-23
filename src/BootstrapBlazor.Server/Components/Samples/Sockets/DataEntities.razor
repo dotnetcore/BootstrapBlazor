@@ -8,74 +8,74 @@
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal" ShowCode="false">
     <p>
-        通过 <code>SocketDataTypeConverterAttribute</code> 类标签与 <code>SocketDataPropertyConverterAttribute</code>
+        通过 <code>DataTypeConverterAttribute</code> 类标签与 <code>DataPropertyConverterAttribute</code>
         属性标签可以将通讯数据自动转化为我们系统中需要的业务实体类，示例如下：</p>
-    <Pre>[SocketDataTypeConverter(Type = typeof(SocketDataConverter&lt;MockEntity&gt;))]
+    <Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
     public byte[]? Header { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
     public byte[]? Body { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(string), Offset = 7, Length = 1, EncodingName = "utf-8")]
+    [DataPropertyConverter(Type = typeof(string), Offset = 7, Length = 1, EncodingName = "utf-8")]
     public string? Value1 { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(int), Offset = 8, Length = 1)]
+    [DataPropertyConverter(Type = typeof(int), Offset = 8, Length = 1)]
     public int Value2 { get; set; }
 }</Pre>
-    <p class="code-label">1. <code>SocketDataTypeConverter</code> 参数说明：</p>
+    <p class="code-label">1. <code>DataTypeConverter</code> 参数说明：</p>
     <ul class="ul-demo">
-        <li><b>Type</b>: 自定义转换器类型，组件库内置了 <code>SocketDataConverter</code> 泛型类，建议看一下源码非常方便扩展出自己的转换器
+        <li><b>Type</b>: 自定义转换器类型，组件库内置了 <code>DataConverter</code> 泛型类，建议看一下源码非常方便扩展出自己的转换器
         </li>
     </ul>
-    <p class="code-label">2. <code>SocketDataPropertyConverterAttribute</code> 参数说明</p>
+    <p class="code-label">2. <code>DataPropertyConverterAttribute</code> 参数说明</p>
     <ul class="ul-demo">
         <li><b>Type</b>: 转换目标数据类型</li>
         <li><b>Offset</b>: 数据偏移量，即在接收到的数据中起始位置</li>
         <li><b>Length</b>: 数据长度，即在接收到的数据中占的长度</li>
         <li><b>EncodingName</b>: 转成字符串时需要的编码名称，默认 null 使用 <code>utf-8</code> 编码</li>
-        <li><b>ConverterType</b>: 自定义转化器类型，继承 <code>ISocketDataPropertyConverter</code> 接口</li>
+        <li><b>ConverterType</b>: 自定义转化器类型，继承 <code>IDataPropertyConverter</code> 接口</li>
         <li><b>ConverterParameters</b>: 自定义转化器类型构造函数所需的参数，默认 null</li>
     </ul>
     <p>组件库内置了大量数据类型转换器</p>
     <ul class="ul-demo">
-        <li><code>SocketDataByteArrayConverter</code> 转成 byte[] 数组类型</li>
-        <li><code>SocketDataStringConverter</code> 转成 string 字符串类型</li>
-        <li><code>SocketDataEnumConverter</code> 转成 enum 枚举类型</li>
-        <li><code>SocketDataBoolConverter</code> 转成 bool 布尔类型</li>
-        <li><code>SocketDataInt16BigEndianConverter</code> 转成 short 整形大端读取</li>
-        <li><code>SocketDataInt32BigEndianConverter</code> 转成 int 整形大端读取</li>
-        <li><code>SocketDataInt64BigEndianConverter</code> 转成 long 长整形大端读取</li>
-        <li><code>SocketDataSingleBigEndianConverter</code> 转成 float 单精度浮点数大端读取</li>
-        <li><code>SocketDataDoubleBigEndianConverter</code> 转成 double 双精度浮点数大端读取</li>
-        <li><code>SocketDataUInt16BigEndianConverter</code> 转成 ushort 无符号整形大端读取</li>
-        <li><code>SocketDataUInt32BigEndianConverter</code> 转成 uint 无符号整形大端读取</li>
-        <li><code>SocketDataUInt64BigEndianConverter</code> 转成 ulong 无符号长整形大端读取</li>
-        <li><code>SocketDataInt16LittleEndianConverter</code> 转成 short 整形小端读取</li>
-        <li><code>SocketDataInt32LittleEndianConverter</code> 转成 int 整形小端读取</li>
-        <li><code>SocketDataInt64LittleEndianConverter</code> 转成 long 长整形小端读取</li>
-        <li><code>SocketDataSingleLittleEndianConverter</code> 转成 float 单精度浮点数小端读取</li>
-        <li><code>SocketDataDoubleLittleEndianConverter</code> 转成 double 双精度浮点数小端读取</li>
-        <li><code>SocketDataUInt16LittleEndianConverter</code> 转成 ushort 无符号整形小端读取</li>
-        <li><code>SocketDataUInt32LittleEndianConverter</code> 转成 uint 无符号整形小端读取</li>
-        <li><code>SocketDataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
+        <li><code>DataByteArrayConverter</code> 转成 byte[] 数组类型</li>
+        <li><code>DataStringConverter</code> 转成 string 字符串类型</li>
+        <li><code>DataEnumConverter</code> 转成 enum 枚举类型</li>
+        <li><code>DataBoolConverter</code> 转成 bool 布尔类型</li>
+        <li><code>DataInt16BigEndianConverter</code> 转成 short 整形大端读取</li>
+        <li><code>DataInt32BigEndianConverter</code> 转成 int 整形大端读取</li>
+        <li><code>DataInt64BigEndianConverter</code> 转成 long 长整形大端读取</li>
+        <li><code>DataSingleBigEndianConverter</code> 转成 float 单精度浮点数大端读取</li>
+        <li><code>DataDoubleBigEndianConverter</code> 转成 double 双精度浮点数大端读取</li>
+        <li><code>DataUInt16BigEndianConverter</code> 转成 ushort 无符号整形大端读取</li>
+        <li><code>DataUInt32BigEndianConverter</code> 转成 uint 无符号整形大端读取</li>
+        <li><code>DataUInt64BigEndianConverter</code> 转成 ulong 无符号长整形大端读取</li>
+        <li><code>DataInt16LittleEndianConverter</code> 转成 short 整形小端读取</li>
+        <li><code>DataInt32LittleEndianConverter</code> 转成 int 整形小端读取</li>
+        <li><code>DataInt64LittleEndianConverter</code> 转成 long 长整形小端读取</li>
+        <li><code>DataSingleLittleEndianConverter</code> 转成 float 单精度浮点数小端读取</li>
+        <li><code>DataDoubleLittleEndianConverter</code> 转成 double 双精度浮点数小端读取</li>
+        <li><code>DataUInt16LittleEndianConverter</code> 转成 ushort 无符号整形小端读取</li>
+        <li><code>DataUInt32LittleEndianConverter</code> 转成 uint 无符号整形小端读取</li>
+        <li><code>DataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
     </ul>
     <p>自定义数据类型转化器示例</p>
-    <Pre>[SocketTypeDataConverter(Type = typeof(SocketDataConverter&lt;MockEntity&gt;))]
+    <Pre>[SocketTypeDataConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
     public byte[]? Header { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
     public byte[]? Body { get; set; }
 
-    [SocketDataPropertyConverter(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
+    [DataPropertyConverter(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
     public string? Value1 { get; set; }
 }</Pre>
-    <Pre>class FooConverter(string name) : ISocketDataPropertyConverter
+    <Pre>class FooConverter(string name) : IDataPropertyConverter
 {
     public object? Convert(ReadOnlyMemory&lt;byte&gt; data)
     {
