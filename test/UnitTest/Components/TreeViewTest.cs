@@ -742,7 +742,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
-        var node = TreeFoo.CascadingTree(items).First();
+        var node = TreeFoo.CascadingTree(items, i => i.IsExpand = true).First();
 
         // 设置当前几点所有子项选中状态
         var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
