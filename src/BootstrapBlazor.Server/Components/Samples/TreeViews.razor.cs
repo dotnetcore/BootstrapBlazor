@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using DocumentFormat.OpenXml.Spreadsheet;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -122,7 +120,6 @@ public sealed partial class TreeViews
             }
         }
 
-        var expandNodeIds = new List<string>();
         Action<TreeViewItem<TreeFoo>>? cb = null;
         if (context.IsChildren)
         {
