@@ -1,0 +1,24 @@
+﻿@page "/fluent-icon"
+@inject IStringLocalizer<FluentSystemIcons> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@((MarkupString)Localizer["BaseUsageText"].Value)</h4>
+
+<PackageTips Name="BootstrapBlazor.FluentSystemIcon" />
+
+<Tips class="mt-3">
+    <div>@Localizer["P1"] <a href="https://www.nuget.org/packages/BootstrapBlazor.FluentSystemIcon/" target="_blank">BootstrapBlazor.FluentSystemIcon</a> @Localizer["P2"]</div>
+</Tips>
+
+<Pre>&lt;link href="_content/BootstrapBlazor.FluentSystemIcon/all.min.css" rel="stylesheet"&gt;</Pre>
+
+<div class="mb-2" style="font-size: 1.2em;">
+    <i class="icon-ic_fluent_animal_dog_24_filled"></i>
+    <i class="icon-ic_fluent_color_fill_32_light"></i>
+    <i class="icon-ic_fluent_attach_24_regular"></i>
+</div>
+
+<Pre>&lt;i class="icon-ic_fluent_animal_dog_24_filled"&gt;&lt;/i&gt;</Pre>
+
+<div>@((MarkupString)Localizer["Icons"].Value)</div>
