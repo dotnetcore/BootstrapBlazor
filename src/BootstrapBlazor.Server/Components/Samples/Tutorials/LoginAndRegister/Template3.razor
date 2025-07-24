@@ -1,10 +1,10 @@
 ﻿@page "/tutorials/template3"
 @layout TutorialsLoginLayout
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <div class="login-item login-item-avatar">
     <div class="text-center">
-        <Avatar Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")" IsCircle="true" Size="Size.ExtraExtraLarge" />
+        <Avatar Url="@WebsiteOption.Value.GetAssetUrl("images/Argo-C.png")" IsCircle="true" Size="Size.ExtraExtraLarge" />
         <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
     </div>
     <ValidateForm Model="@Model" OnValidSubmit="OnSubmit">

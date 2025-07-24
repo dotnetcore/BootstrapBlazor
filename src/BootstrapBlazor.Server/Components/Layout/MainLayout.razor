@@ -21,7 +21,7 @@
     <DialButton DialMode="DialMode.Radial" Icon="fa-solid fa-gear" Radius="100" Placement="Placement.BottomEnd" class="bb-dial-gear">
         <ButtonTemplate>
             <div class="btn-circle btn-fade dial-button-gear">
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/logo.png")" />
             </div>
         </ButtonTemplate>
         <ChildContent>
@@ -35,7 +35,7 @@
                 <ThemeChooser></ThemeChooser>
             </DialButtonItem>
             <DialButtonItem>
-                <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/log.svg")"></LinkButton>
+                <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.Value.WikiUrl" Target="_blank" ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/log.svg")"></LinkButton>
             </DialButtonItem>
         </ChildContent>
     </DialButton>

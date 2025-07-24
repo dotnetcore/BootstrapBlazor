@@ -1,4 +1,4 @@
-﻿@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+﻿@inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Video> Localizer
 
 <p><b>@Localizer["H1"]</b></p>
@@ -44,11 +44,11 @@ else
             Name = comNameWithHash.Split('?').First();
         }
 
-        if (!string.IsNullOrEmpty(Name) && WebsiteOption.CurrentValue.Videos.TryGetValue(Name, out var url))
+        if (!string.IsNullOrEmpty(Name) && WebsiteOption.Value.Videos.TryGetValue(Name, out var url))
         {
             if (!string.IsNullOrEmpty(url))
             {
-                VideoUrl.AddRange(url.Split(';').Select(a => $"{WebsiteOption.CurrentValue.VideoUrl}{a}"));
+                VideoUrl.AddRange(url.Split(';').Select(a => $"{WebsiteOption.Value.VideoUrl}{a}"));
             }
         }
     }

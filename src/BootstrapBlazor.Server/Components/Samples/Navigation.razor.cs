@@ -20,7 +20,7 @@ public sealed partial class Navigation
         var link = new NavLink();
         var parameters = new Dictionary<string, object?>()
         {
-            ["href"] = WebsiteOption.CurrentValue.AdminUrl,
+            ["href"] = WebsiteOption.Value.AdminUrl,
             ["class"] = "nav-link nav-item",
             ["target"] = "_blank",
             ["ChildContent"] = new RenderFragment(builder =>

@@ -23,7 +23,7 @@ public partial class IntersectionObservers
     {
         base.OnInitialized();
 
-        _images = [.. Enumerable.Range(1, 100).Select(i => $"{WebsiteOption.CurrentValue.AssetRootPath}images/default.jpeg")];
+        _images = [.. Enumerable.Range(1, 100).Select(i => $"{WebsiteOption.Value.AssetRootPath}images/default.jpeg")];
         _items = [.. Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}")];
     }
 

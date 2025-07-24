@@ -17,7 +17,7 @@ public partial class Introduction
     /// </summary>
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     /// <summary>
     /// 
@@ -38,10 +38,10 @@ public partial class Introduction
 
         LocalizerRules =
         [
-            WebsiteOption.CurrentValue.BootstrapAdminLink,
-            WebsiteOption.CurrentValue.BootstrapAdminLink + "/stargazers",
-            WebsiteOption.CurrentValue.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
-            WebsiteOption.CurrentValue.BootstrapAdminLink
+            WebsiteOption.Value.BootstrapAdminLink,
+            WebsiteOption.Value.BootstrapAdminLink + "/stargazers",
+            WebsiteOption.Value.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
+            WebsiteOption.Value.BootstrapAdminLink
         ];
     }
 }

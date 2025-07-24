@@ -35,8 +35,8 @@ public partial class ImageCroppers
 
         _images.AddRange(
         [
-            $"{WebsiteOption.CurrentValue.AssetRootPath}images/picture.jpg",
-            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
+            $"{WebsiteOption.Value.AssetRootPath}images/picture.jpg",
+            $"{WebsiteOption.Value.AssetRootPath}images/ImageList2.jpeg"
         ]);
     }
 

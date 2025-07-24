@@ -1,7 +1,7 @@
 ﻿@page "/search"
 @inject IStringLocalizer<Searches> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["SearchesTitle"]</h3>
 
@@ -36,7 +36,7 @@
         <ItemTemplate>
             <div class="search-result">
                 <div class="search-result-avatar">
-                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" alt="avatar" />
+                    <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" alt="avatar" />
                 </div>
                 <div class="search-result-main">
                     <div class="search-result-name">@context.Name</div>

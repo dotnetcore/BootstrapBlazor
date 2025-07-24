@@ -6,19 +6,19 @@
     <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">@PackageVersionService.Version</span></h5>
     <div class="d-flex">
         <div class="blazor-intro-body">
-            <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.CurrentValue.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @((MarkupString)Localizer["B5"].Value)</p>
+            <p>@Localizer["B1"] <b>Bootstrap</b> <b>Blazor</b> @Localizer["B2"] <a href="@WebsiteOption.Value.AdminUrl" target="_blank"><b>@Localizer["B3"]</b></a> @Localizer["B4"]。<b>Bootstrap Blazor</b> @((MarkupString)Localizer["B5"].Value)</p>
             <p>
                 @Localizer["P1"] <span class="version">@PackageVersionService.Version</span> @Localizer["P2"] <a target="_blank" href="@UpdateLogUrl"><b>[@Localizer["P3"]]</b></a> @Localizer["P4"] <b>Star</b>
-                <a class="px-2" href="@WebsiteOption.CurrentValue.GithubRepositoryUrl" target="_blank">
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/git.svg")" alt="github" />
+                <a class="px-2" href="@WebsiteOption.Value.GithubRepositoryUrl" target="_blank">
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/git.svg")" alt="github" />
                 </a>
-                <a href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/gitee.svg")" alt="gitee" />
+                <a href="@WebsiteOption.Value.GiteeRepositoryUrl" target="_blank">
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/gitee.svg")" alt="gitee" />
                 </a>
             </p>
         </div>
         <div class="blazor-intro-barcode">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/QQGroup@2x.png")" alt="QQGroup" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/QQGroup@2x.png")" alt="QQGroup" />
             <div>QQ 795206915</div>
         </div>
     </div>

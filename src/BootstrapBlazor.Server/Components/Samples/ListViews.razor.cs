@@ -25,7 +25,7 @@ public sealed partial class ListViews
 
         Products = Enumerable.Range(1, 8).Select(i => new Product()
         {
-            ImageUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic{i}.jpg",
+            ImageUrl = $"{WebsiteOption.Value.AssetRootPath}images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
