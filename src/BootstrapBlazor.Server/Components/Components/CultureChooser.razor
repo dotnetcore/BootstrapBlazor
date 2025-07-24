@@ -4,7 +4,7 @@
     <span>@Label</span>
     <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture">
         <Options>
-            @foreach (var kv in BootstrapOptions.CurrentValue.GetSupportedCultures())
+            @foreach (var kv in BootstrapOptions.Value.GetSupportedCultures())
             {
                 <SelectOption Text="@GetDisplayName(kv)" Value="@kv.Name" />
             }

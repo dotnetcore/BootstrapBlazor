@@ -22,7 +22,7 @@ public partial class Dispatches
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+    private IOptions<BootstrapBlazorOptions>? Options { get; set; }
 
     private async Task OnDispatch()
     {
@@ -36,7 +36,7 @@ public partial class Dispatches
         var clientInfo = await ClientService.GetClientInfo();
         if (clientInfo.Ip != null)
         {
-            var provider = IpLocatorFactory.Create(Options.CurrentValue.IpLocatorOptions.ProviderName);
+            var provider = IpLocatorFactory.Create(Options.Value.IpLocatorOptions.ProviderName);
             var location = await provider.Locate(clientInfo.Ip);
             message = $"{message} {location}";
         }

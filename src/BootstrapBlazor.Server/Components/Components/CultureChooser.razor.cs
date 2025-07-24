@@ -16,7 +16,7 @@ public partial class CultureChooser
 {
     [Inject]
     [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
+    private IOptions<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
 
     [Inject]
     [NotNull]
