@@ -4809,6 +4809,7 @@
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
+    "FluentSystemIcon": "Fluent Icons",
     "DrawerService": "DrawerService",
     "SortableList": "SortableList",
     "WinBox": "WinBox",

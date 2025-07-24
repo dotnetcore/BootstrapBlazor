@@ -4808,6 +4808,7 @@
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
+    "FluentSystemIcon": "Fluent Icons",
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
     "SortableList": "拖拽组件 SortableList",

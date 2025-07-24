@@ -1676,6 +1676,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["FluentSystemIcon"],
+                    Url = "fluent-icon"
+                },
+                new()
+                {
                     Text = Localizer["OctIcon"],
                     Url = "oct-icon"
                 },
