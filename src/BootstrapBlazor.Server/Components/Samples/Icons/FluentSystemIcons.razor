@@ -1,0 +1,35 @@
+﻿@page "/fluent-icon"
+@inject IStringLocalizer<FluentSystemIcons> Localizer
+
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.FluentSystemIcon/FluentSystemIcons-Regular.css"]" />
+</HeadContent>
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@((MarkupString)Localizer["BaseUsageText"].Value)</h4>
+
+<PackageTips Name="BootstrapBlazor.FluentSystemIcon" />
+
+<Tips class="mt-3">
+    <div>@Localizer["P1"] <a href="https://www.nuget.org/packages/BootstrapBlazor.FluentSystemIcon/" target="_blank">BootstrapBlazor.FluentSystemIcon</a> @Localizer["P2"]</div>
+</Tips>
+
+<Pre>&lt;link href="_content/BootstrapBlazor.FluentSystemIcon/FluentSystemIcons-Regular.css" rel="stylesheet"&gt;</Pre>
+
+<ul class="ul-demo">
+    <li>Filled: FluentSystemIcons-Filled.css</li>
+    <li>Light: FluentSystemIcons-Light.css</li>
+    <li>Regular: FluentSystemIcons-Regular.css</li>
+    <li>Resizable: FluentSystemIcons-Resizable.css</li>
+</ul>
+
+<p class="code-label">注意：四种类型的图标库必须独立使用，不可以一起引用使用会冲突导致最终显示的图标不是你想要的图标</p>
+
+<div class="mb-2" style="font-size: 1.2em;">
+    <i class="icon-ic_fluent_clipboard_search_24_regular"></i>
+</div>
+
+<Pre>&lt;i class="icon-ic_fluent_clipboard_search_24_regular"&gt;&lt;/i&gt;</Pre>
+
+<div>@((MarkupString)Localizer["Icons"].Value)</div>

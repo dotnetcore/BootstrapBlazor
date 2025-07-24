@@ -37,7 +37,8 @@
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.1.0" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.2" />

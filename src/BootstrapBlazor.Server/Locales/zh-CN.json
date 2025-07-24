@@ -4808,6 +4808,7 @@
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
+    "FluentSystemIcon": "Fluent Icons",
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
     "SortableList": "拖拽组件 SortableList",
@@ -6731,6 +6732,13 @@
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Bootstrap 免费开源图标库",
     "Icons": "图标列表请通过 <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[传送门]</a> 查看",
+    "P1": "通过引用扩展组件包",
+    "P2": "后添加样式表文件链接开启图标"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
+    "Title": "Fluent System Icons",
+    "BaseUsageText": "Microsoft 免费开源图标库",
+    "Icons": "图标列表请通过 <a href=\"https://react.fluentui.dev/?path=/docs/icons-catalog--docs\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },

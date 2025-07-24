@@ -4809,6 +4809,7 @@
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
+    "FluentSystemIcon": "Fluent Icons",
     "DrawerService": "DrawerService",
     "SortableList": "SortableList",
     "WinBox": "WinBox",
@@ -6731,6 +6732,13 @@
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
     "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
+    "Title": "Fluent System Icons",
+    "BaseUsageText": "Microsoft Free Open Source Icon Library",
+    "Icons": "For icon list, please visit <a href=\"https://react.fluentui.dev/?path=/docs/icons-catalog--docs\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
