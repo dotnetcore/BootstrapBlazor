@@ -3,7 +3,7 @@
 @inject IStringLocalizer<TablesEdit> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject ToastService ToastService
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["TablesEditTitle"] - @NavMenuLocalizer["TableEdit"]</h3>
 <h4>@((MarkupString)Localizer["TablesEditDescription"].Value)</h4>

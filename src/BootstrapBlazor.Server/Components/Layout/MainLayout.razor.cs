@@ -22,7 +22,7 @@ public partial class MainLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]

@@ -39,9 +39,9 @@ public partial class FileViewers
     private string CombineFilename(string filename)
     {
 #if DEBUG
-        filename = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "samples", filename);
+        filename = Path.Combine(WebsiteOption.Value.WebRootPath, "samples", filename);
 #else
-        filename = Path.Combine(WebsiteOption.CurrentValue.ContentRootPath, "wwwroot", "samples", filename);
+        filename = Path.Combine(WebsiteOption.Value.ContentRootPath, "wwwroot", "samples", filename);
 #endif
         return filename;
     }

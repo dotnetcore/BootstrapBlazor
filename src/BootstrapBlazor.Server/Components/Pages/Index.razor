@@ -2,7 +2,7 @@
 @page "/"
 @page "/index"
 @page "/home"
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <section class="bd-masthead">
     <div class="container-xxl bd-gutter">
@@ -35,6 +35,6 @@
     <div class="donate">
         <h3>@Localizer["DonateH1"]</h3>
         <h5 class="d-none d-sm-block mb-3">@Localizer["DonateH2"]</h5>
-        <img alt="barcode" class="barcode" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/BarCode@2x.png")" />
+        <img alt="barcode" class="barcode" src="@WebsiteOption.Value.GetAssetUrl("images/BarCode@2x.png")" />
     </div>
 </section>

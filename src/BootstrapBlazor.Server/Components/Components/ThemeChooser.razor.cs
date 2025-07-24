@@ -34,15 +34,15 @@ public partial class ThemeChooser
 
         Title ??= Localizer[nameof(Title)];
         HeaderText ??= Localizer[nameof(HeaderText)];
-        Themes = WebsiteOption.CurrentValue.Themes.Select(i => new SelectedItem { Text = i.Name, Value = i.Key });
-        WebsiteOption.CurrentValue.CurrentTheme = "bootstrap";
+        Themes = WebsiteOption.Value.Themes.Select(i => new SelectedItem { Text = i.Name, Value = i.Key });
+        WebsiteOption.Value.CurrentTheme = "bootstrap";
     }
 
     private void OnClickTheme(SelectedItem item)
     {
         _currentTheme.Clear();
-        WebsiteOption.CurrentValue.CurrentTheme = item.Value;
-        var theme = WebsiteOption.CurrentValue.Themes.FirstOrDefault(i => i.Key == item.Value);
+        WebsiteOption.Value.CurrentTheme = item.Value;
+        var theme = WebsiteOption.Value.Themes.FirstOrDefault(i => i.Key == item.Value);
         if (theme is { Files: not null })
         {
             _currentTheme.AddRange(theme.Files);
@@ -50,6 +50,6 @@ public partial class ThemeChooser
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
-        .AddClass("active", WebsiteOption.CurrentValue.CurrentTheme == item.Value)
+        .AddClass("active", WebsiteOption.Value.CurrentTheme == item.Value)
         .Build();
 }

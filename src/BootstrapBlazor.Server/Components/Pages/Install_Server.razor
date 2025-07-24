@@ -1,11 +1,11 @@
 ﻿@page "/install-server"
 @inject IStringLocalizer<Install_Server> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <InstallContent Title="@Localizer["Title"]">
     <ChooseTemplate>
         <p class="code-label">4. @Localizer["D1"] <b>Blazor Server App</b> @Localizer["D2"] <b>Create</b></p>
-        <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/choose-project-template-server-blazor.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+        <img src="@WebsiteOption.Value.GetAssetUrl("images/choose-project-template-server-blazor.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
     </ChooseTemplate>
     <SheetTemplate>
         <ul class="ul-demo">

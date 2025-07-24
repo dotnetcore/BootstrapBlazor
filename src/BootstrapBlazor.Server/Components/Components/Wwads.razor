@@ -1,9 +1,9 @@
 ﻿@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/Wwads.razor.js", AutoInvokeDispose = false)]
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <HeadContent>
-    <link rel="stylesheet" href="@Assets[$"{WebsiteOption.CurrentValue.AssetRootPath}css/wwads.css"]" />
+    <link rel="stylesheet" href="@Assets[$"{WebsiteOption.Value.AssetRootPath}css/wwads.css"]" />
 </HeadContent>
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString"></div>

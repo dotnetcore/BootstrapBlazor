@@ -31,7 +31,7 @@ public partial class Notifications
 
         Model = new()
         {
-            Icon = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png",
+            Icon = $"{WebsiteOption.Value.AssetRootPath}images/Argo-C.png",
             Title = Localizer["NotificationsNormalTitleSampleText"],
             Message = Localizer["NotificationsNormalMessageSampleText"],
             OnClick = OnClickNotificationCallback

@@ -22,18 +22,11 @@ static class ServiceCollectionExtensions
         services.AddLogging(logging => logging.AddFileLogger());
 
         // 增加多语言支持配置信息
-        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+        services.AddRequestLocalization<IOptions<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
         {
-            blazorOption.OnChange(Invoke);
-            Invoke(blazorOption.CurrentValue);
-            return;
-
-            void Invoke(BootstrapBlazorOptions option)
-            {
-                var supportedCultures = option.GetSupportedCultures();
-                localizerOption.SupportedCultures = supportedCultures;
-                localizerOption.SupportedUICultures = supportedCultures;
-            }
+            var supportedCultures = blazorOption.Value.GetSupportedCultures();
+            localizerOption.SupportedCultures = supportedCultures;
+            localizerOption.SupportedUICultures = supportedCultures;
         });
 
         services.AddControllers();
