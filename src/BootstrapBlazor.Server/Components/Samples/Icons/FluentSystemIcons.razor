@@ -1,6 +1,10 @@
 ﻿@page "/fluent-icon"
 @inject IStringLocalizer<FluentSystemIcons> Localizer
 
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.FluentSystemIcon/FluentSystemIcons-Regular.css"]" />
+</HeadContent>
+
 <h3>@Localizer["Title"]</h3>
 
 <h4>@((MarkupString)Localizer["BaseUsageText"].Value)</h4>
@@ -14,11 +18,9 @@
 <Pre>&lt;link href="_content/BootstrapBlazor.FluentSystemIcon/all.min.css" rel="stylesheet"&gt;</Pre>
 
 <div class="mb-2" style="font-size: 1.2em;">
-    <i class="icon-ic_fluent_animal_dog_24_filled"></i>
-    <i class="icon-ic_fluent_color_fill_32_light"></i>
-    <i class="icon-ic_fluent_attach_24_regular"></i>
+    <i class="icon-ic_fluent_clipboard_search_24_regular"></i>
 </div>
 
-<Pre>&lt;i class="icon-ic_fluent_animal_dog_24_filled"&gt;&lt;/i&gt;</Pre>
+<Pre>&lt;i class="icon-ic_fluent_clipboard_search_24_regular"&gt;&lt;/i&gt;</Pre>
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
