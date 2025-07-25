@@ -10,21 +10,24 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class CodeEditors
 {
-    [NotNull]
-    private string? Code { get; set; }
+    private string _code { get; set; } = """
+using System;
 
-    [NotNull]
-    private string? Language { get; set; }
+void Main()
+{
+    Console.WriteLine(""Hello World"");
+}
+""";
 
-    [NotNull]
-    private string? Theme { get; set; }
+    private string _language { get; set; } = "CSharp";
+
+    private string _theme { get; set; } = "vs";
 
     private Task OnSelectedItemChanged(SelectedItem item)
     {
         if (item.Text == "JavaScript")
         {
-            Language = "javascript";
-            Code = """
+            _code = """
 function main() {
     console.log('Hello World!')
 }
@@ -33,8 +36,7 @@ function main() {
 
         if (item.Text == "CSharp")
         {
-            Language = "csharp";
-            Code = """
+            _code = """
 using System;
 
 void Main()
@@ -46,8 +48,7 @@ void Main()
 
         if (item.Text == "Json")
         {
-            Language = "json";
-            Code = """
+            _code = """
 {
     "name": "Hello World",
     "age": 25
@@ -57,8 +58,7 @@ void Main()
 
         if (item.Text == "Razor")
         {
-            Language = "razor";
-            Code = """
+            _code = """
 <Select TValue=""string"" OnSelectedItemChanged=""@OnSelectedItemChanged"">
     <Options>
         <SelectOption Text=""JavaScript"" Value=""JavaScript""></ SelectOption>
@@ -69,27 +69,6 @@ void Main()
 </Select>
 """;
         }
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnThemeSelectedItemChanged(SelectedItem item)
-    {
-        if (item.Value == "vs-dark")
-        {
-            Theme = item.Value;
-        }
-
-        if (item.Value == "vs")
-        {
-            Theme = item.Value;
-        }
-
-        if (item.Value == "hc-black")
-        {
-            Theme = item.Value;
-        }
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
