@@ -5,8 +5,10 @@
         if (email) {
             email.classList.add('show');
             const input = email.querySelector('.input');
-            input.focus();
-            input.select();
+            if (input) {
+                input.focus();
+                input.select();
+            }
         }
     }
 }
@@ -27,8 +29,10 @@ export function go(id) {
             password.classList.add('animate-fade-in')
             password.classList.remove('animate-fade-out')
             const input = password.querySelector('.input');
-            input.focus();
-            input.select();
+            if (input) {
+                input.focus();
+                input.select();
+            }
         }
     }
 }
@@ -42,8 +46,10 @@ export function back(id) {
             email.classList.remove('animate-fade-out');
             email.classList.add('animate-fade-in');
             const input = email.querySelector('.input');
-            input.focus();
-            input.select();
+            if (input) {
+                input.focus();
+                input.select();
+            }
         }
 
         const password = el.querySelector('.login-item-password');
