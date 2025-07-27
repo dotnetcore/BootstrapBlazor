@@ -58,16 +58,22 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
             await _semaphoreSlim.WaitAsync(3000);
             if (!_init)
             {
-                _init = true;
-
-                _networkModule ??= await _runtime.LoadModuleByName("net");
-                await _networkModule.InvokeVoidAsync("init", new
+                try
                 {
-                    Invoke = _interop,
-                    OnNetworkStateChangedCallback = nameof(TriggerNetworkStateChanged)
-                });
+                    _init = true;
+
+                    _networkModule ??= await _runtime.LoadModuleByName("net");
+                    await _networkModule.InvokeVoidAsync("init", new
+                    {
+                        Invoke = _interop,
+                        OnNetworkStateChangedCallback = nameof(TriggerNetworkStateChanged)
+                    });
+                }
+                finally
+                {
+                    _semaphoreSlim.Release();
+                }
             }
-            _semaphoreSlim.Release();
         }
     }
 
