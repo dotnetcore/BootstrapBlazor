@@ -133,6 +133,8 @@ public partial class Message
         {
             await option.OnDismiss();
         }
+        if (option is { DismissMode: MessageDismissMode.DeleteSource })
+            _messages.Remove(option);
     }
 
     /// <summary>

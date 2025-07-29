@@ -20,3 +20,18 @@ public enum MessageShowMode
     /// </summary>
     Multiple
 }
+
+/// <summary>
+/// 消息关闭模式
+/// </summary>
+public enum MessageDismissMode
+{
+    /// <summary>
+    /// 关闭时仅隐藏原弹窗，保持占位直到所有弹窗均隐藏时一次性清空，这是之前的默认行为
+    /// </summary>
+    OnlyHidden,
+    /// <summary>
+    /// 关闭时直接删除原弹窗的数据对象，不存在占位
+    /// </summary>
+    DeleteSource,
+}

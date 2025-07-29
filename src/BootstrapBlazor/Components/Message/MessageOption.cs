@@ -54,4 +54,9 @@ public class MessageOption : PopupOptionBase
     /// 获得/设置 消息显示模式，默认为 <see cref="MessageShowMode.Multiple"/>
     /// </summary>
     public MessageShowMode ShowMode { get; set; } = MessageShowMode.Multiple;
+
+    /// <summary>
+    /// 获得/设置 消息关闭模式，默认为 <see cref="MessageDismissMode.OnlyHidden"/>
+    /// </summary>
+    public MessageDismissMode DismissMode { get; set; } = MessageDismissMode.OnlyHidden;
 }

@@ -46,10 +46,13 @@ export function show(id, msgId) {
             clearTimeout(hideHandler);
 
             // remove Id
-            msg.items.pop();
+            const rmDom = msg.items.pop();
             if (msg.items.length === 0) {
                 // call server method prepare remove dom
                 msg.invoke.invokeMethodAsync(msg.callback);
+            } else {
+                const alertId = rmDom.el.id;
+                msg.invoke.invokeMethodAsync('Dismiss', alertId);
             }
         }, 500);
     };
