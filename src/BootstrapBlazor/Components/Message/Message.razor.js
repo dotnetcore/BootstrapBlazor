@@ -15,11 +15,12 @@ export function show(id, msgId) {
     }
 
     const msgItem = { el, animationId: null }
-    msg.items.push(msgItem)
-    const autoHide = el.getAttribute('data-bb-autohide') === 'true';
+    if (msg.items.find(i => i.el.id === msgId) === void 0) {
+        msg.items.push(msgItem)
+    }
 
+    const autoHide = el.getAttribute('data-bb-autohide') === 'true';
     if (autoHide) {
-        // auto close
         const delay = parseInt(el.getAttribute('data-bb-delay'));
         let start = void 0
         const autoCloseAnimation = ts => {
@@ -45,10 +46,8 @@ export function show(id, msgId) {
         const hideHandler = setTimeout(function () {
             clearTimeout(hideHandler);
 
-            // remove Id
             msg.items.pop();
             if (msg.items.length === 0) {
-                // call server method prepare remove dom
                 msg.invoke.invokeMethodAsync(msg.callback);
             }
         }, 500);
@@ -58,9 +57,8 @@ export function show(id, msgId) {
         e.preventDefault();
         e.stopPropagation();
 
-        // trigger on-dismiss event callback
         const alert = e.delegateTarget.closest('.alert');
-        if(alert) {
+        if (alert) {
             const alertId = alert.getAttribute('id');
             msg.invoke.invokeMethodAsync('Dismiss', alertId);
         }
