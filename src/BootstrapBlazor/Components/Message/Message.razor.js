@@ -16,12 +16,12 @@ export function show(id, msgId) {
 
     let msgItem = msg.items.find(i => i.el.id === msgId)
     if (msgItem === void 0) {
-        msgitem = { el, animationId: null }
+        msgItem = { el, animationId: null }
         msg.items.push(msgItem)
     }
 
-    if (msgitem.animationId) {
-        cancelAnimationFrame(msgitem.animationId);
+    if (msgItem.animationId) {
+        cancelAnimationFrame(msgItem.animationId);
     }
 
     const autoHide = el.getAttribute('data-bb-autohide') === 'true';
