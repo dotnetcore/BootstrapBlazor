@@ -23,9 +23,7 @@ public sealed partial class Messages
         Message.SetPlacement(Placement.Top);
         await MessageService.Show(new MessageOption()
         {
-            Content = "This is a reminder message",
-            DismissMode = MessageDismissMode.DeleteSource,
-            ShowDismiss = true
+            Content = "This is a reminder message"
         });
     }
 
