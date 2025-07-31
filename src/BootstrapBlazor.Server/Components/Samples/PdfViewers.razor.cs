@@ -17,6 +17,8 @@ public partial class PdfViewers
 
     private bool _useGoogleDocs = false;
 
+    private int _pageIndex = 1;
+
     private Task OnLoaded() => ToastService.Success("Pdf Viewer", Localizer["PdfViewerToastSuccessfulContent"]);
 
     private Task NotSupportCallback() => ToastService.Error("PdfViewer", Localizer["PdfViewerToastNotSupportContent"]);
