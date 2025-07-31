@@ -77,6 +77,7 @@ export function dispose(id) {
         msg.items.forEach(item => {
             if (item.animationId) {
                 cancelAnimationFrame(item.animationId);
+                item.animationId = null;
             }
         });
     }
