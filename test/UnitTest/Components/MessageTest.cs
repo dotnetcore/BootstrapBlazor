@@ -147,5 +147,10 @@ public class MessageTest : BootstrapBlazorTestBase
             Icon = "fa-solid fa-font-awesome",
             DismissMode = MessageDismissMode.DeleteSource
         }, cut.Instance));
+        var alert = cut.Find(".alert");
+        Assert.NotNull(alert);
+        Assert.NotNull(alert.Id);
+
+        await cut.Instance.Dismiss(alert.Id);
     }
 }
