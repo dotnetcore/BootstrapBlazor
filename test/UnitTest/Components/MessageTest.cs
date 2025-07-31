@@ -133,4 +133,19 @@ public class MessageTest : BootstrapBlazorTestBase
             ShowMode = MessageShowMode.Single
         }, cut.Instance));
     }
+
+    [Fact]
+    public async Task DisMissMode_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.RenderComponent<Message>();
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            Content = "Test Content",
+            IsAutoHide = false,
+            ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
+            DismissMode = MessageDismissMode.DeleteSource
+        }, cut.Instance));
+    }
 }
