@@ -28,18 +28,17 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .AddClass(CheckboxItemClass)
         .Build();
 
-    private string? ButtonClassString => CssBuilder.Default("checkbox-list is-button")
+    private string? ButtonClassString => CssBuilder.Default("checkbox-list btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ButtonGroupClassString => CssBuilder.Default("btn-group")
-        .AddClass("disabled", IsDisabled)
-        .AddClass("btn-group-vertical", IsVertical)
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}")
         .Build();
 
-    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
-        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries).Contains(item.Value))
-        .Build();
+    private string GetIdByItem(SelectedItem item) => ComponentIdGenerator.Generate(item);
 
     /// <summary>
     /// 获得/设置 数据源
