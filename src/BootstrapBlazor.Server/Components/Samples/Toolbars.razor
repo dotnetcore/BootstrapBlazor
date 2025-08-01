@@ -1,0 +1,11 @@
+﻿@page "/toolbar"
+@inject IStringLocalizer<Toolbars> Localizer
+
+<h3>@Localizer["ToolbarsTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["ToolbarSubTitle"].Value)</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal">
+</DemoBlock>
