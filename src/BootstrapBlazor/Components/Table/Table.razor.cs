@@ -186,6 +186,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public bool ShowColumnWidthTooltip { get; set; }
 
+    /// <summary>
+    /// 获得/设置 行 Key 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, object?>? OnGetRowKey { get; set; }
+
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
     private string? GetScrollStyleString(bool condition) => condition
@@ -1666,6 +1672,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         TouchStart = false;
     }
+
+    private object? GetKeyByITem(TItem item) => OnGetRowKey?.Invoke(item);
 
     /// <summary>
     /// Dispose 方法
