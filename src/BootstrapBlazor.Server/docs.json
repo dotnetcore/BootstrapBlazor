@@ -248,7 +248,8 @@
     "socket/adapter": "Sockets\\Adapters",
     "socket/auto-connect": "Sockets\\AutoReconnects",
     "socket/data-entity": "Sockets\\DataEntities",
-    "network-monitor": "NetworkMonitors"
+    "network-monitor": "NetworkMonitors",
+    "toolbar": "Toolbars"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
