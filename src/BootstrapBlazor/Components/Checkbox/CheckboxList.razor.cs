@@ -31,6 +31,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     private string? ButtonClassString => CssBuilder.Default("checkbox-list btn-group")
         .AddClass("disabled", IsDisabled)
         .AddClass("btn-group-vertical", IsVertical)
+        .AddClass(CssClass).AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
