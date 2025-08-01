@@ -81,6 +81,12 @@ public class DynamicElement : BootstrapComponentBase
     public bool GenerateElement { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 组件 Key 值
+    /// </summary>
+    [Parameter]
+    public object? Key { get; set; }
+
+    /// <summary>
     /// BuildRenderTree 方法
     /// </summary>
     /// <param name="builder"></param>
@@ -118,6 +124,11 @@ public class DynamicElement : BootstrapComponentBase
         }
 
         builder.AddContent(8, ChildContent);
+
+        if (Key != null)
+        {
+            builder.SetKey(Key);
+        }
 
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
