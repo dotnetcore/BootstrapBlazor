@@ -2,5 +2,7 @@
 @inherits IdComponentBase
 
 <div @attributes="AdditionalAttributes" class="@ClassString">
-    @ChildContent
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
 </div>

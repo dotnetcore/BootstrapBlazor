@@ -5,7 +5,42 @@
 
 namespace BootstrapBlazor.Components;
 
-public partial class ToolbarGroup
+/// <summary>
+/// ToolbarGroup 组件
+/// </summary>
+public partial class ToolbarGroup : IAsyncDisposable
 {
+    [CascadingParameter]
+    private Toolbar? Toolbar { get; set; }
 
+    /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Toolbar?.Add(this);
+    }
+
+    private ValueTask DisposeAsync(bool disposing)
+    {
+        Toolbar?.Remove(this);
+        return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }

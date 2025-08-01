@@ -19,4 +19,16 @@ public partial class Toolbar
     private string? ClassString => CssBuilder.Default("bb-toolbar")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private readonly List<ComponentBase> _components = [];
+
+    /// <summary>
+    /// 添加按钮到工具栏方法
+    /// </summary>
+    public void Add(ComponentBase component) => _components.Add(component);
+
+    /// <summary>
+    /// 移除按钮到工具栏方法
+    /// </summary>
+    public void Remove(ComponentBase component) => _components.Remove(component);
 }

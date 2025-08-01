@@ -3,11 +3,17 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
-public partial class ToolBarSeparator : ComponentBase
+/// <summary>
+/// ToolbarItem 组件
+/// </summary>
+public partial class ToolbarItem : ComponentBase
 {
+    /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }
 
