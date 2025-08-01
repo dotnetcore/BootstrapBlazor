@@ -1,7 +1,12 @@
-﻿namespace BootstrapBlazor.Components;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toolbar 组件
+/// Toolbar 组件用于显示工具栏内容
 /// </summary>
 public partial class Toolbar
 {
@@ -12,5 +17,6 @@ public partial class Toolbar
     public RenderFragment? ChildContent { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-toolbar")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }
