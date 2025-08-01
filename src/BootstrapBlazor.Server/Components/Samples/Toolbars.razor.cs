@@ -10,5 +10,18 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Toolbars
 {
+    private readonly List<SelectedItem> _items = [];
+    private string _item = "1";
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _items.Add(new SelectedItem("1", "Text1"));
+        _items.Add(new SelectedItem("2", "Text2"));
+        _items.Add(new SelectedItem("3", "Text3"));
+    }
 }

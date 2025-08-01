@@ -8,4 +8,34 @@
 <DemoBlock Title="@Localizer["NormalTitle"]"
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal">
+    <Toolbar>
+        <ToolbarGroup>
+            <RadioList IsButton="true" @bind-Value="@_item" Items="_items" Color="Color.Primary">
+            </RadioList>
+        </ToolbarGroup>
+        <ToolbarItem>
+            <Button Icon="fa-solid fa-flag" IsOutline="true"></Button>
+        </ToolbarItem>
+        <ToolbarItem>
+            <Select TValue="int" Color="Color.Primary">
+                <Options>
+                    <SelectOption Value="1" Text="Text 1"></SelectOption>
+                    <SelectOption Value="2" Text="Text 2"></SelectOption>
+                    <SelectOption Value="3" Text="Text 3"></SelectOption>
+                </Options>
+            </Select>
+        </ToolbarItem>
+        <ToolbarSpace></ToolbarSpace>
+        <ToolbarGroup>
+            <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
+            <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
+            <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
+        </ToolbarGroup>
+        <ToolbarSeparator></ToolbarSeparator>
+        <ToolbarGroup>
+            <Button Icon="fa-solid fa-save"></Button>
+            <Button Icon="fa-solid fa-save"></Button>
+            <Button Icon="fa-solid fa-save"></Button>
+        </ToolbarGroup>
+    </Toolbar>
 </DemoBlock>
