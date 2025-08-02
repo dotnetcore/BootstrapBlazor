@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// Radio 单选框组件
 /// </summary>
 [JSModuleNotInherited]
+[BlazorSetParametersAsyncGenerator.GenerateSetParametersAsync]
 public partial class Radio<TValue> : Checkbox<TValue>
 {
     /// <summary>
