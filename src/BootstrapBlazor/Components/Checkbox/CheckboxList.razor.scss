@@ -1,4 +1,4 @@
-.checkbox-list {
+﻿.checkbox-list {
     --bb-checkbox-item-width: #{$bb-checkbox-item-width};
     min-height: var(--bb-height);
     height: auto;
@@ -53,6 +53,7 @@
 
         &.disabled {
             > span {
+                --bs-btn-hover-color: var(--bs-btn-color);
                 opacity: var(--bs-btn-disabled-opacity);
 
                 &:not(.active) {
