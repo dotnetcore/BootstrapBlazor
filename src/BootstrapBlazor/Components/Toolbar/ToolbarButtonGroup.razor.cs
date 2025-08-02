@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ToolbarGroup 组件
+/// ToolbarGroup 组件用于在工具栏中添加一组按钮
 /// </summary>
-public partial class ToolbarGroup : IAsyncDisposable
+public partial class ToolbarButtonGroup : IAsyncDisposable
 {
     [CascadingParameter]
     private Toolbar? Toolbar { get; set; }
