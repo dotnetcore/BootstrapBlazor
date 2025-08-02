@@ -1,4 +1,4 @@
-.radio-list {
+﻿.radio-list {
     --bb-radio-item-width: #{$bb-radio-item-width};
     --bb-radio-item-padding: #{$bb-radio-item-padding};
     --bb-radio-group-item-active-color: #{$bb-radio-group-item-active-color};
@@ -38,6 +38,7 @@
         }
 
         &.disabled > span {
+            --bs-btn-hover-color: var(--bs-btn-color);
             opacity: var(--bs-btn-disabled-opacity);
 
             &:not(.active) {
