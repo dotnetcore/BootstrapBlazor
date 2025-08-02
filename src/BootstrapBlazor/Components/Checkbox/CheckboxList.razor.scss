@@ -54,12 +54,17 @@
         &.disabled {
             > span {
                 --bs-btn-hover-color: var(--bs-btn-color);
+                --bs-btn-active-color: var(--bs-btn-color);
                 opacity: var(--bs-btn-disabled-opacity);
 
                 &:not(.active) {
                     background-color: var(--bs-secondary-bg);
                 }
             }
+        }
+
+        .btn-outline-info {
+            --bs-btn-active-color: #fff;
         }
     }
 }
