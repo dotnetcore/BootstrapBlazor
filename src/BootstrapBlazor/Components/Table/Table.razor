@@ -243,7 +243,7 @@
                         }
                         else
                         {
-                            <DynamicElement class="@GetRowClassString(item, "table-row")" @key="item"
+                            <DynamicElement class="@GetRowClassString(item, "table-row")" @key="GetKeyByITem(item)"
                                             TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                                             @ontouchstart="e => OnTouchStart(e, item)"
                                             @ontouchend="OnTouchEnd"
@@ -692,7 +692,7 @@
     </thead>;
 
     RenderFragment<TItem> RenderRow => item =>
-    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" @key="item"
+    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" @key="GetKeyByITem(item)"
                      TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                      @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
