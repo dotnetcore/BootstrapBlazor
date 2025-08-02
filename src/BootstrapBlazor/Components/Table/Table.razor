@@ -281,7 +281,12 @@
                                         var cellClass = "";
                                         string? value = null;
                                         RenderFragment? valueTemplate = null;
-                                        <div class="table-cell">
+                                        var colClass = "table-cell";
+                                        if (!string.IsNullOrEmpty(col.CssClass))
+                                        {
+                                            colClass = $"table-cell {col.CssClass}";
+                                        }
+                                        <div class="@colClass">
                                             <label>
                                                 @col.GetDisplayName()
                                             </label>
