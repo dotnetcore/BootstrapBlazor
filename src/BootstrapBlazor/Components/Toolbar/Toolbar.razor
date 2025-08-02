@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassString">
+<div @attributes="AdditionalAttributes" class="@ClassString" role="toolbar" aria-label="toolbar">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

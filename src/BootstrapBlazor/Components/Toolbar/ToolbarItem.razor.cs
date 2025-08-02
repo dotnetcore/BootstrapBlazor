@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ToolbarItem 组件
+/// ToolbarItem 组件用于在工具栏中添加子组件
 /// </summary>
 public partial class ToolbarItem : ComponentBase
 {

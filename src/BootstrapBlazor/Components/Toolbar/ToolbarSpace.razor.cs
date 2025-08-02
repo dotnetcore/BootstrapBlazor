@@ -5,6 +5,9 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// ToolbarSpace 组件用于在工具栏中添加空白空间
+/// </summary>
 public partial class ToolbarSpace
 {
 }
