@@ -46,7 +46,8 @@ public partial class RadioList<TValue>
         .Build();
 
     private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
-        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}")
+        .AddClass("active", CurrentValueAsString == item.Value)
         .Build();
 
     /// <summary>
