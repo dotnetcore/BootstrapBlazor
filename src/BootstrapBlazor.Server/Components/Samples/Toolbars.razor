@@ -9,10 +9,6 @@
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal">
     <Toolbar>
-        <ToolbarGroup>
-            <RadioList IsButton="true" @bind-Value="@_item" Items="_items" Color="Color.Primary">
-            </RadioList>
-        </ToolbarGroup>
         <ToolbarItem>
             <Button Icon="fa-solid fa-flag" IsOutline="true"></Button>
         </ToolbarItem>
@@ -26,16 +22,16 @@
             </Select>
         </ToolbarItem>
         <ToolbarSpace></ToolbarSpace>
-        <ToolbarGroup>
+        <ToolbarButtonGroup>
             <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
             <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
             <Button Icon="fa-solid fa-save" IsOutline="true"></Button>
-        </ToolbarGroup>
+        </ToolbarButtonGroup>
         <ToolbarSeparator></ToolbarSeparator>
-        <ToolbarGroup>
+        <ToolbarButtonGroup>
             <Button Icon="fa-solid fa-save"></Button>
             <Button Icon="fa-solid fa-save"></Button>
             <Button Icon="fa-solid fa-save"></Button>
-        </ToolbarGroup>
+        </ToolbarButtonGroup>
     </Toolbar>
 </DemoBlock>
