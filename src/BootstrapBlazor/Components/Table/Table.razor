@@ -1056,7 +1056,8 @@
     RenderFragment RenderPageInfo =>
     @<div class="table-page-info">
         <div class="me-2">@PageInfoLabelString</div>
-        <Select Items="@GetPageItemsSource()" Value="_pageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
+        <Select Items="@GetPageItemsSource()" IsPopover="true"
+                Value="_pageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
         @if (PageInfoBodyTemplate != null)
         {
             @PageInfoBodyTemplate
