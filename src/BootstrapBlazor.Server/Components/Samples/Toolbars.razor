@@ -13,14 +13,14 @@
             <Button Icon="fa-solid fa-wand-magic-sparkles" IsOutline="true"></Button>
         </ToolbarItem>
         <ToolbarItem>
-            <CheckboxList IsButton="true" Items="_items2" @bind-Value="_item2">
+            <CheckboxList IsButton="true" Items="_items2" @bind-Value="_item2" ShowButtonBorderColor="true">
                 <ItemTemplate>
                     <i class="@GetRadioIconByItem(context.Value)"></i>
                 </ItemTemplate>
             </CheckboxList>
         </ToolbarItem>
         <ToolbarItem>
-            <RadioList IsButton="true" Items="_items1" @bind-Value="_item1">
+            <RadioList IsButton="true" Items="_items1" @bind-Value="_item1" ShowButtonBorderColor="true">
                 <ItemTemplate>
                     <i class="@GetIconByItem(context.Value)"></i>
                 </ItemTemplate>
