@@ -10,8 +10,12 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Toolbars
 {
-    private readonly List<SelectedItem> _items = [];
-    private string _item = "1";
+    private readonly List<SelectedItem> _items1 = [];
+    private string _item1 = "1,2";
+
+    private readonly List<SelectedItem> _items2 = [];
+    private string _item2 = "1";
+
 
     /// <summary>
     /// <inheritdoc/>
@@ -20,8 +24,26 @@ public partial class Toolbars
     {
         base.OnInitialized();
 
-        _items.Add(new SelectedItem("1", "Text1"));
-        _items.Add(new SelectedItem("2", "Text2"));
-        _items.Add(new SelectedItem("3", "Text3"));
+        _items1.Add(new SelectedItem("1", "Text1"));
+        _items1.Add(new SelectedItem("2", "Text2"));
+        _items1.Add(new SelectedItem("3", "Text3"));
+
+        _items2.Add(new SelectedItem("1", "Text1"));
+        _items2.Add(new SelectedItem("2", "Text2"));
+        _items2.Add(new SelectedItem("3", "Text3"));
     }
+
+    private static string GetIconByItem(string v) => v switch
+    {
+        "1" => "fa-solid fa-align-left",
+        "2" => "fa-solid fa-align-center",
+        _ => "fa-solid fa-align-right"
+    };
+
+    private static string GetRadioIconByItem(string v) => v switch
+    {
+        "1" => "fa-solid fa-bold",
+        "2" => "fa-solid fa-italic",
+        _ => "fa-solid fa-font"
+    };
 }

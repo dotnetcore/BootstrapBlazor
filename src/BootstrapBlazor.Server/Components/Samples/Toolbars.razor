@@ -8,12 +8,26 @@
 <DemoBlock Title="@Localizer["NormalTitle"]"
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal">
-    <Toolbar>
+    <Toolbar IsWrap="true">
         <ToolbarItem>
-            <Button Icon="fa-solid fa-flag" IsOutline="true"></Button>
+            <Button Icon="fa-solid fa-wand-magic-sparkles" IsOutline="true"></Button>
         </ToolbarItem>
         <ToolbarItem>
-            <Select TValue="int" Color="Color.Primary">
+            <CheckboxList IsButton="true" Items="_items1" @bind-Value="_item1">
+                <ItemTemplate>
+                    <i class="@GetIconByItem(context.Value)"></i>
+                </ItemTemplate>
+            </CheckboxList>
+        </ToolbarItem>
+        <ToolbarItem>
+            <RadioList IsButton="true" Items="_items2" @bind-Value="_item2">
+                <ItemTemplate>
+                    <i class="@GetRadioIconByItem(context.Value)"></i>
+                </ItemTemplate>
+            </RadioList>
+        </ToolbarItem>
+        <ToolbarItem>
+            <Select TValue="int" Color="Color.Primary" IsPopover="true" style="min-width: 120px;">
                 <Options>
                     <SelectOption Value="1" Text="Text 1"></SelectOption>
                     <SelectOption Value="2" Text="Text 2"></SelectOption>
