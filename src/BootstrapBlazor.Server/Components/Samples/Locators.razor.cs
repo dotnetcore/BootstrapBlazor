@@ -16,7 +16,7 @@ public partial class Locators
 
     [Inject]
     [NotNull]
-    WebClientService? ClientService { get; set; }
+    IWebClientService? ClientService { get; set; }
 
     [Inject]
     [NotNull]

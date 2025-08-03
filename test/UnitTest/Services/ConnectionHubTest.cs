@@ -26,7 +26,7 @@ public class ConnectionHubTest
             BeatInterval = TimeSpan.FromMilliseconds(200)
         };
 
-        var client = context.Services.GetRequiredService<WebClientService>();
+        var client = context.Services.GetRequiredService<IWebClientService>();
         var service = context.Services.GetRequiredService<IConnectionService>();
         var cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
@@ -60,7 +60,7 @@ public class ConnectionHubTest
 
         // 触发内部 ClientInfo 为空情况 覆盖 _clientInfo ??= new();
         options.Value.ConnectionHubOptions.Enable = false;
-        client = context.Services.GetRequiredService<WebClientService>();
+        client = context.Services.GetRequiredService<IWebClientService>();
         cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
@@ -71,7 +71,7 @@ public class ConnectionHubTest
         // 设置 EnableIpLocator 为 false
         options.Value.ConnectionHubOptions.Enable = true;
         options.Value.ConnectionHubOptions.EnableIpLocator = false;
-        client = context.Services.GetRequiredService<WebClientService>();
+        client = context.Services.GetRequiredService<IWebClientService>();
         cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {

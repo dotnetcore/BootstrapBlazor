@@ -24,7 +24,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
             Engine = "engine",
             UserAgent = "test_agent"
         };
-        var service = Context.Services.GetRequiredService<WebClientService>();
+        var service = Context.Services.GetRequiredService<IWebClientService>();
         service.SetData(mockData);
         ClientInfo? client = null;
         _ = Task.Run(async () => client = await service.GetClientInfo());
@@ -53,7 +53,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
         options.CurrentValue.WebClientOptions.EnableIpLocator = true;
 
-        var service = Context.Services.GetRequiredService<WebClientService>();
+        var service = Context.Services.GetRequiredService<IWebClientService>();
         var client = await service.GetClientInfo();
         Assert.Null(client.Ip);
     }
@@ -61,7 +61,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task GetClientInfo_Error()
     {
-        var service = Context.Services.GetRequiredService<WebClientService>();
+        var service = Context.Services.GetRequiredService<IWebClientService>();
         var client = await service.GetClientInfo();
 
         // TimeoutException
@@ -75,7 +75,7 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetData_Ok()
     {
-        var service = Context.Services.GetRequiredService<WebClientService>();
+        var service = Context.Services.GetRequiredService<IWebClientService>();
 
         // 内部 ReturnTask 为空
         var fieldInfo = service.GetType().GetField("_taskCompletionSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -94,6 +94,6 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task WebClientService_Dispose()
     {
-        await (Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable).DisposeAsync();
+        await (Context.Services.GetRequiredService<IWebClientService>() as IAsyncDisposable).DisposeAsync();
     }
 }

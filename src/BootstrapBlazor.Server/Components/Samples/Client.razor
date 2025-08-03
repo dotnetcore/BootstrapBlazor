@@ -30,7 +30,7 @@
         <p class="code-label">@((MarkupString)Localizer["BasicUsageP3"].Value)</p>
         <Pre>[Inject]
 [NotNull]
-private WebClientService? ClientService { get; set; }
+private IWebClientService? ClientService { get; set; }
 
 private ClientInfo? ClientInfo { get; set; }
 

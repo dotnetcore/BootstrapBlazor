@@ -12,7 +12,7 @@ public partial class Client
 {
     [Inject]
     [NotNull]
-    private WebClientService? ClientService { get; set; }
+    private IWebClientService? ClientService { get; set; }
 
     private ClientInfo _clientInfo = new();
 

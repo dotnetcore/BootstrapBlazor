@@ -18,7 +18,7 @@ public partial class Online : IDisposable
 
     [Inject]
     [NotNull]
-    private WebClientService? WebClientService { get; set; }
+    private IWebClientService? WebClientService { get; set; }
 
     private DynamicObjectContext? DataTableDynamicContext { get; set; }
 

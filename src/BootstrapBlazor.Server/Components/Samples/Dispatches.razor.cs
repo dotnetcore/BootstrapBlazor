@@ -14,7 +14,7 @@ public partial class Dispatches
 {
     [Inject]
     [NotNull]
-    private WebClientService? ClientService { get; set; }
+    private IWebClientService? ClientService { get; set; }
 
     [Inject]
     [NotNull]
