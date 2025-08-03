@@ -232,13 +232,13 @@ public class RadioTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("btn active bg-danger");
+        cut.Contains("btn btn-outline-danger");
 
         cut.InvokeAsync(() =>
         {
             var btn = cut.Find(".btn");
             btn.Click();
-            cut.Contains("btn active bg-danger");
+            cut.Contains("btn btn-outline-danger active");
         });
     }
 
