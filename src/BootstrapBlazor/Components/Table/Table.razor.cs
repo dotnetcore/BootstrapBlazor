@@ -1690,7 +1690,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TouchStart = false;
     }
 
-    private object? GetKeyByITem(TItem item) => OnGetRowKey?.Invoke(item);
+    private object? GetKeyByITem(TItem item) => SortableList != null ? item : OnGetRowKey?.Invoke(item);
 
     /// <summary>
     /// Dispose 方法
