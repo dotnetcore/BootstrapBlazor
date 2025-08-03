@@ -16,6 +16,8 @@ public partial class Toolbars
     private readonly List<SelectedItem> _items2 = [];
     private string _item2 = "1";
 
+    private readonly List<SelectedItem> _items3 = [];
+    private string _item3 = "1";
 
     /// <summary>
     /// <inheritdoc/>
@@ -31,6 +33,10 @@ public partial class Toolbars
         _items2.Add(new SelectedItem("1", "Text1"));
         _items2.Add(new SelectedItem("2", "Text2"));
         _items2.Add(new SelectedItem("3", "Text3"));
+
+        _items3.Add(new SelectedItem("1", "Text1"));
+        _items3.Add(new SelectedItem("2", "Text2"));
+        _items3.Add(new SelectedItem("3", "Text3"));
     }
 
     private static string GetIconByItem(string v) => v switch
