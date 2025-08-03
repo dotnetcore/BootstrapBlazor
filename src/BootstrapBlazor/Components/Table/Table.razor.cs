@@ -786,6 +786,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
+    [CascadingParameter]
+    private ISortableList? SortableList { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
