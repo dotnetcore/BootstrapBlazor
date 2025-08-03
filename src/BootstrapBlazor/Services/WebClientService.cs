@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Logging;
+
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -20,7 +21,7 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     IOptionsMonitor<BootstrapBlazorOptions> options,
     IJSRuntime runtime,
     NavigationManager navigation,
-    ILogger<WebClientService> logger) : IAsyncDisposable
+    ILogger<WebClientService> logger) : IAsyncDisposable, IWebClientService
 {
     private TaskCompletionSource? _taskCompletionSource;
     private JSModule? _jsModule;

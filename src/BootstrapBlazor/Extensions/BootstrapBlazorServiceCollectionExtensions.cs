@@ -105,7 +105,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<PrintService>();
         services.AddScoped<TitleService>();
         services.AddScoped<DownloadService>();
-        services.AddScoped<WebClientService>();
+        services.AddScoped<IWebClientService, WebClientService>();
         services.AddScoped<AjaxService>();
         services.AddScoped(typeof(DragDropService<>));
         services.AddScoped<ClipboardService>();
