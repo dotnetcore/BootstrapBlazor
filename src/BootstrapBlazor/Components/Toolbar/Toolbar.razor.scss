@@ -1,19 +1,10 @@
 ﻿.bb-toolbar {
     display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 0.25rem;
 
     .bb-toolbar-item-space {
         flex-grow: 1;
-    }
-
-    .bb-toolbar-item-group:not(:first-of-type) {
-        margin-left: .25rem;
-    }
-
-    .bb-toolbar-item-vr:not(:first-of-type) {
-        margin-left: .25rem;
-    }
-
-    .bb-toolbar-item-btn:not(:first-of-type) {
-        margin-left: .25rem;
     }
 }

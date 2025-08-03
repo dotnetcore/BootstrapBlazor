@@ -11,6 +11,12 @@ namespace BootstrapBlazor.Components;
 public partial class Toolbar
 {
     /// <summary>
+    /// 获得/设置 是否允许换行显示工具栏内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsWrap { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件模板
     /// </summary>
     [Parameter]
@@ -18,6 +24,11 @@ public partial class Toolbar
 
     private string? ClassString => CssBuilder.Default("bb-toolbar")
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddStyle("flex-wrap", "wrap", IsWrap)
+        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private readonly List<ComponentBase> _components = [];
