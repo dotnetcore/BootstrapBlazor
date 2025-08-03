@@ -38,7 +38,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .Build();
 
     private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
-        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries).Contains(item.Value))
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}")
+        .AddClass($"active", CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries).Contains(item.Value))
         .Build();
 
     /// <summary>
