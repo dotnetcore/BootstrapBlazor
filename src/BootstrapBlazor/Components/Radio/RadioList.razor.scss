@@ -1,4 +1,4 @@
-.radio-list {
+﻿.radio-list {
     --bb-radio-item-width: #{$bb-radio-item-width};
     --bb-radio-item-padding: #{$bb-radio-item-padding};
     --bb-radio-group-item-active-color: #{$bb-radio-group-item-active-color};
@@ -24,7 +24,6 @@
     }
 
     &.btn-group {
-        border: var(--bs-border-width) solid var(--bs-border-color);
         display: inline-flex;
         flex: 0 !important;
         flex-wrap: nowrap;
@@ -39,11 +38,17 @@
         }
 
         &.disabled > span {
+            --bs-btn-hover-color: var(--bs-btn-color);
+            --bs-btn-active-color: var(--bs-btn-color);
             opacity: var(--bs-btn-disabled-opacity);
 
             &:not(.active) {
                 background-color: var(--bs-secondary-bg);
             }
+        }
+
+        .btn-outline-info {
+            --bs-btn-active-color: var(--bb-radio-group-item-active-color);
         }
     }
 

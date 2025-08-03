@@ -792,11 +792,13 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "CssClass", "test-css");
                     builder.CloseComponent();
                 });
             });
         });
         cut.Contains("Test_CardView");
+        cut.Contains("test-css");
     }
 
     [Fact]
