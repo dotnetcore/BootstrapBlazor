@@ -19,13 +19,16 @@
                                 @item.HeaderTemplate
                             </div>
                         }
-                        else if(!string.IsNullOrEmpty(item.Icon))
-                        {
-                            <i class="@GetItemIconString(item)"></i>
-                        }
                         else
                         {
-                            <span>@item.Text</span>
+                            if (!string.IsNullOrEmpty(item.Icon))
+                            {
+                                <i class="@GetItemIconString(item)"></i>
+                            }
+                            if (!string.IsNullOrEmpty(item.Text))
+                            {
+                                <span>@item.Text</span>
+                            }
                         }
                     </div>
                 </div>
