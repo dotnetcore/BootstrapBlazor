@@ -72,7 +72,7 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     private void OnFieldChanged(object? sender, FieldChangedEventArgs args)
     {
-        _ = ValidateField(CurrentEditContext, _message, args, Provider);
+        _ = ValidateField(CurrentEditContext, _message, args.FieldIdentifier, Provider);
     }
 
     private async Task ValidateModel(EditContext editContext, ValidationMessageStore messages, IServiceProvider provider)
@@ -95,20 +95,20 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
         editContext.NotifyValidationStateChanged();
     }
 
-    private async Task ValidateField(EditContext editContext, ValidationMessageStore messages, FieldChangedEventArgs args, IServiceProvider provider)
+    private async Task ValidateField(EditContext editContext, ValidationMessageStore messages, FieldIdentifier field, IServiceProvider provider)
     {
         // 获取验证消息
         var validationResults = new List<ValidationResult>();
-        var validationContext = new ValidationContext(args.FieldIdentifier.Model, provider, null)
+        var validationContext = new ValidationContext(field.Model, provider, null)
         {
-            MemberName = args.FieldIdentifier.FieldName,
-            DisplayName = args.FieldIdentifier.GetDisplayName()
+            MemberName = field.FieldName,
+            DisplayName = field.GetDisplayName()
         };
 
         await ValidateForm.ValidateFieldAsync(validationContext, validationResults);
 
-        messages.Clear(args.FieldIdentifier);
-        messages.Add(args.FieldIdentifier, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
+        messages.Clear(field);
+        messages.Add(field, validationResults.Where(v => !string.IsNullOrEmpty(v.ErrorMessage)).Select(result => result.ErrorMessage!));
 
         editContext.NotifyValidationStateChanged();
     }
