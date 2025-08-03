@@ -24,7 +24,9 @@ else
     <div @attributes="@AdditionalAttributes" class="@ClassString" role="group">
         @foreach (var item in Items)
         {
-            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="GetChildContent(item)"></Radio>
+            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)"
+                   ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)"
+                   OnClick="OnClick" ChildContent="GetChildContent(item)"></Radio>
         }
     </div>
 }
