@@ -5,10 +5,6 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["ToggleButton"]" Introduction="@Localizer["ToggleIntroduction"]" Name="Toggle">
-    <ToggleButton Text="Toggle" Color="Color.Danger"></ToggleButton>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Primary">@Localizer["PrimaryButton"]</Button></div>
@@ -154,6 +150,10 @@
             </Tooltip>
         </div>
     </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ToggleButton"]" Introduction="@Localizer["ToggleIntroduction"]" Name="Toggle">
+    <ToggleButton Text="Toggle" Color="Color.Danger"></ToggleButton>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
