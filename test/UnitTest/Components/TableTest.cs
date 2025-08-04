@@ -8720,6 +8720,23 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(ProhibitDelete(cut.Instance));
     }
 
+    [Fact]
+    public async Task Table_Sortable()
+    {
+        var cut = Context.RenderComponent<Table<Foo>(pb =>
+        {
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.ShowExtendEditButton, false);
+            pb.Add(a => a.ShowExtendDeleteButton, false);
+        });
+    }
+
     static bool ProhibitEdit(Table<Foo> @this)
     {
         var ret = false;
