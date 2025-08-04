@@ -8721,10 +8721,12 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Table_Sortable()
+    public void Table_Sortable()
     {
-        var cut = Context.RenderComponent<Table<Foo>(pb =>
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<Table<Foo>>(pb =>
         {
+            pb.AddCascadingValue<ISortableList>(new SortableList());
             pb.Add(a => a.TableColumns, foo => builder =>
             {
                 builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -8732,10 +8734,12 @@ public class TableTest : BootstrapBlazorTestBase
                 builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                 builder.CloseComponent();
             });
-            pb.Add(a => a.ShowExtendEditButton, false);
-            pb.Add(a => a.ShowExtendDeleteButton, false);
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
         });
     }
+
+    class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
     {
