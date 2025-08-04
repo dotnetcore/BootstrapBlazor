@@ -52,6 +52,7 @@ public partial class ToggleButton
 
     private async Task HandlerClick()
     {
+        IsActive = !IsActive;
         if (OnClickWithoutRender != null)
         {
             if (!IsAsync)
@@ -67,11 +68,11 @@ public partial class ToggleButton
             await OnClick.InvokeAsync();
         }
 
-        IsActive = !IsActive;
         if (IsActiveChanged.HasDelegate)
         {
             await IsActiveChanged.InvokeAsync(IsActive);
         }
+
         if (OnToggleAsync != null)
         {
             await OnToggleAsync(IsActive);
