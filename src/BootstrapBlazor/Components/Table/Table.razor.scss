@@ -963,3 +963,7 @@ form .table .table-cell > textarea {
         border-bottom-color: var(--bs-primary);
     }
 }
+
+.bb-sortable tr {
+    cursor: pointer;
+}
