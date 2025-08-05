@@ -15,4 +15,11 @@ public interface IBrowserFingerService
     /// </summary>
     /// <returns></returns>
     Task<string?> GetFingerCodeAsync(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得当前连接的客户端 ID 由 BootstrapBlazor 组件框架提供
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<string?> GetClientHubIdAsync(CancellationToken token = default);
 }

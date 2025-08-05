@@ -12,7 +12,12 @@ private async Task GetFingerCodeAsync()
 }</Pre>
     <BootstrapInputGroup>
         <BootstrapInputGroupLabel DisplayText="Browser-Finger"></BootstrapInputGroupLabel>
-        <BootstrapInput @bind-Value="@_code" />
+        <BootstrapInput Value="@_code" Readonly="true" />
+    </BootstrapInputGroup>
+
+    <BootstrapInputGroup class="mt-3">
+        <BootstrapInputGroupLabel DisplayText="ClientHubId"></BootstrapInputGroupLabel>
+        <BootstrapInput Value="@_clientHubId" Readonly="true" />
     </BootstrapInputGroup>
 </DemoBlock>
 
