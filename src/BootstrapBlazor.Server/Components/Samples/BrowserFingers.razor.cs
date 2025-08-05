@@ -15,6 +15,7 @@ public partial class BrowserFingers
     private IBrowserFingerService? BrowserFingerService { get; set; }
 
     private string? _code;
+    private string? _clientHubId;
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,9 +26,12 @@ public partial class BrowserFingers
         await base.OnInitializedAsync();
 
         _code = await GetFingerCodeAsync();
+        _clientHubId = await GetClientHubIdAsync();
     }
 
     private Task<string?> GetFingerCodeAsync() => BrowserFingerService.GetFingerCodeAsync();
+
+    private Task<string?> GetClientHubIdAsync() => BrowserFingerService.GetClientHubIdAsync();
 
     private MethodItem[] GetMethods() =>
     [
@@ -35,6 +39,13 @@ public partial class BrowserFingers
         {
             Name = "GetFingerCodeAsync",
             Description = Localizer["GetFingerCodeAsync"],
+            Parameters = " — ",
+            ReturnValue = "Task<string?>"
+        },
+        new()
+        {
+            Name = "GetClientHubIdAsync",
+            Description = Localizer["GetClientHubIdAsync"],
             Parameters = " — ",
             ReturnValue = "Task<string?>"
         }

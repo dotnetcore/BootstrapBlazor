@@ -919,6 +919,10 @@ export function getNetworkInfo() {
     return null;
 }
 
+export function getClientHubId() {
+    return localStorage.getItem('bb_hub_connection_id');
+}
+
 export {
     autoAdd,
     autoRemove,

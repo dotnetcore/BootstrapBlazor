@@ -6687,7 +6687,8 @@
   "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
     "BrowserFingerTitle": "Browser fingerprint",
     "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
-    "GetFingerCodeAsync": "Method for obtaining fingerprints"
+    "GetFingerCodeAsync": "Method for obtaining fingerprints",
+    "GetClientHubIdAsync": "Method for obtaining client hub Id"
   },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "SvgEditor",
