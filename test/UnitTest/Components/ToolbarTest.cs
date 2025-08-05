@@ -41,4 +41,28 @@ public class ToolbarTest : BootstrapBlazorTestBase
         // 检查 填充元素
         cut.Contains("bb-toolbar-space");
     }
+
+    [Fact]
+    public void ToolbarButtonGroup_Ok()
+    {
+        var cut = Context.RenderComponent<ToolbarButtonGroup>(pb =>
+        {
+            pb.AddChildContent<Button>(pb2 =>
+            {
+                pb2.Add(a => a.Text, "Button1");
+            });
+            pb.AddChildContent<Button>(pb2 =>
+            {
+                pb2.Add(a => a.Text, "Button2");
+            });
+        });
+        // 检查 ButtonGroup
+        cut.Contains("bb-toolbar-group btn-group");
+
+        // 检查 Button1
+        cut.Contains("Button1");
+
+        // 检查 Button2
+        cut.Contains("Button2");
+    }
 }
