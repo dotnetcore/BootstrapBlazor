@@ -128,6 +128,7 @@ public partial class Card
 
     private string? HeaderStyleString => CssBuilder.Default()
         .AddStyle("--bs-card-cap-padding-y", HeaderPaddingY)
+        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
