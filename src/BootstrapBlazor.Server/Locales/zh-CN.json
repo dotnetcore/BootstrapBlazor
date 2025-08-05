@@ -2211,7 +2211,9 @@
     "TooltipText": "按钮",
     "TooltipTitle": "按钮提示栏",
     "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
-    "TooltipDisabledText": "禁用按钮"
+    "TooltipDisabledText": "禁用按钮",
+    "ToggleButton": "状态切换按钮",
+    "ToggleIntroduction": "通过设置 <code>IsActiveChanged</code> 或者 <code>OnToggleAsync</code> 回调方法获得当前按钮 <code>Toggle</code> 状态"
   },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Title": "基础用法",
