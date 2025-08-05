@@ -9,9 +9,6 @@ export function init(options) {
             downlink, networkType: effectiveType, rTT: rtt
         });
     }
-    navigator.connection.onchange = e => {
-        updateState(e.target);
-    }
 
     const onlineStateChanged = () => {
         const indicators = [...document.querySelectorAll('.bb-nt-indicator')];
@@ -31,5 +28,13 @@ export function init(options) {
         EventHandler.on(window, 'offline', offlineStateChanged);
     });
 
-    updateState(navigator.connection);
+    if (navigator.connection) {
+        navigator.connection.onchange = e => {
+            updateState(e.target);
+        }
+        updateState(navigator.connection);
+    }
+    else {
+        console.warn('navigator.connection not supported in browser');
+    }
 }
