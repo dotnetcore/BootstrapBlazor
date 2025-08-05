@@ -218,7 +218,7 @@ public class RadioTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsButton_Ok()
+    public async Task IsButton_Ok()
     {
         var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
         {
@@ -232,14 +232,14 @@ public class RadioTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("btn btn-outline-danger");
+        cut.Contains("btn border-secondary");
 
-        cut.InvokeAsync(() =>
+        var btn = cut.Find(".btn");
+        await cut.InvokeAsync(() =>
         {
-            var btn = cut.Find(".btn");
             btn.Click();
-            cut.Contains("btn btn-outline-danger active");
         });
+        cut.Contains("btn border-secondary active bg-danger");
     }
 
     [Fact]
