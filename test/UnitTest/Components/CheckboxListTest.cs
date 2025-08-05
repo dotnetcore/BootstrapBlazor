@@ -376,11 +376,12 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsButton_Ok()
+    public async Task IsButton_Ok()
     {
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
         {
             pb.Add(a => a.IsButton, true);
+            pb.Add(a => a.ShowButtonBorderColor, true);
             pb.Add(a => a.Color, Color.Danger);
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -388,12 +389,12 @@ public class CheckboxListTest : BootstrapBlazorTestBase
                 new("2", "Test 2")
             });
         });
-        cut.InvokeAsync(() =>
+        var item = cut.Find(".btn");
+        await cut.InvokeAsync(() =>
         {
-            var item = cut.Find(".btn");
             item.Click();
-            cut.Contains("btn active bg-danger");
         });
+        cut.Contains("btn border-danger");
     }
 
     [Fact]
@@ -453,8 +454,10 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.False(max);
     }
 
-    [Fact]
-    public void ItemTemplate_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ItemTemplate_Ok(bool isButton)
     {
         var items = new List<SelectedItem>()
         {
@@ -464,6 +467,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         };
         var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
         {
+            pb.Add(a => a.IsButton, isButton);
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ItemTemplate, item => b =>
             {

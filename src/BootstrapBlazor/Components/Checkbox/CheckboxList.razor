@@ -15,7 +15,14 @@
             {
                 <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)"
                                 class="@GetButtonItemClassString(item)">
-                    @item.Text
+                    @if (ItemTemplate != null)
+                    {
+                        @ItemTemplate(item)
+                    }
+                    else
+                    {
+                        @item.Text
+                    }
                 </DynamicElement>
             }
         </div>

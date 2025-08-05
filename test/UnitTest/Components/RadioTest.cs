@@ -160,11 +160,14 @@ public class RadioTest : BootstrapBlazorTestBase
         cut.Contains("AfterLabel");
     }
 
-    [Fact]
-    public void ItemTemplate_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ItemTemplate_Ok(bool isButton)
     {
         var cut = Context.RenderComponent<RadioList<IEnumerable<SelectedItem>>>(pb =>
         {
+            pb.Add(a => a.IsButton, isButton);
             pb.Add(a => a.Items, new List<SelectedItem>
             {
                 new("1", "Test1"),
@@ -218,7 +221,7 @@ public class RadioTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsButton_Ok()
+    public async Task IsButton_Ok()
     {
         var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
         {
@@ -232,14 +235,14 @@ public class RadioTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("btn btn-outline-danger");
+        cut.Contains("btn border-secondary");
 
-        cut.InvokeAsync(() =>
+        var btn = cut.Find(".btn");
+        await cut.InvokeAsync(() =>
         {
-            var btn = cut.Find(".btn");
             btn.Click();
-            cut.Contains("btn btn-outline-danger active");
         });
+        cut.Contains("btn border-secondary active bg-danger");
     }
 
     [Fact]

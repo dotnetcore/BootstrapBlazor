@@ -1486,6 +1486,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Stack"],
                     Url = "stack"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Toolbar"],
+                    Url = "toolbar"
                 }
             };
             AddBadge(item);

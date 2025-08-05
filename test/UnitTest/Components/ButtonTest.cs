@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using System;
 
 namespace UnitTest.Components;
 
@@ -490,7 +491,35 @@ public class ButtonTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         await tcs.Task;
         Assert.True(active);
+        Assert.True(bindActive);
+
         Assert.True(clickWithoutRender);
         Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task ToggleButton_IsAsync()
+    {
+        var active = false;
+        var tcs = new TaskCompletionSource();
+        var cut = Context.RenderComponent<ToggleButton>(pb =>
+        {
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(a => a.Icon, "fa-solid fa-test");
+            pb.Add(a => a.Text, "toggle-button");
+            pb.Add(a => a.OnClick, async () =>
+            {
+                await Task.Delay(100);
+            });
+            pb.Add(a => a.OnToggleAsync, isActive =>
+            {
+                active = isActive;
+                tcs.TrySetResult();
+                return Task.CompletedTask;
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        await tcs.Task;
     }
 }
