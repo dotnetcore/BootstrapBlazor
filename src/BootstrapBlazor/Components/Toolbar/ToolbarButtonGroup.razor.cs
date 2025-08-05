@@ -34,8 +34,9 @@ public partial class ToolbarButtonGroup : IAsyncDisposable
         if (disposing)
         {
             Toolbar?.Remove(this);
-            return ValueTask.CompletedTask;
         }
+
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>
