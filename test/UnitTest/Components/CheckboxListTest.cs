@@ -453,8 +453,10 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.False(max);
     }
 
-    [Fact]
-    public void ItemTemplate_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ItemTemplate_Ok(bool isButton)
     {
         var items = new List<SelectedItem>()
         {
@@ -464,6 +466,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         };
         var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
         {
+            pb.Add(a => a.IsButton, isButton);
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ItemTemplate, item => b =>
             {

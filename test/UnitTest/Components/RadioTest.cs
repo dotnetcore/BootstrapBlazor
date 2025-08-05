@@ -160,11 +160,14 @@ public class RadioTest : BootstrapBlazorTestBase
         cut.Contains("AfterLabel");
     }
 
-    [Fact]
-    public void ItemTemplate_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ItemTemplate_Ok(bool isButton)
     {
         var cut = Context.RenderComponent<RadioList<IEnumerable<SelectedItem>>>(pb =>
         {
+            pb.Add(a => a.IsButton, isButton);
             pb.Add(a => a.Items, new List<SelectedItem>
             {
                 new("1", "Test1"),
