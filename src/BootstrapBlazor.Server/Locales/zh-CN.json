@@ -6688,7 +6688,8 @@
   "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
     "BrowserFingerTitle": "浏览器指纹",
     "BrowserFingerIntro": "通过调用 <code>IBrowserFingerService</code> 服务实例方法 <code>GetFingerCodeAsync</code> 获得客户端浏览器指纹，隐私模式下指纹是一致的",
-    "GetFingerCodeAsync": "获得指纹方法"
+    "GetFingerCodeAsync": "获得指纹方法",
+    "GetClientHubIdAsync": "获得客户端连接 Id 方法"
   },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "Svg 编辑器",

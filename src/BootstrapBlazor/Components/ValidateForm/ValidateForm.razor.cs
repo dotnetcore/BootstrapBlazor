@@ -96,7 +96,7 @@ public partial class ValidateForm
 
     [Inject]
     [NotNull]
-    private IOptions<JsonLocalizationOptions>? Options { get; set; }
+    private IOptionsMonitor<JsonLocalizationOptions>? Options { get; set; }
 
     [Inject]
     [NotNull]
@@ -388,7 +388,7 @@ public partial class ValidateForm
                 var find = false;
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
-                    var resourceType = Options.Value.ResourceManagerStringLocalizerType;
+                    var resourceType = Options.CurrentValue.ResourceManagerStringLocalizerType;
                     if (resourceType != null && LocalizerFactory.Create(resourceType).TryGetLocalizerString(rule.ErrorMessage, out var text))
                     {
                         rule.ErrorMessage = text;

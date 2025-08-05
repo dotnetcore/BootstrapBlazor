@@ -13,12 +13,15 @@ class DefaultBrowserFingerService(IJSRuntime jSRuntime) : IBrowserFingerService
     [NotNull]
     private JSModule? _module = null;
 
-    /// <summary>
-    /// 获取剪切板数据方法
-    /// </summary>
     public async Task<string?> GetFingerCodeAsync(CancellationToken token = default)
     {
         _module ??= await jSRuntime.LoadUtility();
         return await _module.InvokeAsync<string?>("getFingerCode", token);
+    }
+
+    public async Task<string?> GetClientHubIdAsync(CancellationToken token = default)
+    {
+        _module ??= await jSRuntime.LoadUtility();
+        return await _module.InvokeAsync<string?>("getClientHubId", token);
     }
 }
