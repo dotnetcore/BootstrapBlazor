@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Services;
 /// <summary>
 /// 模拟 OpcDa Server 实现类
 /// </summary>
-sealed class MockOpcDaServer : IOpcServer
+sealed class MockOpcDaServer : IOpcDaServer
 {
     public bool IsConnected { get; set; }
 
@@ -73,8 +73,8 @@ class MockOpcDaSubscription : IOpcSubscription, IDisposable
 {
     private readonly int _updateRate;
     private readonly bool _active;
-    private readonly CancellationTokenSource _cts = new();
     private readonly List<string> _items = [];
+    private CancellationTokenSource? _cts;
 
     public MockOpcDaSubscription(string name, int updateRate = 1000, bool active = true)
     {
@@ -82,6 +82,7 @@ class MockOpcDaSubscription : IOpcSubscription, IDisposable
         _updateRate = updateRate;
         _active = active;
 
+        _cts = new CancellationTokenSource();
         _ = Task.Run(() => DoTask(_cts.Token));
     }
 
@@ -131,8 +132,12 @@ class MockOpcDaSubscription : IOpcSubscription, IDisposable
     {
         if (disposing)
         {
-            _cts.Cancel();
-            _cts.Dispose();
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+                _cts = null;
+            }
         }
     }
 

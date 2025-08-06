@@ -53,7 +53,7 @@ static class ServiceCollectionExtensions
         else
         {
             // 增加 OpcDa 模拟服务（给 Linux 平台使用）
-            services.AddSingleton<IOpcServer, MockOpcDaServer>();
+            services.AddSingleton<IOpcDaServer, MockOpcDaServer>();
         }
 
         // 增加通用服务
