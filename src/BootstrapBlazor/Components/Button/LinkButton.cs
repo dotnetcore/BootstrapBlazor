@@ -109,12 +109,12 @@ public sealed class LinkButton : ButtonBase
     private RenderFragment AddImage() => builder =>
     {
         builder.OpenElement(0, "img");
-        builder.AddAttribute(10, "src", ImageUrl);
-        builder.AddAttribute(20, "alt", "img");
+        builder.AddAttribute(10, "alt", "img");
         if (!string.IsNullOrEmpty(ImageCss))
         {
-            builder.AddAttribute(30, "class", ImageCss);
+            builder.AddAttribute(20, "class", ImageCss);
         }
+        builder.AddAttribute(30, "src", ImageUrl);
         builder.CloseElement();
     };
 
