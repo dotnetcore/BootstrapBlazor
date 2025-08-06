@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using BootstrapBlazor.OpcDa;
 using Longbow.Tasks.Services;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
@@ -44,6 +45,16 @@ static class ServiceCollectionExtensions
         services.AddHostedService<MockSendReceiveSocketServerService>();
         services.AddHostedService<MockCustomProtocolSocketServerService>();
         services.AddHostedService<MockDisconnectServerService>();
+
+        if (OperatingSystem.IsWindows())
+        {
+            services.AddOpcDaServer();
+        }
+        else
+        {
+            // 增加 OpcDa 模拟服务（给 Linux 平台使用）
+            services.AddMockOpcDaServer();
+        }
 
         // 增加通用服务
         services.AddBootstrapBlazorServices();

@@ -249,7 +249,8 @@
     "socket/auto-connect": "Sockets\\AutoReconnects",
     "socket/data-entity": "Sockets\\DataEntities",
     "network-monitor": "NetworkMonitors",
-    "toolbar": "Toolbars"
+    "toolbar": "Toolbars",
+    "opc-da": "OpcDa"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

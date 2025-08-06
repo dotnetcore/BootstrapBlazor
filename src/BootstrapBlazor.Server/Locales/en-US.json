@@ -4846,7 +4846,8 @@
     "SocketAutoConnect": "Reconnect",
     "SocketDataEntity": "DataEntity",
     "NetworkMonitor": "Network Monitor",
-    "Toolbar": "Toolbar"
+    "Toolbar": "Toolbar",
+    "OpcDaService": "OpcDaServer"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7158,5 +7159,11 @@
     "ToolbarSubTitle": "ToolBar component is a container for buttons or other application-specific tools",
     "NormalTitle": "Normal",
     "NormalIntro": ""
+  },
+  "BootstrapBlazor.Server.Components.Samples.OpcDa": {
+    "OpcDaTitle": "OpcDa Server",
+    "OpcDaDescription": "Connect to OpcDa Server to obtain PLC real-time data",
+    "OpcDaNormalTitle": "Basic usage",
+    "OpcDaNormalIntro": "Get an instance by injecting the service <code>IOpcDaServer</code> and call the <code>Read</code> method to get the PLC Tag value."
   }
 }
