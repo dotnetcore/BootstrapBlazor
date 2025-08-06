@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.OpcDa;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -20,9 +21,15 @@ public partial class OpcDa : ComponentBase
 
     private const string Tag1 = "Channel1.Device1.Tag1";
     private const string Tag2 = "Channel1.Device1.Tag2";
+    private const string Tag3 = "Channel1.Device1.Tag3";
+    private const string Tag4 = "Channel1.Device1.Tag4";
 
     private string? _tagValue1;
     private string? _tagValue2;
+    private string? _tagValue3;
+    private string? _tagValue4;
+
+    private IOpcSubscription? _subscription;
 
     private void OnConnect()
     {
@@ -41,7 +48,34 @@ public partial class OpcDa : ComponentBase
     {
         var values = OpcServer.Read(Tag1, Tag2);
         _tagValue1 = values.ElementAt(0).Value?.ToString();
-        _tagValue2 = values.ElementAt(1).Value?.ToString();
+
+        var v = (int)values.ElementAt(1).Value! / 100d;
+        _tagValue2 = v.ToString(CultureInfo.InvariantCulture);
+    }
+
+    private void OnCreateSubscription()
+    {
+        _subscription = OpcServer.CreateSubscription("Subscription1", 1000, true);
+        _subscription.DataChanged += UpdateValues;
+        _subscription.AddItems([Tag3, Tag4]);
+    }
+
+    private void OnCancelSubscription()
+    {
+        if (_subscription != null)
+        {
+            _subscription.DataChanged -= UpdateValues;
+            OpcServer.CancelSubscription(_subscription);
+        }
+    }
+
+    private void UpdateValues(List<OpcReadItem> items)
+    {
+        _tagValue3 = items[0].Value?.ToString();
+        var v = (int)items[1].Value! / 100d;
+        _tagValue4 = v.ToString(CultureInfo.InvariantCulture);
+
+        InvokeAsync(StateHasChanged);
     }
 }
 
