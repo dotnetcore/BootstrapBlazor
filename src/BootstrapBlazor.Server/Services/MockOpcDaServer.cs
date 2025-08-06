@@ -46,11 +46,15 @@ sealed class MockOpcDaServer : IOpcServer
     public void CancelSubscription(IOpcSubscription subscription)
     {
         _subscriptions.Remove(subscription.Name);
+        if (subscription is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 
     public HashSet<OpcReadItem> Read(params HashSet<string> items)
     {
-        return items.Select(i => new OpcReadItem(i, Quality.Good, DateTime.Now, Random.Shared.Next(100, 200)))
+        return items.Select(i => new OpcReadItem(i, Quality.Good, DateTime.Now, Random.Shared.Next(1000, 2000)))
             .ToHashSet(OpcItemEqualityComparer<OpcReadItem>.Default);
     }
 
@@ -62,7 +66,6 @@ sealed class MockOpcDaServer : IOpcServer
 
     public void Dispose()
     {
-
     }
 }
 
@@ -97,7 +100,7 @@ class MockOpcDaSubscription : IOpcSubscription, IDisposable
     {
         if (DataChanged != null)
         {
-            var values = _items.Select(i => new OpcReadItem(i, Quality.Good, DateTime.Now, Random.Shared.Next(100, 200))).ToList();
+            var values = _items.Select(i => new OpcReadItem(i, Quality.Good, DateTime.Now, Random.Shared.Next(1000, 2000))).ToList();
             DataChanged.Invoke(values);
         }
     }
