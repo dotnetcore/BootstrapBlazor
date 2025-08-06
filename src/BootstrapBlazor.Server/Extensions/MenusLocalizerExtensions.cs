@@ -1613,6 +1613,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["OpcDaService"],
+                    Url = "opc-da"
+                },
+                new()
+                {
                     Text = Localizer["PrintService"],
                     Url = "print-service"
                 },
