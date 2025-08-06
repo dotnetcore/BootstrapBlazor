@@ -3,12 +3,14 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// BootstrapInputGroupLabel 组件
 /// </summary>
-public partial class BootstrapInputGroupLabel
+public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 {
     private string? ClassString => CssBuilder.Default()
         .AddClass("input-group-text", IsInputGroupLabel)
@@ -54,7 +56,7 @@ public partial class BootstrapInputGroupLabel
     private bool IsInputGroupLabel => InputGroup != null;
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -64,5 +66,27 @@ public partial class BootstrapInputGroupLabel
         {
             DisplayText ??= FieldIdentifier?.GetDisplayName();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, TagName);
+        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(20, "class", ClassString);
+        builder.AddAttribute(30, "style", StyleString);
+        builder.AddAttribute(40, "required", Required);
+        if (ChildContent != null)
+        {
+            builder.AddContent(50, ChildContent);
+        }
+        else
+        {
+            builder.AddContent(60, DisplayText);
+        }
+        builder.CloseElement();
     }
 }

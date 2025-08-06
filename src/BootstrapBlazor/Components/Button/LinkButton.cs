@@ -3,12 +3,16 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
+using System;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// LinkButton 组件
 /// </summary>
-public partial class LinkButton
+public sealed class LinkButton : ButtonBase
 {
     /// <summary>
     /// 获得/设置 Url 默认为 #
@@ -59,12 +63,68 @@ public partial class LinkButton
 
     private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, TagName);
+        builder.AddAttribute(10, "class", ClassString);
+        builder.AddAttribute(20, "href", UrlString);
+        builder.AddAttribute(30, "target", Target);
+        builder.AddAttribute(40, "disabled", Disabled);
+        builder.AddAttribute(50, "aria-disabled", DisabledString);
+        builder.AddAttribute(60, "tabindex", Tab);
+        builder.AddAttribute(70, "id", Id);
+        builder.AddAttribute(80, "role", "button");
+        builder.AddMultipleAttributes(90, AdditionalAttributes);
+
+        if (TriggerClick)
+        {
+            builder.AddAttribute(100, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickButton));
+            builder.AddEventPreventDefaultAttribute(10, "onclick", Prevent);
+            builder.AddEventStopPropagationAttribute(11, "onclick", StopPropagation);
+        }
+
+        if (!string.IsNullOrEmpty(Icon))
+        {
+            builder.AddContent(110, new MarkupString($"<i class=\"{Icon}\"></i>"));
+        }
+
+        if (!string.IsNullOrEmpty(ImageUrl))
+        {
+            builder.AddContent(120, AddImage());
+        }
+
+        if (!string.IsNullOrEmpty(Text))
+        {
+            builder.AddContent(130, new MarkupString($"<span>{Text}</span>"));
+        }
+
+        builder.AddContent(140, ChildContent);
+        builder.CloseElement();
+    }
+
+    private RenderFragment AddImage() => builder =>
+    {
+        builder.OpenElement(0, "img");
+        builder.AddAttribute(10, "alt", "img");
+        if (!string.IsNullOrEmpty(ImageCss))
+        {
+            builder.AddAttribute(20, "class", ImageCss);
+        }
+        builder.AddAttribute(30, "src", ImageUrl);
+        builder.CloseElement();
+    };
+
     private async Task OnClickButton()
     {
         if (OnClickWithoutRender != null)
         {
             await OnClickWithoutRender();
         }
+
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync();

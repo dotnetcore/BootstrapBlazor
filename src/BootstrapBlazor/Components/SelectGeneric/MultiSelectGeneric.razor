@@ -60,9 +60,9 @@
             <div class="toolbar">
                 @if (ShowDefaultButtons)
                 {
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
+                    <button type="button" class="btn" @onclick="SelectAll">@SelectAllText</button>
+                    <button type="button" class="btn" @onclick="InvertSelect">@ReverseSelectText</button>
+                    <button type="button" class="btn" @onclick="Clear">@ClearText</button>
                 }
                 @ButtonTemplate
             </div>
