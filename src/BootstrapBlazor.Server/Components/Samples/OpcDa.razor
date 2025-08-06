@@ -5,10 +5,38 @@
 
 <h4>@Localizer["OpcDaDescription"]</h4>
 
-<PackageTips Name="BootstrapBlazor.OpcDa" />
+<PackageTips Name="BootstrapBlazor.OpcDa"/>
 
 <DemoBlock Title="@Localizer["OpcDaTitle"]" Introduction="@Localizer["OpcDaIntro"]" Name="Normal">
-    <section ignore>
+    <p class="code-label">1. 点击 <b>连接</b> 按钮与 <code>OpcDa</code> 服务器建立通讯连接</p>
+    <p>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="OpcDa Server"></BootstrapInputGroupLabel>
+            <Display @bind-Value="@_serverName"></Display>
+            <Button Text="连接" OnClick="OnConnect" IsDisabled="OpcServer.IsConnected"></Button>
+            <Button Text="断开" OnClick="OnDisConnect" IsDisabled="!OpcServer.IsConnected"
+                    Color="Color.Danger"></Button>
+        </BootstrapInputGroup>
+    </p>
 
-    </section>
+    <p class="code-label">2. 点击 <b>读取</b> 按钮读取 <code>OpcDa</code> 服务器上的位号值</p>
+    <p class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="转速"></BootstrapInputGroupLabel>
+                <BootstrapInputGroupLabel DisplayText="@Tag1"></BootstrapInputGroupLabel>
+                <Display @bind-Value="@_tagValue1"></Display>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="流速"></BootstrapInputGroupLabel>
+                <BootstrapInputGroupLabel DisplayText="@Tag2"></BootstrapInputGroupLabel>
+                <Display @bind-Value="@_tagValue2"></Display>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Button OnClick="OnRead" Text="读取"></Button>
+        </div>
+    </p>
 </DemoBlock>
