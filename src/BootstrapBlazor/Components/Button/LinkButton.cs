@@ -70,38 +70,39 @@ public sealed class LinkButton : ButtonBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, TagName);
-        builder.AddAttribute(1, "class", ClassString);
-        builder.AddAttribute(2, "href", UrlString);
-        builder.AddAttribute(3, "target", Target);
-        builder.AddAttribute(4, "disabled", Disabled);
-        builder.AddAttribute(5, "aria-disabled", DisabledString);
-        builder.AddAttribute(6, "tabindex", Tab);
-        builder.AddAttribute(7, "id", Id);
-        builder.AddAttribute(8, "role", "button");
+        builder.AddAttribute(10, "class", ClassString);
+        builder.AddAttribute(20, "href", UrlString);
+        builder.AddAttribute(30, "target", Target);
+        builder.AddAttribute(40, "disabled", Disabled);
+        builder.AddAttribute(50, "aria-disabled", DisabledString);
+        builder.AddAttribute(60, "tabindex", Tab);
+        builder.AddAttribute(70, "id", Id);
+        builder.AddAttribute(80, "role", "button");
+        builder.AddMultipleAttributes(90, AdditionalAttributes);
 
         if (TriggerClick)
         {
-            builder.AddAttribute(9, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickButton));
+            builder.AddAttribute(100, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnClickButton));
             builder.AddEventPreventDefaultAttribute(10, "onclick", Prevent);
             builder.AddEventStopPropagationAttribute(11, "onclick", StopPropagation);
         }
 
         if (!string.IsNullOrEmpty(Icon))
         {
-            builder.AddContent(12, new MarkupString($"<i class=\"{Icon}\"></i>"));
+            builder.AddContent(110, new MarkupString($"<i class=\"{Icon}\"></i>"));
         }
 
         if (!string.IsNullOrEmpty(ImageUrl))
         {
-            builder.AddContent(13, new MarkupString($"<img alt=\"img\" class=\"{ImageCss}\" src=\"{ImageUrl}\" />"));
+            builder.AddContent(120, new MarkupString($"<img alt=\"img\" class=\"{ImageCss}\" src=\"{ImageUrl}\" />"));
         }
 
         if (!string.IsNullOrEmpty(Text))
         {
-            builder.AddContent(14, new MarkupString($"<span>{Text}</span>"));
+            builder.AddContent(130, new MarkupString($"<span>{Text}</span>"));
         }
 
-        builder.AddContent(15, ChildContent);
+        builder.AddContent(140, ChildContent);
         builder.CloseElement();
     }
 
