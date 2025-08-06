@@ -75,17 +75,17 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, TagName);
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "class", ClassString);
-        builder.AddAttribute(3, "style", StyleString);
-        builder.AddAttribute(4, "required", Required);
+        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(20, "class", ClassString);
+        builder.AddAttribute(30, "style", StyleString);
+        builder.AddAttribute(40, "required", Required);
         if (ChildContent != null)
         {
-            builder.AddContent(5, ChildContent);
+            builder.AddContent(50, ChildContent);
         }
         else
         {
-            builder.AddContent(6, DisplayText);
+            builder.AddContent(60, DisplayText);
         }
         builder.CloseElement();
     }
