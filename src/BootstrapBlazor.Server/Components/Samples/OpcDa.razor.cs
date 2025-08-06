@@ -15,7 +15,7 @@ public partial class OpcDa : ComponentBase
 {
     [Inject]
     [NotNull]
-    private IOpcDaServer? OpcServer { get; set; }
+    private IOpcDaServer? OpcDaServer { get; set; }
 
     private string? _serverName = "opcda://localhost/Kepware.KEPServerEX.V6/Mock";
 
@@ -37,19 +37,19 @@ public partial class OpcDa : ComponentBase
     {
         if (!string.IsNullOrEmpty(_serverName))
         {
-            OpcServer.Connect(_serverName);
+            OpcDaServer.Connect(_serverName);
         }
     }
 
     private void OnDisConnect()
     {
         OnCancelSubscription();
-        OpcServer.Disconnect();
+        OpcDaServer.Disconnect();
     }
 
     private void OnRead()
     {
-        var values = OpcServer.Read(Tag1, Tag2);
+        var values = OpcDaServer.Read(Tag1, Tag2);
         _tagValue1 = values.ElementAt(0).Value?.ToString();
 
         var v = (int)values.ElementAt(1).Value! / 100d;
@@ -59,7 +59,7 @@ public partial class OpcDa : ComponentBase
     private void OnCreateSubscription()
     {
         _subscribed = true;
-        _subscription = OpcServer.CreateSubscription("Subscription1", 1000, true);
+        _subscription = OpcDaServer.CreateSubscription("Subscription1", 1000, true);
         _subscription.DataChanged += UpdateValues;
         _subscription.AddItems([Tag3, Tag4]);
     }
@@ -70,7 +70,7 @@ public partial class OpcDa : ComponentBase
         if (_subscription != null)
         {
             _subscription.DataChanged -= UpdateValues;
-            OpcServer.CancelSubscription(_subscription);
+            OpcDaServer.CancelSubscription(_subscription);
         }
     }
 

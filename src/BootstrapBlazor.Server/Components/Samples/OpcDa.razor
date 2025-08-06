@@ -13,8 +13,8 @@
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="OpcDa Server"></BootstrapInputGroupLabel>
             <Display @bind-Value="@_serverName"></Display>
-            <Button Text="连接" OnClick="OnConnect" IsDisabled="OpcServer.IsConnected"></Button>
-            <Button Text="断开" OnClick="OnDisConnect" IsDisabled="!OpcServer.IsConnected"
+            <Button Text="连接" OnClick="OnConnect" IsDisabled="OpcDaServer.IsConnected"></Button>
+            <Button Text="断开" OnClick="OnDisConnect" IsDisabled="!OpcDaServer.IsConnected"
                     Color="Color.Danger"></Button>
         </BootstrapInputGroup>
     </p>
@@ -36,7 +36,7 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
-            <Button OnClick="OnRead" Text="读取" IsDisabled="!OpcServer.IsConnected"></Button>
+            <Button OnClick="OnRead" Text="读取" IsDisabled="!OpcDaServer.IsConnected"></Button>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
-            <Button OnClick="OnCreateSubscription" Text="订阅" IsDisabled="@(!OpcServer.IsConnected || _subscribed)"></Button>
+            <Button OnClick="OnCreateSubscription" Text="订阅" IsDisabled="@(!OpcDaServer.IsConnected || _subscribed)"></Button>
             <Button OnClick="OnCancelSubscription" Text="取消" IsDisabled="!_subscribed"></Button>
         </div>
     </div>
