@@ -7,7 +7,7 @@
 
 <PackageTips Name="BootstrapBlazor.OpcDa"/>
 
-<DemoBlock Title="@Localizer["OpcDaTitle"]" Introduction="@Localizer["OpcDaIntro"]" Name="Normal">
+<DemoBlock Title="@Localizer["OpcDaNormalTitle"]" Introduction="@Localizer["OpcDaNormalIntro"]" Name="Normal">
     <p class="code-label">1. 点击 <b>连接</b> 按钮与 <code>OpcDa</code> 服务器建立通讯连接</p>
     <p>
         <BootstrapInputGroup>
@@ -70,8 +70,8 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
-            <Button OnClick="OnCreateSubscription" Text="订阅" IsDisabled="!OpcServer.IsConnected"></Button>
-            <Button OnClick="OnCancelSubscription" Text="取消" IsDisabled="!OpcServer.IsConnected"></Button>
+            <Button OnClick="OnCreateSubscription" Text="订阅" IsDisabled="@(!OpcServer.IsConnected || _subscribed)"></Button>
+            <Button OnClick="OnCancelSubscription" Text="取消" IsDisabled="!_subscribed"></Button>
         </div>
     </div>
 </DemoBlock>
