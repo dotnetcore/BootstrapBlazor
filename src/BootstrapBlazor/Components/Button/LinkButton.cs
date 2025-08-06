@@ -94,7 +94,7 @@ public sealed class LinkButton : ButtonBase
 
         if (!string.IsNullOrEmpty(ImageUrl))
         {
-            builder.AddContent(120, new MarkupString($"<img alt=\"img\" class=\"{ImageCss}\" src=\"{ImageUrl}\" />"));
+            builder.AddContent(120, AddImage());
         }
 
         if (!string.IsNullOrEmpty(Text))
@@ -106,12 +106,25 @@ public sealed class LinkButton : ButtonBase
         builder.CloseElement();
     }
 
+    private RenderFragment AddImage() => builder =>
+    {
+        builder.OpenElement(0, "img");
+        builder.AddAttribute(10, "src", ImageUrl);
+        builder.AddAttribute(20, "alt", "img");
+        if (!string.IsNullOrEmpty(ImageCss))
+        {
+            builder.AddAttribute(30, "class", ImageCss);
+        }
+        builder.CloseElement();
+    };
+
     private async Task OnClickButton()
     {
         if (OnClickWithoutRender != null)
         {
             await OnClickWithoutRender();
         }
+
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync();
