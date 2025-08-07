@@ -7,7 +7,7 @@
 
 <PackageTips Name="BootstrapBlazor.OpcDa"/>
 
-<DemoBlock Title="@Localizer["OpcDaNormalTitle"]" Introduction="@Localizer["OpcDaNormalIntro"]" Name="Normal">
+<DemoBlock Title="@Localizer["OpcDaNormalTitle"]" Introduction="@Localizer["OpcDaNormalIntro"]" ShowCode="false" Name="Normal">
     <p class="code-label">1. 点击 <b>连接</b> 按钮与 <code>OpcDa</code> 服务器建立通讯连接</p>
     <p>
         <BootstrapInputGroup>
@@ -74,4 +74,7 @@
             <Button OnClick="OnCancelSubscription" Text="取消" IsDisabled="!_subscribed"></Button>
         </div>
     </div>
+
+    <p class="code-label">4. 浏览</p>
+    <p>通过调用 <code>OpcDaServer</code> 的 <code>Browse</code> 方法可以构建一个节点树状结构</p>
 </DemoBlock>
