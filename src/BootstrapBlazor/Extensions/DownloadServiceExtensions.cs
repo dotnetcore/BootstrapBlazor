@@ -49,7 +49,7 @@ public static class DownloadServiceExtensions
         var destZipFile = $"{directoryName}.zip";
         ZipFile.CreateFromDirectory(folder, destZipFile);
 
-        using var stream = new FileStream(destZipFile, FileMode.Open);
+        await using var stream = new FileStream(destZipFile, FileMode.Open);
         await download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
     }
 
