@@ -82,5 +82,33 @@ public partial class OpcDa : ComponentBase
 
         InvokeAsync(StateHasChanged);
     }
-}
 
+    private List<TreeViewItem<OpcBrowseElement>> _roots = [];
+
+    private void OnBrowse()
+    {
+        var elements = OpcDaServer.Browse("", new OpcBrowseFilters(), out _);
+        _roots = elements.Select(element => new TreeViewItem<OpcBrowseElement>(element)
+        {
+            Text = element.Name,
+            HasChildren = element.HasChildren,
+            Icon = "fa-solid fa-fw fa-cubes"
+        }).ToList();
+    }
+
+    private Task<IEnumerable<TreeViewItem<OpcBrowseElement>>> OnExpandNodeAsync(TreeViewItem<OpcBrowseElement> element)
+    {
+        var children = OpcDaServer.Browse(element.Value.ItemName, new OpcBrowseFilters(), out _);
+        var items = children.Select(i => new TreeViewItem<OpcBrowseElement>(i)
+        {
+            Text = i.Name,
+            HasChildren = i.HasChildren,
+            Icon = i.HasChildren ? "fa-solid fa-fw fa-cube" : "fa-solid fa-fw fa-wrench"
+        });
+        if (!items.Any())
+        {
+            element.HasChildren = false;
+        }
+        return Task.FromResult(items);
+    }
+}
