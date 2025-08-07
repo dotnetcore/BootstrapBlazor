@@ -60,7 +60,7 @@
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.OpcDa" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.OpcDa" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.Player" Version="9.0.1" />
