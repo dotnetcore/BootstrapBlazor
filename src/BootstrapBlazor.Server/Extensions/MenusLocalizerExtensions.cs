@@ -1490,6 +1490,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["Navbar"],
+                    Url = "navbar"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["Toolbar"],
                     Url = "toolbar"
                 }

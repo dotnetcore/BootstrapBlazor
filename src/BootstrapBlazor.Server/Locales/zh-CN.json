@@ -4847,7 +4847,8 @@
     "SocketDataEntity": "通讯数据转实体类",
     "NetworkMonitor": "网络状态 NetworkMonitor",
     "Toolbar": "工具栏 Toolbar",
-    "OpcDaService": "OpcDaServer 服务"
+    "OpcDaService": "OpcDaServer 服务",
+    "Navbar": "导航栏 Navbar"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
