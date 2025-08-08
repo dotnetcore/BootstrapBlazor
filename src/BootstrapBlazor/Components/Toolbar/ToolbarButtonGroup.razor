@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
 
-<div class="bb-toolbar-group btn-group">
+<div  @attributes="AdditionalAttributes" class="@ClassString">
     @ChildContent
 </div>
