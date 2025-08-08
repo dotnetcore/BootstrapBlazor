@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <RunTargetFramework>net9.0</RunTargetFramework>
+    <RunTargetFramework>net10.0</RunTargetFramework>
   </PropertyGroup>
 
 </Project>
