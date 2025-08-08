@@ -16,7 +16,7 @@ public partial class NavbarBrand
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private string? ClassString => CssBuilder.Default("nav-brand")
+    private string? ClassString => CssBuilder.Default("navbar-brand")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }

@@ -1,0 +1,11 @@
+﻿.navbar {
+    --bs-navbar-toggler-focus-width: 1px;
+
+    .navbar-nav:not(:last-child) {
+        margin-right: auto;
+    }
+
+    .navbar-nav:last-child:not(:first-child) {
+        margin-top: .5rem;
+    }
+}
