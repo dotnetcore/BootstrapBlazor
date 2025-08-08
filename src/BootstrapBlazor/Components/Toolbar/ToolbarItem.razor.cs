@@ -16,7 +16,7 @@ public partial class ToolbarItem
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private string? ClassString => CssBuilder.Default("toolbar-item")
+    private string? ClassString => CssBuilder.Default("bb-toolbar-item")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }
