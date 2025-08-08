@@ -9,3 +9,55 @@
         margin-top: .5rem;
     }
 }
+
+.navbar-expand {
+    .navbar-nav:last-child:not(:first-child) {
+        margin-top: 0;
+        margin-left: .5rem;
+    }
+}
+
+@media (min-width: 576px) {
+    .navbar-expand-sm {
+        .navbar-nav:last-child:not(:first-child) {
+            margin-top: 0;
+            margin-left: .5rem;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md {
+        .navbar-nav:last-child:not(:first-child) {
+            margin-top: 0;
+            margin-left: .5rem;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg {
+        .navbar-nav:last-child:not(:first-child) {
+            margin-top: 0;
+            margin-left: .5rem;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-expand-xl {
+        .navbar-nav:last-child:not(:first-child) {
+            margin-top: 0;
+            margin-left: .5rem;
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar-expand-xxl {
+        .navbar-nav:last-child:not(:first-child) {
+            margin-top: 0;
+            margin-left: .5rem;
+        }
+    }
+}
