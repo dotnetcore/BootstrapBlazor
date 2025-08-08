@@ -1459,6 +1459,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Navbar"],
+                    Url = "navbar"
+                },
+                new()
+                {
                     Text = Localizer["Row"],
                     Url = "row"
                 },
@@ -1486,12 +1492,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Stack"],
                     Url = "stack"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Navbar"],
-                    Url = "navbar"
                 },
                 new()
                 {
