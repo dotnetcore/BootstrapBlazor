@@ -19,6 +19,10 @@ public partial class ToolbarButtonGroup : IAsyncDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    private string? ClassString => CssBuilder.Default("bb-toolbar-group btn-group")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

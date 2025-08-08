@@ -10,5 +10,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ToolbarSpace
 {
+    private string? ClassString => CssBuilder.Default("bb-toolbar-space")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }
 

@@ -10,5 +10,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ToolbarSeparator
 {
+    private string? ClassString => CssBuilder.Default("bb-toolbar-vr vr")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }
-
