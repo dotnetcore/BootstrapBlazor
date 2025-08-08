@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// NavBrand 组件
 /// </summary>
-public partial class NavBrand
+public partial class NavbarBrand
 {
     /// <summary>
     /// 获得/设置 子组件模板
