@@ -5,6 +5,9 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// NavbarCollapse 组件用于在导航栏中适配响应式布局
+/// </summary>
 public partial class NavbarCollapse
 {
     /// <summary>
