@@ -2,7 +2,5 @@
 @inherits IdComponentBase
 
 <div @attributes="AdditionalAttributes" class="@ClassString" role="toolbar" aria-label="toolbar" style="@StyleString">
-    <CascadingValue Value="this" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
+    @ChildContent
 </div>
