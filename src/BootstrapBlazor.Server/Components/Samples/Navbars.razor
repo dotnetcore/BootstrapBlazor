@@ -1,0 +1,13 @@
+﻿@page "/navbar"
+@inject IStringLocalizer<Navbars> Localizer
+
+<h3>@Localizer["NavbarTitle"]</h3>
+
+<h4>@Localizer["NavbarDescription"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <section ignore>
+        @((MarkupString)Localizer["MultiSelectIsSingleLineDescription"].Value)
+    </section>
+    <Navbar></Navbar>
+</DemoBlock>
