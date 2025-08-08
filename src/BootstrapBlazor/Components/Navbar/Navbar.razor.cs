@@ -16,7 +16,7 @@ public partial class Navbar
     /// 获得/设置 组件大小 默认 <see cref="Size.None"/>
     /// </summary>
     [Parameter]
-    public Size Size { get; set; }
+    public Size Size { get; set; } = Size.Large;
 
     /// <summary>
     /// 获得/设置 背景色样式名称 默认 null 未设置
