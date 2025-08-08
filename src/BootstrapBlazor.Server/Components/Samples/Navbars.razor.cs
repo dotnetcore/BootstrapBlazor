@@ -10,5 +10,19 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Navbars
 {
+    private List<SelectedItem> _dropdownItems = [];
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _dropdownItems.AddRange([
+            new SelectedItem() { Text="Item1", Value="0"},
+            new SelectedItem() { Text="Item2", Value="1"},
+            new SelectedItem() { Text="Item3", Value="2"}
+        ]);
+    }
 }

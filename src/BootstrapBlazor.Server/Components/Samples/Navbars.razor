@@ -10,6 +10,28 @@
 
     </section>
     <Navbar>
-        <NavbarBrand></NavbarBrand>
+        <NavbarBrand>
+            <a href="#">Navbar</a>
+        </NavbarBrand>
+        <NavbarToggleButton Target="#test"></NavbarToggleButton>
+        <NavbarCollapse Id="test">
+            <NavbarGroup>
+                <NavbarItem>
+                    <a class="nav-link active" aria-current="page" href="">Home</a>
+                </NavbarItem>
+                <NavbarItem>
+                    <a class="nav-link active" aria-current="page" href="">Link</a>
+                </NavbarItem>
+                <NavbarItem>
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </NavbarItem>
+            </NavbarGroup>
+            <NavbarGroup>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </NavbarGroup>
+        </NavbarCollapse>
     </Navbar>
 </DemoBlock>
