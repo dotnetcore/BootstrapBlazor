@@ -31,6 +31,14 @@ public class NavbarTest : BootstrapBlazorTestBase
                     {
                         pb.AddChildContent("<a class=\"nav-link active\" aria-current=\"page\" href=\"\">Home</a>");
                     });
+                    pb.AddChildContent<NavbarLink>(pb =>
+                    {
+                        pb.Add(a => a.Url, "#");
+                        pb.Add(a => a.ImageUrl, "https://example.com/logo.png");
+                        pb.Add(a => a.ImageCss, "logo-class");
+                        pb.Add(a => a.Target, "_blank");
+                        pb.AddChildContent("HomeLink");
+                    });
                 });
             });
         });
@@ -39,6 +47,7 @@ public class NavbarTest : BootstrapBlazorTestBase
         Assert.Contains("collapse navbar-collapse", cut.Markup);
         Assert.Contains("navbar-nav", cut.Markup);
         Assert.Contains("<a class=\"nav-link active\" aria-current=\"page\" href=\"\">Home</a>", cut.Markup);
+        Assert.Contains("<img src=\"https://example.com/logo.png\" class=\"logo-class\" />HomeLink", cut.Markup);
 
         var toggle = cut.FindComponent<NavbarToggleButton>();
         Assert.NotNull(toggle);
@@ -48,5 +57,27 @@ public class NavbarTest : BootstrapBlazorTestBase
             pb.AddChildContent("<a href=\"#\">ToggleButton</a>");
         });
         Assert.Contains("<a href=\"#\">ToggleButton</a>", cut.Markup);
+    }
+
+    [Fact]
+    public async Task NavbarLink_Ok()
+    {
+        var cut = Context.RenderComponent<NavbarLink>(pb =>
+        {
+            pb.Add(a => a.Icon, "fa-test");
+            pb.Add(a => a.Text, "Home");
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(a => a.OnClick, async () =>
+            {
+                await Task.Yield();
+            });
+        });
+
+        Assert.Contains("<i class=\"fa-test\"></i><span>Home</span>", cut.Markup);
+
+        var link = cut.Find("a");
+        Assert.NotNull(link);
+
+        await cut.InvokeAsync(() => link.Click());
     }
 }
