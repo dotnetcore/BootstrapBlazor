@@ -23,7 +23,7 @@ public partial class NavbarGroup
     public bool IsScrolling { get; set; }
 
     /// <summary>
-    /// 获得/设置 高度值 默认 100px;
+    /// 获得/设置 高度值 默认 200px;
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
@@ -34,7 +34,7 @@ public partial class NavbarGroup
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bs-scroll-height", Height)
+        .AddStyle("--bs-scroll-height", Height, IsScrolling)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -45,6 +45,6 @@ public partial class NavbarGroup
     {
         base.OnParametersSet();
 
-        Height ??= "100px";
+        Height ??= "200px";
     }
 }
