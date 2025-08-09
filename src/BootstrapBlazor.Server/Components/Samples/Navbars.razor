@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <Navbar>
         <NavbarBrand>
-            <a href="#">Navbar</a>
+            <a>Navbar</a>
         </NavbarBrand>
         <NavbarToggleButton Target="#test"></NavbarToggleButton>
         <NavbarCollapse Id="test">
@@ -22,6 +22,9 @@
                     <NavbarDropdownItem>Something else here</NavbarDropdownItem>
                 </NavbarDropdown>
                 <NavbarLink IsDisabled="true">Disabled</NavbarLink>
+                <NavbarItem>
+                    <a class="nav-link">About</a>
+                </NavbarItem>
             </NavbarGroup>
             <NavbarGroup>
                 <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
@@ -33,13 +36,14 @@
     </Navbar>
     <section ignore>
         <ul class="ul-demo">
-            <li><code>NavbarBrand</code></li>
-            <li><code>NavbarToggleButton</code></li>
-            <li><code>NavbarCollapse</code></li>
-            <li><code>NavbarGroup</code></li>
-            <li><code>NavbarItem</code></li>
-            <li><code>NavbarLink</code></li>
-            <li><code>NavbarDropdown</code></li>
+            <li><code>NavbarBrand</code> 渲染 <code>navbar-brand</code> 样式</li>
+            <li><code>NavbarToggleButton</code> 渲染 <code>navbar-toggler</code> 样式</li>
+            <li><code>NavbarCollapse</code> 渲染 <code>collapse navbar-collapse</code> 样式</li>
+            <li><code>NavbarGroup</code> 渲染 <code>navbar-nav</code> 样式</li>
+            <li><code>NavbarItem</code> 渲染 <code>navbar-item</code> 样式</li>
+            <li><code>NavbarLink</code> 渲染 <code>nav-link</code> 样式</li>
+            <li><code>NavbarDropdown</code> 渲染 <code>nav-item dropdown</code> 样式</li>
+            <li><code>NavbarDropdownItem</code> 渲染 <code>dropdown-item</code> 样式</li>
         </ul>
     </section>
 </DemoBlock>
