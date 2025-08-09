@@ -32,11 +32,13 @@
                     <a class="nav-link">About</a>
                 </NavbarItem>
             </NavbarGroup>
-            <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
-                <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText"
-                                ShowLabel="false" SkipValidate="true"></BootstrapInput>
-                <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
-            </ValidateForm>
+            <NavbarGroup>
+                <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
+                    <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText"
+                                    ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                    <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
+                </ValidateForm>
+            </NavbarGroup>
         </NavbarCollapse>
     </Navbar>
     <section ignore>
@@ -53,10 +55,20 @@
         <p>渲染 <code>collapse navbar-collapse</code> 样式，导航栏中的可折叠展开区域，通过设置参数 <code>Id</code> 值，与组件 <code>NavbarToggleButton</code> 联动</p>
         <p class="code-label">NavbarGroup</p>
         <p>渲染 <code>navbar-nav</code> 样式，导航栏中区域分组容器组件</p>
+        <ul class="ul-demo">
+            <li><code>IsScrolling</code>: 是否开启滚动条</li>
+            <li><code>Height</code>: 组件高度，默认 <b>200px</b></li>
+        </ul>
         <p class="code-label">NavbarItem</p>
         <p>渲染 <code>navbar-item</code> 样式，导航栏中单项容器组件，通过内置自定义组件或者 <code>Html</code> 实现导航项</p>
         <p class="code-label">NavbarLink</p>
         <p>渲染 <code>nav-link</code> 样式，导航栏中导航组件，内部渲染为 <code>a</code> 链接</p>
+        <ul class="ul-demo">
+            <li><code>Url</code>: 导航地址</li>
+            <li><code>Target</code>: 导航目标</li>
+            <li><code>ImageUrl</code>: 图片地址</li>
+            <li><code>ImageCss</code>: 图片样式</li>
+        </ul>
         <p class="code-label">NavbarDropdown</p>
         <p>渲染 <code>nav-item dropdown</code> 样式，导航栏中下拉菜单组件</p>
         <p class="code-label">NavbarDropdownItem</p>
