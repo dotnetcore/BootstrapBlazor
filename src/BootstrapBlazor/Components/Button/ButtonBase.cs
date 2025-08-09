@@ -232,6 +232,26 @@ public abstract class ButtonBase : TooltipWrapperBase
     }
 
     /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task HandlerClick()
+    {
+        if (OnClickWithoutRender != null)
+        {
+            if (!IsAsync)
+            {
+                IsNotRender = true;
+            }
+            await OnClickWithoutRender();
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
+
+    /// <summary>
     /// 设置按钮是否可用状态
     /// </summary>
     /// <param name="disable"></param>
