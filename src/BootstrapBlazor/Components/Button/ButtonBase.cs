@@ -67,7 +67,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     public Func<Task>? OnClickWithoutRender { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 按钮颜色 默认 <see cref="Color.Primary"/>
     /// </summary>
     [Parameter]
     public virtual Color Color { get; set; } = Color.Primary;
