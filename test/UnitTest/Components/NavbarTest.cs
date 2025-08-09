@@ -39,6 +39,22 @@ public class NavbarTest : BootstrapBlazorTestBase
                         pb.Add(a => a.Target, "_blank");
                         pb.AddChildContent("HomeLink");
                     });
+                    pb.AddChildContent<NavbarDropdown>(pb =>
+                    {
+                        pb.Add(a => a.Direction, Direction.Dropup);
+                        pb.Add(a => a.MenuAlignment, Alignment.Right);
+                        pb.Add(a => a.Text, "Dropdown");
+                        pb.AddChildContent<NavbarDropdownItem>(pb =>
+                        {
+                            pb.AddChildContent("<a class=\"dropdown-item\" href=\"#\">Action</a>");
+                        });
+                        pb.AddChildContent<NavbarDropdownDivider>();
+                        pb.AddChildContent<NavbarDropdownItem>(pb =>
+                        {
+                            pb.Add(a => a.Url, "#");
+                            pb.Add(a => a.Target, "_blank");
+                        });
+                    });
                 });
             });
         });
