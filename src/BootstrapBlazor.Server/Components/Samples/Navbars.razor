@@ -12,7 +12,7 @@
         </NavbarBrand>
         <NavbarToggleButton Target="#test"></NavbarToggleButton>
         <NavbarCollapse Id="test">
-            <NavbarGroup>
+            <NavbarGroup IsScrolling="true">
                 <NavbarLink>Home</NavbarLink>
                 <NavbarLink Text="Link"></NavbarLink>
                 <NavbarDropdown Text="Dropdown">
@@ -32,13 +32,11 @@
                     <a class="nav-link">About</a>
                 </NavbarItem>
             </NavbarGroup>
-            <NavbarGroup>
-                <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
-                    <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText"
-                                    ShowLabel="false" SkipValidate="true"></BootstrapInput>
-                    <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
-                </ValidateForm>
-            </NavbarGroup>
+            <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
+                <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText"
+                                ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
+            </ValidateForm>
         </NavbarCollapse>
     </Navbar>
     <section ignore>
