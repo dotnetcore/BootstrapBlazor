@@ -16,7 +16,35 @@ public partial class NavbarGroup
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否启用滚动
+    /// </summary>
+    [Parameter]
+    public bool IsScrolling { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高度值 默认 100px;
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     private string? ClassString => CssBuilder.Default("navbar-nav")
+        .AddClass("navbar-nav-scroll", IsScrolling)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddStyle("--bs-scroll-height", Height)
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Height ??= "100px";
+    }
 }
