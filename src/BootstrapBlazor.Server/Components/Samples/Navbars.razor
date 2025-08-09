@@ -6,9 +6,6 @@
 <h4>@Localizer["NavbarDescription"]</h4>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <section ignore>
-
-    </section>
     <Navbar>
         <NavbarBrand>
             <a href="#">Navbar</a>
@@ -18,14 +15,31 @@
             <NavbarGroup>
                 <NavbarLink>Home</NavbarLink>
                 <NavbarLink Text="Link"></NavbarLink>
+                <NavbarDropdown Text="Dropdown">
+                    <NavbarDropdownItem>Action</NavbarDropdownItem>
+                    <NavbarDropdownItem>Another action</NavbarDropdownItem>
+                    <NavbarDropdownDivider></NavbarDropdownDivider>
+                    <NavbarDropdownItem>Something else here</NavbarDropdownItem>
+                </NavbarDropdown>
                 <NavbarLink IsDisabled="true">Disabled</NavbarLink>
             </NavbarGroup>
             <NavbarGroup>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
+                    <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                    <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
+                </ValidateForm>
             </NavbarGroup>
         </NavbarCollapse>
     </Navbar>
+    <section ignore>
+        <ul class="ul-demo">
+            <li><code>NavbarBrand</code></li>
+            <li><code>NavbarToggleButton</code></li>
+            <li><code>NavbarCollapse</code></li>
+            <li><code>NavbarGroup</code></li>
+            <li><code>NavbarItem</code></li>
+            <li><code>NavbarLink</code></li>
+            <li><code>NavbarDropdown</code></li>
+        </ul>
+    </section>
 </DemoBlock>
