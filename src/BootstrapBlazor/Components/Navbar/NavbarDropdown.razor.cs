@@ -22,7 +22,27 @@ public partial class NavbarDropdown
     [Parameter]
     public string? Text { get; set; }
 
-    private string? ClassString => CssBuilder.Default("nav-item dropdown")
+    /// <summary>
+    /// 获得/设置 获取菜单对齐方式 默认 none 未设置
+    /// </summary>
+    [Parameter]
+    public Alignment MenuAlignment { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉选项方向 默认 Dropdown 向下
+    /// </summary>
+    [Parameter]
+    public Direction Direction { get; set; }
+
+    private string? ClassString => CssBuilder.Default("nav-item")
+        .AddClass(Direction.ToDescriptionString())
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 菜单对齐方式样式
+    /// </summary>
+    private string? MenuAlignmentClass => CssBuilder.Default("dropdown-menu shadow")
+        .AddClass($"dropdown-menu-{MenuAlignment.ToDescriptionString()}", MenuAlignment == Alignment.Right)
         .Build();
 }
