@@ -2,7 +2,7 @@
 @typeparam TModel
 @inherits BootstrapComponentBase
 
-<div @attributes="AdditionalAttributes" class="bb-editor">
+<div @attributes="AdditionalAttributes" class="@ClassString">
     <CascadingValue Value="@_editorItems" IsFixed="false">
         @FieldItems?.Invoke(Model)
     </CascadingValue>
@@ -31,14 +31,14 @@
                 }
             }
         </div>
-    </CascadingValue>
 
-    @if (Buttons != null)
-    {
-        <div class="bb-editor-footer form-footer">
-            @Buttons
-        </div>
-    }
+        @if (Buttons != null)
+        {
+            <div class="bb-editor-footer form-footer">
+                @Buttons
+            </div>
+        }
+    </CascadingValue>
 </div>
 
 @code
