@@ -13,10 +13,10 @@ namespace BootstrapBlazor.Components;
 public partial class Navbar
 {
     /// <summary>
-    /// 获得/设置 组件大小 默认 <see cref="Size.None"/>
+    /// 获得/设置 组件大小 默认 <see cref="Size.Medium"/>
     /// </summary>
     [Parameter]
-    public Size Size { get; set; } = Size.Large;
+    public Size Size { get; set; } = Size.Medium;
 
     /// <summary>
     /// 获得/设置 背景色样式名称 默认 null 未设置
@@ -34,6 +34,7 @@ public partial class Navbar
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("navbar")
+        .AddClass($"navbar-expand", Size == Size.None)
         .AddClass($"navbar-expand-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass(BackgroundColorCssClass)
         .AddClass("bg-body-tertiary", string.IsNullOrEmpty(BackgroundColorCssClass))
