@@ -11,15 +11,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑表单基类
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TModel))]
-#endif
 public partial class EditorForm<TModel> : IShowLabel
 {
-    private string? ClassString => CssBuilder.Default("bb-editor form-body")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
     /// <summary>
     /// 支持每行多少个控件功能
     /// </summary>
