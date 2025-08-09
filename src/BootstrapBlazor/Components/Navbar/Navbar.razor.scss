@@ -10,6 +10,10 @@
     }
 }
 
+.nav-link:focus-visible {
+    box-shadow: none;
+}
+
 .navbar-expand {
     .navbar-nav:last-child:not(:first-child) {
         margin-top: 0;
