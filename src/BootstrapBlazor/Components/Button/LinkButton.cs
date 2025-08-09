@@ -119,14 +119,19 @@ public class LinkButton : ButtonBase
 
     private async Task OnClickButton()
     {
-        if (OnClickWithoutRender != null)
+        if (IsAsync)
         {
-            await OnClickWithoutRender();
+            IsAsyncLoading = true;
+            IsDisabled = true;
         }
 
-        if (OnClick.HasDelegate)
+        await HandlerClick();
+
+        // 恢复按钮
+        if (IsAsync)
         {
-            await OnClick.InvokeAsync();
+            IsDisabled = IsKeepDisabled;
+            IsAsyncLoading = false;
         }
     }
 }
