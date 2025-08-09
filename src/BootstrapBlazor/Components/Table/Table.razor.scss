@@ -921,6 +921,7 @@ form .table .table-cell > textarea {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1rem;
+    max-height: calc(100vh - 133px);
 }
 
 .modal-dialog-table.modal-dialog-scrollable .modal-body .form-footer {
