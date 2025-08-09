@@ -27,6 +27,7 @@ public class NavbarTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Id, "testId");
                 pb.AddChildContent<NavbarGroup>(pb =>
                 {
+                    pb.Add(a => a.IsScrolling, true);
                     pb.AddChildContent<NavbarItem>(pb =>
                     {
                         pb.AddChildContent("<a class=\"nav-link active\" aria-current=\"page\" href=\"\">Home</a>");
