@@ -71,19 +71,14 @@ public partial class BaseLayout : IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
 
-        if (firstRender)
-        {
-            var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
-            await module.InvokeVoidAsync("initTheme");
-            _init = true;
-            StateHasChanged();
-        }
+        var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
+        await module.InvokeVoidAsync("initTheme");
+        _init = true;
     }
 
     private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
