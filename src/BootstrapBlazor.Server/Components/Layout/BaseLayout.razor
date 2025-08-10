@@ -1,10 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
 <BootstrapBlazorRoot>
-    <Header></Header>
-    <main>
-        @Body
-    </main>
+    @if (_init)
+    {
+        <Header></Header>
+        <main>
+            @Body
+        </main>
+    }
 </BootstrapBlazorRoot>
 
 <div id="blazor-error-ui">
