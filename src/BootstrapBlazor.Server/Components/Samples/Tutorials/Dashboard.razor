@@ -130,21 +130,15 @@
             <Card IsShadow="true" HeaderText="分类进度">
                 <BodyTemplate>
                     <Scroll Height="320px" style="margin: -1rem; padding: 1rem;">
-                        <div>
-                            @{
-                                foreach (var item in Data.TestKKSGroupList)
-                                {
-                                    <h4 class="small fw-bold">
-                                        @item.KKS @item.NAM<span class="float-end">
-                                            @(
-                                            item.Percent
-                                                )%
-                                        </span>
-                                    </h4>
-                                    <BootstrapBlazor.Components.Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress>
-                                }
-                            }
-                        </div>
+                        @foreach (var item in Data.TestKKSGroupList)
+                        {
+                            <div class="progress-item">
+                                <div class="small fw-bold mb-2">
+                                    @item.KKS @item.NAM<span class="float-end">@item.Percent%</span>
+                                </div>
+                                <BootstrapBlazor.Components.Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress>
+                            </div>
+                        }
                     </Scroll>
                 </BodyTemplate>
             </Card>
