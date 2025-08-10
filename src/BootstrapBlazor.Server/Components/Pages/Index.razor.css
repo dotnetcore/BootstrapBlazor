@@ -30,9 +30,52 @@
         }
 
     .bd-masthead .bb-logo {
+        --bb-btn-space: 4px;
         width: 200px;
         height: 200px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 30px;
     }
+
+        .bd-masthead .bb-logo img {
+            width: calc(100% - 2 * var(--bb-btn-space));
+            height: calc(100% - 2 * var(--bb-btn-space));
+            position: absolute;
+            left: var(--bb-btn-space);
+            top: var(--bb-btn-space);
+        }
+
+.bb-logo:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #5a23c8;
+    z-index: -2;
+}
+
+.bb-logo:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 68%;
+    height: 68%;
+    background-image: linear-gradient(to bottom, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%);
+    transform-origin: left top;
+    animation: rotate 5s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .bd-gutter {
     --bs-gutter-x: 3rem;
