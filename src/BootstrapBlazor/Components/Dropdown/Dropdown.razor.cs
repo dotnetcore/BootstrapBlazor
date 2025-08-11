@@ -28,7 +28,6 @@ public partial class Dropdown<TValue>
     /// <returns></returns>
     private string? ButtonClassName => CssBuilder.Default("btn")
         .AddClass("dropdown-toggle", !ShowSplit)
-        .AddClass($"btn-primary", Color == Color.None)
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
@@ -67,10 +66,10 @@ public partial class Dropdown<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// 获得/设置 颜色 默认 Color.Primary 无设置
     /// </summary>
     [Parameter]
-    public Color Color { get; set; }
+    public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
     /// 获得/设置 绑定数据集

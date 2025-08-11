@@ -1,0 +1,108 @@
+﻿.navbar {
+    --bs-navbar-toggler-focus-width: 1px;
+}
+
+.nav-link:focus-visible {
+    box-shadow: none;
+}
+
+.navbar-nav {
+    --bs-nav-link-padding-x: .5rem;
+    margin-block-start: .5rem;
+}
+
+.navbar-nav:not(:last-child) {
+    margin-block-end: .5rem;
+}
+
+.navbar-expand {
+    .navbar-nav:last-child {
+        margin-block-start: 0;
+        margin-inline-start: .5rem;
+    }
+}
+
+@media (min-width: 576px) {
+    .navbar-expand-sm {
+        .navbar-nav {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        .navbar-nav:last-child {
+            margin-inline-start: .5rem;
+        }
+
+        .navbar-nav:not(:last-child) {
+            margin-inline-end: auto;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md {
+        .navbar-nav {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        .navbar-nav:last-child {
+            margin-inline-start: .5rem;
+        }
+
+        .navbar-nav:not(:last-child) {
+            margin-inline-end: auto;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg {
+        .navbar-nav {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        .navbar-nav:last-child {
+            margin-inline-start: .5rem;
+        }
+
+        .navbar-nav:not(:last-child) {
+            margin-inline-end: auto;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-expand-xl {
+        .navbar-nav {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        .navbar-nav:last-child {
+            margin-inline-start: .5rem;
+        }
+
+        .navbar-nav:not(:last-child) {
+            margin-inline-end: auto;
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar-expand-xxl {
+        .navbar-nav {
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
+
+        .navbar-nav:last-child {
+            margin-inline-start: .5rem;
+        }
+
+        .navbar-nav:not(:last-child) {
+            margin-inline-end: auto;
+        }
+    }
+}
