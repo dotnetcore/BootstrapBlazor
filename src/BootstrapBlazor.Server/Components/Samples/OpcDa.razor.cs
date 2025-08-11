@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.OpcDa;
-using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -17,12 +16,10 @@ public partial class OpcDa : ComponentBase
     [NotNull]
     private IOpcDaServer? OpcDaServer { get; set; }
 
-    private string? _serverName = "opcda://localhost/Kepware.KEPServerEX.V6/Mock";
+    private string? _serverName = "opcda://localhost/Kepware.KEPServerEX.V6";
 
     private const string Tag1 = "Channel1.Device1.Tag1";
     private const string Tag2 = "Channel1.Device1.Tag2";
-    private const string Tag3 = "Channel1.Device1.Tag3";
-    private const string Tag4 = "Channel1.Device1.Tag4";
 
     private string? _tagValue1;
     private string? _tagValue2;
@@ -49,11 +46,17 @@ public partial class OpcDa : ComponentBase
 
     private void OnRead()
     {
-        var values = OpcDaServer.Read(Tag1, Tag2);
-        _tagValue1 = values.ElementAt(0).Value?.ToString();
-
-        var v = (int)values.ElementAt(1).Value! / 100d;
-        _tagValue2 = v.ToString(CultureInfo.InvariantCulture);
+        var items = OpcDaServer.Read(Tag1, Tag2);
+        var value1 = items.FirstOrDefault(i => i.Name == Tag1).Value;
+        if (value1 != null)
+        {
+            _tagValue1 = value1.ToString();
+        }
+        var value2 = items.FirstOrDefault(i => i.Name == Tag2).Value;
+        if (value2 != null)
+        {
+            _tagValue2 = value2.ToString();
+        }
     }
 
     private void OnCreateSubscription()
@@ -61,7 +64,7 @@ public partial class OpcDa : ComponentBase
         _subscribed = true;
         _subscription = OpcDaServer.CreateSubscription("Subscription1", 1000, true);
         _subscription.DataChanged += UpdateValues;
-        _subscription.AddItems([Tag3, Tag4]);
+        _subscription.AddItems([Tag1, Tag2]);
     }
 
     private void OnCancelSubscription()
@@ -76,9 +79,16 @@ public partial class OpcDa : ComponentBase
 
     private void UpdateValues(List<OpcReadItem> items)
     {
-        _tagValue3 = items[0].Value?.ToString();
-        var v = (int)items[1].Value! / 100d;
-        _tagValue4 = v.ToString(CultureInfo.InvariantCulture);
+        var value1 = items.Find(i => i.Name == Tag1).Value;
+        if (value1 != null)
+        {
+            _tagValue3 = value1.ToString();
+        }
+        var value2 = items.Find(i => i.Name == Tag2).Value;
+        if (value2 != null)
+        {
+            _tagValue4 = value2.ToString();
+        }
 
         InvokeAsync(StateHasChanged);
     }
@@ -88,12 +98,12 @@ public partial class OpcDa : ComponentBase
     private void OnBrowse()
     {
         var elements = OpcDaServer.Browse("", new OpcBrowseFilters(), out _);
-        _roots = elements.Select(element => new TreeViewItem<OpcBrowseElement>(element)
+        _roots = [.. elements.Select(element => new TreeViewItem<OpcBrowseElement>(element)
         {
             Text = element.Name,
             HasChildren = element.HasChildren,
             Icon = "fa-solid fa-fw fa-cubes"
-        }).ToList();
+        })];
     }
 
     private Task<IEnumerable<TreeViewItem<OpcBrowseElement>>> OnExpandNodeAsync(TreeViewItem<OpcBrowseElement> element)
