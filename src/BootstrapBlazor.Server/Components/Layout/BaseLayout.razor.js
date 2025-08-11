@@ -1,6 +1,6 @@
-﻿import { getPreferredTheme, setTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { getTheme, setTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
 
 export function initTheme() {
-    const currentTheme = getPreferredTheme();
+    const currentTheme = getTheme();
     setTheme(currentTheme, false);
 }
