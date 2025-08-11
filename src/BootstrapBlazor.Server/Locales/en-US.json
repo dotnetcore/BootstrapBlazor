@@ -4847,7 +4847,8 @@
     "SocketDataEntity": "DataEntity",
     "NetworkMonitor": "Network Monitor",
     "Toolbar": "Toolbar",
-    "OpcDaService": "OpcDaServer"
+    "OpcDaService": "OpcDaServer",
+    "Navbar": "Navbar"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7165,5 +7166,11 @@
     "OpcDaDescription": "Connect to OpcDa Server to obtain PLC real-time data",
     "OpcDaNormalTitle": "Basic usage",
     "OpcDaNormalIntro": "Get an instance by injecting the service <code>IOpcDaServer</code> and call the <code>Read</code> method to get the PLC Tag value."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Navbars": {
+    "NavbarTitle": "Navbar",
+    "NavbarDescription": "A powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "By setting <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> to layout its internal elements"
   }
 }

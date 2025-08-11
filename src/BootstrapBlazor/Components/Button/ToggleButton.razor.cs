@@ -50,7 +50,10 @@ public partial class ToggleButton
         }
     }
 
-    private async Task HandlerClick()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task HandlerClick()
     {
         IsActive = !IsActive;
         if (OnClickWithoutRender != null)

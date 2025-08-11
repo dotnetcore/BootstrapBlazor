@@ -4847,7 +4847,8 @@
     "SocketDataEntity": "通讯数据转实体类",
     "NetworkMonitor": "网络状态 NetworkMonitor",
     "Toolbar": "工具栏 Toolbar",
-    "OpcDaService": "OpcDaServer 服务"
+    "OpcDaService": "OpcDaServer 服务",
+    "Navbar": "导航栏 Navbar"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7165,5 +7166,11 @@
     "OpcDaDescription": "连接 OpcDa Server 获得 PLC 实时数据",
     "OpcDaNormalTitle": "基本用法",
     "OpcDaNormalIntro": "通过注入服务 <code>IOpcDaServer</code> 获得实例，调用 <code>Read</code> 方法获得 PLC 位号值"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Navbars": {
+    "NavbarTitle": "Navbar 导航栏",
+    "NavbarDescription": "是网站开发中用于定义顶部导航区域或主页快速启动区域的结构化组件",
+    "NormalTitle": "基本用法",
+    "NormalIntro": "通过设置 <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> 对其内部元素布局"
   }
 }
