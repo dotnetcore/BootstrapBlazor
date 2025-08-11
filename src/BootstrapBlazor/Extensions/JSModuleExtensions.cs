@@ -172,13 +172,6 @@ public static class JSModuleExtensions
     public static ValueTask<string?> GetThemeAsync(this JSModule module) => module.InvokeAsync<string?>("getTheme");
 
     /// <summary>
-    /// Get the perferred theme method
-    /// </summary>
-    /// <param name="module">An instance of <see cref="JSModule"/></param>
-    /// <returns></returns>
-    public static ValueTask<string?> GetPreferredThemeAsync(this JSModule module) => module.InvokeAsync<string?>("getPreferredTheme");
-
-    /// <summary>
     /// Set memorial mode
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
