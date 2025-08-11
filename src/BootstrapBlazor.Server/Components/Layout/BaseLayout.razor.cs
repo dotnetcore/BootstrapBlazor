@@ -3,6 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using BootstrapBlazor.Server.Data;
+using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
@@ -10,6 +14,10 @@ namespace BootstrapBlazor.Server.Components.Layout;
 /// </summary>
 public partial class BaseLayout : IDisposable
 {
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<BaseLayout>? Localizer { get; set; }
@@ -26,6 +34,10 @@ public partial class BaseLayout : IDisposable
     [NotNull]
     private IDispatchService<bool>? RebootDispatchService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+
     [NotNull]
     private string? FlowText { get; set; }
 
@@ -37,6 +49,8 @@ public partial class BaseLayout : IDisposable
 
     [NotNull]
     private string? CancelText { get; set; }
+
+    private bool _init = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -52,6 +66,19 @@ public partial class BaseLayout : IDisposable
 
         CommitDispatchService.Subscribe(NotifyCommit);
         RebootDispatchService.Subscribe(NotifyReboot);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
+        await module.InvokeVoidAsync("initTheme");
+        _init = true;
     }
 
     private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
