@@ -11,7 +11,6 @@ COPY . .
 
 WORKDIR "src/BootstrapBlazor.Server"
 FROM build AS publish
-RUN dotnet build
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final
