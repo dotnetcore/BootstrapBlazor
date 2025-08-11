@@ -6,9 +6,8 @@ WORKDIR /app
 EXPOSE 8080
 
 RUN apt-get update && apt-get install -y wget
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN apt install ./google-chrome-stable_current_amd64.deb
 RUN apt install fonts-wqy-microhei
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install ./google-chrome-stable_current_amd64.deb
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /
