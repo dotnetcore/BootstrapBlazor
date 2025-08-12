@@ -58,4 +58,9 @@ public partial class Mask
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private Task CloseAsync()
+    {
+        return Show(null);
+    }
 }

@@ -1,0 +1,12 @@
+﻿<div style="background-color: #ffffff" class="row">
+    <div class="col-12">
+        <h3>MaskDemo</h3>
+    </div>
+    <div class="col-12">
+        <Button Text="Close" OnClick="() => { OnCloseAsync?.Invoke(); }"></Button>
+    </div>
+</div>
+@code {
+    [CascadingParameter]
+    private Func<Task>? OnCloseAsync { get; set; }
+}
