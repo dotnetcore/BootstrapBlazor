@@ -34,7 +34,7 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0",
+    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0 & NET10.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
     "Docs": "Read the docs",
