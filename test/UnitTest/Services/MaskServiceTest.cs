@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace UnitTest.Services;
 
 /// <summary>
@@ -92,6 +94,10 @@ public class MaskServiceTest : BootstrapBlazorTestBase
         });
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
+
+        // close
+        var close = cut.Find(".btn-mask-close");
+        await cut.InvokeAsync(() => close.Click());
     }
 
     [Fact]
@@ -114,6 +120,11 @@ public class MaskServiceTest : BootstrapBlazorTestBase
 
     class MockComponent : ComponentBase
     {
-
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<DialogCloseButton>(0);
+            builder.AddAttribute(1, "class", "btn-mask-close");
+            builder.CloseComponent();
+        }
     }
 }
