@@ -52,7 +52,7 @@ html .search-dialog-mask {
     --bb-global-search-main-max-height: calc(100vh - 310px);
 }
 
-.navbar {
+.navbar-header {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
 }
