@@ -77,16 +77,22 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnClick_Ok()
+    public async Task OnClick_Ok()
     {
         var click = false;
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClick, () => click = true));
-
-        cut.InvokeAsync(() =>
+        var cut = Context.RenderComponent<LinkButton>(pb =>
         {
-            cut.Find("a").Click();
-            Assert.True(click);
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(s => s.OnClick, async () =>
+            {
+                click = true;
+                await Task.Yield();
+            });
         });
+
+        var link = cut.Find("a");
+        await cut.InvokeAsync(() => link.Click());
+        Assert.True(click);
     }
 
     [Fact]

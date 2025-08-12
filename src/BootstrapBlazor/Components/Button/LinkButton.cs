@@ -5,14 +5,13 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using System;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// LinkButton 组件
 /// </summary>
-public sealed class LinkButton : ButtonBase
+public class LinkButton : ButtonBase
 {
     /// <summary>
     /// 获得/设置 Url 默认为 #
@@ -120,14 +119,19 @@ public sealed class LinkButton : ButtonBase
 
     private async Task OnClickButton()
     {
-        if (OnClickWithoutRender != null)
+        if (IsAsync)
         {
-            await OnClickWithoutRender();
+            IsAsyncLoading = true;
+            IsDisabled = true;
         }
 
-        if (OnClick.HasDelegate)
+        await HandlerClick();
+
+        // 恢复按钮
+        if (IsAsync)
         {
-            await OnClick.InvokeAsync();
+            IsDisabled = IsKeepDisabled;
+            IsAsyncLoading = false;
         }
     }
 }
