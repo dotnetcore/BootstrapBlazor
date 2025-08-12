@@ -101,7 +101,13 @@
            OnQueryAsync="@OnQueryAsync"
            OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180">
+                <EditTemplate Context="v">
+                    <div class="col-12 col-sm-6">
+                        <DateTimePicker @bind-Value="v.DateTime" ViewMode="DatePickerViewMode.DateTime" />
+                    </div>
+                </EditTemplate>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Name">
                 <EditTemplate Context="v">
                     <div class="col-12 col-sm-6">
