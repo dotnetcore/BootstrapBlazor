@@ -44,6 +44,7 @@
             position: absolute;
             left: var(--bb-btn-space);
             top: var(--bb-btn-space);
+            border-radius: inherit;
         }
 
 .bb-logo:before {
