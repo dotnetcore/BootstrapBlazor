@@ -27,6 +27,7 @@ sudo systemctl enable ba.blazor
 
 echo "*********************** install nginx ***********************"
 yes|sudo apt install nginx
+mkdir /usr/share/nginx/logs
 
 echo "*********************** copy nginx config ***********************"
 sudo cp BootstrapBlazor/scripts/linux/nginx.conf /etc/nginx/
