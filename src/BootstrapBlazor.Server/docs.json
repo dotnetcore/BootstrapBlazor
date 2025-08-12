@@ -250,7 +250,8 @@
     "socket/data-entity": "Sockets\\DataEntities",
     "network-monitor": "NetworkMonitors",
     "toolbar": "Toolbars",
-    "opc-da": "OpcDa"
+    "opc-da": "OpcDa",
+    "navbar": "Navbars"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

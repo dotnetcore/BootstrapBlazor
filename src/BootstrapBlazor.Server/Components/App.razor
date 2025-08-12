@@ -42,9 +42,9 @@
 
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"></script>
-    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
-    <script src="_framework/blazor.web.js"></script>
+    <script src="@Assets["_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"]"></script>
+    <script src="@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"></script>
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
     @if (Env.IsProduction())
     {
         <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js"></script>
