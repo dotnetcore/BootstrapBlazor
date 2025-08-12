@@ -1,4 +1,4 @@
-.picker-panel {
+﻿.picker-panel {
     --bb-picker-panel-body-width: 320px;
     --bb-picker-hover-color: #409eff;
     --bb-picker-panel-side-width: 0;
@@ -59,6 +59,12 @@
 
                     &:hover {
                         color: var(--bb-picker-hover-color);
+                    }
+                }
+
+                .picker-panel-header-bar {
+                    .picker-panel-header-label {
+                        font-size: 14px;
                     }
                 }
 

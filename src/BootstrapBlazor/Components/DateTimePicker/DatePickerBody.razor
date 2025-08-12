@@ -37,7 +37,7 @@
                                 <i class="@PreviousMonthIcon"></i>
                             </button>
                         }
-                        <div class="d-flex align-items-center justify-content-center flex-fill">
+                        <div class="@HeaderLabelString">
                             <span role="button" class="picker-panel-header-label" @onclick="() => SwitchView(DatePickerViewMode.Year)">@YearString</span>
                             <span role="button" class="@CurrentMonthViewClassName" @onclick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</span>
                             @if (IsDateTimeMode)

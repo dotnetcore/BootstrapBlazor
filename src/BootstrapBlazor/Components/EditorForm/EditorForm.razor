@@ -2,41 +2,43 @@
 @typeparam TModel
 @inherits BootstrapComponentBase
 
-<div class="@ClassString">
+<div @attributes="AdditionalAttributes" class="@ClassString">
     <CascadingValue Value="@_editorItems" IsFixed="false">
         @FieldItems?.Invoke(Model)
     </CascadingValue>
     <CascadingValue Value="this" Name="EditorForm">
-        @if (ShowUnsetGroupItemsOnTop)
+        <div class="form-body">
+            @if (ShowUnsetGroupItemsOnTop)
+            {
+                if (UnsetGroupItems.Any())
+                {
+                    @RenderUnsetGroupItems
+                }
+                @foreach (var g in GroupItems)
+                {
+                    @RenderGroupItems(g)
+                }
+            }
+            else
+            {
+                @foreach (var g in GroupItems)
+                {
+                    @RenderGroupItems(g)
+                }
+                if (UnsetGroupItems.Any())
+                {
+                    @RenderUnsetGroupItems
+                }
+            }
+        </div>
+
+        @if (Buttons != null)
         {
-            if (UnsetGroupItems.Any())
-            {
-                @RenderUnsetGroupItems
-            }
-            @foreach (var g in GroupItems)
-            {
-                @RenderGroupItems(g)
-            }
-        }
-        else
-        {
-            @foreach (var g in GroupItems)
-            {
-                @RenderGroupItems(g)
-            }
-            if (UnsetGroupItems.Any())
-            {
-                @RenderUnsetGroupItems
-            }
+            <div class="bb-editor-footer form-footer">
+                @Buttons
+            </div>
         }
     </CascadingValue>
-
-    @if (Buttons != null)
-    {
-        <div class="bb-editor-footer form-footer">
-            @Buttons
-        </div>
-    }
 </div>
 
 @code

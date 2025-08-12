@@ -46,13 +46,13 @@
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.9" />
+    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.10" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.6" />
@@ -60,7 +60,7 @@
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.OpcDa" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.OpcDa" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.Player" Version="9.0.1" />

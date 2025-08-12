@@ -716,18 +716,8 @@ export function getHtml(options) {
     return html;
 }
 
-
-export function getPreferredTheme() {
-    const storedTheme = getTheme()
-    if (storedTheme) {
-        return storedTheme
-    }
-
-    return getAutoThemeValue();
-}
-
 export function getTheme() {
-    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || 'light';
+    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || getAutoThemeValue();
 }
 
 export function saveTheme(theme) {

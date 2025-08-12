@@ -65,24 +65,4 @@ public partial class Button : ButtonBase
     /// </summary>
     /// <returns></returns>
     public ValueTask FocusAsync() => ButtonElement.FocusAsync();
-
-    /// <summary>
-    /// 处理点击方法
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task HandlerClick()
-    {
-        if (OnClickWithoutRender != null)
-        {
-            if (!IsAsync)
-            {
-                IsNotRender = true;
-            }
-            await OnClickWithoutRender();
-        }
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync();
-        }
-    }
 }

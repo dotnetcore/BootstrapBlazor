@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ButtonBase
+
+<div class="nav-item">
+    <a @attributes="AdditionalAttributes" class="@ClassString" href="@Url" target="@Target" @onclick="@OnClickButton">
+        @if(IsAsyncLoading)
+        {
+            <i class="@LoadingIcon"></i>
+        }
+        else if (!string.IsNullOrEmpty(Icon))
+        {
+            <i class="@Icon"></i>
+        }
+        @if (!string.IsNullOrEmpty(ImageUrl))
+        {
+            <img src="@ImageUrl" class="@ImageCss" />
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
+        @ChildContent
+    </a>
+</div>
