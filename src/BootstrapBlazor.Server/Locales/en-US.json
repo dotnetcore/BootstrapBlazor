@@ -453,7 +453,9 @@
     "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>",
     "MultipleMaskContainerTitle": "Multiple Mask",
     "MultipleMaskContainerIntro": "By customizing the <code>Mask</code> component, you can mask multiple parts of a web page.",
-    "MultipleMaskContainerDesc": "Set the <code>Mask</code> component in the component. When calling the <code>Show</code> instance method of <code>MaskService</code>, specify the <code>Mask</code> instance as the second parameter."
+    "MultipleMaskContainerDesc": "Set the <code>Mask</code> component in the component. When calling the <code>Show</code> instance method of <code>MaskService</code>, specify the <code>Mask</code> instance as the second parameter.",
+    "MaskCloseTitle": "Close By Code",
+    "MaskCloseIntro": "Close the popup by using the <code>DialogCloseButton</code> component or cascade parameters"
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",

@@ -453,7 +453,10 @@
     "MaskContainerIntro": "通过设置 <code>MaskOption</code> 参数 <code>ContainerId</code> 指定遮罩出现位置",
     "MultipleMaskContainerTitle": "多遮罩",
     "MultipleMaskContainerIntro": "通过自定义设置 <code>Mask</code> 组件可实现网页内多个局部进行遮罩操作",
-    "MultipleMaskContainerDesc": "组件内自己设置 <code>Mask</code> 组件，调用 <code>MaskService</code> 实例方法 <code>Show</code> 时，通过第二个参数指定 <code>Mask</code> 实例即可"
+    "MultipleMaskContainerDesc": "组件内自己设置 <code>Mask</code> 组件，调用 <code>MaskService</code> 实例方法 <code>Show</code> 时，通过第二个参数指定 <code>Mask</code> 实例即可",
+    "MaskCloseTitle": "代码关闭弹窗",
+    "MaskCloseIntro": "通过使用 <code>DialogCloseButton</code> 组件或者级联参数关闭弹窗"
+
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message 消息提示",
