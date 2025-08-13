@@ -246,6 +246,11 @@ public static class ObjectExtensions
     /// <returns>An instance of the specified type with initialized properties.</returns>
     public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
+        if(typeof(TItem).IsInterface)
+        {
+            return default;
+        }
+
         var instance = Activator.CreateInstance<TItem>();
         if (isAutoInitializeModelProperty)
         {
