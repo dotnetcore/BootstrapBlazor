@@ -92,6 +92,10 @@ public class MaskServiceTest : BootstrapBlazorTestBase
         });
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
+
+        var com = cut.FindComponent<MockComponent>();
+        var result = await cut.InvokeAsync(com.Instance.Test);
+        Assert.True(result);
     }
 
     [Fact]
@@ -114,6 +118,17 @@ public class MaskServiceTest : BootstrapBlazorTestBase
 
     class MockComponent : ComponentBase
     {
+        [CascadingParameter]
+        private Func<Task>? OnCloseAsync { get; set; }
 
+        public async Task<bool> Test()
+        {
+            if (OnCloseAsync != null)
+            {
+                await OnCloseAsync();
+            }
+
+            return OnCloseAsync != null;
+        }
     }
 }
