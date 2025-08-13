@@ -1,16 +1,15 @@
 ﻿@page "/task-board"
 
-@inject IStringLocalizer<Tags> Localizer
+@inject IStringLocalizer<TaskBoard> Localizer
 
 <h3>@Localizer["TaskBoardTitle"]</h3>
 
 <h4>@Localizer["TaskBoardIntro"]</h4>
 
-<PackageTips Name="BootstrapBlazor.Tasks.Dashboard" />
+@* <PackageTips Name="BootstrapBlazor.Tasks.Dashboard" /> *@
 
 <DemoBlock Title="@Localizer["TaskBoardNormalTitle"]"
            Introduction="@Localizer["TaskBoardNormalIntro"]"
            Name="Normal">
     <TaskBoard></TaskBoard>
 </DemoBlock>
-
