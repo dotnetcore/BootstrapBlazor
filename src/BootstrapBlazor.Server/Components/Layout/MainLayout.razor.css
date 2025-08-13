@@ -96,21 +96,7 @@
         opacity: 1;
     }
 
-::deep .btn-update {
-    --bs-btn-bg: var(--bb-layout-button-update-bg);
-    --bs-btn-hover-bg: var(--bs-btn-bg);
-    --bs-btn-active-bg: var(--bs-btn-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-    ::deep .btn-update img {
-        width: 55%;
-        margin-inline-start: 2px;
-    }
-
-::deep .btn-chat {
+::deep .btn-dial-item {
     --bs-btn-bg: var(--bb-layout-button-bg);
     --bs-btn-hover-bg: var(--bb-layout-button-hover-bg);
     --bs-btn-active-bg: var(--bb-layout-button-active-bg);
@@ -118,8 +104,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--bb-button-chat-color);
 }
+
+    ::deep .btn-dial-item a {
+        color: var(--bb-button-chat-color);
+    }
 
 ::deep .btn-theme-mode {
     --bs-btn-bg: var(--bb-layout-button-bg);
