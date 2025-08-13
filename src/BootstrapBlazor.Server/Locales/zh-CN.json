@@ -7176,5 +7176,11 @@
     "NavbarDescription": "是网站开发中用于定义顶部导航区域或主页快速启动区域的结构化组件",
     "NormalTitle": "基本用法",
     "NormalIntro": "通过设置 <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> 对其内部元素布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
+    "TaskBoardTitle": "Task DashBoard 任务管理器",
+    "TaskBoardIntro": "",
+    "TaskBoardNormalTitle": "基本用法",
+    "TaskBoardNormalIntro": ""
   }
 }

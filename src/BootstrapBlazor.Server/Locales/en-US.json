@@ -7175,5 +7175,11 @@
     "NavbarDescription": "A powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more",
     "NormalTitle": "Basic usage",
     "NormalIntro": "By setting <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> to layout its internal elements"
+  },
+  "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
+    "TaskBoardTitle": "Task DashBoard",
+    "TaskBoardIntro": "",
+    "TaskBoardNormalTitle": "Basic usage",
+    "TaskBoardNormalIntro": ""
   }
 }
