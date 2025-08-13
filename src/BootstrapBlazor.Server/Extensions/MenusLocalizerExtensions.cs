@@ -818,7 +818,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["TaskManager"],
+                    Text = Localizer["TaskDashBoard"],
                     Url = "task-board"
                 },
                 new()
