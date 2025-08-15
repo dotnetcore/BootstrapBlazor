@@ -1,10 +1,3 @@
 ﻿@inherits FilterBase
 
-@if (IsHeaderRow)
-{
-
-}
-else
-{
-    <Select Items="@_items" @bind-Value="@Value"></Select>
-}
+<Select Items="@_items" @bind-Value="@_value" IsPopover="true"></Select>
