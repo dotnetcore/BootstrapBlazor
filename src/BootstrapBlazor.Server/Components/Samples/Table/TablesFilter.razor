@@ -88,7 +88,13 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <FilterProvider ShowMoreButton="false">
+                        <CustomerFilter></CustomerFilter>
+                    </FilterProvider>
+                </FilterTemplate>
+            </TableColumn>
         </TableColumns>
     </Table>
 </DemoBlock>
