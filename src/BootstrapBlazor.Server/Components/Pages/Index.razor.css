@@ -38,6 +38,11 @@
         border-radius: 30px;
     }
 
+        .bd-masthead .bb-logo .holder {
+            background-color: var(--bb-primary-color);
+        }
+
+        .bd-masthead .bb-logo .holder,
         .bd-masthead .bb-logo img {
             width: calc(100% - 2 * var(--bb-btn-space));
             height: calc(100% - 2 * var(--bb-btn-space));

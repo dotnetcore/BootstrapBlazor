@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Server.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
