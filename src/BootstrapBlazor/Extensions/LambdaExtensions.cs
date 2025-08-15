@@ -230,9 +230,8 @@ public static class LambdaExtensions
 
     private static BinaryExpression Contains(this Expression left, Expression right)
     {
-        var method = typeof(string).GetMethod("Contains", [typeof(string), typeof(StringComparison)])!;
-        var comparison = Expression.Constant(StringComparison.OrdinalIgnoreCase);
-        return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right, comparison));
+        var method = typeof(string).GetMethod("Contains", [typeof(string)])!;
+        return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
     }
 
     #region Count
