@@ -40,6 +40,7 @@ public partial class BootstrapLabel
 
     private string? StyleString => CssBuilder.Default()
         .AddStyle($"--bb-row-label-width", $"{LabelWidth}px", LabelWidth.HasValue)
+        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
