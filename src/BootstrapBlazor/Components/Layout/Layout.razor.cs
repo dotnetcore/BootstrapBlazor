@@ -501,15 +501,15 @@ public partial class Layout : IHandlerException, ITabHeader
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     private bool _init;
-    private LayoutHeader? _layoutHeader = null;
+    private LayoutHeader? _layoutHeader;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
 
-    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+    private bool EnableLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
-    private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+    private bool ShowToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
-    private bool _enableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
+    private bool EnableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
 
     /// <summary>
     /// <inheritdoc/>
