@@ -5,6 +5,7 @@ on:
     branches:
       - pack
       - release
+      - docker
 
 jobs:
   docker:

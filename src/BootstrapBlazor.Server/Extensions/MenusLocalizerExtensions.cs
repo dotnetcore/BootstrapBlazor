@@ -817,6 +817,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["TaskDashBoard"],
+                    Url = "task-board"
+                },
+                new()
+                {
                     Text = Localizer["Timeline"],
                     Url = "timeline"
                 },

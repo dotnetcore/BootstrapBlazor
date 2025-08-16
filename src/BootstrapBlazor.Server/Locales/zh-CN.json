@@ -453,7 +453,10 @@
     "MaskContainerIntro": "通过设置 <code>MaskOption</code> 参数 <code>ContainerId</code> 指定遮罩出现位置",
     "MultipleMaskContainerTitle": "多遮罩",
     "MultipleMaskContainerIntro": "通过自定义设置 <code>Mask</code> 组件可实现网页内多个局部进行遮罩操作",
-    "MultipleMaskContainerDesc": "组件内自己设置 <code>Mask</code> 组件，调用 <code>MaskService</code> 实例方法 <code>Show</code> 时，通过第二个参数指定 <code>Mask</code> 实例即可"
+    "MultipleMaskContainerDesc": "组件内自己设置 <code>Mask</code> 组件，调用 <code>MaskService</code> 实例方法 <code>Show</code> 时，通过第二个参数指定 <code>Mask</code> 实例即可",
+    "MaskCloseTitle": "代码关闭弹窗",
+    "MaskCloseIntro": "通过使用 <code>DialogCloseButton</code> 组件或者级联参数关闭弹窗"
+
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message 消息提示",
@@ -4848,7 +4851,8 @@
     "NetworkMonitor": "网络状态 NetworkMonitor",
     "Toolbar": "工具栏 Toolbar",
     "OpcDaService": "OpcDaServer 服务",
-    "Navbar": "导航栏 Navbar"
+    "Navbar": "导航栏 Navbar",
+    "TaskDashBoard": "任务管理器 TaskDashBoard"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5701,7 +5705,11 @@
     "SetFilterInCodeIntro": "示例展示如何通过代码设置过滤条件",
     "SetFilterInCodeButtonText1": "名称包含01",
     "SetFilterInCodeButtonText2": "重置条件",
-    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li></ul-demo>"
+    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li></ul-demo>",
+    "CustomerFilterItem1": "全部",
+    "CustomerFilterItem2": "大于 10",
+    "CustomerFilterItem3": "大于 50",
+    "CustomerFilterItem4": "大于 80"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedHeader": {
     "TablesFixedHeaderTitle": "固定表头功能",
@@ -7172,5 +7180,11 @@
     "NavbarDescription": "是网站开发中用于定义顶部导航区域或主页快速启动区域的结构化组件",
     "NormalTitle": "基本用法",
     "NormalIntro": "通过设置 <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> 对其内部元素布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
+    "TaskBoardTitle": "Task DashBoard 任务管理器",
+    "TaskBoardIntro": "",
+    "TaskBoardNormalTitle": "基本用法",
+    "TaskBoardNormalIntro": ""
   }
 }
