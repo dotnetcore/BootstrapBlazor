@@ -111,6 +111,15 @@ public sealed partial class Editors
         await Editor.DoMethodAsync("pasteHTML", $"<h1>{Localizer["DoMethodAsyncPasteHTML"]}</h1>");
     }
 
+    private async Task<string> OnFileUpload(EditorUploadFile uploadFile)
+    {
+        var url = Path.Combine("images", "uploader",
+            $"{Path.GetFileNameWithoutExtension(uploadFile.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(uploadFile.FileName)}");
+        var fileName = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, url);
+        var ret = await uploadFile.SaveToFile(fileName);
+        return ret ? url : "";
+    }
+
     private string? _editorCode;
 
     private async Task OnGetCode()
