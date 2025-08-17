@@ -5,7 +5,7 @@
 @if (_init)
 {
     <CascadingValue Value="this" IsFixed="true">
-        @if (IsAuthenticated)
+        @if (_authenticated)
         {
             <section @attributes="AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
                 @if (Side == null)
