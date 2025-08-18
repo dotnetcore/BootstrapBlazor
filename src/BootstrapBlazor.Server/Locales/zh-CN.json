@@ -2537,7 +2537,7 @@
     "EditorPlaceholderIntro": "通过设置 <code>Placeholder</code> 属性来设置空值时的提示消息",
     "EditorPlaceholderDescription": "默认提示是 <b>点击后进行编辑</b>",
     "EditorIsEditorTitle": "默认显示为富文本编辑框",
-    "EditorIsEditorIntro": "通过设置 <code>IsEditor</code> 属性来设置组件直接显示为富文本编辑框",
+    "EditorIsEditorIntro": "通过设置 <code>IsEditor</code> 属性来设置组件直接显示为富文本编辑框，上传图片时可以通过 <code>OnFileUpload</code> 回调方法获得图片信息",
     "EditorHeightTitle": "自定义高度",
     "EditorHeightIntro": "通过设置 <code>Height</code> 属性来设置组件高度",
     "EditorOnValueChangedTitle": "双向绑定",

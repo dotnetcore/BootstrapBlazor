@@ -2536,7 +2536,7 @@
     "EditorPlaceholderIntro": "The prompt message when a null value is set by setting the <code>Placeholder</code> attribute",
     "EditorPlaceholderDescription": "The default prompt is <b>Edit after clicking</b>",
     "EditorIsEditorTitle": "Display as a rich text edit box by default",
-    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property",
+    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property. When uploading an image, you can get the image information through the <code>OnFileUpload</code> callback method",
     "EditorHeightTitle": "Custom height",
     "EditorHeightIntro": "Set the height of the component by setting the <code>Height</code> property",
     "EditorOnValueChangedTitle": "Two-way binding",

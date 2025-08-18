@@ -70,7 +70,7 @@
     <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.5" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.6" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.TcpSocket" Version="9.0.0" />
