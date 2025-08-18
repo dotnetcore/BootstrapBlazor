@@ -2578,7 +2578,8 @@
     "DoMethodAsyncButton2": "将段落修改为 H2",
     "DoMethodAsyncButton3": "添加一张图片",
     "DoMethodAsyncButton4": "获得组件内容",
-    "DoMethodAsyncPasteHTML": "这里是外部按钮插入的内容"
+    "DoMethodAsyncPasteHTML": "这里是外部按钮插入的内容",
+    "OnFileUploadAttribute": "文件上传回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.EditorForms": {
     "Title": "EditorForm 表单组件",

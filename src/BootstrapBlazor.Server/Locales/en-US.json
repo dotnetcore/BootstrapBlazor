@@ -2577,7 +2577,8 @@
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",
     "DoMethodAsyncButton4": "Get Code",
-    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
+    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button",
+    "OnFileUploadAttribute": "File upload callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.EditorForms": {
     "Title": "EditorForm",
