@@ -90,7 +90,7 @@ export function preview(previewerId, index) {
     }
 }
 
-export async function getPreviewUrl(id, fileName) {
+export function getPreviewUrl(id, fileName) {
     let url = '';
     const upload = Data.get(id);
     const { files } = upload;
