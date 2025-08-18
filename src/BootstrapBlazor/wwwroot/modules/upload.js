@@ -1,6 +1,5 @@
 ﻿import Data from "./data.js"
 import EventHandler from "./event-handler.js"
-import { readFileAsync } from "./utility.js"
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -98,10 +97,7 @@ export async function getPreviewUrl(id, fileName) {
     if (files) {
         const file = [...files].find(v => v.name === fileName);
         if (file) {
-            const data = await readFileAsync(file);
-            if (data) {
-                url = URL.createObjectURL(data);
-            }
+            url = URL.createObjectURL(file);
         }
     }
     return url;
