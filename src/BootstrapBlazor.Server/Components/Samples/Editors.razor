@@ -1,7 +1,9 @@
 ﻿@page "/editor"
+
 @inject SwalService SwalService
 @inject PackageVersionService VersionManager
 @inject IStringLocalizer<Editors> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["EditorsTitle"]</h3>
 
@@ -38,7 +40,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EditorIsEditorTitle"]" Introduction="@Localizer["EditorIsEditorIntro"]" Name="IsEditor">
-    <Editor IsEditor="true" />
+    <Editor IsEditor="true" OnFileUpload="OnFileUpload" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EditorHeightTitle"]" Introduction="@Localizer["EditorHeightIntro"]" Name="Height">
