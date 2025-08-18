@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 列宽设置类
 /// </summary>
-class ColumnWidth
+struct ColumnWidth
 {
     /// <summary>
     /// 获得/设置 列名称

@@ -14,7 +14,7 @@ public partial class Header
 {
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
@@ -29,9 +29,6 @@ public partial class Header
 
     [NotNull]
     private string? IntroductionText { get; set; }
-
-    [NotNull]
-    private string? ComponentsText { get; set; }
 
     [NotNull]
     private string? DownloadText { get; set; }
@@ -53,7 +50,6 @@ public partial class Header
         DownloadText ??= Localizer[nameof(DownloadText)];
         HomeText ??= Localizer[nameof(HomeText)];
         IntroductionText ??= Localizer[nameof(IntroductionText)];
-        ComponentsText ??= Localizer[nameof(ComponentsText)];
         TutorialsText ??= Localizer[nameof(TutorialsText)];
         _versionString = $"v{PackageVersionService.Version}";
     }

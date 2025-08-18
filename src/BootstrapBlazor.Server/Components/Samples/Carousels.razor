@@ -1,6 +1,6 @@
 ﻿@page "/carousel"
 @inject IStringLocalizer<Carousels> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -25,13 +25,13 @@
 <DemoBlock Title="@Localizer["CaptionTitle"]" Introduction="@Localizer["CaptionIntro"]" Name="Caption">
     <Carousel Width="280" IsFade="true">
         <CarouselItem Caption="First slide label">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
         </CarouselItem>
         <CarouselItem Caption="Second slide label">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
         </CarouselItem>
-        <CarouselItem Caption="Thrid slide label">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
+        <CarouselItem Caption="Third slide label">
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
         </CarouselItem>
     </Carousel>
 </DemoBlock>
@@ -39,13 +39,13 @@
 <DemoBlock Title="@Localizer["IntervalTitle"]" Introduction="@Localizer["IntervalIntro"]" Name="Interval">
     <Carousel Width="280" IsFade="true">
         <CarouselItem Caption="First slide label" Interval="5000">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
         </CarouselItem>
         <CarouselItem Caption="Second slide label" Interval="2000">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
         </CarouselItem>
-        <CarouselItem Caption="Thrid slide label">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
+        <CarouselItem Caption="Third slide label">
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
         </CarouselItem>
     </Carousel>
 </DemoBlock>
@@ -58,7 +58,7 @@
                 <p>Pic0.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
         <CarouselItem>
@@ -67,7 +67,7 @@
                 <p>Pic1.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
         <CarouselItem>
@@ -76,7 +76,7 @@
                 <p>Pic2.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
     </Carousel>
@@ -91,7 +91,7 @@
                 <p>Pic0.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
         <CarouselItem CaptionClass="d-none d-md-block">
@@ -100,7 +100,7 @@
                 <p>Pic1.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
         <CarouselItem CaptionClass="d-none d-md-block">
@@ -109,7 +109,7 @@
                 <p>Pic2.jpg</p>
             </CaptionTemplate>
             <ChildContent>
-                <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
+                <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
             </ChildContent>
         </CarouselItem>
     </Carousel>
@@ -124,13 +124,13 @@
 <DemoBlock Title="@Localizer["TouchSwipingTitle"]" Introduction="@Localizer["TouchSwipingIntro"]" Name="DisableTouchSwiping">
     <Carousel Width="280" IsFade="true" DisableTouchSwiping="true">
         <CarouselItem Caption="First slide label" Interval="5000">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic0.jpg")" alt="demo-image" />
         </CarouselItem>
         <CarouselItem Caption="Second slide label" Interval="2000">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic1.jpg")" alt="demo-image" />
         </CarouselItem>
-        <CarouselItem Caption="Thrid slide label">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
+        <CarouselItem Caption="Third slide label">
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/Pic2.jpg")" alt="demo-image" />
         </CarouselItem>
     </Carousel>
 </DemoBlock>
@@ -144,7 +144,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-5.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-5.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>
@@ -154,7 +154,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-7.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-7.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>
@@ -164,7 +164,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-11.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-11.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>
@@ -178,7 +178,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-6.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-6.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>
@@ -188,7 +188,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-12.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-12.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>
@@ -198,7 +198,7 @@
                         <div>Sales champion</div>
                         <div>www.blazor.zone</div>
                     </div>
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/avatars/150-15.jpg")" alt="demo-image" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/avatars/150-15.jpg")" alt="demo-image" />
                     <div class="bottom">
                         Carousel Item
                     </div>

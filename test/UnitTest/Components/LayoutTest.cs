@@ -568,6 +568,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 pb.Add(a => a.UseTabSet, false);
                 pb.Add(a => a.EnableErrorLogger, true);
                 pb.Add(a => a.ShowErrorLoggerToast, false);
+                pb.Add(a => a.EnableErrorLoggerILogger, false);
                 pb.Add(a => a.ErrorLoggerToastTitle, "Title");
                 // 按钮触发异常
                 pb.Add(a => a.Main, new RenderFragment(builder =>
@@ -670,6 +671,23 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("CollapseBarTemplate-Content", cut.Markup);
+    }
+
+
+    [Fact]
+    public void SkipAuthenticate_Ok()
+    {
+        // 未授权，通过控制 SkipAuthenticate 属性跳过授权
+        var cut = Context.RenderComponent<CascadingValue<Task<AuthenticationState>>>(pb =>
+        {
+            pb.Add(a => a.Value, Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
+            pb.AddChildContent<Layout>(pb =>
+            {
+                pb.Add(a => a.SkipAuthenticate, true);
+                pb.Add(a => a.Main, builder => builder.AddContent(0, "Main"));
+            });
+        });
+        cut.MarkupMatches("<section id:ignore class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\">Main</main></section>");
     }
 
     private static RenderFragment CreateHeader(string? content = "Header") => builder => builder.AddContent(0, content);

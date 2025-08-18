@@ -91,7 +91,8 @@ public partial class AvatarUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetItemClassString() => CssBuilder.Default("upload-item")
+    private string? GetItemClassString(string? classString = null) => CssBuilder.Default("upload-item")
+        .AddClass(classString)
         .AddClass("is-circle", IsCircle)
         .AddClass("disabled", IsDisabled)
         .Build();
@@ -106,10 +107,6 @@ public partial class AvatarUpload<TValue>
         .AddClass($"--bb-upload-item-border-radius: {BorderRadius};", IsCircle && !string.IsNullOrEmpty(BorderRadius))
         .Build();
 
-    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
-        .AddClass("btn-browser", IsDisabled == false)
-        .Build();
-
     private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
         .AddClass(ValidStatusIcon)
         .Build();
@@ -117,6 +114,12 @@ public partial class AvatarUpload<TValue>
     private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
         .AddClass(InvalidStatusIcon)
         .Build();
+
+    private bool ShowPreviewList => Files.Count != 0;
+
+    private string PreviewerId => $"prev_{Id}";
+
+    private List<string?> PreviewList => [.. Files.Select(i => i.PrevUrl)];
 
     /// <summary>
     /// <inheritdoc/>
@@ -145,6 +148,18 @@ public partial class AvatarUpload<TValue>
             file.PrevUrl = await InvokeAsync<string?>("getPreviewUrl", Id, file.OriginFileName);
         }
         await base.TriggerOnChanged(file);
+    }
+
+    /// <summary>
+    /// 预览当前头像方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Preview()
+    {
+        if(ShowPreviewList)
+        {
+            await InvokeVoidAsync("preview", PreviewerId, 0);
+        }
     }
 
     private IReadOnlyCollection<ValidationResult> _results = [];

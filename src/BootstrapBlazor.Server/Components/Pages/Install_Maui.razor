@@ -1,7 +1,7 @@
 ﻿@page "/install-maui"
 @inject IStringLocalizer<Install_Maui> Localizer
 @inject PackageVersionService VersionManager
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Title</h3>
 
@@ -19,15 +19,15 @@
 <p class="code-label">1.Visual Studio</p>
 <p class="code-label">2. @Localizer["P5"]</p>
 <p class="code-label">3. @Localizer["P6"] <b>@Localizer["P7"]</b> @Localizer["P8"] <b>@Localizer["P9"]</b>, @Localizer["P10"] <b>@Localizer["P11"]</b>, <b>@Localizer["P12"]</b></p>
-<img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/choose-project-template-maui-blazor.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img src="@WebsiteOption.Value.GetAssetUrl("images/choose-project-template-maui-blazor.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
 
 <h5>@Localizer["P13"]</h5>
 <p class="code-label">@((MarkupString)Localizer["P14"].Value)</p>
 <p>@Localizer["P15"] <b>Manage Nuget Packages</b></p>
 <Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
-<img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/manage-nuget-packages-for-maui-app.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img src="@WebsiteOption.Value.GetAssetUrl("images/manage-nuget-packages-for-maui-app.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
 <p class="code-label">@Localizer["P16"]</p>
-<img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/nuget_install.png")" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
+<img src="@WebsiteOption.Value.GetAssetUrl("images/nuget_install.png")" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
 <p class="code-label">@Localizer["P17"]</p>
 <p>@Localizer["P18"]</p>
 <ul class="ul-demo">
@@ -93,7 +93,7 @@ return builder.Build();
 <p class="code-label">@Localizer["P34"] <code>Button</code> @Localizer["P35"]</p>
 <Pre>&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P36"]" /&gt;</Pre>
 <p class="code-label">@Localizer["P37"] <b>Visual studio</b> @Localizer["P38"] <kbd>F5</kbd> @Localizer["P39"]</p>
-<img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/preview-maui.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img src="@WebsiteOption.Value.GetAssetUrl("images/preview-maui.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
 
 <h4 class="code-label">@Localizer["P40"]</h4>
 <p class="code-label">@Localizer["P41"] <code>NativeContent.xaml</code> @Localizer["P42"]</p>
@@ -206,7 +206,7 @@ return builder.Build();
     }
 }</Pre>
 <p class="code-label">@Localizer["P48"] <b>Visual studio</b> @Localizer["P49"] <kbd>F5</kbd> @Localizer["P50"]</p>
-<img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/maui-blazor.gif")" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
+<img src="@WebsiteOption.Value.GetAssetUrl("images/maui-blazor.gif")" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
 
 @code
 {

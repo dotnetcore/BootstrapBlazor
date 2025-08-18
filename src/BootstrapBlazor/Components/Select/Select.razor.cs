@@ -27,6 +27,26 @@ public partial class Select<TValue> : ISelect, ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
+    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
+    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// </summary>
+    [Parameter]
+    [Obsolete("已弃用，请使用 IsUseDefaultItemWhenValueIsNull 参数代替；Deprecated, use the IsUseDefaultItemWhenValueIsNull parameter instead")]
+    [ExcludeFromCodeCoverage]
+    public bool IsUseActiveWhenValueIsNull
+    {
+        get => IsUseDefaultItemWhenValueIsNull;
+        set => IsUseDefaultItemWhenValueIsNull = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
+    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// </summary>
+    [Parameter]
+    public bool IsUseDefaultItemWhenValueIsNull { get; set; }
+
+    /// <summary>
     /// Gets or sets the display template. Default is null.
     /// </summary>
     [Parameter]
@@ -406,7 +426,10 @@ public partial class Select<TValue> : ISelect, ILookup
         await base.OnClearValue();
 
         SelectedItem = null;
-        _lastSelectedValueString = "";
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(new SelectedItem("", ""));
+        }
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
@@ -441,10 +464,18 @@ public partial class Select<TValue> : ISelect, ILookup
         {
             _lastSelectedValueString = "";
             _init = false;
-            return null;
+
+            return IsUseDefaultItemWhenValueIsNull && !IsVirtualize
+                ? SetSelectedItemState(GetItemByRows())
+                : null;
         }
 
         var item = IsVirtualize ? GetItemByVirtualized() : GetItemByRows();
+        return SetSelectedItemState(item);
+    }
+
+    private SelectedItem? SetSelectedItemState(SelectedItem? item)
+    {
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)

@@ -18,7 +18,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
     [Inject]
     [NotNull]
-    private ILogger<ErrorLogger>? Logger { get; set; }
+    private ILogger<BootstrapBlazorErrorBoundary>? Logger { get; set; }
 
     [Inject]
     [NotNull]
@@ -49,6 +49,12 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否启用日志记录功能 默认 true 启用
+    /// </summary>
+    [Parameter]
+    public bool EnableILogger { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 Toast 弹窗标题
     /// </summary>
     [Parameter]
@@ -61,7 +67,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="exception"></param>
     protected override Task OnErrorAsync(Exception exception)
     {
-        Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error occurred at {Page}", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync), NavigationManager.Uri);
+        if (EnableILogger)
+        {
+            Logger.LogError(exception, "BootstrapBlazorErrorBoundary OnErrorAsync log this error occurred at {Page}", NavigationManager.Uri);
+        }
         return Task.CompletedTask;
     }
 

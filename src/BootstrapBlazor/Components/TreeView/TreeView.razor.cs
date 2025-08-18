@@ -256,20 +256,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
-    [NotNull]
-    private string? NotSetOnTreeExpandErrorMessage { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [NotNull]
-    private TreeNodeCache<TreeViewItem<TItem>, TItem>? _treeNodeStateCache = null;
-
     /// <summary>
     /// Gets or sets whether to automatically update child nodes when the node state changes. Default is false.
     /// </summary>
@@ -282,12 +268,36 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool AutoCheckParent { get; set; }
 
-    private string? _searchText;
+    /// <summary>
+    /// Gets or sets a value indicating whether drag-and-drop operations are allowed. Default is false
+    /// </summary>
+    [Parameter]
+    public bool AllowDrag { get; set; }
+
+    /// <summary>
+    /// 获得/设置 拖动标签页结束回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewDragContext<TItem>, Task>? OnDragItemEndAsync { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
-    private bool _shouldRender = true;
+    [NotNull]
+    private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
+    [NotNull]
+    private TreeNodeCache<TreeViewItem<TItem>, TItem>? _treeNodeStateCache = null;
+
+    private string? _searchText;
+    private bool _shouldRender = true;
     private bool _init;
 
     /// <summary>
@@ -368,6 +378,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             _keyboardArrowUpDownTrigger = false;
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
+
+        if(!firstRender && AllowDrag)
+        {
+            await InvokeVoidAsync("resetTreeViewRow", Id);
+        }
     }
 
     /// <summary>
@@ -380,7 +395,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
+    {
+        Invoke = Interop,
+        Method = nameof(TriggerKeyDown),
+        AllowDrag,
+        TriggerDragEnd = nameof(TriggerDragEnd)
+    });
 
     private bool _keyboardArrowUpDownTrigger;
 
@@ -405,6 +426,30 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 await OnToggleNodeAsync(_activeItem);
             }
+        }
+    }
+
+    /// <summary>
+    /// Triggers the end of a drag-and-drop operation within the tree view.
+    /// </summary>
+    /// <remarks>This method is invoked via JavaScript interop to signal the completion of a drag-and-drop
+    /// action. If a handler is assigned to <see cref="OnDragItemEndAsync"/>, it will be invoked with the drag
+    /// context.</remarks>
+    /// <param name="originIndex">The zero-based index of the item being dragged from its original position.</param>
+    /// <param name="currentIndex">The zero-based index of the item's current position after the drag operation.</param>
+    /// <param name="isChildren">A value indicating whether the drag operation involves child items.</param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async ValueTask TriggerDragEnd(int originIndex, int currentIndex, bool isChildren)
+    {
+        if (OnDragItemEndAsync != null)
+        {
+            var context = new TreeViewDragContext<TItem>(
+                source: Rows[originIndex],
+                target: Rows[currentIndex],
+                children: isChildren
+            );
+            await OnDragItemEndAsync(context);
         }
     }
 

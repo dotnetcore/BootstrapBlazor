@@ -48,7 +48,8 @@ export function init(id) {
             inputFile.files = fileList
             const event = new Event('change', { bubbles: true })
             inputFile.dispatchEvent(event)
-        } catch (e) {
+        }
+        catch (e) {
             console.error(e)
         }
     })
@@ -83,6 +84,13 @@ export function init(id) {
     })
 }
 
+export function preview(previewerId, index) {
+    const prev = Data.get(previewerId);
+    if (prev) {
+        prev.viewer.show(index);
+    }
+}
+
 export async function getPreviewUrl(id, fileName) {
     let url = '';
     const upload = Data.get(id);
@@ -112,9 +120,10 @@ export function dispose(id) {
         EventHandler.off(document, 'dragover', preventHandler)
 
         EventHandler.off(el, 'click')
-        EventHandler.off(el, 'drop')
         EventHandler.off(el, 'paste')
-        EventHandler.off(inputFile, 'change')
+
+        EventHandler.off(inputFile, 'change');
+
         EventHandler.off(body, 'dragleave')
         EventHandler.off(body, 'drop')
         EventHandler.off(body, 'dragenter')

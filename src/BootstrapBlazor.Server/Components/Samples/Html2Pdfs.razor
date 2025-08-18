@@ -26,6 +26,32 @@
 
 <PackageTips Name="BootstrapBlazor.Html2Pdf" />
 
+<p class="code-label">常见问题</p>
+
+<p class="code-quest">1. 本地或者发布后无法使用</p>
+<p class="code-answer"><code>BootstrapBlazor.Html2Pdf v9.0.3</code> 后增加了日志输出功能，可以根据日志判断具体问题出现在哪里。比如由于根据当前浏览器版本去下载对应版本的
+    <code>chrome-headless-shell-win64.zip</code> 安装包</p>
+<Pre>info: BootstrapBlazor.Components.DefaultPdfService[0]
+      Ready to start downloading browser
+info: BootstrapBlazor.Components.DefaultPdfService[0]
+      Browser downloaded successfully. installed browser 138.0.7204.101
+info: BootstrapBlazor.Components.DefaultPdfService[0]
+      Start your browser | Args: --no-sandbox, --disable-setuid-sandbox, --disable-web-security</Pre>
+
+<p class="code-quest">2. 如何手动安装 <code>Debian</code> Linux 系统的 <code>Chrome</code> 浏览器</p>
+<Pre>wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb</Pre>
+
+<p class="code-quest">3. 如何检查 <code>Debian</code> Linux 系统 <code>Chrome</code> 依赖缺失</p>
+<ul class="ul-demo">
+    <li>检查是否可以连接到 Chrome 服务器</li>
+    <li>检查服务器是否有执行安装包权限</li>
+    <li>检查是否有依赖缺失</li>
+</ul>
+
+<p class="code-quest">4. 部署后是否会反复下载 Chrome 安装包</p>
+<p class="code-answer">不会，Html2Pdf 会检查是否存在安装目录安装成功后即不会重复下载安装操作</p>
+
 <DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Normal">
     <section ignore>
         <p>@((MarkupString)Localizer["Html2PdfElementDesc"].Value)</p>

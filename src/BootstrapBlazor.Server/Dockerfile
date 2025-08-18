@@ -3,7 +3,13 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
+
+RUN apt-get update && apt-get install -y wget
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install -y ./google-chrome-stable_current_amd64.deb
+RUN rm ./google-chrome-stable_current_amd64.deb
+RUN apt install -y fonts-wqy-microhei
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /
@@ -11,6 +17,7 @@ COPY . .
 
 WORKDIR "src/BootstrapBlazor.Server"
 FROM build AS publish
+RUN dotnet build
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final

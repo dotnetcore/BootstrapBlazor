@@ -239,7 +239,20 @@
     "video-device": "VideoDevices",
     "audio-device": "AudioDevices",
     "fullscreen-button": "FullScreenButtons",
-    "meet": "Meets"
+    "meet": "Meets",
+    "vditor": "Vditors",
+    "socket-factory": "SocketFactories",
+    "office-viewer": "OfficeViewers",
+    "socket/manual-receive": "Sockets\\ManualReceives",
+    "socket/auto-receive": "Sockets\\AutoReceives",
+    "socket/adapter": "Sockets\\Adapters",
+    "socket/auto-connect": "Sockets\\AutoReconnects",
+    "socket/data-entity": "Sockets\\DataEntities",
+    "network-monitor": "NetworkMonitors",
+    "toolbar": "Toolbars",
+    "opc-da": "OpcDa",
+    "navbar": "Navbars",
+    "task-board": "TaskBoard"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

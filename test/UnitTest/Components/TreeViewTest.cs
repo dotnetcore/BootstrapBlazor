@@ -742,7 +742,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
-        var node = TreeFoo.CascadingTree(items).First();
+        var node = TreeFoo.CascadingTree(items, i => i.IsExpand = true).First();
 
         // 设置当前几点所有子项选中状态
         var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
@@ -1219,6 +1219,30 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("test-toolbar-template", cut.Markup);
+    }
+
+    [Fact]
+    public async Task AllowDrag_Ok()
+    {
+        TreeViewDragContext<TreeFoo>? treeDragContext = null;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.AllowDrag, true);
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
+            pb.Add(a => a.OnDragItemEndAsync, context =>
+            {
+                treeDragContext = context;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.Instance.TriggerDragEnd(1, 2, false);
+        cut.SetParametersAndRender();
+
+        Assert.NotNull(treeDragContext);
+        Assert.NotNull(treeDragContext.Target);
+        Assert.NotNull(treeDragContext.Source);
+        Assert.False(treeDragContext.IsChildren);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class

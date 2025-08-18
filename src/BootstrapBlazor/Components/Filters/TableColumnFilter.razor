@@ -88,7 +88,10 @@ else
                         </FilterProvider>
                         break;
                     default:
-                        <div>@NotSupportedMessage</div>
+                        <FilterProvider>
+                            <NotSupportFilter NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage">
+                            </NotSupportFilter>
+                        </FilterProvider>
                         break;
                 }
             }

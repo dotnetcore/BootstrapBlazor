@@ -13,8 +13,16 @@
         <div class="@ButtonGroupClassString" role="group">
             @foreach (var item in Items)
             {
-                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonItemClassString(item)">
-                    @item.Text
+                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)"
+                                class="@GetButtonItemClassString(item)">
+                    @if (ItemTemplate != null)
+                    {
+                        @ItemTemplate(item)
+                    }
+                    else
+                    {
+                        @item.Text
+                    }
                 </DynamicElement>
             }
         </div>

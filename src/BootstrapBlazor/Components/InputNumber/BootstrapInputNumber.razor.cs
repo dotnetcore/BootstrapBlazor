@@ -93,7 +93,7 @@ public partial class BootstrapInputNumber<TValue>
 
     [Inject]
     [NotNull]
-    private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
+    private IOptionsMonitor<BootstrapBlazorOptions>? StepOption { get; set; }
 
     private string? _lastInputValueString;
 
@@ -123,7 +123,7 @@ public partial class BootstrapInputNumber<TValue>
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
-        StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
+        StepString = Step ?? StepOption.CurrentValue.GetStep<TValue>() ?? "any";
 
         if (Value is null)
         {

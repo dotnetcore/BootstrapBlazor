@@ -465,6 +465,10 @@ public partial class DatePickerBody
 
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
 
+    private string? HeaderLabelString => CssBuilder.Default("d-flex align-items-center justify-content-center flex-fill")
+        .AddClass("picker-panel-header-bar", ViewMode == DatePickerViewMode.DateTime)
+        .Build();
+
     private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = [];
 
     /// <summary>

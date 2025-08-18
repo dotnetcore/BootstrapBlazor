@@ -160,7 +160,7 @@ internal static class BootstrapIcons
         { ComponentIcons.TableExportExcelIcon, "bi bi-filetype-xlsx" },
         { ComponentIcons.TableExportPdfIcon, "bi bi-filetype-pdf" },
         { ComponentIcons.TableSearchButtonIcon, "bi bi-search" },
-        { ComponentIcons.TableResetSearchButtonIcon, "bi bi-trash3" },
+        { ComponentIcons.TableResetSearchButtonIcon, "bi bi-x-circle-fill" },
         { ComponentIcons.TableCloseButtonIcon, "bi bi-x" },
         { ComponentIcons.TableCancelButtonIcon, "bi bi-x" },
         { ComponentIcons.TableSaveButtonIcon, "bi bi-check" },

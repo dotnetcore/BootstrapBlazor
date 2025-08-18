@@ -274,7 +274,7 @@
     "Contains": "包含",
     "NotContains": "不包含",
     "EnumFilter.AllText": "全选",
-    "NotSupportedMessage": "不支持的类型，请使用 FilterTemplate 自定义过滤组件",
+    "NotSupportedColumnFilterMessage": "<p>不支持的类型，请使用 <code>FilterTemplate</code> 自定义过滤组件</p><div>请参考文档 <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "请输入 ...",
     "MultiFilterSelectAllText": "全选"
   },
@@ -389,5 +389,14 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0}是必填项"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "Title": "网络状态",
+    "NetworkType": "网络类型",
+    "Downlink": "下载速度",
+    "RTT": "响应时间"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "没有更多数据了"
   }
 }

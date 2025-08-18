@@ -274,7 +274,7 @@
     "Contains": "Contains",
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All",
-    "NotSupportedMessage": "Unsupported filter type, Please customize the filter use FilterTemplate",
+    "NotSupportedColumnFilterMessage": "<p>Unsupported filter type, Please customize the filter use <code>FilterTemplate</code></p><div>Please refer <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Please enter ...",
     "MultiFilterSelectAllText": "Select All"
   },
@@ -389,5 +389,14 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0} is required."
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "Network",
+    "NetworkType": "NetworkType",
+    "Downlink": "Downlink",
+    "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "No More Data"
   }
 }

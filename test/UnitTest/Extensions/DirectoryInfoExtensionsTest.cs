@@ -32,8 +32,13 @@ public class DirectoryInfoExtensionsTest
         }
 
         var sourceDirInfo = new DirectoryInfo(sourceDir);
-        sourceDirInfo.Copy(destDir);
+        sourceDirInfo.Copy(destDir, true);
         Assert.True(Directory.Exists(destDir));
+
+        // 测试源文件夹不存在的情况
+        var sourceDirNotExists = new DirectoryInfo(Path.Combine(rootDir, "notexists"));
+        var ex = Assert.Throws<DirectoryNotFoundException>(() => sourceDirNotExists.Copy(destDir, true));
+        Assert.NotNull(ex);
     }
 
     private static string CreateDir(string dirName)

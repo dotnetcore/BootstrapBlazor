@@ -160,7 +160,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.TableExportExcelIcon, "fa-solid fa-fw fa-file-excel" },
         { ComponentIcons.TableExportPdfIcon, "fa-solid fa-fw fa-file-pdf" },
         { ComponentIcons.TableSearchButtonIcon, "fa-solid fa-magnifying-glass" },
-        { ComponentIcons.TableResetSearchButtonIcon, "fa-regular fa-trash-can" },
+        { ComponentIcons.TableResetSearchButtonIcon, "fa-solid fa-delete-left" },
         { ComponentIcons.TableCloseButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.TableCancelButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.TableSaveButtonIcon, "fa-solid fa-floppy-disk" },

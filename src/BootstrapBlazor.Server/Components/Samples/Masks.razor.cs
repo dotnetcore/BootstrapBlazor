@@ -56,4 +56,12 @@ public partial class Masks
         await MaskService.Close(CustomMask1);
         await MaskService.Close(CustomMask2);
     }
+
+    private async Task ShowCloseMask()
+    {
+        await MaskService.Show(new MaskOption()
+        {
+            ChildContent = BootstrapDynamicComponent.CreateComponent<MaskDemo>().Render()
+        });
+    }
 }

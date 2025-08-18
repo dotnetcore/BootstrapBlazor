@@ -1,0 +1,349 @@
+{
+  "BootstrapBlazor.Components.AutoComplete": {
+    "NoDataTip": "Нет данных",
+    "PlaceHolder": "Пожалуйста, введите"
+  },
+  "BootstrapBlazor.Components.BootstrapInputNumber": {
+    "ParsingErrorMessage": "Поле {0} должно быть числом."
+  },
+  "BootstrapBlazor.Components.Calendar": {
+    "Months": "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь",
+    "NextMonth": "След месяц",
+    "NextWeek": "След неделя",
+    "NextYear": "След год",
+    "PreviousMonth": "Пред месяц",
+    "PreviousWeek": "Пред. неделя",
+    "PreviousYear": "Пред. год",
+    "Title": "{0} {1}",
+    "Today": "Сегодня",
+    "WeekLists": "Вс,Пн,Вт,Ср,Чт,Пт,Сб",
+    "WeekNumberText": "{0} недель",
+    "WeekText": "Неделя"
+  },
+  "BootstrapBlazor.Components.Captcha": {
+    "BarText": "Проведите пальцем вправо, чтобы решить головоломку",
+    "FailedText": "Не удалось загрузиться",
+    "HeaderText": "CAPTCHA",
+    "LoadText": "Загрузка..."
+  },
+  "BootstrapBlazor.Components.Cascader": {
+    "PlaceHolder": "Выбрать..."
+  },
+  "BootstrapBlazor.Components.Console": {
+    "AutoScrollText": "Автопрокрутка",
+    "ClearButtonText": "Очистить",
+    "HeaderText": "Мониторинг",
+    "LightTitle": "Индикатор"
+  },
+  "BootstrapBlazor.Components.DateTimePicker": {
+    "AiraNextMonthLabel": "След. месяц",
+    "AiraNextYearLabel": "След. год",
+    "AiraPrevMonthLabel": "Пред. месяц",
+    "AiraPrevYearLabel": "Пред. год",
+    "CancelButtonText": "Отмена",
+    "ClearButtonText": "Очистить",
+    "ConfirmButtonText": "ОК",
+    "DateFormat": "M-d-yyyy",
+    "DatePlaceHolder": "Выберите дату",
+    "DatePlaceHolderText": "Выбрать...",
+    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
+    "DateTimePlaceHolderText": "Выбрать...",
+    "GenericTypeErroMessage": "Компонент DateTimePicker поддерживает только DateTime или Nullable\u003CDateTime\u003E",
+    "MonthLists": "Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь",
+    "Months": "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь",
+    "MonthText": "{0}",
+    "NowButtonText": "Сейчас",
+    "TimeFormat": "hh\\:mm\\:ss",
+    "TimePlaceHolder": "Выберите время",
+    "Today": "Сегодня",
+    "Week": "Прошл неделя",
+    "WeekLists": "Вс,Пн,Вт,Ср,Чт,Пт,Сб",
+    "YearPeriodText": "{0} г - {1} г",
+    "YearText": "{0}",
+    "Yesterday": "Вчера"
+  },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "ClearButtonText": "Очистить",
+    "ConfirmButtonText": "ОК",
+    "DateFormat": "M/d/yyyy",
+    "EndPlaceHolderText": "Дата окончания",
+    "Last30Days": "Последние 30 дней",
+    "Last7Days": "Последние 7 дней",
+    "LastMonth": "Прошлый месяц",
+    "SeparateText": "Кому",
+    "StartPlaceHolderText": "Дата начала",
+    "ThisMonth": "В этом месяце",
+    "TodayButtonText": "Сегодня"
+  },
+  "BootstrapBlazor.Components.DropdownList": {
+    "PlaceHolder": "Выбрать..."
+  },
+  "BootstrapBlazor.Components.EditDialog": {
+    "CloseButtonText": "Закрыть",
+    "SaveButtonText": "Сохранить"
+  },
+  "BootstrapBlazor.Components.Editor": {
+    "PlaceHolder": "Нажмите, чтобы редактировать"
+  },
+  "BootstrapBlazor.Components.EditorForm": {
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL не соответствует {0} MODEL",
+    "PlaceHolderText": "Пожалуйста, введите..."
+  },
+  "BootstrapBlazor.Components.Empty": {
+    "Text": "Нет данных"
+  },
+  "BootstrapBlazor.Components.EqualToValidator": {
+    "ErrorMessage": "Пожалуйста, введите значение еще раз"
+  },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "Ошибка приложения"
+  },
+  "BootstrapBlazor.Components.FilterLogicItem": {
+    "And": "И",
+    "Or": "Или"
+  },
+  "BootstrapBlazor.Components.GoTop": {
+    "TooltipText": "Наверх"
+  },
+  "BootstrapBlazor.Components.Handwritten": {
+    "ClearButtonText": "Очистить",
+    "SaveButtonText": "Сохранить"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "ButtonText": "Копировать",
+    "CopiedTooltipText": "Скопированы",
+    "DialogHeaderText": "Выбранный значок",
+    "LabelFullText": "Html",
+    "LabelText": "Значок"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "First": "Первый",
+    "Last": "Последний"
+  },
+  "BootstrapBlazor.Components.Layout": {
+    "TooltipText": "Нажмите, чтобы развернуть/свернуть боковую панель"
+  },
+  "BootstrapBlazor.Components.Logout": {
+    "PrefixDisplayNameText": "Добро пожаловать",
+    "PrefixUserNameText": "Учетная запись:"
+  },
+  "BootstrapBlazor.Components.LogoutLink": {
+    "Text": "Выход"
+  },
+  "BootstrapBlazor.Components.Menu": {
+    "InvalidOperationExceptionMessage": "Компонент бокового меню не может быть использован независимо. Пожалуйста, используйте компонент Menu, чтобы установить IsVertical = true"
+  },
+  "BootstrapBlazor.Components.ModalDialog": {
+    "CloseButtonText": "Закрыть",
+    "PrintButtonText": "Печать",
+    "SaveButtonText": "Сохранить"
+  },
+  "BootstrapBlazor.Components.MultiSelect": {
+    "ClearText": "Очистить",
+    "MaxErrorMessage": "Можно выбрать не более {0} элементов",
+    "MinErrorMessage": "Выберите не менее {0} элементов",
+    "PlaceHolder": "Выберите элементы...",
+    "ReverseSelectText": "Инвертировать",
+    "SelectAllText": "Все"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "FalseValueDisplayText": "Ложный",
+    "NullValueDisplayText": "Выбрать...",
+    "TrueValueDisplayText": "Истинный"
+  },
+  "BootstrapBlazor.Components.Pagination": {
+    "GotoNavigatorLabelText": "Перейти к"
+  },
+  "BootstrapBlazor.Components.PopConfirmButton": {
+    "CloseButtonText": "Отмена",
+    "ConfirmButtonText": "ОК",
+    "Content": "Вы уверены, что хотите выполнить эту операцию?"
+  },
+  "BootstrapBlazor.Components.PrintButton": {
+    "Text": "Печатать"
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "и",
+    "Contains": "Содержит",
+    "Equal": "Равен",
+    "GreaterThan": "Больше, чем",
+    "GreaterThanOrEqual": "БольшеЧемИлиРавно",
+    "GroupText": "Группа",
+    "ItemText": "Пункт",
+    "LessThan": "МеньшеЧем",
+    "LessThanOrEqual": "МеньшеЧемИлиРавно",
+    "NotContains": "Не содержит",
+    "NotEqual": "Не равное",
+    "Or": "или"
+  },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "Нет данных"
+  },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonCloseText": "Закрыть",
+    "ButtonNoText": "Нет",
+    "ButtonYesText": "Да"
+  },
+  "BootstrapBlazor.Components.Search": {
+    "SearchButtonText": "Поиск"
+  },
+  "BootstrapBlazor.Components.SearchDialog": {
+    "QueryButtonText": "Запрос",
+    "ResetButtonText": "Сброс"
+  },
+  "BootstrapBlazor.Components.Select": {
+    "NoSearchDataText": "Нет результата",
+    "PlaceHolder": "Выбрать..."
+  },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "Выбрать..."
+  },
+  "BootstrapBlazor.Components.SignaturePad": {
+    "ChangeColorBtnTitle": "Изменить цвет",
+    "ClearBtnTitle": "Очистить",
+    "CloseBtnTitle": "Закрыть",
+    "SaveBase64BtnTitle": "ОК",
+    "SaveJPGBtnTitle": "JPG",
+    "SavePNGBtnTitle": "PNG",
+    "SaveSVGBtnTitle": "SVG",
+    "SignAboveLabel": "Подпись",
+    "SignatureAlertText": "Пожалуйста, сначала поставьте подпись",
+    "UndoBtnTitle": "Отменить"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "Загрузка..."
+  },
+  "BootstrapBlazor.Components.StringLengthValidator": {
+    "ErrorMessage": "Введите значение, меньшее или равное {{0}}"
+  },
+  "BootstrapBlazor.Components.SweetAlert": {
+    "CancelButtonText": "Отмена",
+    "CloseButtonText": "Закрыть",
+    "ConfirmButtonText": "Подтвердить"
+  },
+  "BootstrapBlazor.Components.Switch": {
+    "OffInnerText": "ОТКЛ",
+    "OnInnerText": "ВКЛ"
+  },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OffText": "ОТКЛ",
+    "OnText": "ВКЛ"
+  },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseAllTabsText": "Закрыть все",
+    "CloseCurrentTabText": "Закрывать",
+    "CloseOtherTabsText": "Закрыть Другие",
+    "NotFoundTabText": "Не найдено"
+  },
+  "BootstrapBlazor.Components.Table": {
+    "AddButtonText": "Добавить",
+    "AddButtonToastContent": "Новый метод данных не предусмотрен, и данные не могут быть созданы.",
+    "AddButtonToastTitle": "Добавить данные",
+    "AddModalTitle": "Новые функции",
+    "AdvanceButtonText": "Расширенный поиск",
+    "AdvancedSortButtonText": "Расширенная сортировка",
+    "AdvancedSortModalTitle": "Сортировать",
+    "CancelButtonText": "Отмена",
+    "CancelDeleteButtonText": "Отмена",
+    "CardViewButtonText": "Вид",
+    "CheckboxDisplayText": "Все",
+    "CloseButtonText": "Закрыть",
+    "ColumnButtonText": "Столбцы",
+    "ColumnButtonTitleText": "Показать/скрыть столбцы",
+    "ConfirmDeleteButtonText": "Удалить",
+    "ConfirmDeleteContentText": "Вы уверены, что хотите удалить все выбранные строки?",
+    "CopyColumnCopiedTooltipText": "Скопированы!",
+    "CopyColumnTooltipText": "Копирование данных столбцов целиком в буфер обмена",
+    "DataServiceInvalidOperationText": "Не удается указать значение для свойства \u0027DataService\u0027 при типе \u0027BootstrapBlazor.Components.Table\u00271[[{0}]]\u0027. Отсутствует зарегистрированная служба типа \u0027BootstrapBlazor.Components.IDataService\u00271[{0}]\u0027.",
+    "DeleteButtonText": "Удалить",
+    "DeleteButtonToastCanNotDeleteContent": "В выбранных данных есть неудаляемые данные, автоматическое закрытие через {0}",
+    "DeleteButtonToastContent": "Выберите данные для удаления. Они автоматически закроются через {0} секунд.",
+    "DeleteButtonToastResultContent": "Удалить данные {0}, автоматически закрыть через {1} секунд.",
+    "DeleteButtonToastTitle": "Удалить данные",
+    "EditButtonText": "Редактировать",
+    "EditButtonToastMoreSelectContent": "Для редактирования можно выбрать только один фрагмент данных.",
+    "EditButtonToastNoSaveMethodContent": "Метод сохранения данных не предусмотрен,  данные нельзя редактировать.",
+    "EditButtonToastNotSelectContent": "Не удалось сохранить данные. Пожалуйста, выберите данные, которые вы хотите отредактировать",
+    "EditButtonToastReadonlyContent": "Выбранные данные не могут быть отредактированы",
+    "EditButtonToastTitle": "Добавить данные",
+    "EditModalTitle": "Редактировать",
+    "EmptyText": "Нет данных",
+    "ExportButtonText": "Экспорт",
+    "ExportCsvDropdownItemText": "MS-CSV",
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "PDF",
+    "ExportToastContent": "Экспорт данных {0}, автоматическое закрытие через {1} секунд.",
+    "ExportToastInProgressContent": "Выполняется экспорт данных. Подождите. Он автоматически закроется через {0} секунд.",
+    "ExportToastTitle": "Экспорт",
+    "FailText": "Операция не удалась",
+    "LineNoText": "Нет.",
+    "NotSetOnTreeExpandErrorMessage": "не задан параметр OnTreeExpand",
+    "PageInfoText": "{0} - {1} Всего {2} элемента(ов)",
+    "PageItemsText": "{0} элемент(ов)/страниц(а)",
+    "RefreshButtonText": "Обновить",
+    "ResetSearchButtonText": "Очистить",
+    "SaveButtonText": "Сохранить",
+    "SaveButtonToastContent": "Метод а сохранения данных не предусмотрен, данные не могут быть сохранены.",
+    "SaveButtonToastResultContent": "Сохранение данных {0}, автоматическое закрытие через {1}",
+    "SaveButtonToastTitle": "Сохранить данные",
+    "SearchButtonText": "Поиск",
+    "SearchModalTitle": "Поиск",
+    "SearchPlaceholderText": "Поиск",
+    "SearchTooltip": "Введите любую строку для глобального поиска",
+    "SortAscText": "По убыванию",
+    "SortDescText": "Снять",
+    "SuccessText": "Успешно",
+    "UnsetText": "По возрастанию",
+    "UpdateButtonText": "Обновить"
+  },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "Восходящий",
+    "DescText": "Нисходящий"
+  },
+  "BootstrapBlazor.Components.TableFilter": {
+    "BoolFilter.AllText": "Все",
+    "BoolFilter.FalseText": "Ложный",
+    "BoolFilter.TrueText": "Истинный",
+    "ClearButtonText": "Очистить",
+    "Contains": "Содержит",
+    "EnumFilter.AllText": "Все",
+    "Equal": "Равный",
+    "FilterButtonText": "Фильтр",
+    "GreaterThan": "Больше, чем",
+    "GreaterThanOrEqual": "БольшеЧемИлиРавно",
+    "LessThan": "МеньшеЧем",
+    "LessThanOrEqual": "МеньшеЧемИлиРавно",
+    "NotContains": "Не содержит",
+    "NotEqual": "Не равное",
+    "NotSupportedMessage": "Неподдерживаемый тип фильтра, пожалуйста, настройте фильтр с помощью FilterTemplate"
+  },
+  "BootstrapBlazor.Components.Timer": {
+    "CancelText": "Отмена",
+    "PauseText": "Пауза",
+    "ResumeText": "Продолжить",
+    "StarText": "Таймер"
+  },
+  "BootstrapBlazor.Components.Toggle": {
+    "OffText": "Свернуть",
+    "OnText": "Расширять"
+  },
+  "BootstrapBlazor.Components.Transfer": {
+    "LeftPanelText": "Все",
+    "MaxErrorMessage": "Можно выбрать до {0} элементов",
+    "MinErrorMessage": "Пожалуйста, выберите не менее {0} элементов",
+    "RightPanelText": "Выбранный"
+  },
+  "BootstrapBlazor.Components.TransferPanel": {
+    "SearchPlaceHolderString": "Пожалуйста, введите ...",
+    "Text": "Список"
+  },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "не задан параметр OnExpandNodeAsync"
+  },
+  "BootstrapBlazor.Components.UploadBase": {
+    "BrowserButtonText": "Проводник",
+    "DeleteButtonText": "Удалить",
+    "FileExtensions": "Файл должен иметь одно из следующих расширений: {0}",
+    "FileSizeValidation": "Размер файла не должен превышать {0}"
+  }
+}

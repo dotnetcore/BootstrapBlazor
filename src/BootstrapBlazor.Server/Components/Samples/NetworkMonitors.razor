@@ -1,0 +1,23 @@
+﻿@page "/network-monitor"
+@inject IStringLocalizer<NetworkMonitors> Localizer
+
+<h3>@Localizer["NetworkMonitorTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["NetworkMonitorDescription"].Value)</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal">
+    <section ignore>
+        <ul class="ul-demo">
+            <li><div class="demo-indicator demo-indicator-4g"></div> @Localizer["IndicatorLi1"]</li>
+            <li><div class="demo-indicator demo-indicator-3g"></div> @Localizer["IndicatorLi2"]</li>
+            <li><div class="demo-indicator demo-indicator-2g"></div> @Localizer["IndicatorLi3"]</li>
+            <li><div class="demo-indicator demo-indicator-offline"></div> @Localizer["IndicatorLi4"]</li>
+        </ul>
+    </section>
+    <NetworkMonitorIndicator></NetworkMonitorIndicator>
+    <section ignore>
+        <ConsoleLogger @ref="_logger"></ConsoleLogger>
+    </section>
+</DemoBlock>

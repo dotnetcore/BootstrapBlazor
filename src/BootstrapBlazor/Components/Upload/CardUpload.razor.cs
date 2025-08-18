@@ -34,7 +34,7 @@ public partial class CardUpload<TValue>
 
     private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
-    private string? CardItemClass => CssBuilder.Default("upload-item")
+    private string? CardItemClass => CssBuilder.Default("upload-item upload-item-plus btn-browser upload-drop-body")
         .AddClass("disabled", IsDisabled)
         .Build();
 
@@ -115,10 +115,6 @@ public partial class CardUpload<TValue>
     /// </summary>
     [Parameter]
     public List<string>? AllowExtensions { get; set; }
-
-    private string? ActionClassString => CssBuilder.Default("upload-item-actions")
-        .AddClass("btn-browser", IsDisabled == false)
-        .Build();
 
     /// <summary>
     /// <inheritdoc/>

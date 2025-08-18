@@ -28,6 +28,12 @@ public interface IErrorLogger
     bool ShowToast { get; }
 
     /// <summary>
+    /// 获得/设置 是否启用日志记录功能 默认 true 启用
+    /// <para>设置 false 后关闭记录日志功能</para>
+    /// </summary>
+    bool EnableILogger { get; }
+
+    /// <summary>
     /// 获得 Error Toast 弹窗标题 默认读取资源文件内容
     /// </summary>
     string? ToastTitle { get; }

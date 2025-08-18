@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using System;
 
 namespace UnitTest.Components;
 
@@ -451,5 +452,74 @@ public class ButtonTest : BootstrapBlazorTestBase
         Assert.Equal("test-share-text", cut.Instance.ShareContext?.Text);
         Assert.Equal("test-share-title", cut.Instance.ShareContext?.Title);
         Assert.Equal("www.blazor.zone", cut.Instance.ShareContext?.Url);
+    }
+
+    [Fact]
+    public async Task ToogleButton_Ok()
+    {
+        var active = false;
+        var bindActive = false;
+        var clickWithoutRender = false;
+        var clicked = false;
+        var tcs = new TaskCompletionSource();
+        var cut = Context.RenderComponent<ToggleButton>(pb =>
+        {
+            pb.Add(a => a.IsActive, false);
+            pb.Add(a => a.IsActiveChanged, EventCallback.Factory.Create<bool>(this, b =>
+            {
+                active = b;
+                bindActive = true;
+            }));
+            pb.Add(a => a.OnClickWithoutRender, () =>
+            {
+                clickWithoutRender = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnClick, () =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnToggleAsync, async isActive =>
+            {
+                await Task.Delay(10);
+                active = isActive;
+                tcs.TrySetResult();
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        await tcs.Task;
+        Assert.True(active);
+        Assert.True(bindActive);
+
+        Assert.True(clickWithoutRender);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task ToggleButton_IsAsync()
+    {
+        var active = false;
+        var tcs = new TaskCompletionSource();
+        var cut = Context.RenderComponent<ToggleButton>(pb =>
+        {
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(a => a.Icon, "fa-solid fa-test");
+            pb.Add(a => a.Text, "toggle-button");
+            pb.Add(a => a.OnClick, async () =>
+            {
+                await Task.Delay(100);
+            });
+            pb.Add(a => a.OnToggleAsync, isActive =>
+            {
+                active = isActive;
+                tcs.TrySetResult();
+                return Task.CompletedTask;
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        await tcs.Task;
     }
 }

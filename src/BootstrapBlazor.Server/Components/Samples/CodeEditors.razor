@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntro"]">
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" OnSelectedItemChanged="@OnSelectedItemChanged" ShowLabel="true" DisplayText="Language">
+            <Select @bind-Value="_language" OnSelectedItemChanged="OnSelectedItemChanged" ShowLabel="true" DisplayText="Language">
                 <Options>
                     <SelectOption Text="JavaScript" Value="javascript"></SelectOption>
                     <SelectOption Text="CSharp" Value="csharp"></SelectOption>
@@ -18,7 +18,7 @@
             </Select>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" OnSelectedItemChanged="@OnThemeSelectedItemChanged" ShowLabel="true" DisplayText="Theme">
+            <Select @bind-Value="@_theme" ShowLabel="true" DisplayText="Theme">
                 <Options>
                     <SelectOption Text="Visual Studio" Value="vs"></SelectOption>
                     <SelectOption Text="Visual Studio Dark" Value="vs-dark"></SelectOption>
@@ -27,7 +27,12 @@
             </Select>
         </div>
         <div class="col-12">
-            <Pre>&lt;CodeEditor Value="@@Code" Language="@@Language" Theme="@@Theme" OnValueChanged="OnValueChanged" /&gt;</Pre>
+            <Pre>&lt;CodeEditor Value="@@_code" Language="@@_language" Theme="@@_theme" /&gt;</Pre>
+        </div>
+        <div class="col-12">
+            <div style="border: 1px solid var(--bs-border-color); height: 200px; width: 100%; overflow: hidden;">
+                <CodeEditor ShowLineNo="true" Value="@_code" Language="@_language" Theme="@_theme"></CodeEditor>
+            </div>
         </div>
     </div>
 </DemoBlock>

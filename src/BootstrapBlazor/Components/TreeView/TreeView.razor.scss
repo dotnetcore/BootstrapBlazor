@@ -1,4 +1,4 @@
-.tree-view {
+﻿.tree-view {
     --bb-tree-padding: #{$bb-tree-padding};
     --bb-tree-margin: #{$bb-tree-margin};
     --bb-tree-padding-left: #{$bb-tree-padding-left};
@@ -38,6 +38,7 @@
         flex-wrap: nowrap;
         align-items: center;
         cursor: pointer;
+        user-select: none;
 
         .tree-content-toolbar {
             display: none;
@@ -55,6 +56,7 @@
             flex-shrink: 0;
             align-items: center;
             border-radius: var(--bs-border-radius);
+            position: relative;
         }
 
         .node-icon {
@@ -121,6 +123,7 @@
         display: inline-flex;
         align-items: center;
         padding: var(--bb-tree-node-padding);
+        position: relative;
         flex: 1;
 
         .tree-icon {
@@ -163,6 +166,72 @@
             flex: 1;
             width: 1%;
             min-width: 0;
+        }
+    }
+}
+
+.tree-view {
+    --bb-tree-drop-preview-color: #{$bb-primary-color};
+
+    .tree-drop-zone {
+        position: absolute;
+        top: 0px;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        background-color: transparent;
+        display: grid;
+        grid-template-rows: 1fr 5px;
+        pointer-events: none;
+
+        .tree-drop-child-inside {
+            grid-row: 1 / 2;
+
+            &.tree-drag-inside-over {
+                border: solid 2px var(--bb-tree-drop-preview-color);
+                border-radius: var(--bs-border-radius);
+            }
+        }
+
+        .tree-drop-child-below {
+            grid-row: 2 / 3;
+            z-index: 2;
+        }
+
+        .tree-node-placeholder {
+            position: absolute;
+            bottom: 0px;
+            left: 18px;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            pointer-events: none;
+
+            .tree-node-ph-circle {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
+
+            .tree-node-ph-line {
+                flex: 1;
+                min-width: 0px;
+                width: 1%;
+                height: 2px;
+                background-color: var(--bb-tree-drop-preview-color);
+            }
+        }
+    }
+
+    &.dragging {
+        .tree-drop-zone {
+            pointer-events: all;
+        }
+
+        .tree-node:not(.drag-item) {
+            pointer-events: none;
         }
     }
 }

@@ -4,7 +4,7 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
@@ -26,7 +26,7 @@
                     }
                     else
                     {
-                        <FileIcon Extension="@item.GetExtension()" />
+                        <FileIcon Extension="@item.GetExtension()"></FileIcon>
                     }
                 </div>
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
@@ -53,11 +53,11 @@
                     </div>
                     @if (ShowDeleteButton)
                     {
-                        <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
-                                        disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
-                                        TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
+                                @onclick="() => OnCardFileDelete(item)">
                             <i class="@RemoveIcon"></i>
-                        </DynamicElement>
+                        </button>
                     }
                 </div>
                 @if (GetShowProgress(item))
@@ -77,18 +77,14 @@
     </div>
     @if (ShowPreviewList)
     {
-        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
+        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList"></ImagePreviewer>
     }
-    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"></InputFile>
 </div>
 
 @code {
     RenderFragment RenderAdd =>
     @<div class="@CardItemClass">
-        <div class="@ActionClassString">
-            <span class="upload-item-plus">
-                <i class="@AddIcon"></i>
-            </span>
-        </div>
+        <i class="@AddIcon"></i>
     </div>;
 }

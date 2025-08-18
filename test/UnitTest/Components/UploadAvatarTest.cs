@@ -76,16 +76,18 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             new()
         })));
 
+        // call preview
+        await cut.InvokeAsync(() => cut.Instance.Preview());
+
         // upload-item-delete
         var button = cut.Find(".upload-item-delete");
         await cut.InvokeAsync(() => button.Click());
 
-        cut.Contains("upload-item-actions btn-browser");
+        cut.Contains("btn-browser");
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        cut.Contains("upload-item-actions");
 
         // IsUploadButtonAtFirst
         cut.SetParametersAndRender(pb =>

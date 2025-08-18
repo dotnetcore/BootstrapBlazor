@@ -15,6 +15,9 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
     [CascadingParameter, NotNull]
     private Tab? TabSet { get; set; }
 
@@ -47,22 +50,13 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         _renderHandle.Render(BuildRenderTree);
     }
 
-    private object _key = new();
+    private Guid _key = Guid.NewGuid();
 
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenElement(0, "div");
-        builder.SetKey(_key);
-        builder.AddAttribute(5, "class", ClassString);
-        builder.AddAttribute(6, "id", Item.Id);
-        builder.AddContent(10, RenderItemContent(Item.ChildContent));
-        builder.CloseElement();
-    }
-
-    private RenderFragment RenderItemContent(RenderFragment? content) => builder =>
-    {
         builder.OpenComponent<ErrorLogger>(0);
-        builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), content);
+        builder.SetKey(_key);
+        builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), Item.ChildContent);
 
         var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
@@ -76,19 +70,16 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
             _logger.Register(this);
             return Task.CompletedTask;
         }));
+        builder.AddAttribute(6, nameof(ErrorLogger.OnErrorHandleAsync), Layout?.OnErrorHandleAsync);
         builder.CloseComponent();
-    };
-
-    private string? ClassString => CssBuilder.Default("tabs-body-content")
-        .AddClass("d-none", !Item.IsActive)
-        .Build();
+    }
 
     /// <summary>
     /// Render method
     /// </summary>
     public void Render()
     {
-        _key = new object();
+        _key = Guid.NewGuid();
         RenderContent();
     }
 

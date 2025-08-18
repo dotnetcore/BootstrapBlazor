@@ -31,17 +31,18 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         });
         var lookup = cut.FindComponent<LookupFilter>();
         var filter = lookup.Instance;
-
         var newConditions = new FilterKeyValueAction()
         {
             Filters =
             [
-                new FilterKeyValueAction() { FieldValue = "1" },
+                new FilterKeyValueAction() { FieldValue = "2" },
             ]
         };
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         var conditions = filter.GetFilterConditions();
         Assert.Single(conditions.Filters);
+        Assert.Equal("2", conditions.Filters[0].FieldValue);
+
         await cut.InvokeAsync(() => filter.Reset());
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions.Filters);
@@ -62,6 +63,51 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
         Assert.Empty(conditions.Filters);
+    }
+
+    [Fact]
+    public async Task LookupService_Ok()
+    {
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        {
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, new MockLookupServiceColumn());
+        });
+        var lookup = cut.FindComponent<LookupFilter>();
+        var filter = lookup.Instance;
+
+        // 由于 LookupFilter 默认值未设置使用候选项第一个
+        cut.WaitForAssertion(() => cut.Contains("value=\"LookupService-Test-1-async\""), TimeSpan.FromMilliseconds(100));
+        var newConditions = new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = "v2" },
+            ]
+        };
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        var conditions = filter.GetFilterConditions();
+        Assert.Single(conditions.Filters);
+        Assert.Equal("v2", conditions.Filters[0].FieldValue);
+
+        await cut.InvokeAsync(() => filter.Reset());
+        conditions = filter.GetFilterConditions();
+        Assert.Empty(conditions.Filters);
+    }
+
+    [Fact]
+    public async Task LookupService_Empty()
+    {
+        var column = new MockEmptyLookupServiceColumn();
+        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        {
+            pb.Add(a => a.Table, new MockTable());
+            pb.Add(a => a.Column, column);
+        });
+        var lookup = cut.FindComponent<LookupFilter>();
+        var filter = lookup.Instance;
+
+        await column.Task;
     }
 
     class MockTable : ITable
@@ -88,5 +134,61 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
                 new("3", "Test-3")
             };
         }
+    }
+
+    class MockLookupServiceColumn : TableColumn<Foo, string>
+    {
+        public MockLookupServiceColumn()
+        {
+            PropertyType = typeof(string);
+            FieldName = "Lookup";
+            LookupService = new LookupFilterService();
+            LookupServiceKey = "LookupKey";
+        }
+    }
+
+    class MockEmptyLookupServiceColumn : TableColumn<Foo, string>
+    {
+        private LookupFilterService _service = new LookupFilterService();
+
+        public MockEmptyLookupServiceColumn()
+        {
+            PropertyType = typeof(string);
+            FieldName = "Lookup";
+            LookupService = _service;
+            LookupServiceKey = "LookupEmptyKey";
+        }
+
+        public Task Task => _service.Task;
+    }
+
+    class LookupFilterService : LookupServiceBase
+    {
+        private TaskCompletionSource _taskCompletionSource = new();
+
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "LookupKey")
+            {
+                await Task.Delay(30);
+                ret =
+                [
+                    new SelectedItem("v1", "LookupService-Test-1-async"),
+                    new SelectedItem("v2", "LookupService-Test-2-async")
+                ];
+            }
+            else if (key == "LookupEmptyKey")
+            {
+                ret = [];
+                _taskCompletionSource.TrySetResult();
+            }
+            return ret;
+        }
+
+        public Task Task => _taskCompletionSource.Task;
     }
 }

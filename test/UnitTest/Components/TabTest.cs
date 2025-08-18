@@ -191,20 +191,20 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ChildContent, "Tab2-Content");
             });
         });
-        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         // Click Prev
         var button = cut.Find(".nav-link-bar.left .nav-link-bar-button");
         await cut.InvokeAsync(() => button.Click());
-        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         // Click Next
         button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         await cut.InvokeAsync(() => button.Click());
-        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         await cut.InvokeAsync(() => button.Click());
-        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
     }
 
     [Fact]
@@ -240,7 +240,7 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ChildContent, "Tab2-Content");
             });
         });
-        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         // Click TabItem
         cut.Find(".tabs-item").Click();
@@ -251,14 +251,14 @@ public class TabTest : BootstrapBlazorTestBase
         button.Click();
         button.Click();
         button.Click();
-        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab1-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         // Click Next
         button = cut.Find(".nav-link-bar.right .nav-link-bar-button");
         button.Click();
         button.Click();
         button.Click();
-        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .d-none").InnerHtml);
+        Assert.Equal("Tab2-Content", cut.Find(".tabs-body .tabs-body-content.d-none").InnerHtml);
 
         // Close
         Assert.Null(closedItem);

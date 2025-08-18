@@ -24,14 +24,18 @@ else
                     var item = TabItems.Find(i => i.IsActive);
                     if (item != null)
                     {
-                        @RenderTabItem(item)
+                        <div id="@item.Id" class="@GetTabItemClassString(item)">
+                            @RenderTabItem(item)
+                        </div>
                     }
                 }
                 else
                 {
                     foreach (var item in TabItems)
                     {
-                        @RenderTabItem(item)
+                        <div @key="@item" id="@item.Id" class="@GetTabItemClassString(item)">
+                            @RenderTabItem(item)
+                        </div>
                     }
                 }
             </CascadingValue>

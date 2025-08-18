@@ -716,18 +716,8 @@ export function getHtml(options) {
     return html;
 }
 
-
-export function getPreferredTheme() {
-    const storedTheme = getTheme()
-    if (storedTheme) {
-        return storedTheme
-    }
-
-    return getAutoThemeValue();
-}
-
 export function getTheme() {
-    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || 'light';
+    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || getAutoThemeValue();
 }
 
 export function saveTheme(theme) {
@@ -905,6 +895,22 @@ export function readFileAsync(file) {
 
         reader.readAsArrayBuffer(file);
     });
+}
+
+export function getNetworkInfo() {
+    if (navigator.connection) {
+        const { downlink, effectiveType, rtt } = navigator.connection;
+        return {
+            downlink: downlink,
+            networkType: effectiveType,
+            rTT: rtt
+        };
+    }
+    return null;
+}
+
+export function getClientHubId() {
+    return localStorage.getItem('bb_hub_connection_id');
 }
 
 export {

@@ -1,0 +1,34 @@
+﻿@page "/socket/manual-receive"
+@inject IStringLocalizer<ManualReceives> Localizer
+
+<h3>@Localizer["ReceivesTitle"]</h3>
+<h4>@Localizer["ReceivesDescription"]</h4>
+
+<Notice></Notice>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal" ShowCode="false">
+    <p>本例中连接一个模拟时间同步服务，采用一发一收的方式进行通讯，连接后发送查询电文，接收到服务器端响应时间戳电文数据</p>
+    <ul class="ul-demo">
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
+        <li>点击 <b>发送</b> 按钮调用 <code>SendAsync</code> 方法发送请求数据</li>
+    </ul>
+    <p>使用 <code>ReceiveAsync</code> 方法主动接收数据</p>
+    <div class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <Button Text="连接" Icon="fa-solid fa-play"
+                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="断开" Icon="fa-solid fa-stop" class="ms-2"
+                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+            <Button Text="发送" Icon="fa-solid fa-paper-plane" class="ms-2" IsAsync="true"
+                    OnClick="OnSendAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+        </div>
+        <div class="col-12">
+            <Console Items="@_items" Height="496" HeaderText="接收数据（间隔 10 秒）"
+                     ShowAutoScroll="true" OnClear="@OnClear"></Console>
+        </div>
+    </div>
+</DemoBlock>
+

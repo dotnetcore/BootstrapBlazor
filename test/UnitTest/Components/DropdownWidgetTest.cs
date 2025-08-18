@@ -77,7 +77,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
             }));
         });
 
-        var ele = cut.Find(".bg-success");
+        var ele = cut.Find(".text-bg-success");
         Assert.NotNull(ele);
     }
 

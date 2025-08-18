@@ -88,7 +88,7 @@ public partial class ButtonUpload<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser")
+    private string? BrowserButtonClassString => CssBuilder.Default("btn-browser upload-drop-body")
         .AddClass(BrowserButtonClass, !string.IsNullOrEmpty(BrowserButtonClass))
         .Build();
 

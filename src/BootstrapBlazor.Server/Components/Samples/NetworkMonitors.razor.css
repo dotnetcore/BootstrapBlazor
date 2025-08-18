@@ -1,0 +1,29 @@
+﻿.ul-demo {
+    list-style: none;
+    padding-left: 0;
+}
+
+.demo-indicator {
+    cursor: pointer;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    display: inline-block;
+    margin-inline-end: .5rem;
+}
+
+.demo-indicator-4g {
+    background-color: var(--bs-primary);
+}
+
+.demo-indicator-3g {
+    background-color: var(--bs-warning);
+}
+
+.demo-indicator-2g {
+    background-color: var(--bs-danger);
+}
+
+.demo-indicator-offline {
+    background-color: var(--bs-secondary);
+}

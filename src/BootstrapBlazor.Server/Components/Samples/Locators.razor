@@ -17,6 +17,7 @@ private IIpLocatorFactory? IpLocatorFactory { get; set; }
 </Tips>
 <Pre>Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)</Pre>
 <p><b>@Localizer["LocatorsNormalExtendDescription"]</b></p>
+
 <p><b>@Localizer["LocatorsNormalExtend1"]</b></p>
 <Pre>private class CustomerLocatorProvider : DefaultIpLocatorProvider
 {
@@ -25,9 +26,15 @@ private IIpLocatorFactory? IpLocatorFactory { get; set; }
         throw new NotImplementedException();
     }
 }</Pre>
+
 <p><b>@Localizer["LocatorsNormalExtend2"]</b></p>
 <Pre>services.AddSingleton&lt;IIpLocatorProvider, CustomerLocatorProvider&gt;();</Pre>
 <p>@((MarkupString)Localizer["LocatorsNormalCustomerLocator"].Value)</p>
+
+<p><b>@Localizer["LocatorsNormalExtend3"]</b></p>
+<Pre>var provider = IpLocatorFactory.Create(ProviderName);
+Location = await provider.Locate(Ip);</Pre>
+
 <p>@Localizer["LocatorsNormalIpTitle"]</p>
 <p><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</p>
 <p><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</p>
@@ -35,24 +42,6 @@ private IIpLocatorFactory? IpLocatorFactory { get; set; }
 <DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
     <section ignore>
         @((MarkupString)Localizer["LocatorsProviderDesc"].Value)
-        <Tips>
-            <p>@((MarkupString)Localizer["LocatorsProviderOptions"].Value)</p>
-        </Tips>
-        <Pre>{
-    "BootstrapBlazorOptions": {
-        "WebClientOptions": {
-            "EnableIpLocator": true
-        }
-    }
-}</Pre>
-  <Pre>services.AddBootstrapBlazor(op =>
-{
-    op.WebClientOptions.EnableIpLocator = true;
-});</Pre>
-    <Pre>services.Configure&lt;BootstrapBlazorOptions&gt;(op =>
-{
-    op.WebClientOptions.EnableIpLocator = true;
-});</Pre>
     </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">

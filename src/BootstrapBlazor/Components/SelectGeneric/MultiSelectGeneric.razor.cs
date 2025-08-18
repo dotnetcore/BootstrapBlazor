@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// MultiSelectGeneric component
 /// </summary>
 [ExcludeFromCodeCoverage]
-public partial class MultiSelectGeneric<TValue>
+public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     private List<SelectedItem<TValue>> SelectedItems { get; } = [];
 
@@ -23,8 +23,6 @@ public partial class MultiSelectGeneric<TValue>
     private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
         .AddClass("is-fixed-toolbar", ShowToolbar)
         .Build();
-
-    private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
@@ -191,13 +189,33 @@ public partial class MultiSelectGeneric<TValue>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
+
+    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
+    {
+        get => ValueEqualityComparer;
+        set => ValueEqualityComparer = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
-    private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
-
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth
+        ? null
+        : ScrollIntoViewBehavior.ToDescriptionString();
 
     [NotNull]
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
@@ -224,6 +242,11 @@ public partial class MultiSelectGeneric<TValue>
         ResetRules();
 
         _itemsCache = null;
+
+        if (IsVirtualize == false)
+        {
+            ResetSelectedItems();
+        }
     }
 
     /// <summary>
@@ -328,6 +351,7 @@ public partial class MultiSelectGeneric<TValue>
         await base.OnClearValue();
 
         SelectedItems.Clear();
+        await SetValue();
     }
 
     private bool _isToggle;
@@ -435,7 +459,7 @@ public partial class MultiSelectGeneric<TValue>
 
         if (OnSelectedItemsChanged != null)
         {
-            await OnSelectedItemsChanged.Invoke(SelectedItems);
+            await OnSelectedItemsChanged(SelectedItems);
         }
 
         CurrentValue = [.. SelectedItems.Select(i => i.Value)];
@@ -513,4 +537,28 @@ public partial class MultiSelectGeneric<TValue>
             Color = valid.Value ? Color.Success : Color.Danger;
         }
     }
+
+    private void ResetSelectedItems()
+    {
+        SelectedItems.Clear();
+        if (Value != null)
+        {
+            foreach (var v in Value)
+            {
+                var item = Rows.Find(i => Equals(i.Value, v));
+                if (item != null)
+                {
+                    SelectedItems.Add(item);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

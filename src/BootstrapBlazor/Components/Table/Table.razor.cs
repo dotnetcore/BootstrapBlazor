@@ -17,6 +17,18 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
+    /// Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false.
+    /// </summary>
+    [Parameter]
+    public bool AutoSearchOnInput { get; set; }
+
+    /// <summary>
+    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// </summary>
+    [Parameter]
+    public string? NotSupportedColumnFilterMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 Loading 模板
     /// </summary>
     [Parameter]
@@ -185,6 +197,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public bool ShowColumnWidthTooltip { get; set; }
+
+    ///// <summary>
+    ///// 获得/设置 行 Key 回调方法
+    ///// </summary>
+    //[Parameter]
+    //public Func<TItem, object?>? OnGetRowKey { get; set; }
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
@@ -768,6 +786,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
+    [CascadingParameter]
+    private ISortableList? SortableList { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -963,7 +984,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             ResetDynamicContext();
 
             // resize column width;
-            ResetColumnWidth();
+            ResetColumnWidth(Columns);
         }
     }
 
@@ -1022,7 +1043,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("scrollTo", Id);
         }
 
-        if(_shouldScrollTop)
+        if (_shouldScrollTop)
         {
             _shouldScrollTop = false;
             await InvokeVoidAsync("scrollTo", Id);
@@ -1101,7 +1122,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
-    private async Task<List<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
+    private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
     {
         List<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
@@ -1124,7 +1145,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 catch { }
             }
         }
-        return ret ?? [];
+        _clientColumnWidths = ret ?? [];
+
+        ResetColumnWidth(columns);
     }
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
@@ -1174,19 +1197,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         await ReloadColumnOrdersFromBrowserAsync(cols);
-        Columns.Clear();
-        Columns.AddRange(cols.OrderFunc());
 
         // 查看是否开启列宽序列化
-        _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
-        ResetColumnWidth();
+        await ReloadColumnWidthFromBrowserAsync(cols);
 
         if (OnColumnCreating != null)
         {
-            await OnColumnCreating(Columns);
+            await OnColumnCreating(cols);
         }
 
-        InternalResetVisibleColumns();
+        InternalResetVisibleColumns(cols);
+
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
@@ -1222,11 +1245,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void ResetColumnWidth()
+    private void ResetColumnWidth(List<ITableColumn> columns)
     {
         foreach (var cw in _clientColumnWidths.Where(c => c.Width > 0))
         {
-            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            var c = columns.Find(c => c.GetFieldName() == cw.Name);
             if (c != null)
             {
                 c.Width = cw.Width;
@@ -1234,9 +1257,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? items = null)
+    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
-        var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
+        var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
         if (items != null)
         {
             foreach (var column in cols)
@@ -1262,7 +1285,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
-        InternalResetVisibleColumns(columns);
+        InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
 
@@ -1279,7 +1302,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
 
             // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
-            await QueryData();
+            await QueryAsync();
             StateHasChanged();
         }
         catch (TaskCanceledException) { }
@@ -1502,7 +1525,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortName = null;
         SortOrder = SortOrder.Unset;
 
-        await QueryData();
+        await QueryAsync();
     }
 
     private bool GetAddButtonStatus() => DisableAddButtonCallback?.Invoke(SelectedRows) ?? false;
@@ -1666,6 +1689,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         TouchStart = false;
     }
+
+    private object? GetKeyByITem(TItem item) => SortableList != null ? item : null; //OnGetRowKey?.Invoke(item);
 
     /// <summary>
     /// Dispose 方法

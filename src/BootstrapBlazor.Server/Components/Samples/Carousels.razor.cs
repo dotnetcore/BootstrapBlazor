@@ -23,9 +23,9 @@ public sealed partial class Carousels
         base.OnInitialized();
 
         _images.AddRange([
-            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic0.jpg",
-            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic1.jpg",
-            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic2.jpg"
+            $"{WebsiteOption.Value.AssetRootPath}images/Pic0.jpg",
+            $"{WebsiteOption.Value.AssetRootPath}images/Pic1.jpg",
+            $"{WebsiteOption.Value.AssetRootPath}images/Pic2.jpg"
         ]);
     }
 

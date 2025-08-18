@@ -1,0 +1,75 @@
+﻿@page "/socket/adapter"
+@inject IStringLocalizer<Adapters> Localizer
+
+<HeadContent>
+    <style>
+        :root {
+            --bb-row-label-width: 180px;
+        }
+    </style>
+</HeadContent>
+
+<h3>@Localizer["AdaptersTitle"]</h3>
+<h4>@Localizer["AdaptersDescription"]</h4>
+
+<Notice></Notice>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal" ShowCode="false">
+    <p>本例中连接一个模拟自定义协议服务，每次接收到客户端发来的特定数据后，返回业务数据。这类应用在我们实际应用中非常常见</p>
+    <p>通过 <code>SocketClientOptions</code> 配置类关闭自动接收数据功能 <code>IsAutoReceive="false"</code></p>
+    <Pre>_client = TcpSocketFactory.GetOrCreate("demo-adapter", options =>
+{
+    options.IsAutoReceive = false;
+    options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+});</Pre>
+    <ul class="ul-demo">
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
+        <li>点击 <b>发送</b> 按钮调用 <code>SendAsync</code> 方法发送请求数据</li>
+    </ul>
+    <p class="code-label">通讯协议讲解：</p>
+    <p>在实际应用开发中，通讯数据协议很多时候是双方约定的。我们假设本示例通讯协议规约为定长格式具体如下：</p>
+    <ul class="ul-demo">
+        <li>发送数据包格式为 <code>请求头（Header）+ 请求体（Body）</code> 长度总和为 12 个字节</li>
+        <li>请求头为 4 字节定长，请求体为 8 个字节定长</li>
+        <li>请求体为字符串类型数据</li>
+        <li>返回数据包格式为 <code>响应头（Header）+ 响应体（Body）</code> 长度总和为 12 个字节</li>
+        <li>响应头为 4 字节定长，响应体为 8 个字节定长</li>
+        <li>响应体为字符串类型数据</li>
+    </ul>
+    <p>本示例服务器端模拟了数据分包即响应数据实际是两次写入所以实际接收端是要通过两次接收才能得到一个完整的响应数据包，可通过 <b>数据适配器</b> 来简化接收逻辑。通过切换下方 <b>是否使用数据适配器</b> 控制开关进行测试查看实际数据接收情况。</p>
+    <ul class="ul-demo">
+        <li>不使用 <b>数据适配器</b> 要分两次接收才能接收完整</li>
+        <li>使用 <b>数据适配器</b> 一次即可接收完整数据包</li>
+    </ul>
+    <Pre>private readonly DataPackageAdapter _dataAdapter = new()
+{
+    // 数据适配器内部使用固定长度数据处理器
+    DataPackageHandler = new FixLengthDataPackageHandler(12)
+};
+
+_dataAdapter.ReceivedCallBack += async Data =>
+{
+    // 此处接收到的数据 Data 为完整响应数据
+};</Pre>
+
+    <div class="row form-inline g-3">
+        <div class="col-12">
+            <Switch ShowLabel="true" DisplayText="是否使用数据适配器" @bind-Value="_useDataAdapter"></Switch>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Button Text="连接" Icon="fa-solid fa-play"
+                    OnClick="OnConnectAsync" IsDisabled="@_client.IsConnected"></Button>
+            <Button Text="断开" Icon="fa-solid fa-stop" class="ms-2"
+                    OnClick="OnCloseAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+            <Button Text="发送" Icon="fa-solid fa-paper-plane" class="ms-2" IsAsync="true"
+                    OnClick="OnSendAsync" IsDisabled="@(!_client.IsConnected)"></Button>
+        </div>
+        <div class="col-12">
+            <Console Items="@_items" Height="496" HeaderText="模拟通讯示例"
+                     ShowAutoScroll="true" OnClear="@OnClear"></Console>
+        </div>
+    </div>
+</DemoBlock>

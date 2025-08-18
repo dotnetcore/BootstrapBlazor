@@ -13,6 +13,38 @@ namespace UnitTest.Components;
 public class SelectTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task IsUseActiveWhenValueNull_Ok()
+    {
+        var tcs = new TaskCompletionSource();
+        var selectedValue = "";
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Select<string>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.Items, new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2") { Active = true }
+                });
+                pb.Add(a => a.IsUseDefaultItemWhenValueIsNull, true);
+                pb.Add(a => a.OnSelectedItemChanged, item =>
+                {
+                    selectedValue = item.Value;
+                    tcs.SetResult();
+                    return Task.CompletedTask;
+                });
+            });
+        });
+
+        await tcs.Task;
+
+        // 组件未设置 Value 参数，应该使用 Test2 作为初始选项，并且触发 SelectedItemChanged 回调
+        Assert.Equal("2", selectedValue);
+        cut.Contains("value=\"Test2\"");
+    }
+
+    [Fact]
     public async Task OnSearchTextChanged_Null()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -135,10 +167,16 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsClearable_Ok()
     {
+        var selectedValue = "Test2";
         var val = "Test2";
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                selectedValue = item.Value;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
                 new("", "请选择"),
@@ -155,6 +193,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var clearButton = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => clearButton.Click());
         Assert.Null(val);
+        Assert.Equal("", selectedValue);
 
         // 提高代码覆盖率
         var select = cut;

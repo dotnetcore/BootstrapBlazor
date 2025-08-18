@@ -315,6 +315,14 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         var instance = ObjectExtensions.CreateInstance<MockComplexObject>(false);
         Assert.NotNull(instance);
         Assert.Null(instance.Test);
+
+        // 接口类型不报错
+        Assert.Null(ObjectExtensions.CreateInstance<MockInterface>(true));
+    }
+
+    private interface MockInterface
+    {
+        string? Name { get; set; }
     }
 
     private class MockComplexObject

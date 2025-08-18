@@ -10,15 +10,18 @@
         {
             case TableCellButton { IsShow: true } b:
                 <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
-                        Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
-                        TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
-                        ChildContent="@b.ChildContent"
+                        Color="@b.Color" Icon="@b.Icon" Text="@b.Text"
+                        IsAsync="@b.IsAsync" IsKeepDisabled="b.IsKeepDisabled"
+                        TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement"
+                        TooltipTrigger="@b.TooltipTrigger" ChildContent="@b.ChildContent"
                         OnClickWithoutRender="() => OnClick(b)" IsDisabled="b.IsDisabled"></Button>
                 break;
             case TableCellPopConfirmButton { IsShow: true } pb:
                 <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                                  Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
-                                  IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                                  Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text"
+                                  IsAsync="@pb.IsAsync" IsKeepDisabled="pb.IsKeepDisabled"
+                                  Size="pb.Size" ShowShadow="@pb.ShowShadow" IsDisabled="@pb.IsDisabled"
+                                  IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
                                   OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="() => OnClickConfirm(pb)"
                                   ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
                                   ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"

@@ -8,9 +8,8 @@ const selectCell = (el, index) => {
     if (index > 3) {
         index = 3
     }
-    const c = el.querySelectorAll(".ipv4-cell")[index]
-    c.focus()
-    return c
+    const cell = el.querySelectorAll(".ipv4-cell")[index];
+    cell.focus();
 }
 
 export function init(id) {
@@ -23,7 +22,16 @@ export function init(id) {
     Data.set(id, ip)
 
     el.querySelectorAll(".ipv4-cell").forEach((c, index) => {
+        EventHandler.on(c, 'compositionend', e => {
+            e.preventDefault();
+            c.value = ip.prevValues[index];
+        });
+        EventHandler.on(c, 'focus', e => {
+            const input = e.target;
+            input.select();
+        });
         EventHandler.on(c, 'keydown', e => {
+            const current = e.target;
             if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
                 // numbers, backup last status
                 ip.prevValues[index] = c.value
@@ -31,8 +39,9 @@ export function init(id) {
                     c.value = ""
                 }
                 else if (c.selectionStart !== c.selectionEnd) {
-                    const v = c.value.substring(c.selectionStart, c.selectionEnd)
-                    const newVal = c.value.replace(v, e.key)
+                    const v1 = c.value.substring(0, c.selectionStart);
+                    const v2 = c.value.substring(c.selectionEnd, c.value.length);
+                    const newVal = `${v1}${e.key}${v2}`;
                     const num = Number(newVal)
                     if (num > 255) {
                         e.preventDefault()
@@ -47,14 +56,22 @@ export function init(id) {
             }
             else if (e.key === '.') {
                 e.preventDefault()
-                const c = selectCell(el, index + 1)
-                c.select()
+                selectCell(el, index + 1)
             }
             else if (e.key === 'Backspace') {
-                if (c.value.length === 0) {
+                if (c.value.length <= 1) {
                     c.value = "0"
+                    e.preventDefault();
                     selectCell(el, index - 1)
                 }
+            }
+            else if (current.selectionStart === current.value.length && (e.code === 'Space' || e.code === 'ArrowRight')) {
+                e.preventDefault()
+                selectCell(el, index + 1)
+            }
+            else if (current.selectionStart === 0 && e.code === 'ArrowLeft') {
+                e.preventDefault()
+                selectCell(el, index - 1)
             }
             else if (e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
 

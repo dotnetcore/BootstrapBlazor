@@ -432,7 +432,7 @@ public partial class Tab
     public ITabHeader? TabHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
+    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 值
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
@@ -485,6 +485,10 @@ public partial class Tab
     private readonly ConcurrentDictionary<TabItem, TabItemContent> _cache = [];
 
     private bool IsPreventDefault => _contextMenuZone != null;
+
+    private static string? GetTabItemClassString(TabItem item) => CssBuilder.Default("tabs-body-content")
+        .AddClass("d-none", !item.IsActive)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -1054,7 +1058,7 @@ public partial class Tab
     private async Task OnRefreshAsync()
     {
         // refresh the active tab item
-        var item = TabItems.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.Find(i => i.IsActive);
 
         if (item is not null)
         {

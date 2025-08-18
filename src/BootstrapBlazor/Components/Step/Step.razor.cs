@@ -54,6 +54,11 @@ public partial class Step
     private int _currentStepIndex;
 
     /// <summary>
+    /// 获得当前步骤索引（只读）
+    /// </summary>
+    public int CurrentStepIndex => _currentStepIndex;
+
+    /// <summary>
     /// 获得 组件样式字符串
     /// </summary>
     private string? ClassString => CssBuilder.Default("step")

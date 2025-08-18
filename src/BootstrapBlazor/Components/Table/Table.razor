@@ -40,18 +40,18 @@
         @if (ShowToolbar)
         {
             <div class="table-toolbar">
-                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton">
+                <TableToolbar GearIcon="@GearIcon" OnGetSelectedRows="@GetSelectedRows" IsAutoCollapsedToolbarButton="IsAutoCollapsedToolbarButton" ShowColorWhenToolbarButtonsCollapsed="ShowColorWhenToolbarButtonsCollapsed">
                     @if (TableToolbarBeforeTemplate != null)
                     {
                         @TableToolbarBeforeTemplate
                     }
                     @if (ShowDefaultButtons)
                     {
-                        @if (ShowAddButton)
+                        @if (ShowAddButton && ScrollMode == ScrollMode.None)
                         {
                             <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="@AddButtonIcon" Text="@AddButtonText" IsDisabled="GetAddButtonStatus()" />
                         }
-                        @if (!IsExcel && ShowEditButton)
+                        @if (!IsExcel && ShowEditButton && ScrollMode == ScrollMode.None)
                         {
                             <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="@EditButtonIcon" Text="@EditButtonText" IsEnableWhenSelectedOneRow="true" />
                         }
@@ -169,12 +169,18 @@
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyUp" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                        ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                        </BootstrapInput>
                                     </Tooltip>
                                 }
                                 else
                                 {
-                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                    <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                                    Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                                    ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                    </BootstrapInput>
                                 }
                             }
                             @if (ShowSearchButton)
@@ -237,7 +243,7 @@
                         }
                         else
                         {
-                            <DynamicElement class="@GetRowClassString(item, "table-row")" @key="item"
+                            <DynamicElement class="@GetRowClassString(item, "table-row")" @key="GetKeyByITem(item)"
                                             TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                                             @ontouchstart="e => OnTouchStart(e, item)"
                                             @ontouchend="OnTouchEnd"
@@ -275,7 +281,12 @@
                                         var cellClass = "";
                                         string? value = null;
                                         RenderFragment? valueTemplate = null;
-                                        <div class="table-cell">
+                                        var colClass = "table-cell";
+                                        if (!string.IsNullOrEmpty(col.CssClass))
+                                        {
+                                            colClass = $"table-cell {col.CssClass}";
+                                        }
+                                        <div class="@colClass">
                                             <label>
                                                 @col.GetDisplayName()
                                             </label>
@@ -360,17 +371,6 @@
             @RenderHeader(false)
         }
         <tbody>
-            @if (InsertRowMode == InsertRowMode.First)
-            {
-                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
-                {
-                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-                }
-                if (AddInCell)
-                {
-                    @RenderRow(EditModel)
-                }
-            }
             @if (ScrollMode == ScrollMode.Virtual)
             {
                 @if (Items != null)
@@ -388,7 +388,18 @@
             }
             else
             {
-                @foreach (var item in Rows)
+                if (InsertRowMode == InsertRowMode.First)
+                {
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                    {
+                        @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                    }
+                    if (AddInCell)
+                    {
+                        @RenderRow(EditModel)
+                    }
+                }
+                foreach (var item in Rows)
                 {
                     OnBeforeRenderRow?.Invoke(item);
                     if (RowTemplate != null)
@@ -433,7 +444,18 @@
                         @RenderEditForm((EditModel, ItemChangedType.Update))
                     }
                 }
-                @if (IsShowEmpty)
+                if (InsertRowMode == InsertRowMode.Last)
+                {
+                    if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                    {
+                        @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                    }
+                    if (AddInCell)
+                    {
+                        @RenderRow(EditModel)
+                    }
+                }
+                if (IsShowEmpty)
                 {
                     <tr>
                         <td colspan="@GetEmptyColumnCount()">
@@ -441,17 +463,6 @@
                             </Empty>
                         </td>
                     </tr>
-                }
-            }
-            @if (InsertRowMode == InsertRowMode.Last)
-            {
-                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
-                {
-                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
-                }
-                if (AddInCell)
-                {
-                    @RenderRow(EditModel)
                 }
             }
         </tbody>
@@ -586,7 +597,11 @@
                             }
                             @if (col.GetFilterable() && !ShowFilterHeader)
                             {
-                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation></TableColumnFilter>
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this"
+                                                   IsActive="@Filters.ContainsKey(fieldName)"
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage"
+                                                   @onclick:stopPropagation>
+                                </TableColumnFilter>
                             }
                             @if (col.GetSortable())
                             {
@@ -655,7 +670,9 @@
                         <div class="table-cell">
                             @if(col.GetFilterable())
                             {
-                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"></TableColumnFilter>
+                                <TableColumnFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true"
+                                                   NotSupportedColumnFilterMessage="@NotSupportedColumnFilterMessage">
+                                </TableColumnFilter>
                             }
                         </div>
                     </th>
@@ -675,7 +692,7 @@
     </thead>;
 
     RenderFragment<TItem> RenderRow => item =>
-    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" @key="item"
+    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" @key="GetKeyByITem(item)"
                      TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                      @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
@@ -978,25 +995,31 @@
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" ShowLabel="false" SkipValidate="true">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                            @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                            ShowLabel="false" SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                             </BootstrapInput>
                         </Tooltip>
                     }
                     else
                     {
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" SkipValidate="true">
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
+                                        @onkeyup="OnSearchKeyUp" Value="@SearchText" OnValueChanged="OnSearchTextValueChanged"
+                                        SkipValidate="true" UseInputEvent="AutoSearchOnInput">
                         </BootstrapInput>
                     }
                 }
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick"
+                            class="btn-table-reset">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick"
+                            class="btn-table-search">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }
@@ -1038,7 +1061,8 @@
     RenderFragment RenderPageInfo =>
     @<div class="table-page-info">
         <div class="me-2">@PageInfoLabelString</div>
-        <Select Items="@GetPageItemsSource()" Value="_pageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
+        <Select Items="@GetPageItemsSource()" IsPopover="true"
+                Value="_pageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
         @if (PageInfoBodyTemplate != null)
         {
             @PageInfoBodyTemplate

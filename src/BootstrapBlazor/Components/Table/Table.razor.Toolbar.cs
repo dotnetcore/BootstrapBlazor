@@ -167,6 +167,12 @@ public partial class Table<TItem>
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式和中空化 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
+
+    /// <summary>
     /// 获得/设置 工具栏移动端按钮图标
     /// </summary>
     [Parameter]
@@ -706,7 +712,7 @@ public partial class Table<TItem>
                     }
                     else
                     {
-                        await QueryData();
+                        await QueryAsync();
                     }
                 }
 
@@ -1102,7 +1108,7 @@ public partial class Table<TItem>
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns();
+            InternalResetVisibleColumns(Columns);
 
             var queryOption = BuildQueryPageOptions();
             // 设置是否为首次查询
@@ -1213,7 +1219,7 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowExtendEditButton(TItem item) => ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
+    protected bool GetShowExtendEditButton(TItem item) => ScrollMode != ScrollMode.Virtual && (ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton);
 
     /// <summary>
     /// 是否显示行内删除按钮

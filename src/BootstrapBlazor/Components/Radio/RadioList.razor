@@ -12,8 +12,16 @@
         <div class="@ButtonClassString" role="group">
             @foreach (var item in Items)
             {
-                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonItemClassString(item)">
-                    @item.Text
+                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)"
+                                class="@GetButtonItemClassString(item)">
+                    @if (ItemTemplate != null)
+                    {
+                        @ItemTemplate(item)
+                    }
+                    else
+                    {
+                        @item.Text
+                    }
                 </DynamicElement>
             }
         </div>
@@ -24,7 +32,9 @@ else
     <div @attributes="@AdditionalAttributes" class="@ClassString" role="group">
         @foreach (var item in Items)
         {
-            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="GetChildContent(item)"></Radio>
+            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)"
+                   ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)"
+                   OnClick="OnClick" ChildContent="GetChildContent(item)"></Radio>
         }
     </div>
 }

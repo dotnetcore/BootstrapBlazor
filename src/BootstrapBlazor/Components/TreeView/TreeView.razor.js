@@ -1,4 +1,5 @@
 ﻿import EventHandler from "../../modules/event-handler.js"
+import { insertBefore } from "../../modules/utility.js"
 
 export function init(id, options) {
     const el = document.getElementById(id)
@@ -6,7 +7,7 @@ export function init(id, options) {
         return
     }
 
-    const { invoke, method } = options
+    const { invoke, method, allowDrag, triggerDragEnd } = options
     EventHandler.on(el, 'keydown', '.tree-root', e => {
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             const v = el.getAttribute('data-bb-keyboard');
@@ -26,6 +27,127 @@ export function init(id, options) {
             }
         }
     });
+
+    if (allowDrag) {
+        resetTreeViewRow(id);
+
+        EventHandler.on(el, 'dragstart', e => {
+            el.targetItem = e.target;
+            el.targetItem.classList.add('drag-item');
+
+            e.dataTransfer.setData('text/plain', '');
+            e.dataTransfer.effectAllowed = 'move';
+            el.classList.add('dragging');
+        });
+
+        EventHandler.on(el, 'dragend', e => {
+            el.classList.remove('dragging');
+            el.targetItem.classList.remove('drag-item');
+
+            const item = el.targetItem.closest('.tree-content');
+            const originalIndex = parseInt(item.getAttribute("data-bb-tree-view-index"));
+
+            let isChildren = false;
+            let targetItem = null;
+            const overItem = el.querySelector('.tree-drag-inside-over');
+            if (overItem) {
+                overItem.classList.remove('tree-drag-inside-over');
+                isChildren = true;
+                targetItem = overItem.closest('.tree-content');
+            }
+            else {
+                const belowItem = el.querySelector('.tree-node-placeholder');
+                if (belowItem) {
+                    targetItem = belowItem.closest('.tree-content');
+                    belowItem.remove();
+                }
+            }
+            delete el.targetItem;
+
+            const currentIndex = parseInt(targetItem.getAttribute("data-bb-tree-view-index"));
+            invoke.invokeMethodAsync(triggerDragEnd, originalIndex, currentIndex, isChildren);
+        });
+
+        EventHandler.on(el, 'dragenter', '.tree-drop-child-inside', e => {
+            e.preventDefault();
+
+            const item = e.delegateTarget;
+            item.classList.add('tree-drag-inside-over');
+        });
+        EventHandler.on(el, 'dragenter', '.tree-drop-child-below', e => {
+            e.preventDefault()
+
+            const item = e.delegateTarget;
+            const placeholder = createPlaceholder();
+            item.appendChild(placeholder);
+        });
+
+        EventHandler.on(el, 'dragleave', '.tree-drop-child-inside', e => {
+            e.preventDefault()
+
+            const item = e.delegateTarget;
+            item.classList.remove('tree-drag-inside-over');
+        });
+        EventHandler.on(el, 'dragleave', '.tree-drop-child-below', e => {
+            e.preventDefault()
+
+            const item = e.delegateTarget;
+            item.classList.remove('tree-drag-below-over');
+            item.innerHTML = "";
+        });
+
+        EventHandler.on(el, 'dragover', '.tree-drop-zone', e => {
+            e.preventDefault()
+        });
+    }
+}
+
+export function resetTreeViewRow(id) {
+    const el = document.getElementById(id);
+    const rows = [...el.querySelectorAll('.tree-content')];
+    rows.forEach(row => {
+        const node = row.querySelector('.tree-node');
+        if (node) {
+            node.setAttribute('draggable', 'true');
+            const prevElement = node.previousElementSibling;
+            if (prevElement && !prevElement.classList.contains('tree-drop-zone')) {
+                const dropzone = createDropzone();
+                insertBefore(node, dropzone);
+            }
+        }
+    });
+}
+
+const createDropzone = () => {
+    const div = document.createElement('div');
+    div.classList.add(`tree-drop-zone`);
+
+    const inside = document.createElement('div');
+    inside.classList.add(`tree-drop-child-inside`);
+
+    const below = document.createElement('div');
+    below.classList.add(`tree-drop-child-below`);
+
+    div.appendChild(inside);
+    div.appendChild(below);
+
+    return div
+}
+
+const createPlaceholder = () => {
+    const div = document.createElement('div');
+    div.classList.add(`tree-node-placeholder`);
+
+    const circle = document.createElement('div');
+    circle.classList.add(`tree-node-ph-circle`);
+
+    const line = document.createElement('div');
+    line.classList.add(`tree-node-ph-line`);
+
+    div.appendChild(circle);
+    div.appendChild(line);
+
+    return div
 }
 
 export function scroll(id, options) {
@@ -113,5 +235,10 @@ export function dispose(id) {
 
     if (el) {
         EventHandler.off(el, 'keyup', '.tree-root');
+        EventHandler.off(el, 'dragstart');
+        EventHandler.off(el, 'dragend');
+        EventHandler.off(el, 'dragenter');
+        EventHandler.off(el, 'dragleave');
+        EventHandler.off(el, 'dragover');
     }
 }

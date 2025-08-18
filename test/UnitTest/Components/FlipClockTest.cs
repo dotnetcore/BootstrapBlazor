@@ -47,6 +47,45 @@ public class FlipClockTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowDay_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list day");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDay, true);
+        });
+        cut.Contains("bb-flip-clock-list day");
+    }
+
+    [Fact]
+    public void ShowMonth_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list month");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowMonth, true);
+        });
+        cut.Contains("bb-flip-clock-list month");
+    }
+
+    [Fact]
+    public void ShowYear_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.DoesNotContain("bb-flip-clock-list year");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowYear, true);
+        });
+        cut.Contains("bb-flip-clock-list year");
+    }
+
+    [Fact]
     public async Task ViewMode_Ok()
     {
         var completed = false;

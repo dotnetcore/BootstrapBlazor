@@ -23,6 +23,25 @@ public class RecordTest
         Assert.NotEqual(foo3, foo2);
     }
 
+    [Fact]
+    public void Height_Ok()
+    {
+        var dummy1 = new Dummy { Height = 100 };
+        var dummy2 = new Dummy { Height = 100 };
+
+        Assert.Equal(dummy1, dummy2);
+
+        dummy2.Width = 100;
+        Assert.NotEqual(dummy1, dummy2);
+    }
+
+    struct Dummy
+    {
+        public int Height { get; set; }
+
+        public int Width { get; set; }
+    }
+
     record Foo
     {
         public Foo(string name) { Name = name; }
