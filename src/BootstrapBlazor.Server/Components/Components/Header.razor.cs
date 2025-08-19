@@ -36,8 +36,6 @@ public partial class Header
     [NotNull]
     private string? TutorialsText { get; set; }
 
-    private const string DownloadUrl = "https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174";
-
     private string _versionString = "";
 
     /// <summary>
