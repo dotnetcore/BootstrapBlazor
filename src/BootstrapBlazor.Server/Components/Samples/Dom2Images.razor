@@ -10,7 +10,7 @@
     <section ignore>
         <div>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</div>
     </section>
-    <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image"></Button>
+    <Button OnClick="OnExportAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image" class="mb-3"></Button>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
