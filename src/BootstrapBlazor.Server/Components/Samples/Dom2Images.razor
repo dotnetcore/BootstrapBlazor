@@ -6,11 +6,15 @@
 
 <PackageTips Name="BootstrapBlazor.Dom2Image" />
 
-<DemoBlock Title="@Localizer["Dom2ImageElementTitle"]" Introduction="@Localizer["Dom2ImageElementIntro"]" Name="Normal">
+<DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
     <section ignore>
-        <div>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</div>
+        <p>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</p>
+        <div>
+            <Button OnClick="OnGetUrlAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image"></Button>
+            <Button OnClickWithoutRender="OnDownloadAsync" Text="@Localizer["Dom2ImageDownloadText"]" Icon="fa-solid fa-download"></Button>
+            <Button OnClickWithoutRender="OnFullAsync" Text="@Localizer["Dom2ImageFullText"]" Icon="fa-solid fa-arrows-up-down-left-right"></Button>
+        </div>
     </section>
-    <Button OnClick="OnExportAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image" class="mb-3"></Button>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

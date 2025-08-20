@@ -37,11 +37,20 @@ public partial class Dom2Images
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private async Task OnExportAsync()
+    private async Task OnGetUrlAsync()
     {
         _imageData = await Dom2ImageService.GetUrlAsync("#table-9527");
+    }
 
+    private async Task OnDownloadAsync()
+    {
         var fileName = $"table-9527-{DateTime.Now:HHmmss}";
         await Dom2ImageService.DownloadAsync("#table-9527", fileName);
+    }
+
+    private async Task OnFullAsync()
+    {
+        var fileName = $"full-{DateTime.Now:HHmmss}";
+        await Dom2ImageService.DownloadAsync(".tabs-body-content:not(.d-none)", fileName);
     }
 }
