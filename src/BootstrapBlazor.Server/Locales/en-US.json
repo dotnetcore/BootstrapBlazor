@@ -7184,8 +7184,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
     "TaskBoardTitle": "Task DashBoard",
-    "TaskBoardIntro": "",
+    "TaskBoardIntro": "Background task dashboard",
     "TaskBoardNormalTitle": "Basic usage",
-    "TaskBoardNormalIntro": ""
+    "TaskBoardNormalIntro": "This component provides detailed information about background task schedule trigger."
   }
 }

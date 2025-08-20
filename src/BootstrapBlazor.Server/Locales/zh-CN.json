@@ -7185,8 +7185,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
     "TaskBoardTitle": "Task DashBoard 任务管理器",
-    "TaskBoardIntro": "",
+    "TaskBoardIntro": "后台任务看板",
     "TaskBoardNormalTitle": "基本用法",
-    "TaskBoardNormalIntro": ""
+    "TaskBoardNormalIntro": "本组件提供后台任务调度触发器详细信息"
   }
 }
