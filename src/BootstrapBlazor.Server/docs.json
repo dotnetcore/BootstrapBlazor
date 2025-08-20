@@ -90,6 +90,7 @@
     "html-renderer": "HtmlRenderers",
     "html2image": "Html2Images",
     "html2pdf": "Html2Pdfs",
+    "dom2image": "Dom2Images",
     "label": "Labels",
     "layout": "Layouts",
     "light": "Lights",

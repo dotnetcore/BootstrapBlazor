@@ -67,6 +67,9 @@ public static class ServiceCollectionSharedExtensions
         // 增加 Html2Image 导出服务
         services.AddBootstrapBlazorHtml2ImageService();
 
+        // 增加 Dom2Image 导出服务
+        services.AddBootstrapBlazorDom2ImageService();
+
         // 增加 WinBox 弹窗服务
         services.AddBootstrapBlazorWinBoxService();
 

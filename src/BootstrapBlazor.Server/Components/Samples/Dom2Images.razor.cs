@@ -6,9 +6,9 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// Html2Image 组件
+/// Dom2Image 组件
 /// </summary>
-public partial class Html2Images
+public partial class Dom2Images
 {
     [Inject]
     [NotNull]
@@ -16,11 +16,11 @@ public partial class Html2Images
 
     [Inject]
     [NotNull]
-    private IHtml2Image? Html2ImageService { get; set; }
+    private IDom2ImageService? Dom2ImageService { get; set; }
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Html2Images>? Localizer { get; set; }
+    private IStringLocalizer<Dom2Images>? Localizer { get; set; }
 
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -37,9 +37,20 @@ public partial class Html2Images
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private async Task OnExportAsync()
+    private async Task OnGetUrlAsync()
     {
-        _imageData = await Html2ImageService.GetDataAsync("#table-9527");
-        StateHasChanged();
+        _imageData = await Dom2ImageService.GetUrlAsync("#table-9527");
+    }
+
+    private async Task OnDownloadAsync()
+    {
+        var fileName = $"table-9527-{DateTime.Now:HHmmss}";
+        await Dom2ImageService.DownloadAsync("#table-9527", fileName);
+    }
+
+    private async Task OnFullAsync()
+    {
+        var fileName = $"full-{DateTime.Now:HHmmss}";
+        await Dom2ImageService.DownloadAsync(".tabs-body-content:not(.d-none)", fileName);
     }
 }

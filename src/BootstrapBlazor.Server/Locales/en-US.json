@@ -4852,7 +4852,8 @@
     "Toolbar": "Toolbar",
     "OpcDaService": "OpcDaServer",
     "Navbar": "Navbar",
-    "TaskDashBoard": "TaskDashBoard"
+    "TaskDashBoard": "TaskDashBoard",
+    "Dom2ImageService": "IDom2HtmlService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7183,8 +7184,18 @@
   },
   "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
     "TaskBoardTitle": "Task DashBoard",
-    "TaskBoardIntro": "",
+    "TaskBoardIntro": "Background task dashboard",
     "TaskBoardNormalTitle": "Basic usage",
-    "TaskBoardNormalIntro": ""
+    "TaskBoardNormalIntro": "This component provides detailed information about background task schedule trigger."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Dom2Images": {
+    "Dom2ImageTitle": "Dom2Image",
+    "Dom2ImageIntro": "Export HTML snippets as images",
+    "Dom2ImageNormalTitle": "Basic usage",
+    "Dom2ImageNormalIntro": "Convert the node to an image by specifying a <code>Selector</code>",
+    "Dom2ImageDesc": "Since the underlying framework uses <a href=\"https://github.com/zumerlab/snapdom?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">SnapDOM</a> , if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/zumerlab/snapdom/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>",
+    "Dom2ImageButtonText": "Convert",
+    "Dom2ImageDownloadText": "Download",
+    "Dom2ImageFullText": "Capture"
   }
 }
