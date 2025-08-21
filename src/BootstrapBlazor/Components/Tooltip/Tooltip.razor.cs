@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tooltip 组件
 /// </summary>
-public partial class Tooltip : ITooltip
+public partial class Tooltip : ITooltip, IToggle
 {
     /// <summary>
     /// 弹窗位置字符串
@@ -25,10 +25,7 @@ public partial class Tooltip : ITooltip
     /// </summary>
     protected string? HtmlString => IsHtml ? "true" : null;
 
-    /// <summary>
-    /// component class
-    /// </summary>
-    protected string? ClassString => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("bb-tooltip")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -50,7 +47,7 @@ public partial class Tooltip : ITooltip
     public string? Selector { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示内容
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -62,7 +59,7 @@ public partial class Tooltip : ITooltip
     public Func<Task<string>>? GetTitleCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示文字是否为 Html 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }
@@ -74,7 +71,7 @@ public partial class Tooltip : ITooltip
     public bool Sanitize { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 位置 默认为 Placement.Top
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;
@@ -92,14 +89,13 @@ public partial class Tooltip : ITooltip
     public string? Offset { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义样式 默认 null
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
     public string? CustomClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? Trigger { get; set; }
@@ -111,10 +107,15 @@ public partial class Tooltip : ITooltip
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得 CustomClass 字符串
+    /// 获得/设置 点击回调方法
     /// </summary>
-    protected virtual string? CustomClassString => CustomClass;
+    [Parameter]
+    public Func<IToggle, Task>? OnClick { get; set; }
 
+    /// <summary>
+    /// 是否允许触发 <see cref="OnClick"/> 回调方法
+    /// </summary>
+    protected bool TriggerClick => OnClick != null;
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -177,4 +178,15 @@ public partial class Tooltip : ITooltip
     /// <param name="delay">延时指定毫秒后切换弹窗方法 默认 null 不延时</param>
     /// <returns></returns>
     public Task Toggle(int? delay = null) => InvokeVoidAsync("toggle", Id, delay);
+
+    /// <summary>
+    /// 触发 <see cref="OnClick"/> 回调方法
+    /// </summary>
+    protected async Task OnTriggerClick()
+    {
+        if (OnClick != null)
+        {
+            await OnClick(this);
+        }
+    }
 }
