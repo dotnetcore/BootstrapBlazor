@@ -112,7 +112,7 @@
     "TooltipsManualTitle": "手动控制状态",
     "TooltipsManualIntro": "通过设置 <code>Trigger=\"manual\"</code> 使用代码控制提示栏状态",
     "TooltipsManualDescLI1": "子组件使用级联参数得到 <code>Tooltip</code> 实例，然后调用其相应方法 <code>Show</code> <code>Hide</code> <code>Toggle</code>",
-    "TooltipsManualDescLI2": "通过 <code>@ref</code> 获得 <code>Tooltip</code> 实例，调用其对应方法"
+    "TooltipsManualDescLI2": "通过 <code>@ref</code> 获得 <code>Tooltip</code> 实例调用其对应方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast 轻量弹窗",
