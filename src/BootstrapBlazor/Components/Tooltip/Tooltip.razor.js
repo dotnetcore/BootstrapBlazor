@@ -40,6 +40,16 @@ export function hide(id, delay) {
     }, delay || 0);
 }
 
+export function toggle(id, delay) {
+    const tip = Data.get(id)
+    const { tooltip } = tip;
+
+    const handler = setTimeout(() => {
+        clearTimeout(handler);
+        tooltip.toggle();
+    }, delay || 0);
+}
+
 export function dispose(id) {
     const tip = Data.get(id)
     Data.remove(id)
