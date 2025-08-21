@@ -39,6 +39,7 @@ public interface ITooltip
     /// <summary>
     /// 获得/设置 显示隐藏延时 默认 null
     /// </summary>
+    /// <remarks>Delay showing and hiding the tooltip (ms)—doesn’t apply to manual trigger type. If a number is supplied, delay is applied to both hide/show. Object structure is: delay: { "show": 500, "hide": 100 }.</remarks>
     string? Delay { get; set; }
 
     /// <summary>
