@@ -108,7 +108,11 @@
     "TooltipsCustomClassIntro": "Set the custom style by setting the <code>CustomClass</code> parameter",
     "BootstrapTooltipIntro": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
     "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
-    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
+    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use.",
+    "TooltipsManualTitle": "Manual",
+    "TooltipsManualIntro": "Use code to control the tooltip state by setting <code>Trigger=\"manual\"</code>",
+    "TooltipsManualDescLI1": "The child component uses the cascade parameters to get the <code>Tooltip</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "TooltipsManualDescLI2": "Get the Tooltip instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",
@@ -348,7 +352,11 @@
     "PopoversCssClassTitle": "custom style",
     "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
-    "PopoversCssClassButtonText": "Click to activate/deactivate"
+    "PopoversCssClassButtonText": "Click to activate/deactivate",
+    "PopoversManualTitle": "Manual",
+    "PopoversManualIntro": "Use code to control the popover state by setting <code>Trigger=\"manual\"</code>",
+    "PopoversManualDescLI1": "The child component uses the cascade parameters to get the <code>Popover</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "PopoversManualDescLI2": "Get the Popover instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress progress bar",
