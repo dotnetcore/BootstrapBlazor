@@ -352,7 +352,11 @@
     "PopoversCssClassTitle": "自定义样式",
     "PopoversCssClassIntro": "通过设置 <code>Popover</code> 参数 <code>CssClass</code> 对弹窗进行自定义样式",
     "PopoversCssClassDescription": "设置 <code>Popover</code> 参数 <code>CssClass=\"custom-popover\"</code> 进行自定义样式",
-    "PopoversCssClassButtonText": "Click 激活/关闭"
+    "PopoversCssClassButtonText": "Click 激活/关闭",
+    "PopoversManualTitle": "手动控制状态",
+    "PopoversManualIntro": "通过设置 <code>Trigger=\"manual\"</code> 使用代码控制提示栏状态",
+    "PopoversManualDescLI1": "子组件使用级联参数得到 <code>Popover</code> 实例，然后调用其相应方法 <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "PopoversManualDescLI2": "通过 <code>@ref</code> 获得 <code>Popover</code> 实例调用其对应方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress 进度条",

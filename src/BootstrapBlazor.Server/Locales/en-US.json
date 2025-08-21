@@ -352,7 +352,11 @@
     "PopoversCssClassTitle": "custom style",
     "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
-    "PopoversCssClassButtonText": "Click to activate/deactivate"
+    "PopoversCssClassButtonText": "Click to activate/deactivate",
+    "PopoversManualTitle": "Manual",
+    "PopoversManualIntro": "Use code to control the popover state by setting <code>Trigger=\"manual\"</code>",
+    "PopoversManualDescLI1": "The child component uses the cascade parameters to get the <code>Popover</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "PopoversManualDescLI2": "Get the Popover instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress progress bar",
