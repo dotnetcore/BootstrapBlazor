@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tooltip 组件
 /// </summary>
-public partial class Tooltip : ITooltip, IToggle
+public partial class Tooltip : ITooltip
 {
     /// <summary>
     /// 弹窗位置字符串
@@ -107,16 +107,6 @@ public partial class Tooltip : ITooltip, IToggle
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击回调方法
-    /// </summary>
-    [Parameter]
-    public Func<IToggle, Task>? OnClick { get; set; }
-
-    /// <summary>
-    /// 是否允许触发 <see cref="OnClick"/> 回调方法
-    /// </summary>
-    protected bool TriggerClick => OnClick != null;
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -178,15 +168,4 @@ public partial class Tooltip : ITooltip, IToggle
     /// <param name="delay">延时指定毫秒后切换弹窗方法 默认 null 不延时</param>
     /// <returns></returns>
     public Task Toggle(int? delay = null) => InvokeVoidAsync("toggle", Id, delay);
-
-    /// <summary>
-    /// 触发 <see cref="OnClick"/> 回调方法
-    /// </summary>
-    protected async Task OnTriggerClick()
-    {
-        if (OnClick != null)
-        {
-            await OnClick(this);
-        }
-    }
 }

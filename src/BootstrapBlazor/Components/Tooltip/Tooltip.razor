@@ -2,15 +2,13 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
-<DynamicElement @attributes="@AdditionalAttributes" TagName="span"
-                TriggerClick="@TriggerClick" OnClick="OnTriggerClick"
-                class="@ClassString" tabindex="0" id="@Id"
-                data-bs-toggle="tooltip" data-bs-original-title="@Title"
-                data-bs-selector="@Selector" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClass"
-                data-bs-trigger="@Trigger" data-bs-delay="@Delay"
-                data-bs-offset="@Offset" data-bs-fallbackPlacements="@FallbackPlacementsString"
-                data-bs-html="@HtmlString" data-bs-sanitize="@SanitizeString">
+<span @attributes="@AdditionalAttributes" class="@ClassString" tabindex="0" id="@Id"
+      data-bs-toggle="tooltip" data-bs-original-title="@Title"
+      data-bs-selector="@Selector" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClass"
+      data-bs-trigger="@Trigger" data-bs-delay="@Delay"
+      data-bs-offset="@Offset" data-bs-fallbackPlacements="@FallbackPlacementsString"
+      data-bs-html="@HtmlString" data-bs-sanitize="@SanitizeString">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
-</DynamicElement>
+</span>
