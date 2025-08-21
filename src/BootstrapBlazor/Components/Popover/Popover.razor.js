@@ -9,6 +9,45 @@ export function init(id, options) {
     }
 }
 
+export function show(id, delay) {
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el);
+        if (pop) {
+            const handler = setTimeout(() => {
+                clearTimeout(handler);
+                pop.show();
+            }, delay || 0);
+        }
+    }
+}
+
+export function hide(id, delay) {
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el);
+        if (pop) {
+            const handler = setTimeout(() => {
+                clearTimeout(handler);
+                pop.hide();
+            }, delay || 0);
+        }
+    }
+}
+
+export function toggle(id, delay) {
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el);
+        if (pop) {
+            const handler = setTimeout(() => {
+                clearTimeout(handler);
+                pop.toggle();
+            }, delay || 0);
+        }
+    }
+}
+
 export function dispose(id) {
     const el = document.getElementById(id)
     if (el) {
