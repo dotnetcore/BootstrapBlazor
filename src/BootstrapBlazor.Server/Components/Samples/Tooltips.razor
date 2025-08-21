@@ -97,12 +97,10 @@
             <li>@((MarkupString)Localizer["TooltipsManualDescLI2"].Value)</li>
         </ul>
     </section>
-    <Tooltip Title="Cascading tooltip" Trigger="manual">
+    <Tooltip Title="Manual trigger tooltip" Trigger="manual" @ref="_tooltip">
         <TooltipContent></TooltipContent>
     </Tooltip>
-    <Tooltip Title="OnClick tooltip" Trigger="manual" OnClick="ToggleShow">
-        <i class="fa-solid fa-flag" style="cursor: pointer;" />
-    </Tooltip>
+    <Button Text="Tigger" OnClickWithoutRender="ToggleShow"></Button>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

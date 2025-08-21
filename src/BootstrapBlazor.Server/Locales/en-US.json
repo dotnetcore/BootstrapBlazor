@@ -112,7 +112,7 @@
     "TooltipsManualTitle": "Manual",
     "TooltipsManualIntro": "Use code to control the tooltip state by setting <code>Trigger=\"manual\"</code>",
     "TooltipsManualDescLI1": "The child component uses the cascade parameters to get the <code>Tooltip</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
-    "TooltipsManualDescLI2": "Call its method in the callback through the <code>Tooltip</code> parameter <code>OnClick</code>"
+    "TooltipsManualDescLI2": "Get the Tooltip instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",
