@@ -14,8 +14,7 @@ export function show(id, delay) {
     if (el) {
         const pop = bootstrap.Popover.getInstance(el);
         if (pop) {
-            const handler = setTimeout(() => {
-                clearTimeout(handler);
+            setTimeout(() => {
                 pop.show();
             }, delay || 0);
         }
@@ -27,8 +26,7 @@ export function hide(id, delay) {
     if (el) {
         const pop = bootstrap.Popover.getInstance(el);
         if (pop) {
-            const handler = setTimeout(() => {
-                clearTimeout(handler);
+            setTimeout(() => {
                 pop.hide();
             }, delay || 0);
         }
@@ -40,8 +38,7 @@ export function toggle(id, delay) {
     if (el) {
         const pop = bootstrap.Popover.getInstance(el);
         if (pop) {
-            const handler = setTimeout(() => {
-                clearTimeout(handler);
+            setTimeout(() => {
                 pop.toggle();
             }, delay || 0);
         }
