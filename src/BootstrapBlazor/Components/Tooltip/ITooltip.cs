@@ -26,8 +26,9 @@ public interface ITooltip
     bool IsHtml { get; set; }
 
     /// <summary>
-    /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
+    /// 获得/设置 触发方式 可组合 click focus hover manual 默认为 focus hover
     /// </summary>
+    /// <remarks>设置 manual 时，请使用 <see cref="Tooltip"/> 组件实例方法 <see cref="Tooltip.Show(int?)"/> <see cref="Tooltip.Hide(int?)"/> <see cref="Tooltip.Toggle(int?)"/> 对弹窗状态进行控制</remarks>
     string? Trigger { get; set; }
 
     /// <summary>

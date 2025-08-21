@@ -156,4 +156,25 @@ public partial class Tooltip : ITooltip
         if (!string.IsNullOrEmpty(offset)) Offset = offset;
         StateHasChanged();
     }
+
+    /// <summary>
+    /// 显示 Tooltip 弹窗方法
+    /// </summary>
+    /// <param name="delay">延时指定毫秒后显示弹窗 默认 null 不延时</param>
+    /// <returns></returns>
+    public Task Show(int? delay = null) => InvokeVoidAsync("show", Id, delay);
+
+    /// <summary>
+    /// 关闭 Tooltip 弹窗方法
+    /// </summary>
+    /// <param name="delay">延时指定毫秒后关闭弹窗 默认 null 不延时</param>
+    /// <returns></returns>
+    public Task Hide(int? delay = null) => InvokeVoidAsync("hide", Id, delay);
+
+    /// <summary>
+    /// 切换 Tooltip 弹窗当前状态方法
+    /// </summary>
+    /// <param name="delay">延时指定毫秒后切换弹窗方法 默认 null 不延时</param>
+    /// <returns></returns>
+    public Task Toggle(int? delay = null) => InvokeVoidAsync("toggle", Id, delay);
 }
