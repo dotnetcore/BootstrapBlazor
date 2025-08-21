@@ -2,12 +2,15 @@
 @inherits Tooltip
 @attribute [BootstrapModuleAutoLoader]
 
-<span @attributes="@AdditionalAttributes" class="@ClassString" tabindex="0" id="@Id"
-      data-bs-toggle="popover" data-bs-original-title="@Title"
-      data-bs-selector="@Selector" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString"
-      data-bs-trigger="@Trigger" data-bs-delay="@Delay"
-      data-bs-offset="@Offset" data-bs-fallbackPlacements="@FallbackPlacementsString"
-      data-bs-html="@HtmlString" data-bs-sanitize="@SanitizeString">
+<DynamicElement @attributes="@AdditionalAttributes" TagName="span"
+                TriggerClick="@TriggerClick" OnClick="OnTriggerClick"
+                class="@ClassString" tabindex="0" id="@Id"
+                data-bs-toggle="popover" data-bs-original-title="@Title"
+                data-bs-selector="@Selector" data-bs-placement="@PlacementString"
+                data-bs-custom-class="@CustomClassString"
+                data-bs-trigger="@Trigger" data-bs-delay="@Delay"
+                data-bs-offset="@Offset" data-bs-fallbackPlacements="@FallbackPlacementsString"
+                data-bs-html="@HtmlString" data-bs-sanitize="@SanitizeString">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
         @if (Template != null)
@@ -17,4 +20,4 @@
             </template>
         }
     </CascadingValue>
-</span>
+</DynamicElement>
