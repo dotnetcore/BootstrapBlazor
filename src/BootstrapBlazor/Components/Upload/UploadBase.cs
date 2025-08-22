@@ -367,4 +367,14 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         }
         return ret;
     }
+
+    /// <summary>
+    /// 重置上传组件方法
+    /// <para>Reset the upload component.</para>
+    /// </summary>
+    public virtual void Reste()
+    {
+        _filesCache = null;
+        StateHasChanged();
+    }
 }
