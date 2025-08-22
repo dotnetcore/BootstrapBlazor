@@ -391,6 +391,12 @@ public partial class DatePickerBody
     [Parameter]
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
+    /// <summary>
+    /// 获得/设置 选择时间方式 默认使用 <see cref="DateTimePickerTimeMode.PickTimeByDropdown"/>
+    /// </summary>
+    [Parameter]
+    public DateTimePickerTimeMode PickTimeMode { get; set; } = DateTimePickerTimeMode.PickTimeByDropdown;
+
     [Inject]
     [NotNull]
     private ICalendarFestivals? CalendarFestivals { get; set; }
