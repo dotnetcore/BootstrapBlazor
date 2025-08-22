@@ -172,7 +172,9 @@
             <input type="text" autocomplete="off" readonly class="form-control"
                    value="@CurrentTime.ToString(TimeFormat)"
                    @onclick="@OnShowTimePicker" />
-            <TimePicker Value="CurrentTime" OnClose="OnCloseTime" OnConfirm="OnConfirmTime"></TimePicker>
+            <TimePicker Value="CurrentTime" HasSeconds="HasSeconds()"
+                        ShowRequired="false" ShowLabel="false" SkipValidate="true"
+                        OnClose="OnCloseTime" OnConfirm="OnConfirmTime"></TimePicker>
         </div>
     }
     @if (ShowFooter)

@@ -734,6 +734,16 @@ public partial class DatePickerBody
         StateHasChanged();
     }
 
+    private bool HasSeconds()
+    {
+        if (TimeFormat != null)
+        {
+            return TimeFormat.Contains('s');
+        }
+
+        return TimePickerOption.ShowSecond;
+    }
+
     private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
