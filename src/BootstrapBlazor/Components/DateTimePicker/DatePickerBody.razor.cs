@@ -392,10 +392,10 @@ public partial class DatePickerBody
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
     /// <summary>
-    /// 获得/设置 选择时间方式 默认使用 <see cref="DateTimePickerTimeMode.PickTimeByDropdown"/>
+    /// 获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/>
     /// </summary>
     [Parameter]
-    public DateTimePickerTimeMode PickTimeMode { get; set; } = DateTimePickerTimeMode.PickTimeByDropdown;
+    public PickTimeMode PickTimeMode { get; set; } = PickTimeMode.Dropdown;
 
     [Inject]
     [NotNull]
@@ -707,18 +707,12 @@ public partial class DatePickerBody
 
     private bool _showTimePicker;
 
-    private async Task OnConfirmTime(TimeSpan time)
+    private Task OnConfirmTime(TimeSpan time)
     {
         _showTimePicker = false;
         CurrentTime = time;
-        if (ShouldConfirm)
-        {
-            await ClickConfirmButton();
-        }
-        else
-        {
-            StateHasChanged();
-        }
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private Task OnCloseTime()
@@ -734,15 +728,7 @@ public partial class DatePickerBody
         StateHasChanged();
     }
 
-    private bool HasSeconds()
-    {
-        if (TimeFormat != null)
-        {
-            return TimeFormat.Contains('s');
-        }
-
-        return TimePickerOption.ShowSecond;
-    }
+    private bool HasSeconds => TimeFormat.Contains('s');
 
     private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 

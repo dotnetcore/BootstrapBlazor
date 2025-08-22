@@ -40,7 +40,7 @@
                         <div class="@HeaderLabelString">
                             <span role="button" class="picker-panel-header-label" @onclick="() => SwitchView(DatePickerViewMode.Year)">@YearString</span>
                             <span role="button" class="@CurrentMonthViewClassName" @onclick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</span>
-                            @if (IsDateTimeMode && PickTimeMode == DateTimePickerTimeMode.PickTimeByClock)
+                            @if (IsDateTimeMode && PickTimeMode == PickTimeMode.Clock)
                             {
                                 <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime.ToString(TimeFormat)</span>
                             }
@@ -165,14 +165,14 @@
             </div>
         </div>
     </div>
-    @if (IsDateTimeMode && PickTimeMode == DateTimePickerTimeMode.PickTimeByDropdown)
+    @if (IsDateTimeMode && PickTimeMode == PickTimeMode.Dropdown)
     {
         <div class="@TimePickerClassString">
             <span>@TimePlaceHolder</span>
             <input type="text" autocomplete="off" readonly class="form-control"
                    value="@CurrentTime.ToString(TimeFormat)"
                    @onclick="@OnShowTimePicker" />
-            <TimePicker Value="CurrentTime" HasSeconds="HasSeconds()"
+            <TimePicker Value="CurrentTime" HasSeconds="HasSeconds"
                         ShowRequired="false" ShowLabel="false" SkipValidate="true"
                         OnClose="OnCloseTime" OnConfirm="OnConfirmTime"></TimePicker>
         </div>
