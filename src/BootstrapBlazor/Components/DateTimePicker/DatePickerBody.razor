@@ -155,7 +155,8 @@
                         @ChildContent
                     </CascadingValue>
                     <CascadingValue Value="this" IsFixed="true">
-                        <ClockPicker Value="CurrentTime" OnValueChanged="OnTimeChanged" @ref="TimePickerPanel" class="clock-panel-body"
+                        <ClockPicker @ref="TimePickerPanel" class="clock-panel-body"
+                                     Value="CurrentTime" OnValueChanged="OnTimeChanged" 
                                      ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
                                      ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
                         </ClockPicker>
