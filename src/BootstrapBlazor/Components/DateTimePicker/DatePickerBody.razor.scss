@@ -322,6 +322,31 @@
     }
 }
 
+.picker-panel-time {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 4px 1rem;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
+    position: relative;
+
+    .form-control {
+        font-size: 12px;
+        width: 178px;
+        cursor: pointer;
+    }
+
+    .bb-time-picker {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 1rem;
+    }
+
+    &:not(.show) .bb-time-picker {
+        display: none;
+    }
+}
+
 .picker-panel-footer {
     border-top: var(--bs-border-width) solid var(--bs-border-color);
     padding: 4px;

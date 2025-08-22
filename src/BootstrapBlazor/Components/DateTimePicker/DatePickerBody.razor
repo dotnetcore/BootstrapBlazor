@@ -165,6 +165,16 @@
             </div>
         </div>
     </div>
+    @if (true)
+    {
+        <div class="@TimePickerClassString">
+            <span>@TimePlaceHolder</span>
+            <input type="text" autocomplete="off" readonly class="form-control"
+                   value="@CurrentTime.ToString(TimeFormat)"
+                   @onclick="@OnShowTimePicker" />
+            <TimePicker Value="CurrentTime" OnClose="OnCloseTime" OnConfirm="OnConfirmTime"></TimePicker>
+        </div>
+    }
     @if (ShowFooter)
     {
         <div class="picker-panel-footer">

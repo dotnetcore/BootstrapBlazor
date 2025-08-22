@@ -691,6 +691,39 @@ public partial class DatePickerBody
         }
     }
 
+    private string? TimePickerClassString => CssBuilder.Default("picker-panel-time")
+        .AddClass("show", _showTimePicker)
+        .Build();
+
+    private bool _showTimePicker;
+
+    private async Task OnConfirmTime(TimeSpan time)
+    {
+        _showTimePicker = false;
+        CurrentTime = time;
+        if (ShouldConfirm)
+        {
+            await ClickConfirmButton();
+        }
+        else
+        {
+            StateHasChanged();
+        }
+    }
+
+    private Task OnCloseTime()
+    {
+        _showTimePicker = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void OnShowTimePicker()
+    {
+        _showTimePicker = true;
+        StateHasChanged();
+    }
+
     private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
