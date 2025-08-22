@@ -597,6 +597,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickPrevYear()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
@@ -616,6 +617,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickPrevMonth()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
 
         _render = false;
@@ -633,6 +635,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickNextYear()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
@@ -652,6 +655,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickNextMonth()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
 
         _render = false;
@@ -738,6 +742,7 @@ public partial class DatePickerBody
     /// <param name="view"></param>
     private async Task SwitchView(DatePickerViewMode view)
     {
+        _showTimePicker = false;
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
