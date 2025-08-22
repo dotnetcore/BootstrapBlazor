@@ -45,10 +45,7 @@ public partial class DatePickerBody
     /// </summary>
     private DateTime SelectValue { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否显示时刻选择框
-    /// </summary>
-    private bool ShowTimePicker { get; set; }
+    private bool _showClockPicker;
 
     private string? ClassString => CssBuilder.Default("picker-panel")
         .AddClass("is-sidebar", ShowSidebar)
@@ -71,7 +68,7 @@ public partial class DatePickerBody
         .Build();
 
     private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
-        .AddClass("is-open", ShowTimePicker)
+        .AddClass("is-open", _showClockPicker)
         .Build();
 
     private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
@@ -720,12 +717,13 @@ public partial class DatePickerBody
 
     private void SwitchTimeView()
     {
-        ShowTimePicker = true;
+        _showClockPicker = true;
     }
 
     internal void SwitchDateView()
     {
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
         StateHasChanged();
     }
 
@@ -851,7 +849,8 @@ public partial class DatePickerBody
     private async Task ClickClearButton()
     {
         // 关闭 TimerPicker
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
 
         CurrentDate = DateTime.MinValue;
         CurrentTime = TimeSpan.Zero;
@@ -876,7 +875,8 @@ public partial class DatePickerBody
     private void ResetTimePickerPanel()
     {
         // 关闭 TimerPicker
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
 
         TimePickerPanel?.Reset();
     }
