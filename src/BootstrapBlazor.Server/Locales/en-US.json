@@ -456,6 +456,7 @@
     "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
     "MaskNormalTitle": "Basic usage",
     "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "MaskNormalDesc": "You can adjust the <code>ZIndex</code> <code>Opacity</code> <code>BackgroundColor</code> parameters via <code>MaskOption</code>",
     "ShowMaskButtonText": "Show",
     "MaskContainerTitle": "Container",
     "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>",
