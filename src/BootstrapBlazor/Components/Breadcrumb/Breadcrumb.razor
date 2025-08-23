@@ -1,16 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<CascadingValue Value="this" IsFixed="true">
-    <nav @attributes="@AdditionalAttributes" aria-label="breadcrumb">
-        <ol class="breadcrumb">
+<nav @attributes="@AdditionalAttributes" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <CascadingValue Value="this" IsFixed="true">
             @foreach (var item in Value)
             {
                 @RenderItem(item)
             }
-        </ol>
-    </nav>
-</CascadingValue>
+        </CascadingValue>
+    </ol>
+</nav>
 
 @code {
     RenderFragment<BreadcrumbItem> RenderItem => item =>
