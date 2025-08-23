@@ -176,4 +176,17 @@ public class TooltipTest : BootstrapBlazorTestBase
         });
         cut.Contains("data-bs-fallbackPlacements=\"top,left\"");
     }
+
+    [Fact]
+    public async Task Toggle_Ok()
+    {
+        var cut = Context.RenderComponent<Tooltip>(pb =>
+        {
+            pb.Add(a => a.Title, "test_tooltip");
+            pb.Add(a => a.Trigger, "manual");
+        });
+        await cut.InvokeAsync(() => cut.Instance.Show());
+        await cut.InvokeAsync(() => cut.Instance.Hide());
+        await cut.InvokeAsync(() => cut.Instance.Toggle());
+    }
 }

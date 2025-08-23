@@ -20,6 +20,16 @@ public partial class Tooltips
 
     private static string HtmlString => "This is <a href=\"www.blazor.zone\">Blazor</a> tooltip";
 
+    private Tooltip? _tooltip;
+
+    private async Task ToggleShow()
+    {
+        if (_tooltip != null)
+        {
+            await _tooltip.Toggle();
+        }
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
