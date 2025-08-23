@@ -14,7 +14,7 @@
 
 @code {
     RenderFragment<BreadcrumbItem> RenderItem => item =>
-    @<li class="@GetItemClassName(item)" aria-current="@CurrentPage(item)">
+    @<li class="breadcrumb-item">
         @if (!string.IsNullOrEmpty(item.Url))
         {
             <a href="@item.Url">@item.Text</a>
