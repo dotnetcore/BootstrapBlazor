@@ -35,5 +35,12 @@ public class BreadcrumbsTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tagok" });
         });
+        cut.Contains("tag=\"tagok\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.Value, null);
+        });
+        Assert.DoesNotContain("li", cut.Markup);
     }
 }
