@@ -6,6 +6,9 @@
 <h4>@Localizer["MaskDescription"]</h4>
 
 <DemoBlock Title="@Localizer["MaskNormalTitle"]" Introduction="@Localizer["MaskNormalIntro"]" Name="Normal">
+    <section ignore>
+        <div>@((MarkupString)Localizer["MaskNormalDesc"].Value)</div>
+    </section>
     <button class="btn btn-primary" @onclick="@ShowMask">@Localizer["ShowMaskButtonText"]</button>
 </DemoBlock>
 

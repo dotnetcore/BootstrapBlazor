@@ -456,6 +456,7 @@
     "MaskDescription": "通过调用服务显示，隐藏方法，显示一个遮罩层对数据进行遮罩操作",
     "MaskNormalTitle": "基本用法",
     "MaskNormalIntro": "调用 <code>MaskService</code> 遮罩服务示例方法 <code>Show</code> 方法显示一个遮罩，3 秒后调用实例方法 <code>Close</code> 关闭遮罩",
+    "MaskNormalDesc": "可以通过 <code>MaskOption</code> 调整 <code>ZIndex</code> <code>Opacity</code> <code>BackgroundColor</code> 参数",
     "ShowMaskButtonText": "打开",
     "MaskContainerTitle": "指定容器",
     "MaskContainerIntro": "通过设置 <code>MaskOption</code> 参数 <code>ContainerId</code> 指定遮罩出现位置",
