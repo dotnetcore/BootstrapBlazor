@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 构造函数
+/// BreadcrumbItem Class
 /// </summary>
 /// <param name="text"></param>
 /// <param name="url"></param>
