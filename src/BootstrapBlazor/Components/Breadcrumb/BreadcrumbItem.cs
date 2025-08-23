@@ -10,15 +10,21 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="text"></param>
 /// <param name="url"></param>
-public class BreadcrumbItem(string text, string? url = null)
+/// <param name="cssClass"></param>
+public class BreadcrumbItem(string text, string? url = null, string? cssClass = null)
 {
+    /// <summary>
+    /// 获得/设置 显示文字
+    /// </summary>
+    public string Text { get; } = text;
+
     /// <summary>
     /// 获得/设置 导航地址
     /// </summary>
     public string? Url { get; } = url;
 
     /// <summary>
-    /// 获得/设置 显示文字
+    /// 获得/设置 样式名称
     /// </summary>
-    public string Text { get; } = text;
+    public string? CssClass { get; } = cssClass;
 }

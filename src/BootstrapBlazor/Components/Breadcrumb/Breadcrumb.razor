@@ -14,7 +14,7 @@
 
 @code {
     RenderFragment<BreadcrumbItem> RenderItem => item =>
-    @<li class="breadcrumb-item">
+    @<li class="@GetItemClassString(item)">
         @if (!string.IsNullOrEmpty(item.Url))
         {
             <a href="@item.Url">@item.Text</a>

@@ -17,6 +17,10 @@ public sealed partial class Breadcrumb
     [NotNull]
     public IEnumerable<BreadcrumbItem>? Value { get; set; }
 
+    private static string? GetItemClassString(BreadcrumbItem item) => CssBuilder.Default("breadcrumb-item")
+        .AddClass(item.CssClass)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
