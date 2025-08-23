@@ -14,11 +14,20 @@ public sealed partial class Breadcrumb
     /// 获得/设置 数据集
     /// </summary>
     [Parameter]
-    public IEnumerable<BreadcrumbItem> Value { get; set; } = Enumerable.Empty<BreadcrumbItem>();
+    [NotNull]
+    public IEnumerable<BreadcrumbItem>? Value { get; set; }
 
-    private string? GetItemClassName(BreadcrumbItem item) => CssBuilder.Default("breadcrumb-item")
+    private static string? GetItemClassString(BreadcrumbItem item) => CssBuilder.Default("breadcrumb-item")
+        .AddClass(item.CssClass)
         .Build();
 
-    private string? CurrentPage(BreadcrumbItem item) => CssBuilder.Default()
-        .Build();
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Value ??= [];
+    }
 }

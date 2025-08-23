@@ -22,10 +22,8 @@ public partial class Button : ButtonBase
     protected ElementReference ButtonElement { get; set; }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
