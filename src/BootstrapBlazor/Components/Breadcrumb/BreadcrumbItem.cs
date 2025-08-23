@@ -6,28 +6,19 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BreadcrumbItem 实体类
+/// 构造函数
 /// </summary>
-public class BreadcrumbItem
+/// <param name="text"></param>
+/// <param name="url"></param>
+public class BreadcrumbItem(string text, string? url = null)
 {
     /// <summary>
     /// 获得/设置 导航地址
     /// </summary>
-    public string? Url { get; }
+    public string? Url { get; } = url;
 
     /// <summary>
     /// 获得/设置 显示文字
     /// </summary>
-    public string Text { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="text"></param>
-    /// <param name="url"></param>
-    public BreadcrumbItem(string text, string? url = null)
-    {
-        Text = text;
-        Url = url;
-    }
+    public string Text { get; } = text;
 }
