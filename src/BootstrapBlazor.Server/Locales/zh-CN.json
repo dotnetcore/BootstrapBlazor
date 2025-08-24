@@ -5703,6 +5703,7 @@
     "DefaultSortIntro": "设置 <code>DefaultSort</code> 属性值为 <code>true</code> 时作为默认排序列",
     "DefaultSortLi1": "设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用",
     "DefaultSortLi2": "设置 <code>DefaultSortOrder</code> 值，设置默认排序规则",
+    "DefaultSortLi3": "<code>v9.6.2</code> 版本前，使用 <code>OnFilterValueChanged</code> 触发过滤回调，重构后使用 <code>OnFilterAsync</code> 触发过滤回调方法",
     "DefaultSortP": "本例中默认排序为最后一列倒序排序",
     "SortListTitle": "多列排序",
     "SortListIntro": "设置 <code>SortList</code> 属性，表格加载时使用此参数进行多列排序",

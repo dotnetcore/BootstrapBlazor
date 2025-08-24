@@ -5702,6 +5702,7 @@
     "DefaultSortIntro": "Default sorts as default when setting the <code>DefaultSort</code> property value to <code>true</code>",
     "DefaultSortLi1": "Set <code>DefaultSort=true</code> to enable the default sort function, when multiple columns set this property, the first column works",
     "DefaultSortLi2": "Set <code>DefaultSortOrder</code> value, set default collation",
+    "DefaultSortLi3": "Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.",
     "DefaultSortP": "In this case the default sort is the last column in reverse order",
     "SortListTitle": "Multi-column sort",
     "SortListIntro": "Set <code>the SortList</code> property, use this parameter for multi-column sorting when the table loads",
