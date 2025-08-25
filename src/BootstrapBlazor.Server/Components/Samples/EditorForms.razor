@@ -130,6 +130,14 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IsDisplayTitle"]" Introduction="@Localizer["IsDisplayIntro"]" Name="IsDisplay">
+    <EditorForm Model="@Model" ItemsPerRow="3" IsDisplay="true">
+        <FieldItems>
+            <EditorItem @bind-Field="@Model.Hobby" Items="@Hobbies" />
+        </FieldItems>
+    </EditorForm>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="@Localizer["EditorFormAttributeTitle"]" Items="@GetEditorItemAttributes()"></AttributeTable>
