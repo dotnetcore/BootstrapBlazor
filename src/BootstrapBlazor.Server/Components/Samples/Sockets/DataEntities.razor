@@ -114,7 +114,14 @@ class MockEntity
         Length = 2
     });
 });</Pre>
-    <p>通过调用 <code>ITcpSocketClient</code> 实例泛型扩展方法 <code>SetDataPackageAdapter</code> 再回调方法 <code>OnReceiveAsync</code> 中直接拿到数据实体类</p>
-    <Pre>var adapter = new DataPackageAdapter(new FixLengthDataPackageHandler(7));
-_client.SetDataPackageAdapter&lt;MockEntity&gt;(adapter, OnReceiveAsync)</Pre>
+    <p>通过调用 <code>ITcpSocketClient</code> 实例泛型扩展方法 <code>SetDataPackageAdapter</code> 在回调方法 <code>OnReceiveAsync</code> 中直接拿到数据实体类</p>
+    <Pre>// 创建一个数据适配器
+var adapter = new DataPackageAdapter(new FixLengthDataPackageHandler(7));
+
+// 设置数据适配器与回调方法
+_client.SetDataPackageAdapter&lt;MockEntity&gt;(adapter, OnReceiveAsync);</Pre>
+    <Pre>private async Task OnReceiveAsync(MockEntity? entity)
+{
+    return Task.CompletedTask;
+}</Pre>
 </DemoBlock>
