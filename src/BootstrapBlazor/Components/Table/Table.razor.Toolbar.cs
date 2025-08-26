@@ -757,7 +757,7 @@ public partial class Table<TItem>
     public Size EditDialogSize { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
-    /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽
+    /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽，参数 <see cref="EditDialogShowMaximizeButton"/> 值为 false 时此参数才生效
     /// </summary>
     [Parameter]
     public bool EditDialogIsDraggable { get; set; }
@@ -769,7 +769,7 @@ public partial class Table<TItem>
     public FullScreenSize EditDialogFullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示，此时 <see cref="EditDialogIsDraggable"/> 参数无效
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;
