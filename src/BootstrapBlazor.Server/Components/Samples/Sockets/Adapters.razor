@@ -44,16 +44,17 @@
         <li>不使用 <b>数据适配器</b> 要分两次接收才能接收完整</li>
         <li>使用 <b>数据适配器</b> 一次即可接收完整数据包</li>
     </ul>
-    <Pre>private readonly DataPackageAdapter _dataAdapter = new()
-{
-    // 数据适配器内部使用固定长度数据处理器
-    DataPackageHandler = new FixLengthDataPackageHandler(12)
-};
+    <Pre>// 数据适配器内部使用固定长度数据处理器
+private readonly DataPackageAdapter _dataAdapter = new(new FixLengthDataPackageHandler(12));
 
-_dataAdapter.ReceivedCallBack += async Data =>
+_dataAdapter.ReceivedCallBack = async Data =>
 {
     // 此处接收到的数据 Data 为完整响应数据
 };</Pre>
+<Pre>// 实战中可以使用 ITcpSocketClient 扩展方法 SetDataPackageAdapter 简化代码
+_client.SetDataPackageAdapter(_dataAdapter, UpdateReceiveLog);</Pre>
+
+    <p>本例中使用的模拟服务端代码如下：</p>
 
     <div class="row form-inline g-3">
         <div class="col-12">
