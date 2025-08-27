@@ -51,8 +51,9 @@ _dataAdapter.ReceivedCallBack = async Data =>
 {
     // 此处接收到的数据 Data 为完整响应数据
 };</Pre>
-<Pre>// 实战中可以使用 ITcpSocketClient 扩展方法 SetDataPackageAdapter 简化代码
-_client.SetDataPackageAdapter(_dataAdapter, UpdateReceiveLog);</Pre>
+    <Pre>// 实战中可以使用 ITcpSocketClient 扩展方法 AddDataPackageAdapter 简化代码
+// 如果 _client 实例在当前页面不销毁时，切记使用 AddDataPackageAdapter 移除当前页面加载的 UpdateReceiveLog 回调方法避免内存泄露
+_client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);</Pre>
 
     <p>本例中使用的模拟服务端代码如下：</p>
 

@@ -63,7 +63,7 @@ class MockEntity
         <li><code>DataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
     </ul>
     <p>自定义数据类型转化器示例</p>
-    <Pre>[SocketTypeDataConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
+    <Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
     [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
@@ -83,4 +83,45 @@ class MockEntity
     }
 }</Pre>
     <p>更多技术细节可以参考以上内置提供的转换器源码</p>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ConfigTitle"]"
+           Introduction="@Localizer["ConfigIntro"]"
+           Name="Config" ShowCode="false">
+    <p>通过 <code>ConfigureDataConverters</code> 可以配置任意类型（第三方程序集中无源码类型）自定数据转换</p>
+    <Pre>class MockEntity
+{
+    public byte[]? Header { get; set; }
+
+    public byte[]? Body { get; set; }
+}</Pre>
+    <Pre>service.ConfigureDataConverters(options =>
+{
+    // 配置 MockEntity 转换
+    options.AddTypeConverter&lt;MockEntity&gt;();
+
+    // 配置 MockEntity 属性 Header 转换逻辑 从起始位置 0 开始读取 5 个字节
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity => entity.Header, new DataPropertyConverterAttribute()
+    {
+        Offset = 0,
+        Length = 5
+    });
+
+    // 配置 MockEntity 属性 Body 转换逻辑 从起始位置 5 开始读取 2 个字节
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity => entity.Body, new DataPropertyConverterAttribute()
+    {
+        Offset = 5,
+        Length = 2
+    });
+});</Pre>
+    <p>通过调用 <code>ITcpSocketClient</code> 实例泛型扩展方法 <code>AddDataPackageAdapter</code> 在回调方法 <code>OnReceiveAsync</code> 中直接拿到数据实体类</p>
+    <Pre>// 创建一个数据适配器
+var adapter = new DataPackageAdapter(new FixLengthDataPackageHandler(7));
+
+// 设置数据适配器与回调方法
+_client.AddDataPackageAdapter&lt;MockEntity&gt;(adapter, OnReceiveAsync);</Pre>
+    <Pre>private async Task OnReceiveAsync(MockEntity? entity)
+{
+    return Task.CompletedTask;
+}</Pre>
 </DemoBlock>
