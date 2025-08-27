@@ -63,7 +63,7 @@ class MockEntity
         <li><code>DataUInt64LittleEndianConverter</code> 转成 ulong 无符号整形小端读取</li>
     </ul>
     <p>自定义数据类型转化器示例</p>
-    <Pre>[SocketTypeDataConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
+    <Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
 class MockEntity
 {
     [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
