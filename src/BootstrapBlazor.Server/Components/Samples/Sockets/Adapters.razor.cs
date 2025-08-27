@@ -49,7 +49,7 @@ public partial class Adapters : IDisposable
         _dataAdapter.ReceivedCallBack = UpdateReceiveLog;
 
         // 实战中可以通过下面一句话设置数据适配器与回调方法
-        // _client.SetDataPackageAdapter(_dataAdapter, UpdateReceiveLog);
+        // _client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);
 
     }
 

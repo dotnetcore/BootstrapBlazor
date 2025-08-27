@@ -61,7 +61,9 @@ private async Task CreateClient()
     {
         DataPackageHandler = new FixLengthDataPackageHandler(4)
     };
-    client.SetDataPackageAdapter(adapter, buffer =>
+
+    // 如果 client 不销毁切记使用 RemoveDataPackageAdapter 移除回调委托防止内存泄露
+    client.AddDataPackageAdapter(adapter, buffer =>
     {
         // buffer 即是接收到的数据
         return ValueTask.CompletedTask;
