@@ -68,9 +68,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
@@ -168,6 +166,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private TreeViewItem<TValue>? _selectedItem;
     private List<TreeViewItem<TValue>>? _itemCache;
     private List<TreeViewItem<TValue>>? _expandedItemsCache;
+    private TreeView<TValue> _tv = default!;
 
     private string? SelectTreeCustomClassString => CssBuilder.Default(CustomClassString)
         .AddClass("select-tree", IsPopover)
@@ -235,6 +234,9 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         if (args.Value is string v)
         {
             CurrentValueAsString = v;
+
+            // 选中节点更改为当前值
+            _tv.SetActiveItem(Value);
         }
     }
 

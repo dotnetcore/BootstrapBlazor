@@ -4893,6 +4893,7 @@
     "SelectTreesClientValidationIntro": "validate the value when submit the form. Inside <code>ValidateForm</code>",
     "SelectTreesEditTitle": "Edit",
     "SelectTreesEditIntro": "By setting <code>IsEditable=\"true\"</code> you can edit the input textbox",
+    "SelectTreesEditDesc": "After setting <code>IsEditable=\"true\"</code>, the content displayed in the text box is the <code>Value</code> value of the node selected in the <code>TreeView</code>, the input value may not be in the <code>Items</code> collection",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "SelectTreesClientValidationButtonText": "Submit"
