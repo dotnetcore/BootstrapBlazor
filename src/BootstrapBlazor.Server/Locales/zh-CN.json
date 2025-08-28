@@ -465,7 +465,6 @@
     "MultipleMaskContainerDesc": "组件内自己设置 <code>Mask</code> 组件，调用 <code>MaskService</code> 实例方法 <code>Show</code> 时，通过第二个参数指定 <code>Mask</code> 实例即可",
     "MaskCloseTitle": "代码关闭弹窗",
     "MaskCloseIntro": "通过使用 <code>DialogCloseButton</code> 组件或者级联参数关闭弹窗"
-
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message 消息提示",
@@ -651,7 +650,7 @@
     "BaiduOcrDesc": "本组件通过调用 Baidu AI 平台文字识别接口进行增值税发票文字识别。支持对增值税普票、专票、全电发票（新版全国统一电子发票，专票/普票）、卷票、区块链发票的所有字段进行结构化识别，包括发票基本信息、销售方及购买方信息、商品信息、价税信息等，其中五要素字段的识别准确率超过 99.9%； 同时，支持对增值税卷票的 21 个关键字段进行识别，包括发票类型、发票代码、发票号码、机打号码、机器编号、收款人、销售方名称、销售方纳税人识别号、开票日期、购买方名称、购买方纳税人识别号、项目、单价、数量、金额、税额、合计金额(小写)、合计金额(大写)、校验码、省、市，四要素字段的识别准确率可达95%。上传图片不能超过 4M",
     "BaiduOcrIntro": "使用方法",
     "BaiduOcrStep1": "1. 配置 <code>BaiduOcrOption</code>",
-    "BaiduOcrStep1Desc": "更新 <code>appsettings.json</code> 文件",
+    "BaiduOcrStep1Desc": "更新 <code>appsettings.json</code> 文件，配置如下：相关参数值请在 <a href=\"https://ai.baidu.com/ai-doc/index/OCR\" target=\"\">百度 AI 开放平台</a> 注册后开通申请",
     "BaiduOcrStep2": "2. 通过注入服务获得 <code>IBaiduOcr</code> 实例",
     "BaiduOcrStep3": "3. 调用服务相对应的识别方法即可",
     "VerifyVatInvoiceTitle": "增值税验真",
