@@ -68,9 +68,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
