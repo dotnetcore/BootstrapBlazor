@@ -4893,6 +4893,7 @@
     "SelectTreesClientValidationIntro": "组件内置 <code>ValidateForm</code> 可设置验证规则",
     "SelectTreesEditTitle": "可输入",
     "SelectTreesEditIntro": "通过设置 <code>IsEditable=\"true\"</code> 可设置下拉框选择后文本框可输入",
+    "SelectTreesEditDesc": "设置 <code>IsEditable=\"true\"</code> 后，文本框显示的内容为 <code>TreeView</code> 选中节点的 <code>Value</code> 值，输入值可以不在 <code>Items</code> 集合中",
     "SelectTreesIsPopoverTitle": "悬浮弹窗",
     "SelectTreesIsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "SelectTreesClientValidationButtonText": "提交"
