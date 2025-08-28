@@ -236,10 +236,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             CurrentValueAsString = v;
 
             // 选中节点更改为当前值
-            if(_tv != null)
-            {
-                _tv.SetActiveItem(Value);
-            }
+            _tv.SetActiveItem(Value);
         }
     }
 
