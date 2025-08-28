@@ -8,10 +8,8 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <Tips>@Localizer["BaiduOcrDesc"]</Tips>
-
-    <PackageTips Name="BootstrapBlazor.BaiduOcr" />
-
-    <p><b>@Localizer["BaiduOcrIntro"]</b></p>
+<PackageTips Name="BootstrapBlazor.BaiduOcr" />
+<p><b>@Localizer["BaiduOcrIntro"]</b></p>
 <p>@((MarkupString)Localizer["BaiduOcrStep1"].Value)</p>
 <p>@((MarkupString)Localizer["BaiduOcrStep2"].Value)</p>
 
@@ -128,7 +126,7 @@
                 <EditorItem @bind-Field="@context.TotalAmount" Text="金额" PlaceHolder="可为空" />
             </FieldItems>
             <Buttons>
-                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify"></Button>
             </Buttons>
         </EditorForm>
     </ValidateForm>
