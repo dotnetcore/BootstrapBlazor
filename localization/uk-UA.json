@@ -1,4 +1,4 @@
-{
+﻿{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Немає даних",
     "PlaceHolder": "Введіть текст"
@@ -53,7 +53,7 @@
     "MonthText": "{0}",
     "YearPeriodText": "{0} р - {1} р",
     "MonthLists": "Січень, Лютий, Березень, Квітень, Травень, Червень, Липень, Серпень, Вересень, Жовтень, Листопад, Грудень",
-	"Months": "Січень,Лютий,Березень,Квітень,Травень,Червень,Липень,Серпень,Вересень,Жовтень,Листопад,Грудень",
+    "Months": "Січень,Лютий,Березень,Квітень,Травень,Червень,Липень,Серпень,Вересень,Жовтень,Листопад,Грудень",
     "WeekLists": "Нд,Пн,Вт,Ср,Чт,Пт,Сб",
     "GenericTypeErroMessage": "Компонент DateTimePicker підтримує тільки DateTime або Nullable\u003CDateTime\u003E",
     "Today": "Сьогодні",
@@ -238,7 +238,7 @@
     "OnInnerText": "ВІДКЛ",
     "OffInnerText": "ВКЛ"
   },
-   "BootstrapBlazor.Components.SwitchButton": {
+  "BootstrapBlazor.Components.SwitchButton": {
     "OffText": "ВІДКЛ",
     "OnText": "ВКЛ"
   },
