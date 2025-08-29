@@ -98,8 +98,8 @@
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
     <Using Include="BootstrapBlazor.Socket.DataAdapters" />
-    <Using Include="BootstrapBlazor.Socket.DataHandlers" />
     <Using Include="BootstrapBlazor.Socket.DataConverters" />
+    <Using Include="BootstrapBlazor.Socket.DataHandlers" />
     <Using Include="BootstrapBlazor.TcpSocket" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Configuration" />
