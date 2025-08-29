@@ -361,6 +361,12 @@ public partial class Layout : IHandlerException, ITabHeader
     [Parameter]
     public bool ShowTabInHeader { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否跳过认证逻辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipAuthenticate { get; set; }
+
     [Inject]
     [NotNull]
     private NavigationManager? Navigation { get; set; }
@@ -374,7 +380,7 @@ public partial class Layout : IHandlerException, ITabHeader
     /// <summary>
     /// 获得/设置 是否已授权
     /// </summary>
-    private bool IsAuthenticated { get; set; }
+    private bool _authenticated;
 
     /// <summary>
     /// 获得 组件样式
@@ -501,15 +507,15 @@ public partial class Layout : IHandlerException, ITabHeader
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     private bool _init;
-    private LayoutHeader? _layoutHeader = null;
+    private LayoutHeader? _layoutHeader;
 
     private ITabHeader? TabHeader => ShowTabInHeader ? this : null;
 
-    private bool _enableErrorLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+    private bool EnableLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
-    private bool _showToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+    private bool ShowToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
-    private bool _enableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
+    private bool EnableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
 
     /// <summary>
     /// <inheritdoc/>
@@ -535,30 +541,28 @@ public partial class Layout : IHandlerException, ITabHeader
     {
         await base.OnInitializedAsync();
 
-        // 需要认证并且未认证
-        if (AuthenticationStateTask != null)
+        if (SkipAuthenticate || AuthenticationStateTask == null)
         {
-            // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
-            AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
+            _authenticated = true;
+            _init = true;
+            return;
+        }
 
-            var url = Navigation.ToBaseRelativePathWithoutQueryAndFragment();
-            var context = RouteTableFactory.Create(AdditionalAssemblies, url);
-            if (context.Handler != null)
+        // wasm 模式下 开启权限必须提供 AdditionalAssemblies 参数
+        AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
+
+        var url = Navigation.ToBaseRelativePathWithoutQueryAndFragment();
+        var context = RouteTableFactory.Create(AdditionalAssemblies, url);
+        if (context.Handler != null)
+        {
+            _authenticated = await context.Handler.IsAuthorizedAsync(ServiceProvider, AuthenticationStateTask, Resource);
+
+            // 检查当前 Url
+            if (OnAuthorizing != null)
             {
-                IsAuthenticated = await context.Handler.IsAuthorizedAsync(ServiceProvider, AuthenticationStateTask, Resource);
-
-                // 检查当前 Url
-                if (OnAuthorizing != null)
-                {
-                    IsAuthenticated = IsAuthenticated && await OnAuthorizing(Navigation.Uri);
-                }
+                _authenticated = _authenticated && await OnAuthorizing(Navigation.Uri);
             }
         }
-        else
-        {
-            IsAuthenticated = true;
-        }
-
         _init = true;
     }
 

@@ -101,14 +101,6 @@ public partial class SelectTables
     [
         new()
         {
-            Name = "Items",
-            Description = Localizer["AttributeItems"],
-            Type = "IEnumerable<TItem>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
             Name = "TableColumns",
             Description = Localizer["AttributeTableColumns"],
             Type = "RenderFragment<TItem>",

@@ -108,7 +108,11 @@
     "TooltipsCustomClassIntro": "Set the custom style by setting the <code>CustomClass</code> parameter",
     "BootstrapTooltipIntro": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
     "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
-    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
+    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use.",
+    "TooltipsManualTitle": "Manual",
+    "TooltipsManualIntro": "Use code to control the tooltip state by setting <code>Trigger=\"manual\"</code>",
+    "TooltipsManualDescLI1": "The child component uses the cascade parameters to get the <code>Tooltip</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "TooltipsManualDescLI2": "Get the Tooltip instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",
@@ -348,7 +352,11 @@
     "PopoversCssClassTitle": "custom style",
     "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
-    "PopoversCssClassButtonText": "Click to activate/deactivate"
+    "PopoversCssClassButtonText": "Click to activate/deactivate",
+    "PopoversManualTitle": "Manual",
+    "PopoversManualIntro": "Use code to control the popover state by setting <code>Trigger=\"manual\"</code>",
+    "PopoversManualDescLI1": "The child component uses the cascade parameters to get the <code>Popover</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "PopoversManualDescLI2": "Get the Popover instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress progress bar",
@@ -448,6 +456,7 @@
     "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
     "MaskNormalTitle": "Basic usage",
     "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "MaskNormalDesc": "You can adjust the <code>ZIndex</code> <code>Opacity</code> <code>BackgroundColor</code> parameters via <code>MaskOption</code>",
     "ShowMaskButtonText": "Show",
     "MaskContainerTitle": "Container",
     "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>",
@@ -641,7 +650,9 @@
     "BaiduOcrDesc": "本组件通过调用 Baidu AI 平台文字识别接口进行增值税发票文字识别。支持对增值税普票、专票、全电发票（新版全国统一电子发票，专票/普票）、卷票、区块链发票的所有字段进行结构化识别，包括发票基本信息、销售方及购买方信息、商品信息、价税信息等，其中五要素字段的识别准确率超过 99.9%； 同时，支持对增值税卷票的 21 个关键字段进行识别，包括发票类型、发票代码、发票号码、机打号码、机器编号、收款人、销售方名称、销售方纳税人识别号、开票日期、购买方名称、购买方纳税人识别号、项目、单价、数量、金额、税额、合计金额(小写)、合计金额(大写)、校验码、省、市，四要素字段的识别准确率可达95%。上传图片不能超过 4M",
     "BaiduOcrIntro": "Usage",
     "BaiduOcrStep1": "1. Get <code>IBaiduOcr</code> instance by inject service",
-    "BaiduOcrStep2": "2. Call <code>IBaiduOcr</code> instance method",
+    "BaiduOcrStep1Desc": "Update the <code>appsettings.json</code> file with the following configuration. Please register on <a href=\"https://ai.baidu.com/ai-doc/index/OCR\" target=\"\">Baidu AI Open Platform</a> and apply for relevant parameter values.",
+    "BaiduOcrStep2": "2. Get <code>IBaiduOcr</code> instance by inject service",
+    "BaiduOcrStep3": "3. Call <code>IBaiduOcr</code> instance method",
     "VerifyVatInvoiceTitle": "增值税验真",
     "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
   },
@@ -2536,7 +2547,7 @@
     "EditorPlaceholderIntro": "The prompt message when a null value is set by setting the <code>Placeholder</code> attribute",
     "EditorPlaceholderDescription": "The default prompt is <b>Edit after clicking</b>",
     "EditorIsEditorTitle": "Display as a rich text edit box by default",
-    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property",
+    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property. When uploading an image, you can get the image information through the <code>OnFileUpload</code> callback method",
     "EditorHeightTitle": "Custom height",
     "EditorHeightIntro": "Set the height of the component by setting the <code>Height</code> property",
     "EditorOnValueChangedTitle": "Two-way binding",
@@ -2577,7 +2588,8 @@
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",
     "DoMethodAsyncButton4": "Get Code",
-    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
+    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button",
+    "OnFileUploadAttribute": "File upload callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.EditorForms": {
     "Title": "EditorForm",
@@ -2629,7 +2641,9 @@
     "TestName": "Tom",
     "TestAddress": "The test address",
     "AutoGenerateDescription": "In this example, by setting <code>the autoGenerate AllItem</code> value to <code>false</code>, turning off auto-generation, and rendering the form editing by manually adding two <code>EditoItem</code> edits",
-    "SkipValidateDescription": "In some cases, the value of some columns in the form may be a secondary classification, etc., and you need to know the information for a level 1 classification, at which point the first-level classification requires additional components to render if <code>Select</code>, which is independent of the current context binding model <code>Model</code>, which requires that you set the <code>SkipValidate</code> value to <code>true</code>, turn off model validation for this component"
+    "SkipValidateDescription": "In some cases, the value of some columns in the form may be a secondary classification, etc., and you need to know the information for a level 1 classification, at which point the first-level classification requires additional components to render if <code>Select</code>, which is independent of the current context binding model <code>Model</code>, which requires that you set the <code>SkipValidate</code> value to <code>true</code>, turn off model validation for this component",
+    "IsDisplayTitle": "Readonly Form",
+    "IsDisplayIntro": "Make the entire form non-editable by setting <code>IsDisplay=\"true\"</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FloatingLabels": {
     "FloatingLabelsTitle": "FloatingLabel",
@@ -4851,7 +4865,8 @@
     "Toolbar": "Toolbar",
     "OpcDaService": "OpcDaServer",
     "Navbar": "Navbar",
-    "TaskDashBoard": "TaskDashBoard"
+    "TaskDashBoard": "TaskDashBoard",
+    "Dom2ImageService": "IDom2HtmlService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4878,6 +4893,7 @@
     "SelectTreesClientValidationIntro": "validate the value when submit the form. Inside <code>ValidateForm</code>",
     "SelectTreesEditTitle": "Edit",
     "SelectTreesEditIntro": "By setting <code>IsEditable=\"true\"</code> you can edit the input textbox",
+    "SelectTreesEditDesc": "After setting <code>IsEditable=\"true\"</code>, the content displayed in the text box is the <code>Value</code> value of the node selected in the <code>TreeView</code>, the input value may not be in the <code>Items</code> collection",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "SelectTreesClientValidationButtonText": "Submit"
@@ -5704,7 +5720,7 @@
     "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
     "SetFilterInCodeButtonText2": "Reset All Filter",
-    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li></ul-demo>",
+    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li><li>Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.</li></ul-demo>",
     "CustomerFilterItem1": "All",
     "CustomerFilterItem2": "Greater than 10",
     "CustomerFilterItem3": "Greater than 50",
@@ -7150,7 +7166,9 @@
     "DataEntityTitle": "Socket Auto Entity",
     "DataEntityDescription": "After receiving the communication data, it is automatically converted into the entity class required by the business",
     "NormalTitle": "Basic usage",
-    "NormalIntro": "Enable automatic data conversion through the <code>DataTypeConverterAttribute</code> attribute"
+    "NormalIntro": "Enable automatic data conversion through the <code>DataTypeConverterAttribute</code> attribute",
+    "ConfigTitle": "DataType Converter",
+    "ConfigIntro": "Use the <code>ConfigureDataConverters</code> method to map the entity class and automatically convert the received data"
   },
   "BootstrapBlazor.Server.Components.Samples.NetworkMonitors": {
     "NetworkMonitorTitle": "NetworkMonitor",
@@ -7182,8 +7200,18 @@
   },
   "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
     "TaskBoardTitle": "Task DashBoard",
-    "TaskBoardIntro": "",
+    "TaskBoardIntro": "Background task dashboard",
     "TaskBoardNormalTitle": "Basic usage",
-    "TaskBoardNormalIntro": ""
+    "TaskBoardNormalIntro": "This component provides detailed information about background task schedule trigger."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Dom2Images": {
+    "Dom2ImageTitle": "Dom2Image",
+    "Dom2ImageIntro": "Export HTML snippets as images",
+    "Dom2ImageNormalTitle": "Basic usage",
+    "Dom2ImageNormalIntro": "Convert the node to an image by specifying a <code>Selector</code>",
+    "Dom2ImageDesc": "Since the underlying framework uses <a href=\"https://github.com/zumerlab/snapdom?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">SnapDOM</a> , if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/zumerlab/snapdom/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>",
+    "Dom2ImageButtonText": "Convert",
+    "Dom2ImageDownloadText": "Download",
+    "Dom2ImageFullText": "Capture"
   }
 }

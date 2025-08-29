@@ -1560,6 +1560,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Dom2ImageService"],
+                    Url = "dom2image"
+                },
+                new()
+                {
                     Text = Localizer["Download"],
                     Url = "download"
                 },

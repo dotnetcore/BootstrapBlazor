@@ -5,7 +5,7 @@
 @if (_init)
 {
     <CascadingValue Value="this" IsFixed="true">
-        @if (IsAuthenticated)
+        @if (_authenticated)
         {
             <section @attributes="AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
                 @if (Side == null)
@@ -126,8 +126,8 @@
         }
         else
         {
-            <ErrorLogger EnableErrorLogger="@_enableErrorLogger" ShowToast="@_showToast" ToastTitle="@ErrorLoggerToastTitle" 
-                         EnableILogger="@_enableILogger" OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
+            <ErrorLogger EnableErrorLogger="@EnableLogger" ShowToast="@ShowToast" ToastTitle="@ErrorLoggerToastTitle"
+                         EnableILogger="@EnableILogger" OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
                 @HandlerMain()
             </ErrorLogger>
         }
@@ -135,7 +135,7 @@
 
     RenderFragment RenderTab =>
     @<Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
-          ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"        
+          ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"
           DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
           TabStyle="TabStyle" ShowToolbar="@ShowToolbar" ToolbarTemplate="@ToolbarTemplate"
           ShowContextMenu="ShowTabContextMenu"
@@ -148,7 +148,7 @@
           RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
           OnToolbarRefreshCallback="OnToolbarRefreshCallback" TabHeader="TabHeader"
           Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText"
-          EnableErrorLogger="@_enableErrorLogger" ErrorLoggerToastTitle="@ErrorLoggerToastTitle">
+          EnableErrorLogger="@EnableLogger" ErrorLoggerToastTitle="@ErrorLoggerToastTitle">
     </Tab>;
 
     RenderFragment RenderFooter =>

@@ -1,6 +1,7 @@
 ﻿@page "/ai-chat"
 @using Azure.AI.OpenAI
 @inherits WebSiteModuleComponentBase
+@inject IOptions<WebsiteOptions> WebsiteOption
 @attribute [JSModuleAutoLoader("Pages/Chats.razor.js")]
 
 <h3>@Localizer["ChatsTitle"]</h3>
@@ -36,7 +37,7 @@
                 <div class="msg-role">
                     @if (message.Role == ChatRole.User)
                     {
-                        <img src="./favicon.png">
+                        <img src="@WebsiteOption.Value.GetAssetUrl("favicon.png")" alt="avatar">
                     }
                     else
                     {

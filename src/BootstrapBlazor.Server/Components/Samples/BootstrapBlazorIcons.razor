@@ -1,5 +1,6 @@
 ﻿@page "/icon"
 @inject IStringLocalizer<BootstrapBlazorIcons> Localizer
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["IconsTitle"]</h3>
 
@@ -24,6 +25,6 @@
 
 <DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
     <BootstrapBlazorIcon>
-        <img src="./favicon.png" alt="img" />
+        <img src="@WebsiteOption.Value.GetAssetUrl("favicon.png")" alt="img" />
     </BootstrapBlazorIcon>
 </DemoBlock>

@@ -1,0 +1,373 @@
+﻿{
+  "BootstrapBlazor.Components.AutoComplete": {
+    "NoDataTip": "Немає даних",
+    "PlaceHolder": "Введіть текст"
+  },
+  "BootstrapBlazor.Components.Captcha": {
+    "HeaderText": "Капча",
+    "BarText": "Пересуньте вправо, щоб розв’язати головоломку",
+    "FailedText": "Не вдалося завантажити",
+    "LoadText": "Завантаження ..."
+  },
+  "BootstrapBlazor.Components.Calendar": {
+    "PreviousYear": "Попередній рік",
+    "PreviousMonth": "Попередній місяць",
+    "Today": "Сьогодні",
+    "NextMonth": "Наступний місяць",
+    "NextYear": "Наступний рік",
+    "PreviousWeek": "Попередній тиждень",
+    "WeekText": "Тиждень",
+    "NextWeek": "Наступний тиждень",
+    "WeekHeaderText": "",
+    "WeekLists": "Нд,Пн,Вт,Ср,Чт,Пт,Сб",
+    "WeekNumberText": "{0} тижнів",
+    "Months": "Січень,Лютий,Березень,Квітень,Травень,Червень,Липень,Серпень,Вересень,Жовтень,Листопад,Грудень",
+    "Title": "{0} {1}"
+  },
+  "BootstrapBlazor.Components.Cascader": {
+    "PlaceHolder": "Будь ласка, виберіть ..."
+  },
+  "BootstrapBlazor.Components.Console": {
+    "AutoScrollText": "Автопрокрутка",
+    "ClearButtonText": "Очистити",
+    "HeaderText": "Моніторинг",
+    "LightTitle": "Індикатор"
+  },
+  "BootstrapBlazor.Components.DateTimePicker": {
+    "DatePlaceHolder": "Виберіть дату",
+    "TimePlaceHolder": "Виберіть час",
+    "DateTimePlaceHolderText": "Будь ласка, виберіть ...",
+    "DatePlaceHolderText": "Будь ласка, виберіть ...",
+    "TimeFormat": "hh\\:mm\\:ss",
+    "DateFormat": "d.M.yyyy",
+    "DateTimeFormat": "d.M.yyyy HH\\:mm\\:ss",
+    "AiraPrevYearLabel": "Попередній рік",
+    "AiraNextYearLabel": "Наступний рік",
+    "AiraPrevMonthLabel": "Попередній місяць",
+    "AiraNextMonthLabel": "Наступний місяць",
+    "ClearButtonText": "Очистити",
+    "NowButtonText": "Зараз",
+    "ConfirmButtonText": "Ок",
+    "CancelButtonText": "Скасувати",
+    "YearText": "{0}",
+    "MonthText": "{0}",
+    "YearPeriodText": "{0} р - {1} р",
+    "MonthLists": "Січень, Лютий, Березень, Квітень, Травень, Червень, Липень, Серпень, Вересень, Жовтень, Листопад, Грудень",
+    "Months": "Січень,Лютий,Березень,Квітень,Травень,Червень,Липень,Серпень,Вересень,Жовтень,Листопад,Грудень",
+    "WeekLists": "Нд,Пн,Вт,Ср,Чт,Пт,Сб",
+    "GenericTypeErroMessage": "Компонент DateTimePicker підтримує тільки DateTime або Nullable\u003CDateTime\u003E",
+    "Today": "Сьогодні",
+    "Yesterday": "Вчора",
+    "Week": "Тиждень тому"
+  },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "SeparateText": "До",
+    "StartPlaceHolderText": "Дата початку",
+    "EndPlaceHolderText": "Дата завершення",
+    "ClearButtonText": "Очистити",
+    "TodayButtonText": "Сьогодні",
+    "ConfirmButtonText": "Ок",
+    "DateTimeFormat": "d.M.yyyy hh\\:mm\\:ss tt",
+    "DateFormat": "d.M.yyyy",
+    "Last7Days": "Останні 7 днів",
+    "Last30Days": "Останні 30 днів",
+    "ThisMonth": "Цей місяць",
+    "LastMonth": "Минулий місяць"
+  },
+  "BootstrapBlazor.Components.Toggle": {
+    "OffText": "Згорнути",
+    "OnText": "Розширювати"
+  },
+  "BootstrapBlazor.Components.Timer": {
+    "CancelText": "Скасувати",
+    "PauseText": "Пауза",
+    "ResumeText": "Продовжити",
+    "StarText": "Таймер"
+  },
+  "BootstrapBlazor.Components.Transfer": {
+    "LeftPanelText": "Усі",
+    "MaxErrorMessage": "Можна вибрати до {0} елементів",
+    "MinErrorMessage": "Будь ласка, виберіть щонайменше {0} елементів",
+    "RightPanelText": "Обраний"
+  },
+  "BootstrapBlazor.Components.BootstrapInputNumber": {
+    "ParsingErrorMessage": "Поле {0} має бути числом."
+  },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "Так",
+    "ButtonNoText": "Ні",
+    "ButtonCloseText": "Зачинити"
+  },
+  "BootstrapBlazor.Components.TransferPanel": {
+    "SearchPlaceHolderString": "Будь ласка, введіть ...",
+    "Text": "Список"
+  },
+  "BootstrapBlazor.Components.DropdownList": {
+    "PlaceHolder": "Будь ласка, виберіть ..."
+  },
+  "BootstrapBlazor.Components.EditDialog": {
+    "CloseButtonText": "Закрыть",
+    "SaveButtonText": "Сохранить"
+  },
+  "BootstrapBlazor.Components.Editor": {
+    "PlaceHolder": "Натисніть, щоб редагувати"
+  },
+  "BootstrapBlazor.Components.EditorForm": {
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL не збігається з {0} MODEL",
+    "PlaceHolderText": "Будь ласка, введіть ..."
+  },
+  "BootstrapBlazor.Components.Empty": {
+    "Text": "Немає даних"
+  },
+  "BootstrapBlazor.Components.EqualToValidator": {
+    "ErrorMessage": "Будь ласка, введіть те саме значення ще раз"
+  },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "Помилка застосунку"
+  },
+  "BootstrapBlazor.Components.FilterLogicItem": {
+    "And": "І",
+    "Or": "Або"
+  },
+  "BootstrapBlazor.Components.GoTop": {
+    "TooltipText": "Нагору"
+  },
+  "BootstrapBlazor.Components.Handwritten": {
+    "ClearButtonText": "Очистити",
+    "SaveButtonText": "Зберегти"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "First": "Перший",
+    "Last": "Останній"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "ButtonText": "Копировать",
+    "CopiedTooltipText": "Скопированы",
+    "DialogHeaderText": "Выбранный значок",
+    "LabelFullText": "Html",
+    "LabelText": "Значок"
+  },
+  "BootstrapBlazor.Components.Layout": {
+    "TooltipText": "Клікніть, щоб розгорнути/згорнути бокову панель"
+  },
+  "BootstrapBlazor.Components.Logout": {
+    "PrefixDisplayNameText": "Вітаємо",
+    "PrefixUserNameText": "Обліковий запис:"
+  },
+  "BootstrapBlazor.Components.LogoutLink": {
+    "Text": "Вийти"
+  },
+  "BootstrapBlazor.Components.Menu": {
+    "InvalidOperationExceptionMessage": "Компонент бокового меню не можна використовувати окремо. Будь ласка, використовуйте компонент Menu, щоб встановити IsVertical = true"
+  },
+  "BootstrapBlazor.Components.ModalDialog": {
+    "CloseButtonText": "Закрити",
+    "SaveButtonText": "Зберегти",
+    "PrintButtonText": "Друк",
+    "ExportPdfButtonText": "Експорт у Pdf"
+  },
+  "BootstrapBlazor.Components.MultiSelect": {
+    "PlaceHolder": "Виберіть елементи ...",
+    "SelectAllText": "Усі",
+    "ReverseSelectText": "Інвертувати",
+    "ClearText": "Очистити",
+    "MinErrorMessage": "Виберіть щонайменше {0} елементів",
+    "MaxErrorMessage": "Максимум {0} елементів можна вибрати",
+    "NoSearchDataText": "Немає результатів"
+  },
+  "BootstrapBlazor.Components.Pagination": {
+    "GotoNavigatorLabelText": "Перейти до"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "FalseValueDisplayText": "Помилковий",
+    "NullValueDisplayText": "Вибрати...",
+    "TrueValueDisplayText": "Істинний"
+  },
+  "BootstrapBlazor.Components.PopConfirmButton": {
+    "CloseButtonText": "Скасувати",
+    "ConfirmButtonText": "Ок",
+    "Content": "Ви впевнені, що хочете виконати цю операцію?"
+  },
+  "BootstrapBlazor.Components.PrintButton": {
+    "Text": "Друк"
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "і",
+    "Contains": "Містить",
+    "Equal": "Дорівнює",
+    "GreaterThan": "Більше, ніж",
+    "GreaterThanOrEqual": "БільшеНіжАбоДорівнює",
+    "GroupText": "Група",
+    "ItemText": "Пункт",
+    "LessThan": "МеньшеНіж",
+    "LessThanOrEqual": "МеньшеНіжАбоДорівнює",
+    "NotContains": "Не містить",
+    "NotEqual": "Не дорівнює",
+    "Or": "або"
+  },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "Немає даних"
+  },
+  "BootstrapBlazor.Components.Search": {
+    "SearchButtonText": "Пошук",
+    "NoDataTip": "Записи не знайдено"
+  },
+  "BootstrapBlazor.Components.SearchDialog": {
+    "QueryButtonText": "Запит",
+    "ResetButtonText": "Скинути"
+  },
+  "BootstrapBlazor.Components.Select": {
+    "PlaceHolder": "Будь ласка, виберіть ...",
+    "NoSearchDataText": "Немає результатів"
+  },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "Будь ласка, виберіть ..."
+  },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "не заданий параметр OnExpandNodeAsync"
+  },
+  "BootstrapBlazor.Components.StringLengthValidator": {
+    "ErrorMessage": "Будь ласка, введіть значення менше або дорівнює {{0}}"
+  },
+  "BootstrapBlazor.Components.SweetAlert": {
+    "CloseButtonText": "Закрити",
+    "CancelButtonText": "Скасувати",
+    "ConfirmButtonText": "Підтвердити"
+  },
+  "BootstrapBlazor.Components.Switch": {
+    "OnInnerText": "ВІДКЛ",
+    "OffInnerText": "ВКЛ"
+  },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OffText": "ВІДКЛ",
+    "OnText": "ВКЛ"
+  },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseCurrentTabText": "Закрити",
+    "CloseOtherTabsText": "Закрити інші",
+    "CloseAllTabsText": "Закрити всі",
+    "NotFoundTabText": "Не знайдено",
+    "RefreshToolbarTooltipText": "Оновити",
+    "FullscreenToolbarTooltipText": "На весь екран",
+    "PrevTabNavLinkTooltipText": "Попередня вкладка",
+    "NextTabNavLinkTooltipText": "Наступна вкладка",
+    "CloseTabNavLinkTooltipText": "Закрити",
+    "ContextRefresh": "Оновити",
+    "ContextClose": "Закрити",
+    "ContextCloseOther": "Закрити інші вкладки",
+    "ContextCloseAll": "Закрити всі вкладки",
+    "ContextFullScreen": "Повний екран"
+  },
+  "BootstrapBlazor.Components.Table": {
+    "AddButtonText": "Додати",
+    "EditButtonText": "Редагувати",
+    "UpdateButtonText": "Оновити",
+    "DeleteButtonText": "Видалити",
+    "CancelButtonText": "Скасувати",
+    "SaveButtonText": "Зберегти",
+    "CloseButtonText": "Закрити",
+    "CancelDeleteButtonText": "Скасувати",
+    "ConfirmDeleteButtonText": "Видалити",
+    "ConfirmDeleteContentText": "Ви впевнені, що хочете ВИДАЛИТИ всі вибрані рядки?",
+    "RefreshButtonText": "Оновити",
+    "CardViewButtonText": "Перегляд",
+    "ColumnButtonTitleText": "Показати/Приховати стовпці",
+    "ColumnButtonText": "Стовпці",
+    "ExportButtonText": "Експорт",
+    "SearchPlaceholderText": "Пошук",
+    "SearchButtonText": "Пошук",
+    "ResetSearchButtonText": "Скинути",
+    "AdvanceButtonText": "Розширений пошук",
+    "AdvancedSortModalTitle": "Сортування",
+    "AdvancedSortButtonText": "Розширене сортування",
+    "CheckboxDisplayText": "Усі",
+    "EditModalTitle": "Редагувати",
+    "AddModalTitle": "Додати",
+    "LineNoText": "№",
+    "ColumnButtonTemplateHeaderText": "Дії",
+    "SearchTooltip": "Введіть будь-який рядок для глобального пошуку",
+    "SearchModalTitle": "Пошук",
+    "AddButtonToastTitle": "Додати дані",
+    "AddButtonToastContent": "Не вдалося додати дані. Будь ласка, реалізуйте метод OnAddAsync",
+    "EditButtonToastTitle": "Редагувати дані",
+    "EditButtonToastNotSelectContent": "Не вдалося зберегти. Будь ласка, реалізуйте метод OnSaveAsync",
+    "EditButtonToastReadonlyContent": "Вибрані дані неможливо редагувати",
+    "EditButtonToastMoreSelectContent": "Можна редагувати лише один рядок",
+    "EditButtonToastNoSaveMethodContent": "Неможливо редагувати. Будь ласка, реалізуйте метод OnSaveAsync",
+    "SaveButtonToastTitle": "Зберегти дані",
+    "SaveButtonToastContent": "Не вдалося зберегти дані. Будь ласка, реалізуйте метод OnSaveAsync",
+    "SaveButtonToastResultContent": "Дані збережено {0}, автоматичне закриття через {1}с",
+    "SuccessText": "Успішно",
+    "FailText": "Помилка",
+    "DeleteButtonToastTitle": "Видалити дані",
+    "DeleteButtonToastContent": "Будь ласка, виберіть рядки для видалення, автоматичне закриття через {0}с",
+    "DeleteButtonToastResultContent": "Дані видалено {0}, автоматичне закриття через {1}с",
+    "DeleteButtonToastCanNotDeleteContent": "Серед вибраних є дані, які неможливо видалити, автоматичне закриття через {0}с",
+    "DataServiceInvalidOperationText": "Неможливо надати значення для властивості 'DataService' у типі 'BootstrapBlazor.Components.Table`1[[{0}]]'. Немає зареєстрованого сервісу типу 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
+    "NotSetOnTreeExpandErrorMessage": "не встановлено параметр OnTreeExpand",
+    "UnsetText": "Зрост.",
+    "SortAscText": "Спад.",
+    "SortDescText": "Не встановлено",
+    "EmptyText": "Немає даних",
+    "ExportToastTitle": "Експорт",
+    "ExportToastContent": "Експортовано дані {0}, автоматичне закриття через {1}с",
+    "ExportToastInProgressContent": "Експортування даних, зачекайте, автоматичне закриття через {0}с",
+    "ExportCsvDropdownItemText": "MS-Csv",
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
+    "PageInfoText": "{0} - {1} Всього {2}",
+    "PageItemsText": "{0}/стор.",
+    "CopyColumnTooltipText": "Скопіювати дані стовпця у буфер",
+    "CopyColumnCopiedTooltipText": "Скопійовано!",
+    "ColumnWidthTooltipPrefix": "ширина: ",
+    "ColumnToolboxTitle": "Інструменти",
+    "AlignLeftText": "Ліворуч",
+    "AlignLeftTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці ліворуч",
+    "AlignCenterText": "По центру",
+    "AlignCenterTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці по центру",
+    "AlignRightText": "Праворуч",
+    "AlignRightTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці праворуч"
+  },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "За зростанням",
+    "DescText": "За спаданням"
+  },
+  "BootstrapBlazor.Components.TableFilter": {
+    "BoolFilter.AllText": "Усі",
+    "BoolFilter.FalseText": "Хиба",
+    "BoolFilter.TrueText": "Істина",
+    "ClearButtonText": "Очистити",
+    "Contains": "Містить",
+    "EnumFilter.AllText": "Усі",
+    "Equal": "Рівний",
+    "FilterButtonText": "Фільтр",
+    "GreaterThan": "Більше, ніж",
+    "GreaterThanOrEqual": "БільшеНіжАбоДорівнює",
+    "LessThan": "МеншеНіж",
+    "LessThanOrEqual": "МеншеНіжАбоДорівнює",
+    "NotContains": "Не містить",
+    "NotEqual": "Не дорівнює",
+    "NotSupportedMessage": "Непідтримуваний тип фільтра, будь ласка, налаштуйте фільтр за допомогою FilterTemplate"
+  },
+  "BootstrapBlazor.Components.SignaturePad": {
+    "ChangeColorBtnTitle": "Змінити колір",
+    "ClearBtnTitle": "Очистити",
+    "CloseBtnTitle": "Закрити",
+    "SaveBase64BtnTitle": "Добре",
+    "SaveJPGBtnTitle": "JPG",
+    "SavePNGBtnTitle": "PNG",
+    "SaveSVGBtnTitle": "SVG",
+    "SignAboveLabel": "Підпис",
+    "SignatureAlertText": "Будь ласка, спочатку поставте підпис",
+    "UndoBtnTitle": "Скасувати"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "Завантаження..."
+  },
+  "BootstrapBlazor.Components.UploadBase": {
+    "BrowserButtonText": "Огляд",
+    "DeleteButtonText": "Видалити",
+    "FileExtensions": "Файл має мати одне з таких розширень: {0}",
+    "FileSizeValidation": "Розмір файлу не повинен перевищувати {0}"
+  }
+}

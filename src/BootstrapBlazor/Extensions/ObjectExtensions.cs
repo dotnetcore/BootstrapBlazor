@@ -282,7 +282,9 @@ public static class ObjectExtensions
         }
 
         // Reflection performance needs to be optimized here
-        foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
+        foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass
+            && p.PropertyType != typeof(string)
+            && p.CanWrite))
         {
             var type = propertyInfo.PropertyType;
             var value = propertyInfo.GetValue(instance, null);

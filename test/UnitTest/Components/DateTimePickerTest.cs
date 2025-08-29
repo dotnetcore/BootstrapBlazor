@@ -322,6 +322,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.PickTimeMode, PickTimeMode.Clock);
         });
 
         var labels = cut.FindAll(".picker-panel-header-label");
@@ -352,6 +353,39 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.ThrowsAny<InvalidOperationException>(() =>
         {
             Context.RenderComponent<DateTimePicker<int>>();
+        });
+    }
+
+    [Fact]
+    public async Task PickTimeMode_Ok()
+    {
+        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            builder.Add(a => a.PickTimeMode, PickTimeMode.Dropdown);
+            builder.Add(a => a.ShowFooter, true);
+            builder.Add(a => a.Value, DateTime.Today.AddDays(-1));
+            builder.Add(a => a.TimeFormat, "hh\\:mm");
+        });
+
+        cut.Contains("picker-panel-time");
+
+        // 点击时间选择器
+        var input = cut.Find(".picker-panel-time .form-control");
+        await cut.InvokeAsync(() => input.Click());
+        cut.Contains("picker-panel-time show");
+
+        // 点击时间选择器下拉框中的确定按钮
+        var picker = cut.FindComponent<TimePicker>();
+        await cut.InvokeAsync(() => picker.Instance.OnClose!());
+
+        var ts = DateTime.Now.TimeOfDay;
+        await cut.InvokeAsync(() => picker.Instance.OnConfirm!(ts));
+        Assert.Contains(ts.ToString("hh\\:mm"), cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TimeFormat, null);
         });
     }
     #endregion

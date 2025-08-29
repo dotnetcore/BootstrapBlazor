@@ -18,6 +18,16 @@ public sealed partial class Popovers
 
     private string? _templateTitle;
 
+    private Popover? _popover;
+
+    private async Task ToggleShow()
+    {
+        if (_popover != null)
+        {
+            await _popover.Toggle();
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

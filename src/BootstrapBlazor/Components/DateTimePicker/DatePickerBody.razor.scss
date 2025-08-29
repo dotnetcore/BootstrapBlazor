@@ -91,8 +91,11 @@
                 table {
                     table-layout: fixed;
                     width: 100%;
-                    font-size: 12px;
                     user-select: none;
+
+                    .date-table-row {
+                        font-size: 12px;
+                    }
 
                     td {
                         text-align: center;
@@ -316,6 +319,33 @@
 .popover-body {
     .picker-panel {
         box-shadow: none;
+    }
+}
+
+.picker-panel-time {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 4px 1rem;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
+    position: relative;
+
+    .form-control {
+        font-size: 14px;
+        width: 178px;
+        cursor: pointer;
+        padding: 3px 8px;
+        text-align: center;
+    }
+
+    .bb-time-picker {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 1rem;
+    }
+
+    &:not(.show) .bb-time-picker {
+        display: none;
     }
 }
 
