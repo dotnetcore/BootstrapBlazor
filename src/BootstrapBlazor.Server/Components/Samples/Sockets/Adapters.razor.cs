@@ -50,7 +50,6 @@ public partial class Adapters : IDisposable
 
         // 实战中可以通过下面一句话设置数据适配器与回调方法
         // _client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);
-
     }
 
     private async Task OnConnectAsync()
