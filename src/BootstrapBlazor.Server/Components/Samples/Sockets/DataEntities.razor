@@ -89,7 +89,7 @@ if (attr is { Type: not null })
 {
     var value = attr.ConvertTo(data);
     var valueType = value?.GetType();
-    if (valueType != null && p.PropertyType.IsAssignableFrom(valueType))
+    if (p.PropertyType.IsAssignableFrom(valueType))
     {
         p.SetValue(entity, value);
     }
