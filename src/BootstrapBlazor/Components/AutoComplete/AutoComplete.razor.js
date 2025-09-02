@@ -175,6 +175,14 @@ const handlerKeyup = (ac, e) => {
     }
 }
 
+export function setValue(id, value) {
+    const ac = Data.get(id)
+    const { input } = ac;
+    if (input) {
+        input.value = value;
+    }
+}
+
 export function dispose(id) {
     const ac = Data.get(id)
     Data.remove(id)

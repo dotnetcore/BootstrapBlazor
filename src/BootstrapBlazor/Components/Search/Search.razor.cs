@@ -209,6 +209,12 @@ public partial class Search<TValue>
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
+
     private string? _displayText;
     private async Task OnSearchClick()
     {
@@ -229,6 +235,9 @@ public partial class Search<TValue>
 
     private async Task OnClearClick()
     {
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, "");
+
         _displayText = null;
         if (OnClear != null)
         {
@@ -251,6 +260,9 @@ public partial class Search<TValue>
     {
         CurrentValue = val;
         _displayText = GetDisplayText(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, _displayText);
 
         if (OnSelectedItemChanged != null)
         {
