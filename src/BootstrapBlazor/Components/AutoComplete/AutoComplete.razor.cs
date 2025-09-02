@@ -120,15 +120,28 @@ public partial class AutoComplete
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
+
+    /// <summary>
     /// Callback method when a candidate item is clicked
     /// </summary>
-    private async Task OnClickItem(string val)
+    [JSInvokable]
+    public async Task TriggerClick(int index)
     {
-        CurrentValue = val;
+        if (index < 0 || index >= Rows.Count)
+        {
+            return;
+        }
+
+        var item = Rows[index];
+        CurrentValueAsString = item;
 
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged(val);
+            await OnSelectedItemChanged(Value);
         }
 
         if (OnBlurAsync != null)
@@ -136,7 +149,7 @@ public partial class AutoComplete
             await OnBlurAsync(Value);
         }
 
-        await TriggerFilter(val);
+        await TriggerFilter(Value);
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];
