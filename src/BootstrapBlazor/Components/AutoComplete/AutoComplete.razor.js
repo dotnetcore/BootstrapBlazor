@@ -5,14 +5,12 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke, value) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
-
-    input.value = value;
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
     if (isPopover) {
@@ -52,14 +50,7 @@ export function init(id, invoke, value) {
     }
 
     EventHandler.on(menu, 'click', '.dropdown-item', e => {
-        const item = e.delegateTarget;
-        const val = item.getAttribute('data-bb-val');
-        input.value = val;
         ac.close();
-
-        const items = [...item.parentElement.children];
-        const index = items.indexOf(item);
-        invoke.invokeMethodAsync('TriggerClick', index);
     });
 
     EventHandler.on(input, 'focus', e => {
@@ -87,6 +78,7 @@ export function init(id, invoke, value) {
 
         el.classList.add('is-loading');
         filterCallback(v);
+
     });
 
     ac.show = () => {
