@@ -212,7 +212,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
 
         var item = cut.Find(".dropdown-item");
-        await cut.InvokeAsync(() => item.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerClick(0));
         Assert.Equal("test1", selectedItem);
     }
 
@@ -268,8 +268,11 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
         Assert.Equal("test2", val);
 
-        var item = cut.Find(".dropdown-item");
-        await cut.InvokeAsync(() => item.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerClick(0));
+        Assert.Equal("test2", val);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerClick(-1));
+        await cut.InvokeAsync(() => cut.Instance.TriggerClick(10));
     }
 
     [Fact]
