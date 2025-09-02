@@ -184,6 +184,12 @@ public partial class AutoFill<TValue>
         Items ??= [];
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
+
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -199,6 +205,9 @@ public partial class AutoFill<TValue>
     /// <returns></returns>
     private async Task OnClearValue()
     {
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, "");
+
         if (OnClearAsync != null)
         {
             await OnClearAsync();
@@ -234,6 +243,9 @@ public partial class AutoFill<TValue>
         }
 
         await TriggerFilter(_displayText!);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, _displayText);
     }
 
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
