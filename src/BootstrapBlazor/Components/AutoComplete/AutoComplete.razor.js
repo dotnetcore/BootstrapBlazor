@@ -51,24 +51,15 @@ export function init(id, invoke, value) {
         })
     }
 
-    EventHandler.on(menu, 'click', '.dropdown-item', async e => {
+    EventHandler.on(menu, 'click', '.dropdown-item', e => {
         const item = e.delegateTarget;
-        if (item.classList.contains('tip')) {
-            return;
-        }
-
         const val = item.getAttribute('data-bb-val');
-        if (val) {
-            input.value = val;
-        }
+        input.value = val;
         ac.close();
 
         const items = [...item.parentElement.children];
         const index = items.indexOf(item);
-        const text = await invoke.invokeMethodAsync('TriggerClick', index);
-        if (input.value !== text) {
-            input.value = text;
-        }
+        invoke.invokeMethodAsync('TriggerClick', index);
     });
 
     EventHandler.on(input, 'focus', e => {

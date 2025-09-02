@@ -129,11 +129,11 @@ public partial class AutoComplete
     /// Callback method when a candidate item is clicked
     /// </summary>
     [JSInvokable]
-    public async Task<string?> TriggerClick(int index)
+    public async Task TriggerClick(int index)
     {
         if (index < 0 || index >= Rows.Count)
         {
-            return null;
+            return;
         }
 
         var item = Rows[index];
@@ -150,7 +150,6 @@ public partial class AutoComplete
         }
 
         await TriggerFilter(Value);
-        return Value;
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];
