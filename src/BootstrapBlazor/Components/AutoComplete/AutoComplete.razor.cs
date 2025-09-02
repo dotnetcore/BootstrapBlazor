@@ -120,6 +120,12 @@ public partial class AutoComplete
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
+
+    /// <summary>
     /// Callback method when a candidate item is clicked
     /// </summary>
     private async Task OnClickItem(string val)
@@ -137,6 +143,9 @@ public partial class AutoComplete
         }
 
         await TriggerFilter(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, val);
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];
