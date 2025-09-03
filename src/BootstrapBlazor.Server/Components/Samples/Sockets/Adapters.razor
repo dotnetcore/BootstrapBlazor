@@ -47,7 +47,7 @@
     <Pre>// 数据适配器内部使用固定长度数据处理器
 private readonly DataPackageAdapter _dataAdapter = new(new FixLengthDataPackageHandler(12));
 
-_dataAdapter.ReceivedCallBack = async Data =>
+_dataAdapter.ReceivedCallback = async Data =>
 {
     // 此处接收到的数据 Data 为完整响应数据
 };</Pre>
