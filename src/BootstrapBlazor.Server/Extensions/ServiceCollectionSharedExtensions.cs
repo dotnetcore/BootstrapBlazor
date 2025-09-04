@@ -95,7 +95,7 @@ public static class ServiceCollectionSharedExtensions
         services.AddBootstrapBlazorJuHeIpLocatorService();
 
         // 增加 ITcpSocketFactory 服务
-        services.AddBootstrapBlazorTcpSocketFactory();
+        services.AddTcpSocketFactory();
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
