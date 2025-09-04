@@ -13,7 +13,9 @@
     <File Path="localization/de.json" />
     <File Path="localization/es.json" />
     <File Path="localization/pt.json" />
+    <File Path="localization/ru-RU.json" />
     <File Path="localization/th-TH.json" />
+    <File Path="localization/uk-UA.json" />
     <File Path="localization/zh-TW.json" />
   </Folder>
   <Folder Name="/scripts/" />
