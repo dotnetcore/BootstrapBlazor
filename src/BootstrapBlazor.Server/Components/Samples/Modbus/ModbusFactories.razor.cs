@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Longbow.Modbus;
-
 namespace BootstrapBlazor.Server.Components.Samples.Modbus;
 
 /// <summary>
@@ -12,13 +10,5 @@ namespace BootstrapBlazor.Server.Components.Samples.Modbus;
 /// </summary>
 public partial class ModbusFactories
 {
-    [Inject, NotNull]
-    private IModbusFactory? ModbusFactory { get; set; }
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ModbusFactory.GetOrCreateTcpMaster();
-    }
 }
