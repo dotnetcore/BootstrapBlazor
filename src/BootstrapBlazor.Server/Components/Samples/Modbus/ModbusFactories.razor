@@ -1,23 +1,23 @@
-﻿@page "/socket-factory"
-@inject IStringLocalizer<SocketFactories> Localizer
+﻿@page "/modbus-factory"
+@inject IStringLocalizer<ModbusFactories> Localizer
 
-<h3>Tcp 套接字服务 <code>ITcpSocketFactory</code></h3>
-<h4>组件库内置了 Socket 套接字通讯服务</h4>
+<h3>Modbus 串行通讯服务 <code>IModbusFactory</code></h3>
+<h4>组件库内置了 Modbus 串行通讯服务</h4>
 
-<PackageTips Name="Longbow.TcpSocket" />
+<PackageTips Name="Longbow.Modbus" />
 
 <p class="code-label">1. 服务注入</p>
 
-<Pre>services.AddBootstrapBlazorTcpSocketFactory();</Pre>
+<Pre>services.AddModbusFactory();</Pre>
 
 <p class="code-label">2. 使用服务</p>
-<p>调用 <code>TcpSocketFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ITcpSocketClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ITcpSocketClient</code> 为同一对象</p>
+<p>调用 <code>ModbusFactory</code> 实例方法 <code>GetOrCreateTcpMaster</code> 即可得到一个 <code>IModbusClient</code> 实例。内部提供复用机制，调用两次得到的 <code>IModbusClient</code> 为同一对象</p>
 
 <Pre>[Inject]
 [NotNull]
-private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
+private IModbusFactory? ModbusFactory { get; set; }</Pre>
 
-<Pre>var client = TcpSocketFactory.GetOrCreate("bb", options =>
+<Pre>var client = ModbusFactory.GetOrCreateTcpMaster("bb", options =>
 {
     options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
 });</Pre>
