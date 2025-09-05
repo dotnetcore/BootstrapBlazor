@@ -52,6 +52,12 @@ static class ServiceCollectionExtensions
             services.AddMockOpcDaServer();
         }
 
+        // 增加 ITcpSocketFactory 服务
+        services.AddTcpSocketFactory();
+
+        // 增加 IModbusFactory 服务
+        services.AddModbusFactory();
+
         // 增加通用服务
         services.AddBootstrapBlazorServices();
 
