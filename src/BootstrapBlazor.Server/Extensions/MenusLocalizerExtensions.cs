@@ -92,6 +92,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["ModbusComponents"],
+            Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
+        };
+        AddModbus(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Services"],
             Icon = "fa-fw fa-solid fa-screwdriver-wrench",
         };
@@ -205,7 +212,7 @@ internal static class MenusLocalizerExtensions
 
         void AddSocket(DemoMenuItem item)
         {
-            var socketItems = new List<DemoMenuItem>
+            item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
@@ -240,28 +247,19 @@ internal static class MenusLocalizerExtensions
                     Url = "socket/data-entity"
                 }
             };
-            var modbusItems = new List<DemoMenuItem>
+
+            AddBadge(item, count: 2);
+        }
+
+        void AddModbus(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
             {
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["ModbusFactory"],
                     Url = "modbus-factory"
-                }
-            };
-            item.Items = new List<DemoMenuItem>
-            {
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["SocketProtocol"],
-                    Items = socketItems
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["ModbusProtocol"],
-                    Items = modbusItems
                 }
             };
 
