@@ -1,0 +1,135 @@
+﻿@page "/socket-factory"
+@inject IStringLocalizer<SocketFactories> Localizer
+
+<h3>Tcp 套接字服务 <code>ITcpSocketFactory</code></h3>
+<h4>组件库内置了 Socket 套接字通讯服务</h4>
+
+<PackageTips Name="Longbow.TcpSocket" />
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>services.AddTcpSocketFactory();</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>TcpSocketFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ITcpSocketClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ITcpSocketClient</code> 为同一对象</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
+
+<Pre>var client = TcpSocketFactory.GetOrCreate("bb", options =>
+{
+    options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+});</Pre>
+
+<p class="code-label">3. 使用方法</p>
+
+<ul class="ul-demo">
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>ConnectAsync</code> 连接远端节点</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SendAsync</code> 发送协议数据</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>Close</code> 关闭连接</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SetDataHandler</code> 方法设置数据处理器</li>
+    <li>通过 <code>ITcpSocketClient</code> 实例属性 <code>ReceivedCallBack</code> 方法设置接收数据处理器（注意：此回调未做任何数据处理为原始数据）</li>
+</ul>
+
+<p class="code-label">4. 数据处理器</p>
+
+<p>在我们实际应用中，建立套接字连接后就会进行数据通信，数据通信不会是杂乱无章的随机数据，在应用中都是有双方遵守的规约简称通讯协议，在通讯协议的约束下，发送方与接收方均根据通讯协议进行编码或解码工作，将数据有条不紊的传输</p>
+
+<p>数据处理器设计初衷就是为了契合通讯协议大大简化我们开发逻辑，我们已通讯协议每次通讯电文均为 <b>4</b> 位定长举例说明，在实际的通讯过程中，我们接收到的通讯数据存在粘包或者分包的现象</p>
+
+<ul class="ul-demo">
+    <li><b>粘包</b>：比如我们期望收到 <b>1234</b> 四个字符，实际上我们接收到的是 <b>123412</b> 多出来的 <b>12</b> 其实是下一个数据包的内容，我们需要截取前 4 位数据作为一个数据包才能正确处理数据，这种相邻两个通讯数据包的粘连称为<b>粘包</b></li>
+    <li><b>分包</b>：比如我们期望收到 <b>1234</b> 四个字符，实际上我们可能分两次接收到，分别是 <b>12</b> 和 <b>34</b>，我们需要将两个数据包拼接成一个才能正确的处理数据。这种情况称为<b>分包</b></li>
+</ul>
+
+<p>我们内置了一些常用的数据处理类 <code>IDataPackageHandler</code> 接口为数据包处理接口，虚类 <code>DataPackageHandlerBase</code> 作为数据处理器基类已经内置了 <b>粘包</b> <b>分包</b> 的逻辑，继承此类后专注自己处理的业务即可</p>
+
+<p>使用方法如下：</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketFactory? TcpSocketFactory { get; set; }
+
+private async Task CreateClient()
+{
+    // 创建 ITcpSocketClient 实例
+    var client = TcpSocketFactory.GetOrCreate("localhost", 0);
+
+    // 设置数据适配器 使用 FixLengthDataPackageHandler 数据处理器处理数据定长 4 的数据
+    var adapter = new DataPackageAdapter
+    {
+        DataPackageHandler = new FixLengthDataPackageHandler(4)
+    };
+
+    // 如果 client 不销毁切记使用 RemoveDataPackageAdapter 移除回调委托防止内存泄露
+    client.AddDataPackageAdapter(adapter, buffer =>
+    {
+        // buffer 即是接收到的数据
+        return ValueTask.CompletedTask;
+    });
+
+    // 连接远端节点 连接成功后自动开始接收数据
+    var connected = await client.ConnectAsync("192.168.10.100", 6688);
+}
+</Pre>
+
+<p>内置数据处理器</p>
+
+<ul class="ul-demo">
+    <li><code>FixLengthDataPackageHandler</code> <b>固定长度数据处理器</b> 即每个通讯包都是固定长度</li>
+    <li><code>DelimiterDataPackageHandler</code> <b>分隔符数据处理器</b> 即通讯包以特定一个或一组字节分割</li>
+</ul>
+
+<p class="code-label">5. 数据适配器</p>
+
+<p>在我们实际应用中，接收到数据包后（已经过数据处理器）大多情况下是需要将电文转化为应用中的具体数据类型 <code>Class</code> 或 <code>Struct</code>。将原始数据包转化为类或者结构体的过程由我们的数据适配器来实现</p>
+
+<p>数据适配器设计思路如下</p>
+
+<ol class="ul-demo">
+    <li>使用 <code>DataTypeConverterAttribute</code> 标签约定通讯数据使用那个转换类型进行转换 指定类型需继承 <code>IDataConverter</code>
+        接口
+    </li>
+    <li>使用 <code>DataPropertyConverterAttribute</code> 标签约定如何转换数据类型 （Property） 属性值</li>
+</ol>
+
+<Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
+class MockEntity
+{
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
+    public byte[]? Header { get; set; }
+
+    [DataPropertyConverter(Type = typeof(byte[]), Offset = 5, Length = 2)]
+    public byte[]? Body { get; set; }
+
+    [DataPropertyConverter(Type = typeof(Foo), Offset = 7, Length = 1, ConverterType = typeof(FooConverter), ConverterParameters = ["test"])]
+    public string? Value1 { get; set; }
+}</Pre>
+
+<Pre>class FooConverter(string name) : IDataPropertyConverter
+{
+    public object? Convert(ReadOnlyMemory&lt;byte&gt; data)
+    {
+        return new Foo() { Id = data.Span[0], Name = name };
+    }
+}</Pre>
+
+<p class="code-label">针对第三方程序集的数据类型解决方案如下：</p>
+<p>使用 <code></code></p>
+
+<Pre>builder.Services.ConfigureDataConverters(options =>
+{
+    options.AddTypeConverter&lt;MockEntity&gt;();
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Header, new DataPropertyConverterAttribute()
+    {
+        Offset = 0,
+        Length = 5
+    });
+    options.AddPropertyConverter&lt;MockEntity&gt;(entity =&gt; entity.Body, new DataPropertyConverterAttribute()
+    {
+        Offset = 5,
+        Length = 2
+    });
+});
+</Pre>

@@ -2644,7 +2644,6 @@
     "SkipValidateDescription": "在某些情况下表单中有些列的值可能是二级分类等等，需要知道一级分类的信息，这个时候一级分类需要额外的组件来呈现，如果 <code>Select</code>，而这个组件是与当前上下文绑定模型 <code>Model</code> 无关的，这种需求中通过设置 <code>SkipValidate</code> 值为 <code>true</code>，关闭此组件的模型验证功能即可",
     "IsDisplayTitle": "只读表单",
     "IsDisplayIntro": "通过设置 <code>IsDisplay=\"true\"</code> 使整个表单不可编辑"
-
   },
   "BootstrapBlazor.Server.Components.Samples.FloatingLabels": {
     "FloatingLabelsTitle": "FloatingLabel 输入框",
@@ -4856,12 +4855,14 @@
     "Vditor": "富文本框 Vditor Markdown",
     "TcpSocketFactory": "套接字服务 ITcpSocketFactory",
     "OfficeViewer": "Office 文档预览组件",
-    "SocketComponents": "Socket 服务",
+    "SocketComponents": "套接字服务 Socket",
     "SocketAutoReceive": "自动接收数据",
     "SocketManualReceive": "手动接收数据",
     "DataPackageAdapter": "数据适配器",
     "SocketAutoConnect": "自动重连",
     "SocketDataEntity": "通讯数据转实体类",
+    "ModbusComponents": "串行通信协议 Modbus",
+    "ModbusFactory": "通讯服务 IModbusFactory",
     "NetworkMonitor": "网络状态 NetworkMonitor",
     "Toolbar": "工具栏 Toolbar",
     "OpcDaService": "OpcDaServer 服务",
