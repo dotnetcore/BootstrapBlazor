@@ -205,8 +205,14 @@ internal static class MenusLocalizerExtensions
 
         void AddSocket(DemoMenuItem item)
         {
-            item.Items = new List<DemoMenuItem>
+            var socketItems = new List<DemoMenuItem>
             {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["TcpSocketFactory"],
+                    Url = "socket-factory"
+                },
                 new()
                 {
                     Text = Localizer["SocketManualReceive"],
@@ -234,7 +240,32 @@ internal static class MenusLocalizerExtensions
                     Url = "socket/data-entity"
                 }
             };
-            AddBadge(item, count: 1);
+            var modbusItems = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["ModbusFactory"],
+                    Url = "modbus-factory"
+                }
+            };
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SocketProtocol"],
+                    Items = socketItems
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["ModbusProtocol"],
+                    Items = modbusItems
+                }
+            };
+
+            AddBadge(item, count: 2);
         }
 
         void AddQuickStar(DemoMenuItem item)
@@ -1639,12 +1670,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["PrintService"],
                     Url = "print-service"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["TcpSocketFactory"],
-                    Url = "socket-factory"
                 },
                 new()
                 {
