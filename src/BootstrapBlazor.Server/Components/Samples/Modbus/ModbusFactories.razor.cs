@@ -19,6 +19,8 @@ public partial class ModbusFactories
     {
         base.OnInitialized();
 
-        ModbusFactory.RemoveTcpMaster("test");
+        var client  = ModbusFactory.RemoveTcpMaster("test");
+
+        client.
     }
 }
