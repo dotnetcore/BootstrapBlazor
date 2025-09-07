@@ -253,7 +253,8 @@
     "toolbar": "Toolbars",
     "opc-da": "OpcDa",
     "navbar": "Navbars",
-    "task-board": "TaskBoard"
+    "task-board": "TaskBoard",
+    "modbus-factory": "Modbus\\ModbusFactories"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
