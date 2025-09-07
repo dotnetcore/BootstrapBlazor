@@ -10,5 +10,5 @@ namespace BootstrapBlazor.Server.Components.Samples.Modbus;
 /// </summary>
 public partial class ModbusFactories
 {
-
+    
 }
