@@ -17,24 +17,32 @@
 [NotNull]
 private IModbusFactory? ModbusFactory { get; set; }</Pre>
 
-<Pre>var client = ModbusFactory.GetOrCreateTcpMaster("bb", options =>
-{
-    options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
-});</Pre>
-
-<p class="code-label">3. 使用方法</p>
+<p class="code-label">3. 通过工厂获得实例</p>
 
 <ul class="ul-demo">
-    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>ConnectAsync</code> 连接远端节点</li>
-    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SendAsync</code> 发送协议数据</li>
-    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>Close</code> 关闭连接</li>
-    <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SetDataHandler</code> 方法设置数据处理器</li>
-    <li>通过 <code>ITcpSocketClient</code> 实例属性 <code>ReceivedCallBack</code> 方法设置接收数据处理器（注意：此回调未做任何数据处理为原始数据）</li>
+	<li>通过 <code>GetOrCreateTcpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuMaster</code> 方法得到 <code>IModbusRtuClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateUdpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuOverTcpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuOverUdpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
 </ul>
 
-<p class="code-label">4. 数据处理器</p>
+<p>调用其对应的 <code>Remove</code> 方法即可从缓存中移除指定名称的 <code>IModbusClient</code> 实例。如</p>
 
-<p>在我们实际应用中，建立套接字连接后就会进行数据通信，数据通信不会是杂乱无章的随机数据，在应用中都是有双方遵守的规约简称通讯协议，在通讯协议的约束下，发送方与接收方均根据通讯协议进行编码或解码工作，将数据有条不紊的传输</p>
+<Pre>ModbusFactory.RemoveTcpMaster("test");</Pre>
+
+<p class="code-label">4. 数据操作</p>
+
+<p><code>Modbus</code> 数据类型共四种</p>
+
+<ul class="ul-demo">
+	<li>线圈 (Coils)​​ 可读可写 数字量输出，如开关状态</li>
+	<li>离散输入 (Discrete Inputs)​​ 只读 数字量输出，如开关状态</li>
+	<li>输入寄存器 (Input Registers)​​ 只读 模拟量输入，如温度、压力传感器数据</li>
+	<li>保持寄存器 (Holding Registers) ​​可读可写 模拟量输出，如设定值、控制参数</li>
+</ul>
+
+
 
 <p>数据处理器设计初衷就是为了契合通讯协议大大简化我们开发逻辑，我们已通讯协议每次通讯电文均为 <b>4</b> 位定长举例说明，在实际的通讯过程中，我们接收到的通讯数据存在粘包或者分包的现象</p>
 
