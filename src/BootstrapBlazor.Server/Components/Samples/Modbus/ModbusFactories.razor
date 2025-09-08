@@ -19,6 +19,13 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
 
 <p class="code-label">3. 通过工厂获得相对应协议 <code>IModbusClient</code> 实例</p>
 
+<p><code>IModbusClient</code> 有两个派生类</p>
+
+<ul class="ul-demo">
+	<li><code>Socket</code> 通讯协议 <code>Tcp/Udp</code> 使用 <code>IModbusTcpClient</code></li>
+	<li><code>SerialPort</code> 通讯协议 <code>RTU</code> 使用 <code>IModbusRtuClient</code></li>
+</ul>
+
 <p>Modbus 可以通过不同的物理介质传输，主要有以下几种方式：</p>
 
 <ul class="ul-demo">
