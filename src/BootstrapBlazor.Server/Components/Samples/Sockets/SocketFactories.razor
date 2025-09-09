@@ -24,6 +24,8 @@ private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
 
 <p class="code-label">3. 使用方法</p>
 
+<p>注意：以下方法均为线程不安全方法，多线程并发时需要自行处理</p>
+
 <ul class="ul-demo">
     <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>ConnectAsync</code> 连接远端节点</li>
     <li>通过 <code>ITcpSocketClient</code> 实例方法 <code>SendAsync</code> 发送协议数据</li>
