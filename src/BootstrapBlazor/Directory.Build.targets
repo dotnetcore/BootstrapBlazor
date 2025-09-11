@@ -7,9 +7,8 @@
   </ItemGroup>
 
   <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
-    <Message Text="Copy bootstrap assets ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true" Condition="'$(Configuration)'!='Debug'"></Copy>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true" Condition="'$(Configuration)'=='Debug'"></Copy>
+    <Message Text="Copy bootstrap assets ..." Importance="high" Condition="'$(Configuration)'=='Debug'"></Message>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true"></Copy>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/css/bootstrap.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.min.css" SkipUnchangedFiles="true"></Copy>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/css/bootstrap.rtl.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.rtl.min.css" SkipUnchangedFiles="true"></Copy>
 
