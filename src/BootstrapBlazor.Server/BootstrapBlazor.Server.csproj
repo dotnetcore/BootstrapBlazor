@@ -81,10 +81,10 @@
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.7" />
     <PackageReference Include="Longbow.Logging" Version="9.0.1" />
-    <PackageReference Include="Longbow.Modbus" Version="9.0.2" />
-    <PackageReference Include="Longbow.Socket" Version="9.0.3" />
+    <PackageReference Include="Longbow.Modbus" Version="9.0.4" />
+    <PackageReference Include="Longbow.Sockets" Version="9.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.2" />
-    <PackageReference Include="Longbow.TcpSocket" Version="9.0.4" />
+    <PackageReference Include="Longbow.TcpSocket" Version="9.0.7" />
   </ItemGroup>
 
   <ItemGroup>
