@@ -7168,7 +7168,7 @@
     "DataEntityTitle": "Socket Auto Entity",
     "DataEntityDescription": "After receiving the communication data, it is automatically converted into the entity class required by the business",
     "NormalTitle": "Basic usage",
-    "NormalIntro": "Enable automatic data conversion through the <code>DataTypeConverterAttribute</code> attribute",
+    "NormalIntro": "Enable automatic data conversion through the <code>DataPropertyConverterAttribute</code> attribute",
     "ConfigTitle": "DataType Converter",
     "ConfigIntro": "Use the <code>ConfigureDataConverters</code> method to map the entity class and automatically convert the received data"
   },
