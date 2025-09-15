@@ -95,8 +95,7 @@ private async Task CreateClient()
     <li>使用 <code>DataPropertyConverterAttribute</code> 标签约定如何转换数据类型 （Property） 属性值</li>
 </ol>
 
-<Pre>[DataTypeConverter(Type = typeof(DataConverter&lt;MockEntity&gt;))]
-class MockEntity
+<Pre>class MockEntity
 {
     [DataPropertyConverter(Type = typeof(byte[]), Offset = 0, Length = 5)]
     public byte[]? Header { get; set; }
