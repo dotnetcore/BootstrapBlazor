@@ -84,7 +84,7 @@
     <PackageReference Include="Longbow.Modbus" Version="9.0.6" />
     <PackageReference Include="Longbow.Sockets" Version="9.0.3" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.2" />
-    <PackageReference Include="Longbow.TcpSocket" Version="9.0.9" />
+    <PackageReference Include="Longbow.TcpSocket" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
