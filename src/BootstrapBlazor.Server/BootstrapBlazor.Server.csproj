@@ -81,10 +81,10 @@
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.7" />
     <PackageReference Include="Longbow.Logging" Version="9.0.1" />
-    <PackageReference Include="Longbow.Modbus" Version="9.0.4" />
-    <PackageReference Include="Longbow.Sockets" Version="9.0.1" />
+    <PackageReference Include="Longbow.Modbus" Version="9.0.6" />
+    <PackageReference Include="Longbow.Sockets" Version="9.0.3" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.2" />
-    <PackageReference Include="Longbow.TcpSocket" Version="9.0.7" />
+    <PackageReference Include="Longbow.TcpSocket" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,9 +98,9 @@
     <Using Include="BootstrapBlazor.Server.Data" />
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
-    <Using Include="Longbow.Socket.DataAdapters" />
-    <Using Include="Longbow.Socket.DataConverters" />
-    <Using Include="Longbow.Socket.DataHandlers" />
+    <Using Include="Longbow.Sockets.DataAdapters" />
+    <Using Include="Longbow.Sockets.DataConverters" />
+    <Using Include="Longbow.Sockets.DataHandlers" />
     <Using Include="Longbow.TcpSocket" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Configuration" />
