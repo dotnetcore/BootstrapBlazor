@@ -68,3 +68,10 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
     <li>输入寄存器 (Input Registers) <code>ReadInputRegistersAsync</code></li>
     <li>保持寄存器 (Holding Registers) <code>ReadHoldingRegistersAsync</code> <code>WriteRegisterAsync</code> <code>WriteMultipleRegistersAsync</code></li>
 </ul>
+
+    <pre>Benchmark 结果如下：
+| Method            | Mean    | Error   | StdDev  | Gen0      | Allocated |
+|------------------ |--------:|--------:|--------:|----------:|----------:|
+| LongbowModbus     | 20.36 s | 0.404 s | 0.397 s | 1000.0000 |  15.81 MB |
+| NModbus           | 40.37 s | 0.806 s | 1.734 s | 2000.0000 |   29.6 MB |
+</pre>
