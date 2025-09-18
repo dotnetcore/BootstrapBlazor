@@ -1,4 +1,4 @@
-.search.auto-complete {
+﻿.search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
     --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
 
@@ -21,13 +21,9 @@
             padding: 0;
         }
 
-        .search-icon {
+        .clear-icon {
             cursor: pointer;
             margin-left: 0.5rem;
-        }
-
-        &:not(:hover) .search-clear-icon {
-            display: none;
         }
     }
 }
