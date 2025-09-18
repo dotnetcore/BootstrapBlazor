@@ -115,7 +115,7 @@ public async Task LongbowModbus()
     await Task.WhenAll(tasks);
 }</Pre>
 
-<p>共 10 个 <code>Socket</code> 连接，每个连接 10 个并发任务，每个任务进行 10 次 <code>ReadHoldingRegistersAsync</code> 方法调用，没个方法读取 100 个地址数据</p>
+<p>共 10 个 <code>Socket</code> 连接，每个连接 10 个并发任务，每个任务进行 10 次 <code>ReadHoldingRegistersAsync</code> 方法调用，每个方法读取 100 个地址数据</p>
 
 <p>Benchmark 结果如下：</p>
 
