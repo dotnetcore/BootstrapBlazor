@@ -63,10 +63,19 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
 <p>对应 <code>IModbusClient</code> 实例方法如下</p>
 
 <ul class="ul-demo">
-    <li>线圈 (Coils) <code>ReadCoilsAsync</code> <code>WriteCoilAsync</code> <code>WriteMultipleCoilsAsync</code> 最大读取数量 <code>2000</code> 最大写入数量 <code>1968</code></li>
-    <li>离散输入 (Discrete Inputs) <code>ReadInputsAsync</code> 最大读取数量 <code>2000</code></li>
-    <li>输入寄存器 (Input Registers) <code>ReadInputRegistersAsync</code> 最大读取数量 <code>125</code></li>
-    <li>保持寄存器 (Holding Registers) <code>ReadHoldingRegistersAsync</code> <code>WriteRegisterAsync</code> <code>WriteMultipleRegistersAsync</code> 最大读取数量 <code>125</code> 最大写入数量 <code>123</code></li>
+    <li>线圈 (Coils) <code>ReadCoilsAsync</code> <code>WriteCoilAsync</code> <code>WriteMultipleCoilsAsync</code></li>
+    <li>离散输入 (Discrete Inputs) <code>ReadInputsAsync</code></li>
+    <li>输入寄存器 (Input Registers) <code>ReadInputRegistersAsync</code></li>
+    <li>保持寄存器 (Holding Registers) <code>ReadHoldingRegistersAsync</code> <code>WriteRegisterAsync</code> <code>WriteMultipleRegistersAsync</code></li>
+</ul>
+
+<p>Modbus 协议的最大读取/写入数量限制参考自 Modbus Application Protocol Specification V1.1b3:</p>
+
+<ul class="ul-demo">
+    <li>线圈 (Coils) 最大读取数量: <code>2000</code>, 最大写入数量: <code>1968</code></li>
+    <li>离散输入 (Discrete Inputs) 最大读取数量: <code>2000</code></li>
+    <li>输入寄存器 (Input Registers) 最大读取数量: <code>125</code></li>
+    <li>保持寄存器 (Holding Registers) 最大读取数量: <code>125</code>, 最大写入数量: <code>123</code></li>
 </ul>
 
 <p>项目包含 Benchmark 基准测试工程</p>
