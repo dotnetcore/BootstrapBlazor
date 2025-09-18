@@ -85,6 +85,10 @@ public partial class AutoComplete
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
+    private string? ClassString => CssBuilder.Default("auto-complete")
+        .AddClass("is-clearable", IsClearable)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -117,6 +121,7 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
     }
 
     /// <summary>
