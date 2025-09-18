@@ -55,6 +55,16 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsClearable_Ok()
+    {
+        var cut = Context.RenderComponent<AutoComplete>();
+        Assert.DoesNotContain("clear-icon", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
+        cut.Contains("clear-icon");
+    }
+
+    [Fact]
     public void Debounce_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>();
