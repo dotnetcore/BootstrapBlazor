@@ -96,7 +96,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
