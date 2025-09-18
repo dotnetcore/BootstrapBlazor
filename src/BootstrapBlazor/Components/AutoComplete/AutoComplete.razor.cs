@@ -105,7 +105,7 @@ public partial class AutoComplete
     /// <summary>
     /// Gets the clear icon class string.
     /// </summary>
-    protected string? ClearClassString => CssBuilder.Default("clear-icon")
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)

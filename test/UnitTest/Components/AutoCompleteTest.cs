@@ -62,6 +62,25 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
         cut.Contains("clear-icon");
+
+        // Color
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
+        cut.Contains("clear-icon text-danger");
+
+        // 反射 Validate
+        var classStringProperty = cut.Instance.GetType().GetProperty("ClearClassString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(classStringProperty);
+
+        var validProperty = cut.Instance.GetType().GetProperty("IsValid", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(validProperty);
+
+        validProperty.SetValue(cut.Instance, true);
+        var validClassString = classStringProperty.GetValue(cut.Instance);
+        Assert.Equal("clear-icon text-danger text-success", validClassString);
+
+        validProperty.SetValue(cut.Instance, false);
+        validClassString = classStringProperty.GetValue(cut.Instance);
+        Assert.Equal("clear-icon text-danger text-danger", validClassString);
     }
 
     [Fact]
