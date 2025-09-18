@@ -50,19 +50,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select component is clearable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
@@ -159,21 +146,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// </summary>
     protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
         .AddClass("shadow", ShowShadow)
-        .Build();
-
-    /// <summary>
-    /// Gets whether show the clear button.
-    /// </summary>
-    /// <returns></returns>
-    protected bool GetClearable() => IsClearable && !IsDisabled;
-
-    /// <summary>
-    /// Gets the clear icon class string.
-    /// </summary>
-    protected string? ClearClassString => CssBuilder.Default("clear-icon")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
     /// <summary>

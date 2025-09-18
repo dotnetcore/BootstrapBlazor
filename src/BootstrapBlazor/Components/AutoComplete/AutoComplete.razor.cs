@@ -69,6 +69,19 @@ public partial class AutoComplete
     public bool ShowNoDataTip { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
     /// IStringLocalizer service instance
     /// </summary>
     [Inject]
@@ -87,6 +100,15 @@ public partial class AutoComplete
 
     private string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-clearable", IsClearable)
+        .Build();
+
+    /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    protected string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
     /// <summary>
@@ -129,6 +151,12 @@ public partial class AutoComplete
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
+
+    /// <summary>
+    /// Gets whether show the clear button.
+    /// </summary>
+    /// <returns></returns>
+    private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
     /// Callback method when a candidate item is clicked
