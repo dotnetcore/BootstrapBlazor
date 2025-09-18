@@ -23,7 +23,14 @@
 
         .clear-icon {
             cursor: pointer;
-            margin-left: 0.5rem;
+        }
+    }
+
+    &.is-clearable {
+        .form-control-group {
+            .search-input {
+                padding-right: var(--bb-ac-padding-right);
+            }
         }
     }
 }
