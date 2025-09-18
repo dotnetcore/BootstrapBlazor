@@ -133,6 +133,11 @@ export function init(id, invoke) {
         EventHandler.on(document, 'click', ac.closePopover);
         EventHandler.on(document, 'keyup', ac.keyup);
     });
+
+    EventHandler.on(el, 'click', '.clear-icon', e => {
+        input.value = '';
+        invoke.invokeMethodAsync('TriggerFilter', '');
+    });
 }
 
 const handlerKeyup = (ac, e) => {
@@ -188,7 +193,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
-        const { popover, input, menu } = ac;
+        const { el, popover, input, menu } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
@@ -198,6 +203,8 @@ export function dispose(id) {
         EventHandler.off(menu, 'click');
         EventHandler.off(input, 'keyup');
         Input.dispose(input);
+
+        EventHandler.off(el, 'click');
     }
 
     const { AutoComplete } = window.BootstrapBlazor;
