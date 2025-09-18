@@ -385,7 +385,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
         var rows = Rows;
         if (index < rows.Count)
         {
-            await ToggleRow(rows[index]);
+            await ToggleItem(rows[index]);
             StateHasChanged();
         }
     }
@@ -395,28 +395,45 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task ToggleRow(SelectedItem<TValue> val)
+    public async Task ToggleRow(string val)
     {
-        if (!IsDisabled)
+        if (int.TryParse(val, out var index) && index >= 0 && index < SelectedItems.Count)
         {
-            var item = SelectedItems.FirstOrDefault(i => Equals(i.Value, val.Value));
-            if (item != null)
-            {
-                SelectedItems.Remove(item);
-            }
-            else
-            {
-                var d = Rows.FirstOrDefault(i => Equals(i.Value, val.Value));
-                if (d != null)
-                {
-                    SelectedItems.Add(d);
-                }
-            }
-
-            _isToggle = true;
-            // 更新选中值
-            await SetValue();
+            var item = SelectedItems[index];
+            await ToggleRow(item);
         }
+    }
+
+    private async Task ToggleRow(SelectedItem<TValue> item)
+    {
+        SelectedItems.Remove(item);
+
+        _isToggle = true;
+        // 更新选中值
+        await SetValue();
+    }
+
+    private string? GetValueString(SelectedItem<TValue> item) => IsPopover ? SelectedItems.IndexOf(item).ToString() : null;
+
+    private async Task ToggleItem(SelectedItem<TValue> val)
+    {
+        var item = SelectedItems.FirstOrDefault(i => Equals(i.Value, val.Value));
+        if (item != null)
+        {
+            SelectedItems.Remove(item);
+        }
+        else
+        {
+            var d = Rows.FirstOrDefault(i => Equals(i.Value, val.Value));
+            if (d != null)
+            {
+                SelectedItems.Add(d);
+            }
+        }
+
+        _isToggle = true;
+        // 更新选中值
+        await SetValue();
     }
 
     private int _min;
