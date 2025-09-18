@@ -75,12 +75,16 @@
     }
 }</Pre>
     <p>此处返回值会与参数 <code>Type = typeof(Foo)</code> 做数据合规检查，如果返回值无法转换为指定 <code>Type</code> 时不进行赋值操作，代码逻辑如下</p>
-    <Pre>var attr = p.GetCustomAttribute&lt;DataPropertyConverterAttribute&gt;(false) ?? GetPropertyConverterAttribute(p);
+    <Pre>var attr = p.GetCustomAttribute&lt;DataPropertyConverterAttribute&gt;(false);
 if (attr is { Type: not null })
 {
     var value = attr.ConvertTo(data);
     var valueType = value?.GetType();
-    if (p.PropertyType.IsAssignableFrom(valueType))
+    if (value == null && IsNullable(p.PropertyType))
+    {
+        p.SetValue(entity, null);
+    }
+    else if (p.PropertyType.IsAssignableFrom(valueType))
     {
         p.SetValue(entity, value);
     }

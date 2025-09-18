@@ -68,3 +68,68 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
     <li>输入寄存器 (Input Registers) <code>ReadInputRegistersAsync</code></li>
     <li>保持寄存器 (Holding Registers) <code>ReadHoldingRegistersAsync</code> <code>WriteRegisterAsync</code> <code>WriteMultipleRegistersAsync</code></li>
 </ul>
+
+<p>Modbus 协议的最大读取/写入数量限制参考自 Modbus Application Protocol Specification V1.1b3:</p>
+
+<ul class="ul-demo">
+    <li>线圈 (Coils) 最大读取数量: <code>2000</code>, 最大写入数量: <code>1968</code></li>
+    <li>离散输入 (Discrete Inputs) 最大读取数量: <code>2000</code></li>
+    <li>输入寄存器 (Input Registers) 最大读取数量: <code>125</code></li>
+    <li>保持寄存器 (Holding Registers) 最大读取数量: <code>125</code>, 最大写入数量: <code>123</code></li>
+</ul>
+
+<p>项目包含 Benchmark 基准测试工程</p>
+
+<Pre>private const int NumberOfTask = 10;
+private const int TaskNumberOfClient = 10;
+private const int ClientCount = 10;
+
+private async Task InitLongbowModbus()
+{
+    var sc = new ServiceCollection();
+    sc.AddModbusFactory();
+
+    var provider = sc.BuildServiceProvider();
+    var factory = provider.GetRequiredService&lt;IModbusFactory&gt;();
+
+    for (var index = 0; index &lt; ClientCount; index++)
+    {
+        var client = factory.GetOrCreateTcpMaster();
+        await client.ConnectAsync("127.0.0.1", 502);
+        await client.ReadHoldingRegistersAsync(0x01, 0x00, 100);
+
+        _lgbModbusClients.Add(client);
+    }
+}
+
+[Benchmark]
+public async Task LongbowModbus()
+{
+    var tasks = _lgbModbusClients.SelectMany(c =>
+    {
+        var tasks = new List&lt;Task&gt;();
+        for (int i = 0; i &lt; TaskNumberOfClient; i++)
+        {
+            tasks.Add(Task.Run(async () =&gt;
+            {
+                for (int i = 0; i &lt; NumberOfTask; i++)
+                {
+                    var d = await c.ReadHoldingRegistersAsync(1, 0, 100);
+                }
+            }));
+        }
+        return tasks;
+    }).ToList();
+
+    await Task.WhenAll(tasks);
+}</Pre>
+
+<p>共 10 个 <code>Socket</code> 连接，每个连接 10 个并发任务，每个任务进行 10 次 <code>ReadHoldingRegistersAsync</code> 方法调用，每个方法读取 100 个地址数据</p>
+
+<p>Benchmark 结果如下：</p>
+
+    <Pre>| Method            | Mean    | Error    | StdDev   | Allocated |
+|------------------ |--------:|---------:|---------:|----------:|
+| LongbowModbus     | 2.458 s | 0.0488 s | 0.1007 s |   2.11 MB |
+| NModbus           | 4.752 s | 0.1544 s | 0.4552 s |    3.3 MB |
+</Pre>
