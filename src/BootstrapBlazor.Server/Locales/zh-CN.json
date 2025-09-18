@@ -2121,7 +2121,7 @@
     "OnSelectedItemChangedTitle": "下拉菜单选选中回调",
     "OnSelectedItemChangedIntro": "点击下拉菜单或者 <kbd>Enter</kbd> 回车时触发此回调方法",
     "OnValueChanged": "Value 改变时回调方法",
-    "NormalDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
+    "NormalDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化，通过设置 <code>IsClearable</code> 开启清空小按钮",
     "LikeMatchDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
     "NoDataTipDescription": "本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code>",
     "NoDataTip": "没有找到你想要的数据",

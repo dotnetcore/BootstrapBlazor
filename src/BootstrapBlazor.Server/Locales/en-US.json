@@ -2121,7 +2121,7 @@
     "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
     "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
     "OnValueChanged": "Callback for the Value changed",
-    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change",
+    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change. Enable the clear button by setting <code>IsClearable</code>",
     "LikeMatchDescription": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case",
     "NoDataTipDescription": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
     "NoDataTip": "There is nothing",
