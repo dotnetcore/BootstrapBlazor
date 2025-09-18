@@ -79,7 +79,7 @@ public partial class SelectObject<TItem>
     /// </summary>
     private string? ClassName => CssBuilder.Default("select select-object dropdown")
         .AddClass("disabled", IsDisabled)
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
