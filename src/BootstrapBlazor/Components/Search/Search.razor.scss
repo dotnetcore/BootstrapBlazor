@@ -1,6 +1,7 @@
-.search.auto-complete {
+﻿.search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
     --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
+    --bb-search-clear-icon-color: var(--bb-select-append-color);
 
     .form-control-group {
         display: flex;
@@ -10,7 +11,7 @@
 
         .search-prefix-icon {
             color: var(--bb-search-prefix-icon-color);
-            margin-right: 0.5rem;
+            margin-inline-end: 0.5rem;
         }
 
         .search-input {
@@ -21,13 +22,22 @@
             padding: 0;
         }
 
-        .search-icon {
+        .search-clear-icon {
             cursor: pointer;
-            margin-left: 0.5rem;
+            color: var(--bb-search-clear-icon-color);
+            margin-inline-start: 0.5rem;
         }
 
         &:not(:hover) .search-clear-icon {
             display: none;
         }
+
+        .search-template-icon {
+            margin-inline-start: 0.5rem;
+        }
+    }
+
+    .input-group button {
+        cursor: pointer;
     }
 }

@@ -32,13 +32,15 @@
                    placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
             @if (IsClearable)
             {
-                <div class="search-icon search-clear-icon">
+                <div class="search-clear-icon">
                     <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
                 </div>
             }
             @if (IconTemplate != null)
             {
-                @IconTemplate(_context)
+                <div class="search-template-icon">
+                    @IconTemplate(_context)
+                </div>
             }
         </div>
         @if (ButtonTemplate != null)
