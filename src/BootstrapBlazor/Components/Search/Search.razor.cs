@@ -135,6 +135,7 @@ public partial class Search<TValue>
     /// </summary>
     [Parameter]
     [Obsolete("已取消 合并到 OnSearch 方法中; Deprecated. Merged into the OnSearch method")]
+    [ExcludeFromCodeCoverage]
     public Func<Task>? OnClear { get; set; }
 
     [Inject]
