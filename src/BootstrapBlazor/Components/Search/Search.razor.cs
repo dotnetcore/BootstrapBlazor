@@ -134,6 +134,7 @@ public partial class Search<TValue>
     /// Gets or sets the event callback when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
+    [Obsolete("已取消 合并到 OnSearch 方法中; Deprecated. Merged into the OnSearch method")]
     public Func<Task>? OnClear { get; set; }
 
     [Inject]
@@ -227,10 +228,6 @@ public partial class Search<TValue>
         await InvokeVoidAsync("setValue", Id, "");
 
         _displayText = null;
-        if (OnClear != null)
-        {
-            await OnClear();
-        }
         await OnSearchClick();
     }
 
