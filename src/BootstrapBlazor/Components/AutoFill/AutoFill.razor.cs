@@ -15,13 +15,6 @@ namespace BootstrapBlazor.Components;
 public partial class AutoFill<TValue>
 {
     /// <summary>
-    /// Gets the component style.
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
-        .AddClass("is-clearable", IsClearable)
-        .Build();
-
-    /// <summary>
     /// Gets or sets the collection of items for the component.
     /// </summary>
     [Parameter]
@@ -142,6 +135,13 @@ public partial class AutoFill<TValue>
     private RenderTemplate? _dropdown = null;
 
     /// <summary>
+    /// Gets the component style.
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClass("is-clearable", IsClearable)
+        .Build();
+
+    /// <summary>
     /// Gets the clear icon class string.
     /// </summary>
     private string? ClearClassString => CssBuilder.Default("clear-icon")
@@ -176,7 +176,6 @@ public partial class AutoFill<TValue>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
 
-
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     /// <summary>
@@ -184,30 +183,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <returns></returns>
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    private async Task OnClearValue()
-    {
-        // 使用脚本更新 input 值
-        await InvokeVoidAsync("setValue", Id, "");
-
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
-        CurrentValue = default;
-        _displayText = null;
-        _filterItems = null;
-        _searchText = null;
-
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-    }
 
     /// <summary>
     /// Callback method when a candidate item is clicked.
@@ -255,6 +230,18 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public async Task TriggerFilter(string val)
     {
+        if (string.IsNullOrEmpty(val))
+        {
+            CurrentValue = default;
+            _filterItems = null;
+            _displayText = null;
+
+            if (OnClearAsync != null)
+            {
+                await OnClearAsync();
+            }
+        }
+
         if (OnQueryAsync != null)
         {
             _searchText = val;
