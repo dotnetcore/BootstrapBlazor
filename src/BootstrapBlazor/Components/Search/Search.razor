@@ -38,7 +38,9 @@
             }
             @if (IconTemplate != null)
             {
-                @IconTemplate(_context)
+                <div class="search-template-icon">
+                    @IconTemplate(_context)
+                </div>
             }
         </div>
         @if (ButtonTemplate != null)

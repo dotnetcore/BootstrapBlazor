@@ -34,5 +34,9 @@
         &:not(:hover) .search-clear-icon {
             display: none;
         }
+
+        .search-template-icon {
+            margin-inline-start: 0.5rem;
+        }
     }
 }
