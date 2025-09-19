@@ -142,7 +142,6 @@ public partial class Search<TValue>
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
-        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
