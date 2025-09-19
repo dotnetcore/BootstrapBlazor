@@ -22,18 +22,6 @@ public partial class Search<TValue>
     /// Gets or sets whether to show the clear button. Default is false.
     /// </summary>
     [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the clear icon. Default is null.
-    /// </summary>
-    [Parameter]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether to show the clear button. Default is false.
-    /// </summary>
-    [Parameter]
     public bool ShowClearButton { get; set; }
 
     /// <summary>
@@ -190,7 +178,6 @@ public partial class Search<TValue>
     {
         base.OnParametersSet();
 
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
