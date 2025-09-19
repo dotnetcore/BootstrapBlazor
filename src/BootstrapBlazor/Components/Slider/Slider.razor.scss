@@ -1,4 +1,6 @@
-﻿.row {
+﻿@use "../../wwwroot/scss/variables.scss" as *;
+
+.row {
     --bb-form-range-margin-top: #{$bb-form-range-margin-top};
 
     > div[class^="col-"] > .form-range {

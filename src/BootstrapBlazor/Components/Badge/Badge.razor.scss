@@ -1,4 +1,6 @@
-﻿.badge {
+﻿@use "../../wwwroot/scss/variables.scss" as *;
+
+.badge {
     &.text-bg-secondary, &.text-bg-light {
         color: $bb-badge-color !important;
     }

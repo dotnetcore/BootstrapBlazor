@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables.scss" as *;
+
 .footer {
     --bb-footer-bg: #{$bb-footer-bg};
     --bb-footer-padding: #{$bb-footer-padding};

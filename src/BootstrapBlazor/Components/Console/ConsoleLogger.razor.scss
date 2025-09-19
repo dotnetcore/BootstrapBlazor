@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables.scss" as *;
+
 .console-logger {
     overflow: hidden auto;
     border: solid 1px var(--bs-border-color);
