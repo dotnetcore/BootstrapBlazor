@@ -425,10 +425,9 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.Equal("2", searchText);
         Assert.Contains("<div>test2</div>", cut.Markup);
 
+        // 测试 Clear 清空逻辑
         query = false;
-        // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
 
         Assert.True(query);
         Assert.True(cleared);
@@ -445,7 +444,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 });
             });
         });
-        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
     }
 
     [Fact]
