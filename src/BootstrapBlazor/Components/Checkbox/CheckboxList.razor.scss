@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .checkbox-list {
     --bb-checkbox-item-width: #{$bb-checkbox-item-width};

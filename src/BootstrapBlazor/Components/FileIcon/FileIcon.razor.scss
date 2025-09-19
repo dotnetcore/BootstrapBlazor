@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .file-icon {
     --bb-file-icon-width: #{$bb-file-icon-width};

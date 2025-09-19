@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .bb-otp-input {
     --bb-otp-item-width: #{$bb-otp-item-width};

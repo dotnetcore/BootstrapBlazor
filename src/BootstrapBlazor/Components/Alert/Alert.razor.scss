@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .alert {
     --bb-alert-icon-margin-right: #{$bb-alert-icon-margin-right};

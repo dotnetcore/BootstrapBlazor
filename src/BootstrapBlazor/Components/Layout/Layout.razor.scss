@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 [data-bs-theme='dark'] .layout {
     --bb-layout-header-background: #{$bb-layout-header-background-dark};

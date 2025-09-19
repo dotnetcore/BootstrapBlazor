@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .bb-intersection-observer {
     --bb-intersection-observer-loading-bg: #{$bb-intersection-observer-loading-bg};

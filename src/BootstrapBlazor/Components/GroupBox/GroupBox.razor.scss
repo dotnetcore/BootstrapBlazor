@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .groupbox {
     --bb-groupbox-padding: #{$bb-groupbox-padding};

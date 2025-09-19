@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables.scss" as *;
+﻿@use "../../wwwroot/scss/variables" as *;
 
 .transfer {
     --bb-transfer-panel-header-height: #{$bb-transfer-panel-header-height};
