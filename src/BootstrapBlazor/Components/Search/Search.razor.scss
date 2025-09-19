@@ -22,11 +22,8 @@
             padding: 0;
         }
 
-        .btn-clear, .btn-search, .search-clear-icon {
-            cursor: pointer;
-        }
-
         .search-clear-icon {
+            cursor: pointer;
             color: var(--bb-search-clear-icon-color);
             margin-inline-start: 0.5rem;
         }
@@ -38,5 +35,9 @@
         .search-template-icon {
             margin-inline-start: 0.5rem;
         }
+    }
+
+    .input-group button {
+        cursor: pointer;
     }
 }
