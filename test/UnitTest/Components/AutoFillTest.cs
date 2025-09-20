@@ -347,12 +347,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnGetDisplayText, f => f?.Name);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("2"));
-
-        // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
-        cut.SetParametersAndRender();
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
 
         var input = cut.Find(".form-control");
         Assert.Null(input.NodeValue);
@@ -462,7 +457,6 @@ public class AutoFillTest : BootstrapBlazorTestBase
         cut.Contains("clear-icon");
     }
 
-
     [Fact]
     public async Task Validate_Ok()
     {
@@ -511,8 +505,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.Equal("Test-Select1", model.Value.Name);
 
         // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
+        var autoFill = cut.FindComponent<AutoFill<Foo>>();
+        await cut.InvokeAsync(() => autoFill.Instance.TriggerFilter(""));
 
         var form = cut.Find("form");
         form.Submit();
