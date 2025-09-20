@@ -4,6 +4,7 @@
     <File Path=".gitignore" />
     <File Path="exclusion.dic" />
     <File Path="Framework.props" />
+    <File Path="Version.props" />
   </Folder>
   <Folder Name="/docs/">
     <File Path="README.md" />
