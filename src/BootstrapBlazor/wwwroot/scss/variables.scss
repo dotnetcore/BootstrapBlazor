@@ -714,4 +714,28 @@ $bb-upload-item-border-radius: 50%;
 // ValidateForm
 $bb-form-control-padding: 0.375rem 0.75rem;
 
-@import "../components.scss";
+// Layout
+$bb-layout-header-background-dark: var(--bs-body-bg);
+$bb-layout-header-border-color-dark: var(--bs-border-color);
+$bb-layout-banner-border-color-dark: var(--bs-border-color);
+$bb-layout-sidebar-banner-background-dark: var(--bs-body-bg);
+$bb-layout-headerbar-background-dark: #606266;
+$bb-layout-menu-item-hover-bg-dark: #606266;
+$bb-layout-menu-user-banner-background-dark: #2c3034;
+$bb-layout-menu-user-border-color-dark: #2c3034;
+$bb-layout-logo-border-color-dark: var(--bs-border-color);
+$bb-layout-logo-bg-dark: #606266;
+
+// Dropdown
+$bs-dropdown-bg-dark: #343a40;
+
+// Dial-Button
+$bb-dial-item-hover-bg-dark: #313131;
+
+// Split
+$bb-split-bar-bg-dark: #495057;
+$bb-split-bar-handle-bg-dark: var(--bs-body-bg);
+$bb-split-bar-handle-color-dark: #999;
+$bb-split-bar-handle-hover-bg-dark: var(--bs-body-bg);
+$bb-split-bar-handle-hover-color-dark: #999;
+$bb-split-bar-arrow-hover-border-color-dark: #686a6c;

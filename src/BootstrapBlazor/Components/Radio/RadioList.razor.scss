@@ -1,4 +1,6 @@
-﻿.radio-list {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.radio-list {
     --bb-radio-item-width: #{$bb-radio-item-width};
     --bb-radio-item-padding: #{$bb-radio-item-padding};
     --bb-radio-group-item-active-color: #{$bb-radio-group-item-active-color};

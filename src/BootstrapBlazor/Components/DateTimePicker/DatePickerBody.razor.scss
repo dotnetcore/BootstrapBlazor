@@ -1,4 +1,6 @@
-﻿.picker-panel {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.picker-panel {
     --bb-picker-panel-body-width: 320px;
     --bb-picker-hover-color: #409eff;
     --bb-picker-panel-side-width: 0;

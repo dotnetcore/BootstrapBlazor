@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .auto-complete {
     --bb-ac-padding-right: #{$bb-ac-padding-right};
     --bb-select-append-width: #{$bb-select-append-width};

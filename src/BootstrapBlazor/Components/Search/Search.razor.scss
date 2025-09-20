@@ -1,4 +1,6 @@
-﻿.search.auto-complete {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
     --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
     --bb-search-clear-icon-color: var(--bb-select-append-color);

@@ -1,4 +1,6 @@
-﻿.drawer {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.drawer {
     --bb-drawer-bg: var(--bs-body-bg);
     --bb-drawer-zindex: #{$bb-drawer-zindex};
     --bb-drawer-body-shadow: #{$bb-drawer-body-shadow};

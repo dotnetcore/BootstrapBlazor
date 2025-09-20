@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .divider {
     --bb-divider-margin: #{$bb-divider-margin};
     --bb-divider-text-padding: #{$bb-divider-text-padding};

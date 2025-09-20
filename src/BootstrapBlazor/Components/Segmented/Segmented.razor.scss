@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .segmented {
     --bb-segmented-padding: #{$bb-segmented-padding};
     --bb-segmented-bg: #{$bb-segmented-bg};

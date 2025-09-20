@@ -1,4 +1,6 @@
-﻿.upload {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
     --bb-upload-body-list-max-height: #{$bb-upload-body-list-max-height};
     --bb-upload-body-list-item-padding: #{$bb-upload-body-list-item-padding};

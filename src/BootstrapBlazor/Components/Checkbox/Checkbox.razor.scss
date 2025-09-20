@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .form-check {
     --bb-checkbox-label-padding-y: #{$bb-checkbox-label-padding-y};
     --bb-checkbox-height: #{$bb-checkbox-height};

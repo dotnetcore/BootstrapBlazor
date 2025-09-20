@@ -1,4 +1,6 @@
-﻿.bb-intersection-observer {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-intersection-observer {
     --bb-intersection-observer-loading-bg: #{$bb-intersection-observer-loading-bg};
     --bb-intersection-observer-loading-color: #{$bb-intersection-observer-loading-color};
     --bb-intersection-observer-loading-padding: #{$bb-intersection-observer-loading-padding};

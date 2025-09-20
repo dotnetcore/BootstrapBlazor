@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .file-icon {
     --bb-file-icon-width: #{$bb-file-icon-width};
     --bb-file-icon-height: #{$bb-file-icon-height};

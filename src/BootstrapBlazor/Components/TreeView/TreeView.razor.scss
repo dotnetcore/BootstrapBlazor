@@ -1,4 +1,6 @@
-﻿.tree-view {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.tree-view {
     --bb-tree-padding: #{$bb-tree-padding};
     --bb-tree-margin: #{$bb-tree-margin};
     --bb-tree-padding-left: #{$bb-tree-padding-left};

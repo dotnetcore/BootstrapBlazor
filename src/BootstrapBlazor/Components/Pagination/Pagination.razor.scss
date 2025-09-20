@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .nav-pages {
     --bb-pagination-goto-padding: #{$bb-pagination-goto-padding};
     --bb-pagiantion-select-width: #{$bb-pagiantion-select-width};
