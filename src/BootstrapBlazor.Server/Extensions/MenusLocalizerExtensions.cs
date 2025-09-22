@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Longbow.SerialPorts;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Server.Extensions;
@@ -96,6 +97,13 @@ internal static class MenusLocalizerExtensions
             Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
         };
         AddModbus(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["SerialPortComponents"],
+            Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
+        };
+        AddSerialPort(item);
 
         item = new DemoMenuItem()
         {
@@ -260,6 +268,21 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["ModbusFactory"],
                     Url = "modbus-factory"
+                }
+            };
+
+            AddBadge(item, count: 2);
+        }
+
+        void AddSerialPort(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SerialPortFactory"],
+                    Url = "serial-port-factory"
                 }
             };
 
