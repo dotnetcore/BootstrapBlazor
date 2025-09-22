@@ -254,7 +254,8 @@
     "opc-da": "OpcDa",
     "navbar": "Navbars",
     "task-board": "TaskBoard",
-    "modbus-factory": "Modbus\\ModbusFactories"
+    "modbus-factory": "Modbus\\ModbusFactories",
+    "serial-port-factory": "SerialPorts\\SerialPortFactories"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

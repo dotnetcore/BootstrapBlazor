@@ -2,27 +2,33 @@
 @inject IStringLocalizer<SocketFactories> Localizer
 
 <h3>Tcp 套接字服务 <code>ITcpSocketFactory</code></h3>
-<h4>组件库内置了 Socket 套接字通讯服务</h4>
+<h4>组件库内置了 Socket 套接字通信服务</h4>
 
 <PackageTips Name="Longbow.TcpSocket" />
 
-<Tips><div>特别注意：本服务需要 <code>Socket</code> 支持，不支持 <code>wasm</code> 模式</div></Tips>
+<Tips><div>特别注意：本服务不支持 <code>wasm</code> 模式</div></Tips>
 
 <p class="code-label">1. 服务注入</p>
 
 <Pre>services.AddTcpSocketFactory();</Pre>
 
-<p class="code-label">2. 使用服务</p>
-<p>调用 <code>TcpSocketFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ITcpSocketClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ITcpSocketClient</code> 为同一对象</p>
-
 <Pre>[Inject]
 [NotNull]
 private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>TcpSocketFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ITcpSocketClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ITcpSocketClient</code> 为同一对象</p>
 
 <Pre>var client = TcpSocketFactory.GetOrCreate("bb", options =>
 {
     options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
 });</Pre>
+
+<p>可以通过注入服务直接获得 <code>ITcpSocketClient</code> 实例</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketClient? TcpSocketClient { get; set; }</Pre>
 
 <p class="code-label">3. 使用方法</p>
 

@@ -1,0 +1,50 @@
+﻿@page "/serial-port-factory"
+@inject IStringLocalizer<SerialPortFactories> Localizer
+
+<h3>SerialPort 串行通信服务 <code>ISerialPortFactory</code></h3>
+<h4>组件库内置了 SerialPort 串口通信服务</h4>
+
+<PackageTips Name="Longbow.SerialPort" />
+
+<Tips><div>特别注意：本服务不支持 <code>wasm</code> 模式</div></Tips>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>services.AddSerialPortFactory();</Pre>
+
+<Pre>[Inject]
+[NotNull]
+private ISerialPortFactory? SerialPortFactory { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>SerialPortFactory</code> 实例方法 <code>GetOrCreate</code> 即可得到一个 <code>ISerialPortClient</code> 实例。内部提供复用机制，调用两次得到的 <code>ISerialPortClient</code> 为同一对象</p>
+
+<p class="code-label">3. 通过工厂获得相对应协议 <code>ISerialPortClient</code> 实例</p>
+
+<p><code>ISerialPortFactory</code> 实例方法</p>
+
+<ul class="ul-demo">
+    <li>通过 <code>GetOrCreate</code> 获得 <code>ISerialPortClient</code> 实例</li>
+    <li>通过 <code>Remove</code> 移除指定名称的 <code>ISerialPortClient</code> 实例</li>
+</ul>
+
+<Pre>SerialPortFactory.Remove("test");</Pre>
+
+<p>可以通过注入服务直接获得 <code>ISerialPortClient</code> 实例</p>
+
+<Pre>[Inject]
+[NotNull]
+private ISerialPortClient? SerialPortClient { get; set; }</Pre>
+
+<p><code>ISerialPortClient</code> 实例方法</p>
+
+<ul class="ul-demo">
+    <li>打开端口方法 <code>OpenAsync</code></li>
+    <li>发送数据方法 <code>SendAsync</code></li>
+    <li>接收数据方法 <code>ReceiveAsync</code></li>
+    <li>关闭端口方法 <code>CloseAsync</code></li>
+</ul>
+
+<p class="code-label">4. 串口参数配置类 <code>SerialPortOptions</code></p>
+
+<p>通过此配置类对串口参数进行配置</p>

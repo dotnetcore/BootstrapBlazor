@@ -1,23 +1,23 @@
 ﻿@page "/modbus-factory"
 @inject IStringLocalizer<ModbusFactories> Localizer
 
-<h3>Modbus 串行通讯服务 <code>IModbusFactory</code></h3>
-<h4>组件库内置了 Modbus 串行通讯服务</h4>
+<h3>Modbus 串行通信服务 <code>IModbusFactory</code></h3>
+<h4>组件库内置了 Modbus 串行通信服务</h4>
 
 <PackageTips Name="Longbow.Modbus" />
 
-<Tips><div>特别注意：本服务需要 <code>Socket</code> 支持，不支持 <code>wasm</code> 模式</div></Tips>
+<Tips><div>特别注意：本服务不支持 <code>wasm</code> 模式</div></Tips>
 
 <p class="code-label">1. 服务注入</p>
 
 <Pre>services.AddModbusFactory();</Pre>
 
-<p class="code-label">2. 使用服务</p>
-<p>调用 <code>ModbusFactory</code> 实例方法 <code>GetOrCreateTcpMaster</code> 即可得到一个 <code>IModbusClient</code> 实例。内部提供复用机制，调用两次得到的 <code>IModbusClient</code> 为同一对象</p>
-
 <Pre>[Inject]
 [NotNull]
 private IModbusFactory? ModbusFactory { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>ModbusFactory</code> 实例方法 <code>GetOrCreateTcpMaster</code> 即可得到一个 <code>IModbusClient</code> 实例。内部提供复用机制，调用两次得到的 <code>IModbusClient</code> 为同一对象</p>
 
 <p class="code-label">3. 通过工厂获得相对应协议 <code>IModbusClient</code> 实例</p>
 
