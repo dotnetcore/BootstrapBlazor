@@ -24,6 +24,12 @@ private ITcpSocketFactory? TcpSocketFactory { get; set; }</Pre>
     options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
 });</Pre>
 
+<p>可以通过注入服务直接获得 <code>ITcpSocketClient</code> 实例</p>
+
+<Pre>[Inject]
+[NotNull]
+private ITcpSocketClient? TcpSocketClient { get; set; }</Pre>
+
 <p class="code-label">3. 使用方法</p>
 
 <p>注意：以下方法均为线程不安全方法，多线程并发时需要自行处理</p>
