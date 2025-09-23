@@ -61,7 +61,7 @@ public partial class ListGroup<TItem>
         .Build();
 
     private string? GetItemClassString(TItem item) => CssBuilder.Default("list-group-item")
-        .AddClass("active", Value.Equals(item))
+        .AddClass("active", Value != null && Value.Equals(item))
         .Build();
 
     /// <summary>
