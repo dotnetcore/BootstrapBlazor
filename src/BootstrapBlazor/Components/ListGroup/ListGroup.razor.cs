@@ -45,6 +45,12 @@ public partial class ListGroup<TItem>
     public Func<TItem, Task>? OnClickItem { get; set; }
 
     /// <summary>
+    /// 获得/设置 双击 List 项目回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, Task>? OnDoubleClickItem { get; set; }
+
+    /// <summary>
     /// 获得/设置 获得条目显示文本内容回调方法
     /// </summary>
     [Parameter]
@@ -75,6 +81,15 @@ public partial class ListGroup<TItem>
         if (OnClickItem != null)
         {
             await OnClickItem(item);
+        }
+        CurrentValue = item;
+    }
+
+    private async Task OnDoubleClick(TItem item)
+    {
+        if (OnDoubleClickItem != null)
+        {
+            await OnDoubleClickItem(item);
         }
         CurrentValue = item;
     }

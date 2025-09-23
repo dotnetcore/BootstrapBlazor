@@ -6488,6 +6488,7 @@
     "AttrHeaderText": "the title of Header",
     "AttrItemTemplate": "the template of Item",
     "AttrOnClickItem": "the callback on click item",
+    "AttrOnDoubleClickItem": "the callback on double click item",
     "GetItemDisplayText": "the callback on get item display text"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
