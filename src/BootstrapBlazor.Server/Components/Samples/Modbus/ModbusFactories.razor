@@ -83,7 +83,7 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
 <Pre>public interface IModbusResponse
 {
   // 获得 原始数据
-  ReadOnlyMemory&lt;byte&gt; RawData { get; }
+  ReadOnlyMemory&lt;byte&gt; Buffer { get; }
 
   // 获得 Longbow.Modbus.IModbusMessageBuilder 实例
   IModbusMessageBuilder Builder { get; }
@@ -92,13 +92,13 @@ private IModbusFactory? ModbusFactory { get; set; }</Pre>
 <p>通过调用其扩展方法或者 <code>Builder</code> 属性 <code>IModbusMessageBuilder</code> 实例方法</p>
 
 <ul class="ul-demo">
-    <li><code>ReadBoolValues</code> 将 <code>IModbusResponse</code> 实例中 <code>RawData</code> 转换成布尔数组</li>
-    <li><code>ReadUShortValues</code> 将 <code>IModbusResponse</code> 实例中 <code>RawData</code> 转换成无符号短整型数组</li>
+    <li><code>ReadBoolValues</code> 将 <code>IModbusResponse</code> 实例中 <code>Buffer</code> 转换成布尔数组</li>
+    <li><code>ReadUShortValues</code> 将 <code>IModbusResponse</code> 实例中 <code>Buffer</code> 转换成无符号短整型数组</li>
 </ul>
 
-<p>通过接口 <code>IModbusResponse</code> 获得到其原始数据 <code>RawData</code> 可以通过自定义扩展非常方便的扩展出符合自己业务的数据类型。如通过连续 2 个寄存器存储的数据，得到遵循 IEEE 754 标准的 32 位 <b>浮点数</b></p>
+<p>通过接口 <code>IModbusResponse</code> 获得到其原始数据 <code>Buffer</code> 可以通过自定义扩展非常方便的扩展出符合自己业务的数据类型。如通过连续 2 个寄存器存储的数据，得到遵循 IEEE 754 标准的 32 位 <b>浮点数</b></p>
 
-<p><b>注意：</b>在将 <code>RawData</code> 转换为自定义类型（如 32 位浮点数）时，需要注意字节序（Endianness）。字节序会影响数据的解释方式，错误的字节序可能导致解析结果不正确。请根据实际设备或协议规范选择合适的字节序进行转换。</p>
+<p><b>注意：</b>在将 <code>Buffer</code> 转换为自定义类型（如 32 位浮点数）时，需要注意字节序（Endianness）。字节序会影响数据的解释方式，错误的字节序可能导致解析结果不正确。请根据实际设备或协议规范选择合适的字节序进行转换。</p>
 
 <p>项目包含 Benchmark 基准测试工程</p>
 
@@ -152,6 +152,5 @@ public async Task LongbowModbus()
 
     <Pre>| Method            | Mean    | Error    | StdDev   | Allocated |
 |------------------ |--------:|---------:|---------:|----------:|
-| LongbowModbus     | 2.458 s | 0.0488 s | 0.1007 s |   2.11 MB |
-| NModbus           | 4.752 s | 0.1544 s | 0.4552 s |    3.3 MB |
-</Pre>
+| LongbowModbus     | 2.458 s | 0.0488 s | 0.1007 s |   1.32 MB |
+| NModbus           | 4.752 s | 0.1544 s | 0.4552 s |    3.3 MB |</Pre>
