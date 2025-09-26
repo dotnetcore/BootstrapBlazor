@@ -85,6 +85,10 @@
 .modal-multiple .modal-dialog {
     position: fixed;
     inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bs-modal-margin, 0.5rem);
 
     &:last-child:before {
         content: "";
@@ -93,6 +97,19 @@
         background-color: #000;
         opacity: 0.3;
         pointer-events: auto;
+    }
+
+    // Ensure scrolling works for multiple dialogs by fixing the modal-content sizing
+    .modal-content {
+        max-height: calc(100vh - var(--bs-modal-margin, 0.5rem) * 2);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body {
+        overflow-y: auto;
+        flex: 1 1 auto;
     }
 }
 
