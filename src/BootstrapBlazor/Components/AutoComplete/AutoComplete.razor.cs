@@ -85,6 +85,8 @@ public partial class AutoComplete
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
+    private string _clientValue = "";
+
     private string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-clearable", IsClearable)
         .Build();
@@ -117,6 +119,8 @@ public partial class AutoComplete
                 _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
             }
         }
+
+        _clientValue = Value ?? "";
     }
 
     /// <summary>
@@ -130,6 +134,25 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            if (Value != _clientValue)
+            {
+                _clientValue = Value;
+                await InvokeVoidAsync("setValue", Id, _clientValue);
+            }
+        }
     }
 
     /// <summary>
