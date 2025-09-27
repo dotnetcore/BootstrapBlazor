@@ -64,6 +64,10 @@ export function init(id, invoke, value) {
         }
     });
 
+    EventHandler.on(input, 'change', e => {
+        invoke.invokeMethodAsync('TriggerChange', e.target.value);
+    });
+
     let filterDuration = duration;
     if (filterDuration === 0) {
         filterDuration = 200;
