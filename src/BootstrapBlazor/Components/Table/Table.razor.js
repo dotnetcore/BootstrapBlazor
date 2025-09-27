@@ -715,10 +715,10 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        rows = table.body.querySelectorAll('table > tbody > tr');
+        rows = table.body.querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
     else {
-        rows = table.tables[0].querySelectorAll('table > tbody > tr');
+        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
 
     let maxWidth = 0;
