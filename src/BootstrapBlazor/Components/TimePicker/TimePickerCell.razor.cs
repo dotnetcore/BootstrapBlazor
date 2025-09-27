@@ -53,7 +53,7 @@ public partial class TimePickerCell
     /// 获得 组件单元数据样式
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddStyle("transform", $"translateY({CalcTranslateY().ToString(CultureInfo.InvariantCulture)}px)")
+        .AddClass($"transform: translateY({CalcTranslateY().ToString(CultureInfo.InvariantCulture)}px);")
         .Build();
 
     private string? UpIconString => CssBuilder.Default("time-spinner-arrow time-up")
