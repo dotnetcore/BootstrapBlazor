@@ -85,7 +85,7 @@ public partial class AutoComplete
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
-    private string _clientValue = "";
+    private string? _clientValue;
 
     private string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-clearable", IsClearable)
@@ -133,7 +133,7 @@ public partial class AutoComplete
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        _clientValue = Value ?? "";
+        _clientValue = Value;
     }
 
     /// <summary>
