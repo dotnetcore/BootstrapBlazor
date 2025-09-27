@@ -102,44 +102,35 @@ public class TimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TimePickerCell_StyleName_CultureInvariant()
+    public async Task TimePickerCell_StyleName_CultureInvariant()
     {
-        // Save original culture
+        // 保存老的 Culture 设置
         var originalCulture = CultureInfo.CurrentCulture;
         var originalUICulture = CultureInfo.CurrentUICulture;
-        
-        try
+
+        // 设置为土耳其文化环境 小数点使用逗号
+        var trCulture = new CultureInfo("tr-TR");
+        CultureInfo.CurrentCulture = trCulture;
+        CultureInfo.CurrentUICulture = trCulture;
+
+        var cut = Context.RenderComponent<TimePickerCell>(pb =>
         {
-            // Set culture to Turkish which uses comma as decimal separator
-            var turkishCulture = new CultureInfo("tr-TR");
-            CultureInfo.CurrentCulture = turkishCulture;
-            CultureInfo.CurrentUICulture = turkishCulture;
-            
-            var cut = Context.RenderComponent<TimePickerCell>(pb =>
-            {
-                pb.Add(a => a.ViewMode, TimePickerCellViewMode.Hour);
-                pb.Add(a => a.Value, TimeSpan.FromHours(2.5));
-            });
-            
-            // Call OnHeightCallback to set internal height
-            cut.InvokeAsync(() => cut.Instance.OnHeightCallback(36.59375));
-            
-            // The StyleName property should use dots, not commas, even in Turkish culture
-            var styleElement = cut.Find("ul.time-spinner-list");
-            var style = styleElement.GetAttribute("style");
-            
-            // CSS should use dots for decimal values, not commas
-            Assert.Contains(".", style);
-            Assert.DoesNotContain(",", style);
-            
-            // Should contain valid translateY with dot decimal separator
-            Assert.Matches(@"transform:\s*translateY\(-?\d+\.\d*px\);", style);
-        }
-        finally
-        {
-            // Restore original culture
-            CultureInfo.CurrentCulture = originalCulture;
-            CultureInfo.CurrentUICulture = originalUICulture;
-        }
+            pb.Add(a => a.ViewMode, TimePickerCellViewMode.Hour);
+            pb.Add(a => a.Value, TimeSpan.FromHours(2.5));
+        });
+
+        // 调用 OnHeightCallback 方法设置高度
+        await cut.InvokeAsync(() => cut.Instance.OnHeightCallback(12.25));
+        cut.SetParametersAndRender();
+
+        // 检查高度样式是否正确生成应该是用点而不是逗号
+        var styleElement = cut.Find("ul.time-spinner-list");
+        var style = styleElement.GetAttribute("style");
+
+        Assert.Contains("-24.5px", style);
+
+        // 恢复当前线程文化设置
+        CultureInfo.CurrentCulture = originalCulture;
+        CultureInfo.CurrentUICulture = originalUICulture;
     }
 }
