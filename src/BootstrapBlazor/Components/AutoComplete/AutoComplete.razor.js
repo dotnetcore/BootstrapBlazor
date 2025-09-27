@@ -5,13 +5,14 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke, value) {
+export function init(id, invoke, options) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
 
+    const { value, changedEventCallback } = options;
     input.value = value;
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
@@ -64,9 +65,11 @@ export function init(id, invoke, value) {
         }
     });
 
-    EventHandler.on(input, 'change', e => {
-        invoke.invokeMethodAsync('TriggerChange', e.target.value);
-    });
+    if (changedEventCallback) {
+        EventHandler.on(input, 'change', e => {
+            invoke.invokeMethodAsync('TriggerChange', e.target.value);
+        });
+    }
 
     let filterDuration = duration;
     if (filterDuration === 0) {
