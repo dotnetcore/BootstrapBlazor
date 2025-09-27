@@ -67,7 +67,7 @@ export function init(id, invoke, options) {
 
     if (changedEventCallback) {
         EventHandler.on(input, 'change', e => {
-            invoke.invokeMethodAsync('TriggerChange', e.target.value);
+            invoke.invokeMethodAsync(changedEventCallback, e.target.value);
         });
     }
 
