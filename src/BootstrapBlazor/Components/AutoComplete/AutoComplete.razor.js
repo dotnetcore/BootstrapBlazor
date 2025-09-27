@@ -5,12 +5,14 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke) {
+export function init(id, invoke, value) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
+
+    input.value = value;
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
     if (isPopover) {
