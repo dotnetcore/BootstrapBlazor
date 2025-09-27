@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: read
 
     steps:
     - uses: actions/checkout@v4
@@ -23,13 +24,13 @@ jobs:
 
     - name: NuGet login
       uses: NuGet/login@v1
-      id: nuget-login
+      id: login
       with:
         user: ${{ secrets.NUGET_USER }}
 
     - name: Publish to Nuget
       env:
-        NUGET_API_KEY: ${{steps.nuget-login.outputs.NUGET_API_KEY}}
+        NUGET_API_KEY: ${{steps.login.outputs.NUGET_API_KEY}}
         Bundle: True
 
       run: |
