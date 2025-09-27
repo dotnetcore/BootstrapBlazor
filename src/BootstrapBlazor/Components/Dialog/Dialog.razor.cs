@@ -166,6 +166,11 @@ public partial class Dialog : IDisposable
 
     private static RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>
     {
+        if (index > 0)
+        {
+            parameter[nameof(ModalDialog.IsScrolling)] = true;
+        }
+
         builder.OpenComponent<ModalDialog>(100 + index);
         builder.AddMultipleAttributes(101 + index, parameter);
         builder.SetKey(parameter);
