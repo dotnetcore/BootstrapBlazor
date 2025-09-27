@@ -119,8 +119,6 @@ public partial class AutoComplete
                 _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
             }
         }
-
-        _clientValue = Value ?? "";
     }
 
     /// <summary>
@@ -134,6 +132,8 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+
+        _clientValue = Value ?? "";
     }
 
     /// <summary>
