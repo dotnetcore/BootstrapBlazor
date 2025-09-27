@@ -5,12 +5,14 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke) {
+export function init(id, invoke, value, changedEventCallback) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
+
+    input.value = value;
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
     if (isPopover) {
@@ -61,6 +63,12 @@ export function init(id, invoke) {
             }
         }
     });
+
+    if (changedEventCallback) {
+        EventHandler.on(input, 'change', e => {
+            invoke.invokeMethodAsync(changedEventCallback, e.target.value);
+        });
+    }
 
     let filterDuration = duration;
     if (filterDuration === 0) {
@@ -133,6 +141,11 @@ export function init(id, invoke) {
         EventHandler.on(document, 'click', ac.closePopover);
         EventHandler.on(document, 'keyup', ac.keyup);
     });
+
+    EventHandler.on(el, 'click', '.clear-icon', e => {
+        input.value = '';
+        invoke.invokeMethodAsync('TriggerFilter', '');
+    });
 }
 
 const handlerKeyup = (ac, e) => {
@@ -175,12 +188,20 @@ const handlerKeyup = (ac, e) => {
     }
 }
 
+export function setValue(id, value) {
+    const ac = Data.get(id)
+    const { input } = ac;
+    if (input) {
+        input.value = value;
+    }
+}
+
 export function dispose(id) {
     const ac = Data.get(id)
     Data.remove(id)
 
     if (ac) {
-        const { popover, input, menu } = ac;
+        const { el, popover, input, menu } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
@@ -190,6 +211,8 @@ export function dispose(id) {
         EventHandler.off(menu, 'click');
         EventHandler.off(input, 'keyup');
         Input.dispose(input);
+
+        EventHandler.off(el, 'click');
     }
 
     const { AutoComplete } = window.BootstrapBlazor;

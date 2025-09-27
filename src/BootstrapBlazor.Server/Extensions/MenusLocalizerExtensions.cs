@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Longbow.SerialPorts;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Server.Extensions;
@@ -89,6 +90,20 @@ internal static class MenusLocalizerExtensions
             Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
         };
         AddSocket(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["ModbusComponents"],
+            Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
+        };
+        AddModbus(item);
+
+        item = new DemoMenuItem()
+        {
+            Text = Localizer["SerialPortComponents"],
+            Icon = "fa-fw fa-solid fa-satellite-dish text-danger"
+        };
+        AddSerialPort(item);
 
         item = new DemoMenuItem()
         {
@@ -209,6 +224,12 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["TcpSocketFactory"],
+                    Url = "socket-factory"
+                },
+                new()
+                {
                     Text = Localizer["SocketManualReceive"],
                     Url = "socket/manual-receive"
                 },
@@ -234,7 +255,38 @@ internal static class MenusLocalizerExtensions
                     Url = "socket/data-entity"
                 }
             };
-            AddBadge(item, count: 1);
+
+            AddBadge(item, count: 2);
+        }
+
+        void AddModbus(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["ModbusFactory"],
+                    Url = "modbus-factory"
+                }
+            };
+
+            AddBadge(item, count: 2);
+        }
+
+        void AddSerialPort(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SerialPortFactory"],
+                    Url = "serial-port-factory"
+                }
+            };
+
+            AddBadge(item, count: 2);
         }
 
         void AddQuickStar(DemoMenuItem item)
@@ -1639,12 +1691,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["PrintService"],
                     Url = "print-service"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["TcpSocketFactory"],
-                    Url = "socket-factory"
                 },
                 new()
                 {

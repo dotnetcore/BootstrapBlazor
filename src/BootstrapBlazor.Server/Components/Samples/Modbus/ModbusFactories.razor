@@ -1,0 +1,156 @@
+﻿@page "/modbus-factory"
+@inject IStringLocalizer<ModbusFactories> Localizer
+
+<h3>Modbus 串行通信服务 <code>IModbusFactory</code></h3>
+<h4>组件库内置了 Modbus 串行通信服务</h4>
+
+<PackageTips Name="Longbow.Modbus" />
+
+<Tips><div>特别注意：本服务不支持 <code>wasm</code> 模式</div></Tips>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>services.AddModbusFactory();</Pre>
+
+<Pre>[Inject]
+[NotNull]
+private IModbusFactory? ModbusFactory { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>ModbusFactory</code> 实例方法 <code>GetOrCreateTcpMaster</code> 即可得到一个 <code>IModbusClient</code> 实例。内部提供复用机制，调用两次得到的 <code>IModbusClient</code> 为同一对象</p>
+
+<p class="code-label">3. 通过工厂获得相对应协议 <code>IModbusClient</code> 实例</p>
+
+<p><code>IModbusClient</code> 有两个派生类</p>
+
+<ul class="ul-demo">
+	<li><code>Socket</code> 通讯协议 <code>Tcp/Udp</code> 使用 <code>IModbusTcpClient</code></li>
+	<li><code>SerialPort</code> 通讯协议 <code>RTU</code> 使用 <code>IModbusRtuClient</code></li>
+</ul>
+
+<p>Modbus 可以通过不同的物理介质传输，主要有以下几种方式：</p>
+
+<ul class="ul-demo">
+    <li><code>Modbus RTU (Remote Terminal Unit)</code>: 采用二进制编码，使用紧凑的二进制表示数据，效率高，是最常用的串行通信模式。通常基于 <code>RS-485</code>（支持多设备）或 <code>RS-232</code>（点对点）物理层，CRC 校验确保数据完整性。</li>
+    <li><code>Modbus TCP/IP</code>: 运行于以太网上，使用 <code>TCP/IP</code> 协议，默认端口 <code>502</code>。它在 Modbus RTU 协议基础上添加了 MBAP 报文头，并由于TCP本身是可靠连接的服务，因此去掉了 CRC 校验码。</li>
+</ul>
+
+<p><code>IModbusFactory</code> 实例方法</p>
+
+<ul class="ul-demo">
+    <li>通过 <code>GetOrCreateTcpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+    <li>通过 <code>GetOrCreateUdpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuMaster</code> 方法得到 <code>IModbusRtuClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuOverTcpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+	<li>通过 <code>GetOrCreateRtuOverUdpMaster</code> 方法得到 <code>IModbusTcpClient</code> 实例</li>
+</ul>
+
+<p>调用其对应的 <code>Remove</code> 方法即可从缓存中移除指定名称的 <code>IModbusClient</code> 实例。如</p>
+
+<Pre>ModbusFactory.RemoveTcpMaster("test");</Pre>
+
+<p class="code-label">4. 数据操作</p>
+
+<p><code>Modbus</code> 数据类型共四种</p>
+
+<ul class="ul-demo">
+	<li>线圈 (Coils) 可读可写 数字量输出，如开关状态</li>
+	<li>离散输入 (Discrete Inputs) 只读 数字量输出，如开关状态</li>
+	<li>输入寄存器 (Input Registers) 只读 模拟量输入，如温度、压力传感器数据</li>
+	<li>保持寄存器 (Holding Registers) 可读可写 模拟量输出，如设定值、控制参数</li>
+</ul>
+
+<p>对应 <code>IModbusClient</code> 实例方法如下</p>
+
+<ul class="ul-demo">
+    <li>线圈 (Coils) <code>ReadCoilsAsync</code> <code>WriteCoilAsync</code> <code>WriteMultipleCoilsAsync</code></li>
+    <li>离散输入 (Discrete Inputs) <code>ReadInputsAsync</code></li>
+    <li>输入寄存器 (Input Registers) <code>ReadInputRegistersAsync</code></li>
+    <li>保持寄存器 (Holding Registers) <code>ReadHoldingRegistersAsync</code> <code>WriteRegisterAsync</code> <code>WriteMultipleRegistersAsync</code></li>
+</ul>
+
+<p>Modbus 协议的最大读取/写入数量限制参考自 Modbus Application Protocol Specification V1.1b3:</p>
+
+<ul class="ul-demo">
+    <li>线圈 (Coils) 最大读取数量: <code>2000</code>, 最大写入数量: <code>1968</code></li>
+    <li>离散输入 (Discrete Inputs) 最大读取数量: <code>2000</code></li>
+    <li>输入寄存器 (Input Registers) 最大读取数量: <code>125</code></li>
+    <li>保持寄存器 (Holding Registers) 最大读取数量: <code>125</code>, 最大写入数量: <code>123</code></li>
+</ul>
+
+<p><code>IModbusClient</code> 所有读取返回值均为 <code>IModbusResponse</code> 实例</p> 其定义如下：
+
+<Pre>public interface IModbusResponse
+{
+  // 获得 原始数据
+  ReadOnlyMemory&lt;byte&gt; Buffer { get; }
+
+  // 获得 Longbow.Modbus.IModbusMessageBuilder 实例
+  IModbusMessageBuilder Builder { get; }
+}</Pre>
+
+<p>通过调用其扩展方法或者 <code>Builder</code> 属性 <code>IModbusMessageBuilder</code> 实例方法</p>
+
+<ul class="ul-demo">
+    <li><code>ReadBoolValues</code> 将 <code>IModbusResponse</code> 实例中 <code>Buffer</code> 转换成布尔数组</li>
+    <li><code>ReadUShortValues</code> 将 <code>IModbusResponse</code> 实例中 <code>Buffer</code> 转换成无符号短整型数组</li>
+</ul>
+
+<p>通过接口 <code>IModbusResponse</code> 获得到其原始数据 <code>Buffer</code> 可以通过自定义扩展非常方便的扩展出符合自己业务的数据类型。如通过连续 2 个寄存器存储的数据，得到遵循 IEEE 754 标准的 32 位 <b>浮点数</b></p>
+
+<p><b>注意：</b>在将 <code>Buffer</code> 转换为自定义类型（如 32 位浮点数）时，需要注意字节序（Endianness）。字节序会影响数据的解释方式，错误的字节序可能导致解析结果不正确。请根据实际设备或协议规范选择合适的字节序进行转换。</p>
+
+<p>项目包含 Benchmark 基准测试工程</p>
+
+<Pre>private const int NumberOfTask = 10;
+private const int TaskNumberOfClient = 10;
+private const int ClientCount = 10;
+
+private async Task InitLongbowModbus()
+{
+    var sc = new ServiceCollection();
+    sc.AddModbusFactory();
+
+    var provider = sc.BuildServiceProvider();
+    var factory = provider.GetRequiredService&lt;IModbusFactory&gt;();
+
+    for (var index = 0; index &lt; ClientCount; index++)
+    {
+        var client = factory.GetOrCreateTcpMaster();
+        await client.ConnectAsync("127.0.0.1", 502);
+        await client.ReadHoldingRegistersAsync(0x01, 0x00, 100);
+
+        _lgbModbusClients.Add(client);
+    }
+}
+
+[Benchmark]
+public async Task LongbowModbus()
+{
+    var tasks = _lgbModbusClients.SelectMany(c =>
+    {
+        var tasks = new List&lt;Task&gt;();
+        for (int i = 0; i &lt; TaskNumberOfClient; i++)
+        {
+            tasks.Add(Task.Run(async () =&gt;
+            {
+                for (int i = 0; i &lt; NumberOfTask; i++)
+                {
+                    var d = await c.ReadHoldingRegistersAsync(1, 0, 100);
+                }
+            }));
+        }
+        return tasks;
+    }).ToList();
+
+    await Task.WhenAll(tasks);
+}</Pre>
+
+<p>共 10 个 <code>Socket</code> 连接，每个连接 10 个并发任务，每个任务进行 10 次 <code>ReadHoldingRegistersAsync</code> 方法调用，每个方法读取 100 个地址数据</p>
+
+<p>Benchmark 结果如下：</p>
+
+    <Pre>| Method            | Mean    | Error    | StdDev   | Allocated |
+|------------------ |--------:|---------:|---------:|----------:|
+| LongbowModbus     | 2.442 s | 0.0471 s | 0.0503 s |   1.14 MB |
+| NModbus           | 4.752 s | 0.1544 s | 0.4552 s |    3.3 MB |</Pre>

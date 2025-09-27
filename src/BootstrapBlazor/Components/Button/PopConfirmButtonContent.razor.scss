@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .popover {
     --bs-popover-min-width: #{$bb-popover-min-width};
     --bb-popover-buttons-justify-content: #{$bb-popover-buttons-justify-content};

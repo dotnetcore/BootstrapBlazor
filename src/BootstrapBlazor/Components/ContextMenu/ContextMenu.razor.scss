@@ -1,4 +1,6 @@
-﻿.bb-cm {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-cm {
     --bb-cm-icon-min-width: #{$bb-cm-icon-min-width};
     --bb-cm-icon-min-height: #{$bb-cm-icon-min-height};
     z-index: 1200;

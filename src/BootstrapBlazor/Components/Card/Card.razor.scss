@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .card {
     --bb-card-shadow: #{$bb-card-shadow};
     --bb-card-hover-shadow: #{$bb-card-hover-shadow};

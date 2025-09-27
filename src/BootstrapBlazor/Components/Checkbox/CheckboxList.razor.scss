@@ -1,4 +1,6 @@
-﻿.checkbox-list {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.checkbox-list {
     --bb-checkbox-item-width: #{$bb-checkbox-item-width};
     min-height: var(--bb-height);
     height: auto;

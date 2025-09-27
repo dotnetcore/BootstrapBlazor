@@ -1,4 +1,6 @@
-﻿.layout-split-bar {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.layout-split-bar {
     width: 1px;
     position: absolute;
     top: 0;

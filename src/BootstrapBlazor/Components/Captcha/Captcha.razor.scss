@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .captcha {
     --bb-captcha-refresh-padding-left: #{$bb-captcha-refresh-padding-left};
     --bb-captcha-radius: #{$bb-captcha-radius};

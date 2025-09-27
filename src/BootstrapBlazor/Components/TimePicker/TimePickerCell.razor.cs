@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -51,7 +53,7 @@ public partial class TimePickerCell
     /// 获得 组件单元数据样式
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddClass($"transform: translateY({CalcTranslateY()}px);")
+        .AddClass($"transform: translateY({CalcTranslateY().ToString(CultureInfo.InvariantCulture)}px);")
         .Build();
 
     private string? UpIconString => CssBuilder.Default("time-spinner-arrow time-up")

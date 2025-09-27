@@ -15,13 +15,6 @@ namespace BootstrapBlazor.Components;
 public partial class AutoFill<TValue>
 {
     /// <summary>
-    /// Gets the component style.
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
-        .AddClass("is-clearable", IsClearable)
-        .Build();
-
-    /// <summary>
     /// Gets or sets the collection of items for the component.
     /// </summary>
     [Parameter]
@@ -120,19 +113,6 @@ public partial class AutoFill<TValue>
     public Func<VirtualizeQueryOption, Task<QueryData<TValue>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select component is clearable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback method when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
@@ -153,6 +133,13 @@ public partial class AutoFill<TValue>
 
     [NotNull]
     private RenderTemplate? _dropdown = null;
+
+    /// <summary>
+    /// Gets the component style.
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClass("is-clearable", IsClearable)
+        .Build();
 
     /// <summary>
     /// Gets the clear icon class string.
@@ -178,12 +165,16 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         _displayText = GetDisplayText(Value);
         Items ??= [];
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -194,27 +185,6 @@ public partial class AutoFill<TValue>
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    private async Task OnClearValue()
-    {
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
-        CurrentValue = default;
-        _displayText = null;
-        _filterItems = null;
-        _searchText = null;
-
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-    }
-
-    /// <summary>
     /// Callback method when a candidate item is clicked.
     /// </summary>
     /// <param name="val">The value of the clicked item.</param>
@@ -222,6 +192,9 @@ public partial class AutoFill<TValue>
     {
         CurrentValue = val;
         _displayText = GetDisplayText(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, _displayText);
 
         if (OnSelectedItemChanged != null)
         {
@@ -257,6 +230,18 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public async Task TriggerFilter(string val)
     {
+        if (string.IsNullOrEmpty(val))
+        {
+            CurrentValue = default;
+            _filterItems = null;
+            _displayText = null;
+
+            if (OnClearAsync != null)
+            {
+                await OnClearAsync();
+            }
+        }
+
         if (OnQueryAsync != null)
         {
             _searchText = val;

@@ -92,6 +92,19 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public RenderFragment<TValue>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
     /// </summary>
     protected string? SkipEscString => SkipEsc ? "true" : null;
@@ -155,14 +168,10 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     {
         base.OnParametersSet();
 
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
+
         Offset ??= "[0, 6]";
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// 触发 OnBlur 回调方法 由 Javascript 触发

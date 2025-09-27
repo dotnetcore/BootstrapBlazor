@@ -1,4 +1,6 @@
-﻿.select,
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.select,
 .popover-dropdown {
     --bb-dropdown-link-pre-active-bg: #{$bb-dropdown-link-pre-active-bg};
 }

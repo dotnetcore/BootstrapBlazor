@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .calendar {
     --bb-calendar-padding: #{$bb-calendar-padding};
     --bb-calendar-header-border-bottom: #{$bb-calendar-header-border-bottom};

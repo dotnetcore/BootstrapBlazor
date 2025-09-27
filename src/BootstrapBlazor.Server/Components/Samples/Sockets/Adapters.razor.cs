@@ -45,12 +45,11 @@ public partial class Adapters : IDisposable
         });
 
         // 此处代码分开写是为了判断 _useDataAdapter 参数
-        _client.ReceivedCallBack += OnReceivedAsync;
-        _dataAdapter.ReceivedCallBack = UpdateReceiveLog;
+        _client.ReceivedCallback += OnReceivedAsync;
+        _dataAdapter.ReceivedCallback = UpdateReceiveLog;
 
         // 实战中可以通过下面一句话设置数据适配器与回调方法
         // _client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);
-
     }
 
     private async Task OnConnectAsync()
@@ -143,7 +142,7 @@ public partial class Adapters : IDisposable
     {
         if (disposing)
         {
-            _client.ReceivedCallBack -= OnReceivedAsync;
+            _client.ReceivedCallback -= OnReceivedAsync;
 
             // 释放连接令牌资源
             _connectTokenSource.Cancel();

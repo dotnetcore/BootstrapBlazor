@@ -85,6 +85,21 @@ public partial class AutoComplete
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
+    private string? _clientValue;
+
+    private string? ClassString => CssBuilder.Default("auto-complete")
+        .AddClass("is-clearable", IsClearable)
+        .Build();
+
+    /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -117,7 +132,42 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+
+        _clientValue = Value;
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            if (Value != _clientValue)
+            {
+                _clientValue = Value;
+                await InvokeVoidAsync("setValue", Id, _clientValue);
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, GetChangedEventCallbackName());
+
+    private string? GetChangedEventCallbackName() => (OnValueChanged != null || ValueChanged.HasDelegate) ? nameof(TriggerChange) : null;
+
+    /// <summary>
+    /// Gets whether show the clear button.
+    /// </summary>
+    /// <returns></returns>
+    private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
     /// Callback method when a candidate item is clicked
@@ -137,6 +187,9 @@ public partial class AutoComplete
         }
 
         await TriggerFilter(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, val);
     }
 
     private List<string> Rows => _filterItems ?? [.. Items];
@@ -169,6 +222,20 @@ public partial class AutoComplete
 
         // only render the dropdown menu
         _dropdown.Render();
+    }
+
+    /// <summary>
+    /// 支持双向绑定 由客户端 JavaScript 触发
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerChange(string v)
+    {
+        _clientValue = v;
+        CurrentValueAsString = v;
+
+        return Task.CompletedTask;
     }
 
     private List<string> GetFilterItemsByValue(string val)

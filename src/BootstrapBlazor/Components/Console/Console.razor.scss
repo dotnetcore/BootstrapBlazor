@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .console {
     --bs-card-color: #{$bb-console-color};
     --bb-console-body-bg: #{$bb-console-body-bg};

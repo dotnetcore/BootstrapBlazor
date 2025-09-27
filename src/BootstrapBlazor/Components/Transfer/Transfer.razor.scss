@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .transfer {
     --bb-transfer-panel-header-height: #{$bb-transfer-panel-header-height};
     --bb-transfer-panel-header-padding: #{$bb-transfer-panel-header-padding};

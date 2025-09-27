@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .datetime-range {
     --bb-dt-range-bar-color: #{$bb-dt-range-bar-color};
     --bb-dt-range-input-width: #{$bb-dt-range-input-width};

@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .widget {
     --bb-widget-toggle-color: #{$bb-widget-toggle-color};
     --bb-widget-toggle-padding: #{$bb-widget-toggle-padding};
