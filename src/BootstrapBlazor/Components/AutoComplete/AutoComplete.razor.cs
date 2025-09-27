@@ -159,7 +159,7 @@ public partial class AutoComplete
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Value, ChangedEventCallback = GetChangedEventCallbackName() });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, GetChangedEventCallbackName());
 
     private string? GetChangedEventCallbackName() => (OnValueChanged != null || ValueChanged.HasDelegate) ? nameof(TriggerChange) : null;
 
