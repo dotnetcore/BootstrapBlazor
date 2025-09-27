@@ -199,6 +199,20 @@ public partial class AutoComplete
         _dropdown.Render();
     }
 
+    /// <summary>
+    /// 支持双向绑定 由客户端 JavaScript 触发
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerChange(string v)
+    {
+        _clientValue = v;
+        CurrentValueAsString = v;
+
+        return Task.CompletedTask;
+    }
+
     private List<string> GetFilterItemsByValue(string val)
     {
         var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
