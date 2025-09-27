@@ -55,6 +55,37 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task BindValue_Ok()
+    {
+        // 由于设置了双向绑定 Value 改变后触发 change 事件
+        var clientValue = "";
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+            pb.Add(a => a.Value, "test12");
+            pb.Add(a => a.OnValueChanged, v =>
+            {
+                clientValue = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("test4"));
+        Assert.Equal("test4", clientValue);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnValueChanged, null);
+            pb.Add(a => a.ValueChanged, v =>
+            {
+                clientValue = v;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("test5"));
+        Assert.Equal("test5", clientValue);
+    }
+
+    [Fact]
     public void IsClearable_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>();

@@ -85,6 +85,8 @@ public partial class AutoComplete
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
+    private string? _clientValue;
+
     private string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-clearable", IsClearable)
         .Build();
@@ -130,13 +132,36 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+
+        _clientValue = Value;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            if (Value != _clientValue)
+            {
+                _clientValue = Value;
+                await InvokeVoidAsync("setValue", Id, _clientValue);
+            }
+        }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, GetChangedEventCallbackName());
+
+    private string? GetChangedEventCallbackName() => (OnValueChanged != null || ValueChanged.HasDelegate) ? nameof(TriggerChange) : null;
 
     /// <summary>
     /// Gets whether show the clear button.
@@ -197,6 +222,20 @@ public partial class AutoComplete
 
         // only render the dropdown menu
         _dropdown.Render();
+    }
+
+    /// <summary>
+    /// 支持双向绑定 由客户端 JavaScript 触发
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerChange(string v)
+    {
+        _clientValue = v;
+        CurrentValueAsString = v;
+
+        return Task.CompletedTask;
     }
 
     private List<string> GetFilterItemsByValue(string val)
