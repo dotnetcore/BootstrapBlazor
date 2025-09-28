@@ -715,10 +715,10 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        rows = table.body.querySelectorAll('table > tbody > tr');
+        rows = table.body.querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
     else {
-        rows = table.tables[0].querySelectorAll('table > tbody > tr');
+        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
 
     let maxWidth = 0;
@@ -811,10 +811,10 @@ const setCopyColumn = table => {
             rows = table.body.querySelectorAll('table > tbody > tr')
         }
         else if (el.querySelector('.table-fixed-column')) {
-            rows = el.querySelectorAll('.table-scroll > .overflow-auto > table > tbody > tr')
+            rows = el.querySelectorAll('.table-scroll > .overflow-auto > table > tbody > tr:not(.is-detail)')
         }
         else {
-            rows = el.querySelectorAll('.table-scroll > table > tbody > tr')
+            rows = el.querySelectorAll('.table-scroll > table > tbody > tr:not(.is-detail)')
         }
 
         let content = ''
