@@ -373,14 +373,6 @@ src/**/wwwroot/**/uploader
 # npm
 **/package-lock.json
 
-# sass
-**/BootstrapBlazor/wwwroot/css/animate.min.css
-**/BootstrapBlazor/wwwroot/css/bootstrapblazor.min.css
-**/BootstrapBlazor/wwwroot/css/bootstrap.min.css
-**/BootstrapBlazor/wwwroot/css/bootstrap.rtl.min.css
-**/BootstrapBlazor/wwwroot/css/sweetalert2.css
-**/BootstrapBlazor/wwwroot/css/motronic.min.css
-**/BootstrapBlazor/wwwroot/css/nano.min.css
-
 # Bootstrap
 **/BootstrapBlazor/wwwroot/js/bootstrap.blazor.bundle.min.js
+**/BootstrapBlazor/wwwroot/css/bootstrapblazor.min.css
