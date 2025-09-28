@@ -44,7 +44,7 @@ public partial class EditorForm<TModel> : IShowLabel
         .Build();
 
     private string? FormStyleString => CssBuilder.Default()
-        .AddStyle("--bb-row-label-width", $"{LabelWidth}px", LabelWidth.HasValue)
+        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
         .Build();
 
     /// <summary>
