@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Globalization;
+using System.Text;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,7 +13,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class CssBuilder
 {
-    private readonly List<string> stringBuffer;
+    private readonly StringBuilder _builder = new();
+    private bool _hasConent;
 
     /// <summary>
     /// Creates a CssBuilder used to define conditional CSS classes used in a component.
@@ -28,8 +30,11 @@ public class CssBuilder
     /// <param name="value"></param>
     protected CssBuilder(string? value)
     {
-        stringBuffer = [];
-        AddClass(value);
+        if (!string.IsNullOrEmpty(value))
+        {
+            _builder.Append(value);
+            _hasConent = true;
+        }
     }
 
     /// <summary>
@@ -39,7 +44,18 @@ public class CssBuilder
     /// <returns>CssBuilder</returns>
     public CssBuilder AddClass(string? value)
     {
-        if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
+        if (!string.IsNullOrEmpty(value))
+        {
+            if (_hasConent)
+            {
+                _builder.Append(' ');
+            }
+            else
+            {
+                _hasConent = true;
+            }
+            _builder.Append(value);
+        }
         return this;
     }
 
@@ -101,8 +117,8 @@ public class CssBuilder
     {
         if (additionalAttributes != null && additionalAttributes.TryGetValue("class", out var c))
         {
-            var classList = c?.ToString();
-            AddClass(classList);
+            var classString = Convert.ToString(c, CultureInfo.InvariantCulture);
+            AddClass(classString);
         }
         return this;
     }
@@ -127,5 +143,5 @@ public class CssBuilder
     /// Finalize the completed CSS Classes as a string.
     /// </summary>
     /// <returns>string</returns>
-    public string? Build() => stringBuffer.Count > 0 ? string.Join(" ", stringBuffer) : null;
+    public string? Build() => _hasConent ? _builder.ToString() : null;
 }
