@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -40,8 +42,8 @@ public partial class Affix
         .Build();
 
     private string? StyleString => CssBuilder.Default("position: sticky;")
-        .AddStyle("z-index", $"{ZIndex}", ZIndex.HasValue)
-        .AddStyle(Position.ToDescriptionString(), $"{Offset}px")
+        .AddClass($"z-index: {ZIndex};", ZIndex.HasValue)
+        .AddClass($"{Position.ToDescriptionString()}: {Offset.ToString(CultureInfo.InvariantCulture)}px;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 }
