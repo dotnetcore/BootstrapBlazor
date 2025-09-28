@@ -69,12 +69,12 @@ public partial class ShieldBadge
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bb-shield-badge-icon-color", IconColor, !string.IsNullOrEmpty(IconColor))
-        .AddStyle("--bb-shield-badge-label-color", LabelColor, !string.IsNullOrEmpty(LabelColor))
-        .AddStyle("--bb-shield-badge-label-bg", LabelBackgroundColor, !string.IsNullOrEmpty(LabelBackgroundColor))
-        .AddStyle("--bb-shield-badge-text-color", TextColor, !string.IsNullOrEmpty(TextColor))
-        .AddStyle("--bb-shield-badge-text-bg", TextBackgroundColor, !string.IsNullOrEmpty(TextBackgroundColor))
-        .AddStyle("--bb-shield-badge-radius", $"{Math.Max(0, Radius)}px", Radius != 3)
+        .AddClass($"--bb-shield-badge-icon-color: {IconColor};", !string.IsNullOrEmpty(IconColor))
+        .AddClass($"--bb-shield-badge-label-color: {LabelColor};", !string.IsNullOrEmpty(LabelColor))
+        .AddClass($"--bb-shield-badge-label-bg: {LabelBackgroundColor};", !string.IsNullOrEmpty(LabelBackgroundColor))
+        .AddClass($"--bb-shield-badge-text-color: {TextColor};", !string.IsNullOrEmpty(TextColor))
+        .AddClass($"--bb-shield-badge-text-bg: {TextBackgroundColor};", !string.IsNullOrEmpty(TextBackgroundColor))
+        .AddClass($"--bb-shield-badge-radius: {Math.Max(0, Radius)}px;", Radius != 3)
         .Build();
 
     private string? IconString => CssBuilder.Default("shield-badge-icon")

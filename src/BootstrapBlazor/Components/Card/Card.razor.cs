@@ -127,7 +127,7 @@ public partial class Card
     private IIconTheme? IconTheme { get; set; }
 
     private string? HeaderStyleString => CssBuilder.Default()
-        .AddStyle("--bs-card-cap-padding-y", HeaderPaddingY)
+        .AddClass($"--bs-card-cap-padding-y: {HeaderPaddingY};", !string.IsNullOrEmpty(HeaderPaddingY))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 

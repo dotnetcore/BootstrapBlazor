@@ -34,7 +34,7 @@ public partial class NavbarGroup
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bs-scroll-height", Height, IsScrolling)
+        .AddClass($"--bs-scroll-height: {Height};", !string.IsNullOrEmpty(Height))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
