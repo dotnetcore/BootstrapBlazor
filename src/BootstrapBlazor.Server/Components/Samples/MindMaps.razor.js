@@ -5,7 +5,7 @@
 window.BootstrapBlazor.MindMap = {
     callbacks: {
         clickCustom: function (args) {
-            console.log(this, args);
+
         }
     }
 }
