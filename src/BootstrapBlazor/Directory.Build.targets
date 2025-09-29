@@ -6,9 +6,14 @@
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.93.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <SourceFolder>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js</SourceFolder>
+    <TargetFolder>$(MSBuildThisFileDirectory)wwwroot/js</TargetFolder>
+  </PropertyGroup>
+
   <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
     <Message Text="Copy bootstrap.bundle.min.js ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true"></Copy>
+    <Copy SourceFiles="$(SourceFolder)/bootstrap.bundle.min.js" DestinationFiles="$(TargetFolder)/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true"></Copy>
   </Target>
 
 </Project>
