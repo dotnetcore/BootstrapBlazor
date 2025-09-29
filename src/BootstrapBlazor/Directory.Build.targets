@@ -3,7 +3,7 @@
   <Import Project="..\..\Version.props" />
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.92.1" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.93.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
   </ItemGroup>
 
   <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
