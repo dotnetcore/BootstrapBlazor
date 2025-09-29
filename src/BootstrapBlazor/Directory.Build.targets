@@ -7,13 +7,13 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <SourceFolder>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js</SourceFolder>
-    <TargetFolder>$(MSBuildThisFileDirectory)wwwroot/js</TargetFolder>
+    <BootstrapBundleFile>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js</BootstrapBundleFile>
+    <TargetBootstrapBundleFile>$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js</TargetBootstrapBundleFile>
   </PropertyGroup>
 
   <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
     <Message Text="Copy bootstrap.bundle.min.js ..." Importance="high"></Message>
-    <Copy SourceFiles="$(SourceFolder)/bootstrap.bundle.min.js" DestinationFiles="$(TargetFolder)/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true"></Copy>
+    <Copy SourceFiles="$(BootstrapBundleFile)" DestinationFiles="$(TargetBootstrapBundleFile)" SkipUnchangedFiles="true"></Copy>
   </Target>
 
 </Project>
