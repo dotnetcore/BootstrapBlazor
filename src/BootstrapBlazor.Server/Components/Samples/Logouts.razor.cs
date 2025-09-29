@@ -22,6 +22,14 @@ public partial class Logouts
         },
         new()
         {
+            Name = nameof(Logout.AvatarRadius),
+            Description = "登出组件当前用户头像圆角半径",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(Logout.DisplayName),
             Description = "登出组件当前用户显示文字",
             Type = "string",
