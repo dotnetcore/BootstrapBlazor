@@ -1,5 +1,4 @@
-﻿@import url('bootstrap.rtl.min.css');
+﻿@import url('../core/bootstrap/css/bootstrap.rtl.min.css');
 @import url('bootstrapblazor.min.css');
-@import url('rtl.css');
-@import url('animate.min.css');
-@import url('sweetalert2.css');
+@import url('../lib/animate/animate.min.css');
+@import url('../lib/swal/sweetalert2.min.css');
