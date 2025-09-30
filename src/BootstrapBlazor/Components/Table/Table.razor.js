@@ -617,16 +617,7 @@ const setResizeListener = table => {
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
 
-                        if (table.options.showColumnWidthTooltip) {
-                            const tip = bootstrap.Tooltip.getInstance(col);
-                            if (tip && tip._isShown()) {
-                                const inner = tip.tip.querySelector('.tooltip-inner');
-                                const tipText = getColumnTooltipTitle(table.options, colWidth + marginX);
-                                inner.innerHTML = tipText;
-                                tip._config.title = tipText;
-                                tip.update();
-                            }
-                        }
+                        resetColumnWidthTips(table, col);
 
                         const header = col.parentElement;
                         if (header.classList.contains('fixed')) {
@@ -680,13 +671,26 @@ const resizeNextFixedColumnWidth = (col, width) => {
     }
 }
 
+const resetColumnWidthTips = (table, col) => {
+    if (table.options.showColumnWidthTooltip) {
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip && tip._isShown()) {
+            const inner = tip.tip.querySelector('.tooltip-inner');
+            const tipText = getColumnTooltipTitle(table.options, col.closest('th'));
+            inner.innerHTML = tipText;
+            tip._config.title = tipText;
+            tip.update();
+        }
+    }
+}
+
 const setColumnResizingListen = (table, col) => {
     if (table.options.showColumnWidthTooltip) {
         EventHandler.on(col, 'mouseenter', e => {
             closeAllTips(table.columns, e.target);
             const th = col.closest('th');
             const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
-                title: getColumnTooltipTitle(table.options, th.offsetWidth),
+                title: getColumnTooltipTitle(table.options, th),
                 trigger: 'manual',
                 placement: 'top',
                 customClass: 'table-resizer-tips'
@@ -698,8 +702,8 @@ const setColumnResizingListen = (table, col) => {
     }
 }
 
-const getColumnTooltipTitle = (options, width) => {
-    return `${options.columnWidthTooltipPrefix}${width}px`;
+const getColumnTooltipTitle = (options, th) => {
+    return `${options.columnWidthTooltipPrefix}${th.offsetWidth}px`;
 }
 
 const indexOfCol = col => {
@@ -742,6 +746,12 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         setTableDefaultWidth(table);
+
+        if (table.options.resizeColumnCallback) {
+            await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth)
+        }
+
+        resetColumnWidthTips(table, col);
     }
 }
 
