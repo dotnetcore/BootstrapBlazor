@@ -64,7 +64,7 @@
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
     "Months": "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre",
-    "MonthLists": "Gen,Feb,Mar,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez",
+    "MonthLists": "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic",
     "WeekLists": "Dom,Lun,Mar,Mer,Gio,Ven,Sab",
     "GenericTypeErroMessage": "DateTimePicker supporta solo DateTime o Nullable<DateTime>",
     "Today": "Oggi",
