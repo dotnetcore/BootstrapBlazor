@@ -172,7 +172,7 @@
     "PlaceHolder": "Clicca per selezionare ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "Per favore inserisci un valore minore o uguale a {{0}}"
+    "ErrorMessage": "Per favore inserisci un valore minore o uguale a {0}"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Chiudi",
