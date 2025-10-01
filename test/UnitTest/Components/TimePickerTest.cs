@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace UnitTest.Components;
 
 public class TimePickerTest : BootstrapBlazorTestBase
@@ -97,5 +99,38 @@ public class TimePickerTest : BootstrapBlazorTestBase
         var btn = cut.Find(".confirm");
         await cut.InvokeAsync(() => btn.Click());
         Assert.True(confirm);
+    }
+
+    [Fact]
+    public async Task TimePickerCell_StyleName_CultureInvariant()
+    {
+        // 保存老的 Culture 设置
+        var originalCulture = CultureInfo.CurrentCulture;
+        var originalUICulture = CultureInfo.CurrentUICulture;
+
+        // 设置为土耳其文化环境 小数点使用逗号
+        var trCulture = new CultureInfo("tr-TR");
+        CultureInfo.CurrentCulture = trCulture;
+        CultureInfo.CurrentUICulture = trCulture;
+
+        var cut = Context.RenderComponent<TimePickerCell>(pb =>
+        {
+            pb.Add(a => a.ViewMode, TimePickerCellViewMode.Hour);
+            pb.Add(a => a.Value, TimeSpan.FromHours(2.5));
+        });
+
+        // 调用 OnHeightCallback 方法设置高度
+        await cut.InvokeAsync(() => cut.Instance.OnHeightCallback(12.25));
+        cut.SetParametersAndRender();
+
+        // 检查高度样式是否正确生成应该是用点而不是逗号
+        var styleElement = cut.Find("ul.time-spinner-list");
+        var style = styleElement.GetAttribute("style");
+
+        Assert.Contains("-24.5px", style);
+
+        // 恢复当前线程文化设置
+        CultureInfo.CurrentCulture = originalCulture;
+        CultureInfo.CurrentUICulture = originalUICulture;
     }
 }

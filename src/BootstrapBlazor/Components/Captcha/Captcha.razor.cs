@@ -20,15 +20,15 @@ public partial class Captcha
     /// 获得 组件宽度
     /// </summary>
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("width", $"{Width + 42}px", Width > 0)
+        .AddClass($"width: {Width + 42}px;", Width > 0)
         .Build();
 
     /// <summary>
     /// 获得 加载图片失败样式
     /// </summary>
     private string? FailedStyle => CssBuilder.Default()
-        .AddStyle("width", $"{Width}px", Width > 0)
-        .AddStyle("height", $"{Height}px", Height > 0)
+        .AddClass($"width: {Width}px;", Width > 0)
+        .AddClass($"height: {Height}px;", Height > 0)
         .Build();
 
     /// <summary>
@@ -219,7 +219,7 @@ public partial class Captcha
     private static bool CalcStddev(List<int> trails)
     {
         var ret = false;
-        if (trails.Any())
+        if (trails.Count > 0)
         {
             var average = trails.Sum() * 1.0 / trails.Count;
             var dev = trails.Select(t => t - average);

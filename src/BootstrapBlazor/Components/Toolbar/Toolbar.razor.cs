@@ -27,7 +27,7 @@ public partial class Toolbar
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("flex-wrap", "wrap", IsWrap)
+        .AddClass("flex-wrap: wrap;", IsWrap)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 }

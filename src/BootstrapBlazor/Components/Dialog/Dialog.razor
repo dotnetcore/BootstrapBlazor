@@ -5,6 +5,11 @@
        OnShownAsync="@_onShownAsync" OnCloseAsync="@_onCloseAsync" class="@ClassString">
     @for (var index = 0; index < DialogParameters.Keys.Count; index++)
     {
+        if (index != 0 && index == DialogParameters.Keys.Count - 1)
+        {
+            <div class="modal-backdrop fade show"></div>
+        }
+
         @RenderDialog(index, DialogParameters.Keys.ElementAt(index))
     }
 </Modal>

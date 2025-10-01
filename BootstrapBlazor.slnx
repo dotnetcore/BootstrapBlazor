@@ -1,4 +1,11 @@
 <Solution>
+  <Folder Name="/actions/">
+    <File Path=".github/workflows/auto-pull-request-checks.yml" />
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/docker.yml" />
+    <File Path=".github/workflows/pack.yml" />
+    <File Path=".github/workflows/publish.yml" />
+  </Folder>
   <Folder Name="/configuration/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />

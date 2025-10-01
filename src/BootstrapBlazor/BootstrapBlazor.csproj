@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>9.10.2</Version>
+    <Version>9.11.1-beta01</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,16 +10,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="sasscompiler.json" />
-    <Content Remove="wwwroot\core\**\*.*" />
-    <Content Remove="wwwroot\lib\**\*.css" />
-    <Content Remove="wwwroot\scss\**\*.*" />
-    <Content Remove="wwwroot\src\**\*.*" />
-    <None Include="sasscompiler.json" />
-    <None Include="wwwroot\core\**\*.*" />
-    <None Include="wwwroot\lib\**\*.css" />
-    <None Include="wwwroot\scss\**\*.*" />
-    <None Include="wwwroot\src\**\*.*" />
+    <Content Remove="wwwroot\core\bootstrap\css\bootstrap.css" />
+    <Content Remove="wwwroot\core\bootstrap\css\bootstrap.rtl.css" />
+    <Content Remove="wwwroot\core\bootstrap\js\bootstrap.bundle.js" />
+    <Content Remove="wwwroot\core\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Remove="wwwroot\lib\swal\sweetalert2.css" />
+    <Content Remove="wwwroot\scss\*" />
+    <None Include="wwwroot\core\bootstrap\css\bootstrap.css" />
+    <None Include="wwwroot\core\bootstrap\css\bootstrap.rtl.css" />
+    <None Include="wwwroot\core\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\core\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\swal\sweetalert2.css" />
+    <None Include="wwwroot\scss\*" />
   </ItemGroup>
 
   <ItemGroup>
