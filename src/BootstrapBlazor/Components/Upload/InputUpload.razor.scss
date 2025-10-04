@@ -316,6 +316,14 @@
         }
     }
 
+    &:not(.disabled) {
+        .upload-drop-body {
+            em {
+                color: var(--bs-primary);
+            }
+        }
+    }
+
     .upload-drop-body {
         border: 1px dashed var(--bs-primary);
         border-radius: var(--bs-border-radius);
@@ -336,7 +344,6 @@
         }
 
         em {
-            color: var(--bs-primary);
             font-style: normal;
         }
     }
