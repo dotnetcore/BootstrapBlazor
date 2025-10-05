@@ -55,7 +55,7 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
     "WeekLists": "日,一,二,三,四,五,六",
-    "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
+    "GenericTypeErrorMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "今天",
     "Yesterday": "昨天",
     "Week": "一周前"
