@@ -1285,6 +1285,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
+        if (AllowResizing)
+        {
+            _resetColumns = true;
+        }
+
         InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
