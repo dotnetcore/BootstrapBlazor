@@ -1,11 +1,11 @@
 {
   "BootstrapBlazor.Components.AutoComplete": {
-    "NoDataTip": "Нет совпадающих данных",
+    "NoDataTip": "Нет данных",
     "PlaceHolder": "Пожалуйста, введите"
   },
   "BootstrapBlazor.Components.Captcha": {
-    "HeaderText": "Пожалуйста, завершите проверку безопасности",
-    "BarText": "Проведите вправо для заполнения пазла",
+    "HeaderText": "Капча",
+    "BarText": "Проведите вправо для решения головоломки",
     "FailedText": "Ошибка загрузки",
     "LoadText": "Загрузка ..."
   },
@@ -16,70 +16,70 @@
     "NextMonth": "Следующий месяц",
     "NextYear": "Следующий год",
     "PreviousWeek": "Предыдущая неделя",
-    "WeekText": "Текущая неделя",
+    "WeekText": "Неделя",
     "NextWeek": "Следующая неделя",
-    "WeekHeaderText": "Неделя",
+    "WeekHeaderText": "",
     "WeekLists": "Вс,Пн,Вт,Ср,Чт,Пт,Сб",
-    "WeekNumberText": "{0}-я неделя",
-    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
-    "Title": "{0} год {1} месяц"
+    "WeekNumberText": "{0} недель",
+    "Months": "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь",
+    "Title": "{0} {1}"
   },
   "BootstrapBlazor.Components.Cascader": {
     "PlaceHolder": "Пожалуйста, выберите ..."
   },
   "BootstrapBlazor.Components.Console": {
-    "HeaderText": "Системный мониторинг",
-    "LightTitle": "Индикатор связи",
+    "HeaderText": "Монитор",
+    "LightTitle": "Индикатор",
     "ClearButtonText": "Очистить",
     "AutoScrollText": "Автопрокрутка"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "Выберите дату",
     "TimePlaceHolder": "Выберите время",
-    "DateTimePlaceHolderText": "Пожалуйста, выберите дату и время",
-    "DatePlaceHolderText": "Пожалуйста, выберите дату",
+    "DateTimePlaceHolderText": "Пожалуйста, выберите ...",
+    "DatePlaceHolderText": "Пожалуйста, выберите ...",
     "TimeFormat": "hh\\:mm\\:ss",
-    "DateFormat": "yyyy-MM-dd",
-    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
+    "DateFormat": "dd.MM.yyyy",
+    "DateTimeFormat": "dd.MM.yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "Предыдущий год",
     "AiraNextYearLabel": "Следующий год",
     "AiraPrevMonthLabel": "Предыдущий месяц",
     "AiraNextMonthLabel": "Следующий месяц",
     "ClearButtonText": "Очистить",
     "NowButtonText": "Сейчас",
-    "ConfirmButtonText": "Подтвердить",
+    "ConfirmButtonText": "Ок",
     "CancelButtonText": "Отмена",
-    "YearText": "{0} год",
-    "MonthText": "{0} месяц",
-    "YearPeriodText": "{0} год - {1} год",
-    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
-    "MonthLists": "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь",
+    "YearText": "{0}",
+    "MonthText": "{0}",
+    "YearPeriodText": "{0} - {1}",
+    "Months": "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек",
+    "MonthLists": "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек",
     "WeekLists": "Вс,Пн,Вт,Ср,Чт,Пт,Сб",
-    "GenericTypeErroMessage": "Компонент DateTimePicker поддерживает только типы DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
+    "GenericTypeErrorMessage": "DateTimePicker поддерживает только DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
     "Today": "Сегодня",
     "Yesterday": "Вчера",
     "Week": "Неделю назад"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
-    "SeparateText": "до",
+    "SeparateText": "До",
     "StartPlaceHolderText": "Дата начала",
     "EndPlaceHolderText": "Дата окончания",
     "ClearButtonText": "Очистить",
     "TodayButtonText": "Сегодня",
-    "ConfirmButtonText": "Подтвердить",
-    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
-    "DateFormat": "yyyy-MM-dd",
+    "ConfirmButtonText": "Ок",
+    "DateTimeFormat": "dd.MM.yyyy hh\\:mm\\:ss",
+    "DateFormat": "dd.MM.yyyy",
     "Last7Days": "Последние 7 дней",
     "Last30Days": "Последние 30 дней",
     "ThisMonth": "Этот месяц",
     "LastMonth": "Прошлый месяц"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
-    "ParsingErrorMessage": "Значение поля {0} должно быть числом"
+    "ParsingErrorMessage": "Поле {0} должно быть числом."
   },
   "BootstrapBlazor.Components.ResultDialogOption": {
-    "ButtonYesText": "Подтвердить",
-    "ButtonNoText": "Отмена",
+    "ButtonYesText": "Да",
+    "ButtonNoText": "Нет",
     "ButtonCloseText": "Закрыть"
   },
   "BootstrapBlazor.Components.DropdownList": {
@@ -89,14 +89,14 @@
     "PlaceHolder": "Нажмите для редактирования"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "Форма не соответствует модели {0}",
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL не соответствует {0} MODEL",
     "PlaceHolderText": "Пожалуйста, введите ..."
   },
   "BootstrapBlazor.Components.Empty": {
-    "Text": "Нет описания"
+    "Text": "Нет данных"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
-    "ErrorMessage": "Введённые значения не совпадают"
+    "ErrorMessage": "Пожалуйста, введите то же значение еще раз"
   },
   "BootstrapBlazor.Components.ErrorLogger": {
     "ToastTitle": "Ошибка приложения"
@@ -105,40 +105,40 @@
     "TooltipText": "Наверх"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Нажмите для раскрытия/сворачивания меню"
+    "TooltipText": "Кликните для раскрытия/сворачивания боковой панели"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Добро пожаловать",
-    "PrefixUserNameText": "Текущий аккаунт:"
+    "PrefixUserNameText": "Аккаунт:"
   },
   "BootstrapBlazor.Components.LogoutLink": {
     "Text": "Выйти"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "Компонент SideMenu нельзя использовать отдельно, используйте Menu с IsVertical=true"
+    "InvalidOperationExceptionMessage": "Компонент SideMenu нельзя использовать отдельно. Используйте Menu с IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Закрыть",
     "SaveButtonText": "Сохранить",
     "PrintButtonText": "Печать",
-    "ExportPdfButtonText": "Экспорт в Pdf"
+    "ExportPdfButtonText": "Экспорт Pdf"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "Нажмите для выбора ...",
-    "SelectAllText": "Выбрать все",
-    "ReverseSelectText": "Обратить выбор",
+    "PlaceHolder": "Выберите элементы ...",
+    "SelectAllText": "Все",
+    "ReverseSelectText": "Обратить",
     "ClearText": "Очистить",
-    "MinErrorMessage": "Минимум выберите {0} элементов",
-    "MaxErrorMessage": "Максимум можно выбрать {0} элементов",
-    "NoSearchDataText": "Нет данных"
+    "MinErrorMessage": "Выберите не менее {0} элементов",
+    "MaxErrorMessage": "Можно выбрать не более {0} элементов",
+    "NoSearchDataText": "Нет результатов"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "GotoNavigatorLabelText": "Перейти к"
+    "GotoNavigatorLabelText": "Перейти"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Отмена",
-    "ConfirmButtonText": "Подтвердить",
-    "Content": "Вы уверены, что хотите выполнить это действие?"
+    "ConfirmButtonText": "Ок",
+    "Content": "Вы уверены, что хотите выполнить эту операцию?"
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Печать"
@@ -148,17 +148,17 @@
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Поиск",
-    "NoDataTip": "Нет данных"
+    "NoDataTip": "Записи не найдены"
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Пожалуйста, выберите ...",
-    "NoSearchDataText": "Нет данных"
+    "NoSearchDataText": "Нет результатов"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Пожалуйста, выберите ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "Максимум {0} символов"
+    "ErrorMessage": "Пожалуйста, введите значение не больше {{0}}"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Закрыть",
@@ -170,9 +170,9 @@
     "OffInnerText": "Выкл"
   },
   "BootstrapBlazor.Components.Tab": {
-    "CloseCurrentTabText": "Закрыть текущую вкладку",
-    "CloseOtherTabsText": "Закрыть другие вкладки",
-    "CloseAllTabsText": "Закрыть все вкладки",
+    "CloseCurrentTabText": "Закрыть",
+    "CloseOtherTabsText": "Закрыть другие",
+    "CloseAllTabsText": "Закрыть все",
     "NotFoundTabText": "Не найдено",
     "RefreshToolbarTooltipText": "Обновить",
     "FullscreenToolbarTooltipText": "На весь экран",
@@ -181,9 +181,9 @@
     "CloseTabNavLinkTooltipText": "Закрыть",
     "ContextRefresh": "Обновить",
     "ContextClose": "Закрыть",
-    "ContextCloseOther": "Закрыть другие",
-    "ContextCloseAll": "Закрыть все",
-    "ContextFullScreen": "На весь экран"
+    "ContextCloseOther": "Закрыть другие вкладки",
+    "ContextCloseAll": "Закрыть все вкладки",
+    "ContextFullScreen": "Полный экран"
   },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Добавить",
@@ -195,76 +195,76 @@
     "CloseButtonText": "Закрыть",
     "CancelDeleteButtonText": "Отмена",
     "ConfirmDeleteButtonText": "Удалить",
-    "ConfirmDeleteContentText": "Вы уверены, что хотите удалить выбранные строки?",
+    "ConfirmDeleteContentText": "Вы уверены, что хотите УДАЛИТЬ все выбранные строки?",
     "RefreshButtonText": "Обновить",
-    "CardViewButtonText": "Вид",
-    "ColumnButtonTitleText": "Управление видимостью столбцов",
+    "CardViewButtonText": "Просмотр",
+    "ColumnButtonTitleText": "Показать/Скрыть столбцы",
     "ColumnButtonText": "Столбцы",
-    "ExportButtonText": "Экспорт данных",
+    "ExportButtonText": "Экспорт",
     "SearchPlaceholderText": "Поиск",
     "SearchButtonText": "Поиск",
-    "ResetSearchButtonText": "Сбросить поиск",
+    "ResetSearchButtonText": "Сброс",
     "AdvanceButtonText": "Расширенный поиск",
-    "AdvancedSortModalTitle": "Пользовательская сортировка",
+    "AdvancedSortModalTitle": "Сортировка",
     "AdvancedSortButtonText": "Расширенная сортировка",
-    "CheckboxDisplayText": "Выбрать",
-    "EditModalTitle": "Окно редактирования",
-    "AddModalTitle": "Окно добавления",
-    "LineNoText": "№ строки",
+    "CheckboxDisplayText": "Все",
+    "EditModalTitle": "Редактировать",
+    "AddModalTitle": "Новый",
+    "LineNoText": "№",
     "ColumnButtonTemplateHeaderText": "Действия",
-    "SearchTooltip": "<div class='search-input-tooltip'>Введите строку для глобального поиска</br><kbd>Enter</kbd> поиск <kbd>ESC</kbd> сброс</div>",
-    "SearchModalTitle": "Условия поиска",
+    "SearchTooltip": "<div class='search-input-tooltip'>Пожалуйста, введите ...</br><kbd>Enter</kbd> Поиск <kbd>ESC</kbd> Очистить</div>",
+    "SearchModalTitle": "Поиск",
     "AddButtonToastTitle": "Добавить данные",
-    "AddButtonToastContent": "Метод добавления данных не реализован",
-    "EditButtonToastTitle": "Редактировать данные",
-    "EditButtonToastNotSelectContent": "Пожалуйста, выберите данные для редактирования",
-    "EditButtonToastReadonlyContent": "Элемент нельзя редактировать",
-    "EditButtonToastMoreSelectContent": "Можно выбрать только один элемент для редактирования",
-    "EditButtonToastNoSaveMethodContent": "Метод сохранения данных не реализован",
+    "AddButtonToastContent": "Ошибка добавления данных. Пожалуйста, реализуйте метод OnAddAsync",
+    "EditButtonToastTitle": "Добавить данные",
+    "EditButtonToastNotSelectContent": "Ошибка сохранения данных. Пожалуйста, реализуйте метод OnSaveAsync",
+    "EditButtonToastReadonlyContent": "Выбранные данные нельзя редактировать",
+    "EditButtonToastMoreSelectContent": "Можно редактировать только одну строку",
+    "EditButtonToastNoSaveMethodContent": "Невозможно редактировать данные. Пожалуйста, реализуйте метод OnSaveAsync",
     "SaveButtonToastTitle": "Сохранить данные",
-    "SaveButtonToastContent": "Метод сохранения данных не реализован",
-    "SaveButtonToastResultContent": "Данные сохранены {0}, окно закроется через {1} сек.",
+    "SaveButtonToastContent": "Ошибка сохранения данных. Пожалуйста, реализуйте метод OnSaveAsync",
+    "SaveButtonToastResultContent": "Данные сохранены {0}, авто-закрытие через {1}с",
     "SuccessText": "Успешно",
     "FailText": "Ошибка",
     "DeleteButtonToastTitle": "Удалить данные",
-    "DeleteButtonToastContent": "Пожалуйста, выберите данные для удаления, окно закроется через {0} сек.",
-    "DeleteButtonToastResultContent": "Данные удалены {0}, окно закроется через {1} сек.",
-    "DeleteButtonToastCanNotDeleteContent": "Некоторые выбранные данные нельзя удалить, окно закроется через {0} сек.",
-    "DataServiceInvalidOperationText": "Сервис 'BootstrapBlazor.Components.IDataService`1[{0}]' не зарегистрирован",
-    "NotSetOnTreeExpandErrorMessage": "Метод OnTreeExpand не установлен",
-    "UnsetText": "Нажмите для сортировки по возрастанию",
-    "SortAscText": "Нажмите для сортировки по убыванию",
-    "SortDescText": "Сбросить сортировку",
+    "DeleteButtonToastContent": "Пожалуйста, выберите строки для удаления, авто-закрытие через {0}с",
+    "DeleteButtonToastResultContent": "Данные удалены {0}, авто-закрытие через {1}с",
+    "DeleteButtonToastCanNotDeleteContent": "В выбранных данных есть неудаляемые, авто-закрытие через {0}с",
+    "DataServiceInvalidOperationText": "Невозможно предоставить значение для свойства 'DataService' типа 'BootstrapBlazor.Components.Table`1[[{0}]]'. Нет зарегистрированной службы типа 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
+    "NotSetOnTreeExpandErrorMessage": "Параметр OnTreeExpand не установлен",
+    "UnsetText": "По возрастанию",
+    "SortAscText": "По убыванию",
+    "SortDescText": "Сбросить",
     "EmptyText": "Нет данных",
-    "ExportToastTitle": "Экспорт данных",
-    "ExportToastContent": "Экспорт данных {0}, окно закроется через {1} сек.",
-    "ExportToastInProgressContent": "Экспорт данных, пожалуйста, подождите, окно закроется через {0} сек.",
-    "ExportCsvDropdownItemText": "Формат Csv",
-    "ExportExcelDropdownItemText": "Формат Excel",
-    "ExportPdfDropdownItemText": "Формат Pdf",
-    "PageInfoText": "{0} - {1} из {2}",
-    "PageItemsText": "{0} на страницу",
-    "CopyColumnTooltipText": "Копировать столбец в буфер",
-    "CopyColumnCopiedTooltipText": "Скопировано",
-    "ColumnWidthTooltipPrefix": "Ширина:",
-    "ColumnToolboxTitle": "Действия",
-    "AlignLeftText": "Выровнять влево",
-    "AlignLeftTooltipText": "Выровнять текст влево",
+    "ExportToastTitle": "Экспорт",
+    "ExportToastContent": "Экспорт данных {0}, авто-закрытие через {1}с",
+    "ExportToastInProgressContent": "Экспорт данных, пожалуйста, подождите, авто-закрытие через {0}с",
+    "ExportCsvDropdownItemText": "MS-Csv",
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
+    "PageInfoText": "{0} - {1} Всего {2}",
+    "PageItemsText": "{0}/страница",
+    "CopyColumnTooltipText": "Скопировать весь столбец в буфер",
+    "CopyColumnCopiedTooltipText": "Скопировано!",
+    "ColumnWidthTooltipPrefix": "ширина: ",
+    "ColumnToolboxTitle": "Инструменты",
+    "AlignLeftText": "Влево",
+    "AlignLeftTooltipText": "Кликните для выравнивания текста влево",
     "AlignCenterText": "По центру",
-    "AlignCenterTooltipText": "Выровнять текст по центру",
-    "AlignRightText": "Выровнять вправо",
-    "AlignRightTooltipText": "Выровнять текст вправо"
+    "AlignCenterTooltipText": "Кликните для выравнивания текста по центру",
+    "AlignRightText": "Вправо",
+    "AlignRightTooltipText": "Кликните для выравнивания текста вправо"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Закрыть",
     "SaveButtonText": "Сохранить"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
-    "ClearButtonText": "Сбросить",
-    "FilterButtonText": "Подтвердить",
+    "ClearButtonText": "Очистить",
+    "FilterButtonText": "Фильтр",
     "BoolFilter.AllText": "Все",
-    "BoolFilter.TrueText": "Выбрано",
-    "BoolFilter.FalseText": "Не выбрано",
+    "BoolFilter.TrueText": "Истина",
+    "BoolFilter.FalseText": "Ложь",
     "GreaterThanOrEqual": "Больше или равно",
     "LessThanOrEqual": "Меньше или равно",
     "GreaterThan": "Больше",
@@ -273,8 +273,8 @@
     "NotEqual": "Не равно",
     "Contains": "Содержит",
     "NotContains": "Не содержит",
-    "EnumFilter.AllText": "Выбрать все",
-    "NotSupportedColumnFilterMessage": "<p>Тип не поддерживается, используйте <code>FilterTemplate</code> для создания собственного фильтра</p><div>См. документацию <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
+    "EnumFilter.AllText": "Все",
+    "NotSupportedColumnFilterMessage": "<p>Неподдерживаемый тип фильтра. Используйте <code>FilterTemplate</code> для настройки фильтра</p><div>См. <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Пожалуйста, введите ...",
     "MultiFilterSelectAllText": "Выбрать все"
   },
@@ -283,8 +283,8 @@
     "Or": "Или"
   },
   "BootstrapBlazor.Components.SearchDialog": {
-    "ResetButtonText": "Сбросить",
-    "QueryButtonText": "Поиск"
+    "ResetButtonText": "Сброс",
+    "QueryButtonText": "Запрос"
   },
   "BootstrapBlazor.Components.SwitchButton": {
     "OnText": "Вкл",
@@ -303,66 +303,66 @@
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "Все",
     "RightPanelText": "Выбрано",
-    "MinErrorMessage": "Минимум выберите {0} элементов",
-    "MaxErrorMessage": "Максимум можно выбрать {0} элементов"
+    "MinErrorMessage": "Пожалуйста, выберите не менее {0} элементов",
+    "MaxErrorMessage": "Можно выбрать до {0} элементов"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "Пожалуйста, введите ...",
     "Text": "Список"
   },
   "BootstrapBlazor.Components.Tree": {
-    "NotSetOnTreeExpandErrorMessage": "Метод OnExpandNodeAsync не установлен"
+    "NotSetOnTreeExpandErrorMessage": "Параметр OnExpandNodeAsync не установлен"
   },
   "BootstrapBlazor.Components.TreeView": {
-    "NotSetOnTreeExpandErrorMessage": "Метод OnExpandNodeAsync не установлен",
-    "ToolbarEditTitle": "Редактировать имя узла",
-    "ToolbarEditLabelText": "Изменить на"
+    "NotSetOnTreeExpandErrorMessage": "Параметр OnExpandNodeAsync не установлен",
+    "ToolbarEditTitle": "Редактировать узел",
+    "ToolbarEditLabelText": "Переименовать"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Удалить",
     "BrowserButtonText": "Обзор",
-    "FileExtensions": "Допустимые расширения файлов: {0}",
-    "FileSizeValidation": "Файл слишком большой, ограничение {0}",
-    "DropUploadText": "Перетащите файл сюда или <em>нажмите для загрузки</em>"
+    "FileExtensions": "Файл должен иметь одно из следующих расширений: {0}",
+    "FileSizeValidation": "Размер файла должен быть меньше {0}",
+    "DropUploadText": "Перетащите файлы сюда или <em>кликните для загрузки</em>"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Сохранить",
     "ClearButtonText": "Очистить"
   },
   "BootstrapBlazor.Components.SignaturePad": {
-    "SignAboveLabel": "Подпишите в рамке",
+    "SignAboveLabel": "Подпишите в поле",
     "ClearBtnTitle": "Очистить",
-    "SignatureAlertText": "Пожалуйста, подпишитесь",
+    "SignatureAlertText": "Пожалуйста, сначала подпишитесь",
     "ChangeColorBtnTitle": "Изменить цвет",
     "UndoBtnTitle": "Отменить",
     "CloseBtnTitle": "Закрыть",
-    "SaveBase64BtnTitle": "Подтвердить",
+    "SaveBase64BtnTitle": "ОК",
     "SavePNGBtnTitle": "PNG",
     "SaveJPGBtnTitle": "JPG",
     "SaveSVGBtnTitle": "SVG"
   },
   "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
     "NullValueDisplayText": "Пожалуйста, выберите ...",
-    "TrueValueDisplayText": "True",
-    "FalseValueDisplayText": "False"
+    "TrueValueDisplayText": "Истина",
+    "FalseValueDisplayText": "Ложь"
   },
   "BootstrapBlazor.Components.InsertRowMode": {
-    "Last": "В конец",
-    "First": "В начало"
+    "Last": "Последний",
+    "First": "Первый"
   },
   "BootstrapBlazor.Components.IconDialog": {
-    "LabelText": "Выбрать иконку",
-    "LabelFullText": "Полный текст",
+    "LabelText": "Иконка",
+    "LabelFullText": "Html",
     "ButtonText": "Копировать",
-    "DialogHeaderText": "Пожалуйста, выберите иконку",
+    "DialogHeaderText": "Выбранная иконка",
     "CopiedTooltipText": "Скопировано"
   },
   "BootstrapBlazor.Components.Splitting": {
     "Text": "Загрузка ..."
   },
   "BootstrapBlazor.Components.QueryBuilder": {
-    "And": "И",
-    "Or": "Или",
+    "And": "и",
+    "Or": "или",
     "GreaterThanOrEqual": "Больше или равно",
     "LessThanOrEqual": "Меньше или равно",
     "GreaterThan": "Больше",
@@ -371,8 +371,8 @@
     "NotEqual": "Не равно",
     "Contains": "Содержит",
     "NotContains": "Не содержит",
-    "GroupText": "Группа условий",
-    "ItemText": "Условие"
+    "GroupText": "Группа",
+    "ItemText": "Элемент"
   },
   "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "По возрастанию",
@@ -388,13 +388,13 @@
     "LightModeText": "Светлая"
   },
   "BootstrapBlazor.Components.ValidateBase": {
-    "DefaultRequiredErrorMessage": "{0} обязательно для заполнения"
+    "DefaultRequiredErrorMessage": "{0} обязательно для заполнения."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "Title": "Сетевой статус",
+    "NTitle": "Сеть",
     "NetworkType": "Тип сети",
     "Downlink": "Скорость загрузки",
-    "RTT": "Время отклика"
+    "RTT": "RTT"
   },
   "BootstrapBlazor.Components.LoadMore": {
     "NoMoreText": "Больше данных нет"
