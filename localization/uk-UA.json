@@ -55,7 +55,7 @@
     "MonthLists": "Січень, Лютий, Березень, Квітень, Травень, Червень, Липень, Серпень, Вересень, Жовтень, Листопад, Грудень",
     "Months": "Січень,Лютий,Березень,Квітень,Травень,Червень,Липень,Серпень,Вересень,Жовтень,Листопад,Грудень",
     "WeekLists": "Нд,Пн,Вт,Ср,Чт,Пт,Сб",
-    "GenericTypeErroMessage": "Компонент DateTimePicker підтримує тільки DateTime або Nullable\u003CDateTime\u003E",
+    "GenericTypeErroMessage": "Компонент DateTimePicker підтримує тільки DateTime або Nullable<DateTime>",
     "Today": "Сьогодні",
     "Yesterday": "Вчора",
     "Week": "Тиждень тому"
@@ -76,7 +76,7 @@
   },
   "BootstrapBlazor.Components.Toggle": {
     "OffText": "Згорнути",
-    "OnText": "Розширювати"
+    "OnText": "Розгорнути"
   },
   "BootstrapBlazor.Components.Timer": {
     "CancelText": "Скасувати",
@@ -96,7 +96,7 @@
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "Так",
     "ButtonNoText": "Ні",
-    "ButtonCloseText": "Зачинити"
+    "ButtonCloseText": "Закрити"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "Будь ласка, введіть ...",
@@ -106,8 +106,8 @@
     "PlaceHolder": "Будь ласка, виберіть ..."
   },
   "BootstrapBlazor.Components.EditDialog": {
-    "CloseButtonText": "Закрыть",
-    "SaveButtonText": "Сохранить"
+    "CloseButtonText": "Закрити",
+    "SaveButtonText": "Зберегти"
   },
   "BootstrapBlazor.Components.Editor": {
     "PlaceHolder": "Натисніть, щоб редагувати"
@@ -141,9 +141,9 @@
     "Last": "Останній"
   },
   "BootstrapBlazor.Components.IconDialog": {
-    "ButtonText": "Копировать",
-    "CopiedTooltipText": "Скопированы",
-    "DialogHeaderText": "Выбранный значок",
+    "ButtonText": "Копіювати",
+    "CopiedTooltipText": "Скопійовано",
+    "DialogHeaderText": "Вибраний значок",
     "LabelFullText": "Html",
     "LabelText": "Значок"
   },
@@ -179,7 +179,7 @@
     "GotoNavigatorLabelText": "Перейти до"
   },
   "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
-    "FalseValueDisplayText": "Помилковий",
+    "FalseValueDisplayText": "Хибний",
     "NullValueDisplayText": "Вибрати...",
     "TrueValueDisplayText": "Істинний"
   },
@@ -196,11 +196,11 @@
     "Contains": "Містить",
     "Equal": "Дорівнює",
     "GreaterThan": "Більше, ніж",
-    "GreaterThanOrEqual": "БільшеНіжАбоДорівнює",
+    "GreaterThanOrEqual": "Більше або дорівнює",
     "GroupText": "Група",
     "ItemText": "Пункт",
-    "LessThan": "МеньшеНіж",
-    "LessThanOrEqual": "МеньшеНіжАбоДорівнює",
+    "LessThan": "Менше",
+    "LessThanOrEqual": "Менше або дорівнює",
     "NotContains": "Не містить",
     "NotEqual": "Не дорівнює",
     "Or": "або"
@@ -235,11 +235,11 @@
     "ConfirmButtonText": "Підтвердити"
   },
   "BootstrapBlazor.Components.Switch": {
-    "OnInnerText": "ВІДКЛ",
-    "OffInnerText": "ВКЛ"
+    "OnInnerText": "ВКЛ",
+    "OffInnerText": "ВИКЛ"
   },
   "BootstrapBlazor.Components.SwitchButton": {
-    "OffText": "ВІДКЛ",
+    "OffText": "ВИКЛ",
     "OnText": "ВКЛ"
   },
   "BootstrapBlazor.Components.Tab": {
@@ -342,9 +342,9 @@
     "Equal": "Рівний",
     "FilterButtonText": "Фільтр",
     "GreaterThan": "Більше, ніж",
-    "GreaterThanOrEqual": "БільшеНіжАбоДорівнює",
-    "LessThan": "МеншеНіж",
-    "LessThanOrEqual": "МеншеНіжАбоДорівнює",
+    "GreaterThanOrEqual": "Більше або дорівнює",
+    "LessThan": "Менше",
+    "LessThanOrEqual": "Менше або дорівнює",
     "NotContains": "Не містить",
     "NotEqual": "Не дорівнює",
     "NotSupportedMessage": "Непідтримуваний тип фільтра, будь ласка, налаштуйте фільтр за допомогою FilterTemplate"
