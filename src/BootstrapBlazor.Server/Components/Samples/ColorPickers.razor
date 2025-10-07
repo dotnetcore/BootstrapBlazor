@@ -12,16 +12,16 @@
 
 <DemoBlock Title="@Localizer["ValueTitle"]" Introduction="@Localizer["ValueIntro"]" Name="Value">
     <p>@((MarkupString)Localizer["ValueDescription"].Value)</p>
-    <ColorPicker Value="@Value" />
+    <ColorPicker Value="@Value"></ColorPicker>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
-    <ColorPicker @bind-Value="@Value" />
+    <ColorPicker @bind-Value="@Value"></ColorPicker>
     <div class="mt-3">Value: @Value</div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled">
-    <ColorPicker Value="@Value" IsDisabled="true" />
+    <ColorPicker Value="@Value" IsDisabled="true"></ColorPicker>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="Template">
@@ -40,7 +40,7 @@
     <ValidateForm Model="Dummy">
         <div class="row g-3 form-inline">
             <div class="col-6">
-                <ColorPicker @bind-Value="@Dummy.Name" />
+                <ColorPicker @bind-Value="@Dummy.Name"></ColorPicker>
             </div>
         </div>
     </ValidateForm>
@@ -50,14 +50,14 @@
     <section ignore>
         <div class="row form-inline">
             <div class="col-12 col-sm-6">
-                <Switch @bind-Value="_opacityIsSupport" DisplayText="SupportOpacity" ShowLabel="true"></Switch>
+                <Switch @bind-Value="_opacityIsSupport" DisplayText="@Localizer["SupportOpacity"]" ShowLabel="true"></Switch>
             </div>
             <div class="col-12 col-sm-6">
-                <Switch @bind-Value="_opacityIsDisabled" DisplayText="Disabled" ShowLabel="true"></Switch>
+                <Switch @bind-Value="_opacityIsDisabled" DisplayText="@Localizer["Disabled"]" ShowLabel="true"></Switch>
             </div>
         </div>
     </section>
-    <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="_opacityIsSupport" IsDisabled="_opacityIsDisabled" />
+    <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="_opacityIsSupport" IsDisabled="_opacityIsDisabled"></ColorPicker>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
