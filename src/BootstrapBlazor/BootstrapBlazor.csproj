@@ -11,11 +11,13 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\core\bootstrap\**\*.*" />
-    <Content Remove="wwwroot\lib\**\*.css" />
+    <Content Remove="wwwroot\lib\animate\*.css" />
+    <Content Remove="wwwroot\lib\swal\*.css" />
     <Content Remove="wwwroot\scss\*" />
     <Content Remove="wwwroot\css\bootstrapblazor.min.css" />
     <None Include="wwwroot\core\bootstrap\**\*.*" />
-    <None Include="wwwroot\lib\**\*.css" />
+    <None Include="wwwroot\lib\animate\*.css" />
+    <None Include="wwwroot\lib\swal\*.css" />
     <None Include="wwwroot\scss\*" />
     <None Include="wwwroot\css\bootstrapblazor.min.css" />
   </ItemGroup>
