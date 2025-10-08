@@ -2421,7 +2421,9 @@
     "AttributeTemplate": "显示模板",
     "AttributeFormatter": "显示颜色值格式化回调方法",
     "AttributeIsSupportOpacity": "是否支持透明度",
-    "AttributeSwatches": "预设候选颜色"
+    "AttributeSwatches": "预设候选颜色",
+    "SupportOpacity": "支持透明",
+    "Disabled": "禁用"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker 日期选择器",
