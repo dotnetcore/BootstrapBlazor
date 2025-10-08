@@ -376,3 +376,6 @@ src/**/wwwroot/**/uploader
 # Bootstrap
 **/BootstrapBlazor/wwwroot/js/bootstrap.blazor.bundle.min.js
 **/BootstrapBlazor/wwwroot/css/bootstrapblazor.min.css
+
+# css
+**/BootstrapBlazor/wwwroot/css/bootstrap.blazor.bundle.*.css

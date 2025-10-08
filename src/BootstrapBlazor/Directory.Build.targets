@@ -7,13 +7,21 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <BootstrapBundleFile>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js</BootstrapBundleFile>
-    <TargetBootstrapBundleFile>$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js</TargetBootstrapBundleFile>
+    <BootstrapOriginJsFile>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js</BootstrapOriginJsFile>
+    <BootstrapTargetJsFile>$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js</BootstrapTargetJsFile>
+    <StyleFile>$(MSBuildThisFileDirectory)wwwroot/css/bootstrapblazor.min.css</StyleFile>
+    <BundleStyleFile>$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.blazor.bundle.min.css;$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.blazor.bundle.rtl.min.css</BundleStyleFile>
   </PropertyGroup>
 
-  <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
+  <Target Name="CopyJs" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(BootstrapOriginJsFile)" Outputs="$(BootstrapTargetJsFile)">
     <Message Text="Copy bootstrap.bundle.min.js ..." Importance="high"></Message>
-    <Copy SourceFiles="$(BootstrapBundleFile)" DestinationFiles="$(TargetBootstrapBundleFile)" SkipUnchangedFiles="true"></Copy>
+    <Copy SourceFiles="$(BootstrapOriginJsFile)" DestinationFiles="$(BootstrapTargetJsFile)" SkipUnchangedFiles="true"></Copy>
+  </Target>
+
+  <Target Name="CssBundler" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
+    <Message Text="Bundler min css ..." Importance="high"></Message>
+    <Exec Command="dotnet tool restore"></Exec>
+    <Exec Command="dotnet css-bundler $(MSBuildThisFileDirectory)bundler.json"></Exec>
   </Target>
 
 </Project>
