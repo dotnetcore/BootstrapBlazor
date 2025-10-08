@@ -18,7 +18,7 @@
     <Copy SourceFiles="$(BootstrapOriginJsFile)" DestinationFiles="$(BootstrapTargetJsFile)" SkipUnchangedFiles="true"></Copy>
   </Target>
 
-  <Target Name="Bundler" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
+  <Target Name="CssBundler" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
     <Exec Command="dotnet tool restore"></Exec>
     <Message Text="Bundler min css ..." Importance="high"></Message>
     <Exec Command="dotnet css-bundler .\bundler.json"></Exec>
