@@ -18,10 +18,13 @@
     <Copy SourceFiles="$(BootstrapOriginJsFile)" DestinationFiles="$(BootstrapTargetJsFile)" SkipUnchangedFiles="true"></Copy>
   </Target>
 
-  <Target Name="CssBundler" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
+  <Target Name="DotnetToolRestore" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(MSBuildThisFileDirectory)../../dotnet-tools.json" Outputs="$(MSBuildThisFileDirectory)../../dotnet-tools.json">
     <Exec Command="dotnet tool restore"></Exec>
+  </Target>
+
+  <Target Name="CssBundler" AfterTargets="DotnetToolRestore" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
     <Message Text="Bundler min css ..." Importance="high"></Message>
-    <Exec Command="dotnet css-bundler .\bundler.json"></Exec>
+    <Exec Command="dotnet css-bundler $(MSBuildThisFileDirectory)bundler.json"></Exec>
   </Target>
 
 </Project>
