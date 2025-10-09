@@ -65,15 +65,24 @@
 
 ::deep .bb-g-search {
     --bs-border-color: var(--bb-header-dropdown-border-color);
-    --bb-border-hover-color: var(--bb-header-dropdown-border-hover-color);    
+    --bb-border-hover-color: var(--bb-header-dropdown-border-hover-color);
     width: var(--bb-header-select-width);
     margin-block-end: var(--bb-header-search-margin-bottom);
     color: var(--bb-header-dropdown-color);
+    font-size: 0.875rem;
 }
 
-::deep .bb-g-search > input::placeholder {
-    color: var(--bb-header-dropdown-color);
-}
+    ::deep .bb-g-search .search-dialog-icon {
+        font-size: 0.875rem;
+    }
+
+    ::deep .bb-g-search > input {
+        padding: 2px 0;
+    }
+
+        ::deep .bb-g-search > input::placeholder {
+            color: var(--bb-header-dropdown-color);
+        }
 
 @media (min-width: 768px) {
     .navbar-header {
