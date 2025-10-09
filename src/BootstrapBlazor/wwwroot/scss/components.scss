@@ -116,7 +116,6 @@
 @use "../../Components/Marquee/Marquee.razor.scss";
 @use "../../Components/Waterfall/Waterfall.razor.scss";
 @use "../../Components/Watermark/Watermark.razor.scss";
-@use "./meilisearch.scss";
 
 [dir="rtl"] .card-collapse-bar:not([aria-expanded=true]) > .card-collapse-arrow {
     transform: rotate(180deg);
