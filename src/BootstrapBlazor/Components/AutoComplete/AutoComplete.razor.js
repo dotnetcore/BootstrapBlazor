@@ -41,13 +41,13 @@ export function init(id, invoke, value, changedEventCallback) {
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
-        EventHandler.on(input, 'keyup', debounce(e => {
-            handlerKeyup(ac, e);
+        EventHandler.on(input, 'keydown', debounce(e => {
+            handlerKeydown(ac, e);
         }, duration))
     }
     else {
-        EventHandler.on(input, 'keyup', e => {
-            handlerKeyup(ac, e);
+        EventHandler.on(input, 'keydown', e => {
+            handlerKeydown(ac, e);
         })
     }
 
@@ -86,7 +86,6 @@ export function init(id, invoke, value, changedEventCallback) {
 
         el.classList.add('is-loading');
         filterCallback(v);
-
     });
 
     ac.show = () => {
@@ -116,7 +115,7 @@ export function init(id, invoke, value, changedEventCallback) {
         });
     }
 
-    ac.keyup = e => {
+    ac.keydown = e => {
         if (e.key === 'Tab') {
             [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
                 const id = a.getAttribute('id');
@@ -139,7 +138,7 @@ export function init(id, invoke, value, changedEventCallback) {
 
     registerBootstrapBlazorModule('AutoComplete', id, () => {
         EventHandler.on(document, 'click', ac.closePopover);
-        EventHandler.on(document, 'keyup', ac.keyup);
+        EventHandler.on(document, 'keydown', ac.keydown);
     });
 
     EventHandler.on(el, 'click', '.clear-icon', e => {
@@ -148,7 +147,7 @@ export function init(id, invoke, value, changedEventCallback) {
     });
 }
 
-const handlerKeyup = (ac, e) => {
+const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, invoke, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
@@ -209,7 +208,7 @@ export function dispose(id) {
             }
         }
         EventHandler.off(menu, 'click');
-        EventHandler.off(input, 'keyup');
+        EventHandler.off(input, 'keydown');
         Input.dispose(input);
 
         EventHandler.off(el, 'click');
@@ -218,7 +217,7 @@ export function dispose(id) {
     const { AutoComplete } = window.BootstrapBlazor;
     AutoComplete.dispose(id, () => {
         EventHandler.off(document, 'click', ac.closePopover);
-        EventHandler.off(document, 'keyup', ac.keyup);
+        EventHandler.off(document, 'keydown', ac.keydown);
     });
 }
 
