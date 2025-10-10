@@ -785,8 +785,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'));
-    div.remove();
+    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
     return width;
 }
 
