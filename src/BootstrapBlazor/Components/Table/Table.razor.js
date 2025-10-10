@@ -114,6 +114,18 @@ export function reset(id) {
     observeHeight(table)
 }
 
+export function fitAllColumnWidth(id) {
+    const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
+
+    const columns = [...table.tables[0].querySelectorAll('.col-resizer')];
+    columns.forEach(async col => {
+        await autoFitColumnWidth(table, col);
+    });
+}
+
 const observeHeight = table => {
     setBodyHeight(table);
 
@@ -773,8 +785,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'));
-    div.remove();
+    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
     return width;
 }
 
