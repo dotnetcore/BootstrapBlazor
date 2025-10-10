@@ -6,6 +6,7 @@ on:
       - pack
       - release
       - hotfix
+      - chore-pack
 
 jobs:
   pack:
@@ -20,7 +21,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Cache NuGet packages
       uses: actions/cache@v4
