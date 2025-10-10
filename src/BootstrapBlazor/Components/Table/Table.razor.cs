@@ -1065,7 +1065,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitContentCallback = nameof(AutoFitContentCallback),
+                AutoFitContentCallback = OnAutoFitContentAsync == null ? null : nameof(AutoFitContentCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
