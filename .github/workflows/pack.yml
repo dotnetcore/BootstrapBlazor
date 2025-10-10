@@ -6,7 +6,6 @@ on:
       - pack
       - release
       - hotfix
-      - chore-pack
 
 jobs:
   pack:
