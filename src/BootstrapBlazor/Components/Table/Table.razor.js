@@ -114,6 +114,18 @@ export function reset(id) {
     observeHeight(table)
 }
 
+export function fitAllColumnWidth(id) {
+    const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
+
+    const columns = [...table.tables[0].querySelectorAll('.col-resizer')];
+    columns.forEach(async col => {
+        await autoFitColumnWidth(table, col);
+    });
+}
+
 const observeHeight = table => {
     setBodyHeight(table);
 

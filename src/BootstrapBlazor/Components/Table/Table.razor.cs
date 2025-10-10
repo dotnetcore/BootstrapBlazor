@@ -1591,6 +1591,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
 
     /// <summary>
+    /// 列宽自适应方法
+    /// </summary>
+    public async Task FitAllColumnWidth()
+    {
+        await InvokeVoidAsync("fitAllColumnWidth", Id);
+    }
+
+    /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="originIndex"></param>
