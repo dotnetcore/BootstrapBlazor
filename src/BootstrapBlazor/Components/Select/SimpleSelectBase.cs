@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
 {
     /// <summary>
-    /// Gets virtualize component instrance
+    /// Gets virtualize component instance
     /// </summary>
     [NotNull]
     protected Virtualize<SelectedItem>? _virtualizeElement = default;
