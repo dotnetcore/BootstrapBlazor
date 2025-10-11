@@ -1066,6 +1066,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 DragColumnCallback = nameof(DragColumnCallback),
                 AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
+                FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
