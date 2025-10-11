@@ -726,10 +726,6 @@ const indexOfCol = col => {
 
 const autoFitColumnWidth = async (table, col) => {
     const field = col.getAttribute('data-bb-field');
-    let widthValue = 0;
-    if (table.options.autoFitContentCallback !== null) {
-        widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
-    }
 
     const index = indexOfCol(col);
     let rows = null;
@@ -740,12 +736,17 @@ const autoFitColumnWidth = async (table, col) => {
         rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
 
-    let maxWidth = widthValue;
-    if (maxWidth === 0) {
-        [...rows].forEach(row => {
-            const cell = row.cells[index];
-            maxWidth = Math.max(maxWidth, calcCellWidth(cell));
-        });
+    let maxWidth = 0;
+    [...rows].forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    if (table.options.autoFitColumnWidthCallback !== null) {
+        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
+        if (widthValue > 0) {
+            maxWidth = widthValue;
+        }
     }
 
     if (maxWidth > 0) {
