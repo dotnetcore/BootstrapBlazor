@@ -730,14 +730,14 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        rows = table.body.querySelectorAll('table > tbody > tr:not(.is-detail)');
+        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
     }
     else {
-        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
+        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
     }
 
     let maxWidth = 0;
-    [...rows].forEach(row => {
+    rows.forEach(row => {
         const cell = row.cells[index];
         maxWidth = Math.max(maxWidth, calcCellWidth(cell));
     });
