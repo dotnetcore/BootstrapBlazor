@@ -742,6 +742,12 @@ const autoFitColumnWidth = async (table, col) => {
         maxWidth = Math.max(maxWidth, calcCellWidth(cell));
     });
 
+    if (table.options.fitColumnWidthIncludeHeader) {
+        const th = col.closest('th');
+        const span = th.querySelector('.table-cell');
+        maxWidth = Math.max(maxWidth, calcCellWidth(span));
+    }
+
     if (table.options.autoFitColumnWidthCallback !== null) {
         const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
         if (widthValue > 0) {
