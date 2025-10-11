@@ -8371,7 +8371,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task AutoFitContentCallback_Ok()
+    public async Task OnAutoFitColumnWidthCallback_Ok()
     {
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8383,10 +8383,11 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnAutoFitContentAsync, fieldName =>
+                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, calcWidth) =>
                 {
                     name = fieldName;
-                    return Task.FromResult(100.65f);
+                    var resWidth = Math.Max(100.65f, calcWidth);
+                    return Task.FromResult(resWidth);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -8405,7 +8406,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         float v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime"));
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitColumnWidthCallback("DateTime", 90));
         Assert.Equal(100.65f, v);
     }
 
