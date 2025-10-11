@@ -5,10 +5,9 @@
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
-    "BarText": "Arrastre a la derecha para resolver el rompecabezas",
+    "BarText": "Deslice a la derecha para resolver el rompecabezas",
     "FailedText": "Error al cargar",
-    "LoadText": "Cargando ...",
-    "TryText": "Intentar de nuevo"
+    "LoadText": "Cargando ..."
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Año anterior",
@@ -30,7 +29,7 @@
   },
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "Monitor",
-    "LightTitle": "Indicador",
+    "LightTitle": "Luz",
     "ClearButtonText": "Limpiar",
     "AutoScrollText": "AutoScroll"
   },
@@ -40,8 +39,8 @@
     "DateTimePlaceHolderText": "Por favor seleccione ...",
     "DatePlaceHolderText": "Por favor seleccione ...",
     "TimeFormat": "hh\\:mm\\:ss",
-    "DateFormat": "M/d/yyyy",
-    "DateTimeFormat": "M/d/yyyy HH\\:mm\\:ss",
+    "DateFormat": "d/M/yyyy",
+    "DateTimeFormat": "d/M/yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "Año anterior",
     "AiraNextYearLabel": "Próximo año",
     "AiraPrevMonthLabel": "Mes anterior",
@@ -53,10 +52,10 @@
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "Ene,Feb,Mar,Abr,Ago,May,Jun,Jul,Sep,Oct,Nov,Dec",
-    "MonthLists": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dec",
+    "Months": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic",
+    "MonthLists": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic",
     "WeekLists": "Dom,Lun,Mar,Mié,Jue,Vie,Sáb",
-    "GenericTypeErrorMessage": "DateTimePicker sólo soporta DateTime DateTime? DateTimeOffset DateTimeOffset?",
+    "GenericTypeErrorMessage": "DateTimePicker solo soporta DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
     "Today": "Hoy",
     "Yesterday": "Ayer",
     "Week": "Hace una semana"
@@ -68,8 +67,8 @@
     "ClearButtonText": "Limpiar",
     "TodayButtonText": "Hoy",
     "ConfirmButtonText": "Ok",
-    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
-    "DateFormat": "M/d/yyyy",
+    "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
+    "DateFormat": "d/M/yyyy",
     "Last7Days": "Últimos 7 días",
     "Last30Days": "Últimos 30 días",
     "ThisMonth": "Este mes",
@@ -90,7 +89,7 @@
     "PlaceHolder": "Click para editar"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL no coincide con {0} MODEL",
+    "ModelInvalidOperationExceptionMessage": "El modelo ValidateForm no coincide con el modelo {0}",
     "PlaceHolderText": "Por favor ingrese ..."
   },
   "BootstrapBlazor.Components.Empty": {
@@ -216,19 +215,19 @@
     "SearchTooltip": "<div class='search-input-tooltip'>Por favor ingrese ...</br><kbd>Enter</kbd> Buscar <kbd>ESC</kbd> Limpiar</div>",
     "SearchModalTitle": "Buscando",
     "AddButtonToastTitle": "Agregar datos",
-    "AddButtonToastContent": "Fallo al agregar datos. Proporcione el método OnAddAsync",
-    "EditButtonToastTitle": "Editar datos",
-    "EditButtonToastNotSelectContent": "Fallo al guardar. Proporcione el método OnSaveAsync",
+    "AddButtonToastContent": "Error al agregar datos. Proporcione el método OnAddAsync",
+    "EditButtonToastTitle": "Agregar datos",
+    "EditButtonToastNotSelectContent": "Error al guardar datos. Proporcione el método OnSaveAsync",
     "EditButtonToastReadonlyContent": "Los datos seleccionados no se pueden editar",
-    "EditButtonToastMoreSelectContent": "Solo una fila puede ser EDITADA",
-    "EditButtonToastNoSaveMethodContent": "No se puede EDITAR datos. Proporcione el método OnSaveAsync",
+    "EditButtonToastMoreSelectContent": "Solo se puede editar una fila",
+    "EditButtonToastNoSaveMethodContent": "No se pueden editar los datos. Proporcione el método OnSaveAsync",
     "SaveButtonToastTitle": "Guardar datos",
-    "SaveButtonToastContent": "Fallo al guardar datos. Proporcione el método OnSaveAsync",
+    "SaveButtonToastContent": "Error al guardar datos. Proporcione el método OnSaveAsync",
     "SaveButtonToastResultContent": "Datos guardados {0}, cierre automático en {1}s",
     "SuccessText": "Éxito",
-    "FailText": "Fallo",
+    "FailText": "Error",
     "DeleteButtonToastTitle": "Eliminar datos",
-    "DeleteButtonToastContent": "Seleccione las filas a ELIMINAR, cierre automático en {0}s",
+    "DeleteButtonToastContent": "Seleccione las filas a eliminar, cierre automático en {0}s",
     "DeleteButtonToastResultContent": "Datos eliminados {0}, cierre automático en {1}s",
     "DeleteButtonToastCanNotDeleteContent": "Hay datos no eliminables en la selección, cierre automático en {0}s",
     "DataServiceInvalidOperationText": "No se puede proporcionar un valor para la propiedad 'DataService' en el tipo 'BootstrapBlazor.Components.Table`1[[{0}]]'. No hay un servicio registrado de tipo 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
@@ -274,7 +273,7 @@
     "NotEqual": "No igual",
     "Contains": "Contiene",
     "NotContains": "No contiene",
-    "EnumFilter.AllText": "Seleccionar todo",
+    "EnumFilter.AllText": "Todo",
     "NotSupportedColumnFilterMessage": "<p>Tipo de filtro no soportado, por favor personalice el filtro usando <code>FilterTemplate</code></p><div>Consulte <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Por favor ingrese ...",
     "MultiFilterSelectAllText": "Seleccionar todo"
@@ -288,14 +287,14 @@
     "QueryButtonText": "Consultar"
   },
   "BootstrapBlazor.Components.SwitchButton": {
-    "OnText": "Encender",
-    "OffText": "Apagar"
+    "OnText": "Encendido",
+    "OffText": "Apagado"
   },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "Pausa",
     "ResumeText": "Continuar",
     "CancelText": "Cancelar",
-    "StarText": "Inicio"
+    "StarText": "Iniciar"
   },
   "BootstrapBlazor.Components.Toggle": {
     "OnText": "Expandir",
@@ -304,7 +303,7 @@
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "Todo",
     "RightPanelText": "Seleccionado",
-    "MinErrorMessage": "Por favor seleccione al menos {0} elementos",
+    "MinErrorMessage": "Seleccione al menos {0} elementos",
     "MaxErrorMessage": "Hasta {0} elementos pueden ser seleccionados"
   },
   "BootstrapBlazor.Components.TransferPanel": {
@@ -331,7 +330,7 @@
     "ClearButtonText": "Limpiar"
   },
   "BootstrapBlazor.Components.SignaturePad": {
-    "SignAboveLabel": "Firma en el recuadro",
+    "SignAboveLabel": "Firme en el recuadro",
     "ClearBtnTitle": "Limpiar",
     "SignatureAlertText": "Por favor proporcione una firma primero",
     "ChangeColorBtnTitle": "Cambiar color",
