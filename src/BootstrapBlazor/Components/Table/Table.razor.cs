@@ -1591,6 +1591,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 列宽自适应时是否包含表头 默认 false
+    /// </summary>
+    [Parameter]
+    public bool FitColumnWidthIncludeHeader { get; set; }
+
+    /// <summary>
     /// 列宽自适应方法
     /// </summary>
     public async Task FitAllColumnWidth()
