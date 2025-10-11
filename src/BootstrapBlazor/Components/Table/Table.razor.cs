@@ -1588,7 +1588,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 自动调整列宽回调方法
     /// </summary>
     [Parameter]
-    public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
+    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
 
     /// <summary>
     /// 列宽自适应方法
@@ -1648,14 +1648,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 列宽自适应回调方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="fieldName">当前列名称</param>
+    /// <param name="calcWidth">当前列宽</param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task<float> AutoFitContentCallback(string fieldName)
+    public async Task<float> AutoFitContentCallback(string fieldName, float calcWidth)
     {
         float ret = 0;
         if (OnAutoFitContentAsync != null)
         {
-            ret = await OnAutoFitContentAsync(fieldName);
+            ret = await OnAutoFitContentAsync(fieldName, calcWidth);
         }
         return ret;
     }

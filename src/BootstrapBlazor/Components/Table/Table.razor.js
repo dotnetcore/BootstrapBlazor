@@ -726,26 +726,29 @@ const indexOfCol = col => {
 
 const autoFitColumnWidth = async (table, col) => {
     const field = col.getAttribute('data-bb-field');
-    let widthValue = 0;
-    if (table.options.autoFitContentCallback !== null) {
-        widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
-    }
 
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        rows = table.body.querySelectorAll('table > tbody > tr:not(.is-detail)');
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/6864
+        rows = table.el.querySelectorAll('table > tbody > tr:not(.is-detail), table> thead > tr');
     }
     else {
-        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/6864
+        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail), table> thead > tr');
     }
 
-    let maxWidth = widthValue;
-    if (maxWidth === 0) {
-        [...rows].forEach(row => {
-            const cell = row.cells[index];
-            maxWidth = Math.max(maxWidth, calcCellWidth(cell));
-        });
+    let maxWidth = 0;
+    [...rows].forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    if (table.options.autoFitContentCallback !== null) {
+        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field, maxWidth);
+        if (widthValue > 0) {
+            maxWidth = widthValue;
+        }
     }
 
     if (maxWidth > 0) {
