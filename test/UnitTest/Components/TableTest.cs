@@ -8383,7 +8383,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnAutoFitContentAsync, (fieldName,calcWidth) =>
+                pb.Add(a => a.OnAutoFitContentAsync, (fieldName, calcWidth) =>
                 {
                     name = fieldName;
                     var resWidth = Math.Max(100.65f, calcWidth);
@@ -8406,7 +8406,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         float v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime",90));
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime", 90));
         Assert.Equal(100.65f, v);
     }
 
