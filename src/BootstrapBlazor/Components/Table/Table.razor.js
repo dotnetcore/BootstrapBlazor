@@ -744,8 +744,7 @@ const autoFitColumnWidth = async (table, col) => {
 
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = col.closest('th');
-        const span = th.querySelector('.table-cell');
-        maxWidth = Math.max(maxWidth, calcCellWidth(span));
+        maxWidth = Math.max(maxWidth, calcCellWidth(th));
     }
 
     if (table.options.autoFitColumnWidthCallback !== null) {
