@@ -1065,7 +1065,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitContentCallback = OnAutoFitContentAsync == null ? null : nameof(AutoFitContentCallback),
+                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitContentCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
@@ -1588,7 +1588,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 自动调整列宽回调方法
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请使用 OnAutoFitColumnWidthCallback 替代; Deprecated, please use OnAutoFitColumnWidthCallback instead")]
+    [ExcludeFromCodeCoverage]
     public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自动调整列宽回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
     /// 列宽自适应方法
@@ -1654,9 +1662,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task<float> AutoFitContentCallback(string fieldName, float calcWidth)
     {
         float ret = 0;
-        if (OnAutoFitContentAsync != null)
+        if (OnAutoFitColumnWidthCallback != null)
         {
-            ret = await OnAutoFitContentAsync(fieldName, calcWidth);
+            ret = await OnAutoFitColumnWidthCallback(fieldName, calcWidth);
         }
         return ret;
     }

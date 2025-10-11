@@ -742,8 +742,8 @@ const autoFitColumnWidth = async (table, col) => {
         maxWidth = Math.max(maxWidth, calcCellWidth(cell));
     });
 
-    if (table.options.autoFitContentCallback !== null) {
-        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field, maxWidth);
+    if (table.options.autoFitColumnWidthCallback !== null) {
+        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
         if (widthValue > 0) {
             maxWidth = widthValue;
         }
