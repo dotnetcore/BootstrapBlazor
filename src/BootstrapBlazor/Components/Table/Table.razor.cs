@@ -1066,6 +1066,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 DragColumnCallback = nameof(DragColumnCallback),
                 AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
+                FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
@@ -1597,6 +1598,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列宽自适应时是否包含表头 默认 false
+    /// </summary>
+    [Parameter]
+    public bool FitColumnWidthIncludeHeader { get; set; }
 
     /// <summary>
     /// 列宽自适应方法
