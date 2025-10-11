@@ -8371,7 +8371,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task AutoFitContentCallback_Ok()
+    public async Task OnAutoFitColumnWidthCallback_Ok()
     {
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8406,7 +8406,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         float v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime", 90));
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitColumnWidthCallback("DateTime", 90));
         Assert.Equal(100.65f, v);
     }
 

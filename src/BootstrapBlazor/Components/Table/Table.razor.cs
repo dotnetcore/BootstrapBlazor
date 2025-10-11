@@ -1065,7 +1065,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitContentCallback),
+                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
@@ -1659,7 +1659,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="calcWidth">当前列宽</param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task<float> AutoFitContentCallback(string fieldName, float calcWidth)
+    public async Task<float> AutoFitColumnWidthCallback(string fieldName, float calcWidth)
     {
         float ret = 0;
         if (OnAutoFitColumnWidthCallback != null)
