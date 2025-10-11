@@ -730,12 +730,10 @@ const autoFitColumnWidth = async (table, col) => {
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        // https://github.com/dotnetcore/BootstrapBlazor/issues/6864
-        rows = table.el.querySelectorAll('table > tbody > tr:not(.is-detail), table> thead > tr');
+        rows = table.el.querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
     else {
-        // https://github.com/dotnetcore/BootstrapBlazor/issues/6864
-        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail), table> thead > tr');
+        rows = table.tables[0].querySelectorAll('table > tbody > tr:not(.is-detail)');
     }
 
     let maxWidth = 0;
