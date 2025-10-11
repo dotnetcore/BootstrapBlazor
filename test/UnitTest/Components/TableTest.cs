@@ -8387,7 +8387,7 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     name = fieldName;
                     var resWidth = Math.Max(100.65f, calcWidth);
-                    return Task.FromResult(100.65f);
+                    return Task.FromResult(resWidth);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
