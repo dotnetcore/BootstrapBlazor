@@ -744,7 +744,10 @@ const autoFitColumnWidth = async (table, col) => {
 
     if (table.options.fitColumnWidthIncludeHeader) {
         const th = col.closest('th');
-        maxWidth = Math.max(maxWidth, calcCellWidth(th));
+        const span = th.querySelector('.table-cell');
+        const thStyle = getComputedStyle(th);
+        const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
+        maxWidth = Math.max(maxWidth, calcCellWidth(span)) + margin;
     }
 
     if (table.options.autoFitColumnWidthCallback !== null) {
