@@ -56,7 +56,7 @@
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.12" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.6" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.7" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="9.0.0" />
