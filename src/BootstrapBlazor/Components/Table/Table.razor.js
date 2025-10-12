@@ -747,7 +747,10 @@ const autoFitColumnWidth = async (table, col) => {
         const span = th.querySelector('.table-cell');
         const thStyle = getComputedStyle(th);
         const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
-        maxWidth = Math.max(maxWidth, calcCellWidth(span)) + margin;
+
+        //当 maxWidth 超过 列头span宽度 时，计算结果会额外的多出 margin 这个值
+        //应该是 maxWidth 与 (列头span宽度 + margin值)比较取最大
+        maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
     }
 
     if (table.options.autoFitColumnWidthCallback !== null) {
