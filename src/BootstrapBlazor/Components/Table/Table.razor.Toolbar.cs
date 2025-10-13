@@ -475,8 +475,8 @@ public partial class Table<TItem>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // 不可见列
-        var items = _visibleColumns.Where(i => i.Visible).ToList();
-        return Columns.Where(i => !i.GetIgnore() && items.Find(v => v.Name == i.GetFieldName()) != null && ScreenSize >= i.ShownWithBreakPoint);
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToList();
+        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item) => _visibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && _visibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
