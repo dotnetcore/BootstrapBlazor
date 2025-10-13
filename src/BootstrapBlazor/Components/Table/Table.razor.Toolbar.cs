@@ -475,13 +475,13 @@ public partial class Table<TItem>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // 不可见列
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToList();
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
         return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item)
     {
-        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToList();
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToHashSet();
         return items.Contains(item.Name) && items.Count == 1;
     }
 
