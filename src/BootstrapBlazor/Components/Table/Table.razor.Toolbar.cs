@@ -466,9 +466,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
-
-    private HashSet<string> _visibleColumnNames = [];
+    private readonly List<ColumnVisibleItem> _visibleColumns = [];
 
     /// <summary>
     /// 获得当前可见列集合
@@ -477,10 +475,11 @@ public partial class Table<TItem>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // 不可见列
-        return Columns.Where(i => !i.GetIgnore() && _visibleColumnNames.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
+        var items = _visibleColumns.Where(i => i.Visible).ToList();
+        return Columns.Where(i => !i.GetIgnore() && items.Find(v => v.Name == i.GetFieldName()) != null && ScreenSize >= i.ShownWithBreakPoint);
     }
 
-    private bool GetColumnsListState(ColumnVisibleItem item) => VisibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && VisibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ColumnVisibleItem item) => _visibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && _visibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
