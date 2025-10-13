@@ -479,7 +479,11 @@ public partial class Table<TItem>
         return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
     }
 
-    private bool GetColumnsListState(ColumnVisibleItem item) => _visibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && _visibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ColumnVisibleItem item)
+    {
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToList();
+        return items.Contains(item.Name) && items.Count == 1;
+    }
 
     private bool ShowAddForm { get; set; }
 
