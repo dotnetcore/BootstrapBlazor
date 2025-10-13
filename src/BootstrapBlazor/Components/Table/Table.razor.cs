@@ -1276,8 +1276,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
-        VisibleColumns.Clear();
-        VisibleColumns.AddRange(cols);
+        _visibleColumns.Clear();
+        _visibleColumns.AddRange(cols);
     }
 
     /// <summary>
