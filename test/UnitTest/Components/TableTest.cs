@@ -8383,6 +8383,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.FitColumnWidthIncludeHeader, true);
                 pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, calcWidth) =>
                 {
                     name = fieldName;
