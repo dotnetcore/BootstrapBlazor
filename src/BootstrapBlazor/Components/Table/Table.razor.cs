@@ -1278,8 +1278,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         VisibleColumns.Clear();
         VisibleColumns.AddRange(cols);
-         VisibleColumnNames = VisibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
-
+        _visibleColumnNames = [.. VisibleColumns.Where(i => i.Visible).Select(a => a.Name)];
     }
 
     /// <summary>
