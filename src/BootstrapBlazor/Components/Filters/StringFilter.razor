@@ -4,7 +4,7 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <BootstrapInput @bind-Value="@_value1" ShowLabel="false" SkipValidate="true"></BootstrapInput>
+        <BootstrapInput Value="@_value1" OnValueChanged="OnValueChanged" ShowLabel="false" SkipValidate="true"></BootstrapInput>
         <FilterButton Items="Items" @bind-Value="_action1" OnSelectedItemChanged="_ => OnFilterAsync()" OnClearFilter="OnClearFilter" />
     </div>
 }
