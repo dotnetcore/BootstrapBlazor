@@ -128,4 +128,10 @@ public partial class StringFilter
         }
         await base.SetFilterConditionsAsync(filter);
     }
+
+    private async Task OnValueChanged(string? val)
+    {
+        _value1 = val;
+        await OnFilterAsync();
+    }
 }
