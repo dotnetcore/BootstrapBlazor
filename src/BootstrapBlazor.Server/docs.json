@@ -256,7 +256,7 @@
     "task-board": "TaskBoard",
     "modbus-factory": "Modbus\\ModbusFactories",
     "serial-port-factory": "SerialPorts\\SerialPortFactories",
-    "region": "Regions"
+    "select-region": "Regions"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

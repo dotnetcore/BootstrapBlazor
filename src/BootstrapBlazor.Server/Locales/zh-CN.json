@@ -4873,7 +4873,7 @@
     "Navbar": "导航栏 Navbar",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "Dom2ImageService": "节点转图片服务 IDom2HtmlService",
-    "Region": "行政区域选择器 Region"
+    "SelectRegion": "行政区域选择器 SelectRegion"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7222,7 +7222,7 @@
     "Dom2ImageDownloadText": "下载",
     "Dom2ImageFullText": "长截图"
   },
-  "BootstrapBlazor.Server.Components.Samples.Regions": {
+  "BootstrapBlazor.Server.Components.Samples.SelectRegions": {
     "RegionTitle": "Region 行政区域选择器",
     "RegionDescription": "提供 4 级行政区划选择器",
     "RegionNormalTitle": "基本用法",
