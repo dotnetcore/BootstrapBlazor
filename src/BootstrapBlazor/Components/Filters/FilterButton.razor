@@ -2,13 +2,15 @@
 @typeparam TValue
 @inherits Dropdown<TValue>
 
-<button type="button" class="btn btn-filter dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    <i class="@FilterIcon" />
-</button>
-<div class="dropdown-menu shadow">
-    @foreach (var item in Items)
-    {
-        <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
-    }
+<div id="@Id" class="bb-filter-btn-group">
+    <button type="button" class="btn btn-filter dropdown-toggle" data-bs-toggle="bb.dropdown" aria-expanded="false">
+        <i class="@FilterIcon" />
+    </button>
+    <div class="dropdown-menu shadow">
+        @foreach (var item in Items)
+        {
+            <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
+        }
+    </div>
+    <Button Icon="@ClearIcon" Color="Color.None" class="btn-ban text-danger" OnClickWithoutRender="ClearFilter" />
 </div>
-<Button Icon="@ClearIcon" Color="Color.None" class="btn-ban text-danger" OnClickWithoutRender="ClearFilter" />
