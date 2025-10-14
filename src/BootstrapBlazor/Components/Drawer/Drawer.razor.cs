@@ -19,7 +19,7 @@ public partial class Drawer
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"--bb-drawer-position: {Position};")
+        .AddClass($"--bb-drawer-position: {Position};", !string.IsNullOrEmpty(Position))
         .AddClass($"--bb-drawer-zindex: {ZIndex};", ZIndex.HasValue)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
