@@ -7221,5 +7221,11 @@
     "Dom2ImageButtonText": "转换",
     "Dom2ImageDownloadText": "下载",
     "Dom2ImageFullText": "长截图"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Regions": {
+    "RegionTitle": "Region 行政区域选择器",
+    "RegionDescription": "提供 4 级行政区划选择器",
+    "RegionNormalTitle": "基本用法",
+    "RegionNormalIntro": "使用分组切换显示行政区域的选择模式"
   }
 }

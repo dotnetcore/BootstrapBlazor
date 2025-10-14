@@ -7221,5 +7221,11 @@
     "Dom2ImageButtonText": "Convert",
     "Dom2ImageDownloadText": "Download",
     "Dom2ImageFullText": "Capture"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Regions": {
+    "RegionTitle": "Region",
+    "RegionDescription": "A simple region cascade selector, provide 4 levels Chinese administrative division data",
+    "RegionNormalTitle": "Basic usage",
+    "RegionNormalIntro": "Use grouping to switch the selection mode for displaying administrative areas"
   }
 }
