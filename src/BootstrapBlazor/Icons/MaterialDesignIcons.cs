@@ -61,7 +61,7 @@ internal static class MaterialDesignIcons
         { ComponentIcons.StepErrorIcon, "mdi mdi-close" },
 
         { ComponentIcons.FilterButtonFilterIcon, "mdi mdi-filter-outline" },
-        { ComponentIcons.FilterButtonClearIcon, "mdi mdi-filter-remove-outline" },
+        { ComponentIcons.FilterButtonClearIcon, "mdi mdi-cancel" },
 
         { ComponentIcons.TableFilterPlusIcon, "mdi mdi-plus" },
         { ComponentIcons.TableFilterMinusIcon, "mdi mdi-minus" },
