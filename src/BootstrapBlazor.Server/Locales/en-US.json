@@ -4873,7 +4873,7 @@
     "Navbar": "Navbar",
     "TaskDashBoard": "TaskDashBoard",
     "Dom2ImageService": "IDom2HtmlService",
-    "Region": "Region Selector"
+    "SelectRegion": "Region Selector"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -7222,7 +7222,7 @@
     "Dom2ImageDownloadText": "Download",
     "Dom2ImageFullText": "Capture"
   },
-  "BootstrapBlazor.Server.Components.Samples.Regions": {
+  "BootstrapBlazor.Server.Components.Samples.SelectRegions": {
     "RegionTitle": "Region",
     "RegionDescription": "A simple region cascade selector, provide 4 levels Chinese administrative division data",
     "RegionNormalTitle": "Basic usage",

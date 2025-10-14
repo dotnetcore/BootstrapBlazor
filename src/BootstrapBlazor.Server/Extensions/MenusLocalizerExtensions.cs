@@ -453,8 +453,8 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["Region"],
-                    Url = "region"
+                    Text = Localizer["SelectRegion"],
+                    Url = "select-region"
                 },
                 new()
                 {
