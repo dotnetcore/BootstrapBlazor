@@ -452,6 +452,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Region"],
+                    Url = "region"
+                },
+                new()
+                {
                     Text = Localizer["ListGroup"],
                     Url = "list-group"
                 },
