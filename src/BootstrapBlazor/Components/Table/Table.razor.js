@@ -747,7 +747,7 @@ const autoFitColumnWidth = async (table, col) => {
         const span = th.querySelector('.table-cell');
         const thStyle = getComputedStyle(th);
         const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
-        maxWidth = Math.max(maxWidth, calcCellWidth(span)) + margin;
+        maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
     }
 
     if (table.options.autoFitColumnWidthCallback !== null) {

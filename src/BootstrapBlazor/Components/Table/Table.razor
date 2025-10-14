@@ -107,7 +107,7 @@
                                 <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end shadow">
-                                @foreach (var item in VisibleColumns)
+                                @foreach (var item in _visibleColumns)
                                 {
                                     <div class="dropdown-item">
                                         <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName" IsDisabled="@GetColumnsListState(item)"
