@@ -10,5 +10,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Regions
 {
+    private string Value = "";
 
+    private void OnClick()
+    {
+        Value = "四川省-自贡市-大安区-团结镇";
+    }
 }

@@ -8,5 +8,7 @@
 <DemoBlock Title="@Localizer["RegionNormalTitle"]"
            Introduction="@Localizer["RegionNormalIntro"]"
            Name="Normal">
-    <Region></Region>
+    <SelectRegion @bind-Value="Value"></SelectRegion>
+    <Display Value="@Value"></Display>
+    <Button OnClick="OnClick" Text="Update"></Button>
 </DemoBlock>
