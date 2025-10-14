@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// 行政区域选择器示例
 /// </summary>
-public partial class Regions
+public partial class SelectRegions
 {
     private string _value = "";
 }
