@@ -24,8 +24,11 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <img src="@WebsiteOption.Value.GetAvatarUrl(Model1.Id)" class="shadow" style="width: 140px; margin-bottom: 1rem; border-radius: 6px;" />
-        <EditorForm Model="@Model1" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model1 != null)
+        {
+            <img src="@WebsiteOption.Value.GetAvatarUrl(Model1.Id)" class="shadow" style="width: 140px; margin-bottom: 1rem; border-radius: 6px;" />
+            <EditorForm Model="@Model1" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
@@ -46,7 +49,10 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <EditorForm Model="@Model2" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model2 != null)
+        {
+            <EditorForm Model="@Model2" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
@@ -68,7 +74,10 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model3 != null)
+        {
+            <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
