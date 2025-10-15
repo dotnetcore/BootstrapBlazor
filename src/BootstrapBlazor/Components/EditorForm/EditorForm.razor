@@ -3,42 +3,45 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="AdditionalAttributes" class="@ClassString">
-    <CascadingValue Value="@_editorItems" IsFixed="false">
-        @FieldItems?.Invoke(Model)
-    </CascadingValue>
-    <CascadingValue Value="this" Name="EditorForm">
-        <div class="form-body">
-            @if (ShowUnsetGroupItemsOnTop)
-            {
-                if (UnsetGroupItems.Any())
+    @if (Model != null)
+    {
+        <CascadingValue Value="@_editorItems" IsFixed="false">
+            @FieldItems?.Invoke(Model)
+        </CascadingValue>
+        <CascadingValue Value="this" Name="EditorForm">
+            <div class="form-body">
+                @if (ShowUnsetGroupItemsOnTop)
                 {
-                    @RenderUnsetGroupItems
+                    if (UnsetGroupItems.Any())
+                    {
+                        @RenderUnsetGroupItems
+                    }
+                    @foreach (var g in GroupItems)
+                    {
+                        @RenderGroupItems(g)
+                    }
                 }
-                @foreach (var g in GroupItems)
+                else
                 {
-                    @RenderGroupItems(g)
+                    @foreach (var g in GroupItems)
+                    {
+                        @RenderGroupItems(g)
+                    }
+                    if (UnsetGroupItems.Any())
+                    {
+                        @RenderUnsetGroupItems
+                    }
                 }
-            }
-            else
-            {
-                @foreach (var g in GroupItems)
-                {
-                    @RenderGroupItems(g)
-                }
-                if (UnsetGroupItems.Any())
-                {
-                    @RenderUnsetGroupItems
-                }
-            }
-        </div>
-
-        @if (Buttons != null)
-        {
-            <div class="bb-editor-footer form-footer">
-                @Buttons
             </div>
-        }
-    </CascadingValue>
+
+            @if (Buttons != null)
+            {
+                <div class="bb-editor-footer form-footer">
+                    @Buttons
+                </div>
+            }
+        </CascadingValue>
+    }
 </div>
 
 @code
