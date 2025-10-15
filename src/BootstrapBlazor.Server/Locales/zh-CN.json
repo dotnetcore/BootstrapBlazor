@@ -4873,7 +4873,8 @@
     "Navbar": "导航栏 Navbar",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "Dom2ImageService": "节点转图片服务 IDom2HtmlService",
-    "SelectRegion": "行政区域选择器 SelectRegion"
+    "SelectRegion": "行政区域选择器 SelectRegion",
+    "SelectCity": "城市选择器 SelectCity"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -7223,9 +7224,17 @@
     "Dom2ImageFullText": "长截图"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectRegions": {
-    "RegionTitle": "Region 行政区域选择器",
+    "RegionTitle": "SelectRegion 行政区域选择器",
     "RegionDescription": "提供 4 级行政区划选择器",
     "RegionNormalTitle": "基本用法",
     "RegionNormalIntro": "使用分组切换显示行政区域的选择模式"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectCities": {
+    "CityTitle": "SelectCity 城市选择器",
+    "CityDescription": "提供以省分类的城市选择器",
+    "CityNormalTitle": "基本用法",
+    "CityNormalIntro": "通过下拉框的形式选择城市",
+    "CityMultipleTitle": "多选",
+    "CityMultipleIntro": "通过设置 <code>IsMultiple</code> 开启多选模式，点击弹窗中省份时自动选中所有城市"
   }
 }

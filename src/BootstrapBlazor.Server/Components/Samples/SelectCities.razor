@@ -1,0 +1,20 @@
+﻿@page "/select-city"
+@inject IStringLocalizer<SelectCities> Localizer
+
+<h3>@Localizer["CityTitle"]</h3>
+
+<h4>@Localizer["CityDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Region" />
+
+<DemoBlock Title="@Localizer["CityNormalTitle"]"
+           Introduction="@Localizer["CityNormalIntro"]"
+           Name="Normal">
+    <SelectCity Value="@_value"></SelectCity>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CityMultipleTitle"]"
+           Introduction="@Localizer["CityMultipleIntro"]"
+           Name="IsMultiple">
+    <SelectCity IsMultiple="true" Value="@_multipleValues"></SelectCity>
+</DemoBlock>
