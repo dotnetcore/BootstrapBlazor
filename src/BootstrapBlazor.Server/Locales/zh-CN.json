@@ -4873,7 +4873,8 @@
     "Navbar": "导航栏 Navbar",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "Dom2ImageService": "节点转图片服务 IDom2HtmlService",
-    "SelectRegion": "行政区域选择器 SelectRegion"
+    "SelectRegion": "行政区域选择器 SelectRegion",
+    "SelectCity": "城市选择器 SelectCity"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

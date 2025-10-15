@@ -4873,7 +4873,8 @@
     "Navbar": "Navbar",
     "TaskDashBoard": "TaskDashBoard",
     "Dom2ImageService": "IDom2HtmlService",
-    "SelectRegion": "Region Selector"
+    "SelectRegion": "Region Selector",
+    "SelectCity": "City Selector"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
