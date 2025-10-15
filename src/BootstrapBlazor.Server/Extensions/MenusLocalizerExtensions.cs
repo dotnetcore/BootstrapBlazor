@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Longbow.SerialPorts;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Server.Extensions;
@@ -452,12 +451,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
-                    Text = Localizer["SelectRegion"],
-                    Url = "select-region"
-                },
-                new()
-                {
                     Text = Localizer["ListGroup"],
                     Url = "list-group"
                 },
@@ -527,6 +520,18 @@ internal static class MenusLocalizerExtensions
                     Match = NavLinkMatch.All,
                     Text = Localizer["Select"],
                     Url = "select"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SelectCity"],
+                    Url = "select-city"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["SelectRegion"],
+                    Url = "select-region"
                 },
                 new()
                 {
