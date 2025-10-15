@@ -11,4 +11,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class SelectCities
 {
     private string _value = "";
+
+    private string _multipleValues = "";
 }
