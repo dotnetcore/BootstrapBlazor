@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class SelectCities
 {
-    private string _value = "";
+    private string? _value = null;
 
-    private string _multipleValues = "";
+    private string? _multipleValues = null;
 }
