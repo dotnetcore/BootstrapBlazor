@@ -1367,7 +1367,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     };
     #endregion
 
-    private RenderFragment RenderContentColumn(TItem item) => builder =>
+    private RenderFragment RenderContentRow(TItem item) => builder =>
     {
         var index = 0;
         var colIndex = 0;
@@ -1409,8 +1409,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
             var hesTreeChildren = isFirstColOfTree && hasChildren;
-
-            var context = new TableContentColumnContext<TItem>()
+            var context = new TableContentCellContext<TItem>()
             {
                 Item = item,
                 ColSpan = colSpan,
@@ -1423,7 +1422,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ValueTemplate = valueTemplate,
                 Value = value
             };
-            builder.AddContent(0, RenderContentCell(context));
+
+            builder.OpenComponent<TableContentCell>(0);
+            builder.SetKey(context);
+            builder.AddAttribute(0, nameof(TableContentCell.ChildContent), RenderContentCell(context));
+            builder.CloseComponent();
         }
     };
 

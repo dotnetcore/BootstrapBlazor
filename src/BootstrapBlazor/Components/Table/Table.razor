@@ -736,7 +736,7 @@
         }
         else
         {
-            @RenderContentColumn(item);
+            @RenderContentRow(item);
         }
         @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
         {
@@ -744,7 +744,7 @@
         }
     </DynamicElement>;
 
-    RenderFragment<TableContentColumnContext<TItem>> RenderContentCell => context =>
+    RenderFragment<TableContentCellContext<TItem>> RenderContentCell => context =>
     @<td colspan="@GetColSpan(context.ColSpan)" class="@GetFixedCellClassString(context.Col, context.CellClass)" style="@GetFixedCellStyleString(context.Col)">
         <DynamicElement TagName="div" TriggerClick="@context.HesTreeChildren"
                         OnClick="@ToggleTreeRow(context.Item)" StopPropagation="context.HesTreeChildren"

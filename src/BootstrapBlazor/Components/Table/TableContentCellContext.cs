@@ -5,7 +5,7 @@
 
 namespace BootstrapBlazor.Components;
 
-readonly record struct TableContentColumnContext<TItem>
+readonly record struct TableContentCellContext<TItem>
 {
     public TItem Item { get; init; }
 
