@@ -1414,6 +1414,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 Item = item,
                 ColSpan = colSpan,
                 Col = col,
+                CellClass = cellClass,
                 HesTreeChildren = hesTreeChildren,
                 IsInCell = isInCell,
                 Degree = degree,
