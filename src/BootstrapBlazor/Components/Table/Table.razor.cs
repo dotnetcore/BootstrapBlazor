@@ -1367,6 +1367,66 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     };
     #endregion
 
+    private RenderFragment RenderContentColumn(TItem item) => builder =>
+    {
+        var index = 0;
+        var colIndex = 0;
+        var isInCell = InCellMode && SelectedRows.FirstOrDefault() == item;
+
+        foreach (var col in GetVisibleColumns())
+        {
+            if (colIndex > 1)
+            {
+                colIndex--;
+                continue;
+            }
+            var cellClass = "";
+            var colSpan = 0;
+            string? value = null;
+            RenderFragment? valueTemplate = null;
+            if (col.OnCellRender != null)
+            {
+                var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                col.OnCellRender(cell);
+                cellClass = cell.Class;
+                colSpan = cell.Colspan;
+                valueTemplate = cell.ValueTemplate;
+                value = cell.Value;
+                colIndex = colSpan;
+            }
+
+            var isFirstColOfTree = IsTree && index++ == 0;
+            var degree = 0;
+            var isExpend = false;
+            var hasChildren = false;
+            if (isFirstColOfTree)
+            {
+                var treeItem = TreeNodeCache.Find(TreeRows, item, out degree);
+                if (treeItem != null)
+                {
+                    isExpend = treeItem.IsExpand;
+                    hasChildren = treeItem.HasChildren;
+                }
+            }
+            var hesTreeChildren = isFirstColOfTree && hasChildren;
+
+            var context = new TableContentColumnContext<TItem>()
+            {
+                Item = item,
+                ColSpan = colSpan,
+                Col = col,
+                HesTreeChildren = hesTreeChildren,
+                IsInCell = isInCell,
+                Degree = degree,
+                IsExpend = isExpend,
+                IsFirstColOfTree = isFirstColOfTree,
+                ValueTemplate = valueTemplate,
+                Value = value
+            };
+            builder.AddContent(0, RenderContentCell(context));
+        }
+    };
+
     /// <summary>
     /// 渲染单元格方法
     /// </summary>
