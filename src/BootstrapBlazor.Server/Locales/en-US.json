@@ -7228,5 +7228,13 @@
     "RegionDescription": "A simple region cascade selector, provide 4 levels Chinese administrative division data",
     "RegionNormalTitle": "Basic usage",
     "RegionNormalIntro": "Use grouping to switch the selection mode for displaying administrative areas"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectCities": {
+    "CityTitle": "City Selector",
+    "CityDescription": "Provides a city selector classified by province",
+    "CityNormalTitle": "Basic usage",
+    "CityNormalIntro": "Select a city from the drop-down box",
+    "CityMultipleTitle": "Multiple",
+    "CityMultipleIntro": "Enable multiple selection mode by setting <code>IsMultiple</code> , and all cities will be automatically selected when clicking a province in the pop-up window."
   }
 }
