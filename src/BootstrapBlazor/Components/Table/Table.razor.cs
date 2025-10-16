@@ -1305,10 +1305,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         try
         {
             AutoRefreshCancelTokenSource ??= new();
-            // 自动刷新功能
             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
-
-            // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
             await QueryAsync();
             StateHasChanged();
         }
