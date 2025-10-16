@@ -1394,28 +1394,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
             var isFirstColOfTree = IsTree && index++ == 0;
             var degree = 0;
-            var isExpend = false;
+            var isExpand = false;
             var hasChildren = false;
             if (isFirstColOfTree)
             {
                 var treeItem = TreeNodeCache.Find(TreeRows, item, out degree);
                 if (treeItem != null)
                 {
-                    isExpend = treeItem.IsExpand;
+                    isExpand = treeItem.IsExpand;
                     hasChildren = treeItem.HasChildren;
                 }
             }
-            var hesTreeChildren = isFirstColOfTree && hasChildren;
+            var hasTreeChildren = isFirstColOfTree && hasChildren;
             var context = new TableContentCellContext<TItem>()
             {
                 Item = item,
                 ColSpan = colSpan,
                 Col = col,
                 CellClass = cellClass,
-                HesTreeChildren = hesTreeChildren,
+                HasTreeChildren = hasTreeChildren,
                 IsInCell = isInCell,
                 Degree = degree,
-                IsExpend = isExpend,
+                IsExpand = isExpand,
                 IsFirstColOfTree = isFirstColOfTree,
                 ValueTemplate = valueTemplate,
                 Value = value

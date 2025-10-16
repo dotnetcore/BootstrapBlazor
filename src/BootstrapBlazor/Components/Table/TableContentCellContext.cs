@@ -15,13 +15,13 @@ readonly record struct TableContentCellContext<TItem>
 
     public string? CellClass { get; init; }
 
-    public bool HesTreeChildren { get; init; }
+    public bool HasTreeChildren { get; init; }
 
     public bool IsInCell { get; init; }
 
     public int Degree { get; init; }
 
-    public bool IsExpend { get; init; }
+    public bool IsExpand { get; init; }
 
     public bool IsFirstColOfTree { get; init; }
 

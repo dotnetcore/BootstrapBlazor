@@ -746,13 +746,13 @@
 
     RenderFragment<TableContentCellContext<TItem>> RenderContentCell => context =>
     @<td colspan="@GetColSpan(context.ColSpan)" class="@GetFixedCellClassString(context.Col, context.CellClass)" style="@GetFixedCellStyleString(context.Col)">
-        <DynamicElement TagName="div" TriggerClick="@context.HesTreeChildren"
-                        OnClick="@ToggleTreeRow(context.Item)" StopPropagation="context.HesTreeChildren"
-                        class="@GetCellClassString(context.Col, context.HesTreeChildren, context.IsInCell)" style="@GetCellStyleString(context.Col)">
+        <DynamicElement TagName="div" TriggerClick="@context.HasTreeChildren"
+                        OnClick="@ToggleTreeRow(context.Item)" StopPropagation="context.HasTreeChildren"
+                        class="@GetCellClassString(context.Col, context.HasTreeChildren, context.IsInCell)" style="@GetCellStyleString(context.Col)">
             @if (context.IsFirstColOfTree)
             {
                 <div class="is-node" style="@GetTreeStyleString(context.Degree)">
-                @if (context.HesTreeChildren)
+                @if (context.HasTreeChildren)
                 {
                     <i class="@GetTreeClassString(context.IsExpend)"></i>
                 }
