@@ -210,8 +210,8 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
-                SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
+                var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries).ToHashSet();
+                SelectedItems.AddRange(Rows.Where(item => list.Contains(item.Value)));
             }
         }
     }
