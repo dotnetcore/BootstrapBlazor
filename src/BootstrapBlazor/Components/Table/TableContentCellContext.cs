@@ -9,7 +9,7 @@ readonly record struct TableContentCellContext<TItem>
 {
     public TItem Item { get; init; }
 
-    public int ColSpan { get; init; }
+    public int Colspan { get; init; }
 
     public ITableColumn Col { get; init; }
 

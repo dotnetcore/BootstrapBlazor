@@ -745,7 +745,7 @@
     </DynamicElement>;
 
     RenderFragment<TableContentCellContext<TItem>> RenderContentCell => context =>
-    @<td colspan="@GetColSpan(context.ColSpan)" class="@GetFixedCellClassString(context.Col, context.CellClass)" style="@GetFixedCellStyleString(context.Col)">
+    @<td colspan="@GetColSpan(context.Colspan)" class="@GetFixedCellClassString(context.Col, context.CellClass)" style="@GetFixedCellStyleString(context.Col)">
         <DynamicElement TagName="div" TriggerClick="@context.HasTreeChildren"
                         OnClick="@ToggleTreeRow(context.Item)" StopPropagation="context.HasTreeChildren"
                         class="@GetCellClassString(context.Col, context.HasTreeChildren, context.IsInCell)" style="@GetCellStyleString(context.Col)">
