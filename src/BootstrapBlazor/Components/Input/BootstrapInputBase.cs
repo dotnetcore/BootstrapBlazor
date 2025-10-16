@@ -20,11 +20,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// Gets or sets Element reference instance
-    /// </summary>
-    protected ElementReference FocusElement { get; set; }
-
-    /// <summary>
     /// Gets or sets the placeholder attribute value
     /// </summary>
     [Parameter]
