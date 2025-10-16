@@ -1,5 +1,12 @@
 ﻿import EventHandler from "../../modules/event-handler.js"
 
+export function focus(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        el.focus();
+    }
+}
+
 export function clear(id) {
     const el = document.getElementById(id)
     if (el) {

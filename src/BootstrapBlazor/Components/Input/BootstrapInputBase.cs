@@ -97,7 +97,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// Method to focus the element
     /// </summary>
     /// <returns></returns>
-    public async Task FocusAsync() => await FocusElement.FocusAsync();
+    public async Task FocusAsync() => await InvokeVoidAsync("focus", GetInputId());
 
     /// <summary>
     /// Method to select all text
