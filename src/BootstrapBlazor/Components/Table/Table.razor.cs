@@ -1422,10 +1422,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         var treeItem = TreeNodeCache.Find(TreeRows, item, out var degree);
-        return (isFirstColOfTree,
-                 degree,
-                 treeItem?.IsExpand ?? false,
-                 treeItem?.HasChildren ?? false);
+        var isExpand = false;
+        var hasChildren = false;
+        if (treeItem != null)
+        {
+            isExpand = treeItem.IsExpand;
+            hasChildren = treeItem.HasChildren;
+        }
+        return (isFirstColOfTree, degree, isExpand, hasChildren);
     }
 
     /// <summary>
