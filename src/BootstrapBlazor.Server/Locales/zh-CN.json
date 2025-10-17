@@ -4874,6 +4874,7 @@
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "Dom2ImageService": "节点转图片服务 IDom2HtmlService",
     "SelectRegion": "行政区域选择器 SelectRegion",
+    "SelectProvince": "省选择器 SelectProvince",
     "SelectCity": "城市选择器 SelectCity"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
@@ -7236,5 +7237,13 @@
     "CityNormalIntro": "通过下拉框的形式选择城市",
     "CityMultipleTitle": "多选",
     "CityMultipleIntro": "通过设置 <code>IsMultiple</code> 开启多选模式，点击弹窗中省份时自动选中所有城市"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
+    "ProvinceTitle": "SelectProvince 省选择器",
+    "ProvinceDescription": "提供下拉框选择省/直辖市/特别行政区",
+    "ProvinceNormalTitle": "基本用法",
+    "ProvinceNormalIntro": "通过下拉框的形式选择省/直辖市/特别行政区",
+    "ProvinceMultipleTitle": "多选",
+    "ProvinceMultipleIntro": "通过设置 <code>IsMultiple</code> 开启多选模式"
   }
 }
