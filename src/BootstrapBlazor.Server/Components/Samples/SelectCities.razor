@@ -10,11 +10,31 @@
 <DemoBlock Title="@Localizer["CityNormalTitle"]"
            Introduction="@Localizer["CityNormalIntro"]"
            Name="Normal">
-    <SelectCity Value="@_value"></SelectCity>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["CityMultipleTitle"]"
-           Introduction="@Localizer["CityMultipleIntro"]"
-           Name="IsMultiple">
-    <SelectCity IsMultiple="true" Value="@_multipleValues"></SelectCity>
+               <div class="row g-3 mb-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowSearch"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showSearch"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="AutoClose"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_autoClose"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsMultiple"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="@_isMultiple"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="@_isDisabled"></Switch>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+    <SelectCity Value="@_value" ShowSearch="_showSearch" IsMultiple="_isMultiple" IsDisabled="_isDisabled" AutoClose="_autoClose"></SelectCity>
 </DemoBlock>

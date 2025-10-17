@@ -12,5 +12,11 @@ public partial class SelectCities
 {
     private string? _value = null;
 
-    private string? _multipleValues = null;
+    private bool _showSearch = true;
+
+    private bool _isMultiple = false;
+
+    private bool _isDisabled = false;
+
+    private bool _autoClose = true;
 }
