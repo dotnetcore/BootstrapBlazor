@@ -7234,9 +7234,7 @@
     "CityTitle": "SelectCity 城市选择器",
     "CityDescription": "提供以省分类的城市选择器",
     "CityNormalTitle": "基本用法",
-    "CityNormalIntro": "通过下拉框的形式选择城市",
-    "CityMultipleTitle": "多选",
-    "CityMultipleIntro": "通过设置 <code>IsMultiple</code> 开启多选模式，点击弹窗中省份时自动选中所有城市"
+    "CityNormalIntro": "通过下拉框的形式选择城市"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
     "ProvinceTitle": "SelectProvince 省选择器",
