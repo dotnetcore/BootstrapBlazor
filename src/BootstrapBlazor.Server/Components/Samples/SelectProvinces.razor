@@ -1,0 +1,20 @@
+﻿@page "/select-province"
+@inject IStringLocalizer<SelectProvinces> Localizer
+
+<h3>@Localizer["ProvinceTitle"]</h3>
+
+<h4>@Localizer["ProvinceDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Region" />
+
+<DemoBlock Title="@Localizer["ProvinceNormalTitle"]"
+           Introduction="@Localizer["ProvinceNormalIntro"]"
+           Name="Normal">
+    <SelectProvince Value="@_value"></SelectProvince>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ProvinceMultipleTitle"]"
+           Introduction="@Localizer["ProvinceMultipleIntro"]"
+           Name="IsMultiple">
+    <SelectProvince IsMultiple="true" Value="@_multipleValues"></SelectProvince>
+</DemoBlock>
