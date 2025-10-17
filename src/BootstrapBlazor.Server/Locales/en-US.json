@@ -7234,9 +7234,7 @@
     "CityTitle": "City Selector",
     "CityDescription": "Provides a city selector classified by province",
     "CityNormalTitle": "Basic usage",
-    "CityNormalIntro": "Select a city from the drop-down box",
-    "CityMultipleTitle": "Multiple",
-    "CityMultipleIntro": "Enable multiple selection mode by setting <code>IsMultiple</code> , and all cities will be automatically selected when clicking a province in the pop-up window."
+    "CityNormalIntro": "Select a city from the drop-down box"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
     "ProvinceTitle": "Province Selector",
