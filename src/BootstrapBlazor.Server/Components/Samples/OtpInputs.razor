@@ -31,7 +31,7 @@
 <DemoBlock Title="@Localizer["OtpInputsNormalTitle"]"
            Introduction="@Localizer["OtpInputsNormalIntro"]"
            Name="Normal">
-    <div class="row g-3 mb-3">
+    <section ignore class="row g-3 mb-3">
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="Type"></BootstrapInputGroupLabel>
@@ -56,7 +56,7 @@
                 <Switch @bind-Value="@_disabled"></Switch>
             </BootstrapInputGroup>
         </div>
-    </div>
+    </section>
     <OtpInput Value="@_value" Type="_otpInputType" PlaceHolder="@_placeHolder" IsReadonly="_readonly" IsDisabled="_disabled"></OtpInput>
 </DemoBlock>
 
