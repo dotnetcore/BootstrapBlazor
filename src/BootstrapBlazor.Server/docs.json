@@ -257,7 +257,8 @@
     "modbus-factory": "Modbus\\ModbusFactories",
     "serial-port-factory": "SerialPorts\\SerialPortFactories",
     "select-region": "SelectRegions",
-    "select-city": "SelectCities"
+    "select-city": "SelectCities",
+    "select-province": "SelectProvinces"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
