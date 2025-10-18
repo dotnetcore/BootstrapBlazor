@@ -3944,8 +3944,12 @@
     "FeatureShowHolidays": "Holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
+    "IpTitle": "IpAddress",
+    "IpSubTitle": "The IP Address component is a reusable component for entering and validating IP addresses.",
     "IpNormalTitle": "Basic usage",
-    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>"
+    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>",
+    "IsDisabledTitle": "IsDisabled",
+    "IsDisabledIntro": "Make the component disabled by setting <code>IsDisabled</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Displays": {
     "Title": "Display",
