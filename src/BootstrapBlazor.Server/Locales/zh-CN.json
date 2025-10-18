@@ -3944,8 +3944,12 @@
     "FeatureShowHolidays": "法定假日"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
+    "IpTitle": "IpAddress 地址组件",
+    "IpSubTitle": "IP 地址组件是一个用于输入和验证 IP 地址的可重用组件",
     "IpNormalTitle": "基础用法",
-    "IpNormalIntro": "分段录入并显示 <code>ip</code> 地址，例如：<code>192.168.1.1</code>"
+    "IpNormalIntro": "分段录入并显示 <code>ip</code> 地址，例如：<code>192.168.1.1</code>",
+    "IsDisabledTitle": "禁用",
+    "IsDisabledIntro": "通过设置 <code>IsDisabled</code> 使组件处于不可用状态"
   },
   "BootstrapBlazor.Server.Components.Samples.Displays": {
     "Title": "Display 显示组件",
