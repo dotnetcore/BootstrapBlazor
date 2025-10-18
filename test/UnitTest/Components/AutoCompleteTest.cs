@@ -197,6 +197,27 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task TriggerClear_Ok()
+    {
+        var val = "task1";
+        var items = new List<string>() { "task1", "Task2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+            builder.Add(a => a.IgnoreCase, false);
+            builder.Add(a => a.Value, val);
+            builder.Add(a => a.IsClearable, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v =>
+            {
+                val = v;
+            }));
+        });
+
+        await cut.InvokeAsync(cut.Instance.TriggerClear);
+        Assert.Empty(val);
+    }
+
+    [Fact]
     public async Task DisplayCount_Ok()
     {
         var items = new List<string>() { "task1", "Task2", "task3", "Task4" };

@@ -193,6 +193,19 @@ public partial class AutoComplete
     private List<string> Rows => _filterItems ?? [.. Items];
 
     /// <summary>
+    /// 点击清空按钮时调用此方法 由 Javascript 触发
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerClear()
+    {
+        await TriggerFilter("");
+
+        _clientValue = null;
+        CurrentValueAsString = string.Empty;
+    }
+
+    /// <summary>
     /// TriggerFilter method
     /// </summary>
     /// <param name="val"></param>
@@ -228,12 +241,10 @@ public partial class AutoComplete
     /// <param name="v"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task TriggerChange(string v)
+    public void TriggerChange(string v)
     {
         _clientValue = v;
         CurrentValueAsString = v;
-
-        return Task.CompletedTask;
     }
 
     private List<string> GetFilterItemsByValue(string val)

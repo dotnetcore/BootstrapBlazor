@@ -143,7 +143,7 @@ export function init(id, invoke, value, changedEventCallback) {
 
     EventHandler.on(el, 'click', '.clear-icon', e => {
         input.value = '';
-        invoke.invokeMethodAsync('TriggerFilter', '');
+        invoke.invokeMethodAsync('TriggerClear');
     });
 }
 
