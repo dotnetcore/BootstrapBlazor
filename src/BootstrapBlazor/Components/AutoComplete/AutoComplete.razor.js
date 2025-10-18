@@ -150,7 +150,7 @@ export function init(id, invoke, value, changedEventCallback) {
 const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, invoke, menu } = ac;
-    if (key === 'Enter' || key === 'NumpadEnter') {
+    if (key === 'Enter' ) {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
             const items = [...menu.querySelectorAll('.dropdown-item')];
