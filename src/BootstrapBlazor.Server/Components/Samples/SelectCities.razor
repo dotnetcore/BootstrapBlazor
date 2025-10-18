@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["CityNormalTitle"]"
            Introduction="@Localizer["CityNormalIntro"]"
            Name="Normal">
-               <div class="row g-3 mb-3">
+    <div class="row g-3 mb-3">
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="ShowSearch"></BootstrapInputGroupLabel>
@@ -36,5 +36,6 @@
             </BootstrapInputGroup>
         </div>
     </div>
-    <SelectCity Value="@_value" ShowSearch="_showSearch" IsMultiple="_isMultiple" IsDisabled="_isDisabled" AutoClose="_autoClose"></SelectCity>
+    <SelectCity @bind-Value="@_value" ShowSearch="_showSearch" AutoClose="_autoClose"
+                IsMultiple="_isMultiple" IsDisabled="_isDisabled"></SelectCity>
 </DemoBlock>
