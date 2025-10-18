@@ -51,7 +51,6 @@
     <File Path="scripts/windows/push.ps1" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="../BootstrapBlazor.Extensions/src/components/BootstrapBlazor.Region/BootstrapBlazor.Region.csproj" />
     <Project Path="src/BootstrapBlazor.Server/BootstrapBlazor.Server.csproj" />
     <Project Path="src/BootstrapBlazor/BootstrapBlazor.csproj" />
   </Folder>
