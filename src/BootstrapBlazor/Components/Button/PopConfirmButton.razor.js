@@ -39,6 +39,10 @@ export function init(id, invoke, closeCallback) {
     }
     confirm.hide = () => {
         const popover = getDescribedElement(el)
+        if (popover == null) {
+            return;
+        }
+
         popover.classList.remove('show')
 
         const children = popover.children

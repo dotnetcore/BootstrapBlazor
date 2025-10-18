@@ -37,11 +37,11 @@ export function init(id, invoke, options) {
         const triggerSpace = e.target.getAttribute('data-bb-trigger-key') === 'space';
         let submit = false;
         if (triggerSpace) {
-            if (e.code === 'Space') {
+            if (e.key === 'Space') {
                 submit = true;
             }
         }
-        else if (e.code === 'Enter' || e.code === 'NumPadEnter') {
+        else if (e.key === 'Enter') {
             submit = true;
         }
 

@@ -29,7 +29,7 @@ const initKeydownHandler = select => {
     const keydown = e => {
         const menu = popover.toggleMenu;
         const key = e.key;
-        if (key === "Enter" || key === 'NumpadEnter') {
+        if (key === "Enter") {
             if (popover.isPopover) {
                 popover.hide();
             }
