@@ -19,4 +19,12 @@ public partial class SelectCities
     private bool _isDisabled = false;
 
     private bool _autoClose = true;
+
+    private Task OnValueChagned(bool v)
+    {
+        _value = "";
+        _isMultiple = v;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 }
