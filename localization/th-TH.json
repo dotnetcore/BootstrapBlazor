@@ -1,258 +1,282 @@
 ﻿{
   "BootstrapBlazor.Components.AutoComplete": {
-    "NoDataTip": "ไม่มีข้อมูลที่ตรงกัน",
-    "PlaceHolder": "กรุณากรอก"
+    "NoDataTip": "ไม่มีข้อมูล",
+    "PlaceHolder": "กรุณากรอกข้อมูล"
   },
   "BootstrapBlazor.Components.Captcha": {
-    "HeaderText": "กรุณาตรวจสอบความปลอดภัย",
-    "BarText": "เลื่อนไปทางขวาเติมปริศนา",
-    "FailedText": "โหลดล้มเหลว",
+    "HeaderText": "แคปช่า",
+    "BarText": "เลื่อนไปทางขวาเพื่อแก้ปริศนา",
+    "FailedText": "โหลดไม่สำเร็จ",
     "LoadText": "กำลังโหลด ..."
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "ปีก่อนหน้า",
-    "PreviousMonth": "เดือนที่แล้ว",
+    "PreviousMonth": "เดือนก่อนหน้า",
     "Today": "วันนี้",
-    "NextMonth": "เดือนหน้า",
+    "NextMonth": "เดือนถัดไป",
     "NextYear": "ปีถัดไป",
-    "PreviousWeek": "สัปดาห์ที่แล้ว",
-    "WeekText": "สัปดาห์นี้",
+    "PreviousWeek": "สัปดาห์ก่อนหน้า",
+    "WeekText": "สัปดาห์",
     "NextWeek": "สัปดาห์ถัดไป",
-    "WeekHeaderText": "สัปดาห์",
-    "WeekLists": "วันอาทิตย์ วันจันทร์ วันอังคาร วันพุธ วันพฤหัสบดี วันศุกร์ วันเสาร์",
-    "WeekNumberText": "ข้อที่ {0} สัปดาห์",
-    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
-    "Title": "{0} ปี {1} เดือน"
+    "WeekHeaderText": "",
+    "WeekLists": "อา,จ,อ,พ,พฤ,ศ,ส",
+    "WeekNumberText": "{0} สัปดาห์",
+    "Months": "มกราคม,กุมภาพันธ์,มีนาคม,เมษายน,พฤษภาคม,มิถุนายน,กรกฎาคม,สิงหาคม,กันยายน,ตุลาคม,พฤศจิกายน,ธันวาคม",
+    "Title": "{0} {1}"
   },
   "BootstrapBlazor.Components.Cascader": {
     "PlaceHolder": "กรุณาเลือก ..."
   },
   "BootstrapBlazor.Components.Console": {
-    "HeaderText": "การตรวจสอบระบบ",
-    "LightTitle": "ไฟแสดงสถานะการสื่อสาร",
-    "ClearButtonText": "ล้างหน้าจอ",
-    "AutoScrollText": "หน้าจอม้วนอัตโนมัติ"
+    "HeaderText": "มอนิเตอร์",
+    "LightTitle": "ไฟ",
+    "ClearButtonText": "ล้าง",
+    "AutoScrollText": "เลื่อนอัตโนมัติ"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "เลือกวันที่",
     "TimePlaceHolder": "เลือกเวลา",
-    "DateTimePlaceHolderText": "โปรดเลือกวัน เวลา",
-    "DatePlaceHolderText": "กรุณาเลือกวันที่",
+    "DateTimePlaceHolderText": "กรุณาเลือก ...",
+    "DatePlaceHolderText": "กรุณาเลือก ...",
     "TimeFormat": "hh\\:mm\\:ss",
-    "DateFormat": "yyyy-MM-dd",
-    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
+    "DateFormat": "d/M/yyyy",
+    "DateTimeFormat": "d/M/yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "ปีก่อนหน้า",
     "AiraNextYearLabel": "ปีถัดไป",
-    "AiraPrevMonthLabel": "เดือนที่แล้ว",
-    "AiraNextMonthLabel": "เดือนหน้า",
-    "ClearButtonText": "ว่างเปล่า",
-    "NowButtonText": "ในขณะนี้",
-    "ConfirmButtonText": "การตัดสินใจ",
-    "CancelButtonText": "การยกเลิก",
-    "YearText": "{0} ปี",
-    "MonthText": "{0} เดือน",
-    "YearPeriodText": "{0} ปี - {1} ปี",
-    "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
-    "MonthLists": "มกราคม, กุมภาพันธ์, มีนาคม, เมษายน, พฤษภาคม, มิถุนายน, กรกฎาคม, สิงหาคม, กันยายน, ตุลาคม, พฤศจิกายน, ธันวาคม",
-    "WeekLists": "วันอาทิตย์ วันจันทร์ วันอังคาร วันพุธ วันพฤหัสบดี วันศุกร์ วันเสาร์",
-    "GenericTypeErroMessage": "DateTimePicker ส่วนประกอบนี้สนับสนุนเฉพาะการผูกมัดทั่วไปเป็น DateTime หรือ DateTime?",
+    "AiraPrevMonthLabel": "เดือนก่อนหน้า",
+    "AiraNextMonthLabel": "เดือนถัดไป",
+    "ClearButtonText": "ล้าง",
+    "NowButtonText": "ขณะนี้",
+    "ConfirmButtonText": "ตกลง",
+    "CancelButtonText": "ยกเลิก",
+    "YearText": "{0}",
+    "MonthText": "{0}",
+    "YearPeriodText": "{0} - {1}",
+    "Months": "ม.ค.,ก.พ.,มี.ค.,เม.ย.,พ.ค.,มิ.ย.,ก.ค.,ส.ค.,ก.ย.,ต.ค.,พ.ย.,ธ.ค.",
+    "MonthLists": "ม.ค.,ก.พ.,มี.ค.,เม.ย.,พ.ค.,มิ.ย.,ก.ค.,ส.ค.,ก.ย.,ต.ค.,พ.ย.,ธ.ค.",
+    "WeekLists": "อา,จ,อ,พ,พฤ,ศ,ส",
+    "GenericTypeErrorMessage": "DateTimePicker รองรับเฉพาะ DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
     "Today": "วันนี้",
-    "Yesterday": "เมื่อวานนี้",
-    "Week": "1 สัปดาห์ ก่อน"
+    "Yesterday": "เมื่อวาน",
+    "Week": "หนึ่งสัปดาห์ก่อน"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
     "SeparateText": "ถึง",
     "StartPlaceHolderText": "วันที่เริ่มต้น",
     "EndPlaceHolderText": "วันที่สิ้นสุด",
-    "ClearButtonText": "ว่างเปล่า",
+    "ClearButtonText": "ล้าง",
     "TodayButtonText": "วันนี้",
-    "ConfirmButtonText": "การตัดสินใจ",
-    "DateFormat": "yyyy-MM-dd",
+    "ConfirmButtonText": "ตกลง",
+    "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
+    "DateFormat": "d/M/yyyy",
     "Last7Days": "7 วันที่ผ่านมา",
     "Last30Days": "30 วันที่ผ่านมา",
     "ThisMonth": "เดือนนี้",
     "LastMonth": "เดือนที่แล้ว"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
-    "ParsingErrorMessage": "{0}ค่าฟิลด์ต้องเป็น Number ประเภท"
+    "ParsingErrorMessage": "ฟิลด์ {0} ต้องเป็นตัวเลข"
   },
   "BootstrapBlazor.Components.ResultDialogOption": {
-    "ButtonYesText": "ยืนยัน",
-    "ButtonNoText": "การยกเลิก",
+    "ButtonYesText": "ใช่",
+    "ButtonNoText": "ไม่ใช่",
     "ButtonCloseText": "ปิด"
   },
   "BootstrapBlazor.Components.DropdownList": {
     "PlaceHolder": "กรุณาเลือก ..."
   },
   "BootstrapBlazor.Components.Editor": {
-    "PlaceHolder": "แก้ไขหลังจากคลิก"
+    "PlaceHolder": "คลิกเพื่อแก้ไข"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "แบบฟอร์มการตรวจสอบกับ {0} รูปแบบที่ผูกไว้ไม่สอดคล้องกัน",
-    "PlaceHolderText": "กรุณากรอก ..."
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL ไม่ตรงกับ {0} MODEL",
+    "PlaceHolderText": "กรุณากรอกข้อมูล ..."
   },
   "BootstrapBlazor.Components.Empty": {
-    "Text": "ไม่มีคำอธิบายในปัจจุบัน"
+    "Text": "ไม่มีข้อมูล"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
-    "ErrorMessage": "การป้อนข้อมูลของคุณไม่เหมือนกัน"
+    "ErrorMessage": "กรุณากรอกค่าเดิมอีกครั้ง"
   },
   "BootstrapBlazor.Components.ErrorLogger": {
-    "ToastTitle": "ข้อผิดพลาดของโปรแกรม"
+    "ToastTitle": "ข้อผิดพลาดของแอปพลิเคชัน"
   },
   "BootstrapBlazor.Components.GoTop": {
-    "TooltipText": "กลับสู่ด้านบน"
+    "TooltipText": "ไปด้านบน"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "คลิกที่เมนูด้านซ้ายมือ"
+    "TooltipText": "คลิกเพื่อขยาย/ยุบแถบด้านข้าง"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "ยินดีต้อนรับ",
-    "PrefixUserNameText": "หมายเลขบัญชีปัจจุบัน:"
+    "PrefixUserNameText": "บัญชีผู้ใช้:"
   },
   "BootstrapBlazor.Components.LogoutLink": {
     "Text": "ออกจากระบบ"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "SideMenu ส่วนประกอบไม่สามารถใช้ได้อย่างอิสระ，กรุณาใช้ Menu การตั้งค่าส่วนประกอบ IsVertical=true"
+    "InvalidOperationExceptionMessage": "ไม่สามารถใช้คอมโพเนนต์ SideMenu ได้โดยอิสระ กรุณาใช้คอมโพเนนต์ Menu เพื่อกำหนดค่า IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "ปิด",
     "SaveButtonText": "บันทึก",
-    "PrintButtonText": "การพิมพ์"
+    "PrintButtonText": "พิมพ์",
+    "ExportPdfButtonText": "ส่งออก Pdf"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "คลิกเพื่อทำการเลือกหลายรายการ ...",
-    "SelectAllText": "เลือกทั้งหมด",
-    "ReverseSelectText": "ต่อต้านการเลือกตั้ง",
+    "PlaceHolder": "เลือกไอเท็ม ...",
+    "SelectAllText": "ทั้งหมด",
+    "ReverseSelectText": "ย้อนกลับ",
     "ClearText": "ล้าง",
-    "MinErrorMessage": "ขั้นต่ำ กรุณาเลือก {0} รายการ",
-    "MaxErrorMessage": "เลือกได้มากที่สุด {0} รายการ"
+    "MinErrorMessage": "เลือกอย่างน้อย {0} รายการ",
+    "MaxErrorMessage": "เลือกได้สูงสุด {0} รายการ",
+    "NoSearchDataText": "ไม่มีผลลัพธ์"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "GotoNavigatorLabelText": "นำทางไปยัง"
+    "GotoNavigatorLabelText": "ไปที่"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
-    "CloseButtonText": "การยกเลิก",
-    "ConfirmButtonText": "การตัดสินใจ",
-    "Content": "คุณแน่ใจนะว่าคุณต้องการทำ？"
+    "CloseButtonText": "ยกเลิก",
+    "ConfirmButtonText": "ตกลง",
+    "Content": "คุณแน่ใจหรือไม่ว่าต้องการดำเนินการนี้?"
   },
   "BootstrapBlazor.Components.PrintButton": {
-    "Text": "การพิมพ์"
+    "Text": "พิมพ์"
   },
   "BootstrapBlazor.Components.Repeater": {
     "EmptyText": "ไม่มีข้อมูล"
   },
   "BootstrapBlazor.Components.Search": {
-    "SearchButtonText": "ค้นหา"
+    "SearchButtonText": "ค้นหา",
+    "NoDataTip": "ไม่พบข้อมูล"
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "กรุณาเลือก ...",
-    "NoSearchDataText": "ไม่มีข้อมูล"
+    "NoSearchDataText": "ไม่มีผลลัพธ์"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "กรุณาเลือก ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "สามารถป้อนข้อมูลได้มากที่สุด {{0}} ตัวละคร"
+    "ErrorMessage": "กรุณากรอกค่าที่น้อยกว่าหรือเท่ากับ {{0}}"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "ปิด",
-    "CancelButtonText": "การยกเลิก",
+    "CancelButtonText": "ยกเลิก",
     "ConfirmButtonText": "ยืนยัน"
   },
   "BootstrapBlazor.Components.Switch": {
     "OnInnerText": "เปิด",
-    "OffInnerText": "กวน"
+    "OffInnerText": "ปิด"
   },
   "BootstrapBlazor.Components.Tab": {
-    "CloseCurrentTabText": "ปิดป้ายกำกับปัจจุบัน",
-    "CloseOtherTabsText": "ปิดแท็กอื่น ๆ",
-    "CloseAllTabsText": "ปิดแท็กทั้งหมด",
-    "NotFoundTabText": "ไม่พบ"
+    "CloseCurrentTabText": "ปิด",
+    "CloseOtherTabsText": "ปิดอื่น ๆ",
+    "CloseAllTabsText": "ปิดทั้งหมด",
+    "NotFoundTabText": "ไม่พบ",
+    "RefreshToolbarTooltipText": "รีเฟรช",
+    "FullscreenToolbarTooltipText": "เต็มหน้าจอ",
+    "PrevTabNavLinkTooltipText": "แท็บก่อนหน้า",
+    "NextTabNavLinkTooltipText": "แท็บถัดไป",
+    "CloseTabNavLinkTooltipText": "ปิด",
+    "ContextRefresh": "รีเฟรช",
+    "ContextClose": "ปิด",
+    "ContextCloseOther": "ปิดแท็บอื่น",
+    "ContextCloseAll": "ปิดทุกแท็บ",
+    "ContextFullScreen": "เต็มหน้าจอ"
   },
   "BootstrapBlazor.Components.Table": {
-    "AddButtonText": "สร้างใหม่",
-    "EditButtonText": "บรรณาธิการ",
-    "UpdateButtonText": "อัพเดท",
+    "AddButtonText": "เพิ่ม",
+    "EditButtonText": "แก้ไข",
+    "UpdateButtonText": "อัปเดต",
     "DeleteButtonText": "ลบ",
-    "CancelButtonText": "การยกเลิก",
+    "CancelButtonText": "ยกเลิก",
     "SaveButtonText": "บันทึก",
     "CloseButtonText": "ปิด",
-    "CancelDeleteButtonText": "การยกเลิก",
+    "CancelDeleteButtonText": "ยกเลิก",
     "ConfirmDeleteButtonText": "ลบ",
-    "ConfirmDeleteContentText": "ยืนยันที่จะลบทุกบรรทัดที่เลือก？",
+    "ConfirmDeleteContentText": "คุณแน่ใจหรือไม่ว่าต้องการลบแถวที่เลือกทั้งหมด?",
     "RefreshButtonText": "รีเฟรช",
-    "CardViewButtonText": "วิว",
-    "ColumnButtonTitleText": "คอลัมน์แสดงการควบคุมที่ซ่อนอยู่",
+    "CardViewButtonText": "ดู",
+    "ColumnButtonTitleText": "แสดง/ซ่อนคอลัมน์",
     "ColumnButtonText": "คอลัมน์",
-    "ExportButtonText": "ส่งออกข้อมูล",
+    "ExportButtonText": "ส่งออก",
     "SearchPlaceholderText": "ค้นหา",
     "SearchButtonText": "ค้นหา",
-    "ResetSearchButtonText": "ล้างการค้นหา",
+    "ResetSearchButtonText": "รีเซ็ต",
     "AdvanceButtonText": "ค้นหาขั้นสูง",
-    "AdvancedSortModalTitle": "การเรียงลำดับที่กำหนดเอง",
-    "AdvancedSortButtonText": "การเรียงลำดับขั้นสูง",
-    "CheckboxDisplayText": "เลือก",
-    "EditModalTitle": "แก้ไขหน้าต่าง",
-    "AddModalTitle": "หน้าต่างใหม่",
-    "LineNoText": "หมายเลขบรรทัด",
-    "ColumnButtonTemplateHeaderText": "การดำเนินงาน",
-    "SearchTooltip": "<div class='search-input-tooltip'>ป้อนสตริงใดก็ได้เพื่อค้นหาทั่วโลก</br><kbd>Enter</kbd> ค้นหา <kbd>ESC</kbd> ล้างการค้นหา</div>",
-    "SearchModalTitle": "เงื่อนไขการค้นหา",
-    "AddButtonToastTitle": "สร้างข้อมูลใหม่",
-    "AddButtonToastContent": "ไม่มีวิธีการสร้างข้อมูลใหม่และไม่สามารถสร้างข้อมูลใหม่ได้",
-    "EditButtonToastTitle": "แก้ไขข้อมูล",
-    "EditButtonToastNotSelectContent": "โปรดเลือกข้อมูลที่ต้องการแก้ไข",
-    "EditButtonToastReadonlyContent": "ตัวเลือกไม่สามารถแก้ไขได้",
-    "EditButtonToastMoreSelectContent": "สามารถเลือกข้อมูลที่ต้องการแก้ไขได้เพียงรายการเดียว",
-    "EditButtonToastNoSaveMethodContent": "ไม่มีวิธีการบันทึกข้อมูลและไม่สามารถแก้ไขข้อมูลได้",
+    "AdvancedSortModalTitle": "เรียงลำดับ",
+    "AdvancedSortButtonText": "เรียงลำดับขั้นสูง",
+    "CheckboxDisplayText": "ทั้งหมด",
+    "EditModalTitle": "แก้ไข",
+    "AddModalTitle": "ใหม่",
+    "LineNoText": "ลำดับที่",
+    "ColumnButtonTemplateHeaderText": "การดำเนินการ",
+    "SearchTooltip": "<div class='search-input-tooltip'>กรุณากรอกข้อมูล ...</br><kbd>Enter</kbd> ค้นหา <kbd>ESC</kbd> ล้าง</div>",
+    "SearchModalTitle": "กำลังค้นหา",
+    "AddButtonToastTitle": "เพิ่มข้อมูล",
+    "AddButtonToastContent": "เพิ่มข้อมูลไม่สำเร็จ กรุณาเพิ่มเมธอด OnAddAsync",
+    "EditButtonToastTitle": "เพิ่มข้อมูล",
+    "EditButtonToastNotSelectContent": "บันทึกข้อมูลไม่สำเร็จ กรุณาเพิ่มเมธอด OnSaveAsync",
+    "EditButtonToastReadonlyContent": "ข้อมูลที่เลือกไม่สามารถแก้ไขได้",
+    "EditButtonToastMoreSelectContent": "สามารถแก้ไขได้เพียงแถวเดียว",
+    "EditButtonToastNoSaveMethodContent": "ไม่สามารถแก้ไขข้อมูล กรุณาเพิ่มเมธอด OnSaveAsync",
     "SaveButtonToastTitle": "บันทึกข้อมูล",
-    "SaveButtonToastContent": "ไม่มีวิธีการบันทึกข้อมูลและไม่สามารถบันทึกข้อมูลได้",
-    "SaveButtonToastResultContent": "บันทึกข้อมูล{0}, {1} ปิดอัตโนมัติหลังจากวินาที",
-    "SuccessText": "ความสำเร็จ",
+    "SaveButtonToastContent": "บันทึกข้อมูลไม่สำเร็จ กรุณาเพิ่มเมธอด OnSaveAsync",
+    "SaveButtonToastResultContent": "บันทึกข้อมูล {0}, ปิดอัตโนมัติใน {1} วินาที",
+    "SuccessText": "สำเร็จ",
     "FailText": "ล้มเหลว",
     "DeleteButtonToastTitle": "ลบข้อมูล",
-    "DeleteButtonToastContent": "โปรดเลือกข้อมูลที่คุณต้องการลบ, {0} ปิดอัตโนมัติหลังจากวินาที",
-    "DeleteButtonToastResultContent": "ลบข้อมูล{0}, {1} ปิดอัตโนมัติหลังจากวินาที",
-    "DeleteButtonToastCanNotDeleteContent": "ตรวจสอบว่ามีข้อมูลที่ไม่สามารถลบได้ในข้อมูล, {0} ปิดอัตโนมัติหลังจากวินาที",
-    "DataServiceInvalidOperationText": "ยังไม่ได้ลงทะเบียน 'BootstrapBlazor.Components.IDataService`1[{0}]' บริการ",
-    "NotSetOnTreeExpandErrorMessage": "ยังไม่ได้ตั้งค่า OnTreeExpand วิธีการมอบหมายการโทรกลับ",
-    "UnsetText": "คลิกจากน้อยไปมาก",
-    "SortAscText": "คลิกที่ลำดับจากมากไปน้อย",
-    "SortDescText": "ยกเลิกการเรียงลำดับ",
+    "DeleteButtonToastContent": "กรุณาเลือกแถวที่จะลบ, ปิดอัตโนมัติใน {0} วินาที",
+    "DeleteButtonToastResultContent": "ลบข้อมูล {0}, ปิดอัตโนมัติใน {1} วินาที",
+    "DeleteButtonToastCanNotDeleteContent": "มีข้อมูลที่ไม่สามารถลบได้ในข้อมูลที่เลือก, ปิดอัตโนมัติใน {0} วินาที",
+    "DataServiceInvalidOperationText": "ไม่สามารถกำหนดค่าให้กับ 'DataService' ใน 'BootstrapBlazor.Components.Table`1[[{0}]]' ไม่มีบริการที่ลงทะเบียนประเภท 'BootstrapBlazor.Components.IDataService`1[{0}]'",
+    "NotSetOnTreeExpandErrorMessage": "ไม่ได้ตั้งค่าพารามิเตอร์ OnTreeExpand",
+    "UnsetText": "น้อยไปมาก",
+    "SortAscText": "มากไปน้อย",
+    "SortDescText": "ยังไม่ได้ตั้งค่า",
     "EmptyText": "ไม่มีข้อมูล",
-    "ExportToastTitle": "ส่งออกข้อมูล",
-    "ExportToastContent": "ส่งออกข้อมูล {0}，{1} ปิดอัตโนมัติหลังจากวินาที",
-    "ExportToastInProgressContent": "กำลังส่งออกข้อมูล โปรดทราบภายหลัง, {0} ปิดอัตโนมัติหลังจากวินาที",
-    "ExportCsvDropdownItemText": "ไมโครซอฟท์ Csv รูปแบบ",
-    "ExportExcelDropdownItemText": "ไมโครซอฟท์ Excel รูปแบบ",
-    "ExportPdfDropdownItemText": "Pdf รูปแบบ",
-    "PageInfoText": "{0} - {1} ทั้งหมด {2} บทความ",
-    "PageItemsText": "{0} แถบ/หน้า",
-    "CopyColumnTooltipText": "คัดลอกเนื้อหาของคอลัมน์ไปยังแผ่นตัด",
-    "CopyColumnCopiedTooltipText": "คัดลอกแล้ว"
+    "ExportToastTitle": "ส่งออก",
+    "ExportToastContent": "ส่งออกข้อมูล {0}, ปิดอัตโนมัติใน {1} วินาที",
+    "ExportToastInProgressContent": "กำลังส่งออกข้อมูล กรุณารอสักครู่, ปิดอัตโนมัติใน {0} วินาที",
+    "ExportCsvDropdownItemText": "MS-Csv",
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
+    "PageInfoText": "{0} - {1} ทั้งหมด {2}",
+    "PageItemsText": "{0}/หน้า",
+    "CopyColumnTooltipText": "คัดลอกข้อมูลคอลัมน์ทั้งหมดไปยังคลิปบอร์ด",
+    "CopyColumnCopiedTooltipText": "คัดลอกแล้ว!",
+    "ColumnWidthTooltipPrefix": "ความกว้าง: ",
+    "ColumnToolboxTitle": "เครื่องมือ",
+    "AlignLeftText": "ชิดซ้าย",
+    "AlignLeftTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ไปทางซ้าย",
+    "AlignCenterText": "กึ่งกลาง",
+    "AlignCenterTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ให้อยู่ตรงกลาง",
+    "AlignRightText": "ชิดขวา",
+    "AlignRightTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ไปทางขวา"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "ปิด",
     "SaveButtonText": "บันทึก"
   },
-  "BootstrapBlazor.Components.TableFilter": {
-    "ClearButtonText": "รีเซ็ต",
-    "FilterButtonText": "ยืนยัน",
+  "BootstrapBlazor.Components.TableColumnFilter": {
+    "ClearButtonText": "ล้าง",
+    "FilterButtonText": "กรอง",
     "BoolFilter.AllText": "ทั้งหมด",
-    "BoolFilter.TrueText": "ตรวจสอบแล้ว",
-    "BoolFilter.FalseText": "ไม่ถูกเลือก",
-    "GreaterThanOrEqual": "มากกว่าเท่ากับ",
-    "LessThanOrEqual": "น้อยกว่าเท่ากับ",
+    "BoolFilter.TrueText": "จริง",
+    "BoolFilter.FalseText": "เท็จ",
+    "GreaterThanOrEqual": "มากกว่าหรือเท่ากับ",
+    "LessThanOrEqual": "น้อยกว่าหรือเท่ากับ",
     "GreaterThan": "มากกว่า",
     "LessThan": "น้อยกว่า",
     "Equal": "เท่ากับ",
     "NotEqual": "ไม่เท่ากับ",
-    "Contains": "ประกอบด้วย",
-    "NotContains": "ไม่รวม",
-    "EnumFilter.AllText": "เลือกทั้งหมด",
-    "NotSupportedMessage": "ประเภทที่ไม่สนับสนุน，กรุณาใช้ FilterTemplate ส่วนประกอบตัวกรองที่กำหนดเอง"
+    "Contains": "มี",
+    "NotContains": "ไม่มี",
+    "EnumFilter.AllText": "ทั้งหมด",
+    "NotSupportedColumnFilterMessage": "<p>ประเภทตัวกรองไม่รองรับ กรุณากำหนดเองโดยใช้ <code>FilterTemplate</code></p><div>ดูตัวอย่างที่ <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
+    "MultiFilterSearchPlaceHolderText": "กรุณากรอกข้อมูล ...",
+    "MultiFilterSelectAllText": "เลือกทั้งหมด"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "และ",
@@ -260,75 +284,78 @@
   },
   "BootstrapBlazor.Components.SearchDialog": {
     "ResetButtonText": "รีเซ็ต",
-    "QueryButtonText": "สอบถาม"
+    "QueryButtonText": "ค้นหา"
   },
   "BootstrapBlazor.Components.SwitchButton": {
     "OnText": "เปิด",
-    "OffText": "กวน"
+    "OffText": "ปิด"
   },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "หยุดชั่วคราว",
-    "ResumeText": "ดำเนินการต่อไป",
-    "CancelText": "การยกเลิก",
-    "StarText": "เริ่มเวลา"
+    "ResumeText": "ดำเนินการต่อ",
+    "CancelText": "ยกเลิก",
+    "StarText": "เริ่ม"
   },
   "BootstrapBlazor.Components.Toggle": {
     "OnText": "ขยาย",
-    "OffText": "การหดตัว"
+    "OffText": "ยุบ"
   },
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "ทั้งหมด",
-    "RightPanelText": "เลือก",
-    "MinErrorMessage": "ขั้นต่ำ กรุณาเลือก {0} รายการ",
-    "MaxErrorMessage": "เลือกได้มากที่สุด {0} รายการ"
+    "RightPanelText": "ที่เลือก",
+    "MinErrorMessage": "กรุณาเลือกอย่างน้อย {0} รายการ",
+    "MaxErrorMessage": "เลือกได้สูงสุด {0} รายการ"
   },
   "BootstrapBlazor.Components.TransferPanel": {
-    "SearchPlaceHolderString": "กรุณากรอก ...",
+    "SearchPlaceHolderString": "กรุณากรอกข้อมูล ...",
     "Text": "รายการ"
   },
   "BootstrapBlazor.Components.Tree": {
-    "NotSetOnTreeExpandErrorMessage": "ยังไม่ได้ตั้งค่า OnExpandNodeAsync วิธีการมอบหมายการโทรกลับ"
+    "NotSetOnTreeExpandErrorMessage": "ไม่ได้ตั้งค่าพารามิเตอร์ OnExpandNodeAsync"
   },
   "BootstrapBlazor.Components.TreeView": {
-    "NotSetOnTreeExpandErrorMessage": "ยังไม่ได้ตั้งค่า OnExpandNodeAsync วิธีการมอบหมายการโทรกลับ"
+    "NotSetOnTreeExpandErrorMessage": "ไม่ได้ตั้งค่าพารามิเตอร์ OnExpandNodeAsync",
+    "ToolbarEditTitle": "แก้ไขโหนดต้นไม้",
+    "ToolbarEditLabelText": "เปลี่ยนชื่อ"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "ลบ",
-    "BrowserButtonText": "เรียกดู",
-    "FileExtensions": "นามสกุลไฟล์ต้องเป็นหลายรูปแบบดังต่อไปนี้: {0}",
-    "FileSizeValidation": "ไฟล์รูปแบบต่างๆต่อไปนี้มีขนาดใหญ่เกินไปและขนาดไฟล์ จำกัด คือ {0}"
+    "BrowserButtonText": "เลือกไฟล์",
+    "FileExtensions": "ไฟล์ต้องมีนามสกุลดังต่อไปนี้: {0}",
+    "FileSizeValidation": "ขนาดไฟล์ต้องน้อยกว่า {0}",
+    "DropUploadText": "ลากไฟล์มาที่นี่หรือ <em>คลิกเพื่ออัปโหลด</em>"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "บันทึก",
     "ClearButtonText": "ล้าง"
   },
   "BootstrapBlazor.Components.SignaturePad": {
-    "SignAboveLabel": "เซ็นชื่อในกล่อง",
+    "SignAboveLabel": "เซ็นในช่อง",
     "ClearBtnTitle": "ล้าง",
     "SignatureAlertText": "กรุณาเซ็นชื่อก่อน",
     "ChangeColorBtnTitle": "เปลี่ยนสี",
-    "UndoBtnTitle": "การยกเลิก",
+    "UndoBtnTitle": "ย้อนกลับ",
     "CloseBtnTitle": "ปิด",
-    "SaveBase64BtnTitle": "การตัดสินใจ",
+    "SaveBase64BtnTitle": "ตกลง",
     "SavePNGBtnTitle": "PNG",
     "SaveJPGBtnTitle": "JPG",
     "SaveSVGBtnTitle": "SVG"
   },
   "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
     "NullValueDisplayText": "กรุณาเลือก ...",
-    "TrueValueDisplayText": "True",
-    "FalseValueDisplayText": "False"
+    "TrueValueDisplayText": "จริง",
+    "FalseValueDisplayText": "เท็จ"
   },
   "BootstrapBlazor.Components.InsertRowMode": {
     "Last": "สุดท้าย",
-    "First": "ด้านหน้าสุด"
+    "First": "แรก"
   },
   "BootstrapBlazor.Components.IconDialog": {
-    "LabelText": "เลือกไอคอน",
-    "LabelFullText": "ข้อความเต็ม",
-    "ButtonText": "คลิกเพื่อคัดลอก",
-    "DialogHeaderText": "โปรดเลือกไอคอน",
-    "CopiedTooltipText": "สำเนาสำเร็จ"
+    "LabelText": "ไอคอน",
+    "LabelFullText": "Html",
+    "ButtonText": "คัดลอก",
+    "DialogHeaderText": "ไอคอนที่เลือก",
+    "CopiedTooltipText": "คัดลอกแล้ว"
   },
   "BootstrapBlazor.Components.Splitting": {
     "Text": "กำลังโหลด ..."
@@ -336,19 +363,40 @@
   "BootstrapBlazor.Components.QueryBuilder": {
     "And": "และ",
     "Or": "หรือ",
-    "GreaterThanOrEqual": "มากกว่าเท่ากับ",
-    "LessThanOrEqual": "น้อยกว่าเท่ากับ",
+    "GreaterThanOrEqual": "มากกว่าหรือเท่ากับ",
+    "LessThanOrEqual": "น้อยกว่าหรือเท่ากับ",
     "GreaterThan": "มากกว่า",
     "LessThan": "น้อยกว่า",
     "Equal": "เท่ากับ",
     "NotEqual": "ไม่เท่ากับ",
-    "Contains": "ประกอบด้วย",
-    "NotContains": "ไม่รวม",
-    "GroupText": "เงื่อนไขการรวมกัน",
-    "ItemText": "เงื่อนไขแถวเดียว"
+    "Contains": "มี",
+    "NotContains": "ไม่มี",
+    "GroupText": "กลุ่ม",
+    "ItemText": "รายการ"
   },
   "BootstrapBlazor.Components.TableAdvancedSortDialog": {
-    "AscText": "ยกเลิกการเรียงลำดับจากน้อยไปมาก",
-    "DescText": "ลำดับจากมากไปน้อย"
+    "AscText": "น้อยไปมาก",
+    "DescText": "มากไปน้อย"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "AM",
+    "PMText": "PM"
+  },
+  "BootstrapBlazor.Components.ThemeProvider": {
+    "AutoModeText": "อัตโนมัติ",
+    "DarkModeText": "มืด",
+    "LightModeText": "สว่าง"
+  },
+  "BootstrapBlazor.Components.ValidateBase": {
+    "DefaultRequiredErrorMessage": "{0} จำเป็นต้องกรอก"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "เครือข่าย",
+    "NetworkType": "ประเภทเครือข่าย",
+    "Downlink": "ดาวน์โหลด",
+    "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "ไม่มีข้อมูลเพิ่มเติม"
   }
 }

@@ -1,52 +1,41 @@
 ﻿{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Sin datos",
-    "PlaceHolder": "Entrar"
+    "PlaceHolder": "Por favor ingrese"
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
-    "BarText": "Arrastra a la derecha y completa",
+    "BarText": "Deslice a la derecha para resolver el rompecabezas",
     "FailedText": "Error al cargar",
-    "LoadText": "Cargando...",
-    "TryText": "Intentar de nuevo"
-  },
-  "BootstrapBlazor.Components.Camera": {
-    "DeviceLabel": "Cámara",
-    "InitDevicesString": "Inicializar ...",
-    "PlayText": "Abrir",
-    "StopText": "Cerrar",
-    "PhotoText": "Foto",
-    "FrontText": "Frente",
-    "BackText": "Atrás",
-    "NotFoundDevicesString": "Ningún dispositivo encontrado"
+    "LoadText": "Cargando ..."
   },
   "BootstrapBlazor.Components.Calendar": {
-    "PreviousYear": "Año Anterior",
-    "PreviousMonth": "Mes Anterior",
+    "PreviousYear": "Año anterior",
+    "PreviousMonth": "Mes anterior",
     "Today": "Hoy",
     "NextMonth": "Próximo mes",
-    "NextYear": "El próximo año",
-    "PreviousWeek": "Semana Anterior",
+    "NextYear": "Próximo año",
+    "PreviousWeek": "Semana anterior",
     "WeekText": "Semana",
-    "NextWeek": "La Próxima Semana",
+    "NextWeek": "Próxima semana",
     "WeekHeaderText": "",
-    "WeekLists": "Dom,Lun,Mar,Mie,Jue,Vie,Sab",
+    "WeekLists": "Dom,Lun,Mar,Mié,Jue,Vie,Sáb",
     "WeekNumberText": "{0} Semanas",
-    "Months": "Jan,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dec",
+    "Months": "Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre",
     "Title": "{0} {1}"
   },
   "BootstrapBlazor.Components.Cascader": {
     "PlaceHolder": "Seleccione ..."
   },
   "BootstrapBlazor.Components.Console": {
-    "HeaderText": "Supervisar",
+    "HeaderText": "Monitor",
     "LightTitle": "Luz",
     "ClearButtonText": "Limpiar",
-    "AutoScrollText": "Auto Desplazamiento"
+    "AutoScrollText": "AutoScroll"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "Seleccione fecha",
-    "TimePlaceHolder": "Seleccionar hora",
+    "TimePlaceHolder": "Seleccione hora",
     "DateTimePlaceHolderText": "Por favor seleccione ...",
     "DatePlaceHolderText": "Por favor seleccione ...",
     "TimeFormat": "hh\\:mm\\:ss",
@@ -56,34 +45,34 @@
     "AiraNextYearLabel": "Próximo año",
     "AiraPrevMonthLabel": "Mes anterior",
     "AiraNextMonthLabel": "Próximo mes",
-    "ClearButtonText": "Borrar",
+    "ClearButtonText": "Limpiar",
     "NowButtonText": "Ahora",
     "ConfirmButtonText": "Ok",
     "CancelButtonText": "Cancelar",
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "Jan,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dec",
-    "MonthLists": "Jan,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dec",
-    "WeekLists": "Dom,Lun,Mar,Mie,Jue,Vie,Sab",
-    "GenericTypeErroMessage": "El selector de fecha y hora solo admite DateTime DateTime? DateTimeOffset DateTimeOffset?",
+    "Months": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic",
+    "MonthLists": "Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct,Nov,Dic",
+    "WeekLists": "Dom,Lun,Mar,Mié,Jue,Vie,Sáb",
+    "GenericTypeErrorMessage": "DateTimePicker solo soporta DateTime, DateTime?, DateTimeOffset, DateTimeOffset?",
     "Today": "Hoy",
     "Yesterday": "Ayer",
     "Week": "Hace una semana"
   },
   "BootstrapBlazor.Components.DateTimeRange": {
-    "SeparateText": "Para",
+    "SeparateText": "A",
     "StartPlaceHolderText": "Fecha de inicio",
-    "EndPlaceHolderText": "Fecha de finalización",
-    "ClearButtonText": "Borrar",
+    "EndPlaceHolderText": "Fecha de fin",
+    "ClearButtonText": "Limpiar",
     "TodayButtonText": "Hoy",
-    "ConfirmButtonText": "Aceptar",
+    "ConfirmButtonText": "Ok",
     "DateTimeFormat": "d/M/yyyy hh\\:mm\\:ss tt",
     "DateFormat": "d/M/yyyy",
     "Last7Days": "Últimos 7 días",
-    "Last30Days": "Últimos 30 Días",
-    "ThisMonth": "Este Mes",
-    "LastMonth": "Último mes"
+    "Last30Days": "Últimos 30 días",
+    "ThisMonth": "Este mes",
+    "LastMonth": "Mes pasado"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
     "ParsingErrorMessage": "El campo {0} debe ser un número."
@@ -100,23 +89,23 @@
     "PlaceHolder": "Click para editar"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "El modelo ValidateForm no coincide con {0} MODELO",
-    "PlaceHolderText": "Tipo ..."
+    "ModelInvalidOperationExceptionMessage": "El modelo ValidateForm no coincide con el modelo {0}",
+    "PlaceHolderText": "Por favor ingrese ..."
   },
   "BootstrapBlazor.Components.Empty": {
-    "Text": "Vacío"
+    "Text": "Sin datos"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
-    "ErrorMessage": "Entrar con el mismo valor"
+    "ErrorMessage": "Por favor ingrese el mismo valor nuevamente"
   },
   "BootstrapBlazor.Components.ErrorLogger": {
     "ToastTitle": "Error de la aplicación"
   },
   "BootstrapBlazor.Components.GoTop": {
-    "TooltipText": "Parte superior"
+    "TooltipText": "Ir arriba"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Expandir/Contraer Sidear"
+    "TooltipText": "Click para expandir/contraer la barra lateral"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Bienvenido",
@@ -126,43 +115,50 @@
     "Text": "Cerrar sesión"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "El componente de menú lateral no se puede usar de forma aislada. Use el componente de menú para IsVertical = true"
+    "InvalidOperationExceptionMessage": "El componente SideMenu no puede usarse de forma independiente. Use el componente Menu para establecer IsVertical = true"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Cerrar",
     "SaveButtonText": "Guardar",
-    "PrintButtonText": "Imprimir"
+    "PrintButtonText": "Imprimir",
+    "ExportPdfButtonText": "Exportar Pdf"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "Haga clic para seleccionar ...",
-    "SelectAllText": "Todos",
-    "ReverseSelectText": "Reversa",
-    "ClearText": "Borrar",
-    "MinErrorMessage": "Seleccione al menos {0} elemento(s)",
-    "MaxErrorMessage": "Se puede seleccionar un máximo de {0} elementos"
+    "PlaceHolder": "Seleccione elementos ...",
+    "SelectAllText": "Todo",
+    "ReverseSelectText": "Invertir",
+    "ClearText": "Limpiar",
+    "MinErrorMessage": "Seleccione al menos {0} elementos",
+    "MaxErrorMessage": "Como máximo se pueden seleccionar {0} elementos",
+    "NoSearchDataText": "Sin resultados"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "GotoNavigatorLabelText": "Goto"
+    "GotoNavigatorLabelText": "Ir a"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Cancelar",
     "ConfirmButtonText": "Ok",
-    "Content": "¿Confirmar la operación?"
+    "Content": "¿Está seguro de que desea realizar esta operación?"
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Imprimir"
   },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "Sin datos"
+  },
   "BootstrapBlazor.Components.Search": {
-    "SearchButtonText": "Búsqueda"
+    "SearchButtonText": "Buscar",
+    "NoDataTip": "No se encontraron registros"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "Seleccione ..."
+    "PlaceHolder": "Seleccione ...",
+    "NoSearchDataText": "Sin resultados"
   },
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Seleccione ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "Ingrese un valor menor o igual a {{0}}"
+    "ErrorMessage": "Por favor ingrese un valor menor o igual a {{0}}"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Cerrar",
@@ -170,14 +166,24 @@
     "ConfirmButtonText": "Confirmar"
   },
   "BootstrapBlazor.Components.Switch": {
-    "OnInnerText": "Act.",
-    "OffInnerText": "Des."
+    "OnInnerText": "Encendido",
+    "OffInnerText": "Apagado"
   },
   "BootstrapBlazor.Components.Tab": {
     "CloseCurrentTabText": "Cerrar",
-    "CloseOtherTabsText": "Cerrar Otros",
-    "CloseAllTabsText": "Cerrar todo",
-    "NotFoundTabText": "No encontrado"
+    "CloseOtherTabsText": "Cerrar otras",
+    "CloseAllTabsText": "Cerrar todas",
+    "NotFoundTabText": "No encontrado",
+    "RefreshToolbarTooltipText": "Actualizar",
+    "FullscreenToolbarTooltipText": "Pantalla completa",
+    "PrevTabNavLinkTooltipText": "Pestaña anterior",
+    "NextTabNavLinkTooltipText": "Siguiente pestaña",
+    "CloseTabNavLinkTooltipText": "Cerrar",
+    "ContextRefresh": "Actualizar",
+    "ContextClose": "Cerrar",
+    "ContextCloseOther": "Cerrar otras pestañas",
+    "ContextCloseAll": "Cerrar todas las pestañas",
+    "ContextFullScreen": "Pantalla completa"
   },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Agregar",
@@ -189,151 +195,208 @@
     "CloseButtonText": "Cerrar",
     "CancelDeleteButtonText": "Cancelar",
     "ConfirmDeleteButtonText": "Eliminar",
-    "ConfirmDeleteContentText": "¿Está seguro de eliminar todas las filas seleccionadas?",
+    "ConfirmDeleteContentText": "¿Está seguro de que desea ELIMINAR todas las filas seleccionadas?",
     "RefreshButtonText": "Actualizar",
     "CardViewButtonText": "Ver",
-    "ColumnButtonTitleText": "Mostrar/Ocultar columnas",
+    "ColumnButtonTitleText": "Mostrar/Ocultar Columnas",
     "ColumnButtonText": "Columnas",
     "ExportButtonText": "Exportar",
     "SearchPlaceholderText": "Buscar",
     "SearchButtonText": "Buscar",
     "ResetSearchButtonText": "Restablecer",
-    "AdvanceButtonText": "Búsqueda Avanzada",
+    "AdvanceButtonText": "Búsqueda avanzada",
     "AdvancedSortModalTitle": "Ordenar",
-    "AdvancedSortButtonText": "Clasificación avanzada",
-    "CheckboxDisplayText": "Todos",
+    "AdvancedSortButtonText": "Orden avanzado",
+    "CheckboxDisplayText": "Todo",
     "EditModalTitle": "Editar",
     "AddModalTitle": "Nuevo",
-    "LineNoText": "No.",
-    "ColumnButtonTemplateHeaderText": "",
-    "SearchTooltip": "<div class='search-input-tooltip'>Por favor ingrese...</br><kbd>Entrar</kbd> Buscar <kbd>ESC</kbd> Borrar</div>",
+    "LineNoText": "N.º",
+    "ColumnButtonTemplateHeaderText": "Acciones",
+    "SearchTooltip": "<div class='search-input-tooltip'>Por favor ingrese ...</br><kbd>Enter</kbd> Buscar <kbd>ESC</kbd> Limpiar</div>",
     "SearchModalTitle": "Buscando",
     "AddButtonToastTitle": "Agregar datos",
     "AddButtonToastContent": "Error al agregar datos. Proporcione el método OnAddAsync",
     "EditButtonToastTitle": "Agregar datos",
     "EditButtonToastNotSelectContent": "Error al guardar datos. Proporcione el método OnSaveAsync",
     "EditButtonToastReadonlyContent": "Los datos seleccionados no se pueden editar",
-    "EditButtonToastMoreSelectContent": "Sólo se puede EDITAR una fila",
-    "EditButtonToastNoSaveMethodContent": "No se pueden EDITAR datos. Proporcione el método OnSaveAsync",
+    "EditButtonToastMoreSelectContent": "Solo se puede editar una fila",
+    "EditButtonToastNoSaveMethodContent": "No se pueden editar los datos. Proporcione el método OnSaveAsync",
     "SaveButtonToastTitle": "Guardar datos",
     "SaveButtonToastContent": "Error al guardar datos. Proporcione el método OnSaveAsync",
-    "SaveButtonToastResultContent": "Guardar datos {0}, cerrar automáticamente después de {1} s",
-    "SuccessText": "Exitoso",
+    "SaveButtonToastResultContent": "Datos guardados {0}, cierre automático en {1}s",
+    "SuccessText": "Éxito",
     "FailText": "Error",
     "DeleteButtonToastTitle": "Eliminar datos",
-    "DeleteButtonToastContent": "Por favor seleccione BORRAR filas, cierre automático después de {0}s",
-    "DeleteButtonToastResultContent": "Eliminar datos {0}, cerrar automáticamente después de {1} s",
-    "DeleteButtonToastCanNotDeleteContent": "Hay datos no eliminables en los datos seleccionados, se cierra automáticamente después de {0} s",
-    "DataServiceInvalidOperationText": "Servicio 'BootstrapBlazor.Components.IDataService`1[{0}]' no registrado",
+    "DeleteButtonToastContent": "Seleccione las filas a eliminar, cierre automático en {0}s",
+    "DeleteButtonToastResultContent": "Datos eliminados {0}, cierre automático en {1}s",
+    "DeleteButtonToastCanNotDeleteContent": "Hay datos no eliminables en la selección, cierre automático en {0}s",
+    "DataServiceInvalidOperationText": "No se puede proporcionar un valor para la propiedad 'DataService' en el tipo 'BootstrapBlazor.Components.Table`1[[{0}]]'. No hay un servicio registrado de tipo 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
     "NotSetOnTreeExpandErrorMessage": "parámetro OnTreeExpand no establecido",
     "UnsetText": "Asc",
     "SortAscText": "Desc",
-    "SortDescText": "Desarmar",
+    "SortDescText": "No establecido",
     "EmptyText": "Sin datos",
     "ExportToastTitle": "Exportar",
-    "ExportToastContent": "Exportar datos {0}, cerrar automáticamente después de {1} s",
-    "ExportToastInProgressContent": "Exportando datos, espere un momento, cierre automático después de {0} s",
+    "ExportToastContent": "Exportar datos {0}, cierre automático en {1}s",
+    "ExportToastInProgressContent": "Exportando datos, por favor espere, cierre automático en {0}s",
     "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
     "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/página",
-    "CopyColumnTooltipText": "Copiar datos completos de la columna al portapapeles",
-    "CopyColumnCopiedTooltipText": "¡Copiado!"
+    "CopyColumnTooltipText": "Copiar columna completa al portapapeles",
+    "CopyColumnCopiedTooltipText": "¡Copiado!",
+    "ColumnWidthTooltipPrefix": "ancho: ",
+    "ColumnToolboxTitle": "Herramientas",
+    "AlignLeftText": "Izquierda",
+    "AlignLeftTooltipText": "Click para alinear el texto en esta columna a la izquierda",
+    "AlignCenterText": "Centro",
+    "AlignCenterTooltipText": "Click para centrar el texto en esta columna",
+    "AlignRightText": "Derecha",
+    "AlignRightTooltipText": "Click para alinear el texto en esta columna a la derecha"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Cerrar",
     "SaveButtonText": "Guardar"
   },
-  "BootstrapBlazor.Components.TableFilter": {
-    "ClearButtonText": "Borrar",
-    "FilterButtonText": "Filtro",
-    "BoolFilter.AllText": "Todos",
+  "BootstrapBlazor.Components.TableColumnFilter": {
+    "ClearButtonText": "Limpiar",
+    "FilterButtonText": "Filtrar",
+    "BoolFilter.AllText": "Todo",
     "BoolFilter.TrueText": "Verdadero",
     "BoolFilter.FalseText": "Falso",
-    "GreaterThanOrEqual": "MayorThanOrEqual",
-    "LessThanOrEqual": "MenosThanOrEqual",
+    "GreaterThanOrEqual": "Mayor o igual",
+    "LessThanOrEqual": "Menor o igual",
     "GreaterThan": "Mayor que",
-    "LessThan": "Menos que",
+    "LessThan": "Menor que",
     "Equal": "Igual",
-    "NotEqual": "No Igual",
+    "NotEqual": "No igual",
     "Contains": "Contiene",
-    "NotContains": "NoContiene",
-    "EnumFilter.AllText": "Todos",
-    "NotSupportedMessage": "Tipo de filtro no admitido. Personalice el filtro utilizando FilterTemplate"
+    "NotContains": "No contiene",
+    "EnumFilter.AllText": "Todo",
+    "NotSupportedColumnFilterMessage": "<p>Tipo de filtro no soportado, por favor personalice el filtro usando <code>FilterTemplate</code></p><div>Consulte <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
+    "MultiFilterSearchPlaceHolderText": "Por favor ingrese ...",
+    "MultiFilterSelectAllText": "Seleccionar todo"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "Y",
     "Or": "O"
   },
   "BootstrapBlazor.Components.SearchDialog": {
-    "ResetButtonText": "Reiniciar",
-    "QueryButtonText": "Consulta"
+    "ResetButtonText": "Restablecer",
+    "QueryButtonText": "Consultar"
   },
   "BootstrapBlazor.Components.SwitchButton": {
     "OnText": "Encendido",
-    "OffText": "Desactivado"
+    "OffText": "Apagado"
   },
   "BootstrapBlazor.Components.Timer": {
     "PauseText": "Pausa",
     "ResumeText": "Continuar",
     "CancelText": "Cancelar",
-    "StarText": "Estrella"
+    "StarText": "Iniciar"
   },
   "BootstrapBlazor.Components.Toggle": {
     "OnText": "Expandir",
-    "OffText": "Contraer"
+    "OffText": "Colapsar"
   },
   "BootstrapBlazor.Components.Transfer": {
-    "LeftPanelText": "Todos",
-    "RightPanelText": "Seleccionado"
+    "LeftPanelText": "Todo",
+    "RightPanelText": "Seleccionado",
+    "MinErrorMessage": "Seleccione al menos {0} elementos",
+    "MaxErrorMessage": "Hasta {0} elementos pueden ser seleccionados"
   },
   "BootstrapBlazor.Components.TransferPanel": {
-    "SearchPlaceHolderString": "Introducir...",
+    "SearchPlaceHolderString": "Por favor ingrese ...",
     "Text": "Lista"
   },
   "BootstrapBlazor.Components.Tree": {
-    "NotSetOnTreeExpandErrorMessage": "Parámetro OnExpandNodeAsync no asignado"
+    "NotSetOnTreeExpandErrorMessage": "parámetro OnExpandNodeAsync no establecido"
   },
   "BootstrapBlazor.Components.TreeView": {
-    "NotSetOnTreeExpandErrorMessage": "Parámetro OnExpandNodeAsync no asignado"
+    "NotSetOnTreeExpandErrorMessage": "parámetro OnExpandNodeAsync no establecido",
+    "ToolbarEditTitle": "Editar nodo del árbol",
+    "ToolbarEditLabelText": "Renombrar"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Eliminar",
-    "BrowserButtonText": "Navegador",
-    "FileExtensions": "El archivo debe contener una de las extensiones: {0}",
-    "FileSizeValidation": "El tamaño del archivo debe ser inferior a {0}"
+    "BrowserButtonText": "Examinar",
+    "FileExtensions": "El archivo debe tener una de las siguientes extensiones: {0}",
+    "FileSizeValidation": "El tamaño del archivo debe ser menor que {0}",
+    "DropUploadText": "Suelte los archivos aquí o <em>haga clic para subir</em>"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Guardar",
-    "ClearButtonText": "Borrar"
+    "ClearButtonText": "Limpiar"
   },
   "BootstrapBlazor.Components.SignaturePad": {
-    "SignAboveLabel": "Iniciar sesión",
-    "ClearBtnTitle": "Borrar",
-    "SignatureAlertText": "Proporcione una firma primero",
+    "SignAboveLabel": "Firme en el recuadro",
+    "ClearBtnTitle": "Limpiar",
+    "SignatureAlertText": "Por favor proporcione una firma primero",
     "ChangeColorBtnTitle": "Cambiar color",
     "UndoBtnTitle": "Deshacer",
     "CloseBtnTitle": "Cerrar",
-    "SaveBase64BtnTitle": "Aceptar",
+    "SaveBase64BtnTitle": "OK",
     "SavePNGBtnTitle": "PNG",
     "SaveJPGBtnTitle": "JPG",
     "SaveSVGBtnTitle": "SVG"
   },
   "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
-    "NullValueDisplayText": "Seleccione",
+    "NullValueDisplayText": "Por favor seleccione ...",
     "TrueValueDisplayText": "Verdadero",
     "FalseValueDisplayText": "Falso"
   },
   "BootstrapBlazor.Components.InsertRowMode": {
-    "Last": "Ultimo",
+    "Last": "Último",
     "First": "Primero"
   },
   "BootstrapBlazor.Components.IconDialog": {
     "LabelText": "Icono",
-    "LabelFullText": "HTML",
+    "LabelFullText": "Html",
     "ButtonText": "Copiar",
-    "DialogHeaderText": "Icono Seleccionado",
-    "CopiedTooltipText": "La copia fue exitosa"
+    "DialogHeaderText": "Icono seleccionado",
+    "CopiedTooltipText": "Copiado"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "Cargando ..."
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "y",
+    "Or": "o",
+    "GreaterThanOrEqual": "Mayor o igual",
+    "LessThanOrEqual": "Menor o igual",
+    "GreaterThan": "Mayor que",
+    "LessThan": "Menor que",
+    "Equal": "Igual",
+    "NotEqual": "No igual",
+    "Contains": "Contiene",
+    "NotContains": "No contiene",
+    "GroupText": "Grupo",
+    "ItemText": "Elemento"
+  },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "Ascendente",
+    "DescText": "Descendente"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "AM",
+    "PMText": "PM"
+  },
+  "BootstrapBlazor.Components.ThemeProvider": {
+    "AutoModeText": "Auto",
+    "DarkModeText": "Oscuro",
+    "LightModeText": "Claro"
+  },
+  "BootstrapBlazor.Components.ValidateBase": {
+    "DefaultRequiredErrorMessage": "{0} es requerido."
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "Red",
+    "NetworkType": "Tipo de red",
+    "Downlink": "Descarga",
+    "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "No hay más datos"
   }
 }

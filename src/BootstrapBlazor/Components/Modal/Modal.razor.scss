@@ -82,22 +82,25 @@
     width: 100vw !important;
 }
 
+.modal-multiple {
+    --bb-backdrop-zindex: 1050;
+}
+
 .modal-multiple .modal-dialog {
     position: fixed;
     inset: 0;
-
-    &:last-child:before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-color: #000;
-        opacity: 0.3;
-        pointer-events: auto;
-    }
 }
 
 .modal-multiple ~ .modal-backdrop {
     display: none;
+}
+
+.modal-multiple .modal-backdrop {
+    z-index: var(--bb-backdrop-zindex);
+}
+
+.modal-multiple .modal-backdrop + .modal-dialog {
+    z-index: var(--bb-backdrop-zindex);
 }
 
 @media print {

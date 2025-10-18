@@ -61,7 +61,7 @@ internal static class BootstrapIcons
         { ComponentIcons.StepErrorIcon, "bi bi-x" },
 
         { ComponentIcons.FilterButtonFilterIcon, "bi bi-funnel-fill" },
-        { ComponentIcons.FilterButtonClearIcon, "bi bi-funnel" },
+        { ComponentIcons.FilterButtonClearIcon, "bi bi-ban" },
 
         { ComponentIcons.TableFilterPlusIcon, "bi bi-plus" },
         { ComponentIcons.TableFilterMinusIcon, "bi bi-dash" },

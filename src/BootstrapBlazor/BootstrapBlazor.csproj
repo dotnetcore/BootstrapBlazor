@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>9.10.3</Version>
+    <Version>9.11.3-beta03</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,16 +10,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="sasscompiler.json" />
-    <Content Remove="wwwroot\core\**\*.*" />
-    <Content Remove="wwwroot\lib\**\*.css" />
-    <Content Remove="wwwroot\scss\**\*.*" />
-    <Content Remove="wwwroot\src\**\*.*" />
-    <None Include="sasscompiler.json" />
-    <None Include="wwwroot\core\**\*.*" />
-    <None Include="wwwroot\lib\**\*.css" />
-    <None Include="wwwroot\scss\**\*.*" />
-    <None Include="wwwroot\src\**\*.*" />
+    <Content Remove="wwwroot\core\bootstrap\**\*.*" />
+    <Content Remove="wwwroot\lib\animate\*.css" />
+    <Content Remove="wwwroot\lib\swal\*.css" />
+    <Content Remove="wwwroot\scss\*" />
+    <Content Remove="wwwroot\css\bootstrapblazor.min.css" />
+    <None Include="wwwroot\core\bootstrap\**\*.*" />
+    <None Include="wwwroot\lib\animate\*.css" />
+    <None Include="wwwroot\lib\swal\*.css" />
+    <None Include="wwwroot\scss\*" />
+    <None Include="wwwroot\css\bootstrapblazor.min.css" />
   </ItemGroup>
 
   <ItemGroup>

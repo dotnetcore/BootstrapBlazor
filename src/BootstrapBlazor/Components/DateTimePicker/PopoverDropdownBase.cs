@@ -39,6 +39,7 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
     /// 获得 CustomClass 字符串
     /// </summary>
     protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("popover-region")
         .AddClass("shadow", ShowShadow)
         .Build();
 }

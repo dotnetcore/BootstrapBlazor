@@ -1,0 +1,14 @@
+﻿@page "/select-region"
+@inject IStringLocalizer<SelectRegions> Localizer
+
+<h3>@Localizer["RegionTitle"]</h3>
+
+<h4>@Localizer["RegionDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Region" />
+
+<DemoBlock Title="@Localizer["RegionNormalTitle"]"
+           Introduction="@Localizer["RegionNormalIntro"]"
+           Name="Normal">
+    <SelectRegion Value="@_value"></SelectRegion>
+</DemoBlock>

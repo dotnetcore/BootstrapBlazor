@@ -6,14 +6,14 @@
 
 <p>@Localizer["SubTitle"]</p>
 
-<h3>@Localizer["UpdateTitle"]</h3>
+<p class="code-label">@Localizer["UpdateTitle"]</p>
 
 <p>
     @((MarkupString)Localizer["UpdateLog"].Value)
     <a href="@WebsiteOption.Value.WikiUrl" target="_blank">@Localizer["UpdateLogLink"]</a>
 </p>
 
-<h3>@Localizer["LearnTitle"]</h3>
+<p class="code-label">@Localizer["LearnTitle"]</p>
 
 <ul class="ul-demo">
     <li><a href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=DT-MVP-5004174" target="_blank">@Localizer["LearnLi1"]</a></li>
@@ -41,7 +41,7 @@
     </li>
 </ul>
 
-<h3>@Localizer["ProjectsShow"]</h3>
+<p class="code-label">@Localizer["ProjectsShow"]</p>
 
 <p>@((MarkupString)Localizer["P5", LocalizerRules].Value)</p>
 
@@ -49,11 +49,11 @@
 
 <p>@Localizer["ShowWebSiteTitle2"]：<a href="@($"{WebsiteOption.Value.AdminProUrl}")" target="_blank" class="text-success">@WebsiteOption.Value.AdminProUrl</a></p>
 
-<h4>@Localizer["GetStarted"]</h4>
+<p class="code-label">@Localizer["GetStarted"]</p>
 
 <p><a href="https://v5.bootcss.com/docs/getting-started/introduction/" target="_blank">Bootstrap @Localizer["QuickStart"]</a></p>
 
-<h4>@Localizer["Features"]</h4>
+<p class="code-label">@Localizer["Features"]</p>
 
 <p>@((MarkupString)Localizer["P6"].Value)</p>
 
@@ -65,6 +65,13 @@
     <li>@Localizer["AdvantageLi3"]</li>
     <li>@Localizer["AdvantageLi4"]</li>
     <li>@Localizer["AdvantageLi5"]</li>
+</ul>
+
+<p class="code-label">视频资料</p>
+
+<ul class="ul-demo">
+	<li>鞠佬力作 <code>BootstrapBlazor</code> 从零开始教程 <a href="https://space.bilibili.com/2060594/lists/1989479">[传送门]</a>（少奋斗三十年）</li>
+	<li>官网视频 <code>BootstrapBlazor</code> 组件讲解 <a href="https://space.bilibili.com/660853738/lists">[传送门]</a>（少奋斗十年）</li>
 </ul>
 
 <p class="code-label">@Localizer["Community"]</p>

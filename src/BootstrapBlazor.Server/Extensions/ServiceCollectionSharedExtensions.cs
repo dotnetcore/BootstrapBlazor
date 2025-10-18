@@ -94,6 +94,9 @@ public static class ServiceCollectionSharedExtensions
         // 增加 JuHe 定位服务
         services.AddBootstrapBlazorJuHeIpLocatorService();
 
+        // 增加 IRegionService
+        services.AddBootstrapBlazorRegionService();
+
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>

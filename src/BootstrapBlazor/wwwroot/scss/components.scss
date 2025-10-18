@@ -40,6 +40,7 @@
 @use "../../Components/ErrorLogger/ErrorLogger.razor.scss";
 @use "../../Components/FlipClock/FlipClock.razor.scss";
 @use "../../Components/FileIcon/FileIcon.razor.scss";
+@use "../../Components/Filters/FilterButton.razor.scss";
 @use "../../Components/Filters/MultiFilter.razor.scss";
 @use "../../Components/Filters/TableColumnFilter.razor.scss";
 @use "../../Components/Footer/Footer.razor.scss";
@@ -116,4 +117,25 @@
 @use "../../Components/Marquee/Marquee.razor.scss";
 @use "../../Components/Waterfall/Waterfall.razor.scss";
 @use "../../Components/Watermark/Watermark.razor.scss";
-@use "./meilisearch.scss";
+
+[dir="rtl"] .card-collapse-bar:not([aria-expanded=true]) > .card-collapse-arrow {
+    transform: rotate(180deg);
+}
+
+[dir="rtl"] .form-select-append {
+    right: unset;
+    left: 0;
+}
+
+[dir="rtl"] .select .clear-icon {
+    right: unset;
+    left: 0;
+}
+
+[dir="rtl"] .pagination .page-item:first-child .page-link > i {
+    transform: rotate(180deg);
+}
+
+[dir="rtl"] .pagination .page-item:last-child .page-link > i {
+    transform: rotate(180deg);
+}

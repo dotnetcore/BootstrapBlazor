@@ -33,7 +33,6 @@ export function updateFooterCounter(id, totalSeconds) {
     const counter = Data.get(id);
     if (counter) {
         counter.totalSeconds = totalSeconds;
-        console.log(`FooterCounter updated: ${id}, totalSeconds: ${totalSeconds}`);
     }
 }
 

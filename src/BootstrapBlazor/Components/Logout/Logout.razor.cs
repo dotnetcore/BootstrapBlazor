@@ -81,7 +81,7 @@ public partial class Logout
         .Build();
 
     private string? AvatarStyleString => CssBuilder.Default()
-        .AddStyle("--bb-logout-user-avatar-border-radius", AvatarRadius, !string.IsNullOrEmpty(AvatarRadius))
+        .AddClass($"--bb-logout-user-avatar-border-radius: {AvatarRadius};", !string.IsNullOrEmpty(AvatarRadius))
         .Build();
 
     /// <summary>

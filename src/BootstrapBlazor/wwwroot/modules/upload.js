@@ -93,12 +93,10 @@ export function preview(previewerId, index) {
 export function getPreviewUrl(id, fileName) {
     let url = '';
     const upload = Data.get(id);
-    const { files } = upload;
-    if (files) {
-        const file = [...files].find(v => v.name === fileName);
-        if (file) {
-            url = URL.createObjectURL(file);
-        }
+    const { files, inputFile } = upload;
+    const file = [...(files || inputFile.files)].find(v => v.name === fileName);
+    if (file) {
+        url = URL.createObjectURL(file);
     }
     return url;
 }

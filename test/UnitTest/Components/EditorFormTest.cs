@@ -51,13 +51,11 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void Model_Error()
     {
-        Assert.ThrowsAny<ArgumentNullException>(() =>
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
-            Context.RenderComponent<EditorForm<Foo>>(pb =>
-            {
-                pb.Add(a => a.Model, null);
-            });
+            pb.Add(a => a.Model, null);
         });
+        Assert.Equal("<div class=\"bb-editor\"></div>", cut.Markup);
     }
 
     [Fact]

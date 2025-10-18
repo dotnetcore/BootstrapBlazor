@@ -293,7 +293,6 @@
 }
 
 .upload.is-drop {
-
     &.dropping {
         .upload-drop-body {
             border-color: var(--bs-success);
@@ -313,6 +312,14 @@
     &.disabled {
         .upload-drop-body {
             border-color: var(--bs-border-color);
+        }
+    }
+
+    &:not(.disabled) {
+        .upload-drop-body {
+            em {
+                color: var(--bs-primary);
+            }
         }
     }
 
@@ -336,7 +343,6 @@
         }
 
         em {
-            color: var(--bs-primary);
             font-style: normal;
         }
     }

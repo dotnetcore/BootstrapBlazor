@@ -3,22 +3,25 @@
   <Import Project="..\..\Version.props" />
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.92.1" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.93.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
   </ItemGroup>
 
-  <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
-    <Message Text="Copy bootstrap assets ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true"></Copy>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/css/bootstrap.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.min.css" SkipUnchangedFiles="true"></Copy>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/css/bootstrap.rtl.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.rtl.min.css" SkipUnchangedFiles="true"></Copy>
+  <PropertyGroup>
+    <BootstrapOriginJsFile>$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js</BootstrapOriginJsFile>
+    <BootstrapTargetJsFile>$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js</BootstrapTargetJsFile>
+    <StyleFile>$(MSBuildThisFileDirectory)wwwroot/css/bootstrapblazor.min.css</StyleFile>
+    <BundleStyleFile>$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.blazor.bundle.min.css;$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.blazor.bundle.rtl.min.css</BundleStyleFile>
+  </PropertyGroup>
 
-    <Message Text="Copy bootstrapblazor assets ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/animate/animate.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/animate.min.css" SkipUnchangedFiles="true"></Copy>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/swal/sweetalert2.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/sweetalert2.css" SkipUnchangedFiles="true"></Copy>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/pickr/nano.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/nano.min.css" SkipUnchangedFiles="true"></Copy>
+  <Target Name="CopyJs" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(BootstrapOriginJsFile)" Outputs="$(BootstrapTargetJsFile)">
+    <Message Text="Copy bootstrap.bundle.min.js ..." Importance="high"></Message>
+    <Copy SourceFiles="$(BootstrapOriginJsFile)" DestinationFiles="$(BootstrapTargetJsFile)" SkipUnchangedFiles="true"></Copy>
+  </Target>
 
-    <Message Text="Copy motronic theme ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/src/css/motronic.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/motronic.min.css" SkipUnchangedFiles="true"></Copy>
+  <Target Name="CssBundler" AfterTargets="CopyJs" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'" Inputs="$(StyleFile)" Outputs="$(BundleStyleFile)">
+    <Message Text="Bundler min css ..." Importance="high"></Message>
+    <Exec Command="dotnet tool restore"></Exec>
+    <Exec Command="dotnet css-bundler $(MSBuildThisFileDirectory)bundler.json"></Exec>
   </Target>
 
 </Project>

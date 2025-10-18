@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -150,8 +151,8 @@ public partial class AutoFill<TValue>
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
-    private string? PlaceHolderStyleString => RowHeight != 50f
-        ? CssBuilder.Default().AddStyle("height", $"{RowHeight}px").Build()
+    private string? PlaceHolderStyleString => Math.Abs(RowHeight - 50f) > 0.1f
+        ? CssBuilder.Default().AddClass($"height: {RowHeight.ToString(CultureInfo.InvariantCulture)}px;").Build()
         : null;
 
     /// <summary>

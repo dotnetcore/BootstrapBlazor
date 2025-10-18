@@ -1065,7 +1065,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
-                AutoFitContentCallback = nameof(AutoFitContentCallback),
+                AutoFitColumnWidthCallback = OnAutoFitColumnWidthCallback == null ? null : nameof(AutoFitColumnWidthCallback),
+                FitColumnWidthIncludeHeader,
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
@@ -1275,8 +1276,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 }
             }
         }
-        VisibleColumns.Clear();
-        VisibleColumns.AddRange(cols);
+        _visibleColumns.Clear();
+        _visibleColumns.AddRange(cols);
     }
 
     /// <summary>
@@ -1285,6 +1286,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
+        // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
+        if (AllowResizing)
+        {
+            _resetColumns = true;
+        }
+
         InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
@@ -1298,10 +1305,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         try
         {
             AutoRefreshCancelTokenSource ??= new();
-            // 自动刷新功能
             await Task.Delay(AutoRefreshInterval, AutoRefreshCancelTokenSource.Token);
-
-            // 不调用 QueryAsync 防止出现 Loading 动画 保持屏幕静止
             await QueryAsync();
             StateHasChanged();
         }
@@ -1359,6 +1363,74 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     };
     #endregion
+
+    private RenderFragment RenderContentRow(TItem item) => builder =>
+    {
+        var index = 0;
+        var colIndex = 0;
+        var isInCell = InCellMode && SelectedRows.FirstOrDefault() == item;
+
+        foreach (var col in GetVisibleColumns())
+        {
+            if (colIndex > 1)
+            {
+                // 合并单元格情况
+                colIndex--;
+                continue;
+            }
+
+            // 获得单元格参数
+            var cellArgs = GetCellArgs(item, col, ref colIndex);
+
+            // 获得树节点信息
+            var (isTreeCol, degree, isExpand, hasChildren) = GetTreeInfo(item, index++);
+            var hasTreeChildren = isTreeCol && hasChildren;
+
+            var context = new TableContentCellContext<TItem>()
+            {
+                Item = item,
+                Col = col,
+                Colspan = cellArgs.Colspan,
+                CellClass = cellArgs.Class,
+                Value = cellArgs.Value,
+                ValueTemplate = cellArgs.ValueTemplate,
+                HasTreeChildren = hasTreeChildren,
+                IsInCell = isInCell,
+                Degree = degree,
+                IsExpand = isExpand,
+                IsFirstColOfTree = isTreeCol
+            };
+
+            builder.AddContent(0, RenderContentCell(context));
+        }
+    };
+
+    private static TableCellArgs GetCellArgs(TItem item, ITableColumn col, ref int colIndex)
+    {
+        var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+        col.OnCellRender?.Invoke(cell);
+        colIndex = cell.Colspan;
+        return cell;
+    }
+
+    private (bool isFirstColOfTree, int degree, bool isExpand, bool hasChildren) GetTreeInfo(TItem item, int index)
+    {
+        var isFirstColOfTree = IsTree && index == 0;
+        if (!isFirstColOfTree)
+        {
+            return (false, 0, false, false);
+        }
+
+        var treeItem = TreeNodeCache.Find(TreeRows, item, out var degree);
+        var isExpand = false;
+        var hasChildren = false;
+        if (treeItem != null)
+        {
+            isExpand = treeItem.IsExpand;
+            hasChildren = treeItem.HasChildren;
+        }
+        return (isFirstColOfTree, degree, isExpand, hasChildren);
+    }
 
     /// <summary>
     /// 渲染单元格方法
@@ -1582,7 +1654,29 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 自动调整列宽回调方法
     /// </summary>
     [Parameter]
-    public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
+    [Obsolete("已弃用，请使用 OnAutoFitColumnWidthCallback 替代; Deprecated, please use OnAutoFitColumnWidthCallback instead")]
+    [ExcludeFromCodeCoverage]
+    public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自动调整列宽回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列宽自适应时是否包含表头 默认 false
+    /// </summary>
+    [Parameter]
+    public bool FitColumnWidthIncludeHeader { get; set; }
+
+    /// <summary>
+    /// 列宽自适应方法
+    /// </summary>
+    public async Task FitAllColumnWidth()
+    {
+        await InvokeVoidAsync("fitAllColumnWidth", Id);
+    }
 
     /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
@@ -1634,14 +1728,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 列宽自适应回调方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="fieldName">当前列名称</param>
+    /// <param name="calcWidth">当前列宽</param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task<float> AutoFitContentCallback(string fieldName)
+    public async Task<float> AutoFitColumnWidthCallback(string fieldName, float calcWidth)
     {
         float ret = 0;
-        if (OnAutoFitContentAsync != null)
+        if (OnAutoFitColumnWidthCallback != null)
         {
-            ret = await OnAutoFitContentAsync(fieldName);
+            ret = await OnAutoFitColumnWidthCallback(fieldName, calcWidth);
         }
         return ret;
     }

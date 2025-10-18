@@ -105,6 +105,13 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? ClearIcon { get; set; }
 
     /// <summary>
+    /// <see cref="BootstrapBlazorOptions"/> 配置类实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
     /// </summary>
     protected string? SkipEscString => SkipEsc ? "true" : null;
@@ -171,6 +178,7 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
 
         Offset ??= "[0, 6]";
+        IsPopover |= BootstrapBlazorOptions.Value.IsPopover;
     }
 
     /// <summary>

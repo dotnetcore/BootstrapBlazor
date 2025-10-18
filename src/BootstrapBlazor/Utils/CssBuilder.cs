@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+using System.Text;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,7 +13,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class CssBuilder
 {
-    private readonly List<string> stringBuffer;
+    private readonly StringBuilder _builder = new();
+    private bool _hasConent;
 
     /// <summary>
     /// Creates a CssBuilder used to define conditional CSS classes used in a component.
@@ -26,8 +30,11 @@ public class CssBuilder
     /// <param name="value"></param>
     protected CssBuilder(string? value)
     {
-        stringBuffer = [];
-        AddClass(value);
+        if (!string.IsNullOrEmpty(value))
+        {
+            _builder.Append(value);
+            _hasConent = true;
+        }
     }
 
     /// <summary>
@@ -37,7 +44,18 @@ public class CssBuilder
     /// <returns>CssBuilder</returns>
     public CssBuilder AddClass(string? value)
     {
-        if (!string.IsNullOrEmpty(value)) stringBuffer.Add(value);
+        if (!string.IsNullOrEmpty(value))
+        {
+            if (_hasConent)
+            {
+                _builder.Append(' ');
+            }
+            else
+            {
+                _hasConent = true;
+            }
+            _builder.Append(value);
+        }
         return this;
     }
 
@@ -99,75 +117,11 @@ public class CssBuilder
     {
         if (additionalAttributes != null && additionalAttributes.TryGetValue("class", out var c))
         {
-            var classList = c?.ToString();
-            AddClass(classList);
+            var classString = Convert.ToString(c, CultureInfo.InvariantCulture);
+            AddClass(classString);
         }
         return this;
     }
-
-    /// <summary>
-    /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
-    /// </summary>
-    /// <param name="key">style property name</param>
-    /// <param name="value">CSS style to conditionally add.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(string key, string? value)
-    {
-        if (!string.IsNullOrEmpty(value)) stringBuffer.Add($"{key}: {value};");
-        return this;
-    }
-
-    /// <summary>
-    /// Adds a conditional css Style to the builder with space separator.
-    /// </summary>
-    /// <param name="key">style property name</param>
-    /// <param name="value">CSS style to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS style is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(string key, string? value, bool when = true) => when ? AddStyle(key, value) : this;
-
-    /// <summary>
-    /// Adds a conditional css Style to the builder with space separator.
-    /// </summary>
-    /// <param name="key">style property name</param>
-    /// <param name="value">CSS style to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Style is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(string key, string? value, Func<bool> when) => AddStyle(key, value, when());
-
-    /// <summary>
-    /// Adds a conditional css Style to the builder with space separator.
-    /// </summary>
-    /// <param name="key">style property name</param>
-    /// <param name="value">Function that returns a css Style to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Style is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(string key, Func<string?> value, bool when = true) => when ? AddStyle(key, value()) : this;
-
-    /// <summary>
-    /// Adds a conditional css Style to the builder with space separator.
-    /// </summary>
-    /// <param name="key">style property name</param>
-    /// <param name="value">Function that returns a css Style to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Style is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(string key, Func<string?> value, Func<bool> when) => AddStyle(key, value, when());
-
-    /// <summary>
-    /// Adds a conditional nested CssBuilder to the builder with space separator.
-    /// </summary>
-    /// <param name="builder">CSS Style to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Style is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(CssBuilder builder, bool when = true) => when ? AddClass(builder.Build()) : this;
-
-    /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
-    /// </summary>
-    /// <param name="builder">CSS Class to conditionally add.</param>
-    /// <param name="when">Condition in which the CSS Class is added.</param>
-    /// <returns>CssBuilder</returns>
-    public CssBuilder AddStyle(CssBuilder builder, Func<bool> when) => AddClass(builder, when());
 
     /// <summary>
     /// Adds a conditional css Style when it exists in a dictionary to the builder with space separator.
@@ -179,7 +133,7 @@ public class CssBuilder
     {
         if (additionalAttributes != null && additionalAttributes.TryGetValue("style", out var c))
         {
-            var styleList = c?.ToString();
+            var styleList = Convert.ToString(c, CultureInfo.InvariantCulture);
             AddClass(styleList);
         }
         return this;
@@ -189,5 +143,5 @@ public class CssBuilder
     /// Finalize the completed CSS Classes as a string.
     /// </summary>
     /// <returns>string</returns>
-    public string? Build() => stringBuffer.Count > 0 ? string.Join(" ", stringBuffer) : null;
+    public string? Build() => _hasConent ? _builder.ToString() : null;
 }

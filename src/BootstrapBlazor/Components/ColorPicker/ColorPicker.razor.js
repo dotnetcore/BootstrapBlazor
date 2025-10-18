@@ -25,7 +25,7 @@ const getOrCreatePickr = async (id, picker, options) => {
     const { isSupportOpacity } = options;
 
     if (isSupportOpacity === true) {
-        await addLink("./_content/BootstrapBlazor/css/nano.min.css");
+        await addLink("./_content/BootstrapBlazor/lib/pickr/nano.min.css");
 
         const { invoke, pickr } = picker;
         if (pickr) {

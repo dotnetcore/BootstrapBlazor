@@ -20,11 +20,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// Gets or sets Element reference instance
-    /// </summary>
-    protected ElementReference FocusElement { get; set; }
-
-    /// <summary>
     /// Gets or sets the placeholder attribute value
     /// </summary>
     [Parameter]
@@ -102,7 +97,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// Method to focus the element
     /// </summary>
     /// <returns></returns>
-    public async Task FocusAsync() => await FocusElement.FocusAsync();
+    public async Task FocusAsync() => await InvokeVoidAsync("focus", GetInputId());
 
     /// <summary>
     /// Method to select all text

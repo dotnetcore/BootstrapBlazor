@@ -24,6 +24,13 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     public string? Offset { get; set; }
 
     /// <summary>
+    /// <see cref="BootstrapBlazorOptions"/> 配置类实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    /// <summary>
     /// data-bs-toggle 值
     /// </summary>
     protected string? ToggleString => IsPopover ? Constants.DropdownToggleString : "dropdown";
@@ -41,5 +48,6 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
         base.OnParametersSet();
 
         Offset ??= "[0, 10]";
+        IsPopover |= BootstrapBlazorOptions.Value.IsPopover;
     }
 }

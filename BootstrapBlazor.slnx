@@ -20,6 +20,7 @@
   <Folder Name="/localization/">
     <File Path="localization/de.json" />
     <File Path="localization/es.json" />
+    <File Path="localization/it.json" />
     <File Path="localization/pt.json" />
     <File Path="localization/ru-RU.json" />
     <File Path="localization/th-TH.json" />
