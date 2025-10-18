@@ -393,7 +393,7 @@ public class UtilityTest : BootstrapBlazorTestBase
 
         var test1 = items.FirstOrDefault(i => i.Name == "Test-Null");
         Assert.NotNull(test1);
-        Assert.Equal("", test1.Value);
+        Assert.Equal("Test-Null", test1.Value);
 
         var test2 = items.FirstOrDefault(i => i.Name == "Test-Key");
         Assert.NotNull(test2);

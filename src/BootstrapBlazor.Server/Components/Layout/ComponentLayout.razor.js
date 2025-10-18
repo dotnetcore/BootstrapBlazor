@@ -5,7 +5,7 @@
         const el = document.querySelector(anchor)
         if (el) {
             const handler = setTimeout(() => {
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 clearTimeout(handler)
             }, 1000)
         }
