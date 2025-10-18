@@ -150,9 +150,16 @@ export function init(id, invoke, value, changedEventCallback) {
 const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, invoke, menu } = ac;
-    if (key === 'Enter') {
+    if (key === 'Enter' || key === 'NumpadEnter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
+            const items = [...menu.querySelectorAll('.dropdown-item')];
+            if (items.length === 1) {
+                // 当只有一个候选项时，直接触发点击
+                items[0].click();
+                invoke.invokeMethodAsync('EnterCallback');
+                return;
+            }
             const current = menu.querySelector('.active');
             if (current !== null) {
                 current.click();
@@ -227,3 +234,11 @@ const scrollIntoView = (el, item) => {
 }
 
 export { handleKeyUp, select, selectAllByFocus, selectAllByEnter }
+
+export function getInputValue(id) {
+    const ac = Data.get(id);
+    if (ac && ac.input) {
+        return ac.input.value;
+    }
+    return "";
+}
