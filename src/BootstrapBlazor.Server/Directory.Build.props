@@ -3,8 +3,4 @@
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\..\Framework.props" />
 
-  <PropertyGroup>
-    <HotReloadAutoRestart>true</HotReloadAutoRestart>
-  </PropertyGroup>
-
 </Project>
