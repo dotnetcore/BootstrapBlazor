@@ -11,7 +11,7 @@ export function init(id) {
 
     Data.set(id, text);
     EventHandler.on(el, 'keydown', e => {
-        if (e.key === "Enter" || e.key === "NumpadEnter") {
+        if (e.key === "Enter") {
             const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
             const shiftKey = e.shiftKey;
             if (useShiftEnter && shiftKey === false) {

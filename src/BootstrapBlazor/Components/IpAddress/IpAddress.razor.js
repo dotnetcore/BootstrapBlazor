@@ -65,11 +65,11 @@ export function init(id) {
                     selectCell(el, index - 1)
                 }
             }
-            else if (current.selectionStart === current.value.length && (e.code === 'Space' || e.code === 'ArrowRight')) {
+            else if (current.selectionStart === current.value.length && (e.key === 'Space' || e.key === 'ArrowRight')) {
                 e.preventDefault()
                 selectCell(el, index + 1)
             }
-            else if (current.selectionStart === 0 && e.code === 'ArrowLeft') {
+            else if (current.selectionStart === 0 && e.key === 'ArrowLeft') {
                 e.preventDefault()
                 selectCell(el, index - 1)
             }
