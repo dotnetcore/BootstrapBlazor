@@ -173,7 +173,16 @@ public class CascaderTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowFullLevels, false);
         });
-        Assert.Empty(cut.Instance.Value);
+
+        // 未提供数据源时 Value 赋值无效
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, "3");
+            pb.Add(a => a.ShowFullLevels, false);
+        });
     }
 
     [Fact]
