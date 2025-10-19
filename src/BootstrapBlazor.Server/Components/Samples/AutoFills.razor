@@ -9,7 +9,7 @@
     <section ignore>
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
-    <AutoFill @bind-Value="Model1" Items="Items1"
+    <AutoFill @bind-Value="Model1" Items="Items1" IsAutoClearWhenInvalid="true"
               IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" IsSelectAllTextOnFocus="true">
         <ItemTemplate>
             <div class="d-flex">

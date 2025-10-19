@@ -119,11 +119,19 @@ public partial class AutoFill<TValue>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 输入框内容无效时是否自动清空内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAutoClearWhenInvalid { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
+
+    private string? TriggerBlurString => (OnBlurAsync != null || IsAutoClearWhenInvalid) ? "true" : null;
 
     private string? _displayText;
 
@@ -175,7 +183,20 @@ public partial class AutoFill<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
+
+    private string _clientValue = "";
+
+    /// <summary>
+    /// 由客户端 JavaScript 触发
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public void TriggerChange(string v)
+    {
+        _clientValue = v;
+    }
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -274,5 +295,18 @@ public partial class AutoFill<TValue>
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         _dropdown.Render();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnBeforeBlurAsync()
+    {
+        if (IsAutoClearWhenInvalid && GetDisplayText(Value) != _clientValue)
+        {
+            CurrentValue = default;
+            await InvokeVoidAsync("setValue", Id, "");
+        }
     }
 }
