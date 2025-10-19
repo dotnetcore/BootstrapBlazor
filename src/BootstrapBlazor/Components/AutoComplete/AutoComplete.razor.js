@@ -150,19 +150,19 @@ export function init(id, invoke, value, changedEventCallback) {
 const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, invoke, menu } = ac;
-    if (key === 'Enter' ) {
+    if (key === 'Enter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
             const items = [...menu.querySelectorAll('.dropdown-item')];
             if (items.length === 1) {
-                // 当只有一个候选项时，直接触发点击
-                items[0].click();
-                invoke.invokeMethodAsync('EnterCallback');
-                return;
+                const item = items[0];
+                item.click();
             }
-            const current = menu.querySelector('.active');
-            if (current !== null) {
-                current.click();
+            else {
+                const current = menu.querySelector('.active');
+                if (current !== null) {
+                    current.click();
+                }
             }
             invoke.invokeMethodAsync('EnterCallback');
         }
