@@ -100,12 +100,6 @@ public partial class AutoFill<TValue>
     public float RowHeight { get; set; } = 50f;
 
     /// <summary>
-    /// 失去焦点时判定输入框内容无效则清空内容
-    /// </summary>
-    [Parameter]
-    public bool IsClearOnInvalid { get; set; } = false;
-
-    /// <summary>
     /// Gets or sets the overscan count for virtual scrolling. Default is 3.
     /// </summary>
     /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
@@ -280,36 +274,5 @@ public partial class AutoFill<TValue>
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         _dropdown.Render();
-    }
-
-
-    protected virtual async Task OnBlur()
-    {
-        if (IsClearOnInvalid)
-        {
-            // 获取input的实际值
-            var inputValue = await GetInputValue();
-
-            if (!string.IsNullOrEmpty(inputValue))
-            {
-                if (GetDisplayText(Value) != inputValue)
-                {
-                    // 如果没有匹配项，清空输入和Model
-                    CurrentValue = default;
-                    await InvokeVoidAsync("setValue", Id, "");
-                }
-            }
-        }
-
-
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
-        }
-    }
-    [JSInvokable]
-    public async Task<string> GetInputValue()
-    {
-        return await InvokeAsync<string>("getInputValue", Id);
     }
 }
