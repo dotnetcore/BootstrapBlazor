@@ -234,11 +234,3 @@ const scrollIntoView = (el, item) => {
 }
 
 export { handleKeyUp, select, selectAllByFocus, selectAllByEnter }
-
-export function getInputValue(id) {
-    const ac = Data.get(id);
-    if (ac && ac.input) {
-        return ac.input.value;
-    }
-    return "";
-}
