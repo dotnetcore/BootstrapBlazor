@@ -153,9 +153,16 @@ const handlerKeydown = (ac, e) => {
     if (key === 'Enter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
-            const current = menu.querySelector('.active');
-            if (current !== null) {
-                current.click();
+            const items = [...menu.querySelectorAll('.dropdown-item')];
+            if (items.length === 1) {
+                const item = items[0];
+                item.click();
+            }
+            else {
+                const current = menu.querySelector('.active');
+                if (current !== null) {
+                    current.click();
+                }
             }
             invoke.invokeMethodAsync('EnterCallback');
         }
