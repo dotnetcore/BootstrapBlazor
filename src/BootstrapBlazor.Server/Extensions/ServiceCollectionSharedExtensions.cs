@@ -89,7 +89,7 @@ public static class ServiceCollectionSharedExtensions
         services.AddBootstrapBlazorTableExportService();
 
         // 增加离线 IP 定位服务
-        services.AddBootstrapBlazorIP2RegionfService();
+        services.AddBootstrapBlazorIP2RegionService();
 
         // 增加 JuHe 定位服务
         services.AddBootstrapBlazorJuHeIpLocatorService();
