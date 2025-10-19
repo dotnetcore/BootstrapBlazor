@@ -183,16 +183,17 @@ public partial class AutoFill<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(UpdateClientValue));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
 
     private string _clientValue = "";
 
     /// <summary>
-    /// 更新客户端值 由 Javascript 调用
+    /// 由客户端 JavaScript 触发
     /// </summary>
     /// <param name="v"></param>
+    /// <returns></returns>
     [JSInvokable]
-    public void UpdateClientValue(string v)
+    public void TriggerChange(string v)
     {
         _clientValue = v;
     }
