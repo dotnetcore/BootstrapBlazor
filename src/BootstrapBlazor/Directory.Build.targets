@@ -1,7 +1,5 @@
 <Project>
 
-  <Import Project="..\..\Version.props" />
-
   <ItemGroup>
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.93.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
   </ItemGroup>
