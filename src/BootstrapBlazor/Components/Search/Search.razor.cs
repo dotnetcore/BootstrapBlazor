@@ -142,6 +142,8 @@ public partial class Search<TValue>
     [NotNull]
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
+    private string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
+
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

@@ -122,11 +122,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string? SkipEnterString => SkipEnter ? "true" : null;
 
     /// <summary>
-    /// 获得 是否跳过 Blur 处理字符串
-    /// </summary>
-    protected string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
-
-    /// <summary>
     /// 获得 滚动行为字符串
     /// </summary>
     protected string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
@@ -182,11 +177,19 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     }
 
     /// <summary>
+    /// 触发 OnBlurAsync 回调前回调方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual Task OnBeforeBlurAsync() => Task.CompletedTask;
+
+    /// <summary>
     /// 触发 OnBlur 回调方法 由 Javascript 触发
     /// </summary>
     [JSInvokable]
     public async Task TriggerBlur()
     {
+        await OnBeforeBlurAsync();
+
         if (OnBlurAsync != null)
         {
             await OnBlurAsync(Value);

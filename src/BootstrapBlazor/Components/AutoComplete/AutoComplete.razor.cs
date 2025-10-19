@@ -100,6 +100,8 @@ public partial class AutoComplete
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
+    private string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
