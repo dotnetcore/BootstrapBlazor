@@ -513,6 +513,48 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.True(invalid);
     }
 
+    [Fact]
+    public async Task IsAutoClearWhenInvalid_Ok()
+    {
+        var model = new MockModel() { Value = new Foo() { Name = "Test-Select1" } };
+        var items = new List<Foo>()
+        {
+            new() { Name = "test1" },
+            new() { Name = "test2" }
+        };
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, model.Value);
+            pb.Add(a => a.IsAutoClearWhenInvalid, true);
+            pb.Add(a => a.OnGetDisplayText, f => f?.Name);
+        });
+        // 设置一个无效值
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("Invalid-Value"));
+
+        // 触发 OnBlur 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
+
+        // 值应被清空
+        Assert.Null(cut.Instance.Value);
+
+        // 设定 IsAutoClearWhenInvalid false
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAutoClearWhenInvalid, false);
+            pb.Add(a => a.Value, model.Value);
+        });
+
+        // 设置一个无效值
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("Invalid-Value"));
+
+        // 触发 OnBlur 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
+
+        // 值不应被清空
+        Assert.NotNull(cut.Instance.Value);
+    }
+
     class MockModel
     {
         [Required]
