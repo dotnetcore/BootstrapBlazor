@@ -301,6 +301,6 @@ public class TransferTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ItemWidth, "160px");
         });
-        cut.Contains("-bb-transfer-panel-item-width: 160px;");
+        cut.Contains("--bb-transfer-panel-item-width: 160px;");
     }
 }
