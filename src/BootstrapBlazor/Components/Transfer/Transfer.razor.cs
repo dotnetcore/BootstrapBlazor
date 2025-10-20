@@ -191,12 +191,18 @@ public partial class Transfer<TValue>
     [Parameter]
     public string? Height { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否为换行模式 默认 false 不换行
+    /// </summary>
+    [Parameter]
+    public bool IsWrapItem { get; set; }
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? ClassString => CssBuilder.Default("transfer")
+    private string? ClassString => CssBuilder.Default("bb-transfer")
         .AddClass("has-height", !string.IsNullOrEmpty(Height))
+        .AddClass("wrap-item", IsWrapItem)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
