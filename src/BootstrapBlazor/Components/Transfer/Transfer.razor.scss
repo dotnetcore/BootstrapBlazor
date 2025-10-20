@@ -96,8 +96,8 @@
     width: 100%;
     display: inline-block;
     border-radius: var(--bs-border-radius);
-    padding-right: 10px;
-    padding-left: 30px;
+    padding-inline-start: 10px;
+    padding-inline-end: 30px;
     border: 1px solid var(--bs-border-color);
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     color: #606266;
@@ -112,7 +112,7 @@
     width: 30px;
     transition: all .3s;
     position: absolute;
-    left: 4px;
+    right: 4px;
     top: 0;
     display: flex;
     align-items: center;
