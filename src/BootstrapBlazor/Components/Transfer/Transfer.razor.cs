@@ -196,6 +196,13 @@ public partial class Transfer<TValue>
     /// </summary>
     [Parameter]
     public bool IsWrapItem { get; set; }
+
+    /// <summary>
+    /// 获得/设置 候选项宽度 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? ItemWidth { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -208,6 +215,7 @@ public partial class Transfer<TValue>
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"--bb-transfer-height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddClass($"--bb-transfer-panel-item-width: {ItemWidth};", !string.IsNullOrEmpty(ItemWidth))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
