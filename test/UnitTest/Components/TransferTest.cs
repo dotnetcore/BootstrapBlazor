@@ -12,7 +12,7 @@ public class TransferTest : BootstrapBlazorTestBase
     {
         // 未设置 Items 为空
         var cut = Context.RenderComponent<Transfer<string>>();
-        cut.Contains("class=\"transfer\"");
+        cut.Contains("class=\"bb-transfer\"");
 
         // 设置 Items
         cut.SetParametersAndRender(pb =>
@@ -281,5 +281,26 @@ public class TransferTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsWrapItem, true);
         });
         cut.Contains("wrap-item");
+    }
+
+    [Fact]
+    public void ItemWidth_Ok()
+    {
+        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("1", "Test1 with a very long text"),
+                new("2", "Test2 with a very long text")
+            });
+        });
+        cut.DoesNotContain("--bb-transfer-panel-item-width");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ItemWidth, "160px");
+        });
+        cut.Contains("-bb-transfer-panel-item-width: 160px;");
     }
 }
