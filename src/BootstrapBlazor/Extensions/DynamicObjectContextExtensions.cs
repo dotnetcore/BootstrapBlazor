@@ -67,7 +67,7 @@ public static class DynamicObjectContextExtensions
                 propertyValues.Add(kv.Value);
             }
         }
-        context.AddAttribute(columnName, type, Type.EmptyTypes, Array.Empty<object>(), propertyInfos.ToArray(), propertyValues.ToArray());
+        context.AddAttribute(columnName, type, Type.EmptyTypes, [], [.. propertyInfos], [.. propertyValues]);
     }
 
     /// <summary>
