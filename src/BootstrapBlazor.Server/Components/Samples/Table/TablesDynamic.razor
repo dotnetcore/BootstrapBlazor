@@ -13,7 +13,7 @@
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" IsFixedHeader="true" Height="300" />
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["TablesDynamicEditTitle"]"
+<DemoBlock Title="@Localizer["TablesDynamicEditTitle"]"
            Introduction="@Localizer["TablesDynamicEditIntro"]"
            Name="Edit">
     <section ignore>@((MarkupString)Localizer["TablesDynamicEditDescription"].Value)</section>
@@ -47,4 +47,3 @@
     <Table TItem="DynamicObject" DynamicContext="DataTablePageDynamicContext" />
     <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick" class="mt-3" />
 </DemoBlock>
- *@
