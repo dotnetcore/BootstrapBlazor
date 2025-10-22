@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,15 +14,17 @@ public interface IPinyinService
     /// 获得首字母拼音方法
     /// </summary>
     /// <param name="text"></param>
+    /// <param name="caseCategory"></param>
     /// <returns></returns>
-    HashSet<string> GetFirstLetters(string text);
+    HashSet<string> GetFirstLetters(string text, PinyinLetterCaseCategory caseCategory = PinyinLetterCaseCategory.UppercaseLetter);
 
     /// <summary>
     /// 获得完整拼音方法
     /// </summary>
     /// <param name="text"></param>
+    /// <param name="caseCategory"></param>
     /// <returns></returns>
-    string GetPinyin(string text);
+    HashSet<string> GetPinyin(string text, PinyinLetterCaseCategory caseCategory = PinyinLetterCaseCategory.UppercaseLetter);
 
     /// <summary>
     /// 判断是否为中文字符

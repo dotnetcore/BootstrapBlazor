@@ -1,17 +1,14 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
-
-using System.Text;
 
 namespace BootstrapBlazor.Components;
 
 sealed class DefaultPinyinService : IPinyinService
 {
-    public HashSet<string> GetFirstLetters(string text)
+    public HashSet<string> GetFirstLetters(string text, PinyinLetterCaseCategory caseCategory = PinyinLetterCaseCategory.UppercaseLetter)
     {
-        var ret = new HashSet<string>();
         var letters = new List<List<char>>();
         foreach (var c in text)
         {
@@ -21,17 +18,47 @@ sealed class DefaultPinyinService : IPinyinService
                 var l = item.Key.First();
                 segment.Add(l);
             }
+            letters.Add(segment);
         }
-        return ret;
+
+        return CartesianProduct(letters, caseCategory);
     }
 
-    public string GetPinyin(string text) => "";
+    public HashSet<string> GetPinyin(string text, PinyinLetterCaseCategory caseCategory)
+    {
+        var letters = new List<List<string>>();
+        foreach (var c in text)
+        {
+            var segment = new List<string>();
+            foreach (var item in Cache.Where(item => item.Value.Contains(c, StringComparison.InvariantCulture)))
+            {
+                var l = item.Key;
+                segment.Add(l);
+            }
+            letters.Add(segment);
+        }
+
+        return CartesianProduct(letters, caseCategory, " ");
+    }
+
+    static HashSet<string> CartesianProduct<T>(List<List<T>> sequences, PinyinLetterCaseCategory caseCategory, string separator = "")
+    {
+        IEnumerable<IEnumerable<T>> result = new[] { Enumerable.Empty<T>() };
+        foreach (var sequence in sequences)
+        {
+            result = result.SelectMany(c => sequence, (c, item) => c.Concat(new[] { item }));
+        }
+
+        return [.. result.Select(i => caseCategory == PinyinLetterCaseCategory.UppercaseLetter
+            ? string.Join(separator, i).ToUpperInvariant()
+            : string.Join(separator, i))];
+    }
 
     public bool IsChinese(char c) => c >= 0x4E00 && c <= 0x9FA5;
 
     public bool ContainsChinese(string text) => text.Any(IsChinese);
 
-    static Dictionary<string, string> Cache = new()
+    static readonly Dictionary<string, string> Cache = new()
     {
         { "a", "阿啊吖嗄腌锕" },
         { "ai", "爱埃碍矮挨唉哎哀皑癌蔼艾隘捱嗳嗌嫒瑷暧砹锿霭" },
