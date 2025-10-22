@@ -176,7 +176,7 @@ public partial class AutoFill<TValue>
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         _displayText = GetDisplayText(Value);
-        _clientValue = _displayText;//当选中选项或初始化传参时更新一下_clientValue
+        _clientValue = _displayText;
         Items ??= [];
     }
 
@@ -186,7 +186,7 @@ public partial class AutoFill<TValue>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
 
-    private string _clientValue = "";
+    private string? _clientValue;
 
     /// <summary>
     /// 由客户端 JavaScript 触发
