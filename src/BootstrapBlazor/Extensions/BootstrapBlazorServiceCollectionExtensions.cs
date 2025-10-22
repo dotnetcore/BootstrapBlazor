@@ -83,6 +83,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // 限流器服务
         services.TryAddSingleton<IThrottleDispatcherFactory, DefaultThrottleDispatcherFactory>();
 
+        // 汉字拼音服务
+        services.TryAddSingleton<IPinyinService, DefaultPinyinService>();
+
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
