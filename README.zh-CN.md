@@ -52,7 +52,11 @@ ThingsGateway 将设备接入、数据上传等功能模块化，降低工业协
 它不仅是一个网关框架，更是构建数字化工厂、边缘智能系统的核心工具！
 ThingsGateway 已集成 Bootstrap Blazor 实现配置管理界面，轻松构建跨平台的边缘网关管理系统 [传送门](https://thingsgateway.cn)
 
+## 生态伙伴 AtomUI
 
+<a href="https://qinware.com/" target="_blank"><img src="https://gitee.com/Longbow/images/raw/master/atomui/atomui-red.svg" width="100px" /></a>
+
+AtomUI 是基于 .NET 的 Ant Design 实现，致力于将优秀高效的设计语言和控件体验带到 Avalonia/.NET 跨平台桌面软件研发领域，最大限度释放研发工程师的开发效率， 设计支持平台：Windows、macOS 和 Linux。
 
 ## 开发环境搭建
 1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
