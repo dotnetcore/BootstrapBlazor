@@ -1219,7 +1219,7 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowExtendEditButton(TItem item) => ScrollMode != ScrollMode.Virtual && (ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton);
+    protected bool GetShowExtendEditButton(TItem item) => ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
 
     /// <summary>
     /// 是否显示行内删除按钮
