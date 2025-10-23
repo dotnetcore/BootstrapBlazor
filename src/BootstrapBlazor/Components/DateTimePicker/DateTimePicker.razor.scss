@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .datetime-picker {
     --bb-dt-picker-bar-color: #{$bb-dt-picker-bar-color};
     --bb-dt-picker-input-padding: #{$bb-dt-form-control-padding};

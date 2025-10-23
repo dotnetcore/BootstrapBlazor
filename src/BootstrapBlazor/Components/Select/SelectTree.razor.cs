@@ -68,9 +68,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
@@ -150,6 +148,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// 获得 input 组件 Id 方法
     /// </summary>
@@ -161,19 +163,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    /// <summary>
-    /// 获得/设置 上次选项
-    /// </summary>
-    private TreeViewItem<TValue>? SelectedItem { get; set; }
-
-    private List<TreeViewItem<TValue>>? ItemCache { get; set; }
-
-    [NotNull]
-    private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    private TreeViewItem<TValue>? _selectedItem;
+    private List<TreeViewItem<TValue>>? _itemCache;
+    private List<TreeViewItem<TValue>>? _expandedItemsCache;
+    private TreeView<TValue> _tv = default!;
 
     private string? SelectTreeCustomClassString => CssBuilder.Default(CustomClassString)
         .AddClass("select-tree", IsPopover)
@@ -188,19 +181,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
         // 处理 Required 标签
         AddRequiredValidator();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (Value != null)
-        {
-            await TriggerItemChanged(s => Equals(s.Value, Value));
-        }
     }
 
     /// <summary>
@@ -254,6 +234,9 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         if (args.Value is string v)
         {
             CurrentValueAsString = v;
+
+            // 选中节点更改为当前值
+            _tv.SetActiveItem(Value);
         }
     }
 
@@ -263,18 +246,22 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         if (currentItem != null)
         {
             currentItem.IsActive = true;
-            await ItemChanged(currentItem);
+
+            if (_selectedItem == null || !Equals(_selectedItem.Value, Value))
+            {
+                await ItemChanged(currentItem);
+            }
         }
     }
 
     private List<TreeViewItem<TValue>> GetExpandedItems()
     {
-        if (ItemCache != Items)
+        if (_itemCache != Items)
         {
-            ItemCache = Items;
-            ExpandedItemsCache = TreeViewExtensions.GetAllItems(ItemCache).ToList();
+            _itemCache = Items;
+            _expandedItemsCache = [.. TreeViewExtensions.GetAllItems(_itemCache)];
         }
-        return ExpandedItemsCache;
+        return _expandedItemsCache!;
     }
 
     /// <summary>
@@ -295,7 +282,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
-        SelectedItem = item;
+        _selectedItem = item;
         CurrentValue = item.Value;
 
         // 触发 SelectedItemChanged 事件

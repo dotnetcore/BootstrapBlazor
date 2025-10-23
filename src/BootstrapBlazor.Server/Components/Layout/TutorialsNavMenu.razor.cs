@@ -224,6 +224,8 @@ public partial class TutorialsNavMenu
     private readonly string[] _template5 =
 [
         "Tutorials/LoginAndRegister/Template5.razor",
+        "Tutorials/LoginAndRegister/Template5.razor.cs",
+        "Tutorials/LoginAndRegister/Template5.razor.js",
         "Tutorials/LoginAndRegister/Template5.razor.css",
         "../Layout/TutorialsLayout.razor",
         "../Layout/TutorialsLayout.razor.css"

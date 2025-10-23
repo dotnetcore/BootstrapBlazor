@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -38,13 +40,13 @@ public class Download : BootstrapModuleComponentBase
             throw new InvalidOperationException($"the {nameof(option.FileStream)} is null");
         }
 
-#if NET5_0
-        // net 5.0 not support
-        await Task.CompletedTask;
-#elif NET6_0_OR_GREATER
+        if (string.IsNullOrEmpty(option.FileName))
+        {
+            throw new InvalidOperationException($"the  {nameof(option.FileName)} is null or empty");
+        }
+
         using var streamRef = new DotNetStreamReference(option.FileStream);
         await InvokeVoidAsync("downloadFileFromStream", option.FileName, streamRef);
-#endif
     }
 
     /// <summary>
@@ -57,6 +59,11 @@ public class Download : BootstrapModuleComponentBase
         if (string.IsNullOrEmpty(option.Url))
         {
             throw new InvalidOperationException($"{nameof(option.Url)} not set");
+        }
+
+        if (string.IsNullOrEmpty(option.FileName))
+        {
+            throw new InvalidOperationException($"the  {nameof(option.FileName)} is null or empty");
         }
 
         await InvokeVoidAsync("downloadFileFromUrl", option.FileName, option.Url);

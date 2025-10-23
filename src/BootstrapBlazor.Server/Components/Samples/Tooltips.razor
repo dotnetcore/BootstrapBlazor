@@ -88,4 +88,19 @@
     </Tooltip>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TooltipsManualTitle"]"
+           Introduction="@Localizer["TooltipsManualIntro"]"
+           Name="Manual">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["TooltipsManualDescLI1"].Value)</li>
+            <li>@((MarkupString)Localizer["TooltipsManualDescLI2"].Value)</li>
+        </ul>
+    </section>
+    <Tooltip Title="Manual trigger tooltip" Trigger="manual" @ref="_tooltip">
+        <TooltipContent></TooltipContent>
+    </Tooltip>
+    <Button Text="Trigger" OnClickWithoutRender="ToggleShow"></Button>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

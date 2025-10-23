@@ -22,18 +22,6 @@ public partial class Search<TValue>
     /// Gets or sets whether to show the clear button. Default is false.
     /// </summary>
     [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the clear icon. Default is null.
-    /// </summary>
-    [Parameter]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether to show the clear button. Default is false.
-    /// </summary>
-    [Parameter]
     public bool ShowClearButton { get; set; }
 
     /// <summary>
@@ -146,11 +134,15 @@ public partial class Search<TValue>
     /// Gets or sets the event callback when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
+    [Obsolete("已取消 合并到 OnSearch 方法中; Deprecated. Merged into the OnSearch method")]
+    [ExcludeFromCodeCoverage]
     public Func<Task>? OnClear { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
+
+    private string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -189,7 +181,6 @@ public partial class Search<TValue>
     {
         base.OnParametersSet();
 
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
@@ -208,6 +199,12 @@ public partial class Search<TValue>
             Debounce = 200;
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
 
     private string? _displayText;
     private async Task OnSearchClick()
@@ -229,11 +226,10 @@ public partial class Search<TValue>
 
     private async Task OnClearClick()
     {
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, "");
+
         _displayText = null;
-        if (OnClear != null)
-        {
-            await OnClear();
-        }
         await OnSearchClick();
     }
 
@@ -251,6 +247,9 @@ public partial class Search<TValue>
     {
         CurrentValue = val;
         _displayText = GetDisplayText(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, _displayText);
 
         if (OnSelectedItemChanged != null)
         {

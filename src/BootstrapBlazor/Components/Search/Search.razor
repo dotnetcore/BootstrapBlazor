@@ -29,17 +29,18 @@
                    data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString" data-bb-blur="@TriggerBlurString"
                    data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
                    data-bb-input="@UseInputString"
-                   @bind="@_displayText"
-                   placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
+                   placeholder="@PlaceHolder" disabled="@Disabled" />
             @if (IsClearable)
             {
-                <div class="search-icon search-clear-icon">
+                <div class="search-clear-icon">
                     <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
                 </div>
             }
             @if (IconTemplate != null)
             {
-                @IconTemplate(_context)
+                <div class="search-template-icon">
+                    @IconTemplate(_context)
+                </div>
             }
         </div>
         @if (ButtonTemplate != null)

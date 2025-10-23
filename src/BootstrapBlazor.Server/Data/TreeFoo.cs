@@ -177,10 +177,11 @@ class TreeFoo
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
-    public static List<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items) => items.CascadingTree(null, (foo, parent) => foo.ParentId == parent?.Value.Id, foo => new TreeViewItem<TreeFoo>(foo)
+    /// <param name="treeviewItemCallback">节点状态回调方法</param>
+    public static List<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items, Action<TreeViewItem<TreeFoo>>? treeviewItemCallback = null) => items.CascadingTree(null, (foo, parent) => foo.ParentId == parent?.Value.Id, foo => new TreeViewItem<TreeFoo>(foo)
     {
         Text = foo.Text,
         Icon = foo.Icon,
         IsActive = foo.IsActive
-    });
+    }, treeviewItemCallback);
 }

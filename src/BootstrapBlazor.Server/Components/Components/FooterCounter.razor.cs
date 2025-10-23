@@ -10,11 +10,11 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// <summary>
 /// FooterCounter 组件
 /// </summary>
-public partial class FooterCounter : IDisposable
+public partial class FooterCounter
 {
     private string? Runtime { get; set; }
 
-    private CancellationTokenSource _disposeTokenSource = new();
+    private readonly CancellationTokenSource _disposeTokenSource = new();
 
     private ConnectionHubOptions _options = default!;
 
@@ -30,7 +30,9 @@ public partial class FooterCounter : IDisposable
         base.OnInitialized();
 
         _options = BootstrapBlazorOptions.Value.ConnectionHubOptions;
-        UpdateRuntime();
+
+        var ts = DateTimeOffset.Now - Cache.GetStartTime();
+        Runtime = ts.ToString("dd\\.hh\\:mm\\:ss");
     }
 
     /// <summary>
@@ -41,36 +43,44 @@ public partial class FooterCounter : IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        try
+        if (firstRender)
         {
-            await Task.Delay(1000, _disposeTokenSource.Token);
-            UpdateRuntime();
-            StateHasChanged();
-        }
-        catch { }
-    }
-
-    private void UpdateRuntime()
-    {
-        var ts = DateTimeOffset.Now - Cache.GetStartTime();
-        Runtime = ts.ToString("dd\\.hh\\:mm\\:ss");
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _disposeTokenSource.Cancel();
-            _disposeTokenSource.Dispose();
+            try
+            {
+                while (_disposeTokenSource is { IsCancellationRequested: false })
+                {
+                    await Task.Delay(30000, _disposeTokenSource.Token);
+                    var ts = DateTimeOffset.Now - Cache.GetStartTime();
+                    await InvokeVoidAsync("updateFooterCounter", Id, ts.TotalSeconds);
+                }
+            }
+            catch { }
         }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    /// <returns></returns>
+    protected override Task InvokeInitAsync()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        var ts = DateTimeOffset.Now - Cache.GetStartTime();
+        return InvokeVoidAsync("init", Id, ts.TotalSeconds);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(true);
+
+        if (disposing)
+        {
+            _disposeTokenSource.Cancel();
+            _disposeTokenSource.Dispose();
+        }
     }
 }

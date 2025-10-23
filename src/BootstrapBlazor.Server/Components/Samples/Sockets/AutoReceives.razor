@@ -11,19 +11,19 @@
            Name="Normal" ShowCode="false">
     <p>本例中连接一个模拟时间同步服务，每间隔 10s 自动发送服务器时间戳，连接后无需发送任何数据即可持续收到时间戳数据</p>
     <ul class="ul-demo">
-        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例（<a href="/socket-factory" target="_blank">传送门</a>）创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
         <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
     </ul>
-    <p>使用 <code>ReceivedCallBack</code> 委托获得接收到的数据，可通过 <code>+=</code> 方法支持多个客户端接收数据</p>
-    <Pre>_client.ReceivedCallBack += OnReceivedAsync;</Pre>
-    <p>特别注意页面需要继承 <code>IDisposable</code> 或者 <code>IAsyncDisposable</code> 接口，在 <code>Dispose</code> 或者 <code>DisposeAsync</code> 中移除委托</p>
+    <p>使用 <code>ReceivedCallback</code> 委托获得接收到的数据，可通过 <code>+=</code> 方法支持多个客户端接收数据</p>
+    <Pre>_client.ReceivedCallback += OnReceivedAsync;</Pre>
+    <p>特别注意如果当前页面对 <code>ISocketClient</code> 实例不销毁时需要继承 <code>IDisposable</code> 或者 <code>IAsyncDisposable</code> 接口，在 <code>Dispose</code> 或者 <code>DisposeAsync</code> 中移除委托，以防止内存泄露</p>
     <Pre>private void Dispose(bool disposing)
 {
     if (disposing)
     {
         if (_client is { IsConnected: true })
         {
-            _client.ReceivedCallBack -= OnReceivedAsync;
+            _client.ReceivedCallback -= OnReceivedAsync;
         }
     }
 }</Pre>

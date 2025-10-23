@@ -11,10 +11,16 @@
            Name="Normal" ShowCode="false">
     <p>本例中连接一个模拟时间同步服务，采用一发一收的方式进行通讯，连接后发送查询电文，接收到服务器端响应时间戳电文数据</p>
     <ul class="ul-demo">
-        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例（<a href="/socket-factory" target="_blank">传送门</a>）创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
         <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
         <li>点击 <b>发送</b> 按钮调用 <code>SendAsync</code> 方法发送请求数据</li>
     </ul>
+    <p>默认已经开启了自动接收，需要通过配置显式设置为手动接收</p>
+    <Pre>_client = TcpSocketFactory.GetOrCreate("demo-manual-receive", options =>
+{
+    options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
+    options.IsAutoReceive = false;
+});</Pre>
     <p>使用 <code>ReceiveAsync</code> 方法主动接收数据</p>
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">

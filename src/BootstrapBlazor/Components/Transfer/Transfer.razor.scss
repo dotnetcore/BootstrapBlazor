@@ -1,11 +1,12 @@
-.transfer {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-transfer {
     --bb-transfer-panel-header-height: #{$bb-transfer-panel-header-height};
     --bb-transfer-panel-header-padding: #{$bb-transfer-panel-header-padding};
     --bb-transfer-panel-body-padding: #{$bb-transfer-panel-body-padding};
     --bb-transfer-panel-list-max-height: #{$bb-transfer-panel-list-max-height};
     --bb-transfer-panel-list-min-height: #{$bb-transfer-panel-list-min-height};
     --bb-transfer-panel-item-padding: #{$bb-transfer-panel-item-padding};
-    --bb-transfer-panel-item-margin: #{$bb-transfer-panel-item-margin};
     --bb-transfer-panel-item-width: #{$bb-transfer-panel-item-width};
     --bb-transfer-buttons-padding: #{$bb-transfer-buttons-padding};
     --bb-transfer-filter-focus-border-color: #{$bb-transfer-filter-focus-border-color};
@@ -23,6 +24,14 @@
             .transfer-panel-body {
                 height: calc(100% - var(--bb-transfer-panel-header-height));
             }
+        }
+    }
+
+    &.wrap-item {
+        .transfer-panel-item .form-check-input + .form-check-label {
+            white-space: normal;
+            text-overflow: clip;
+            overflow: visible;
         }
     }
 }
@@ -60,13 +69,18 @@
 .transfer-panel-list {
     max-height: var(--bb-transfer-panel-list-max-height);
     min-height: var(--bb-transfer-panel-list-min-height);
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .transfer-panel-item {
     border-radius: var(--bs-border-radius);
     padding: var(--bb-transfer-panel-item-padding);
-    margin: var(--bb-transfer-panel-item-margin);
     width: var(--bb-transfer-panel-item-width);
+}
+
+.transfer-panel-item .form-check-input + .form-check-label {
+    white-space: var(--bb-transfer-panel-item-wrap, nowrap);
 }
 
 .transfer-buttons {
@@ -94,8 +108,8 @@
     width: 100%;
     display: inline-block;
     border-radius: var(--bs-border-radius);
-    padding-right: 10px;
-    padding-left: 30px;
+    padding-inline-start: 10px;
+    padding-inline-end: 30px;
     border: 1px solid var(--bs-border-color);
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     color: #606266;
@@ -110,7 +124,7 @@
     width: 30px;
     transition: all .3s;
     position: absolute;
-    left: 4px;
+    right: 4px;
     top: 0;
     display: flex;
     align-items: center;

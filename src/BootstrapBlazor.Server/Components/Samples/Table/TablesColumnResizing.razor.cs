@@ -34,7 +34,7 @@ public partial class TablesColumnResizing
         IEnumerable<Foo> items = Items;
         // 过滤
         var isFiltered = false;
-        if (options.Filters.Any())
+        if (options.Filters.Count > 0)
         {
             items = items.Where(options.Filters.GetFilterFunc<Foo>());
             isFiltered = true;

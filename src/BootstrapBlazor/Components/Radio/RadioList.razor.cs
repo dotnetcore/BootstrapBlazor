@@ -46,6 +46,8 @@ public partial class RadioList<TValue>
         .Build();
 
     private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"border-secondary", !ShowButtonBorderColor)
+        .AddClass($"border-{Color.ToDescriptionString()}", ShowButtonBorderColor)
         .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
         .Build();
 

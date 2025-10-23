@@ -34,7 +34,7 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0",
+    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0 & NET10.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
     "Docs": "Read the docs",
@@ -108,7 +108,11 @@
     "TooltipsCustomClassIntro": "Set the custom style by setting the <code>CustomClass</code> parameter",
     "BootstrapTooltipIntro": "Try to make a new component that is more comfortable to use, you can use it early, the name of the component may be changed later",
     "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
-    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
+    "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use.",
+    "TooltipsManualTitle": "Manual",
+    "TooltipsManualIntro": "Use code to control the tooltip state by setting <code>Trigger=\"manual\"</code>",
+    "TooltipsManualDescLI1": "The child component uses the cascade parameters to get the <code>Tooltip</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "TooltipsManualDescLI2": "Get the Tooltip instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",
@@ -348,7 +352,11 @@
     "PopoversCssClassTitle": "custom style",
     "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
-    "PopoversCssClassButtonText": "Click to activate/deactivate"
+    "PopoversCssClassButtonText": "Click to activate/deactivate",
+    "PopoversManualTitle": "Manual",
+    "PopoversManualIntro": "Use code to control the popover state by setting <code>Trigger=\"manual\"</code>",
+    "PopoversManualDescLI1": "The child component uses the cascade parameters to get the <code>Popover</code> instance and then calls its methods <code>Show</code> <code>Hide</code> <code>Toggle</code>",
+    "PopoversManualDescLI2": "Get the Popover instance through <code>@ref</code> and call its instances method"
   },
   "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress progress bar",
@@ -448,12 +456,15 @@
     "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
     "MaskNormalTitle": "Basic usage",
     "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "MaskNormalDesc": "You can adjust the <code>ZIndex</code> <code>Opacity</code> <code>BackgroundColor</code> parameters via <code>MaskOption</code>",
     "ShowMaskButtonText": "Show",
     "MaskContainerTitle": "Container",
     "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>",
     "MultipleMaskContainerTitle": "Multiple Mask",
     "MultipleMaskContainerIntro": "By customizing the <code>Mask</code> component, you can mask multiple parts of a web page.",
-    "MultipleMaskContainerDesc": "Set the <code>Mask</code> component in the component. When calling the <code>Show</code> instance method of <code>MaskService</code>, specify the <code>Mask</code> instance as the second parameter."
+    "MultipleMaskContainerDesc": "Set the <code>Mask</code> component in the component. When calling the <code>Show</code> instance method of <code>MaskService</code>, specify the <code>Mask</code> instance as the second parameter.",
+    "MaskCloseTitle": "Close By Code",
+    "MaskCloseIntro": "Close the popup by using the <code>DialogCloseButton</code> component or cascade parameters"
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
@@ -639,7 +650,9 @@
     "BaiduOcrDesc": "本组件通过调用 Baidu AI 平台文字识别接口进行增值税发票文字识别。支持对增值税普票、专票、全电发票（新版全国统一电子发票，专票/普票）、卷票、区块链发票的所有字段进行结构化识别，包括发票基本信息、销售方及购买方信息、商品信息、价税信息等，其中五要素字段的识别准确率超过 99.9%； 同时，支持对增值税卷票的 21 个关键字段进行识别，包括发票类型、发票代码、发票号码、机打号码、机器编号、收款人、销售方名称、销售方纳税人识别号、开票日期、购买方名称、购买方纳税人识别号、项目、单价、数量、金额、税额、合计金额(小写)、合计金额(大写)、校验码、省、市，四要素字段的识别准确率可达95%。上传图片不能超过 4M",
     "BaiduOcrIntro": "Usage",
     "BaiduOcrStep1": "1. Get <code>IBaiduOcr</code> instance by inject service",
-    "BaiduOcrStep2": "2. Call <code>IBaiduOcr</code> instance method",
+    "BaiduOcrStep1Desc": "Update the <code>appsettings.json</code> file with the following configuration. Please register on <a href=\"https://ai.baidu.com/ai-doc/index/OCR\" target=\"\">Baidu AI Open Platform</a> and apply for relevant parameter values.",
+    "BaiduOcrStep2": "2. Get <code>IBaiduOcr</code> instance by inject service",
+    "BaiduOcrStep3": "3. Call <code>IBaiduOcr</code> instance method",
     "VerifyVatInvoiceTitle": "增值税验真",
     "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
   },
@@ -2108,7 +2121,7 @@
     "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
     "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
     "OnValueChanged": "Callback for the Value changed",
-    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change",
+    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change. Enable the clear button by setting <code>IsClearable</code>",
     "LikeMatchDescription": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case",
     "NoDataTipDescription": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
     "NoDataTip": "There is nothing",
@@ -2211,7 +2224,9 @@
     "TooltipText": "Button",
     "TooltipTitle": "Tooltip",
     "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
-    "TooltipDisabledText": "Disabled"
+    "TooltipDisabledText": "Disabled",
+    "ToggleButton": "Toggle",
+    "ToggleIntroduction": "Get the current button <code>Toggle</code> state by setting the <code>IsActiveChanged</code> or <code>OnToggleAsync</code> callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Title": "Basic usage",
@@ -2406,7 +2421,9 @@
     "AttributeTemplate": "The template for display",
     "AttributeFormatter": "Display color value formatting callback method",
     "AttributeIsSupportOpacity": "Whether to support transparency",
-    "AttributeSwatches": "Preset candidate colors"
+    "AttributeSwatches": "Preset candidate colors",
+    "SupportOpacity": "Support Opacity",
+    "Disabled": "Disabled"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker",
@@ -2532,7 +2549,7 @@
     "EditorPlaceholderIntro": "The prompt message when a null value is set by setting the <code>Placeholder</code> attribute",
     "EditorPlaceholderDescription": "The default prompt is <b>Edit after clicking</b>",
     "EditorIsEditorTitle": "Display as a rich text edit box by default",
-    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property",
+    "EditorIsEditorIntro": "Set the component to be directly displayed as a rich text edit box by setting the <code>IsEditor</code> property. When uploading an image, you can get the image information through the <code>OnFileUpload</code> callback method",
     "EditorHeightTitle": "Custom height",
     "EditorHeightIntro": "Set the height of the component by setting the <code>Height</code> property",
     "EditorOnValueChangedTitle": "Two-way binding",
@@ -2573,7 +2590,8 @@
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",
     "DoMethodAsyncButton4": "Get Code",
-    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
+    "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button",
+    "OnFileUploadAttribute": "File upload callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.EditorForms": {
     "Title": "EditorForm",
@@ -2625,7 +2643,9 @@
     "TestName": "Tom",
     "TestAddress": "The test address",
     "AutoGenerateDescription": "In this example, by setting <code>the autoGenerate AllItem</code> value to <code>false</code>, turning off auto-generation, and rendering the form editing by manually adding two <code>EditoItem</code> edits",
-    "SkipValidateDescription": "In some cases, the value of some columns in the form may be a secondary classification, etc., and you need to know the information for a level 1 classification, at which point the first-level classification requires additional components to render if <code>Select</code>, which is independent of the current context binding model <code>Model</code>, which requires that you set the <code>SkipValidate</code> value to <code>true</code>, turn off model validation for this component"
+    "SkipValidateDescription": "In some cases, the value of some columns in the form may be a secondary classification, etc., and you need to know the information for a level 1 classification, at which point the first-level classification requires additional components to render if <code>Select</code>, which is independent of the current context binding model <code>Model</code>, which requires that you set the <code>SkipValidate</code> value to <code>true</code>, turn off model validation for this component",
+    "IsDisplayTitle": "Readonly Form",
+    "IsDisplayIntro": "Make the entire form non-editable by setting <code>IsDisplay=\"true\"</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FloatingLabels": {
     "FloatingLabelsTitle": "FloatingLabel",
@@ -3075,7 +3095,7 @@
     "SelectsEnumTitle": "Enumerate the data",
     "SelectsEnumIntro": "an example of a type enumerated a <code>select</code> component binding",
     "SelectsEnumDescription1": "Enumeration When the binding value is an empty enumeration type, the component automatically adds preferences internally through the <code>PlaceHolder</code> value, and when the <code>PlaceHolder</code> value is not set, <b>please select ... </b>as a preference, and this example binds <code>the EnumEducation</code> enumeration type data",
-    "SelectsEnumDescription2": "Setting <code>PalceHolder</code> is not valid when the binding value is an enumerated type",
+    "SelectsEnumDescription2": "Setting <code>PlaceHolder</code> is not valid when the binding value is an enumerated type",
     "SelectsEnumSelectText1": "Can be empty",
     "SelectsEnumSelectText2": "Not empty",
     "SelectsEnumSelectText3": "Using enum integer values ​​as Items",
@@ -3809,6 +3829,11 @@
     "BasicUsageP2": "1. The <code>UseBootstrapBlazor</code> middleware in the <b>Startup.cs</b> file that client information collection is performed.",
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> Middleware is located assembly <code>BootstrapBlazor.Middleware</code>, please refer to this package yourself for proper use",
     "BasicUsageP3": "2. The component uses the injection service <code>WebClientService</code> to call the <code>GetClientInfo</code> method.",
+    "BasicUsageP4": "3. Turn on IP geolocation",
+    "LocatorsProviderOptions": "<code>BootstrapBlazorOptions</code> section <code>WebClientOptions</code> By default it is <code>false</code>, which means the IP address location function is not enabled. Please change it to <code>true</code> in the configuration file or code.",
+    "LocatorsProviderDesc1": "Update the <code>appsetting.json</code> project configuration file",
+    "LocatorsProviderDesc2": "Or use the code to open",
+    "LocatorsProviderDesc3": "Or enable this function through configuration",
     "GroupBoxTitle": "Connection information",
     "IpLocatorFactoryDesc": "This service has built-in IP geolocation function. For detailed configuration and documentation, please refer to",
     "Id": "Connection ID",
@@ -3919,8 +3944,12 @@
     "FeatureShowHolidays": "Holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
+    "IpTitle": "IpAddress",
+    "IpSubTitle": "The IP Address component is a reusable component for entering and validating IP addresses.",
     "IpNormalTitle": "Basic usage",
-    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>"
+    "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>",
+    "IsDisabledTitle": "IsDisabled",
+    "IsDisabledIntro": "Make the component disabled by setting <code>IsDisabled</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Displays": {
     "Title": "Display",
@@ -4095,6 +4124,7 @@
     "LocatorsNormalExtendDescription": "Extend the custom geo-location query interface",
     "LocatorsNormalExtend1": "1. Implement a custom locator",
     "LocatorsNormalExtend2": "2. Configure a custom locator",
+    "LocatorsNormalExtend3": "3. Use locator",
     "LocatorsNormalCustomerLocator": "Add <code>CustomerLocatorProvider</code> to the service container using the <code>AddSingleton</code> method",
     "LocatorsNormalIpTitle": "IP test data",
     "LocatorsNormalTips3": "Shandong, China Unicom",
@@ -4102,8 +4132,7 @@
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating",
-    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>",
-    "LocatorsProviderOptions": "<code>BootstrapBlazorOptions</code> section <code>WebClientOptions</code> By default it is <code>false</code>, which means the IP address location function is not enabled. Please change it to <code>true</code> in the configuration file or code."
+    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",
@@ -4804,6 +4833,7 @@
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
+    "FluentSystemIcon": "Fluent Icons",
     "DrawerService": "DrawerService",
     "SortableList": "SortableList",
     "WinBox": "WinBox",
@@ -4831,11 +4861,25 @@
     "Vditor": "Vditor Markdown",
     "TcpSocketFactory": "ITcpSocketFactory",
     "OfficeViewer": "Office Viewer",
-    "SocketComponents": "ITcpSocketFactory",
+    "SocketComponents": "Socket Services",
     "SocketAutoReceive": "Auto Receive",
     "SocketManualReceive": "Manual Receive",
     "DataPackageAdapter": "DataPackageAdapter",
-    "SocketAutoConnect": "Reconnect"
+    "SocketAutoConnect": "Reconnect",
+    "SocketDataEntity": "DataEntity",
+    "ModbusComponents": "Modbus Services",
+    "SerialPortComponents": "SerialPort Services",
+    "ModbusFactory": "IModbusFactory",
+    "SerialPortFactory": "ISerialPortFactory",
+    "NetworkMonitor": "Network Monitor",
+    "Toolbar": "Toolbar",
+    "OpcDaService": "OpcDaServer",
+    "Navbar": "Navbar",
+    "TaskDashBoard": "TaskDashBoard",
+    "Dom2ImageService": "IDom2HtmlService",
+    "SelectRegion": "Region Selector",
+    "SelectProvince": "Province Selector",
+    "SelectCity": "City Selector"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4862,6 +4906,7 @@
     "SelectTreesClientValidationIntro": "validate the value when submit the form. Inside <code>ValidateForm</code>",
     "SelectTreesEditTitle": "Edit",
     "SelectTreesEditIntro": "By setting <code>IsEditable=\"true\"</code> you can edit the input textbox",
+    "SelectTreesEditDesc": "After setting <code>IsEditable=\"true\"</code>, the content displayed in the text box is the <code>Value</code> value of the node selected in the <code>TreeView</code>, the input value may not be in the <code>Items</code> collection",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "SelectTreesClientValidationButtonText": "Submit"
@@ -5688,7 +5733,11 @@
     "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
     "SetFilterInCodeButtonText2": "Reset All Filter",
-    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li></ul-demo>"
+    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li><li>Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.</li></ul-demo>",
+    "CustomerFilterItem1": "All",
+    "CustomerFilterItem2": "Greater than 10",
+    "CustomerFilterItem3": "Greater than 50",
+    "CustomerFilterItem4": "Greater than 80"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedHeader": {
     "TablesFixedHeaderTitle": "Fixed header function",
@@ -5725,9 +5774,9 @@
     "TableAttributeIntro": "Priority",
     "TableAttributeIntroLI1": "Only <code>AutoGenerateClassAttribute</code> been set and its parameter value is used as the basis",
     "TableAttributeIntroLI2": "Only <code>AutoGenerateColumnAttribute</code> been set and its parameter value is used as the basis",
-    "TableAttributeIntroLI3": "Set <code>AutoGenerateClassAttribute</code> and set <code>AutoGenerateColumnAttribute</code> to combine the two parameter values ​​and take the opposite value of their default value",
+    "TableAttributeIntroLI3": "Write <code>AutoGenerateClassAttribute</code> and write <code>AutoGenerateColumnAttribute</code> to merge the two parameter values and take the value of <code>AutoGenerateColumnAttribute</code>",
     "TableAttributeIntroLI4": "When setting the TableColumn parameter value, the TableColumn parameter value is the final value.",
-    "TableAttributeQA1": "Set <code>AutoGenerateClassAttribute</code> and set <code>AutoGenerateColumnAttribute</code> to combine the two parameter values ​​and take the opposite value of their default values. Example",
+    "TableAttributeQA1": "I wrote <code>AutoGenerateClassAttribute</code> and <code>AutoGenerateColumnAttribute</code> to combine the two parameter values and give an example",
     "TableAttributeQAP1": "Because <code>AutoGenerateClassAttribute</code> sets <code>Filterable</code> to <code>true</code>, and <code>AutoGenerateColumn</code> keeps <code>Filterable</code> to its default value of <code>false</code>, the final <code>UI</code> uses <code>true</code>",
     "TableAttributeQAP2": "Since <code>AutoGenerateClassAttribute</code> is not set, <code>Sortable</code> remains at the default value of <code>false</code>, and <code>AutoGenerateColumn</code> sets the <code>Sortable</code> value to <code>true</code>, the final <code>UI</code> uses <code>true</code>",
     "TableAttributeQAP3": "In the latest version, some parameter values ​​such as <code>Filterable</code> of <code>TableColumn</code> are changed to <b>nullable data type</b>, and their default value is changed from <code>false</code> to <code>null</code>. Therefore, as long as the value of the <code>Filterable</code> parameter of <code>TableColumn</code> is not null, the <code>TableColumn</code> value is used as the final <code>UI</code> value.",
@@ -6448,6 +6497,7 @@
     "AttrHeaderText": "the title of Header",
     "AttrItemTemplate": "the template of Item",
     "AttrOnClickItem": "the callback on click item",
+    "AttrOnDoubleClickItem": "the callback on double click item",
     "GetItemDisplayText": "the callback on get item display text"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
@@ -6677,7 +6727,8 @@
   "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
     "BrowserFingerTitle": "Browser fingerprint",
     "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
-    "GetFingerCodeAsync": "Method for obtaining fingerprints"
+    "GetFingerCodeAsync": "Method for obtaining fingerprints",
+    "GetClientHubIdAsync": "Method for obtaining client hub Id"
   },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "SvgEditor",
@@ -6724,6 +6775,13 @@
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
     "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
+    "Title": "Fluent System Icons",
+    "BaseUsageText": "Microsoft Free Open Source Icon Library",
+    "Icons": "For icon list, please visit <a href=\"https://react.fluentui.dev/?path=/docs/icons-catalog--docs\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
@@ -6848,7 +6906,10 @@
     "AttributeAutoUnobserveWhenIntersection": "Whether to automatically cancel the observation when element visible",
     "AttributeAutoUnobserveWhenNotIntersection": "Whether to automatically cancel the observation when element invisible",
     "AttributeOnIntersectingAsync": "The callback when intersecting",
-    "AttributeChildContent": "Child component"
+    "AttributeChildContent": "Child component",
+    "LoadMoreTitle": "LoadMore Component",
+    "LoadMoreIntro": "By setting the <code>LoadMore</code> component parameter <code>IsLoading</code> to control the loading state, the <code>OnLoadMoreAsync</code> callback method loads more data",
+    "LoadMoreDesc": "<p>In this example, the loading indicator is displayed by setting <code>CanLoading</code> to <code>true</code>, and the <b>No More Data</b> prompt text is displayed when loading is complete.</p><ul class=\"ul-demo\"><li>Customize the UI for loading more through <code>LoadingTemplate</code></li><li>Customize the UI displayed when there is no more data through <code>NoMoreTemplate</code></li><li>Set the indicator text displayed when there are no more add-ons through the <code>NoMoreText</code> parameter</li></ui>"
   },
   "BootstrapBlazor.Server.Components.Samples.SortableLists": {
     "SortableListTitle": "SortableList",
@@ -7114,5 +7175,77 @@
     "AutoReconnectsDescription": "Receive data through the data adapter and display",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Enable automatic reconnection by setting <code>IsAutoReconnect</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Sockets.DataEntities": {
+    "DataEntityTitle": "Socket Auto Entity",
+    "DataEntityDescription": "After receiving the communication data, it is automatically converted into the entity class required by the business",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Enable automatic data conversion through the <code>DataPropertyConverterAttribute</code> attribute",
+    "ConfigTitle": "DataType Converter",
+    "ConfigIntro": "Use the <code>ConfigureDataConverters</code> method to map the entity class and automatically convert the received data"
+  },
+  "BootstrapBlazor.Server.Components.Samples.NetworkMonitors": {
+    "NetworkMonitorTitle": "NetworkMonitor",
+    "NetworkMonitorDescription": "Use the browser native API <code>navigator.connection</code> to display the current network status in real time",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Use the component <code>NetworkMonitorIndicator</code> to display indicator lights of different colors when the network status changes, and display the network status details when the mouse moves over it",
+    "IndicatorLi1": "Green: Very good network (4G)",
+    "IndicatorLi2": "Yellow: Average network (3G)",
+    "IndicatorLi3": "Red: Poor network (2G)",
+    "IndicatorLi4": "Gray: Offline"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Toolbars": {
+    "ToolbarsTitle": "Toolbar",
+    "ToolbarSubTitle": "ToolBar component is a container for buttons or other application-specific tools",
+    "NormalTitle": "Normal",
+    "NormalIntro": ""
+  },
+  "BootstrapBlazor.Server.Components.Samples.OpcDa": {
+    "OpcDaTitle": "OpcDa Server",
+    "OpcDaDescription": "Connect to OpcDa Server to obtain PLC real-time data",
+    "OpcDaNormalTitle": "Basic usage",
+    "OpcDaNormalIntro": "Get an instance by injecting the service <code>IOpcDaServer</code> and call the <code>Read</code> method to get the PLC Tag value."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Navbars": {
+    "NavbarTitle": "Navbar",
+    "NavbarDescription": "A powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "By setting <code>NavbarBrand</code> <code>NavbarToggleButton</code> <code>NavbarCollapse</code> <code>NavbarGroup</code> <code>NavbarItem</code> to layout its internal elements"
+  },
+  "BootstrapBlazor.Server.Components.Samples.TaskBoard": {
+    "TaskBoardTitle": "Task DashBoard",
+    "TaskBoardIntro": "Background task dashboard",
+    "TaskBoardNormalTitle": "Basic usage",
+    "TaskBoardNormalIntro": "This component provides detailed information about background task schedule trigger."
+  },
+  "BootstrapBlazor.Server.Components.Samples.Dom2Images": {
+    "Dom2ImageTitle": "Dom2Image",
+    "Dom2ImageIntro": "Export HTML snippets as images",
+    "Dom2ImageNormalTitle": "Basic usage",
+    "Dom2ImageNormalIntro": "Convert the node to an image by specifying a <code>Selector</code>",
+    "Dom2ImageDesc": "Since the underlying framework uses <a href=\"https://github.com/zumerlab/snapdom?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">SnapDOM</a> , if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/zumerlab/snapdom/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>",
+    "Dom2ImageButtonText": "Convert",
+    "Dom2ImageDownloadText": "Download",
+    "Dom2ImageFullText": "Capture"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectRegions": {
+    "RegionTitle": "Region",
+    "RegionDescription": "A simple region cascade selector, provide 4 levels Chinese administrative division data",
+    "RegionNormalTitle": "Basic usage",
+    "RegionNormalIntro": "Use grouping to switch the selection mode for displaying administrative areas"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectCities": {
+    "CityTitle": "City Selector",
+    "CityDescription": "Provides a city selector classified by province",
+    "CityNormalTitle": "Basic usage",
+    "CityNormalIntro": "Select a city from the drop-down box"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectProvinces": {
+    "ProvinceTitle": "Province Selector",
+    "ProvinceDescription": "Provide a drop-down box to select the province",
+    "ProvinceNormalTitle": "Basic usage",
+    "ProvinceNormalIntro": "Select the province from the drop-down box",
+    "ProvinceMultipleTitle": "Multiple",
+    "ProvinceMultipleIntro": "Enable multiple selection mode by setting <code>IsMultiple</code>"
   }
 }

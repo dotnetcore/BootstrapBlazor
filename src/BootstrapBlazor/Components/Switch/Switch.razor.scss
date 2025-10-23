@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .switch {
     --bb-switch-padding: #{$bb-switch-padding};
     --bb-switch-border-color: #{$bb-switch-border-color};

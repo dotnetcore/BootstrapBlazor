@@ -2,9 +2,10 @@
 
 @if (IsHeaderRow)
 {
-
+    <Select Items="@_items" @bind-Value="@_value" IsUseDefaultItemWhenValueIsNull="true" IsPopover="true"
+            ShowLabel="false" SkipValidate="true" OnSelectedItemChanged="_ => OnFilterAsync()"></Select>
 }
 else
 {
-    <Select Items="@_items" @bind-Value="@Value"></Select>
+    <Select Items="@_items" @bind-Value="@_value" IsUseDefaultItemWhenValueIsNull="true" IsPopover="true"></Select>
 }

@@ -1,6 +1,6 @@
 ﻿@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/ThemeChooser.razor.js")]
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <HeadContent>
     @foreach (var css in _currentTheme)
@@ -10,7 +10,7 @@
 </HeadContent>
 
 <div id="@Id" class="theme" @onclick:stopPropagation>
-    <PulseButton TooltipPlacement="Placement.Left" TooltipText="@Title" Color="Color.None" ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/m.svg")" class="btn-fade btn-theme" />
+    <PulseButton TooltipPlacement="Placement.Left" TooltipText="@Title" Color="Color.None" ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/m.svg")" class="btn-fade btn-theme" />
 </div>
 
 <BootstrapBlazorRootContent>

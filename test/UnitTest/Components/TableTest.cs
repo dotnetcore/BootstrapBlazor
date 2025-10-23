@@ -250,6 +250,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowColorWhenToolbarButtonsCollapsed, true);
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -792,11 +793,13 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "CssClass", "test-css");
                     builder.CloseComponent();
                 });
             });
         });
         cut.Contains("Test_CardView");
+        cut.Contains("test-css");
     }
 
     [Fact]
@@ -6028,6 +6031,37 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task FitAllColumnWidth_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.NotNull(table);
+        await cut.InvokeAsync(() => table.Instance.FitAllColumnWidth());
+    }
+
+    [Fact]
     public async Task Refresh_Ok()
     {
         var selectedRows = new List<Foo>();
@@ -8337,7 +8371,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task AutoFitContentCallback_Ok()
+    public async Task OnAutoFitColumnWidthCallback_Ok()
     {
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8349,10 +8383,12 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnAutoFitContentAsync, fieldName =>
+                pb.Add(a => a.FitColumnWidthIncludeHeader, true);
+                pb.Add(a => a.OnAutoFitColumnWidthCallback, (fieldName, calcWidth) =>
                 {
                     name = fieldName;
-                    return Task.FromResult(100.65f);
+                    var resWidth = Math.Max(100.65f, calcWidth);
+                    return Task.FromResult(resWidth);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -8371,7 +8407,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         float v = 0f;
-        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime"));
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitColumnWidthCallback("DateTime", 90));
         Assert.Equal(100.65f, v);
     }
 
@@ -8717,6 +8753,27 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(ProhibitEdit(cut.Instance));
         Assert.True(ProhibitDelete(cut.Instance));
     }
+
+    [Fact]
+    public void Table_Sortable()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        {
+            pb.AddCascadingValue<ISortableList>(new SortableList());
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+        });
+    }
+
+    class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
     {

@@ -7,7 +7,7 @@ Description=Bootstrap Blazor Application
 Type=simple
 WorkingDirectory=/usr/local/ba/blazor
 Environment=ASPNETCORE_ENVIRONMENT=Production
-ExecStart=/usr/bin/dotnet BootstrapBlazor.Server.dll --urls http://localhost:50853
+ExecStart=dotnet BootstrapBlazor.Server.dll --urls http://localhost:50853
 ExecStop=/bin/kill -2 $MAINPID
 KillMode=process
 Restart=on-failure

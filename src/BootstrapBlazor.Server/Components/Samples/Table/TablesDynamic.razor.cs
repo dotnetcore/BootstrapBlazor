@@ -51,25 +51,25 @@ public partial class TablesDynamic
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
                 // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), Localizer[nameof(Foo.DateTime)].Value) });
+                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), LocalizerFoo[nameof(Foo.DateTime)].Value) });
             }
             else if (propertyName == nameof(Foo.Name))
             {
-                context.AddRequiredAttribute(nameof(Foo.Name), Localizer["Name.Required"]);
+                context.AddRequiredAttribute(nameof(Foo.Name), LocalizerFoo["Name.Required"]);
                 // 使用 Text 设置显示名称示例
-                col.Text = Localizer[nameof(Foo.Name)];
+                col.Text = LocalizerFoo[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
                 context.AddRequiredAttribute(nameof(Foo.Count));
                 // 使用 DisplayNameAttribute 设置显示名称示例
-                context.AddDisplayNameAttribute(nameof(Foo.Count), Localizer[nameof(Foo.Count)].Value);
+                context.AddDisplayNameAttribute(nameof(Foo.Count), LocalizerFoo[nameof(Foo.Count)].Value);
             }
             else if (propertyName == nameof(Foo.Complete))
             {
                 col.Filterable = true;
                 // 使用 DisplayAttribute 设置显示名称示例
-                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] { new(nameof(DisplayAttribute.Name), Localizer[nameof(Foo.Complete)].Value) });
+                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] { new(nameof(DisplayAttribute.Name), LocalizerFoo[nameof(Foo.Complete)].Value) });
             }
             else if (propertyName == nameof(Foo.Id))
             {

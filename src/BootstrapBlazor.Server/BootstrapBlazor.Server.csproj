@@ -29,54 +29,63 @@
     <PackageReference Include="BootstrapBlazor.BarCode" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.3" />
+    <PackageReference Include="BootstrapBlazor.CodeEditor" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.16" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.19" />
+    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.1.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.9" />
+    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.12" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.6" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.7" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
+    <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.OpcDa" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.Player" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.6" />
+    <PackageReference Include="BootstrapBlazor.Player" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.Region" Version="9.0.8-beta01" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.4" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.6" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.4" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.7" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.7" />
+    <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.5" />
     <PackageReference Include="BootstrapBlazor.Vditor" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.7" />
-    <PackageReference Include="Longbow.Logging" Version="9.0.0" />
-    <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
+    <PackageReference Include="Longbow.Logging" Version="9.0.1" />
+    <PackageReference Include="Longbow.Modbus" Version="9.1.1" />
+    <PackageReference Include="Longbow.Sockets" Version="9.0.4" />
+    <PackageReference Include="Longbow.Tasks" Version="9.0.2" />
+    <PackageReference Include="Longbow.TcpSocket" Version="9.0.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,6 +99,10 @@
     <Using Include="BootstrapBlazor.Server.Data" />
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
+    <Using Include="Longbow.Sockets.DataAdapters" />
+    <Using Include="Longbow.Sockets.DataConverters" />
+    <Using Include="Longbow.Sockets.DataHandlers" />
+    <Using Include="Longbow.TcpSocket" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Configuration" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />

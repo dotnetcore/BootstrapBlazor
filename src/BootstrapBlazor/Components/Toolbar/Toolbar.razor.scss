@@ -1,0 +1,10 @@
+﻿.bb-toolbar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 0.25rem;
+
+    .bb-toolbar-space {
+        flex-grow: 1;
+    }
+}

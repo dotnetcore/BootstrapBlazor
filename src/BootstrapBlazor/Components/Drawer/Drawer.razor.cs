@@ -19,7 +19,7 @@ public partial class Drawer
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bb-drawer-position", Position)
+        .AddClass($"--bb-drawer-position: {Position};", !string.IsNullOrEmpty(Position))
         .AddClass($"--bb-drawer-zindex: {ZIndex};", ZIndex.HasValue)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
@@ -28,9 +28,11 @@ public partial class Drawer
     /// 获得 抽屉 Style 字符串
     /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
-        .AddStyle("--bb-drawer-width", Width, Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddStyle("--bb-drawer-height", Height, Placement == Placement.Top || Placement == Placement.Bottom)
+        .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && !IsVertical)
+        .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && IsVertical)
         .Build();
+
+    private bool IsVertical => Placement == Placement.Top || Placement == Placement.Bottom;
 
     /// <summary>
     /// 获得 抽屉样式

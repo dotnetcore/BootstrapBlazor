@@ -14,7 +14,7 @@ public sealed partial class Avatars
     {
         // 模拟异步获取图像地址
         await Task.Delay(500);
-        return $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png";
+        return $"{WebsiteOption.Value.AssetRootPath}images/Argo-C.png";
     }
 
     /// <summary>

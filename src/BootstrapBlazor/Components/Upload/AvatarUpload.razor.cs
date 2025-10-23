@@ -115,6 +115,12 @@ public partial class AvatarUpload<TValue>
         .AddClass(InvalidStatusIcon)
         .Build();
 
+    private bool ShowPreviewList => Files.Count != 0;
+
+    private string PreviewerId => $"prev_{Id}";
+
+    private List<string?> PreviewList => [.. Files.Select(i => i.PrevUrl)];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -142,6 +148,18 @@ public partial class AvatarUpload<TValue>
             file.PrevUrl = await InvokeAsync<string?>("getPreviewUrl", Id, file.OriginFileName);
         }
         await base.TriggerOnChanged(file);
+    }
+
+    /// <summary>
+    /// 预览当前头像方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Preview()
+    {
+        if(ShowPreviewList)
+        {
+            await InvokeVoidAsync("preview", PreviewerId, 0);
+        }
     }
 
     private IReadOnlyCollection<ValidationResult> _results = [];

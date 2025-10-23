@@ -18,7 +18,6 @@
             ".iced",
             ".config",
             ".cs",
-            ".vb",
             ".json"
           ]
         }

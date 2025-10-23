@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @layout BaseLayout
 @inject NavigationManager NavigationManager
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<HomeLayout> Localizer
 @inject PackageVersionService VersionService
 
@@ -11,7 +11,7 @@
     <div class="bb-foundation">
         <div class="bb-foundation-content">本项目属于 <a href="https://www.dotnetfoundation.org/">.NET 基金会</a>，并根据其 <a href="https://www.dotnetfoundation.org/code-of-conduct">行为准则</a> 运作</div>
         <a class="bb-foundation-img d-none d-sm-block" href="https://www.dotnetfoundation.org/">
-            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/dotnet_foundation_v4.png")" width="100" />
+            <img src="@WebsiteOption.Value.GetAssetUrl("images/dotnet_foundation_v4.png")" alt="dotnet-foundation" width="100" />
         </a>
     </div>
     <div class="footer-body">
@@ -19,7 +19,7 @@
             <h4>@Localizer["FooterH1"]</h4>
             <ul>
                 <li>
-                    <a class="footer-link" href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                    <a class="footer-link" href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
                 </li>
                 <li>
                     <a class="footer-link" href="https://gitee.com/Longbow/SliderCaptcha" target="_blank">@Localizer["FooterLi1"]</a>
@@ -35,7 +35,7 @@
         <div>
             <h4>@Localizer["FriendLink"]</h4>
             <ul>
-                @foreach (var link in WebsiteOption.CurrentValue.Links)
+                @foreach (var link in WebsiteOption.Value.Links)
                 {
                     <li>
                         <a class="footer-link" href="@link.Value" target="_blank">@link.Key</a>
@@ -47,30 +47,33 @@
             <h4>@Localizer["Community"]</h4>
             <ul>
                 <li>
-                    <div class="footer-link">@Localizer["CommunityLi2"]</div>
+                    <div class="footer-link"><a href="https://github.com/BootstrapBlazor/membership/issues" target="_blank">@Localizer["CommunityLi2"]</a></div>
                 </li>
                 <li>
-                    <div class="footer-link">@Localizer["CommunityLi1"]</div>
+                    <div class="footer-link"><a href="https://github.com/dotnetcore/BootstrapBlazor?tab=coc-ov-file#readme" target="_blank">@Localizer["CommunityLi1"]</a></div>
                 </li>
                 <li>
-                    <div class="footer-link">@Localizer["CommunityLi3"]</div>
+                    <div class="footer-link"><a href="https://github.com/dotnetcore/BootstrapBlazor/issues" target="_blank">@Localizer["CommunityLi3"]</a></div>
                 </li>
             </ul>
         </div>
     </div>
     <div class="footer-info">
         <div class="d-flex">
-            <div>SDK .NET @Version on @OS</div>
+            <div>.NET @Version on @OS</div>
             <div class="ms-1">BB @VersionService.Version</div>
             <FooterCounter></FooterCounter>
             <CacheCounter></CacheCounter>
+            <div class="ms-2">
+                <NetworkMonitorIndicator></NetworkMonitorIndicator>
+            </div>
         </div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
-            <a class="d-none d-md-block me-3" href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">@Localizer["Footer"]</a>
+            <a class="d-none d-md-block me-3" href="@WebsiteOption.Value.GiteeRepositoryUrl" target="_blank">@Localizer["Footer"]</a>
             <a class="d-none d-lg-block me-3" href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备19015061号-4</a>
         </div>
         <div class="d-md-flex d-none">
-            <img alt="global" class="footer-lang" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/global.svg")" />
+            <img alt="global" class="footer-lang" src="@WebsiteOption.Value.GetAssetUrl("images/global.svg")" />
             <a @onclick:preventDefault @onclick="@(e => SetLang("zh-CN"))">简 体</a>
             <span class="mx-1">/</span>
             <a @onclick:preventDefault @onclick="@(e => SetLang("en-US"))">English</a>

@@ -1,5 +1,5 @@
 ﻿@page "/tutorials/admin"
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <p>后台权限管理演示系统</p>
 
@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">BootstrapBlazor 组件库实现</div>
                 <div class="card-body">
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/tutorials/pro.jpg")" class="w-100" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/tutorials/pro.jpg")" class="w-100" />
                 </div>
             </div>
         </a>
@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-header">MVC & Blazor 混合实现</div>
                 <div class="card-body">
-                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/tutorials/admin.jpg")" class="w-100" />
+                    <img src="@WebsiteOption.Value.GetAssetUrl("images/tutorials/admin.jpg")" class="w-100" />
                 </div>
             </div>
         </a>

@@ -44,7 +44,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localizatio
 		localization\de.json = localization\de.json
 		localization\es.json = localization\es.json
 		localization\pt.json = localization\pt.json
+		localization\ru-RU.json = localization\ru-RU.json
 		localization\th-TH.json = localization\th-TH.json
+		localization\uk-UA.json = localization\uk-UA.json
 		localization\zh-TW.json = localization\zh-TW.json
 	EndProjectSection
 EndProject

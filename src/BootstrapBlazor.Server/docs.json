@@ -90,6 +90,7 @@
     "html-renderer": "HtmlRenderers",
     "html2image": "Html2Images",
     "html2pdf": "Html2Pdfs",
+    "dom2image": "Dom2Images",
     "label": "Labels",
     "layout": "Layouts",
     "light": "Lights",
@@ -246,7 +247,18 @@
     "socket/manual-receive": "Sockets\\ManualReceives",
     "socket/auto-receive": "Sockets\\AutoReceives",
     "socket/adapter": "Sockets\\Adapters",
-    "socket/auto-connect": "Sockets\\AutoReconnects"
+    "socket/auto-connect": "Sockets\\AutoReconnects",
+    "socket/data-entity": "Sockets\\DataEntities",
+    "network-monitor": "NetworkMonitors",
+    "toolbar": "Toolbars",
+    "opc-da": "OpcDa",
+    "navbar": "Navbars",
+    "task-board": "TaskBoard",
+    "modbus-factory": "Modbus\\ModbusFactories",
+    "serial-port-factory": "SerialPorts\\SerialPortFactories",
+    "select-region": "SelectRegions",
+    "select-city": "SelectCities",
+    "select-province": "SelectProvinces"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
@@ -313,9 +325,9 @@
     "global-option": "BV17T421k7U1"
   },
   "link": {
-    "AntDesign": "http://www.antblazor.com/",
-    "Pear Admin": "http://www.pearadmin.com/",
-    "SAPHP": "https://www.swiftadmin.net/",
-    "Veterinary Hospital": "http://animal.jucun.zone/"
+    "AntDesign": "http://www.antblazor.com/?from=blazor.zone",
+    "AtomUI": "https://qinware.com/?from=blazor.zone",
+    "SAPHP": "https://www.swiftadmin.net/?from=blazor.zone",
+    "Veterinary Hospital": "http://animal.jucun.zone/?from=blazor.zone"
   }
 }

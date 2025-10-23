@@ -58,6 +58,8 @@ export function update(id, prevList, index) {
     }
 
     viewer.prevList = prevList
+    viewer.img = viewer.element.querySelector('img')
+
     setListeners(viewer, index)
 }
 

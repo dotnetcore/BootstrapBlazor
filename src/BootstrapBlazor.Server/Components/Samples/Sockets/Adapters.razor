@@ -25,7 +25,7 @@
     options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
 });</Pre>
     <ul class="ul-demo">
-        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
+        <li>点击 <b>连接</b> 按钮后通过 <code>ITcpSocketFactory</code> 服务实例（<a href="/socket-factory" target="_blank">传送门</a>）创建的 <code>ITcpSocketClient</code> 对象连接到网站模拟 <code>TcpServer</code></li>
         <li>点击 <b>断开</b> 按钮调用 <code>CloseAsync</code> 方法断开 Socket 连接</li>
         <li>点击 <b>发送</b> 按钮调用 <code>SendAsync</code> 方法发送请求数据</li>
     </ul>
@@ -41,19 +41,22 @@
     </ul>
     <p>本示例服务器端模拟了数据分包即响应数据实际是两次写入所以实际接收端是要通过两次接收才能得到一个完整的响应数据包，可通过 <b>数据适配器</b> 来简化接收逻辑。通过切换下方 <b>是否使用数据适配器</b> 控制开关进行测试查看实际数据接收情况。</p>
     <ul class="ul-demo">
-        <li>不使用 <b>数据处理器</b> 要分两次接收才能接收完整</li>
-        <li>使用 <b>数据处理器</b> 一次即可接收完整数据包</li>
+        <li>不使用 <b>数据适配器</b> 要分两次接收才能接收完整</li>
+        <li>使用 <b>数据适配器</b> 一次即可接收完整数据包</li>
     </ul>
-    <Pre>private readonly DataPackageAdapter _dataAdapter = new()
-{
-    // 数据适配器内部使用固定长度数据处理器
-    DataPackageHandler = new FixLengthDataPackageHandler(12)
-};
+    <Pre>// 数据适配器内部使用固定长度数据处理器
+private readonly DataPackageAdapter _dataAdapter = new(new FixLengthDataPackageHandler(12));
 
-_dataAdapter.ReceivedCallBack += async Data =>
+_dataAdapter.ReceivedCallback = async Data =>
 {
     // 此处接收到的数据 Data 为完整响应数据
 };</Pre>
+    <Pre>// 实战中可以使用 ITcpSocketClient 扩展方法 AddDataPackageAdapter 简化代码
+// 如果 _client 实例在当前页面不销毁时，切记使用 RemoveDataPackageAdapter 移除当前页面加载的 UpdateReceiveLog 回调方法避免内存泄露
+// _client.RemoveDataPackageAdapter(UpdateReceiveLog);
+_client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);</Pre>
+
+    <p>本例中使用的模拟服务端代码如下：</p>
 
     <div class="row form-inline g-3">
         <div class="col-12">

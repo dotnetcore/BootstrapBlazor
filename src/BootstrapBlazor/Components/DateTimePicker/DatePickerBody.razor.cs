@@ -45,10 +45,7 @@ public partial class DatePickerBody
     /// </summary>
     private DateTime SelectValue { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否显示时刻选择框
-    /// </summary>
-    private bool ShowTimePicker { get; set; }
+    private bool _showClockPicker;
 
     private string? ClassString => CssBuilder.Default("picker-panel")
         .AddClass("is-sidebar", ShowSidebar)
@@ -71,7 +68,7 @@ public partial class DatePickerBody
         .Build();
 
     private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
-        .AddClass("is-open", ShowTimePicker)
+        .AddClass("is-open", _showClockPicker)
         .Build();
 
     private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
@@ -394,6 +391,12 @@ public partial class DatePickerBody
     [Parameter]
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
+    /// <summary>
+    /// 获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/>
+    /// </summary>
+    [Parameter]
+    public PickTimeMode PickTimeMode { get; set; } = PickTimeMode.Dropdown;
+
     [Inject]
     [NotNull]
     private ICalendarFestivals? CalendarFestivals { get; set; }
@@ -464,6 +467,10 @@ public partial class DatePickerBody
     };
 
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
+
+    private string? HeaderLabelString => CssBuilder.Default("d-flex align-items-center justify-content-center flex-fill")
+        .AddClass("picker-panel-header-bar", ViewMode == DatePickerViewMode.DateTime)
+        .Build();
 
     private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = [];
 
@@ -590,6 +597,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickPrevYear()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
@@ -609,6 +617,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickPrevMonth()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
 
         _render = false;
@@ -626,6 +635,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickNextYear()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
@@ -645,6 +655,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickNextMonth()
     {
+        _showTimePicker = false;
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
 
         _render = false;
@@ -690,6 +701,35 @@ public partial class DatePickerBody
         }
     }
 
+    private string? TimePickerClassString => CssBuilder.Default("picker-panel-time")
+        .AddClass("show", _showTimePicker)
+        .Build();
+
+    private bool _showTimePicker;
+
+    private Task OnConfirmTime(TimeSpan time)
+    {
+        _showTimePicker = false;
+        CurrentTime = time;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnCloseTime()
+    {
+        _showTimePicker = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void OnShowTimePicker()
+    {
+        _showTimePicker = true;
+        StateHasChanged();
+    }
+
+    private bool HasSeconds => TimeFormat.Contains('s');
+
     private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
@@ -698,6 +738,7 @@ public partial class DatePickerBody
     /// <param name="view"></param>
     private async Task SwitchView(DatePickerViewMode view)
     {
+        _showTimePicker = false;
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
@@ -716,12 +757,13 @@ public partial class DatePickerBody
 
     private void SwitchTimeView()
     {
-        ShowTimePicker = true;
+        _showClockPicker = true;
     }
 
     internal void SwitchDateView()
     {
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
         StateHasChanged();
     }
 
@@ -847,7 +889,8 @@ public partial class DatePickerBody
     private async Task ClickClearButton()
     {
         // 关闭 TimerPicker
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
 
         CurrentDate = DateTime.MinValue;
         CurrentTime = TimeSpan.Zero;
@@ -872,7 +915,8 @@ public partial class DatePickerBody
     private void ResetTimePickerPanel()
     {
         // 关闭 TimerPicker
-        ShowTimePicker = false;
+        _showClockPicker = false;
+        _showTimePicker = false;
 
         TimePickerPanel?.Reset();
     }

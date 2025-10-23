@@ -1,5 +1,12 @@
 ﻿import EventHandler from "../../modules/event-handler.js"
 
+export function focus(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        el.focus();
+    }
+}
+
 export function clear(id) {
     const el = document.getElementById(id)
     if (el) {
@@ -11,7 +18,7 @@ export function handleKeyUp(id, invoke, enter, enterCallbackMethod, esc, escCall
     const el = document.getElementById(id)
     if (el) {
         EventHandler.on(el, 'keyup', e => {
-            if (enter && (e.key === 'Enter' || e.key === 'NumpadEnter')) {
+            if (enter && (e.key === 'Enter')) {
                 const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
                 if (!e.shiftKey && useShiftEnter) {
                     return;

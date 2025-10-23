@@ -88,6 +88,14 @@ public partial class ListGroups
         },
         new()
         {
+            Name = "OnDoubleClickItem",
+            Description = Localizer["AttrOnDoubleClickItem"],
+            Type = "Func<TItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "GetItemDisplayText",
             Description = Localizer["GetItemDisplayText"],
             Type = "Func<TItem, string>",

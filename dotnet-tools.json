@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "bootstrapblazor.cssbundler": {
+      "version": "1.0.1",
+      "commands": [
+        "css-bundler"
+      ],
+      "rollForward": false
+    }
+  }
+}

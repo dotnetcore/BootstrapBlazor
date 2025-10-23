@@ -213,6 +213,11 @@ public partial class MultiSelect<TValue>
                 var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
             }
+
+            if (SelectedItems.Count == 0)
+            {
+                _lastSelectedValueString = string.Empty;
+            }
         }
     }
 

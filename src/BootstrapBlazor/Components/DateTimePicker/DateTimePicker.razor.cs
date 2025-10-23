@@ -119,6 +119,12 @@ public partial class DateTimePicker<TValue>
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
+    /// 获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/>
+    /// </summary>
+    [Parameter]
+    public PickTimeMode PickTimeMode { get; set; } = PickTimeMode.Dropdown;
+
+    /// <summary>
     /// 获得/设置 是否显示快捷侧边栏 默认不显示
     /// </summary>
     [Parameter]
@@ -303,7 +309,7 @@ public partial class DateTimePicker<TValue>
         }
         else
         {
-            SelectedValue = Value == null ? DateTime.MinValue : (DateTime)(object)Value;
+            SelectedValue = Value == null ? (MinValue ?? DateTime.MinValue) : (DateTime)(object)Value;
         }
 
         if (MinValue > SelectedValue)

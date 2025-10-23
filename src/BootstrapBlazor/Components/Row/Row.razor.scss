@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 :root {
     --bb-row-label-width: #{$bb-row-label-width};
     --bb-row-control-padding: #{$bb-row-control-padding};

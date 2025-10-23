@@ -24,20 +24,20 @@
     <CultureChooser class="flex-md" />
     <ul class="navbar-nav nav-repo ms-3">
         <li class="nav-item">
-            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.GithubRepositoryUrl" target="_blank">
-                <img alt="git" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/git.svg")" />
+            <a class="nav-link p-2" href="@WebsiteOption.Value.GithubRepositoryUrl" target="_blank">
+                <img alt="git" src="@WebsiteOption.Value.GetAssetUrl("images/git.svg")" />
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">
-                <img alt="gitee" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/gitee.svg")" />
+            <a class="nav-link p-2" href="@WebsiteOption.Value.GiteeRepositoryUrl" target="_blank">
+                <img alt="gitee" src="@WebsiteOption.Value.GetAssetUrl("images/gitee.svg")" />
             </a>
         </li>
         <li class="nav-item">
             <FullScreenButton class="nav-link p-2" TooltipText="@Localizer["FullScreenTooltipText"]" />
         </li>
     </ul>
-    <a class="btn btn-bd-download d-none d-lg-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
+    <a class="btn btn-bd-download d-none d-lg-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@WebsiteOption.Value.WikiUrl">@DownloadText</a>
     <div class="navbar-version ms-2">@_versionString</div>
     <ThemeProvider class="ms-2 d-none d-lg-block"></ThemeProvider>
 </header>

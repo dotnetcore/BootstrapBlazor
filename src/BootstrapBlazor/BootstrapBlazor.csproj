@@ -1,7 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <Version>9.8.1-beta06</Version>
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '17.0'">
+    <Version>9.11.5-beta03</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '18.0'">
+    <Version>10.0.0-rc.2.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,16 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="sasscompiler.json" />
-    <Content Remove="wwwroot\core\**\*.*" />
-    <Content Remove="wwwroot\lib\**\*.css" />
-    <Content Remove="wwwroot\scss\**\*.*" />
-    <Content Remove="wwwroot\src\**\*.*" />
-    <None Include="sasscompiler.json" />
-    <None Include="wwwroot\core\**\*.*" />
-    <None Include="wwwroot\lib\**\*.css" />
-    <None Include="wwwroot\scss\**\*.*" />
-    <None Include="wwwroot\src\**\*.*" />
+    <Content Remove="wwwroot\core\bootstrap\**\*.*" />
+    <Content Remove="wwwroot\lib\animate\*.css" />
+    <Content Remove="wwwroot\lib\swal\*.css" />
+    <Content Remove="wwwroot\scss\*" />
+    <Content Remove="wwwroot\css\bootstrapblazor.min.css" />
+    <None Include="wwwroot\core\bootstrap\**\*.*" />
+    <None Include="wwwroot\lib\animate\*.css" />
+    <None Include="wwwroot\lib\swal\*.css" />
+    <None Include="wwwroot\scss\*" />
+    <None Include="wwwroot\css\bootstrapblazor.min.css" />
   </ItemGroup>
 
   <ItemGroup>

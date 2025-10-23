@@ -14,7 +14,7 @@ public partial class Header
 {
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
@@ -35,8 +35,6 @@ public partial class Header
 
     [NotNull]
     private string? TutorialsText { get; set; }
-
-    private const string DownloadUrl = "https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174";
 
     private string _versionString = "";
 

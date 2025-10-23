@@ -96,7 +96,7 @@ public partial class ValidateForm
 
     [Inject]
     [NotNull]
-    private IOptions<JsonLocalizationOptions>? Options { get; set; }
+    private IOptionsMonitor<JsonLocalizationOptions>? Options { get; set; }
 
     [Inject]
     [NotNull]
@@ -131,7 +131,7 @@ public partial class ValidateForm
     private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : null;
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bb-row-label-width", $"{LabelWidth}px", LabelWidth.HasValue)
+        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
         .Build();
 
     /// <summary>
@@ -388,7 +388,7 @@ public partial class ValidateForm
                 var find = false;
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
-                    var resourceType = Options.Value.ResourceManagerStringLocalizerType;
+                    var resourceType = Options.CurrentValue.ResourceManagerStringLocalizerType;
                     if (resourceType != null && LocalizerFactory.Create(resourceType).TryGetLocalizerString(rule.ErrorMessage, out var text))
                     {
                         rule.ErrorMessage = text;

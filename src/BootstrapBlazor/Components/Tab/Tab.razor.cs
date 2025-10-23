@@ -432,7 +432,7 @@ public partial class Tab
     public ITabHeader? TabHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
+    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 值
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }

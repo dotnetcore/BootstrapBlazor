@@ -5,12 +5,14 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke) {
+export function init(id, invoke, value, changedEventCallback) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
+
+    input.value = value;
 
     const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
     if (isPopover) {
@@ -39,13 +41,13 @@ export function init(id, invoke) {
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
-        EventHandler.on(input, 'keyup', debounce(e => {
-            handlerKeyup(ac, e);
+        EventHandler.on(input, 'keydown', debounce(e => {
+            handlerKeydown(ac, e);
         }, duration))
     }
     else {
-        EventHandler.on(input, 'keyup', e => {
-            handlerKeyup(ac, e);
+        EventHandler.on(input, 'keydown', e => {
+            handlerKeydown(ac, e);
         })
     }
 
@@ -61,6 +63,12 @@ export function init(id, invoke) {
             }
         }
     });
+
+    if (changedEventCallback) {
+        EventHandler.on(input, 'change', e => {
+            invoke.invokeMethodAsync(changedEventCallback, e.target.value);
+        });
+    }
 
     let filterDuration = duration;
     if (filterDuration === 0) {
@@ -78,7 +86,6 @@ export function init(id, invoke) {
 
         el.classList.add('is-loading');
         filterCallback(v);
-
     });
 
     ac.show = () => {
@@ -108,7 +115,7 @@ export function init(id, invoke) {
         });
     }
 
-    ac.keyup = e => {
+    ac.keydown = e => {
         if (e.key === 'Tab') {
             [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
                 const id = a.getAttribute('id');
@@ -131,19 +138,31 @@ export function init(id, invoke) {
 
     registerBootstrapBlazorModule('AutoComplete', id, () => {
         EventHandler.on(document, 'click', ac.closePopover);
-        EventHandler.on(document, 'keyup', ac.keyup);
+        EventHandler.on(document, 'keydown', ac.keydown);
+    });
+
+    EventHandler.on(el, 'click', '.clear-icon', e => {
+        input.value = '';
+        invoke.invokeMethodAsync('TriggerClear');
     });
 }
 
-const handlerKeyup = (ac, e) => {
+const handlerKeydown = (ac, e) => {
     const key = e.key;
     const { el, invoke, menu } = ac;
-    if (key === 'Enter' || key === 'NumpadEnter') {
+    if (key === 'Enter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
-            const current = menu.querySelector('.active');
-            if (current !== null) {
-                current.click();
+            const items = [...menu.querySelectorAll('.dropdown-item')];
+            if (items.length === 1) {
+                const item = items[0];
+                item.click();
+            }
+            else {
+                const current = menu.querySelector('.active');
+                if (current !== null) {
+                    current.click();
+                }
             }
             invoke.invokeMethodAsync('EnterCallback');
         }
@@ -175,12 +194,20 @@ const handlerKeyup = (ac, e) => {
     }
 }
 
+export function setValue(id, value) {
+    const ac = Data.get(id)
+    const { input } = ac;
+    if (input) {
+        input.value = value;
+    }
+}
+
 export function dispose(id) {
     const ac = Data.get(id)
     Data.remove(id)
 
     if (ac) {
-        const { popover, input, menu } = ac;
+        const { el, popover, input, menu } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
@@ -188,14 +215,16 @@ export function dispose(id) {
             }
         }
         EventHandler.off(menu, 'click');
-        EventHandler.off(input, 'keyup');
+        EventHandler.off(input, 'keydown');
         Input.dispose(input);
+
+        EventHandler.off(el, 'click');
     }
 
     const { AutoComplete } = window.BootstrapBlazor;
     AutoComplete.dispose(id, () => {
         EventHandler.off(document, 'click', ac.closePopover);
-        EventHandler.off(document, 'keyup', ac.keyup);
+        EventHandler.off(document, 'keydown', ac.keydown);
     });
 }
 

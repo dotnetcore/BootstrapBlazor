@@ -77,17 +77,11 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddBootstrapBlazor();
 
 // @Localizer["N26"]
-builder.Services.AddRequestLocalization&lt;IOptionsMonitor&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption)=>
+builder.Services.AddRequestLocalization&lt;IOptions&lt;BootstrapBlazorOptions&gt;&gt;((localizerOption, blazorOption)=>
 {
-    blazorOption.OnChange(op => Invoke(op));
-    Invoke(blazorOption.CurrentValue);
-
-    void Invoke(BootstrapBlazorOptions option)
-    {
-        var supportedCultures = option.GetSupportedCultures();
-        localizerOption.SupportedCultures = supportedCultures;
-        localizerOption.SupportedUICultures = supportedCultures;
-    }
+    var supportedCultures = blazorOption.Value.GetSupportedCultures();
+    localizerOption.SupportedCultures = supportedCultures;
+    localizerOption.SupportedUICultures = supportedCultures;
 });
 
 var app = builder.Build();

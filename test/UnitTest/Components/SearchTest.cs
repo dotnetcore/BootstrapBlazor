@@ -130,6 +130,7 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnClearClick_Ok()
     {
+        var tcs = new TaskCompletionSource();
         var ret = false;
         var cut = Context.RenderComponent<Search<string>>(builder =>
         {
@@ -138,10 +139,12 @@ public class SearchTest : BootstrapBlazorTestBase
             builder.Add(s => s.ClearButtonColor, Color.Secondary);
             builder.Add(s => s.ClearButtonIcon, "test-icon");
             builder.Add(s => s.ClearButtonText, "Clear");
-            builder.Add(s => s.OnClear, () =>
+            builder.Add(s => s.OnSearch, async v =>
             {
                 ret = true;
-                return Task.CompletedTask;
+                await Task.Yield();
+                tcs.TrySetResult();
+                return new List<string>();
             });
         });
         cut.Contains("test-icon");
@@ -149,6 +152,7 @@ public class SearchTest : BootstrapBlazorTestBase
 
         var button = cut.Find(".btn-secondary");
         await cut.InvokeAsync(() => button.Click());
+        await tcs.Task;
         Assert.True(ret);
     }
 
@@ -227,7 +231,7 @@ public class SearchTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsClearable, true);
         });
-        cut.Contains("<div class=\"search-icon search-clear-icon\">");
+        cut.Contains("<div class=\"search-clear-icon\">");
     }
 
     [Fact]

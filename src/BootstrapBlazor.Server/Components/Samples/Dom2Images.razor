@@ -1,0 +1,32 @@
+﻿@page "/dom2image"
+
+<h3>@Localizer["Dom2ImageTitle"]</h3>
+
+<h4>@Localizer["Dom2ImageIntro"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Dom2Image" />
+
+<DemoBlock Title="@Localizer["Dom2ImageNormalTitle"]" Introduction="@Localizer["Dom2ImageNormalIntro"]" Name="Normal">
+    <section ignore>
+        <p>@((MarkupString)Localizer["Dom2ImageDesc"].Value)</p>
+        <div>
+            <Button OnClick="OnGetUrlAsync" Text="@Localizer["Dom2ImageButtonText"]" Icon="fa-solid fa-image"></Button>
+            <Button OnClickWithoutRender="OnDownloadAsync" Text="@Localizer["Dom2ImageDownloadText"]" Icon="fa-solid fa-download"></Button>
+            <Button OnClickWithoutRender="OnFullAsync" Text="@Localizer["Dom2ImageFullText"]" Icon="fa-solid fa-arrows-up-down-left-right"></Button>
+        </div>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+    <section ignore>
+        @if (!string.IsNullOrEmpty(_imageData))
+        {
+            <img src="@_imageData" class="w-100" />
+        }
+    </section>
+</DemoBlock>
+

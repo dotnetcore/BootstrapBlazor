@@ -18,7 +18,7 @@
     background: white;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: auto;
     font-family: "Segoe UI", sans-serif;
     text-align: left;
@@ -34,7 +34,7 @@
     border-radius: 4px;
 }
 
-.header-row {
+.login-header {
     display: flex;
     align-items: center;
     position: relative;
@@ -59,21 +59,21 @@
 
 .blazor-text {
     font-family: Arial, sans-serif;
-    font-size: 1.8rem; 
+    font-size: 1.8rem;
     font-weight: bold;
     text-align: center;
     background: linear-gradient(to right, #8e44ad, #e84393);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0; 
+    margin: 0;
 }
 
 .logo-container {
     flex: 1;
     display: flex;
     justify-content: center;
-    margin-left: 40px; 
-    margin-right: 40px; 
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .logo {
@@ -123,6 +123,32 @@
     margin-bottom: 10px;
 }
 
+.email-display2 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+    .email-display2 > span {
+        position: relative;
+        padding: 0.5rem 1rem;
+    }
+
+        .email-display2 > span:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--bs-border-color);
+            border-radius: 20px;
+        }
+
+.login-video-wrap {
+    text-align: center;
+}
+
+.login-video {
+    width: 192px;
+}
+
 .error {
     color: red;
     font-size: 13px;
@@ -151,7 +177,7 @@
 }
 
 .animate-fade-out {
-    animation: fadeOut 0.5s ease-in-out forwards;
+    animation: fadeOut 0.2s ease-in-out forwards;
 }
 
 @keyframes fadeOut {
@@ -165,3 +191,18 @@
         transform: translateY(-20px);
     }
 }
+
+.login-body {
+    position: relative;
+    height: 290px;
+}
+
+.login-item {
+    position: absolute;
+    inset: 0;
+}
+
+    .login-item:not(.show) {
+        opacity: 0;
+        pointer-events: none;
+    }

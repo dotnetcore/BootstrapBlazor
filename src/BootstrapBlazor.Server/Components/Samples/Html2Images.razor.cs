@@ -10,13 +10,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Html2Images
 {
-    /// <summary>
-    /// 获得 IconTheme 实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
@@ -28,10 +21,6 @@ public partial class Html2Images
     [Inject]
     [NotNull]
     private IStringLocalizer<Html2Images>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
 
     [NotNull]
     private List<Foo>? Items { get; set; }

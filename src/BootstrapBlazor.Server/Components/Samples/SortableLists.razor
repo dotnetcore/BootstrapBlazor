@@ -187,7 +187,7 @@
            Introduction="@Localizer["SortableListTableIntro"]"
            Name="Table">
     <SortableList Option="_optionTable" OnUpdate="OnUpdateTable">
-        <Table TItem="Foo" Items="@Items" IsStriped="true" ShowLineNo="true">
+        <Table TItem="Foo" Items="@Items" IsStriped="true" ShowLineNo="true" RenderMode="TableRenderMode.Table">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />

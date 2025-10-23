@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .slide-button {
     --bb-slide-list-bg: #{$bb-slide-list-bg};
     --bb-slide-list-shadow: #{$bb-slide-list-shadow};

@@ -1,3 +1,11 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 [data-bs-theme='dark'] .dropdown-menu {
     --bs-dropdown-bg: #{$bs-dropdown-bg-dark};
+}
+
+.dropdown-item {
+    > i + span {
+        margin-inline-start: 0.25rem;
+    }
 }

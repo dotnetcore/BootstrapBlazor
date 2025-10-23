@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -14,13 +15,6 @@ namespace BootstrapBlazor.Components;
 /// <typeparam name="TValue">The type of the value.</typeparam>
 public partial class AutoFill<TValue>
 {
-    /// <summary>
-    /// Gets the component style.
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
-        .AddClass("is-clearable", IsClearable)
-        .Build();
-
     /// <summary>
     /// Gets or sets the collection of items for the component.
     /// </summary>
@@ -120,29 +114,24 @@ public partial class AutoFill<TValue>
     public Func<VirtualizeQueryOption, Task<QueryData<TValue>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select component is clearable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback method when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 输入框内容无效时是否自动清空内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAutoClearWhenInvalid { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
+
+    private string? TriggerBlurString => (OnBlurAsync != null || IsAutoClearWhenInvalid) ? "true" : null;
 
     private string? _displayText;
 
@@ -155,6 +144,13 @@ public partial class AutoFill<TValue>
     private RenderTemplate? _dropdown = null;
 
     /// <summary>
+    /// Gets the component style.
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClass("is-clearable", IsClearable)
+        .Build();
+
+    /// <summary>
     /// Gets the clear icon class string.
     /// </summary>
     private string? ClearClassString => CssBuilder.Default("clear-icon")
@@ -163,8 +159,8 @@ public partial class AutoFill<TValue>
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
-    private string? PlaceHolderStyleString => RowHeight != 50f
-        ? CssBuilder.Default().AddStyle("height", $"{RowHeight}px").Build()
+    private string? PlaceHolderStyleString => Math.Abs(RowHeight - 50f) > 0.1f
+        ? CssBuilder.Default().AddClass($"height: {RowHeight.ToString(CultureInfo.InvariantCulture)}px;").Build()
         : null;
 
     /// <summary>
@@ -178,12 +174,30 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         _displayText = GetDisplayText(Value);
+        _clientValue = _displayText;
         Items ??= [];
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
+
+    private string? _clientValue;
+
+    /// <summary>
+    /// 由客户端 JavaScript 触发
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public void TriggerChange(string v)
+    {
+        _clientValue = v;
+    }
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
@@ -194,27 +208,6 @@ public partial class AutoFill<TValue>
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    private async Task OnClearValue()
-    {
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
-        CurrentValue = default;
-        _displayText = null;
-        _filterItems = null;
-        _searchText = null;
-
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-    }
-
-    /// <summary>
     /// Callback method when a candidate item is clicked.
     /// </summary>
     /// <param name="val">The value of the clicked item.</param>
@@ -222,6 +215,9 @@ public partial class AutoFill<TValue>
     {
         CurrentValue = val;
         _displayText = GetDisplayText(val);
+
+        // 使用脚本更新 input 值
+        await InvokeVoidAsync("setValue", Id, _displayText);
 
         if (OnSelectedItemChanged != null)
         {
@@ -257,6 +253,18 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public async Task TriggerFilter(string val)
     {
+        if (string.IsNullOrEmpty(val))
+        {
+            CurrentValue = default;
+            _filterItems = null;
+            _displayText = null;
+
+            if (OnClearAsync != null)
+            {
+                await OnClearAsync();
+            }
+        }
+
         if (OnQueryAsync != null)
         {
             _searchText = val;
@@ -288,5 +296,18 @@ public partial class AutoFill<TValue>
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         _dropdown.Render();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnBeforeBlurAsync()
+    {
+        if (IsAutoClearWhenInvalid && GetDisplayText(Value) != _clientValue)
+        {
+            CurrentValue = default;
+            await InvokeVoidAsync("setValue", Id, "");
+        }
     }
 }

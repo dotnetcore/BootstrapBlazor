@@ -52,7 +52,7 @@ public partial class CherryMarkdowns
     {
         var url = Path.Combine("images", "uploader",
             $"{Path.GetFileNameWithoutExtension(arg.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(arg.FileName)}");
-        var fileName = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, url);
+        var fileName = Path.Combine(WebsiteOption.Value.WebRootPath, url);
         var ret = await arg.SaveToFile(fileName);
         return ret ? url : "";
     }

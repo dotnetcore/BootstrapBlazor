@@ -86,7 +86,7 @@ public class UploadButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InputUpload_IsMultiple()
+    public async Task InputUpload_IsMultiple()
     {
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
         {
@@ -107,6 +107,13 @@ public class UploadButtonTest : BootstrapBlazorTestBase
         });
         var button = cut.Find(".btn-browser");
         Assert.True(button.IsDisabled());
+
+        // 调用 Reset 方法
+        await cut.InvokeAsync(() => cut.Instance.Reset());
+
+        // 重置后上传按钮应该被启用
+        button = cut.Find(".btn-browser");
+        Assert.False(button.IsDisabled());
 
         // 开启多选功能
         cut.SetParametersAndRender(pb =>

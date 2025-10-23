@@ -1,4 +1,6 @@
-﻿.bb-light {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-light {
     --bb-light-bg: #{$bb-light-bg};
     --bb-light-danger-start-color: #{$bb-light-danger-start-color};
     --bb-light-danger-end-color: #{$bb-light-danger-end-color};

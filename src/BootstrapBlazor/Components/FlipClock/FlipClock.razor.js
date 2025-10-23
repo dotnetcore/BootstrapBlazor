@@ -12,7 +12,6 @@
         return;
     }
 
-    const lastValues = {};
     let counter = 0;
     let totalMilliseconds = 0;
     let countDown = false;
@@ -73,13 +72,11 @@
         const d = getDate();
         const unitConfig = getConfig();
         unitConfig.forEach(({ key, list, digits }) => {
-            if (list === null) return;
-
-            const v = d[key];
-            if (lastValues[key] !== v) {
-                lastValues[key] = v;
-                setDigits(list, v, digits, countDown);
+            if (list === null) {
+                return;
             }
+
+            setDigits(list, d[key], digits, countDown);
         });
         return d;
     };

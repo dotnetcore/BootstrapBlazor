@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.ComponentModel;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -16,6 +14,8 @@ public partial class PdfViewers
     private ToastService? ToastService { get; set; }
 
     private bool _useGoogleDocs = false;
+
+    private int _pageIndex = 1;
 
     private Task OnLoaded() => ToastService.Success("Pdf Viewer", Localizer["PdfViewerToastSuccessfulContent"]);
 

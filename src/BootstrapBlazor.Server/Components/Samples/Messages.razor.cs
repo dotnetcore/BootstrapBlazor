@@ -33,16 +33,16 @@ public sealed partial class Messages
         _option.IsAutoHide = false;
         _option.Delay = 3000;
         _option.Content = Localizer["MessagesAsyncDemoStep1Text"];
-        _option.Color = Color.Info;
+        _option.Color = Color.Primary;
         await MessageService.Show(_option);
 
         await Task.Delay(3000);
         _option.Content = Localizer["MessagesAsyncDemoStep2Text"];
-        _option.IsAutoHide = true;
         _option.Color = Color.Info;
         await MessageService.Show(_option);
 
         await Task.Delay(2000);
+        _option.IsAutoHide = true;
         _option.Content = Localizer["MessagesAsyncDemoStep3Text"];
         _option.Color = Color.Success;
 

@@ -31,7 +31,7 @@ public partial class UploadAvatars
 
         _previewFileList.AddRange(
         [
-            new UploadFile { PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo.png" }
+            new UploadFile { PrevUrl = $"{WebsiteOption.Value.AssetRootPath}images/Argo.png" }
         ]);
     }
 

@@ -1,7 +1,7 @@
 ﻿@page "/table/column/list"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumnList> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["TablesColumnTitle"] - @NavMenuLocalizer["TableColumnList"]</h3>

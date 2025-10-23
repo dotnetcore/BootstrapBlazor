@@ -18,7 +18,7 @@ public partial class Downloads
     {
         try
         {
-            var filePath = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "favicon.png");
+            var filePath = Path.Combine(WebsiteOption.Value.WebRootPath, "favicon.png");
             await using var stream = File.OpenRead(filePath);
             await DownloadService.DownloadFromStreamAsync("favicon.png", stream);
         }
@@ -48,7 +48,7 @@ public partial class Downloads
     {
         try
         {
-            await DownloadService.DownloadFolderAsync("test.zip", WebsiteOption.CurrentValue.WebRootPath);
+            await DownloadService.DownloadFolderAsync("test.zip", WebsiteOption.Value.WebRootPath);
         }
         catch (Exception ex)
         {

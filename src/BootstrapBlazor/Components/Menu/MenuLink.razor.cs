@@ -53,8 +53,6 @@ public sealed partial class MenuLink
     [NotNull]
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
-    private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url?.TrimStart('/')) ? NavLinkMatch.All : Item.Match;
-
     private string? IconString => CssBuilder.Default("menu-icon")
         .AddClass(Item.Icon)
         .Build();

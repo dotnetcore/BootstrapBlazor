@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// MultiSelectGeneric component
 /// </summary>
 [ExcludeFromCodeCoverage]
-public partial class MultiSelectGeneric<TValue>
+public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     private List<SelectedItem<TValue>> SelectedItems { get; } = [];
 
@@ -189,11 +189,29 @@ public partial class MultiSelectGeneric<TValue>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
+
+    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
+    {
+        get => ValueEqualityComparer;
+        set => ValueEqualityComparer = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
-
-    private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth
         ? null
@@ -367,7 +385,7 @@ public partial class MultiSelectGeneric<TValue>
         var rows = Rows;
         if (index < rows.Count)
         {
-            await ToggleRow(rows[index]);
+            await ToggleItem(rows[index]);
             StateHasChanged();
         }
     }
@@ -377,28 +395,45 @@ public partial class MultiSelectGeneric<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task ToggleRow(SelectedItem<TValue> val)
+    public async Task ToggleRow(string val)
     {
-        if (!IsDisabled)
+        if (int.TryParse(val, out var index) && index >= 0 && index < SelectedItems.Count)
         {
-            var item = SelectedItems.FirstOrDefault(i => Equals(i.Value, val.Value));
-            if (item != null)
-            {
-                SelectedItems.Remove(item);
-            }
-            else
-            {
-                var d = Rows.FirstOrDefault(i => Equals(i.Value, val.Value));
-                if (d != null)
-                {
-                    SelectedItems.Add(d);
-                }
-            }
-
-            _isToggle = true;
-            // 更新选中值
-            await SetValue();
+            var item = SelectedItems[index];
+            await ToggleRow(item);
         }
+    }
+
+    private async Task ToggleRow(SelectedItem<TValue> item)
+    {
+        SelectedItems.Remove(item);
+
+        _isToggle = true;
+        // 更新选中值
+        await SetValue();
+    }
+
+    private string? GetValueString(SelectedItem<TValue> item) => IsPopover ? SelectedItems.IndexOf(item).ToString() : null;
+
+    private async Task ToggleItem(SelectedItem<TValue> val)
+    {
+        var item = SelectedItems.FirstOrDefault(i => Equals(i.Value, val.Value));
+        if (item != null)
+        {
+            SelectedItems.Remove(item);
+        }
+        else
+        {
+            var d = Rows.FirstOrDefault(i => Equals(i.Value, val.Value));
+            if (d != null)
+            {
+                SelectedItems.Add(d);
+            }
+        }
+
+        _isToggle = true;
+        // 更新选中值
+        await SetValue();
     }
 
     private int _min;
@@ -535,4 +570,12 @@ public partial class MultiSelectGeneric<TValue>
             }
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

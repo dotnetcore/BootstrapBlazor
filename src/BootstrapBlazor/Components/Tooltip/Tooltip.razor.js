@@ -20,6 +20,33 @@ export function init(id) {
     }
 }
 
+export function show(id, delay) {
+    const tip = Data.get(id)
+    const { tooltip } = tip;
+
+    setTimeout(() => {
+        tooltip.show();
+    }, delay || 0);
+}
+
+export function hide(id, delay) {
+    const tip = Data.get(id)
+    const { tooltip } = tip;
+
+    setTimeout(() => {
+        tooltip.hide();
+    }, delay || 0);
+}
+
+export function toggle(id, delay) {
+    const tip = Data.get(id)
+    const { tooltip } = tip;
+
+    setTimeout(() => {
+        tooltip.toggle();
+    }, delay || 0);
+}
+
 export function dispose(id) {
     const tip = Data.get(id)
     Data.remove(id)

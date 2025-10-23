@@ -1,4 +1,6 @@
-﻿.tabs {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.tabs {
     --bb-tabs-item-padding: #{$bb-tabs-item-padding};
     --bb-tabs-item-height: #{$bb-tabs-item-height};
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};

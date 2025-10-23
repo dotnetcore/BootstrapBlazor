@@ -8,10 +8,7 @@ using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
 using System.Linq.Expressions;
-using System.Net;
-using System.Net.Sockets;
 using System.Reflection;
-using System.Runtime.Versioning;
 
 namespace BootstrapBlazor.Components;
 
@@ -394,10 +391,11 @@ public static class Utility
     /// <summary>
     /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
     /// </summary>
-    /// <param name="builder"></param>
-    /// <param name="item"></param>
-    /// <param name="model"></param>
-    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model)
+    /// <param name="builder"><see cref="RenderTreeBuilder"/> 实例</param>
+    /// <param name="item"><see cref="IEditorItem"/> 实例</param>
+    /// <param name="model">当前模型对象实例</param>
+    /// <param name="showTooltip">如果是 <see cref="Display{TValue}"/> 组件时是否显示提示栏 默认 false</param>
+    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, bool showTooltip = false)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -406,60 +404,80 @@ public static class Utility
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
         if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
         {
-            builder.OpenComponent<Switch>(0);
-            builder.AddAttribute(10, nameof(Switch.Value), fieldValue);
-            builder.AddAttribute(20, nameof(Switch.IsDisabled), true);
-            builder.AddAttribute(30, nameof(Switch.DisplayText), displayName);
-            builder.AddAttribute(40, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
-            if (item is ITableColumn col)
-            {
-                builder.AddAttribute(50, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(60, item.ComponentParameters);
+            builder.RenderSwitch(item, fieldValue, displayName);
         }
         else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
-            builder.OpenComponent(0, typeof(Textarea));
-            builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
-            builder.AddAttribute(20, nameof(Textarea.Value), fieldValue);
-            builder.AddAttribute(30, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
-            builder.AddAttribute(40, "readonly", true);
-            if (item.Rows > 0)
-            {
-                builder.AddAttribute(50, "rows", item.Rows);
-            }
-            if (item is ITableColumn col)
-            {
-                builder.AddAttribute(60, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(70, item.ComponentParameters);
+            builder.RenderTextarea(item, fieldValue, displayName);
         }
         else
         {
-            builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(10, nameof(Display<string>.DisplayText), displayName);
-            builder.AddAttribute(20, nameof(Display<string>.Value), fieldValue);
-            builder.AddAttribute(30, nameof(Display<string>.Lookup), item.Lookup);
-            builder.AddAttribute(30, nameof(Display<string>.LookupService), item.LookupService);
-            builder.AddAttribute(40, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(50, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
-            builder.AddAttribute(60, nameof(Display<string>.LookupStringComparison), item.LookupStringComparison);
-            builder.AddAttribute(65, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
-            if (item is ITableColumn col)
-            {
-                if (col.Formatter != null)
-                {
-                    builder.AddAttribute(70, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
-                }
-                else if (!string.IsNullOrEmpty(col.FormatString))
-                {
-                    builder.AddAttribute(80, nameof(Display<string>.FormatString), col.FormatString);
-                }
-                builder.AddAttribute(90, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(100, item.ComponentParameters);
+            builder.RenderDisplay(item, fieldType, fieldValue, displayName, showTooltip);
         }
+    }
 
+    private static void RenderTextarea(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
+    {
+        builder.OpenComponent(0, typeof(Textarea));
+        builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
+        builder.AddAttribute(20, nameof(Textarea.Value), fieldValue);
+        builder.AddAttribute(30, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
+        builder.AddAttribute(40, "readonly", true);
+
+        if (item.Rows > 0)
+        {
+            builder.AddAttribute(50, "rows", item.Rows);
+        }
+        if (item is ITableColumn col)
+        {
+            builder.AddAttribute(60, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(70, item.ComponentParameters);
+        builder.CloseComponent();
+    }
+
+    private static void RenderSwitch(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
+    {
+        builder.OpenComponent<Switch>(0);
+        builder.AddAttribute(10, nameof(Switch.Value), fieldValue);
+        builder.AddAttribute(20, nameof(Switch.IsDisabled), true);
+        builder.AddAttribute(30, nameof(Switch.DisplayText), displayName);
+        builder.AddAttribute(40, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+
+        if (item is ITableColumn col)
+        {
+            builder.AddAttribute(50, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(60, item.ComponentParameters);
+        builder.CloseComponent();
+    }
+
+    private static void RenderDisplay(this RenderTreeBuilder builder, IEditorItem item, Type fieldType, object? fieldValue, string? displayName, bool showTooltip)
+    {
+        builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+        builder.AddAttribute(10, nameof(Display<>.DisplayText), displayName);
+        builder.AddAttribute(20, nameof(Display<>.Value), fieldValue);
+        builder.AddAttribute(30, nameof(Display<>.Lookup), item.Lookup);
+        builder.AddAttribute(35, nameof(Display<>.LookupService), item.LookupService);
+        builder.AddAttribute(40, nameof(Display<>.LookupServiceKey), item.LookupServiceKey);
+        builder.AddAttribute(50, nameof(Display<>.LookupServiceData), item.LookupServiceData);
+        builder.AddAttribute(60, nameof(Display<>.LookupStringComparison), item.LookupStringComparison);
+        builder.AddAttribute(65, nameof(Display<>.ShowLabelTooltip), item.ShowLabelTooltip);
+        builder.AddAttribute(66, nameof(Display<>.ShowTooltip), showTooltip);
+
+        if (item is ITableColumn col)
+        {
+            if (col.Formatter != null)
+            {
+                builder.AddAttribute(70, nameof(Display<>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+            }
+            else if (!string.IsNullOrEmpty(col.FormatString))
+            {
+                builder.AddAttribute(80, nameof(Display<>.FormatString), col.FormatString);
+            }
+            builder.AddAttribute(90, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(100, item.ComponentParameters);
         builder.CloseComponent();
     }
 
@@ -487,31 +505,31 @@ public static class Utility
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
         {
-            builder.AddAttribute(10, nameof(ValidateBase<string>.DisplayText), displayName);
-            builder.AddAttribute(20, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(30, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
-            builder.AddAttribute(40, nameof(ValidateBase<string>.ValueExpression), valueExpression);
-            builder.AddAttribute(41, nameof(ValidateBase<string>.ShowRequired), GetRequired(item, changedType));
-            builder.AddAttribute(42, nameof(ValidateBase<string>.RequiredErrorMessage), item.RequiredErrorMessage);
+            builder.AddAttribute(10, nameof(ValidateBase<>.DisplayText), displayName);
+            builder.AddAttribute(20, nameof(ValidateBase<>.Value), fieldValue);
+            builder.AddAttribute(30, nameof(ValidateBase<>.ValueChanged), fieldValueChanged);
+            builder.AddAttribute(40, nameof(ValidateBase<>.ValueExpression), valueExpression);
+            builder.AddAttribute(41, nameof(ValidateBase<>.ShowRequired), GetRequired(item, changedType));
+            builder.AddAttribute(42, nameof(ValidateBase<>.RequiredErrorMessage), item.RequiredErrorMessage);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
-                builder.AddAttribute(50, nameof(ValidateBase<string>.IsDisabled), true);
+                builder.AddAttribute(50, nameof(ValidateBase<>.IsDisabled), true);
             }
 
             if (item.ValidateRules != null)
             {
-                builder.AddAttribute(60, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
+                builder.AddAttribute(60, nameof(ValidateBase<>.ValidateRules), item.ValidateRules);
             }
 
             if (item.ShowLabelTooltip != null)
             {
-                builder.AddAttribute(70, nameof(ValidateBase<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+                builder.AddAttribute(70, nameof(ValidateBase<>.ShowLabelTooltip), item.ShowLabelTooltip);
             }
 
             if (skipValidate is true)
             {
-                builder.AddAttribute(71, nameof(ValidateBase<string>.SkipValidate), true);
+                builder.AddAttribute(71, nameof(ValidateBase<>.SkipValidate), true);
             }
         }
 
@@ -528,31 +546,31 @@ public static class Utility
 
         if (IsCheckboxList(fieldType, componentType) && item.Items != null)
         {
-            builder.AddAttribute(90, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+            builder.AddAttribute(90, nameof(CheckboxList<>.Items), item.Items.Clone());
         }
 
         // Nullable<bool?>
         if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && !item.IsLookup() && item.Items == null)
         {
-            builder.AddAttribute(100, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
+            builder.AddAttribute(100, nameof(Select<>.Items), GetNullableBoolItems(model, fieldName));
         }
 
         // Lookup
         if (item.IsLookup() && item.Items == null)
         {
-            builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
-            builder.AddAttribute(115, nameof(Select<SelectedItem>.Items), item.Lookup);
-            builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), lookupService);
-            builder.AddAttribute(121, nameof(Select<SelectedItem>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(122, nameof(Select<SelectedItem>.LookupServiceData), item.LookupServiceData);
-            builder.AddAttribute(130, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
+            builder.AddAttribute(110, nameof(Select<>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(115, nameof(Select<>.Items), item.Lookup);
+            builder.AddAttribute(120, nameof(Select<>.LookupService), lookupService);
+            builder.AddAttribute(121, nameof(Select<>.LookupServiceKey), item.LookupServiceKey);
+            builder.AddAttribute(122, nameof(Select<>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(130, nameof(Select<>.StringComparison), item.LookupStringComparison);
         }
 
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Items 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(140, nameof(Select<SelectedItem>.Items), item.Items.Clone());
-            builder.AddAttribute(150, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(140, nameof(Select<>.Items), item.Items.Clone());
+            builder.AddAttribute(150, nameof(Select<>.ShowSearch), item.ShowSearchWhenSelect);
         }
 
         // 设置 SkipValidate 参数
@@ -566,9 +584,9 @@ public static class Utility
         builder.AddMultipleAttributes(180, item.ComponentParameters);
 
         // 设置 IsPopover
-        if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
+        if (componentType.GetPropertyByName(nameof(Select<>.IsPopover)) != null)
         {
-            builder.AddAttribute(190, nameof(Select<string>.IsPopover), item.IsPopover);
+            builder.AddAttribute(190, nameof(Select<>.IsPopover), item.IsPopover);
         }
         builder.CloseComponent();
     }
@@ -828,7 +846,7 @@ public static class Utility
                 var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
                 if (instance != null)
                 {
-                    var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
+                    var mi = instance.GetType().GetMethod(nameof(List<>.AddRange));
                     if (mi != null)
                     {
                         mi.Invoke(instance, [value]);
@@ -901,63 +919,4 @@ public static class Utility
     /// <param name="type"></param>
     /// <returns></returns>
     public static IStringLocalizer? CreateLocalizer(Type type) => CacheManager.CreateLocalizerByType(type);
-
-    /// <summary>
-    /// Converts a string representation of an IP address or hostname into an <see cref="IPAddress"/> object.
-    /// </summary>
-    /// <remarks>This method handles common special cases for IP address strings, such as "localhost" and
-    /// "any". For other inputs, it attempts  to parse the string as an IP address using <see
-    /// cref="IPAddress.TryParse(string, out IPAddress)"/>. If parsing fails, the method  resolves the input as a
-    /// hostname.</remarks>
-    /// <param name="ipString">A string containing the IP address or hostname to convert. Special values include: <list type="bullet">
-    /// <item><description><c>"localhost"</c> returns the loopback address (<see
-    /// cref="IPAddress.Loopback"/>).</description></item> <item><description><c>"any"</c> returns the wildcard address
-    /// (<see cref="IPAddress.Any"/>).</description></item> </list> For other values, the method attempts to parse the
-    /// string as an IP address or resolve it as a hostname.</param>
-    /// <returns>An <see cref="IPAddress"/> object representing the parsed or resolved IP address. If the input cannot be parsed
-    /// or resolved,  the method returns a default IP address.</returns>
-    [UnsupportedOSPlatform("browser")]
-    public static IPAddress ConvertToIPAddress(string ipString)
-    {
-        if (string.IsNullOrEmpty(ipString))
-        {
-            throw new ArgumentNullException(nameof(ipString), "IP address cannot be null or empty.");
-        }
-
-        if (ipString.Equals("localhost", StringComparison.OrdinalIgnoreCase))
-        {
-            return IPAddress.Loopback;
-        }
-        if (ipString.Equals("any", StringComparison.OrdinalIgnoreCase))
-        {
-            return IPAddress.Any;
-        }
-
-        return IPAddress.TryParse(ipString, out var ip) ? ip : IPAddressByHostName;
-    }
-
-    [ExcludeFromCodeCoverage]
-
-    [UnsupportedOSPlatform("browser")]
-    private static IPAddress IPAddressByHostName => Dns.GetHostAddresses(Dns.GetHostName(), AddressFamily.InterNetwork).FirstOrDefault() ?? IPAddress.Any;
-
-    /// <summary>
-    /// Converts a string representation of an IP address and a port number into an <see cref="IPEndPoint"/> instance.
-    /// </summary>
-    /// <remarks>This method is not supported on browser platforms.</remarks>
-    /// <param name="ipString">The string representation of the IP address. Must be a valid IPv4 or IPv6 address.</param>
-    /// <param name="port">The port number associated with the endpoint. Must be between 0 and 65535.</param>
-    /// <returns>An <see cref="IPEndPoint"/> representing the specified IP address and port.</returns>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="port"/> is less than 0 or greater than 65535.</exception>
-    [UnsupportedOSPlatform("browser")]
-    public static IPEndPoint ConvertToIpEndPoint(string ipString, int port)
-    {
-        if (port < 0 || port > 65535)
-        {
-            throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 0 and 65535.");
-        }
-
-        var address = ConvertToIPAddress(ipString);
-        return new IPEndPoint(address, port);
-    }
 }

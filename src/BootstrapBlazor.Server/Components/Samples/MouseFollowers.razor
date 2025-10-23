@@ -1,5 +1,5 @@
 ﻿@page "/mouse-follower"
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <HeadContent>
     <style>
@@ -61,7 +61,7 @@
            Introduction="@Localizer["MouseFollowerIconIntro"]"
            Name="MouseFollowerIcon">
     <MouseFollower FollowerMode="MouseFollowerMode.Image"
-                   Content="@WebsiteOption.CurrentValue.GetAssetUrl("images/performance.svg")">
+                   Content="@WebsiteOption.Value.GetAssetUrl("images/performance.svg")">
         <div class="mouseFollower-demo" />
     </MouseFollower>
 </DemoBlock>
@@ -71,7 +71,7 @@
            Name="MouseFollowerImage">
     <MouseFollower Options="@FollowerImageOptions"
                    FollowerMode="MouseFollowerMode.Image"
-                   Content="@WebsiteOption.CurrentValue.GetAssetUrl("images/mousefollower/cat.gif")">
+                   Content="@WebsiteOption.Value.GetAssetUrl("images/mousefollower/cat.gif")">
         <div class="mouseFollower-demo" />
     </MouseFollower>
 </DemoBlock>

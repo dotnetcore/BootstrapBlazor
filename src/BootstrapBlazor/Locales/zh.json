@@ -55,7 +55,7 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
     "WeekLists": "日,一,二,三,四,五,六",
-    "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
+    "GenericTypeErrorMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "今天",
     "Yesterday": "昨天",
     "Week": "一周前"
@@ -389,5 +389,14 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0}是必填项"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "Title": "网络状态",
+    "NetworkType": "网络类型",
+    "Downlink": "下载速度",
+    "RTT": "响应时间"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "没有更多数据了"
   }
 }

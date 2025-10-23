@@ -1,0 +1,12 @@
+﻿@page "/not-found"
+@layout MainLayout
+@inject NavigationManager NavigationManager
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        NavigationManager.NavigateTo("/");
+    }
+}

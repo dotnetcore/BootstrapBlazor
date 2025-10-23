@@ -9,7 +9,9 @@
         @if (_options is { ChildContent: not null })
         {
             <div class="bb-mask-content">
-                @_options.ChildContent
+                <CascadingValue Value="CloseAsync" IsFixed="true">
+                    @_options.ChildContent
+                </CascadingValue>
             </div>
         }
     </div>

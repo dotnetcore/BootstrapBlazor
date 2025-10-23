@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .listview {
     --bb-lv-header-padding: #{$bb-lv-header-padding};
     --bb-lv-header-bg: #{$bb-lv-header-bg};

@@ -1,4 +1,6 @@
-﻿.upload {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
     --bb-upload-body-list-max-height: #{$bb-upload-body-list-max-height};
     --bb-upload-body-list-item-padding: #{$bb-upload-body-list-item-padding};
@@ -291,7 +293,6 @@
 }
 
 .upload.is-drop {
-
     &.dropping {
         .upload-drop-body {
             border-color: var(--bs-success);
@@ -311,6 +312,14 @@
     &.disabled {
         .upload-drop-body {
             border-color: var(--bs-border-color);
+        }
+    }
+
+    &:not(.disabled) {
+        .upload-drop-body {
+            em {
+                color: var(--bs-primary);
+            }
         }
     }
 
@@ -334,7 +343,6 @@
         }
 
         em {
-            color: var(--bs-primary);
             font-style: normal;
         }
     }

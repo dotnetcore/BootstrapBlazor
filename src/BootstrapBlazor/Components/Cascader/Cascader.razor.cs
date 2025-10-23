@@ -133,9 +133,15 @@ public partial class Cascader<TValue>
         SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
-        Items ??= [];
-
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+
+        Items ??= [];
+        if (!Items.Any())
+        {
+            _lastValue = string.Empty;
+            Value = default;
+            return;
+        }
 
         if (_lastValue != CurrentValueAsString)
         {
@@ -203,7 +209,7 @@ public partial class Cascader<TValue>
 
     private string? ClassString => CssBuilder.Default("select cascade menu dropdown")
         .AddClass("disabled", IsDisabled)
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 

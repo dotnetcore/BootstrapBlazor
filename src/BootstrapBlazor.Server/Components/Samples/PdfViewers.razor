@@ -16,9 +16,22 @@
                     <Switch @bind-Value="@_useGoogleDocs"></Switch>
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="PageIndex"></BootstrapInputGroupLabel>
+                    <Select @bind-Value="@_pageIndex">
+                        <Options>
+                            <SelectOption Value="1" Text="1"></SelectOption>
+                            <SelectOption Value="3" Text="3"></SelectOption>
+                            <SelectOption Value="5" Text="5"></SelectOption>
+                            <SelectOption Value="10" Text="10"></SelectOption>
+                        </Options>
+                    </Select>
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
-    <PdfViewer Url="./samples/sample.pdf" Height="620px"
+    <PdfViewer Url="./samples/sample.pdf" Height="620px" PageIndex="@_pageIndex"
                NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"
                UseGoogleDocs="@_useGoogleDocs"></PdfViewer>
 </DemoBlock>

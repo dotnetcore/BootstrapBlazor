@@ -1,0 +1,77 @@
+﻿@page "/navbar"
+@inject IStringLocalizer<Navbars> Localizer
+
+<h3>@Localizer["NavbarTitle"]</h3>
+
+<h4>@Localizer["NavbarDescription"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <Navbar>
+        <NavbarBrand>
+            <a>Navbar</a>
+        </NavbarBrand>
+        <NavbarToggleButton Target="#test"></NavbarToggleButton>
+        <NavbarCollapse Id="test">
+            <NavbarGroup IsScrolling="true">
+                <NavbarLink>Home</NavbarLink>
+                <NavbarLink Text="Link"></NavbarLink>
+                <NavbarDropdown Text="Dropdown">
+                    <NavbarDropdownItem>
+                        <i class="fa-solid fa-fw fa-home"></i><span>Action</span>
+                    </NavbarDropdownItem>
+                    <NavbarDropdownItem>
+                        <i class="fa-solid fa-fw fa-flag"></i><span>Another action</span>
+                    </NavbarDropdownItem>
+                    <NavbarDropdownDivider></NavbarDropdownDivider>
+                    <NavbarDropdownItem>
+                        <i class="fa-solid fa-fw fa-home"></i><span>Something else here</span>
+                    </NavbarDropdownItem>
+                </NavbarDropdown>
+                <NavbarLink IsDisabled="true">Disabled</NavbarLink>
+                <NavbarItem>
+                    <a class="nav-link">About</a>
+                </NavbarItem>
+            </NavbarGroup>
+            <NavbarGroup>
+                <ValidateForm class="d-flex" role="search" Model="_searchModel" OnValidSubmit="OnValidSubmit">
+                    <BootstrapInput class="me-2" placeholder="Search" @bind-Value="_searchModel.SearchText"
+                                    ShowLabel="false" SkipValidate="true"></BootstrapInput>
+                    <Button Color="Color.Success" IsOutline="true" ButtonType="ButtonType.Submit">Search</Button>
+                </ValidateForm>
+            </NavbarGroup>
+        </NavbarCollapse>
+    </Navbar>
+    <section ignore>
+        <p class="code-label">Nav</p>
+        <ul class="ul-demo mb-3">
+            <li><code>Size</code>: 指定导航栏响应阈值，默认 <code>Size.Medium</code></li>
+            <li><code>BackgroundColorCssClass</code>: 导航栏背景色样式，默认 null 未设置使用 <code>bg-body-tertiary</code></li>
+        </ul>
+        <p class="code-label">NavbarBrand</p>
+        <p>渲染 <code>navbar-brand</code> 样式，导航栏 Brand 当屏幕宽度小于特定阈值时导航栏会响应式收起，<code>NavbarBrand</code> 的内容始终显示</p>
+        <p class="code-label">NavbarToggleButton</p>
+        <p>渲染 <code>navbar-toggler</code> 样式，导航栏中的折叠展开按钮，当屏幕宽度小于特定阈值时显示，通过设置参数 <code>Target</code> 值指定折叠展开组件 <code>NavbarCollapse</code></p>
+        <p class="code-label">NavbarCollapse</p>
+        <p>渲染 <code>collapse navbar-collapse</code> 样式，导航栏中的可折叠展开区域，通过设置参数 <code>Id</code> 值，与组件 <code>NavbarToggleButton</code> 联动</p>
+        <p class="code-label">NavbarGroup</p>
+        <p>渲染 <code>navbar-nav</code> 样式，导航栏中区域分组容器组件</p>
+        <ul class="ul-demo">
+            <li><code>IsScrolling</code>: 是否开启滚动条</li>
+            <li><code>Height</code>: 组件高度，默认 <b>200px</b></li>
+        </ul>
+        <p class="code-label">NavbarItem</p>
+        <p>渲染 <code>navbar-item</code> 样式，导航栏中单项容器组件，通过内置自定义组件或者 <code>Html</code> 实现导航项</p>
+        <p class="code-label">NavbarLink</p>
+        <p>渲染 <code>nav-link</code> 样式，导航栏中导航组件，内部渲染为 <code>a</code> 链接</p>
+        <ul class="ul-demo">
+            <li><code>Url</code>: 导航地址</li>
+            <li><code>Target</code>: 导航目标</li>
+            <li><code>ImageUrl</code>: 图片地址</li>
+            <li><code>ImageCss</code>: 图片样式</li>
+        </ul>
+        <p class="code-label">NavbarDropdown</p>
+        <p>渲染 <code>nav-item dropdown</code> 样式，导航栏中下拉菜单组件</p>
+        <p class="code-label">NavbarDropdownItem</p>
+        <p>渲染 <code>dropdown-item</code> 样式，导航栏中下拉菜单组件内项目</p>
+    </section>
+</DemoBlock>

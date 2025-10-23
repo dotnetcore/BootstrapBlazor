@@ -15,7 +15,8 @@ const Popover = {
                     return isDisabled(el) || isDisabled(el.parentNode) || isDisabled(el.querySelector('.form-control'))
                 },
                 initCallback: null,
-                hideCallback: null
+                hideCallback: null,
+                shownCallback: null
             },
             ...(config || {})
         }
@@ -105,7 +106,11 @@ const Popover = {
                         popover.hasDisplayNone = true;
                         content.classList.remove("d-none")
                     }
-                    body.append(content)
+                    body.append(content);
+
+                    if (popover.shownCallback != null) {
+                        popover.shownCallback();
+                    }
                 }
             }
 

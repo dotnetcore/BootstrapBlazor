@@ -14,7 +14,8 @@
     <div class="list-group-body scroll">
         @foreach (var item in Items)
         {
-            <div @key="item" class="@GetItemClassString(item)" @onclick="() => OnClick(item)">
+            <div @key="item" class="@GetItemClassString(item)"
+                 @onclick="() => OnClick(item)" @ondblclick="() => OnDoubleClick(item)">
                 @if (ItemTemplate != null)
                 {
                     @ItemTemplate(item)

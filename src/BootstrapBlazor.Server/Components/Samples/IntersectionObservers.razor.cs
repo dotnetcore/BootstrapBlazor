@@ -23,8 +23,8 @@ public partial class IntersectionObservers
     {
         base.OnInitialized();
 
-        _images = Enumerable.Range(1, 100).Select(i => $"{WebsiteOption.CurrentValue.AssetRootPath}images/default.jpeg").ToList();
-        _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
+        _images = [.. Enumerable.Range(1, 100).Select(i => $"{WebsiteOption.Value.AssetRootPath}images/default.jpeg")];
+        _items = [.. Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}")];
     }
 
     private Task OnIntersectingAsync(IntersectionObserverEntry entry)
@@ -43,10 +43,19 @@ public partial class IntersectionObservers
         if (entry.IsIntersecting)
         {
             await Task.Delay(1000);
-            _items.AddRange(Enumerable.Range(_items.Count + 1, 20)
-                .Select(i => $"https://picsum.photos/160/160?random={i}"));
+            _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
             StateHasChanged();
         }
+    }
+
+    private bool _canLoading = true;
+    private async Task OnLoadMoreItemAsync()
+    {
+        await Task.Delay(500);
+
+        _canLoading = _items.Count < 100;
+        _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
+        StateHasChanged();
     }
 
     private string? _videoStateString;

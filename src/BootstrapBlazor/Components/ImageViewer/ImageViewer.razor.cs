@@ -219,5 +219,5 @@ public partial class ImageViewer
 
     private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
 
-    private string? PreviewerId => ShowPreviewList ? $"prev_{Id}" : null;
+    private string? PreviewerId => $"prev_{Id}";
 }

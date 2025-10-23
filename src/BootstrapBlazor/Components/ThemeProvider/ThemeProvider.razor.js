@@ -1,4 +1,4 @@
-﻿import { getPreferredTheme, setTheme, switchTheme, calcCenterPosition } from "../../modules/utility.js"
+﻿import { getTheme, setTheme, switchTheme, calcCenterPosition } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 import Data from "../../modules/data.js"
 
@@ -17,7 +17,7 @@ export function init(id, invoke, themeValue, callback) {
 
     let currentTheme = themeValue;
     if (currentTheme === 'useLocalStorage') {
-        currentTheme = getPreferredTheme();
+        currentTheme = getTheme();
     }
     setTheme(currentTheme, true);
     theme.currentTheme = currentTheme;

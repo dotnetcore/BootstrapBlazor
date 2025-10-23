@@ -45,13 +45,14 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
         var attr = attributeType.GetConstructor(types);
         if (attr != null)
         {
-            var cab = new CustomAttributeBuilder(attr, constructorArgs, namedProperties: propertyInfos ?? [], propertyValues: propertyValues ?? []);
-            CustomerAttributeBuilderCache.AddOrUpdate(columnName, key => [cab], (key, builders) =>
+            CustomerAttributeBuilderCache.AddOrUpdate(columnName, key => [CreateCustomAttributeBuilder()], (key, builders) =>
             {
-                builders.Add(cab);
+                builders.Add(CreateCustomAttributeBuilder());
                 return builders;
             });
         }
+
+        CustomAttributeBuilder CreateCustomAttributeBuilder() => new(attr, constructorArgs, propertyInfos ?? [], propertyValues ?? []);
     }
 
     /// <summary>

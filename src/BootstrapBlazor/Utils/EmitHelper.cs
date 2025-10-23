@@ -67,7 +67,7 @@ public static class EmitHelper
         propertyId.SetGetMethod(methodGetField);
         propertyId.SetSetMethod(methodSetField);
 
-        foreach (var cab in attributeBuilds ?? Enumerable.Empty<CustomAttributeBuilder>())
+        foreach (var cab in attributeBuilds ?? [])
         {
             propertyId.SetCustomAttribute(cab);
         }

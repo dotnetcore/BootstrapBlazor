@@ -12,16 +12,21 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class BaiduOcr : IDisposable
 {
+    [Inject, NotNull]
+    private IBaiduOcr? OcrService { get; set; }
+
+    [Inject, NotNull]
+    private IStringLocalizer<BaiduOcr>? Localizer { get; set; }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     private InvoiceEntity? Invoice { get; set; }
 
     /*以下示例为本站特殊处理逻辑可不参考*/
-    private bool IsLoading { get; set; }
+    private bool _isLoading;
 
-    private string ButtonIcon { get; } = "fa-solid fa-cloud-arrow-up";
-
-    private string LoadingIcon { get; } = "fa-solid fa-spinner fa-spin-pulse";
-
-    private string Icon => IsLoading ? LoadingIcon : ButtonIcon;
+    private string Icon => _isLoading ? "fa-solid fa-spinner fa-spin-pulse" : "fa-solid fa-cloud-arrow-up";
 
     /// <summary>
     /// 取消请求令牌
@@ -33,12 +38,12 @@ public partial class BaiduOcr : IDisposable
         if (file.File != null)
         {
             // 设置 按钮禁用
-            IsLoading = true;
+            _isLoading = true;
             StateHasChanged();
 
             // 获得上传文件
             var payload = await file.GetBytesAsync(file.File.Size);
-            if (payload != null && payload.Length > 0)
+            if (payload is { Length: > 0 })
             {
                 try
                 {
@@ -60,7 +65,7 @@ public partial class BaiduOcr : IDisposable
                 }
             }
 
-            IsLoading = false;
+            _isLoading = false;
             StateHasChanged();
         }
     }

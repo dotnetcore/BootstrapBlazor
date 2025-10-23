@@ -23,7 +23,7 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// </summary>
     /// <param name="function">异步回调方法</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public Task ThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default) => InternalThrottleAsync(() => Task.Run(function), cancellationToken);
+    public Task ThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default) => InternalThrottleAsync(function, cancellationToken);
 
     /// <summary>
     /// 同步限流方法
@@ -32,19 +32,12 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// <param name="token">取消令牌</param>
     public void Throttle(Action action, CancellationToken token = default)
     {
-        var task = InternalThrottleAsync(() => Task.Run(() =>
+        var task = InternalThrottleAsync(() =>
         {
             action();
             return Task.CompletedTask;
-        }, CancellationToken.None), token);
-        try
-        {
-            task.Wait(token);
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+        }, token);
+        task.Wait(token);
         return;
     }
 

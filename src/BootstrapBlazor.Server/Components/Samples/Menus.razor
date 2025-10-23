@@ -1,5 +1,5 @@
 ﻿@page "/menu"
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Menus> Localizer
 
 <h3>@Localizer["MenusTitle"]</h3>
@@ -70,7 +70,7 @@
             </Header>
             <Side>
                 <div class="layout-banner">
-                    <img class="layout-logo" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+                    <img class="layout-logo" src="@WebsiteOption.Value.GetAssetUrl("images/logo.png")" />
                     <div class="layout-title">
                         <span>@Localizer["MenusClickShrinkMenuTitle"]</span>
                     </div>
@@ -81,7 +81,7 @@
             </Main>
             <Footer>
                 <div class="text-center flex-fill">
-                    <a href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                    <a href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
                 </div>
             </Footer>
         </Layout>

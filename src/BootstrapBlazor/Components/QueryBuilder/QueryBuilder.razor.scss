@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .query-builder {
     --bb-qb-group-padding: #{$bb-qb-group-padding};
     --bb-qb-sub-group-padding-left: #{$bb-qb-sub-group-padding-left};

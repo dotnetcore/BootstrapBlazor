@@ -1,4 +1,6 @@
-﻿.bb-otp-input {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-otp-input {
     --bb-otp-item-width: #{$bb-otp-item-width};
     --bb-otp-item-disabled-color: #{$bb-otp-item-disabled-color};
     --bb-otp-item-padding: #{$bb-otp-item-padding};

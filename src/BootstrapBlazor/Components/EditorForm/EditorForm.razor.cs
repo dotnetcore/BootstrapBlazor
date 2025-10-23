@@ -11,12 +11,10 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑表单基类
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TModel))]
-#endif
 public partial class EditorForm<TModel> : IShowLabel
 {
-    private string? ClassString => CssBuilder.Default("bb-editor form-body")
+    private string? ClassString => CssBuilder.Default("bb-editor")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -46,7 +44,7 @@ public partial class EditorForm<TModel> : IShowLabel
         .Build();
 
     private string? FormStyleString => CssBuilder.Default()
-        .AddStyle("--bb-row-label-width", $"{LabelWidth}px", LabelWidth.HasValue)
+        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
         .Build();
 
     /// <summary>
@@ -115,6 +113,12 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     [Parameter]
     public bool IsDisplay { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Display 组件的 Tooltip 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsShowDisplayTooltip { get; set; }
 
     /// <summary>
     /// 获得/设置 是否使用 SearchTemplate 默认 false 使用 EditTemplate 模板
@@ -282,7 +286,7 @@ public partial class EditorForm<TModel> : IShowLabel
     {
         if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
         {
-            builder.CreateDisplayByFieldType(item, Model);
+            builder.CreateDisplayByFieldType(item, Model, IsShowDisplayTooltip);
         }
         else
         {

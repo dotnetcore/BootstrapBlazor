@@ -6,9 +6,9 @@
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <section ignore>@Localizer["NormalDescription"]</section>
+    <section ignore>@((MarkupString)Localizer["NormalDescription"].Value)</section>
     <div style="width: 200px;">
-        <AutoComplete Value="@_value" Items="@StaticItems" IsSelectAllTextOnFocus="true"></AutoComplete>
+        <AutoComplete Value="@_value" Items="@StaticItems" IsSelectAllTextOnFocus="true" IsClearable></AutoComplete>
     </div>
 </DemoBlock>
 
@@ -37,7 +37,7 @@
     <section ignore>@((MarkupString)Localizer["ShowLabelDescription"].Value)</section>
     <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
-        <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true" />
+        <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true" IsClearable="true" />
     </ValidateForm>
     <Divider Text="@Localizer["Divider2Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="false" />

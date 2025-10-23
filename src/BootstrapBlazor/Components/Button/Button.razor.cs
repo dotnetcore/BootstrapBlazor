@@ -22,10 +22,8 @@ public partial class Button : ButtonBase
     protected ElementReference ButtonElement { get; set; }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -65,24 +63,4 @@ public partial class Button : ButtonBase
     /// </summary>
     /// <returns></returns>
     public ValueTask FocusAsync() => ButtonElement.FocusAsync();
-
-    /// <summary>
-    /// 处理点击方法
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task HandlerClick()
-    {
-        if (OnClickWithoutRender != null)
-        {
-            if (!IsAsync)
-            {
-                IsNotRender = true;
-            }
-            await OnClickWithoutRender();
-        }
-        if (OnClick.HasDelegate)
-        {
-            await OnClick.InvokeAsync();
-        }
-    }
 }

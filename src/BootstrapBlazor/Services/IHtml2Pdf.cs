@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Net;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,6 +12,12 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public interface IHtml2Pdf
 {
+    ///// <summary>
+    ///// 获得/设置 WebProxy 对象用于网络请求代理
+    ///// <para>Get or set the WebProxy object for network request proxy</para>
+    ///// </summary>
+    //public IWebProxy? WebProxy { get; set; }
+
     /// <summary>
     /// Export method
     /// </summary>

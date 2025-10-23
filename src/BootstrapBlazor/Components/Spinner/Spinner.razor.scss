@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .spinner {
     --bb-spinner-border-width-xs: #{$bb-spinner-border-width-xs};
     --bb-spinner-border-border-width-xs: #{$bb-spinner-border-border-width-xs};

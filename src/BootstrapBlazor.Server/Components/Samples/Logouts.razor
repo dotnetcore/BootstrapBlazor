@@ -1,6 +1,6 @@
 ﻿@page "/logout"
 @inject IStringLocalizer<Logouts> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["LogoutsTitle"]</h3>
 
@@ -10,7 +10,7 @@
            Introduction="@Localizer["LogoutsNormalIntro"]"
            Name="Normal">
     <div class="logout-custom">
-        <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" />
+        <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" />
         <div style="height: 80px;"></div>
     </div>
 </DemoBlock>
@@ -19,7 +19,7 @@
            Introduction="@Localizer["LogoutsShowUserNameIntro"]"
            Name="ShowUserName">
     <div class="logout-custom">
-        <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" ShowUserName="false" />
+        <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" ShowUserName="false" />
         <div style="height: 80px;"></div>
     </div>
 </DemoBlock>
@@ -27,7 +27,7 @@
 <DemoBlock Title="@Localizer["LogoutsChildContentTitle"]"
            Introduction="@Localizer["LogoutsChildContentIntro"]"
            Name="ChildContent">
-    <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin">
+    <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin">
         <i class="fa-fw fa-solid fa-user"></i>
         <span>@Localizer["LogoutsChildContentCustomDisplay"]</span>
     </Logout>
@@ -37,10 +37,10 @@
 <DemoBlock Title="@Localizer["LogoutsHeaderTemplateTitle"]"
            Introduction="@Localizer["LogoutsHeaderTemplateIntro"]"
            Name="HeaderTemplate">
-    <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" class="bg-warning">
+    <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" class="bg-warning">
         <HeaderTemplate>
             <div class="d-flex flex-fill align-items-center">
-                <img alt="avatar" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")" style="border-radius: 50%;">
+                <img alt="avatar" src="@WebsiteOption.Value.GetAssetUrl("images/Argo-C.png")" style="border-radius: 50%;">
                 <div class="flex-fill">
                     <div class="logout-dn">@Localizer["LogoutsHeaderTemplateUser1"]</div>
                     <div class="logout-un">@Localizer["LogoutsHeaderTemplateUser2"]</div>
@@ -54,7 +54,7 @@
 <DemoBlock Title="@Localizer["LogoutsLinkTemplateTitle"]"
            Introduction="@Localizer["LogoutsLinkTemplateIntro"]"
            Name="LinkTemplate">
-    <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" class="bg-primary">
+    <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo.png")" DisplayName="Administrators" UserName="Admin" class="bg-primary">
         <LinkTemplate>
             <a href="#">
                 <i class="fa-solid fa-user"></i><span>@Localizer["LogoutsLinkTemplatePersonalCenter"]</span>

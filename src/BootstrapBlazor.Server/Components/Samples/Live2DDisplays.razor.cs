@@ -45,8 +45,8 @@ public partial class Live2DDisplays
 
         _srcItems.AddRange(
         [
-            new SelectedItem($"{WebsiteOption.CurrentValue.AssetRootPath}models/shizuku/shizuku.model.json", "shizuku"),
-            new SelectedItem($"{WebsiteOption.CurrentValue.AssetRootPath}models/haru/haru_greeter_t03.model3.json", "haru"),
+            new SelectedItem($"{WebsiteOption.Value.AssetRootPath}models/shizuku/shizuku.model.json", "shizuku"),
+            new SelectedItem($"{WebsiteOption.Value.AssetRootPath}models/haru/haru_greeter_t03.model3.json", "haru"),
             new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json", "bilibili-22"),
             new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json", "bilibili-33"),
             new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json", "chiaki_kitty"),

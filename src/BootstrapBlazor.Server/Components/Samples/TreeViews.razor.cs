@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using DocumentFormat.OpenXml.Spreadsheet;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -121,7 +119,20 @@ public sealed partial class TreeViews
                 source.ParentId = context.IsChildren ? target.Id : target.ParentId;
             }
         }
-        DraggableItems = TreeFoo.CascadingTree(items);
+
+        Action<TreeViewItem<TreeFoo>>? cb = null;
+        if (context.IsChildren)
+        {
+            // 自动展开目标节点
+            cb = item =>
+            {
+                if (item.Value.Id == context.Target.Value.Id)
+                {
+                    item.IsExpand = true;
+                }
+            };
+        }
+        DraggableItems = TreeFoo.CascadingTree(items, cb);
         DraggableItems[0].IsExpand = true;
         if (DraggableItems.Count > 1)
         {
@@ -184,9 +195,9 @@ public sealed partial class TreeViews
             new() { Text = "Item D", Id = "4", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item E", Id = "5", ParentId = "1", Icon = "fa-solid fa-font-awesome" },
 
-            new() { Text = "Item B (Drop inside blocked)", Id = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item B", Id = "2", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item F", Id = "6", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item G (Can not move out)", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Item G", Id = "9", ParentId = "2", Icon = "fa-solid fa-font-awesome" },
 
             new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },

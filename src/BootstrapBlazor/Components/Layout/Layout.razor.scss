@@ -1,4 +1,6 @@
-﻿[data-bs-theme='dark'] .layout {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+[data-bs-theme='dark'] .layout {
     --bb-layout-header-background: #{$bb-layout-header-background-dark};
     --bb-layout-header-border-color: #{$bb-layout-header-border-color-dark};
     --bb-layout-banner-border-color: #{$bb-layout-banner-border-color-dark};

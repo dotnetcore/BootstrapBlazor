@@ -114,7 +114,7 @@ public partial class Pre
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, CopiedText, WebsiteOption.CurrentValue.AssetRootPath);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, CopiedText, WebsiteOption.Value.AssetRootPath);
 
     private async Task GetCodeAsync()
     {

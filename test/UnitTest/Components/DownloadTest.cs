@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.JSInterop;
-
 namespace UnitTest.Components;
 
 public class DownloadTest : BootstrapBlazorTestBase
@@ -96,6 +94,18 @@ public class DownloadTest : BootstrapBlazorTestBase
         });
         var btn = cut.Find("button");
         await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+
+        var trigger = cut.FindComponent<Button>();
+        trigger.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnClick, async () =>
+            {
+                var stream = new MemoryStream();
+                await downloadService.DownloadFromStreamAsync("", stream);
+            });
+        });
+        btn = cut.Find("button");
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
     }
 
     [Fact]
@@ -131,7 +141,7 @@ public class DownloadTest : BootstrapBlazorTestBase
         {
             File.Delete(zipFile);
         }
-        using var fs = File.Create(fileName);
+        await using var fs = File.Create(fileName);
         fs.Close();
         btn = cut.Find("button");
         await cut.InvokeAsync(() => btn.Click());
@@ -174,6 +184,17 @@ public class DownloadTest : BootstrapBlazorTestBase
             });
         });
         var btn = cut.Find("button");
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+
+        var trigger = cut.FindComponent<Button>();
+        trigger.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnClick, async () =>
+            {
+                await downloadService.DownloadFromUrlAsync("", "./favicon.png");
+            });
+        });
+        btn = cut.Find("button");
         await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
     }
 }

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,10 +11,11 @@ namespace BootstrapBlazor.Components;
 public partial class IntersectionObserver
 {
     /// <summary>
-    /// The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null
+    /// 获得/设置 是否使用元素视口作为根元素 默认为 true 使用当前元素作为根元素
+    /// <para>The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if value is false. Default value is true</para>
     /// </summary>
     [Parameter]
-    public bool UseElementViewport { get; set; }
+    public bool UseElementViewport { get; set; } = true;
 
     /// <summary>
     /// Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px" (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros.

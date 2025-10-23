@@ -5,17 +5,20 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
-<div class="auto-complete" id="@Id">
+<div class="@ClassString" id="@Id">
     <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
            data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
            data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
            data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString" data-bb-debounce="@DurationString"
            data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString" data-bb-blur="@TriggerBlurString"
            data-bb-scroll-behavior="@ScrollIntoViewBehaviorString" data-bb-trigger-delete="true"
-           @bind="@CurrentValueAsString"
-           placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
+           placeholder="@PlaceHolder" disabled="@Disabled" />
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
+    @if (GetClearable())
+    {
+        <span class="@ClearClassString"><i class="@ClearIcon"></i></span>
+    }
     <RenderTemplate @ref="_dropdown">
         @RenderDropdown
     </RenderTemplate>

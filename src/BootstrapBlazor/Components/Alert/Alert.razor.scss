@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .alert {
     --bb-alert-icon-margin-right: #{$bb-alert-icon-margin-right};
     --bb-alert-bar-width: #{$bb-alert-bar-width};

@@ -49,6 +49,22 @@ public partial class OnlineSheet : IDisposable
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await Task.Delay(5000);
+            MockOnlineContributor.Trigger(DispatchService);
+        }
+    }
+
     private async Task OnReadyAsync()
     {
         _inited = true;
@@ -63,7 +79,7 @@ public partial class OnlineSheet : IDisposable
             return;
         }
 
-        if (entry.Entry != null)
+        if (entry is { Name: "OnlineSheet-Demo", Entry: not null })
         {
             await ToastService.Show(new ToastOption()
             {

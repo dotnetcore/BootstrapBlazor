@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 [data-bs-theme='dark'] .split {
     --bb-split-bar-bg: #{$bb-split-bar-bg-dark};
     --bb-split-bar-handle-bg: #{$bb-split-bar-handle-bg-dark};

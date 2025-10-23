@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .btn {
     --bs-btn-font-size: #{$bs-btn-font-size};
     --bs-btn-focus-box-shadow: #{$bs-btn-focus-box-shadow};

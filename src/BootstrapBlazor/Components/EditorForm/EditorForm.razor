@@ -2,40 +2,45 @@
 @typeparam TModel
 @inherits BootstrapComponentBase
 
-<div class="@ClassString">
-    <CascadingValue Value="@_editorItems" IsFixed="false">
-        @FieldItems?.Invoke(Model)
-    </CascadingValue>
-    <CascadingValue Value="this" Name="EditorForm">
-        @if (ShowUnsetGroupItemsOnTop)
-        {
-            if (UnsetGroupItems.Any())
-            {
-                @RenderUnsetGroupItems
-            }
-            @foreach (var g in GroupItems)
-            {
-                @RenderGroupItems(g)
-            }
-        }
-        else
-        {
-            @foreach (var g in GroupItems)
-            {
-                @RenderGroupItems(g)
-            }
-            if (UnsetGroupItems.Any())
-            {
-                @RenderUnsetGroupItems
-            }
-        }
-    </CascadingValue>
-
-    @if (Buttons != null)
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    @if (Model != null)
     {
-        <div class="bb-editor-footer form-footer">
-            @Buttons
-        </div>
+        <CascadingValue Value="@_editorItems" IsFixed="false">
+            @FieldItems?.Invoke(Model)
+        </CascadingValue>
+        <CascadingValue Value="this" Name="EditorForm">
+            <div class="form-body">
+                @if (ShowUnsetGroupItemsOnTop)
+                {
+                    if (UnsetGroupItems.Any())
+                    {
+                        @RenderUnsetGroupItems
+                    }
+                    @foreach (var g in GroupItems)
+                    {
+                        @RenderGroupItems(g)
+                    }
+                }
+                else
+                {
+                    @foreach (var g in GroupItems)
+                    {
+                        @RenderGroupItems(g)
+                    }
+                    if (UnsetGroupItems.Any())
+                    {
+                        @RenderUnsetGroupItems
+                    }
+                }
+            </div>
+
+            @if (Buttons != null)
+            {
+                <div class="bb-editor-footer form-footer">
+                    @Buttons
+                </div>
+            }
+        </CascadingValue>
     }
 </div>
 
@@ -61,7 +66,7 @@
 
     RenderFragment<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> RenderGroupItems => g =>
     @<GroupBox Title="@g.Key">
-        <div class="@FormClassString">
+        <div class="@FormClassString" style="@FormStyleString">
             @foreach (var item in g.Value)
             {
                 var render = GetRenderTemplate(item);

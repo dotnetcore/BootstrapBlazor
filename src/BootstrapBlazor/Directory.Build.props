@@ -3,7 +3,8 @@
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Logo.props" />
   <Import Project="..\SourceLink.targets" />
-
+  <Import Project="..\..\Version.props" />
+  
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>
@@ -17,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>$(RunTargetFrameworks)</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,6 +26,7 @@
     <NET7Version>7.0.*</NET7Version>
     <NET8Version>8.0.*</NET8Version>
     <NET9Version>9.0.*</NET9Version>
+    <NET10Version>10.0.0-rc*</NET10Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
@@ -69,6 +71,16 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET9Version)" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET10Version)" />
+  </ItemGroup>
+  
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

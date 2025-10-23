@@ -1,6 +1,20 @@
 ﻿@page "/intersection-observer"
 @inject IStringLocalizer<IntersectionObservers> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
+
+<HeadContent>
+    <style>
+        .bb-video video {
+            width: 256px;
+        }
+
+        @@media (min-width: 767.99px) {
+            .bb-video video {
+                width: 350px;
+            }
+        }
+    </style>
+</HeadContent>
 
 <h3>@Localizer["IntersectionObserverTitle"]</h3>
 
@@ -56,23 +70,10 @@
 <DemoBlock Title="@Localizer["IntersectionObserverVisibleTitle"]"
            Introduction="@Localizer["IntersectionObserverVisibleIntro"]"
            Name="Visible">
-    <HeadContent>
-        <style>
-            .bb-video video {
-                width: 256px;
-            }
-
-            @@media (min-width: 767.99px) {
-                .bb-video video {
-                    width: 350px;
-                }
-            }
-        </style>
-    </HeadContent>
     <section ignore>
         <p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p>
+        <div class="text-center @_textColorString">@_videoStateString</div>
     </section>
-    <p class="text-center @_textColorString">@_videoStateString</p>
     <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserveWhenIntersection="false">
         <div class="bb-video-demo scroll">
             <div class="bb-video">
@@ -87,9 +88,12 @@
 <DemoBlock Title="@Localizer["IntersectionObserverThresholdTitle"]"
            Introduction="@Localizer["IntersectionObserverThresholdIntro"]"
            Name="Threshold">
-    <section ignore><p>@((MarkupString)Localizer["IntersectionObserverThresholdDesc"].Value)</p></section>
-    <p class="text-center">@_thresholdValueString</p>
-    <IntersectionObserver OnIntersecting="OnThresholdChanged" Threshold="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1" AutoUnobserveWhenIntersection="false">
+    <section ignore>
+        <p>@((MarkupString)Localizer["IntersectionObserverThresholdDesc"].Value)</p>
+        <div class="text-center">@_thresholdValueString</div>
+    </section>
+    <IntersectionObserver OnIntersecting="OnThresholdChanged" Threshold="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1"
+                          AutoUnobserveWhenIntersection="false">
         <div class="bb-list-load scroll" style="height: 200px;">
             <div class="d-flex" style="height: 600px; justify-content: center; align-items: center;">
                 <IntersectionObserverItem>
@@ -98,6 +102,25 @@
             </div>
         </div>
     </IntersectionObserver>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LoadMoreTitle"]"
+           Introduction="@Localizer["LoadMoreIntro"]"
+           Name="LoadMoreComponent">
+    <section ignore>
+        <div>@((MarkupString)Localizer["LoadMoreDesc"].Value)</div>
+    </section>
+    <div style="height: 400px; overflow: auto;">
+        <div class="bb-list-demo">
+            @foreach (var image in _items)
+            {
+                <div class="bb-list-item">
+                    <img src="@image" />
+                </div>
+            }
+        </div>
+        <LoadMore OnLoadMoreAsync="OnLoadMoreItemAsync" CanLoading="_canLoading"></LoadMore>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

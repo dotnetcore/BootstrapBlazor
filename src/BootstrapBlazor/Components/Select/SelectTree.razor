@@ -15,12 +15,12 @@
         }
         else
         {
-            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@SelectedItem?.Text" />
+            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@_selectedItem?.Text" />
         }
         <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
     </div>
     <div class="dropdown-menu">
-        <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon"
+        <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" @ref="_tv"
                   OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer"
                   ShowSearch="ShowSearch" ShowResetSearchButton="ShowResetSearchButton"
                   CanExpandWhenDisabled="CanExpandWhenDisabled"

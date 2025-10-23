@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .btn-toggle {
     --bb-toggle-min-width: #{$bb-toggle-min-width};
     --bb-toggle-bg-color: #{$bb-toggle-bg-color};

@@ -30,10 +30,11 @@ public partial class Popover
 
     private string? _lastContent;
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override string? CustomClassString => CssBuilder.Default(CustomClass)
+    private string? ClassString => CssBuilder.Default("bb-popover")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? CustomClassString => CssBuilder.Default(CustomClass)
         .AddClass("shadow", ShowShadow)
         .Build();
 

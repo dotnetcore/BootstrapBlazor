@@ -1,6 +1,6 @@
 ﻿@page "/auto-fill"
 @inject IStringLocalizer<AutoFills> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 <h4>@Localizer["Description"]</h4>
@@ -9,12 +9,12 @@
     <section ignore>
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
-    <AutoFill @bind-Value="Model1" Items="Items1"
+    <AutoFill @bind-Value="Model1" Items="Items1" IsAutoClearWhenInvalid="true"
               IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" IsSelectAllTextOnFocus="true">
         <ItemTemplate>
             <div class="d-flex">
                 <div>
-                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" class="bb-avatar" />
                 </div>
                 <div class="ps-2">
                     <div>@context.Name</div>
@@ -24,8 +24,11 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(Model1.Id)" class="shadow" style="width: 140px; margin-bottom: 1rem; border-radius: 6px;" />
-        <EditorForm Model="@Model1" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model1 != null)
+        {
+            <img src="@WebsiteOption.Value.GetAvatarUrl(Model1.Id)" class="shadow" style="width: 140px; margin-bottom: 1rem; border-radius: 6px;" />
+            <EditorForm Model="@Model1" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
@@ -36,7 +39,7 @@
         <ItemTemplate>
             <div class="d-flex">
                 <div>
-                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" class="bb-avatar" />
                 </div>
                 <div class="ps-2">
                     <div>@context.Name</div>
@@ -46,7 +49,10 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <EditorForm Model="@Model2" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model2 != null)
+        {
+            <EditorForm Model="@Model2" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
@@ -58,7 +64,7 @@
         <ItemTemplate>
             <div class="d-flex">
                 <div>
-                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" class="bb-avatar" />
                 </div>
                 <div class="ps-2">
                     <div>@context.Name</div>
@@ -68,7 +74,10 @@
         </ItemTemplate>
     </AutoFill>
     <section ignore>
-        <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />
+        @if (Model3 != null)
+        {
+            <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />
+        }
     </section>
 </DemoBlock>
 
@@ -93,7 +102,7 @@
                 <ItemTemplate>
                     <div class="d-flex">
                         <div>
-                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" class="bb-avatar" />
                         </div>
                         <div class="ps-2">
                             <div>@context.Name</div>
@@ -120,7 +129,7 @@
                 <ItemTemplate>
                     <div class="d-flex">
                         <div>
-                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.Value.GetAvatarUrl(context.Id)" class="bb-avatar" />
                         </div>
                         <div class="ps-2">
                             <div>@context.Name</div>

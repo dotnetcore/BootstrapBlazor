@@ -56,7 +56,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.LookupService, new MockLookupService());
         });
-        await Task.Delay(50);
+        await Task.Delay(100);
         Assert.Contains("Test1,Test2", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
@@ -64,7 +64,7 @@ public class DisplayTest : BootstrapBlazorTestBase
             pb.Add(a => a.LookupServiceKey, null);
             pb.Add(a => a.Lookup, new List<SelectedItem> { new("v1", "Test3"), new("v2", "Test4") });
         });
-        await Task.Delay(50);
+        await Task.Delay(100);
         Assert.Contains("Test3,Test4", cut.Markup);
     }
 

@@ -36,7 +36,7 @@ public partial class TablesEdit
 
     private string? PlaceHolderString { get; set; }
 
-    private string DataServiceUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
+    private string DataServiceUrl => $"{WebsiteOption.Value.GiteeRepositoryUrl}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
 
     /// <summary>
     /// <inheritdoc/>

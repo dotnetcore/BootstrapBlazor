@@ -2,7 +2,7 @@
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesExcel> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["TablesExcelTitle"] - @NavMenuLocalizer["TableExcel"]</h3>
 <h4>@Localizer["TablesExcelDescription"]</h4>
@@ -101,7 +101,7 @@
                 <EditTemplate Context="row">
                     <div class="d-flex disabled">
                         <div>
-                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(row!.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.Value.GetAvatarUrl(row!.Id)" class="bb-avatar" />
                         </div>
                         <div class="ps-2">
                             <div>@row.Name</div>

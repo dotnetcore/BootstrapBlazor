@@ -55,6 +55,66 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task BindValue_Ok()
+    {
+        // 由于设置了双向绑定 Value 改变后触发 change 事件
+        var clientValue = "";
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
+            pb.Add(a => a.Value, "test12");
+            pb.Add(a => a.OnValueChanged, v =>
+            {
+                clientValue = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("test4"));
+        Assert.Equal("test4", clientValue);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnValueChanged, null);
+            pb.Add(a => a.ValueChanged, v =>
+            {
+                clientValue = v;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("test5"));
+        Assert.Equal("test5", clientValue);
+    }
+
+    [Fact]
+    public void IsClearable_Ok()
+    {
+        var cut = Context.RenderComponent<AutoComplete>();
+        Assert.DoesNotContain("clear-icon", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
+        cut.Contains("clear-icon");
+
+        // Color
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
+        cut.Contains("clear-icon text-danger");
+
+        // 反射 Validate
+        var classStringProperty = cut.Instance.GetType().GetProperty("ClearClassString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(classStringProperty);
+
+        var validProperty = cut.Instance.GetType().GetProperty("IsValid", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(validProperty);
+
+        validProperty.SetValue(cut.Instance, true);
+        var validClassString = classStringProperty.GetValue(cut.Instance);
+        Assert.Equal("clear-icon text-danger text-success", validClassString);
+
+        validProperty.SetValue(cut.Instance, false);
+        validClassString = classStringProperty.GetValue(cut.Instance);
+        Assert.Equal("clear-icon text-danger text-danger", validClassString);
+    }
+
+    [Fact]
     public void Debounce_Ok()
     {
         var cut = Context.RenderComponent<AutoComplete>();
@@ -134,6 +194,27 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
+    }
+
+    [Fact]
+    public async Task TriggerClear_Ok()
+    {
+        var val = "task1";
+        var items = new List<string>() { "task1", "Task2" };
+        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+            builder.Add(a => a.IgnoreCase, false);
+            builder.Add(a => a.Value, val);
+            builder.Add(a => a.IsClearable, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v =>
+            {
+                val = v;
+            }));
+        });
+
+        await cut.InvokeAsync(cut.Instance.TriggerClear);
+        Assert.Empty(val);
     }
 
     [Fact]

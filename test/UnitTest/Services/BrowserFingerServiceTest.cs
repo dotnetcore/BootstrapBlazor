@@ -15,4 +15,13 @@ public class BrowserFingerServiceTest : BootstrapBlazorTestBase
         var code = await service.GetFingerCodeAsync();
         Assert.Equal("9527", code);
     }
+
+    [Fact]
+    public async Task GetClientHubIdAsync_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getClientHubId").SetResult("9528");
+        var service = Context.Services.GetRequiredService<IBrowserFingerService>();
+        var code = await service.GetClientHubIdAsync();
+        Assert.Equal("9528", code);
+    }
 }

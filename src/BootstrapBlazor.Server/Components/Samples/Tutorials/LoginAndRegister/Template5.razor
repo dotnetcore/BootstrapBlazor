@@ -1,5 +1,8 @@
 ﻿@page "/tutorials/template5"
 @layout TutorialsLayout
+@inherits WebSiteModuleComponentBase
+@inject IOptions<WebsiteOptions> WebsiteOption
+@attribute [JSModuleAutoLoader("Samples/Tutorials/LoginAndRegister/Template5.razor.js", AutoInvokeDispose = false)]
 
 <HeadContent>
     <style>
@@ -21,72 +24,83 @@
 
 <div class="background-image">
     <div class="login-container">
-        <div class="login-box animate-fade-in">
-            <div class="header-row">
-                @if (isEmailEntered)
+        <div class="login-box animate-fade-in" id="@Id">
+            <div class="login-header">
+                @if (!isAuth)
                 {
-                    <button @onclick="GoBack" aria-label="返回" class="back-button">
-                        <span>
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </span>
-                    </button>
+                    if (isEmailEntered)
+                    {
+                        <button @onclick="GoBack" aria-label="返回" class="back-button">
+                            <span>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </span>
+                        </button>
+                    }
+
+                    <div class="logo-container">
+                        <h1 class="blazor-text">BootstrapBlazor</h1>
+                    </div>
                 }
-                <div class="logo-container">
-                    <h1 class="blazor-text">BootstrapBlazor</h1>
-                </div>
+                else
+                {
+                    <div class="logo-container">
+                        <h1 class="blazor-text">BootstrapBlazor</h1>
+                    </div>
+                }
             </div>
-            @if (!isEmailEntered)
+            @if (isAuth)
             {
-                <h2>登录</h2>
-                <p class="subtitle">使用你的 BootstrapBlazor 帐户。</p>
-                <BootstrapInput type="email" class="input" placeholder="电子邮件或电话号码" @bind-Value="email" />
-                <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
-                <Button class="button" Color="Color.Primary" OnClick="OnEmailSubmit">下一步</Button>
-                <div class="links">
-                    <a href="#">忘记用户名？</a>
+                <div class="email-display2"><span>@_loginModel.Email</span></div>
+                <h5 class="text-center mt-3 mb-0">欢迎，您已成功登录</h5>
+                <div class="login-video-wrap">
+                    <video class="login-video" autoplay playsinline disablepictureinpicture>
+                        <source src="samples/login5/loading1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+                        <source src="samples/login5/loading.mov" type="video/quicktime; codecs=hvc1.1.6.H120.b0">
+                        <source src="samples/login5/loading.webm" type="video/webm; codecs=vp9">
+                        <source src="samples/login5/loading.mp4" type="video/mp4; codecs=avc1.42E01E">
+                        <img src="@WebsiteOption.Value.GetAssetUrl("samples/login5/loading.png")" alt="" role="presentation">
+                    </video>
                 </div>
-                <div class="small">
-                    不熟悉 BootstrapBlazor？<a href="/">去看文档</a>
-                </div>
+                <p class="text-center text-muted" style="font-size: 0.75rem;">此登录高仿微软登录 UI</p>
+                <Button class="button" Color="Color.Primary" OnClick="OnReset">进入</Button>
             }
             else
             {
-                <h2>输入你的密码</h2>
-                <p class="email-display">@email</p>
-                <BootstrapInput type="password" class="input" placeholder="密码" @bind-Value="password" />
-                <div class="links">
-                    <a href="#">忘记了密码？</a>
-                </div>
-                <Button class="button" Color="Color.Primary">下一步</Button>
-                <div class="links">
-                    <a href="#">其他登录方法</a>
+                <div class="login-body">
+                    <div class="login-item login-item-email show">
+                        <h3>登录</h3>
+                        <p class="subtitle">使用你的 BootstrapBlazor 帐户。</p>
+                        <ValidateForm Model="_loginModel" OnValidSubmit="OnEmailSubmit">
+                            <BootstrapInput type="email" class="input" SkipValidate="true" IsAutoFocus="true"
+                                            placeholder="电子邮件或电话号码" @bind-Value="@_loginModel.Email"></BootstrapInput>
+                            <div class="error" hidden="@(!showEmailError)">请输入有效的电子邮件地址或电话号码</div>
+                            <Button class="button" Color="Color.Primary" ButtonType="ButtonType.Submit" Text="下一步"></Button>
+                        </ValidateForm>
+                        <div class="links">
+                            <a href="#" @onclick:preventDefault>忘记用户名？</a>
+                        </div>
+                        <div class="small">
+                            不熟悉 BootstrapBlazor？<a href="/">去看文档</a>
+                        </div>
+                    </div>
+
+                    <div class="login-item login-item-password">
+                        <h3>输入你的密码</h3>
+                        <p class="email-display">@_loginModel.Email</p>
+                        <ValidateForm Model="_loginModel" OnValidSubmit="OnPasswordSubmit">
+                            <BootstrapInput type="password" class="input" SkipValidate="true" IsAutoFocus="true"
+                                            placeholder="密码" @bind-Value="@_loginModel.Password"></BootstrapInput>
+                            <div class="links">
+                                <a href="#" @onclick:preventDefault>忘记了密码？</a>
+                            </div>
+                            <Button class="button" Color="Color.Primary" ButtonType="ButtonType.Submit" Text="登录"></Button>
+                        </ValidateForm>
+                        <div class="links">
+                            <a href="#" @onclick:preventDefault>其他登录方法</a>
+                        </div>
+                    </div>
                 </div>
             }
         </div>
     </div>
 </div>
-
-@code {
-    private bool isEmailEntered = false;
-    private string email = "";
-    private string password = "";
-    private bool showEmailError = false;
-
-    private void OnEmailSubmit()
-    {
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            showEmailError = true;
-        }
-        else
-        {
-            showEmailError = false;
-            isEmailEntered = true;
-        }
-    }
-
-    private void GoBack()
-    {
-        isEmailEntered = false;
-    }
-}

@@ -194,7 +194,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
         var input = cut.Find("input");
-        Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
+        Assert.Null(input.Attributes["value"]?.Value);
     }
 
     [Fact]
@@ -347,12 +347,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnGetDisplayText, f => f?.Name);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("2"));
-
-        // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
-        cut.SetParametersAndRender();
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
 
         var input = cut.Find(".form-control");
         Assert.Null(input.NodeValue);
@@ -425,10 +420,9 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.Equal("2", searchText);
         Assert.Contains("<div>test2</div>", cut.Markup);
 
+        // 测试 Clear 清空逻辑
         query = false;
-        // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
 
         Assert.True(query);
         Assert.True(cleared);
@@ -445,7 +439,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 });
             });
         });
-        await cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter(""));
     }
 
     [Fact]
@@ -462,7 +456,6 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         cut.Contains("clear-icon");
     }
-
 
     [Fact]
     public async Task Validate_Ok()
@@ -512,12 +505,54 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.Equal("Test-Select1", model.Value.Name);
 
         // 点击 Clear 按钮
-        var button = cut.Find(".clear-icon");
-        await cut.InvokeAsync(() => button.Click());
+        var autoFill = cut.FindComponent<AutoFill<Foo>>();
+        await cut.InvokeAsync(() => autoFill.Instance.TriggerFilter(""));
 
         var form = cut.Find("form");
         form.Submit();
         Assert.True(invalid);
+    }
+
+    [Fact]
+    public async Task IsAutoClearWhenInvalid_Ok()
+    {
+        var model = new MockModel() { Value = new Foo() { Name = "Test-Select1" } };
+        var items = new List<Foo>()
+        {
+            new() { Name = "test1" },
+            new() { Name = "test2" }
+        };
+        var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, model.Value);
+            pb.Add(a => a.IsAutoClearWhenInvalid, true);
+            pb.Add(a => a.OnGetDisplayText, f => f?.Name);
+        });
+        // 设置一个无效值
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("Invalid-Value"));
+
+        // 触发 OnBlur 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
+
+        // 值应被清空
+        Assert.Null(cut.Instance.Value);
+
+        // 设定 IsAutoClearWhenInvalid false
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAutoClearWhenInvalid, false);
+            pb.Add(a => a.Value, model.Value);
+        });
+
+        // 设置一个无效值
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("Invalid-Value"));
+
+        // 触发 OnBlur 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerBlur());
+
+        // 值不应被清空
+        Assert.NotNull(cut.Instance.Value);
     }
 
     class MockModel

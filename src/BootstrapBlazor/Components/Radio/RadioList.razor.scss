@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .radio-list {
     --bb-radio-item-width: #{$bb-radio-item-width};
     --bb-radio-item-padding: #{$bb-radio-item-padding};
@@ -24,7 +26,6 @@
     }
 
     &.btn-group {
-        border: var(--bs-border-width) solid var(--bs-border-color);
         display: inline-flex;
         flex: 0 !important;
         flex-wrap: nowrap;
@@ -32,6 +33,14 @@
 
         > .btn {
             white-space: nowrap;
+
+            &:not(:first-child) {
+                border-left-color: transparent !important;
+            }
+
+            &:not(:last-child) {
+                border-right-color: transparent !important;
+            }
         }
 
         .active {

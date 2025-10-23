@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .accordion {
     --bs-accordion-btn-focus-box-shadow: #{$bb-accordion-btn-focus-box-shadow};
     --bs-accordion-btn-padding-x: 1rem;

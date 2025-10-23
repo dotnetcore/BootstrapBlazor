@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .rate {
     --bb-rate-height: #{$bb-rate-height};
     --bb-rate-width: #{$bb-rate-width};

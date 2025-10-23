@@ -25,10 +25,7 @@ public partial class Adapters : IDisposable
     private readonly CancellationTokenSource _connectTokenSource = new();
     private readonly CancellationTokenSource _sendTokenSource = new();
     private readonly CancellationTokenSource _receiveTokenSource = new();
-    private readonly DataPackageAdapter _dataAdapter = new()
-    {
-        DataPackageHandler = new FixLengthDataPackageHandler(12)
-    };
+    private readonly DataPackageAdapter _dataAdapter = new(new FixLengthDataPackageHandler(12));
     private bool _useDataAdapter = true;
 
     /// <summary>
@@ -46,13 +43,13 @@ public partial class Adapters : IDisposable
             // 设置本地使用的 IP地址与端口
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
-        _client.ReceivedCallBack += OnReceivedAsync;
 
-        _dataAdapter.ReceivedCallBack += async Data =>
-        {
-            // 直接处理接收的数据
-            await UpdateReceiveLog(Data);
-        };
+        // 此处代码分开写是为了判断 _useDataAdapter 参数
+        _client.ReceivedCallback += OnReceivedAsync;
+        _dataAdapter.ReceivedCallback = UpdateReceiveLog;
+
+        // 实战中可以通过下面一句话设置数据适配器与回调方法
+        // _client.AddDataPackageAdapter(_dataAdapter, UpdateReceiveLog);
     }
 
     private async Task OnConnectAsync()
@@ -102,9 +99,9 @@ public partial class Adapters : IDisposable
         }
     }
 
-    private async Task UpdateReceiveLog(ReadOnlyMemory<byte> data)
+    private async ValueTask UpdateReceiveLog(ReadOnlyMemory<byte> data)
     {
-        var payload = System.Text.Encoding.UTF8.GetString(data.Span);
+        var payload = Encoding.UTF8.GetString(data.Span);
         var body = BitConverter.ToString(data.ToArray());
 
         _items.Add(new ConsoleMessageItem
@@ -145,7 +142,7 @@ public partial class Adapters : IDisposable
     {
         if (disposing)
         {
-            _client.ReceivedCallBack -= OnReceivedAsync;
+            _client.ReceivedCallback -= OnReceivedAsync;
 
             // 释放连接令牌资源
             _connectTokenSource.Cancel();

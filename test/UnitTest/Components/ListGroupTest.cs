@@ -27,7 +27,7 @@ public class ListGroupTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ClickItem_Ok()
+    public async Task ClickItem_Ok()
     {
         var clicked = false;
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
@@ -44,8 +44,30 @@ public class ListGroupTest : BootstrapBlazorTestBase
             });
         });
         var item = cut.Find(".list-group-item");
-        item.Click();
-        cut.WaitForState(() => clicked);
+        await cut.InvokeAsync(() => item.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task DoubleClickItem_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items,
+            [
+                new() { Name = "Test 1" },
+                new() { Name = "Test 1" }
+            ]);
+            pb.Add(a => a.OnDoubleClickItem, foo =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+        });
+        var item = cut.Find(".list-group-item");
+        await cut.InvokeAsync(() => item.DoubleClick());
+        Assert.True(clicked);
     }
 
     [Fact]

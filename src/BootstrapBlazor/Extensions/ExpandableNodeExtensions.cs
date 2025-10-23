@@ -152,13 +152,16 @@ public static class ExpandableNodeExtensions
     /// <param name="parent">父级节点</param>
     /// <param name="predicate">查找子节点 Lambda 表达式</param>
     /// <param name="valueFactory"></param>
-    public static List<TreeViewItem<TItem>> CascadingTree<TItem>(this IEnumerable<TItem> items, TreeViewItem<TItem>? parent, Func<TItem, TreeViewItem<TItem>?, bool> predicate, Func<TItem, TreeViewItem<TItem>> valueFactory) => items
-        .Where(i => predicate(i, parent))
-        .Select(i =>
+    /// <param name="treeViewItemCallback">节点是否展开回调方法 默认 null 未设置</param>
+    public static List<TreeViewItem<TItem>> CascadingTree<TItem>(this IEnumerable<TItem> items, TreeViewItem<TItem>? parent, Func<TItem, TreeViewItem<TItem>?, bool> predicate, Func<TItem, TreeViewItem<TItem>> valueFactory, Action<TreeViewItem<TItem>>? treeViewItemCallback = null) => [.. items.Where(i => predicate(i, parent)).Select(i =>
+    {
+        var item = valueFactory(i);
+        item.Items = items.CascadingTree(item, predicate, valueFactory, treeViewItemCallback);
+        item.Parent = parent;
+        if (treeViewItemCallback != null)
         {
-            var item = valueFactory(i);
-            item.Items = items.CascadingTree(item, predicate, valueFactory);
-            item.Parent = parent;
-            return item;
-        }).ToList();
+            treeViewItemCallback(item);
+        }
+        return item;
+    })];
 }

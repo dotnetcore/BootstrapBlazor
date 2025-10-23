@@ -31,7 +31,7 @@ public partial class Topologies
         {
             using var reader = new StreamReader(stream);
             Content = reader.ReadToEnd();
-            Content = Content.Replace("{AssetPath}", WebsiteOption.CurrentValue.AssetRootPath);
+            Content = Content.Replace("{AssetPath}", WebsiteOption.Value.AssetRootPath);
         }
     }
 

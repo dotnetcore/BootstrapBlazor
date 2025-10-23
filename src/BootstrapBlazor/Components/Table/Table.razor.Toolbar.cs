@@ -466,7 +466,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
+    private readonly List<ColumnVisibleItem> _visibleColumns = [];
 
     /// <summary>
     /// 获得当前可见列集合
@@ -475,11 +475,15 @@ public partial class Table<TItem>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // 不可见列
-        var items = VisibleColumns.Where(i => i.Visible);
-        return Columns.Where(i => !i.GetIgnore() && items.Any(v => v.Name == i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).ToHashSet();
+        return Columns.Where(i => !i.GetIgnore() && items.Contains(i.GetFieldName()) && ScreenSize >= i.ShownWithBreakPoint);
     }
 
-    private bool GetColumnsListState(ColumnVisibleItem item) => VisibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && VisibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ColumnVisibleItem item)
+    {
+        var items = _visibleColumns.Where(i => i.Visible).Select(a => a.Name).Distinct().ToHashSet();
+        return items.Contains(item.Name) && items.Count == 1;
+    }
 
     private bool ShowAddForm { get; set; }
 
@@ -757,7 +761,7 @@ public partial class Table<TItem>
     public Size EditDialogSize { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
-    /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽
+    /// 获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽，参数 <see cref="EditDialogShowMaximizeButton"/> 值为 false 时此参数才生效
     /// </summary>
     [Parameter]
     public bool EditDialogIsDraggable { get; set; }
@@ -769,7 +773,7 @@ public partial class Table<TItem>
     public FullScreenSize EditDialogFullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示，此时 <see cref="EditDialogIsDraggable"/> 参数无效
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;

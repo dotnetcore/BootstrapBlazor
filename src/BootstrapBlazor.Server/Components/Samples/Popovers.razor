@@ -66,4 +66,19 @@
     </Popover>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoversManualTitle"]"
+           Introduction="@Localizer["PopoversManualIntro"]"
+           Name="Manual">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["PopoversManualDescLI1"].Value)</li>
+            <li>@((MarkupString)Localizer["PopoversManualDescLI2"].Value)</li>
+        </ul>
+    </section>
+    <Popover Title="@Title" Content="@Content" IsHtml="true" Trigger="manual" @ref="_popover">
+        <i class="fa-solid fa-flag" style="cursor: pointer;"></i>
+    </Popover>
+    <Button Text="Trigger" OnClickWithoutRender="ToggleShow"></Button>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

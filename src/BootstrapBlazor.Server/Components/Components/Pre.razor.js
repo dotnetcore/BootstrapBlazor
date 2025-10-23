@@ -1,4 +1,4 @@
-﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getTheme, registerBootstrapBlazorModule } from "../../_content/BootstrapBlazor/modules/utility.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title, assetRoot) {
@@ -9,7 +9,7 @@ export async function init(id, title, assetRoot) {
 
     await addScript(`${assetRoot}lib/highlight/highlight.min.js`)
     await addScript(`${assetRoot}lib/highlight/cshtml-razor.min.js`)
-    await switchTheme(getPreferredTheme(), assetRoot);
+    await switchTheme(getTheme(), assetRoot);
 
     const preElement = el.querySelector('pre')
     const code = el.querySelector('pre > code')

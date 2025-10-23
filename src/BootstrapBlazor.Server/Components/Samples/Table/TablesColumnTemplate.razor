@@ -2,7 +2,7 @@
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumnTemplate> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["TablesColumnTitle"] - @NavMenuLocalizer["TableColumnTemplate"]</h3>
 
@@ -83,7 +83,7 @@
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
             <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
-            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.GiteeRepositoryUrl))</li>
+            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.Value.GiteeRepositoryUrl))</li>
         </ul>
         @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
     </section>

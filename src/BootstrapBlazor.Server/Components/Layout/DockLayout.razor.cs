@@ -27,7 +27,7 @@ public partial class DockLayout : IAsyncDisposable
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,7 +38,7 @@ public partial class DockLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule($"{WebsiteOption.CurrentValue.AssetRootPath}Components/Layout/DockLayout.razor.js");
+            Module = await JSRuntime.LoadModule($"{WebsiteOption.Value.AssetRootPath}Components/Layout/DockLayout.razor.js");
             await Module.InvokeVoidAsync("init");
         }
     }

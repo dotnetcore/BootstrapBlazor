@@ -52,7 +52,7 @@ public partial class ComponentLayout : IAsyncDisposable
     [NotNull]
     private IOptions<IconThemeOptions>? IconThemeOptions { get; set; }
 
-    private string GVPUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/badge/star.svg?theme=gvp";
+    private string GVPUrl => $"{WebsiteOption.Value.GiteeRepositoryUrl}/badge/star.svg?theme=gvp";
 
     private List<SelectedItem> IconThemes { get; } = [];
 
@@ -104,7 +104,7 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule($"{WebsiteOption.CurrentValue.AssetRootPath}Components/Layout/ComponentLayout.razor.js");
+            Module = await JSRuntime.LoadModule($"{WebsiteOption.Value.AssetRootPath}Components/Layout/ComponentLayout.razor.js");
         }
         if (Module != null)
         {

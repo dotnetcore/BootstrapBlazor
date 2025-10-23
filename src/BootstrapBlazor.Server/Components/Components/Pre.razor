@@ -1,6 +1,6 @@
 ﻿@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/Pre.razor.js")]
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-title="@CopiedText">
     <p class="loading">@LoadingText</p>

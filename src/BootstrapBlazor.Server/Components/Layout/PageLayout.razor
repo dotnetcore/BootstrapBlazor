@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <HeadContent>
-    <link href="@WebsiteOption.CurrentValue.GetAssetUrl("css/layout.css")" rel="stylesheet" />
+    <link href="@WebsiteOption.Value.GetAssetUrl("css/layout.css")" rel="stylesheet" />
 </HeadContent>
 
 <CascadingValue Value="this" IsFixed="true">
@@ -14,7 +14,7 @@
         <Header>
             <span class="ms-3 flex-fill">Bootstrap of Blazor</span>
             <Widget></Widget>
-            <Logout ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")" DisplayName="超级管理员" UserName="Admin">
+            <Logout ImageUrl="@WebsiteOption.Value.GetAssetUrl("images/Argo-C.png")" DisplayName="超级管理员" UserName="Admin">
                 <LinkTemplate>
                     <a href="#"><i class="fa-solid fa-suitcase"></i>个人中心</a>
                     <a href="#"><i class="fa-solid fa-cog"></i>设置</a>
@@ -25,7 +25,7 @@
         </Header>
         <Side>
             <div class="layout-banner">
-                <img alt="logo" class="layout-logo" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
+                <img alt="logo" class="layout-logo" src="@WebsiteOption.Value.GetAssetUrl("images/logo.png")" />
                 <div class="layout-title">
                     <span>后台管理</span>
                 </div>
@@ -36,7 +36,7 @@
         </Main>
         <Footer>
             <div class="text-center flex-fill">
-                <a class="page-layout-demo-footer-link" href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                <a class="page-layout-demo-footer-link" href="@WebsiteOption.Value.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
             </div>
         </Footer>
     </Layout>

@@ -83,6 +83,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // 限流器服务
         services.TryAddSingleton<IThrottleDispatcherFactory, DefaultThrottleDispatcherFactory>();
 
+        // 汉字拼音服务
+        services.TryAddSingleton<IPinyinService, DefaultPinyinService>();
+
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
@@ -93,6 +96,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<IMediaDevices, DefaultMediaDevices>();
         services.TryAddScoped<IVideoDevice, DefaultVideoDevice>();
         services.TryAddScoped<IAudioDevice, DefaultAudioDevice>();
+        services.TryAddScoped<INetworkMonitorService, DefaultNetowrkMonitorService>();
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();
         services.AddScoped<MaskService>();
@@ -211,7 +215,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    /// 增加第三方菜单路由与 Tab 捆绑字典配置
+    /// 配置第三方菜单路由与 Tab 标签页捆绑字典扩展方法
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
@@ -235,7 +239,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    /// IconThemeOptions 扩展配置方法
+    /// 配置 <see cref="IconThemeOptions"/> 扩展方法
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>

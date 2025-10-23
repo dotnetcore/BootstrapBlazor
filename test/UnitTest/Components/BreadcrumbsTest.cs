@@ -13,7 +13,7 @@ public class BreadcrumbsTest : BootstrapBlazorTestBase
         var DataSource = new List<BreadcrumbItem>
         {
             new("Library"),
-            new("Data")
+            new("Data", "", "cssClass")
         };
 
         var cut = Context.RenderComponent<Breadcrumb>(pb =>
@@ -21,6 +21,7 @@ public class BreadcrumbsTest : BootstrapBlazorTestBase
             pb.Add(b => b.Value, DataSource);
         });
         Assert.Contains("Library", cut.Markup);
+        Assert.Contains("class=\"breadcrumb-item cssClass\"", cut.Markup);
         Assert.DoesNotContain("href", cut.Markup);
 
         DataSource.Add(new BreadcrumbItem("Home", "https://www.blazor.zone/"));
@@ -35,5 +36,12 @@ public class BreadcrumbsTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tagok" });
         });
+        cut.Contains("tag=\"tagok\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.Value, null);
+        });
+        Assert.DoesNotContain("li", cut.Markup);
     }
 }

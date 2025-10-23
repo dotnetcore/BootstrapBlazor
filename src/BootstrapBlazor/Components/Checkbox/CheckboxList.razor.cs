@@ -38,6 +38,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .Build();
 
     private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"border-secondary", !ShowButtonBorderColor)
+        .AddClass($"border-{Color.ToDescriptionString()}", ShowButtonBorderColor)
         .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries).Contains(item.Value))
         .Build();
 
@@ -55,13 +57,19 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     public bool IsButton { get; set; }
 
     /// <summary>
+    /// 获得/设置  是否显示按钮边框颜色 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool ShowButtonBorderColor { get; set; }
+
+    /// <summary>
     /// 获得/设置 Checkbox 组件布局样式
     /// </summary>
     [Parameter]
     public string? CheckboxItemClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示边框 默认为 true
+    /// 获得/设置 非按钮模式下是否显示组件边框 默认为 true
     /// </summary>
     [Parameter]
     public bool ShowBorder { get; set; } = true;

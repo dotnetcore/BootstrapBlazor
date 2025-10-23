@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .carousel {
     --bb-carousel-slide-margin: #{$bb-carousel-slide-margin};
     --bb-carousel-slide-padding: #{$bb-carousel-slide-padding};

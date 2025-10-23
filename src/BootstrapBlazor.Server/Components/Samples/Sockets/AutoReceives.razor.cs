@@ -33,7 +33,7 @@ public partial class AutoReceives : IDisposable
         {
             options.LocalEndPoint = new IPEndPoint(IPAddress.Loopback, 0);
         });
-        _client.ReceivedCallBack += OnReceivedAsync;
+        _client.ReceivedCallback += OnReceivedAsync;
     }
 
     private async Task OnConnectAsync()
@@ -81,7 +81,7 @@ public partial class AutoReceives : IDisposable
         {
             if (_client is { IsConnected: true })
             {
-                _client.ReceivedCallBack -= OnReceivedAsync;
+                _client.ReceivedCallback -= OnReceivedAsync;
             }
         }
     }

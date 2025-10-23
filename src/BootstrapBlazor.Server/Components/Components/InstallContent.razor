@@ -1,7 +1,7 @@
 ﻿@using Microsoft.Extensions.DependencyInjection
 @inject PackageVersionService VersionManager
 @inject IStringLocalizer<InstallContent> Localizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Title</h3>
 
@@ -14,17 +14,17 @@
 <p class="code-label">1. @Localizer["P11"]</p>
 <p class="code-label">2. @Localizer["P12"]</p>
 <p class="code-label">3. @Localizer["P13"] <b>Blazor App</b> @Localizer["P14"] <b>@Localizer["P15"]</b>, @Localizer["P16"] <b>Create</b></p>
-<img alt="install" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/create-new-application.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="@WebsiteOption.Value.GetAssetUrl("images/create-new-application.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
 @ChooseTemplate
 
 <h5>@Localizer["P17"]</h5>
 <p class="code-label">1. @Localizer["P18"] <b>nuget.org</b> @Localizer["P19"] <code>BootstrapBlazor</code></p>
 <p>@Localizer["P20"] <b>Manage Nuget Packages</b></p>
 <Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
-<img alt="install" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/manage-nuget-packages-for-server-app.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="@WebsiteOption.Value.GetAssetUrl("images/manage-nuget-packages-for-server-app.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
 
 <p class="code-label">2. @Localizer["P21"]</p>
-<img alt="install" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/nuget_install.png")" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="@WebsiteOption.Value.GetAssetUrl("images/nuget_install.png")" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
 
 <p class="code-label">3. @Localizer["P22"]</p>
 <p>@Localizer["P23"]</p>
@@ -69,4 +69,4 @@
 <p class="code-label">1. @Localizer["P39"] <code>Button</code> @Localizer["P40"]</p>
 <Pre>&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P41"]" /&gt;</Pre>
 <p class="code-label">2. @Localizer["P42"] <b>Visual studio</b> @Localizer["P43"] <kbd>F5</kbd> @Localizer["P44"]</p>
-<img alt="install" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/preview.png")" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="@WebsiteOption.Value.GetAssetUrl("images/preview.png")" style="border-radius: 6px;" class="d-none d-sm-block" />

@@ -35,7 +35,7 @@ public partial class AutoReconnects : IDisposable
             options.IsAutoReconnect = true;
             options.ReconnectInterval = 5000;
         });
-        _client.ReceivedCallBack += OnReceivedAsync;
+        _client.ReceivedCallback += OnReceivedAsync;
         _client.OnConnecting = async () =>
         {
            _items.Add(new ConsoleMessageItem { Message = $"{DateTime.Now} 正在连接到 {_serverEndPoint}，请稍候..." });
@@ -93,7 +93,7 @@ public partial class AutoReconnects : IDisposable
         {
             if (_client is { IsConnected: true })
             {
-                _client.ReceivedCallBack -= OnReceivedAsync;
+                _client.ReceivedCallback -= OnReceivedAsync;
             }
         }
     }

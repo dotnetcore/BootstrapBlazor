@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .bb-previewer {
     --bb-viewer-button-bg: #{$bb-viewer-button-bg};
     --bb-viewer-border-radius: #{$bb-viewer-border-radius};

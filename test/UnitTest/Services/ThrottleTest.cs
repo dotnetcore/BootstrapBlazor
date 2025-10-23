@@ -99,30 +99,6 @@ public class ThrottleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Cancel_Ok()
-    {
-        var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate("Cancel");
-
-        var cts = new CancellationTokenSource();
-        var ex = await Assert.ThrowsAsync<OperationCanceledException>(() =>
-        {
-            dispatcher.Throttle(() =>
-            {
-                cts.Cancel();
-            }, cts.Token);
-            return Task.CompletedTask;
-        });
-        Assert.NotNull(ex);
-
-        cts = new CancellationTokenSource(100);
-        await dispatcher.ThrottleAsync(async () =>
-        {
-            await Task.Delay(300);
-        }, cts.Token);
-    }
-
-    [Fact]
     public void Clear()
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();

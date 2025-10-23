@@ -3,7 +3,7 @@
 export async function enumerateDevices() {
     let ret = null;
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !navigator.mediaDevices.enumerateDevices) {
-        console.log("enumerateDevices() not supported.");
+        console.error("enumerateDevices() not supported.");
     }
     else {
         try {

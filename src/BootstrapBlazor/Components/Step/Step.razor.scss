@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .step {
     --bb-step-border-width: #{$bb-step-border-width};
     --bb-step-item-color: #{$bb-step-item-color};

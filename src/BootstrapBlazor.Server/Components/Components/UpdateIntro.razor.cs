@@ -14,13 +14,13 @@ public partial class UpdateIntro
 {
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
     private PackageVersionService? PackageVersionService { get; set; }
 
-    private string UpdateLogUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
+    private string UpdateLogUrl => $"{WebsiteOption.Value.GiteeRepositoryUrl}/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
 
     /// <summary>
     /// <inheritdoc/>

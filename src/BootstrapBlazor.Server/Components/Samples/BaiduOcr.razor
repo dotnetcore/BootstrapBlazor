@@ -1,22 +1,29 @@
 ﻿@page "/ocr"
-@inject IBaiduOcr OcrService
-@inject IStringLocalizer<BaiduOcr> Localizer
-@inject ToastService ToastService
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
 <Tips>@Localizer["BaiduOcrDesc"]</Tips>
+<PackageTips Name="BootstrapBlazor.BaiduOcr" />
+<p><b>@Localizer["BaiduOcrIntro"]</b></p>
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep1"].Value)</p>
+<p>@((MarkupString)Localizer["BaiduOcrStep1Desc"].Value)</p>
+<Pre>{
+    "BaiduOcrOption": {
+      "AppId": "",
+      "ApiKey": "",
+      "Secret": ""
+    }
+}</Pre>
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep2"].Value)</p>
+<Pre>[Inject, NotNull]
+private IBaiduOcr? OcrService { get; set; }</Pre>
 
-    <PackageTips Name="BootstrapBlazor.BaiduOcr" />
-
-    <p><b>@Localizer["BaiduOcrIntro"]</b></p>
-<p>@((MarkupString)Localizer["BaiduOcrStep1"].Value)</p>
-<p>@((MarkupString)Localizer["BaiduOcrStep2"].Value)</p>
+<p class="code-label">@((MarkupString)Localizer["BaiduOcrStep3"].Value)</p>
 
 <DemoBlock Title="@Localizer["VatInvoiceTitle"]" Introduction="@Localizer["VatInvoiceIntro"]" Name="VatInvoice">
-    <ButtonUpload TValue="string" OnChange="@OnClickToUploadBlock" BrowserButtonText="VATInvoice" ShowUploadFileList="false" IsDisabled="IsLoading" BrowserButtonIcon="@Icon"></ButtonUpload>
+    <ButtonUpload TValue="string" OnChange="@OnClickToUploadBlock" BrowserButtonText="VATInvoice" ShowUploadFileList="false" IsDisabled="_isLoading" BrowserButtonIcon="@Icon"></ButtonUpload>
     @if (Invoice != null)
     {
         <div class="row form-inline g-3 mt-0">
@@ -128,7 +135,7 @@
                 <EditorItem @bind-Field="@context.TotalAmount" Text="金额" PlaceHolder="可为空" />
             </FieldItems>
             <Buttons>
-                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify" />
+                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify"></Button>
             </Buttons>
         </EditorForm>
     </ValidateForm>

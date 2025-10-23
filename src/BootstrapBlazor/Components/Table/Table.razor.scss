@@ -921,11 +921,12 @@ form .table .table-cell > textarea {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1rem;
+    max-height: calc(100vh - 133px);
 }
 
 .modal-dialog-table.modal-dialog-scrollable .modal-body .form-footer {
     margin: 0;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .table-wrap thead th .table-cell .table-text {
@@ -962,4 +963,8 @@ form .table .table-cell > textarea {
     50% {
         border-bottom-color: var(--bs-primary);
     }
+}
+
+.bb-sortable tr {
+    cursor: pointer;
 }

@@ -246,6 +246,11 @@ public static class ObjectExtensions
     /// <returns>An instance of the specified type with initialized properties.</returns>
     public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
+        if(typeof(TItem).IsInterface)
+        {
+            return default;
+        }
+
         var instance = Activator.CreateInstance<TItem>();
         if (isAutoInitializeModelProperty)
         {
@@ -277,7 +282,9 @@ public static class ObjectExtensions
         }
 
         // Reflection performance needs to be optimized here
-        foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
+        foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass
+            && p.PropertyType != typeof(string)
+            && p.CanWrite))
         {
             var type = propertyInfo.PropertyType;
             var value = propertyInfo.GetValue(instance, null);

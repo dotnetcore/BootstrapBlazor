@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .anchor-link {
     --bb-anchor-link-margin-left: #{$bb-anchor-link-margin-left};
     --bb-anchor-link-opacity: #{$bb-anchor-link-opacity};

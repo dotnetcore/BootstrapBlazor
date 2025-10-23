@@ -1,4 +1,6 @@
-﻿.bb-flip-clock {
+﻿@use "../../wwwroot/scss/variables" as *;
+
+.bb-flip-clock {
     --bb-flip-clock-height: #{$bb-flip-clock-height};
     --bb-flip-clock-bg: #{$bb-flip-clock-bg};
     --bb-flip-clock-font-size: #{$bb-flip-clock-font-size};

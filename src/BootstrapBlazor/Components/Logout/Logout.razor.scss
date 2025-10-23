@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .dropdown-logout {
     --bb-logout-avatar-width: #{$bb-logout-avatar-width};
     --bb-logout-avatar-height: #{$bb-logout-avatar-height};

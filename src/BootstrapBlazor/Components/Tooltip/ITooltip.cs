@@ -26,8 +26,9 @@ public interface ITooltip
     bool IsHtml { get; set; }
 
     /// <summary>
-    /// 获得/设置 触发方式 可组合 click focus hover 默认为 focus hover
+    /// 获得/设置 触发方式 可组合 click focus hover manual 默认为 focus hover
     /// </summary>
+    /// <remarks>设置 manual 时，请使用 <see cref="Tooltip"/> 组件实例方法 <see cref="Tooltip.Show(int?)"/> <see cref="Tooltip.Hide(int?)"/> <see cref="Tooltip.Toggle(int?)"/> 对弹窗状态进行控制</remarks>
     string? Trigger { get; set; }
 
     /// <summary>
@@ -39,6 +40,7 @@ public interface ITooltip
     /// <summary>
     /// 获得/设置 显示隐藏延时 默认 null
     /// </summary>
+    /// <remarks>Delay showing and hiding the tooltip (ms)—doesn’t apply to manual trigger type. If a number is supplied, delay is applied to both hide/show. Object structure is: delay: { "show": 500, "hide": 100 }.</remarks>
     string? Delay { get; set; }
 
     /// <summary>

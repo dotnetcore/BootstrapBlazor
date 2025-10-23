@@ -14,10 +14,11 @@
                     @if (button is TableToolbarButton<TItem> { IsShow: true } b)
                     {
                         <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
-                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
+                                Color="@b.Color" Icon="@b.Icon" Text="@b.Text"
                                 OnClickWithoutRender="() => OnToolbarButtonClick(b)"
                                 TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
-                                IsDisabled="GetDisabled(b)"></Button>
+                                IsAsync="@b.IsAsync" IsDisabled="GetDisabled(b)" IsKeepDisabled="@b.IsKeepDisabled"
+                                IsBlock="@b.IsBlock" IsOutline="@b.IsOutline"></Button>
                     }
                     else if (button is TableToolbarPopConfirmButton<TItem> { IsShow: true } pb)
                     {

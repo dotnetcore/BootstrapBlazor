@@ -1,0 +1,5 @@
+﻿.mask-dialog-demo {
+    background-color: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius);
+    padding: 1rem;
+}

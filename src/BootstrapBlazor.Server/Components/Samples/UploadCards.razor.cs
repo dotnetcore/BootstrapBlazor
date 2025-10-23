@@ -67,9 +67,9 @@ public partial class UploadCards : IDisposable
         // Server Side 使用
         // Web Assembly 模式下必须使用 WebApi 方式去保存文件到服务器或者数据库中
         // 生成写入文件名称
-        if (!string.IsNullOrEmpty(WebsiteOption.CurrentValue.WebRootPath))
+        if (!string.IsNullOrEmpty(WebsiteOption.Value.WebRootPath))
         {
-            var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, "images", "uploader");
+            var uploaderFolder = Path.Combine(WebsiteOption.Value.WebRootPath, "images", "uploader");
             file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
@@ -81,7 +81,7 @@ public partial class UploadCards : IDisposable
                 if (ret)
                 {
                     // 保存成功
-                    file.PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
+                    file.PrevUrl = $"{WebsiteOption.Value.AssetRootPath}images/uploader/{file.FileName}";
                 }
                 else
                 {

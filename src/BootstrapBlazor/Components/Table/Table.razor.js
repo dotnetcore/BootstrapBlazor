@@ -114,6 +114,18 @@ export function reset(id) {
     observeHeight(table)
 }
 
+export function fitAllColumnWidth(id) {
+    const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
+
+    const columns = [...table.tables[0].querySelectorAll('.col-resizer')];
+    columns.forEach(async col => {
+        await autoFitColumnWidth(table, col);
+    });
+}
+
 const observeHeight = table => {
     setBodyHeight(table);
 
@@ -617,16 +629,7 @@ const setResizeListener = table => {
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
 
-                        if (table.options.showColumnWidthTooltip) {
-                            const tip = bootstrap.Tooltip.getInstance(col);
-                            if (tip && tip._isShown()) {
-                                const inner = tip.tip.querySelector('.tooltip-inner');
-                                const tipText = getColumnTooltipTitle(table.options, colWidth + marginX);
-                                inner.innerHTML = tipText;
-                                tip._config.title = tipText;
-                                tip.update();
-                            }
-                        }
+                        resetColumnWidthTips(table, col);
 
                         const header = col.parentElement;
                         if (header.classList.contains('fixed')) {
@@ -680,13 +683,26 @@ const resizeNextFixedColumnWidth = (col, width) => {
     }
 }
 
+const resetColumnWidthTips = (table, col) => {
+    if (table.options.showColumnWidthTooltip) {
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip && tip._isShown()) {
+            const inner = tip.tip.querySelector('.tooltip-inner');
+            const tipText = getColumnTooltipTitle(table.options, col.closest('th'));
+            inner.innerHTML = tipText;
+            tip._config.title = tipText;
+            tip.update();
+        }
+    }
+}
+
 const setColumnResizingListen = (table, col) => {
     if (table.options.showColumnWidthTooltip) {
         EventHandler.on(col, 'mouseenter', e => {
             closeAllTips(table.columns, e.target);
             const th = col.closest('th');
             const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
-                title: getColumnTooltipTitle(table.options, th.offsetWidth),
+                title: getColumnTooltipTitle(table.options, th),
                 trigger: 'manual',
                 placement: 'top',
                 customClass: 'table-resizer-tips'
@@ -698,8 +714,8 @@ const setColumnResizingListen = (table, col) => {
     }
 }
 
-const getColumnTooltipTitle = (options, width) => {
-    return `${options.columnWidthTooltipPrefix}${width}px`;
+const getColumnTooltipTitle = (options, th) => {
+    return `${options.columnWidthTooltipPrefix}${th.offsetWidth}px`;
 }
 
 const indexOfCol = col => {
@@ -710,22 +726,36 @@ const indexOfCol = col => {
 
 const autoFitColumnWidth = async (table, col) => {
     const field = col.getAttribute('data-bb-field');
-    const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
 
     const index = indexOfCol(col);
     let rows = null;
     if (table.thead) {
-        rows = table.body.querySelectorAll('table > tbody > tr');
+        rows = [...table.tables[1].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
     }
     else {
-        rows = table.tables[0].querySelectorAll('table > tbody > tr');
+        rows = [...table.tables[0].tBodies[0].rows].filter(x => !x.classList.contains('is-detail'));
     }
 
     let maxWidth = 0;
-    [...rows].forEach(row => {
+    rows.forEach(row => {
         const cell = row.cells[index];
         maxWidth = Math.max(maxWidth, calcCellWidth(cell));
     });
+
+    if (table.options.fitColumnWidthIncludeHeader) {
+        const th = col.closest('th');
+        const span = th.querySelector('.table-cell');
+        const thStyle = getComputedStyle(th);
+        const margin = parseFloat(thStyle.getPropertyValue('padding-left')) + parseFloat(thStyle.getPropertyValue('padding-right'))
+        maxWidth = Math.max(maxWidth, calcCellWidth(span) + margin);
+    }
+
+    if (table.options.autoFitColumnWidthCallback !== null) {
+        const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitColumnWidthCallback, field, maxWidth);
+        if (widthValue > 0) {
+            maxWidth = widthValue;
+        }
+    }
 
     if (maxWidth > 0) {
         table.tables.forEach(table => {
@@ -742,6 +772,12 @@ const autoFitColumnWidth = async (table, col) => {
         });
 
         setTableDefaultWidth(table);
+
+        if (table.options.resizeColumnCallback) {
+            await table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, index, maxWidth)
+        }
+
+        resetColumnWidthTips(table, col);
     }
 }
 
@@ -758,8 +794,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'));
-    div.remove();
+    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
     return width;
 }
 
@@ -811,10 +846,10 @@ const setCopyColumn = table => {
             rows = table.body.querySelectorAll('table > tbody > tr')
         }
         else if (el.querySelector('.table-fixed-column')) {
-            rows = el.querySelectorAll('.table-scroll > .overflow-auto > table > tbody > tr')
+            rows = el.querySelectorAll('.table-scroll > .overflow-auto > table > tbody > tr:not(.is-detail)')
         }
         else {
-            rows = el.querySelectorAll('.table-scroll > table > tbody > tr')
+            rows = el.querySelectorAll('.table-scroll > table > tbody > tr:not(.is-detail)')
         }
 
         let content = ''

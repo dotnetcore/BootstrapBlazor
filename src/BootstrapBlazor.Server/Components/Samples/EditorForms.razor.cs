@@ -49,6 +49,7 @@ public sealed partial class EditorForms
             DateTime = new DateTime(1997, 12, 05),
             Education = EnumEducation.Middle
         };
+        Model.Hobby = Foo.GenerateHobbies(FooLocalizer).Take(3).Select(i => i.Text);
     }
 
     [NotNull]

@@ -20,3 +20,7 @@
     .db-progress ::deep .progress {
         flex: 1;
     }
+
+.progress-item:not(:last-child) {
+    margin-block-end: 1rem;
+}

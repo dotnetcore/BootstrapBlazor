@@ -23,7 +23,7 @@
                     if (ShowCloseButton)
                     {
                         <div class="multi-select-item-group">
-                            <DynamicElement TagName="span" class="multi-select-close"
+                            <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
                                             TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item)">
                                 <i class="@CloseButtonIcon"></i>
                             </DynamicElement>
@@ -60,9 +60,9 @@
             <div class="toolbar">
                 @if (ShowDefaultButtons)
                 {
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
+                    <button type="button" class="btn" @onclick="SelectAll">@SelectAllText</button>
+                    <button type="button" class="btn" @onclick="InvertSelect">@ReverseSelectText</button>
+                    <button type="button" class="btn" @onclick="Clear">@ClearText</button>
                 }
                 @ButtonTemplate
             </div>
@@ -127,7 +127,7 @@
 
 @code {
     RenderFragment<SelectedItem<TValue>> RenderRow => item =>
-    @<DynamicElement OnClick="() => ToggleRow(item)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+    @<DynamicElement OnClick="() => ToggleItem(item)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
         <div class="multi-select-item">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />

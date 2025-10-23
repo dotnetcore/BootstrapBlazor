@@ -67,7 +67,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     public Func<Task>? OnClickWithoutRender { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 按钮颜色 默认 <see cref="Color.Primary"/>
     /// </summary>
     [Parameter]
     public virtual Color Color { get; set; } = Color.Primary;
@@ -228,6 +228,26 @@ public abstract class ButtonBase : TooltipWrapperBase
             {
                 await ShowTooltip();
             }
+        }
+    }
+
+    /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task HandlerClick()
+    {
+        if (OnClickWithoutRender != null)
+        {
+            if (!IsAsync)
+            {
+                IsNotRender = true;
+            }
+            await OnClickWithoutRender();
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
         }
     }
 

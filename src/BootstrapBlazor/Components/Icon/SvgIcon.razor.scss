@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .bb-svg-icon {
     --bb-svg-icon-width: #{$bb-svg-icon-width};
     --bb-svg-icon-color: var(--bs-body-color);

@@ -3,29 +3,45 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using BootstrapBlazor.Server.Components.Samples.Table;
+
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// 
+/// CustomerFilter 组件示例代码
 /// </summary>
 public partial class CustomerFilter
 {
-    private int? Value;
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TablesFilter>? TableFilterLocalizer { get; set; }
 
-    private readonly IEnumerable<SelectedItem> _items = new SelectedItem[]
+    private int? _value;
+
+    private List<SelectedItem> _items = [];
+
+    /// <summary>
+    ///     <inheritdoc />
+    /// </summary>
+    protected override void OnInitialized()
     {
-        new() { Value = "", Text = "请选择 ..." },
-        new() { Value = "10", Text = "大于 10" },
-        new() { Value = "50", Text = "大于 50" },
-        new() { Value = "80", Text = "大于 80" }
-    };
+        base.OnInitialized();
+
+        _items =
+        [
+            new SelectedItem { Value = "", Text = TableFilterLocalizer["CustomerFilterItem1"] },
+            new SelectedItem { Value = "10", Text = TableFilterLocalizer["CustomerFilterItem2"] },
+            new SelectedItem { Value = "50", Text = TableFilterLocalizer["CustomerFilterItem3"] },
+            new SelectedItem { Value = "80", Text = TableFilterLocalizer["CustomerFilterItem4"] }
+        ];
+    }
 
     /// <summary>
     /// 重置过滤条件方法
     /// </summary>
     public override void Reset()
     {
-        Value = null;
+        _value = null;
         StateHasChanged();
     }
 
@@ -36,12 +52,12 @@ public partial class CustomerFilter
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();
-        if (Value != null)
+        if (_value != null)
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
-                FieldValue = Value.Value,
+                FieldValue = _value.Value,
                 FilterAction = FilterAction.GreaterThan
             });
         }

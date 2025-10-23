@@ -33,15 +33,30 @@
 
 - Argo Zhang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5004174)
 - Alex Chow [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005078)
-- Guohao Wang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005089)
 - Xiang Ju [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005108)
+- Guohao Wang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005089) (2023-2025)
 
-## 生态伙伴
+## 生态伙伴 WTM
 WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开发效率"。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)
 
 <a href="https://wtmdoc.walkingtec.cn" target="_blank"><img src="http://images.gitee.com/uploads/images/2021/0718/194451_5b6cff04_554725.png" width="100px" /></a>
 
 WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开发效率"。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)
+
+## 生态伙伴 ThingsGateway
+ThingsGateway 边缘网关，致力于打造“高性能、插件扩展、易集成”的工业物联网网关解决方案。
+
+<a href="https://thingsgateway.cn" target="_blank"><img src="https://foruda.gitee.com/images/1752651511062082157/c6a923f8_554725.png" width="100px" /></a>
+
+ThingsGateway 将设备接入、数据上传等功能模块化，降低工业协议开发门槛，自动处理线程调度与数据缓存，极大提升开发效率与系统稳定性。
+它不仅是一个网关框架，更是构建数字化工厂、边缘智能系统的核心工具！
+ThingsGateway 已集成 Bootstrap Blazor 实现配置管理界面，轻松构建跨平台的边缘网关管理系统 [传送门](https://thingsgateway.cn)
+
+## 生态伙伴 AtomUI
+
+<a href="https://qinware.com/" target="_blank"><img src="https://gitee.com/Longbow/images/raw/master/atomui/atomui-red.svg" width="100px" /></a>
+
+AtomUI 是基于 .NET 的 Ant Design 实现，致力于将优秀高效的设计语言和控件体验带到 Avalonia/.NET 跨平台桌面软件研发领域，最大限度释放研发工程师的开发效率， 设计支持平台：Windows、macOS 和 Linux。
 
 ## 开发环境搭建
 1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)

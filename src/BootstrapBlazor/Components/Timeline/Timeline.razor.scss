@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .timeline {
     --bb-timeline-item-padding: #{$bb-timeline-item-padding};
     --bb-timeline-line-width: #{$bb-timeline-line-width};

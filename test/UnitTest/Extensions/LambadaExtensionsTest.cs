@@ -244,6 +244,10 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = "test", FilterAction = FilterAction.Contains };
         var invoker = filter.GetFilterLambda<Foo>().Compile();
         Assert.True(invoker.Invoke(new Foo() { Name = "1test1" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "1Test1" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "1Test123" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "Test" }));
+        Assert.False(invoker.Invoke(new Foo() { Name = "Test2" }));
     }
 
     [Fact]

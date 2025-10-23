@@ -1,7 +1,9 @@
 ﻿@inject ICacheManager Cache
 @inject IConnectionService ConnectionService
+@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Components/FooterCounter.razor.js")]
 
-<div class="d-none d-sm-block ms-2">Run @Runtime</div>
+<div id="@Id" class="d-none d-sm-block ms-2" style="width: 110px;">Run @Runtime</div>
 @if (_options.Enable)
 {
     <div class="footer-online ms-2">

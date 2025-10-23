@@ -1,0 +1,24 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits IdComponentBase
+
+<Popover Title="@Title" Trigger="@Trigger" Placement="@PopoverPlacement">
+    <ChildContent>
+        <span @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString"></span>
+    </ChildContent>
+    <Template>
+        <div class="bb-nt-main">
+            <div class="bb-nt-item">
+                <span>NetworkType：</span>
+                <div>@_state.NetworkType</div>
+            </div>
+            <div class="bb-nt-item">
+                <span>Downlink：</span>
+                <div>@_state.Downlink Mbps</div>
+            </div>
+            <div class="bb-nt-item">
+                <span>RTT：</span>
+                <div>@_state.RTT ms</div>
+            </div>
+        </div>
+    </Template>
+</Popover>

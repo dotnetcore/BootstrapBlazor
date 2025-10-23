@@ -1,3 +1,5 @@
+﻿@use "../../wwwroot/scss/variables" as *;
+
 .timer {
     --bb-timer-alert-font-size: #{$bb-timer-alert-font-size};
     --bb-timer-alert-icon-margin-right: #{$bb-timer-alert-icon-margin-right};

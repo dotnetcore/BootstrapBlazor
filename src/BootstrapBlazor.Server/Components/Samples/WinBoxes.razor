@@ -1,7 +1,7 @@
 ﻿@page "/win-box"
 @inject IStringLocalizer<WinBoxes> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["WinBoxTitle"]</h3>
 <h4>@Localizer["WinBoxDescription"]</h4>
@@ -57,7 +57,7 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
 
 <GroupBox Title="设置图标" class="mb-3">
     <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Icon</code> 设置</p>
-    <Pre>new WinBoxOption() { Icon = "@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")" }</Pre>
+    <Pre>new WinBoxOption() { Icon = "@WebsiteOption.Value.GetAssetUrl("images/Argo-C.png")" }</Pre>
 
     <p class="code-label">通过服务方法 <code>WinBoxService</code> 实例方法</p>
     <Pre>[Inject]
@@ -67,7 +67,7 @@ private WinBoxService? WinBoxService { get; set; }
 private async Task SetIcon()
 {
     // 提前保持弹窗 WinBoxOption 实例
-    option.Icon = "@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")";
+    option.Icon = "@WebsiteOption.Value.GetAssetUrl("images/Argo-C.png")";
     await WinBoxService.setIcon(option.Id);
 }</Pre>
 </GroupBox>

@@ -59,6 +59,7 @@ public partial class Bar
             ds.Options.Title = "Bar Histogram";
         }
 
+        ds.Options.ShowDataLabel = true;
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = stacked;
@@ -66,7 +67,7 @@ public partial class Bar
         ds.Labels = Enumerable.Range(1, _barDataCount).Select(i => i.ToString());
         for (var index = 0; index < _barDatasetCount; index++)
         {
-            ds.Data.Add(new ChartDataset() { Label = $"Set {index}", Data = Enumerable.Range(1, _barDataCount).Select(i => Random.Shared.Next(20, 37)).Cast<object>() });
+            ds.Data.Add(new ChartDataset() { Label = $"Set {index}", Data = Enumerable.Range(1, _barDataCount).Select(i => Random.Shared.Next(20, 37) / 10.0f).Cast<object>() });
         }
 
         return Task.FromResult(ds);

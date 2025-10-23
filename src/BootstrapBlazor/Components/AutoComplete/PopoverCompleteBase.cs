@@ -92,6 +92,26 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public RenderFragment<TValue>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// <see cref="BootstrapBlazorOptions"/> 配置类实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
     /// </summary>
     protected string? SkipEscString => SkipEsc ? "true" : null;
@@ -100,11 +120,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// 获得 是否跳过 Enter 按键字符串
     /// </summary>
     protected string? SkipEnterString => SkipEnter ? "true" : null;
-
-    /// <summary>
-    /// 获得 是否跳过 Blur 处理字符串
-    /// </summary>
-    protected string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
 
     /// <summary>
     /// 获得 滚动行为字符串
@@ -155,14 +170,17 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     {
         base.OnParametersSet();
 
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
+
         Offset ??= "[0, 6]";
+        IsPopover |= BootstrapBlazorOptions.Value.IsPopover;
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 触发 OnBlurAsync 回调前回调方法
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+    protected virtual Task OnBeforeBlurAsync() => Task.CompletedTask;
 
     /// <summary>
     /// 触发 OnBlur 回调方法 由 Javascript 触发
@@ -170,6 +188,8 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     [JSInvokable]
     public async Task TriggerBlur()
     {
+        await OnBeforeBlurAsync();
+
         if (OnBlurAsync != null)
         {
             await OnBlurAsync(Value);

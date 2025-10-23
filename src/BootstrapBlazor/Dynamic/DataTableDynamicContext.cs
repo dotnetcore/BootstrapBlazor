@@ -164,7 +164,7 @@ public class DataTableDynamicContext : DynamicObjectContext
         var ret = new List<ITableColumn>();
         foreach (DataColumn col in DataTable.Columns)
         {
-            ret.Add(new InternalTableColumn(col.ColumnName, col.DataType, col.Caption));
+            ret.Add(new InternalTableColumn(col.ColumnName, col.DataType));
         }
         return ret;
     }
