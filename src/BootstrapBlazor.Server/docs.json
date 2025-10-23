@@ -325,9 +325,9 @@
     "global-option": "BV17T421k7U1"
   },
   "link": {
-    "AntDesign": "http://www.antblazor.com/",
-    "Pear Admin": "http://www.pearadmin.com/",
-    "SAPHP": "https://www.swiftadmin.net/",
-    "Veterinary Hospital": "http://animal.jucun.zone/"
+    "AntDesign": "http://www.antblazor.com/?from=blazor.zone",
+    "AtomUI": "https://qinware.com/?from=blazor.zone",
+    "SAPHP": "https://www.swiftadmin.net/?from=blazor.zone",
+    "Veterinary Hospital": "http://animal.jucun.zone/?from=blazor.zone"
   }
 }
