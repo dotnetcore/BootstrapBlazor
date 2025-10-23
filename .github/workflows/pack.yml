@@ -6,7 +6,6 @@ on:
       - pack
       - release
       - hotfix
-      - refactor-action
 
 jobs:
   pack:
