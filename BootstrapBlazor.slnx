@@ -9,6 +9,7 @@
   <Folder Name="/configuration/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
     <File Path="exclusion.dic" />
     <File Path="Framework.props" />
     <File Path="Version.props" />
