@@ -216,6 +216,26 @@ internal class CacheManager : ICacheManager
     }
 #endif
 
+    #region Assembly
+    /// <summary>
+    /// 获得唯一类型名称方法
+    /// </summary>
+    /// <param name="assembly"></param>
+    /// <returns></returns>
+    public static string GetUniqueName(Assembly assembly)
+    {
+        //key不拼接，作为当前静态实例唯一标识，因为GetUniqueName方法会被频繁调用
+        return Instance.GetOrCreate(assembly, _ =>
+        {
+            return assembly.IsCollectible
+                   ? $"{assembly.GetName().Name}-{assembly.GetHashCode()}"
+                   : $"{assembly.GetName().Name}";
+        }
+        );
+    }
+
+    #endregion
+
     #region Count
     public static int ElementCount(object? value)
     {
