@@ -94,6 +94,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.IsDisplay, true);
+            pb.Add(a => a.IsShowDisplayTooltip, true);
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.FieldItems, GenerateEditorItems(foo));
         });
