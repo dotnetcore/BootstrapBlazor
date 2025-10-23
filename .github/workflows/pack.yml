@@ -6,6 +6,7 @@ on:
       - pack
       - release
       - hotfix
+      - refactor-action
 
 jobs:
   NET9:
@@ -20,7 +21,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Cache NuGet packages
       uses: actions/cache@v4
@@ -46,7 +47,7 @@ jobs:
 
       run: |
         dotnet build src/BootstrapBlazor
-        dotnet pack src/BootstrapBlazor -c Release -o publish
+        dotnet pack src/BootstrapBlazor -c Release -o publish -p:VisualStudioVersion='17.0'
         dotnet nuget push publish/BootstrapBlazor.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
 
   NET10:
