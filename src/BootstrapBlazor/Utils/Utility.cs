@@ -391,10 +391,11 @@ public static class Utility
     /// <summary>
     /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
     /// </summary>
-    /// <param name="builder"></param>
-    /// <param name="item"></param>
-    /// <param name="model"></param>
-    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model)
+    /// <param name="builder"><see cref="RenderTreeBuilder"/> 实例</param>
+    /// <param name="item"><see cref="IEditorItem"/> 实例</param>
+    /// <param name="model">当前模型对象实例</param>
+    /// <param name="showTooltip">如果是 <see cref="Display{TValue}"/> 组件时是否显示提示栏 默认 false</param>
+    public static void CreateDisplayByFieldType(this RenderTreeBuilder builder, IEditorItem item, object model, bool showTooltip = false)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -403,60 +404,80 @@ public static class Utility
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
         if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
         {
-            builder.OpenComponent<Switch>(0);
-            builder.AddAttribute(10, nameof(Switch.Value), fieldValue);
-            builder.AddAttribute(20, nameof(Switch.IsDisabled), true);
-            builder.AddAttribute(30, nameof(Switch.DisplayText), displayName);
-            builder.AddAttribute(40, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
-            if (item is ITableColumn col)
-            {
-                builder.AddAttribute(50, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(60, item.ComponentParameters);
+            builder.RenderSwitch(item, fieldValue, displayName);
         }
         else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
-            builder.OpenComponent(0, typeof(Textarea));
-            builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
-            builder.AddAttribute(20, nameof(Textarea.Value), fieldValue);
-            builder.AddAttribute(30, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
-            builder.AddAttribute(40, "readonly", true);
-            if (item.Rows > 0)
-            {
-                builder.AddAttribute(50, "rows", item.Rows);
-            }
-            if (item is ITableColumn col)
-            {
-                builder.AddAttribute(60, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(70, item.ComponentParameters);
+            builder.RenderTextarea(item, fieldValue, displayName);
         }
         else
         {
-            builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(10, nameof(Display<>.DisplayText), displayName);
-            builder.AddAttribute(20, nameof(Display<>.Value), fieldValue);
-            builder.AddAttribute(30, nameof(Display<>.Lookup), item.Lookup);
-            builder.AddAttribute(30, nameof(Display<>.LookupService), item.LookupService);
-            builder.AddAttribute(40, nameof(Display<>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(50, nameof(Display<>.LookupServiceData), item.LookupServiceData);
-            builder.AddAttribute(60, nameof(Display<>.LookupStringComparison), item.LookupStringComparison);
-            builder.AddAttribute(65, nameof(Display<>.ShowLabelTooltip), item.ShowLabelTooltip);
-            if (item is ITableColumn col)
-            {
-                if (col.Formatter != null)
-                {
-                    builder.AddAttribute(70, nameof(Display<>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
-                }
-                else if (!string.IsNullOrEmpty(col.FormatString))
-                {
-                    builder.AddAttribute(80, nameof(Display<>.FormatString), col.FormatString);
-                }
-                builder.AddAttribute(90, "class", col.CssClass);
-            }
-            builder.AddMultipleAttributes(100, item.ComponentParameters);
+            builder.RenderDisplay(item, fieldType, fieldValue, displayName, showTooltip);
         }
+    }
 
+    private static void RenderTextarea(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
+    {
+        builder.OpenComponent(0, typeof(Textarea));
+        builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
+        builder.AddAttribute(20, nameof(Textarea.Value), fieldValue);
+        builder.AddAttribute(30, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
+        builder.AddAttribute(40, "readonly", true);
+
+        if (item.Rows > 0)
+        {
+            builder.AddAttribute(50, "rows", item.Rows);
+        }
+        if (item is ITableColumn col)
+        {
+            builder.AddAttribute(60, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(70, item.ComponentParameters);
+        builder.CloseComponent();
+    }
+
+    private static void RenderSwitch(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
+    {
+        builder.OpenComponent<Switch>(0);
+        builder.AddAttribute(10, nameof(Switch.Value), fieldValue);
+        builder.AddAttribute(20, nameof(Switch.IsDisabled), true);
+        builder.AddAttribute(30, nameof(Switch.DisplayText), displayName);
+        builder.AddAttribute(40, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+
+        if (item is ITableColumn col)
+        {
+            builder.AddAttribute(50, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(60, item.ComponentParameters);
+        builder.CloseComponent();
+    }
+
+    private static void RenderDisplay(this RenderTreeBuilder builder, IEditorItem item, Type fieldType, object? fieldValue, string? displayName, bool showTooltip)
+    {
+        builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
+        builder.AddAttribute(10, nameof(Display<>.DisplayText), displayName);
+        builder.AddAttribute(20, nameof(Display<>.Value), fieldValue);
+        builder.AddAttribute(30, nameof(Display<>.Lookup), item.Lookup);
+        builder.AddAttribute(30, nameof(Display<>.LookupService), item.LookupService);
+        builder.AddAttribute(40, nameof(Display<>.LookupServiceKey), item.LookupServiceKey);
+        builder.AddAttribute(50, nameof(Display<>.LookupServiceData), item.LookupServiceData);
+        builder.AddAttribute(60, nameof(Display<>.LookupStringComparison), item.LookupStringComparison);
+        builder.AddAttribute(65, nameof(Display<>.ShowLabelTooltip), item.ShowLabelTooltip);
+        builder.AddAttribute(66, nameof(Display<>.ShowTooltip), showTooltip);
+
+        if (item is ITableColumn col)
+        {
+            if (col.Formatter != null)
+            {
+                builder.AddAttribute(70, nameof(Display<>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+            }
+            else if (!string.IsNullOrEmpty(col.FormatString))
+            {
+                builder.AddAttribute(80, nameof(Display<>.FormatString), col.FormatString);
+            }
+            builder.AddAttribute(90, "class", col.CssClass);
+        }
+        builder.AddMultipleAttributes(100, item.ComponentParameters);
         builder.CloseComponent();
     }
 
