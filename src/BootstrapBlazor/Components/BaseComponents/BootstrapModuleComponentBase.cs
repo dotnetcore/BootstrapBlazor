@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Reflection;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -82,13 +80,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
-        if (inherited)
+        if (CacheManager.GetAttribute<JSModuleNotInheritedAttribute>(type) == null)
         {
-            var attributes = type.GetCustomAttributes<JSModuleAutoLoaderAttribute>();
-            if (attributes.Any())
+            var attr = CacheManager.GetAttribute<JSModuleAutoLoaderAttribute>(type);
+            if (attr != null)
             {
-                var attr = attributes.First();
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
 
