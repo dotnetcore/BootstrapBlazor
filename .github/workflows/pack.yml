@@ -6,7 +6,6 @@ on:
       - pack
       - release
       - hotfix
-      - action
 
 jobs:
   NET9:
