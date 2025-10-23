@@ -458,7 +458,7 @@ public static class Utility
         builder.AddAttribute(10, nameof(Display<>.DisplayText), displayName);
         builder.AddAttribute(20, nameof(Display<>.Value), fieldValue);
         builder.AddAttribute(30, nameof(Display<>.Lookup), item.Lookup);
-        builder.AddAttribute(30, nameof(Display<>.LookupService), item.LookupService);
+        builder.AddAttribute(35, nameof(Display<>.LookupService), item.LookupService);
         builder.AddAttribute(40, nameof(Display<>.LookupServiceKey), item.LookupServiceKey);
         builder.AddAttribute(50, nameof(Display<>.LookupServiceData), item.LookupServiceData);
         builder.AddAttribute(60, nameof(Display<>.LookupStringComparison), item.LookupStringComparison);
