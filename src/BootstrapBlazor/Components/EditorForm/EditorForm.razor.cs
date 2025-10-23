@@ -115,6 +115,12 @@ public partial class EditorForm<TModel> : IShowLabel
     public bool IsDisplay { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Display 组件的 Tooltip 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsShowDisplayTooltip { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否使用 SearchTemplate 默认 false 使用 EditTemplate 模板
     /// </summary>
     /// <remarks>多用于表格组件传递 <see cref="ITableColumn"/> 集合给参数 <see cref="Items"/> 时</remarks>
@@ -280,7 +286,7 @@ public partial class EditorForm<TModel> : IShowLabel
     {
         if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
         {
-            builder.CreateDisplayByFieldType(item, Model);
+            builder.CreateDisplayByFieldType(item, Model, IsShowDisplayTooltip);
         }
         else
         {
