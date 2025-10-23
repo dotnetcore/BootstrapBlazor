@@ -47,11 +47,11 @@
                     }
                     @if (ShowDefaultButtons)
                     {
-                        @if (ShowAddButton && ScrollMode == ScrollMode.None)
+                        @if (ShowAddButton)
                         {
                             <TableToolbarButton TItem="TItem" Color="Color.Success" OnClick="AddAsync" Icon="@AddButtonIcon" Text="@AddButtonText" IsDisabled="GetAddButtonStatus()" />
                         }
-                        @if (!IsExcel && ShowEditButton && ScrollMode == ScrollMode.None)
+                        @if (!IsExcel && ShowEditButton)
                         {
                             <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="@EditButtonIcon" Text="@EditButtonText" IsEnableWhenSelectedOneRow="true" />
                         }
