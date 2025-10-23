@@ -310,6 +310,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["HostMode"],
+                    Url = "host-model"
+                },
+                new()
+                {
                     Text = Localizer["Globalization"],
                     Url = "globalization"
                 },
