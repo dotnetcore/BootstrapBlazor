@@ -8,7 +8,48 @@ on:
       - hotfix
 
 jobs:
-  pack:
+  NET9:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{runner.os}}-nuget-bb-${{hashFiles('**/*.csproj')}}
+        restore-keys: |
+          ${{runner.os}}-nuget-bb-
+
+    - name: Restore dependencies
+      run: dotnet restore src/BootstrapBlazor
+
+    - name: NuGet login
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
+    - name: Publish to Nuget
+      env:
+        NUGET_API_KEY: ${{steps.login.outputs.NUGET_API_KEY}}
+        Bundle: True
+
+      run: |
+        dotnet build src/BootstrapBlazor
+        dotnet pack src/BootstrapBlazor -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+
+  NET10:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
