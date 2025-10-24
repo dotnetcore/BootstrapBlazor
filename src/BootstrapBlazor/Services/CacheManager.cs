@@ -216,22 +216,6 @@ internal class CacheManager : ICacheManager
     }
 #endif
 
-    #region Attribute
-    /// <summary>
-    /// 获得类型特性标签方法
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public static Attr? GetAttribute<Attr>(Type type) where Attr : Attribute
-    {
-        return Instance.GetOrCreate((type, typeof(Attr)), _ =>
-        {
-            return type.GetCustomAttribute<Attr>();
-        });
-    }
-
-    #endregion
-
     #region Assembly
     /// <summary>
     /// 获得唯一类型名称方法

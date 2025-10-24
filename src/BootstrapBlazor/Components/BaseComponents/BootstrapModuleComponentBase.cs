@@ -80,11 +80,13 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected virtual void OnLoadJSModule()
     {
         var type = this.GetType();
-        if (CacheManager.GetAttribute<JSModuleNotInheritedAttribute>(type) == null)
+        var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
+        if (inherited)
         {
-            var attr = CacheManager.GetAttribute<JSModuleAutoLoaderAttribute>(type);
-            if (attr != null)
+            var attributes = type.GetCustomAttributes<JSModuleAutoLoaderAttribute>();
+            if (attributes.Any())
             {
+                var attr = attributes.First();
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
 
