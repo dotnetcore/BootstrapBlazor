@@ -388,6 +388,25 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.TimeFormat, null);
         });
     }
+
+    [Fact]
+    public void IsButton_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.IsButton, true);
+            pb.Add(a => a.ButtonColor, Color.Danger);
+            pb.Add(a => a.PickerButtonText, "Pick DateTime");
+        });
+        cut.Contains("btn dropdown-toggle btn-danger");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsButton, false);
+        });
+        cut.DoesNotContain("btn dropdown-toggle btn-danger");
+        cut.Contains("dropdown-toggle form-control datetime-picker-input");
+    }
     #endregion
 
     #region DatePicker

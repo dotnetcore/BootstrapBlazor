@@ -31,6 +31,10 @@ public partial class DateTimePicker<TValue>
         .AddClass(ValidCss)
         .Build();
 
+    private string? ButtonClassString => CssBuilder.Default("btn dropdown-toggle")
+        .AddClass($"btn-{ButtonColor.ToDescriptionString()}", ButtonColor != Color.None)
+        .Build();
+
     /// <summary>
     /// 获得 组件小图标样式
     /// </summary>
@@ -53,6 +57,24 @@ public partial class DateTimePicker<TValue>
     /// 获得/设置 是否允许为空
     /// </summary>
     private bool AllowNull { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选择按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? PickerButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选择按钮颜色 默认 <see cref="Color.Primary"/>
+    /// </summary>
+    [Parameter]
+    public Color ButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 null
@@ -292,6 +314,7 @@ public partial class DateTimePicker<TValue>
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
         TimeFormat ??= Localizer[nameof(TimeFormat)];
+        PickerButtonText ??= Localizer[nameof(PickerButtonText)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
@@ -370,6 +393,29 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     /// <returns></returns>
     protected override bool ShouldRender() => _render;
+
+    private bool _isButton = false;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // 首次渲染时同步 IsButton 参数值
+            _isButton = IsButton;
+        }
+
+        if (_isButton != IsButton)
+        {
+            _isButton = IsButton;
+            await InvokeVoidAsync("reset", Id);
+        }
+    }
 
     /// <summary>
     /// 格式化数值方法
