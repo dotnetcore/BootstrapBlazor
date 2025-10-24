@@ -5,7 +5,15 @@
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
-    <DateTimePicker ViewMode="DatePickerViewMode.DateTime" TimeFormat="hh\:mm"
+	<section ignore class="row g-3 mb-3">
+		<div class="col-12 col-sm-6">
+			<BootstrapInputGroup>
+				<BootstrapInputGroupLabel DisplayText="IsButton"></BootstrapInputGroupLabel>
+				<Switch @bind-Value="_isButton"></Switch>
+			</BootstrapInputGroup>
+		</div>
+	</section>
+    <DateTimePicker ViewMode="DatePickerViewMode.DateTime" TimeFormat="hh\:mm" IsButton="_isButton"
                     Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
@@ -16,17 +24,29 @@
     <section ignore>
         <GroupBox Title="@Localizer["Feature"]">
             <div class="row g-3 form-inline text-end">
-                <div class="col-12 col-sm-3">
-                    <Switch DisplayText="@Localizer["FeatureShowLunar"]" ShowLabel="true" @bind-Value="_showLunar" />
+				<div class="col-12 col-sm-6 col-lg-3">
+					<BootstrapInputGroup>
+						<BootstrapInputGroupLabel DisplayText="@Localizer["FeatureShowLunar"]"></BootstrapInputGroupLabel>
+						<Switch @bind-Value="_showLunar" />
+					</BootstrapInputGroup>
                 </div>
-                <div class="col-12 col-sm-3">
-                    <Switch DisplayText="@Localizer["FeatureShowSolarTerm"]" ShowLabel="true" @bind-Value="_showSolarTerm" />
+				<div class="col-12 col-sm-6 col-lg-3">
+					<BootstrapInputGroup>
+						<BootstrapInputGroupLabel DisplayText="@Localizer["FeatureShowSolarTerm"]"></BootstrapInputGroupLabel>
+						<Switch @bind-Value="_showSolarTerm" />
+					</BootstrapInputGroup>
                 </div>
-                <div class="col-12 col-sm-3">
-                    <Switch DisplayText="@Localizer["FeatureShowFestivals"]" ShowLabel="true" @bind-Value="_showFestivals" />
+				<div class="col-12 col-sm-6 col-lg-3">
+					<BootstrapInputGroup>
+						<BootstrapInputGroupLabel DisplayText="@Localizer["FeatureShowFestivals"]"></BootstrapInputGroupLabel>
+						<Switch @bind-Value="_showFestivals" />
+					</BootstrapInputGroup>
                 </div>
-                <div class="col-12 col-sm-3">
-                    <Switch DisplayText="@Localizer["FeatureShowHolidays"]" ShowLabel="true" @bind-Value="_showHolidays" />
+                <div class="col-12 col-sm-6 col-lg-3">
+					<BootstrapInputGroup>
+						<BootstrapInputGroupLabel DisplayText="@Localizer["FeatureShowHolidays"]"></BootstrapInputGroupLabel>
+						<Switch @bind-Value="_showHolidays" />
+					</BootstrapInputGroup>      
                 </div>
             </div>
         </GroupBox>

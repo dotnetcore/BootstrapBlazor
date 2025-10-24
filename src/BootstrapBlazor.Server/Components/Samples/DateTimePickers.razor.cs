@@ -95,6 +95,7 @@ public sealed partial class DateTimePickers
     private bool _disableToday = true;
     private DateTime? _disabledNullValue = DateTime.Today;
     private DateTime _disabledValue = DateTime.Today;
+    private bool _isButton = false;
 
     private async Task<List<DateTime>> OnGetDisabledDaysCallback(DateTime start, DateTime end)
     {
