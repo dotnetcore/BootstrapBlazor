@@ -246,8 +246,7 @@ internal class CacheManager : ICacheManager
             return assembly.IsCollectible
                    ? $"{assembly.GetName().Name}-{assembly.GetHashCode()}"
                    : $"{assembly.GetName().Name}";
-        }
-        );
+        });
     }
 
     #endregion

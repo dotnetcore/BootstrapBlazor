@@ -13,6 +13,13 @@ public class AssemblyExtensionsTest
     [Fact]
     public void GetUniqueName_Ok()
     {
+        var sc = new ServiceCollection();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var cacheManager = provider.GetRequiredService<ICacheManager>();
+        cacheManager.GetStartTime();
+
         var type = Type.GetType("BootstrapBlazor.Components.AssemblyExtensions, BootstrapBlazor");
         Assert.NotNull(type);
 

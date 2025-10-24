@@ -18,10 +18,10 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InvokeAsync_Ok()
+    public async Task InvokeAsync_Ok()
     {
         var cut = Context.RenderComponent<MockObjectReferenceComponent>();
-        cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
+        await cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
         Assert.True(cut.Instance.InvokeRunner);
     }
 
@@ -42,18 +42,17 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         }
     }
 
-    [JSModuleAutoLoader("mock.js", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
     class MockObjectReferenceComponent : Select<string>
     {
         public bool InvokeRunner { get; set; }
 
         public async Task InvokeAsyncTest()
         {
-            await base.InvokeAsync<string>(Id);
-            await base.InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
+            await InvokeAsync<string>(Id);
+            await InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
 
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
-            await base.InvokeAsync<string>(Id, cancellationTokenSource.Token);
+            await InvokeAsync<string>(Id, cancellationTokenSource.Token);
 
             InvokeRunner = true;
         }
