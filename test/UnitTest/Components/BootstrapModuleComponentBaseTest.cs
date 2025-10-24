@@ -32,11 +32,11 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
 
         public async Task InvokeVoidAsyncTest()
         {
-            await base.InvokeVoidAsync(Id);
-            await base.InvokeVoidAsync(Id, TimeSpan.FromMinutes(1));
+            await InvokeVoidAsync(Id);
+            await InvokeVoidAsync(Id, TimeSpan.FromMinutes(1));
 
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
-            await base.InvokeVoidAsync(Id, cancellationTokenSource.Token);
+            await InvokeVoidAsync(Id, cancellationTokenSource.Token);
 
             InvokeVoidRunner = true;
         }
@@ -49,12 +49,11 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
 
         public async Task InvokeAsyncTest()
         {
-            // base 关键字不能省略
-            await base.InvokeAsync<string>(Id);
-            await base.InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
+            await InvokeAsync<string>(Id);
+            await InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
 
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
-            await base.InvokeAsync<string>(Id, cancellationTokenSource.Token);
+            await InvokeAsync<string>(Id, cancellationTokenSource.Token);
 
             InvokeRunner = true;
         }
