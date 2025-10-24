@@ -13,13 +13,6 @@ public class ConnectionHubTest
     [Fact]
     public async Task Callback_Ok()
     {
-        var sc = new ServiceCollection();
-        sc.AddBootstrapBlazor();
-
-        var provider = sc.BuildServiceProvider();
-        var cacheManager = provider.GetRequiredService<ICacheManager>();
-        cacheManager.GetStartTime();
-
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         context.Services.AddBootstrapBlazor();
