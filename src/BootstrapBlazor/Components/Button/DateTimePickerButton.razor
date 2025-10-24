@@ -1,0 +1,20 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits PopoverDropdownBase<TValue>
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js", JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel">
+    <button type="button" class="@ButtonClassString" disabled="@Disabled"
+            data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString"
+            data-bs-custom-class="@CustomClassString">@Text</button>
+    <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
+                    ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
+                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
+                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                    OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
+                    AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!"
+                    PickTimeMode="PickTimeMode" OnGetDisabledDaysCallback="OnGetDisabledDaysCallback!"
+                    EnableDisabledDaysCache="EnableDisabledDaysCache">
+        @ChildContent
+    </DatePickerBody>
+</div>
