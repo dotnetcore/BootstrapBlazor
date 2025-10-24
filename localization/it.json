@@ -45,6 +45,7 @@
     "AutoScrollText": "Scorrimento automatico"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "Seleziona",
     "DatePlaceHolder": "Seleziona la data",
     "TimePlaceHolder": "Seleziona l'ora",
     "DateTimePlaceHolderText": "Per favore seleziona ...",

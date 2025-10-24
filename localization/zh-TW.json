@@ -34,6 +34,7 @@
     "AutoScrollText": "自動滾屏"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "選擇",
     "DatePlaceHolder": "選擇日期",
     "TimePlaceHolder": "選擇時間",
     "DateTimePlaceHolderText": "請選擇日期時間",

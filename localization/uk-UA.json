@@ -34,6 +34,7 @@
     "AutoScrollText": "Автопрокрутка"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "Виберіть",
     "DatePlaceHolder": "Виберіть дату",
     "TimePlaceHolder": "Виберіть час",
     "DateTimePlaceHolderText": "Будь ласка, виберіть ...",
