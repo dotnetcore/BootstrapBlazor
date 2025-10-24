@@ -34,6 +34,7 @@
     "AutoScrollText": "เลื่อนอัตโนมัติ"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "เลือก",
     "DatePlaceHolder": "เลือกวันที่",
     "TimePlaceHolder": "เลือกเวลา",
     "DateTimePlaceHolderText": "กรุณาเลือก ...",

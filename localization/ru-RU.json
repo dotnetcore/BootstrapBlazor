@@ -1,4 +1,4 @@
-{
+﻿{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Нет данных",
     "PlaceHolder": "Пожалуйста, введите"
@@ -34,6 +34,7 @@
     "AutoScrollText": "Автопрокрутка"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "Выберите",
     "DatePlaceHolder": "Выберите дату",
     "TimePlaceHolder": "Выберите время",
     "DateTimePlaceHolderText": "Пожалуйста, выберите ...",
