@@ -69,7 +69,7 @@
     <PackageReference Include="BootstrapBlazor.Region" Version="9.0.8-beta01" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.3" />
+    <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.7" />
