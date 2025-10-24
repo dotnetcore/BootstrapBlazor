@@ -8,12 +8,21 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel">
-    <input readonly="@ReadonlyString" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString"
-           disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString"
-           data-bs-custom-class="@CustomClassString" @onblur="OnBlur" />
-    @if (ShowIcon)
+    @if(IsButton)
     {
-        <i class="@DateTimePickerIconClassString"></i>
+        <button type="button" class="@ButtonClassString" disabled="@Disabled"
+                data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString"
+                data-bs-custom-class="@CustomClassString">@PickerButtonText</button>
+    }
+    else
+    {
+        <input readonly="@ReadonlyString" class="@InputClassName" @bind="@CurrentValueAsString" placeholder="@PlaceholderString"
+               disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString"
+               data-bs-custom-class="@CustomClassString" @onblur="OnBlur" />
+        @if (ShowIcon)
+        {
+            <i class="@DateTimePickerIconClassString"></i>
+        }
     }
     <DatePickerBody @bind-Value="SelectedValue" @ref="_pickerBody" FirstDayOfWeek="FirstDayOfWeek"
                     ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
