@@ -42,17 +42,19 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         }
     }
 
+    [JSModuleAutoLoader("mock.js", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
     class MockObjectReferenceComponent : Select<string>
     {
         public bool InvokeRunner { get; set; }
 
         public async Task InvokeAsyncTest()
         {
-            await InvokeAsync<string>(Id);
-            await InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
+            // base 关键字不能省略
+            await base.InvokeAsync<string>(Id);
+            await base.InvokeAsync<string>(Id, TimeSpan.FromMinutes(1));
 
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
-            await InvokeAsync<string>(Id, cancellationTokenSource.Token);
+            await base.InvokeAsync<string>(Id, cancellationTokenSource.Token);
 
             InvokeRunner = true;
         }
