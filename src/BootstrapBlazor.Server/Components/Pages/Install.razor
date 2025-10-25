@@ -1,123 +1,71 @@
 ﻿@page "/install"
-@inject PackageVersionService VersionManager
 @inject IStringLocalizer<Install> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["InstallTitle"]</h3>
 
-<h4>开始使用 BootstrapBlazor 进行更快、更舒服的 .NET Web 开发</h4>
+<h4>@Localizer["InstallDesc"]</h4>
 
-<p class="code-label">使用模板</p>
+<p class="code-label">@Localizer["Template"]</p>
 
-<p>为了快速入门，您可以使用我们的 <code>dotnet</code> 模板。它们基于 Microsoft Web App 模板，但已修改为包含 <code>BootstrapBlazor</code> 组件，请查看 <a href="template">[传送门]</a></p>
+<p>@((MarkupString)Localizer["TemplateDesc"].Value)</p>
 
-<p class="code-label">手动安装</p>
+<p class="code-label">@Localizer["Manual"]</p>
 
-<p>如果您已经有一个项目并希望从默认模板或工作应用程序向其中添加 <code>BootstrapBlazor</code>。</p>
+<p>@((MarkupString)Localizer["ManualDesc"].Value)</p>
 
-<p class="code-label">1. 安装包</p>
-<p>通过 <code>NuGet</code> 包管理器找到该包或使用以下命令安装它。</p>
+<p class="code-label">@Localizer["Step1"]</p>
+<p>@((MarkupString)Localizer["Step1Desc"].Value)</p>
 <Pre class="mb-3">dotnet add package BootstrapBlazor</Pre>
 
-<p class="code-label">2. 添加导入</p>
-<p><code>_Imports.razor</code> 文件并添加一下内容</p>
+<p class="code-label">@Localizer["Step2"]</p>
+<p>@((MarkupString)Localizer["Step2Desc"].Value)</p>
 <Pre class="mb-3">@@using BootstrapBlazor.Components</Pre>
 
-<p class="code-label">3. 添加引用</p>
-<p>将以下内容添加到您的 <code>HTML</code> 头部部分，它是 <code>App.razor</code> <code>_Layout.cshtml</code> <code>_Host.cshtml</code> <code>index.html</code>，取决于您运行的是 <code>Server</code> 还是 <code>WebAssembly</code></p>
+<p class="code-label">@Localizer["Step3"]</p>
+<p>@((MarkupString)Localizer["Step3Desc"].Value)</p>
 <Tab IsBorderCard="true" class="mb-3">
 	<TabItem Text="NET10/NET9">
-		<Pre>// FontAwesome 字体图标样式 注意需要引用 BootstrapBlazor.FontAwesome 包
+		<Pre>@Localizer["FontAwesomeCss"]
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" /&gt;
-// 组件样式已集成 Bootstrap 最新版
+@Localizer["BootstrapStyle"]
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]" /&gt;
-// Motronic 主题可选建议添加
+@Localizer["MotronicDesc"]
 &lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" /&gt;</Pre>
 	</TabItem>
-	<TabItem Text="其他">
-		<Pre>// FontAwesome 字体图标样式 注意需要引用 BootstrapBlazor.FontAwesome 包
+	<TabItem Text="@Localizer["OtherText"]">
+		<Pre>@Localizer["FontAwesomeCss"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" /&gt;
-// 组件样式已集成 Bootstrap 最新版
+@Localizer["BootstrapStyle"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" /&gt;
-// Motronic 主题可选建议添加
+@Localizer["MotronicDesc"]
 &lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" /&gt;</Pre>
 	</TabItem>
 </Tab>
 
-<p class="code-label">4. 添加脚本</p>
-<p>结尾位置添加如下内容它应与默认 blazor 脚本位于同一位置</p>
+<p class="code-label">@Localizer["Step4"]</p>
+<p>@((MarkupString)Localizer["Step4Desc"].Value)</p>
 <Tab IsBorderCard="true" class="mb-3">
 	<TabItem Text="NET10/NET9">
-		<Pre>// 添加 BootstrapBlazor 脚本
-&lt;script src="@@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"&gt;&lt;/script&gt;</Pre>
+		<Pre>&lt;script src="@@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"&gt;&lt;/script&gt;</Pre>
 	</TabItem>
-	<TabItem Text="其他">
-		<Pre>// 添加 BootstrapBlazor 脚本
-&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</Pre>
+	<TabItem Text="@Localizer["OtherText"]">
+		<Pre>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</Pre>
 	</TabItem>
 </Tab>
 
-<p class="code-label">5. 删除原 <code>Bootstrap</code> 资源</p>
-<p>删除 <code>bootstrap</code> 样式，请同时删除 <code>wwwroot</code> 文件夹下的 <code>bootstrap</code> 和 <code>open-iconic</code> 文件夹</p>
+<p class="code-label">@((MarkupString)Localizer["Step4"].Value)</p>
+<p>@((MarkupString)Localizer["Step4Desc"].Value)</p>
 
-<p class="code-label">6. 注册服务</p>
-<p><code>Program.cs</code> 文件中注入 <code>BootstrapBlazor</code> 服务</p>
-<Pre class="mb-3">// 增加 BootstrapBlazor 服务
-builder.Services.AddBootstrapBlazor();</Pre>
+<p class="code-label">@Localizer["Step6"]</p>
+<p>@((MarkupString)Localizer["Step6Desc"].Value)</p>
+<Pre class="mb-3">builder.Services.AddBootstrapBlazor();</Pre>
 
-<p class="code-label">7. 添加 <code>BootstrapBlazorRoot</code> 组件</p>
-<p>在母版页中添加  <code>BootstrapBlazorRoot</code> 组件</p>
+<p class="code-label">@((MarkupString)Localizer["Step7"].Value)</p>
+<p>@((MarkupString)Localizer["Step7Desc"].Value)</p>
 <Pre class="mb-3">&lt;BootstrapBlazorRoot&gt;
     &lt;Header&gt;&lt;/Header&gt;
     &lt;main&gt;
         @@Body
     &lt;/main&gt;
 &lt;/BootstrapBlazorRoot&gt;</Pre>
-
-<p>@Localizer["GitP1"]</p>
-
-<div class="row mb-sm-3">
-	<div class="git col-12 col-sm-6 mb-3 mb-sm-0">
-		<a class="git-fork" href="https://fork.dev/" target="_blank">
-			<img alt="fork" src="@WebsiteOption.Value.GetAssetUrl("images/fork.png")" />
-			<span>Fork</span>
-		</a>
-	</div>
-	<div class="git col-12 col-sm-6 mb-3 mb-sm-0">
-		<a href="https://tortoisegit.org/download/" target="_blank">
-			<img alt="tortoisegit" src="@WebsiteOption.Value.GetAssetUrl("images/tortoisegit.svg")" />
-		</a>
-	</div>
-</div>
-
-<p>@((MarkupString)Localizer["GitP2"].Value)</p>
-
-<h4>@Localizer["NugetInstall"]</h4>
-
-<PackageTips Name="BootstrapBlazor" />
-
-<h4>@Localizer["EnvBuildTitle"]</h4>
-
-<ol class="ul-demo">
-	<li>@((MarkupString)Localizer["EnvLi1"].Value)</li>
-	<li>@((MarkupString)Localizer["EnvLi2"].Value)</li>
-	<li>@((MarkupString)string.Format(Localizer["EnvLi3"].Value, WebsiteOption.Value.GiteeRepositoryUrl))</li>
-</ol>
-
-<Pre class="no-highlight">git clone @WebsiteOption.Value.GiteeRepositoryUrl</Pre>
-
-@code {
-	/// <summary>
-	/// 获得/设置 版本号字符串
-	/// </summary>
-	private string Version { get; set; } = "fetching";
-
-	/// <summary>
-	/// OnInitializedAsync 方法
-	/// </summary>
-	/// <returns></returns>
-	protected override async Task OnInitializedAsync()
-	{
-		Version = await VersionManager.GetVersionAsync();
-	}
-}
