@@ -1075,7 +1075,7 @@
     "InstallTitle": "Install",
     "InstallDesc": "Getting started with BootstrapBlazor for faster and easier .NET web development.",
     "Template": "Using Templates",
-    "TemplateDesc": "To get started quickly, you can use our <a href=\"template\">dotnet templates</a>. They're based on the Microsoft Web App template but have been modified to include BootstrapBlazor components.",
+    "TemplateDesc": "To get started quickly, you can use our <a href=\"/template\">dotnet templates</a>. They're based on the Microsoft Web App template but have been modified to include BootstrapBlazor components.",
     "Manual": "Manual Install",
     "ManualDesc": "If you already have a project and want to add <code>BootstrapBlazor</code> to it, either from a default template or a working application.",
     "Step1": "1. Install Package",
