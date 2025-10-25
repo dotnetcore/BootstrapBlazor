@@ -1185,7 +1185,9 @@
     "P4": "创建工程后在当前文件夹内会生成 <code>BootstrapBlazorApp</code> 解决方案，<code>src</code> 目录内包含 <code>Server-Side</code> <code>Wasm</code> 两种类型的工程，均可以直接 <kbd>F5</kbd> 运行",
     "P5": "3. 更新项目模板",
     "P6": "注:此命令为检查是否有可用于当前安装的模板包的更新并安装这些更新。",
-    "P7": "4. 卸载项目模板"
+    "P7": "4. 卸载项目模板",
+    "TemplateList": "模板列表",
+    "TemplateDesc": "模板安装好后，新建项目时搜索 <code>Bootstrap</code> 会列出如下模板候选项"
   },
   "BootstrapBlazor.Server.Components.Pages.Globalization": {
     "Title": "全球化",
@@ -4559,6 +4561,7 @@
     "Introduction": "简介",
     "Install": "类库安装",
     "ProjectTemplate": "项目模板",
+    "HostMode": "托管模型",
     "Globalization": "全球化",
     "Localization": "本地化",
     "WebAppBlazor": "WebApp 模式",

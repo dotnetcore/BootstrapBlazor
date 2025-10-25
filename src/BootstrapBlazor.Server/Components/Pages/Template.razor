@@ -24,4 +24,9 @@
 <p class="code-label">@Localizer["P7"]</p>
 <Pre>dotnet new uninstall Bootstrap.Blazor.Templates</Pre>
 
+<p class="code-label">@Localizer["TemplateList"]</p>
+<p>@((MarkupString)Localizer["TemplateDesc"].Value)</p>
+
+<img src="@WebsiteOption.Value.GetAssetUrl("images/bb-template.png")" style="width: 100%; max-width: 500px; margin-bottom: 1rem;" />
+
 <Video Name="template" />
