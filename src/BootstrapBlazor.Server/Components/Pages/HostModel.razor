@@ -1,17 +1,36 @@
 ﻿@page "/host-model"
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>ASP.NET Core Blazor 托管模型</h3>
 
 <p>目前 ASP.NET Core Blazor 的托管模型一共有三种，分别是</p>
 
 <ul class="ul-demo">
-    <li>Blazor Server</li>
-    <li>Blazor WebAssembly</li>
-    <li>Blazor Hybrid</li>
+	<li><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?wt.mc_id=DT-MVP-5004174#blazor-server" target="_blank">Blazor Server</a> <b class="text-danger">(新手强烈推荐)</b></li>
+	<li><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?wt.mc_id=DT-MVP-5004174#blazor-webassembly" target="_blank">Blazor WebAssembly</a></li>
+	<li><a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/hosting-models?wt.mc_id=DT-MVP-5004174#blazor-hybrid" target="_blank">Blazor Hybrid</a></li>
 </ul>
-
-<p>更多详细资料请查看微软官网文档 <a href="https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hosting-models?view=aspnetcore-10.0&wt.mc_id=DT-MVP-5004174">[传送门]</a></p>
 
 <p><b>目前我们推荐使用 <code>Blazor Server</code> 托管模型</b></p>
 
-<p>使用 <code></code></p>
+<p>使用最新版 <code>Visual Studio</code> 新建 <code>Blazor</code> 项目时选择 <code>Blazor Web App</code></p>
+
+<img src="@WebsiteOption.Value.GetAssetUrl("images/blazor-web-app.png")" style="width: 100%; max-width: 780px;" />
+
+<p><code>Interactive render mode</code> 又分为以下几种方式</p>
+
+<ul class="ul-demo">
+	<li>None</li>
+	<li>Server <b class="text-danger">(新手强烈推荐)</b></li>
+	<li>WebAssembly</li>
+	<li>Auto</li>
+</ul>
+
+<p><code>Interactivity Location</code> 又分为以下两种方式</p>
+
+<ul class="ul-demo">
+	<li>Per page/component</li>
+	<li>Global <b class="text-danger">(新手强烈推荐)</b></li>
+</ul>
+
+<Video Name="hosting" />
