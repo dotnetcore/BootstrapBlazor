@@ -1,56 +1,71 @@
 ﻿@page "/install"
-@inject PackageVersionService VersionManager
 @inject IStringLocalizer<Install> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["InstallTitle"]</h3>
 
-<h4>Git</h4>
+<h4>@Localizer["InstallDesc"]</h4>
 
-<p>@Localizer["GitP1"]</p>
+<p class="code-label">@Localizer["Template"]</p>
 
-<div class="row mb-sm-3">
-    <div class="git col-12 col-sm-6 mb-3 mb-sm-0">
-        <a class="git-fork" href="https://fork.dev/" target="_blank">
-            <img alt="fork" src="@WebsiteOption.Value.GetAssetUrl("images/fork.png")" />
-            <span>Fork</span>
-        </a>
-    </div>
-    <div class="git col-12 col-sm-6 mb-3 mb-sm-0">
-        <a href="https://tortoisegit.org/download/" target="_blank">
-            <img alt="tortoisegit" src="@WebsiteOption.Value.GetAssetUrl("images/tortoisegit.svg")" />
-        </a>
-    </div>
-</div>
+<p>@((MarkupString)Localizer["TemplateDesc"].Value)</p>
 
-<p>@((MarkupString)Localizer["GitP2"].Value)</p>
+<p class="code-label">@Localizer["Manual"]</p>
 
-<h4>@Localizer["NugetInstall"]</h4>
+<p>@((MarkupString)Localizer["ManualDesc"].Value)</p>
 
-<PackageTips Name="BootstrapBlazor" />
+<p class="code-label">@Localizer["Step1"]</p>
+<p>@((MarkupString)Localizer["Step1Desc"].Value)</p>
+<Pre class="mb-3">dotnet add package BootstrapBlazor</Pre>
 
-<h4>@Localizer["EnvBuildTitle"]</h4>
+<p class="code-label">@Localizer["Step2"]</p>
+<p>@((MarkupString)Localizer["Step2Desc"].Value)</p>
+<Pre class="mb-3">@@using BootstrapBlazor.Components</Pre>
 
-<ol class="ul-demo">
-    <li>@((MarkupString)Localizer["EnvLi1"].Value)</li>
-    <li>@((MarkupString)Localizer["EnvLi2"].Value)</li>
-    <li>@((MarkupString)string.Format(Localizer["EnvLi3"].Value, WebsiteOption.Value.GiteeRepositoryUrl))</li>
-</ol>
+<p class="code-label">@Localizer["Step3"]</p>
+<p>@((MarkupString)Localizer["Step3Desc"].Value)</p>
+<Tab IsBorderCard="true" class="mb-3">
+	<TabItem Text="NET10/NET9">
+		<Pre>@Localizer["FontAwesomeCss"]
+&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" /&gt;
+@Localizer["BootstrapStyle"]
+&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]" /&gt;
+@Localizer["MotronicDesc"]
+&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" /&gt;</Pre>
+	</TabItem>
+	<TabItem Text="@Localizer["OtherText"]">
+		<Pre>@Localizer["FontAwesomeCss"]
+&lt;link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" /&gt;
+@Localizer["BootstrapStyle"]
+&lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" /&gt;
+@Localizer["MotronicDesc"]
+&lt;link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" /&gt;</Pre>
+	</TabItem>
+</Tab>
 
-<Pre class="no-highlight">git clone @WebsiteOption.Value.GiteeRepositoryUrl</Pre>
+<p class="code-label">@Localizer["Step4"]</p>
+<p>@((MarkupString)Localizer["Step4Desc"].Value)</p>
+<Tab IsBorderCard="true" class="mb-3">
+	<TabItem Text="NET10/NET9">
+		<Pre>&lt;script src="@@Assets["_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"]"&gt;&lt;/script&gt;</Pre>
+	</TabItem>
+	<TabItem Text="@Localizer["OtherText"]">
+		<Pre>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</Pre>
+	</TabItem>
+</Tab>
 
-@code {
-    /// <summary>
-    /// 获得/设置 版本号字符串
-    /// </summary>
-    private string Version { get; set; } = "fetching";
+<p class="code-label">@((MarkupString)Localizer["Step5"].Value)</p>
+<p>@((MarkupString)Localizer["Step5Desc"].Value)</p>
 
-    /// <summary>
-    /// OnInitializedAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        Version = await VersionManager.GetVersionAsync();
-    }
-}
+<p class="code-label">@Localizer["Step6"]</p>
+<p>@((MarkupString)Localizer["Step6Desc"].Value)</p>
+<Pre class="mb-3">builder.Services.AddBootstrapBlazor();</Pre>
+
+<p class="code-label">@((MarkupString)Localizer["Step7"].Value)</p>
+<p>@((MarkupString)Localizer["Step7Desc"].Value)</p>
+<Pre class="mb-3">&lt;BootstrapBlazorRoot&gt;
+    &lt;Header&gt;&lt;/Header&gt;
+    &lt;main&gt;
+        @@Body
+    &lt;/main&gt;
+&lt;/BootstrapBlazorRoot&gt;</Pre>
