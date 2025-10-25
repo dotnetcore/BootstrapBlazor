@@ -305,13 +305,13 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["ProjectTemplate"],
-                    Url = "template"
+                    Text = Localizer["HostMode"],
+                    Url = "host-model"
                 },
                 new()
                 {
-                    Text = Localizer["HostMode"],
-                    Url = "host-model"
+                    Text = Localizer["ProjectTemplate"],
+                    Url = "template"
                 },
                 new()
                 {
