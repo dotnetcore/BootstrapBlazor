@@ -1185,7 +1185,7 @@
     "P4": "After the project is created, the <code>BootstrapBlazorApp</code> solution will be generated in the current folder, and the <code>src</code> directory contains <code>Server-Side</code> <code>Wasm</code> Both types of projects can be run directly with <kbd>F5</kbd>",
     "P5": "3. Update project template",
     "P6": "The dotnet new update option checks if there are updates available for the template packages that are currently installed and installs them.",
-    "P7": "3. Uninstall project template",
+    "P7": "4. Uninstall project template",
     "TemplateList": "List",
     "TemplateDesc": "After the template is installed, searching for <code>Bootstrap</code> when creating a new project will list the following template candidates:"
   },
