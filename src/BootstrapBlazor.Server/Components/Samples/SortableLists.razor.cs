@@ -186,6 +186,13 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
+    private Task OnAddClone(SortableEvent @event)
+    {
+        var item = ItemsCloneLeft[@event.OldIndex];
+        ItemsCloneRight.Insert(@event.NewIndex, new Foo() { Name = item.Name });
+        return Task.CompletedTask;
+    }
+
     private Task OnUpdate2(SortableEvent @event)
     {
         var oldIndex = @event.OldIndex;
