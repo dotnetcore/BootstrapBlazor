@@ -76,7 +76,7 @@ public partial class BaseLayout : IDisposable
         await base.OnInitializedAsync();
 
         var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
-        await module.InvokeVoidAsync("initTheme");
+        await module.InvokeVoidAsync("doTask");
         _init = true;
     }
 
