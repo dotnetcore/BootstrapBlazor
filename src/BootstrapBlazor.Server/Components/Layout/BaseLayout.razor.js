@@ -24,7 +24,7 @@ export function doTask(invoke) {
     const handler = setTimeout(async () => {
         clearTimeout(handler);
         await invoke.invokeMethodAsync("ShowVoteToast");
-    }, 1000);
+    }, 10000);
 
     EventHandler.on(document, 'click', '#bb-gitee-vote', e => {
         const toast = e.delegateTarget.closest('.toast');
