@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Text.Json;
+
 namespace BootstrapBlazor.Components;
 
 public partial class Table<TItem>
@@ -155,7 +157,10 @@ public partial class Table<TItem>
         {
             _resetColumns = true;
         }
-
+        if(ClientTableName != null && ShowColumnList)
+        {
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", "bb-table-column-visiable-"+ClientTableName, JsonSerializer.Serialize(_visibleColumns) ?? "");
+        }
         if (OnColumnVisibleChanged != null)
         {
             await OnColumnVisibleChanged(columnName, visible);
