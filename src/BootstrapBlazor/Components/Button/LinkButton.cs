@@ -69,15 +69,15 @@ public class LinkButton : ButtonBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, TagName);
-        builder.AddAttribute(10, "class", ClassString);
-        builder.AddAttribute(20, "href", UrlString);
-        builder.AddAttribute(30, "target", Target);
-        builder.AddAttribute(40, "disabled", Disabled);
-        builder.AddAttribute(50, "aria-disabled", DisabledString);
-        builder.AddAttribute(60, "tabindex", Tab);
-        builder.AddAttribute(70, "id", Id);
-        builder.AddAttribute(80, "role", "button");
-        builder.AddMultipleAttributes(90, AdditionalAttributes);
+        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(20, "class", ClassString);
+        builder.AddAttribute(30, "href", UrlString);
+        builder.AddAttribute(40, "target", Target);
+        builder.AddAttribute(50, "disabled", Disabled);
+        builder.AddAttribute(60, "aria-disabled", DisabledString);
+        builder.AddAttribute(70, "tabindex", Tab);
+        builder.AddAttribute(80, "id", Id);
+        builder.AddAttribute(90, "role", "button");
 
         if (TriggerClick)
         {
