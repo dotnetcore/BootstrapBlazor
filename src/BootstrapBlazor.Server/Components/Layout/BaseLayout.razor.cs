@@ -5,13 +5,14 @@
 
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 母版页基类
 /// </summary>
-public partial class BaseLayout : IDisposable
+public partial class BaseLayout : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -50,6 +51,8 @@ public partial class BaseLayout : IDisposable
     private string? CancelText { get; set; }
 
     private bool _init = false;
+    private JSModule? _module;
+    private DotNetObjectReference<BaseLayout>? _interop;
 
     /// <summary>
     /// <inheritdoc/>
@@ -71,13 +74,18 @@ public partial class BaseLayout : IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        await base.OnAfterRenderAsync(firstRender);
 
-        var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
-        await module.InvokeVoidAsync("initTheme");
-        _init = true;
+        if (firstRender)
+        {
+            _module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
+            _interop = DotNetObjectReference.Create(this);
+            await _module.InvokeVoidAsync("doTask", _interop);
+            _init = true;
+            StateHasChanged();
+        }
     }
 
     private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
@@ -122,24 +130,54 @@ public partial class BaseLayout : IDisposable
     }
 
     /// <summary>
+    /// 显示投票弹窗
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task ShowVoteToast()
+    {
+        // 英文环境不投票
+        if(CultureInfo.CurrentUICulture.Name == "en-US")
+        {
+            return;
+        }
+
+        _option = new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            Title = "Gitee 评选活动",
+            IsAutoHide = false,
+            ChildContent = RenderVote,
+            PreventDuplicates = true
+        };
+        await Toast.Show(_option);
+    }
+
+    /// <summary>
     /// 释放资源
     /// </summary>
     /// <param name="disposing"></param>
-    private void Dispose(bool disposing)
+    private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             CommitDispatchService.UnSubscribe(NotifyCommit);
             RebootDispatchService.UnSubscribe(NotifyReboot);
+
+            if (_module != null)
+            {
+                await _module.InvokeVoidAsync("dispose");
+                await _module.DisposeAsync();
+            }
         }
     }
 
     /// <summary>
     /// 释放资源
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
