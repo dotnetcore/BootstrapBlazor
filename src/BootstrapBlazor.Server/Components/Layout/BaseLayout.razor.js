@@ -5,6 +5,14 @@ function initTheme() {
     setTheme(currentTheme, false);
 }
 
-export function doTask() {
+export function doTask(invoke) {
     initTheme();
+    const handler = setTimeout(() => {
+        clearTimeout(handler);
+        invoke.invokeMethodAsync("ShowVoteToast");
+    }, 1000);
+}
+
+export function dispose() {
+    
 }
