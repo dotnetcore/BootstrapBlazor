@@ -155,7 +155,7 @@ public partial class Table<TItem>
         {
             _resetColumns = true;
         }
-        if (ClientTableName != null && ShowColumnList)
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
             await InvokeVoidAsync("saveColumnList", ClientTableName, _visibleColumns);
         }
