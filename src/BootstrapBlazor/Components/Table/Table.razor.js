@@ -21,6 +21,23 @@ export function init(id, invoke, options) {
     reset(id)
 }
 
+export function saveColumnList(tableName, columns) {
+    const key = `bb-table-column-visiable-${tableName}`
+    return localStorage.setItem(key, JSON.stringify(columns));
+}
+
+export function reloadColumnList(tableName) {
+    const key = `bb-table-column-visiable-${tableName}`
+    const json = localStorage.getItem(key);
+
+    let columns = [];
+    try {
+        columns = JSON.parse(json);
+    }
+    catch { }
+    return columns;
+}
+
 export function reloadColumnWidth(tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);
