@@ -157,21 +157,21 @@ public class ExportPdfButtonTest : BootstrapBlazorTestBase
 
     class MockHtml2PdfService : IHtml2Pdf
     {
-        public Task<byte[]> PdfDataAsync(string url)
+        public Task<byte[]> PdfDataAsync(string url, PdfOptions? options = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null)
+        public Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null, PdfOptions? options = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Stream> PdfStreamAsync(string url)
+        public Task<Stream> PdfStreamAsync(string url, PdfOptions? options = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => Task.FromResult<Stream>(new MemoryStream(Encoding.UTF8.GetBytes("Hello World")));
+        public Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null, PdfOptions? options = null) => Task.FromResult<Stream>(new MemoryStream(Encoding.UTF8.GetBytes("Hello World")));
     }
 }
