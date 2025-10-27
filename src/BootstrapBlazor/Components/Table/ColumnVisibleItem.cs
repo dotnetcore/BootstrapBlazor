@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,6 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="name"></param>
 /// <param name="visible"></param>
+[JsonConverter(typeof(ColumnVisibleItemConverter))]
 public class ColumnVisibleItem(string name, bool visible)
 {
     /// <summary>
@@ -20,6 +23,7 @@ public class ColumnVisibleItem(string name, bool visible)
     /// <summary>
     /// 获得 列名称
     /// </summary>
+    [JsonIgnore]
     public string? DisplayName { get; set; }
 
     /// <summary>

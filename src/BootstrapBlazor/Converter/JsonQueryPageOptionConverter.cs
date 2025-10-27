@@ -20,7 +20,6 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
     /// <param name="typeToConvert"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public override QueryPageOptions? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var ret = new QueryPageOptions();
@@ -203,7 +202,6 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
     /// <param name="writer"></param>
     /// <param name="value"></param>
     /// <param name="options"></param>
-    /// <exception cref="NotImplementedException"></exception>
     public override void Write(Utf8JsonWriter writer, QueryPageOptions value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();

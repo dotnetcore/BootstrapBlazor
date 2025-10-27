@@ -731,6 +731,12 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowColumnList_Ok()
     {
+        // 设置客户端存储
+        Context.JSInterop.Setup<List<ColumnVisibleItem>>("reloadColumnList", "test").SetResult(
+        [
+            new("Name", false),
+            new("Address", true)
+        ]);
         var show = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -764,6 +770,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.ClientTableName, "test");
             });
         });
         cut.Contains("Test_Column_List");

@@ -1123,6 +1123,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
+    private async Task ReloadColumnVisibleFromBrowserAsync()
+    {
+        if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            // 读取浏览器配置
+            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
+            clientColumns ??= [];
+            foreach (var column in _visibleColumns)
+            {
+                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
+                if (item != null)
+                {
+                    column.Visible = item.Visible;
+                }
+            }
+        }
+    }
+
     private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
     {
         List<ColumnWidth>? ret = null;
@@ -1207,7 +1225,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await OnColumnCreating(cols);
         }
 
-        InternalResetVisibleColumns(cols);
+        await InternalResetVisibleColumns(cols);
+
+        await ReloadColumnVisibleFromBrowserAsync();
 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
@@ -1258,7 +1278,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
+    private async Task InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
         var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
         if (items != null)
@@ -1284,7 +1304,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 设置 列可见方法
     /// </summary>
     /// <param name="columns"></param>
-    public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    public async Task ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
         if (AllowResizing)
@@ -1292,7 +1312,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumns = true;
         }
 
-        InternalResetVisibleColumns(Columns, columns);
+        await InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
 

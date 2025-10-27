@@ -52,6 +52,19 @@ public class JsonDescriptionEnumConverterTest : TestBase
         Assert.Equal("\"\"", json);
     }
 
+    [Fact]
+    public void ColumnVisibleItemConverter_Ok()
+    {
+        var item = new ColumnVisibleItem("name", true) { DisplayName = "display" };
+        var json = JsonSerializer.Serialize(item);
+
+        Assert.Equal("{\"name\":\"name\",\"visible\":true}", json);
+
+        var item1 = JsonSerializer.Deserialize<ColumnVisibleItem>(json);
+        Assert.Equal("name", item1.Name);
+        Assert.True(item1.Visible);
+    }
+
     [JsonConverter(typeof(JsonDescriptionEnumConverter<TestEnum>))]
     public enum TestEnum
     {
@@ -100,5 +113,4 @@ public class JsonDescriptionEnumConverterTest : TestBase
         [Description("bold italic")]
         Bold_Italic,
     }
-
 }

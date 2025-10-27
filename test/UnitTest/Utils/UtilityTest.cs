@@ -389,7 +389,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         // improve code coverage
         var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
         option.UseKeyWhenValueIsNull = true;
-        var items = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest", "en-US", true);
+        var items = Utility.GetJsonStringByTypeName(option, GetType().Assembly, "UnitTest.Utils.UtilityTest", "en-US", true);
 
         var test1 = items.FirstOrDefault(i => i.Name == "Test-Null");
         Assert.NotNull(test1);
