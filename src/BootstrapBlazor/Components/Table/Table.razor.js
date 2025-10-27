@@ -29,12 +29,13 @@ export function saveColumnList(tableName, columns) {
 export function reloadColumnList(tableName) {
     const key = `bb-table-column-visiable-${tableName}`
     const json = localStorage.getItem(key);
-
     let columns = [];
-    try {
-        columns = JSON.parse(json);
+    if (json) {
+        try {
+            columns = JSON.parse(json);
+        }
+        catch { }
     }
-    catch { }
     return columns;
 }
 
