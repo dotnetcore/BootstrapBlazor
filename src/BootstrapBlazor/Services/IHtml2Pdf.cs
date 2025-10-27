@@ -14,13 +14,15 @@ public interface IHtml2Pdf
     /// Export method
     /// </summary>
     /// <param name="url">url</param>
-    Task<byte[]> PdfDataAsync(string url);
+    /// <param name="options"></param>
+    Task<byte[]> PdfDataAsync(string url, PdfOptions? options = null);
 
     /// <summary>
     /// Export method
     /// </summary>
     /// <param name="url">url</param>
-    Task<Stream> PdfStreamAsync(string url);
+    /// <param name="options"></param>
+    Task<Stream> PdfStreamAsync(string url, PdfOptions? options = null);
 
     /// <summary>
     /// Export method
@@ -28,7 +30,8 @@ public interface IHtml2Pdf
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>
     /// <param name="scripts"></param>
-    Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null);
+    /// <param name="options"></param>
+    Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null, PdfOptions? options = null);
 
     /// <summary>
     /// Export method
@@ -36,5 +39,6 @@ public interface IHtml2Pdf
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>
     /// <param name="scripts"></param>
-    Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null);
+    /// <param name="options"></param>
+    Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null, PdfOptions? options = null);
 }
