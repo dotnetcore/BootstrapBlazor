@@ -1261,30 +1261,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async Task InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
         var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
-        List<ColumnVisibleItem>? ret = null;
-        if (ClientTableName != null && ShowColumnList)
-        {
-            var jsonData = await JSRuntime.InvokeAsync<string>("localStorage.getItem", "bb-table-column-visiable-" + ClientTableName);
-            if (!string.IsNullOrEmpty(jsonData))
-            {
-                try
-                {
-                    ret = JsonSerializer.Deserialize<List<ColumnVisibleItem>>(jsonData, _serializerOption);
-                }
-                catch { }
-                if(ret != null)
-                {
-                    foreach (var i in ret)
-                    {
-                        var col = cols.FirstOrDefault(d => d.Name == i.Name && d.DisplayName == i.DisplayName);
-                        if (col != null)
-                        {
-                            col.Visible = i.Visible;
-                        }
-                    }
-                }
-            }
-        }
         if (items != null)
         {
             foreach (var column in cols)
@@ -1297,6 +1273,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         column.DisplayName = item.DisplayName;
                     }
+                }
+            }
+        }
+        else if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            // 读取浏览器配置
+            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
+            clientColumns ??= [];
+            foreach (var column in cols)
+            {
+                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
+                if (item != null)
+                {
+                    column.Visible = item.Visible;
                 }
             }
         }
