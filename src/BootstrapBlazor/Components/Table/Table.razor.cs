@@ -1123,6 +1123,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
+    private async Task ReloadColumnVisibleFromBrowserAsync()
+    {
+        if (!string.IsNullOrEmpty(ClientTableName))
+        {
+            // 读取浏览器配置
+            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
+            clientColumns ??= [];
+            foreach (var column in _visibleColumns)
+            {
+                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
+                if (item != null)
+                {
+                    column.Visible = item.Visible;
+                }
+            }
+        }
+    }
+
     private async Task ReloadColumnWidthFromBrowserAsync(List<ITableColumn> columns)
     {
         List<ColumnWidth>? ret = null;
@@ -1209,6 +1227,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         await InternalResetVisibleColumns(cols);
 
+        await ReloadColumnVisibleFromBrowserAsync();
+
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
@@ -1273,20 +1293,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         column.DisplayName = item.DisplayName;
                     }
-                }
-            }
-        }
-        else if (!string.IsNullOrEmpty(ClientTableName))
-        {
-            // 读取浏览器配置
-            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
-            clientColumns ??= [];
-            foreach (var column in cols)
-            {
-                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
-                if (item != null)
-                {
-                    column.Visible = item.Visible;
                 }
             }
         }
