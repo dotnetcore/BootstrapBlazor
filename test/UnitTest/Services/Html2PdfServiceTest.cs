@@ -21,4 +21,14 @@ public class Html2PdfServiceTest
         await Assert.ThrowsAsync<NotImplementedException>(() => pdfService.PdfDataFromHtmlAsync("<h2>Test</h2>"));
         await Assert.ThrowsAsync<NotImplementedException>(() => pdfService.PdfStreamFromHtmlAsync("<h2>Test</h2>"));
     }
+
+    [Fact]
+    public void PdfOptions_Ok()
+    {
+        var options = new PdfOptions
+        {
+            Landscape = true
+        };
+        Assert.True(options.Landscape);
+    }
 }
