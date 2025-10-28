@@ -231,7 +231,7 @@ export function scroll(id, align, options = { behavior: 'smooth' }) {
 
 const getSelectedRow = element => {
     const rows = [...element.querySelectorAll('tr.active')];
-    return rows.pop()
+    return rows.pop();
 }
 
 export function scrollTo(id) {
