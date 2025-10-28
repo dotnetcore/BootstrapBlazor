@@ -218,7 +218,7 @@ export function load(id, method) {
 export function scroll(id, align, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
-        const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
+        const selectedRow = getSelectedRow(element);
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
@@ -227,6 +227,11 @@ export function scroll(id, align, options = { behavior: 'smooth' }) {
             }
         }
     }
+}
+
+const getSelectedRow = element => {
+    const rows = [...element.querySelectorAll('tr.active')];
+    return rows.pop();
 }
 
 export function scrollTo(id) {
