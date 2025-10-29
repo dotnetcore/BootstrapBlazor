@@ -123,7 +123,7 @@ public partial class Tab
     /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
-    /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
+    /// <remarks>返回 false 时不关闭 <see cref="TabItem"/> 标签页</remarks>
     [Parameter]
     public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
 
