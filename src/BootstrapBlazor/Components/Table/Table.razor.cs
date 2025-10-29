@@ -1128,11 +1128,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (!string.IsNullOrEmpty(ClientTableName))
         {
             // 读取浏览器配置
-            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
+            var clientColumns = await InvokeAsync<List<ColumnVisibleItem?>>("reloadColumnList", ClientTableName);
             clientColumns ??= [];
             foreach (var column in _visibleColumns)
             {
-                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
+                var item = clientColumns.FirstOrDefault(i => i?.Name == column.Name);
                 if (item != null)
                 {
                     column.Visible = item.Visible;
