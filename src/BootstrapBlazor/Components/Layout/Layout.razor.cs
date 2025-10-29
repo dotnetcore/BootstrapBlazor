@@ -79,6 +79,13 @@ public partial class Layout : IHandlerException, ITabHeader
     public Func<Task>? OnToolbarRefreshCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭标签页前回调方法
+    /// </summary>
+    /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
+    [Parameter]
+    public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 侧边栏状态
     /// </summary>
     [Parameter]
