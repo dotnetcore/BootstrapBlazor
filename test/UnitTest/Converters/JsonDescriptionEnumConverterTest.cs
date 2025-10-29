@@ -61,6 +61,7 @@ public class JsonDescriptionEnumConverterTest : TestBase
         Assert.Equal("{\"name\":\"name\",\"visible\":true}", json);
 
         var item1 = JsonSerializer.Deserialize<ColumnVisibleItem>(json);
+        Assert.NotNull(item1);
         Assert.Equal("name", item1.Name);
         Assert.True(item1.Visible);
     }
