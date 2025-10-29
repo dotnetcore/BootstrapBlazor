@@ -16,13 +16,13 @@
         {
             <div @key="@item" class="@GetItemClassString(item)">
                 <div class="upload-item-body">
-                    @if (item.IsImage(AllowExtensions, CanPreviewCallback))
-                    {
-                        <img class="upload-item-body-image" alt="prevUrl" src="@item.PrevUrl" @onclick="() => OnClickZoom(item)" />
-                    }
-                    else if (IconTemplate != null)
+                    @if (IconTemplate != null)
                     {
                         @IconTemplate(item)
+                    }
+                    else if (item.IsImage(AllowExtensions, CanPreviewCallback))
+                    {
+                        <img class="upload-item-body-image" alt="prevUrl" src="@item.PrevUrl" @onclick="() => OnClickZoom(item)" />
                     }
                     else
                     {
