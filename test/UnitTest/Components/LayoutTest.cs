@@ -25,6 +25,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnToolbarRefreshCallback, () => Task.CompletedTask);
             pb.Add(a => a.RefreshToolbarTooltipText, "test-refresh-tooltip");
             pb.Add(a => a.FullscreenToolbarTooltipText, "test-fullscreen-tooltip");
+            pb.Add(a => a.OnCloseTabItemAsync, tab => Task.FromResult(true));
         });
         Assert.DoesNotContain("tabs-chrome", cut.Markup);
         Assert.DoesNotContain("tabs-capsule", cut.Markup);
@@ -647,7 +648,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         var layout = cut.FindComponent<Layout>();
         layout.SetParametersAndRender(pb =>
         {
-           pb.Add(a => a.OnErrorHandleAsync, null);
+            pb.Add(a => a.OnErrorHandleAsync, null);
         });
         button = cut.Find("button");
 
@@ -727,6 +728,6 @@ class MockPage : ComponentBase
         var b = 0;
 
         // 触发生命周期内异常
-        var c = a / b; 
+        var c = a / b;
     }
 }
