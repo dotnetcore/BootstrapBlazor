@@ -48,7 +48,7 @@ public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
                 }
             }
         }
-        return new ColumnVisibleItem(name, visible);
+        return new ColumnVisibleItem(name ?? "", visible);
     }
 
     /// <summary>
