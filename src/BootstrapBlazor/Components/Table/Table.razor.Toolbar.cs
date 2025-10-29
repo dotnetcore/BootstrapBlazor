@@ -502,7 +502,7 @@ public partial class Table<TItem>
         {
             // 数据源为 DataTable 新建后重建行与列
             await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
+            await ResetDynamicContext();
 
             if (!IsKeepSelectedRowAfterAdd)
             {
@@ -1030,7 +1030,7 @@ public partial class Table<TItem>
         if (DynamicContext != null)
         {
             await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
-            ResetDynamicContext();
+            await ResetDynamicContext();
             SelectedRows.Clear();
             await OnSelectedRowsChanged();
         }
@@ -1098,7 +1098,7 @@ public partial class Table<TItem>
         }
     }
 
-    private void ResetDynamicContext()
+    private async Task ResetDynamicContext()
     {
         if (DynamicContext != null)
         {
@@ -1112,7 +1112,7 @@ public partial class Table<TItem>
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns(Columns);
+            await InternalResetVisibleColumns(Columns);
 
             var queryOption = BuildQueryPageOptions();
             // 设置是否为首次查询
