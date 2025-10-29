@@ -1507,7 +1507,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (DynamicContext.OnValueChanged != null)
                 {
                     var parameters = col.ComponentParameters?.ToList() ?? [];
-                    parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
+                    parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
                 builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true);
@@ -1518,7 +1518,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
             var parameters = col.ComponentParameters?.ToList() ?? [];
-            parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
+            parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
             col.ComponentParameters = parameters;
         }
     }
