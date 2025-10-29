@@ -1128,11 +1128,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (!string.IsNullOrEmpty(ClientTableName))
         {
             // 读取浏览器配置
-            var clientColumns = await InvokeAsync<List<ColumnVisibleItem>>("reloadColumnList", ClientTableName);
+            var clientColumns = await InvokeAsync<List<ColumnVisibleItem?>>("reloadColumnList", ClientTableName);
             clientColumns ??= [];
             foreach (var column in _visibleColumns)
             {
-                var item = clientColumns.FirstOrDefault(i => i.Name == column.Name);
+                var item = clientColumns.FirstOrDefault(i => i?.Name == column.Name);
                 if (item != null)
                 {
                     column.Visible = item.Visible;
@@ -1225,7 +1225,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await OnColumnCreating(cols);
         }
 
-        await InternalResetVisibleColumns(cols);
+        InternalResetVisibleColumns(cols);
 
         await ReloadColumnVisibleFromBrowserAsync();
 
@@ -1278,7 +1278,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private async Task InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
+    private void InternalResetVisibleColumns(List<ITableColumn> columns, IEnumerable<ColumnVisibleItem>? items = null)
     {
         var cols = columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
         if (items != null)
@@ -1304,7 +1304,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 设置 列可见方法
     /// </summary>
     /// <param name="columns"></param>
-    public async Task ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
         // https://github.com/dotnetcore/BootstrapBlazor/issues/6823
         if (AllowResizing)
@@ -1312,7 +1312,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _resetColumns = true;
         }
 
-        await InternalResetVisibleColumns(Columns, columns);
+        InternalResetVisibleColumns(Columns, columns);
         StateHasChanged();
     }
 
@@ -1507,7 +1507,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 if (DynamicContext.OnValueChanged != null)
                 {
                     var parameters = col.ComponentParameters?.ToList() ?? [];
-                    parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
+                    parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
                 builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService), skipValidate: true);
@@ -1518,7 +1518,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
             var parameters = col.ComponentParameters?.ToList() ?? [];
-            parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
+            parameters.Add(new(nameof(ValidateBase<>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
             col.ComponentParameters = parameters;
         }
     }

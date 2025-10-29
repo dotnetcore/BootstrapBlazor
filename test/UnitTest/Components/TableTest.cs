@@ -732,8 +732,9 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowColumnList_Ok()
     {
         // 设置客户端存储
-        Context.JSInterop.Setup<List<ColumnVisibleItem>>("reloadColumnList", "test").SetResult(
+        Context.JSInterop.Setup<List<ColumnVisibleItem?>>("reloadColumnList", "test").SetResult(
         [
+            null,
             new("Name", false),
             new("Address", true)
         ]);

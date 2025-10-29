@@ -8,6 +8,9 @@ using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// ColumnVisibleItem 序列化转化器
+/// </summary>
 public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
 {
     /// <summary>
@@ -45,7 +48,7 @@ public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
                 }
             }
         }
-        return new ColumnVisibleItem(name, visible);
+        return string.IsNullOrEmpty(name) ? null : new ColumnVisibleItem(name, visible);
     }
 
     /// <summary>
