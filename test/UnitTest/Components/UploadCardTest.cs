@@ -54,6 +54,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.IconTemplate, (RenderFragment<UploadFile>?)null);
             pb.Add(a => a.OnZoomAsync, file =>
             {
                 zoom = true;
