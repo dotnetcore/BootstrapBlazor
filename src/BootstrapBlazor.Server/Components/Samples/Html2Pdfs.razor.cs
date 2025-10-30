@@ -86,7 +86,10 @@ public partial class Html2Pdfs
                 """;
 
             // 增加网页所需样式表文件
-            using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, [$"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]);
+            using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, [$"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"], options: new PdfOptions()
+            {
+                Format = PaperFormat.A4
+            });
 
             // 下载 Pdf 文件
             await DownloadService.DownloadFromStreamAsync($"table-{DateTime.Now:HHmmss}.pdf", stream);
