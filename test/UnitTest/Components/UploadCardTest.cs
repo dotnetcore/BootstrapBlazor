@@ -229,12 +229,17 @@ public class UploadCardTest : BootstrapBlazorTestBase
             [
                 new() { FileName = "test.png" }
             ]);
+            pb.Add(a => a.BeforeActionButtonTemplate, file => pb =>
+            {
+                pb.AddMarkupContent(0, "<button class=\"before-action-button-test\"></button>");
+            });
             pb.Add(a => a.ActionButtonTemplate, file => pb =>
             {
                 pb.AddMarkupContent(0, "<button class=\"action-button-test\"></button>");
             });
         });
 
+        cut.Contains("before-action-button-test");
         cut.Contains("action-button-test");
     }
 
