@@ -92,6 +92,15 @@ public partial class ImagePreviewer
 
     private bool ShowButtons => PreviewList.Count > 1;
 
+    private string? ClassString => CssBuilder.Default("bb-previewer collapse active")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-viewer-zindex: {ZIndex};", ZIndex > 0)
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 显示图片
     /// </summary>
