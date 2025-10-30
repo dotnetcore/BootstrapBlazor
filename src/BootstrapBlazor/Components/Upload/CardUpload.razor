@@ -32,7 +32,7 @@
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        @if (ActionButtonTemplate)
+                        @if (ActionButtonTemplate != null)
                         {
                             @ActionButtonTemplate(item)
                         }
