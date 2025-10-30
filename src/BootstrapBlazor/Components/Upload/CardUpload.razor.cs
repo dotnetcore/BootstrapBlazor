@@ -64,6 +64,12 @@ public partial class CardUpload<TValue>
     /// 获得/设置 操作按钮模板
     /// </summary>
     [Parameter]
+    public RenderFragment<UploadFile>? BeforeActionButtonTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 操作按钮模板
+    /// </summary>
+    [Parameter]
     public RenderFragment<UploadFile>? ActionButtonTemplate { get; set; }
 
     /// <summary>
