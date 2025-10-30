@@ -220,6 +220,24 @@ public class UploadCardTest : BootstrapBlazorTestBase
         btn.InnerHtml.Contains("disabled=\"disabled\"");
     }
 
+    [Fact]
+    public void ActionButtonTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "test.png" }
+            ]);
+            pb.Add(a => a.ActionButtonTemplate, file => pb =>
+            {
+                pb.AddMarkupContent(0, "<button class=\"action-button-test\"></button>");
+            });
+        });
+
+        cut.Contains("action-button-test");
+    }
+
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text", TimeSpan? delay = null) : IBrowserFile
     {
         public string Name { get; } = name;

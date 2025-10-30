@@ -32,6 +32,10 @@
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
+                        @if (ActionButtonTemplate != null)
+                        {
+                            @ActionButtonTemplate(item)
+                        }
                         @if (ShowZoomButton)
                         {
                             <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDisabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
