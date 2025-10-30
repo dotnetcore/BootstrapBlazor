@@ -32,9 +32,9 @@
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        @if (ActionButtonTemplate != null)
+                        @if (BeforeActionButtonTemplate != null)
                         {
-                            @ActionButtonTemplate(item)
+                            @BeforeActionButtonTemplate(item)
                         }
                         @if (ShowZoomButton)
                         {
@@ -54,6 +54,10 @@
                                 <i class="@CancelIcon"></i>
                             </button>
                         }
+						@if (ActionButtonTemplate != null)
+						{
+							@ActionButtonTemplate(item)
+						}
                     </div>
                     @if (ShowDeleteButton)
                     {
