@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 页面边距选项
 /// </summary>
+[ExcludeFromCodeCoverage]
 public record MarginOptions
 {
     /// <summary>

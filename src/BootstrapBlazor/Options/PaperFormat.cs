@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 纸张规格配置类
 /// </summary>
+[ExcludeFromCodeCoverage]
 public record PaperFormat
 {
     /// <summary>
