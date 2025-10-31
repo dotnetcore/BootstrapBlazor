@@ -302,7 +302,7 @@ public partial class Table<TItem>
 
     private TItem CreateTItem() => CreateItemCallback?.Invoke() ?? CreateInstance();
 
-    private readonly string ErrorMessage = $"{typeof(TItem)} create instrance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
+    private readonly string ErrorMessage = $"{typeof(TItem)} create instance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
 
     private TItem CreateInstance()
     {
