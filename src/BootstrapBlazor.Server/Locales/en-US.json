@@ -3336,7 +3336,9 @@
     "UploadsFileError": "The file is larger than 5M. Please reselect the file to upload.",
     "UploadsSuccess": "File saved successfully",
     "UploadsSaveFileError": "File save failed",
-    "UploadsWasmError": "In wasm mode, please call the api to save"
+    "UploadsWasmError": "In wasm mode, please call the api to save",
+    "UploadActionButtonTemplateTitle": "Custom action button",
+    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the `<code>ActionButtonTemplate</code>` parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the `<code>BeforeActionButtonTemplate</code>` parameter (insert it before the default button)."
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
     "UploadsTitle": "DropUpload",

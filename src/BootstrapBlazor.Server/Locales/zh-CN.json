@@ -3336,7 +3336,9 @@
     "UploadsFileError": "文件大于 5M 请重新选择文件上传",
     "UploadsSuccess": "文件保存成功",
     "UploadsSaveFileError": "文件保存失败",
-    "UploadsWasmError": "wasm 模式请调用 api 进行保存"
+    "UploadsWasmError": "wasm 模式请调用 api 进行保存",
+    "UploadActionButtonTemplateTitle": "自定义操作按钮",
+    "UploadActionButtonTemplateIntro": "通过设置 <code>ActionButtonTemplate</code> 参数，来自定义卡片上的操作按钮（在默认按钮后面追加），通过设置 <code>BeforeActionButtonTemplate</code> 参数，来自定义卡片上的操作按钮（在默认按钮前面追加）"
   },
   "BootstrapBlazor.Server.Components.Samples.UploadDrops": {
     "UploadsTitle": "DropUpload 拖拽上传组件",

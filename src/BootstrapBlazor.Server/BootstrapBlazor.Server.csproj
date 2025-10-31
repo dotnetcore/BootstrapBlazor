@@ -44,7 +44,7 @@
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.0-rc.2.1.2" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.4" />
@@ -66,7 +66,7 @@
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="9.0.6" />
     <PackageReference Include="BootstrapBlazor.Player" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.Region" Version="9.0.8-beta01" />
+    <PackageReference Include="BootstrapBlazor.Region" Version="9.0.8" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.4" />
@@ -75,7 +75,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.7" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.7" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.5" />
     <PackageReference Include="BootstrapBlazor.Vditor" Version="9.0.0" />

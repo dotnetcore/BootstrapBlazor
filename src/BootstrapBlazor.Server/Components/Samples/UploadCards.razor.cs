@@ -62,6 +62,10 @@ public partial class UploadCards : IDisposable
         }
     }
 
+    private Task OnTest1Click(UploadFile file) => ToastService.Information("Action Button", $"{file.GetFileName()}");
+
+    private Task OnTest2Click(UploadFile file) => ToastService.Information("Action Button", $"{file.GetFileName()}");
+
     private async Task SaveToFile(UploadFile file)
     {
         // Server Side 使用
