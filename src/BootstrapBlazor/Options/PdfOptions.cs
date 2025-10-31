@@ -36,7 +36,7 @@ public class PdfOptions
     public decimal Scale { get; set; } = 1;
 
     /// <summary>
-    /// 获得/设置 页面边距 默认 none
+    /// 获得/设置 页面边距 默认 未设置
     /// </summary>
     public MarginOptions MarginOptions { get; set; } = new();
 }
