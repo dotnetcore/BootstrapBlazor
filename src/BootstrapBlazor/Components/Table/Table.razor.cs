@@ -48,6 +48,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public int DefaultFixedColumnWidth { get; set; } = 200;
 
     /// <summary>
+    /// 获得/设置 是否使用按钮组显示行内按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool UseButtonGroup { get; set; } = false;
+
+    /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     [NotNull]
@@ -151,6 +157,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? ExtendButtonsCellClassString => CssBuilder.Default("table-cell")
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
+        .Build();
+
+    private string? ExtendButtonClassString => CssBuilder.Default()
+        .AddClass("btn-group", UseButtonGroup)
+        .AddClass("btn-separate", !UseButtonGroup)
         .Build();
 
     private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()

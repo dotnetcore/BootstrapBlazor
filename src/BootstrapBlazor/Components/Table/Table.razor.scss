@@ -968,3 +968,7 @@ form .table .table-cell > textarea {
 .bb-sortable tr {
     cursor: pointer;
 }
+
+.btn-separate > button:not(:last-child) {
+    margin-inline-end: .25rem;
+}
