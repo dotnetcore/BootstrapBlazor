@@ -25,8 +25,8 @@
     <div style="height: 600px;">
         <Table TItem="Foo"
                IsPagination="true" PageItemsSource="new int[] {10, 20}"
-               IsStriped="true" IsBordered="true"
-               ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+               IsStriped="true" IsBordered="true" ShowMoreButton="true"
+               ShowToolbar="true" ShowSearch="true" ShowCardView="true" IsMultipleSelect="true" ShowExtendButtons="true"
                AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
                SearchModel="@SearchModel" SearchMode="SearchMode.Top" ShowEmpty="true"
                OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
@@ -49,6 +49,10 @@
                     </div>
                 </GroupBox>
             </SearchTemplate>
+			<MoreButtonDropdownTemplate>
+				<DropdownItem Text="Copy" Icon="fa-solid fa-copy"></DropdownItem>
+				<DropdownDivider></DropdownDivider>
+			</MoreButtonDropdownTemplate>
         </Table>
     </div>
 </DemoBlock>
