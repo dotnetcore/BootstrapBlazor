@@ -152,6 +152,7 @@ internal static class MaterialDesignIcons
 
         { ComponentIcons.TableAddButtonIcon, "mdi mdi-plus" },
         { ComponentIcons.TableEditButtonIcon, "mdi mdi-file-edit-outline" },
+        { ComponentIcons.TableMoreButtonIcon, "mdi mdi-dots-horizontal" },
         { ComponentIcons.TableDeleteButtonIcon, "mdi mdi-close" },
         { ComponentIcons.TableRefreshButtonIcon, "mdi mdi-refresh" },
         { ComponentIcons.TableCardViewButtonIcon, "mdi mdi-menu" },

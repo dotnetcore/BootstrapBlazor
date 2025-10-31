@@ -561,6 +561,11 @@ public enum ComponentIcons
     TableEditButtonIcon,
 
     /// <summary>
+    /// Table 组件 MoreButtonIcon 属性图标
+    /// </summary>
+    TableMoreButtonIcon,
+
+    /// <summary>
     /// Table 组件 DeleteButtonIcon 属性图标
     /// </summary>
     TableDeleteButtonIcon,

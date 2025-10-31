@@ -152,6 +152,7 @@ internal static class FontAwesomeIcons
 
         { ComponentIcons.TableAddButtonIcon, "fa-solid fa-plus" },
         { ComponentIcons.TableEditButtonIcon, "fa-regular fa-pen-to-square" },
+        { ComponentIcons.TableMoreButtonIcon, "fa-solid fa-ellipsis" },
         { ComponentIcons.TableDeleteButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.TableRefreshButtonIcon, "fa-solid fa-arrows-rotate" },
         { ComponentIcons.TableCardViewButtonIcon, "fa-solid fa-bars" },

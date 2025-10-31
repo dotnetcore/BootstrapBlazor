@@ -40,6 +40,12 @@ public partial class Table<TItem>
     public string? EditButtonIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 更多按钮图标
+    /// </summary>
+    [Parameter]
+    public string? MoreButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 更新按钮文本
     /// </summary>
     [Parameter]
