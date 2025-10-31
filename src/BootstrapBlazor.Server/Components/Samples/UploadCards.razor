@@ -72,6 +72,20 @@
                 ShowDownloadButton="@_showDownloadButton" ShowZoomButton="@_showZoomButton" OnChange="@OnCardUpload"></CardUpload>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["UploadActionButtonTemplateTitle"]"
+		   Introduction="@Localizer["UploadActionButtonTemplateIntro"]"
+		   Name="ActionButtonTemplate">
+	<CardUpload TValue="string" IsMultiple="false" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList.Take(1).ToList()"
+				OnChange="@OnCardUpload">
+		<BeforeActionButtonTemplate>
+			<Button Color="Color.Secondary" Icon="fa-solid fa-flag" OnClickWithoutRender="() => OnTest1Click(context)"></Button>
+		</BeforeActionButtonTemplate>
+		<ActionButtonTemplate>
+			<Button Color="Color.Secondary" Icon="fa-solid fa-home" OnClickWithoutRender="() => OnTest2Click(context)"></Button>
+		</ActionButtonTemplate>
+	</CardUpload>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["UploadFileIconTitle"]"
            Introduction="@Localizer["UploadFileIconIntro"]"
            Name="FileIcon">
