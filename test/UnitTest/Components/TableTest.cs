@@ -2026,6 +2026,17 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
+
+        cut.Contains("<div class=\"btn-group\">");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.NotNull(table);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.RowButtonUseGroup, false);
+        });
+        cut.Contains("<div class=\"btn-separate\">");
     }
 
     [Fact]
