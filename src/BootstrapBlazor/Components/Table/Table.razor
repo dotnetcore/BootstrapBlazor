@@ -869,7 +869,7 @@
     RenderFragment<TItem> RenderExtendButtons => item =>
     @<div class="table-cell">
         <label>@ColumnButtonTemplateHeaderText</label>
-        <div class="@ExtendButtonClassString">
+        <div class="@ExtendButtonGroupClassString">
             @if (BeforeRowButtonTemplate != null)
             {
                 <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
@@ -903,7 +903,7 @@
     RenderFragment<TItem> RenderRowExtendButtons => item =>
     @<td class="@FixedExtendButtonsColumnClassString" style="@GetFixedExtendButtonsColumnStyleString()">
         <div class="@ExtendButtonsCellClassString">
-            <div class="@ExtendButtonClassString" @onclick:stopPropagation="true">
+            <div class="@ExtendButtonGroupClassString" @onclick:stopPropagation="true">
                 @{
                     var isInCell = InCellMode && SelectedRows.FirstOrDefault() == item;
                 }

@@ -51,7 +51,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 是否使用按钮组显示行内按钮 默认 true
     /// </summary>
     [Parameter]
-    public bool UseButtonGroup { get; set; } = false;
+    public bool RowButtonUseGroup { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
@@ -159,9 +159,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
-    private string? ExtendButtonClassString => CssBuilder.Default()
-        .AddClass("btn-group", UseButtonGroup)
-        .AddClass("btn-separate", !UseButtonGroup)
+    private string? ExtendButtonGroupClassString => CssBuilder.Default()
+        .AddClass("btn-group", RowButtonUseGroup)
+        .AddClass("btn-separate", !RowButtonUseGroup)
         .Build();
 
     private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
