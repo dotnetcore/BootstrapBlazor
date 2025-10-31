@@ -49,6 +49,10 @@ sudo apt install ./google-chrome-stable_current_amd64.deb</Pre>
     <li>检查是否有依赖缺失</li>
 </ul>
 
+<p>通过下面命令检查依赖缺失情况</p>
+
+<Pre>ldd chrome | grep not</Pre>
+
 <p class="code-quest">4. 部署后是否会反复下载 Chrome 安装包</p>
 <p class="code-answer">不会，Html2Pdf 会检查是否存在安装目录安装成功后即不会重复下载安装操作</p>
 
