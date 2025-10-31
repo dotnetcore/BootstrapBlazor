@@ -152,6 +152,11 @@ public partial class Table<TItem>
     public RenderFragment<TItem>? RowButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 行内更多按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowMoreButton { get; set; }
+    /// <summary>
     /// 获得/设置 行内功能按钮列头文本 默认为 操作
     /// </summary>
     [Parameter]
