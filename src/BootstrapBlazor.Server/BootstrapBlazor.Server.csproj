@@ -36,7 +36,7 @@
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.19" />
     <PackageReference Include="BootstrapBlazor.Dom2Image" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
+    <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.5" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="9.0.1" />
