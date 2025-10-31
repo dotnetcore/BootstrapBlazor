@@ -897,6 +897,18 @@
                     @RowButtonTemplate.Invoke(item)
                 </TableExtensionButton>
             }
+			@if (ShowMoreButton)
+			{
+                <Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
+						  Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
+					<ItemsTemplate>
+						@if (MoreButtonDropdownTemplate != null)
+						{
+							@MoreButtonDropdownTemplate(item)
+						}
+					</ItemsTemplate>
+                </Dropdown>
+			}
         </span>
     </div>;
 
@@ -942,6 +954,18 @@
                         @RowButtonTemplate?.Invoke(item)
                     </TableExtensionButton>
                 }
+                @if (ShowMoreButton)
+			    {
+                    <Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
+						      Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
+						<ItemsTemplate>
+							@if (MoreButtonDropdownTemplate != null)
+							{
+								@MoreButtonDropdownTemplate(item)
+							}
+						</ItemsTemplate>
+                    </Dropdown>
+			    }
             </div>
         </div>
     </td>;
