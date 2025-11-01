@@ -187,5 +187,5 @@ public partial class TablesSearch
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
-    private Task OnAction(Foo foo, string actionName) => ToastService.Information("MoreButtonTemplate Action", $"Trigger {actionName}");
+    private Task OnAction(Foo foo, string actionName) => ToastService.Information(foo.Name, $"Trigger {actionName}");
 }
