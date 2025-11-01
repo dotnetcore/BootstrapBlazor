@@ -3,13 +3,13 @@
 @if (ChildContent != null)
 {
     <div class="@ItemClassString">
-        @t.ChildContent
+        @ChildContent
     </div>
 }
 else
 {
     <DynamicElement class="@ItemClassString"
-                    TriggerClick="CanTriggerClick" OnClick="OnClickItem">
+                    TriggerClick="!IsDisabled" OnClick="OnClickItem">
         <i class="@ItemIconString"></i>
         <span>@Text</span>
     </DynamicElement>

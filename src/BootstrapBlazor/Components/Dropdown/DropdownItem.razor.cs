@@ -51,10 +51,10 @@ public partial class DropdownItem
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("dropdown-item")
-        .AddClass("disabled", CanTriggerClick)
+        .AddClass("disabled", IsDisabled)
         .Build();
 
-    private bool CanTriggerClick => OnDisabledCallback?.Invoke() ?? Disabled;
+    private bool IsDisabled => OnDisabledCallback?.Invoke() ?? Disabled;
 
     private async Task OnClickItem()
     {
