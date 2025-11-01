@@ -10,11 +10,11 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DropdownDivider 组件
 /// </summary>
-public class DropdownDivider : Divider, IDropdownItem, IDisposable
+public class DropdownDivider : Divider, IDisposable
 {
     [CascadingParameter]
     [NotNull]
-    private List<IDropdownItem>? Items { get; set; }
+    private List<ComponentBase>? Items { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -32,7 +32,7 @@ public class DropdownDivider : Divider, IDropdownItem, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder) { }
 
-    private bool disposedValue;
+    private bool _disposedValue;
 
     /// <summary>
     /// 释放资源方法
@@ -40,13 +40,13 @@ public class DropdownDivider : Divider, IDropdownItem, IDisposable
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (!_disposedValue)
         {
             if (disposing)
             {
                 Items.Remove(this);
             }
-            disposedValue = true;
+            _disposedValue = true;
         }
     }
 

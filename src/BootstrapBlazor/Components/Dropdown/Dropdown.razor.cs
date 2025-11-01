@@ -205,7 +205,7 @@ public partial class Dropdown<TValue>
     /// </summary>
     private bool _isAsyncLoading;
 
-    private readonly List<IDropdownItem> _items = [];
+    private readonly List<ComponentBase> _items = [];
 
     /// <summary>
     /// OnParametersSet 方法

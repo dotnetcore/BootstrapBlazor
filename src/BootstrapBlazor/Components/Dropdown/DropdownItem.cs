@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DropdownItem 组件
 /// </summary>
-public class DropdownItem : ComponentBase, IDropdownItem, IDisposable
+public class DropdownItem : ComponentBase, IDisposable
 {
     /// <summary>
     /// 获得/设置 显示文本
@@ -40,9 +40,15 @@ public class DropdownItem : ComponentBase, IDropdownItem, IDisposable
     [Parameter]
     public Func<Task>? OnClick { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [CascadingParameter]
     [NotNull]
-    private List<IDropdownItem>? Items { get; set; }
+    private List<ComponentBase>? Items { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -54,7 +60,7 @@ public class DropdownItem : ComponentBase, IDropdownItem, IDisposable
         Items.Add(this);
     }
 
-    private bool disposedValue;
+    private bool _disposedValue;
 
     /// <summary>
     /// 释放资源方法
@@ -62,13 +68,14 @@ public class DropdownItem : ComponentBase, IDropdownItem, IDisposable
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (!_disposedValue)
         {
             if (disposing)
             {
                 Items.Remove(this);
             }
-            disposedValue = true;
+
+            _disposedValue = true;
         }
     }
 
