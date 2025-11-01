@@ -292,22 +292,4 @@ public partial class Dropdown<TValue>
             await OnClick.InvokeAsync();
         }
     }
-
-    private static string? GetItemIconString(DropdownItem item) => CssBuilder.Default("dropdown-item-icon")
-        .AddClass(item.Icon, !string.IsNullOrEmpty(item.Icon))
-        .Build();
-
-    private static string? GetItemClassString(bool disabled) => CssBuilder.Default("dropdown-item")
-        .AddClass("disabled", disabled)
-        .Build();
-
-    private static bool GetItemTriggerClick(DropdownItem item) => item.OnDisabledCallback?.Invoke(item) ?? item.Disabled;
-
-    private static async Task OnClickItem(DropdownItem item)
-    {
-        if (item.OnClick != null)
-        {
-            await item.OnClick();
-        }
-    }
 }
