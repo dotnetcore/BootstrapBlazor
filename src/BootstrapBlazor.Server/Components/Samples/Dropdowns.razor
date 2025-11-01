@@ -42,6 +42,24 @@
     </Dropdown>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DropdownItemsTemplateTitle"]" Introduction="@Localizer["DropdownItemsTemplateIntro"]"
+           Name="ItemTemplate">
+    <Dropdown TValue="string" Items="ItemTemplateList">
+        <ItemsTemplate>
+            <DropdownItem Text="Copy" Icon="fa-solid fa-copy"></DropdownItem>
+            <DropdownItem Text="Paste" Icon="fa-solid fa-paste"></DropdownItem>
+            <DropdownDivider></DropdownDivider>
+            <DropdownItem Text="Action1" Icon="fa-solid fa-flag"></DropdownItem>
+            <DropdownItem>
+                <Tooltip Title="just a tooltip text demo" Trigger="hover">
+                    <span class="fa-solid fa-flag"></span>
+                    <div class="ms-2 flex-fill">Action2</div>
+                </Tooltip>
+            </DropdownItem>
+        </ItemsTemplate>
+    </Dropdown>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SplitTitle"]" Introduction='@Localizer["SplitIntro"]' Name="Split">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3">
