@@ -8,7 +8,8 @@
     <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <DynamicElement TagName="button" type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled"
+    <DynamicElement TagName="button" type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle"
+                    disabled="@Disabled"
                     TriggerClick="ShowSplit" OnClick="OnClickButton" PreventDefault="false" StopPropagation="false">
         @if (ButtonTemplate == null)
         {
@@ -56,7 +57,7 @@
         }
         else
         {
-			@ItemsTemplate
-		}
+            @ItemsTemplate
+        }
     </div>
 </div>
