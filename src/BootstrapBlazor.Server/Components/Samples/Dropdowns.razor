@@ -31,7 +31,8 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DropdownItemTemplateTitle"]" Introduction="@Localizer["DropdownItemTemplateIntro"]" Name="ItemTemplate">
+<DemoBlock Title="@Localizer["DropdownItemTemplateTitle"]" Introduction="@Localizer["DropdownItemTemplateIntro"]"
+           Name="ItemTemplate">
     <Dropdown TValue="string" Items="ItemTemplateList">
         <ItemTemplate>
             <Tooltip Title="just a tooltip text demo" Trigger="hover">
@@ -48,7 +49,7 @@
         <ItemsTemplate>
             <DropdownItem Text="Copy" Icon="fa-solid fa-copy" OnClick="@(() => OnClickAction("Copy"))"></DropdownItem>
             <DropdownItem Text="Paste" Icon="fa-solid fa-paste" OnClick="@(() => OnClickAction("Paste"))"></DropdownItem>
-            <DropdownDivider></DropdownDivider>
+            <Divider></Divider>
             <DropdownItem Text="Action1" Icon="fa-solid fa-flag" OnClick="@(() => OnClickAction("Action1"))"></DropdownItem>
             <DropdownItem>
                 <Tooltip Title="just a tooltip text demo" Trigger="hover">
