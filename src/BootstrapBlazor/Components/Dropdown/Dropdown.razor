@@ -57,43 +57,7 @@
         }
         else
         {
-			<CascadingValue Value="_items" IsFixed="true">
-				@ItemsTemplate
-			</CascadingValue>
-			<RenderTemplate>
-				@foreach(var item in _items)
-				{
-                    switch (item)
-                    {
-                        case DropdownDivider:
-                            <Divider></Divider>
-                            break;
-                        case DropdownItem t:
-                        {
-                            var disabled = GetItemTriggerClick(t);
-                            if (t.ChildContent != null)
-                            {
-                                <div class="@GetItemClassString(disabled)">
-                                    @t.ChildContent
-                                </div>
-                            }
-                            else
-                            {
-                                <DynamicElement @key="t" class="@GetItemClassString(disabled)"
-                                                TriggerClick="!disabled" OnClick="() => OnClickItem(t)">
-                                    <i class="@GetItemIconString(t)"></i>
-                                    <span>@t.Text</span>
-                                </DynamicElement>
-                            }
-
-                            break;
-                        }
-                        default:
-                            <DynamicComponent Type="item.GetType()"></DynamicComponent>
-                            break;
-                    }
-                }
-			</RenderTemplate>
+			@ItemsTemplate
 		}
     </div>
 </div>

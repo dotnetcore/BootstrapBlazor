@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+
+@if (ChildContent != null)
+{
+    <div class="@ItemClassString">
+        @t.ChildContent
+    </div>
+}
+else
+{
+    <DynamicElement class="@ItemClassString"
+                    TriggerClick="CanTriggerClick" OnClick="OnClickItem">
+        <i class="@ItemIconString"></i>
+        <span>@Text</span>
+    </DynamicElement>
+}

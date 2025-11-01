@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DropdownItem 组件
 /// </summary>
-public class DropdownItem : ComponentBase, IDisposable
+public partial class DropdownItem
 {
     /// <summary>
     /// 获得/设置 显示文本
@@ -32,7 +32,7 @@ public class DropdownItem : ComponentBase, IDisposable
     /// 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/>
     /// </summary>
     [Parameter]
-    public Func<DropdownItem, bool>? OnDisabledCallback { get; set; }
+    public Func<bool>? OnDisabledCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 点击回调方法 默认 null
@@ -46,45 +46,21 @@ public class DropdownItem : ComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    [CascadingParameter]
-    [NotNull]
-    private List<ComponentBase>? Items { get; set; }
+    private string? ItemIconString => CssBuilder.Default("dropdown-item-icon")
+        .AddClass(Icon, !string.IsNullOrEmpty(Icon))
+        .Build();
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
+    private string? ItemClassString => CssBuilder.Default("dropdown-item")
+        .AddClass("disabled", CanTriggerClick)
+        .Build();
+
+    private bool CanTriggerClick => OnDisabledCallback?.Invoke() ?? Disabled;
+
+    private async Task OnClickItem()
     {
-        base.OnInitialized();
-
-        Items.Add(this);
-    }
-
-    private bool _disposedValue;
-
-    /// <summary>
-    /// 释放资源方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!_disposedValue)
+        if (OnClick != null)
         {
-            if (disposing)
-            {
-                Items.Remove(this);
-            }
-
-            _disposedValue = true;
+            await OnClick();
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }
