@@ -54,7 +54,27 @@
         }
         else
         {
-            @ItemsTemplate
-        }
+			<CascadingValue Value="_items" IsFixed="true">
+				@ItemsTemplate
+			</CascadingValue>
+			<RenderTemplate>
+				@foreach(var item in _items)
+				{
+					if (item is DropdownDivider)
+					{
+						<Divider></Divider>
+					}
+					else if (item is DropdownItem t)
+					{
+						var disabled = GetItemTriggerClick(t);
+						<DynamicElement @key="t" class="@GetItemClassString(disabled)"
+										TriggerClick="!disabled" OnClick="() => OnClickItem(t)">
+							<i class="@GetItemIconString(t)"></i>
+							<span>@t.Text</span>
+						</DynamicElement>
+					}
+				}
+			</RenderTemplate>
+		}
     </div>
 </div>
