@@ -10,7 +10,13 @@ else
 {
     <DynamicElement class="@ItemClassString"
                     TriggerClick="!IsDisabled" OnClick="OnClickItem">
-        <i class="@ItemIconString"></i>
-        <span>@Text</span>
+        @if (!string.IsNullOrEmpty(ItemIconString))
+        {
+            <i class="@ItemIconString"></i>
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
     </DynamicElement>
 }
