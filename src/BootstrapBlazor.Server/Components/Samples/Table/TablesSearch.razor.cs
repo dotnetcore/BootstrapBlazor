@@ -138,9 +138,9 @@ public partial class TablesSearch
             Items = items,
             TotalCount = total,
             IsSorted = true,
-            IsFiltered = options.Filters.Any(),
-            IsSearch = options.Searches.Any(),
-            IsAdvanceSearch = options.AdvanceSearches.Any()
+            IsFiltered = options.Filters.Count != 0,
+            IsSearch = options.Searches.Count != 0,
+            IsAdvanceSearch = options.AdvanceSearches.Count != 0
         });
     }
 
@@ -183,4 +183,9 @@ public partial class TablesSearch
             IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText),
         });
     }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnAction(Foo foo, string actionName) => ToastService.Information("MoreButtonTemplate Action", $"Trigger {actionName}");
 }
