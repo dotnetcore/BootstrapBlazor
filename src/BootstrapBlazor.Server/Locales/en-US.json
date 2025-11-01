@@ -1626,7 +1626,9 @@
     "DropdownCascadeItem7": "Jingan",
     "DropdownCascadeItem8": "Huangpu",
     "DropdownItemTemplateTitle": "Item Template",
-    "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered."
+    "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered.",
+    "DropdownItemsTemplateTitle": "Items Template",
+    "DropdownItemsTemplateIntro": "You can customize all the content of the dropdown list by setting `<itemsTemplate>`. In this example, we use the `<DropdownItem>` component and `<DropdownDivider>` component to customize the dropdown list component."
   },
   "BootstrapBlazor.Server.Components.Samples.GoTops": {
     "Title": "GoTop",
