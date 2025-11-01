@@ -21,7 +21,10 @@
             {
                 <i class="@Icon"></i>
             }
-            <span>@ButtonText</span>
+            @if (!string.IsNullOrEmpty(ButtonText))
+            {
+                <span>@ButtonText</span>
+            }
         }
         else
         {
