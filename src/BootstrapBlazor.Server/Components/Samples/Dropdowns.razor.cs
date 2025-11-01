@@ -163,6 +163,8 @@ public sealed partial class Dropdowns
         await ToastService.Success("Dropdown IsAsync", "Job done!");
     }
 
+    private Task OnClickAction(string actionName) => ToastService.Information("Custom Action", $"Trigger {actionName}");
+
     /// <summary>
     /// GetAttributes
     /// </summary>
