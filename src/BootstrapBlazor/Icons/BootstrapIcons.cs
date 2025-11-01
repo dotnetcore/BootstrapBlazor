@@ -152,6 +152,7 @@ internal static class BootstrapIcons
 
         { ComponentIcons.TableAddButtonIcon, "bi bi-plus" },
         { ComponentIcons.TableEditButtonIcon, "bi bi-check2-square" },
+        { ComponentIcons.TableMoreButtonIcon, "bi bi-three-dots" },
         { ComponentIcons.TableDeleteButtonIcon, "bi bi-x" },
         { ComponentIcons.TableRefreshButtonIcon, "bi bi-arrow-clockwise" },
         { ComponentIcons.TableCardViewButtonIcon, "bi bi-list" },

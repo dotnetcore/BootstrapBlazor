@@ -152,6 +152,18 @@ public partial class Table<TItem>
     public RenderFragment<TItem>? RowButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 行内更多按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowMoreButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 行内更多按钮下拉框模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? MoreButtonDropdownTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 行内功能按钮列头文本 默认为 操作
     /// </summary>
     [Parameter]
@@ -302,7 +314,7 @@ public partial class Table<TItem>
 
     private TItem CreateTItem() => CreateItemCallback?.Invoke() ?? CreateInstance();
 
-    private readonly string ErrorMessage = $"{typeof(TItem)} create instrance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
+    private readonly string ErrorMessage = $"{typeof(TItem)} create instance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
 
     private TItem CreateInstance()
     {
