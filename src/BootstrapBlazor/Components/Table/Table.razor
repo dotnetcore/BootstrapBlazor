@@ -869,7 +869,7 @@
     RenderFragment<TItem> RenderExtendButtons => item =>
     @<div class="table-cell">
         <label>@ColumnButtonTemplateHeaderText</label>
-        <span class="btn-group">
+        <div class="btn-group">
             @if (BeforeRowButtonTemplate != null)
             {
                 <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
@@ -899,17 +899,9 @@
             }
 			@if (ShowMoreButton)
 			{
-                <Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
-						  Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
-					<ItemsTemplate>
-						@if (MoreButtonDropdownTemplate != null)
-						{
-							@MoreButtonDropdownTemplate(item)
-						}
-					</ItemsTemplate>
-                </Dropdown>
+                @RenderMoreButton(item)
 			}
-        </span>
+        </div>
     </div>;
 
     RenderFragment<TItem> RenderRowExtendButtons => item =>
@@ -956,19 +948,22 @@
                 }
                 @if (ShowMoreButton)
 			    {
-                    <Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
-						      Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
-						<ItemsTemplate>
-							@if (MoreButtonDropdownTemplate != null)
-							{
-								@MoreButtonDropdownTemplate(item)
-							}
-						</ItemsTemplate>
-                    </Dropdown>
+                    @RenderMoreButton(item)
 			    }
             </div>
         </div>
     </td>;
+
+	RenderFragment<TItem> RenderMoreButton => item =>
+	@<Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
+			   Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
+		<ItemsTemplate>
+			@if (MoreButtonDropdownTemplate != null)
+			{
+				@MoreButtonDropdownTemplate(item)
+			}
+		</ItemsTemplate>
+    </Dropdown>;
 
     RenderFragment RenderSearch =>
     @<Card IsCollapsible="true" HeaderText="@SearchModalTitle" Collapsed="CollapsedTopSearch">

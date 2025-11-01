@@ -158,12 +158,6 @@ public partial class Table<TItem>
     public bool ShowMoreButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 行内更多按钮模板 默认 null
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TItem>? MoreButtonTemplate { get; set; }
-
-    /// <summary>
     /// 获得/设置 行内更多按钮下拉框模板 默认 null
     /// </summary>
     [Parameter]
