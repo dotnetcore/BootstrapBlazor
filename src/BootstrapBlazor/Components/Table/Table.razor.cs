@@ -48,10 +48,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public int DefaultFixedColumnWidth { get; set; } = 200;
 
     /// <summary>
-    /// 获得/设置 是否使用按钮组显示行内按钮 默认 true
+    /// 获得/设置 是否使用按钮组显示行内扩展按钮 默认 true
     /// </summary>
     [Parameter]
-    public bool RowButtonUseGroup { get; set; } = true;
+    public bool IsGroupExtendButtons { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 内置虚拟化组件实例
@@ -160,8 +160,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     private string? ExtendButtonGroupClassString => CssBuilder.Default()
-        .AddClass("btn-group", RowButtonUseGroup)
-        .AddClass("btn-separate", !RowButtonUseGroup)
+        .AddClass("btn-group", IsGroupExtendButtons)
+        .AddClass("btn-separate", !IsGroupExtendButtons)
         .Build();
 
     private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()

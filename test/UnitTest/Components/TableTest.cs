@@ -2034,7 +2034,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.RowButtonUseGroup, false);
+            pb.Add(a => a.IsGroupExtendButtons, false);
         });
         cut.Contains("<div class=\"btn-separate\">");
     }
