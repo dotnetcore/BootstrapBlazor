@@ -42,10 +42,7 @@ public class DropdownTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.IsKeepDisabled, false);
             pb.Add(a => a.Icon, "fa-solid fa-test-icon");
-            pb.Add(a => a.OnClickWithoutRender, () =>
-            {
-                return Task.CompletedTask;
-            });
+            pb.Add(a => a.OnClickWithoutRender, () => Task.CompletedTask);
         });
         cut.Contains("<i class=\"fa-solid fa-test-icon\"></i>");
         var button = cut.Find("button");
@@ -272,16 +269,66 @@ public class DropdownTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ItemsTemplate_Ok()
+    public async Task ItemsTemplate_Ok()
     {
+        var clicked = false;
         var cut = Context.RenderComponent<Dropdown<string>>(pb =>
         {
-            pb.Add(a => a.ItemsTemplate, new RenderFragment(builder =>
+            pb.Add(a => a.IsFixedButtonText, true);
+            pb.Add(a => a.FixedButtonText, "fixed text");
+            pb.Add(a => a.ItemsTemplate, builder =>
             {
-                builder.AddContent(0, new MarkupString("<div>test-items-template</div>"));
-            }));
+                builder.OpenComponent<DropdownItem>(0);
+                builder.AddAttribute(1, "Icon", "fa-solid fa-icon1");
+                builder.AddAttribute(2, "Text", "dropdown-item-test1");
+                builder.AddAttribute(3, "OnClick", () =>
+                {
+                    clicked = true;
+                    return Task.CompletedTask;
+                });
+                builder.CloseComponent();
+
+                builder.OpenComponent<DropdownItem>(0);
+                builder.AddAttribute(1, "Icon", "fa-solid fa-icon2");
+                builder.AddAttribute(2, "Text", "dropdown-item-test2");
+                builder.AddAttribute(3, "Disabled", true);
+                builder.CloseComponent();
+
+                builder.OpenComponent<DropdownItem>(0);
+                builder.AddAttribute(1, "Icon", "fa-solid fa-icon3");
+                builder.AddAttribute(2, "Text", "dropdown-item-test3");
+                builder.AddAttribute(3, "Disabled", false);
+                builder.AddAttribute(4, "OnDisabledCallback", () => true);
+                builder.CloseComponent();
+
+                builder.OpenComponent<DropdownItem>(0);
+                builder.AddAttribute(1, "Icon", "fa-solid fa-icon4");
+                builder.AddAttribute(2, "Text", "dropdown-item-test4");
+                builder.AddAttribute(3, "ChildContent",
+                    new RenderFragment(pb1 => pb1.AddMarkupContent(0, "<div>dropdown-item-childcontent</div>")));
+                builder.CloseComponent();
+            });
         });
-        cut.Contains("<div>test-items-template</div>");
+        cut.Contains("fa-solid fa-icon1");
+        cut.Contains("dropdown-item-test1");
+
+        cut.Contains("fa-solid fa-icon2");
+        cut.Contains("dropdown-item-test2");
+
+        cut.Contains("fa-solid fa-icon3");
+        cut.Contains("dropdown-item-test3");
+
+        cut.DoesNotContain("fa-solid fa-icon4");
+        cut.DoesNotContain("dropdown-item-test4");
+        cut.Contains("dropdown-item-childcontent");
+
+        cut.Contains("dropdown-item disabled");
+
+        Assert.False(clicked);
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync((() => item.Click()));
+        Assert.True(clicked);
     }
 
     [Fact]

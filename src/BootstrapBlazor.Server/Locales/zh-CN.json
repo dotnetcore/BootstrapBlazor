@@ -1626,7 +1626,9 @@
     "DropdownCascadeItem7": "静安区",
     "DropdownCascadeItem8": "黄浦区",
     "DropdownItemTemplateTitle": "下拉项模板",
-    "DropdownItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义下拉项显示内容，本例中通过自定义模板使用 <code>Tooltip</code> 组件增加鼠标悬浮是显示提示功能"
+    "DropdownItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义下拉项显示内容，本例中通过自定义模板使用 <code>Tooltip</code> 组件增加鼠标悬浮是显示提示功能",
+    "DropdownItemsTemplateTitle": "下拉框模板",
+    "DropdownItemsTemplateIntro": "通过设置 <code>ItemsTemplate</code> 可以自定义下拉框所有内容，本例中通过使用 <code>DropdownItem</code> 组件与 <code>DropdownDivider</code> 对下拉框组件进行自定义"
   },
   "BootstrapBlazor.Server.Components.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",
