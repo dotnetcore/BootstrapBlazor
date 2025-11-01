@@ -8792,6 +8792,35 @@ public class TableTest : BootstrapBlazorTestBase
         });
     }
 
+    [Theory]
+    [InlineData(TableRenderMode.Table)]
+    [InlineData(TableRenderMode.CardView)]
+    public void Table_ShowMoreButton_Ok(TableRenderMode mode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        {
+            pb.AddCascadingValue<ISortableList>(new SortableList());
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.RenderMode, mode);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.Add(a => a.ShowMoreButton, true);
+            pb.Add(a => a.MoreButtonDropdownTemplate, context => builder =>
+            {
+                builder.AddMarkupContent(0, "<div>dropdown-item-more-template</div>");
+            });
+        });
+
+        cut.Contains("<div>dropdown-item-more-template</div");
+    }
+
     class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
