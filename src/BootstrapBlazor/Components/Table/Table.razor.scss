@@ -969,6 +969,10 @@ form .table .table-cell > textarea {
     cursor: pointer;
 }
 
-.btn-separate > button:not(:last-child) {
-    margin-inline-end: .25rem;
+.btn-separate {
+    display: inline-flex;
+
+    > button:not(:last-child) {
+        margin-inline-end: .25rem;
+    }
 }
