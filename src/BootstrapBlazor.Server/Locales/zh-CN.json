@@ -3219,7 +3219,7 @@
     "PlaceHolder": "请输入",
     "TransfersTitle": "Transfer 穿梭框",
     "TransferNormalTitle": "基础用法",
-    "TransferNormalIntro": "可搜索",
+    "TransferNormalIntro": "左边勾选候选项点击移动按钮将候选项移动到右侧",
     "TransferCustomerTitle": "可自定义",
     "TransferCustomerIntro": "可以对列表标题文案、按钮文案、数据项的渲染函数、列表底部的勾选状态文案、列表底部的内容区等进行自定义。",
     "TransferSearchTitle": "可搜索",
