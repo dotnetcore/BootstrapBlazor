@@ -318,7 +318,7 @@
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
             <TableTemplateColumn Text="@Localizer["TableTemplateColumnText"]">
                 <Template Context="v">
-                    @v.Value
+					@v.Row.ReadonlyColumn
                 </Template>
             </TableTemplateColumn>
         </TableColumns>
