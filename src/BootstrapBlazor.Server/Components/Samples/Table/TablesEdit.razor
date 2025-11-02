@@ -9,19 +9,19 @@
 <h4>@((MarkupString)Localizer["TablesEditDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["TablesEditItemsTitle"]" Introduction="@Localizer["TablesEditItemsIntro"]" Name="EditItems">
-	<section ignore class="row form-inline g-3">
-		<div class="col-12">
-			<div>@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</div>
-		</div>
-		<div class="col-12 col-sm-6">
-			<BootstrapInputGroup>
-				<BootstrapInputGroupLabel DisplayText="IsGroupExtendButtons"></BootstrapInputGroupLabel>
-				<Switch @bind-Value="_useGroup"></Switch>
-			</BootstrapInputGroup>
-		</div>
-	</section>
+    <section ignore class="row form-inline g-3">
+        <div class="col-12">
+            <div>@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsGroupExtendButtons"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_useGroup"></Switch>
+            </BootstrapInputGroup>
+        </div>
+    </section>
     <Table TItem="Foo" @bind-Items="EditItems"
-		   IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsGroupExtendButtons="_useGroup"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsGroupExtendButtons="_useGroup"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            OnAddAsync="@OnAddAsync">
         <TableColumns>
@@ -318,7 +318,7 @@
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
             <TableTemplateColumn Text="@Localizer["TableTemplateColumnText"]">
                 <Template Context="v">
-                    Test
+                    @v.Row.ReadonlyColumn
                 </Template>
             </TableTemplateColumn>
         </TableColumns>
