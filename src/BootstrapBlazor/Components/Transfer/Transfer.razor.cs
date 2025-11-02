@@ -192,10 +192,10 @@ public partial class Transfer<TValue>
     public string? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为换行模式 默认 false 不换行
+    /// 获得/设置 候选项是否为换行模式 默认 false 不换行
     /// </summary>
     [Parameter]
-    public bool IsWrapItem { get; set; }
+    public bool IsWrapItem { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 候选项宽度 默认 null 未设置
