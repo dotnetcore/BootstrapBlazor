@@ -10,13 +10,13 @@
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="IsWrapItem"></BootstrapInputGroupLabel>
-                <Switch @bind-Value="_isWrapItem"></Switch>
+                <Switch @bind-Value="@_isWrapItem"></Switch>
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="IsWrapItemText"></BootstrapInputGroupLabel>
-                <Switch @bind-Value="_isWrapItemText"></Switch>
+                <Switch @bind-Value="@_isWrapItemText"></Switch>
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
@@ -27,7 +27,7 @@
         </div>
     </section>
     <Transfer TValue="string" Items="@Items"
-              IsWrapItem="_isWrapItem" IsWrapItemText="_isWrapItemText" ItemWidth="@_itemWidth"
+              IsWrapItem="@_isWrapItem" IsWrapItemText="@_isWrapItemText" ItemWidth="@_itemWidth"
               OnSelectedItemsChanged="@OnSelectedItemsChanged" />
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
