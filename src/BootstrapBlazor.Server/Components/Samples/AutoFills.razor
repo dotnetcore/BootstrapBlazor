@@ -9,7 +9,6 @@
     <section ignore>
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
-    <Button OnClick="@(()=>Model1=null)">测试用请删除:点我清空Model1</Button>
     <AutoFill @bind-Value="Model1" Items="Items1" IsAutoClearWhenInvalid="true"
               IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" IsSelectAllTextOnFocus="true">
         <ItemTemplate>
