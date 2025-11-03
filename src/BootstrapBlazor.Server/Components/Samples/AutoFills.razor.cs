@@ -213,6 +213,14 @@ partial class AutoFills
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name=nameof(AutoFill<string>.IsAutoClearWhenInvalid),
+            Description=Localizer["AttIsAutoClearWhenInvalid"],
+            Type="bool",
+            ValueList="true/false",
+            DefaultValue="false"
         }
     ];
 }

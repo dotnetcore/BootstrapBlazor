@@ -1997,7 +1997,8 @@
     "IsVirtualizeTitle": "虚拟滚动",
     "IsVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
     "IsVirtualizeDescription": "组件虚拟滚动支持两种形式通过 <code>Items</code> 或者 <code>OnQueryAsync</code> 回调方法提供数据",
-    "AttrIsVirtualize": "是否开启虚拟滚动"
+    "AttrIsVirtualize": "是否开启虚拟滚动",
+    "AttIsAutoClearWhenInvalid":"焦点移除组件时是否自动清空无效值"
   },
   "BootstrapBlazor.Server.Components.Samples.AutoCompletes": {
     "Title": "AutoComplete 自动完成",

@@ -177,6 +177,7 @@ public partial class AutoFill<TValue>
 
         _displayText = GetDisplayText(Value);
         _clientValue = _displayText;
+        InvokeVoidAsync("setValue", Id, _displayText);
         Items ??= [];
     }
 
