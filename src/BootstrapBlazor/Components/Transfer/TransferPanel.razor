@@ -31,8 +31,8 @@
                 {
                     var state = item.Active ? CheckboxState.Checked : CheckboxState.UnChecked;
                     <Checkbox TValue="SelectedItem" IsDisabled="@IsDisabled" class="@GetItemClass(item)"
-                                DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
-                                State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
+                              DisplayText="@item.Text" Value="item" ShowAfterLabel="true" ShowLabel="false"
+                              State="@state" OnStateChanged="@OnStateChanged"></Checkbox>
                 }
                 else
                 {
