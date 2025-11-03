@@ -12,7 +12,19 @@ public class TransferTest : BootstrapBlazorTestBase
     {
         // 未设置 Items 为空
         var cut = Context.RenderComponent<Transfer<string>>();
+        cut.Contains("class=\"bb-transfer wrap-item\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsWrapItem, false);
+        });
         cut.Contains("class=\"bb-transfer\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsWrapItemText, true);
+        });
+        cut.Contains("class=\"bb-transfer wrap-item-text\"");
 
         // 设置 Items
         cut.SetParametersAndRender(pb =>

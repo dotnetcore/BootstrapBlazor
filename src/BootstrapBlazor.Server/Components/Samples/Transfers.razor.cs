@@ -43,6 +43,10 @@ public sealed partial class Transfers : ComponentBase
 
     private IEnumerable<SelectedItem> SelectedValue { get; set; } = Enumerable.Empty<SelectedItem>();
 
+    private bool _isWrapItem = true;
+    private bool _isWrapItemText = true;
+    private string? _itemWidth = "160px";
+
     private Task OnSelectedItemsChanged(IEnumerable<SelectedItem> items)
     {
         Logger.Log(string.Join(" ", items.Select(i => i.Text)));
@@ -59,15 +63,17 @@ public sealed partial class Transfers : ComponentBase
         // 模拟异步加载数据源
         await Task.Delay(100);
 
-        Items = GeneratorItems();
+        var items = GeneratorItems().ToList();
+        items[1].Text = "我是一个超级长的专门为了测试溢出折行功能的候选项";
+        Items = items;
         Items1 = GeneratorItems();
         Items2 = GeneratorItems();
 
-        Items3 = Enumerable.Range(1, 15).Select(i => new SelectedItem()
+        Items3 = [.. Enumerable.Range(1, 15).Select(i => new SelectedItem()
         {
             Text = $"{Localizer["Backup"]} {i:d2}",
             Value = i.ToString()
-        }).ToList();
+        })];
 
         Items4 = GeneratorItems();
         Items5 = GeneratorItems();

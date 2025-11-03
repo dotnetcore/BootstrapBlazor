@@ -3219,7 +3219,7 @@
     "PlaceHolder": "Please enter",
     "TransfersTitle": "Transfer",
     "TransferNormalTitle": "Basic usage",
-    "TransferNormalIntro": "Searchable",
+    "TransferNormalIntro": "Select the candidate items on the left and click the move button to move them to the right",
     "TransferCustomerTitle": "Customizable",
     "TransferCustomerIntro": "You can customize the list title copy, button copy, rendering function of data items, check status copy at the bottom of the list, content area at the bottom of the list, and so on.",
     "TransferSearchTitle": "Searchable",
