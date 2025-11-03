@@ -6,7 +6,29 @@
 <DemoBlock Title="@Localizer["TransferNormalTitle"]"
            Introduction="@Localizer["TransferNormalIntro"]"
            Name="Normal">
-    <Transfer TValue="string" Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
+    <section ignore class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsWrapItem"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_isWrapItem"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsWrapItemText"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_isWrapItemText"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ItemWidth"></BootstrapInputGroupLabel>
+                <BootstrapInput @bind-Value="@_itemWidth"></BootstrapInput>
+            </BootstrapInputGroup>
+        </div>
+    </section>
+    <Transfer TValue="string" Items="@Items"
+              IsWrapItem="_isWrapItem" IsWrapItemText="_isWrapItemText" ItemWidth="@_itemWidth"
+              OnSelectedItemsChanged="@OnSelectedItemsChanged" />
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
