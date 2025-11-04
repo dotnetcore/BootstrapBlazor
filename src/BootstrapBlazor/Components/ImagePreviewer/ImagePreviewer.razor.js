@@ -12,8 +12,6 @@ export function init(id, prevList, config) {
         viewer: Viewer.init(el, prevList, config)
     };
     Data.set(id, viewer);
-
-    document.body.appendChild(el);
 }
 
 export function update(id, prevList) {
@@ -32,6 +30,5 @@ export function dispose(id) {
 
     if (viewer) {
         Viewer.dispose(viewer.viewer);
-        viewer.el.remove();
     }
 }
