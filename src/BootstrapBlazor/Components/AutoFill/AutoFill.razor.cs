@@ -143,6 +143,8 @@ public partial class AutoFill<TValue>
     [NotNull]
     private RenderTemplate? _dropdown = null;
 
+    private string? _lastClientValue;
+
     /// <summary>
     /// Gets the component style.
     /// </summary>
@@ -183,6 +185,30 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _lastClientValue = _clientValue;
+        }
+
+        if (_lastClientValue != _clientValue)
+        {
+            _lastClientValue = _clientValue;
+            _filterItems = null;
+
+            _dropdown.Render();
+            await InvokeVoidAsync("setValue", Id, _clientValue);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
 
@@ -215,6 +241,7 @@ public partial class AutoFill<TValue>
     {
         CurrentValue = val;
         _displayText = GetDisplayText(val);
+        _clientValue = _displayText;
 
         // 使用脚本更新 input 值
         await InvokeVoidAsync("setValue", Id, _displayText);
