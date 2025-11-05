@@ -91,6 +91,12 @@ public partial class Tab
     public bool IsLazyLoadTabItem { get; set; }
 
     /// <summary>
+    /// 获得/设置 Tab 标签头文本本地化回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string?, string?>? OnTabHeaderTextLocalizer { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件高度 默认值为 0 高度自动
     /// </summary>
     [Parameter]
@@ -862,6 +868,11 @@ public partial class Tab
 
         void SetTabItemParameters(string? text, string? icon, bool closable, bool active)
         {
+            // 增加 TabItemOptionAttribute 多语言支持
+            if (OnTabHeaderTextLocalizer != null)
+            {
+                text = OnTabHeaderTextLocalizer(text);
+            }
             parameters.Add(nameof(TabItem.Text), text);
             parameters.Add(nameof(TabItem.Icon), icon);
             parameters.Add(nameof(TabItem.Closable), closable);

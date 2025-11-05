@@ -1962,7 +1962,9 @@
     "AttributeContextMenuCloseAllIcon": "the icon of tab item context menu close all button",
     "AttributeContextMenuFullScreenIcon": "the icon of tab item context menu full screen button",
     "AttributeOnBeforeShowContextMenu": "before popup context menu callback",
-    "ShowTabInHeaderDesc": "After enabling the multi-tab function in the <code>Layout</code> component, you can render the <code>Tab</code> tag header into the <code>Layout</code> Header template by setting <code>ShowTabInHeader=\"true\"</code>. The effect can be viewed by creating a new project in the <a href=\"template\" target=\"_blank\">Project Template</a>"
+    "ShowTabInHeaderDesc": "After enabling the multi-tab function in the <code>Layout</code> component, you can render the <code>Tab</code> tag header into the <code>Layout</code> Header template by setting <code>ShowTabInHeader=\"true\"</code>. The effect can be viewed by creating a new project in the <a href=\"template\" target=\"_blank\">Project Template</a>",
+    "TabsOnTabHeaderTextLocalizerTitle": "<code>TabItemOption</code> Localizer",
+    "TabsOnTabHeaderTextLocalizerIntro": "Localization of `TabItemOption` is achieved by setting the `OnTabHeaderTextLocalizer` callback delegate method. The input parameter is the `TabItemOption` parameter `Text`, and the return value is the localized value"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
