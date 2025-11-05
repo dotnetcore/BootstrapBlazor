@@ -1962,7 +1962,9 @@
     "AttributeContextMenuCloseAllIcon": "右键菜单关闭全部按钮图标",
     "AttributeContextMenuFullScreenIcon": "右键菜单全屏按钮图标",
     "AttributeOnBeforeShowContextMenu": "右键菜单弹出前回调方法",
-    "ShowTabInHeaderDesc": "<code>Layout</code> 组件中开启多标签功能后，可以通过设置 <code>ShowTabInHeader=\"true\"</code> 将 <code>Tab</code> 标签头渲染到 <code>Layout</code> Header 模板中，效果可以通过 <a href=\"template\" target=\"_blank\">项目模板</a> 新建工程查看"
+    "ShowTabInHeaderDesc": "<code>Layout</code> 组件中开启多标签功能后，可以通过设置 <code>ShowTabInHeader=\"true\"</code> 将 <code>Tab</code> 标签头渲染到 <code>Layout</code> Header 模板中，效果可以通过 <a href=\"template\" target=\"_blank\">项目模板</a> 新建工程查看",
+    "TabsOnTabHeaderTextLocalizerTitle": "<code>TabItemOption</code> 本地化问题",
+    "TabsOnTabHeaderTextLocalizerIntro": "通过设置 <code>OnTabHeaderTextLocalizer</code> 回调委托方法实现 <code>TabItemOption</code> 本地化，入参为 <code>TabItemOption</code> 参数 <code>Text</code> 值，返回值为本地化后值"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",
