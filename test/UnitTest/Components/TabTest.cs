@@ -1167,6 +1167,21 @@ public class TabTest : BootstrapBlazorTestBase
         tab.DoesNotContain("tabs-header");
     }
 
+    [Fact]
+    public void OnTabHeaderTextLocalizer_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.OnTabHeaderTextLocalizer, text =>
+            {
+                return $"Localized-{text}";
+            });
+            pb.Add(a => a.DefaultUrl, "/Cat");
+        });
+        cut.Contains("Localized-Cat");
+    }
+
     class DisableTabItemButton : ComponentBase
     {
         [CascadingParameter, NotNull]
