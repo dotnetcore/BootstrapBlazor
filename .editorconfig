@@ -71,9 +71,6 @@ resharper_web_config_wrong_module_highlighting = warning
 [*.{cs,csx,vb,vbx,css,scss}]
 indent_size = 4
 
-[*.{cs,css,scss,js,json,*html,razor,txt,log}]
-charset = utf-8-bom
-
 [*.{xml,config,*proj,nuspec,props,resx,targets,yml,tasks}]
 indent_size = 2
 
