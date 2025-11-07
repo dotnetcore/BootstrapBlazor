@@ -3265,14 +3265,29 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.Contains("width: 36px;");
+        if (showCheckboxText == false)
+        {
+            cut.Contains("width: 36px;");
+        }
+        else
+        {
+            cut.Contains("width: 80px;");
+        }
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.TableSize, TableSize.Compact);
         });
-        cut.Contains("width: 28px;");
+
+        if (showCheckboxText == false)
+        {
+            cut.Contains("width: 28px;");
+        }
+        else
+        {
+            cut.Contains("width: 80px;");
+        }
     }
 
     [Theory]
