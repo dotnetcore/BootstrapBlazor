@@ -877,12 +877,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (CheckboxColumnWidth == 0)
         {
-            CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
-
-            if(TableSize == TableSize.Compact)
-            {
-                CheckboxColumnWidth = (int)(CheckboxColumnWidth * 0.8);
-            }
+            CheckboxColumnWidth = TableSize == TableSize.Normal
+                ? op.TableSettings.CheckboxColumnWidth
+                : op.TableSettings.CheckboxColumnCompactWidth;
         }
 
         if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)
