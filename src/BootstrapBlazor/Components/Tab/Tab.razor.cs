@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -804,7 +804,11 @@ public partial class Tab
         StateHasChanged();
     }
 
-    private static List<Assembly> GetAdditionalAssemblies() => [Assembly.GetEntryAssembly()!];
+    private static List<Assembly> GetAdditionalAssemblies()
+    {
+        var assembly = Assembly.GetEntryAssembly();
+        return assembly is null ? [] : [assembly];
+    }
 
     private void AddTabItem(string url)
     {
