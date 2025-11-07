@@ -102,9 +102,9 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
-        builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), RenderContent);
+        builder.AddAttribute(1, nameof(CascadingValue<>.Value), this);
+        builder.AddAttribute(2, nameof(CascadingValue<>.IsFixed), true);
+        builder.AddAttribute(3, nameof(CascadingValue<>.ChildContent), RenderContent);
         builder.CloseComponent();
     }
 
