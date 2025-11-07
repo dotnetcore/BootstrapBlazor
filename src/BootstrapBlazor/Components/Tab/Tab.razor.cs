@@ -197,7 +197,6 @@ public partial class Tab
     /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
     /// </summary>
     [Parameter]
-    [NotNull]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
@@ -529,15 +528,6 @@ public partial class Tab
         ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
         ContextMenuFullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuFullScreenIcon);
 
-        if (AdditionalAssemblies is null)
-        {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            if (entryAssembly is not null)
-            {
-                AdditionalAssemblies = [entryAssembly];
-            }
-        }
-
         if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
         {
             TabStyle = TabStyle.Default;
@@ -814,8 +804,11 @@ public partial class Tab
         StateHasChanged();
     }
 
+    private static List<Assembly> GetAdditionalAssemblies() => [Assembly.GetEntryAssembly()!];
+
     private void AddTabItem(string url)
     {
+        AdditionalAssemblies ??= GetAdditionalAssemblies();
         var parameters = new Dictionary<string, object?>
         {
             { nameof(TabItem.Url), url }
