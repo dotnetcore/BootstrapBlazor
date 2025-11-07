@@ -7390,6 +7390,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableSize, TableSize.Normal);
+                pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
