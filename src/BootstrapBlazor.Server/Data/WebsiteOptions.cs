@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -131,6 +131,11 @@ public class WebsiteOptions
     public HashSet<ThemeOption>? Themes { get; set; }
 
     /// <summary>
+    /// 获得/设置 目标框架集合
+    /// </summary>
+    public List<string> TargetFrameworks { get; set; } = [];
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     public WebsiteOptions()
@@ -174,4 +179,11 @@ public class WebsiteOptions
     /// <param name="id"></param>
     /// <returns></returns>
     public string GetAvatarUrl(int id) => $"{AssetRootPath}images/avatars/150-{Math.Max(1, id % 25)}.jpg";
+
+    /// <summary>
+    /// 获得目标框架字符串
+    /// </summary>
+    /// <param name="separator"></param>
+    /// <returns></returns>
+    public string GetTargets(string separator = "/") => string.Join(separator, TargetFrameworks);
 }
