@@ -94,6 +94,22 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnTabHeaderTextLocalizer_Ok()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.OnTabHeaderTextLocalizer, text => $"Localized-{text}");
+        });
+
+        var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/Cat");
+
+        cut.Contains("Localized-Cat");
+    }
+
+    [Fact]
     public async Task ShowTabInHeader_Ok()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
