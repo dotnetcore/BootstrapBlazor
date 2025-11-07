@@ -3264,6 +3264,15 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
+
+        cut.Contains("width: 36px;");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TableSize, TableSize.Compact);
+        });
+        cut.Contains("width: 28px;");
     }
 
     [Theory]
