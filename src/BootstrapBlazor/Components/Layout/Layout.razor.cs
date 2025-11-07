@@ -19,6 +19,12 @@ public partial class Layout : IHandlerException, ITabHeader
     private bool IsSmallScreen { get; set; }
 
     /// <summary>
+    /// 获得/设置 Tab 标签头文本本地化回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string?, string?>? OnTabHeaderTextLocalizer { get; set; }
+
+    /// <summary>
     /// Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.
     /// </summary>
     [Parameter]

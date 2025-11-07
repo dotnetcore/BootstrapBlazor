@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -197,7 +197,6 @@ public partial class Tab
     /// 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.
     /// </summary>
     [Parameter]
-    [NotNull]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
@@ -529,15 +528,6 @@ public partial class Tab
         ContextMenuCloseAllIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuCloseAllIcon);
         ContextMenuFullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabContextMenuFullScreenIcon);
 
-        if (AdditionalAssemblies is null)
-        {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            if (entryAssembly is not null)
-            {
-                AdditionalAssemblies = [entryAssembly];
-            }
-        }
-
         if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
         {
             TabStyle = TabStyle.Default;
@@ -816,6 +806,7 @@ public partial class Tab
 
     private void AddTabItem(string url)
     {
+        AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
         var parameters = new Dictionary<string, object?>
         {
             { nameof(TabItem.Url), url }
