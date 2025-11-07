@@ -1,4 +1,4 @@
-﻿@layout HomeLayout
+@layout HomeLayout
 @page "/"
 @page "/index"
 @page "/home"
@@ -7,9 +7,9 @@
 <section class="bd-masthead">
     <div class="container-xxl bd-gutter">
         <div class="text-center d-flex align-items-center flex-column">
-            <a class="d-inline-flex text-dark text-decoration-none" href="@WebsiteOption.Value.GithubRepositoryUrl" rel="noopener" target="_blank">
+            <a class="d-inline-flex text-dark text-decoration-none" href="@WebsiteOption.Value.GithubRepositoryUrl" target="_blank">
                 <span class="py-2 px-3 rounded-5 masthead-notice">
-                    @Localizer["Support"]
+                    @Localizer["Support"] @WebsiteOption.Value.GetTargets()
                 </span>
             </a>
             <div class="bb-logo d-sm-block mx-auto my-5">
