@@ -1,4 +1,4 @@
-﻿.table-container {
+.table-container {
     --bb-table-td-padding-x: .5rem;
     --bb-table-td-padding-y: .5rem;
     --bb-table-cardview-label-width: 30%;
@@ -43,6 +43,11 @@
         &.table-fixed {
             overflow: auto;
         }
+    }
+
+    .table-multi th:first-child > .table-cell,
+    .table-multi td:first-child > .table-cell {
+        justify-content: center;
     }
 }
 
