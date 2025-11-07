@@ -1731,7 +1731,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", foo.Name);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
@@ -2650,7 +2650,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-after");
+                    builder.AddAttribute(1, nameof(TableToolbarButton<>.Text), "test-after");
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.TableToolbarBeforeTemplate, builder =>
