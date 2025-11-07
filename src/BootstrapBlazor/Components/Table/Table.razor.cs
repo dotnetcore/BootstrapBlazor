@@ -340,6 +340,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public int CheckboxColumnWidth { get; set; }
 
     /// <summary>
+    /// 获得/设置 紧凑模式下复选框宽度 默认 28
+    /// </summary>
+    [Parameter]
+    public int CheckboxColumnCompactWidth { get; set; }
+
+    /// <summary>
     /// 获得/设置 行号列宽度 默认 60
     /// </summary>
     [Parameter]
@@ -877,9 +883,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (CheckboxColumnWidth == 0)
         {
-            CheckboxColumnWidth = TableSize == TableSize.Normal
-                ? op.TableSettings.CheckboxColumnWidth
-                : op.TableSettings.CheckboxColumnCompactWidth;
+            CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
+        }
+
+        if (CheckboxColumnCompactWidth == 0)
+        {
+            CheckboxColumnCompactWidth = op.TableSettings.CheckboxColumnCompactWidth;
         }
 
         if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)

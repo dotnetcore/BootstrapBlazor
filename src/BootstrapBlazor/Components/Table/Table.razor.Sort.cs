@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -175,7 +175,10 @@ public partial class Table<TItem>
 
     private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
 
-    private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
+    private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth :
+        TableSize == TableSize.Normal
+            ? CheckboxColumnWidth
+            : CheckboxColumnCompactWidth;
 
     /// <summary>
     /// 获得指定列头固定列样式
@@ -290,7 +293,10 @@ public partial class Table<TItem>
         }
         if (IsMultipleSelect)
         {
-            margin += ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
+            margin += ShowCheckboxText ? ShowCheckboxTextColumnWidth :
+                TableSize == TableSize.Normal
+                    ? CheckboxColumnWidth
+                    : CheckboxColumnCompactWidth;
         }
         if (ShowLineNo)
         {
