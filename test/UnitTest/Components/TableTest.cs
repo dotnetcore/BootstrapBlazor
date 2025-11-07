@@ -1972,6 +1972,13 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("left: 36px;", cut.Markup);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TableSize, TableSize.Compact);
+        });
+        Assert.Contains("left: 28px;", cut.Markup);
     }
 
     [Theory]
