@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '17.0'">
-    <Version>9.12.2-beta01</Version>
+    <Version>9.12.2-beta02</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '18.0'">
-    <Version>10.0.0-rc.2.2.3</Version>
+    <Version>10.0.0-rc.2.2.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
