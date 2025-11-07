@@ -804,15 +804,9 @@ public partial class Tab
         StateHasChanged();
     }
 
-    private static List<Assembly> GetAdditionalAssemblies()
-    {
-        var assembly = Assembly.GetEntryAssembly();
-        return assembly is null ? [] : [assembly];
-    }
-
     private void AddTabItem(string url)
     {
-        AdditionalAssemblies ??= GetAdditionalAssemblies();
+        AdditionalAssemblies ??= [Assembly.GetEntryAssembly()!];
         var parameters = new Dictionary<string, object?>
         {
             { nameof(TabItem.Url), url }
