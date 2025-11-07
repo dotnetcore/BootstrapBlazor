@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -338,6 +338,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public int CheckboxColumnWidth { get; set; }
+
+    /// <summary>
+    /// 获得/设置 紧凑模式下复选框宽度 默认 28
+    /// </summary>
+    [Parameter]
+    public int CheckboxColumnCompactWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 行号列宽度 默认 60
@@ -878,6 +884,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (CheckboxColumnWidth == 0)
         {
             CheckboxColumnWidth = op.TableSettings.CheckboxColumnWidth;
+        }
+
+        if (CheckboxColumnCompactWidth == 0)
+        {
+            CheckboxColumnCompactWidth = op.TableSettings.CheckboxColumnCompactWidth;
         }
 
         if (op.TableSettings.TableRenderMode != null && RenderMode == TableRenderMode.Auto)

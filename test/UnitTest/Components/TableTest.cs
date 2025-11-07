@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -1731,7 +1731,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", foo.Name);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, nameof(TableColumn<,>.Fixed), true);
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
@@ -1972,6 +1972,13 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("left: 36px;", cut.Markup);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TableSize, TableSize.Compact);
+        });
+        Assert.Contains("left: 28px;", cut.Markup);
     }
 
     [Theory]
@@ -2650,7 +2657,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-after");
+                    builder.AddAttribute(1, nameof(TableToolbarButton<>.Text), "test-after");
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.TableToolbarBeforeTemplate, builder =>
@@ -3257,6 +3264,30 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
+
+        if (showCheckboxText == false)
+        {
+            cut.Contains("width: 36px;");
+        }
+        else
+        {
+            cut.Contains("width: 80px;");
+        }
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TableSize, TableSize.Compact);
+        });
+
+        if (showCheckboxText == false)
+        {
+            cut.Contains("width: 28px;");
+        }
+        else
+        {
+            cut.Contains("width: 80px;");
+        }
     }
 
     [Theory]
@@ -7390,6 +7421,7 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableSize, TableSize.Normal);
+                pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {

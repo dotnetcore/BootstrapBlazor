@@ -1,4 +1,4 @@
-﻿@page "/table"
+@page "/table"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<Tables> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
@@ -7,11 +7,11 @@
 <h4>@Localizer["TableBaseDescription"]</h4>
 
 <Tips Color="Color.Success">
-	<p>表格功能比较多，参数也非常多，示例更多，各个功能详细用法建议查看下方视频讲解 <b>鞠佬</b> 有专门的视频讲解</p>
-	<ul class="ul-demo">
-		<li>鞠佬 BootstrapBlazor Table 系列 <a href="https://space.bilibili.com/2060594/lists/4298264?type=season">[传送门]</a></li>
-		<li>官网 组件讲解合集 <a href="https://space.bilibili.com/660853738/lists">[传送门]</a></li>
-	</ul>
+    <p>表格功能比较多，参数也非常多，示例更多，各个功能详细用法建议查看下方视频讲解 <b>鞠佬</b> 有专门的视频讲解</p>
+    <ul class="ul-demo">
+        <li>鞠佬 BootstrapBlazor Table 系列 <a href="https://space.bilibili.com/2060594/lists/4298264?type=season">[传送门]</a></li>
+        <li>官网 组件讲解合集 <a href="https://space.bilibili.com/660853738/lists">[传送门]</a></li>
+    </ul>
 </Tips>
 
 <Tips>
@@ -68,8 +68,16 @@
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
            Name="TableSize">
-    <section ignore>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</section>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="@_isCompact" DisplayText="TableSize" />
+            </div>
+        </div>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true"
+           TableSize="@(_isCompact ? TableSize.Compact : TableSize.Normal)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Filterable="true" />
