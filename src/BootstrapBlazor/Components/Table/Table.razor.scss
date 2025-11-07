@@ -44,11 +44,6 @@
             overflow: auto;
         }
     }
-
-    .table-multi th:first-child > .table-cell,
-    .table-multi td:first-child > .table-cell {
-        justify-content: center;
-    }
 }
 
 .table-container .table:not(.table-excel) .switch {

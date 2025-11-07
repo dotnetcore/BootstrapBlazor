@@ -1741,8 +1741,6 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.Contains("table-multi");
-
         // DetailRow
         cut.Contains("style=\"left: 0;\"");
         // MultipleSelect

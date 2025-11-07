@@ -97,7 +97,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
-        .AddClass("table-multi", IsMultipleSelect)
         .Build();
 
     private string? FooterClassString => CssBuilder.Default("table-footer")
