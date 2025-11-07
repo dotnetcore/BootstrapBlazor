@@ -1,4 +1,4 @@
-﻿@page "/table"
+@page "/table"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<Tables> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
@@ -68,8 +68,16 @@
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
            Name="TableSize">
-    <section ignore>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</section>
-    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+    <section ignore>
+		<p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+		<div class="row g-3">
+			<div class="col-12 col-sm-6">
+				<Switch @bind-Value="@_isCompact" DisplayText="TableSize" />
+			</div>
+		</div>
+	</section>
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true"
+		   TableSize="@(_isCompact ? TableSize.Compact : TableSize.Normal)" IsMultipleSelect="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
             <TableColumn @bind-Field="@context.Name" Filterable="true" />
