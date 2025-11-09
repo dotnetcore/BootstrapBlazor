@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Server.Data.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
@@ -28,6 +28,6 @@
   },
   "UnitTest.Utils.UtilityTest": {
     "Test-Null": null,
-    "Test-Key:": ""
+    "Test-Key": ""
   }
 }
