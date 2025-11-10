@@ -4012,7 +4012,7 @@
     "GroupTitle": "分组显示",
     "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示，通过设置 <code>GroupOrderCallback</code> 参数细化分组排序规则",
     "CollapseTitle": "分组折叠",
-    "CollapseIntro": "设置 <code>Collapsable=\"true\"</code> 使分组信息可折叠",
+    "CollapseIntro": "设置 <code>Collapsible=\"true\"</code> 使分组信息可折叠",
     "Collapsible": "是否可折叠",
     "IsAccordionTitle": "分组手风琴",
     "IsAccordionIntro": "设置 <code>IsAccordion=\"true\"</code> 使分组信息折叠手风琴效果",
