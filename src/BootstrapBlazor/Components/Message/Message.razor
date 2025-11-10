@@ -1,59 +1,29 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div id="@Id" class="@ClassString" style="@StyleName" role="alert">
-    @if (Placement == Placement.Top)
+    @foreach (var item in GetMessages())
     {
-        foreach (var item in _messages)
-        {
-            <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
-                @if (!string.IsNullOrEmpty(item.Icon))
+        <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
+            @if (!string.IsNullOrEmpty(item.Icon))
+            {
+                <i class="@item.Icon"></i>
+            }
+            <div>
+                @if (item.ChildContent != null)
                 {
-                    <i class="@item.Icon"></i>
+                    @item.ChildContent
                 }
-                <div>
-                    @if (item.ChildContent != null)
-                    {
-                        @item.ChildContent
-                    }
-                    else
-                    {
-                        @item.Content
-                    }
-                </div>
-                @if (item.ShowDismiss)
+                else
                 {
-                    <button type="button" class="btn-close" aria-label="close"></button>
+                    @item.Content
                 }
             </div>
-        }
-    }
-    else
-    {
-        for (var index = _messages.Count; index > 0; index--)
-        {
-            var item = _messages[index - 1];
-            <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
-                @if (!string.IsNullOrEmpty(item.Icon))
-                {
-                    <i class="@item.Icon"></i>
-                }
-                <div>
-                    @if (item.ChildContent != null)
-                    {
-                        @item.ChildContent
-                    }
-                    else
-                    {
-                        @item.Content
-                    }
-                </div>
-                @if (item.ShowDismiss)
-                {
-                    <button type="button" class="btn-close" aria-label="close"></button>
-                }
-            </div>
-        }
+            @if (item.ShowDismiss)
+            {
+                <button type="button" class="btn-close" aria-label="close"></button>
+            }
+        </div>
     }
 </div>
