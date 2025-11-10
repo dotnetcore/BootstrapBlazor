@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,5 +28,17 @@ public class LinkTest : BootstrapBlazorTestBase
             pb.Add(a => a.Version, "20220202");
         });
         Assert.Equal($"<link href=\"http://www.blazor.zone?v=20220202\" rel=\"stylesheet\" />", cut.Markup);
+    }
+
+    [Fact]
+    public void Link_IsAddToHead_True()
+    {
+        var cut = Context.RenderComponent<Link>(pb =>
+        {
+            pb.Add(a => a.Href, "http://www.blazor.zone");
+            pb.Add(a => a.Version, "20220202");
+            pb.Add(a => a.IsAddToHead, true);
+        });
+        Assert.Equal(string.Empty, cut.Markup);
     }
 }

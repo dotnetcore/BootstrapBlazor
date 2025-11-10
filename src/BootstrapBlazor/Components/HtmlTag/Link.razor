@@ -1,4 +1,7 @@
-﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
-
-<link @attributes="AdditionalAttributes" href="@GetHref()" rel="@Rel" />
+@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
+@if (!IsAddToHead)
+{
+    <link @attributes="AdditionalAttributes" href="@GetHref()" rel="@Rel" />
+}
