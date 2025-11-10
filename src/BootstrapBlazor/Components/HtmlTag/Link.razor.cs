@@ -34,7 +34,7 @@ public partial class Link
     /// <para>同时在多个组件中使用同一个样式时可以添加到 head 中，减少 DOM 节点。</para>
     /// </summary>
     [Parameter]
-    public bool IsAddToHead { get; set; } = false;
+    public bool AddToHead { get; set; } = false;
 
     [Inject, NotNull]
     private IVersionService? VersionService { get; set; }
@@ -48,7 +48,7 @@ public partial class Link
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        if (IsAddToHead && firstRender)
+        if (AddToHead && firstRender)
         {
             var obj = new { Href = GetHref(), Rel };
             await InvokeVoidAsync("init", obj);

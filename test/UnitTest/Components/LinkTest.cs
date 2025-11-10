@@ -37,7 +37,7 @@ public class LinkTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Href, "http://www.blazor.zone");
             pb.Add(a => a.Version, "20220202");
-            pb.Add(a => a.IsAddToHead, true);
+            pb.Add(a => a.AddToHead, true);
         });
         Assert.Equal(string.Empty, cut.Markup);
     }
