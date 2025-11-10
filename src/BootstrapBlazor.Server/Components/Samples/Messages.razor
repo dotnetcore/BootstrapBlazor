@@ -1,4 +1,4 @@
-﻿@page "/message"
+@page "/message"
 @inject IStringLocalizer<Messages> Localizer
 @inject MessageService MessageService
 
@@ -20,8 +20,18 @@ private MessageService? MessageService { get; set; }
 });</Pre>
 
 <DemoBlock Title="@Localizer["MessagesNormalTitle"]" Introduction="@Localizer["MessagesNormalIntro"]" Name="Normal">
-    <button class="btn btn-primary" @onclick="@ShowMessage">@Localizer["MessagesMessagePrompt"]</button>
-    <Message @ref="Message" Placement="Placement.Bottom" />
+    <section ignore class="row form-inline g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Placement"></BootstrapInputGroupLabel>
+                <RadioList @bind-Value="@_placement" Items="@_items"></RadioList>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" @onclick="@ShowMessage">@Localizer["MessagesMessagePrompt"]</button>
+        </div>
+    </section>
+    <Message @ref="Message" Placement="@Placement"></Message>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MessagesAsyncTitle"]" Introduction="@Localizer["MessagesAsyncIntro"]" Name="Async">
@@ -70,7 +80,6 @@ private MessageService? MessageService { get; set; }
 
 <DemoBlock Title="@Localizer["MessagesTemplateTitle"]" Introduction="@Localizer["MessagesTemplateIntro"]" Name="Template">
     <button class="btn btn-primary" @onclick="@ShowTemplateMessage">@Localizer["MessagesTemplatePrompt"]</button>
-    <Message @ref="Message1" Placement="Placement.Bottom" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MessagesShowModeTitle"]" Introduction="@Localizer["MessagesShowModeIntro"]" Name="ShowMode">
