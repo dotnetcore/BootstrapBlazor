@@ -8,12 +8,12 @@ export function init(id, invoke) {
 }
 
 export function show(id, msgId) {
-    const msg = Data.get(id)
     const el = document.getElementById(msgId)
     if (el === null) {
         return
     }
 
+    const msg = Data.get(id)
     let msgItem = msg.items.find(i => i.el.id === msgId)
     if (msgItem === void 0) {
         msgItem = { el, animationId: null }
@@ -21,7 +21,7 @@ export function show(id, msgId) {
     }
 
     if (msgItem.animationId) {
-        cancelAnimationFrame(msgItem.animationId);
+        return;
     }
 
     const autoHide = el.getAttribute('data-bb-autohide') === 'true';
