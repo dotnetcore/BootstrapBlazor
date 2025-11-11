@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,13 +18,20 @@ public sealed partial class Messages
 
     private readonly MessageOption _option = new();
 
+    private long _count = 0;
+
+    private string _placement = "Top";
+
+    private readonly List<SelectedItem> _items = [new SelectedItem("Top", "Top"), new SelectedItem("Bottom", "Bottom")];
+
+    private Placement Placement => _placement == "Top" ? Placement.Top : Placement.Bottom;
+
     private async Task ShowMessage()
     {
-        Message.SetPlacement(Placement.Top);
         await MessageService.Show(new MessageOption()
         {
-            Content = "This is a reminder message"
-        });
+            Content = $"This is a reminder message {_count++}"
+        }, Message);
     }
 
     private async Task ShowAsyncMessage()
@@ -97,7 +104,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = $"This is a reminder message - {DateTime.Now:mm:ss}",
+            Content = $"This is a reminder message - {_count++}",
             Icon = "fa-solid fa-circle-info",
         }, Message1);
     }
@@ -111,13 +118,11 @@ public sealed partial class Messages
         });
     }
 
-    private int lastCount = 0;
-
     private Task ShowLastOnlyMessage() => MessageService.Show(new MessageOption()
     {
         ShowShadow = true,
         ShowMode = MessageShowMode.Single,
-        Content = lastCount++.ToString()
+        Content = $"This is a reminder message - {_count++}"
     });
 
     private static AttributeItem[] GetAttributes() =>

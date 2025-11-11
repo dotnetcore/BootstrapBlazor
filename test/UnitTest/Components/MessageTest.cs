@@ -1,9 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Components;
 
@@ -57,10 +58,8 @@ public class MessageTest : BootstrapBlazorTestBase
         Assert.NotNull(alert.Id);
 
         var message = cut.FindComponent<Message>();
-        await message.Instance.Dismiss(alert.Id);
+        await cut.InvokeAsync(() => message.Instance.Dismiss(alert.Id));
         Assert.True(dismiss);
-
-        await cut.InvokeAsync(() => message.Instance.Clear());
     }
 
     [Fact]
@@ -98,7 +97,7 @@ public class MessageTest : BootstrapBlazorTestBase
 
         await cut.Instance.Dismiss(alert.Id);
         await cut.Instance.Dismiss("test_id");
-        await cut.InvokeAsync(() => cut.Instance.Clear());
+        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
 
         await cut.InvokeAsync(() => service.Show(new MessageOption()
         {
@@ -132,5 +131,45 @@ public class MessageTest : BootstrapBlazorTestBase
             Icon = "fa-solid fa-font-awesome",
             ShowMode = MessageShowMode.Single
         }, cut.Instance));
+    }
+
+    [Fact]
+    public async Task ForceDelay_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.RenderComponent<Message>();
+        var option = new MessageOption()
+        {
+            Content = "Test Content",
+            IsAutoHide = false,
+            ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
+            ForceDelay = true,
+            Delay = 2000
+        };
+        await cut.InvokeAsync(() => service.Show(option, cut.Instance));
+        Assert.Contains("data-bb-delay=\"2000\"", cut.Markup);
+
+        var alert = cut.Find(".alert");
+        Assert.NotNull(alert);
+        Assert.NotNull(alert.Id);
+        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
+
+        option.ForceDelay = false;
+        await cut.InvokeAsync(() => service.Show(option, cut.Instance));
+        Assert.Contains("data-bb-delay=\"4000\"", cut.Markup);
+        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
+
+        // 更新 Options 值
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.MessageDelay = 1000;
+        await cut.InvokeAsync(() => service.Show(option, cut.Instance));
+        Assert.Contains("data-bb-delay=\"1000\"", cut.Markup);
+        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
+
+        options.CurrentValue.MessageDelay = 0;
+        await cut.InvokeAsync(() => service.Show(option, cut.Instance));
+        Assert.Contains("data-bb-delay=\"1000\"", cut.Markup);
+        await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
     }
 }

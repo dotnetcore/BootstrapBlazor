@@ -1,19 +1,19 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id, invoke, callback) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
-    const msg = { el, invoke, callback, items: [] }
+    const msg = { el, invoke, items: [] }
     Data.set(id, msg)
 }
 
 export function show(id, msgId) {
-    const msg = Data.get(id)
     const el = document.getElementById(msgId)
     if (el === null) {
         return
     }
 
+    const msg = Data.get(id)
     let msgItem = msg.items.find(i => i.el.id === msgId)
     if (msgItem === void 0) {
         msgItem = { el, animationId: null }
@@ -21,7 +21,7 @@ export function show(id, msgId) {
     }
 
     if (msgItem.animationId) {
-        cancelAnimationFrame(msgItem.animationId);
+        return;
     }
 
     const autoHide = el.getAttribute('data-bb-autohide') === 'true';
@@ -46,28 +46,25 @@ export function show(id, msgId) {
     el.classList.add('show');
 
     const close = () => {
-        EventHandler.off(el, 'click')
-        el.classList.remove('show');
-        const hideHandler = setTimeout(function () {
-            clearTimeout(hideHandler);
+        el.classList.add("d-none");
 
-            msg.items.pop();
-            if (msg.items.length === 0) {
-                msg.invoke.invokeMethodAsync(msg.callback);
-            }
-        }, 500);
+        msg.items = msg.items.filter(i => i.el.id !== msgId);
+        msg.invoke.invokeMethodAsync("Clear", msgId);
     };
 
-    EventHandler.on(el, 'click', '.btn-close', e => {
+    EventHandler.on(el, 'click', '.btn-close', async e => {
         e.preventDefault();
         e.stopPropagation();
 
         const alert = e.delegateTarget.closest('.alert');
         if (alert) {
+            EventHandler.off(el, 'click')
+            alert.classList.add("d-none");
+
             const alertId = alert.getAttribute('id');
-            msg.invoke.invokeMethodAsync('Dismiss', alertId);
+            msg.items = msg.items.filter(i => i.el.id !== alertId);
+            await msg.invoke.invokeMethodAsync('Dismiss', alertId);
         }
-        close();
     });
 }
 

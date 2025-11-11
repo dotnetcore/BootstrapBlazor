@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -26,6 +26,10 @@ public partial class Message
         .Build();
 
     private readonly List<MessageOption> _messages = [];
+
+    private IEnumerable<MessageOption> MessagesForRender => Placement == Placement.Bottom
+        ? _messages.AsEnumerable().Reverse()
+        : _messages;
 
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top
@@ -55,7 +59,7 @@ public partial class Message
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Clear));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     private static string? GetAutoHideString(MessageOption option) => option.IsAutoHide ? "true" : null;
 
@@ -86,7 +90,7 @@ public partial class Message
     }
 
     /// <summary>
-    /// 设置 Toast 容器位置方法
+    /// 设置 容器位置方法
     /// </summary>
     /// <param name="placement"></param>
     public void SetPlacement(Placement placement)
@@ -105,8 +109,8 @@ public partial class Message
         if (!_messages.Contains(option))
         {
             _messages.Add(option);
-            _msgId = GetItemId(option);
         }
+        _msgId = GetItemId(option);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -114,11 +118,15 @@ public partial class Message
     /// 清除 Message 方法 由 JSInvoke 触发
     /// </summary>
     [JSInvokable]
-    public Task Clear()
+    public void Clear(string id)
     {
-        _messages.Clear();
+        var option = _messages.Find(i => GetItemId(i) == id);
+        if (option != null)
+        {
+            _messages.Remove(option);
+        }
+
         StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -126,12 +134,14 @@ public partial class Message
     /// </summary>
     /// <param name="id"></param>
     [JSInvokable]
-    public async Task Dismiss(string id)
+    public async ValueTask Dismiss(string id)
     {
         var option = _messages.Find(i => GetItemId(i) == id);
         if (option is { OnDismiss: not null })
         {
             await option.OnDismiss();
+            _messages.Remove(option);
+            StateHasChanged();
         }
     }
 
