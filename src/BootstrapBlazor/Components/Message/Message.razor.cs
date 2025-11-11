@@ -157,12 +157,14 @@ public partial class Message
     /// </summary>
     /// <param name="id"></param>
     [JSInvokable]
-    public async Task Dismiss(string id)
+    public async ValueTask Dismiss(string id)
     {
         var option = _messages.Find(i => GetItemId(i) == id);
         if (option is { OnDismiss: not null })
         {
             await option.OnDismiss();
+            _messages.Remove(option);
+            StateHasChanged();
         }
     }
 

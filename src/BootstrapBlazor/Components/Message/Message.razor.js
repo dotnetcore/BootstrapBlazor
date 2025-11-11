@@ -58,16 +58,17 @@ export function show(id, msgId) {
         }, 500);
     };
 
-    EventHandler.on(el, 'click', '.btn-close', e => {
+    EventHandler.on(el, 'click', '.btn-close', async e => {
         e.preventDefault();
         e.stopPropagation();
 
         const alert = e.delegateTarget.closest('.alert');
         if (alert) {
+            alert.classList.add("d-none");
             const alertId = alert.getAttribute('id');
-            msg.invoke.invokeMethodAsync('Dismiss', alertId);
+            msg.items = msg.items.filter(i => i.el.id !== alertId);
+            await msg.invoke.invokeMethodAsync('Dismiss', alertId);
         }
-        close();
     });
 }
 
