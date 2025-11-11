@@ -47,15 +47,10 @@ export function show(id, msgId) {
 
     const close = () => {
         EventHandler.off(el, 'click')
-        el.classList.remove('show');
-        const hideHandler = setTimeout(function () {
-            clearTimeout(hideHandler);
+        el.classList.add("d-none");
 
-            msg.items.pop();
-            if (msg.items.length === 0) {
-                msg.invoke.invokeMethodAsync(msg.callback);
-            }
-        }, 500);
+        msg.items = msg.items.filter(i => i.el.id !== msgId);
+        msg.invoke.invokeMethodAsync("Clear", msgId);
     };
 
     EventHandler.on(el, 'click', '.btn-close', async e => {
