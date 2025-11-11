@@ -9,10 +9,7 @@
   <Folder Name="/configuration/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
-    <File Path="Directory.Build.props" />
     <File Path="exclusion.dic" />
-    <File Path="Framework.props" />
-    <File Path="Version.props" />
   </Folder>
   <Folder Name="/docs/">
     <File Path="README.md" />
@@ -27,6 +24,11 @@
     <File Path="localization/th-TH.json" />
     <File Path="localization/uk-UA.json" />
     <File Path="localization/zh-TW.json" />
+  </Folder>
+  <Folder Name="/props/">
+    <File Path="Directory.Build.props" />
+    <File Path="Framework.props" />
+    <File Path="Version.props" />
   </Folder>
   <Folder Name="/scripts/" />
   <Folder Name="/scripts/linux/">
@@ -55,11 +57,19 @@
     <Project Path="src/BootstrapBlazor.Server/BootstrapBlazor.Server.csproj" />
     <Project Path="src/BootstrapBlazor/BootstrapBlazor.csproj" />
   </Folder>
+  <Folder Name="/src/props/">
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Logo.props" />
+    <File Path="src/SourceLink.targets" />
+  </Folder>
   <Folder Name="/test/">
     <Project Path="test/UniTest.Sass/UniTest.Sass.csproj" />
     <Project Path="test/UnitTest.Localization/UnitTest.Localization.csproj" />
     <Project Path="test/UnitTest/UnitTest.csproj" />
     <Project Path="test/UnitTestDocs/UnitTestDocs.csproj" />
+  </Folder>
+  <Folder Name="/test/props/">
+    <File Path="test/Directory.Build.props" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
