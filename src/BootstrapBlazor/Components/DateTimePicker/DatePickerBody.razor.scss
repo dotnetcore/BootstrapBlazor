@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .picker-panel {
     --bb-picker-panel-body-width: 320px;
@@ -149,8 +149,8 @@
                         }
 
                         &.current:not(.disabled),
-                        &.start:not(.next-month):not(.prev-month):not(.disabled),
-                        &.end:not(.next-month):not(.prev-month):not(.disabled) {
+                        &.start:not(.disabled),
+                        &.end:not(.disabled) {
                             .cell {
                                 color: var(--bb-picker-panel-today-color);
 
