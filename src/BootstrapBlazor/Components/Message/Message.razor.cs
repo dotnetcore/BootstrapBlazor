@@ -139,11 +139,15 @@ public partial class Message
     /// 清除 Message 方法 由 JSInvoke 触发
     /// </summary>
     [JSInvokable]
-    public Task Clear()
+    public void Clear(string id)
     {
-        _messages.Clear();
+        var option = _messages.Find(i => GetItemId(i) == id);
+        if (option != null)
+        {
+            _messages.Remove(option);
+        }
+
         StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>
