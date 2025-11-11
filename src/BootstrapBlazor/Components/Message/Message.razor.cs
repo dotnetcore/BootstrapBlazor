@@ -112,7 +112,7 @@ public partial class Message
     }
 
     /// <summary>
-    /// 设置 Toast 容器位置方法
+    /// 设置 容器位置方法
     /// </summary>
     /// <param name="placement"></param>
     public void SetPlacement(Placement placement)
