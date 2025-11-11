@@ -101,13 +101,12 @@ public partial class Message
 
     private List<MessageOption> GetMessages()
     {
-        if(Placement == Placement.Top)
+        var messages = new List<MessageOption>(_messages);
+        if (Placement == Placement.Bottom)
         {
-            return _messages;
+            messages.Reverse();
         }
 
-        var messages = new List<MessageOption>(_messages);
-        messages.Reverse();
         return messages;
     }
 
