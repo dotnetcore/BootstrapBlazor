@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Globalization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -42,10 +40,6 @@ public partial class Message
     [NotNull]
     public MessageService? MessageService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -71,16 +65,6 @@ public partial class Message
         .AddClass("shadow", option.ShowShadow)
         .AddClass("alert-bar", option.ShowBar)
         .Build();
-
-    private string GetDelayString(MessageOption option) => GetDelay(option).ToString(CultureInfo.InvariantCulture);
-
-    private int GetDelay(MessageOption option) => option.ForceDelay
-        ? option.Delay
-        : GetOptionsDelay(option);
-
-    private int GetOptionsDelay(MessageOption option) => Options.CurrentValue.MessageDelay == 0
-        ? option.Delay
-        : Options.CurrentValue.MessageDelay;
 
     private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
 
