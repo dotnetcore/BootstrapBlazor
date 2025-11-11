@@ -132,8 +132,8 @@ public partial class Message
         if (!_messages.Contains(option))
         {
             _messages.Add(option);
-            _msgId = GetItemId(option);
         }
+        _msgId = GetItemId(option);
         await InvokeAsync(StateHasChanged);
     }
 
