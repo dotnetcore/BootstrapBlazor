@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -57,15 +57,25 @@ public partial class DatePickerBody
     /// 获得/设置 日期样式
     /// </summary>
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default()
-        .AddClass("prev-month", day.Month < CurrentDate.Month)
-        .AddClass("next-month", day.Month > CurrentDate.Month)
+        .AddClass("prev-month", IsPrevMonth(day))
+        .AddClass("next-month", IsNextMonth(day))
         .AddClass("current", day.Date == SelectValue.Date && Ranger == null && day.Month == SelectValue.Month && !overflow)
-        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
-        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
-        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start.Date && day <= Ranger.SelectedValue.End.Date)
+        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date && IsCurrentMonth(day))
+        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date && IsCurrentMonth(day))
+        .AddClass("range", IsRange(day) && IsCurrentMonth(day))
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
+
+    private bool IsPrevMonth(DateTime day) => day.Month < CurrentDate.Month;
+
+    private bool IsNextMonth(DateTime day) => day.Month > CurrentDate.Month;
+
+    private bool IsCurrentMonth(DateTime day) => day.Month == CurrentDate.Month;
+
+    private bool IsRange(DateTime day) => Ranger != null
+        && day >= Ranger.SelectedValue.Start.Date
+        && day <= Ranger.SelectedValue.End.Date;
 
     private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
         .AddClass("is-open", _showClockPicker)
