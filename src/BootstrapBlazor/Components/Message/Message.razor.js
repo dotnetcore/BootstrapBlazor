@@ -1,9 +1,9 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id, invoke, callback) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
-    const msg = { el, invoke, callback, items: [] }
+    const msg = { el, invoke, items: [] }
     Data.set(id, msg)
 }
 
