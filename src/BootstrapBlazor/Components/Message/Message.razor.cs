@@ -55,7 +55,7 @@ public partial class Message
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Clear));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     private static string? GetAutoHideString(MessageOption option) => option.IsAutoHide ? "true" : null;
 
