@@ -46,7 +46,6 @@ export function show(id, msgId) {
     el.classList.add('show');
 
     const close = () => {
-        EventHandler.off(el, 'click')
         el.classList.add("d-none");
 
         msg.items = msg.items.filter(i => i.el.id !== msgId);
@@ -59,7 +58,9 @@ export function show(id, msgId) {
 
         const alert = e.delegateTarget.closest('.alert');
         if (alert) {
+            EventHandler.off(el, 'click')
             alert.classList.add("d-none");
+
             const alertId = alert.getAttribute('id');
             msg.items = msg.items.filter(i => i.el.id !== alertId);
             await msg.invoke.invokeMethodAsync('Dismiss', alertId);
