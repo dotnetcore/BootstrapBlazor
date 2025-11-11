@@ -27,6 +27,10 @@ public partial class Message
 
     private readonly List<MessageOption> _messages = [];
 
+    private IEnumerable<MessageOption> MessagesForRender => Placement == Placement.Bottom
+        ? _messages.AsEnumerable().Reverse()
+        : _messages;
+
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top
     /// </summary>
@@ -83,17 +87,6 @@ public partial class Message
         {
             await InvokeVoidAsync("show", Id, _msgId);
         }
-    }
-
-    private List<MessageOption> GetMessages()
-    {
-        var messages = new List<MessageOption>(_messages);
-        if (Placement == Placement.Bottom)
-        {
-            messages.Reverse();
-        }
-
-        return messages;
     }
 
     /// <summary>
