@@ -4797,7 +4797,7 @@
     "OpcDaService": "OpcDaServer 服务",
     "Navbar": "导航栏 Navbar",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
-    "Dom2ImageService": "节点转图片服务 IDom2HtmlService",
+    "Dom2ImageService": "节点转图片服务 Dom2HtmlService",
     "SelectRegion": "行政区域选择器 SelectRegion",
     "SelectProvince": "省选择器 SelectProvince",
     "SelectCity": "城市选择器 SelectCity"

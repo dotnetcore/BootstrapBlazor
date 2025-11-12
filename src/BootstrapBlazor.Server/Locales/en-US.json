@@ -4797,7 +4797,7 @@
     "OpcDaService": "OpcDaServer",
     "Navbar": "Navbar",
     "TaskDashBoard": "TaskDashBoard",
-    "Dom2ImageService": "IDom2HtmlService",
+    "Dom2ImageService": "Dom2HtmlService",
     "SelectRegion": "Region Selector",
     "SelectProvince": "Province Selector",
     "SelectCity": "City Selector"
