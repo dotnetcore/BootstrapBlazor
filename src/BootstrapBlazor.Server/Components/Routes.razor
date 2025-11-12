@@ -1,26 +1,6 @@
-﻿@if (IsNet10OrGreater)
-{
-    <Router AppAssembly="@typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="routeData" Selector="h3" />
-        </Found>
-    </Router>
-}
-else
-{
-    <Router AppAssembly="@typeof(Program).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="routeData" Selector="h3" />
-        </Found>
-    </Router>
-}
-
-@code {
-    #if NET10_0_OR_GREATER
-    private bool IsNet10OrGreater => true;
-    #else
-    private bool IsNet10OrGreater => false;
-    #endif
-}
+<Router AppAssembly="@typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector="h3" />
+    </Found>
+</Router>
