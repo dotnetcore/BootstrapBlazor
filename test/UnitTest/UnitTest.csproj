@@ -1,18 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.*" />
-    <PackageReference Include="xunit" Version="2.*" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.*">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.*">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -58,4 +48,11 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components"/>
+    <Using Include="Bunit"/>
+    <Using Include="Microsoft.AspNetCore.Components"/>
+    <Using Include="UnitTest.Core"/>
+  </ItemGroup>
+  
 </Project>
