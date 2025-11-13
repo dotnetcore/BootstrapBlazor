@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -24,8 +24,8 @@
     <PackageReference Include="BootstrapBlazor.Authenticator" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="10.0.1" />
+    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="10.0.0" />
@@ -86,7 +86,6 @@
     <PackageReference Include="Longbow.Sockets" Version="10.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="10.0.0" />
     <PackageReference Include="Longbow.TcpSocket" Version="10.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
