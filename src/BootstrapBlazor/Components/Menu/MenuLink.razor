@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
 @if (Item.IsDisabled)
@@ -11,7 +11,7 @@
 else
 {
     <NavLink @attributes="@AdditionalAttributes" @onclick:preventDefault="@PreventDefault" class="@ClassString" href="@HrefString" target="@TargetString" Match="@Item.Match" style="@StyleClassString" aria-expanded="@AriaExpandedString">
-        <div class="flex-fill">
+        <div class="submenu-link">
             <i class="@IconString"></i>
             <span class="menu-text">@Item.Text</span>
         </div>
