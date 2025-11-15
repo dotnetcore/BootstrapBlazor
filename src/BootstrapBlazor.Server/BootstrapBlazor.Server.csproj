@@ -62,7 +62,7 @@
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.PdfReader" Version="10.0.0" />
+    <!--<PackageReference Include="BootstrapBlazor.PdfReader" Version="10.0.0" />-->
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Player" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="10.0.0" />
@@ -89,6 +89,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.PdfReader\BootstrapBlazor.PdfReader.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
