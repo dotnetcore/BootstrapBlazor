@@ -25,7 +25,7 @@ English | <a href="README.zh-CN.md">中文</a>
 ## Environment
 
 - Install .net core sdk [Official website](https://dotnet.microsoft.com/download)
-- Install Visual Studio 2022 latest [Official website](https://visualstudio.microsoft.com/vs/getting-started/)
+- Install Visual Studio latest [Official website](https://visualstudio.microsoft.com/vs/getting-started/)
 
 ## Quick Installation Guide
 
