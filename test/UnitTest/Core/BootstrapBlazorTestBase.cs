@@ -40,7 +40,7 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
 
     public void Dispose()
     {
-        Context.Dispose();
+        _ = Context.DisposeAsync();
         GC.SuppressFinalize(this);
     }
 
