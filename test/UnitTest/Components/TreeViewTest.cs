@@ -616,7 +616,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         // 触发第一个节点展开
         await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
-        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count == 2);
+        await Task.Delay(50);
 
         cut.Contains("--bb-tree-view-level: 0;");
         cut.Contains("--bb-tree-view-level: 1;");
