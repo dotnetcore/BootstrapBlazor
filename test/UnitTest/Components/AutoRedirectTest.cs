@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class AutoRedirectTest : BootstrapBlazorTestBase
     [Fact]
     public void LogoutUrl_Ok()
     {
-        var cut = Context.RenderComponent<AutoRedirect>(pb =>
+        var cut = Context.Render<AutoRedirect>(pb =>
         {
             pb.Add(a => a.RedirectUrl, "/Account/Logout");
         });
@@ -21,7 +21,7 @@ public class AutoRedirectTest : BootstrapBlazorTestBase
     [Fact]
     public void Interval_Ok()
     {
-        var cut = Context.RenderComponent<AutoRedirect>(pb =>
+        var cut = Context.Render<AutoRedirect>(pb =>
         {
             pb.Add(a => a.Interval, 50);
         });
@@ -32,7 +32,7 @@ public class AutoRedirectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnBeforeRedirectAsync_Ok()
     {
-        var cut = Context.RenderComponent<AutoRedirect>(pb =>
+        var cut = Context.Render<AutoRedirect>(pb =>
         {
             pb.Add(a => a.RedirectUrl, "/Account/Logout");
             pb.Add(a => a.OnBeforeRedirectAsync, () =>
@@ -42,7 +42,7 @@ public class AutoRedirectTest : BootstrapBlazorTestBase
         });
         await cut.InvokeAsync(() => cut.Instance.Lock());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsForceLoad, false);
             pb.Add(a => a.OnBeforeRedirectAsync, () =>

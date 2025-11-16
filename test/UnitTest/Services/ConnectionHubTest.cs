@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class ConnectionHubTest
     [Fact]
     public async Task Callback_Ok()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         context.Services.AddBootstrapBlazor();
 
@@ -28,7 +28,7 @@ public class ConnectionHubTest
 
         var client = context.Services.GetRequiredService<WebClientService>();
         var service = context.Services.GetRequiredService<IConnectionService>();
-        var cut = context.RenderComponent<ConnectionHub>();
+        var cut = context.Render<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
             _ = Task.Run(async () =>
@@ -61,7 +61,7 @@ public class ConnectionHubTest
         // 触发内部 ClientInfo 为空情况 覆盖 _clientInfo ??= new();
         options.Value.ConnectionHubOptions.Enable = false;
         client = context.Services.GetRequiredService<WebClientService>();
-        cut = context.RenderComponent<ConnectionHub>();
+        cut = context.Render<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
             client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
@@ -72,7 +72,7 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions.Enable = true;
         options.Value.ConnectionHubOptions.EnableIpLocator = false;
         client = context.Services.GetRequiredService<WebClientService>();
-        cut = context.RenderComponent<ConnectionHub>();
+        cut = context.Render<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
             client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });

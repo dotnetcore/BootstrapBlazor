@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class ValidatorAsyncTest : BootstrapBlazorTestBase
     {
         var invalid = false;
         var foo = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.OnInvalidSubmit, context =>

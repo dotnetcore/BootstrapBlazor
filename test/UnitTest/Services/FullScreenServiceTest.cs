@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ButtonIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder =>
+        var cut = Context.Render<FullScreenButton>(builder =>
         {
             builder.Add(s => s.Icon, "fa-solid fa-maximize");
             builder.Add(s => s.Text, "button-text");
@@ -29,7 +29,7 @@ public class FullScreenServiceTest : BootstrapBlazorTestBase
     [Fact]
     public void FullScreenIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Icon, "fa-test"));
+        var cut = Context.Render<FullScreenButton>(builder => builder.Add(s => s.Icon, "fa-test"));
         cut.Contains("fa-test");
     }
 

@@ -20,7 +20,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -37,7 +37,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Throws<InvalidOperationException>(() =>
         {
-            var cut = Context.RenderComponent<Table<Foo>>(pb =>
+            var cut = Context.Render<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.OnQueryAsync, option => Task.FromResult<QueryData<Foo>>(null!));
@@ -51,7 +51,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var changed = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -86,7 +86,7 @@ public class TableTest : BootstrapBlazorTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         var selectedRows = new List<Foo>();
         var count = 0;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -123,7 +123,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -192,7 +192,7 @@ public class TableTest : BootstrapBlazorTestBase
         var updated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -218,7 +218,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -241,7 +241,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ResetVisibleColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -289,7 +289,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TableColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -311,7 +311,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowSkeleton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -332,7 +332,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowLoading_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -353,7 +353,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -382,7 +382,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var resetSearch = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -420,7 +420,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var searchModel = new FooSearchModel();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -450,7 +450,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var searchModel = new FooSearchModel();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -476,7 +476,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowTopSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -511,7 +511,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void CollapsedTopSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -540,7 +540,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.DoesNotContain("card-body collapse show");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.CollapsedTopSearch, false);
         });
@@ -551,7 +551,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowToolbar_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -579,7 +579,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var edit = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -604,7 +604,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.DoesNotContain("float-end table-toolbar-button");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
         });
@@ -619,7 +619,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void ResetFilters_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -660,7 +660,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void OnFilterAsync_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -702,7 +702,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void ResetFilter_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -740,7 +740,7 @@ public class TableTest : BootstrapBlazorTestBase
         ]);
         var show = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -788,7 +788,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowCardView_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -814,7 +814,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowExportButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -839,7 +839,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("fa-solid fa-download");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ExportButtonIcon, "test-export-icon");
         });
@@ -851,7 +851,7 @@ public class TableTest : BootstrapBlazorTestBase
         table.DoesNotContain("fa-solid fa-fw fa-file-excel");
         table.DoesNotContain("fa-solid fa-fw fa-file-pdf");
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExportCsvButton, true);
             pb.Add(a => a.ShowExportExcelButton, true);
@@ -874,7 +874,7 @@ public class TableTest : BootstrapBlazorTestBase
         bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var export = Context.Services.GetRequiredService<ITableExport>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -928,7 +928,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => csv.Click());
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.BeforeExportCallback, () =>
             {
@@ -947,7 +947,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.NotNull(exportContext?.Options);
 
         // 设置模板不显示导出按钮
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.OnExportAsync, null);
         });
@@ -958,7 +958,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowTopPagination_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -988,7 +988,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task PageItemsSource_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1018,7 +1018,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageItemsSource_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1043,7 +1043,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageIndex_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1094,7 +1094,7 @@ public class TableTest : BootstrapBlazorTestBase
         var isQuery = false;
         var triggerByPagination = true;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1145,7 +1145,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var isFirstQuery = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1188,7 +1188,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageItems_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1221,7 +1221,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageInfoTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1247,7 +1247,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageInfoBodyTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1274,7 +1274,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var templated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1303,7 +1303,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void GotoNavigatorLabelText_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1328,7 +1328,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageInfoText_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1353,7 +1353,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void PageInfoText_Empty()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1376,7 +1376,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsFixedHeader_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1403,7 +1403,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TextEllipsis_Ok(bool ellipsis)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1437,7 +1437,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowCopyColumn_Ok(bool showCopy)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1470,7 +1470,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowCopyColumnTooltip_Ok(bool showCopyTooltip)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1505,7 +1505,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void AllowResizing_Ok(bool resizing)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1539,7 +1539,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColWidth_Ok(int? width)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1576,7 +1576,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColumnFixed_Ok(bool showExtendButton, bool isFixedHeader)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1664,7 +1664,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ScrollWidth_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1691,7 +1691,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("--bb-scroll-width: 5px; --bb-scroll-hover-width: 5px;");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ScrollWidth, 6);
             pb.Add(a => a.ScrollHoverWidth, 6);
@@ -1701,7 +1701,7 @@ public class TableTest : BootstrapBlazorTestBase
         var options = cut.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
         options.CurrentValue.ScrollOptions.ScrollWidth = 7;
         options.CurrentValue.ScrollOptions.ScrollHoverWidth = 7;
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ScrollWidth, null);
             pb.Add(a => a.ScrollHoverWidth, null);
@@ -1713,7 +1713,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void FixedColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1751,7 +1751,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("style=\"left: 236px;\"");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.FixedDetailRowHeaderColumn, false);
         });
@@ -1762,7 +1762,7 @@ public class TableTest : BootstrapBlazorTestBase
         // Name
         cut.Contains("style=\"left: 136px;\"");
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.FixedMultipleColumn, false);
         });
@@ -1771,14 +1771,14 @@ public class TableTest : BootstrapBlazorTestBase
         // Name
         cut.Contains("style=\"left: 100px;\"");
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.FixedLineNoColumn, false);
         });
         // Name
         cut.Contains("style=\"left: 0px;\"");
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.FixedDetailRowHeaderColumn, true);
             pb.Add(a => a.FixedLineNoColumn, true);
@@ -1795,7 +1795,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColumnMinWidth_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1818,7 +1818,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Column_IsFixedDetailColumn()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1856,7 +1856,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColumnFixed_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1901,7 +1901,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsMultipleSelect_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1927,7 +1927,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowLineNo_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1951,7 +1951,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void FixedMultipleColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -1974,7 +1974,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("left: 36px;", cut.Markup);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.TableSize, TableSize.Compact);
         });
@@ -1987,7 +1987,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsExtendButtonsInRowHeader_Ok(bool inRowHeader)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2018,7 +2018,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void RowButtonTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2039,7 +2039,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.NotNull(table);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsGroupExtendButtons, false);
         });
@@ -2050,7 +2050,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowExtendButtons_Table_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2074,7 +2074,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void OnCellRender_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2107,7 +2107,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void OnCellRender_ValueTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2136,7 +2136,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsFixedFooter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2165,7 +2165,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowFooter_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2198,7 +2198,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TableFooter_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2226,7 +2226,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsHideFooterWhenNoData_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2250,19 +2250,19 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("table-footer-test");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsHideFooterWhenNoData, false);
         });
         cut.WaitForAssertion(() => cut.Contains("table-footer-test"));
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.Items, null);
         });
         cut.WaitForAssertion(() => cut.Contains("table-footer-test"));
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.IsHideFooterWhenNoData, true);
@@ -2277,7 +2277,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var row = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2295,7 +2295,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(0, row);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.OnBeforeRenderRow, foo => row++);
         });
@@ -2308,7 +2308,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void FooterTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2336,7 +2336,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Filterable_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2360,7 +2360,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task Filterable_Virtualize()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2401,7 +2401,7 @@ public class TableTest : BootstrapBlazorTestBase
         var clickCallback = false;
         var confirmCallback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2455,7 +2455,7 @@ public class TableTest : BootstrapBlazorTestBase
         var clickWithoutRender = false;
         var selected = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2549,7 +2549,7 @@ public class TableTest : BootstrapBlazorTestBase
             new() { Name = "Test2", Complete = false },
             new() { Name = "Test3", Complete = true },
         };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2602,7 +2602,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var clickCallback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2639,7 +2639,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ToolbarButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2690,7 +2690,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void CustomerToolbarButton_Disable()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2718,19 +2718,19 @@ public class TableTest : BootstrapBlazorTestBase
         var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
         cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         var toolbar = cut.FindComponent<TableToolbar<Foo>>();
-        toolbar.SetParametersAndRender();
+        toolbar.Render();
     }
 
     [Fact]
     public void TableToolbar_Null()
     {
-        var cut = Context.RenderComponent<TableToolbarButton<Foo>>();
+        var cut = Context.Render<TableToolbarButton<Foo>>();
         Assert.Equal("", cut.Markup);
 
-        var cut1 = Context.RenderComponent<TableToolbarPopConfirmButton<Foo>>();
+        var cut1 = Context.Render<TableToolbarPopConfirmButton<Foo>>();
         Assert.Equal("", cut1.Markup);
 
-        var cut2 = Context.RenderComponent<TableToolbarComponent<Foo>>();
+        var cut2 = Context.Render<TableToolbarComponent<Foo>>();
         Assert.Equal("", cut2.Markup);
     }
 
@@ -2738,7 +2738,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ScrollMode_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -2760,7 +2760,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.NotNull(virtualComponent);
 
         var table = cut.FindComponent<Table<Foo>>();
-        var exception = Assert.Throws<InvalidOperationException>(() => table.SetParametersAndRender(pb =>
+        var exception = Assert.Throws<InvalidOperationException>(() => table.Render(pb =>
         {
             pb.Add(a => a.IsTree, true);
         }));
@@ -2771,7 +2771,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowEmpty_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2791,7 +2791,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("colspan=\"1\"");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DetailRowTemplate, foo => builder => builder.AddContent(0, foo.Name));
         });
@@ -2803,7 +2803,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var isVirtual = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2859,7 +2859,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void RenderPlaceHolderRow_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2889,7 +2889,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("table-cell is-ph");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
         });
@@ -2903,7 +2903,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var showDetail = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2946,7 +2946,7 @@ public class TableTest : BootstrapBlazorTestBase
         var items = Foo.GenerateFoo(localizer, 4);
         Foo? currentDetailRow = null;
         var toggleDetailRow = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -2991,7 +2991,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 更改为手风琴模式
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
         });
@@ -3002,7 +3002,7 @@ public class TableTest : BootstrapBlazorTestBase
             await table.Instance.ExpandDetailRow(items[2]);
             await table.Instance.ExpandDetailRow(items[3]);
         });
-        table.SetParametersAndRender();
+        table.Render();
         rows = cut.FindAll(".detail-row-test");
         Assert.Equal(4, rows.Count);
 
@@ -3021,7 +3021,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var edited = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3071,7 +3071,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void MultiHeaderTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3098,7 +3098,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void HeaderTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3124,7 +3124,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColumnToolboxTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3151,7 +3151,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var sorted = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3187,12 +3187,12 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.ResetSortAsync());
 
         var column = cut.FindComponent<TableColumn<Foo, string>>();
-        column.SetParametersAndRender(pb =>
+        column.Render(pb =>
         {
             pb.Add(a => a.DefaultSort, true);
         });
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.OnSort, null);
         });
@@ -3204,7 +3204,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         // 外部未排序，组件内部自动排序
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3241,7 +3241,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowFilterHeader_Ok(bool showCheckboxText)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3275,7 +3275,7 @@ public class TableTest : BootstrapBlazorTestBase
         }
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.TableSize, TableSize.Compact);
         });
@@ -3296,7 +3296,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowFilterHeader_ExtendButton_Ok(bool fixedHeader)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3320,7 +3320,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task ShowDetailRow_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3355,7 +3355,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsDetails_Ok(bool? isDetails)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3388,7 +3388,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColSpan_OK()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3435,7 +3435,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsTree_Items()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -3459,7 +3459,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task IsTree_OnQuery()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -3497,7 +3497,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task IsTree_OnTreeExpand()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -3529,7 +3529,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void IsTree_TableRowEqualityComparer()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id));
         });
@@ -3542,7 +3542,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void IsTree_KeyAttribute()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTreeTable<Cat>>(pb => pb.Add(a => a.CustomKeyAttribute, typeof(CatKeyAttribute)));
         });
@@ -3555,7 +3555,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void IsTree_EqualityComparer()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTreeTable<Dummy>>();
         });
@@ -3568,7 +3568,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void IsTree_Equality()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTreeTable<Dog>>();
         });
@@ -3584,7 +3584,7 @@ public class TableTest : BootstrapBlazorTestBase
         // 展开树状节点
         // 重新查询后节点依然展开
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<FooTree>>(pb =>
@@ -3632,7 +3632,7 @@ public class TableTest : BootstrapBlazorTestBase
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
-        table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
+        table.Render(pb => pb.Add(a => a.OnTreeExpand, null));
         await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
 
@@ -3642,7 +3642,7 @@ public class TableTest : BootstrapBlazorTestBase
         // 收起树状节点
         // 重新查询后节点依然收起
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -3743,7 +3743,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task IsTree_OnQuery_NoKey()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooNoKeyTree>>(pb =>
             {
@@ -3789,7 +3789,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task IsTree_ToggleTreeRow()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -3861,7 +3861,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task InCell_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3897,7 +3897,7 @@ public class TableTest : BootstrapBlazorTestBase
             Name = "test_name"
         };
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3922,7 +3922,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Null(searchModel.Name);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowAdvancedSearch, false);
         });
@@ -3934,7 +3934,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void SearchTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -3957,7 +3957,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.NotNull(table.Instance.SearchModel);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.SearchModel, null);
             pb.Add(a => a.CreateSearchModelCallback, () => new Foo());
@@ -3969,7 +3969,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task SearchTemplate_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4002,7 +4002,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowSearchTextTooltip_Ok(bool showTooltip)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4039,7 +4039,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowResetButton_Ok(bool showResetButton)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4075,7 +4075,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ShowSearchButton_Ok(bool showSearchButton)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4103,7 +4103,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task SearchText_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4151,7 +4151,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var reset = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4187,7 +4187,7 @@ public class TableTest : BootstrapBlazorTestBase
         var clicked = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4214,7 +4214,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 设置 非多选模式
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb => pb.Add(a => a.IsMultipleSelect, true));
+        table.Render(pb => pb.Add(a => a.IsMultipleSelect, true));
 
         clicked = false;
         await cut.InvokeAsync(() => row.Click());
@@ -4225,7 +4225,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(clicked);
 
         // 设置 Table 模式
-        table.SetParametersAndRender(pb => pb.Add(a => a.RenderMode, TableRenderMode.Table));
+        table.Render(pb => pb.Add(a => a.RenderMode, TableRenderMode.Table));
 
         clicked = false;
         row = cut.Find("tbody tr");
@@ -4240,7 +4240,7 @@ public class TableTest : BootstrapBlazorTestBase
         var clicked = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4271,7 +4271,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4299,7 +4299,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 卡片模式下点击编辑按钮
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.RenderMode, TableRenderMode.CardView);
         });
@@ -4314,7 +4314,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4359,7 +4359,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4398,7 +4398,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableCellComponent_Ok()
     {
-        var cut = Context.RenderComponent<TableCellComponent>();
+        var cut = Context.Render<TableCellComponent>();
         cut.MarkupMatches("");
     }
 
@@ -4407,7 +4407,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4441,7 +4441,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4479,7 +4479,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         var clicked2 = false;
-        var cut1 = Context.RenderComponent<TableExtensionButton>(pb =>
+        var cut1 = Context.Render<TableExtensionButton>(pb =>
         {
             pb.Add(a => a.ChildContent, builder =>
             {
@@ -4505,7 +4505,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableCellButton_Null()
     {
-        var cut = Context.RenderComponent<TableCellButton>();
+        var cut = Context.Render<TableCellButton>();
         Assert.Equal("", cut.Markup);
         Context.DisposeComponents();
     }
@@ -4513,7 +4513,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableCellNormalButton_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<TableExtensionButton>(pb =>
             {
@@ -4531,7 +4531,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4560,7 +4560,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(0, checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
+        table.Render(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
         input = cut.FindComponents<Checkbox<Foo>>()[0];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
     }
@@ -4570,7 +4570,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4604,7 +4604,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var Items = Foo.GenerateFoo(localizer, 6);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4696,7 +4696,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4721,7 +4721,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4746,7 +4746,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4771,7 +4771,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4796,7 +4796,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4821,7 +4821,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4848,7 +4848,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4874,7 +4874,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4898,7 +4898,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task TableColumn_DefaultSortOrder()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4931,7 +4931,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -4955,7 +4955,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, table.Instance.Columns.Count);
         Assert.Equal(2, table.Instance.GetVisibleColumns().Count());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.TableColumns, foo => builder =>
             {
@@ -4983,7 +4983,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5010,7 +5010,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5041,7 +5041,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5147,14 +5147,14 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableColumn_GetDisplayName()
     {
-        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        var cut = Context.Render<TableColumn<Foo, string>>(pb =>
         {
             pb.Add(a => a.Text, null);
             pb.Add(a => a.FieldName, null);
         });
         Assert.Equal("", cut.Instance.GetDisplayName());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.FieldName, "FieldName");
         });
@@ -5164,7 +5164,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableColumn_EditTemplate()
     {
-        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        var cut = Context.Render<TableColumn<Foo, string>>(pb =>
         {
             pb.Add(a => a.EditTemplate, new RenderFragment<Foo>(foo => builder =>
             {
@@ -5189,7 +5189,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableColumn_SearchTemplate()
     {
-        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        var cut = Context.Render<TableColumn<Foo, string>>(pb =>
         {
             pb.Add(a => a.SearchTemplate, new RenderFragment<Foo>(foo => builder =>
             {
@@ -5214,7 +5214,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableColumn_GetFieldName()
     {
-        var cut = Context.RenderComponent<TableColumn<Foo, string>>(pb =>
+        var cut = Context.Render<TableColumn<Foo, string>>(pb =>
         {
             pb.Add(a => a.FieldName, "Name");
         });
@@ -5222,7 +5222,7 @@ public class TableTest : BootstrapBlazorTestBase
         var v = col.GetFieldName();
         Assert.Equal("Name", v);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.FieldName, "");
             pb.Add(a => a.Field, "Name");
@@ -5237,7 +5237,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -5256,7 +5256,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableColumn_ComplexObject()
     {
-        var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
+        var cut = Context.Render<TableColumn<MockComplexFoo, string>>(pb =>
         {
             pb.Add(a => a.Field, "");
         });
@@ -5264,7 +5264,7 @@ public class TableTest : BootstrapBlazorTestBase
         var v = col.GetFieldName();
         Assert.Equal("", v);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
         });
@@ -5280,7 +5280,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             new() { Name = "test1", Foo = Foo.Generate(localizer) }
         };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<MockComplexFoo>>(pb =>
             {
@@ -5304,7 +5304,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var selectedRows = new List<Foo>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5342,7 +5342,7 @@ public class TableTest : BootstrapBlazorTestBase
         var items = FooNoKeyTree.Generate(localizer);
         var selectedRows = new List<FooNoKeyTree>();
         selectedRows.AddRange(items.Take(2));
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooNoKeyTree>>(pb =>
             {
@@ -5375,7 +5375,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var selectedRows = new List<Foo>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5401,7 +5401,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void OnQueryAsync_DataService()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5424,7 +5424,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5457,7 +5457,7 @@ public class TableTest : BootstrapBlazorTestBase
         var modify = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5509,7 +5509,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5542,7 +5542,7 @@ public class TableTest : BootstrapBlazorTestBase
         var itemChanged = ItemChangedType.Add;
         var afterSave = false;
         var afterModify = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5596,7 +5596,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var afterCancelSave = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5637,7 +5637,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var afterCancelSave = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5692,7 +5692,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var afterCancelSave = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5745,7 +5745,7 @@ public class TableTest : BootstrapBlazorTestBase
         var added = false;
         var afterModify = false;
         var itemChanged = ItemChangedType.Update;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5813,7 +5813,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var added = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5862,7 +5862,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var edited = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5898,7 +5898,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5935,7 +5935,7 @@ public class TableTest : BootstrapBlazorTestBase
         """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -5976,7 +5976,7 @@ public class TableTest : BootstrapBlazorTestBase
             """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6015,7 +6015,7 @@ public class TableTest : BootstrapBlazorTestBase
             """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6054,7 +6054,7 @@ public class TableTest : BootstrapBlazorTestBase
             """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6085,7 +6085,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6117,7 +6117,7 @@ public class TableTest : BootstrapBlazorTestBase
         var selectedRows = new List<Foo>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6155,7 +6155,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6196,7 +6196,7 @@ public class TableTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<BreakPoint>("getResponsive").SetResult(BreakPoint.Small);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6229,7 +6229,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var sortList = new List<string>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6271,7 +6271,7 @@ public class TableTest : BootstrapBlazorTestBase
             compared = true;
             return x!.GetValue("Id") == y!.GetValue("Id");
         };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
@@ -6292,7 +6292,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
@@ -6317,7 +6317,7 @@ public class TableTest : BootstrapBlazorTestBase
         data.Rows.Add("test01");
         data.AcceptChanges();
 
-        var cut = Context.RenderComponent<Table<DynamicObject>>(pb =>
+        var cut = Context.Render<Table<DynamicObject>>(pb =>
         {
             pb.Add(a => a.RenderMode, TableRenderMode.Table);
             pb.Add(a => a.DynamicContext, new DataTableDynamicContext(data));
@@ -6330,7 +6330,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
@@ -6359,7 +6359,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockDynamicTable>(pb =>
             {
@@ -6383,7 +6383,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockDynamicTable>(pb =>
             {
@@ -6399,7 +6399,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void CustomerSearches_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6426,7 +6426,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6446,7 +6446,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.DoesNotContain("<div class=\"table-toolbar\"></div>", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
         });
@@ -6458,7 +6458,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6480,7 +6480,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("fa-regular fa-pen-to-square", table.Markup);
         Assert.Contains("fa-solid fa-xmark", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowDefaultButtons, false);
         });
@@ -6495,7 +6495,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6515,7 +6515,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-plus", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowAddButton, false);
         });
@@ -6527,7 +6527,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6548,7 +6548,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-arrows-rotate", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowRefresh, false);
         });
@@ -6560,7 +6560,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6580,7 +6580,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-regular fa-pen-to-square", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowEditButton, false);
         });
@@ -6592,7 +6592,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6616,7 +6616,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 即使选中行，编辑按钮仍然被禁用
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DisableEditButtonCallback, items =>
             {
@@ -6631,7 +6631,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6655,7 +6655,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 新建按钮被禁用
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DisableAddButtonCallback, items =>
             {
@@ -6670,7 +6670,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6690,7 +6690,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-xmark", table.Markup);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowDeleteButton, false);
         });
@@ -6702,7 +6702,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6725,7 +6725,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 即使选中行，编辑按钮仍然被禁用
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DisableDeleteButtonCallback, items =>
             {
@@ -6740,7 +6740,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6762,7 +6762,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButtonCallback, foo => false);
         });
@@ -6774,7 +6774,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6796,7 +6796,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
@@ -6808,7 +6808,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6832,13 +6832,13 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, false);
         });
         Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
@@ -6856,7 +6856,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6879,13 +6879,13 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButton, false);
         });
         Assert.DoesNotContain("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
@@ -6905,7 +6905,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6935,7 +6935,7 @@ public class TableTest : BootstrapBlazorTestBase
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButtonCallback, foo => false);
         });
@@ -6956,7 +6956,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -6996,7 +6996,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7023,7 +7023,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
@@ -7034,7 +7034,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void OnConfirm_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7062,7 +7062,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.InvokeAsync(input.Instance.OnToggleClick);
         cut.InvokeAsync(() => deleteButton.Instance.OnConfirm!.Invoke());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.PageItemsSource, [1, 2, 4, 8]);
         });
@@ -7073,7 +7073,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ExportAsync_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7116,7 +7116,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 由于设置了 IgnoreWhenExport 为 true 所以导出时不包含 Address 列
         ITableExportDataContext<Foo>? exportContext = null;
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.OnExportAsync, context =>
             {
@@ -7142,7 +7142,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TableRender_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7159,7 +7159,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task EFCoreDataService_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7188,7 +7188,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7219,7 +7219,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7244,7 +7244,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7267,7 +7267,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var data = CreateDynamicContext(localizer);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
@@ -7289,7 +7289,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TreeNodeConverter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -7317,7 +7317,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void GetTreeClassString_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
@@ -7356,7 +7356,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var callback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7385,7 +7385,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var callback = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7415,7 +7415,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TableSize_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7435,7 +7435,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.DoesNotContain("table-sm");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.TableSize, TableSize.Compact);
         });
@@ -7446,7 +7446,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void EmptyImage_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7470,7 +7470,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void EmptyTemplate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7494,7 +7494,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsBordered_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7518,7 +7518,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var index = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7548,7 +7548,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task AutoRefresh_Cancel()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7574,7 +7574,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void HeaderStyle_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7593,7 +7593,7 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("table-light");
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.HeaderStyle, TableHeaderStyle.Dark);
         });
@@ -7604,7 +7604,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void HeaderTextWrap_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7628,7 +7628,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void TableColumn_HeaderTextWrap_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7654,7 +7654,7 @@ public class TableTest : BootstrapBlazorTestBase
         var creating = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7683,7 +7683,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var op = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
         op.CurrentValue.TableSettings.TableRenderMode = TableRenderMode.CardView;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7720,7 +7720,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void AutoGenerateColumns_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -7737,7 +7737,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void QueryItems_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7759,7 +7759,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void GetValue_ColorPicker()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7781,7 +7781,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task GetValue_LookupServiceKey()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7799,7 +7799,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var col = cut.FindComponent<TableColumn<Foo, bool>>();
-        col.SetParametersAndRender(pb =>
+        col.Render(pb =>
         {
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
@@ -7811,7 +7811,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<MockTable>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
 
-        col.SetParametersAndRender(pb =>
+        col.Render(pb =>
         {
             pb.Add(a => a.ShowTips, true);
             pb.Add(a => a.Lookup, null);
@@ -7824,7 +7824,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task GetValue_LookupServiceKey_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7851,7 +7851,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task GetValue_LookupServiceKey_NullText()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7878,7 +7878,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task GetValue_LookupServiceKey_NullValue()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7949,7 +7949,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -7968,7 +7968,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var col = cut.FindComponent<TableColumn<Foo, int>>();
         var formatted = false;
-        col.SetParametersAndRender(pb =>
+        col.Render(pb =>
         {
             pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
@@ -7987,7 +7987,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Value_Enum()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8002,7 +8002,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var table = cut.FindComponent<MockTable>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.Items, new List<Foo> { new() { Education = EnumEducation.Primary } });
         });
@@ -8012,7 +8012,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Value_Datetime()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8033,7 +8033,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var items = new List<string>() { "test-0" };
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8053,7 +8053,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void RenderCell_CanWrite_False()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockRenderCellTable>(pb =>
             {
@@ -8077,7 +8077,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut1.Markup);
 
         var col = cut.FindComponent<TableColumn<ReadonlyFoo, string>>();
-        col.SetParametersAndRender(pb =>
+        col.Render(pb =>
         {
             pb.Add(a => a.Template, foo => builder => builder.AddContent(0, "test-Template"));
         });
@@ -8111,7 +8111,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void PlaceHolder_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8135,7 +8135,7 @@ public class TableTest : BootstrapBlazorTestBase
         var tds = cut1.FindAll("td");
         Assert.Equal(4, tds.Count);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsExtendButtonsInRowHeader, false);
         });
@@ -8147,7 +8147,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void RenderCell_Editable_True()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8171,7 +8171,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Contains("<input type=\"text\"", cut1.Markup);
 
         var col = cut.FindComponent<TableColumn<Foo, string>>();
-        col.SetParametersAndRender(pb =>
+        col.Render(pb =>
         {
             pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-EditTemplate"));
         });
@@ -8185,7 +8185,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnQuery_Save()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8216,7 +8216,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnQuery_Delete()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTable>(pb =>
             {
@@ -8243,7 +8243,7 @@ public class TableTest : BootstrapBlazorTestBase
     public async Task OnQuery_Add()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8270,7 +8270,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsAutoCollapsedToolbarButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8297,7 +8297,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void IsMarkupString_Ok()
     {
         var items = new Foo[] { new() { Name = "<div>Name - Test</div>", Address = "<div>Address - Test</div>" } };
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8332,7 +8332,7 @@ public class TableTest : BootstrapBlazorTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         var context = CreateDynamicContext(localizer);
         var rows = context.GetItems().Take(1);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<DynamicObject>>(pb =>
             {
@@ -8354,7 +8354,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         context = CreateDynamicContext(localizer);
         var table = cut.FindComponent<Table<DynamicObject>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DynamicContext, context);
         });
@@ -8365,7 +8365,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8381,7 +8381,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 设置斑马线
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsStriped, true);
         });
@@ -8395,7 +8395,7 @@ public class TableTest : BootstrapBlazorTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         items[0].Complete = true;
         items[1].Complete = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8409,7 +8409,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(3, table.FindComponents<Checkbox<Foo>>().Count);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowRowCheckboxCallback, foo => foo.Complete);
         });
@@ -8426,7 +8426,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8470,7 +8470,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8521,7 +8521,7 @@ public class TableTest : BootstrapBlazorTestBase
         var name = "";
         var width = 0f;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8565,7 +8565,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void ColumnWidth_Ok(int? width, bool fixedHeader)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8597,7 +8597,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<string?>("getResponsive").SetResult("Large");
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8621,7 +8621,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         IEnumerable<ITableColumn>? columns = null;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8658,7 +8658,7 @@ public class TableTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         IEnumerable<ITableColumn>? columns = null;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -8690,7 +8690,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void CreateTItem_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<MockFoo>>(pb =>
             {
@@ -8724,7 +8724,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         await Assert.ThrowsAsync<InvalidOperationException>(() =>
         {
-            Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            Context.Render<BootstrapBlazorRoot>(pb =>
             {
                 pb.Add(a => a.EnableErrorLogger, false);
                 pb.AddChildContent<Table<MockFoo>>(pb =>
@@ -8758,7 +8758,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void Modify_Ok()
     {
-        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        var cut = Context.Render<Table<Foo>>(pb =>
         {
             pb.Add(a => a.TableColumns, foo => builder =>
             {
@@ -8775,7 +8775,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.False(ProhibitEdit(cut.Instance));
         Assert.False(ProhibitDelete(cut.Instance));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowExtendDeleteButton, true);
@@ -8785,7 +8785,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(ProhibitEdit(cut.Instance));
         Assert.True(ProhibitDelete(cut.Instance));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowExtendDeleteButton, true);
@@ -8809,7 +8809,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Table_Sortable()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        var cut = Context.Render<Table<Foo>>(pb =>
         {
             pb.AddCascadingValue<ISortableList>(new SortableList());
             pb.Add(a => a.TableColumns, foo => builder =>
@@ -8830,7 +8830,7 @@ public class TableTest : BootstrapBlazorTestBase
     public void Table_ShowMoreButton_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<Table<Foo>>(pb =>
+        var cut = Context.Render<Table<Foo>>(pb =>
         {
             pb.AddCascadingValue<ISortableList>(new SortableList());
             pb.Add(a => a.TableColumns, foo => builder =>

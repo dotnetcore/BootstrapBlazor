@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class StepTest : BootstrapBlazorTestBase
     [Fact]
     public void Step_Items()
     {
-        var cut = Context.RenderComponent<Step>(pb =>
+        var cut = Context.Render<Step>(pb =>
         {
             pb.Add(a => a.Items, GetStepItems);
         });
@@ -24,7 +24,7 @@ public class StepTest : BootstrapBlazorTestBase
         var body = cut.FindAll(".step-body-item");
         Assert.Equal(3, body.Count);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, null);
         });
@@ -44,7 +44,7 @@ public class StepTest : BootstrapBlazorTestBase
     [Fact]
     public void Step_IsVertical()
     {
-        var cut = Context.RenderComponent<Step>(pb =>
+        var cut = Context.Render<Step>(pb =>
         {
             pb.Add(a => a.Items, GetStepItems);
             pb.Add(a => a.IsVertical, true);
@@ -55,7 +55,7 @@ public class StepTest : BootstrapBlazorTestBase
     [Fact]
     public void Step_ChildContent()
     {
-        var cut = Context.RenderComponent<Step>(pb =>
+        var cut = Context.Render<Step>(pb =>
         {
             pb.Add(a => a.StepIndex, 1);
             pb.Add(a => a.ChildContent, builder =>
@@ -104,7 +104,7 @@ public class StepTest : BootstrapBlazorTestBase
     [Fact]
     public void Step_Method()
     {
-        var cut = Context.RenderComponent<Step>(pb =>
+        var cut = Context.Render<Step>(pb =>
         {
             pb.Add(a => a.Items, GetStepItems);
             pb.Add(a => a.StepIndex, 1);
@@ -131,7 +131,7 @@ public class StepTest : BootstrapBlazorTestBase
     public void FinishedTemplate_Ok()
     {
         bool finished = false;
-        var cut = Context.RenderComponent<Step>(pb =>
+        var cut = Context.Render<Step>(pb =>
         {
             pb.Add(a => a.Items, GetStepItems);
             pb.Add(a => a.StepIndex, 3);
@@ -151,7 +151,7 @@ public class StepTest : BootstrapBlazorTestBase
     [Fact]
     public void StepItem_Ok()
     {
-        var cut = Context.RenderComponent<StepItem>(pb =>
+        var cut = Context.Render<StepItem>(pb =>
         {
             pb.Add(a => a.Text, "test1");
         });

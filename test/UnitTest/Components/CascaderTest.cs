@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,7 +18,7 @@ public class CascaderTest : BootstrapBlazorTestBase
             new() { Text = "Test1", Value = "test1" },
             new() { Text = "Test2", Value = "test2" }
         };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.OnValidSubmit, context =>
             {
@@ -60,7 +60,7 @@ public class CascaderTest : BootstrapBlazorTestBase
 
         foo.Name = null;
         var cascader = cut.FindComponent<Cascader<string>>();
-        cascader.SetParametersAndRender();
+        cascader.Render();
         await cut.InvokeAsync(() =>
         {
             var form = cut.Find("form");
@@ -75,7 +75,7 @@ public class CascaderTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Success);
             pb.Add(a => a.IsClearable, true);
@@ -101,7 +101,7 @@ public class CascaderTest : BootstrapBlazorTestBase
 
         items[1].Items.ElementAt(1).AddItem(new() { Text = "Test111", Value = "111" });
 
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, value);
@@ -136,7 +136,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         Assert.Equal("12", value);
 
         // 测试 Items 为 null
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, null);
         });
@@ -154,20 +154,20 @@ public class CascaderTest : BootstrapBlazorTestBase
         };
         items[0].AddItem(new("11", "Test11"));
 
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, "Test");
         });
         Assert.Equal("", cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, "11");
         });
         Assert.Equal("11", cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.Value, "1");
@@ -177,7 +177,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         // 未提供数据源时 Value 赋值无效
         Assert.Null(cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, "3");
@@ -188,7 +188,7 @@ public class CascaderTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.IsClearable, true);
@@ -202,7 +202,7 @@ public class CascaderTest : BootstrapBlazorTestBase
     public async Task IsClearable_Ok()
     {
         var isClear = false;
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnClearAsync, () =>
@@ -224,7 +224,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         {
             new() { Text = "test1", Value = "1" }
         };
-        var cut = Context.RenderComponent<CascadingValue<List<CascaderItem>>>(pb =>
+        var cut = Context.Render<CascadingValue<List<CascaderItem>>>(pb =>
         {
             pb.Add(a => a.Value, items);
             pb.AddChildContent<SubCascader>(pb =>
@@ -250,7 +250,7 @@ public class CascaderTest : BootstrapBlazorTestBase
 
         items[1].Items.ElementAt(1).AddItem(new() { Text = "Test111", Value = "111" });
 
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, value);
@@ -282,7 +282,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         items[0].AddItem(new("11", "Test11"));
         items[1].AddItem(new("21", "Test21"));
 
-        var cut = Context.RenderComponent<MockCascader>(pb =>
+        var cut = Context.Render<MockCascader>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ShowFullLevels, false);
@@ -291,7 +291,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => dropdownItems[0].Click());
         Assert.Equal("Test11", cut.Instance.MockDisplayText);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFullLevels, true);
         });
@@ -308,7 +308,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         {
             new() { Text = "test1", Value = "1" }
         };
-        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        var cut = Context.Render<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, "1");

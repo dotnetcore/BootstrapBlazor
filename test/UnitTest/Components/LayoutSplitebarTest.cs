@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,13 +10,13 @@ public class LayoutSplitBarTest : BootstrapBlazorTestBase
     [Fact]
     public void LayoutSplitBar_Ok()
     {
-        var cut = Context.RenderComponent<LayoutSplitBar>(pb =>
+        var cut = Context.Render<LayoutSplitBar>(pb =>
         {
             pb.Add(a => a.ContainerSelector, ".layout");
         });
         cut.Contains("data-bb-selector=\".layout\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Min, 100);
             pb.Add(a => a.Max, 200);

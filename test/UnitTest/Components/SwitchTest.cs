@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void OnColor_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, true);
             builder.Add(a => a.OnColor, Color.None);
@@ -18,7 +18,7 @@ public class SwitchTest : BootstrapBlazorTestBase
 
         Assert.DoesNotContain("bg-", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnColor, Color.Danger);
         });
@@ -28,7 +28,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void OffColor_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.OffColor, Color.Danger);
@@ -40,7 +40,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void Width_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.Width, 100);
@@ -52,7 +52,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.Height, 20);
@@ -64,7 +64,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void OnInnerText_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, true);
             builder.Add(a => a.OnInnerText, "On");
@@ -77,7 +77,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void OffInnerText_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.OffInnerText, "Off");
@@ -91,7 +91,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowInnerText_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.OffInnerText, "Off");
@@ -107,7 +107,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     public void OnValueChanged_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.OnValueChanged, e => { value = e; return Task.CompletedTask; });
@@ -116,7 +116,7 @@ public class SwitchTest : BootstrapBlazorTestBase
         cut.Find("span").Click();
         Assert.True(value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, false);
         });
@@ -127,7 +127,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     public void ValueChanged_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, false);
             builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<bool>(this, e => { value = e; }));
@@ -141,7 +141,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.IsDisabled, true);
         });
@@ -152,7 +152,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.Value, true);
         });
@@ -163,7 +163,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayText_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.DisplayText, "custome label");
             builder.Add(a => a.ShowLabel, true);
@@ -178,7 +178,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLabel_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.DisplayText, "custome label");
             builder.Add(a => a.ShowLabel, true);
@@ -193,7 +193,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void OnText_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.OnText, "On");
             builder.Add(a => a.Value, true);
@@ -205,7 +205,7 @@ public class SwitchTest : BootstrapBlazorTestBase
     [Fact]
     public void Off_Ok()
     {
-        var cut = Context.RenderComponent<Switch>(builder =>
+        var cut = Context.Render<Switch>(builder =>
         {
             builder.Add(a => a.OffText, "Off");
             builder.Add(a => a.Value, false);

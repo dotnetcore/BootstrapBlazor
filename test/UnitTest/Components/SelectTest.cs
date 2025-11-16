@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -17,7 +17,7 @@ public class SelectTest : BootstrapBlazorTestBase
     {
         var tcs = new TaskCompletionSource();
         var selectedValue = "";
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Select<string>>(pb =>
             {
@@ -47,7 +47,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnSearchTextChanged_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Select<string>>(pb =>
             {
@@ -70,7 +70,7 @@ public class SelectTest : BootstrapBlazorTestBase
             await ctx.Instance.ConfirmSelectedItem(0);
         });
 
-        ctx.SetParametersAndRender(pb =>
+        ctx.Render(pb =>
         {
             pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(false));
             pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
@@ -79,7 +79,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         ctx.Instance.ClearSearchText();
 
-        ctx.SetParametersAndRender(pb =>
+        ctx.Render(pb =>
         {
             pb.Add(a => a.OnBeforeSelectedItemChange, null);
             pb.Add(a => a.OnSelectedItemChanged, null);
@@ -102,7 +102,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Options_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Options, builder =>
             {
@@ -120,7 +120,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Disabled_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.Options, builder =>
@@ -141,7 +141,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public void LookupService_Ok()
     {
         // 不给 Items 时走 LookupService
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
         });
@@ -152,7 +152,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Select_Lookup()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
         });
@@ -169,7 +169,7 @@ public class SelectTest : BootstrapBlazorTestBase
     {
         var selectedValue = "Test2";
         var val = "Test2";
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnSelectedItemChanged, item =>
@@ -197,7 +197,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 提高代码覆盖率
         var select = cut;
-        select.SetParametersAndRender(pb =>
+        select.Render(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -215,7 +215,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 更改数据类型为不可为空 int
         // IsClearable 参数无效
-        var cut1 = Context.RenderComponent<Select<int>>(pb =>
+        var cut1 = Context.Render<Select<int>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -232,7 +232,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsNullable_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -243,7 +243,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.True(IsNullable(cut.Instance));
 
-        var cut1 = Context.RenderComponent<Select<string?>>(pb =>
+        var cut1 = Context.Render<Select<string?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -254,7 +254,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.True(IsNullable(cut1.Instance));
 
-        var cut2 = Context.RenderComponent<Select<Foo>>(pb =>
+        var cut2 = Context.Render<Select<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -265,7 +265,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.True(IsNullable(cut2.Instance));
 
-        var cut3 = Context.RenderComponent<Select<Foo?>>(pb =>
+        var cut3 = Context.Render<Select<Foo?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -276,7 +276,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.True(IsNullable(cut3.Instance));
 
-        var cut4 = Context.RenderComponent<Select<int>>(pb =>
+        var cut4 = Context.Render<Select<int>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -287,7 +287,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.False(IsNullable(cut4.Instance));
 
-        var cut5 = Context.RenderComponent<Select<int?>>(pb =>
+        var cut5 = Context.Render<Select<int?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -308,7 +308,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void SelectOption_Ok()
     {
-        var cut = Context.RenderComponent<SelectOption>(pb =>
+        var cut = Context.Render<SelectOption>(pb =>
         {
             pb.Add(a => a.Text, "Test-SelectOption");
             pb.Add(a => a.GroupName, "Test-GroupName");
@@ -321,14 +321,14 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Enum_Ok()
     {
-        var cut = Context.RenderComponent<Select<EnumEducation>>();
+        var cut = Context.Render<Select<EnumEducation>>();
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
     }
 
     [Fact]
     public void NullableEnum_Ok()
     {
-        var cut = Context.RenderComponent<Select<EnumEducation?>>(pb =>
+        var cut = Context.Render<Select<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
             {
@@ -344,7 +344,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var triggered = false;
 
         // 空值时，不触发 OnSelectedItemChanged 回调
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -384,7 +384,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 首次加载值不为空时触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -415,7 +415,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var triggered = false;
 
         // 空值时，不触发 OnSelectedItemChanged 回调
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -439,7 +439,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var triggered = false;
 
         // 空值时，不触发 OnSelectedItemChanged 回调
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -460,7 +460,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -471,7 +471,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public async Task OnCollapsed_Ok()
     {
         var collapsed = false;
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.OnCollapsed, () => { collapsed = true; return Task.CompletedTask; });
         });
@@ -482,7 +482,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsAutoClearSearchTextWhenCollapsed_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.IsAutoClearSearchTextWhenCollapsed, true);
@@ -501,7 +501,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var valid = false;
         var invalid = false;
         var model = new Foo() { Name = "Test-Select1" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.OnValidSubmit, context =>
             {
@@ -552,7 +552,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -574,7 +574,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void GroupItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -597,14 +597,14 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void NullItems_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>();
+        var cut = Context.Render<Select<string>>();
         Assert.Contains("select", cut.Markup);
     }
 
     [Fact]
     public void NullBool_Ok()
     {
-        var cut = Context.RenderComponent<Select<bool?>>(pb =>
+        var cut = Context.Render<Select<bool?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -622,7 +622,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public void SelectItem_Ok()
     {
         var v = new SelectedItem("2", "Text2");
-        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        var cut = Context.Render<Select<SelectedItem>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -641,7 +641,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void SearchIcon_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -658,7 +658,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ScrollIntoViewBehavior_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -670,7 +670,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("data-bb-scroll-behavior=\"auto\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
         });
@@ -680,7 +680,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void CustomClass_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -696,7 +696,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowShadow_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -707,7 +707,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("shadow", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowShadow, false);
         });
@@ -717,7 +717,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DropdownIcon_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -733,7 +733,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -752,7 +752,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -769,7 +769,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Offset_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -786,7 +786,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -798,7 +798,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         cut.Contains($"data-bs-placement=\"{Placement.Top.ToDescriptionString()}\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Auto);
         });
@@ -808,7 +808,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemClick_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -830,7 +830,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DefaultVirtualizeItemText_Null()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -848,7 +848,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task DefaultVirtualizeItemText_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -875,7 +875,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVirtualize_Items()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -888,7 +888,7 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OverscanCount, 4);
         });
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
+        cut.Render(pb => pb.Add(a => a.ShowSearch, true));
         cut.InvokeAsync(async () =>
         {
             // 搜索 T
@@ -900,7 +900,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsVirtualize_Items_Clearable_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -951,7 +951,7 @@ public class SelectTest : BootstrapBlazorTestBase
         var startIndex = 0;
         var requestCount = 0;
         var searchText = string.Empty;
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -1006,7 +1006,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public async Task IsVirtualize_BindValue()
     {
         var value = new SelectedItem("3", "Test 3");
-        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        var cut = Context.Render<Select<SelectedItem>>(pb =>
         {
             pb.Add(a => a.Value, value);
             pb.Add(a => a.IsVirtualize, true);
@@ -1048,7 +1048,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void LoadItems_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -1074,7 +1074,7 @@ public class SelectTest : BootstrapBlazorTestBase
             new("1", "Test1"),
             new("2", "Test2")
         };
-        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        var cut = Context.Render<Select<SelectedItem>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, new SelectedItem("1", "Test1"));
@@ -1097,7 +1097,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsMarkupString_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -1113,7 +1113,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -1126,7 +1126,7 @@ public class SelectTest : BootstrapBlazorTestBase
         Assert.True(input.IsReadOnly());
 
         var updated = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.OnInputChangedCallback, v =>
@@ -1149,7 +1149,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public async Task OnClearAsync_Ok()
     {
         var clear = false;
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -1179,7 +1179,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Toggle_Ok()
     {
-        var cut = Context.RenderComponent<Select<string>>(pb =>
+        var cut = Context.Render<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -1194,7 +1194,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnBeforeSelectedItemChange_OK()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Select<string>>(pb =>
             {

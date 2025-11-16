@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void SegmentedItem_Dispose()
     {
-        var cut = Context.RenderComponent<SegmentedItem<string>>(pb =>
+        var cut = Context.Render<SegmentedItem<string>>(pb =>
         {
             pb.Add(a => a.Text, "Hello");
             pb.Add(a => a.Value, "1");
@@ -23,7 +23,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void SegmentedItem_Ok()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.AddChildContent<SegmentedItem<string>>(pb =>
             {
@@ -44,7 +44,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void SegmentedItem_Icon()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.AddChildContent<SegmentedItem<string>>(pb =>
             {
@@ -61,7 +61,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void SegmentedOption_Ok()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SegmentedOption<string>>()
             {
@@ -85,7 +85,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void SegmentedOption_Icon()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SegmentedOption<string>>()
             {
@@ -107,7 +107,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [InlineData(Size.Small, "segmented-sm")]
     public void Segmented_Size(Size size, string expected)
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.Size, size);
             pb.AddChildContent<SegmentedItem<string>>(pb =>
@@ -124,7 +124,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     {
         string? newVal = "";
         bool valueChanged = false;
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.Value, "34");
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
@@ -160,7 +160,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
 
         newVal = "";
         valueChanged = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -181,7 +181,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void Segmented_ItemTemplate()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.Value, "34");
             pb.AddChildContent<SegmentedItem<string>>(pb =>
@@ -208,7 +208,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void Segmented_IsBlock()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.IsBlock, true);
             pb.AddChildContent<SegmentedItem<string>>(pb =>
@@ -229,7 +229,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
     [Fact]
     public void Segmented_ShowTooltip()
     {
-        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        var cut = Context.Render<Segmented<string>>(pb =>
         {
             pb.Add(a => a.IsBlock, true);
             pb.Add(a => a.ShowTooltip, true);

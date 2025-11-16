@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder => builder.Add(a => a.Height, 100));
+        var cut = Context.Render<Console>(builder => builder.Add(a => a.Height, 100));
 
         Assert.Contains("style=\"height: 100px;\"", cut.Markup);
     }
@@ -21,7 +21,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderText_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder => builder.Add(a => a.HeaderText, "HeaderText"));
+        var cut = Context.Render<Console>(builder => builder.Add(a => a.HeaderText, "HeaderText"));
 
         Assert.Contains("HeaderText", cut.Markup);
     }
@@ -29,7 +29,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -40,7 +40,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
         var res = cut.Find(".console-window").HasChildNodes;
         Assert.True(res);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ItemTemplate, item => builder =>
             {
@@ -55,7 +55,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     public async Task OnClear_OK()
     {
         var clearClicked = false;
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -68,7 +68,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
         // 实例触发 OnClear 方法
         await cut.Instance.OnClearConsole();
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnClear, new Func<Task>(() =>
             {
@@ -83,7 +83,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void ClearButtonText_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -99,7 +99,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void OnClearButtonText_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -116,7 +116,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void ClearButtonColor_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -132,7 +132,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowAutoScroll_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -147,7 +147,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void AutoScrollString_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -157,7 +157,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
         });
         Assert.Contains("data-bb-scroll=\"auto\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsAutoScroll, false);
         });
@@ -167,7 +167,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void AutoScrollText_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -183,7 +183,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void LightTitle_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -198,7 +198,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ClickAutoScroll_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -216,7 +216,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void MessageItemColor_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -230,7 +230,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void MessageItemHtml_OK()
     {
-        var cut = Context.RenderComponent<Console>(builder =>
+        var cut = Context.Render<Console>(builder =>
         {
             builder.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -243,7 +243,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void FooterTemplate_OK()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -260,7 +260,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLight_OK()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -274,7 +274,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void LightColor_OK()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -288,7 +288,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFlashLight_OK()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -302,7 +302,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_OK()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {
@@ -319,7 +319,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     [Fact]
     public void CssClass_Ok()
     {
-        var cut = Context.RenderComponent<Console>(pb =>
+        var cut = Context.Render<Console>(pb =>
         {
             pb.Add(a => a.Items, new List<ConsoleMessageItem>()
             {

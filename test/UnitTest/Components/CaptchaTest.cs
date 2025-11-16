@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
     public async Task Verify_Ok()
     {
         var verify = false;
-        var cut = Context.RenderComponent<Captcha>(pb =>
+        var cut = Context.Render<Captcha>(pb =>
         {
             pb.Add(a => a.SideLength, 42);
             pb.Add(a => a.Diameter, 9);
@@ -29,7 +29,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.Verify(10, [1, 2, 3, 4]));
         Assert.False(verify);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Offset, 5);
             pb.Add(a => a.OnValidAsync, null);
@@ -40,7 +40,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Reset_Ok()
     {
-        var cut = Context.RenderComponent<Captcha>(pb =>
+        var cut = Context.Render<Captcha>(pb =>
         {
             pb.Add(a => a.ImagesPath, "images");
             pb.Add(a => a.ImagesName, "Pic.jpg");

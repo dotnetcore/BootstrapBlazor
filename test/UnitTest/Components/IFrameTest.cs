@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,7 @@ public class IFrameTest : BootstrapBlazorTestBase
     public async Task Frame_Ok()
     {
         var postData = false;
-        var cut = Context.RenderComponent<IFrame>(pb =>
+        var cut = Context.Render<IFrame>(pb =>
         {
             pb.Add(a => a.Src, "/Cat");
             pb.Add(a => a.OnPostDataAsync, v =>
@@ -22,7 +22,7 @@ public class IFrameTest : BootstrapBlazorTestBase
         });
         cut.Contains("iframe");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Data, new { Rows = new List<string>() { "1", "2" } });
         });
@@ -34,7 +34,7 @@ public class IFrameTest : BootstrapBlazorTestBase
         });
 
         var loaded = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnReadyAsync, () =>
             {

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
     [Fact]
     public void PickerSetting_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.AddChildContent<TimePickerSetting>(pb =>
@@ -33,7 +33,7 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
     public void RangeSetting_Ok()
     {
         // TODO: 等待 Range 支持 DateTime 模式
-        //var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        //var cut = Context.Render<DateTimeRange>(pb =>
         //{
         //    pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         //    pb.AddChildContent<TimePickerSetting>(pb =>

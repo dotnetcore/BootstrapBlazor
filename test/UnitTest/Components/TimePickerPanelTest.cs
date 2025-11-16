@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowClockScale_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowClockScale, true);
         });
@@ -21,7 +21,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSecond_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowSecond, false);
         });
@@ -32,7 +32,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowMinute_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowMinute, false);
         });
@@ -43,7 +43,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickSetMode_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
@@ -67,12 +67,12 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickSetTimePeriod_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(00, 10, 10));
         });
@@ -105,7 +105,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void SetTime()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
@@ -128,7 +128,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void SwitchView_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         });

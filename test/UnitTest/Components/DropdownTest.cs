@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         var clickedWithoutRender = false;
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.ShowSplit, true);
             pb.Add(a => a.OnClick, () =>
@@ -36,7 +36,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsAsync_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.ShowSplit, true);
             pb.Add(a => a.IsAsync, true);
@@ -52,7 +52,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSize_OK()
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Size, BootstrapBlazor.Components.Size.ExtraLarge);
         });
@@ -66,7 +66,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [InlineData(Direction.Dropdown)]
     public void Direction_Ok(Direction direction)
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.MenuAlignment, Alignment.Center);
             pb.Add(a => a.Direction, direction);
@@ -77,12 +77,12 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void MenuAlignment()
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.MenuAlignment, Alignment.Left);
         });
         Assert.DoesNotContain("dropdown-menu-end", cut.Markup);
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MenuAlignment, Alignment.Right);
         });
@@ -92,7 +92,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsFixedButtonText()
     {
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -111,7 +111,7 @@ public class DropdownTest : BootstrapBlazorTestBase
         Assert.Equal("Test1", button.TextContent);
 
         // 设置 IsFixed false
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsFixedButtonText, false);
         });
@@ -124,7 +124,7 @@ public class DropdownTest : BootstrapBlazorTestBase
         Assert.Equal("Test2", button.TextContent);
 
         // ShowFixedButtonTextInDropdown
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFixedButtonTextInDropdown, true);
         });
@@ -136,7 +136,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     public void DisplayText_OK()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<Dropdown<EnumEducation?>>(pb =>
@@ -151,7 +151,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void SelectOption_Ok()
     {
-        var cut = Context.RenderComponent<SelectOption>(pb =>
+        var cut = Context.Render<SelectOption>(pb =>
         {
             pb.Add(a => a.Text, "Test-SelectOption");
             pb.Add(a => a.GroupName, "Test-GroupName");
@@ -164,14 +164,14 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void Enum_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>();
+        var cut = Context.Render<Dropdown<EnumEducation>>();
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
     }
 
     [Fact]
     public void NullableEnum_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation?>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
             {
@@ -185,7 +185,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     public async Task OnSelectedItemChanged_OK()
     {
         var triggered = false;
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -208,7 +208,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     public async Task OnValueChanged_Ok()
     {
         var triggered = false;
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        var cut = Context.Render<Dropdown<EnumEducation>>(pb =>
         {
             pb.Add(a => a.OnValueChanged, item =>
             {
@@ -224,7 +224,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -234,7 +234,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -256,7 +256,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void Disabled_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.IsDisabled, false);
             pb.Add(a => a.Items, new SelectedItem[]
@@ -272,7 +272,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     public async Task ItemsTemplate_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.IsFixedButtonText, true);
             pb.Add(a => a.FixedButtonText, "fixed text");
@@ -334,7 +334,7 @@ public class DropdownTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        var cut = Context.Render<Dropdown<string>>(pb =>
         {
             pb.Add(a => a.ButtonTemplate, new RenderFragment<SelectedItem?>(item => builder =>
             {

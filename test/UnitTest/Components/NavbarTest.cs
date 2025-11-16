@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class NavbarTest : BootstrapBlazorTestBase
     [Fact]
     public void Navbar_OK()
     {
-        var cut = Context.RenderComponent<Navbar>(pb =>
+        var cut = Context.Render<Navbar>(pb =>
         {
             pb.Add(s => s.Size, Size.Medium);
             pb.Add(s => s.BackgroundColorCssClass, "bg-primary");
@@ -69,7 +69,7 @@ public class NavbarTest : BootstrapBlazorTestBase
         var toggle = cut.FindComponent<NavbarToggleButton>();
         Assert.NotNull(toggle);
 
-        toggle.SetParametersAndRender(pb =>
+        toggle.Render(pb =>
         {
             pb.AddChildContent("<a href=\"#\">ToggleButton</a>");
         });
@@ -79,7 +79,7 @@ public class NavbarTest : BootstrapBlazorTestBase
     [Fact]
     public async Task NavbarLink_Ok()
     {
-        var cut = Context.RenderComponent<NavbarLink>(pb =>
+        var cut = Context.Render<NavbarLink>(pb =>
         {
             pb.Add(a => a.Icon, "fa-test");
             pb.Add(a => a.Text, "Home");

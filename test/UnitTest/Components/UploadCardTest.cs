@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     {
         var zoom = false;
         var deleted = false;
-        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        var cut = Context.Render<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.ShowZoomButton, true);
             pb.Add(a => a.ShowDeleteButton, true);
@@ -39,7 +39,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         cut.Contains("aria-label=\"zoom\"");
         cut.Contains("aria-label=\"delete\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IconTemplate, file => builder =>
            {
@@ -52,7 +52,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Find(".btn-zoom").Click());
         Assert.False(zoom);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IconTemplate, (RenderFragment<UploadFile>?)null);
             pb.Add(a => a.OnZoomAsync, file =>
@@ -70,7 +70,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
 
         // ShowDownload
         var clicked = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowDownloadButton, true);
             pb.Add(a => a.OnDownload, file =>
@@ -90,7 +90,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         Assert.True(deleted);
 
         // CanPreviewCallback
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CanPreviewCallback, p =>
             {
@@ -100,7 +100,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Find(".btn-zoom").Click());
 
         // ShowProgress
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
@@ -119,7 +119,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         })));
 
         // IsUploadButtonAtFirst
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsUploadButtonAtFirst, true);
             pb.Add(a => a.IsMultiple, true);
@@ -134,7 +134,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     public void CardUpload_ValidateForm_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<CardUpload<string>>(pb =>
@@ -149,7 +149,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     [Fact]
     public void AllowExtensions_Ok()
     {
-        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        var cut = Context.Render<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.AllowExtensions, [".dba"]);
             pb.Add(a => a.DefaultFileList,
@@ -159,7 +159,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         });
         cut.Contains("<span>test.dba</span> (0 B)");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DefaultFileList,
             [
@@ -173,7 +173,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     public async Task CardUpload_ShowProgress_Ok()
     {
         var cancel = false;
-        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        var cut = Context.Render<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
@@ -204,7 +204,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowDeleteButton_Ok()
     {
-        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        var cut = Context.Render<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.IsDisabled, true);
@@ -223,7 +223,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
     [Fact]
     public void ActionButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        var cut = Context.Render<CardUpload<string>>(pb =>
         {
             pb.Add(a => a.DefaultFileList,
             [

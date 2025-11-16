@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -20,7 +20,7 @@ public class TableDialogTest : TableDialogTestBase
         options.CurrentValue.ToastDelay = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -87,7 +87,7 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
             pb.Add(a => a.BeforeShowEditDialogCallback, new Action<ITableEditDialogOption<Foo>>(o => o.DisableAutoSubmitFormByEnter = true));
@@ -100,7 +100,7 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 自定义数据服务取消回调测试
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
         });
@@ -110,7 +110,7 @@ public class TableDialogTest : TableDialogTestBase
 
         var closed = false;
         // 测试 CloseCallback
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.EditDialogCloseAsync, (model, result) =>
             {
@@ -123,7 +123,7 @@ public class TableDialogTest : TableDialogTestBase
         Assert.True(closed);
 
         // IsTracking mode
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsTracking, true);
         });
@@ -140,7 +140,7 @@ public class TableDialogTest : TableDialogTestBase
 
         var itemsChanged = false;
         // 更新插入模式
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.InsertRowMode, InsertRowMode.First);
             pb.Add(a => a.ItemsChanged, foo =>
@@ -164,7 +164,7 @@ public class TableDialogTest : TableDialogTestBase
         Assert.True(itemsChanged);
 
         // 设置双向绑定 Items 后再测试 Add Save
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsTracking, false);
             pb.Add(a => a.OnSaveAsync, null);
@@ -180,7 +180,7 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Equal(3, items.Count);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.InsertRowMode, InsertRowMode.Last);
         });
@@ -196,7 +196,7 @@ public class TableDialogTest : TableDialogTestBase
         Assert.Equal(3, items.Count);
 
         // 数据源是 OnQueryAsync 提供
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.OnQueryAsync, options => Task.FromResult(new QueryData<Foo>()
@@ -223,7 +223,7 @@ public class TableDialogTest : TableDialogTestBase
         var rows = cut.FindAll("tbody tr");
         Assert.Equal(3, rows.Count);
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.IsExcel, false);
             pb.Add(a => a.ShowToolbar, true);
@@ -256,7 +256,7 @@ public class TableDialogTest : TableDialogTestBase
         var queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
 
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
             {
@@ -272,7 +272,7 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => queryButton.Click());
 
         table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
             {
@@ -299,7 +299,7 @@ public class TableDialogTest : TableDialogTestBase
         var dialogService = Context.Services.GetRequiredService<DialogService>();
         var items = Foo.GenerateFoo(localizer, 2);
         Dialog dialog = default!;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent(builder =>
             {
@@ -332,7 +332,7 @@ public class TableDialogTest : TableDialogTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {

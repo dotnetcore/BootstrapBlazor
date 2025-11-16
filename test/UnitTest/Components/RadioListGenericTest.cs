@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     public void Enum_NoItems()
     {
         var v = EnumEducation.Middle;
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Value, v);
         });
@@ -25,7 +25,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     public void EnumValue_Ok()
     {
         var v = EnumEducation.Middle;
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList<EnumEducation>());
             pb.Add(a => a.Value, v);
@@ -37,7 +37,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     public void EnumNullValue_Ok()
     {
         EnumEducation? v = null;
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation?>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.Value, v);
             pb.Add(a => a.NullItemText, "Test-Null");
@@ -52,7 +52,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SelectedItem_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<Foo>>(pb =>
+        var cut = Context.Render<RadioListGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>
             {
@@ -70,7 +70,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<Foo>>(pb =>
+        var cut = Context.Render<RadioListGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>
             {
@@ -83,7 +83,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
         cut.Contains("disabled=\"disabled\"");
 
         // 组件被禁用
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -93,7 +93,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLabel_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<Foo>>(pb =>
+        var cut = Context.Render<RadioListGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>
             {
@@ -110,14 +110,14 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void NotInItems_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<Foo>>();
+        var cut = Context.Render<RadioListGeneric<Foo>>();
         Assert.Null(cut.Instance.Value);
         Assert.Equal("<div class=\"radio-list form-control\" role=\"group\"></div>", cut.Markup);
 
         // 组件值为 test
         // 组件给的候选 Items 中无 test 选项
         var v = new Foo() { Id = 3, Name = "test" };
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>
             {
@@ -131,7 +131,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
         Assert.Null(cut.Instance.Value);
 
         v = new Foo() { Id = 3, Name = "test" };
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>());
             pb.Add(a => a.Value, v);
@@ -144,7 +144,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     {
         var selected = false;
         var v = EnumEducation.Middle;
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList<EnumEducation>());
             pb.Add(a => a.Value, v);
@@ -164,7 +164,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     {
         var selected = false;
         var v = EnumEducation.Middle;
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList<EnumEducation>());
             pb.Add(a => a.Value, v);
@@ -184,7 +184,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     public void ItemTemplate_Ok()
     {
         var v = new Foo() { Id = 3, Name = "test" };
-        var cut = Context.RenderComponent<RadioListGeneric<Foo>>(pb =>
+        var cut = Context.Render<RadioListGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<Foo>>
             {
@@ -204,7 +204,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsButton_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.IsButton, true);
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList<EnumEducation>());
@@ -212,7 +212,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
         });
         cut.Contains("radio-list btn-group");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -229,7 +229,7 @@ public class RadioListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowBorder_Ok()
     {
-        var cut = Context.RenderComponent<RadioListGeneric<EnumEducation>>(pb =>
+        var cut = Context.Render<RadioListGeneric<EnumEducation>>(pb =>
         {
             pb.Add(a => a.ShowBorder, false);
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList<EnumEducation>());

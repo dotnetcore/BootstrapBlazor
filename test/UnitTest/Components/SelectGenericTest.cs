@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,7 +16,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ScrollIntoViewBehavior_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<string>>()
             {
@@ -28,7 +28,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         Assert.Contains("data-bb-scroll-behavior=\"auto\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
         });
@@ -38,7 +38,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnSearchTextChanged_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<SelectGeneric<string>>(pb =>
             {
@@ -61,7 +61,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             await ctx.Instance.ConfirmSelectedItem(0);
         });
 
-        ctx.SetParametersAndRender(pb =>
+        ctx.Render(pb =>
         {
             pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(false));
             pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
@@ -70,7 +70,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
 
         ctx.Instance.ClearSearchText();
 
-        ctx.SetParametersAndRender(pb =>
+        ctx.Render(pb =>
         {
             pb.Add(a => a.OnBeforeSelectedItemChange, null);
             pb.Add(a => a.OnSelectedItemChanged, null);
@@ -93,7 +93,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Options_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Options, builder =>
             {
@@ -111,7 +111,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Disabled_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.Options, builder =>
@@ -133,7 +133,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     {
         var val = "Test2";
         string? selectedValue = "Test2";
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnSelectedItemChanged, item =>
@@ -161,7 +161,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
 
         // 提高代码覆盖率
         var select = cut;
-        select.SetParametersAndRender(pb =>
+        select.Render(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -181,7 +181,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void SelectOption_Ok()
     {
-        var cut = Context.RenderComponent<SelectOptionGeneric<string>>(pb =>
+        var cut = Context.Render<SelectOptionGeneric<string>>(pb =>
         {
             pb.Add(a => a.Text, "Test-SelectOption");
             pb.Add(a => a.GroupName, "Test-GroupName");
@@ -194,14 +194,14 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Enum_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<EnumEducation>>();
+        var cut = Context.Render<SelectGeneric<EnumEducation>>();
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
     }
 
     [Fact]
     public void NullableEnum_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<EnumEducation?>>(pb =>
+        var cut = Context.Render<SelectGeneric<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
             {
@@ -217,7 +217,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         var triggered = false;
 
         // 空值时，不触发 OnSelectedItemChanged 回调
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -251,7 +251,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
 
         // 首次加载值不为空时触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -277,7 +277,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     public async Task OnSelectedItemChanged_Generic()
     {
         Foo? selectedValue = null;
-        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
+        var cut = Context.Render<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<Foo>[]
             {
@@ -311,7 +311,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         var triggered = false;
 
         // 空值时，不触发 OnSelectedItemChanged 回调
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -332,7 +332,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
@@ -345,7 +345,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         var valid = false;
         var invalid = false;
         var model = new Foo() { Name = "Test-Select1" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.OnValidSubmit, context =>
             {
@@ -396,7 +396,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -418,7 +418,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void GroupItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -441,14 +441,14 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void NullItems_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>();
+        var cut = Context.Render<SelectGeneric<string>>();
         Assert.Contains("select", cut.Markup);
     }
 
     [Fact]
     public void NullBool_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<bool?>>(pb =>
+        var cut = Context.Render<SelectGeneric<bool?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem<bool?>>
             {
@@ -466,7 +466,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void SearchIcon_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -483,7 +483,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void CustomClass_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -499,7 +499,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowShadow_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -510,7 +510,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         Assert.Contains("shadow", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowShadow, false);
         });
@@ -520,7 +520,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void DropdownIcon_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -536,7 +536,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -555,7 +555,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -572,7 +572,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Offset_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -589,7 +589,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -601,7 +601,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         cut.Contains($"data-bs-placement=\"{Placement.Top.ToDescriptionString()}\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Auto);
         });
@@ -611,7 +611,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemClick_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -633,7 +633,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVirtualize_Items()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -646,7 +646,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.OverscanCount, 4);
         });
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
+        cut.Render(pb => pb.Add(a => a.ShowSearch, true));
         cut.InvokeAsync(async () =>
         {
             // 搜索 T
@@ -658,7 +658,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsVirtualize_Items_Clearable_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -709,7 +709,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         var startIndex = 0;
         var requestCount = 0;
         var searchText = string.Empty;
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -764,7 +764,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     public async Task IsVirtualize_BindValue()
     {
         var value = "3";
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Value, value);
             pb.Add(a => a.IsVirtualize, true);
@@ -803,7 +803,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void LoadItems_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -824,7 +824,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public void IsMarkupString_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -840,7 +840,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -853,7 +853,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         Assert.True(input.IsReadOnly());
 
         var updated = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.OnInputChangedCallback, v =>
@@ -873,7 +873,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         Assert.True(updated);
 
         // 覆盖返回 null 逻辑
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.TextConvertToValueCallback, async v =>
             {
@@ -883,7 +883,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         await cut.InvokeAsync(() => { input.Change("Test4"); });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
            pb.Add(a => a.Value, null);
         });
@@ -898,7 +898,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
             new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
         };
-        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
+        var cut = Context.Render<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
@@ -921,7 +921,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     public async Task OnClearAsync_Ok()
     {
         var clear = false;
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -951,7 +951,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Toggle_Ok()
     {
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        var cut = Context.Render<SelectGeneric<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<string>[]
             {
@@ -979,7 +979,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
                 Text = "Foo2"
             }
         };
-        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
+        var cut = Context.Render<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -988,7 +988,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnBeforeSelectedItemChange_OK()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<SelectGeneric<string>>(pb =>
             {

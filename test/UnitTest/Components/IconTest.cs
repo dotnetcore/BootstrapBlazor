@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class IconTest : BootstrapBlazorTestBase
     [Fact]
     public void FontIcon_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorIcon>(pb =>
+        var cut = Context.Render<BootstrapBlazorIcon>(pb =>
         {
             pb.Add(a => a.Name, "fa-solid fa-home");
         });
@@ -20,7 +20,7 @@ public class IconTest : BootstrapBlazorTestBase
     [Fact]
     public void SvgIcon_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorIcon>(pb =>
+        var cut = Context.Render<BootstrapBlazorIcon>(pb =>
         {
             pb.Add(a => a.Name, "home");
             pb.Add(a => a.IsSvgSprites, true);
@@ -32,7 +32,7 @@ public class IconTest : BootstrapBlazorTestBase
     [Fact]
     public void ImageIcon_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorIcon>(pb =>
+        var cut = Context.Render<BootstrapBlazorIcon>(pb =>
         {
             pb.Add(a => a.ChildContent, builder => builder.AddMarkupContent(0, "<img src=\"test.png\" />"));
         });

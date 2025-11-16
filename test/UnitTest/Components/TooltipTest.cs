@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Title_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
@@ -21,7 +21,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
@@ -32,7 +32,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetParameters_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
@@ -52,13 +52,13 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Sanitize_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         Assert.DoesNotContain("data-bs-sanitize", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Sanitize, false);
         });
@@ -68,13 +68,13 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Delay_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         Assert.DoesNotContain("data-bs-delay", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Delay, "test-delay");
         });
@@ -84,13 +84,13 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Html_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         Assert.DoesNotContain("data-bs-html", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsHtml, true);
         });
@@ -100,13 +100,13 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         Assert.Contains("data-bs-trigger=\"focus hover\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Trigger, "test_trigger");
         });
@@ -116,14 +116,14 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void CustomClass_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.CustomClass, null);
         });
         Assert.DoesNotContain("data-bs-custom-class", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CustomClass, "test-custom-class");
         });
@@ -133,14 +133,14 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Selector_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.Selector, null);
         });
         Assert.DoesNotContain("data-bs-selector", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Selector, "test-selector");
         });
@@ -150,7 +150,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.Placement, Placement.Auto);
@@ -159,7 +159,7 @@ public class TooltipTest : BootstrapBlazorTestBase
         });
         Assert.DoesNotContain("data-bs-placement", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Top);
         });
@@ -169,7 +169,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public void FallbackPlacements_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.FallbackPlacements, ["top", "left"]);
@@ -180,7 +180,7 @@ public class TooltipTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Toggle_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
             pb.Add(a => a.Trigger, "manual");

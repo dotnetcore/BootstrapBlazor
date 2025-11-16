@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class FooterTest : BootstrapBlazorTestBase
     [Fact]
     public void Footer_Ok()
     {
-        var cut = Context.RenderComponent<Footer>(pb =>
+        var cut = Context.Render<Footer>(pb =>
         {
             pb.Add(a => a.Text, "test-footer-text");
             pb.Add(a => a.Target, "#test-footer-target1");
@@ -21,14 +21,14 @@ public class FooterTest : BootstrapBlazorTestBase
     [Fact]
     public void Footer_ShowGoto()
     {
-        var cut = Context.RenderComponent<Footer>(pb =>
+        var cut = Context.Render<Footer>(pb =>
         {
             pb.Add(a => a.Text, "test-footer-text");
             pb.Add(a => a.ShowGoto, true);
         });
         Assert.Contains("layout-gotop", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowGoto, false);
         });
@@ -38,7 +38,7 @@ public class FooterTest : BootstrapBlazorTestBase
     [Fact]
     public void Footer_ChildContent()
     {
-        var cut = Context.RenderComponent<Footer>(pb =>
+        var cut = Context.Render<Footer>(pb =>
         {
             pb.Add(a => a.Text, "test-footer-text");
             pb.Add(a => a.ChildContent, builder =>

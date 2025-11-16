@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(a => a.CanExpandWhenDisabled, false);
             builder.Add(p => p.ShowIcon, true);
@@ -24,7 +24,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.Color, Color.Primary);
@@ -36,7 +36,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void Edit_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.IsEditable, true);
@@ -49,7 +49,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void IsShowLabel_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.ShowLabel, true);
@@ -63,7 +63,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public async Task Value_Null()
     {
         var model = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(c => c.Model, model);
             builder.AddChildContent<SelectTree<string>>(c =>
@@ -83,7 +83,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public async Task Valid_Ok()
     {
         var model = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(c => c.Model, model);
             builder.AddChildContent<SelectTree<string>>(c =>
@@ -101,7 +101,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void PlaceHolder_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.PlaceHolder, "Please input value");
@@ -113,7 +113,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public async Task ItemChanged_Ok()
     {
         var changed = 0;
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.OnSelectedItemChanged, v =>
@@ -138,7 +138,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void StringComparison_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.StringComparison, StringComparison.CurrentCultureIgnoreCase);
@@ -151,7 +151,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public async Task OnSelectedItemChanged_Ok()
     {
         var res = false;
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
             builder.Add(p => p.OnSelectedItemChanged, new Func<string, Task>(s =>
@@ -168,7 +168,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void RetrieveId_Ok()
     {
-        var cut = Context.RenderComponent<MockSelectTree<string>>(builder =>
+        var cut = Context.Render<MockSelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
         });
@@ -178,13 +178,13 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_Ok()
     {
-        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        var cut = Context.Render<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
         });
         cut.Contains("data-bs-toggle=\"dropdown\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsPopover, true);
         });
@@ -195,7 +195,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public void IsActive_Ok()
     {
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        var cut = Context.Render<SelectTree<TreeFoo>>(builder =>
         {
             builder.Add(p => p.Items, items);
             builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
@@ -209,7 +209,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     public void ShowSearch_Ok()
     {
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        var cut = Context.Render<SelectTree<TreeFoo>>(builder =>
         {
             builder.Add(p => p.Items, items);
             builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
@@ -217,7 +217,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
         cut.Contains("tree-search");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowResetSearchButton, true);
         });

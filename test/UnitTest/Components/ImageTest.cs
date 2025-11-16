@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowImage_Ok()
     {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.PreviewIndex, 0);
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
@@ -23,7 +23,7 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void Alt_Ok()
     {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.Alt, "alt-test");
@@ -34,12 +34,12 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void ShouldRenderPlaceHolder_Ok()
     {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.ShowPlaceHolder, true);
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowPlaceHolder, false);
             pb.Add(a => a.PlaceHolderTemplate, new RenderFragment(builder => builder.AddContent(0, "place-holder")));
@@ -51,7 +51,7 @@ public class ImageTest : BootstrapBlazorTestBase
     public async Task OnLoad_Ok()
     {
         var load = false;
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.ShowPlaceHolder, true);
@@ -72,7 +72,7 @@ public class ImageTest : BootstrapBlazorTestBase
     public void HandleError_Ok()
     {
         var error = false;
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo1.png");
             pb.Add(a => a.HandleError, true);
@@ -93,7 +93,7 @@ public class ImageTest : BootstrapBlazorTestBase
         Assert.True(error);
 
         error = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.HandleError, false);
             pb.Add(a => a.ErrorTemplate, new RenderFragment(builder =>
@@ -114,7 +114,7 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAsync_Ok()
     {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.IsAsync, true);
@@ -126,7 +126,7 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void IsIntersectionObserver_Ok()
     {
-        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        var cut = Context.Render<ImageViewer>(pb =>
         {
             pb.Add(a => a.ZoomSpeed, 0.5d);
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
@@ -138,7 +138,7 @@ public class ImageTest : BootstrapBlazorTestBase
     [Fact]
     public void ImagerViewer_Show()
     {
-        var cut = Context.RenderComponent<ImagePreviewer>(pb =>
+        var cut = Context.Render<ImagePreviewer>(pb =>
         {
             pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });

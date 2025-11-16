@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,13 +12,13 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_OK()
     {
-        var cut = Context.RenderComponent<Slider<double>>(builder => builder.Add(s => s.Value, 10));
+        var cut = Context.Render<Slider<double>>(builder => builder.Add(s => s.Value, 10));
     }
 
     [Fact]
     public void ShowLabel_OK()
     {
-        var cut = Context.RenderComponent<Slider<double>>(builder =>
+        var cut = Context.Render<Slider<double>>(builder =>
         {
             builder.Add(s => s.ShowLabel, true);
             builder.Add(s => s.DisplayText, "label-slider-text");
@@ -30,7 +30,7 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void Group_OK()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
+        var cut = Context.Render<BootstrapInputGroup>(pb =>
         {
             pb.AddChildContent<BootstrapInputGroupLabel>(pb =>
             {
@@ -51,7 +51,7 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void Step_Ok()
     {
-        var cut = Context.RenderComponent<Slider<double>>(pb =>
+        var cut = Context.Render<Slider<double>>(pb =>
         {
             pb.Add(a => a.Value, 15);
             pb.Add(a => a.Min, 10);
@@ -67,7 +67,7 @@ public class SliderTest : BootstrapBlazorTestBase
     public async Task ValueChanged_OK()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Slider<double>>(builder =>
+        var cut = Context.Render<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.ValueChanged, v =>
@@ -83,7 +83,7 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_OK()
     {
-        var cut = Context.RenderComponent<Slider<double>>(builder =>
+        var cut = Context.Render<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.IsDisabled, true);
@@ -95,7 +95,7 @@ public class SliderTest : BootstrapBlazorTestBase
     public async Task OnValueChanged_OK()
     {
         var expected = 0d;
-        var cut = Context.RenderComponent<Slider<double>>(builder =>
+        var cut = Context.Render<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.Min, 0);
@@ -114,7 +114,7 @@ public class SliderTest : BootstrapBlazorTestBase
     public async Task OnBlurAsync_Ok()
     {
         var blur = false;
-        var cut = Context.RenderComponent<Slider<int>>(builder =>
+        var cut = Context.Render<Slider<int>>(builder =>
         {
             builder.Add(a => a.OnBlurAsync, v =>
             {
@@ -131,7 +131,7 @@ public class SliderTest : BootstrapBlazorTestBase
     public void Range_OK()
     {
         var model = new SliderModel();
-        var cut = Context.RenderComponent<Slider<int>>(builder =>
+        var cut = Context.Render<Slider<int>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.ValueExpression, Utility.GenerateValueExpression(model, "Value", typeof(int)));

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,10 +12,10 @@ public class CardTest : BootstrapBlazorTestBase
     [Fact]
     public void Header_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.HeaderTemplate, CreateComponent()));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.HeaderTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.HeaderPaddingY, "0.25rem");
         });
@@ -25,49 +25,49 @@ public class CardTest : BootstrapBlazorTestBase
     [Fact]
     public void Body_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.BodyTemplate, CreateComponent()));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.BodyTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
     }
 
     [Fact]
     public void Footer_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.FooterTemplate, CreateComponent()));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.FooterTemplate, CreateComponent()));
         Assert.Contains(Content, cut.Markup);
     }
 
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.Color, Color.Primary));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.Color, Color.Primary));
         Assert.Contains("text-primary", cut.Markup);
     }
 
     [Fact]
     public void IsCenter_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.IsCenter, true));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.IsCenter, true));
         Assert.Contains("text-center", cut.Markup);
     }
 
     [Fact]
     public void IsShadow_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.IsShadow, true));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.IsShadow, true));
         Assert.Contains("shadow", cut.Markup);
     }
 
     [Fact]
     public void HeaderText_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder => builder.Add(a => a.HeaderText, "Header"));
+        var cut = Context.Render<Card>(builder => builder.Add(a => a.HeaderText, "Header"));
         Assert.Contains("Header", cut.Markup);
     }
 
     [Fact]
     public void IsCollapsible_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder =>
+        var cut = Context.Render<Card>(builder =>
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
@@ -78,7 +78,7 @@ public class CardTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Card>(builder =>
+        var cut = Context.Render<Card>(builder =>
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
@@ -92,7 +92,7 @@ public class CardTest : BootstrapBlazorTestBase
     public void Collapsed_Ok()
     {
         bool collapsed = false;
-        var cut = Context.RenderComponent<Card>(builder =>
+        var cut = Context.Render<Card>(builder =>
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
@@ -105,7 +105,7 @@ public class CardTest : BootstrapBlazorTestBase
         Assert.Contains("data-bs-toggle=\"collapse\"", cut.Markup);
         Assert.Contains("collapse", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Collapsed, false));
+        cut.Render(pb => pb.Add(a => a.Collapsed, false));
         Assert.Contains("collapse show", cut.Markup);
 
 

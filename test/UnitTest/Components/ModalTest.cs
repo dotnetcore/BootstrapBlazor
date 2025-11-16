@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public void IsBackdrop_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<Modal>(pb =>
             {
@@ -26,7 +26,7 @@ public class ModalTest : BootstrapBlazorTestBase
         Assert.Null(modal.GetAttribute("data-bs-backdrop"));
 
         var m = cut.FindComponent<Modal>();
-        m.SetParametersAndRender(pb =>
+        m.Render(pb =>
         {
             pb.Add(m => m.IsBackdrop, false);
         });
@@ -37,8 +37,8 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Toggle_Ok()
     {
-        var container = Context.RenderComponent<BootstrapBlazorRootOutlet>();
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var container = Context.Render<BootstrapBlazorRootOutlet>();
+        var cut = Context.Render<Modal>(pb =>
         {
             pb.AddChildContent<ModalDialog>();
             pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
@@ -51,7 +51,7 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Close_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<Modal>(pb =>
             {
@@ -62,14 +62,14 @@ public class ModalTest : BootstrapBlazorTestBase
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(modal.Instance.Close);
 
-        modal.SetParametersAndRender(pb =>
+        modal.Render(pb =>
         {
             pb.AddChildContent<ModalDialog>();
         });
         await cut.InvokeAsync(modal.Instance.Close);
 
         // 多弹窗
-        modal.SetParametersAndRender(pb =>
+        modal.Render(pb =>
         {
             pb.AddChildContent(builder =>
             {
@@ -85,7 +85,7 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetHeaderText_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<Modal>(pb =>
             {
@@ -106,7 +106,7 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public void SetHeaderText_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<MockModal>(pb =>
             {
@@ -122,12 +122,12 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShownCallbackAsync_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<MockComponent>();
         });
 
-        var mock = Context.RenderComponent<MockComponent>();
+        var mock = Context.Render<MockComponent>();
         var modal = mock.FindComponent<MockModal>();
         await cut.InvokeAsync(() => modal.Instance.Show_Test());
 
@@ -138,7 +138,7 @@ public class ModalTest : BootstrapBlazorTestBase
     public void FirstAfterRenderAsync_Ok()
     {
         var render = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<Modal>(pb =>
             {
@@ -156,7 +156,7 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task RegisterShownCallback_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var cut = Context.Render<BootstrapBlazorRoot>(builder =>
         {
             builder.AddChildContent<Modal>(pb =>
             {

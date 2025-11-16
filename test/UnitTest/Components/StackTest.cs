@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class StackTest : BootstrapBlazorTestBase
     [InlineData(false, true, "flex-column flex-column-reverse")]
     public void Stack_IsRow_IsReverse(bool isRow, bool isReverse, string expected)
     {
-        var cut = Context.RenderComponent<Stack>(pb =>
+        var cut = Context.Render<Stack>(pb =>
         {
             pb.Add(a => a.IsRow, isRow);
             pb.Add(a => a.IsReverse, isReverse);
@@ -34,7 +34,7 @@ public class StackTest : BootstrapBlazorTestBase
     [InlineData(false, true, "flex-nowrap")]
     public void Stack_IsWrap_IsReverse(bool isWrap, bool isReverse, string expected)
     {
-        var cut = Context.RenderComponent<Stack>(pb =>
+        var cut = Context.Render<Stack>(pb =>
         {
             pb.Add(a => a.IsWrap, isWrap);
             pb.Add(a => a.IsReverse, isReverse);
@@ -56,7 +56,7 @@ public class StackTest : BootstrapBlazorTestBase
     [InlineData(StackJustifyContent.Evenly)]
     public void Stack_Justify(StackJustifyContent justify)
     {
-        var cut = Context.RenderComponent<Stack>(pb =>
+        var cut = Context.Render<Stack>(pb =>
         {
             pb.Add(a => a.Justify, justify);
             pb.AddChildContent(pb =>
@@ -76,7 +76,7 @@ public class StackTest : BootstrapBlazorTestBase
     [InlineData(StackAlignItems.Center)]
     public void Stack_AlignItems(StackAlignItems align)
     {
-        var cut = Context.RenderComponent<Stack>(pb =>
+        var cut = Context.Render<Stack>(pb =>
         {
             pb.Add(a => a.AlignItems, align);
             pb.AddChildContent<StackItem>(pb =>
@@ -94,7 +94,7 @@ public class StackTest : BootstrapBlazorTestBase
     [Fact]
     public void StackItem_IsFill()
     {
-        var cut = Context.RenderComponent<StackItem>(pb =>
+        var cut = Context.Render<StackItem>(pb =>
         {
             pb.Add(a => a.IsFill, true);
             pb.Add(a => a.ChildContent, builder => builder.AddContent(0, new MarkupString("<div class=\"stack-item-demo\">Item 1</div>")));
@@ -109,7 +109,7 @@ public class StackTest : BootstrapBlazorTestBase
     [InlineData(StackAlignItems.Center)]
     public void StackItem_AlignSelf(StackAlignItems align)
     {
-        var cut = Context.RenderComponent<Stack>(pb =>
+        var cut = Context.Render<Stack>(pb =>
         {
             pb.AddChildContent<StackItem>(pb =>
             {

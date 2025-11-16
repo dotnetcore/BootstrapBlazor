@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,10 +10,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHour_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.Contains("bb-flip-clock-list hour");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowHour, false);
         });
@@ -23,10 +23,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowMinute_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.Contains("bb-flip-clock-list minute");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowMinute, false);
         });
@@ -36,10 +36,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSecond_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.Contains("bb-flip-clock-list second");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowSecond, false);
         });
@@ -49,10 +49,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowDay_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.DoesNotContain("bb-flip-clock-list day");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowDay, true);
         });
@@ -62,10 +62,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowMonth_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.DoesNotContain("bb-flip-clock-list month");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowMonth, true);
         });
@@ -75,10 +75,10 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowYear_Ok()
     {
-        var cut = Context.RenderComponent<FlipClock>();
+        var cut = Context.Render<FlipClock>();
         cut.DoesNotContain("bb-flip-clock-list year");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowYear, true);
         });
@@ -89,7 +89,7 @@ public class FlipClockTest : BootstrapBlazorTestBase
     public async Task ViewMode_Ok()
     {
         var completed = false;
-        var cut = Context.RenderComponent<FlipClock>(pb =>
+        var cut = Context.Render<FlipClock>(pb =>
         {
             pb.Add(a => a.ViewMode, FlipClockViewMode.CountDown);
             pb.Add(a => a.StartValue, TimeSpan.FromSeconds(2));
@@ -102,7 +102,7 @@ public class FlipClockTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.OnCompleted());
         Assert.True(completed);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.StartValue, null);
         });
@@ -122,7 +122,7 @@ public class FlipClockTest : BootstrapBlazorTestBase
     [InlineData("CardGroupMargin", "100px", "--bb-flip-clock-list-margin-right: 100px;")]
     public void FlipParameter_Ok(string parameterName, string value, string expected)
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent(builder =>
             {

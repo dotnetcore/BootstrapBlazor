@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,7 +18,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new EditContext(model));
         });
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueChanged, v => model.Name = v);
@@ -36,7 +36,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void EditorForm_Ok(bool? showLabel)
     {
         var model = new Foo() { Name = "Name-Test" };
-        var cut = Context.RenderComponent<EditorForm<Foo>>(builder =>
+        var cut = Context.Render<EditorForm<Foo>>(builder =>
         {
             builder.Add(a => a.Model, model);
             builder.Add(a => a.ShowLabel, showLabel);
@@ -70,7 +70,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void ValidateForm_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.Model, model);
             builder.AddChildContent<BootstrapInput<string>>(p =>
@@ -84,7 +84,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         var label = cut.Find("label");
         Assert.Equal("姓名", label.InnerHtml);
 
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, false);
         });
@@ -95,7 +95,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void ValidateForm_Group_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.Model, model);
             builder.AddChildContent<BootstrapInputGroup>(pb =>
@@ -116,7 +116,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         cut.Contains("Name-Test");
 
         var input = cut.FindComponent<BootstrapInput<string>>();
-        input.SetParametersAndRender(pb =>
+        input.Render(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
         });
@@ -129,7 +129,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         var model = new Foo() { Name = "Name-Test" };
 
         // 显示设置 IsShowLabel=true 时显示标签
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ShowLabel, true);
@@ -139,21 +139,21 @@ public class ValidateTest : BootstrapBlazorTestBase
         Assert.Equal(model.Name, label.InnerHtml);
 
         // 显示设置 IsShowLabel=false 时不显示标签
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, false);
         });
         cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // IsShowLabel 为空时 不显示标签
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, null);
         });
         cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel 为空时 不显示标签
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, null);
             builder.Add(a => a.Value, model.Name);
@@ -162,7 +162,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=false 时 不显示标签
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, null);
             builder.Add(a => a.Value, model.Name);
@@ -171,7 +171,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=true 时 显示标签
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.ShowLabel, true);
             builder.Add(a => a.Value, model.Name);
@@ -185,7 +185,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     {
         var model = new Foo() { Name = "Name-Test" };
         var valid = false;
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.Add(v => v.OnValidSubmit, context =>
@@ -222,7 +222,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         // 组件绑定非公开模型属性
         Test = "test";
         var model = new Foo() { Name = "Name-Test" };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.Model, model);
             builder.AddChildContent<BootstrapInput<string>>(p =>
@@ -252,7 +252,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetDisable_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsDisabled, false);
         });
@@ -264,7 +264,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetValue_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, "test");
         });
@@ -276,7 +276,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetLabel_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.DisplayText, "test");
             builder.Add(a => a.ShowLabel, true);
@@ -289,7 +289,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public void ParsingErrorMessage_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.ParsingErrorMessage, "test");
         });
@@ -301,7 +301,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     {
         var model = new Foo() { Name = "test" };
         var invalid = false;
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.Add(v => v.OnInvalidSubmit, context =>
@@ -341,7 +341,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             new FormItemValidator(new EmailAddressAttribute())
         };
-        input.SetParametersAndRender(pb =>
+        input.Render(pb =>
         {
             pb.Add(v => v.ValidateRules, rules);
         });
@@ -366,7 +366,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         [
             new FormItemValidator(new MockValidationAttribute())
         ];
-        input.SetParametersAndRender(pb =>
+        input.Render(pb =>
         {
             pb.Add(v => v.ValidateRules, rules);
         });
@@ -384,7 +384,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     {
         var model = new Foo() { Name = "test" };
         var invalid = false;
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.Add(v => v.OnInvalidSubmit, context =>
@@ -435,7 +435,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     {
         var model = new Foo() { Hobby = Array.Empty<string>() };
         var invalid = false;
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.Add(v => v.OnInvalidSubmit, context =>
@@ -447,11 +447,11 @@ public class ValidateTest : BootstrapBlazorTestBase
             {
                 pb.Add(v => v.Value, model.Hobby);
                 pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
-                pb.Add(v => v.Items, new List<SelectedItem>()
-                {
+                pb.Add(v => v.Items,
+                [
                     new("1", "test1"),
                     new("2", "test2")
-                });
+                ]);
             });
             builder.AddChildContent<Button>(pb =>
             {
@@ -468,7 +468,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         // 提交表单验证通过
         model.Hobby = new string[] { "1" };
         invalid = false;
-        cut.FindComponent<CheckboxList<IEnumerable<string>>>().SetParametersAndRender(pb =>
+        cut.FindComponent<CheckboxList<IEnumerable<string>>>().Render(pb =>
         {
             pb.Add(v => v.Value, model.Hobby);
         });
@@ -480,7 +480,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void CurrentValue_Ok()
     {
         var model = new Foo() { Count = 0 };
-        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        var cut = Context.Render<RenderTemplate>(builder =>
         {
             builder.AddChildContent<MockValidate<int>>(pb =>
             {
@@ -503,7 +503,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void CurrentValue_Validate_Ok()
     {
         var model = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.AddChildContent<MockValidate<int>>(pb =>
@@ -530,7 +530,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         var model = new Foo() { Count = 0 };
         var dog = new Dog() { Count = 10 };
 
-        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        var cut = Context.Render<RenderTemplate>(builder =>
         {
             builder.AddChildContent<MockValidate<int>>(pb =>
             {
@@ -553,7 +553,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public async Task NoIdCheck_Ok()
     {
         var model = new Foo() { Count = 0 };
-        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        var cut = Context.Render<RenderTemplate>(builder =>
         {
             builder.AddChildContent<NoIdValidate<int>>(pb =>
             {
@@ -569,7 +569,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     public void OnValidate_Ok()
     {
         var model = new Foo() { Count = 0 };
-        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        var cut = Context.Render<RenderTemplate>(builder =>
         {
             builder.AddChildContent<MockValidate<int>>(pb =>
             {
@@ -589,7 +589,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             {
                 new FormItemValidator(new RequiredAttribute())
             };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.AddChildContent<MockValidate<bool>>(pb =>
@@ -601,7 +601,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         });
 
         var boolValidate = cut.FindComponent<MockValidate<bool>>();
-        boolValidate.SetParametersAndRender(pb =>
+        boolValidate.Render(pb =>
         {
             pb.Add(v => v.ValidateRules, null);
         });
@@ -615,7 +615,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             {
                 new FormItemValidator(new RequiredAttribute())
             };
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(v => v.Model, model);
             builder.AddChildContent<MockValidate<int>>(pb =>
@@ -632,9 +632,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public void TooltipHost_Ok()
     {
-        var cut = Context.RenderComponent<MockValidate<string>>(builder =>
-        {
-        });
+        var cut = Context.Render<MockValidate<string>>();
     }
 
     private class MockValidate<TValue> : ValidateBase<TValue>

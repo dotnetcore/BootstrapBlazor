@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     [Fact]
     public void InvokeVoidAsync_Ok()
     {
-        var cut = Context.RenderComponent<MockComponent>();
+        var cut = Context.Render<MockComponent>();
         cut.InvokeAsync(() => cut.Instance.InvokeVoidAsyncTest());
         Assert.True(cut.Instance.InvokeVoidRunner);
     }
@@ -20,7 +20,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     [Fact]
     public async Task InvokeAsync_Ok()
     {
-        var cut = Context.RenderComponent<MockObjectReferenceComponent>();
+        var cut = Context.Render<MockObjectReferenceComponent>();
         await cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
         Assert.True(cut.Instance.InvokeRunner);
     }

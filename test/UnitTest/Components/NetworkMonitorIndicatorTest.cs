@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class NetworkMonitorIndicatorTest : BootstrapBlazorTestBase
     [Fact]
     public void NetworkMonitorIndicator_Ok()
     {
-        var cut = Context.RenderComponent<NetworkMonitorIndicator>(pb =>
+        var cut = Context.Render<NetworkMonitorIndicator>(pb =>
         {
             pb.Add(a => a.PopoverPlacement, Placement.Top);
         });
@@ -22,7 +22,7 @@ public class NetworkMonitorIndicatorTest : BootstrapBlazorTestBase
     public async Task RegisterStateChangedCallback_Ok()
     {
         var service = Context.Services.GetRequiredService<INetworkMonitorService>();
-        var cut = Context.RenderComponent<NetworkMonitorIndicator>(pb =>
+        var cut = Context.Render<NetworkMonitorIndicator>(pb =>
         {
             pb.Add(a => a.PopoverPlacement, Placement.Top);
         });

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,11 +13,11 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(builder => builder.Add(a => a.Value, TimeSpan.FromSeconds(10)));
+        var cut = Context.Render<Timer>(builder => builder.Add(a => a.Value, TimeSpan.FromSeconds(10)));
 
         Assert.Contains("circle-body", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.Zero);
         });
@@ -28,7 +28,7 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void Width_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(builder =>
+        var cut = Context.Render<Timer>(builder =>
         {
             builder.Add(a => a.Value, TimeSpan.FromSeconds(5));
             builder.Add(a => a.Width, 100);
@@ -40,7 +40,7 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void StrokeWidth_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromSeconds(5));
             pb.Add(a => a.StrokeWidth, 5);
@@ -49,7 +49,7 @@ public class TimerTest : BootstrapBlazorTestBase
 
         // 增加代码覆盖率
         //Width / 2 < StrokeWidth
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Width, 6);
             pb.Add(a => a.StrokeWidth, 6);
@@ -60,7 +60,7 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromSeconds(5));
             pb.Add(a => a.Color, Color.Success);
@@ -71,14 +71,14 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowProgress_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromSeconds(5));
             pb.Add(a => a.ShowProgress, true);
         });
         cut.Contains("circle-body");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowProgress, false);
         });
@@ -88,7 +88,7 @@ public class TimerTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVibrate_Ok()
     {
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromSeconds(5));
             pb.Add(a => a.IsVibrate, false);
@@ -99,7 +99,7 @@ public class TimerTest : BootstrapBlazorTestBase
     public async Task OnStart_Ok()
     {
         var timeout = false;
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.OnTimeout, () =>
             {
@@ -121,7 +121,7 @@ public class TimerTest : BootstrapBlazorTestBase
     public async Task OnCancel_Ok()
     {
         var cancelled = false;
-        var cut = Context.RenderComponent<Timer>(pb =>
+        var cut = Context.Render<Timer>(pb =>
         {
             pb.Add(a => a.OnCancel, () =>
             {

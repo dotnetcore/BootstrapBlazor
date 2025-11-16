@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,14 +10,14 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [Fact]
     public void Marquee_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>();
+        var cut = Context.Render<Marquee>();
         Assert.Equal("<div class=\"marquee\" style=\"background-color: #fff; color: #000; font-size: 72px;\"><span class=\"marquee-text marquee-text-left\" style=\"animation-duration: 14s; animation-name: LeftToRight;\"></span></div>", cut.Markup);
     }
 
     [Fact]
     public void Text_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
         });
@@ -27,7 +27,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
             pb.Add(a => a.Color, "#ddd");
@@ -38,7 +38,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [Fact]
     public void BackgroundColor_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
             pb.Add(a => a.BackgroundColor, "#ddd");
@@ -49,7 +49,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [Fact]
     public void FontSize_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
             pb.Add(a => a.FontSize, 18);
@@ -60,7 +60,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [Fact]
     public void Duration_Ok()
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
             pb.Add(a => a.Duration, 20);
@@ -75,7 +75,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     [InlineData(MarqueeDirection.BottomToTop, "BottomToTop")]
     public void Direction_Ok(MarqueeDirection direction, string expected)
     {
-        var cut = Context.RenderComponent<Marquee>(pb =>
+        var cut = Context.Render<Marquee>(pb =>
         {
             pb.Add(a => a.Text, "Test");
             pb.Add(a => a.Direction, direction);

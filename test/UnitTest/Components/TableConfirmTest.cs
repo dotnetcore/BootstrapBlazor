@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class TableConfirmTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         var trigger = false;
-        var cut1 = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut1 = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<TableExtensionButton>(pb =>
             {
@@ -50,7 +50,7 @@ public class TableConfirmTest : BootstrapBlazorTestBase
     [Fact]
     public void TableCellPopConfirmButton_Null()
     {
-        var cut = Context.RenderComponent<TableCellPopConfirmButton>();
+        var cut = Context.Render<TableCellPopConfirmButton>();
         Assert.Equal("", cut.Markup);
         Context.DisposeComponents();
     }
