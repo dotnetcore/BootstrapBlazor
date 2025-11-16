@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -59,6 +59,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? Required { get; set; }
 
     /// <summary>
+    /// 获得 IShowLabel 实例
+    /// </summary>
+    [CascadingParameter(Name = "EditorForm")]
+    protected IEditorFormValueChanged? NotifyForm { get; set; }
+
+    /// <summary>
     /// Gets or sets the current value of the input.
     /// </summary>
     protected TValue? CurrentValue
@@ -86,6 +92,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 if (IsNeedValidate && FieldIdentifier != null)
                 {
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+                }
+                if (NotifyForm != null)
+                {
+                    NotifyForm.NotifyValueChanged();
                 }
             }
         }
