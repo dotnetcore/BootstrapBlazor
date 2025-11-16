@@ -275,12 +275,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task OnMaxSelectedCountExceed_Ok()
     {
         bool max = false;
-        var items = TreeFoo.CascadingTree(new List<TreeFoo>()
-        {
+        var items = TreeFoo.CascadingTree(
+        [
             new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" }
-        });
+        ]);
 
         var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
