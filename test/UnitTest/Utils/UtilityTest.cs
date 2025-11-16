@@ -10,7 +10,6 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Globalization;
-using System.Net;
 using System.Reflection;
 using UnitTest.Components;
 
@@ -393,12 +392,7 @@ public class UtilityTest : BootstrapBlazorTestBase
 
         var test1 = items.FirstOrDefault(i => i.Name == "Test-Null");
         Assert.NotNull(test1);
-
-#if NET9_0
-        Assert.Equal("", test1.Value);
-#elif NET10_0_OR_GREATER
         Assert.Equal("Test-Null", test1.Value);
-#endif
 
         var test2 = items.FirstOrDefault(i => i.Name == "Test-Key");
         Assert.NotNull(test2);
