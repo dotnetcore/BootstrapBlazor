@@ -8,6 +8,7 @@
   </Folder>
   <Folder Name="/configuration/">
     <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
     <File Path=".gitignore" />
     <File Path="exclusion.dic" />
   </Folder>

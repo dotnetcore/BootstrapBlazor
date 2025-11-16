@@ -5,9 +5,9 @@
 
 *.razor linguist-language=C#
 *.cs linguist-detectable=true  
-*.js linguist-detectable=false  
-*.html linguist-detectable=false  
-*.scss linguist-detectable=false
+*.js linguist-detectable=true  
+*.html linguist-detectable=true  
+*.scss linguist-detectable=C#
 
 ###############################################################################
 # Set default behavior for command prompt diff.
