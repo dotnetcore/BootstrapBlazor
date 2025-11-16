@@ -5,7 +5,7 @@
 
 namespace UnitTest.Core;
 
-public class TestBase
+public class TestBase : IDisposable
 {
     protected BunitContext Context { get; }
 
@@ -15,5 +15,11 @@ public class TestBase
         Context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         Context.Services.AddMockEnvironment();
+    }
+
+    public void Dispose()
+    {
+        _ = Context.DisposeAsync();
+        GC.SuppressFinalize(this);
     }
 }
