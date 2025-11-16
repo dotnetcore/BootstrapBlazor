@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialButton_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.AddUnmatched("class", "dial-test");
         });
@@ -20,10 +20,10 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>();
+        var cut = Context.Render<DialButton>();
         cut.Contains("btn btn-primary");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Color, Color.Success);
         });
@@ -33,16 +33,16 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>();
+        var cut = Context.Render<DialButton>();
         cut.Contains("data-bb-placement=\"auto\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Placement, Placement.Bottom);
         });
         cut.Contains("data-bb-placement=\"bottom\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Placement, Placement.Left);
         });
@@ -52,10 +52,10 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Offset_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>();
+        var cut = Context.Render<DialButton>();
         cut.Contains("data-bb-offset=\"8\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Offset, 4);
         });
@@ -65,13 +65,13 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Radius_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(a => a.Radius, 100);
         });
         cut.DoesNotContain("data-bb-radius");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DialMode, DialMode.Radial);
         });
@@ -81,10 +81,10 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Size_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>();
+        var cut = Context.Render<DialButton>();
         cut.Contains("btn btn-primary");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Size, Size.Small);
         });
@@ -94,13 +94,13 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Duration_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(a => a.Duration, 400);
         });
         cut.DoesNotContain("data-bb-duration");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Duration, 500);
         });
@@ -110,7 +110,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.Icon, "fa fa-flag");
         });
@@ -120,7 +120,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.IsDisabled, true);
         });
@@ -130,10 +130,10 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAutoClose_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>();
+        var cut = Context.Render<DialButton>();
         cut.Contains("data-bb-auto-close=\"true\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.IsAutoClose, false);
         });
@@ -143,7 +143,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialMode_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(a => a.DialMode, DialMode.Radial);
         });
@@ -153,7 +153,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.ButtonTemplate, b => b.AddContent(10, new MarkupString("<div>ButtonTemplate-Test</div>")));
         });
@@ -164,7 +164,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     public void OnClick_Ok()
     {
         DialButtonItem? dialItem = null;
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.ChildContent, new RenderFragment(pb =>
             {
@@ -204,7 +204,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.ChildContent, new RenderFragment(pb =>
             {
@@ -225,7 +225,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Item_ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<DialButton>(pb =>
+        var cut = Context.Render<DialButton>(pb =>
         {
             pb.Add(i => i.ChildContent, new RenderFragment(pb =>
             {
@@ -243,7 +243,7 @@ public class DialButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialButtonItem_Ok()
     {
-        var cut = Context.RenderComponent<DialButtonItem>(pb =>
+        var cut = Context.Render<DialButtonItem>(pb =>
         {
             pb.Add(a => a.Icon, "fa fa-test");
         });

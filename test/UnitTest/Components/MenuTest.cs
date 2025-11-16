@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -99,21 +99,21 @@ public class MenuTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Menu>();
+        var cut = Context.Render<Menu>();
         Assert.DoesNotContain("Menu1", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.Items, Items);
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
         });
         cut.WaitForAssertion(() => cut.Contains("Menu1"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.Items, null);
         });
@@ -123,7 +123,7 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void DisableNavigation_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, new MenuItem[]
             {
@@ -150,21 +150,21 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsVertical, false);
         });
         Assert.DoesNotContain("is-vertical", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
         });
         Assert.Contains("is-vertical", cut.Markup);
 
         // 垂直布局时设置手风琴效果触发 ShouldInvoke
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
         });
@@ -175,7 +175,7 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IsBottom_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsBottom, true);
@@ -191,7 +191,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             new() { Text = "Menu", CssClass="Test-Class" }
         };
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, items);
         });
@@ -202,14 +202,14 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IndentSize_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IndentSize, 32);
         });
         Assert.DoesNotContain("padding-left: 32px;", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
         });
@@ -243,7 +243,7 @@ public class MenuTest : BootstrapBlazorTestBase
                 }
             },
         };
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, items);
         });
@@ -254,14 +254,14 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAccordion_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsAccordion, true);
         });
         Assert.DoesNotContain("accordion", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
         });
@@ -271,21 +271,21 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IsExpandAll_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsExpandAll, true);
         });
         Assert.DoesNotContain("data-bb-expand", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsExpandAll, false);
         });
         cut.WaitForAssertion(() => cut.DoesNotContain("data-bb-expand"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsExpandAll, true);
@@ -297,7 +297,7 @@ public class MenuTest : BootstrapBlazorTestBase
     public void OnClick_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
         });
@@ -312,7 +312,7 @@ public class MenuTest : BootstrapBlazorTestBase
         li.Click();
         cut.WaitForAssertion(() => li.ClassList.Contains("active"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.OnClick, item =>
             {
@@ -335,7 +335,7 @@ public class MenuTest : BootstrapBlazorTestBase
 
         // 设置禁止导航 
         // 顶栏模式
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.DisableNavigation, true);
         });
@@ -349,7 +349,7 @@ public class MenuTest : BootstrapBlazorTestBase
         li.Click();
 
         // 侧边栏模式
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsCollapsed, true);
@@ -369,9 +369,9 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void SubMenu_ClassString_Ok()
     {
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
         nav.NavigateTo("/menu2321");
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
         });
@@ -384,7 +384,7 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void IsScrollIntoView_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.IsVertical, false);
             pb.Add(m => m.IsScrollIntoView, true);
@@ -392,7 +392,7 @@ public class MenuTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("data-bb-scroll-view");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsVertical, true);
         });
@@ -428,25 +428,25 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void MenuLink_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<MenuLink>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<MenuLink>());
     }
 
     [Fact]
     public void TopMenu_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<TopMenu>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<TopMenu>());
     }
 
     [Fact]
     public void SideMenu_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SideMenu>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<SideMenu>());
     }
 
     [Fact]
     public void SubMenu_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<SubMenu>());
     }
 
     [Fact]
@@ -473,7 +473,7 @@ public class MenuTest : BootstrapBlazorTestBase
     [Fact]
     public void ActiveItem_Ok()
     {
-        var cut = Context.RenderComponent<Menu>(pb =>
+        var cut = Context.Render<Menu>(pb =>
         {
             pb.Add(m => m.Items, new MenuItem[]
             {
@@ -492,13 +492,13 @@ public class MenuTest : BootstrapBlazorTestBase
         cut.DoesNotContain("<a href=\"menu22\" class=\"nav-link active\">");
 
         // 设置 后通过菜单激活 ActiveItem 不为空
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
         nav.NavigateTo("/menu22");
-        cut.SetParametersAndRender();
+        cut.Render();
         cut.Contains("href=\"menu22\"");
 
         nav.NavigateTo("/menu3");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsVertical, true);
             pb.Add(m => m.Items, new MenuItem[]
@@ -531,7 +531,7 @@ public class MenuTest : BootstrapBlazorTestBase
         Assert.Equal(2, menus.Count);
 
         nav.NavigateTo("/menu1#Normal");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(m => m.Items, new MenuItem[]
             {
@@ -554,7 +554,7 @@ public class MenuTest : BootstrapBlazorTestBase
         });
 
         nav.NavigateTo("/menu2?id=Normal");
-        cut.SetParametersAndRender();
+        cut.Render();
         cut.InvokeAsync(() =>
         {
             var link = cut.Find(".nav-link.active");

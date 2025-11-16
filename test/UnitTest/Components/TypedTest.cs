@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,13 +10,13 @@ public class TypedTest : BootstrapBlazorTestBase
     [Fact]
     public void Text_Ok()
     {
-        var cut = Context.RenderComponent<Typed>(pb =>
+        var cut = Context.Render<Typed>(pb =>
         {
             pb.Add(a => a.Text, "Test");
         });
         cut.MarkupMatches("<span diff:ignore></span>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Text, "Test1");
         });
@@ -25,27 +25,27 @@ public class TypedTest : BootstrapBlazorTestBase
     [Fact]
     public void Options_Ok()
     {
-        var cut = Context.RenderComponent<Typed>(pb =>
+        var cut = Context.Render<Typed>(pb =>
         {
             pb.Add(a => a.Options, new TypedOptions() { Text = ["test1", "test2"], TypeSpeed = 70 });
         });
         cut.MarkupMatches("<span diff:ignore></span>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Options, new TypedOptions() { Text = null, TypeSpeed = 70 });
         });
         cut.MarkupMatches("<span diff:ignore></span>");
 
-        cut.SetParametersAndRender();
+        cut.Render();
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Options, new TypedOptions() { Text = ["test1", "test2", "test3"], TypeSpeed = 70 });
         });
         cut.MarkupMatches("<span diff:ignore></span>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Options, null);
         });
@@ -60,7 +60,7 @@ public class TypedTest : BootstrapBlazorTestBase
             triggered = true;
             return Task.CompletedTask;
         }
-        var cut = Context.RenderComponent<Typed>(pb =>
+        var cut = Context.Render<Typed>(pb =>
         {
             pb.Add(a => a.Options, new TypedOptions() { Text = ["test1", "test2"], TypeSpeed = 70 });
             pb.Add(a => a.OnCompleteAsync, onCompleteCallback);

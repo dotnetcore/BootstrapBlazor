@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -19,7 +19,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
             ImageUrl = $"./images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg"
         });
-        var cut = Context.RenderComponent<SelectObject<Product>>(pb =>
+        var cut = Context.Render<SelectObject<Product>>(pb =>
         {
             pb.Add(a => a.Value, v);
             pb.Add(a => a.OnValueChanged, p =>
@@ -50,7 +50,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         Assert.Equal(url, v.ImageUrl);
 
         var isClear = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.OnClearAsync, () =>
@@ -71,7 +71,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        var cut = Context.Render<SelectObject<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
             pb.Add(a => a.GetTextCallback, p => p);
@@ -90,7 +90,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowAppendArrow_Ok()
     {
-        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        var cut = Context.Render<SelectObject<string>>(pb =>
         {
             pb.Add(a => a.ShowAppendArrow, false);
             pb.Add(a => a.GetTextCallback, p => p);
@@ -105,7 +105,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
     [Fact]
     public void DropdownMinWidth_Ok()
     {
-        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        var cut = Context.Render<SelectObject<string>>(pb =>
         {
             pb.Add(a => a.DropdownMinWidth, 500);
             pb.Add(a => a.GetTextCallback, p => p);
@@ -120,7 +120,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
     [Fact]
     public void GetTextCallback_Ok()
     {
-        Assert.Throws<InvalidOperationException>(() => Context.RenderComponent<SelectObject<string>>(pb =>
+        Assert.Throws<InvalidOperationException>(() => Context.Render<SelectObject<string>>(pb =>
         {
             pb.Add(a => a.ChildContent, context => pb =>
             {
@@ -132,7 +132,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        var cut = Context.Render<SelectObject<string>>(pb =>
         {
             pb.Add(a => a.Height, 500);
             pb.Add(a => a.GetTextCallback, p => p);
@@ -153,7 +153,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg"
         }).ToList();
         var v = items[0];
-        var cut = Context.RenderComponent<SelectObject<Product>>(pb =>
+        var cut = Context.Render<SelectObject<Product>>(pb =>
         {
             pb.Add(a => a.Value, v);
             pb.Add(a => a.GetTextCallback, p => p?.ImageUrl);
@@ -172,7 +172,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
 
         Assert.Contains($"Template-{v.ImageUrl}", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, null);
             pb.Add(a => a.PlaceHolder, "Template-PlaceHolder");
@@ -189,7 +189,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         var valid = false;
         var invalid = false;
         var model = Foo.Generate(localizer);
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.OnValidSubmit, context =>
             {
@@ -233,7 +233,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
 
         model.Name = null;
         var table = cut.FindComponent<SelectObject<string>>();
-        table.SetParametersAndRender();
+        table.Render();
         await cut.InvokeAsync(() =>
         {
             var form = cut.Find("form");

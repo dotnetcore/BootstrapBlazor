@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class ConfigureIconMapperOptionsTest
     [Fact]
     public void ConfigureIconMapperOptions_NoKey()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.Services.AddConfiguration();
         context.Services.AddBootstrapBlazor();
         context.Services.ConfigureIconThemeOptions(options =>
@@ -28,7 +28,7 @@ public class ConfigureIconMapperOptionsTest
     [Fact]
     public void ConfigureIconMapperOptions_Ok()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.Services.AddConfiguration();
         context.Services.AddSingleton<IIconTheme, MockIconTheme>();
         context.Services.AddOptionsMonitor<IconThemeOptions>();

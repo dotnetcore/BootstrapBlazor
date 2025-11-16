@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class CameraTest : BootstrapBlazorTestBase
     public void InitDevices_Ok()
     {
         List<DeviceItem> items = [];
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.OnInit, devices =>
             {
@@ -47,7 +47,7 @@ public class CameraTest : BootstrapBlazorTestBase
     public void GetError_Ok()
     {
         var msg = "";
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.OnError, error =>
             {
@@ -63,7 +63,7 @@ public class CameraTest : BootstrapBlazorTestBase
     public void TriggerOpen_Ok()
     {
         var start = false;
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.OnOpen, () =>
             {
@@ -79,7 +79,7 @@ public class CameraTest : BootstrapBlazorTestBase
     public void TriggerClose_Ok()
     {
         var stop = false;
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.OnClose, () =>
             {
@@ -94,7 +94,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void Open_Ok()
     {
-        var cut = Context.RenderComponent<Camera>();
+        var cut = Context.Render<Camera>();
         var handler = Context.JSInterop.SetupVoid("open", cut.Instance.Id);
         cut.InvokeAsync(() => cut.Instance.Open());
         handler.VerifyInvoke("open");
@@ -104,7 +104,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void Close_Ok()
     {
-        var cut = Context.RenderComponent<Camera>();
+        var cut = Context.Render<Camera>();
         var handler = Context.JSInterop.SetupVoid("close", cut.Instance.Id);
         cut.InvokeAsync(() => cut.Instance.Close());
         handler.VerifyInvoke("close");
@@ -114,7 +114,7 @@ public class CameraTest : BootstrapBlazorTestBase
     public void Capture_Ok()
     {
         Stream? stream = null;
-        var cut = Context.RenderComponent<Camera>();
+        var cut = Context.Render<Camera>();
         Context.JSInterop.Setup<IJSStreamReference>("capture", cut.Instance.Id).SetResult(new MockJSStreamReference());
         cut.InvokeAsync(async () =>
         {
@@ -127,7 +127,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void Save_Ok()
     {
-        var cut = Context.RenderComponent<Camera>();
+        var cut = Context.Render<Camera>();
         var handler = Context.JSInterop.SetupVoid("download", cut.Instance.Id, "test.png");
         cut.InvokeAsync(() => cut.Instance.SaveAndDownload("test.png"));
         handler.VerifyInvoke("download");
@@ -136,7 +136,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void Resize_Ok()
     {
-        var cut = Context.RenderComponent<Camera>();
+        var cut = Context.Render<Camera>();
         var handler = Context.JSInterop.SetupVoid("resize", cut.Instance.Id, 320, 240);
         cut.InvokeAsync(() => cut.Instance.Resize(320, 240));
         handler.VerifyInvoke("resize");
@@ -145,7 +145,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void DeviceId_Ok()
     {
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.DeviceId, "test_id");
         });
@@ -155,7 +155,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void Width_Height_Ok()
     {
-        var cut = Context.RenderComponent<Camera>(pb =>
+        var cut = Context.Render<Camera>(pb =>
         {
             pb.Add(a => a.VideoWidth, 30);
             pb.Add(a => a.VideoHeight, 20);

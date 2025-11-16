@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class ReconnectorTest : BootstrapBlazorTestBase
     [Fact]
     public void ReconnectorOutlet_Ok()
     {
-        var cut = Context.RenderComponent<ReconnectorOutlet>(pb =>
+        var cut = Context.Render<ReconnectorOutlet>(pb =>
         {
             pb.Add(a => a.ReconnectInterval, 5000);
             pb.Add(a => a.AutoReconnect, true);
@@ -23,18 +23,18 @@ public class ReconnectorTest : BootstrapBlazorTestBase
     [Fact]
     public void ReconnectorContent_Ok()
     {
-        var cut = Context.RenderComponent<ReconnectorContent>();
+        var cut = Context.Render<ReconnectorContent>();
         cut.Contains("components-reconnect-modal");
     }
 
     [Fact]
     public void Reconnector_Ok()
     {
-        var connector = Context.RenderComponent<Reconnector>();
+        var connector = Context.Render<Reconnector>();
         Assert.Equal("", connector.Markup);
 
-        var cut = Context.RenderComponent<ReconnectorOutlet>();
-        connector.SetParametersAndRender(pb =>
+        var cut = Context.Render<ReconnectorOutlet>();
+        connector.Render(pb =>
         {
             pb.Add(a => a.ReconnectingTemplate, builder => builder.AddContent(0, "Test-ReconnectingTemplate"));
             pb.Add(a => a.ReconnectFailedTemplate, builder => builder.AddContent(0, "Test-ReconnectFailedTemplate"));

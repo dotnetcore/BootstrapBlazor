@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ColorPickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayText_OK()
     {
-        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        var cut = Context.Render<ColorPicker>(builder =>
         {
             builder.Add(a => a.ShowLabel, true);
             builder.Add(a => a.DisplayText, "Test_Color");
@@ -22,7 +22,7 @@ public class ColorPickerTest : BootstrapBlazorTestBase
     [Fact]
     public void Template_OK()
     {
-        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        var cut = Context.Render<ColorPicker>(builder =>
         {
             builder.Add(a => a.Template, v => builder => builder.AddContent(0, $"Test-{v}"));
             builder.Add(a => a.Value, "#AABBCC");
@@ -34,7 +34,7 @@ public class ColorPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Formatter_OK()
     {
-        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        var cut = Context.Render<ColorPicker>(builder =>
         {
             builder.Add(a => a.Formatter, async v =>
             {
@@ -54,7 +54,7 @@ public class ColorPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsSupportOpacity_Ok()
     {
-        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        var cut = Context.Render<ColorPicker>(builder =>
         {
             builder.Add(a => a.IsSupportOpacity, true);
             builder.Add(a => a.Value, "#AABBCCDD");
@@ -67,12 +67,12 @@ public class ColorPickerTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.SetValue("#333333"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsSupportOpacity, false);
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });

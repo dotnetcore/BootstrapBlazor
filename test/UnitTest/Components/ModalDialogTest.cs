@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowPrintButton_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -27,7 +27,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         Assert.NotNull(cut.FindComponent<PrintButton>());
 
         var dialog = cut.FindComponent<ModalDialog>();
-        dialog.SetParametersAndRender(pb =>
+        dialog.Render(pb =>
         {
             pb.Add(d => d.ShowPrintButtonInHeader, true);
         });
@@ -38,7 +38,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowExportPdfButton_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -52,7 +52,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         Assert.NotNull(cut.FindComponent<ExportPdfButton>());
 
         var dialog = cut.FindComponent<ModalDialog>();
-        dialog.SetParametersAndRender(pb =>
+        dialog.Render(pb =>
         {
             pb.Add(d => d.ShowExportPdfButtonInHeader, true);
         });
@@ -63,7 +63,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDraggable_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -79,7 +79,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         Assert.Contains("test_class", cut.Markup);
 
         var dialog = cut.FindComponent<ModalDialog>();
-        dialog.SetParametersAndRender(pb =>
+        dialog.Render(pb =>
         {
             pb.Add(a => a.IsCentered, false);
         });
@@ -89,7 +89,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowResize_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -105,7 +105,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowMaximizeButton_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -128,7 +128,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -144,7 +144,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void FooterTemplate_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -160,7 +160,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void BodyContext_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -181,7 +181,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void OnSaveAsync_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {

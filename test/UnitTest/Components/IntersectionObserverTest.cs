@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
     [Fact]
     public void IntersectionObserver_Ok()
     {
-        var cut = Context.RenderComponent<IntersectionObserver>(pb =>
+        var cut = Context.Render<IntersectionObserver>(pb =>
         {
             pb.Add(a => a.UseElementViewport, false);
             pb.Add(a => a.RootMargin, "10px 20px 30px 40px");
@@ -35,7 +35,7 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
     public async Task OnIntersecting_Ok()
     {
         int count = 0;
-        var cut = Context.RenderComponent<IntersectionObserver>(pb =>
+        var cut = Context.Render<IntersectionObserver>(pb =>
         {
             pb.Add(a => a.ChildContent, builder =>
             {
@@ -67,7 +67,7 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
     public async Task LoadMore_Ok()
     {
         var loading = false;
-        var cut = Context.RenderComponent<LoadMore>(pb =>
+        var cut = Context.Render<LoadMore>(pb =>
         {
             pb.Add(a => a.Threshold, "1");
             pb.Add(a => a.CanLoading, true);
@@ -90,14 +90,14 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
         }));
         Assert.True(loading);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.LoadingTemplate, new RenderFragment(builder => builder.AddContent(0, "loading template")));
         });
         cut.Contains("loading template");
 
         loading = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
            pb.Add(a => a.CanLoading, false);
         });
@@ -111,7 +111,7 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
         }));
         Assert.False(loading);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.NoMoreTemplate, new RenderFragment(builder => builder.AddContent(0, "没有更多数据模板")));
         });

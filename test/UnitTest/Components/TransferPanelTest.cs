@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,13 +10,13 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderCheckState_Ok()
     {
-        var cut = Context.RenderComponent<TransferPanel>();
+        var cut = Context.Render<TransferPanel>();
 
         // Items 为空时全选 Checkbox
         var checkbox = cut.FindComponent<Checkbox<SelectedItem>>();
         cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.UnChecked));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items,
             [
@@ -29,7 +29,7 @@ public class TransferPanelTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.UnChecked));
 
         // 显示 Search
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
         });
@@ -51,7 +51,7 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void GetShownItems_Ok()
     {
-        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        var cut = Context.Render<TransferPanel>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
         });
@@ -72,7 +72,7 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        var cut = Context.Render<TransferPanel>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.IsDisabled, true);
@@ -83,7 +83,7 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        var cut = Context.Render<TransferPanel>(pb =>
         {
             pb.Add(a => a.HeaderTemplate, items => builder =>
             {
@@ -96,7 +96,7 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<TransferPanel>(pb =>
+        var cut = Context.Render<TransferPanel>(pb =>
         {
             pb.Add(a => a.Items,
             [

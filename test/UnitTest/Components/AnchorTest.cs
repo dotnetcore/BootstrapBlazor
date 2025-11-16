@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,17 +10,17 @@ public class AnchorTest : BootstrapBlazorTestBase
     [Fact]
     public void Target_Ok()
     {
-        var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, "anchor"));
+        var cut = Context.Render<Anchor>(builder => builder.Add(a => a.Target, "anchor"));
         Assert.Contains("data-bb-target=\"anchor\"", cut.Markup);
 
-        cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Target, ""));
+        cut = Context.Render<Anchor>(builder => builder.Add(a => a.Target, ""));
         Assert.DoesNotContain("data-bb-target", cut.Markup);
     }
 
     [Fact]
     public void Container_Ok()
     {
-        var cut = Context.RenderComponent<Anchor>(builder =>
+        var cut = Context.Render<Anchor>(builder =>
         {
             builder.Add(a => a.Container, "anchor");
             builder.Add(a => a.ChildContent, new RenderFragment(builder =>
@@ -36,7 +36,7 @@ public class AnchorTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAnimation_Ok()
     {
-        var cut = Context.RenderComponent<Anchor>(builder =>
+        var cut = Context.Render<Anchor>(builder =>
         {
             builder.Add(a => a.IsAnimation, false);
             builder.Add(a => a.ChildContent, new RenderFragment(builder =>
@@ -47,7 +47,7 @@ public class AnchorTest : BootstrapBlazorTestBase
             }));
         });
         cut.DoesNotContain("data-bb-animation");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsAnimation, true);
         });
@@ -57,7 +57,7 @@ public class AnchorTest : BootstrapBlazorTestBase
     [Fact]
     public void Offset_Ok()
     {
-        var cut = Context.RenderComponent<Anchor>(builder => builder.Add(a => a.Offset, 20));
+        var cut = Context.Render<Anchor>(builder => builder.Add(a => a.Offset, 20));
         Assert.Contains("data-bb-offset=\"20\"", cut.Markup);
     }
 }

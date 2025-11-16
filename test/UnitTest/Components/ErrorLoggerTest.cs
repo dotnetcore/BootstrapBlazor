@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,7 +15,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     [Fact]
     public void OnErrorAsync_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<ErrorLogger>(pb =>
             {
@@ -34,7 +34,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("<div class=\"toast-header\">", cut.Markup);
 
         var errorLogger = cut.FindComponent<ErrorLogger>();
-        errorLogger.SetParametersAndRender(pb =>
+        errorLogger.Render(pb =>
         {
             pb.Add(e => e.ShowToast, true);
         });
@@ -48,7 +48,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var config = Context.Services.GetRequiredService<IConfiguration>();
         config["DetailedErrors"] = "false";
 
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<ErrorLogger>(pb =>
             {
@@ -71,7 +71,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     public async Task OnErrorHandleAsync_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();
-        var cut = Context.RenderComponent<ErrorLogger>(pb =>
+        var cut = Context.Render<ErrorLogger>(pb =>
         {
             pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
             {
@@ -96,7 +96,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     [Fact]
     public void OnErrorHandleAsync_Tab()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.ChildContent, new RenderFragment(builder =>
             {
@@ -133,7 +133,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     public void Root_Ok()
     {
         Exception? exception = null;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
             pb.Add(a => a.ShowToast, false);
@@ -160,7 +160,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     [Fact]
     public void ErrorContent_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
             pb.Add(a => a.ShowToast, true);
@@ -175,7 +175,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         });
 
         var errorLogger = cut.FindComponent<ErrorLogger>();
-        errorLogger.SetParametersAndRender(pb =>
+        errorLogger.Render(pb =>
         {
             pb.Add(a => a.ErrorContent, new RenderFragment<Exception>(ex => builder =>
             {
@@ -191,7 +191,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task TabItem_Error()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
@@ -222,13 +222,13 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task TabItem_Production_Error()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         context.Services.AddSingleton<IHostEnvironment, MockProductionEnironment>();
         context.Services.AddBootstrapBlazor();
         context.Services.GetRequiredService<ICacheManager>();
 
-        var cut = context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {

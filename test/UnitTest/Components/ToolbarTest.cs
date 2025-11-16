@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ToolbarTest : BootstrapBlazorTestBase
     [Fact]
     public void Toolbar_Ok()
     {
-        var cut = Context.RenderComponent<Toolbar>(pb =>
+        var cut = Context.Render<Toolbar>(pb =>
         {
             pb.Add(a => a.IsWrap, true);
             pb.AddChildContent<ToolbarItem>(pb =>
@@ -45,7 +45,7 @@ public class ToolbarTest : BootstrapBlazorTestBase
     [Fact]
     public void ToolbarButtonGroup_Ok()
     {
-        var cut = Context.RenderComponent<ToolbarButtonGroup>(pb =>
+        var cut = Context.Render<ToolbarButtonGroup>(pb =>
         {
             pb.AddChildContent<Button>(pb2 =>
             {

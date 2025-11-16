@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,23 +11,23 @@ public class TransferTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         // 未设置 Items 为空
-        var cut = Context.RenderComponent<Transfer<string>>();
+        var cut = Context.Render<Transfer<string>>();
         cut.Contains("class=\"bb-transfer wrap-item\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsWrapItem, false);
         });
         cut.Contains("class=\"bb-transfer\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsWrapItemText, true);
         });
         cut.Contains("class=\"bb-transfer wrap-item-text\"");
 
         // 设置 Items
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.OnSetItemClass, new Func<SelectedItem, string>(i => $"class-{i.Value}"));
@@ -43,7 +43,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Height, "200px");
         });
@@ -53,7 +53,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public async Task EnumerableString_Value()
     {
-        var cut = Context.RenderComponent<Transfer<IEnumerable<string>>>(pb =>
+        var cut = Context.Render<Transfer<IEnumerable<string>>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -73,7 +73,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SelectedItem_Value()
     {
-        var cut = Context.RenderComponent<Transfer<IEnumerable<SelectedItem>>>(pb =>
+        var cut = Context.Render<Transfer<IEnumerable<SelectedItem>>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -93,7 +93,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void Int_Value()
     {
-        var cut = Context.RenderComponent<Transfer<int>>(pb =>
+        var cut = Context.Render<Transfer<int>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -114,7 +114,7 @@ public class TransferTest : BootstrapBlazorTestBase
     public async Task TransferItem_Ok()
     {
         IEnumerable<SelectedItem> rightItems = new List<SelectedItem>();
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -153,7 +153,7 @@ public class TransferTest : BootstrapBlazorTestBase
     public async Task ValidateForm_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<Transfer<string>>(pb =>
@@ -179,7 +179,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSearch_Ok()
     {
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -207,7 +207,7 @@ public class TransferTest : BootstrapBlazorTestBase
     public void MaxMin_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, foo.Name);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
@@ -229,7 +229,7 @@ public class TransferTest : BootstrapBlazorTestBase
         var button = cut.FindComponents<Button>()[1];
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Max, 3);
         });
@@ -238,7 +238,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void Template_Ok()
     {
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, "2,4");
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -276,7 +276,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void IsWrapItem_Ok()
     {
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -288,7 +288,7 @@ public class TransferTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("wrap-item");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsWrapItem, true);
         });
@@ -298,7 +298,7 @@ public class TransferTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemWidth_Ok()
     {
-        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        var cut = Context.Render<Transfer<string>>(pb =>
         {
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -309,7 +309,7 @@ public class TransferTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("--bb-transfer-panel-item-width");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ItemWidth, "160px");
         });

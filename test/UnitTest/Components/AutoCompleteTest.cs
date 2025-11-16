@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.IsSelectAllTextOnFocus, true);
             pb.Add(a => a.IsSelectAllTextOnEnter, true);
@@ -21,7 +21,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowNoDataTip, false);
         });
@@ -29,7 +29,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         Assert.Empty(menus);
 
         var items = new List<string>() { "test1", "test2" };
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -40,7 +40,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
             pb.Add(a => a.Value, "test12");
@@ -59,7 +59,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         // 由于设置了双向绑定 Value 改变后触发 change 事件
         var clientValue = "";
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, new List<string>() { "test1", "test12", "test123", "test1234" });
             pb.Add(a => a.Value, "test12");
@@ -73,7 +73,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerChange("test4"));
         Assert.Equal("test4", clientValue);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnValueChanged, null);
             pb.Add(a => a.ValueChanged, v =>
@@ -88,14 +88,14 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void IsClearable_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>();
+        var cut = Context.Render<AutoComplete>();
         Assert.DoesNotContain("clear-icon", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
+        cut.Render(pb => pb.Add(a => a.IsClearable, true));
         cut.Contains("clear-icon");
 
         // Color
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
+        cut.Render(pb => pb.Add(a => a.Color, Color.Danger));
         cut.Contains("clear-icon text-danger");
 
         // 反射 Validate
@@ -117,10 +117,10 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Debounce_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>();
+        var cut = Context.Render<AutoComplete>();
         Assert.DoesNotContain("data-bb-debounce", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Debounce, 100));
+        cut.Render(pb => pb.Add(a => a.Debounce, 100));
         cut.Contains("data-bb-debounce=\"100\"");
     }
 
@@ -128,7 +128,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public async Task OnCustomFilter_Test()
     {
         var items = new List<string> { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        var cut = Context.Render<AutoComplete>(builder =>
         {
             builder.Add(a => a.Items, items);
             builder.Add(a => a.OnCustomFilter, _ => Task.FromResult<IEnumerable<string>>(["test2", "test3", "test4"]));
@@ -143,7 +143,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public async Task IsLikeMatch_Test()
     {
         var items = new List<string>() { "task1", "Task2" };
-        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        var cut = Context.Render<AutoComplete>(builder =>
         {
             builder.Add(a => a.Items, items);
         });
@@ -154,7 +154,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         Assert.Single(menus);
 
         // 模糊匹配
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsLikeMatch, true);
         });
@@ -175,7 +175,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public async Task IgnoreCase_Ok()
     {
         var items = new List<string>() { "task1", "Task2" };
-        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        var cut = Context.Render<AutoComplete>(builder =>
         {
             builder.Add(a => a.Items, items);
             builder.Add(a => a.IgnoreCase, false);
@@ -187,7 +187,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         Assert.Single(menus);
 
         // 忽略大小写
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IgnoreCase, true);
         });
@@ -201,7 +201,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         var val = "task1";
         var items = new List<string>() { "task1", "Task2" };
-        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        var cut = Context.Render<AutoComplete>(builder =>
         {
             builder.Add(a => a.Items, items);
             builder.Add(a => a.IgnoreCase, false);
@@ -221,7 +221,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public async Task DisplayCount_Ok()
     {
         var items = new List<string>() { "task1", "Task2", "task3", "Task4" };
-        var cut = Context.RenderComponent<AutoComplete>(builder =>
+        var cut = Context.Render<AutoComplete>(builder =>
         {
             builder.Add(a => a.Items, items);
             builder.Add(a => a.DisplayCount, 2);
@@ -236,7 +236,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public async Task OnCustomFilter_Ok()
     {
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.OnCustomFilter, _ => Task.FromResult<IEnumerable<string>>(["test3", "test4", "test5"]));
@@ -251,13 +251,13 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public void ShowDropdownListOnFocus_Ok()
     {
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
         cut.Contains("data-bb-auto-dropdown-focus=\"true\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowDropdownListOnFocus, false);
         });
@@ -268,7 +268,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public void ItemTemplate_Ok()
     {
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ItemTemplate, item => builder =>
@@ -286,7 +286,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         var items = new List<string>() { "test1", "test2" };
         var selectedItem = "";
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.OnSelectedItemChanged, v => { selectedItem = v; return Task.CompletedTask; });
@@ -301,7 +301,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public void ValidateForm_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, new Foo());
             pb.AddChildContent<AutoComplete>(pb =>
@@ -316,7 +316,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     public void IsPopover_Ok()
     {
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.IsPopover, true);
@@ -336,7 +336,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         string? val = "";
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, "test2");
@@ -356,13 +356,13 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void SkipEnter_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.SkipEnter, false);
         });
         cut.DoesNotContain("data-bb-skip-enter");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.SkipEnter, true);
         });
@@ -372,13 +372,13 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void SkipEsc_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.SkipEsc, false);
         });
         cut.DoesNotContain("data-bb-skip-esc");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.SkipEsc, true);
         });
@@ -388,13 +388,13 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void ScrollIntoViewBehavior_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        var cut = Context.Render<AutoComplete>(pb =>
         {
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
         });
         cut.DoesNotContain("data-bb-scroll-behavior");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
         });
@@ -404,7 +404,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<MockPopoverCompleteBase>();
+        var cut = Context.Render<MockPopoverCompleteBase>();
         cut.Instance.TriggerFilter("test");
     }
 

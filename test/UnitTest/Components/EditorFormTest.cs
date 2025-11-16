@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CascadedEditContext_Error()
     {
         var foo = new Foo();
-        Assert.Throws<InvalidCastException>(() => Context.RenderComponent<ValidateForm>(pb =>
+        Assert.Throws<InvalidCastException>(() => Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<EditorForm<Dummy>>(pb =>
@@ -28,7 +28,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CanWrite_Ok()
     {
         var foo = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, foo);
         });
@@ -41,7 +41,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CascadedEditContext_Ok()
     {
         var foo = new Foo();
-        Context.RenderComponent<ValidateForm>(pb =>
+        Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<EditorForm<Foo>>();
@@ -51,7 +51,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void Model_Error()
     {
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, null);
         });
@@ -62,7 +62,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         var foo = new Foo();
-        Context.RenderComponent<EditorForm<Foo>>(pb =>
+        Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.Items, new List<IEditorItem>
@@ -79,7 +79,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void AutoGenerateAllItem_True(bool autoGenerate)
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.AutoGenerateAllItem, autoGenerate);
             pb.Add(a => a.Model, foo);
@@ -91,7 +91,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void IsDisplay_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.IsDisplay, true);
             pb.Add(a => a.IsShowDisplayTooltip, true);
@@ -104,7 +104,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Textarea_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.IsDisplay, true);
             pb.Add(a => a.Model, foo);
@@ -134,7 +134,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void IsSearch_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.AddCascadingValue("IsSearch", true);
             pb.Add(a => a.Model, foo);
@@ -146,7 +146,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Buttons_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.Buttons, builder =>
@@ -161,7 +161,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Alignment_Right()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.ItemsPerRow, 1);
@@ -174,7 +174,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         cut.Contains("col-12");
         cut.Contains("--bb-row-label-width: 80px;");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.LabelAlign, Alignment.Center);
         });
@@ -184,7 +184,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void FieldChanged_Ok()
     {
-        var cut = Context.RenderComponent<MockEditorItem>(pb =>
+        var cut = Context.Render<MockEditorItem>(pb =>
         {
             pb.Add(a => a.Field, "Nama");
             pb.Add(a => a.FieldChanged, EventCallback.Factory.Create<string>(this, v => { }));
@@ -195,7 +195,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayName_Ok()
     {
-        var cut = Context.RenderComponent<EditorItem<Foo, string>>();
+        var cut = Context.Render<EditorItem<Foo, string>>();
         Assert.Equal("", cut.Instance.GetDisplayName());
         Assert.Equal("", cut.Instance.GetFieldName());
     }
@@ -213,7 +213,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void EditorItem_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<EditorForm<Foo>>(pb =>
@@ -282,7 +282,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void ShowLabelTooltip_Ok(bool showTooltip)
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.ShowLabelTooltip, showTooltip);
@@ -308,7 +308,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void EditorItem_ShowLabelTooltip_Ok(bool showTooltip)
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -332,7 +332,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void EditorItem_Editable_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -352,7 +352,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         });
         cut.Contains("地址");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.FieldItems, f => builder =>
             {
@@ -376,7 +376,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Order_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -399,7 +399,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void ColumnOrderCallback_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, true);
@@ -421,7 +421,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public async Task LookupServiceKey_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -454,7 +454,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     {
         var lookupService = new FooLookupService();
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -485,7 +485,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     {
         var foo = new Foo();
         var lookup = new List<SelectedItem>() { new("v1", "test1"), new("v2", "test2") };
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -510,7 +510,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void GroupName_Order_Ok(bool showUnsetGroupItemsOnTop)
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
         {
             pb.AddCascadingValue("IsSearch", true);
             pb.Add(a => a.ShowUnsetGroupItemsOnTop, showUnsetGroupItemsOnTop);
@@ -571,7 +571,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CheckboxList_Manual()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -594,7 +594,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CheckboxList_Auto()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
@@ -617,7 +617,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Select_Ok()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.FieldItems, new RenderFragment<Dummy>(dummy => builder =>
@@ -640,7 +640,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Select_NullableBool_Items()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -663,7 +663,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Select_NullableBool_Ok()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.AutoGenerateAllItem, false);
@@ -682,7 +682,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void Cols_Ok()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        var cut = Context.Render<EditorForm<Dummy>>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.AutoGenerateAllItem, true);

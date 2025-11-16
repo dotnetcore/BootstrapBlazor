@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,9 +14,9 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var isFloat = false;
         RibbonTabItem? tabItem = null;
-        var cut = Context.RenderComponent<RibbonTab>();
+        var cut = Context.Render<RibbonTab>();
         Assert.DoesNotContain("ribbon-arrow", cut.Markup);
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, GetItems());
             pb.Add(a => a.ShowFloatButton, true);
@@ -60,7 +60,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetExpand_Ok()
     {
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.ShowFloatButton, true);
         });
@@ -76,7 +76,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void RightButtonsTemplate_Ok()
     {
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.RightButtonsTemplate, builder =>
             {
@@ -105,7 +105,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         };
         parent.Items.Add(item);
 
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [parent]);
         });
@@ -127,7 +127,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var item = new RibbonTabItem() { Text = "test" };
         item.Items.Add(new RibbonTabItem() { Text = "Item", Template = builder => builder.AddContent(0, "Test-Template") });
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [item]);
         });
@@ -139,7 +139,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var item = new RibbonTabItem() { Text = "test" };
         item.Items.Add(new RibbonTabItem() { Text = "Item", Component = BootstrapDynamicComponent.CreateComponent<MockCom>() });
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [item]);
         });
@@ -151,7 +151,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var item = new RibbonTabItem() { Text = "test" };
         item.Items.Add(new RibbonTabItem() { Text = "Item" });
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [item]);
             pb.Add(a => a.ChildContent, builder =>
@@ -169,7 +169,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         var item = new RibbonTabItem() { Text = "test 1" };
         item.Items.Add(new RibbonTabItem() { Text = "Item" });
         var clickedText = "";
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [item]);
             pb.Add(a => a.OnMenuClickAsync, item =>
@@ -189,7 +189,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var item = new RibbonTabItem() { Text = "test 1" };
         item.Items.Add(new RibbonTabItem() { Text = "Item" });
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, [item]);
             pb.Add(a => a.IsBorder, false);
@@ -211,7 +211,7 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         item1.Items.Add(new RibbonTabItem() { Text = "Item" });
 
         var items = new List<RibbonTabItem>() { item1 };
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, items);
         });

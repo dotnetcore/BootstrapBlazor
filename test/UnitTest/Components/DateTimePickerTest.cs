@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -26,7 +26,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void AutoToday_DateTime()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -36,7 +36,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal(DateTime.Today.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -50,7 +50,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void AutoToday_DateTimeOffset()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
-        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTimeOffset>>(pb =>
         {
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
@@ -60,7 +60,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
@@ -73,7 +73,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayMinValueAsEmpty_NullableDateTime()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.Value, null);
         });
@@ -82,7 +82,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.DisplayMinValueAsEmpty, true);
@@ -91,7 +91,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.DisplayMinValueAsEmpty, false);
@@ -104,7 +104,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayMinValueAsEmpty_NullableDateTimeOffset()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTimeOffset?>>(pb =>
         {
             pb.Add(a => a.Value, null);
         });
@@ -113,7 +113,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
         });
@@ -121,7 +121,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
             pb.Add(a => a.DisplayMinValueAsEmpty, false);
@@ -134,7 +134,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnClear_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.DisplayMinValueAsEmpty, false);
@@ -157,7 +157,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("", input.GetAttribute("value"));
 
         // 设置 DisplayMinValueAsEmpty="true" MinValue 自动为 ToDay
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DisplayMinValueAsEmpty, true);
         });
@@ -177,7 +177,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("", input.GetAttribute("value"));
 
         // 设置最小时间值
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MinValue, DateTime.Today);
             pb.Add(a => a.Value, null);
@@ -189,7 +189,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSiderBar_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.ShowSidebar, true));
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder => builder.Add(a => a.ShowSidebar, true));
 
         var ele = cut.Find(".picker-panel-sidebar");
         Assert.NotNull(ele);
@@ -198,7 +198,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.Placement, Placement.Top));
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder => builder.Add(a => a.Placement, Placement.Top));
 
         Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
     }
@@ -206,7 +206,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DateTimeFormat_OK()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.DateFormat, "yyyy/MM/dd");
@@ -220,9 +220,9 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void MaxValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MaxValue, DateTime.Today.AddDays(1)));
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MaxValue, DateTime.Today.AddDays(1)));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
@@ -230,7 +230,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
@@ -238,7 +238,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value.Date);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(1));
@@ -246,7 +246,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MaxValue, null);
@@ -258,12 +258,12 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void MinValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
@@ -271,7 +271,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
@@ -279,7 +279,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value.Date);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
@@ -287,7 +287,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.MinValue, null);
@@ -299,7 +299,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void OnTimeChanged_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
@@ -318,7 +318,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void SwitchTimeView_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
@@ -335,7 +335,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void ValidateForm_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<DateTimePicker<DateTime?>>(pb =>
@@ -352,14 +352,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         Assert.ThrowsAny<InvalidOperationException>(() =>
         {
-            Context.RenderComponent<DateTimePicker<int>>();
+            Context.Render<DateTimePicker<int>>();
         });
     }
 
     [Fact]
     public async Task PickTimeMode_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.PickTimeMode, PickTimeMode.Dropdown);
@@ -383,7 +383,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => picker.Instance.OnConfirm!(ts));
         Assert.Contains(ts.ToString("hh\\:mm"), cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.TimeFormat, null);
         });
@@ -392,7 +392,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void IsButton_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.IsButton, true);
             pb.Add(a => a.ButtonColor, Color.Danger);
@@ -400,7 +400,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         cut.Contains("btn dropdown-toggle btn-danger");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsButton, false);
         });
@@ -413,7 +413,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DateFormat_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.ShowFooter, false);
             builder.Add(a => a.Value, DateTime.Today.AddDays(-1));
@@ -426,7 +426,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowIcon_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowIcon, false);
         });
@@ -436,7 +436,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void Format_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.DateTimeFormat, "yyyy-MM-dd HH:mm:ss");
         });
@@ -448,7 +448,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLunar_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowLunar, true);
             pb.Add(a => a.Value, new DateTime(2024, 6, 10));
@@ -458,7 +458,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.Contains("廿一");
         cut.Contains("初二");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTime(2023, 3, 22));
         });
@@ -468,7 +468,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSolarTerm_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowLunar, true);
             pb.Add(a => a.ShowSolarTerm, true);
@@ -476,19 +476,19 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         cut.Contains("惊蛰");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFestivals, true);
         });
         cut.Contains("妇女节");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTime(2023, 2, 20));
         });
         cut.Contains("二月");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTime(2023, 3, 22));
         });
@@ -498,7 +498,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHolidays_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowHolidays, true);
             pb.Add(a => a.Value, new DateTime(2024, 3, 5));
@@ -509,7 +509,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowWorkdays_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowHolidays, true);
             pb.Add(a => a.Value, new DateTime(2024, 4, 7));
@@ -520,14 +520,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHolidays_Custom()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         var services = context.Services;
         services.AddBootstrapBlazor();
         services.AddSingleton<ICalendarHolidays, MockCalendarHolidayService>();
 
-        var cut = context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowHolidays, true);
             pb.Add(a => a.Value, new DateTime(2024, 3, 17));
@@ -538,14 +538,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowWorkdays_Custom()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         var services = context.Services;
         services.AddBootstrapBlazor();
         services.AddSingleton<ICalendarHolidays, MockCalendarHolidayService>();
 
-        var cut = context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowHolidays, true);
             pb.Add(a => a.Value, new DateTime(2024, 4, 7));
@@ -562,7 +562,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task TriggerHideCallback_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.DayTemplate, dt => builder =>
             {
@@ -575,7 +575,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DayTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.DayTemplate, dt => builder =>
             {
@@ -589,7 +589,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DayDisabledTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.DayDisabledTemplate, dt => builder =>
             {
@@ -601,12 +601,12 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("day-disabled-template");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowLunar, true);
             pb.Add(a => a.ShowSolarTerm, true);
         });
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFestivals, true);
         });
@@ -615,7 +615,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void DatePickerViewModel_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
@@ -631,7 +631,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 下一年
         cut.InvokeAsync(() => buttons[3].Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
             pb.Add(a => a.Value, GetToday());
@@ -658,13 +658,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsYearOverflow_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.MinValue.AddDays(1));
             builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.MaxValue);
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
@@ -676,7 +676,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 下一年
         await cut.InvokeAsync(() => buttons[3].Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
@@ -692,7 +692,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDayOverflow()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.MaxValue.AddDays(-1));
             builder.Add(a => a.ViewMode, DatePickerViewMode.Date);
@@ -702,7 +702,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSidebar_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowSidebar, true);
@@ -720,7 +720,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowButtons_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
         });
@@ -758,21 +758,21 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void NotShowButtons_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowLeftButtons, false);
         });
         Assert.DoesNotContain("fa-solid fa-angles-left", cut.Find(".picker-panel-header").ToMarkup());
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowRightButtons, false));
+        cut.Render(pb => pb.Add(a => a.ShowRightButtons, false));
         Assert.DoesNotContain("fa-solid fa-angles-right", cut.Find(".picker-panel-header").ToMarkup());
     }
 
     [Fact]
     public void MonthView_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
         });
@@ -786,13 +786,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabledCell_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MinValue, null);
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(7));
@@ -802,7 +802,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowFooter_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowFooter, true);
@@ -822,7 +822,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => buttons[0].Click());
         Assert.Equal(DateTime.MinValue, cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFooter, false);
         });
@@ -832,7 +832,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickNowButton_Ok()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.ShowFooter, true);
@@ -842,7 +842,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => button.Click());
 
         // 有最小值 无 Now 按钮
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(10));
         });
@@ -852,7 +852,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickDay_Validate()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.ShowFooter, false);
@@ -868,7 +868,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void Validate_Ok()
     {
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
-        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        var cut = Context.Render<DatePickerBody>(pb =>
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.MinValue, DateTime.Now.AddDays(-1));
@@ -877,14 +877,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var button = cut.Find(".is-confirm");
         cut.InvokeAsync(() => button.Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.Now.AddDays(-2));
         });
         button = cut.Find(".is-confirm");
         cut.InvokeAsync(() => button.Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MinValue, null);
             pb.Add(a => a.MaxValue, DateTime.Now.AddDays(1));
@@ -893,7 +893,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         button = cut.Find(".is-confirm");
         cut.InvokeAsync(() => button.Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MaxValue, DateTime.Now.AddDays(1));
             pb.Add(a => a.Value, DateTime.Now.AddDays(2));
@@ -906,14 +906,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void IsDisabled_Ok()
     {
         // MinValue != null && MaxValue != null && (day < MinValue || day > MaxValue)
-        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        var cut = Context.Render<DatePickerBody>(pb =>
         {
             pb.Add(a => a.MinValue, new DateTime(2022, 02, 15));
             pb.Add(a => a.MaxValue, new DateTime(2022, 02, 17));
             pb.Add(a => a.Value, new DateTime(2022, 02, 16));
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.MinValue, null);
         });
@@ -928,7 +928,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public async Task TimeCell_Up(TimePickerCellViewMode viewMode)
     {
         var valueChanged = false;
-        var cut = Context.RenderComponent<TimePickerCell>(pb =>
+        var cut = Context.Render<TimePickerCell>(pb =>
         {
             pb.Add(a => a.ViewMode, viewMode);
             pb.Add(a => a.Value, new TimeSpan(6, 6, 6));
@@ -950,7 +950,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public async Task TimeCell_OverDay()
     {
         var ts = new TimeSpan(23, 59, 59);
-        var cut = Context.RenderComponent<TimePickerCell>(pb =>
+        var cut = Context.Render<TimePickerCell>(pb =>
         {
             pb.Add(a => a.ViewMode, TimePickerCellViewMode.Second);
             pb.Add(a => a.Value, ts);
@@ -974,7 +974,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ViewMode_DateTime()
     {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
+        var cut = Context.Render<DatePickerBody>(builder =>
         {
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             builder.Add(a => a.Value, DateTime.Today.AddDays(-10));
@@ -997,7 +997,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public async Task AutoClose_OK()
     {
         DateTime val = DateTime.MinValue;
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Today);
             builder.Add(a => a.AutoClose, false);
@@ -1014,7 +1014,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         Assert.Equal(val, DateTime.MinValue);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AutoClose, true);
         });
@@ -1025,7 +1025,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void SidebarTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.ShowSidebar, true);
             pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(cb => builder =>
@@ -1039,7 +1039,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void FirstDayOfWeek_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.FirstDayOfWeek, DayOfWeek.Monday);
             pb.Add(a => a.Value, new DateTime(2025, 02, 20));
@@ -1060,7 +1060,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void PickerBodyShowFooter_Ok()
     {
         var confirm = false;
-        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        var cut = Context.Render<DatePickerBody>(pb =>
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.AutoClose, true);
@@ -1079,7 +1079,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 设置 AutoClose = false 不会触发 confirm
         confirm = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AutoClose, false);
         });
@@ -1091,7 +1091,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void OnClickShortLink_Ok()
     {
         var confirm = false;
-        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        var cut = Context.Render<DatePickerBody>(pb =>
         {
             pb.Add(a => a.ShowFooter, false);
             pb.Add(a => a.AutoClose, true);
@@ -1109,7 +1109,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.True(confirm);
 
         confirm = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.AutoClose, false);
@@ -1119,7 +1119,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 不显示 Footer AutoClose 参数不起作用自动关闭
         confirm = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowFooter, false);
             pb.Add(a => a.AutoClose, false);
@@ -1132,7 +1132,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void FormatValueAsString_DateTime_Ok()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -1142,7 +1142,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal(DateTime.Today, cut.Instance.Value);
 
         // 设置为 禁用日期时 UI 显示为空字符串
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -1157,7 +1157,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("", input.GetAttribute("value"));
 
         // 禁用 AutoToday 显示 0001-01-01
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.AutoToday, false);
@@ -1165,7 +1165,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("0001-01-01", input.GetAttribute("value"));
 
         // 更改值为未禁用日期
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTime.Today.AddDays(-1));
         });
@@ -1176,7 +1176,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void FormatValueAsString_DateTimeOffset_Ok()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
-        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTimeOffset?>>(pb =>
         {
             pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
             pb.Add(a => a.Value, null);
@@ -1192,14 +1192,14 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("", input.GetAttribute("value"));
         Assert.Null(cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.Now);
             pb.Add(a => a.DisplayDisabledDayAsEmpty, false);
         });
         Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
             pb.Add(a => a.AutoToday, false);
@@ -1208,7 +1208,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal($"0001-01-01", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
             pb.Add(a => a.AutoToday, true);
@@ -1220,7 +1220,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.IsEditable, true);
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
@@ -1243,7 +1243,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal("02/15/2024", cut.Instance.Value.ToString("MM/dd/yyyy"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
@@ -1258,7 +1258,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void MinValueToEmpty_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -1266,7 +1266,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Null(cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.Add(a => a.Value, DateTime.MinValue);
@@ -1281,7 +1281,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var fetched = false;
         var dtm = new DateTime(2024, 9, 25);
         // 禁用当天
-        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
             {
@@ -1299,7 +1299,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 设置组件值不为当前天
         // 相同月数据已缓存不会触发回调
         fetched = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, dtm.AddDays(1));
         });
@@ -1308,7 +1308,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 禁用缓存
         // 每次组件渲染都会触发回调
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.EnableDisabledDaysCache, false);
         });
@@ -1344,7 +1344,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public async Task OnBlurAsync_Ok()
     {
         var blur = false;
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.OnBlurAsync, v =>
             {

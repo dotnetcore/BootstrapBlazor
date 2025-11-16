@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -19,7 +19,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         var foo = Foo.Generate(localizer);
         var clicked = false;
 
-        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        var cut = Context.Render<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<ContextMenuTrigger>(pb =>
             {
@@ -51,7 +51,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = cut.Find(".context-trigger");
-        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         menu.Contains("shadow");
@@ -65,7 +65,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("blazor:onclick", item.InnerHtml);
 
         var contextItem = cut.FindComponent<ContextMenuItem>();
-        contextItem.SetParametersAndRender(pb =>
+        contextItem.Render(pb =>
         {
             pb.Add(a => a.Disabled, false);
             pb.Add(a => a.OnDisabledCallback, (item, v) =>
@@ -78,7 +78,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
 
         // trigger OnBeforeShowCallback
         bool menuCallback = false;
-        contextItem.SetParametersAndRender(pb =>
+        contextItem.Render(pb =>
         {
             pb.Add(a => a.Disabled, false);
             pb.Add(a => a.OnDisabledCallback, (item, v) =>
@@ -87,7 +87,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                 return false;
             });
         });
-        menu.SetParametersAndRender(pb =>
+        menu.Render(pb =>
         {
             pb.Add(a => a.OnBeforeShowCallback, v =>
             {
@@ -115,7 +115,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         var clicked = false;
 
-        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        var cut = Context.Render<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -146,7 +146,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
-        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -186,7 +186,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         var nodes = TreeFoo.CascadingTree(items).ToList();
         var clicked = false;
 
-        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        var cut = Context.Render<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<TreeView<TreeFoo>>(pb =>
             {
@@ -209,7 +209,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         });
 
         var row = cut.Find(".tree-content");
-        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+        row.ContextMenu(new MouseEventArgs() { Detail = 0, ScreenX = 10, ScreenY = 10, ClientX = 10, ClientY = 10, Button = 2, Buttons = 2 });
 
         var menu = cut.FindComponent<ContextMenu>();
         var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -251,7 +251,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     [Fact]
     public void ContextMenuDivider_Ok()
     {
-        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        var cut = Context.Render<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<ContextMenu>(pb =>
             {

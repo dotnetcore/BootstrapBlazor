@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.Color, Color.Success);
             builder.Add(s => s.Value, true);
@@ -22,7 +22,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     [Fact]
     public void Width_Ok()
     {
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.Width, 100);
             builder.Add(s => s.Value, true);
@@ -34,7 +34,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     [Fact]
     public void OnText_Ok()
     {
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.OnText, "On");
             builder.Add(s => s.Value, true);
@@ -46,7 +46,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     [Fact]
     public void OffText_Ok()
     {
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.OffText, "Off");
             builder.Add(s => s.Value, true);
@@ -59,7 +59,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     public void OnValueChanged_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.OnValueChanged, (e) =>
             {
@@ -78,7 +78,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     public async Task ValueChanged_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.ValueChanged, EventCallback.Factory.Create<bool>(this, (e) =>
             {
@@ -94,7 +94,7 @@ public class ToggleTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayText_Ok()
     {
-        var cut = Context.RenderComponent<Toggle>(builder =>
+        var cut = Context.Render<Toggle>(builder =>
         {
             builder.Add(s => s.ShowLabel, true);
             builder.Add(s => s.DisplayText, "Toggle");

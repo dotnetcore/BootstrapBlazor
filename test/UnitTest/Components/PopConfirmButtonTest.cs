@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Show_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<PopConfirmButton>(pb =>
             {
@@ -63,7 +63,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         var beforeClose = false;
 
         var popButton = cut.FindComponent<PopConfirmButton>();
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.Content, "Test_Content");
             pb.Add(a => a.ConfirmButtonText, "Test_Confirm_Text");
@@ -94,7 +94,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         Assert.True(close);
 
         // 移除 shadow 样式
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.ShowShadow, false);
         });
@@ -131,7 +131,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         Assert.True(confirm);
 
         // Submit
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.ButtonType, ButtonType.Submit);
         });
@@ -152,7 +152,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
 
         // IsAsync
         var tcs = new TaskCompletionSource();
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.OnConfirm, () =>
@@ -177,7 +177,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
         await tcs.Task;
 
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.ButtonType, ButtonType.Button);
         });
@@ -197,7 +197,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // IsLink
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.IsLink, true);
         });
@@ -207,7 +207,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
             popButton.Contains("<a id=");
         });
 
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.BodyTemplate, builder =>
             {
@@ -222,7 +222,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // ShowButton
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.ShowCloseButton, false);
             pb.Add(a => a.ShowConfirmButton, false);
@@ -230,7 +230,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         cut.DoesNotContain("<div class=\"popover-confirm-buttons\"></div>");
 
         // 级联参数
-        popButton.SetParametersAndRender(pb =>
+        popButton.Render(pb =>
         {
             pb.Add(a => a.ShowCloseButton, true);
             pb.Add(a => a.ShowConfirmButton, true);
@@ -249,10 +249,10 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<PopConfirmButton>();
+        var cut = Context.Render<PopConfirmButton>();
         Assert.DoesNotContain("data-bs-trigger", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Trigger, "test");
         });
@@ -262,7 +262,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<PopConfirmButtonContent>();
+        var cut = Context.Render<PopConfirmButtonContent>();
         cut.Contains("text-info fa-solid fa-circle-exclamation");
         cut.Contains("fa-solid fa-xmark");
         cut.Contains("fa-solid fa-check");
@@ -271,7 +271,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public async Task TooltipText_Null()
     {
-        var cut = Context.RenderComponent<PopConfirmButton>(pb =>
+        var cut = Context.Render<PopConfirmButton>(pb =>
         {
             pb.Add(a => a.TooltipText, "");
         });
@@ -280,7 +280,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
             Assert.Throws<ComponentNotFoundException>(() => cut.FindComponent<Tooltip>());
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.TooltipText, "test");
         });
@@ -293,7 +293,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void TooltipText_Ok()
     {
-        var cut = Context.RenderComponent<Tooltip>(pb =>
+        var cut = Context.Render<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "Test");
             pb.AddChildContent<PopConfirmButton>(pb =>
@@ -307,37 +307,37 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<PopConfirmButton>(pb =>
+        var cut = Context.Render<PopConfirmButton>(pb =>
         {
             pb.Add(a => a.Placement, Placement.LeftStart);
         });
         cut.DoesNotContain("data-bs-placement");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Auto);
         });
         cut.DoesNotContain("data-bs-placement");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Top);
         });
         cut.Contains("data-bs-placement=\"top\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Right);
         });
         cut.Contains("data-bs-placement=\"right\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Bottom);
         });
         cut.Contains("data-bs-placement=\"bottom\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Left);
         });

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnSearchTextChanged_Null()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MultiSelect<string>>(pb =>
             {
@@ -36,7 +36,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             await ctx.Instance.ConfirmSelectedItem(0);
         });
 
-        ctx.SetParametersAndRender(pb =>
+        ctx.Render(pb =>
         {
             pb.Add(a => a.OnSearchTextChanged, text =>
             {
@@ -57,7 +57,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void MinMax_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Min, 1);
             pb.Add(a => a.Max, 3);
@@ -83,7 +83,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Max, 2);
             pb.Add(a => a.Items, new List<SelectedItem>
@@ -96,14 +96,14 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.DoesNotContain("class=\"multi-select-input\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsEditable, true);
         });
         Assert.Contains("class=\"multi-select-input\"", cut.Markup);
         Assert.DoesNotContain("data-bb-trigger-key", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.EditSubmitKey, EditSubmitKey.Space);
         });
@@ -115,7 +115,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerEditTag("123"));
         Assert.Equal("123", cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnEditCallback, async v =>
             {
@@ -131,7 +131,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFixedHeight_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<EnumEducation>>(pb =>
+        var cut = Context.Render<MultiSelect<EnumEducation>>(pb =>
         {
             pb.Add(a => a.IsFixedHeight, true);
         });
@@ -142,7 +142,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsSingleLine_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<EnumEducation>>(pb =>
+        var cut = Context.Render<MultiSelect<EnumEducation>>(pb =>
         {
             pb.Add(a => a.IsSingleLine, true);
         });
@@ -152,7 +152,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumValue_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<EnumEducation>>();
+        var cut = Context.Render<MultiSelect<EnumEducation>>();
         Assert.Contains("multi-select", cut.Markup);
     }
 
@@ -160,7 +160,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public async Task FlagEnum_Ok()
     {
         var value = MockFlagEnum.One | MockFlagEnum.Two;
-        var cut = Context.RenderComponent<MultiSelect<MockFlagEnum>>(pb =>
+        var cut = Context.Render<MultiSelect<MockFlagEnum>>(pb =>
         {
             pb.Add(a => a.Value, value);
         });
@@ -187,7 +187,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void Group_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -204,18 +204,18 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void NullableEnumValue_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<EnumEducation?>>();
+        var cut = Context.Render<MultiSelect<EnumEducation?>>();
         Assert.Contains("multi-select", cut.Markup);
     }
 
     [Fact]
     public void EnumerableValue_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<IEnumerable<string>>>();
+        var cut = Context.Render<MultiSelect<IEnumerable<string>>>();
         Assert.Contains("multi-select", cut.Markup);
 
         // 代码覆盖率 SetValue
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.ShowToolbar, true);
@@ -234,7 +234,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
             pb.Add(a => a.ButtonTemplate, builder => builder.AddContent(0, new MarkupString("<button class=\"btn-test\">ButtonTemplate</button>")));
@@ -243,7 +243,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         // 没有数据也显示 Toolbar 
         Assert.Contains("btn-test", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -257,10 +257,10 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ArrayValue_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string[]>>();
+        var cut = Context.Render<MultiSelect<string[]>>();
 
         // 代码覆盖率 SetValue
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.ShowToolbar, true);
@@ -279,7 +279,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnSearchTextChanged_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.ShowToolbar, true);
@@ -296,7 +296,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ScrollIntoViewBehavior_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -308,7 +308,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("data-bb-scroll-behavior=\"auto\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
         });
@@ -319,7 +319,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public void ToggleRow_Ok()
     {
         var toggle = false;
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Max, 3);
             pb.Add(a => a.Items, new List<SelectedItem>
@@ -339,13 +339,13 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         // 增加代码覆盖率
         cut.InvokeAsync(() => cut.Find(".multi-select-close").Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Max, 1);
         });
         cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Max, 0);
             pb.Add(a => a.Min, 1);
@@ -353,7 +353,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
 
         var foo = new Foo();
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, "");
             pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
@@ -365,7 +365,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public void DefaultButtons_Ok()
     {
         List<SelectedItem> selectedItems = [];
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
             pb.Add(a => a.ShowDefaultButtons, true);
@@ -404,7 +404,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_True()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.IsPopover, true);
             pb.Add(a => a.Items, new List<SelectedItem>
@@ -419,7 +419,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_False()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.IsPopover, false);
             pb.Add(a => a.Items, new List<SelectedItem>
@@ -434,7 +434,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowCloseButton_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowCloseButton, false);
@@ -447,7 +447,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("multi-select-item-group", cut.Markup);
 
         // 设置 SelectedItems
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowCloseButton, true);
             pb.Add(a => a.Items, new List<SelectedItem>
@@ -459,7 +459,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         cut.Contains("multi-select-item-group");
         cut.DoesNotContain("data-bb-val");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsPopover, true);
         });
@@ -469,7 +469,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLabel_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
             pb.Add(a => a.DisplayText, "Test-MultiSelect-Label");
@@ -485,7 +485,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DisplayTemplate_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
@@ -507,7 +507,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         var model = new Foo();
         var valid = false;
         var invalid = false;
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
             pb.Add(a => a.OnValidSubmit, context =>
@@ -560,7 +560,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowCloseButton, false);
@@ -583,7 +583,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void GroupItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowCloseButton, false);
@@ -607,7 +607,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void SearchIcon_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowSearch, true);
@@ -620,7 +620,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("icon-search", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.SearchIcon, null);
         });
@@ -630,7 +630,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void ClearIcon_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.ShowCloseButton, true);
@@ -643,7 +643,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("fa-regular fa-circle-xmark", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ClearIcon, "icon-clear-test");
         });
@@ -654,7 +654,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsMarkupString_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -670,7 +670,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DefaultVirtualizeItemText_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -691,7 +691,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public async Task IsVirtualize_Items_Clearable_Ok()
     {
         IEnumerable<SelectedItem>? selectedItems = null;
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
@@ -739,7 +739,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         var startIndex = 0;
         var requestCount = 0;
         var searchText = string.Empty;
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -784,7 +784,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public async Task IsVirtualize_BindValue()
     {
         var value = "3";
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Value, value);
             pb.Add(a => a.IsVirtualize, true);
@@ -821,7 +821,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void LoadItems_Ok()
     {
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -843,7 +843,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     public async Task OnClearAsync_Ok()
     {
         var clear = false;
-        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        var cut = Context.Render<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {

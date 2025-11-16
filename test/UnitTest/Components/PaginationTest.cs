@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     public void OnPageClick_Ok()
     {
         var pageClicked = false;
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 30);
             pb.Add(a => a.OnPageLinkClick, pageIndex =>
@@ -29,7 +29,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     public async Task MovePage_Ok()
     {
         var pageClicked = false;
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 30);
             pb.Add(a => a.OnPageLinkClick, pageIndex =>
@@ -66,7 +66,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void GotoTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 10);
             pb.Add(a => a.ShowGotoNavigator, true);
@@ -82,7 +82,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     public async Task GotoNavigator_Ok()
     {
         var index = 0;
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 20);
             pb.Add(a => a.ShowGotoNavigator, true);
@@ -106,7 +106,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void PageInfoTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 20);
             pb.Add(a => a.ShowPageInfo, true);
@@ -121,7 +121,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void PageInfoText_Ok()
     {
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 20);
             pb.Add(a => a.ShowPageInfo, true);
@@ -129,7 +129,7 @@ public class PaginationTest : BootstrapBlazorTestBase
         });
         cut.Contains("PageInfoText");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowPageInfo, false);
         });
@@ -139,7 +139,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void Alignment_Ok()
     {
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.Alignment, Alignment.Left);
             pb.Add(a => a.PageCount, 20);
@@ -152,7 +152,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     public async Task NextLink_Ok()
     {
         var index = 0;
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 8);
             pb.Add(a => a.PageIndex, 4);
@@ -176,7 +176,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void PageIndex_Ok()
     {
-        var cut = Context.RenderComponent<Pagination>(pb =>
+        var cut = Context.Render<Pagination>(pb =>
         {
             pb.Add(a => a.PageIndex, 2);
             pb.Add(a => a.PageCount, 8);
@@ -188,7 +188,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     [Fact]
     public void PaginationItem_Ok()
     {
-        var cut = Context.RenderComponent<PaginationItem>(pb =>
+        var cut = Context.Render<PaginationItem>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.Index, 1);

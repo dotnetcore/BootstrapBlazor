@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,10 +10,10 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     [Fact]
     public void QueryBuilder_Ok()
     {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
+        var cut = Context.Render<QueryBuilder<Foo>>();
         cut.Contains("query-builder");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>
             {
@@ -26,7 +26,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>(pb =>
+        var cut = Context.Render<QueryBuilder<Foo>>(pb =>
         {
             pb.Add(a => a.HeaderTemplate, new RenderFragment<FilterKeyValueAction>(filter => builder =>
             {
@@ -39,7 +39,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Dropdown_Ok()
     {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
+        var cut = Context.Render<QueryBuilder<Foo>>();
         var items = cut.FindAll(".dropdown-item");
         Assert.Equal(2, items.Count);
         var groups = cut.FindAll("ul");
@@ -89,7 +89,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     [Fact]
     public void Header_Ok()
     {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
+        var cut = Context.Render<QueryBuilder<Foo>>();
         var header = cut.Find(".qb-header");
         var group = header.QuerySelector(".btn-group");
         Assert.NotNull(group);
@@ -103,7 +103,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         buttons[1].Click();
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Logic, FilterLogic.And);
         });
@@ -113,7 +113,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
         Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowHeader, false);
         });
@@ -124,7 +124,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHeader_Ok()
     {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>(pb =>
+        var cut = Context.Render<QueryBuilder<Foo>>(pb =>
         {
             pb.Add(a => a.ShowHeader, false);
         });
@@ -136,7 +136,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     {
         var filter = new FilterKeyValueAction();
         var foo = new Foo();
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>(pb =>
+        var cut = Context.Render<QueryBuilder<Foo>>(pb =>
         {
             pb.Add(a => a.Value, filter);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<FilterKeyValueAction>(this, v => filter = v));
@@ -192,7 +192,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     public void QueryGroup_Null()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<QueryGroup>(pb =>
+        var cut = Context.Render<QueryGroup>(pb =>
         {
             pb.Add(a => a.Logic, FilterLogic.Or);
             pb.Add(a => a.ChildContent, new RenderFragment(builder =>
@@ -213,7 +213,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
     public void QueryColumn_Ok()
     {
         var foo = new Foo() { Count = 10 };
-        var cut = Context.RenderComponent<QueryColumn<int>>(pb =>
+        var cut = Context.Render<QueryColumn<int>>(pb =>
         {
             pb.Add(a => a.Field, foo.Count);
             pb.Add(a => a.Logic, FilterLogic.Or);

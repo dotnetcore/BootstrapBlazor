@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnFilterAsync_Ok()
     {
-        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        var cut = Context.Render<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, new MockColumn());
@@ -24,7 +24,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task FilterAction_Ok()
     {
-        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        var cut = Context.Render<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, new MockColumn());
@@ -68,7 +68,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task LookupService_Ok()
     {
-        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        var cut = Context.Render<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, new MockLookupServiceColumn());
@@ -99,7 +99,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
     public async Task LookupService_Empty()
     {
         var column = new MockEmptyLookupServiceColumn();
-        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        var cut = Context.Render<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, column);

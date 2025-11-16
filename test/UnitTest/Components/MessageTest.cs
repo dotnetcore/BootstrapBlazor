@@ -15,7 +15,7 @@ public class MessageTest : BootstrapBlazorTestBase
     {
         var dismiss = false;
         var service = Context.Services.GetRequiredService<MessageService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
@@ -65,7 +65,7 @@ public class MessageTest : BootstrapBlazorTestBase
     [Fact]
     public void SetPlacement_Ok()
     {
-        var cut = Context.RenderComponent<Message>(pb =>
+        var cut = Context.Render<Message>(pb =>
         {
             pb.Add(a => a.Placement, Placement.Bottom);
         });
@@ -78,7 +78,7 @@ public class MessageTest : BootstrapBlazorTestBase
     public async Task Placement_Ok()
     {
         var service = Context.Services.GetRequiredService<MessageService>();
-        var cut = Context.RenderComponent<Message>(pb =>
+        var cut = Context.Render<Message>(pb =>
         {
             pb.Add(a => a.Placement, Placement.Bottom);
         });
@@ -110,7 +110,7 @@ public class MessageTest : BootstrapBlazorTestBase
     public async Task ChildContent_Ok()
     {
         var service = Context.Services.GetRequiredService<MessageService>();
-        var cut = Context.RenderComponent<Message>();
+        var cut = Context.Render<Message>();
         await cut.InvokeAsync(() => service.Show(new MessageOption()
         {
             ChildContent = builder => builder.AddContent(0, new MarkupString("<div class=\"custom-message-template\">Custom Message</div>"))
@@ -122,7 +122,7 @@ public class MessageTest : BootstrapBlazorTestBase
     public async Task ShowMode_Ok()
     {
         var service = Context.Services.GetRequiredService<MessageService>();
-        var cut = Context.RenderComponent<Message>();
+        var cut = Context.Render<Message>();
         await cut.InvokeAsync(() => service.Show(new MessageOption()
         {
             Content = "Test Content",
@@ -137,7 +137,7 @@ public class MessageTest : BootstrapBlazorTestBase
     public async Task ForceDelay_Ok()
     {
         var service = Context.Services.GetRequiredService<MessageService>();
-        var cut = Context.RenderComponent<Message>();
+        var cut = Context.Render<Message>();
         var option = new MessageOption()
         {
             Content = "Test Content",

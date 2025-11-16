@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class SplitTest : BootstrapBlazorTestBase
     [Fact]
     public void SplitStyle_Ok()
     {
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
@@ -22,13 +22,13 @@ public class SplitTest : BootstrapBlazorTestBase
         Assert.Contains("is-vertical", cut.Markup);
         Assert.Contains("split-bar-handler", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.Basis, "90%");
         });
         Assert.Contains("90%", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tag" });
         });
@@ -38,7 +38,7 @@ public class SplitTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowBarHandle_Ok()
     {
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
@@ -51,7 +51,7 @@ public class SplitTest : BootstrapBlazorTestBase
     [Fact]
     public void IsCollapsible_Ok()
     {
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
@@ -59,7 +59,7 @@ public class SplitTest : BootstrapBlazorTestBase
         cut.DoesNotContain("split-bar-arrow-left");
         cut.DoesNotContain("split-bar-arrow-right");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.IsCollapsible, true);
         });
@@ -70,7 +70,7 @@ public class SplitTest : BootstrapBlazorTestBase
     [Fact]
     public void Minimum_Ok()
     {
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
@@ -85,7 +85,7 @@ public class SplitTest : BootstrapBlazorTestBase
     public async Task OnResizedAsync_Ok()
     {
         SplitterResizedEventArgs? state = null;
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
@@ -112,7 +112,7 @@ public class SplitTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetLeft_Ok()
     {
-        var cut = Context.RenderComponent<Split>(pb =>
+        var cut = Context.Render<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));

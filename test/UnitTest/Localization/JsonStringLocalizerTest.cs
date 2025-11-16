@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -313,7 +313,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     public void GetResourcePrefix_Ok()
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
-        var builder = new TestContext();
+        var builder = new BunitContext();
         builder.Services.AddConfiguration();
 
         // 注入其他 Localization
@@ -334,7 +334,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     [Fact]
     public void Validate_ResourceManagerStringLocalizerType()
     {
-        var context = new TestContext();
+        var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         context.Services.AddConfiguration();
@@ -346,7 +346,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         context.Services.GetRequiredService<ICacheManager>();
 
         var foo = new Foo();
-        var cut = context.RenderComponent<ValidateForm>(pb =>
+        var cut = context.Render<ValidateForm>(pb =>
         {
             pb.Add(v => v.Model, foo);
             pb.Add(a => a.OnInvalidSubmit, context =>

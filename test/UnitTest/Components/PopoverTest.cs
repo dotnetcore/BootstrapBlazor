@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class PopoverTest : BootstrapBlazorTestBase
     [Fact]
     public void Content_Ok()
     {
-        var cut = Context.RenderComponent<Popover>(pb =>
+        var cut = Context.Render<Popover>(pb =>
         {
             pb.Add(a => a.Title, "test_popover");
             pb.Add(a => a.Content, "test_content");
@@ -18,7 +18,7 @@ public class PopoverTest : BootstrapBlazorTestBase
         Assert.Contains("data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"", cut.Markup);
         Assert.Contains("data-bs-original-title=\"test_popover\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Title, "test");
             pb.Add(a => a.Content, "test");
@@ -29,7 +29,7 @@ public class PopoverTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowShadow_OK()
     {
-        var cut = Context.RenderComponent<Popover>(pb =>
+        var cut = Context.Render<Popover>(pb =>
         {
             pb.Add(a => a.Content, "test_content");
             pb.Add(a => a.ShowShadow, false);
@@ -40,7 +40,7 @@ public class PopoverTest : BootstrapBlazorTestBase
     [Fact]
     public void Template_OK()
     {
-        var cut = Context.RenderComponent<Popover>(pb =>
+        var cut = Context.Render<Popover>(pb =>
         {
             pb.Add(a => a.Template, builder => builder.AddContent(0, "custom-template"));
         });

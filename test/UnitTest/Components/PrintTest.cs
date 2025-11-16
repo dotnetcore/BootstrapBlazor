@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,14 +10,14 @@ public class PrintTest : BootstrapBlazorTestBase
     [Fact]
     public void PrintButton_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<PrintButton>();
         });
         Assert.Contains("fa-solid fa-print", cut.Markup);
 
         var button = cut.FindComponent<PrintButton>();
-        button.SetParametersAndRender(pb =>
+        button.Render(pb =>
         {
             pb.Add(b => b.PreviewUrl, "/PrintTest");
         });
@@ -27,7 +27,7 @@ public class PrintTest : BootstrapBlazorTestBase
     [Fact]
     public async Task PrintService_Error()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
+        var cut = Context.Render<BootstrapBlazorRoot>();
         var printService = cut.Services.CreateScope().ServiceProvider.GetRequiredService<PrintService>();
         await Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
         {
@@ -41,7 +41,7 @@ public class PrintTest : BootstrapBlazorTestBase
     [Fact]
     public async Task PrintService_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockPrintButton>();
         });

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -35,7 +35,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
         // test callback
         // WatchCallback
         var mi = server.GetType().GetMethod("WatchCallback")!;
-        mi.Invoke(server, new object[] { new GeolocationPosition() { Latitude = 100, LastLat = 50 } });
+        mi.Invoke(server, [new GeolocationPosition() { Latitude = 100, LastLat = 50 }]);
         Assert.True(called);
 
         // test call watch again

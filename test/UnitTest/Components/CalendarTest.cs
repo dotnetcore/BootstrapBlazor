@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,22 +10,22 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>();
+        var cut = Context.Render<Calendar>();
         Assert.Contains(DateTime.Today.Year.ToString(), cut.Markup);
 
-        cut.SetParametersAndRender(builder => builder.Add(s => s.Value, new DateTime(1999, 1, 1)));
+        cut.Render(builder => builder.Add(s => s.Value, new DateTime(1999, 1, 1)));
         Assert.Contains("1999", cut.Markup);
         var cell = cut.Find("td.current");
         cut.InvokeAsync(() => cell.Click());
 
-        cut.SetParametersAndRender(builder => builder.Add(s => s.ValueChanged, EventCallback.Factory.Create<DateTime>(this, () => new DateTime(1999, 1, 1))));
+        cut.Render(builder => builder.Add(s => s.ValueChanged, EventCallback.Factory.Create<DateTime>(this, () => new DateTime(1999, 1, 1))));
         cut.InvokeAsync(() => cell.Click());
     }
 
     [Fact]
     public void ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(builder =>
+        var cut = Context.Render<Calendar>(builder =>
         {
             builder.Add(s => s.ViewMode, CalendarViewMode.Week);
             builder.Add(a => a.ChildContent, CreateComponent());
@@ -43,7 +43,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void CellTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(builder =>
+        var cut = Context.Render<Calendar>(builder =>
         {
             builder.Add(a => a.CellTemplate, context => builder =>
             {
@@ -60,7 +60,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(builder =>
+        var cut = Context.Render<Calendar>(builder =>
         {
             builder.Add(a => a.ViewMode, CalendarViewMode.Month);
             builder.Add(a => a.HeaderTemplate, builder =>
@@ -78,7 +78,7 @@ public class CalendarTest : BootstrapBlazorTestBase
         Assert.Contains("HeaderTemplate", cut.Markup);
         Assert.Contains("data-bb-value=\"7\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ViewMode, CalendarViewMode.Week);
         });
@@ -88,7 +88,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     public async Task ButtonClick_Ok()
     {
         var v = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(a => a.Value, DateTime.Today);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
@@ -138,7 +138,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     public async Task ValueChanged_Ok()
     {
         var value = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(a => a.ValueChanged, v => value = v);
             pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
@@ -159,7 +159,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     public async Task OnChangeWeek_Ok()
     {
         var v = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(s => s.ViewMode, CalendarViewMode.Week);
             pb.Add(a => a.Value, DateTime.Today);
@@ -198,7 +198,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowYearButtons_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(s => s.ViewMode, CalendarViewMode.Month);
             pb.Add(a => a.Value, DateTime.Today);
@@ -213,7 +213,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     public async Task OnValueChanged_Ok()
     {
         var v = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(s => s.ViewMode, CalendarViewMode.Week);
             pb.Add(a => a.Value, DateTime.Today);
@@ -237,7 +237,7 @@ public class CalendarTest : BootstrapBlazorTestBase
     [Fact]
     public void FirstDayOfWeek_Ok()
     {
-        var cut = Context.RenderComponent<Calendar>(pb =>
+        var cut = Context.Render<Calendar>(pb =>
         {
             pb.Add(a => a.Value, new DateTime(2025, 02, 20));
             pb.Add(a => a.FirstDayOfWeek, DayOfWeek.Monday);

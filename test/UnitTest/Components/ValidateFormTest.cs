@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -21,7 +21,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     [Fact]
     public void BootstrapBlazorDataAnnotationsValidator_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<BootstrapBlazorDataAnnotationsValidator>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<BootstrapBlazorDataAnnotationsValidator>());
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var valid = false;
         var invalid = false;
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.ShowLabelTooltip, true);
             pb.Add(a => a.Model, foo);
@@ -68,7 +68,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var changed = false;
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.OnFieldValueChanged, (fieldName, v) =>
@@ -93,7 +93,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var foo = new Foo();
         var invalid = false;
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.ValidateAllProperties, true);
@@ -118,7 +118,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void ShowRequiredMark_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.ShowRequiredMark, true);
@@ -131,7 +131,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         cut.Contains("required=\"true\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowRequiredMark, false);
         });
@@ -142,7 +142,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void ShowLabel_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.ShowLabel, true);
@@ -155,7 +155,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         cut.Contains("label");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowLabel, false);
         });
@@ -166,7 +166,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void LabelWidth_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.Add(a => a.LabelWidth, 120);
@@ -186,7 +186,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var foo = new Foo();
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
@@ -217,7 +217,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var foo = new Foo();
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.AddChildContent<DateTimePicker<DateTime?>>(pb =>
@@ -244,7 +244,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void MetadataTypeAttribute_Ok()
     {
         var foo = new Dummy();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<DateTimePicker<DateTime?>>(pb =>
@@ -261,7 +261,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void MetadataTypeIValidatableObject_Ok()
     {
         var foo = new Dummy() { Password1 = "password", Password2 = "Password2" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -285,7 +285,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task MetadataTypeIValidateCollection_Ok()
     {
         var model = new Dummy2() { Value1 = 0, Value2 = 0 };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
             pb.AddChildContent<MockInput<int>>(pb =>
@@ -309,7 +309,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         model.Value1 = 0;
         model.Value2 = 2;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Model, model);
         });
@@ -322,7 +322,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void Validate_Class_Ok()
     {
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.ValidateAllProperties, true);
@@ -345,7 +345,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         var invalid = false;
         var dummy = new Dummy();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, dummy);
             pb.Add(a => a.ValidateAllProperties, false);
@@ -364,7 +364,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => form.Submit());
         Assert.False(invalid);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ValidateAllProperties, true);
         });
@@ -376,7 +376,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task Validate_UploadFile_Ok()
     {
         var foo = new Dummy() { File = "text.txt" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<ButtonUpload<string>>(pb =>
@@ -393,7 +393,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task Validate_Localizer_Ok()
     {
         var foo = new MockFoo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -412,7 +412,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task Validate_Attribute_Ok()
     {
         var foo = new MockFoo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -431,7 +431,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task Validate_MemberName_Ok()
     {
         var foo = new MockFoo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -450,7 +450,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void Validate_Address_Ok()
     {
         var foo = new MockFoo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -471,7 +471,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var tcs = new TaskCompletionSource<bool>();
         var valid = false;
         var foo = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(v => v.Model, foo);
             pb.Add(v => v.OnValidSubmit, context =>
@@ -502,7 +502,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var tcs = new TaskCompletionSource<bool>();
         var valid = true;
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(v => v.Model, foo);
             pb.Add(a => a.OnInvalidSubmit, context =>
@@ -531,7 +531,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task ValidateFromCode_Ok()
     {
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
@@ -551,7 +551,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task Validate_Service_Ok()
     {
         var foo = new HasService();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -572,7 +572,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         // 自定义验证规则没有使用约定 Attribute 结尾单元测试
         var foo = new HasService();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -592,7 +592,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task RequiredValidator_Ok()
     {
         var foo = new HasService();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -615,7 +615,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         options.CurrentValue.DisableAutoSubmitFormByEnter = true;
 
         var foo = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(v => v.Model, foo);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
@@ -632,7 +632,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         Assert.True(cut.Instance.DisableAutoSubmitFormByEnter);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DisableAutoSubmitFormByEnter, false);
         });
@@ -655,7 +655,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task IValidatableObject_Ok()
     {
         var model = new MockValidataModel() { Telephone1 = "123", Telephone2 = "123" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -679,7 +679,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public async Task IValidateCollection_Ok()
     {
         var model = new MockValidateCollectionModel() { Telephone1 = "123", Telephone2 = "123" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
             pb.AddChildContent<MockInput<string>>(pb =>
@@ -708,7 +708,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => inputEl.Change("1234"));
         var message = input.Instance.GetErrorMessage();
         Assert.Null(message);
-        cut.SetParametersAndRender();
+        cut.Render();
         message = input2.Instance.GetErrorMessage();
         Assert.Null(message);
 
@@ -717,7 +717,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => inputEl2.Change("1234"));
         message = input2.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
-        cut.SetParametersAndRender();
+        cut.Render();
         message = input.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
     }
@@ -726,7 +726,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public void ShowAllInvalidResult_Ok()
     {
         var model = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, model);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
@@ -737,7 +737,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("data-bb-invalid-result");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowAllInvalidResult, true);
         });

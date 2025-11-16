@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void ChildContent_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test_content"));
         });
@@ -22,7 +22,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void ImageUrl_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.ImageUrl, "test_image_url");
         });
@@ -33,13 +33,13 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void UserName_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.UserName, "admin");
         });
         Assert.Contains("admin", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PrefixUserNameText, "prefix_username");
         });
@@ -50,7 +50,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void ShowUserName_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.UserName, "admin");
             pb.Add(a => a.ShowUserName, false);
@@ -62,13 +62,13 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void DisplayName_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.DisplayName, "administrators");
         });
         Assert.Contains("administrators", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PrefixDisplayNameText, "prefix_display_name");
         });
@@ -79,7 +79,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void HeaderTemplate_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.HeaderTemplate, new RenderFragment(builder => builder.AddContent(0, "header_template")));
         });
@@ -90,7 +90,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void LinkTemplate_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.LinkTemplate, new RenderFragment(builder => builder.AddContent(0, "link_template")));
         });
@@ -101,7 +101,7 @@ public class LogoutTest : BootstrapBlazorTestBase
     public void AvatarRadius_Ok()
     {
         // 未设置 Items
-        var cut = Context.RenderComponent<Logout>(pb =>
+        var cut = Context.Render<Logout>(pb =>
         {
             pb.Add(a => a.AvatarRadius, "50%");
         });

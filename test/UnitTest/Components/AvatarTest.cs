@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class AvatarTest : BootstrapBlazorTestBase
     [Fact]
     public void IsCircle_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsCircle, true));
+        var cut = Context.Render<Avatar>(builder => builder.Add(a => a.IsCircle, true));
         Assert.Contains("avatar-circle", cut.Markup);
     }
 
@@ -18,7 +18,7 @@ public class AvatarTest : BootstrapBlazorTestBase
     public void Url_Ok()
     {
         var url = "./images/Argo-C.png";
-        var cut = Context.RenderComponent<Avatar>(builder =>
+        var cut = Context.Render<Avatar>(builder =>
         {
             builder.Add(a => a.Url, url);
             builder.Add(a => a.IsBorder, true);
@@ -34,7 +34,7 @@ public class AvatarTest : BootstrapBlazorTestBase
     [Fact]
     public void IsIcon_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder =>
+        var cut = Context.Render<Avatar>(builder =>
         {
             builder.Add(a => a.IsIcon, true);
             builder.Add(a => a.Icon, "fa-solid fa-font-awesome");
@@ -46,7 +46,7 @@ public class AvatarTest : BootstrapBlazorTestBase
     [Fact]
     public void IsText_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder =>
+        var cut = Context.Render<Avatar>(builder =>
         {
             builder.Add(a => a.IsText, true);
             builder.Add(a => a.Text, "user");
@@ -58,24 +58,24 @@ public class AvatarTest : BootstrapBlazorTestBase
     [Fact]
     public void Size_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.None));
+        var cut = Context.Render<Avatar>(builder => builder.Add(a => a.Size, Size.None));
         Assert.DoesNotContain("avatar-lg", cut.Markup);
 
-        cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.Size, Size.Large));
+        cut = Context.Render<Avatar>(builder => builder.Add(a => a.Size, Size.Large));
         Assert.Contains("avatar-lg", cut.Markup);
     }
 
     [Fact]
     public void IsBorder_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder => builder.Add(a => a.IsBorder, true));
+        var cut = Context.Render<Avatar>(builder => builder.Add(a => a.IsBorder, true));
         Assert.Contains("border", cut.Markup);
     }
 
     [Fact]
     public void CustomerClass_Ok()
     {
-        var cut = Context.RenderComponent<Avatar>(builder => builder.AddUnmatched("class", "is-test"));
+        var cut = Context.Render<Avatar>(builder => builder.AddUnmatched("class", "is-test"));
         Assert.Contains("<span class=\"avatar is-test\"", cut.Markup);
     }
 
@@ -83,7 +83,7 @@ public class AvatarTest : BootstrapBlazorTestBase
     public void GetUrlAsync_Ok()
     {
         var url = "./images/Argo-C.png";
-        var cut = Context.RenderComponent<Avatar>(builder =>
+        var cut = Context.Render<Avatar>(builder =>
         {
             builder.Add(a => a.GetUrlAsync, () => Task.FromResult(url));
             builder.Add(a => a.IsBorder, true);

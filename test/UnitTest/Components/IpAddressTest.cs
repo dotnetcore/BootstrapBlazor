@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class IpAddressTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IpAddress_Ok()
     {
-        var cut = Context.RenderComponent<IpAddress>();
+        var cut = Context.Render<IpAddress>();
         cut.Contains("ipaddress form-control");
         Assert.Equal("0.0.0.0", cut.Instance.Value);
 
@@ -25,7 +25,7 @@ public class IpAddressTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IpAddress_Null()
     {
-        var cut = Context.RenderComponent<IpAddress>();
+        var cut = Context.Render<IpAddress>();
         var inputs = cut.FindAll(".ipv4-cell");
         await cut.InvokeAsync(() => inputs[0].Change(new ChangeEventArgs() { Value = null }));
         await cut.InvokeAsync(() => inputs[1].Change(new ChangeEventArgs() { Value = null }));
@@ -37,7 +37,7 @@ public class IpAddressTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IpAddress_Value()
     {
-        var cut = Context.RenderComponent<IpAddress>();
+        var cut = Context.Render<IpAddress>();
         var inputs = cut.FindAll(".ipv4-cell");
         await cut.InvokeAsync(() => inputs[0].Change(new ChangeEventArgs() { Value = "1234" }));
         await cut.InvokeAsync(() => inputs[1].Change(new ChangeEventArgs() { Value = "1234" }));
@@ -50,7 +50,7 @@ public class IpAddressTest : BootstrapBlazorTestBase
     public void ValidateForm_Ok()
     {
         var foo = new Foo() { Name = "1.1.1.1" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<IpAddress>(pb =>

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -23,7 +23,7 @@ public class TableTestEFCore : BootstrapBlazorTestBase
     {
         List<Foo>? items = null;
         var context = Context.Services.GetRequiredService<IDbContextFactory<FooContext>>().CreateDbContext();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -60,7 +60,7 @@ public class TableTestEFCore : BootstrapBlazorTestBase
         Assert.Empty(items);
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.SearchText, "Zhangsan");
         });
@@ -74,7 +74,7 @@ public class TableTestEFCore : BootstrapBlazorTestBase
     [Fact]
     public void IsHeaderRow_OnFilterValueChanged()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {

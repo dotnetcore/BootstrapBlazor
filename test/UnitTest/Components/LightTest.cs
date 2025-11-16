@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,11 +10,11 @@ public class LightTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFlash_Ok()
     {
-        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.IsFlash, true));
+        var cut = Context.Render<Light>(builder => builder.Add(s => s.IsFlash, true));
         Assert.Contains("bb-light flash", cut.Markup);
         Assert.DoesNotContain("is-flash-flat", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsFlat, true);
         });
@@ -26,7 +26,7 @@ public class LightTest : BootstrapBlazorTestBase
     [Fact]
     public void Tooltip_Ok()
     {
-        var cut = Context.RenderComponent<Light>(pb =>
+        var cut = Context.Render<Light>(pb =>
         {
             pb.Add(s => s.TooltipText, "I am Light");
             pb.Add(s => s.TooltipTrigger, "focus");
@@ -41,7 +41,7 @@ public class LightTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.Color, Color.Success));
+        var cut = Context.Render<Light>(builder => builder.Add(s => s.Color, Color.Success));
 
         Assert.Contains("light-success", cut.Markup);
     }

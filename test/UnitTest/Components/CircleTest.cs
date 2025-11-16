@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.Value, 100));
+        var cut = Context.Render<Circle>(builder => builder.Add(a => a.Value, 100));
 
         Assert.Contains("100%", cut.Markup);
     }
@@ -18,7 +18,7 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void Width_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.Width, 100));
+        var cut = Context.Render<Circle>(builder => builder.Add(a => a.Width, 100));
 
         Assert.Contains("width: 100px", cut.Markup);
     }
@@ -26,13 +26,13 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void StrokeWidth_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.StrokeWidth, 5));
+        var cut = Context.Render<Circle>(builder => builder.Add(a => a.StrokeWidth, 5));
 
         Assert.Contains("stroke-width=\"5\"", cut.Markup);
 
         // 增加代码覆盖率
         //Width / 2 < StrokeWidth
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Width, 6);
             pb.Add(a => a.StrokeWidth, 6);
@@ -43,7 +43,7 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.Color, Color.Success));
+        var cut = Context.Render<Circle>(builder => builder.Add(a => a.Color, Color.Success));
 
         var element = cut.Find(".circle-success");
 
@@ -53,14 +53,14 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowProgress_Ok()
     {
-        var cut = Context.RenderComponent<Circle>(builder =>
+        var cut = Context.Render<Circle>(builder =>
         {
             builder.Add(a => a.Value, 75);
             builder.Add(a => a.ShowProgress, true);
         });
         cut.Contains("75%");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowProgress, false);
         });
@@ -70,7 +70,7 @@ public class CircleTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_ChildContent()
     {
-        var cut = Context.RenderComponent<Circle>(builder => builder.Add(a => a.ChildContent, s =>
+        var cut = Context.Render<Circle>(builder => builder.Add(a => a.ChildContent, s =>
         {
             s.OpenElement(1, "div");
             s.AddContent(2, "I am cricle");

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void SlideButton_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.AddUnmatched("class", "slide-test");
         });
@@ -21,10 +21,10 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.Contains("btn btn-primary");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Color, Color.Success);
         });
@@ -34,16 +34,16 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.Contains("data-bb-placement=\"auto\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Placement, Placement.Bottom);
         });
         cut.Contains("data-bb-placement=\"bottom\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Placement, Placement.Left);
         });
@@ -54,10 +54,10 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Offset_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.Contains("data-bb-offset=\"8\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Offset, 4);
         });
@@ -67,10 +67,10 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Size_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.Contains("btn btn-primary");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.Size, Size.Small);
         });
@@ -80,7 +80,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.Icon, "fa fa-flag");
         });
@@ -90,7 +90,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Text_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.Text, "button-text");
         });
@@ -100,7 +100,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.IsDisabled, true);
         });
@@ -110,10 +110,10 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHeader_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.DoesNotContain("slide-header");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.ShowHeader, true);
             pb.Add(i => i.HeaderText, "header-text");
@@ -121,7 +121,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
         cut.Contains("slide-header");
         cut.Contains("header-text");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.HeaderTemplate, b => b.AddContent(0, "Header-Template"));
         });
@@ -131,10 +131,10 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAutoClose_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>();
+        var cut = Context.Render<SlideButton>();
         cut.Contains("data-bb-auto-close=\"true\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(i => i.IsAutoClose, false);
         });
@@ -145,7 +145,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     public void SlideButtonItems_Ok()
     {
         SelectedItem? item = null;
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.SlideButtonItems, b =>
             {
@@ -176,13 +176,13 @@ public class SlideButtonTest : BootstrapBlazorTestBase
         });
         Assert.NotNull(item);
         Assert.Equal("1", item.Value);
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]
     public void ButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.ButtonTemplate, b => b.AddContent(10, new MarkupString("<div>ButtonTemplate-Test</div>")));
         });
@@ -192,7 +192,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.Items, new SelectedItem[]
             {
@@ -208,7 +208,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         SelectedItem? item = null;
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.Items, new SelectedItem[]
             {
@@ -234,7 +234,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void BodyTemplate_Ok()
     {
-        var cut = Context.RenderComponent<SlideButton>(pb =>
+        var cut = Context.Render<SlideButton>(pb =>
         {
             pb.Add(i => i.Items, new SelectedItem[]
             {
@@ -276,7 +276,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void SlideButtonItem_Ok()
     {
-        var cut = Context.RenderComponent<SlideButtonItem>(pb =>
+        var cut = Context.Render<SlideButtonItem>(pb =>
         {
             pb.Add(a => a.Text, "text");
         });

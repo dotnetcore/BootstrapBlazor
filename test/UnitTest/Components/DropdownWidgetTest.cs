@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,13 +10,13 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder => builder.Add(s => s.Items, GetItems()));
+        var cut = Context.Render<DropdownWidget>(builder => builder.Add(s => s.Items, GetItems()));
     }
 
     [Fact]
     public void ChildContent_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
@@ -33,7 +33,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -50,7 +50,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void Title_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -66,7 +66,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void BadgeColor_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -84,7 +84,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void BadgeNumber_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -103,7 +103,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowArrow_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -121,7 +121,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void BodyTemplate_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -142,7 +142,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -163,7 +163,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderColor_OK()
     {
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -187,7 +187,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
     {
         var shown = false;
         var closed = false;
-        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        var cut = Context.Render<DropdownWidget>(builder =>
         {
             builder.Add(a => a.OnItemShownAsync, item =>
             {
@@ -220,7 +220,7 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(0, true));
         Assert.True(shown);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnItemCloseAsync, item =>
             {

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
         });
@@ -20,7 +20,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Height, "50vh");
         });
@@ -37,7 +37,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.HeaderTemplate, builder => builder.AddContent(0, "Test-Header"));
@@ -57,7 +57,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => item.Click());
         cut.WaitForAssertion(() => Assert.True(clicked));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.GroupItemOrderCallback, group => group.OrderBy(i => i.Description));
@@ -84,7 +84,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -119,7 +119,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -156,7 +156,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = "test.jpg",
             Category = null
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.GroupName, p => p.Category);
@@ -189,7 +189,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
 
         // 设置分组
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.GroupOrderCallback, items => items.OrderBy(i => i.Key));
             pb.Add(a => a.GroupHeaderTextCallback, key => key?.ToString());
@@ -205,7 +205,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.IsAccordion, true);
@@ -237,7 +237,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.IsAccordion, true);
@@ -273,7 +273,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.GroupName, p => p.Category);
@@ -307,7 +307,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     [Fact]
     public void EmptyTemplate_Ok()
     {
-        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        var cut = Context.Render<ListView<Product>>(pb =>
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
@@ -322,7 +322,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
         cut.Contains("empty-template");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add<RenderFragment?>(a => a.EmptyTemplate, null);
             pb.Add(a => a.EmptyText, "text-empty");

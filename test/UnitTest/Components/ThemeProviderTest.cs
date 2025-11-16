@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
     [Fact]
     public void ThemeProvider_Ok()
     {
-        var cut = Context.RenderComponent<ThemeProvider>(pb =>
+        var cut = Context.Render<ThemeProvider>(pb =>
         {
             pb.Add(a => a.ShowShadow, false);
             pb.Add(a => a.Alignment, Alignment.Center);
@@ -23,7 +23,7 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
     public async Task OnThemeChanged_Ok()
     {
         var v = ThemeValue.Auto;
-        var cut = Context.RenderComponent<ThemeProvider>(pb =>
+        var cut = Context.Render<ThemeProvider>(pb =>
         {
             pb.Add(a => a.OnThemeChangedAsync, val =>
             {
@@ -39,7 +39,7 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
     public async Task ThemeValueChanged_Ok()
     {
         var v = ThemeValue.Auto;
-        var cut = Context.RenderComponent<ThemeProvider>(pb =>
+        var cut = Context.Render<ThemeProvider>(pb =>
         {
             pb.Add(a => a.ThemeValue, ThemeValue.Light);
             pb.Add(a => a.ThemeValueChanged, EventCallback.Factory.Create<ThemeValue>(this, val => v = val));

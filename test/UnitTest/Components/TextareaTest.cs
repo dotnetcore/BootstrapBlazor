@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,12 +10,12 @@ public class TextareaTest : BootstrapBlazorTestBase
     [Fact]
     public void IsShowLabel_OK()
     {
-        var cut = Context.RenderComponent<Textarea>(builder => builder.Add(s => s.ShowLabel, true));
+        var cut = Context.Render<Textarea>(builder => builder.Add(s => s.ShowLabel, true));
 
         var component = cut.FindComponent<BootstrapLabel>();
         Assert.NotNull(component);
 
-        component.SetParametersAndRender(pb =>
+        component.Render(pb =>
         {
             pb.Add(a => a.LabelWidth, 120);
         });
@@ -25,15 +25,15 @@ public class TextareaTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLabelTooltip_OK()
     {
-        var cut = Context.RenderComponent<BootstrapLabel>(pb =>
+        var cut = Context.Render<BootstrapLabel>(pb =>
         {
             pb.Add(a => a.ShowLabelTooltip, null);
         });
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowLabelTooltip, false);
         });
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, "Test");
             pb.Add(a => a.ShowLabelTooltip, true);
@@ -43,13 +43,13 @@ public class TextareaTest : BootstrapBlazorTestBase
     [Fact]
     public void AutoScrollString_OK()
     {
-        var cut = Context.RenderComponent<Textarea>(builder =>
+        var cut = Context.Render<Textarea>(builder =>
         {
             builder.Add(a => a.IsAutoScroll, true);
         });
         Assert.Contains("data-bb-scroll=\"auto\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsAutoScroll, false);
         });
@@ -64,7 +64,7 @@ public class TextareaTest : BootstrapBlazorTestBase
     public async Task OnBlurAsync_Ok()
     {
         var blur = false;
-        var cut = Context.RenderComponent<Textarea>(builder =>
+        var cut = Context.Render<Textarea>(builder =>
         {
             builder.Add(a => a.OnBlurAsync, v =>
             {
@@ -80,13 +80,13 @@ public class TextareaTest : BootstrapBlazorTestBase
     [Fact]
     public void UseShiftEnter_Ok()
     {
-        var cut = Context.RenderComponent<Textarea>(builder =>
+        var cut = Context.Render<Textarea>(builder =>
         {
             builder.Add(a => a.UseShiftEnter, true);
         });
         cut.Contains("data-bb-shift-enter=\"true\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.UseShiftEnter, false);
         });

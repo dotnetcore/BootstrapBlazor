@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class WatermarkTest : BootstrapBlazorTestBase
     [Fact]
     public void Watermark_Ok()
     {
-        var cut = Context.RenderComponent<Watermark>(pb =>
+        var cut = Context.Render<Watermark>(pb =>
         {
             pb.Add(a => a.Text, null);
             pb.Add(a => a.FontSize, 16);
@@ -22,13 +22,13 @@ public class WatermarkTest : BootstrapBlazorTestBase
         });
         cut.MarkupMatches("<div id:ignore class=\"bb-watermark\"><span>Test</span></div>");
 
-        var ex = Assert.ThrowsAny<InvalidOperationException>(() => cut.SetParametersAndRender(pb =>
+        var ex = Assert.ThrowsAny<InvalidOperationException>(() => cut.Render(pb =>
         {
             pb.Add(a => a.IsPage, true);
         }));
         Assert.Equal($"IsPage is true, ChildContent cannot be set.", ex.Message);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsPage, true);
             pb.Add(a => a.ChildContent, (RenderFragment?)null);

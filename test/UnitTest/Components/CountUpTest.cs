@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,13 +10,13 @@ public class CountUpTest : BootstrapBlazorTestBase
     [Fact]
     public void CountUp_Ok()
     {
-        var cut = Context.RenderComponent<CountUp<int>>(pb =>
+        var cut = Context.Render<CountUp<int>>(pb =>
         {
             pb.Add(a => a.Value, 1234);
         });
         cut.Contains("<span id=");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, 23);
         });
@@ -25,14 +25,14 @@ public class CountUpTest : BootstrapBlazorTestBase
     [Fact]
     public void Class_Ok()
     {
-        var cut = Context.RenderComponent<CountUp<int>>(pb =>
+        var cut = Context.Render<CountUp<int>>(pb =>
         {
             pb.Add(a => a.Value, 1234);
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>() { { "class", "test1" } });
         });
         cut.Contains("<span class=\"test1\" id=");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, 23);
         });
@@ -43,7 +43,7 @@ public class CountUpTest : BootstrapBlazorTestBase
     {
         Assert.Throws<InvalidOperationException>(() =>
         {
-            Context.RenderComponent<CountUp<string>>();
+            Context.Render<CountUp<string>>();
         });
     }
 
@@ -51,7 +51,7 @@ public class CountUpTest : BootstrapBlazorTestBase
     public void OnCompleted_Ok()
     {
         var completed = false;
-        var cut = Context.RenderComponent<CountUp<int>>(pb =>
+        var cut = Context.Render<CountUp<int>>(pb =>
         {
             pb.Add(a => a.Value, 1234);
             pb.Add(a => a.Option, new CountUpOption());

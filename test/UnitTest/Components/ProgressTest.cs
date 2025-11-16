@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ProgressTest : TestBase
     [Fact]
     public void ShowValue_Ok()
     {
-        var cut = Context.RenderComponent<Progress>(pb =>
+        var cut = Context.Render<Progress>(pb =>
         {
             pb.Add(a => a.IsShowValue, true);
             pb.Add(a => a.Value, 50);
@@ -22,7 +22,7 @@ public class ProgressTest : TestBase
     [Fact]
     public void IsStriped_Ok()
     {
-        var cut = Context.RenderComponent<Progress>(pb =>
+        var cut = Context.Render<Progress>(pb =>
         {
             pb.Add(a => a.IsStriped, true);
             pb.Add(a => a.Value, 50);
@@ -34,7 +34,7 @@ public class ProgressTest : TestBase
     [Fact]
     public void IsAnimated_Ok()
     {
-        var cut = Context.RenderComponent<Progress>(pb =>
+        var cut = Context.Render<Progress>(pb =>
         {
             pb.Add(a => a.IsAnimated, true);
             pb.Add(a => a.Value, 50);
@@ -46,7 +46,7 @@ public class ProgressTest : TestBase
     [Fact]
     public void Text_Ok()
     {
-        var cut = Context.RenderComponent<Progress>(pb =>
+        var cut = Context.Render<Progress>(pb =>
         {
             pb.Add(a => a.Value, 50);
             pb.Add(a => a.IsShowValue, true);
@@ -65,7 +65,7 @@ public class ProgressTest : TestBase
     [InlineData(10.126, 2, MidpointRounding.ToEven, "10.13")]
     public void Round_Ok(double value, int round, MidpointRounding mode, string expected)
     {
-        var cut = Context.RenderComponent<Progress>(pb =>
+        var cut = Context.Render<Progress>(pb =>
         {
             pb.Add(a => a.Value, value);
             pb.Add(a => a.Round, round);

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,7 +15,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     public async Task OnInput_Ok(double? v)
     {
         double? value = 0.0;
-        var cut = Context.RenderComponent<BootstrapInputNumber<double?>>(builder =>
+        var cut = Context.Render<BootstrapInputNumber<double?>>(builder =>
         {
             builder.Add(a => a.Value, v);
             builder.Add(a => a.UseInputEvent, true);
@@ -41,7 +41,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     [Fact]
     public void OnBlur_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputNumber<int>>(pb =>
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
         {
             pb.Add(a => a.Min, "0");
             pb.Add(a => a.Max, "10");
@@ -59,7 +59,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     public void ValidateForm()
     {
         var foo = new Cat() { Count = 20 };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<BootstrapInputNumber<int>>(pb =>
@@ -81,13 +81,13 @@ public class InputNumberTest : BootstrapBlazorTestBase
     [Fact]
     public void InvalidOperationException_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<BootstrapInputNumber<string>>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<BootstrapInputNumber<string>>());
     }
 
     [Fact]
     public void Formatter_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputNumber<decimal>>(pb =>
+        var cut = Context.Render<BootstrapInputNumber<decimal>>(pb =>
         {
             pb.Add(a => a.Value, 10.01m);
             pb.Add(a => a.Formatter, v => $"{v + 1}");
@@ -95,7 +95,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         var input = cut.Find("input");
         Assert.Equal("11.01", input.GetAttribute("value"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Formatter, null);
             pb.Add(a => a.FormatString, "#0.0");
@@ -109,7 +109,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     [Fact]
     public void Formatter_Null()
     {
-        var cut = Context.RenderComponent<BootstrapInputNumber<int?>>(pb =>
+        var cut = Context.Render<BootstrapInputNumber<int?>>(pb =>
         {
             pb.Add(a => a.FormatString, "d2");
         });
@@ -119,13 +119,13 @@ public class InputNumberTest : BootstrapBlazorTestBase
     [Fact]
     public void Formatter_Error()
     {
-        Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<MockInputNumber>());
+        Assert.ThrowsAny<InvalidOperationException>(() => Context.Render<MockInputNumber>());
     }
 
     [Fact]
     public async Task Nullable_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputNumber<int?>>(pb =>
+        var cut = Context.Render<BootstrapInputNumber<int?>>(pb =>
         {
             pb.Add(a => a.Value, 5);
         });
@@ -142,7 +142,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     public async Task OnBlurAsync_Ok()
     {
         var blur = false;
-        var cut = Context.RenderComponent<BootstrapInputNumber<int>>(builder =>
+        var cut = Context.Render<BootstrapInputNumber<int>>(builder =>
         {
             builder.Add(a => a.OnBlurAsync, v =>
             {
@@ -160,7 +160,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     {
         var inc = false;
         var dec = false;
-        var cut = Context.RenderComponent<BootstrapInputNumber<int>>(pb =>
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
         {
             pb.Add(a => a.ShowButton, true);
             pb.Add(a => a.OnIncrement, v =>
@@ -185,7 +185,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         Assert.True(dec);
         Assert.Equal(0, cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Step, "10"));
+        cut.Render(pb => pb.Add(a => a.Step, "10"));
         buttons = cut.FindAll("button");
         await cut.InvokeAsync(() => buttons[0].Click());
         Assert.Equal(-10, cut.Instance.Value);
