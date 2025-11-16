@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void IsHeaderRow_Ok()
     {
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.IsHeaderRow, true);
         });
@@ -22,7 +22,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     {
         Assert.Throws<InvalidOperationException>(() =>
         {
-            Context.RenderComponent<MultiFilter>(pb =>
+            Context.Render<MultiFilter>(pb =>
             {
                 pb.Add(a => a.Items, new List<SelectedItem>()
                 {
@@ -38,7 +38,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowSearch_Ok()
     {
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -54,7 +54,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => input.Input("1"));
         await cut.InvokeAsync(() => input.Input(""));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowSearch, false);
         });
@@ -64,7 +64,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnGetItemsAsync_Ok()
     {
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.OnGetItemsAsync, new Func<Task<List<SelectedItem>>>(() => Task.FromResult(new List<SelectedItem>()
             {
@@ -93,7 +93,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
             new("2", "Test-2"),
             new("3", "Test-3")
         };
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -116,7 +116,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
             new("1", "Test-1") { Active = true },
             new("2", "Test-2")
         };
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -127,7 +127,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
             new("1", "Test-1") { Active = false },
             new("2", "Test-2") { Active = true }
         ];
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -138,7 +138,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void LoadingTemplate_Ok()
     {
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.LoadingTemplate, new RenderFragment(builder =>
             {
@@ -151,7 +151,7 @@ public class TableMultiFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task FilterAction_Ok()
     {
-        var cut = Context.RenderComponent<MultiFilter>(pb =>
+        var cut = Context.Render<MultiFilter>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {

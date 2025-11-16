@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class WaterfallTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Template_Ok()
     {
-        var cut = Context.RenderComponent<Waterfall>(pb =>
+        var cut = Context.Render<Waterfall>(pb =>
         {
             pb.Add(a => a.OnRequestAsync, item => Task.FromResult(Enumerable.Range(1, 4).Select(i => new WaterfallItem() { Id = $"{i}", Url = $"url_{i}" })));
         });
@@ -22,7 +22,7 @@ public class WaterfallTest : BootstrapBlazorTestBase
         });
         cut.Contains("<div class=\"bb-waterfall-item\" data-bb-waterfall-item-id=\"1\"><img alt data-url=\"url_1\" /><div class=\"bb-waterfall-item-loader\"><i class=\"fa-solid fa-circle-notch fa-spin\"></i></div></div>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ItemWidth, 100);
             pb.Add(a => a.ItemMinHeight, 200);
@@ -52,7 +52,7 @@ public class WaterfallTest : BootstrapBlazorTestBase
     [Fact]
     public void LoadTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Waterfall>(pb =>
+        var cut = Context.Render<Waterfall>(pb =>
         {
             pb.Add(a => a.OnRequestAsync, item => Task.FromResult(Enumerable.Range(1, 4).Select(i => new WaterfallItem() { Id = $"{i}", Url = $"url_{i}" })));
             pb.Add(a => a.LoadTemplate, new RenderFragment(builder =>
@@ -67,7 +67,7 @@ public class WaterfallTest : BootstrapBlazorTestBase
     public async Task OnClickItemAsync_Ok()
     {
         WaterfallItem? item = null;
-        var cut = Context.RenderComponent<Waterfall>(pb =>
+        var cut = Context.Render<Waterfall>(pb =>
         {
             pb.Add(a => a.OnClickItemAsync, v =>
             {

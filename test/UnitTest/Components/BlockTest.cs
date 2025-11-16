@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class BlockTest : TestBase
     [Fact]
     public void Show_Ok()
     {
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.Name, "Test");
             builder.Add(a => a.OnQueryCondition, new Func<string, Task<bool>>(name => Task.FromResult(name == "Test")));
@@ -22,7 +22,7 @@ public class BlockTest : TestBase
     [Fact]
     public void Authorized_Ok()
     {
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.Condition, true);
             builder.Add(a => a.Authorized, b => b.AddContent(0, "Authorized"));
@@ -33,7 +33,7 @@ public class BlockTest : TestBase
     [Fact]
     public void NotAuthorized_Ok()
     {
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.Condition, false);
             builder.Add(a => a.NotAuthorized, b => b.AddContent(0, "NotAuthorized"));
@@ -44,7 +44,7 @@ public class BlockTest : TestBase
     [Fact]
     public void Hide_Ok()
     {
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.OnQueryCondition, new Func<string, Task<bool>>(_ => Task.FromResult(false)));
             builder.Add(a => a.ChildContent, BuildComponent());
@@ -67,7 +67,7 @@ public class BlockAuthorizationTest : AuthorizationViewTestBase
     {
         AuthorizationContext.SetAuthorized("Admin");
 
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.Users, new List<string>() { "Admin" });
             builder.Add(a => a.ChildContent, BlockTest.BuildComponent());
@@ -80,7 +80,7 @@ public class BlockAuthorizationTest : AuthorizationViewTestBase
     {
         AuthorizationContext.SetRoles("Administrators");
 
-        var cut = Context.RenderComponent<Block>(builder =>
+        var cut = Context.Render<Block>(builder =>
         {
             builder.Add(a => a.Roles, new List<string>() { "Administrators" });
             builder.Add(a => a.ChildContent, BlockTest.BuildComponent());

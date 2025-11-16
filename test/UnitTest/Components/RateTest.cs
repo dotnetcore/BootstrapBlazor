@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,20 +10,20 @@ public class RateTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(builder => builder.Add(s => s.Value, 5));
+        var cut = Context.Render<Rate>(builder => builder.Add(s => s.Value, 5));
         cut.Contains("rate text-nowrap");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Value, -1));
+        cut.Render(pb => pb.Add(a => a.Value, -1));
         Assert.Equal(0, cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowValue, true));
+        cut.Render(pb => pb.Add(a => a.ShowValue, true));
         cut.Contains("rate-value");
     }
 
     [Fact]
     public void IsDisable_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(builder =>
+        var cut = Context.Render<Rate>(builder =>
         {
             builder.Add(s => s.IsDisable, true);
             builder.Add(s => s.Value, 5);
@@ -34,7 +34,7 @@ public class RateTest : BootstrapBlazorTestBase
     [Fact]
     public void IsReadonly_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(builder =>
+        var cut = Context.Render<Rate>(builder =>
         {
             builder.Add(s => s.IsReadonly, true);
             builder.Add(s => s.Value, 5);
@@ -46,7 +46,7 @@ public class RateTest : BootstrapBlazorTestBase
     public async Task ValueChanged_Ok()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Rate>(builder =>
+        var cut = Context.Render<Rate>(builder =>
         {
             builder.Add(s => s.Value, 3.2);
             builder.Add(s => s.ValueChanged, EventCallback.Factory.Create<double>(this, v =>
@@ -64,7 +64,7 @@ public class RateTest : BootstrapBlazorTestBase
     public async Task OnValueChanged_Ok()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Rate>(builder =>
+        var cut = Context.Render<Rate>(builder =>
         {
             builder.Add(s => s.OnValueChanged, new Func<double, Task>(v =>
             {
@@ -82,7 +82,7 @@ public class RateTest : BootstrapBlazorTestBase
     [Fact]
     public void ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(pb =>
+        var cut = Context.Render<Rate>(pb =>
         {
             pb.Add(s => s.ItemTemplate, index => builder =>
             {
@@ -96,7 +96,7 @@ public class RateTest : BootstrapBlazorTestBase
     [Fact]
     public void Max_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(pb =>
+        var cut = Context.Render<Rate>(pb =>
         {
             pb.Add(s => s.Max, 0);
         });
@@ -106,7 +106,7 @@ public class RateTest : BootstrapBlazorTestBase
     [Fact]
     public void IsWrap_Ok()
     {
-        var cut = Context.RenderComponent<Rate>(pb =>
+        var cut = Context.Render<Rate>(pb =>
         {
             pb.Add(s => s.IsWrap, true);
         });

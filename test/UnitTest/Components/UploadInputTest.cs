@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,7 +15,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     public async Task InputUpload_Ok()
     {
         UploadFile? uploadFile = null;
-        var cut = Context.RenderComponent<InputUpload<string>>(pb =>
+        var cut = Context.Render<InputUpload<string>>(pb =>
         {
             pb.Add(a => a.Capture, "capture");
             pb.Add(a => a.PlaceHolder, "TestPlaceHolder");
@@ -40,13 +40,13 @@ public class UploadInputTest : BootstrapBlazorTestBase
         cut.Contains("TestPlaceHolder");
 
         // 参数
-        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome"));
+        cut.Render(pb => pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome"));
         cut.Contains("fa-solid fa-chrome");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.BrowserButtonClass, "btn btn-browser"));
+        cut.Render(pb => pb.Add(a => a.BrowserButtonClass, "btn btn-browser"));
         cut.Contains("btn btn-browser");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowDeleteButton, true);
             pb.Add(a => a.DeleteButtonText, "Delete-Test");
@@ -57,7 +57,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
 
         // 删除逻辑
         var deleted = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DeleteButtonClass, "btn btn-delete");
             pb.Add(a => a.OnDelete, file =>
@@ -73,7 +73,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         Assert.True(deleted);
 
         // IsDisable
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -85,7 +85,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     {
         var invalid = false;
         var foo = new Foo();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<InputUpload<string>>(pb =>
@@ -123,7 +123,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     public void InputUpload_FileValidate_OK()
     {
         var foo = new Person();
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<InputUpload<IBrowserFile>>(pb =>
@@ -147,7 +147,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     [Fact]
     public async Task InputUpload_Value()
     {
-        var cut = Context.RenderComponent<InputUpload<List<string>>>(pb =>
+        var cut = Context.Render<InputUpload<List<string>>>(pb =>
         {
             pb.Add(a => a.Value,
             [
@@ -169,7 +169,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     [Fact]
     public async Task InputUpload_Files()
     {
-        var cut = Context.RenderComponent<InputUpload<List<IBrowserFile>>>(pb =>
+        var cut = Context.Render<InputUpload<List<IBrowserFile>>>(pb =>
         {
             pb.Add(a => a.Value,
             [
@@ -191,7 +191,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.Reset());
         Assert.DoesNotContain("test3.png;test4.png", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DefaultFileList,
             [
@@ -212,7 +212,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
     [Fact]
     public void InputUpload_IsMultiple()
     {
-        var cut = Context.RenderComponent<InputUpload<List<string>>>(pb =>
+        var cut = Context.Render<InputUpload<List<string>>>(pb =>
         {
             pb.Add(a => a.IsMultiple, false);
         });
@@ -221,7 +221,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         cut.DoesNotContain("multiple=\"multiple\"");
 
         // 给定已上传文件后上传按钮应该被禁用
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.DefaultFileList,
             [
@@ -233,7 +233,7 @@ public class UploadInputTest : BootstrapBlazorTestBase
         Assert.True(button.IsDisabled());
 
         // 开启多选功能
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsMultiple, true);
         });

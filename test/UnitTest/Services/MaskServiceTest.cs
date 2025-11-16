@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class MaskServiceTest : BootstrapBlazorTestBase
     public async Task Mask_Ok()
     {
         var maskService = Context.Services.GetRequiredService<MaskService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
@@ -46,7 +46,7 @@ public class MaskServiceTest : BootstrapBlazorTestBase
     public async Task Container_Ok()
     {
         var maskService = Context.Services.GetRequiredService<MaskService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
@@ -80,7 +80,7 @@ public class MaskServiceTest : BootstrapBlazorTestBase
     public async Task Show_Component()
     {
         var maskService = Context.Services.GetRequiredService<MaskService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
@@ -102,7 +102,7 @@ public class MaskServiceTest : BootstrapBlazorTestBase
     public async Task Show_Type()
     {
         var maskService = Context.Services.GetRequiredService<MaskService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {

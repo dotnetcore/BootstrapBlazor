@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,16 +12,16 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder => builder.Add(s => s.Items, GetItems()));
+        var cut = Context.Render<Nav>(builder => builder.Add(s => s.Items, GetItems()));
         Assert.Contains("href=\"/Admin/Index\"", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Items, null));
+        cut.Render(pb => pb.Add(a => a.Items, null));
     }
 
     [Fact]
     public void Alignment_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.Alignment, Alignment.Right);
@@ -30,7 +30,7 @@ public class NavTest : BootstrapBlazorTestBase
         var ele = cut.Find(".justify-content-end");
         Assert.NotNull(ele);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Alignment, Alignment.Center);
         });
@@ -41,7 +41,7 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.IsVertical, true);
@@ -54,7 +54,7 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPills_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.IsPills, true);
@@ -67,7 +67,7 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFill_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.IsPills, true);
@@ -81,7 +81,7 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void IsJustified_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.IsPills, true);
@@ -96,7 +96,7 @@ public class NavTest : BootstrapBlazorTestBase
     [Fact]
     public void ChildContent_OK()
     {
-        var cut = Context.RenderComponent<Nav>(builder =>
+        var cut = Context.Render<Nav>(builder =>
         {
             builder.Add(s => s.Items, GetItems());
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,14 +10,14 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Color, Color.None);
             builder.Add(a => a.IsDisabled, false);
         });
         Assert.DoesNotContain("border-", cut.Markup);
 
-        cut.SetParametersAndRender(builder => builder.Add(a => a.Color, Color.Primary));
+        cut.Render(builder => builder.Add(a => a.Color, Color.Primary));
         Assert.Contains("border-primary", cut.Markup);
     }
 
@@ -25,7 +25,7 @@ public class InputTest : BootstrapBlazorTestBase
     public void PlaceHolder_Ok()
     {
         var ph = "placeholder_test";
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.PlaceHolder, ph));
+        var cut = Context.Render<BootstrapInput<string>>(builder => builder.Add(a => a.PlaceHolder, ph));
         Assert.Contains($"placeholder=\"{ph}\"", cut.Markup);
     }
 
@@ -34,7 +34,7 @@ public class InputTest : BootstrapBlazorTestBase
     {
         var model = new Foo() { Name = "Test" };
         var valueChanged = false;
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueChanged, v => model.Name = v);
@@ -49,41 +49,41 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void IsAutoFocus_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.IsAutoFocus, true));
+        var cut = Context.Render<BootstrapInput<string>>(builder => builder.Add(a => a.IsAutoFocus, true));
     }
 
     [Fact]
     public void Type_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.AddUnmatched("type", "number"));
+        var cut = Context.Render<BootstrapInput<string>>(builder => builder.AddUnmatched("type", "number"));
         Assert.Contains($"type=\"number\"", cut.Markup);
 
-        cut = Context.RenderComponent<BootstrapInput<string>>();
+        cut = Context.Render<BootstrapInput<string>>();
         Assert.Contains($"type=\"text\"", cut.Markup);
     }
 
     [Fact]
     public void Readonly_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.Readonly, true));
+        var cut = Context.Render<BootstrapInput<string>>(builder => builder.Add(a => a.Readonly, true));
         cut.Contains("readonly=\"true\"");
     }
 
     [Fact]
     public void Clearable_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.IsClearable, false));
+        var cut = Context.Render<BootstrapInput<string>>(builder => builder.Add(a => a.IsClearable, false));
         cut.DoesNotContain("bb-clearable-input");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
+        cut.Render(pb => pb.Add(a => a.IsClearable, true));
         cut.Contains("bb-clearable-input");
         cut.Contains("form-control-clear-icon");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Readonly, true));
+        cut.Render(pb => pb.Add(a => a.Readonly, true));
         cut.DoesNotContain("form-control-clear-icon");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Readonly, false));
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
+        cut.Render(pb => pb.Add(a => a.Readonly, false));
+        cut.Render(pb => pb.Add(a => a.IsDisabled, true));
         cut.DoesNotContain("form-control-clear-icon");
     }
 
@@ -91,7 +91,7 @@ public class InputTest : BootstrapBlazorTestBase
     public async Task OnClear_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsClearable, true);
             builder.Add(a => a.OnClear, v =>
@@ -109,7 +109,7 @@ public class InputTest : BootstrapBlazorTestBase
     public async Task OnInput_Ok()
     {
         var foo = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, foo.Name);
             builder.Add(a => a.UseInputEvent, true);
@@ -132,7 +132,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Password_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapPassword>();
+        var cut = Context.Render<BootstrapPassword>();
         cut.Contains("type=\"password\"");
     }
 
@@ -140,7 +140,7 @@ public class InputTest : BootstrapBlazorTestBase
     public void IsTrim_Ok()
     {
         var val = "    test    ";
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsTrim, true);
             builder.Add(a => a.Value, "");
@@ -151,7 +151,7 @@ public class InputTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => input.Change(val));
         cut.WaitForAssertion(() => Assert.Equal(val.Trim(), cut.Instance.Value));
 
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.IsTrim, false);
             builder.Add(a => a.Value, "");
@@ -166,14 +166,14 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Formatter_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<DateTime>>(builder =>
+        var cut = Context.Render<BootstrapInput<DateTime>>(builder =>
         {
             builder.Add(a => a.FormatString, "yyyy-MM-dd");
             builder.Add(a => a.Value, DateTime.Now);
         });
         Assert.Contains($"value=\"{DateTime.Now:yyyy-MM-dd}\"", cut.Markup);
 
-        cut.SetParametersAndRender(builder =>
+        cut.Render(builder =>
         {
             builder.Add(a => a.FormatString, null);
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
@@ -186,7 +186,7 @@ public class InputTest : BootstrapBlazorTestBase
     public async Task EnterCallback_Ok()
     {
         var val = "";
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.OnEnterAsync, v => { val = v; return Task.CompletedTask; });
             builder.Add(a => a.Value, "test");
@@ -199,7 +199,7 @@ public class InputTest : BootstrapBlazorTestBase
     public async Task EscCallback_Ok()
     {
         var val = "";
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.OnEscAsync, v => { val = v; return Task.CompletedTask; });
             builder.Add(a => a.Value, "test");
@@ -211,7 +211,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void IsSelectAllTextOnFocus_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsSelectAllTextOnFocus, true);
         });
@@ -220,7 +220,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsSelectAllTextOnEnter_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.IsSelectAllTextOnEnter, true);
         });
@@ -230,10 +230,10 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void FloatingLabel_Ok()
     {
-        var cut = Context.RenderComponent<FloatingLabel<string>>();
+        var cut = Context.Render<FloatingLabel<string>>();
         cut.Contains("<div class=\"form-floating\">");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsGroupBox, true);
         });
@@ -241,14 +241,14 @@ public class InputTest : BootstrapBlazorTestBase
 
         // PlaceHolder
         var foo = new Foo() { Name = "Foo" };
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, "test");
         });
         var input = cut.Find("input");
         Assert.Null(input.GetAttribute("placeholder"));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
         });
@@ -256,7 +256,7 @@ public class InputTest : BootstrapBlazorTestBase
         Assert.Equal("姓名", input.GetAttribute("placeholder"));
 
         // PlaceHolder
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PlaceHolder, "fl-pl");
         });
@@ -267,14 +267,14 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void GroupLabel_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroupLabel>(builder =>
+        var cut = Context.Render<BootstrapInputGroupLabel>(builder =>
         {
             builder.Add(s => s.DisplayText, "DisplayText");
         });
 
         Assert.Contains("DisplayText", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
         });
@@ -285,7 +285,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowRequiredMark_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroupLabel>(builder =>
+        var cut = Context.Render<BootstrapInputGroupLabel>(builder =>
         {
             builder.Add(s => s.DisplayText, "DisplayText");
             builder.Add(s => s.ShowRequiredMark, true);
@@ -297,7 +297,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void GroupIcon_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroupIcon>(builder =>
+        var cut = Context.Render<BootstrapInputGroupIcon>(builder =>
         {
             builder.Add(s => s.Icon, "fa-solid fa-user");
         });
@@ -309,7 +309,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void InputGroup_Width()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        var cut = Context.Render<BootstrapInputGroup>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -327,7 +327,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void InputGroup_ChildContent()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        var cut = Context.Render<BootstrapInputGroup>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -345,7 +345,7 @@ public class InputTest : BootstrapBlazorTestBase
     [InlineData(Alignment.Right, "end")]
     public void InputGroup_Alignment(Alignment alignment, string expected)
     {
-        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        var cut = Context.Render<BootstrapInputGroup>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -362,7 +362,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Focus_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Modal>(pb =>
             {
@@ -377,7 +377,7 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AutoSetDefaultWhenNull_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<int>>(builder =>
+        var cut = Context.Render<BootstrapInput<int>>(builder =>
         {
             builder.Add(a => a.Value, 123);
             builder.Add(a => a.AutoSetDefaultWhenNull, true);
@@ -395,7 +395,7 @@ public class InputTest : BootstrapBlazorTestBase
     {
         var val = "";
         var foo = new Foo() { Name = "Test" };
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, foo.Name);
             builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v =>
@@ -423,7 +423,7 @@ public class InputTest : BootstrapBlazorTestBase
     public async Task OnBlurAsync_Ok()
     {
         var blur = false;
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        var cut = Context.Render<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.OnBlurAsync, v =>
             {

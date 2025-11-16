@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Text_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Text, "TestButton"));
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.Text, "TestButton"));
 
         Assert.Contains("TestButton", cut.Markup);
     }
@@ -18,7 +18,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Url_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Url, "https://www.blazor.zone"));
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.Url, "https://www.blazor.zone"));
 
         Assert.Contains("https://www.blazor.zone", cut.Markup);
     }
@@ -26,7 +26,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ImageUrl_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ImageUrl, "Argo-C.png"));
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.ImageUrl, "Argo-C.png"));
 
         Assert.Contains("Argo-C.png", cut.Markup);
     }
@@ -34,7 +34,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Icon, "fa-solid fa-font-awesome"));
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.Icon, "fa-solid fa-font-awesome"));
 
         Assert.Contains("fa-solid fa-font-awesome", cut.Markup);
 
@@ -44,21 +44,21 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.Color, Color.None));
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.Color, Color.None));
 
         Assert.DoesNotContain("link-primary", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
+        cut.Render(pb => pb.Add(a => a.Color, Color.Danger));
         cut.WaitForAssertion(() => Assert.Contains("link-danger", cut.Markup));
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
+        cut.Render(pb => pb.Add(a => a.IsDisabled, true));
         cut.WaitForAssertion(() => Assert.DoesNotContain("link-danger", cut.Markup));
     }
 
     [Fact]
     public void Title_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder =>
+        var cut = Context.Render<LinkButton>(builder =>
         {
             builder.Add(s => s.TooltipText, "Tooltip");
             builder.Add(s => s.TooltipPlacement, Placement.Bottom);
@@ -68,7 +68,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.ChildContent, b =>
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.ChildContent, b =>
         {
             b.AddContent(0, new MarkupString("<div>Test</div>"));
         }));
@@ -80,7 +80,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     public async Task OnClick_Ok()
     {
         var click = false;
-        var cut = Context.RenderComponent<LinkButton>(pb =>
+        var cut = Context.Render<LinkButton>(pb =>
         {
             pb.Add(a => a.IsAsync, true);
             pb.Add(s => s.OnClick, async () =>
@@ -99,7 +99,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     public void OnClickWithoutRender_Ok()
     {
         var click = false;
-        var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClickWithoutRender, () =>
+        var cut = Context.Render<LinkButton>(builder => builder.Add(s => s.OnClickWithoutRender, () =>
         {
             click = true;
             return Task.CompletedTask;
@@ -115,7 +115,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(pb =>
+        var cut = Context.Render<LinkButton>(pb =>
         {
             pb.Add(a => a.IsVertical, true);
         });
@@ -125,7 +125,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Disabled_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(pb =>
+        var cut = Context.Render<LinkButton>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -135,7 +135,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ImageCss_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(pb =>
+        var cut = Context.Render<LinkButton>(pb =>
         {
             pb.Add(a => a.ImageUrl, "test-img");
             pb.Add(a => a.ImageCss, "image-css");
@@ -146,7 +146,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Target_Ok()
     {
-        var cut = Context.RenderComponent<LinkButton>(pb =>
+        var cut = Context.Render<LinkButton>(pb =>
         {
             pb.Add(a => a.Target, "_blank");
         });

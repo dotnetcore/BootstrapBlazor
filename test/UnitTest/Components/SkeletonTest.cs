@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Circle_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonAvatar>(buildr => buildr.Add(s => s.Circle, true));
+        var cut = Context.Render<SkeletonAvatar>(buildr => buildr.Add(s => s.Circle, true));
 
         var ele = cut.Find(".circle");
         Assert.NotNull(ele);
@@ -19,7 +19,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Round_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonAvatar>(buildr => buildr.Add(s => s.Round, true));
+        var cut = Context.Render<SkeletonAvatar>(buildr => buildr.Add(s => s.Round, true));
 
         var ele = cut.Find(".round");
         Assert.NotNull(ele);
@@ -28,7 +28,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Active_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonAvatar>(buildr => buildr.Add(s => s.Active, true));
+        var cut = Context.Render<SkeletonAvatar>(buildr => buildr.Add(s => s.Active, true));
 
         var ele = cut.Find(".active");
         Assert.NotNull(ele);
@@ -37,7 +37,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowToolbar_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonTable>(buildr => buildr.Add(s => s.ShowToolbar, true));
+        var cut = Context.Render<SkeletonTable>(buildr => buildr.Add(s => s.ShowToolbar, true));
 
         var ele = cut.Find(".skeleton-toolbar");
         Assert.NotNull(ele);
@@ -46,7 +46,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Rows_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonTable>(buildr => buildr.Add(s => s.Rows, 10));
+        var cut = Context.Render<SkeletonTable>(buildr => buildr.Add(s => s.Rows, 10));
 
         var count = cut.FindAll(".skeleton-row").Count;
         Assert.Equal(10, count);
@@ -55,7 +55,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Columns_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonTable>(buildr => buildr.Add(s => s.Columns, 10));
+        var cut = Context.Render<SkeletonTable>(buildr => buildr.Add(s => s.Columns, 10));
 
         var count = cut.FindAll(".skeleton-col").Count;
         Assert.Equal(70, count);
@@ -64,7 +64,7 @@ public class SkeletonTest : BootstrapBlazorTestBase
     [Fact]
     public void Tree_Ok()
     {
-        var cut = Context.RenderComponent<SkeletonTree>();
+        var cut = Context.Render<SkeletonTree>();
 
         var ele = cut.Find(".tree");
         Assert.NotNull(ele);

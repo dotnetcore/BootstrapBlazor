@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,40 +10,40 @@ public class AlertTest : TestBase
     [Fact]
     public void ShowDismiss_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowDismiss, true));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowDismiss, true));
         Assert.Contains("button", cut.Markup);
 
-        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowDismiss, false));
+        cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowDismiss, false));
         Assert.DoesNotContain("button", cut.Markup);
     }
 
     [Fact]
     public void ShowBar_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, true));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowBar, true));
         Assert.Contains("alert-bar", cut.Markup);
 
-        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, false));
+        cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowBar, false));
         Assert.DoesNotContain("alert-bar", cut.Markup);
     }
 
     [Fact]
     public void ShowBorder_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBorder, true));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowBorder, true));
         Assert.Contains("border-primary", cut.Markup);
 
-        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBorder, false));
+        cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowBorder, false));
         Assert.DoesNotContain("border-primary", cut.Markup);
     }
 
     [Fact]
     public void ShowShadow_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowShadow, true));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowShadow, true));
         Assert.Contains("shadow", cut.Markup);
 
-        cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ShowBar, false));
+        cut = Context.Render<Alert>(builder => builder.Add(a => a.ShowBar, false));
         Assert.DoesNotContain("shadow", cut.Markup);
     }
 
@@ -51,7 +51,7 @@ public class AlertTest : TestBase
     public void OnDismissHandle_Ok()
     {
         string message = "";
-        var cut = Context.RenderComponent<Alert>(builder =>
+        var cut = Context.Render<Alert>(builder =>
         {
             builder.Add(a => a.ShowDismiss, true);
             builder.Add(a => a.OnDismiss, () =>
@@ -69,7 +69,7 @@ public class AlertTest : TestBase
     [Fact]
     public void ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.ChildContent, BuildeComponent()));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.ChildContent, BuildeComponent()));
         Assert.Contains("I am Alert", cut.Markup);
 
         RenderFragment BuildeComponent() => builder =>
@@ -83,14 +83,14 @@ public class AlertTest : TestBase
     [Fact]
     public void Color_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Color, Color.Primary));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.Color, Color.Primary));
         Assert.Contains("alert-primary", cut.Markup);
     }
 
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<Alert>(builder => builder.Add(a => a.Icon, "fa-solid fa-circle-check"));
+        var cut = Context.Render<Alert>(builder => builder.Add(a => a.Icon, "fa-solid fa-circle-check"));
         Assert.Contains("fa-solid fa-circle-check", cut.Markup);
     }
 }

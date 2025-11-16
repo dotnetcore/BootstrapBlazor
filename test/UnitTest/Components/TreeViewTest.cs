@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,25 +10,25 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Items_Ok()
     {
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var cut = Context.Render<TreeView<TreeFoo>>();
         cut.DoesNotContain("tree-root");
 
         // 由于 Items 为空不生成 TreeItem 显示 loading
         cut.Contains("table-loading");
         cut.DoesNotContain("li");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSkeleton, true));
+        cut.Render(pb => pb.Add(a => a.ShowSkeleton, true));
         cut.Contains("skeleton tree");
 
         // 设置 Items
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
         var items = cut.FindAll(".tree-content");
         Assert.Equal(9, items.Count);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.ShowSkeleton, false);
@@ -49,7 +49,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     //[Fact]
     //public void FlatItems_Ok()
     //{
-    //    var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+    //    var cut = Context.Render<TreeView<TreeFoo>>(pb =>
     //    {
     //        pb.Add(a => a.FlatItems, TreeFoo.GetFlatItems());
     //    });
@@ -66,7 +66,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     //    Assert.NotNull(childNode);
     //    Assert.Contains("tree-children", childNode.ParentElement?.ClassName);
 
-    //    cut.SetParametersAndRender(pb =>
+    //    cut.Render(pb =>
     //    {
     //        pb.Add(a => a.FlatItems, null);
     //    });
@@ -78,7 +78,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = TreeFoo.GetTreeItems();
         items[0].IsDisabled = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.Items, items);
@@ -89,14 +89,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Contains("tree-node disabled", content[0].InnerHtml);
         Assert.Contains("form-check-input disabled", content[0].InnerHtml);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
         content = cut.FindAll(".tree-content");
         Assert.Contains("tree-node disabled", content[1].InnerHtml);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CanExpandWhenDisabled, true);
         });
@@ -111,7 +111,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = TreeFoo.GetTreeItems();
         items[0].IsActive = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -125,7 +125,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task Items_SetActive()
     {
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -138,7 +138,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var activeItem = items[1].Items[0].Value;
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
         });
@@ -154,7 +154,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public void AppendNode_Ok()
     {
         var items = TreeFoo.GetAccordionItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -162,7 +162,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(2, contents.Count);
 
         items.Add(new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = "append-text" });
-        cut.SetParametersAndRender();
+        cut.Render();
         contents = cut.FindAll(".tree-content");
         Assert.Equal(3, contents.Count);
     }
@@ -172,7 +172,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var tcs = new TaskCompletionSource<bool>();
         CheckboxState itemChecked = CheckboxState.UnChecked;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.ShowCheckbox, true);
@@ -221,7 +221,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         nodes[1].IsExpand = true;
         Assert.Equal("Node2", nodes[1].Text);
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.AutoCheckChildren, true);
             pb.Add(a => a.AutoCheckParent, true);
@@ -248,7 +248,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].CssClass = "Test-Class";
 
         List<TreeViewItem<TreeFoo>>? checkedLists = null;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.OnTreeItemChecked, items =>
@@ -264,7 +264,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.DoesNotContain("fa-solid fa-font-awesome");
         cut.Contains("Test-Class");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
         });
@@ -275,14 +275,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task OnMaxSelectedCountExceed_Ok()
     {
         bool max = false;
-        var items = TreeFoo.CascadingTree(new List<TreeFoo>()
-        {
+        var items = TreeFoo.CascadingTree(
+        [
             new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" }
-        });
+        ]);
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.MaxSelectedCount, 2);
@@ -335,7 +335,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = TreeFoo.GetTreeItems();
         items[0].Template = foo => builder => builder.AddContent(0, "Test-Template");
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -349,7 +349,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].HasChildren = true;
 
         var expanded = false;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.OnExpandNodeAsync, item =>
             {
@@ -372,7 +372,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items.RemoveAt(1);
         items[0].HasChildren = true;
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.OnExpandNodeAsync, item =>
@@ -398,7 +398,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items.RemoveAt(1);
         items.RemoveAt(1);
         items[0].HasChildren = true;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -426,7 +426,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
                 Text = "懒加载子节点22"
             }
         ];
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -444,7 +444,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].HasChildren = true;
 
         var expanded = false;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.AutoCheckChildren, true);
             pb.Add(a => a.AutoCheckParent, true);
@@ -499,7 +499,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].HasChildren = true;
 
         var expanded = false;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.AutoCheckParent, true);
             pb.Add(a => a.Items, items);
@@ -550,7 +550,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].HasChildren = true;
 
         var expanded = false;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ShowCheckbox, true);
@@ -585,14 +585,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task IsVirtualize_Ok()
     {
         var items = TreeFoo.GetVirtualizeTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.IsVirtualize, false);
             pb.Add(a => a.Items, items);
         });
         cut.Contains("tree-root scroll");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.RowHeight, 30f);
@@ -616,7 +616,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         // 触发第一个节点展开
         await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
-        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count == 2);
+        await Task.Delay(50);
 
         cut.Contains("--bb-tree-view-level: 0;");
         cut.Contains("--bb-tree-view-level: 1;");
@@ -626,7 +627,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task GetParentsState_Ok()
     {
         var items = TreeFoo.GetCheckedTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ShowCheckbox, true);
@@ -668,7 +669,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var items = TreeFoo.GetTreeItems();
         items[0].HasChildren = true;
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -698,7 +699,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = TreeFoo.GetTreeItems();
         items[0].CssClass = "test-tree-css-class";
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -732,7 +733,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void CascadeSetCheck_Ok()
     {
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var cut = Context.Render<TreeView<TreeFoo>>();
         var comparer = cut.Instance;
 
         var items = new List<TreeFoo>()
@@ -754,7 +755,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void SetParentCheck_Ok()
     {
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var cut = Context.Render<TreeView<TreeFoo>>();
         var comparer = cut.Instance;
 
         var items = new List<TreeFoo>()
@@ -806,7 +807,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         // 点击节点 Text 展开/收缩
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ClickToggleNode, true);
             pb.Add(a => a.Items, TreeFoo.GetTreeItems());
@@ -824,7 +825,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void KeyAttribute_Ok()
     {
-        var cut = Context.RenderComponent<MockTree<Cat>>(pb =>
+        var cut = Context.Render<MockTree<Cat>>(pb =>
         {
             pb.Add(a => a.CustomKeyAttribute, typeof(CatKeyAttribute));
         });
@@ -837,7 +838,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public void CanExpandWhenDisabled_Ok()
     {
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
@@ -848,12 +849,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         // 设置 节点禁用
         items[0].IsDisabled = true;
-        cut.SetParametersAndRender();
+        cut.Render();
         node = cut.Find(".node-icon");
         Assert.Contains("disabled", node.ClassList);
 
         // 设置 CanExpandWhenDisabled 参数
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CanExpandWhenDisabled, true);
         });
@@ -861,7 +862,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("disabled", node.ClassList);
 
         // 设置 Disabled 参数
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -875,7 +876,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var items = TreeFoo.GetTreeItems();
         items[1].ExpandIcon = "test-expand-icon";
         items[1].IsExpand = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
             pb.Add(a => a.Items, items);
@@ -886,7 +887,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void ModelEqualityComparer_Ok()
     {
-        var cut = Context.RenderComponent<MockTree<TreeFoo>>(pb =>
+        var cut = Context.Render<MockTree<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
         });
@@ -898,7 +899,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void EqualityComparer_Ok()
     {
-        var cut = Context.RenderComponent<MockTree<Dummy>>();
+        var cut = Context.Render<MockTree<Dummy>>();
 
         var ret = cut.Instance.TestComparerItem(new Dummy() { Id = 1 }, new Dummy() { Id = 1 });
         Assert.True(ret);
@@ -907,7 +908,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void Equality_Ok()
     {
-        var cut = Context.RenderComponent<MockTree<CatKeyAttribute>>();
+        var cut = Context.Render<MockTree<CatKeyAttribute>>();
 
         var ret = cut.Instance.TestComparerItem(new CatKeyAttribute(), new CatKeyAttribute());
         Assert.True(ret);
@@ -916,7 +917,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void Equality_False()
     {
-        var cut = Context.RenderComponent<MockTree<Dog>>();
+        var cut = Context.Render<MockTree<Dog>>();
         var ret = cut.Instance.TestComparerItem(new Dog(), new Dog());
         Assert.False(ret);
     }
@@ -936,7 +937,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 根节点
         var nodes = TreeFoo.CascadingTree(items).ToList();
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.IsAccordion, true);
@@ -1005,7 +1006,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 根节点
         var nodes = TreeFoo.CascadingTree(items).ToList();
 
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ShowCheckbox, true);
@@ -1028,7 +1029,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public void ShowSearch_Ok()
     {
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.Items, items);
@@ -1036,13 +1037,13 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Contains("tree-search");
         cut.Contains("tree-search-reset");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowResetSearchButton, false);
         });
         cut.DoesNotContain("tree-search-reset");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.SearchTemplate, builder =>
             {
@@ -1057,7 +1058,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var key = "";
         var items = TreeFoo.GetTreeItems();
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.OnSearchAsync, new Func<string?, Task<List<TreeViewItem<TreeFoo>>?>>(v =>
@@ -1107,7 +1108,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[1].Items[1].Items[1].IsExpand = true;
 
         var activeItemText = "1010";
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.EnableKeyboard, true);
             pb.Add(a => a.Items, items);
@@ -1161,7 +1162,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         var items = TreeFoo.CascadingTree(data);
         items[0].IsActive = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.EnableKeyboard, true);
             pb.Add(a => a.Items, items);
@@ -1187,7 +1188,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].IsActive = true;
         var count = 0;
         var edit = false;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
             pb.Add(a => a.ShowToolbarCallback, foo =>
@@ -1211,7 +1212,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         Assert.True(edit);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ToolbarTemplate, foo => builder =>
             {
@@ -1225,7 +1226,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     public async Task AllowDrag_Ok()
     {
         TreeViewDragContext<TreeFoo>? treeDragContext = null;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.AllowDrag, true);
             pb.Add(a => a.Items, TreeFoo.GetTreeItems());
@@ -1237,7 +1238,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         await cut.Instance.TriggerDragEnd(1, 2, false);
-        cut.SetParametersAndRender();
+        cut.Render();
 
         Assert.NotNull(treeDragContext);
         Assert.NotNull(treeDragContext.Target);

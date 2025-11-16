@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         string? val = null;
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string>>(pb =>
+        var cut = Context.Render<Search<string>>(pb =>
         {
             pb.Add(a => a.OnSearch, v =>
             {
@@ -36,7 +36,7 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<Search<string>>();
+        var cut = Context.Render<Search<string>>();
         Assert.Contains("<div class=\"search auto-complete\"", cut.Markup);
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
@@ -46,7 +46,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public async Task ItemTemplate_Ok()
     {
         var items = new List<Foo>() { new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
-        var cut = Context.RenderComponent<Search<Foo>>(pb =>
+        var cut = Context.Render<Search<Foo>>(pb =>
         {
             pb.Add(a => a.ItemTemplate, item => builder =>
             {
@@ -70,7 +70,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public async Task OnGetDisplayText_Ok()
     {
         var items = new List<Foo?>() { null, new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
-        var cut = Context.RenderComponent<Search<Foo?>>(pb =>
+        var cut = Context.Render<Search<Foo?>>(pb =>
         {
             pb.Add(a => a.OnSearch, async v =>
             {
@@ -87,13 +87,13 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public void IsTriggerSearchByInput_Ok()
     {
-        var cut = Context.RenderComponent<Search<string>>(builder =>
+        var cut = Context.Render<Search<string>>(builder =>
         {
             builder.Add(s => s.IsTriggerSearchByInput, true);
         });
         cut.DoesNotContain("data-bb-input");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsTriggerSearchByInput, false));
+        cut.Render(pb => pb.Add(a => a.IsTriggerSearchByInput, false));
         cut.Contains("data-bb-input=\"false\"");
     }
 
@@ -102,7 +102,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         string? val = null;
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string>>(builder =>
+        var cut = Context.Render<Search<string>>(builder =>
         {
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
             builder.Add(s => s.SearchButtonText, "SearchText");
@@ -132,7 +132,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var tcs = new TaskCompletionSource();
         var ret = false;
-        var cut = Context.RenderComponent<Search<string>>(builder =>
+        var cut = Context.Render<Search<string>>(builder =>
         {
             builder.Add(s => s.Value, "1");
             builder.Add(s => s.ShowClearButton, true);
@@ -161,7 +161,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var items = new List<string?>() { null, "test1", "test2" };
         var selectedItem = "";
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.OnSelectedItemChanged, v => { selectedItem = v; return Task.CompletedTask; });
             pb.Add(a => a.OnSearch, async v =>
@@ -183,7 +183,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public void ShowPrefixIcon_Ok()
     {
         var items = new List<string?>() { null, "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.ShowPrefixIcon, true);
         });
@@ -194,7 +194,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public void PrefixIconTemplate_Ok()
     {
         var items = new List<string?>() { null, "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.ShowPrefixIcon, true);
             pb.Add(a => a.PrefixIconTemplate, context => b => b.AddContent(0, "test-prefix-icon-template"));
@@ -206,7 +206,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public void IconTemplate_Ok()
     {
         var items = new List<string?>() { null, "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.IconTemplate, context => b => b.AddContent(0, "test-icon-template"));
         });
@@ -217,7 +217,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public void ShowSearchButton_Ok()
     {
         var items = new List<string?>() { null, "test1", "test2" };
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.ShowSearchButton, false);
         });
@@ -227,7 +227,7 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public void IsClearable_Ok()
     {
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.IsClearable, true);
         });
@@ -238,7 +238,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public void ButtonTemplate_Ok()
     {
         SearchContext<string?>? val = null;
-        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        var cut = Context.Render<Search<string?>>(pb =>
         {
             pb.Add(a => a.ButtonTemplate, context => builder =>
             {
@@ -253,7 +253,7 @@ public class SearchTest : BootstrapBlazorTestBase
         Assert.NotNull(val.OnSearchAsync);
         Assert.NotNull(val.OnClearAsync);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PrefixButtonTemplate, context => builder => builder.AddContent(0, "prefix-button-template"));
         });

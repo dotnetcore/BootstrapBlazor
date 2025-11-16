@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     public void Collapse_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {
@@ -35,7 +35,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Accordion_Ok()
     {
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {
@@ -63,7 +63,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public void Icon_Ok()
     {
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {
@@ -80,7 +80,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public void TitleColor_Ok()
     {
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {
@@ -97,7 +97,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public void HeaderTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {
@@ -116,7 +116,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public void CollapseItem_Ok()
     {
-        var cut = Context.RenderComponent<CollapseItem>(pb =>
+        var cut = Context.Render<CollapseItem>(pb =>
         {
             pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
         });
@@ -125,7 +125,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     [Fact]
     public void CollapseItem_Class()
     {
-        var cut = Context.RenderComponent<Collapse>(pb =>
+        var cut = Context.Render<Collapse>(pb =>
         {
             pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
             {

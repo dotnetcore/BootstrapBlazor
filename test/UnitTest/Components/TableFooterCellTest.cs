@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,7 +18,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 2 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue("IsMobileMode", mobile);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
@@ -51,7 +51,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         };
 
         var checkShownWithBreakpoint = screenSize >= BreakPoint.Large;
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue("TableBreakPoint", screenSize);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
@@ -84,7 +84,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
 
         var screenSize = BreakPoint.Large;
         var checkShownWithBreakpoint = screenSize >= shownWithBreakPoint;
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue("TableBreakPoint", screenSize);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
@@ -111,7 +111,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 2 },
         };
         var point = BreakPoint.None;
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue("TableBreakPoint", BreakPoint.Large);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
@@ -125,7 +125,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         cut.Contains("colspan=\"3\"");
         Assert.Equal(BreakPoint.Large, point);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
             {
@@ -135,7 +135,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         });
         cut.Contains("colspan=\"4\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
             {
@@ -155,7 +155,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 2 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
@@ -170,7 +170,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>();
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
@@ -188,7 +188,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 2 },
             new() { Count = 3 },
         };
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
@@ -207,7 +207,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 3 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
@@ -231,7 +231,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 3 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
@@ -250,7 +250,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Name = "3" },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.Name));
@@ -273,7 +273,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 3 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Aggregate, AggregateType.Average);
@@ -290,7 +290,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 3.0 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.Count));
@@ -310,7 +310,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { FloatCount = 3.0f },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.FloatCount));
@@ -330,7 +330,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { LongCount = 3 },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.LongCount));
@@ -350,7 +350,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { DecimalCount = 3.0m },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.DecimalCount));
@@ -370,7 +370,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Name = "3" },
         };
 
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.Name));
@@ -387,7 +387,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { DecimalCount = 2.2m },
             new() { DecimalCount = 3.3m },
         };
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.DecimalCount));
@@ -406,7 +406,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { DecimalCount = 2.2m },
             new() { DecimalCount = 3.3m },
         };
-        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        var cut = Context.Render<TableFooterCell>(pb =>
         {
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(MockFoo.DecimalCount));

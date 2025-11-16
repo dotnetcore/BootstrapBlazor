@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,27 +10,27 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void Images_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>();
+        var cut = Context.Render<Carousel>();
         Assert.Contains("carousel slide", cut.Markup);
     }
 
     [Fact]
     public void Width_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.Width, "100");
         });
 
         Assert.Contains("width: 100px;", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.Width, "100%");
         });
         Assert.Contains("width: 100%;", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.Width, "auto");
         });
@@ -40,7 +40,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void Interval_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
             {
@@ -63,7 +63,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void DisableTouchSwiping_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.DisableTouchSwiping, true);
         });
@@ -74,13 +74,13 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFade_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.IsFade, false);
         });
         Assert.DoesNotContain("carousel-fade", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.IsFade, true);
         });
@@ -90,7 +90,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowControls_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.ShowControls, false);
         });
@@ -101,7 +101,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowIndicators_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.ShowIndicators, false);
         });
@@ -111,7 +111,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void Caption_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
             {
@@ -136,13 +136,13 @@ public class CarouselTest : BootstrapBlazorTestBase
     public void OnClick_Ok()
     {
         var url = "";
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.Images, new List<string>() { "test1.jpg", null!, "test3.jpg", "test4.jpg" });
         });
         cut.InvokeAsync(() => cut.Find("img").Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.OnClick, v =>
             {
@@ -161,7 +161,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     public void OnSlideChanged_Ok()
     {
         var index = 0;
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.Images, new List<string>() { "test1.jpg", null!, "test3.jpg", "test4.jpg" });
             pb.Add(b => b.OnSlideChanged, i =>
@@ -177,7 +177,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void CarouselItem_Ok()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
             {
@@ -194,7 +194,7 @@ public class CarouselTest : BootstrapBlazorTestBase
         Assert.Contains("Test-1", cut.Markup);
         Assert.Contains("Test-2", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
             {
@@ -211,14 +211,14 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void CarouselItem_Dispose()
     {
-        var cut = Context.RenderComponent<CarouselItem>();
+        var cut = Context.Render<CarouselItem>();
         Assert.Equal("", cut.Markup);
     }
 
     [Fact]
     public void Carousel_HoverPause()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(a => a.HoverPause, true);
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
@@ -234,7 +234,7 @@ public class CarouselTest : BootstrapBlazorTestBase
         });
         cut.Contains("data-bs-pause=\"hover\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.HoverPause, false);
         });
@@ -244,7 +244,7 @@ public class CarouselTest : BootstrapBlazorTestBase
     [Fact]
     public void Carousel_PlayMode()
     {
-        var cut = Context.RenderComponent<Carousel>(pb =>
+        var cut = Context.Render<Carousel>(pb =>
         {
             pb.Add(a => a.PlayMode, CarouselPlayMode.AutoPlayOnload);
             pb.Add(b => b.ChildContent, new RenderFragment(builder =>
@@ -260,13 +260,13 @@ public class CarouselTest : BootstrapBlazorTestBase
         });
         cut.Contains("data-bs-ride=\"carousel\"");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PlayMode, CarouselPlayMode.AutoPlayAfterManually);
         });
         cut.WaitForAssertion(() => cut.Contains("data-bs-ride=\"true\""));
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.PlayMode, CarouselPlayMode.Manually);
         });

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -13,7 +13,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
     public void TableColumnFilter_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -25,7 +25,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        table.SetParametersAndRender(pb =>
+        table.Render(pb =>
         {
             pb.Add(a => a.ShowFilterHeader, false);
         });
@@ -58,7 +58,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
     [Fact]
     public void FilterProvider_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Cat>>(pb =>
             {
@@ -75,7 +75,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnFilterAsync_Ok()
     {
-        var cut = Context.RenderComponent<TableColumnFilter>(pb =>
+        var cut = Context.Render<TableColumnFilter>(pb =>
         {
             pb.Add(a => a.Table, new MockTable());
             pb.Add(a => a.Column, new MockColumn<string>());
@@ -84,7 +84,7 @@ public partial class TableColumnFilterTest : BootstrapBlazorTestBase
         var filter = cut.Instance;
         await cut.InvokeAsync(() => filter.OnFilterAsync());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Table, new MockTable() { OnFilterAsync = () => Task.CompletedTask });
         });

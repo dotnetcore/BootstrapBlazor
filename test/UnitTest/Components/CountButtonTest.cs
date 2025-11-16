@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
     [Fact]
     public async Task CountText_Ok()
     {
-        var cut = Context.RenderComponent<CountButton>(pb =>
+        var cut = Context.Render<CountButton>(pb =>
         {
             pb.Add(a => a.Count, 1);
             pb.Add(a => a.Text, "DisplayText");
@@ -30,7 +30,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         cut.WaitForState(() => !cut.Markup.Contains("disabled=\"disabled\""), TimeSpan.FromSeconds(1));
         Assert.Contains("DisplayText", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CountText, "CountText");
         });
@@ -43,7 +43,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         Assert.Contains("(1) CountText", cut.Markup);
         await Task.Delay(600);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.CountTextCallback, count =>
             {
@@ -66,7 +66,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
 
         // OnClick
         var clickCount = 0;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnClick, () =>
             {
@@ -82,7 +82,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         Assert.Equal(1, clickCount);
         await Task.Delay(600);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnClickWithoutRender, () =>
             {

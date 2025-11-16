@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,7 +15,7 @@ public class ToastTest : BootstrapBlazorTestBase
         var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
         options.CurrentValue.ToastPlacement = Placement.TopStart;
 
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
+        var cut = Context.Render<BootstrapBlazorRoot>();
 
         var service = Context.Services.GetRequiredService<ToastService>();
         service.Success("Test", "test content");
@@ -38,7 +38,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [InlineData(Placement.BottomEnd, "bottom-0 end-0")]
     public void SetPlacement_Ok(Placement placement, string css)
     {
-        var cut = Context.RenderComponent<ToastContainer>();
+        var cut = Context.Render<ToastContainer>();
         cut.InvokeAsync(() =>
         {
             cut.Instance.SetPlacement(placement);
@@ -49,7 +49,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Options_Ok()
     {
-        Context.RenderComponent<ToastContainer>();
+        Context.Render<ToastContainer>();
 
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
@@ -71,7 +71,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task PreventDuplicates_Ok()
     {
-        Context.RenderComponent<ToastContainer>();
+        Context.Render<ToastContainer>();
 
         var service = Context.Services.GetRequiredService<ToastService>();
         await service.Show(new ToastOption()
@@ -101,7 +101,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AutoHide_Ok()
     {
-        var cut = Context.RenderComponent<ToastContainer>();
+        var cut = Context.Render<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {
@@ -114,7 +114,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Animation_Ok()
     {
-        Context.RenderComponent<ToastContainer>();
+        Context.Render<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {
@@ -126,7 +126,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<ToastContainer>();
+        var cut = Context.Render<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {
@@ -142,7 +142,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Close_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption());
         });
@@ -155,7 +155,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHeader_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -172,7 +172,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowHeader_False()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -185,7 +185,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void SuccessIcon_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -198,7 +198,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void InfoIcon_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -212,7 +212,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void WarningIcon_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -226,7 +226,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public void ErrorIcon_Ok()
     {
-        var cut = Context.RenderComponent<Toast>(pb =>
+        var cut = Context.Render<Toast>(pb =>
         {
             pb.Add(a => a.Options, new ToastOption()
             {
@@ -241,7 +241,7 @@ public class ToastTest : BootstrapBlazorTestBase
     public async Task OnCloseAsync_Ok()
     {
         var close = false;
-        var cut = Context.RenderComponent<ToastContainer>();
+        var cut = Context.Render<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {

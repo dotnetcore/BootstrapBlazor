@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,7 +15,7 @@ public class TableSortDialogTest : BootstrapBlazorTestBase
     {
         var sortList = new List<string>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
@@ -93,7 +93,7 @@ public class TableSortDialogTest : BootstrapBlazorTestBase
     [Fact]
     public void AdvancedSortDialog_Ok()
     {
-        var cut = Context.RenderComponent<TableAdvancedSortDialog>();
+        var cut = Context.Render<TableAdvancedSortDialog>();
         cut.Contains("dialog-advance-sort");
     }
 }

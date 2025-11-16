@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,7 +28,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ContextMenu_Ok()
     {
-        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        var cut = Context.Render<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
@@ -56,7 +56,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ToolbarTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -70,7 +70,7 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("test-toolbar-template");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
         });
@@ -80,7 +80,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ToolbarTooltipText_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -103,7 +103,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabItem_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -120,7 +120,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabItem_Null()
     {
-        var cut = Context.RenderComponent<TabItem>(pb =>
+        var cut = Context.Render<TabItem>(pb =>
         {
             pb.Add(a => a.Text, "Test");
         });
@@ -142,7 +142,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.Placement, Placement.Left);
             pb.Add(a => a.Height, 100);
@@ -153,7 +153,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsCard_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.IsCard, true);
             pb.Add(a => a.Placement, Placement.Bottom);
@@ -164,7 +164,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsBorderCard_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.IsBorderCard, true);
         });
@@ -174,7 +174,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsLoopSwitchTabItem_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.Add(a => a.IsLoopSwitchTabItem, false);
@@ -212,7 +212,7 @@ public class TabTest : BootstrapBlazorTestBase
     {
         var clicked = false;
         TabItem? closedItem = null;
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.Add(a => a.Placement, Placement.Bottom);
@@ -266,7 +266,7 @@ public class TabTest : BootstrapBlazorTestBase
         button.Click();
         Assert.NotNull(closedItem);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnCloseTabItemAsync, item =>
             {
@@ -277,7 +277,7 @@ public class TabTest : BootstrapBlazorTestBase
         button.Click();
         Assert.Contains("tabs-body-content", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnCloseTabItemAsync, item =>
             {
@@ -292,7 +292,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickTabToNavigation_True()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ShowExtendButtons, true);
@@ -325,7 +325,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void AddTab_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowClose, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
@@ -352,7 +352,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AddTab_Index()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowClose, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
@@ -376,28 +376,28 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AddTabByUrl_Ok()
     {
-        var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
         navMan.NavigateTo("/");
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
         });
 
         navMan.NavigateTo("/");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ExcludeUrls, ["/"]);
         });
 
         navMan.NavigateTo("/");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ExcludeUrls, [""]);
         });
 
         navMan.NavigateTo("/Cat");
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ExcludeUrls, ["/", "Cat"]);
         });
@@ -408,7 +408,7 @@ public class TabTest : BootstrapBlazorTestBase
             ["Text"] = "Cat",
             ["Url"] = "Cat"
         }));
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ExcludeUrls, ["/Test"]);
         });
@@ -442,7 +442,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void Menus_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -462,7 +462,7 @@ public class TabTest : BootstrapBlazorTestBase
                 }
             });
         });
-        var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
+        var nav = cut.Services.GetRequiredService<BunitNavigationManager>();
         nav.NavigateTo("/Binder");
         cut.Contains("Binder");
 
@@ -477,7 +477,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void MenuItem_Menu()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -500,7 +500,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ClickTabToNavigation, false);
 
@@ -532,7 +532,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void SetDisabled_Ok()
     {
-        var cut = Context.RenderComponent<TabItem>();
+        var cut = Context.Render<TabItem>();
         cut.Instance.SetDisabled(true);
     }
 
@@ -540,7 +540,7 @@ public class TabTest : BootstrapBlazorTestBase
     public async Task TabStyle_Chrome_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.TabStyle, TabStyle.Chrome);
             pb.Add(a => a.OnClickTabItemAsync, item =>
@@ -576,7 +576,7 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.True(clicked);
 
         // placement top and chrome style
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Left);
         });
@@ -586,7 +586,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabStyle_Capsule_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.TabStyle, TabStyle.Capsule);
             pb.AddChildContent<TabItem>(pb =>
@@ -605,7 +605,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void MenuItem_Null()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -623,7 +623,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void DefaultUrl_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.DefaultUrl, "/");
@@ -635,7 +635,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsOnlyRenderActiveTab_True()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsOnlyRenderActiveTab, true);
@@ -663,7 +663,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsOnlyRenderActiveTab_False()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsOnlyRenderActiveTab, false);
@@ -692,7 +692,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsLazyLoadTabItem_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsLazyLoadTabItem, true);
@@ -730,7 +730,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void AlwaysLoad_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsLazyLoadTabItem, true);
@@ -755,7 +755,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ActiveTab_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.DefaultUrl, "/");
@@ -776,9 +776,9 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void NavigationActiveTab_Ok()
     {
-        var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
+        var navMan = Context.Services.GetRequiredService<BunitNavigationManager>();
         navMan.NavigateTo("/");
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -798,7 +798,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.Add(a => a.ButtonTemplate, tab => builder =>
@@ -812,7 +812,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowNavigatorButtons_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ShowNavigatorButtons, true);
@@ -826,7 +826,7 @@ public class TabTest : BootstrapBlazorTestBase
         var links = cut.FindAll(".nav-link-bar");
         Assert.Equal(2, links.Count);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowNavigatorButtons, false);
         });
@@ -837,7 +837,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowActiveBar_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ShowActiveBar, true);
@@ -849,7 +849,7 @@ public class TabTest : BootstrapBlazorTestBase
         });
         cut.Contains("<div class=\"tabs-active-bar\"></div>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowActiveBar, false);
         });
@@ -860,7 +860,7 @@ public class TabTest : BootstrapBlazorTestBase
     public void Text_Ok()
     {
         var text = "Tab1";
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -873,7 +873,7 @@ public class TabTest : BootstrapBlazorTestBase
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
 
         text = "Text";
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -887,7 +887,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void SetText_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ClickTabToNavigation, true);
@@ -900,7 +900,7 @@ public class TabTest : BootstrapBlazorTestBase
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
         var item = cut.FindComponent<TabItem>();
         cut.InvokeAsync(() => item.Instance.SetHeader("Text", "fa fa-fa", true));
-        item.SetParametersAndRender(pb =>
+        item.Render(pb =>
         {
             pb.Add(a => a.Url, "/Dog");
         });
@@ -910,7 +910,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabItem_HeaderTemplate()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -927,7 +927,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabItemOptions_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.ShowExtendButtons, true);
@@ -944,7 +944,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabItemMenuBinder_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.DefaultUrl, "/Binder");
@@ -955,7 +955,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void CloseAll_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.ShowExtendButtons, true);
             pb.AddChildContent<TabItem>(pb =>
@@ -985,7 +985,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void SetPlacement_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -994,7 +994,7 @@ public class TabTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Placement, Placement.Bottom);
         });
@@ -1005,7 +1005,7 @@ public class TabTest : BootstrapBlazorTestBase
     public void Drag_Ok()
     {
         var dragged = false;
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.AddChildContent<TabItem>(pb =>
             {
@@ -1038,7 +1038,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public async Task FullScreen_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
@@ -1056,7 +1056,7 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
 
         var tab = cut.FindComponent<Tab>();
-        tab.SetParametersAndRender(pb =>
+        tab.Render(pb =>
         {
             pb.Add(a => a.ShowFullScreen, false);
         });
@@ -1066,7 +1066,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void BeforeNavigatorTemplate_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
@@ -1088,7 +1088,7 @@ public class TabTest : BootstrapBlazorTestBase
     public async Task ShowToolbar_Ok()
     {
         var clicked = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
@@ -1109,7 +1109,7 @@ public class TabTest : BootstrapBlazorTestBase
         cut.DoesNotContain("tabs-nav-toolbar");
 
         var tab = cut.FindComponent<Tab>();
-        tab.SetParametersAndRender(pb =>
+        tab.Render(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
         });
@@ -1127,13 +1127,13 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => tab.Instance.Refresh(item.Instance));
         Assert.True(clicked);
 
-        tab.SetParametersAndRender(pb =>
+        tab.Render(pb =>
         {
             pb.Add(a => a.ShowRefreshToolbarButton, false);
         });
         cut.DoesNotContain("tabs-nav-toolbar-refresh");
 
-        tab.SetParametersAndRender(pb =>
+        tab.Render(pb =>
         {
             pb.Add(a => a.ShowFullscreenToolbarButton, false);
         });
@@ -1143,7 +1143,7 @@ public class TabTest : BootstrapBlazorTestBase
     [Fact]
     public void TabHeader_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockTabHeader>();
             pb.AddChildContent<Tab>(pb =>
@@ -1163,14 +1163,14 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.NotNull(headerElement);
 
         tab.Instance.SetTabHeader(header.Instance);
-        tab.SetParametersAndRender();
+        tab.Render();
         tab.DoesNotContain("tabs-header");
     }
 
     [Fact]
     public void OnTabHeaderTextLocalizer_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.Render<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.OnTabHeaderTextLocalizer, text =>

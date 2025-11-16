@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ClearButtonText_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
             builder.Add(a => a.ClearButtonText, "Clear");
@@ -25,7 +25,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLunar_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
             builder.Add(a => a.ShowLunar, true);
@@ -43,7 +43,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void RenderMode_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
             builder.Add(a => a.RenderMode, DateTimeRangeRenderMode.Single);
@@ -57,7 +57,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void StarEqualEnd_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Now, End = DateTime.Now.AddDays(1) });
         });
@@ -66,7 +66,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.NotEqual(DateTime.Today, v.Start);
         Assert.NotEqual(DateTime.Today.AddDays(2).AddSeconds(-1), v.End);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(1) });
         });
@@ -80,7 +80,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     {
         var val = DateTime.Today;
         var confirmValue = new DateTimeRangeValue();
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.OnConfirm, v =>
             {
@@ -135,7 +135,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void OnTimeChanged_Ok()
     {
         // TODO: 等待 Range 支持 DateTime 模式
-        //var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        //var cut = Context.Render<DateTimeRange>(builder =>
         //{
         //    builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         //});
@@ -150,7 +150,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void TodayButtonText_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.TodayButtonText, "Today");
@@ -163,7 +163,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ConfirmButtonText_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ConfirmButtonText, "Confirm");
@@ -176,7 +176,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void Placement_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.Placement, Placement.Top);
@@ -187,7 +187,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowClearButton_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowClearButton, true);
@@ -198,7 +198,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void NullValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>();
+        var cut = Context.Render<DateTimeRange>();
         Assert.NotNull(cut.Instance.Value);
         Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
         Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
@@ -219,7 +219,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSidebar_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
@@ -231,7 +231,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void SidebarItems_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
@@ -253,7 +253,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public async Task OnConfirm_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.MinValue });
             pb.Add(a => a.ValueChanged, v => _ = v);
@@ -287,7 +287,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
 
         // TODO: 等待 Range 支持 DateTime 模式
         // datetime
-        //cut.SetParametersAndRender(pb =>
+        //cut.Render(pb =>
         //{
         //    pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         //    pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
@@ -310,7 +310,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         //Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
 
         // time format
-        //cut.SetParametersAndRender(pb =>
+        //cut.Render(pb =>
         //{
         //    pb.Add(a => a.TimeFormat, "hhmmss");
         //});
@@ -325,7 +325,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void OnClearValue_Ok()
     {
         var value = false;
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.OnClearValue, (e) =>
@@ -341,7 +341,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void OnValueChanged_Ok()
     {
         var value = new DateTimeRangeValue() { Start = DateTime.Now, End = DateTime.Now.AddDays(10) };
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.OnValueChanged, v => { value = v; return Task.CompletedTask; });
@@ -353,7 +353,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void ValueChanged_Ok()
     {
         var value = new DateTimeRangeValue() { Start = DateTime.Now, End = DateTime.Now.AddDays(10) };
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTimeRangeValue?>(this, v => { value = v; }));
@@ -364,7 +364,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickToday_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowToday, true);
@@ -376,7 +376,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void OnClickSidebarItem_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
@@ -393,7 +393,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void UpdateValue_Year()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
         });
@@ -424,7 +424,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void UpdateValue_Month()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue()
             {
@@ -465,7 +465,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             Value = new DateTimeRangeValue()
         };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.ValidateAllProperties, true);
             pb.Add(a => a.Model, foo);
@@ -487,7 +487,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         var clear = range.Find(".is-clear");
         clear.Click();
 
-        range.SetParametersAndRender(pb =>
+        range.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.ShowClearButton, true);
@@ -496,11 +496,11 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
 
         foo.Value.Start = DateTime.Now;
         foo.Value.End = DateTime.Now;
-        range.SetParametersAndRender(pb =>
+        range.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, false);
         });
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Model, foo);
         });
@@ -516,7 +516,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             Value = new DateTimeRangeValue()
         };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.ValidateAllProperties, true);
             pb.Add(a => a.Model, foo);
@@ -532,7 +532,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         var confirm = range.Find(".is-confirm");
         await cut.InvokeAsync(() => confirm.Click());
 
-        range.SetParametersAndRender(pb =>
+        range.Render(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
         });
@@ -542,7 +542,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public void PrevButton_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
         });
@@ -560,7 +560,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void MaxValue_Ok()
     {
         var currentToday = DateTime.Today.AddDays(7 - DateTime.Today.Day);
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.MinValue, currentToday.AddDays(-2));
             builder.Add(a => a.MaxValue, currentToday.AddDays(2));
@@ -597,7 +597,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task GetSafeStartValue_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        var cut = Context.Render<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
             builder.Add(a => a.ShowToday, true);
@@ -616,7 +616,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue());
             pb.Add(a => a.IsEditable, true);
@@ -646,7 +646,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ViewMode_Year()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue());
             pb.Add(a => a.IsEditable, true);
@@ -658,7 +658,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cells[0].Click());
         await cut.InvokeAsync(() => cells[1].Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue() { Start = new DateTime(2023, 1, 1), End = new DateTime(2024, 1, 1) });
         });
@@ -670,7 +670,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ViewMode_Month()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue());
             pb.Add(a => a.IsEditable, true);
@@ -682,7 +682,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cells[0].Click());
         await cut.InvokeAsync(() => cells[1].Click());
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue() { Start = new DateTime(2023, 1, 1), End = new DateTime(2024, 1, 1) });
         });
@@ -694,7 +694,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     [Fact]
     public async Task TriggerHideCallback_Ok()
     {
-        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        var cut = Context.Render<DateTimeRange>(pb =>
         {
             pb.Add(a => a.Value, new DateTimeRangeValue());
         });

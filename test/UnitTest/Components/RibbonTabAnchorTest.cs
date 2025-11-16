@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -20,7 +20,7 @@ public class RibbonTabAnchorTest : BootstrapBlazorTestBase
         var item2 = new RibbonTabItem() { Text = "test2" };
         item2.Items.Add(new RibbonTabItem() { Text = "Item" });
 
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        var cut = Context.Render<RibbonTab>(pb =>
         {
             pb.Add(a => a.IsSupportAnchor, true);
             pb.Add(a => a.EncodeAnchorCallback, (url, text) =>
@@ -37,15 +37,15 @@ public class RibbonTabAnchorTest : BootstrapBlazorTestBase
             item.Click();
         });
 
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        var nav = Context.Services.GetRequiredService<BunitNavigationManager>();
         Assert.Equal("http://localhost/#test1-anchor", nav.Uri);
 
         nav.NavigateTo("http://localhost/#test2-anchor");
-        cut.SetParametersAndRender();
+        cut.Render();
         var item = cut.FindComponents<TabItem>();
         Assert.True(item[1].Instance.IsActive);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.EncodeAnchorCallback, null);
             pb.Add(a => a.DecodeAnchorCallback, null);
@@ -59,7 +59,7 @@ public class RibbonTabAnchorTest : BootstrapBlazorTestBase
         Assert.Equal("http://localhost/#test1", nav.Uri);
 
         nav.NavigateTo("http://localhost/#test2");
-        cut.SetParametersAndRender();
+        cut.Render();
         item = cut.FindComponents<TabItem>();
         Assert.True(item[1].Instance.IsActive);
     }

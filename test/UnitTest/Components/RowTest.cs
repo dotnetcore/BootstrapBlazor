@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class RowTest : BootstrapBlazorTestBase
     [Fact]
     public void RowType_Normal()
     {
-        var cut = Context.RenderComponent<Row>(pb =>
+        var cut = Context.Render<Row>(pb =>
         {
             pb.Add(a => a.RowType, RowType.Normal);
             pb.Add(a => a.ChildContent, CreateContent());
@@ -27,7 +27,7 @@ public class RowTest : BootstrapBlazorTestBase
     [Fact]
     public void RowType_Inline()
     {
-        var cut = Context.RenderComponent<Row>(pb =>
+        var cut = Context.Render<Row>(pb =>
         {
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.ChildContent, CreateContent());
@@ -45,7 +45,7 @@ public class RowTest : BootstrapBlazorTestBase
     [InlineData(ItemsPerRow.Twelve, 1)]
     public void ItemsPerRow_Ok(ItemsPerRow items, int cols)
     {
-        var cut = Context.RenderComponent<Row>(pb =>
+        var cut = Context.Render<Row>(pb =>
         {
             pb.Add(a => a.ItemsPerRow, items);
             pb.Add(a => a.ChildContent, CreateContent());
@@ -57,7 +57,7 @@ public class RowTest : BootstrapBlazorTestBase
     [Fact]
     public void ColSpan_Ok()
     {
-        var cut = Context.RenderComponent<Row>(pb =>
+        var cut = Context.Render<Row>(pb =>
         {
             pb.Add(a => a.ColSpan, 1);
             pb.Add(a => a.ChildContent, CreateContent());

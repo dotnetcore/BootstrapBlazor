@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void FormatterAsync_Ok()
     {
-        var cut = Context.RenderComponent<Display<string>>(pb =>
+        var cut = Context.Render<Display<string>>(pb =>
         {
             pb.Add(a => a.FormatterAsync, v => Task.FromResult<string?>("FormattedValue"));
         });
@@ -22,7 +22,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<EnumEducation>>(pb =>
+        var cut = Context.Render<Display<EnumEducation>>(pb =>
         {
             pb.Add(a => a.Value, EnumEducation.Primary);
         });
@@ -32,7 +32,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void ArrayValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<byte[]>>(pb =>
+        var cut = Context.Render<Display<byte[]>>(pb =>
         {
             pb.Add(a => a.Value, [0x01, 0x12, 0x34, 0x56]);
         });
@@ -42,7 +42,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public async Task LookupService_Ok()
     {
-        var cut = Context.RenderComponent<Display<List<string>>>(pb =>
+        var cut = Context.Render<Display<List<string>>>(pb =>
         {
             pb.Add(a => a.LookupService, null);
             pb.Add(a => a.LookupServiceKey, "FooLookup");
@@ -52,14 +52,14 @@ public class DisplayTest : BootstrapBlazorTestBase
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.LookupService, new MockLookupService());
         });
         await Task.Delay(100);
         Assert.Contains("Test1,Test2", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.LookupServiceKey, null);
             pb.Add(a => a.Lookup, new List<SelectedItem> { new("v1", "Test3"), new("v2", "Test4") });
@@ -71,7 +71,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Ok()
     {
-        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
+        var cut = Context.Render<Display<Fish[]>>(pb =>
         {
             pb.Add(a => a.Value, [new Fish { Value = "1" }]);
             pb.Add(a => a.TypeResolver, (_, _, _) => typeof(Fish));
@@ -82,7 +82,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Null()
     {
-        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
+        var cut = Context.Render<Display<Fish[]>>(pb =>
         {
             pb.Add(a => a.Value, [new Fish { Value = "1" }]);
         });
@@ -92,7 +92,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumerableNullValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<List<int?>>>(pb =>
+        var cut = Context.Render<Display<List<int?>>>(pb =>
         {
             pb.Add(a => a.Value, [1, 2, 3, 4, null]);
             pb.Add(a => a.Lookup,
@@ -109,13 +109,13 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumerableValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<List<int>>>(pb =>
+        var cut = Context.Render<Display<List<int>>>(pb =>
         {
             pb.Add(a => a.Value, [1, 2, 3, 4]);
         });
         Assert.Contains("1,2,3,4", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Lookup, new List<SelectedItem>() { new("1", "Test 1") });
         });
@@ -125,7 +125,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void GenericValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<DisplayGenericValueMock<string>>>(pb =>
+        var cut = Context.Render<Display<DisplayGenericValueMock<string>>>(pb =>
         {
             pb.Add(a => a.Value, new DisplayGenericValueMock<string>() { Value = "1" });
             pb.Add(a => a.Lookup, new List<SelectedItem>() { new("1", "Test 1") });
@@ -136,7 +136,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void StringValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<string>>(pb =>
+        var cut = Context.Render<Display<string>>(pb =>
         {
             pb.Add(a => a.Value, "Test 1");
         });
@@ -146,7 +146,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void DateTimeValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<DateTime>>(pb =>
+        var cut = Context.Render<Display<DateTime>>(pb =>
         {
             pb.Add(a => a.Value, DateTime.Now);
             pb.Add(a => a.FormatString, "yyyy-MM-dd");
@@ -157,7 +157,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void NullValue_Ok()
     {
-        var cut = Context.RenderComponent<Display<string?>>(pb =>
+        var cut = Context.Render<Display<string?>>(pb =>
         {
             pb.Add(a => a.Value, null);
             pb.Add(a => a.Lookup, new List<SelectedItem>() { new("1", "Test 1") });
@@ -168,7 +168,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowLabel_Ok()
     {
-        var cut = Context.RenderComponent<Display<string>>(pb =>
+        var cut = Context.Render<Display<string>>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
             pb.Add(a => a.DisplayText, "Test Label");
@@ -179,7 +179,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowTooltip_Ok()
     {
-        var cut = Context.RenderComponent<Display<string>>(pb =>
+        var cut = Context.Render<Display<string>>(pb =>
         {
             pb.Add(a => a.ShowTooltip, true);
             pb.Add(a => a.Value, "Test Label");
@@ -191,7 +191,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     public void Bind_Ok()
     {
         var foo = new Foo() { Name = "test-name" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<BootstrapInputGroup>(b =>
@@ -221,7 +221,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     public void Nullable_Enum()
     {
         var model = new Foo() { Education = EnumEducation.Middle };
-        var cut = Context.RenderComponent<Display<EnumEducation?>>(pb =>
+        var cut = Context.Render<Display<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
             pb.Add(a => a.Value, model.Education);
@@ -235,7 +235,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Format_Test()
     {
-        var cut = Context.RenderComponent<MockDisplayComponent>();
+        var cut = Context.Render<MockDisplayComponent>();
         var result = cut.Instance.Test(new SelectedItem("1", "Test"));
         Assert.Equal("1", result);
     }

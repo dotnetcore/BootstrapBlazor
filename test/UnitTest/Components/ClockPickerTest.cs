@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsAutoSwitch_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
             pb.Add(a => a.IsAutoSwitch, true);
@@ -37,7 +37,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowMinute_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
             pb.Add(a => a.IsAutoSwitch, true);
@@ -58,7 +58,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ShowSecond_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
             pb.Add(a => a.IsAutoSwitch, true);
@@ -86,7 +86,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SwitchView_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
         });
@@ -115,7 +115,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetTime_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(11));
         });
@@ -125,7 +125,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(TimeSpan.FromHours(0), cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(11));
         });
@@ -136,7 +136,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(TimeSpan.FromHours(11), cut.Instance.Value);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(20));
         });
@@ -151,7 +151,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task SetTimePeriod_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
         });
@@ -175,7 +175,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowClockScale_Ok()
     {
-        var cut = Context.RenderComponent<ClockPicker>(pb =>
+        var cut = Context.Render<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, TimeSpan.FromHours(12.5));
             pb.Add(a => a.ShowClockScale, true);
@@ -186,7 +186,7 @@ public class ClockPickerTest : BootstrapBlazorTestBase
     [Fact]
     public async Task DatePicker_Ok()
     {
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.Render<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.Value, DateTime.Now);
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);

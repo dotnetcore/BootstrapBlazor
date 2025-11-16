@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,7 +14,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public void DropUpload_BodyTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.BodyTemplate, b => b.AddContent(0, "drop-upload-body-template"));
         });
@@ -24,7 +24,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public void DropUpload_IconTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.IconTemplate, b => b.AddContent(0, "drop-upload-icon-template"));
         });
@@ -34,7 +34,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public void DropUpload_TextTemplate_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.TextTemplate, b => b.AddContent(0, "drop-upload-text-template"));
         });
@@ -44,14 +44,14 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public void DropUpload_Footer_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.FooterText, "drop-upload-footer-text1");
         });
         cut.Contains("<div class=\"upload-drop-footer\"><span class=\"text-muted\">drop-upload-footer-text1</span></div>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.FooterTemplate, b => b.AddContent(0, "drop-upload-footer-text"));
         });
@@ -61,7 +61,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public async Task MaxFileCount_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.IsMultiple, true);
             pb.Add(a => a.MaxFileCount, 2);
@@ -86,7 +86,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public async Task DropUpload_OnChanged_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
             pb.Add(a => a.ShowProgress, true);
@@ -107,7 +107,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     public async Task ShowUploadList_Ok()
     {
         UploadFile? file = null;
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.ShowUploadFileList, true);
             pb.Add(a => a.ShowDownloadButton, true);
@@ -133,7 +133,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     public async Task DropUpload_ShowProgress_Ok()
     {
         var cancel = false;
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
@@ -166,7 +166,7 @@ public class UploadDropTest : BootstrapBlazorTestBase
     [Fact]
     public void OnGetFileFormat_Ok()
     {
-        var cut = Context.RenderComponent<DropUpload>(pb =>
+        var cut = Context.Render<DropUpload>(pb =>
         {
             pb.Add(a => a.LoadingIcon, "fa-loading");
             pb.Add(a => a.DeleteIcon, "fa-delte");

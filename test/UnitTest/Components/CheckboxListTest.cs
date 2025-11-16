@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -19,7 +19,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void Checkbox_Ok()
     {
-        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        var cut = Context.Render<Checkbox<string>>(builder =>
         {
             builder.Add(a => a.ShowLabel, true);
             builder.Add(a => a.DisplayText, "Test");
@@ -30,7 +30,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void ChildContent_Ok()
     {
-        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        var cut = Context.Render<Checkbox<string>>(builder =>
         {
             builder.Add(a => a.ChildContent, pb => pb.AddContent(0, "test-childcontent"));
         });
@@ -40,7 +40,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void StopPropagation_Ok()
     {
-        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        var cut = Context.Render<Checkbox<string>>(builder =>
         {
             builder.Add(a => a.StopPropagation, true);
         });
@@ -50,13 +50,13 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowAfterLabel_Ok()
     {
-        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        var cut = Context.Render<Checkbox<string>>(builder =>
         {
             builder.Add(a => a.ShowAfterLabel, true);
         });
         cut.MarkupMatches("<div class=\"form-check\"><input class=\"form-check-input\" type=\"checkbox\" diff:ignore /></div>");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowLabelTooltip, true);
             pb.Add(a => a.DisplayText, "Test");
@@ -70,7 +70,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     public async Task Checkbox_OnBeforeStateChanged()
     {
         var confirm = true;
-        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
+        var cut = Context.Render<Checkbox<bool>>(builder =>
         {
             builder.Add(a => a.OnBeforeStateChanged, state =>
             {
@@ -90,7 +90,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Checkbox_OnTriggerClickAsync()
     {
-        var cut = Context.RenderComponent<Checkbox<bool>>();
+        var cut = Context.Render<Checkbox<bool>>();
         Assert.False(cut.Instance.Value);
 
         // JavaScript 调用 OnStateChangedAsync 方法
@@ -104,7 +104,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void Checkbox_Dispose()
     {
-        var cut = Context.RenderComponent<Checkbox<string>>();
+        var cut = Context.Render<Checkbox<string>>();
 
         var checkbox = cut.Instance;
         cut.InvokeAsync(async () => await checkbox.DisposeAsync());
@@ -121,7 +121,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void Group_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
+        var cut = Context.Render<BootstrapInputGroup>(pb =>
         {
             pb.AddChildContent<BootstrapInputGroupLabel>(pb =>
             {
@@ -141,7 +141,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     public void EditorForm_Ok()
     {
         var foo = Foo.Generate(Localizer);
-        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        var cut = Context.Render<ValidateForm>(builder =>
         {
             builder.Add(a => a.Model, foo);
             builder.AddChildContent<CheckboxList<IEnumerable<string>>>(pb =>
@@ -172,14 +172,14 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     public void ShowBorder_Ok()
     {
         var foo = Foo.Generate(Localizer);
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<string>>>(pb =>
         {
             pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
             pb.Add(a => a.Value, foo.Hobby);
         });
         Assert.DoesNotContain("no-border", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.ShowBorder, false);
         });
@@ -189,10 +189,10 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_Ok()
     {
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>();
+        var cut = Context.Render<CheckboxList<IEnumerable<int>>>();
         Assert.DoesNotContain("is-vertical", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.IsVertical, true);
         });
@@ -202,7 +202,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_Ok()
     {
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<SelectedItem>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<SelectedItem>>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -213,7 +213,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         });
         cut.Contains("form-check is-label disabled");
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -228,13 +228,13 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void CheckboxItemClass_Ok()
     {
-        var cut = Context.RenderComponent<CheckboxList<string>>(builder =>
+        var cut = Context.Render<CheckboxList<string>>(builder =>
         {
             builder.Add(a => a.CheckboxItemClass, "test-item");
         });
         Assert.DoesNotContain("test-item", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
         });
@@ -244,13 +244,13 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public async Task StringValue_Ok()
     {
-        var cut = Context.RenderComponent<CheckboxList<string>>(builder =>
+        var cut = Context.Render<CheckboxList<string>>(builder =>
         {
             builder.Add(a => a.Value, "1,2");
         });
         Assert.Contains("checkbox-list", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -261,7 +261,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.Contains("checkbox-list", cut.Markup);
 
         var selected = false;
-        cut.SetParametersAndRender(pb =>
+        cut.Render(pb =>
         {
             pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
             {
@@ -280,7 +280,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     {
         var selected = false;
         var foo = Foo.Generate(Localizer);
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<string>>>(pb =>
         {
             pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
             pb.Add(a => a.Value, foo.Hobby);
@@ -300,7 +300,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     public void EnumValue_Ok()
     {
         var selectedEnumValues = new List<EnumEducation> { EnumEducation.Middle, EnumEducation.Primary };
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<EnumEducation>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<EnumEducation>>>(pb =>
         {
             pb.Add(a => a.Value, selectedEnumValues);
         });
@@ -312,7 +312,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     {
         var ret = new List<int>();
         var selectedIntValues = new List<int> { 1, 2 };
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<int>>>(pb =>
         {
             pb.Add(a => a.Value, selectedIntValues);
             pb.Add(a => a.Items, new List<SelectedItem>()
@@ -336,15 +336,15 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void NotSupportedException_Error()
     {
-        Assert.Throws<NotSupportedException>(() => Context.RenderComponent<CheckboxList<CheckboxListGenericMock<int>>>());
-        Assert.Throws<NotSupportedException>(() => Context.RenderComponent<CheckboxList<int>>());
+        Assert.Throws<NotSupportedException>(() => Context.Render<CheckboxList<CheckboxListGenericMock<int>>>());
+        Assert.Throws<NotSupportedException>(() => Context.Render<CheckboxList<int>>());
     }
 
     [Fact]
     public async Task Size_Ok()
     {
         var @checked = false;
-        var cut = Context.RenderComponent<Checkbox<string>>(pb =>
+        var cut = Context.Render<Checkbox<string>>(pb =>
         {
             pb.Add(a => a.Size, Size.ExtraExtraLarge);
             pb.Add(a => a.StateChanged, v => @checked = v == CheckboxState.Checked);
@@ -356,7 +356,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void FormatValue_Ok()
     {
-        var cut = Context.RenderComponent<FormatValueTestCheckboxList>();
+        var cut = Context.Render<FormatValueTestCheckboxList>();
         cut.InvokeAsync(() =>
         {
             Assert.Null(cut.Instance.NullValueTest());
@@ -367,7 +367,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void FormatGenericValue_Ok()
     {
-        var cut = Context.RenderComponent<FormatValueTestGenericCheckboxList>();
+        var cut = Context.Render<FormatValueTestGenericCheckboxList>();
         cut.InvokeAsync(() =>
         {
             Assert.Equal(string.Empty, cut.Instance.NullValueTest());
@@ -378,7 +378,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsButton_Ok()
     {
-        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
+        var cut = Context.Render<CheckboxList<IEnumerable<int>>>(pb =>
         {
             pb.Add(a => a.IsButton, true);
             pb.Add(a => a.ShowButtonBorderColor, true);
@@ -407,7 +407,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             new("2", "Test 2"),
             new("3", "Test 3")
         };
-        var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
+        var cut = Context.Render<CheckboxList<string>>(pb =>
         {
             pb.Add(a => a.MaxSelectedCount, 2);
             pb.Add(a => a.Items, items);
@@ -465,7 +465,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             new("2", "Test 2"),
             new("3", "Test 3")
         };
-        var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
+        var cut = Context.Render<CheckboxList<string>>(pb =>
         {
             pb.Add(a => a.IsButton, isButton);
             pb.Add(a => a.Items, items);
