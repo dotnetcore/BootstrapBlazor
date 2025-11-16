@@ -19,7 +19,10 @@ public class TestBase : IDisposable
 
     public void Dispose()
     {
-        _ = Context.DisposeAsync();
+#pragma warning disable CA2012
+        // 由于 bUnit 2.0 继承了 IAsyncDisposable 接口，因此此处调用 DisposeAsync 方法
+        Context.DisposeAsync();
+#pragma warning restore CA2012    
         GC.SuppressFinalize(this);
     }
 }
