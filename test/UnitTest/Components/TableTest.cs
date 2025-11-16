@@ -269,11 +269,11 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     if (firstRender)
                     {
-                        table.ResetVisibleColumns(new List<ColumnVisibleItem>()
-                        {
+                        table.ResetVisibleColumns(
+                        [
                             new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
                             new(nameof(Foo.Address), false),
-                        });
+                        ]);
                     }
                     return Task.CompletedTask;
                 });
@@ -623,7 +623,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -664,7 +664,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -706,7 +706,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -4351,7 +4351,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         var btn = cut.Find(selector);
         cut.InvokeAsync(() => btn.Click());
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]
@@ -4507,7 +4507,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var cut = Context.Render<TableCellButton>();
         Assert.Equal("", cut.Markup);
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]
@@ -4763,7 +4763,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         var seqs = table.Instance.Columns.Select(i => i.Order);
-        Assert.Equal(new List<int>() { 20, 40, 50, 60, 70, 100, -3 }, seqs);
+        Assert.Equal([20, 40, 50, 60, 70, 100, -3], seqs);
     }
 
     [Fact]
@@ -6406,8 +6406,8 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, op =>
                 {
-                    op.CustomerSearches.AddRange(new List<IFilterAction>() { new MockFilterAction() });
-                    op.Filters.AddRange(new List<IFilterAction>() { new MockFilterAction() });
+                    op.CustomerSearches.AddRange([new MockFilterAction()]);
+                    op.Filters.AddRange([new MockFilterAction()]);
                     return OnQueryAsync(localizer, isAdvanceSearch: false, isFilter: false)(op);
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -7451,7 +7451,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.ShowEmpty, true);
                 pb.Add(a => a.EmptyImage, "/images/empty.jpg");
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -7475,7 +7475,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.ShowEmpty, true);
                 pb.Add(a => a.EmptyTemplate, builder => builder.AddContent(0, "empty-test"));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -7579,7 +7579,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.HeaderStyle, TableHeaderStyle.Light);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -7609,7 +7609,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.HeaderTextWrap, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -7633,7 +7633,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.HeaderTextWrap, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -7687,7 +7687,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -7724,7 +7724,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>());
+                pb.Add(a => a.Items, []);
                 pb.Add(a => a.AutoGenerateColumns, true);
             });
         });
@@ -7763,7 +7763,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new() { Name = null }, new() { Name = "#fff" } });
+                pb.Add(a => a.Items, [new() { Name = null }, new() { Name = "#fff" }]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -7801,11 +7801,11 @@ public class TableTest : BootstrapBlazorTestBase
         var col = cut.FindComponent<TableColumn<Foo, bool>>();
         col.Render(pb =>
         {
-            pb.Add(a => a.Lookup, new List<SelectedItem>()
-            {
+            pb.Add(a => a.Lookup,
+            [
                 new("True", "True"),
                 new("False", "False")
-            });
+            ]);
         });
 
         var table = cut.FindComponent<MockTable>();
@@ -7953,7 +7953,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new() { Count = 10 } });
+                pb.Add(a => a.Items, [new() { Count = 10 }]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, int>>(0);
@@ -7991,7 +7991,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(0);
@@ -8004,7 +8004,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<MockTable>();
         table.Render(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo> { new() { Education = EnumEducation.Primary } });
+            pb.Add(a => a.Items, [new() { Education = EnumEducation.Primary }]);
         });
     }
 
@@ -8016,7 +8016,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
@@ -8037,7 +8037,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new() { Hobby = ["test-1", "test-2"] } });
+                pb.Add(a => a.Items, [new() { Hobby = ["test-1", "test-2"] }]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(0);
@@ -8057,7 +8057,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockRenderCellTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<ReadonlyFoo> { new() });
+                pb.Add(a => a.Items, [new()]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<ReadonlyFoo, string>>(0);
@@ -8151,7 +8151,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new ReadonlyFoo() });
+                pb.Add(a => a.Items, [new ReadonlyFoo()]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);

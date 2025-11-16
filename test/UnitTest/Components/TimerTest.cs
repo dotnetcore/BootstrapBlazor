@@ -22,7 +22,7 @@ public class TimerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, TimeSpan.Zero);
         });
         Assert.DoesNotContain("circle-body", cut.Markup);
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]

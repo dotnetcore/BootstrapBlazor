@@ -44,7 +44,7 @@ public class TableConfirmTest : BootstrapBlazorTestBase
         cut1.InvokeAsync(() => buttonConfirm.Click());
         Assert.True(trigger);
         Assert.True(clicked);
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]
@@ -52,6 +52,6 @@ public class TableConfirmTest : BootstrapBlazorTestBase
     {
         var cut = Context.Render<TableCellPopConfirmButton>();
         Assert.Equal("", cut.Markup);
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 }

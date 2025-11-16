@@ -339,8 +339,8 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.UseTabSet, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
-            pb.Add(a => a.Menus, new List<MenuItem>()
-            {
+            pb.Add(a => a.Menus,
+            [
                 new()
                 {
                     Text = "menu1",
@@ -353,7 +353,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                     Url = "/Dog",
                     Icon = "fa-solid fa-home"
                 }
-            });
+            ]);
         });
         var nav = cut.Services.GetRequiredService<BunitNavigationManager>();
         nav.NavigateTo("/Binder");
@@ -571,7 +571,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => button.Click());
         cut.Contains("<div class=\"error-stack\">");
         cut.Contains("class=\"layout\"");
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 
     [Fact]
@@ -732,7 +732,7 @@ public class LayoutAuthorizationTest : AuthorizationViewTestBase
             pb.Add(a => a.OnAuthorizing, url => Task.FromResult(true));
         });
         cut.MarkupMatches("<section id:ignore class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
-        Context.DisposeComponents();
+        Context.Dispose();
     }
 }
 
