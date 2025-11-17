@@ -320,29 +320,14 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     }
 
     /// <summary>
-    /// Releases the unmanaged resources used by the component and optionally releases the managed resources.
-    /// </summary>
-    /// <remarks>This method is called by the public Dispose method and can be overridden to provide custom
-    /// disposal logic. When disposing is true, managed resources should be released. When disposing is false, only
-    /// unmanaged resources should be released.</remarks>
-    /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (CascadedEditContext != null)
-            {
-                CascadedEditContext.OnFieldChanged -= NotifyValueChanged;
-            }
-        }
-    }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
+        if (CascadedEditContext != null)
+        {
+            CascadedEditContext.OnFieldChanged -= NotifyValueChanged;
+        }
         GC.SuppressFinalize(this);
     }
 }
