@@ -160,6 +160,12 @@ public partial class EditorForm<TModel> : IShowLabel, IEditorFormValueChanged
     public string? PlaceHolderText { get; set; }
 
     /// <summary>
+    /// 获得/设置 当值变化时是否重新渲染组件 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsRenderWhenValueChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
     /// </summary>
     [CascadingParameter]
@@ -305,7 +311,11 @@ public partial class EditorForm<TModel> : IShowLabel, IEditorFormValueChanged
     /// <returns></returns>
     public Task NotifyValueChanged()
     {
-        StateHasChanged();
+        // perf: 判断是否在编辑状态避免不必要的重绘
+        if (IsRenderWhenValueChanged)
+        {
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 }
