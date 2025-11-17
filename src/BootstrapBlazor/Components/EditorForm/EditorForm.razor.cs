@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// 编辑表单基类
 /// </summary>
 [CascadingTypeParameter(nameof(TModel))]
-public partial class EditorForm<TModel> : IShowLabel, IEditorFormValueChanged
+public partial class EditorForm<TModel> : IShowLabel, IDisposable
 {
     private string? ClassString => CssBuilder.Default("bb-editor")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -215,6 +215,11 @@ public partial class EditorForm<TModel> : IShowLabel, IEditorFormValueChanged
     {
         base.OnInitialized();
 
+        if (CascadedEditContext != null)
+        {
+            CascadedEditContext.OnFieldChanged += NotifyValueChanged;
+        }
+
         if (CascadedEditContext != null && IsSearch is not true)
         {
             var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
@@ -305,17 +310,39 @@ public partial class EditorForm<TModel> : IShowLabel, IEditorFormValueChanged
         ? col.SearchTemplate
         : item.EditTemplate;
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public Task NotifyValueChanged()
+    private void NotifyValueChanged(object? sender, FieldChangedEventArgs args)
     {
         // perf: 判断是否在编辑状态避免不必要的重绘
         if (IsRenderWhenValueChanged)
         {
             StateHasChanged();
         }
-        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Releases the unmanaged resources used by the component and optionally releases the managed resources.
+    /// </summary>
+    /// <remarks>This method is called by the public Dispose method and can be overridden to provide custom
+    /// disposal logic. When disposing is true, managed resources should be released. When disposing is false, only
+    /// unmanaged resources should be released.</remarks>
+    /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (CascadedEditContext != null)
+            {
+                CascadedEditContext.OnFieldChanged -= NotifyValueChanged;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
