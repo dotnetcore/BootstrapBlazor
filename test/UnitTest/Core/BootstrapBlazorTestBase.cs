@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace UnitTest.Core;
 
-public class BootstrapBlazorTestBase : TestBase, IDisposable
+public class BootstrapBlazorTestBase : TestBase
 {
     protected ICacheManager Cache { get; }
 
@@ -36,12 +36,6 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration();
-    }
-
-    public void Dispose()
-    {
-        _ = Context.DisposeAsync();
-        GC.SuppressFinalize(this);
     }
 
     class FooLookupService : LookupServiceBase
