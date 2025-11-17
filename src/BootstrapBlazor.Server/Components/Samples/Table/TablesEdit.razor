@@ -1,4 +1,4 @@
-﻿@page "/table/edit"
+@page "/table/edit"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesEdit> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
@@ -57,13 +57,21 @@
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center"></TableColumn>
+            <TableColumn @bind-Field="@context.Education">
+                <EditTemplate Context="v">
+                    <div class="col-12 col-sm-6">
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <Select @bind-Value="@v.Education"></Select>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <Display Value="@GetEducationDesc(v.Education)" ShowLabel="true" DisplayText="@Localizer["TablesEditTemplateDisplayLabel"]"></Display>
+                    </div>
+                </EditTemplate>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Count" Align="Alignment.Right"></TableColumn>
             <TableColumn @bind-Field="@context.Hobby"></TableColumn>
         </TableColumns>
-        <EditTemplate>
-            <!--本例中使用了联动功能，必须封装成组件-->
-            <DemoTableEditTemplate Model="context" />
-        </EditTemplate>
         <EditFooterTemplate>
             <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(context)"></Button>
             <DialogCloseButton></DialogCloseButton>
