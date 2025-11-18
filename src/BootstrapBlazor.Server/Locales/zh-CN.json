@@ -6375,7 +6375,8 @@
     "MermaidNormalIntro": "Mermaid 基本样式",
     "MermaidStyleTitle": "增加自定义样式",
     "MermaidStyleIntro": "",
-    "MermaidType": "图表类型"
+    "MermaidType": "图表类型",
+    "DownloadPdfButtonText": "下载 Pdf"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
