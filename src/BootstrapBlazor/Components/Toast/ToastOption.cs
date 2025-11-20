@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -79,6 +79,16 @@ public class ToastOption : PopupOptionBase
     /// 获得/设置 关闭当前 Toast 回调委托 默认 null
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 附加 style 字符串到 <see cref="Toast"/> 元素上
+    /// </summary>
+    public string? StyleString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 附加 class 字符串到 <see cref="Toast"/> 元素上
+    /// </summary>
+    public string? ClassString { get; set; }
 
     /// <summary>
     /// 关闭当前弹窗方法

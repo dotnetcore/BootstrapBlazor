@@ -19,6 +19,7 @@
 }
 
 .toast {
+    --bs-toast-bg: var(--bs-body-bg);
     --bs-toast-border-radius: var(--bs-border-radius);
     position: relative;
     overflow: hidden;
