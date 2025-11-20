@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -137,7 +137,7 @@ public partial class BaseLayout : IAsyncDisposable
     public async Task ShowVoteToast()
     {
         // 英文环境不投票
-        if(CultureInfo.CurrentUICulture.Name == "en-US")
+        if (CultureInfo.CurrentUICulture.Name == "en-US")
         {
             return;
         }
@@ -145,10 +145,11 @@ public partial class BaseLayout : IAsyncDisposable
         _option = new ToastOption()
         {
             Category = ToastCategory.Information,
-            Title = "Gitee 评选活动",
+            Title = "邀请您支持 BB 参与 Gitee 项目评选活动",
             IsAutoHide = false,
             ChildContent = RenderVote,
-            PreventDuplicates = true
+            PreventDuplicates = true,
+            StyleString = "--bs-toast-max-width: 380px;"
         };
         await Toast.Show(_option);
     }
