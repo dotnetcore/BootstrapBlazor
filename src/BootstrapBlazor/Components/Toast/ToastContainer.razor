@@ -5,7 +5,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @foreach (var option in Toasts)
         {
-            <Toast @key="@option" class="@GetToastBoxClassString(option.ClassString)" style="@GetToastBoxStyleString(option.StyleString)" Options="@option" />
+            <Toast @key="@option" Options="@option" />
         }
     </CascadingValue>
 </div>

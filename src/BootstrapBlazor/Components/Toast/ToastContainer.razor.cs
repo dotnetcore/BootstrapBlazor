@@ -23,18 +23,6 @@ public partial class ToastContainer : IDisposable
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetToastBoxClassString(string? classString) => CssBuilder.Default(classString)
-        .AddClass("left", Placement == Placement.TopStart)
-        .AddClass("left", Placement == Placement.MiddleStart)
-        .AddClass("left", Placement == Placement.BottomStart)
-        .AddClass("left", Placement == Placement.TopCenter)
-        .AddClass("left", Placement == Placement.MiddleCenter)
-        .AddClass("left", Placement == Placement.BottomCenter)
-        .Build();
-
-    private static string? GetToastBoxStyleString(string? styleString) => CssBuilder.Default(styleString)
-        .Build();
-
     /// <summary>
     /// 获得 弹出窗集合
     /// </summary>
