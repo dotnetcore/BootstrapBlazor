@@ -4,19 +4,13 @@
 @if (Item.IsDisabled)
 {
     <div class="nav-link disabled">
-        <div class="submenu-link">
-            <i class="@IconString"></i>
-            <span class="menu-text">@Item.Text</span>
-        </div>
+        @RenderSubMenu
     </div>
 }
 else
 {
     <NavLink @attributes="@AdditionalAttributes" @onclick:preventDefault="@PreventDefault" class="@ClassString" href="@HrefString" target="@TargetString" Match="@Item.Match" style="@StyleClassString" aria-expanded="@AriaExpandedString">
-        <div class="submenu-link">
-            <i class="@IconString"></i>
-            <span class="menu-text">@Item.Text</span>
-        </div>
+        @RenderSubMenu
         @if (Item.Template != null)
         {
             <div class="widget" @onclick:stopPropagation @onclick:preventDefault>
@@ -25,4 +19,12 @@ else
         }
         <i class="@MenuArrowClassString" />
     </NavLink>
+}
+
+@code {
+    RenderFragment RenderSubMenu =>
+    @<div class="submenu-link">
+        <i class="@IconString"></i>
+        <span class="menu-text">@Item.Text</span>
+    </div>;
 }
