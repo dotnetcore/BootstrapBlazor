@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --bb-font-weight: bold;
     --bb-title-font-size: 1rem;
     --bb-sub-font-size: .875rem;
@@ -341,6 +341,10 @@ code {
 
     .coms-demo .card {
         cursor: pointer;
+    }
+
+    .bb-vote-toast {
+        --bs-toast-max-width: 380px;
     }
 }
 
