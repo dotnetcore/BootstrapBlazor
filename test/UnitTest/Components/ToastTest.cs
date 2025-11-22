@@ -255,4 +255,32 @@ public class ToastTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => option.Close());
         Assert.True(close);
     }
+
+    [Fact]
+    public void StyleString_Ok()
+    {
+        var cut = Context.Render<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                StyleString = "color: red; font-size: 14px;"
+            });
+        });
+        Assert.Contains("color: red; font-size: 14px;", cut.Markup);
+    }
+
+    [Fact]
+    public void ClassString_Ok()
+    {
+        var cut = Context.Render<Toast>(pb =>
+        {
+            pb.Add(a => a.Options, new ToastOption()
+            {
+                ClassString = "custom-class another-class"
+            });
+        });
+        Assert.Contains("toast", cut.Markup);
+        Assert.Contains("custom-class", cut.Markup);
+        Assert.Contains("another-class", cut.Markup);
+    }
 }
