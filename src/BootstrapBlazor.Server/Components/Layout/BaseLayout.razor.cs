@@ -149,7 +149,7 @@ public partial class BaseLayout : IAsyncDisposable
             IsAutoHide = false,
             ChildContent = RenderVote,
             PreventDuplicates = true,
-            StyleString = "--bs-toast-max-width: 380px;"
+            ClassString = "bb-vote-toast"
         };
         await Toast.Show(_option);
     }
