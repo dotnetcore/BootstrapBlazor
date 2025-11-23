@@ -1,4 +1,4 @@
-﻿import { registerBootstrapBlazorModule } from "../../modules/utility.js"
+import { registerBootstrapBlazorModule } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
@@ -9,13 +9,31 @@ export function init(id) {
     }
     const button = el.querySelector('.btn-slide')
     const list = el.querySelector('.slide-list')
+    const listBody = el.querySelector('.slide-body')
     const slide = { el, button, list }
     Data.set(id, slide);
     reset(slide)
 
     EventHandler.on(button, 'click', () => {
         list.classList.toggle('show')
-    })
+    });
+
+    EventHandler.on(list, 'transitionstart', e => {
+        if (e.propertyName !== 'height' && e.propertyName !== 'width') {
+            return;
+        }
+
+        listBody.classList.remove('scroll');
+    });
+    EventHandler.on(list, 'transitionend', e => {
+        if (e.propertyName !== 'height' && e.propertyName !== 'width') {
+            return;
+        }
+
+        if (list.classList.contains('show')) {
+            listBody.classList.add('scroll');
+        }
+    });
     EventHandler.on(list, 'click', '.btn-close', e => {
         e.stopPropagation()
         list.classList.remove('show')
@@ -43,6 +61,8 @@ export function dispose(id) {
         const { button, list } = slide ?? {};
         EventHandler.off(button, 'click');
         EventHandler.off(list, 'click');
+        EventHandler.off(list, 'transitionstart');
+        EventHandler.off(list, 'transitionend');
     }
 
     const { SlideButton } = window.BootstrapBlazor;
