@@ -569,12 +569,12 @@ internal class CacheManager : ICacheManager
         }
         else
         {
-            var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName, value);
+            var invoker = GetSetPropertyValueInvoker<TModel, TValue>(model, fieldName);
             invoker(model, value);
         }
     }
 
-    private static Action<TModel, TValue> GetSetPropertyValueInvoker<TModel, TValue>(TModel model, string fieldName, TValue value)
+    private static Action<TModel, TValue> GetSetPropertyValueInvoker<TModel, TValue>(TModel model, string fieldName)
     {
         if (model == null)
         {
