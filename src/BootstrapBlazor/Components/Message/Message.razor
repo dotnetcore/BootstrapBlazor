@@ -5,7 +5,7 @@
 <div id="@Id" class="@ClassString" style="@StyleName" role="alert">
     @foreach (var item in MessagesForRender)
     {
-        <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
+        <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay" style="@GetItemStyleString(item)">
             @if (!string.IsNullOrEmpty(item.Icon))
             {
                 <i class="@item.Icon"></i>
