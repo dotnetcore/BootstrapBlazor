@@ -536,23 +536,29 @@ internal class CacheManager : ICacheManager
 
     private static TResult GetValue<TModel, TResult>(TModel model, string fieldName)
     {
+        var invoker = GetGetValueInvoker<TModel, TResult>(model, fieldName);
+        return invoker(model);
+    }
+
+    private static Func<TModel, TResult> GetGetValueInvoker<TModel, TResult>(TModel model, string fieldName)
+    {
         if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
 
         var type = model.GetType();
-        var cacheKey = $"{CacheKeyPrefix}-Lambda-Get-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TResult)}";
-        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+        Func<TModel, TResult>? invoker = null;
+        if (type.Assembly.IsDynamic)
         {
-            if (type.Assembly.IsDynamic)
-            {
-                entry.SetAbsoluteExpiration(Options.CacheManagerOptions.AbsoluteExpiration);
-            }
-
-            return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-        });
-        return invoker(model);
+            invoker = LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
+        }
+        else
+        {
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-Get-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TResult)}";
+            invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile());
+        }
+        return invoker;
     }
 
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
