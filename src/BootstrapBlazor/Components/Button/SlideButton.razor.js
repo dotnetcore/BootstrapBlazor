@@ -61,6 +61,8 @@ export function dispose(id) {
         const { button, list } = slide ?? {};
         EventHandler.off(button, 'click');
         EventHandler.off(list, 'click');
+        EventHandler.off(list, 'transitionstart');
+        EventHandler.off(list, 'transitionend');
     }
 
     const { SlideButton } = window.BootstrapBlazor;
