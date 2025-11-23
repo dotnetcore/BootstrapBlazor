@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -54,4 +54,14 @@ public class MessageOption : PopupOptionBase
     /// 获得/设置 消息显示模式，默认为 <see cref="MessageShowMode.Multiple"/>
     /// </summary>
     public MessageShowMode ShowMode { get; set; } = MessageShowMode.Multiple;
+
+    /// <summary>
+    /// 获得/设置 附加 style 字符串到 <see cref="Message"/> 元素上
+    /// </summary>
+    public string? StyleString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 附加 class 字符串到 <see cref="Message"/> 元素上
+    /// </summary>
+    public string? ClassString { get; set; }
 }
