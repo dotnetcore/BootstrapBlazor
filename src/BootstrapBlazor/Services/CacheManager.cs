@@ -548,7 +548,7 @@ internal class CacheManager : ICacheManager
         }
 
         var type = model.GetType();
-        Func<TModel, TResult>? invoker = null;
+        Func<TModel, TResult> invoker;
         if (type.Assembly.IsDynamic)
         {
             invoker = LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
@@ -582,7 +582,7 @@ internal class CacheManager : ICacheManager
         }
 
         var type = model.GetType();
-        Action<TModel, TValue>? invoker = null;
+        Action<TModel, TValue> invoker;
         if (type.Assembly.IsDynamic)
         {
             invoker = LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
