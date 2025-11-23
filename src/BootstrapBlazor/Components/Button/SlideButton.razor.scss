@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .slide-button {
     --bb-slide-list-bg: #{$bb-slide-list-bg};
@@ -111,4 +111,10 @@
 .input-group > :not(:last-child).dropdown > .btn {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .slide-list {
+        transition: none !important;
+    }
 }
