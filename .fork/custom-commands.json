@@ -4,7 +4,7 @@
   },
   {
     "action" : {
-      "script" : "git push gitcode.com --delete refs/heads/${ref}\ngit push gitee.com --delete refs/heads/${ref}\n",
+      "script" : "git push gitcode.com --delete refs/heads/${ref}\ngit push gitee.com --delete refs/heads/${ref}\ngit checkout main\ngit branch --delete --force ${ref}",
       "showOutput" : false,
       "type" : "sh",
       "waitForExit" : true
