@@ -1,23 +1,13 @@
 @page "/pdf-reader"
 @inject IStringLocalizer<PdfReaders> Localizer
 
-<h3>@Localizer["Title"]</h3>
-
-<HeadContent>
-    <style>
-        #viewerContainer {
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            height: 600px;
-        }
-    </style>
-</HeadContent>
+<h3>@Localizer["PdfTitle"]</h3>
+<h3>@Localizer["PdfDescription"]</h3>
 
 <PackageTips Name="BootstrapBlazor.PdfReader" />
 
 <DemoBlock Title="@Localizer["PdfReaderNormalText"]" Introduction="@Localizer["PdfReaderNormalIntro"]" Name="Normal">
-    <PdfReader FileName=@Filename Height="500px" />
+    <PdfReader ViewHeight="800px" Url="./samples/sample.pdf"></PdfReader>
 </DemoBlock>
 
 @* <DemoBlock Title="@Localizer["PdfReaderStreamModeText"]" Introduction="@Localizer["PdfReaderStreamModeIntro"]" Name="StreamMode">
