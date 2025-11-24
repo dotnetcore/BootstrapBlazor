@@ -24,8 +24,8 @@ English | <a href="README.zh-CN.md">中文</a>
 
 ## Environment
 
-- Install .net core sdk [Official website](https://dotnet.microsoft.com/download)
-- Install Visual Studio latest [Official website](https://visualstudio.microsoft.com/vs/getting-started/)
+- Install .net SDK [Official website](https://dotnet.microsoft.com/download)
+- Install Visual Studio latest [Official website](https://visualstudio.microsoft.com/vs)
 
 ## Quick Installation Guide
 
