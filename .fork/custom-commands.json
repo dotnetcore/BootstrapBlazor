@@ -1,0 +1,47 @@
+[
+  {
+    "version" : 2
+  },
+  {
+    "action" : {
+      "script" : "git push gitcode.com --delete refs/heads/${ref}\ngit push gitee.com --delete refs/heads/${ref}\ngit checkout main\ngit branch --delete --force ${ref}",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Delete All",
+    "refTargets" : [
+      "localbranch",
+      "remotebranch"
+    ],
+    "target" : "ref"
+  },
+  {
+    "action" : {
+      "script" : "git fetch --all --prune",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Fetch All",
+    "refTargets" : [
+      "localbranch",
+      "remotebranch"
+    ],
+    "target" : "ref"
+  },
+  {
+    "action" : {
+      "script" : "git push origin refs/heads/${ref} --verbose\ngit push gitcode.com refs/heads/${ref} --verbose\ngit push gitee.com refs/heads/${ref} --verbose",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Push All",
+    "refTargets" : [
+      "localbranch",
+      "remotebranch"
+    ],
+    "target" : "ref"
+  }
+]

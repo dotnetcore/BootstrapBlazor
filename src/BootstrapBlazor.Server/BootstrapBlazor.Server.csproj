@@ -35,8 +35,8 @@
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.DriverJs" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.Dom2Image" Version="10.0.1" />
+    <PackageReference Include="BootstrapBlazor.DriverJs" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
@@ -54,7 +54,7 @@
     <PackageReference Include="BootstrapBlazor.Markdown" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Mermaid" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.Mermaid" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="10.0.0" />
@@ -73,7 +73,7 @@
     <PackageReference Include="BootstrapBlazor.Splitting" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="10.0.0" />

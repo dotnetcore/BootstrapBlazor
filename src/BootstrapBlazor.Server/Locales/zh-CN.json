@@ -5184,8 +5184,8 @@
     "TablesEditItemsIntro": "设置 <code>Items</code> 作为数据源，无需设置 <code>OnSaveAsync</code> <code>OnDeleteAsync</code> 回调委托使用内置处理逻辑进行更新与删除功能",
     "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，必须使用双向绑定 <code>@bind-Items</code>, 同时 <code>TItem</code> 泛型约束的类实例，如本例中的 <code>Foo</code> ，需要正确配置 <code>[Key]</code> 标签，否则内置编辑功能无法正常工作；通过设置 <code>IsGroupExtendButtons</code> 参数控制行内功能按钮是否组合显示 默认 <code>true</code>",
     "TablesEditTemplateTitle": "具有单表维护功能的表格",
-    "TablesEditTemplateIntro": "通过设置 <code>EditTemplate</code> 自定义编辑弹窗，如果属性需要联动时必须像本例这样封装成一个独立的组件再放置到模板中",
-    "TablesEditTemplateDescription": "本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件，点击 <code>学历</code> 下拉框时右侧只读组件描述信息联动更新，<b>此功能必须封装成独立组件</b>",
+    "TablesEditTemplateIntro": "通过设置 <code>EditTemplate</code> 自定义编辑弹窗，<code>10.0.1</code> 版本后支持联动功能",
+    "TablesEditTemplateDescription": "本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件，点击 <code>学历</code> 下拉框时右侧只读组件描述信息联动更新",
     "TablesEditTemplateDisplayLabel": "详细信息",
     "TablesEditTemplateDisplayDetail1": "小学六年",
     "TablesEditTemplateDisplayDetail2": "初中三年",
@@ -6375,7 +6375,8 @@
     "MermaidNormalIntro": "Mermaid 基本样式",
     "MermaidStyleTitle": "增加自定义样式",
     "MermaidStyleIntro": "",
-    "MermaidType": "图表类型"
+    "MermaidType": "图表类型",
+    "DownloadPdfButtonText": "下载 Pdf"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",

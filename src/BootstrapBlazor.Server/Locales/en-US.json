@@ -6375,7 +6375,8 @@
     "MermaidNormalIntro": "Mermaid basic style",
     "MermaidStyleTitle": "Custom styles",
     "MermaidStyleIntro": "",
-    "MermaidType": "Type"
+    "MermaidType": "Type",
+    "DownloadPdfButtonText": "Export Pdf"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api",

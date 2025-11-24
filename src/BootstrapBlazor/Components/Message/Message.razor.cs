@@ -68,6 +68,10 @@ public partial class Message
         .AddClass($"border-{option.Color.ToDescriptionString()}", option.ShowBorder)
         .AddClass("shadow", option.ShowShadow)
         .AddClass("alert-bar", option.ShowBar)
+        .AddClass(option.ClassString)
+        .Build();
+
+    private static string? GetItemStyleString(MessageOption option) => CssBuilder.Default(option.StyleString)
         .Build();
 
     private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";

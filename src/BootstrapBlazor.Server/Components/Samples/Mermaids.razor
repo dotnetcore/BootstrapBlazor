@@ -1,4 +1,4 @@
-﻿@page "/mermaid"
+@page "/mermaid"
 @inject IStringLocalizer<Mermaids> Localizer
 
 <h3>@Localizer["MermaidTitle"]</h3>
@@ -22,7 +22,8 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MermaidStyleTitle"]" Introduction="@Localizer["MermaidStyleIntro"]" Name="GroupStyle">
-	<Mermaid DiagramString="@CustomStyleString"></Mermaid>
+    <Button Text="@Localizer["DownloadPdfButtonText"]" OnClickWithoutRender="OnDownloadPDFAsync"></Button>
+	<Mermaid DiagramString="@CustomStyleString" @ref="_mermaid"></Mermaid>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />

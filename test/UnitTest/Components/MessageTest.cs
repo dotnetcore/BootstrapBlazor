@@ -172,4 +172,36 @@ public class MessageTest : BootstrapBlazorTestBase
         Assert.Contains("data-bb-delay=\"1000\"", cut.Markup);
         await cut.InvokeAsync(() => cut.Instance.Clear(alert.Id));
     }
+
+    [Fact]
+    public async Task StyleString_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.Render<Message>();
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            Content = "Test Content",
+            IsAutoHide = false,
+            ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
+            StyleString = "color: red; font-size: 14px;"
+        }, cut.Instance));
+        Assert.Contains("color: red; font-size: 14px;", cut.Markup);
+    }
+
+    [Fact]
+    public async Task ClassString_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.Render<Message>();
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            Content = "Test Content",
+            IsAutoHide = false,
+            ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
+            ClassString = "custom-class another-class"
+        }, cut.Instance));
+        Assert.Contains("custom-class another-class", cut.Markup);
+    }
 }

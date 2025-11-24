@@ -214,6 +214,22 @@ public sealed partial class Messages
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ClassString",
+            Description = "The string of addtional css class",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "StyleString",
+            Description = "The string of addtional css style",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

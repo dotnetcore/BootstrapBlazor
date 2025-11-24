@@ -5,7 +5,7 @@
 
 namespace UnitTest.Core;
 
-public class TestBase
+public class TestBase : IDisposable
 {
     protected BunitContext Context { get; }
 
@@ -15,5 +15,14 @@ public class TestBase
         Context.JSInterop.Mode = JSRuntimeMode.Loose;
 
         Context.Services.AddMockEnvironment();
+    }
+
+    public void Dispose()
+    {
+#pragma warning disable CA2012
+        // 由于 bUnit 2.0 继承了 IAsyncDisposable 接口，因此此处调用 DisposeAsync 方法
+        Context.DisposeAsync();
+#pragma warning restore CA2012    
+        GC.SuppressFinalize(this);
     }
 }
