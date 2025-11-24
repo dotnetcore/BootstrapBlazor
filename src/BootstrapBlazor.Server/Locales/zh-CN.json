@@ -5960,7 +5960,8 @@
     "SizeIntro": "通过设置 <code>Size</code> 设置图标大小"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
-    "Title": "PDF Reader PDF阅读器",
+    "PdfTitle": "PDF Reader PDF 文档阅读器",
+    "PdfIntro": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
     "PdfReaderNormalText": "基础用法",
     "PdfReaderNormalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
     "PdfReaderStreamModeText": "流模式",

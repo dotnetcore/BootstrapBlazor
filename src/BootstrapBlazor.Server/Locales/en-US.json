@@ -5960,7 +5960,8 @@
     "SizeIntro": "Set the icon size by setting <code>Size</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
-    "Title": "PDF Reader",
+    "PdfTitle": "PDF Reader",
+    "PdfIntro": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderNormalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
     "PdfReaderStreamModeText": "Stream mode",
