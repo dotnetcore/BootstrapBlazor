@@ -59,8 +59,8 @@ ThingsGateway 已集成 Bootstrap Blazor 实现配置管理界面，轻松构建
 AtomUI 是基于 .NET 的 Ant Design 实现，致力于将优秀高效的设计语言和控件体验带到 Avalonia/.NET 跨平台桌面软件研发领域，最大限度释放研发工程师的开发效率， 设计支持平台：Windows、macOS 和 Linux。
 
 ## 开发环境搭建
-1. 安装 .net core sdk 最新版 [官方网址](http://www.microsoft.com/net/download)
-2. 安装 Visual Studio 2022 最新版 [官方网址](https://visualstudio.microsoft.com/vs/getting-started/)
+1. 安装 .net SDK 最新版 [官方网址](http://www.microsoft.com/net/download)
+2. 安装 Visual Studio 最新版 [官方网址](https://visualstudio.microsoft.com/vs)
 3. 获取本项目代码 [BootstrapBlazor](https://github.com/dotnetcore/BootstrapBlazor?wt.mc_id=DT-MVP-5004174)
 
 ### 克隆代码
