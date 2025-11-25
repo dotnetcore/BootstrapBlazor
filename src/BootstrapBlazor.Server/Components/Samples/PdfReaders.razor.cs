@@ -21,6 +21,12 @@ public partial class PdfReaders
     [NotNull]
     PdfReader? PdfReader { get; set; }
 
+    private PdfReaderOptions _options = new()
+    {
+        Url = "./samples/sample.pdf",
+        ViewHeight = "600px"
+    };
+
     private string FilenameStream { get; set; } = "https://blazor.app1.es/_content/DemoShared/samples/sample2.pdf";
 
     private async Task ApplyFilenameStream()
