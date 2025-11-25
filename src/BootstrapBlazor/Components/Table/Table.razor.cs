@@ -1042,6 +1042,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("resetColumn", Id);
         }
 
+        if (_resetColDragListener)
+        {
+            _resetColDragListener= false;
+            await InvokeVoidAsync("resetColDragListener", Id);
+        }
+
         if (_bindResizeColumn)
         {
             _bindResizeColumn = false;

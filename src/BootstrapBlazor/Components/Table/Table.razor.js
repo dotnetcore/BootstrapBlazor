@@ -180,6 +180,13 @@ export function resetColumn(id) {
     }
 }
 
+export function resetColDragListener(id) {
+    const table = Data.get(id)
+    if (table) {
+        setDraggable(table)
+    }
+}
+
 export function bindResizeColumn(id) {
     const table = Data.get(id)
     if (table) {
@@ -924,6 +931,13 @@ const setDraggable = table => {
     let index = 0
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     table.dragColumns.forEach(col => {
+        EventHandler.off(col, 'dragstart')
+        EventHandler.off(col, 'dragend')
+        EventHandler.off(col, 'drop')
+        EventHandler.off(col, 'dragenter')
+        EventHandler.off(col, 'dragover')
+        EventHandler.off(col, 'dragleave')
+
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')

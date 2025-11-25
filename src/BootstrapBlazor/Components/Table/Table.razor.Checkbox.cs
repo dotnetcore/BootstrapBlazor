@@ -144,6 +144,11 @@ public partial class Table<TItem>
     private bool _resetColumns;
 
     /// <summary>
+    /// 是否重置列拖拽事件 <see cref="OnAfterRenderAsync(bool)"/> 方法中重置为 false
+    /// </summary>
+    private bool _resetColDragListener;
+
+    /// <summary>
     /// 获得/设置 列改变显示状态回调方法
     /// </summary>
     [Parameter]
@@ -154,6 +159,10 @@ public partial class Table<TItem>
         if (AllowResizing)
         {
             _resetColumns = true;
+        }
+        if (AllowDragColumn && visible)
+        {
+            _resetColDragListener = true;
         }
         if (!string.IsNullOrEmpty(ClientTableName))
         {
