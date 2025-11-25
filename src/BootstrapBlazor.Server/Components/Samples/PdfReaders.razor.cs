@@ -24,7 +24,7 @@ public partial class PdfReaders
     private PdfReaderOptions _options = new()
     {
         Url = "./samples/sample.pdf",
-        ViewHeight = "800px"
+        ViewHeight = "600px"
     };
 
     private string FilenameStream { get; set; } = "https://blazor.app1.es/_content/DemoShared/samples/sample2.pdf";
