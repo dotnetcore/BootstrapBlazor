@@ -1,4 +1,4 @@
-﻿export { getResponsive } from '../../modules/responsive.js'
+export { getResponsive } from '../../modules/responsive.js'
 import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js'
 import '../../modules/browser.js'
 import Data from '../../modules/data.js'
@@ -931,12 +931,7 @@ const setDraggable = table => {
     let index = 0
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     table.dragColumns.forEach(col => {
-        EventHandler.off(col, 'dragstart')
-        EventHandler.off(col, 'dragend')
-        EventHandler.off(col, 'drop')
-        EventHandler.off(col, 'dragenter')
-        EventHandler.off(col, 'dragover')
-        EventHandler.off(col, 'dragleave')
+        disposeDragColumns(col);
 
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
