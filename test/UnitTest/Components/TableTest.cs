@@ -8476,6 +8476,8 @@ public class TableTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.OnDragColumnEndAsync, (fieldName, columns) =>
@@ -8490,9 +8492,14 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(3, "Field", "Address");
-                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.OpenComponent<TableColumn<Foo, string>>(3);
+                    builder.AddAttribute(4, "Field", "Address");
+                    builder.AddAttribute(5, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(6);
+                    builder.AddAttribute(7, "Field", foo.Count);
+                    builder.AddAttribute(8, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
                     builder.CloseComponent();
                 });
             });
@@ -8502,16 +8509,27 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(async () =>
         {
             await table.Instance.DragColumnCallback(1, 0);
-            Assert.Equal("Address", name);
         });
+        Assert.Equal("Address", name);
+
+        var columns = cut.FindAll("th");
+        Assert.Contains("地址", columns[0].InnerHtml);
+        Assert.Contains("姓名", columns[1].InnerHtml);
 
         await cut.InvokeAsync(async () =>
         {
-            var columns = cut.FindAll("th");
-            Assert.Contains("地址", columns[0].InnerHtml);
-            Assert.Contains("姓名", columns[1].InnerHtml);
-
             await table.Instance.DragColumnCallback(2, 3);
+        });
+
+        // 更改可见列
+        var checkbox = cut.Find(".dropdown-item .form-check-input");
+
+        await cut.InvokeAsync(() => checkbox.Click());
+        await cut.InvokeAsync(() => checkbox.Click());
+
+        await cut.InvokeAsync(async () =>
+        {
+            await table.Instance.DragColumnCallback(3, 4);
         });
     }
 
