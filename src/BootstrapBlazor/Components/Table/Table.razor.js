@@ -1,4 +1,4 @@
-﻿export { getResponsive } from '../../modules/responsive.js'
+export { getResponsive } from '../../modules/responsive.js'
 import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js'
 import '../../modules/browser.js'
 import Data from '../../modules/data.js'
@@ -177,6 +177,13 @@ export function resetColumn(id) {
     if (table) {
         setResizeListener(table)
         resetTableWidth(table)
+    }
+}
+
+export function resetColDragListener(id) {
+    const table = Data.get(id)
+    if (table) {
+        setDraggable(table)
     }
 }
 
@@ -924,6 +931,8 @@ const setDraggable = table => {
     let index = 0
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
     table.dragColumns.forEach(col => {
+        disposeDragColumns(col);
+
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
