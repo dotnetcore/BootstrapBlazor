@@ -8509,16 +8509,16 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(async () =>
         {
             await table.Instance.DragColumnCallback(1, 0);
-            Assert.Equal("Address", name);
         });
+        Assert.Equal("Address", name);
+
+        var columns = cut.FindAll("th");
+        Assert.Contains("地址", columns[0].InnerHtml);
+        Assert.Contains("姓名", columns[1].InnerHtml);
 
         await cut.InvokeAsync(async () =>
         {
-            var columns = cut.FindAll("th");
-            Assert.Contains("地址", columns[0].InnerHtml);
-            Assert.Contains("姓名", columns[1].InnerHtml);
-
-            await table.Instance.DragColumnCallback(2, 4);
+            await table.Instance.DragColumnCallback(2, 3);
         });
 
         // 更改可见列
@@ -8526,6 +8526,11 @@ public class TableTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => checkbox.Click());
         await cut.InvokeAsync(() => checkbox.Click());
+
+        await cut.InvokeAsync(async () =>
+        {
+            await table.Instance.DragColumnCallback(3, 4);
+        });
     }
 
     [Fact]
