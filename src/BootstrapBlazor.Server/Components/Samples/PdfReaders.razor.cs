@@ -12,6 +12,12 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class PdfReaders
 {
+    [Inject, NotNull]
+    private IWebHostEnvironment? WebHostEnvironment { get; set; }
+
+    [Inject, NotNull]
+    private DownloadService? DownloadService { get; set; }
+
     [DisplayName("the file in the wwwroot relative path or url")]
     private string FileName { get; set; } = "/samples/sample.pdf";
 
@@ -21,11 +27,14 @@ public partial class PdfReaders
     [NotNull]
     PdfReader? PdfReader { get; set; }
 
-    private PdfReaderOptions _options = new()
+    private bool _showTwoPagesOneViewButton = true;
+    private string _url = "./samples/sample.pdf";
+
+    private async Task OnDownloadAsync()
     {
-        Url = "./samples/sample.pdf",
-        ViewHeight = "600px"
-    };
+        var file = Path.Combine(WebHostEnvironment.WebRootPath, "samples", "sample.pdf");
+        await DownloadService.DownloadFromFileAsync($"sample_{DateTime.Now:yyyyMMddHHmmss}.pdf", file);
+    }
 
     private string FilenameStream { get; set; } = "https://blazor.app1.es/_content/DemoShared/samples/sample2.pdf";
 
