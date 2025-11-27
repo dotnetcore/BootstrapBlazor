@@ -10,10 +10,10 @@
     <section ignore class="row form-inline g3">
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowTwoPagesOnView</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_options.ShowTwoPagesOnViewButton"></Switch>
+                <BootstrapInputGroupLabel>ShowTwoPagesOneView</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showTwoPagesOneViewButton"></Switch>
             </BootstrapInputGroup>
         </div>
     </section>
-    <PdfReader Options="_options"></PdfReader>
+    <PdfReader Url="@_url" ShowTwoPagesOneViewButton="_showTwoPagesOneViewButton" ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
 </DemoBlock>
