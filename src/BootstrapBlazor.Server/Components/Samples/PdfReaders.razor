@@ -7,13 +7,27 @@
 <PackageTips Name="BootstrapBlazor.PdfReader" />
 
 <DemoBlock Title="@Localizer["PdfReaderNormalText"]" Introduction="@Localizer["PdfReaderNormalIntro"]" Name="Normal">
-    <section ignore class="row form-inline g3">
+    <section ignore class="row form-inline g-3" style="--bb-input-group-label-width: 176px;">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel>ShowDownload</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showDownload"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel>ShowPrint</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showPrint"></Switch>
+            </BootstrapInputGroup>
+        </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel>ShowTwoPagesOneView</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showTwoPagesOneViewButton"></Switch>
+                <Switch @bind-Value="_showTwoPagesOneView"></Switch>
             </BootstrapInputGroup>
         </div>
     </section>
-    <PdfReader Url="@_url" ShowTwoPagesOneViewButton="_showTwoPagesOneViewButton" ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
+    <PdfReader Url="@_url" ShowTwoPagesOneView="_showTwoPagesOneView"
+               ShowDownload="_showDownload" ShowPrint="_showPrint"
+               ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
 </DemoBlock>

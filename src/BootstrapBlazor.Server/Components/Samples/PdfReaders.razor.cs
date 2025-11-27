@@ -27,7 +27,9 @@ public partial class PdfReaders
     [NotNull]
     PdfReader? PdfReader { get; set; }
 
-    private bool _showTwoPagesOneViewButton = true;
+    private bool _showTwoPagesOneView = true;
+    private bool _showPrint = true;
+    private bool _showDownload = true;
     private string _url = "./samples/sample.pdf";
 
     private async Task OnDownloadAsync()
