@@ -16,6 +16,12 @@
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
+                <BootstrapInputGroupLabel>EnableThumbnails</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_enableThumbnails"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
                 <BootstrapInputGroupLabel>ShowPrint</BootstrapInputGroupLabel>
                 <Switch @bind-Value="_showPrint"></Switch>
             </BootstrapInputGroup>
@@ -27,7 +33,7 @@
             </BootstrapInputGroup>
         </div>
     </section>
-    <PdfReader Url="@_url" ShowTwoPagesOneView="_showTwoPagesOneView"
-               ShowDownload="_showDownload" ShowPrint="_showPrint"
+    <PdfReader Url="@_url" EnableThumbnails="_enableThumbnails"
+               ShowTwoPagesOneView="_showTwoPagesOneView" ShowDownload="_showDownload" ShowPrint="_showPrint"
                ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
 </DemoBlock>
