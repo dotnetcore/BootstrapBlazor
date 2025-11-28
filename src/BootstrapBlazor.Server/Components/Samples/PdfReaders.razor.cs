@@ -18,6 +18,7 @@ public partial class PdfReaders
 
     private bool _showTwoPagesOneView = true;
     private bool _showPrint = true;
+    private bool _enableThumbnails = true;
     private bool _showDownload = true;
     private string _url = "./samples/sample.pdf";
 
