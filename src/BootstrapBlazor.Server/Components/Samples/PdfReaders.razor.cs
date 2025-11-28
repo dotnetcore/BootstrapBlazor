@@ -20,6 +20,7 @@ public partial class PdfReaders
     private bool _showPrint = true;
     private bool _enableThumbnails = true;
     private bool _showDownload = true;
+    private bool _showToolbar = true;
     private string _url = "./samples/sample.pdf";
 
     private async Task OnDownloadAsync()
