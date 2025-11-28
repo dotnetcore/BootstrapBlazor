@@ -10,6 +10,12 @@
     <section ignore class="row form-inline g-3" style="--bb-input-group-label-width: 176px;">
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
+                <BootstrapInputGroupLabel>ShowToolbar</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showToolbar"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
                 <BootstrapInputGroupLabel>ShowDownload</BootstrapInputGroupLabel>
                 <Switch @bind-Value="_showDownload"></Switch>
             </BootstrapInputGroup>
@@ -34,6 +40,7 @@
         </div>
     </section>
     <PdfReader Url="@_url" EnableThumbnails="_enableThumbnails"
-               ShowTwoPagesOneView="_showTwoPagesOneView" ShowDownload="_showDownload" ShowPrint="_showPrint"
+               ShowTwoPagesOneView="_showTwoPagesOneView" ShowDownload="_showDownload"
+               ShowToolbar="_showToolbar" ShowPrint="_showPrint"
                ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
 </DemoBlock>
