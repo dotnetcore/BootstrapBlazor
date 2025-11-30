@@ -4,14 +4,12 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace UnitTest.Benchmarks;
 
-[SimpleJob(RuntimeMoniker.Net90)]
 public class Benchmarks
 {
     static readonly Foo _instance = new();
