@@ -127,7 +127,6 @@ public partial class NullSwitch
 
         OnInnerText ??= Localizer[nameof(OnInnerText)];
         OffInnerText ??= Localizer[nameof(OffInnerText)];
-        CurrentValue ??= DefaultValueWhenNull;
     }
 
     /// <summary>
