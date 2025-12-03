@@ -5,10 +5,11 @@ export function init(id) {
     if (el) {
         EventHandler.on(el, 'click', e => {
             const isAsync = el.getAttribute('data-bb-async') === 'true';
-
-            setTimeout(() => {
-                el.setAttribute('disabled', 'disabled');
-            }, 0);
+            if (isAsync) {
+                setTimeout(() => {
+                    el.setAttribute('disabled', 'disabled');
+                }, 0);
+            }
         });
     }
 }
