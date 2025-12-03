@@ -1,7 +1,11 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits ButtonBase
 
-<button @attributes="@AdditionalAttributes" type="@ButtonType.ToDescriptionString()" @onclick="@OnClickButton" id="@Id" class="@ClassName" disabled="@Disabled" role="button" data-bs-placement="@PlacementString" data-bs-trigger="@TriggerString" aria-disabled="@DisabledString" tabindex="@Tab" @onclick:stopPropagation="@StopPropagation" @ref="ButtonElement">
+<button @attributes="@AdditionalAttributes" type="@ButtonType.ToDescriptionString()" id="@Id" class="@ClassName"
+        disabled="@Disabled" role="button" tabindex="@Tab"
+        data-bs-placement="@PlacementString" data-bs-trigger="@TriggerString" data-bb-async="@IsAsyncString"
+        aria-disabled="@DisabledString"
+        @onclick="@OnClickButton" @onclick:stopPropagation="@StopPropagation" @ref="ButtonElement">
     @if(IsAsyncLoading)
     {
         <i class="@LoadingIcon"></i>

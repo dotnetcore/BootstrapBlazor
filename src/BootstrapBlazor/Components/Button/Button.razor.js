@@ -1,4 +1,20 @@
-﻿const showTooltip = (id, title) => {
+import EventHandler from "../../modules/event-handler.js"
+
+export function init(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        EventHandler.on(el, 'click', e => {
+            const isAsync = el.getAttribute('data-bb-async') === 'true';
+            if (isAsync) {
+                setTimeout(() => {
+                    el.setAttribute('disabled', 'disabled');
+                }, 0);
+            }
+        });
+    }
+}
+
+const showTooltip = (id, title) => {
     const el = document.getElementById(id)
 
     if (el) {
@@ -23,7 +39,12 @@ const removeTooltip = id => {
 }
 
 const dispose = id => {
-    removeTooltip(id)
+    removeTooltip(id);
+
+    const el = document.getElementById(id);
+    if (el) {
+        EventHandler.off(el, 'click');
+    }
 }
 
 const share = context => {
