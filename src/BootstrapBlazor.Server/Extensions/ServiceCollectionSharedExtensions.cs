@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -96,6 +96,9 @@ public static class ServiceCollectionSharedExtensions
 
         // 增加 IRegionService
         services.AddBootstrapBlazorRegionService();
+
+        // 增加海康威视网络摄像机服务
+        services.AddBootstrapBlazorHikVision();
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
