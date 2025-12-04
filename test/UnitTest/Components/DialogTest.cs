@@ -248,8 +248,8 @@ public class DialogTest : BootstrapBlazorTestBase
         editOption.Model = model;
         await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         var form = cut.Find("form");
-        form.Submit();
-        Assert.True(saved);
+        await cut.InvokeAsync(() => form.Submit());
+        cut.WaitForAssertion(() => Assert.True(saved));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // edit dialog is tracking true
