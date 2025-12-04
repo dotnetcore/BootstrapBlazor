@@ -1,4 +1,4 @@
-﻿@page "/cherry-markdown"
+@page "/cherry-markdown"
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Header"]</h3>
@@ -34,8 +34,10 @@
 
 <DemoBlock Title="@Localizer["ApiTitle"]" Introduction="@Localizer["ApiIntro"]" Name="Api">
     <CherryMarkdown @ref="@MarkdownElement" />
-    <Button OnClick="@InsertCheckList">@Localizer["InsertCheckListButtonText"]</Button>
-    <Button OnClick="@InsertPicture">@Localizer["InsertPictureButtonText"]</Button>
+    <section ignore class="mt-3">
+        <Button OnClick="@InsertCheckList">@Localizer["InsertCheckListButtonText"]</Button>
+        <Button OnClick="@InsertPicture">@Localizer["InsertPictureButtonText"]</Button>
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />
