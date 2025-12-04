@@ -5,7 +5,22 @@
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<div id="divPlugin" class="plugin"></div>
-
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <HikVision @ref="_hikVision"></HikVision>
+    <section ignore>
+        <BootstrapInput @bind-Value="@_userName"></BootstrapInput>
+        <BootstrapPassword @bind-Value="@_password"></BootstrapPassword>
+        <Button OnClickWithoutRender="OnLogin">
+            <span>登录</span>
+        </Button>
+        <Button OnClickWithoutRender="OnLogout">
+            <span>退出</span>
+        </Button>
+        <Button OnClickWithoutRender="OnStartRealPlay">
+            <span>开始预览</span>
+        </Button>
+        <Button OnClickWithoutRender="OnStopRealPlay">
+            <span>停止预览</span>
+        </Button>
+    </section>
 </DemoBlock>

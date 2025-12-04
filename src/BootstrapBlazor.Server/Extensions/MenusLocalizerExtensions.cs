@@ -734,7 +734,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["HiKVision"],
+                    Text = Localizer["HikVision"],
                     Url = "hik-vision"
                 },
                 new()
