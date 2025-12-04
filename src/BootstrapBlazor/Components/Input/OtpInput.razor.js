@@ -33,7 +33,7 @@ export function init(id, invoke, method) {
                 e.preventDefault();
             }
         }
-        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
+        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
             setNextFocus(el, e.target);
         }
         else {
