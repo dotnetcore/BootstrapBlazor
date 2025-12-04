@@ -7170,5 +7170,11 @@
     "ProvinceNormalIntro": "Select the province from the drop-down box",
     "ProvinceMultipleTitle": "Multiple",
     "ProvinceMultipleIntro": "Enable multiple selection mode by setting <code>IsMultiple</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.HikVisions": {
+    "Title": "HikVision",
+    "SubTitle": "",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Operations are performed by calling the <code>HikVision</code> component instance method."
   }
 }
