@@ -4800,7 +4800,8 @@
     "Dom2ImageService": "节点转图片服务 Dom2HtmlService",
     "SelectRegion": "行政区域选择器 SelectRegion",
     "SelectProvince": "省选择器 SelectProvince",
-    "SelectCity": "城市选择器 SelectCity"
+    "SelectCity": "城市选择器 SelectCity",
+    "HikVision": "海康摄像头 HikVision"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
