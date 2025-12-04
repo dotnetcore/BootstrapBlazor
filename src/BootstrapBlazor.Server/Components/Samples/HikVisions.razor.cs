@@ -12,9 +12,12 @@ public partial class HikVisions
 {
     private HikVision _hikVision = default!;
 
+    private string _password = "";
+    private string _userName = "admin";
+
     private async Task OnLogin()
     {
-        await _hikVision.Login("47.121.113.151", 9980, "admin", "vhbn8888", LoginType.Http);
+        await _hikVision.Login("47.121.113.151", 9980, _userName, _password, LoginType.Http);
     }
 
     private async Task OnLogout()

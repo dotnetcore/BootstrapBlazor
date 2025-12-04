@@ -8,6 +8,8 @@
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <HikVision @ref="_hikVision"></HikVision>
     <section ignore>
+        <BootstrapInput @bind-Value="@_userName"></BootstrapInput>
+        <BootstrapPassword @bind-Value="@_password"></BootstrapPassword>
         <Button OnClickWithoutRender="OnLogin">
             <span>登录</span>
         </Button>
