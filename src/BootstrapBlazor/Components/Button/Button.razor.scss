@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .btn {
     --bs-btn-font-size: #{$bs-btn-font-size};
@@ -90,5 +90,15 @@
         button {
             display: block;
         }
+    }
+
+    > .input-group-text:not(:first-child) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    > .input-group-text:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 }
