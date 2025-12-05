@@ -296,6 +296,27 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ToolbarComponent_Ok()
+    {
+        var cut = Context.Render<CascadingValue<IToolbarComponent>>(pb =>
+        {
+            pb.Add(a => a.Value, new MockToolbarComponent());
+            pb.Add(a => a.IsFixed, true);
+            pb.Add(a => a.ChildContent, builder =>
+            {
+                builder.OpenComponent<BootstrapInputGroupLabel>(0);
+                builder.CloseComponent();
+            });
+        });
+        cut.Contains("input-group-text");
+    }
+
+    class MockToolbarComponent : ComponentBase, IToolbarComponent
+    {
+        public bool IsShow { get; set; }
+    }
+
+    [Fact]
     public void ShowRequiredMark_Ok()
     {
         var cut = Context.Render<BootstrapInputGroupLabel>(builder =>
