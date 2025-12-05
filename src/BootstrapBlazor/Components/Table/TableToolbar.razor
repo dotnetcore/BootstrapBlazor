@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TItem
 
 <div class="float-start table-toolbar-button">
@@ -34,8 +34,10 @@
                     }
                     else if (button is TableToolbarComponent<TItem> { IsShow: true } cb)
                     {
-                        <CascadingValue Value="OnGetSelectedRows" IsFixed="true">
-                            @cb.ChildContent
+                        <CascadingValue Value="button" IsFixed="true">
+                            <CascadingValue Value="OnGetSelectedRows" IsFixed="true">
+                                @cb.ChildContent
+                            </CascadingValue>
                         </CascadingValue>
                     }
                 }

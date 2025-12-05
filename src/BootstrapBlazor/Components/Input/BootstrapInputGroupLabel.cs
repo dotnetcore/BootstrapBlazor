@@ -57,9 +57,12 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     [Parameter]
     public bool? IsGroupLabel { get; set; }
 
+    [CascadingParameter]
+    private IToolbarComponent? ToolbarComponent { get; set; }
+
     private string? Required => ShowRequiredMark ? "true" : null;
 
-    private bool IsInputGroupLabel => IsGroupLabel ?? InputGroup != null;
+    private bool IsInputGroupLabel => IsGroupLabel ?? InputGroup != null || ToolbarComponent != null;
 
     /// <summary>
     /// <inheritdoc/>
