@@ -307,7 +307,7 @@
     margin-block-end: .5rem;
 }
 
-.table-toolbar .dropdown-menu {
+.table-toolbar .dropdown-column .dropdown-menu {
     max-height: var(--bb-table-columnlist-max-height);
     overflow: auto;
 }
