@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -10,28 +12,106 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class HikVisions
 {
-    private HikVision _hikVision = default!;
+    private HikVisionWebPlugin _hikVision = default!;
 
-    private string _password = "";
+    private string _ip = "47.121.113.151";
+    private int _port = 9980;
+    private string _password = "vhbn8888";
     private string _userName = "admin";
+    private bool _inited = false;
+
+    private bool _loginStatus = true;
+    private bool _logoutStatus = true;
+    private bool _startRealPlayStatus = true;
+    private bool _stopRealPlayStatus = true;
+
+    private List<SelectedItem> _analogChannels = [];
+    private int _channelId = 1;
+    private int _streamType = 1;
+    private List<SelectedItem> _streamTypes = new()
+    {
+        new SelectedItem("1", "主码流"),
+        new SelectedItem("2", "子码流"),
+        new SelectedItem("3", "第三码流"),
+        new SelectedItem("4", "转码码流"),
+    };
 
     private async Task OnLogin()
     {
-        await _hikVision.Login("47.121.113.151", 9980, _userName, _password, LoginType.Http);
+        _loginStatus = true;
+        _logoutStatus = true;
+        _loginStatus = await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http);
     }
 
     private async Task OnLogout()
     {
+        _loginStatus = true;
+        _logoutStatus = true;
         await _hikVision.Logout();
     }
 
     private async Task OnStartRealPlay()
     {
-        await _hikVision.StartRealPlay();
+        _startRealPlayStatus = true;
+        _stopRealPlayStatus = true;
+        await _hikVision.StartRealPlay(_streamType, _channelId);
     }
 
     private async Task OnStopRealPlay()
     {
+        _startRealPlayStatus = true;
+        _stopRealPlayStatus = true;
         await _hikVision.StopRealPlay();
+    }
+
+    private Task OnInitedAsync(bool inited)
+    {
+        _inited = inited;
+        _loginStatus = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnLoginAsync()
+    {
+        _logoutStatus = !_loginStatus;
+        _startRealPlayStatus = _logoutStatus;
+        _stopRealPlayStatus = !_startRealPlayStatus;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnGetChannelsAsync(HikVisionChannel channel)
+    {
+        _analogChannels = channel.AnalogChannels.Select(i => new SelectedItem(i.Id.ToString(CultureInfo.InvariantCulture), i.Name!)).ToList();
+        _channelId = channel.AnalogChannels.FirstOrDefault()?.Id ?? 1;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnLogoutAsync()
+    {
+        _loginStatus = _hikVision.IsLogin;
+        _logoutStatus = !_loginStatus;
+        _startRealPlayStatus = true;
+        _stopRealPlayStatus = true;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnStartRealPlayedAsync()
+    {
+        _startRealPlayStatus = _hikVision.IsRealPlaying;
+        _stopRealPlayStatus = !_startRealPlayStatus;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnStopRealPlayedAsync()
+    {
+        _startRealPlayStatus = _hikVision.IsRealPlaying;
+        _stopRealPlayStatus = !_startRealPlayStatus;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

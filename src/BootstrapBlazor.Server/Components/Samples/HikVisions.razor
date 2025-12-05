@@ -6,21 +6,64 @@
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
-    <HikVision @ref="_hikVision"></HikVision>
+    <HikVisionWebPlugin @ref="_hikVision" OnInitedAsync="OnInitedAsync"
+                        OnLoginAsync="OnLoginAsync" OnLogoutAsync="OnLogoutAsync" OnGetChannelsAsync="OnGetChannelsAsync"
+                        OnStartRealPlayedAsync="OnStartRealPlayedAsync" OnStopRealPlayedAsync="OnStopRealPlayedAsync"></HikVisionWebPlugin>
     <section ignore>
-        <BootstrapInput @bind-Value="@_userName"></BootstrapInput>
-        <BootstrapPassword @bind-Value="@_password"></BootstrapPassword>
-        <Button OnClickWithoutRender="OnLogin">
-            <span>登录</span>
-        </Button>
-        <Button OnClickWithoutRender="OnLogout">
-            <span>退出</span>
-        </Button>
-        <Button OnClickWithoutRender="OnStartRealPlay">
-            <span>开始预览</span>
-        </Button>
-        <Button OnClickWithoutRender="OnStopRealPlay">
-            <span>停止预览</span>
-        </Button>
+        <div class="row form-inline g-3" style="--bb-input-group-label-width: 88px;">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IP 地址"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_ip"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="网络端口"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_port"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="用户名"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_userName"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="密码"></BootstrapInputGroupLabel>
+                    <BootstrapPassword @bind-Value="@_password"></BootstrapPassword>
+                </BootstrapInputGroup>
+            </div>
+            @if (_inited)
+            {
+                <div class="col-12 col-sm-6">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="码流类型"></BootstrapInputGroupLabel>
+                        <Select @bind-Value="_streamType" Items="_streamTypes"></Select>
+                    </BootstrapInputGroup>                    
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel DisplayText="视频通道"></BootstrapInputGroupLabel>
+                        <Select @bind-Value="_channelId" Items="_analogChannels"></Select>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="col-12">
+                    <Button OnClick="OnLogin" IsDisabled="_loginStatus">
+                        <span>登录</span>
+                    </Button>
+                    <Button OnClick="OnLogout" IsDisabled="_logoutStatus">
+                        <span>退出</span>
+                    </Button>
+                    <Button OnClick="OnStartRealPlay" IsDisabled="_startRealPlayStatus">
+                        <span>开始预览</span>
+                    </Button>
+                    <Button OnClick="OnStopRealPlay" IsDisabled="_stopRealPlayStatus">
+                        <span>停止预览</span>
+                    </Button>
+                </div>
+            }
+        </div>
     </section>
 </DemoBlock>

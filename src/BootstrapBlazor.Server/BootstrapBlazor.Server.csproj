@@ -42,7 +42,7 @@
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.0-beta02" />
+    <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.0-beta03" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.0" />
