@@ -283,6 +283,19 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsGroupLabel_Ok()
+    {
+        var cut = Context.Render<BootstrapInputGroupLabel>();
+        cut.DoesNotContain("input-group-text");
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IsGroupLabel, true);
+        });
+        cut.Contains("input-group-text");
+    }
+
+    [Fact]
     public void ShowRequiredMark_Ok()
     {
         var cut = Context.Render<BootstrapInputGroupLabel>(builder =>
