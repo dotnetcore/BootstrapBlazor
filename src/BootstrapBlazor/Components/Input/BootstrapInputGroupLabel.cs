@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -51,9 +51,15 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否为 InputGroup 或 TableToolbar 内的标签 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? IsGroupLabel { get; set; }
+
     private string? Required => ShowRequiredMark ? "true" : null;
 
-    private bool IsInputGroupLabel => InputGroup != null;
+    private bool IsInputGroupLabel => IsGroupLabel ?? InputGroup != null;
 
     /// <summary>
     /// <inheritdoc/>
