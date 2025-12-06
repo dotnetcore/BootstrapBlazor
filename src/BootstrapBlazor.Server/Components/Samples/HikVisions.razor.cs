@@ -12,13 +12,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class HikVisions
 {
+    [Inject, NotNull]
+    private SwalService? SwalService { get; set; }
+
     private HikVisionWebPlugin _hikVision = default!;
 
     private string _ip = "47.121.113.151";
     private int _port = 9980;
     private string _password = "vhbn8888";
     private string _userName = "admin";
-    private bool _inited = false;
+    private bool _inited;
 
     private bool _loginStatus = true;
     private bool _logoutStatus = true;
@@ -28,13 +31,13 @@ public partial class HikVisions
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
     private int _streamType = 1;
-    private List<SelectedItem> _streamTypes = new()
-    {
+    private readonly List<SelectedItem> _streamTypes =
+    [
         new SelectedItem("1", "主码流"),
         new SelectedItem("2", "子码流"),
         new SelectedItem("3", "第三码流"),
-        new SelectedItem("4", "转码码流"),
-    };
+        new SelectedItem("4", "转码码流")
+    ];
 
     private async Task OnLogin()
     {
@@ -64,12 +67,37 @@ public partial class HikVisions
         await _hikVision.StopRealPlay();
     }
 
-    private Task OnInitedAsync(bool inited)
+    private async Task OnInitedAsync(bool initialized)
     {
-        _inited = inited;
-        _loginStatus = false;
-        StateHasChanged();
-        return Task.CompletedTask;
+        _inited = initialized;
+        if (_inited)
+        {
+            _loginStatus = false;
+            StateHasChanged();
+        }
+        else
+        {
+            await SwalService.Show(new SwalOption()
+            {
+                Category = SwalCategory.Error,
+                Title = "组件初始化错误",
+                Content = "组件初始化失败，请检查浏览器是否安装海康威视插件或插件是否启用",
+                ShowFooter = true,
+                FooterTemplate = new RenderFragment(builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddContent(1, "请访问");
+                    builder.OpenElement(10, "a");
+                    builder.AddAttribute(11, "href", "https://open.hikvision.com/download/5cda567cf47ae80dd41a54b3?type=20&id=77c7f9ab64da4dbe8b2df7efe3365ec2");
+                    builder.AddAttribute(12, "target", "_blank");
+                    builder.AddAttribute(13, "style", "margin:0 8px;");
+                    builder.AddContent(14, "海康威视官网下载插件");
+                    builder.CloseElement();
+                    builder.AddContent(2, "进行安装。");
+                    builder.CloseElement();
+                })
+            });
+        }
     }
 
     private Task OnLoginAsync()
