@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -29,12 +29,12 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="archiveFileName">归档文件</param>
+    /// <param name="archiveFile">归档文件</param>
     /// <param name="files">要归档的文件集合</param>
     /// <param name="options">归档配置</param>
-    public async Task ArchiveAsync(string archiveFileName, IEnumerable<string> files, ArchiveOptions? options = null)
+    public async Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null)
     {
-        using var stream = File.OpenWrite(archiveFileName);
+        using var stream = File.OpenWrite(archiveFile);
         await ArchiveFilesAsync(stream, files, options);
     }
 
@@ -61,23 +61,79 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="archiveFileName">归档文件</param>
-    /// <param name="directoryName">要归档文件夹</param>
+    /// <param name="archiveFile"></param>
+    /// <param name="directoryName"></param>
     /// <param name="compressionLevel"></param>
     /// <param name="includeBaseDirectory"></param>
     /// <param name="encoding"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task ArchiveDirectory(string archiveFileName, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null)
+    public async Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default)
     {
         if (Directory.Exists(directoryName))
         {
-            var folder = Path.GetDirectoryName(archiveFileName);
+            var folder = Path.GetDirectoryName(archiveFile);
             if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
             }
-            await Task.Run(() => ZipFile.CreateFromDirectory(directoryName, archiveFileName, compressionLevel, includeBaseDirectory, encoding));
+#if NET10_0_OR_GREATER
+            await ZipFile.CreateFromDirectoryAsync(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding, token);
+#else
+            await Task.Run(() =>
+            {
+                token.ThrowIfCancellationRequested();
+                ZipFile.CreateFromDirectory(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding);
+            }, token);
+#endif
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="archiveFile">归档文件</param>
+    /// <param name="entries"></param>
+    /// <param name="compressionLevel"></param>
+    /// <param name="encoding"></param>
+    /// <param name="skipEmptyFolder"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null, bool skipEmptyFolder = false, CancellationToken token = default)
+    {
+        using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Create, encoding);
+
+        foreach (var entry in entries)
+        {
+            if (Directory.Exists(entry))
+            {
+                AddFolderToZip(archive, entry, Path.GetFileName(entry), compressionLevel);
+            }
+            else if (File.Exists(entry))
+            {
+                archive.CreateEntryFromFile(entry, Path.GetFileName(entry), compressionLevel);
+            }
+        }
+    }
+
+    private static void AddFolderToZip(ZipArchive archive, string folderPath, string relativePath, CompressionLevel compressionLevel = CompressionLevel.Optimal)
+    {
+        archive.CreateEntry($"{relativePath}/", compressionLevel);
+
+        // 添加当前文件夹中的所有文件
+        foreach (string filePath in Directory.GetFiles(folderPath))
+        {
+            string entryName = Path.Combine(relativePath, Path.GetFileName(filePath));
+            archive.CreateEntryFromFile(filePath, entryName, compressionLevel);
+        }
+
+        // 递归添加所有子文件夹
+        foreach (string subfolderPath in Directory.GetDirectories(folderPath))
+        {
+            string newRelativePath = Path.Combine(relativePath, Path.GetFileName(subfolderPath));
+            AddFolderToZip(archive, subfolderPath, newRelativePath, compressionLevel);
         }
     }
 
@@ -96,6 +152,34 @@ class DefaultZipArchiveService : IZipArchiveService
             Directory.CreateDirectory(destinationDirectoryName);
         }
         ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
+        return true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="archiveFile"></param>
+    /// <param name="destinationDirectoryName"></param>
+    /// <param name="overwriteFiles"></param>
+    /// <param name="encoding"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default)
+    {
+        if (!Directory.Exists(destinationDirectoryName))
+        {
+            Directory.CreateDirectory(destinationDirectoryName);
+        }
+
+#if NET10_0_OR_GREATER
+        await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles, token);
+#else
+        await Task.Run(() =>
+        {
+            token.ThrowIfCancellationRequested();
+            ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
+        }, token);
+#endif
         return true;
     }
 
