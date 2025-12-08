@@ -3,13 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Logging;
 using System.IO.Compression;
 using System.Text;
 
 namespace BootstrapBlazor.Components;
 
-class DefaultZipArchiveService(ILogger<DefaultZipArchiveService> logger) : IZipArchiveService
+class DefaultZipArchiveService : IZipArchiveService
 {
     /// <summary>
     /// <inheritdoc/>
@@ -157,26 +156,17 @@ class DefaultZipArchiveService(ILogger<DefaultZipArchiveService> logger) : IZipA
     /// <returns></returns>
     public async Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        var ret = false;
-        try
+        if (!Directory.Exists(destinationDirectoryName))
         {
-            if (!Directory.Exists(destinationDirectoryName))
-            {
-                Directory.CreateDirectory(destinationDirectoryName);
-            }
+            Directory.CreateDirectory(destinationDirectoryName);
+        }
 
 #if NET10_0_OR_GREATER
-            await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
+        await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
 #else
         await Task.Run(() => ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles));
 #endif
-            ret = true;
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "ExtractToDirectoryAsync");
-        }
-        return ret;
+        return true;
     }
 
     /// <summary>
