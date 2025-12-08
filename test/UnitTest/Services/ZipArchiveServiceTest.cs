@@ -90,6 +90,11 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
             File.Delete(destFile);
         }
         Assert.False(File.Exists(destFile));
+        var subFolder = Path.Combine(tempFolder, "sub");
+        if (!Directory.Exists(subFolder))
+        {
+            Directory.CreateDirectory(subFolder);
+        }
         await archService.ArchiveDirectory(destFile, entries);
         Assert.True(File.Exists(destFile));
     }
