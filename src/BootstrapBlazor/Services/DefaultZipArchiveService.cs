@@ -61,14 +61,15 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="archiveFile">归档文件</param>
-    /// <param name="directoryName">要归档文件夹</param>
+    /// <param name="archiveFile"></param>
+    /// <param name="directoryName"></param>
     /// <param name="compressionLevel"></param>
     /// <param name="includeBaseDirectory"></param>
     /// <param name="encoding"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null)
+    public async Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default)
     {
         if (Directory.Exists(directoryName))
         {
@@ -78,9 +79,13 @@ class DefaultZipArchiveService : IZipArchiveService
                 Directory.CreateDirectory(folder);
             }
 #if NET10_0_OR_GREATER
-            await ZipFile.CreateFromDirectoryAsync(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding);
+            await ZipFile.CreateFromDirectoryAsync(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding, token);
 #else
-            await Task.Run(() => ZipFile.CreateFromDirectory(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding));
+            await Task.Run(() =>
+            {
+                token.ThrowIfCancellationRequested();
+                ZipFile.CreateFromDirectory(directoryName, archiveFile, compressionLevel, includeBaseDirectory, encoding);
+            }, token);
 #endif
         }
     }
@@ -92,9 +97,11 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <param name="entries"></param>
     /// <param name="compressionLevel"></param>
     /// <param name="encoding"></param>
+    /// <param name="skipEmptyFolder"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null)
+    public async Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null, bool skipEmptyFolder = false, CancellationToken token = default)
     {
         using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Create, encoding);
 
@@ -113,6 +120,8 @@ class DefaultZipArchiveService : IZipArchiveService
 
     private static void AddFolderToZip(ZipArchive archive, string folderPath, string relativePath, CompressionLevel compressionLevel = CompressionLevel.Optimal)
     {
+        archive.CreateEntry($"{relativePath}/", compressionLevel);
+
         // 添加当前文件夹中的所有文件
         foreach (string filePath in Directory.GetFiles(folderPath))
         {
@@ -149,12 +158,13 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="archiveFile">归档文件</param>
-    /// <param name="destinationDirectoryName">解压缩文件夹</param>
-    /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
-    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <param name="archiveFile"></param>
+    /// <param name="destinationDirectoryName"></param>
+    /// <param name="overwriteFiles"></param>
+    /// <param name="encoding"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null)
+    public async Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default)
     {
         if (!Directory.Exists(destinationDirectoryName))
         {
@@ -162,9 +172,13 @@ class DefaultZipArchiveService : IZipArchiveService
         }
 
 #if NET10_0_OR_GREATER
-        await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
+        await ZipFile.ExtractToDirectoryAsync(archiveFile, destinationDirectoryName, encoding, overwriteFiles, token);
 #else
-        await Task.Run(() => ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles));
+        await Task.Run(() =>
+        {
+            token.ThrowIfCancellationRequested();
+            ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
+        }, token);
 #endif
         return true;
     }

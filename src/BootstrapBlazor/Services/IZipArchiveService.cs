@@ -34,21 +34,24 @@ public interface IZipArchiveService
     /// </summary>
     /// <param name="archiveFile">归档文件</param>
     /// <param name="directoryName">要归档文件夹</param>
-    /// <param name="compressionLevel"></param>
-    /// <param name="includeBaseDirectory"></param>
-    /// <param name="encoding"></param>
+    /// <param name="compressionLevel">压缩率</param>
+    /// <param name="includeBaseDirectory">是否包含本目录 默认 false</param>
+    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null);
+    Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default);
 
     /// <summary>
     /// 将指定目录归档方法
     /// </summary>
     /// <param name="archiveFile">归档文件</param>
     /// <param name="entries">要归档条目</param>
-    /// <param name="compressionLevel"></param>
-    /// <param name="encoding"></param>
+    /// <param name="compressionLevel">压缩率</param>
+    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <param name="skipEmptyFolder">是否跳过空文件夹</param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null);
+    Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null, bool skipEmptyFolder = false, CancellationToken token = default);
 
     /// <summary>
     /// 解压缩归档文件到指定文件夹
@@ -67,8 +70,9 @@ public interface IZipArchiveService
     /// <param name="destinationDirectoryName">解压缩文件夹</param>
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null);
+    Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default);
 
     /// <summary>
     /// 获得归档压缩文件中指定归档文件
