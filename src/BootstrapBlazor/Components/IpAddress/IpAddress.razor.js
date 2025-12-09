@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 const selectCell = (el, index) => {
@@ -56,7 +56,15 @@ export function init(id) {
                     selectCell(el, index - 1)
                 }
             }
-            else if (e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            else if (current.selectionStart === current.value.length && (e.key === 'Space' || e.key === 'ArrowRight')) {
+                e.preventDefault()
+                selectCell(el, index + 1)
+            }
+            else if (current.selectionStart === 0 && e.key === 'ArrowLeft') {
+                e.preventDefault()
+                selectCell(el, index - 1)
+            }
+            else if (e.composed || e.key === 'Delete' || e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
 
             }
             else {
@@ -72,6 +80,26 @@ export function init(id) {
                 }
             }
         })
+
+        EventHandler.on(c, 'paste', e => {
+            e.preventDefault();
+            const raw = (e.clipboardData || window.clipboardData)?.getData('text') ?? '';
+            if (!raw) {
+                return;
+            }
+            const parts = raw.replace(/[^\d.]/g, '').split('.').filter(p => p.length);
+            const cells = el.querySelectorAll(".ipv4-cell");
+            let pos = 0;
+            parts.forEach(p => {
+                if (pos > 3) {
+                    return;
+                }
+                const num = Math.max(0, Math.min(255, parseInt(p, 10) || 0));
+                cells[pos].value = num.toString();
+                ip.prevValues[pos] = cells[pos].value;
+                pos++;
+            });
+        });
     })
 }
 
