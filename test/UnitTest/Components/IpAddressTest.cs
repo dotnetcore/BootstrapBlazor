@@ -11,7 +11,7 @@ public class IpAddressTest : BootstrapBlazorTestBase
     public async Task IpAddress_Ok()
     {
         var cut = Context.RenderComponent<IpAddress>();
-        cut.Contains("ipaddress form-control");
+        cut.Contains("bb-ip form-control");
         Assert.Equal("0.0.0.0", cut.Instance.Value);
 
         var inputs = cut.FindAll(".ipv4-cell");
@@ -44,6 +44,14 @@ public class IpAddressTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => inputs[2].Change(new ChangeEventArgs() { Value = "1234" }));
         await cut.InvokeAsync(() => inputs[3].Change(new ChangeEventArgs() { Value = "1234" }));
         Assert.Equal("123.123.123.123", cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task TriggerUpdate_Ok()
+    {
+        var cut = Context.Render<IpAddress>();
+        await cut.InvokeAsync(() => cut.Instance.TriggerUpdate(192, 0, 1, 10));
+        Assert.Equal("192.0.1.10", cut.Instance.Value);
     }
 
     [Fact]
