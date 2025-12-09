@@ -1,4 +1,4 @@
-﻿import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
+import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
@@ -153,18 +153,22 @@ const handlerKeydown = (ac, e) => {
     if (key === 'Enter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
+            let activeItem = null;
             const items = [...menu.querySelectorAll('.dropdown-item')];
             if (items.length === 1) {
-                const item = items[0];
-                item.click();
+                activeItem = items[0];
             }
             else {
-                const current = menu.querySelector('.active');
-                if (current !== null) {
-                    current.click();
-                }
+                activeItem = menu.querySelector('.active');
             }
-            invoke.invokeMethodAsync('EnterCallback');
+
+            const handler = setTimeout(async () => {
+                clearTimeout(handler);
+                if (activeItem !== null) {
+                    activeItem.click();
+                }
+                await invoke.invokeMethodAsync('EnterCallback');
+            }, 0);
         }
     }
     else if (key === 'Escape') {
