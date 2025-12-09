@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 const selectCell = (el, index) => {
@@ -101,7 +101,7 @@ export function init(id) {
             let pos = 0;
             parts.forEach(p => {
                 if (pos > 3) {
-                 return;
+                    return;
                 }
                 const num = Math.max(0, Math.min(255, parseInt(p, 10) || 0));
                 cells[pos].value = num.toString();
