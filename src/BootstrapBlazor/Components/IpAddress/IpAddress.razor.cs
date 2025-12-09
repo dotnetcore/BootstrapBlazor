@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -21,7 +21,7 @@ public partial class IpAddress
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
-    protected string? ClassName => CssBuilder.Default("ipaddress form-control")
+    protected string? ClassName => CssBuilder.Default("bb-ip form-control")
         .AddClass("disabled", IsDisabled)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
@@ -62,7 +62,6 @@ public partial class IpAddress
         {
             Value1 = Value1[0..3];
         }
-
         UpdateValue();
     }
 
