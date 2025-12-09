@@ -106,7 +106,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// call JavaScript method
     /// </summary>
     /// <returns></returns>
-    protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
+    protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// call JavaScript method
