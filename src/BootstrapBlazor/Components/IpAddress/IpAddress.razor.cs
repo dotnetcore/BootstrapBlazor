@@ -111,4 +111,22 @@ public partial class IpAddress
     {
         CurrentValueAsString = $"{Value1}.{Value2}.{Value3}.{Value4}";
     }
+
+    /// <summary>
+    /// 更新 值方法供 JS 调用
+    /// </summary>
+    /// <param name="v1"></param>
+    /// <param name="v2"></param>
+    /// <param name="v3"></param>
+    /// <param name="v4"></param>
+    [JSInvokable]
+    public void TriggerUpdate(int v1, int v2, int v3, int v4)
+    {
+        Value1 = v1.ToString();
+        Value2 = v2.ToString();
+        Value3 = v3.ToString();
+        Value4 = v4.ToString();
+
+        UpdateValue();
+    }
 }

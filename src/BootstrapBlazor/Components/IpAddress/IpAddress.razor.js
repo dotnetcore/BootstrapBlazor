@@ -12,7 +12,7 @@ const selectCell = (el, index) => {
     cell.focus();
 }
 
-export function init(id) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -33,7 +33,6 @@ export function init(id) {
         EventHandler.on(c, 'keydown', e => {
             const current = e.target;
             if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-                // numbers, backup last status
                 ip.prevValues[index] = c.value
                 if (c.value === "0") {
                     c.value = ""
@@ -99,15 +98,19 @@ export function init(id) {
             const parts = raw.replace(/[^\d.]/g, '').split('.').filter(p => p.length);
             const cells = el.querySelectorAll(".ipv4-cell");
             let pos = 0;
+            const args = [];
             parts.forEach(p => {
                 if (pos > 3) {
                     return;
                 }
                 const num = Math.max(0, Math.min(255, parseInt(p, 10) || 0));
+                args.push(num);
                 cells[pos].value = num.toString();
                 ip.prevValues[pos] = cells[pos].value;
                 pos++;
             });
+
+            invoke.invokeMethodAsync("TriggerUpdate", ...args);
         });
     })
 }
