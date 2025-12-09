@@ -1,6 +1,6 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
-.ipaddress {
+.bb-ip {
     --bb-ip-cell-max-width: #{$bb-ip-cell-max-width};
     display: flex;
     flex-wrap: nowrap;
