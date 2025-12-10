@@ -97,9 +97,6 @@ public static class ServiceCollectionSharedExtensions
         // 增加 IRegionService
         services.AddBootstrapBlazorRegionService();
 
-        // 增加海康威视网络摄像机服务
-        services.AddBootstrapBlazorHikVision();
-
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>
