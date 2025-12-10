@@ -4801,7 +4801,7 @@
     "SelectRegion": "行政区域选择器 SelectRegion",
     "SelectProvince": "省选择器 SelectProvince",
     "SelectCity": "城市选择器 SelectCity",
-    "HikVision": "海康摄像头 HikVision"
+    "HikVision": "海康摄像头 HikVisionWebPlugin"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

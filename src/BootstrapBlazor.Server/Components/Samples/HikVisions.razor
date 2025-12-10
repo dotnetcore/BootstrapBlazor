@@ -5,7 +5,21 @@
 
 <h4>@Localizer["SubTitle"]</h4>
 
+<Tips>
+    <p>本组件依赖 <code>BootstrapBlazor.HikVision</code> 扩展包，需要依照下面步骤进行引用</p>
+</Tips>
+
+<PackageTips Name="BootstrapBlazor.HikVision" />
+
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <section ignore>
+        <p>注意事项：</p>
+        <ul class="ul-demo">
+            <li><code>HikVisionWebPlugin</code> 组件依赖海康威视 Web 插件包，仅支持 windows 平台</li>
+            <li>由于核心功能均由海康威视 Web 插件提供所有浏览器控制台中会有部分提示或者报错信息均属于正常现象</li>
+            <li>由海康威视 Web 插件绘制的预览窗口并不是 html dom 元素，所以出现被截断遮挡其他窗口，多屏显示不正确时请刷新浏览器即可</li>
+        </ul>
+    </section>
     <HikVisionWebPlugin @ref="_hikVision" OnInitedAsync="OnInitedAsync"
                         OnLoginAsync="OnLoginAsync" OnLogoutAsync="OnLogoutAsync" OnGetChannelsAsync="OnGetChannelsAsync"
                         OnStartRealPlayedAsync="OnStartRealPlayedAsync" OnStopRealPlayedAsync="OnStopRealPlayedAsync"></HikVisionWebPlugin>
