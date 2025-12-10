@@ -1,4 +1,4 @@
-﻿@page "/table/dynamic-object"
+@page "/table/dynamic-object"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesDynamicObject> Localizer
 
@@ -12,13 +12,9 @@
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
-            @foreach (var element in DynamicColumnList)
+            @foreach (var element in _dynamicColumnList)
             {
-                <TableColumn Field="@element.ToString()" FieldName="@element.ToString()" Text="@element" Sortable="true" Filterable="true">
-                    <Template Context="v">
-                        <div>Template - @v.Value</div>
-                    </Template>
-                </TableColumn>
+                <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true"></TableColumn>
             }
         </TableColumns>
     </Table>
@@ -27,17 +23,13 @@
 <DemoBlock Title="@Localizer["TablesDynamicObjectIDynamicObjectTitle"]"
            Introduction="@Localizer["TablesDynamicObjectIDynamicObjectIntro"]"
            Name="IDynamicObject">
-    <Table TItem="CustomDynamicColumnsObjectData" Items="CustomDynamicItems"
+    <Table TItem="CustomDynamicColumnsObjectData" Items="_customDynamicItems"
            IsStriped="true" IsBordered="true" ShowToolbar="true" ShowColumnList="true" ShowDefaultButtons="false" ShowRefresh="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Fix" Sortable="true" Filterable="true" />
             @foreach (var element in StaticColumnList)
             {
-                <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true">
-                    <Template Context="v">
-                        <div>Template - @v.Value</div>
-                    </Template>
-                </TableColumn>
+                <TableColumn Field="@element" FieldName="@element" Text="@element" Sortable="true" Filterable="true"></TableColumn>
             }
         </TableColumns>
     </Table>
