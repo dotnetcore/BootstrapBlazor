@@ -30,11 +30,11 @@ public sealed partial class Selects
 
     private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Id.ToString(), i.Name!)).ToList();
 
-    private int _virtualItem1 = 2;
-    private string? VirtualItemText1 => VirtualItems.FirstOrDefault(i => i.Value == "2")?.Text;
+    private int? _virtualItem1 = 2;
+    private string? VirtualItemText1 => Foos.FirstOrDefault(i => i.Id == 2)?.Name;
 
-    private int _virtualItem2 = 2;
-    private string? VirtualItemText2 => VirtualItems.FirstOrDefault(i => i.Value == "2")?.Text;
+    private int? _virtualItem2 = 3;
+    private string? VirtualItemText2 => Foos.FirstOrDefault(i => i.Id == 3)?.Name;
 
     [NotNull]
     private List<Foo>? Foos { get; set; }
@@ -78,7 +78,7 @@ public sealed partial class Selects
         }
         return new QueryData<SelectedItem>
         {
-            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Id.ToString(), i.Name!)),
             TotalCount = items.Count
         };
     }
