@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -662,22 +662,38 @@ public static class LambdaExtensions
         Expression<Func<TModel, TResult>> GetComplexPropertyExpression()
         {
             var propertyNames = propertyName.Split(".");
-            Expression? body = null;
-            Type t = type;
-            object? propertyInstance = model;
+            Expression body = Expression.Convert(parameter, type);
             foreach (var name in propertyNames)
             {
-                var p = t.GetPropertyByName(name) ?? throw new InvalidOperationException($"类型 {type.Name} 未找到 {name} 属性，无法获取其值");
-                propertyInstance = p.GetValue(propertyInstance);
-                if (propertyInstance != null)
-                {
-                    t = propertyInstance.GetType();
-                }
-
-                body = Expression.Property(body ?? Expression.Convert(parameter, type), p);
+                body = BuildPropertyAccess(body, body.Type, name);
             }
             return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body!, typeof(TResult)), parameter);
         }
+    }
+
+    private static Expression BuildPropertyAccess(Expression instance, Type instanceType, string propertyName)
+    {
+        var p = instanceType.GetPropertyByName(propertyName);
+        if (p != null)
+        {
+            var propertyAccess = Expression.Property(instance, p);
+            return Expression.Condition(
+                test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
+                ifTrue: Expression.Constant(null, p.PropertyType),
+                ifFalse: propertyAccess
+            );
+        }
+        else if (instanceType.IsAssignableTo(typeof(IDynamicMetaObjectProvider)))
+        {
+            var binder = Microsoft.CSharp.RuntimeBinder.Binder.GetMember(
+                CSharpBinderFlags.None,
+                propertyName,
+                instanceType,
+                new[] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) });
+            return Expression.Dynamic(binder, typeof(object), instance);
+        }
+
+        throw new InvalidOperationException($"类型 {instanceType.Name} 未找到 {propertyName} 属性，无法获取其值");
     }
 
     /// <summary>
