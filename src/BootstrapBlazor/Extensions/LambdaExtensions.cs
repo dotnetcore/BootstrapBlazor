@@ -667,33 +667,20 @@ public static class LambdaExtensions
             {
                 body = BuildPropertyAccess(body, body.Type, name);
             }
-            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body!, typeof(TResult)), parameter);
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), parameter);
         }
     }
 
-    private static Expression BuildPropertyAccess(Expression instance, Type instanceType, string propertyName)
+    private static ConditionalExpression BuildPropertyAccess(Expression instance, Type instanceType, string propertyName)
     {
-        var p = instanceType.GetPropertyByName(propertyName);
-        if (p != null)
-        {
-            var propertyAccess = Expression.Property(instance, p);
-            return Expression.Condition(
-                test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
-                ifTrue: Expression.Constant(null, p.PropertyType),
-                ifFalse: propertyAccess
-            );
-        }
-        else if (instanceType.IsAssignableTo(typeof(IDynamicMetaObjectProvider)))
-        {
-            var binder = Microsoft.CSharp.RuntimeBinder.Binder.GetMember(
-                CSharpBinderFlags.None,
-                propertyName,
-                instanceType,
-                new[] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) });
-            return Expression.Dynamic(binder, typeof(object), instance);
-        }
+        var p = instanceType.GetPropertyByName(propertyName) ?? throw new InvalidOperationException($"类型 {instanceType.Name} 未找到 {propertyName} 属性，无法获取其值");
 
-        throw new InvalidOperationException($"类型 {instanceType.Name} 未找到 {propertyName} 属性，无法获取其值");
+        var propertyAccess = Expression.Property(instance, p);
+        return Expression.Condition(
+            test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
+            ifTrue: Expression.Constant(null, p.PropertyType),
+            ifFalse: propertyAccess
+        );
     }
 
     /// <summary>
