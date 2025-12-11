@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,11 +28,13 @@ public sealed partial class Selects
         new SelectedItem ("Shanghai", "上海")
     };
 
-    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Id.ToString(), i.Name!)).ToList();
 
-    private SelectedItem? VirtualItem1 { get; set; }
+    private int _virtualItem1 = 2;
+    private string? VirtualItemText1 => VirtualItems.FirstOrDefault(i => i.Value == "2")?.Text;
 
-    private SelectedItem? VirtualItem2 { get; set; }
+    private int _virtualItem2 = 2;
+    private string? VirtualItemText2 => VirtualItems.FirstOrDefault(i => i.Value == "2")?.Text;
 
     [NotNull]
     private List<Foo>? Foos { get; set; }
