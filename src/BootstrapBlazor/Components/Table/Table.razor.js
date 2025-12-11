@@ -930,8 +930,8 @@ const setDraggable = table => {
     let dragItem = null;
     let index = 0
     table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
+    disposeDragColumns(table.dragColumns);
     table.dragColumns.forEach(col => {
-        disposeDragColumns(col);
 
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
