@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Text.Json;
-
 namespace BootstrapBlazor.Server.Components.Samples.Table;
 
 /// <summary>
@@ -50,12 +48,6 @@ public partial class TablesFilter
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-
-        //增加filter，序列化测试通过
-        var json = JsonSerializer.Serialize(options);
-        options = JsonSerializer.Deserialize<QueryPageOptions>(json);
-
-
         // 通过 options 获得用户组合的过滤条件
         var filters = options.ToFilter();
 
