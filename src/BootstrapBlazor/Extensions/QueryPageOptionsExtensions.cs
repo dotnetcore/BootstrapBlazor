@@ -19,7 +19,7 @@ public static class QueryPageOptionsExtensions
     /// <returns></returns>
     public static FilterKeyValueAction ToFilter(this QueryPageOptions option)
     {
-        if(option.FilterKeyValueAction!=null) return option.FilterKeyValueAction;
+        if (option.FilterKeyValueAction != null) return option.FilterKeyValueAction;
 
         var filter = new FilterKeyValueAction();
 
