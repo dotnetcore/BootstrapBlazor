@@ -51,7 +51,7 @@ public partial class TablesFilter
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
 
-        //增加filter，序列化不通过
+        //增加filter，序列化测试通过
         var json = JsonSerializer.Serialize(options);
         var op = JsonSerializer.Deserialize<QueryPageOptions>(json);
 
