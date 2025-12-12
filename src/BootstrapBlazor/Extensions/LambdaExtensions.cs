@@ -676,11 +676,17 @@ public static class LambdaExtensions
         var p = instanceType.GetPropertyByName(propertyName) ?? throw new InvalidOperationException($"类型 {instanceType.Name} 未找到 {propertyName} 属性，无法获取其值");
 
         var propertyAccess = Expression.Property(instance, p);
-        return Expression.Condition(
-            test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
-            ifTrue: Expression.Constant(null, p.PropertyType),
-            ifFalse: propertyAccess
-        );
+        return p.PropertyType.IsValueType
+            ? Expression.Condition(
+                test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
+                ifTrue: Expression.Default(p.PropertyType),
+                ifFalse: propertyAccess
+            )
+            : Expression.Condition(
+                test: Expression.Equal(instance, Expression.Constant(null, instanceType)),
+                ifTrue: Expression.Constant(null, p.PropertyType),
+                ifFalse: propertyAccess
+            );
     }
 
     /// <summary>
