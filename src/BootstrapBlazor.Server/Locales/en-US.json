@@ -2092,7 +2092,7 @@
     "Block8Intro": "The button display text is set by setting the <code>Text</code> property of the <code>winButton</code> component, and the click button is the text on the right that shows the clicked button",
     "Block9Title": "Asynchronous request button",
     "Block9Intro": "By setting whether the <code>isAsync</code> property button is <b>asynchronous request button by setting whether the is</b> <code>false</code> by default. <b>Note</b> This will only take effect when <code>ShowSplit=\"true\"</code> is set",
-    "ButtonAsyncDescription": "When the button is an asynchronous request button, the button is changed to disabled, and the <code>loading</code> small icon is displayed, returning to normal after the asynchronous request ends, in this case, after clicking the <b>asynchronous button</b>, the request load animation is displayed and returns to normal after 5 seconds",
+    "ButtonAsyncDescription": "When the button is an asynchronous request button, the button is changed to disabled, and the <code>loading</code> small icon is displayed, returning to normal after the asynchronous request ends, in this case, after clicking the <b>asynchronous button</b>, the request load animation is displayed and returns to normal after 5 seconds. In some specific scenarios, the button needs to remain disabled after asynchronous operation. Please control this using the <code>IsKeepDisabled</code> parameter.",
     "EventDesc1": "This event is triggered when the button is clicked",
     "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
     "Att1": "color",
