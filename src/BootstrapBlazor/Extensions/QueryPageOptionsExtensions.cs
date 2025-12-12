@@ -21,7 +21,7 @@ public static class QueryPageOptionsExtensions
     {
         var filter = new FilterKeyValueAction();
 
-        // 处理模糊搜索测试11
+        // 处理模糊搜索
         if (option.Searches.Count != 0)
         {
             filter.Filters.Add(new FilterKeyValueAction()
