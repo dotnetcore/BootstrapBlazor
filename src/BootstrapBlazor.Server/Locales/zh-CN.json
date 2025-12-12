@@ -3632,7 +3632,7 @@
     "CellTemplateIntro": "通过设置属性 <code>CellTemplate</code> 自定义单元格模板",
     "HeaderTemplateTitle": "头部模板",
     "HeaderTemplateIntro": "通过设置属性 <code>HeaderTemplate</code> 自定义头部模板",
-    "HeaderTemplateDesc": "通过设置 <code>BodyTemplate</code> 配合 <code>HeaderTemplate</code> 来自定义呈现 UI，本例中月视图中前后均增加了附加列，星期试图中增加了时间线",
+    "HeaderTemplateDesc": "通过设置 <code>BodyTemplate</code> 配合 <code>HeaderTemplate</code> 来自定义呈现 UI，本例中月视图中前后均增加了附加列，星期视图中增加了时间线",
     "AppTitle": "实战应用",
     "AppIntro": "课堂表",
     "AppText": "目前按周内组件暂时为统一使用 <code>ChildContext</code> 来进行渲染，所有单元格内的数据相关操作组件均未进行封装，稍后完善",
