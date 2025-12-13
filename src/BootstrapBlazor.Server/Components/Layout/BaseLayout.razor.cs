@@ -82,7 +82,7 @@ public partial class BaseLayout : IAsyncDisposable
         {
             _module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
             _interop = DotNetObjectReference.Create(this);
-            await _module.InvokeVoidAsync("doTask", _interop);
+            await _module.InvokeVoidAsync("doTask", _interop, WebsiteOption.Value.IsDevelopment);
             _init = true;
             StateHasChanged();
         }
