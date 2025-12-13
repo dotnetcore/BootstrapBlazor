@@ -510,7 +510,7 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
     [Fact]
     public void GetPropertyValueLambda_Ok()
     {
-        var foo = new Foo() { Name = "Test1" };
+        var foo = new Foo() { Name = "Test1", Count = 10 };
         var invoker = LambdaExtensions.GetPropertyValueLambda<Foo, string>(foo, "Name").Compile();
         Assert.Equal("Test1", invoker(foo));
         Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetPropertyValueLambda<Foo, string>(foo, "Test1"));
@@ -518,6 +518,13 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         var dummy = new Dummy() { Foo = foo };
         var invoker1 = LambdaExtensions.GetPropertyValueLambda<Dummy, string>(dummy, "Foo.Name").Compile();
         Assert.Equal("Test1", invoker1(dummy));
+
+        var invoker2 = LambdaExtensions.GetPropertyValueLambda<Dummy, int>(dummy, "Foo.Count").Compile();
+        Assert.Equal(10, invoker2(dummy));
+
+        dummy.Foo = null;
+        Assert.Null(invoker1(dummy));
+
         Assert.Throws<InvalidOperationException>(() => LambdaExtensions.GetPropertyValueLambda<Dummy, string>(dummy, "Foo.Test1"));
     }
 

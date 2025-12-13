@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -41,7 +41,6 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 搜索条件绑定模型 未设置 <see cref="Table{TItem}.CustomerSearchModel"/> 时为 <see cref="Table{TItem}"/> 泛型模型
     /// </summary>
-    [JsonConverter(typeof(ObjectWithTypeConverter))]
     public object? SearchModel { get; set; }
 
     /// <summary>
@@ -80,7 +79,6 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
-    [JsonIgnore]
     public List<IFilterAction> Searches { get; } = new(20);
 
     /// <summary>
@@ -93,7 +91,6 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearches" />获得
     /// </summary>
-    [JsonIgnore]
     public List<IFilterAction> CustomerSearches { get; } = new(20);
 
     /// <summary>
@@ -106,20 +103,12 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件
     /// </summary>
-    [JsonIgnore]
     public List<IFilterAction> AdvanceSearches { get; } = new(20);
 
     /// <summary>
     /// 获得 过滤条件集合 等同于 <see cref="Table{TItem}.Filters"/> 值
     /// </summary>
-    [JsonIgnore]
     public List<IFilterAction> Filters { get; } = new(20);
-
-    /// <summary>
-    /// Gets or sets the action to take when filtering key-value pairs during processing.
-    /// </summary>
-    [JsonIgnore]
-    internal FilterKeyValueAction? FilterKeyValueAction { get; set; }
 
     /// <summary>
     /// 获得 是否为首次查询 默认 false

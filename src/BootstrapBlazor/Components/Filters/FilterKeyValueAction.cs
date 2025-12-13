@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Filter 过滤条件项目 属性 <see cref="Filters"/> 为条件表达式，其之间关系由 <see cref="FilterLogic"/> 来决定
 /// </summary>
+[JsonConverter(typeof(JsonFilterKeyValueActionConverter))]
 public class FilterKeyValueAction
 {
     /// <summary>
@@ -20,7 +21,6 @@ public class FilterKeyValueAction
     /// <summary>
     /// 获得/设置 Filter 项字段值
     /// </summary>
-    [JsonConverter(typeof(ObjectWithTypeConverter))]
     public object? FieldValue { get; set; }
 
     /// <summary>
