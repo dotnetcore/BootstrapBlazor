@@ -115,7 +115,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
                                 {
                                     break;
                                 }
-                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                var val = JsonSerializer.Deserialize<SerializeFilterAction>(ref reader, options);
                                 if (val != null)
                                 {
                                     ret.Searches.Add(val);
@@ -134,7 +134,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
                                 {
                                     break;
                                 }
-                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                var val = JsonSerializer.Deserialize<SerializeFilterAction>(ref reader, options);
                                 if (val != null)
                                 {
                                     ret.CustomerSearches.Add(val);
@@ -153,7 +153,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
                                 {
                                     break;
                                 }
-                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                var val = JsonSerializer.Deserialize<SerializeFilterAction>(ref reader, options);
                                 if (val != null)
                                 {
                                     ret.AdvanceSearches.Add(val);
@@ -257,7 +257,8 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
             writer.WriteStartArray("searches");
             foreach (var filter in value.Searches)
             {
-                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+                var serializeFilterAction = new SerializeFilterAction() { Filter = filter.GetFilterConditions() };
+                writer.WriteRawValue(JsonSerializer.Serialize(serializeFilterAction, options));
             }
             writer.WriteEndArray();
         }
@@ -266,7 +267,8 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
             writer.WriteStartArray("customerSearches");
             foreach (var filter in value.CustomerSearches)
             {
-                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+                var serializeFilterAction = new SerializeFilterAction() { Filter = filter.GetFilterConditions() };
+                writer.WriteRawValue(JsonSerializer.Serialize(serializeFilterAction, options));
             }
             writer.WriteEndArray();
         }
@@ -275,7 +277,8 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
             writer.WriteStartArray("advanceSearches");
             foreach (var filter in value.AdvanceSearches)
             {
-                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+                var serializeFilterAction = new SerializeFilterAction() { Filter = filter.GetFilterConditions() };
+                writer.WriteRawValue(JsonSerializer.Serialize(serializeFilterAction, options));
             }
             writer.WriteEndArray();
         }
