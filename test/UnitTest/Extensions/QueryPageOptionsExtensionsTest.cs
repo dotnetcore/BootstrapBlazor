@@ -152,8 +152,24 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Serialize_Ok()
+    public async Task Serialize_Ok()
     {
+        var cut = Context.Render<DateTimeFilter>(pb =>
+        {
+            pb.Add(a => a.FieldKey, "DateTime");
+        });
+        var filter = cut.Instance;
+
+        var conditions = new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = DateTime.Now, FilterAction = FilterAction.GreaterThanOrEqual },
+                new FilterKeyValueAction() { FieldValue = DateTime.Now, FilterAction = FilterAction.LessThanOrEqual }
+            ]
+        };
+        await cut.InvokeAsync(() => filter.SetFilterConditionsAsync(conditions));
+
         var model = new QueryPageOptions
         {
             SearchText = "SearchText",
@@ -169,10 +185,10 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
             SearchModel = new { Name = "Test1", Count = 2 }
         };
 
-        model.Searches.Add(new SearchFilterAction("Name2", "Argo2"));
-        model.AdvanceSearches.Add(new SearchFilterAction("Name3", "Argo3"));
-        model.CustomerSearches.Add(new SearchFilterAction("Name4", "Argo4"));
-        model.Filters.Add(new SearchFilterAction("Name5", "Argo5"));
+        model.Filters.Add(cut.Instance);
+        model.Searches.Add(new SerializeFilterAction() { Filter = new FilterKeyValueAction() { FieldKey = "Name2", FieldValue = "Argo2" } });
+        model.AdvanceSearches.Add(new SerializeFilterAction() { Filter = new FilterKeyValueAction() { FieldKey = "Name3", FieldValue = "Argo3" } });
+        model.CustomerSearches.Add(new SerializeFilterAction() { Filter = new FilterKeyValueAction() { FieldKey = "Name4", FieldValue = "Argo4" } });
         model.SortList.AddRange(["Name6", "Count6"]);
         model.AdvancedSortList.AddRange(["Name7", "Count7"]);
 
@@ -198,5 +214,29 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
 
         Assert.Equal(2, expected.SortList.Count);
         Assert.Equal(2, expected.AdvancedSortList.Count);
+    }
+
+    [Fact]
+    public void SerializeFilterAction_Ok()
+    {
+        var filter = new SerializeFilterAction();
+        var action = filter.GetFilterConditions();
+        Assert.Empty(action.Filters);
+
+        filter.SetFilterConditionsAsync(new FilterKeyValueAction()
+        {
+            FieldKey = "DateTime",
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = DateTime.Now, FilterAction = FilterAction.GreaterThanOrEqual },
+                new FilterKeyValueAction() { FieldValue = DateTime.Now, FilterAction = FilterAction.LessThanOrEqual }
+            ]
+        });
+        action = filter.GetFilterConditions();
+        Assert.Equal(2, action.Filters.Count);
+
+        filter.Reset();
+        action = filter.GetFilterConditions();
+        Assert.Empty(action.Filters);
     }
 }
