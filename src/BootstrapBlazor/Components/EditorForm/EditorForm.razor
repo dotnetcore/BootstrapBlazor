@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TModel
 @inherits BootstrapComponentBase
 
@@ -8,7 +8,7 @@
         <CascadingValue Value="@_editorItems" IsFixed="false">
             @FieldItems?.Invoke(Model)
         </CascadingValue>
-        <CascadingValue Value="this" Name="EditorForm">
+        <CascadingValue Value="this" Name="EditorForm" IsFixed="true">
             <div class="form-body">
                 @if (ShowUnsetGroupItemsOnTop)
                 {
