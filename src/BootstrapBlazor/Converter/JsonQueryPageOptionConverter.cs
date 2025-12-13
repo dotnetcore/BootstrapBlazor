@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -104,14 +104,80 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
                         reader.Read();
                         ret.IsVirtualScroll = reader.GetBoolean();
                     }
-                    
-                    else if (propertyName == "filterKeyValueAction")
+                    else if (propertyName == "searches")
                     {
                         reader.Read();
-                        var val = JsonSerializer.Deserialize<FilterKeyValueAction>(ref reader, options);
-                        if (val != null)
+                        if (reader.TokenType == JsonTokenType.StartArray)
                         {
-                            ret.FilterKeyValueAction = val;
+                            while (reader.Read())
+                            {
+                                if (reader.TokenType == JsonTokenType.EndArray)
+                                {
+                                    break;
+                                }
+                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                if (val != null)
+                                {
+                                    ret.Searches.Add(val);
+                                }
+                            }
+                        }
+                    }
+                    else if (propertyName == "customerSearches")
+                    {
+                        reader.Read();
+                        if (reader.TokenType == JsonTokenType.StartArray)
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.TokenType == JsonTokenType.EndArray)
+                                {
+                                    break;
+                                }
+                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                if (val != null)
+                                {
+                                    ret.CustomerSearches.Add(val);
+                                }
+                            }
+                        }
+                    }
+                    else if (propertyName == "advanceSearches")
+                    {
+                        reader.Read();
+                        if (reader.TokenType == JsonTokenType.StartArray)
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.TokenType == JsonTokenType.EndArray)
+                                {
+                                    break;
+                                }
+                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                if (val != null)
+                                {
+                                    ret.AdvanceSearches.Add(val);
+                                }
+                            }
+                        }
+                    }
+                    else if (propertyName == "filters")
+                    {
+                        reader.Read();
+                        if (reader.TokenType == JsonTokenType.StartArray)
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.TokenType == JsonTokenType.EndArray)
+                                {
+                                    break;
+                                }
+                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                if (val != null)
+                                {
+                                    ret.Filters.Add(val);
+                                }
+                            }
                         }
                     }
                     else if (propertyName == "isFirstQuery")
@@ -186,12 +252,41 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
         {
             writer.WriteBoolean("isVirtualScroll", value.IsVirtualScroll);
         }
-
-        if (value.Searches.Count != 0||value.CustomerSearches.Count != 0||value.AdvanceSearches.Count != 0|| value.Filters.Count != 0)
+        if (value.Searches.Count != 0)
         {
-            writer.WritePropertyName("filterKeyValueAction");
-            var filterKeyValueAction = value.ToFilter();
-            writer.WriteRawValue(JsonSerializer.Serialize(filterKeyValueAction, options));
+            writer.WriteStartArray("searches");
+            foreach (var filter in value.Searches)
+            {
+                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+            }
+            writer.WriteEndArray();
+        }
+        if (value.CustomerSearches.Count != 0)
+        {
+            writer.WriteStartArray("customerSearches");
+            foreach (var filter in value.CustomerSearches)
+            {
+                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+            }
+            writer.WriteEndArray();
+        }
+        if (value.AdvanceSearches.Count != 0)
+        {
+            writer.WriteStartArray("advanceSearches");
+            foreach (var filter in value.AdvanceSearches)
+            {
+                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+            }
+            writer.WriteEndArray();
+        }
+        if (value.Filters.Count != 0)
+        {
+            writer.WriteStartArray("filters");
+            foreach (var filter in value.Filters)
+            {
+                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+            }
+            writer.WriteEndArray();
         }
         if (value.IsFirstQuery)
         {
