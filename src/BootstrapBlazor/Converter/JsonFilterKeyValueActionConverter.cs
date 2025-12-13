@@ -58,7 +58,7 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
                                 action.FieldValue = reader.GetString();
                             }
                             break;
-                        case "fieldAction":
+                        case "filterAction":
                             action.FilterAction = JsonSerializer.Deserialize<FilterAction>(ref reader, options);
                             break;
                         case "filterLogic":
@@ -94,7 +94,7 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
         writer.WritePropertyName("fieldValue");
         writer.WriteRawValue(JsonSerializer.Serialize(value.FieldValue, options));
 
-        writer.WritePropertyName("fieldAction");
+        writer.WritePropertyName("filterAction");
         writer.WriteRawValue(JsonSerializer.Serialize(value.FilterAction, options));
 
         writer.WritePropertyName("filterLogic");
