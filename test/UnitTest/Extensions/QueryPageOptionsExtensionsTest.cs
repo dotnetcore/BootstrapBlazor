@@ -168,6 +168,7 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
             IsVirtualScroll = true,
             SearchModel = new { Name = "Test1", Count = 2 }
         };
+
         model.Searches.Add(new SearchFilterAction("Name2", "Argo2"));
         model.AdvanceSearches.Add(new SearchFilterAction("Name3", "Argo3"));
         model.CustomerSearches.Add(new SearchFilterAction("Name4", "Argo4"));
@@ -190,16 +191,11 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
         Assert.True(expected.IsVirtualScroll);
         Assert.NotNull(expected.SearchModel);
 
-        // 临时更改为空集合
-        Assert.Empty(expected.Searches);
-        Assert.Empty(expected.AdvanceSearches);
-        Assert.Empty(expected.CustomerSearches);
-        Assert.Empty(expected.Filters);
+        Assert.Single(expected.Searches);
+        Assert.Single(expected.AdvanceSearches);
+        Assert.Single(expected.CustomerSearches);
+        Assert.Single(expected.Filters);
 
-        //Assert.Single(expected.Searches);
-        //Assert.Single(expected.AdvanceSearches);
-        //Assert.Single(expected.CustomerSearches);
-        //Assert.Single(expected.Filters);
         Assert.Equal(2, expected.SortList.Count);
         Assert.Equal(2, expected.AdvancedSortList.Count);
     }
