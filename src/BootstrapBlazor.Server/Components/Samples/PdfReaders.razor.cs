@@ -21,11 +21,30 @@ public partial class PdfReaders
     private bool _enableThumbnails = true;
     private bool _showDownload = true;
     private bool _showToolbar = true;
-    private string _url = "./samples/sample.pdf";
+    private string _url = "";
+    private string? _streamFileName = "sample.pdf";
 
-    private async Task OnDownloadAsync()
+    private async Task<Stream> OnGetStreamAsync()
     {
-        var file = Path.Combine(WebHostEnvironment.WebRootPath, "samples", "sample.pdf");
-        await DownloadService.DownloadFromFileAsync($"sample_{DateTime.Now:yyyyMMddHHmmss}.pdf", file);
+        await Task.Yield();
+        if (string.IsNullOrEmpty(_streamFileName))
+        {
+            return Stream.Null;
+        }
+
+        var stream = File.OpenRead(Path.Combine(WebHostEnvironment.WebRootPath, "samples", _streamFileName));
+        return stream;
+    }
+
+    private void GetTestStream()
+    {
+        _url = "";
+        _streamFileName = "sample2.pdf";
+    }
+
+    private void GetSampleStream()
+    {
+        _url = "";
+        _streamFileName = "sample.pdf";
     }
 }
