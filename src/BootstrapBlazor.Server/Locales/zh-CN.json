@@ -308,7 +308,7 @@
     "PopoverConfirmsContentDelete": "删除确认按钮",
     "PopoverConfirmsContentDeleteContent": "确定删除数据吗？",
     "PopoverConfirmsIsAsyncTitle": "异步确认",
-    "PopoverConfirmsIsAsyncIntro": "通过设置 <code>IsAsync</code> 属性点击确认按钮时异步进行数据提交",
+    "PopoverConfirmsIsAsyncIntro": "通过设置 <code>IsAsync</code> 属性点击确认按钮时异步进行数据提交。有些特定场景异步后需要按钮继续保持禁用状态，请通过 <code>IsKeepDisabled</code> 参数控制",
     "PopoverConfirmsIsAsyncConfirmationText": "异步确认",
     "PopoverConfirmsIsAsyncConfirmationContent": "确定删除数据吗？",
     "PopoverConfirmsFormTitle": "表单提交",

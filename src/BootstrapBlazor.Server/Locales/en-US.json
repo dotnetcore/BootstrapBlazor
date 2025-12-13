@@ -308,7 +308,7 @@
     "PopoverConfirmsContentDelete": "Delete confirmation button",
     "PopoverConfirmsContentDeleteContent": "Are you sure you want to delete the data?",
     "PopoverConfirmsIsAsyncTitle": "Asynchronous confirmation",
-    "PopoverConfirmsIsAsyncIntro": "By setting the <code>IsAsync</code> attribute, the data is submitted asynchronously when the confirm button is clicked",
+    "PopoverConfirmsIsAsyncIntro": "By setting the <code>IsAsync</code> attribute, the data is submitted asynchronously when the confirm button is clicked. In some specific scenarios, the button needs to remain disabled after asynchronous operation. Please control this using the <code>IsKeepDisabled</code> parameter.",
     "PopoverConfirmsIsAsyncConfirmationText": "Asynchronous confirmation",
     "PopoverConfirmsIsAsyncConfirmationContent": "Are you sure you want to delete the data?",
     "PopoverConfirmsFormTitle": "form submission",
