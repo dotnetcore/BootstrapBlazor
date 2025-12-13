@@ -21,8 +21,8 @@ public partial class PdfReaders
     private bool _enableThumbnails = true;
     private bool _showDownload = true;
     private bool _showToolbar = true;
-    private string _url = "";
-    private string? _streamFileName = "sample.pdf";
+    private string _url = "sample.pdf";
+    private string _streamFileName = "";
 
     private async Task<Stream> OnGetStreamAsync()
     {
