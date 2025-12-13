@@ -53,7 +53,7 @@ public partial class TablesFilter
 
         //增加filter，序列化测试通过
         var json = JsonSerializer.Serialize(options);
-        options = JsonSerializer.Deserialize<QueryPageOptions>(json);
+        var op = JsonSerializer.Deserialize<QueryPageOptions>(json);
 
 
         // 通过 options 获得用户组合的过滤条件
