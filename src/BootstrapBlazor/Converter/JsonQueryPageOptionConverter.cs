@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QueryPageOptions json converter
 /// </summary>
-public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
+public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
 {
     /// <summary>
     /// <inheritdoc/>
@@ -172,7 +172,7 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
                                 {
                                     break;
                                 }
-                                var val = JsonSerializer.Deserialize<SearchFilterAction>(ref reader, options);
+                                var val = JsonSerializer.Deserialize<SerializeFilterAction>(ref reader, options);
                                 if (val != null)
                                 {
                                     ret.Filters.Add(val);
@@ -284,7 +284,8 @@ public class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
             writer.WriteStartArray("filters");
             foreach (var filter in value.Filters)
             {
-                writer.WriteRawValue(JsonSerializer.Serialize(filter, options));
+                var serializeFilterAction = new SerializeFilterAction() { Filter = filter.GetFilterConditions() };
+                writer.WriteRawValue(JsonSerializer.Serialize(serializeFilterAction, options));
             }
             writer.WriteEndArray();
         }
