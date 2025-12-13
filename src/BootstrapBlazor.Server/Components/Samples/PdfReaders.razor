@@ -38,9 +38,15 @@
                 <Switch @bind-Value="_showTwoPagesOneView"></Switch>
             </BootstrapInputGroup>
         </div>
+        <div class="col-12">
+            <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/sample.pdf")" class="me-2">Sample-Url</Button>
+            <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/sample2.pdf")" class="me-2">Sample2-Url</Button>
+            <Button Color="Color.Danger" OnClick="GetSampleStream" class="me-2">Sample-Stream</Button>
+            <Button Color="Color.Danger" OnClick="GetTestStream">Sample2-Stream</Button>
+        </div>
     </section>
     <PdfReader Url="@_url" EnableThumbnails="_enableThumbnails"
                ShowTwoPagesOneView="_showTwoPagesOneView" ShowDownload="_showDownload"
                ShowToolbar="_showToolbar" ShowPrint="_showPrint"
-               ViewHeight="600px" OnDownloadAsync="OnDownloadAsync"></PdfReader>
+               ViewHeight="600px" OnGetStreamAsync="OnGetStreamAsync"></PdfReader>
 </DemoBlock>
