@@ -182,7 +182,7 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
             IsTriggerByPagination = true,
             IsPage = true,
             IsVirtualScroll = true,
-            SearchModel = new { Name = "Test1", Count = 2 }
+            SearchModel = new Foo() { Name = "Test1", Count = 2 }
         };
 
         model.Filters.Add(cut.Instance);
