@@ -182,7 +182,7 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
             IsTriggerByPagination = true,
             IsPage = true,
             IsVirtualScroll = true,
-            SearchModel = new Foo() { Name = "Test1", Count = 2 }
+            SearchModel = new Foo { Name = "Test1", Count = 2 }
         };
 
         model.Filters.Add(cut.Instance);
@@ -196,6 +196,11 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
         var expected = JsonSerializer.Deserialize<QueryPageOptions>(payload);
         Assert.NotNull(expected);
         Assert.Equal("SearchText", expected.SearchText);
+
+        var foo = expected.SearchModel as Foo;
+        Assert.NotNull(foo);
+        Assert.Equal("Test1", foo.Name);
+
         Assert.Equal("Name1", expected.SortName);
         Assert.Equal(3, expected.StartIndex);
         Assert.Equal(4, expected.PageIndex);
@@ -214,6 +219,54 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
 
         Assert.Equal(2, expected.SortList.Count);
         Assert.Equal(2, expected.AdvancedSortList.Count);
+    }
+
+    [Fact]
+    public void SearchModel_Serialize()
+    {
+        var model = new QueryPageOptions
+        {
+            SearchModel = new { Name = "Test1", Count = 2 }
+        };
+        var payload = JsonSerializer.Serialize(model);
+        var expected = JsonSerializer.Deserialize<QueryPageOptions>(payload);
+
+        Assert.NotNull(expected);
+        Assert.NotNull(expected.SearchModel);
+    }
+
+    [Fact]
+    public void SearchModel_TableSearchModel_Serialize()
+    {
+        var model = new QueryPageOptions
+        {
+            SearchModel = new FooSearchModel { Name = "Test1" }
+        };
+        var payload = JsonSerializer.Serialize(model);
+        var expected = JsonSerializer.Deserialize<QueryPageOptions>(payload);
+
+        Assert.NotNull(expected);
+        Assert.NotNull(expected.SearchModel);
+    }
+
+    private class FooSearchModel : ITableSearchModel
+    {
+        public string? Name { get; set; }
+
+        public IEnumerable<IFilterAction> GetSearches()
+        {
+            var ret = new List<IFilterAction>();
+            if (!string.IsNullOrEmpty(Name))
+            {
+                ret.Add(new SearchFilterAction(nameof(Foo.Name), Name));
+            }
+            return ret;
+        }
+
+        public void Reset()
+        {
+            Name = null;
+        }
     }
 
     [Fact]
