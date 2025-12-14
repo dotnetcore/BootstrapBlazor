@@ -73,11 +73,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
                     else if (propertyName == "searchModel")
                     {
                         reader.Read();
-                        var val = JsonSerializer.Deserialize<object>(ref reader, options);
-                        if (val != null)
-                        {
-                            ret.SearchModel = val;
-                        }
+                        ReadSearchModel(ref reader, ret, options);
                     }
                     else if (propertyName == "pageIndex")
                     {
@@ -229,8 +225,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
         }
         if (value.SearchModel != null)
         {
-            writer.WritePropertyName("searchModel");
-            writer.WriteRawValue(JsonSerializer.Serialize(value.SearchModel, options));
+            WriteSearchModel(writer, value.SearchModel, options);
         }
         if (value.PageIndex > 1)
         {
@@ -301,5 +296,53 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
             writer.WriteBoolean("isTriggerByPagination", value.IsFirstQuery);
         }
         writer.WriteEndObject();
+    }
+
+    private static void WriteSearchModel(Utf8JsonWriter writer, object value, JsonSerializerOptions options)
+    {
+        writer.WriteStartObject("searchModel");
+        writer.WriteString("type", value.GetType().AssemblyQualifiedName);
+        writer.WritePropertyName("value");
+        writer.WriteRawValue(JsonSerializer.Serialize(value, options));
+        writer.WriteEndObject();
+    }
+
+    private static void ReadSearchModel(ref Utf8JsonReader reader, QueryPageOptions value, JsonSerializerOptions options)
+    {
+        if (reader.TokenType == JsonTokenType.StartObject)
+        {
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.EndObject)
+                {
+                    break;
+                }
+
+                if (reader.TokenType == JsonTokenType.PropertyName)
+                {
+                    var propertyName = reader.GetString();
+                    if (propertyName == "type")
+                    {
+                        reader.Read();
+                        Type? type = TypeExtensions.GetSafeType(reader.GetString());
+
+                        reader.Read();
+                        propertyName = reader.GetString();
+                        if (propertyName == "value")
+                        {
+                            reader.Read();
+                            if (type != null)
+                            {
+                                value.SearchModel = JsonSerializer.Deserialize(ref reader, type, options);
+                            }
+                            else
+                            {
+                                value.SearchModel = JsonSerializer.Deserialize<object>(ref reader, options);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
