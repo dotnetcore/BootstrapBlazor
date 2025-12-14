@@ -74,16 +74,9 @@ internal static class TypeExtensions
     public static Type? GetSafeType(string? typeName)
     {
         Type? type = null;
-        try
+        if (!string.IsNullOrEmpty(typeName))
         {
-            if (!string.IsNullOrEmpty(typeName))
-            {
-                type = Type.GetType(typeName);
-            }
-        }
-        catch
-        {
-            // ignored
+            type = Type.GetType(typeName, throwOnError: false);
         }
         return type;
     }

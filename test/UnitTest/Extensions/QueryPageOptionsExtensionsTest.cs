@@ -236,7 +236,7 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SearchModel_TableSearchModel_Serialize()
+    public void SearchModel_Serialize_TableSearchModel()
     {
         var model = new QueryPageOptions
         {
@@ -247,6 +247,25 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
 
         Assert.NotNull(expected);
         Assert.NotNull(expected.SearchModel);
+        Assert.Equal("FooSearchModel", expected.SearchModel.GetType().Name);
+    }
+
+    [Fact]
+    public void SearchModel_Serialize_NullType()
+    {
+        var model = new QueryPageOptions
+        {
+            SearchModel = new FooSearchModel { Name = "Test1" }
+        };
+        var payload = JsonSerializer.Serialize(model);
+
+        // 更改为错误的类型
+        payload = payload.Replace("FooSearchModel", "FooSearchModel1");
+        var expected = JsonSerializer.Deserialize<QueryPageOptions>(payload);
+
+        Assert.NotNull(expected);
+        Assert.NotNull(expected.SearchModel);
+        Assert.Equal("JsonElement", expected.SearchModel.GetType().Name);
     }
 
     private class FooSearchModel : ITableSearchModel
