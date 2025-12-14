@@ -42,11 +42,7 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
                             action.FieldKey = reader.GetString();
                             break;
                         case "fieldValueType":
-                            var typeName = reader.GetString();
-                            if (!string.IsNullOrEmpty(typeName))
-                            {
-                                fieldValueType = Type.GetType(typeName);
-                            }
+                            fieldValueType = TypeExtensions.GetSafeType(reader.GetString());
                             break;
                         case "fieldValue":
                             if (fieldValueType != null)
@@ -89,7 +85,7 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
         writer.WriteStartObject();
         writer.WriteString("fieldKey", value.FieldKey);
 
-        writer.WriteString("fieldValueType", value.FieldValue?.GetType().FullName);
+        WriteFieldValueType(writer, value, options);
 
         writer.WritePropertyName("fieldValue");
         writer.WriteRawValue(JsonSerializer.Serialize(value.FieldValue, options));
@@ -108,5 +104,14 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
         writer.WriteEndArray();
 
         writer.WriteEndObject();
+    }
+
+    private static void WriteFieldValueType(Utf8JsonWriter writer, FilterKeyValueAction value, JsonSerializerOptions options)
+    {
+        if (value.FieldValue != null)
+        {
+            var type = value.FieldValue.GetType();
+            writer.WriteString("fieldValueType", type.AssemblyQualifiedName);
+        }
     }
 }
