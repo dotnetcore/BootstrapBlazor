@@ -48,8 +48,11 @@ public partial class HikVisions
 
     private async Task OnLogout()
     {
+        _analogChannels.Clear();
         _loginStatus = true;
         _logoutStatus = true;
+        _startRealPlayStatus = true;
+        _stopRealPlayStatus = true;
         await _hikVision.Logout();
     }
 
@@ -102,6 +105,7 @@ public partial class HikVisions
 
     private Task OnLoginAsync()
     {
+        _loginStatus = true;
         _logoutStatus = !_loginStatus;
         _startRealPlayStatus = _logoutStatus;
         _stopRealPlayStatus = !_startRealPlayStatus;
