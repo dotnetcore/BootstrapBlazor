@@ -223,6 +223,7 @@ public partial class Table<TItem>
                 ColumnGroupSelectButtonWarnToastTitle,
                 ColumnGroupSelectButtonWarnToastContent, ToastCategory.Warning);
             _visibleColumns[0].Visible = true;
+            await OnToggleColumnVisible(_visibleColumns[0].Name, true);
         }
         await InvokeAsync(StateHasChanged);
     }
