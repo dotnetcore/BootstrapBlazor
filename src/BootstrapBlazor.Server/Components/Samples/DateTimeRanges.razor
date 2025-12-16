@@ -1,4 +1,4 @@
-﻿@page "/datetime-range"
+@page "/datetime-range"
 @inject IStringLocalizer<DateTimeRanges> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -14,6 +14,12 @@
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
     <section ignore>
+        <div class="mb-3">
+            <Pre>dotnet add package BootstrapBlazor.Holiday</Pre>
+        </div>
+        <div class="mb-3">
+            <Pre>builder.Services.AddBootstrapHolidayService();</Pre>
+        </div>
         <GroupBox Title="@Localizer["Feature"]">
             <div class="row g-3 form-inline text-end">
                 <div class="col-12 col-sm-3">
@@ -30,9 +36,6 @@
                 </div>
             </div>
         </GroupBox>
-        <div class="mt-3">
-            <Pre>builder.Services.AddBootstrapHolidayService();</Pre>
-        </div>
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
