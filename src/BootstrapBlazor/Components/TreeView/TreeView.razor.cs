@@ -385,7 +385,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
 
-        if(!firstRender && AllowDrag)
+        if (!firstRender && AllowDrag)
         {
             await InvokeVoidAsync("resetTreeViewRow", Id);
         }
