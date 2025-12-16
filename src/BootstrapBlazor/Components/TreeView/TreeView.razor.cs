@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -151,6 +151,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task>? OnTreeItemClick { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击节点前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewItem<TItem>, Task<bool>>? OnBeforeTreeItemClick { get; set; }
 
     /// <summary>
     /// Gets or sets the callback method when a tree item is checked.
@@ -545,6 +551,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task OnClick(TreeViewItem<TItem> item)
     {
+        if (OnBeforeTreeItemClick != null)
+        {
+            var ret = await OnBeforeTreeItemClick(item);
+            if (ret == false)
+            {
+                return;
+            }
+        }
+
         _activeItem = item;
         if (ClickToggleNode && item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled))
         {
