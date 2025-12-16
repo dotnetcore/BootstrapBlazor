@@ -184,6 +184,47 @@ public partial class Table<TItem>
                 ? CheckboxState.UnChecked
                 : CheckboxState.Indeterminate;
 
+    private string _visibleColumnsSearchKey = "";
+
+    /// <summary>
+    /// 获得/设置 各列是否显示状态集合
+    /// </summary>
+    private List<ColumnVisibleItem> VisibleColumnsSearchResult
+        => string.IsNullOrWhiteSpace(_visibleColumnsSearchKey)
+            ? _visibleColumns : _visibleColumnsSearchResult;
+
+    /// <summary>
+    /// 获得/设置 各列是否显示状态集合
+    /// </summary>
+    private List<ColumnVisibleItem> _visibleColumnsSearchResult = [];
+
+    private async Task SearchVisibleColumns(string searchKey)
+    {
+        _visibleColumnsSearchKey = searchKey;
+        _visibleColumnsSearchResult = _visibleColumns
+            .Where(r =>
+                string.IsNullOrWhiteSpace(_visibleColumnsSearchKey) ||
+                (r.DisplayName ?? r.Name).Contains(_visibleColumnsSearchKey))
+            .ToList();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task InverseSelected()
+    {
+        foreach (var column in _visibleColumns)
+        {
+            column.Visible = !column.Visible;
+            await OnToggleColumnVisible(column.Name, column.Visible);
+        }
+
+        if (VisibleColumnsCurrentSelectedResult == CheckboxState.UnChecked && _visibleColumns.Any())
+        {
+            await ShowToastAsync("提示", "表格需要至少有一列显示，全不选时默认第一列维持显示状态", ToastCategory.Warning);
+            _visibleColumns[0].Visible = true;
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
     private async Task OnToggleAllColumnsVisibleState(CheckboxState state, string _)
     {
         if (state == CheckboxState.Checked)
@@ -194,7 +235,7 @@ public partial class Table<TItem>
             }
         else if (state == CheckboxState.UnChecked)
         {
-            await ShowToastAsync("提示", "表格需要至少有一列显示，点击全不选时默认第一列维持显示状态", ToastCategory.Warning);
+            await ShowToastAsync("提示", "表格需要至少有一列显示，全不选时默认第一列维持显示状态", ToastCategory.Warning);
             foreach (var column in _visibleColumns.Skip(1).ToList())
             {
                 column.Visible = false;

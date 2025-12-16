@@ -120,14 +120,21 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @if (ShowColumnListSelectExtension)
                                 {
-                                    <div class="dropdown-item">
-                                        <Checkbox TValue="string" State="@VisibleColumnsCurrentSelectedResult"
-                                                  OnStateChanged="@OnToggleAllColumnsVisibleState">
-                                        </Checkbox>
+                                    <div class="dropdown-item column-list-select-extension">
+                                        <BootstrapInputGroup>
+                                            <Checkbox TValue="string" State="@VisibleColumnsCurrentSelectedResult"
+                                                      OnStateChanged="@OnToggleAllColumnsVisibleState">
+                                            </Checkbox>
+                                            <BootstrapInput Value="@_visibleColumnsSearchKey" IsClearable="true"
+                                                            OnValueChanged="@SearchVisibleColumns" UseInputEvent="true"/>
+                                            <Button Icon="fa-solid fa-arrows-rotate" TooltipText="反选当前列显示"
+                                                    TooltipTrigger="hover" Color="Color.Secondary"
+                                                    OnClick="@InverseSelected"></Button>
+                                        </BootstrapInputGroup>
                                     </div>
                                     <Divider/>
                                 }
-                                @foreach (var item in _visibleColumns)
+                                @foreach (var item in ShowColumnListSelectExtension ? VisibleColumnsSearchResult : _visibleColumns)
                                 {
                                     <div class="dropdown-item">
                                         <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
