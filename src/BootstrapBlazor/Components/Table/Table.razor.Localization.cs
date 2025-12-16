@@ -364,6 +364,20 @@ public partial class Table<TItem>
     [NotNull]
     public string? AdvancedSortModalTitle { get; set; }
 
+    /// <summary>
+    /// 获得/设置 编辑按钮 Toast 提示 Title 文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ColumnGroupSelectButtonWarnToastTitle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑按钮 Toast 未选择时提示 Content 文字
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ColumnGroupSelectButtonWarnToastContent { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Table<TItem>>? Localizer { get; set; }
@@ -438,5 +452,7 @@ public partial class Table<TItem>
         AlignCenterTooltipText ??= Localizer[nameof(AlignCenterTooltipText)];
         AlignRightText ??= Localizer[nameof(AlignRightText)];
         AlignRightTooltipText ??= Localizer[nameof(AlignRightTooltipText)];
+        ColumnGroupSelectButtonWarnToastTitle ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastTitle)];
+        ColumnGroupSelectButtonWarnToastContent ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastContent)];
     }
 }

@@ -219,7 +219,9 @@ public partial class Table<TItem>
 
         if (VisibleColumnsCurrentSelectedResult == CheckboxState.UnChecked && _visibleColumns.Any())
         {
-            await ShowToastAsync("提示", "表格需要至少有一列显示，全不选时默认第一列维持显示状态", ToastCategory.Warning);
+            await ShowToastAsync(
+                ColumnGroupSelectButtonWarnToastTitle,
+                ColumnGroupSelectButtonWarnToastContent, ToastCategory.Warning);
             _visibleColumns[0].Visible = true;
         }
         await InvokeAsync(StateHasChanged);
@@ -235,7 +237,9 @@ public partial class Table<TItem>
             }
         else if (state == CheckboxState.UnChecked)
         {
-            await ShowToastAsync("提示", "表格需要至少有一列显示，全不选时默认第一列维持显示状态", ToastCategory.Warning);
+            await ShowToastAsync(
+                ColumnGroupSelectButtonWarnToastTitle,
+                ColumnGroupSelectButtonWarnToastContent, ToastCategory.Warning);
             foreach (var column in _visibleColumns.Skip(1).ToList())
             {
                 column.Visible = false;
