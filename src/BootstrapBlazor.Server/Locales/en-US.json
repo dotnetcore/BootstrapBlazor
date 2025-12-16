@@ -673,6 +673,7 @@
     "TreeViewsTips6": "Set whether the node is <b>expanded</b> state through <code>TreeViewItem&lt;TItem&gt;.IsExpand</code>",
     "TreeViewsTips7": "Set whether the node is <b>selected</b> state through <code>TreeViewItem&lt;TItem&gt;.IsActive</code>",
     "TreeViewsTips8": "Through <code>TreeViewItem&lt;TItem&gt;.Checked</code>, set whether the node is in <b>checked/single selection</b> state",
+    "TreeViewsTipsOnBeforeTreeItemClick": "You can prevent a node click by setting the <code>OnBeforeTreeItemClick</code> callback method, and cancel the click action when it returns <code>false</code>.",
     "TreeViewsTips9": "Step 1: Set the <code>TItem</code> generic model",
     "TreeViewsTips10": "Step 2: Set <code>Items</code> to get the component data source <b>Note</b> The data source type is <code>IEnumerable&lt;TreeViewItem&lt;TItem&gt;&gt;</code>",
     "TreeViewsTips11": "Step 3: Set the <code>OnExpandNodeAsync</code> callback delegate to expand the response node to get the child data source collection",

@@ -673,6 +673,7 @@
     "TreeViewsTips6": "通过 <code>TreeViewItem&lt;TItem&gt;.IsExpand</code> 设置节点是否 <b>展开</b> 状态",
     "TreeViewsTips7": "通过 <code>TreeViewItem&lt;TItem&gt;.IsActive</code> 设置节点是否 <b>选中</b> 状态",
     "TreeViewsTips8": "通过 <code>TreeViewItem&lt;TItem&gt;.Checked</code> 设置节点是否 <b>复选/单选</b> 状态",
+    "TreeViewsTipsOnBeforeTreeItemClick": "通过设置 <code>OnBeforeTreeItemClick</code> 回调方法可以阻止点击节点动作，返回 <code>false</code> 时取消点击动作",
     "TreeViewsTips9": "第一步：设置 <code>TItem</code> 泛型模型",
     "TreeViewsTips10": "第二步：设置 <code>Items</code> 获得组件数据源 <b>注意</b> 数据源类型为 <code>IEnumerable&lt;TreeViewItem&lt;TItem&gt;&gt;</code>",
     "TreeViewsTips11": "第三步：设置 <code>OnExpandNodeAsync</code> 回调委托响应节点展开获取子项数据源集合",

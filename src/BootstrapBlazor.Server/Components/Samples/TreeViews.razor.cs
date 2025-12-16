@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -319,9 +319,9 @@ public sealed partial class TreeViews
         {
             Name = "Items",
             Description = "menu data set",
-            Type = "IEnumerable<TreeViewItem>",
+            Type = "IEnumerable<TreeViewItem<TItem>>",
             ValueList = " — ",
-            DefaultValue = "new List<TreeViewItem>(20)"
+            DefaultValue = "new List<TreeViewItem<TItem>>(20)"
         },
         new()
         {
@@ -359,7 +359,15 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnTreeItemClick),
             Description = "Callback delegate when tree control node is clicked",
-            Type = "Func<TreeViewItem, Task>",
+            Type = "Func<TreeViewItem<TItem>, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(TreeView<string>.OnBeforeTreeItemClick),
+            Description = "点击节点前回调方法",
+            Type = "Func<TreeViewItem<TItem>, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -367,7 +375,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnTreeItemChecked),
             Description = "Callback delegate when tree control node is selected",
-            Type = "Func<TreeViewItem, Task>",
+            Type = "Func<TreeViewItem<TItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -375,7 +383,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnExpandNodeAsync),
             Description = "Tree control node expand callback delegate",
-            Type = "Func<TreeViewItem, Task>",
+            Type = "Func<TreeViewItem<TItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
