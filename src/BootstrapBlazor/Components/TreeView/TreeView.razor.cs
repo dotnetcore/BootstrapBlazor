@@ -596,33 +596,33 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task OnClick(TreeViewItem<TItem> item)
     {
+        var confirm = true;
         if (OnBeforeTreeItemClick != null)
         {
-            var ret = await OnBeforeTreeItemClick(item);
-            if (ret == false)
+            confirm = await OnBeforeTreeItemClick(item);
+        }
+
+        if (confirm)
+        {
+            _activeItem = item;
+            if (ClickToggleNode && item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled))
             {
-                return;
+                await OnToggleNodeAsync(item);
             }
-        }
 
-        _activeItem = item;
-        if (ClickToggleNode && item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled))
-        {
-            await OnToggleNodeAsync(item);
-        }
+            if (OnTreeItemClick != null)
+            {
+                await OnTreeItemClick(item);
+            }
 
-        if (OnTreeItemClick != null)
-        {
-            await OnTreeItemClick(item);
-        }
+            if (ShowCheckbox && ClickToggleCheck)
+            {
+                var state = ToggleCheckState(item.CheckedState);
+                await OnCheckStateChanged(item, state);
+            }
 
-        if (ShowCheckbox && ClickToggleCheck)
-        {
-            var state = ToggleCheckState(item.CheckedState);
-            await OnCheckStateChanged(item, state);
+            StateHasChanged();
         }
-
-        StateHasChanged();
     }
 
     private async Task OnEnterAsync(string? searchText)
