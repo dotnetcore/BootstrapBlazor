@@ -67,7 +67,7 @@
     <PackageReference Include="BootstrapBlazor.PdfViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Player" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.RDKit" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Region" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.Region" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.SmilesDrawer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Sortable" Version="10.0.0" />
