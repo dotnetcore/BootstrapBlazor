@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class Table<TItem>
@@ -365,14 +365,21 @@ public partial class Table<TItem>
     public string? AdvancedSortModalTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑按钮 Toast 提示 Title 文字
+    /// 获得/设置 反选按钮文字信息
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? InverseSelectedButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列选择增强警告标题
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ColumnGroupSelectButtonWarnToastTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑按钮 Toast 未选择时提示 Content 文字
+    /// 获得/设置 列选择增强警告内容
     /// </summary>
     [Parameter]
     [NotNull]
@@ -452,6 +459,7 @@ public partial class Table<TItem>
         AlignCenterTooltipText ??= Localizer[nameof(AlignCenterTooltipText)];
         AlignRightText ??= Localizer[nameof(AlignRightText)];
         AlignRightTooltipText ??= Localizer[nameof(AlignRightTooltipText)];
+        InverseSelectedButtonText ??= Localizer[nameof(InverseSelectedButtonText)];
         ColumnGroupSelectButtonWarnToastTitle ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastTitle)];
         ColumnGroupSelectButtonWarnToastContent ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastContent)];
     }

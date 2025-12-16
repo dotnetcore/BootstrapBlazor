@@ -255,6 +255,7 @@
     "AlignCenterTooltipText": "Click to align text in this column to the center",
     "AlignRightText": "Right",
     "AlignRightTooltipText": "Click to align text in this column to the right",
+    "InverseSelectedButtonText": "Toggle the visibility of the current column.",
     "ColumnGroupSelectButtonWarnToastTitle": "Warning",
     "ColumnGroupSelectButtonWarnToastContent": "Table must have at least one column displayed. When none are selected, the first column will remain visible by default."
   },
