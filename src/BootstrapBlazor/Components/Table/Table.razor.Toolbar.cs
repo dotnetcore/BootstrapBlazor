@@ -311,6 +311,12 @@ public partial class Table<TItem>
     public bool ShowColumnList { get; set; }
 
     /// <summary>
+    /// 获得/设置 列选择下拉框中是否显示扩展的选择功能默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowColumnListSelectExtension { get; set; }
+
+    /// <summary>
     /// 获得/设置 列选择下拉框图标
     /// </summary>
     [Parameter]

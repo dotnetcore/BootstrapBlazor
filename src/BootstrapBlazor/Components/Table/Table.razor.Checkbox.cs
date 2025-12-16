@@ -173,4 +173,34 @@ public partial class Table<TItem>
             await OnColumnVisibleChanged(columnName, visible);
         }
     }
+
+    /// <summary>
+    /// 当前所有列的是否全都显示/全都不显示/部分显示状态计算
+    /// </summary>
+    private CheckboxState VisibleColumnsCurrentSelectedResult
+        => _visibleColumns.All(r => r.Visible)
+            ? CheckboxState.Checked
+            : _visibleColumns.All(r => !r.Visible)
+                ? CheckboxState.UnChecked
+                : CheckboxState.Indeterminate;
+
+    private async Task OnToggleAllColumnsVisibleState(CheckboxState state, string _)
+    {
+        if (state == CheckboxState.Checked)
+            foreach (var column in _visibleColumns)
+            {
+                column.Visible = true;
+                await OnToggleColumnVisible(column.Name, true);
+            }
+        else if (state == CheckboxState.UnChecked)
+        {
+            await ShowToastAsync("提示", "表格需要至少有一列显示，点击全不选时默认第一列维持显示状态", ToastCategory.Warning);
+            foreach (var column in _visibleColumns.Skip(1).ToList())
+            {
+                column.Visible = false;
+                await OnToggleColumnVisible(column.Name, false);
+            }
+        }
+        await InvokeAsync(StateHasChanged);
+    }
 }

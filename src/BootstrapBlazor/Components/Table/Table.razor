@@ -118,6 +118,15 @@
                                 <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end shadow">
+                                @if (ShowColumnListSelectExtension)
+                                {
+                                    <div class="dropdown-item">
+                                        <Checkbox TValue="string" State="@VisibleColumnsCurrentSelectedResult"
+                                                  OnStateChanged="@OnToggleAllColumnsVisibleState">
+                                        </Checkbox>
+                                    </div>
+                                    <Divider/>
+                                }
                                 @foreach (var item in _visibleColumns)
                                 {
                                     <div class="dropdown-item">
