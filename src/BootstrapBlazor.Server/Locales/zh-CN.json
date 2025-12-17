@@ -5965,6 +5965,8 @@
     "PdfIntro": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
     "PdfReaderNormalText": "基础用法",
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址，或者使用 <code>OnGetStreamAsync</code> 参数指定用于渲染的文件流",
+    "PdfReaderSetPdfStreamDesc": "可以通过调用实例方法 <code>SetPdfStreamAsync</code> 推流进行渲染",
+    "PdfReaderDownloadFileNameDesc": "可以通过设置参数 <code>DownloadFileName</code> 值，用于设置下载文件名",
     "PdfReaderStreamModeText": "流模式",
     "PdfReaderStreamModeIntro": "可跨域读取文件",
     "PdfReaderCompatibilityModeText": "兼容模式",
