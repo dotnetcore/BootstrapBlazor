@@ -29,7 +29,7 @@
     <PackageReference Include="BootstrapBlazor.BarCode" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="10.0.1-beta01" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="10.0.1-beta02" />
     <PackageReference Include="BootstrapBlazor.ChatBot" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
