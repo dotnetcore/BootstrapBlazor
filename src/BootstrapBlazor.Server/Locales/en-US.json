@@ -5965,7 +5965,7 @@
     "PdfIntro": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter, or specify the file stream to be rendered using the <code>OnGetStreamAsync</code> parameter.",
-    "PdfReaderSetPdfStreamDesc": "Rendering can be performed by calling the instance method <code>SetPdfStreamAsync</code>.",
+    "PdfReaderSetPdfStreamDesc": "Rendering can be performed by calling the instance method <code>SetPdfStreamAsync</code>  <code>SetPdfBase64DataAsync</code>.",
     "PdfReaderDownloadFileNameDesc": "Can set the download file name by configuring the parameter <code>DownloadFileName</code>.",
     "PdfReaderStreamModeText": "Stream mode",
     "PdfReaderStreamModeIntro": "read remote files by cross-domain",
