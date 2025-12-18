@@ -73,6 +73,12 @@ public partial class CardUpload<TValue>
     public RenderFragment<UploadFile>? ActionButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示文件尺寸，默认为true显示
+    /// </summary>
+    [Parameter]
+    public bool ShowFileSize { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 新建图标
     /// </summary>
     [Parameter]
