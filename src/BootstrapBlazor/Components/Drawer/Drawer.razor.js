@@ -10,55 +10,57 @@ const initDrag = el => {
     let isVertical = false;
     const drawerBody = el.querySelector('.drawer-body');
     const bar = [...drawerBody.children].find(i => i.classList.contains('drawer-bar'));
-    Drag.drag(bar,
-        e => {
-            isVertical = drawerBody.classList.contains("top") || drawerBody.classList.contains("bottom")
-            bar.classList.add('drag')
-            if (isVertical) {
-                height = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-height'))
-                originY = e.clientY || e.touches[0].clientY
-            }
-            else {
-                width = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-width'))
-                originX = e.clientX || e.touches[0].clientX
-            }
-        },
-        e => {
-            if (isVertical) {
-                const eventY = e.clientY || (e.touches.length || e.touches.length > 0 && e.touches[0].clientY)
-                const moveY = eventY - originY
-                let newHeight = 0;
-                if (drawerBody.classList.contains("bottom")) {
-                    newHeight = height - moveY
+    if (bar != null) {
+        Drag.drag(bar,
+            e => {
+                isVertical = drawerBody.classList.contains("top") || drawerBody.classList.contains("bottom")
+                bar.classList.add('drag')
+                if (isVertical) {
+                    height = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-height'))
+                    originY = e.clientY || e.touches[0].clientY
                 }
                 else {
-                    newHeight = height + moveY
+                    width = parseInt(getComputedStyle(drawerBody).getPropertyValue('--bb-drawer-width'))
+                    originX = e.clientX || e.touches[0].clientX
                 }
-                const maxHeight = window.innerHeight;
-                if (newHeight > 100 && newHeight < maxHeight) {
-                    drawerBody.style.setProperty('--bb-drawer-height', `${newHeight}px`)
-                }
-            }
-            else {
-                const eventX = e.clientX || (e.touches.length || e.touches.length > 0 && e.touches[0].clientX)
-                const moveX = eventX - originX
-                let newWidth = 0;
-                if (drawerBody.classList.contains("right")) {
-                    newWidth = width - moveX
+            },
+            e => {
+                if (isVertical) {
+                    const eventY = e.clientY || (e.touches.length || e.touches.length > 0 && e.touches[0].clientY)
+                    const moveY = eventY - originY
+                    let newHeight = 0;
+                    if (drawerBody.classList.contains("bottom")) {
+                        newHeight = height - moveY
+                    }
+                    else {
+                        newHeight = height + moveY
+                    }
+                    const maxHeight = window.innerHeight;
+                    if (newHeight > 100 && newHeight < maxHeight) {
+                        drawerBody.style.setProperty('--bb-drawer-height', `${newHeight}px`)
+                    }
                 }
                 else {
-                    newWidth = width + moveX
+                    const eventX = e.clientX || (e.touches.length || e.touches.length > 0 && e.touches[0].clientX)
+                    const moveX = eventX - originX
+                    let newWidth = 0;
+                    if (drawerBody.classList.contains("right")) {
+                        newWidth = width - moveX
+                    }
+                    else {
+                        newWidth = width + moveX
+                    }
+                    const maxWidth = window.innerWidth;
+                    if (newWidth > 100 && newWidth < maxWidth) {
+                        drawerBody.style.setProperty('--bb-drawer-width', `${newWidth}px`)
+                    }
                 }
-                const maxWidth = window.innerWidth;
-                if (newWidth > 100 && newWidth < maxWidth) {
-                    drawerBody.style.setProperty('--bb-drawer-width', `${newWidth}px`)
-                }
+            },
+            e => {
+                bar.classList.remove('drag')
             }
-        },
-        e => {
-            bar.classList.remove('drag')
-        }
-    )
+        )
+    }
 }
 
 export function init(id, invoke, method) {
