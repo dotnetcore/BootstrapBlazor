@@ -77,15 +77,20 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         })));
 
         // call preview // without using reflection, it is not possible to obtain the actual runtime values.
-        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile()));
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData", PrevUrl = "ErrData" }));
 
-        // upload-item-actions
-        var img = cut.Find(".upload-item-actions");
-        await cut.InvokeAsync(() => img.Click());
+        // all data
+        var length = cut.FindAll(".upload-item-actions").Count;
+        for (int i = 0; i < length; i++)
+        {
+            // upload-item-actions
+            var img = cut.Find(".upload-item-actions");
+            await cut.InvokeAsync(() => img.Click());
 
-        // upload-item-delete
-        var button = cut.Find(".upload-item-delete");
-        await cut.InvokeAsync(() => button.Click());
+            // upload-item-delete
+            var button = cut.Find(".upload-item-delete");
+            await cut.InvokeAsync(() => button.Click());
+        }
 
         cut.Contains("btn-browser");
         cut.Render(pb =>
