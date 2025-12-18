@@ -29,7 +29,13 @@
                         <FileIcon Extension="@item.GetExtension()"></FileIcon>
                     }
                 </div>
-                <div class="upload-item-size"><span>@item.GetFileName()</span> @($"{(ShowFileSize ? $"({item.Size.ToFileSizeString()})" : "")}")</div>
+                <div class="upload-item-size">
+                    <span>@item.GetFileName()</span>
+                    @if (ShowFileSize)
+                    {
+                        <span class="file-size-view">(@item.Size.ToFileSizeString())</span>
+                    }
+                </div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
                         @if (BeforeActionButtonTemplate != null)
