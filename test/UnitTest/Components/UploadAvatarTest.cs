@@ -60,6 +60,11 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         });
         cut.Contains("--bb-upload-item-border-radius: 10px;");
 
+        // ShowPreviewList is false
+        var oldButton = cut.Find(".upload-item-delete");
+        await cut.InvokeAsync(() => oldButton.Click());
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData", PrevUrl = "" }));
+
         // DefaultFileList
         cut.Render(pb =>
         {
@@ -76,9 +81,10 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
             new()
         })));
 
-        // call preview // without using reflection, it is not possible to obtain the actual runtime values.
-        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData1", PrevUrl = "    " }));
-        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData2", PrevUrl = "" }));
+        // call preview
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData1", PrevUrl = "ErrData" }));
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData2", PrevUrl = "    " }));
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData3", PrevUrl = null }));
 
         // all data
         var length = cut.FindAll(".upload-item-actions").Count;
