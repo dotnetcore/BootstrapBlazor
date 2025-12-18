@@ -95,15 +95,22 @@ export function init(id, invoke) {
             if (!raw) {
                 return;
             }
-            const parts = raw.replace(/[^\d.]/g, '').split('.').filter(p => p.length);
+
+            const ipRegex = /\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/;
+            const match = raw.match(ipRegex);
+            const parts = match ? match[0] : null;
+            if (parts === null) {
+                return;
+            }
+
             const cells = el.querySelectorAll(".ipv4-cell");
             let pos = 0;
             const args = [];
-            parts.forEach(p => {
+            parts.split('.').forEach(p => {
                 if (pos > 3) {
                     return;
                 }
-                const num = Math.max(0, Math.min(255, parseInt(p, 10) || 0));
+                const num = parseInt(p, 10);
                 args.push(num);
                 cells[pos].value = num.toString();
                 ip.prevValues[pos] = cells[pos].value;
