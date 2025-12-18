@@ -77,7 +77,11 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         })));
 
         // call preview // without using reflection, it is not possible to obtain the actual runtime values.
-        await cut.InvokeAsync(() => cut.Instance.Preview(""));
+        await cut.InvokeAsync(() => cut.Instance.Preview("test-id"));
+
+        // upload-item-actions
+        var img = cut.Find(".upload-item-actions");
+        await cut.InvokeAsync(() => img.Click());
 
         // upload-item-delete
         var button = cut.Find(".upload-item-delete");
