@@ -161,7 +161,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { FileName = "test.dba" }
             ]);
         });
-        cut.Contains("<span>test.dba</span>");
+        cut.Contains("<span>test.dba</span><span class=\"file-size-view\">(0 B)</span>");
 
         cut.Render(pb =>
         {
@@ -170,7 +170,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { File = new MockBrowserFile("demo.dba") }
             ]);
         });
-        cut.Contains("<span>demo.dba</span>");
+        cut.Contains("<span>demo.dba</span><span class=\"file-size-view\">(0 B)</span>");
     }
 
     [Fact]
