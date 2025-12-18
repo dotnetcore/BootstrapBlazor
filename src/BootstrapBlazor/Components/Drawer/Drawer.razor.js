@@ -9,7 +9,7 @@ const initDrag = el => {
     let height = 0;
     let isVertical = false;
     const drawerBody = el.querySelector('.drawer-body');
-    const bar = el.querySelector('.drawer-bar');
+    const bar = [...drawerBody.children].find(i => i.classList.contains('drawer-bar'));
     Drag.drag(bar,
         e => {
             isVertical = drawerBody.classList.contains("top") || drawerBody.classList.contains("bottom")
@@ -105,7 +105,7 @@ export function execute(id, open) {
             showDrawer();
         }
     }
-    
+
     const showDrawer = () => {
         drawerBody.classList.add('show');
         if (drawerBackdrop) {
@@ -175,7 +175,8 @@ export function dispose(id) {
         body.classList.remove('overflow-hidden')
     }
 
-    const bar = el.querySelector('.drawer-bar');
+    const drawerBody = el.querySelector('.drawer-body');
+    const bar = [...drawerBody.children].find(i => i.classList.contains('drawer-bar'));
     if (bar) {
         Drag.dispose(bar)
     }
