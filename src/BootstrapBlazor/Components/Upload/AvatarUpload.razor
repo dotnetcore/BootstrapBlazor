@@ -16,7 +16,7 @@
         {
             <div @key="item" class="@GetItemClassString()" id="@item.ValidateId" style="@ItemStyleString">
                 <Avatar Url="@item.PrevUrl" />
-                <div class="upload-item-actions" @onclick="@(() => Preview(item.ValidateId ?? ""))">
+                <div class="upload-item-actions" @onclick="@(() => Preview(item.ValidateId))">
                     <span class="upload-item-delete" @onclick="@(e => OnFileDelete(item))"
                           @onclick:stopPropagation="true">
                         <i class="@DeleteIcon"></i>

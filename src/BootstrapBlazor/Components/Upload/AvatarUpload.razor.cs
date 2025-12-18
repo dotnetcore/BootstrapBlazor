@@ -154,11 +154,13 @@ public partial class AvatarUpload<TValue>
     /// 预览当前头像方法
     /// </summary>
     /// <returns></returns>
-    public async Task Preview(string id)
+    public async Task Preview(string? id)
     {
-        if(ShowPreviewList && !string.IsNullOrWhiteSpace(id) && Files.Any(r => r.ValidateId == id))
+        if(ShowPreviewList && !string.IsNullOrWhiteSpace(id))
         {
-            await InvokeVoidAsync("preview", PreviewerId, Files.IndexOf(Files.First(r => r.ValidateId == id)));
+            var index = Files.FindIndex(r => r.ValidateId == id);
+            if (index != -1)
+                await InvokeVoidAsync("preview", PreviewerId, index);
         }
     }
 
