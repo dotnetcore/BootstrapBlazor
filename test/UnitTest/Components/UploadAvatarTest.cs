@@ -77,7 +77,8 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         })));
 
         // call preview // without using reflection, it is not possible to obtain the actual runtime values.
-        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData", PrevUrl = "ErrData" }));
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData1", PrevUrl = "    " }));
+        await cut.InvokeAsync(() => cut.Instance.Preview(new UploadFile(){ FileName = "Test-File-HasErrData2", PrevUrl = "" }));
 
         // all data
         var length = cut.FindAll(".upload-item-actions").Count;
