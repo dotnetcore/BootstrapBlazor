@@ -13,6 +13,24 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(files.Select(f => new ArchiveEntry()
+    {
+        SourceFileName = f,
+        EntryName = Path.GetFileName(f),
+    }), options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(archiveFile, files.Select(f => new ArchiveEntry()
+    {
+        SourceFileName = f,
+        EntryName = Path.GetFileName(f),
+    }), options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public async Task<Stream> ArchiveAsync(IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
         var stream = new MemoryStream();
