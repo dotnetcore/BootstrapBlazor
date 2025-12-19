@@ -57,7 +57,7 @@ class DefaultZipArchiveService : IZipArchiveService
                     archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
                 }
             }
-            else
+            else if (File.Exists(f.SourceFileName))
             {
                 archive.CreateEntryFromFile(f.SourceFileName, f.EntryName, f.CompressionLevel ?? options.CompressionLevel);
             }
