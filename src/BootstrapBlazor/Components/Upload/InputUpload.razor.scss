@@ -157,9 +157,9 @@
 .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
     display: block;
     color: var(--bs-danger);
-    padding: 0.1rem;
-    border-radius: 0.5rem;
-    border: 0.1rem solid var(--bs-danger);
+    padding: 0.25rem;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-danger);
 }
 
 .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete:hover {
