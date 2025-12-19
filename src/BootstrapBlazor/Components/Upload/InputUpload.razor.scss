@@ -85,7 +85,7 @@
 }
 
 .upload .upload-body.is-list .cancel-icon {
-    margin-left: .5rem;
+    margin-inline-start: .5rem;
     color: var(--bs-danger);
 }
 
@@ -157,6 +157,14 @@
 .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
     display: block;
     color: var(--bs-danger);
+    padding: 0.25rem;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-danger);
+}
+
+.upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete:hover {
+    color: var(--bs-white);
+    background-color: var(--bs-danger);
 }
 
 .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin {
