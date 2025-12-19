@@ -16,18 +16,18 @@ public interface IZipArchiveService
     /// <summary>
     /// 将文件归档方法
     /// </summary>
-    /// <param name="files">要归档的文件集合</param>
+    /// <param name="entries">要归档项集合</param>
     /// <param name="options">归档配置</param>
     /// <returns>归档数据流</returns>
-    Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null);
+    Task<Stream> ArchiveAsync(IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null);
 
     /// <summary>
     /// 将文件归档方法
     /// </summary>
     /// <param name="archiveFile">归档文件</param>
-    /// <param name="files">要归档的文件集合</param>
+    /// <param name="entries">要归档项集合</param>
     /// <param name="options">归档配置</param>
-    Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null);
+    Task ArchiveAsync(string archiveFile, IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null);
 
     /// <summary>
     /// 将指定目录归档方法
@@ -38,30 +38,7 @@ public interface IZipArchiveService
     /// <param name="includeBaseDirectory">是否包含本目录 默认 false</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <param name="token"></param>
-    /// <returns></returns>
-    Task ArchiveDirectory(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default);
-
-    /// <summary>
-    /// 将指定目录归档方法
-    /// </summary>
-    /// <param name="archiveFile">归档文件</param>
-    /// <param name="entries">要归档条目</param>
-    /// <param name="compressionLevel">压缩率</param>
-    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
-    /// <param name="skipEmptyFolder">是否跳过空文件夹</param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    Task ArchiveDirectory(string archiveFile, IEnumerable<string> entries, CompressionLevel compressionLevel = CompressionLevel.Optimal, Encoding? encoding = null, bool skipEmptyFolder = false, CancellationToken token = default);
-
-    /// <summary>
-    /// 解压缩归档文件到指定文件夹
-    /// </summary>
-    /// <param name="archiveFile">归档文件</param>
-    /// <param name="destinationDirectoryName">解压缩文件夹</param>
-    /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
-    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
-    /// <returns></returns>
-    bool ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null);
+    Task ArchiveDirectoryAsync(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default);
 
     /// <summary>
     /// 解压缩归档文件到指定文件夹异步方法
@@ -71,7 +48,6 @@ public interface IZipArchiveService
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default);
 
     /// <summary>
@@ -81,6 +57,5 @@ public interface IZipArchiveService
     /// <param name="entryFile">解压缩文件</param>
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
-    /// <returns></returns>
     ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null);
 }

@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
@@ -85,7 +85,7 @@
 }
 
 .upload .upload-body.is-list .cancel-icon {
-    margin-left: .5rem;
+    margin-inline-start: .5rem;
     color: var(--bs-danger);
 }
 
@@ -157,6 +157,14 @@
 .upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
     display: block;
     color: var(--bs-danger);
+    padding: 0.25rem;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-danger);
+}
+
+.upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete:hover {
+    color: var(--bs-white);
+    background-color: var(--bs-danger);
 }
 
 .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin {
@@ -208,21 +216,22 @@
     display: none;
 }
 
-.upload .upload-body.is-card .upload-item-size {
+.upload .upload-body.is-card .upload-item-file {
     margin: 1rem auto;
-    text-align: center;
     font-size: 0.625rem;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-}
+    align-items: center;
 
-.upload .upload-body.is-card .upload-item-size span {
-    max-width: calc(100% - 4.5rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    white-space: nowrap;
-    padding-right: 0.25rem;
+    .upload-item-file-name {
+        max-width: calc(100% - 4.5rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        padding-right: 0.25rem;
+    }
 }
 
 .upload .upload-item .upload-item-label {

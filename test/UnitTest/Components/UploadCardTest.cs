@@ -131,6 +131,26 @@ public class UploadCardTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowFileSize_Ok()
+    {
+        var cut = Context.Render<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowFileSize, true);
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "Test-File1.text" },
+            ]);
+        });
+        cut.Contains("upload-item-file-size");
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ShowFileSize, false);
+        });
+        cut.DoesNotContain("upload-item-file-size");
+    }
+
+    [Fact]
     public void CardUpload_ValidateForm_Ok()
     {
         var foo = new Foo();
@@ -157,7 +177,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { FileName = "test.dba" }
             ]);
         });
-        cut.Contains("<span>test.dba</span> (0 B)");
+        cut.Contains("test.dba");
 
         cut.Render(pb =>
         {
@@ -166,7 +186,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { File = new MockBrowserFile("demo.dba") }
             ]);
         });
-        cut.Contains("<span>demo.dba</span> (0 B)");
+        cut.Contains("demo.dba");
     }
 
     [Fact]

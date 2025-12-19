@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits FileListUploadBase<TValue>
 
@@ -29,7 +29,13 @@
                         <FileIcon Extension="@item.GetExtension()"></FileIcon>
                     }
                 </div>
-                <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
+                <div class="upload-item-file">
+                    <span class="upload-item-file-name">@item.GetFileName()</span>
+                    @if (ShowFileSize)
+                    {
+                        <span class="upload-item-file-size">(@item.Size.ToFileSizeString())</span>
+                    }
+                </div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
                         @if (BeforeActionButtonTemplate != null)
@@ -54,10 +60,10 @@
                                 <i class="@CancelIcon"></i>
                             </button>
                         }
-						@if (ActionButtonTemplate != null)
-						{
-							@ActionButtonTemplate(item)
-						}
+                        @if (ActionButtonTemplate != null)
+                        {
+                            @ActionButtonTemplate(item)
+                        }
                     </div>
                     @if (ShowDeleteButton)
                     {

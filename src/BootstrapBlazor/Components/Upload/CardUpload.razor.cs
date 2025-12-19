@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -71,6 +71,12 @@ public partial class CardUpload<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment<UploadFile>? ActionButtonTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示文件尺寸，默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowFileSize { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 新建图标
