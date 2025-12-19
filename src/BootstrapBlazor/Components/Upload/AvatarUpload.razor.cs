@@ -164,7 +164,7 @@ public partial class AvatarUpload<TValue>
 
     private async Task Preview(UploadFile file)
     {
-        if (ShowPreviewList && !string.IsNullOrEmpty(file.PrevUrl))
+        if (!string.IsNullOrEmpty(file.PrevUrl))
         {
             var index = Files.FindIndex(r => r.PrevUrl == file.PrevUrl);
             if (index != -1)
