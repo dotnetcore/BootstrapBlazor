@@ -99,6 +99,31 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Preview_Ok()
+    {
+        var cut = Context.Render<AvatarUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { PrevUrl = "./sample/preview.jpg" }
+            });
+        });
+
+        var action = cut.Find(".upload-item-actions");
+        await cut.InvokeAsync(() => action.Click());
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { PrevUrl = "" }
+            });
+        });
+        action = cut.Find(".upload-item-actions");
+        await cut.InvokeAsync(() => action.Click());
+    }
+
+    [Fact]
     public async Task AvatarUpload_ValidateForm_Ok()
     {
         var invalid = false;

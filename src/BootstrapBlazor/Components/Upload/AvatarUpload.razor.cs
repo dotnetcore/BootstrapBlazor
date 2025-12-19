@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -156,9 +156,21 @@ public partial class AvatarUpload<TValue>
     /// <returns></returns>
     public async Task Preview()
     {
-        if(ShowPreviewList)
+        if (ShowPreviewList)
         {
             await InvokeVoidAsync("preview", PreviewerId, 0);
+        }
+    }
+
+    private async Task Preview(UploadFile file)
+    {
+        if (!string.IsNullOrEmpty(file.PrevUrl))
+        {
+            var index = Files.FindIndex(r => r.PrevUrl == file.PrevUrl);
+            if (index != -1)
+            {
+                await InvokeVoidAsync("preview", PreviewerId, index);
+            }
         }
     }
 
