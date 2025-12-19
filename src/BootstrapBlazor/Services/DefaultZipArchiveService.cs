@@ -50,9 +50,9 @@ class DefaultZipArchiveService : IZipArchiveService
                 var entryName = f.EntryName;
                 if (!string.IsNullOrEmpty(entryName))
                 {
-                    if (!entryName.EndsWith(Path.DirectorySeparatorChar))
+                    if (!entryName.EndsWith('/'))
                     {
-                        entryName = $"{entryName}{Path.DirectorySeparatorChar}";
+                        entryName = $"{entryName}/";
                     }
                     archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
                 }
