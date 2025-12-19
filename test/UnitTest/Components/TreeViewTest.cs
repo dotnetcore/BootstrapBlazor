@@ -823,6 +823,29 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnBeforeTreeItemClick_Ok()
+    {
+        var clicked = false;
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ClickToggleNode, true);
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
+            pb.Add(a => a.OnTreeItemClick, node =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnBeforeTreeItemClick, node =>
+            {
+                return Task.FromResult(false);
+            });
+        });
+        var node = cut.FindAll(".tree-node").Skip(1).First();
+        await cut.InvokeAsync(() => node.Click());
+        Assert.False(clicked);
+    }
+
+    [Fact]
     public void KeyAttribute_Ok()
     {
         var cut = Context.Render<MockTree<Cat>>(pb =>
