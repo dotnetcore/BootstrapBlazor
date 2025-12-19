@@ -18,7 +18,6 @@ public class UploadCardTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowZoomButton, true);
             pb.Add(a => a.ShowDeleteButton, true);
-            pb.Add(a => a.ShowFileSize, true);
             pb.Add(a => a.OnDelete, file =>
             {
                 deleted = true;
@@ -124,7 +123,6 @@ public class UploadCardTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsUploadButtonAtFirst, true);
             pb.Add(a => a.IsMultiple, true);
-            pb.Add(a => a.ShowFileSize, false);
             pb.Add(a => a.ShowZoomButton, false);
             pb.Add(a => a.ShowDeleteButton, false);
         });
