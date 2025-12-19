@@ -36,7 +36,6 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { FileName = null! }
             ]);
         });
-        cut.Contains("file-size-view");
         cut.Contains("bb-previewer collapse active");
         cut.Contains("aria-label=\"zoom\"");
         cut.Contains("aria-label=\"delete\"");
@@ -129,9 +128,28 @@ public class UploadCardTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowZoomButton, false);
             pb.Add(a => a.ShowDeleteButton, false);
         });
-        cut.DoesNotContain("file-size-view");
         cut.DoesNotContain("aria-label=\"zoom\"");
         cut.DoesNotContain("aria-label=\"delete\"");
+    }
+
+    [Fact]
+    public void ShowFileSize_Ok()
+    {
+        var cut = Context.Render<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowFileSize, true);
+            pb.Add(a => a.DefaultFileList,
+            [
+                new() { FileName = "Test-File1.text" },
+            ]);
+        });
+        cut.Contains("upload-item-file-size");
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.ShowFileSize, false);
+        });
+        cut.DoesNotContain("upload-item-file-size");
     }
 
     [Fact]
@@ -161,7 +179,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { FileName = "test.dba" }
             ]);
         });
-        cut.Contains("<span>test.dba</span><span class=\"file-size-view\">(0 B)</span>");
+        cut.Contains("test.dba");
 
         cut.Render(pb =>
         {
@@ -170,7 +188,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 new() { File = new MockBrowserFile("demo.dba") }
             ]);
         });
-        cut.Contains("<span>demo.dba</span><span class=\"file-size-view\">(0 B)</span>");
+        cut.Contains("demo.dba");
     }
 
     [Fact]
