@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .upload {
     --bb-upload-body-margin-top: #{$bb-upload-body-margin-top};
@@ -208,21 +208,22 @@
     display: none;
 }
 
-.upload .upload-body.is-card .upload-item-size {
+.upload .upload-body.is-card .upload-item-file {
     margin: 1rem auto;
-    text-align: center;
     font-size: 0.625rem;
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
-}
+    align-items: center;
 
-.upload .upload-body.is-card .upload-item-size span {
-    max-width: calc(100% - 4.5rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    white-space: nowrap;
-    padding-right: 0.25rem;
+    .upload-item-file-name {
+        max-width: calc(100% - 4.5rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        white-space: nowrap;
+        padding-right: 0.25rem;
+    }
 }
 
 .upload .upload-item .upload-item-label {
