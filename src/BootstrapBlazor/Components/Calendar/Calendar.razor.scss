@@ -1,5 +1,9 @@
 ﻿@use "../../wwwroot/scss/variables" as *;
 
+[data-bs-theme='dark'] .calendar {
+  --bb-calendar-selected-bg: #{$bb-calendar-selected-bg-dark};
+}
+
 .calendar {
     --bb-calendar-padding: #{$bb-calendar-padding};
     --bb-calendar-header-border-bottom: #{$bb-calendar-header-border-bottom};
