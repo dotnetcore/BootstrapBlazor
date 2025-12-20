@@ -46,7 +46,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// </summary>
     public async Task ArchiveAsync(string archiveFile, IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
-        using var stream = File.OpenWrite(archiveFile);
+        await using var stream = File.OpenWrite(archiveFile);
         await ArchiveFilesAsync(stream, entries, options);
     }
 
