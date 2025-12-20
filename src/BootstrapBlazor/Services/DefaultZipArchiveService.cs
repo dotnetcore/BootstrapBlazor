@@ -66,14 +66,16 @@ class DefaultZipArchiveService : IZipArchiveService
             else if (Directory.Exists(f.SourceFileName))
             {
                 var entryName = f.EntryName;
-                if (!string.IsNullOrEmpty(entryName))
+                if (string.IsNullOrEmpty(entryName))
                 {
-                    if (!entryName.EndsWith('/'))
-                    {
-                        entryName = $"{entryName}/";
-                    }
-                    archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
+                    continue;
                 }
+                
+                if (!entryName.EndsWith('/'))
+                {
+                    entryName = $"{entryName}/";
+                }
+                archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
             }
             else if (File.Exists(f.SourceFileName))
             {
