@@ -167,5 +167,13 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
             Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
         });
         Assert.True(File.Exists(fileName));
+
+        await using var stream = await archService.ArchiveAsync(new List<string>()
+        {
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test1", "test.log"),
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
+        });
+        Assert.NotNull(stream);
+        Assert.True(stream.Length != 0);
     }
 }
