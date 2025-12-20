@@ -13,6 +13,24 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(files.Select(f => new ArchiveEntry()
+    {
+        SourceFileName = f,
+        EntryName = Path.GetFileName(f),
+    }), options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(archiveFile, files.Select(f => new ArchiveEntry()
+    {
+        SourceFileName = f,
+        EntryName = Path.GetFileName(f),
+    }), options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public async Task<Stream> ArchiveAsync(IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
         var stream = new MemoryStream();
@@ -28,7 +46,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// </summary>
     public async Task ArchiveAsync(string archiveFile, IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
-        using var stream = File.OpenWrite(archiveFile);
+        await using var stream = File.OpenWrite(archiveFile);
         await ArchiveFilesAsync(stream, entries, options);
     }
 
@@ -38,6 +56,11 @@ class DefaultZipArchiveService : IZipArchiveService
         using var archive = new ZipArchive(stream, options.Mode, options.LeaveOpen, options.Encoding);
         foreach (var f in entries)
         {
+            if (string.IsNullOrEmpty(f.EntryName))
+            {
+                continue;
+            }
+
             if (options.ReadStreamAsync != null)
             {
                 var entry = archive.CreateEntry(f.EntryName, options.CompressionLevel);
@@ -48,14 +71,13 @@ class DefaultZipArchiveService : IZipArchiveService
             else if (Directory.Exists(f.SourceFileName))
             {
                 var entryName = f.EntryName;
-                if (!string.IsNullOrEmpty(entryName))
+
+                if (!entryName.EndsWith('/'))
                 {
-                    if (!entryName.EndsWith('/'))
-                    {
-                        entryName = $"{entryName}/";
-                    }
-                    archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
+                    entryName = $"{entryName}/";
                 }
+
+                archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
             }
             else if (File.Exists(f.SourceFileName))
             {

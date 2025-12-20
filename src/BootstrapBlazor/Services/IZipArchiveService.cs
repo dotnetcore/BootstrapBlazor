@@ -16,6 +16,22 @@ public interface IZipArchiveService
     /// <summary>
     /// 将文件归档方法
     /// </summary>
+    /// <param name="files">要归档的文件集合</param>
+    /// <param name="options">归档配置</param>
+    /// <returns>归档数据流</returns>
+    Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null);
+
+    /// <summary>
+    /// 将文件归档方法
+    /// </summary>
+    /// <param name="archiveFile">归档文件</param>
+    /// <param name="files">要归档的文件集合</param>
+    /// <param name="options">归档配置</param>
+    Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null);
+
+    /// <summary>
+    /// 将文件归档方法
+    /// </summary>
     /// <param name="entries">要归档项集合</param>
     /// <param name="options">归档配置</param>
     /// <returns>归档数据流</returns>

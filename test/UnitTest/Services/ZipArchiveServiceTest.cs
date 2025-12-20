@@ -14,7 +14,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
     {
         var archService = Context.Services.GetRequiredService<IZipArchiveService>();
         var root = AppContext.BaseDirectory;
-        var files = new string[]
+        var files = new[]
         {
             Path.Combine(root, "1.txt"),
             Path.Combine(root, "2.txt")
@@ -28,16 +28,16 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             SourceFileName = i,
             EntryName = Path.GetFileName(i)
-        });
+        }).ToList();
         var stream = await archService.ArchiveAsync(items);
         Assert.NotNull(stream);
 
         stream = await archService.ArchiveAsync(items, new ArchiveOptions()
         {
-            CompressionLevel = System.IO.Compression.CompressionLevel.Optimal,
+            CompressionLevel = CompressionLevel.Optimal,
             Encoding = System.Text.Encoding.UTF8,
-            Mode = System.IO.Compression.ZipArchiveMode.Create,
-            ReadStreamAsync = f => Task.FromResult<Stream>(new MemoryStream("A"u8.ToArray()))
+            Mode = ZipArchiveMode.Create,
+            ReadStreamAsync = _ => Task.FromResult<Stream>(new MemoryStream("A"u8.ToArray()))
         });
         Assert.NotNull(stream);
 
@@ -93,8 +93,8 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
             File.Delete(fileName);
         }
 
-        using var fs = File.OpenWrite(fileName);
-        using var zip = new ZipArchive(fs, ZipArchiveMode.Create);
+        await using var fs = File.OpenWrite(fileName);
+        await using var zip = new ZipArchive(fs, ZipArchiveMode.Create);
 
         var item = Path.Combine(AppContext.BaseDirectory, "test", "1.txt");
         zip.CreateEntry("text/");
@@ -111,7 +111,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         }
 
         var root = AppContext.BaseDirectory;
-        var files = new string[]
+        var files = new[]
         {
             Path.Combine(root, "archive_test", "test1", "1.txt"),
             Path.Combine(root, "archive_test", "test2", "2.txt")
@@ -130,30 +130,54 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         var archService = Context.Services.GetRequiredService<IZipArchiveService>();
         await archService.ArchiveAsync(fileName, new List<ArchiveEntry>()
         {
-            new ArchiveEntry()
+            new()
             {
                 SourceFileName = files[0],
                 EntryName = "test1/test.log"
             },
-            new ArchiveEntry()
+            new()
             {
                 SourceFileName = files[1],
                 EntryName = "test2/test.log",
                 CompressionLevel = CompressionLevel.Optimal
             },
-            new ArchiveEntry()
+            new()
             {
                 SourceFileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test1"),
                 EntryName = "test1",
             },
-            new ArchiveEntry()
+            new()
             {
                 SourceFileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test1"),
                 EntryName = "test2",
                 CompressionLevel = CompressionLevel.Optimal
+            },
+            new()
+            {
+                SourceFileName = files[1]
             }
         });
 
         Assert.True(File.Exists(fileName));
+
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+        }
+        Assert.False(File.Exists(fileName));
+        await archService.ArchiveAsync(fileName, new List<string>()
+        {
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test1", "test.log"),
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
+        });
+        Assert.True(File.Exists(fileName));
+
+        await using var stream = await archService.ArchiveAsync(new List<string>()
+        {
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test1", "test.log"),
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
+        });
+        Assert.NotNull(stream);
+        Assert.True(stream.Length != 0);
     }
 }
