@@ -56,6 +56,11 @@ class DefaultZipArchiveService : IZipArchiveService
         using var archive = new ZipArchive(stream, options.Mode, options.LeaveOpen, options.Encoding);
         foreach (var f in entries)
         {
+            if (string.IsNullOrEmpty(f.EntryName))
+            {
+                continue;
+            }
+
             if (options.ReadStreamAsync != null)
             {
                 var entry = archive.CreateEntry(f.EntryName, options.CompressionLevel);
@@ -66,14 +71,12 @@ class DefaultZipArchiveService : IZipArchiveService
             else if (Directory.Exists(f.SourceFileName))
             {
                 var entryName = f.EntryName;
-                if (string.IsNullOrEmpty(entryName))
-                {
-                    continue;
-                }
+
                 if (!entryName.EndsWith('/'))
                 {
                     entryName = $"{entryName}/";
                 }
+
                 archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
             }
             else if (File.Exists(f.SourceFileName))
