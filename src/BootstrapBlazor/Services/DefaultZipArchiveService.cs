@@ -70,7 +70,6 @@ class DefaultZipArchiveService : IZipArchiveService
                 {
                     continue;
                 }
-                
                 if (!entryName.EndsWith('/'))
                 {
                     entryName = $"{entryName}/";
