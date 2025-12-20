@@ -115,6 +115,17 @@
 
                 &.is-today {
                     color: var(--bb-calendar-today-color);
+
+                    span {
+                        position: relative;
+
+                        &::after {
+                          position: absolute;
+                          inset: 0;
+                          border-radius: 50%;
+                          border: 1px solid var(--bb-calendar-today-border-color);
+                        }
+                    }
                 }
 
                 &.is-selected {
