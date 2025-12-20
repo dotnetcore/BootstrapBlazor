@@ -1,7 +1,7 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 [data-bs-theme='dark'] .calendar {
-  --bb-calendar-selected-bg: #{$bb-calendar-selected-bg-dark};
+    --bb-calendar-selected-bg: #{$bb-calendar-selected-bg-dark};
 }
 
 .calendar {
@@ -25,6 +25,7 @@
     --bb-calendar-cell-hover-bg: #{$bb-calendar-cell-hover-bg};
     --bb-calendar-header-padding: #{$bb-calendar-header-padding};
     --bb-calendar-today-color: #{$bb-calendar-today-color};
+    --bb-calendar-today-border-color: #{$bb-calendar-today-border-color};
     --bb-calendar-selected-color: #{$bb-calendar-selected-color};
     --bb-calendar-selected-bg: #{$bb-calendar-selected-bg};
     --bb-calendar-week-header-border-bottom: #{$bb-calendar-week-header-border-bottom};
@@ -120,10 +121,19 @@
                         position: relative;
 
                         &::after {
-                          position: absolute;
-                          inset: 0;
-                          border-radius: 50%;
-                          border: 1px solid var(--bb-calendar-today-border-color);
+                            position: absolute;
+                            width: 2rem;
+                            height: 2rem;
+                            top: -6px;
+                            left: -8px;
+                            border-radius: 50%;
+                            border: 1px solid var(--bb-calendar-today-border-color);
+                        }
+                    }
+
+                    &:not(.is-selected) {
+                        span::after {
+                            content: "";
                         }
                     }
                 }
