@@ -9,7 +9,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 日历框组件
 /// </summary>
 public partial class Calendar
 {
@@ -243,14 +243,7 @@ public partial class Calendar
     /// <param name="offset"></param>
     protected async Task OnChangeMonth(int offset)
     {
-        if (offset == 0)
-        {
-            Value = DateTime.Today;
-        }
-        else
-        {
-            Value = Value.AddMonths(offset);
-        }
+        Value = offset == 0 ? DateTime.Today : Value.AddMonths(offset);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -267,14 +260,7 @@ public partial class Calendar
     /// <param name="offset"></param>
     protected async Task OnChangeWeek(int offset)
     {
-        if (offset == 0)
-        {
-            Value = DateTime.Today;
-        }
-        else
-        {
-            Value = Value.AddDays(offset);
-        }
+        Value = offset == 0 ? DateTime.Today : Value.AddDays(offset);
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
         if (ValueChanged.HasDelegate)
         {
