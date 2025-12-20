@@ -151,6 +151,10 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
                 SourceFileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test1"),
                 EntryName = "test2",
                 CompressionLevel = CompressionLevel.Optimal
+            },
+            new()
+            {
+                SourceFileName = files[1]
             }
         });
 
