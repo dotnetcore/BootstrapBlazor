@@ -1,4 +1,4 @@
-﻿@page "/table/column/list"
+@page "/table/column/list"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumnList> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
@@ -13,6 +13,7 @@
            Name="Visible">
     <section ignore>
         <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+        <p>@((MarkupString)Localizer["ShowColumnListControlsDesc"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
         <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
@@ -22,9 +23,9 @@
 
     <Table TItem="Foo" @ref="TableColumnVisible"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" ShowColumnListControls="true"
            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
-           ShowExtendButtons="false" ShowColumnList="true" ClientTableName="testtable"
+           ShowExtendButtons="false" ShowColumnList="true" ClientTableName="test_table"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
