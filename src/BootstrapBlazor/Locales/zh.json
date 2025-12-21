@@ -254,7 +254,9 @@
     "AlignCenterText": "居中",
     "AlignCenterTooltipText": "点击后本列文本居中对齐",
     "AlignRightText": "右对齐",
-    "AlignRightTooltipText": "点击后本列文本右对齐"
+    "AlignRightTooltipText": "点击后本列文本右对齐",
+    "ColumnListSelectAllText": "全选",
+    "ColumnListSelectInvertText": "反选"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
