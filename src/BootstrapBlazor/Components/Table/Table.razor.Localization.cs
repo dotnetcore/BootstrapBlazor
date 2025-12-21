@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -7,10 +7,6 @@ using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-///
-/// </summary>
-/// <typeparam name="TItem"></typeparam>
 public partial class Table<TItem>
 {
     /// <summary>
@@ -364,27 +360,6 @@ public partial class Table<TItem>
     [NotNull]
     public string? AdvancedSortModalTitle { get; set; }
 
-    /// <summary>
-    /// 获得/设置 反选按钮文字信息
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? InverseSelectedButtonText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 列选择增强警告标题
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ColumnGroupSelectButtonWarnToastTitle { get; set; }
-
-    /// <summary>
-    /// 获得/设置 列选择增强警告内容
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ColumnGroupSelectButtonWarnToastContent { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<Table<TItem>>? Localizer { get; set; }
@@ -459,8 +434,5 @@ public partial class Table<TItem>
         AlignCenterTooltipText ??= Localizer[nameof(AlignCenterTooltipText)];
         AlignRightText ??= Localizer[nameof(AlignRightText)];
         AlignRightTooltipText ??= Localizer[nameof(AlignRightTooltipText)];
-        InverseSelectedButtonText ??= Localizer[nameof(InverseSelectedButtonText)];
-        ColumnGroupSelectButtonWarnToastTitle ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastTitle)];
-        ColumnGroupSelectButtonWarnToastContent ??= Localizer[nameof(ColumnGroupSelectButtonWarnToastContent)];
     }
 }
