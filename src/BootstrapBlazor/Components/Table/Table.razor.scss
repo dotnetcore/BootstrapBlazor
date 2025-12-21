@@ -308,8 +308,23 @@
 }
 
 .table-toolbar .dropdown-column .dropdown-menu {
-    max-height: var(--bb-table-columnlist-max-height);
-    overflow: auto;
+
+    &:not(.dropdown-menu-controls) {
+        max-height: var(--bb-table-columnlist-max-height);
+        overflow: auto;
+    }
+
+    .column-list-controls {
+        display: flex;
+        flex-wrap: nowrap;
+        padding: 0 var(--bs-dropdown-item-padding-x);
+        margin-block-end: .5rem;
+    }
+
+    .column-list-items {
+        max-height: var(--bb-table-columnlist-max-height);
+        overflow: auto;
+    }
 }
 
 .table-toolbar .dropdown-menu .dropdown-item span {
@@ -973,28 +988,5 @@ form .table .table-cell > textarea {
 
     > button:not(:last-child) {
         margin-inline-end: .25rem;
-    }
-}
-
-.dropdown-menu {
-    .column-list-controls {
-        display: flex;
-        flex-wrap: nowrap;
-        padding: 0 var(--bs-dropdown-item-padding-x);
-        margin-block-end: .5rem;
-
-        .column-list-controls-item {
-            display: flex;
-            justify-items: center;
-            flex-wrap: nowrap;
-
-            span {
-                margin-inline-end: .25rem;
-            }
-        }
-
-        .column-list-controls-item:not(:last-child) {
-            margin-inline-end: .5rem;
-        }
     }
 }
