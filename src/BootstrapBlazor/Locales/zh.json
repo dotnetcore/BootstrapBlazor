@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "无匹配数据",
     "PlaceHolder": "请输入"
@@ -254,10 +254,7 @@
     "AlignCenterText": "居中",
     "AlignCenterTooltipText": "点击后本列文本居中对齐",
     "AlignRightText": "右对齐",
-    "AlignRightTooltipText": "点击后本列文本右对齐",
-    "InverseSelectedButtonText": "反选当前列显示",
-    "ColumnGroupSelectButtonWarnToastTitle": "提示",
-    "ColumnGroupSelectButtonWarnToastContent": "表格需要至少有一列显示，全不选时默认第一列维持显示状态"
+    "AlignRightTooltipText": "点击后本列文本右对齐"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",
