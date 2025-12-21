@@ -8871,6 +8871,42 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("<div>dropdown-item-more-template</div");
     }
 
+    [Fact]
+    public async Task ShowColumnListControls_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<Table<Foo>>(pb =>
+        {
+            pb.AddCascadingValue<ISortableList>(new SortableList());
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Address");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                builder.CloseComponent();
+            });
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowColumnList, true);
+            pb.Add(a => a.ShowColumnListControls, true);
+        });
+
+        cut.Contains("dropdown-menu dropdown-menu-end shadow dropdown-menu-controls");
+        cut.Contains("column-list-items");
+
+        var buttons = cut.FindAll(".column-list-controls button");
+        Assert.Equal(2, buttons.Count);
+
+        await cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
+    }
+
     class SortableList : ISortableList { }
 
     static bool ProhibitEdit(Table<Foo> @this)
