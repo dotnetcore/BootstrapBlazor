@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -311,10 +311,10 @@ public partial class Table<TItem>
     public bool ShowColumnList { get; set; }
 
     /// <summary>
-    /// 获得/设置 列选择下拉框中是否显示扩展的选择功能默认为 false 不显示
+    /// 获得/设置 列选择下拉框中是否显示控制功能按钮默认为 false 不显示
     /// </summary>
     [Parameter]
-    public bool ShowColumnListSelectExtension { get; set; }
+    public bool ShowColumnListControls { get; set; }
 
     /// <summary>
     /// 获得/设置 列选择下拉框图标

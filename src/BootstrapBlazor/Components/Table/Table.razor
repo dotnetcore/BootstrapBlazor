@@ -117,30 +117,29 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end shadow">
-                                @if (ShowColumnListSelectExtension)
+                            <div class="@DropdownListClassString">
+                                @if (ShowColumnListControls)
                                 {
                                     <div class="column-list-controls">
-                                        <div class="column-list-controls-item">
-                                            <span>全选</span>
-                                            <Checkbox TValue="string" ShowLabel="false" SkipValidate="true"></Checkbox>
-                                        </div>
-                                        <div class="column-list-controls-item">
-                                            <span>反选</span>
-                                            <Checkbox TValue="string" ShowLabel="false" SkipValidate="true"></Checkbox>
-                                        </div>
+                                        <Button Text="@Localizer["ColumnListSelectAllText"]" Size="Size.ExtraSmall"
+                                                OnClick="TriggerSelectAllColumnList"></Button>
+                                        <Button Text="@Localizer["ColumnListSelectInvertText"]" Size="Size.ExtraSmall"
+                                                OnClick="TriggerSelectInvertColumnList" class="ms-2"></Button>
                                     </div>
                                     <Divider />
-                                }
-                                @foreach (var item in _visibleColumns)
-                                {
-                                    <div class="dropdown-item">
-                                        <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
-                                                  IsDisabled="@GetColumnsListState(item)"
-                                                  @bind-Value="@item.Visible"
-                                                  OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
-                                        </Checkbox>
+                                    <div class="column-list-items">
+                                        @foreach (var item in _visibleColumns)
+                                        {
+                                            @RenderColumnListItem(item)
+                                        }
                                     </div>
+                                }
+                                else
+                                {
+                                    @foreach (var item in _visibleColumns)
+                                    {
+                                        @RenderColumnListItem(item)
+                                    }
                                 }
                             </div>
                         </div>
@@ -1145,4 +1144,12 @@
                      GotoNavigatorLabelText="@GotoNavigatorLabelText"
                      ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"/>;
 
+    RenderFragment<ColumnVisibleItem> RenderColumnListItem => item =>
+        @<div class="dropdown-item">
+            <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
+                        IsDisabled="@GetColumnsListState(item)"
+                        @bind-Value="@item.Visible"
+                        OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
+            </Checkbox>
+        </div>;
 }

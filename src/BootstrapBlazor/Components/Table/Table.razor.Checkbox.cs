@@ -173,4 +173,25 @@ public partial class Table<TItem>
             await OnColumnVisibleChanged(columnName, visible);
         }
     }
+
+    private void TriggerSelectAllColumnList()
+    {
+        foreach (var column in _visibleColumns)
+        {
+            column.Visible = true;
+        }
+    }
+
+    private void TriggerSelectInvertColumnList()
+    {
+        foreach (var column in _visibleColumns)
+        {
+            column.Visible = !column.Visible;
+        }
+
+        if (_visibleColumns.All(i => i.Visible == false))
+        {
+            _visibleColumns.First().Visible = true;
+        }
+    }
 }
