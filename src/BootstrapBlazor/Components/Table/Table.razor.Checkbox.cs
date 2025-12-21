@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -172,81 +172,5 @@ public partial class Table<TItem>
         {
             await OnColumnVisibleChanged(columnName, visible);
         }
-    }
-
-    /// <summary>
-    /// 当前所有列的是否全都显示/全都不显示/部分显示状态计算
-    /// </summary>
-    private CheckboxState VisibleColumnsCurrentSelectedResult
-        => _visibleColumns.All(r => r.Visible)
-            ? CheckboxState.Checked
-            : _visibleColumns.All(r => !r.Visible)
-                ? CheckboxState.UnChecked
-                : CheckboxState.Indeterminate;
-
-    private string _visibleColumnsSearchKey = "";
-
-    /// <summary>
-    /// 获得/设置 各列是否显示状态集合
-    /// </summary>
-    private List<ColumnVisibleItem> VisibleColumnsSearchResult
-        => string.IsNullOrWhiteSpace(_visibleColumnsSearchKey)
-            ? _visibleColumns : _visibleColumnsSearchResult;
-
-    /// <summary>
-    /// 获得/设置 各列是否显示状态集合
-    /// </summary>
-    private List<ColumnVisibleItem> _visibleColumnsSearchResult = [];
-
-    private async Task SearchVisibleColumns(string searchKey)
-    {
-        _visibleColumnsSearchKey = searchKey;
-        _visibleColumnsSearchResult = _visibleColumns
-            .Where(r =>
-                string.IsNullOrWhiteSpace(_visibleColumnsSearchKey) ||
-                (r.DisplayName ?? r.Name).Contains(_visibleColumnsSearchKey))
-            .ToList();
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private async Task InverseSelected()
-    {
-        foreach (var column in _visibleColumns)
-        {
-            column.Visible = !column.Visible;
-            await OnToggleColumnVisible(column.Name, column.Visible);
-        }
-
-        if (VisibleColumnsCurrentSelectedResult == CheckboxState.UnChecked && _visibleColumns.Any())
-        {
-            await ShowToastAsync(
-                ColumnGroupSelectButtonWarnToastTitle,
-                ColumnGroupSelectButtonWarnToastContent, ToastCategory.Warning);
-            _visibleColumns[0].Visible = true;
-            await OnToggleColumnVisible(_visibleColumns[0].Name, true);
-        }
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private async Task OnToggleAllColumnsVisibleState(CheckboxState state, string _)
-    {
-        if (state == CheckboxState.Checked)
-            foreach (var column in _visibleColumns)
-            {
-                column.Visible = true;
-                await OnToggleColumnVisible(column.Name, true);
-            }
-        else if (state == CheckboxState.UnChecked)
-        {
-            await ShowToastAsync(
-                ColumnGroupSelectButtonWarnToastTitle,
-                ColumnGroupSelectButtonWarnToastContent, ToastCategory.Warning);
-            foreach (var column in _visibleColumns.Skip(1).ToList())
-            {
-                column.Visible = false;
-                await OnToggleColumnVisible(column.Name, false);
-            }
-        }
-        await InvokeAsync(StateHasChanged);
     }
 }
