@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
@@ -9,7 +9,14 @@ const initDrag = el => {
     let height = 0;
     let isVertical = false;
     const drawerBody = el.querySelector('.drawer-body');
-    const bar = el.querySelector('.drawer-bar');
+    if (drawerBody === null) {
+        return;
+    }
+    const bar = [...drawerBody.children].find(i => i.classList.contains('drawer-bar'));
+    if (bar === null) {
+        return;
+    }
+
     Drag.drag(bar,
         e => {
             isVertical = drawerBody.classList.contains("top") || drawerBody.classList.contains("bottom")
@@ -105,7 +112,7 @@ export function execute(id, open) {
             showDrawer();
         }
     }
-    
+
     const showDrawer = () => {
         drawerBody.classList.add('show');
         if (drawerBackdrop) {
@@ -175,8 +182,11 @@ export function dispose(id) {
         body.classList.remove('overflow-hidden')
     }
 
-    const bar = el.querySelector('.drawer-bar');
-    if (bar) {
-        Drag.dispose(bar)
+    const drawerBody = el.querySelector('.drawer-body');
+    if (drawerBody !== null) {
+        const bar = [...drawerBody.children].find(i => i.classList.contains('drawer-bar'));
+        if (bar) {
+            Drag.dispose(bar)
+        }
     }
 }

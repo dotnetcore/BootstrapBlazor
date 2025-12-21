@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.IO.Compression;
+
 namespace UnitTest.Services;
 
 public class ZipArchiveServiceTest : BootstrapBlazorTestBase
@@ -12,7 +14,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
     {
         var archService = Context.Services.GetRequiredService<IZipArchiveService>();
         var root = AppContext.BaseDirectory;
-        var files = new string[]
+        var files = new[]
         {
             Path.Combine(root, "1.txt"),
             Path.Combine(root, "2.txt")
@@ -22,20 +24,25 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
             using var fs = File.OpenWrite(f);
             fs.WriteByte(65);
         });
-        var stream = await archService.ArchiveAsync(files);
+        var items = files.Select(i => new ArchiveEntry()
+        {
+            SourceFileName = i,
+            EntryName = Path.GetFileName(i)
+        }).ToList();
+        var stream = await archService.ArchiveAsync(items);
         Assert.NotNull(stream);
 
-        stream = await archService.ArchiveAsync(files, new ArchiveOptions()
+        stream = await archService.ArchiveAsync(items, new ArchiveOptions()
         {
-            CompressionLevel = System.IO.Compression.CompressionLevel.Optimal,
+            CompressionLevel = CompressionLevel.Optimal,
             Encoding = System.Text.Encoding.UTF8,
-            Mode = System.IO.Compression.ZipArchiveMode.Create,
-            ReadStreamAsync = f => Task.FromResult<Stream>(new MemoryStream("A"u8.ToArray()))
+            Mode = ZipArchiveMode.Create,
+            ReadStreamAsync = _ => Task.FromResult<Stream>(new MemoryStream("A"u8.ToArray()))
         });
         Assert.NotNull(stream);
 
         var archiveFile = Path.Combine(root, "test.zip");
-        await archService.ArchiveAsync(archiveFile, files);
+        await archService.ArchiveAsync(archiveFile, items);
         Assert.True(File.Exists(archiveFile));
 
         // GetEntry
@@ -48,7 +55,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             Directory.Delete(destFolder, true);
         }
-        archService.ExtractToDirectory(archiveFile, destFolder);
+        await archService.ExtractToDirectoryAsync(archiveFile, destFolder);
         Assert.True(Directory.Exists(destFolder));
 
         // 删除文件夹
@@ -70,32 +77,107 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             File.Delete(destFile);
         }
-        await archService.ArchiveDirectory(destFile, destFolder, includeBaseDirectory: true);
+        await archService.ArchiveDirectoryAsync(destFile, destFolder, includeBaseDirectory: true);
         Assert.True(File.Exists(destFile));
         File.Delete(destFile);
 
-        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectory(null!, destFolder, includeBaseDirectory: true));
+        await Assert.ThrowsAsync<ArgumentNullException>(() => archService.ArchiveDirectoryAsync(null!, destFolder, includeBaseDirectory: true));
+    }
 
-        // 测试压缩多个文件夹
-        var entries = new List<string>()
+    [Fact]
+    public async Task ZipArchive_Ok()
+    {
+        var fileName = Path.Combine(AppContext.BaseDirectory, "test", "3.zip");
+        if (File.Exists(fileName))
         {
-            destFolder,
-            tempFolder,
+            File.Delete(fileName);
+        }
+
+        await using var fs = File.OpenWrite(fileName);
+        await using var zip = new ZipArchive(fs, ZipArchiveMode.Create);
+
+        var item = Path.Combine(AppContext.BaseDirectory, "test", "1.txt");
+        zip.CreateEntry("text/");
+        await zip.CreateEntryFromFileAsync(item, "text/1.txt");
+    }
+
+    [Fact]
+    public async Task ArchiveAsync_Ok()
+    {
+        var fileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test.zip");
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+        }
+
+        var root = AppContext.BaseDirectory;
+        var files = new[]
+        {
+            Path.Combine(root, "archive_test", "test1", "1.txt"),
+            Path.Combine(root, "archive_test", "test2", "2.txt")
         };
-        entries.AddRange(files);
+        files.ToList().ForEach(f =>
+        {
+            var folder = Path.GetDirectoryName(f);
+            if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            using var fs = File.OpenWrite(f);
+            fs.WriteByte(65);
+        });
 
-        destFile = Path.Combine(root, "folder.zip");
-        if (File.Exists(destFile))
+        var archService = Context.Services.GetRequiredService<IZipArchiveService>();
+        await archService.ArchiveAsync(fileName, new List<ArchiveEntry>()
         {
-            File.Delete(destFile);
-        }
-        Assert.False(File.Exists(destFile));
-        var subFolder = Path.Combine(tempFolder, "sub");
-        if (!Directory.Exists(subFolder))
+            new()
+            {
+                SourceFileName = files[0],
+                EntryName = "test1/test.log"
+            },
+            new()
+            {
+                SourceFileName = files[1],
+                EntryName = "test2/test.log",
+                CompressionLevel = CompressionLevel.Optimal
+            },
+            new()
+            {
+                SourceFileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test1"),
+                EntryName = "test1",
+            },
+            new()
+            {
+                SourceFileName = Path.Combine(AppContext.BaseDirectory, "archive_test", "test1"),
+                EntryName = "test2",
+                CompressionLevel = CompressionLevel.Optimal
+            },
+            new()
+            {
+                SourceFileName = files[1]
+            }
+        });
+
+        Assert.True(File.Exists(fileName));
+
+        if (File.Exists(fileName))
         {
-            Directory.CreateDirectory(subFolder);
+            File.Delete(fileName);
         }
-        await archService.ArchiveDirectory(destFile, entries);
-        Assert.True(File.Exists(destFile));
+        Assert.False(File.Exists(fileName));
+        await archService.ArchiveAsync(fileName, new List<string>()
+        {
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test1", "test.log"),
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
+        });
+        Assert.True(File.Exists(fileName));
+
+        await using var stream = await archService.ArchiveAsync(new List<string>()
+        {
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test1", "test.log"),
+            Path.Combine(AppContext.BaseDirectory, "archive_test", "test2", "test.log")
+        });
+        Assert.NotNull(stream);
+        Assert.True(stream.Length != 0);
     }
 }

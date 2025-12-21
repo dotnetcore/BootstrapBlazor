@@ -1,4 +1,4 @@
-﻿@page "/tree-view"
+@page "/tree-view"
 @inject IStringLocalizer<TreeViews> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
@@ -15,6 +15,7 @@
         <li>@((MarkupString)Localizer["TreeViewsTips6"].Value)</li>
         <li>@((MarkupString)Localizer["TreeViewsTips7"].Value)</li>
         <li>@((MarkupString)Localizer["TreeViewsTips8"].Value)</li>
+        <li>@((MarkupString)Localizer["TreeViewsTipsOnBeforeTreeItemClick"].Value)</li>
     </ul>
 </Tips>
 

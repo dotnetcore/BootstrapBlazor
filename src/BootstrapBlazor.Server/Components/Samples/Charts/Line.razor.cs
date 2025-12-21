@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -83,6 +83,26 @@ public partial class Line : IDisposable
                 }
             });
         }
+    }
+
+    private async Task AddDataset()
+    {
+        var dataset = new ChartDataset()
+        {
+            BorderWidth = _randomer.Next(1, 5),
+            Label = $"Set {DateTime.Now:mmss}",
+            Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (object)_randomer.Next(20, 37)),
+            ShowPointStyle = true,
+            PointStyle = chartPointStyles[_randomer.Next(0, 9)],
+            PointRadius = 5,
+            PointHoverRadius = 10
+        };
+        await _lineChart.AddDataset(dataset, 0);
+    }
+
+    private async Task RemoveDataset()
+    {
+        await _lineChart.RemoveDatasetAt(0);
     }
 
     /// <summary>

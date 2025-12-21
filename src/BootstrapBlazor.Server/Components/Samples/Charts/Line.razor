@@ -1,4 +1,4 @@
-﻿@page "/chart/line"
+@page "/chart/line"
 @inject IStringLocalizer<Line> Localizer
 @inject CodeSnippetService CodeSnippetService
 @inherits WebSiteModuleComponentBase
@@ -11,8 +11,8 @@
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(_lineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>
             <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["LineOnInitReload"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(_lineChart, ref _lineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["LineOnInitAddDataset"]</span></button>
-            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(_lineChart, ref _lineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["LineOnInitRemoveDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="AddDataset"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["LineOnInitAddDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="RemoveDataset"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["LineOnInitRemoveDataset"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.AddData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["LineOnInitAddingData"]</span></button>
             <button class="btn btn-primary" @onclick="e => Utility.RemoveData(_lineChart, ref _lineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["LineOnInitRemoveData"]</span></button>
         </div>
