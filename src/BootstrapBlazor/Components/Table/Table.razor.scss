@@ -976,11 +976,25 @@ form .table .table-cell > textarea {
     }
 }
 
-.column-list-select-extension {
-  min-width: 250px;
-}
+.dropdown-menu {
+    .column-list-controls {
+        display: flex;
+        flex-wrap: nowrap;
+        padding: 0 var(--bs-dropdown-item-padding-x);
+        margin-block-end: .5rem;
 
-.column-list-select-extension > .input-group > .form-check {
-    flex-grow: 0;
-    width: 40px;
+        .column-list-controls-item {
+            display: flex;
+            justify-items: center;
+            flex-wrap: nowrap;
+
+            span {
+                margin-inline-end: .25rem;
+            }
+        }
+
+        .column-list-controls-item:not(:last-child) {
+            margin-inline-end: .5rem;
+        }
+    }
 }

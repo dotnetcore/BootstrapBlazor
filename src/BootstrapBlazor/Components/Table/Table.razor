@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
@@ -14,7 +14,7 @@
         {
             <SkeletonTable ShowToolbar="@ShowToolbar"></SkeletonTable>
         }
-        else if(ShowLoadingInFirstRender)
+        else if (ShowLoadingInFirstRender)
         {
             <div class="table-loading">
                 @if (LoadingTemplate is not null)
@@ -120,21 +120,19 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @if (ShowColumnListSelectExtension)
                                 {
-                                    <div class="dropdown-item column-list-select-extension">
-                                        <BootstrapInputGroup>
-                                            <Checkbox TValue="string" State="@VisibleColumnsCurrentSelectedResult"
-                                                      OnStateChanged="@OnToggleAllColumnsVisibleState">
-                                            </Checkbox>
-                                            <BootstrapInput Value="@_visibleColumnsSearchKey" IsClearable="true"
-                                                            OnValueChanged="@SearchVisibleColumns" UseInputEvent="true"/>
-                                            <Button Icon="fa-solid fa-arrows-rotate" TooltipText="@InverseSelectedButtonText"
-                                                    TooltipTrigger="hover" Color="Color.Secondary"
-                                                    OnClick="@InverseSelected"></Button>
-                                        </BootstrapInputGroup>
+                                    <div class="column-list-controls">
+                                        <div class="column-list-controls-item">
+                                            <span>全选</span>
+                                            <Checkbox TValue="string" ShowLabel="false" SkipValidate="true"></Checkbox>
+                                        </div>
+                                        <div class="column-list-controls-item">
+                                            <span>反选</span>
+                                            <Checkbox TValue="string" ShowLabel="false" SkipValidate="true"></Checkbox>
+                                        </div>
                                     </div>
-                                    <Divider/>
+                                    <Divider />
                                 }
-                                @foreach (var item in ShowColumnListSelectExtension ? VisibleColumnsSearchResult : _visibleColumns)
+                                @foreach (var item in _visibleColumns)
                                 {
                                     <div class="dropdown-item">
                                         <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
@@ -269,7 +267,7 @@
                 {
                     foreach (var item in Rows)
                     {
-				        OnBeforeRenderRow?.Invoke(item);
+                        OnBeforeRenderRow?.Invoke(item);
                         if (RowTemplate != null)
                         {
                             var columns = GetVisibleColumns();
