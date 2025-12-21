@@ -814,6 +814,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _isFilterTrigger;
 
+    private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
+        .AddClass("dropdown-menu-controls", ShowColumnListControls)
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -1044,7 +1048,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (_resetColDragListener)
         {
-            _resetColDragListener= false;
+            _resetColDragListener = false;
             await InvokeVoidAsync("resetColDragListener", Id);
         }
 

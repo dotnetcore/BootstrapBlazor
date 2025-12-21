@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
@@ -14,7 +14,7 @@
         {
             <SkeletonTable ShowToolbar="@ShowToolbar"></SkeletonTable>
         }
-        else if(ShowLoadingInFirstRender)
+        else if (ShowLoadingInFirstRender)
         {
             <div class="table-loading">
                 @if (LoadingTemplate is not null)
@@ -117,16 +117,29 @@
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
                             </button>
-                            <div class="dropdown-menu dropdown-menu-end shadow">
-                                @foreach (var item in _visibleColumns)
+                            <div class="@DropdownListClassString">
+                                @if (ShowColumnListControls)
                                 {
-                                    <div class="dropdown-item">
-                                        <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
-                                                  IsDisabled="@GetColumnsListState(item)"
-                                                  @bind-Value="@item.Visible"
-                                                  OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
-                                        </Checkbox>
+                                    <div class="column-list-controls">
+                                        <Button Text="@Localizer["ColumnListSelectAllText"]" Size="Size.ExtraSmall"
+                                                OnClick="TriggerSelectAllColumnList"></Button>
+                                        <Button Text="@Localizer["ColumnListSelectInvertText"]" Size="Size.ExtraSmall"
+                                                OnClick="TriggerSelectInvertColumnList" class="ms-2"></Button>
                                     </div>
+                                    <Divider />
+                                    <div class="column-list-items">
+                                        @foreach (var item in _visibleColumns)
+                                        {
+                                            @RenderColumnListItem(item)
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    @foreach (var item in _visibleColumns)
+                                    {
+                                        @RenderColumnListItem(item)
+                                    }
                                 }
                             </div>
                         </div>
@@ -253,7 +266,7 @@
                 {
                     foreach (var item in Rows)
                     {
-				        OnBeforeRenderRow?.Invoke(item);
+                        OnBeforeRenderRow?.Invoke(item);
                         if (RowTemplate != null)
                         {
                             var columns = GetVisibleColumns();
@@ -1131,4 +1144,12 @@
                      GotoNavigatorLabelText="@GotoNavigatorLabelText"
                      ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate"/>;
 
+    RenderFragment<ColumnVisibleItem> RenderColumnListItem => item =>
+        @<div class="dropdown-item">
+            <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName"
+                        IsDisabled="@GetColumnsListState(item)"
+                        @bind-Value="@item.Visible"
+                        OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
+            </Checkbox>
+        </div>;
 }

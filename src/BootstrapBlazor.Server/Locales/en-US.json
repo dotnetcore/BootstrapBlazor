@@ -5156,7 +5156,8 @@
     "VisibleP3": "In this example, the <b>quantity</b> column is not displayed by setting <code>Visible</code>, and it can be displayed through the column control button",
     "VisibleP4": "Trigger the <code>OnColumnVisibleChanged</code> callback when switch the column state <b>Show/Hide</b>",
     "ResetVisibleColumnsButtonText": "Set Columns",
-    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value"
+    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
+    "ShowColumnListControlsDesc": "The <code>ShowColumnListControls</code> setting controls whether the column dropdown list displays control buttons. The built-in control buttons are <code>All</code> and <code>Invert</code>."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnTemplate": {
     "TablesColumnTitle": "Table Column",
