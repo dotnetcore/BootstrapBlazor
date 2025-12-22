@@ -32,12 +32,12 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET6Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
