@@ -2460,6 +2460,8 @@
     "EditorsTitle": "Editor",
     "EditorsDescription": "Convert the entered text into <code>html</code> code snippets",
     "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in the required <code>css</code> <code>JavaScript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "EditorsUploadDesc": "Upload File Callback",
+    "EditorsUploadDesc2": "After the component sets a callback, when a file is selected for upload within the component, it will be returned to the caller as an instance of <code>EditorUploadFile</code>. The <code>Stream</code> property allows saving to the server or directly storing to Cloud Object Storage (OSS). The callback return value is the <b>Url</b> used for previewing the stored file.",
     "EditorNormalTitle": "Basic usage",
     "EditorNormalIntro": "The default rendering is <code>div</code> and it becomes a rich text edit box when clicked",
     "EditorNormalDescription": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",

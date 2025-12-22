@@ -15,6 +15,10 @@
 
 <Pre class="no-highlight mb-3">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
+<p class="code-label">@Localizer["EditorsUploadDesc"]</p>
+<Pre>public Func&lt;EditorUploadFile, Task&lt;string&gt;&gt;? OnFileUpload { get; set; }</Pre>
+<p>@((MarkupString)Localizer["EditorsUploadDesc2"].Value)</p>
+
 <PackageTips Name="BootstrapBlazor.SummerNote" />
 
 <DemoBlock Title="@Localizer["EditorNormalTitle"]" Introduction="@Localizer["EditorNormalIntro"]" Name="Normal">
