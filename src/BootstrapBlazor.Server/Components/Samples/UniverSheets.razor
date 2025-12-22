@@ -19,7 +19,7 @@
         <Button OnClickWithoutRender="OnSaveExcelData" Text="@Localizer["SaveButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync" RibbonType="UniverSheetRibbonType.Default" IsDarkMode="false"></UniverSheet>
+        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync" RibbonType="UniverSheetRibbonType.Default"></UniverSheet>
     </div>
     <section ignore>
         <Textarea rows="3" readonly Value="@_jsonData"></Textarea>
