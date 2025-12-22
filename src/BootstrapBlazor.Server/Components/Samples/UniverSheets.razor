@@ -14,11 +14,12 @@
     <section ignore>
         <p>@((MarkupString)Localizer["NormalDesc1"].Value)</p>
         <p>@((MarkupString)Localizer["NormalDescRibbonType"].Value)</p>
+        <p>@((MarkupString)Localizer["NormalDescDarkMode"].Value)</p>
         <Button OnClickWithoutRender="OnPushExcelData" Text="@Localizer["PushButtonText"]"></Button>
         <Button OnClickWithoutRender="OnSaveExcelData" Text="@Localizer["SaveButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync" RibbonType="UniverSheetRibbonType.Default"></UniverSheet>
+        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync" RibbonType="UniverSheetRibbonType.Default" IsDarkMode="false"></UniverSheet>
     </div>
     <section ignore>
         <Textarea rows="3" readonly Value="@_jsonData"></Textarea>
