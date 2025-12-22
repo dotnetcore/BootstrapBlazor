@@ -7011,6 +7011,7 @@
     "NormalIntro": "Set your own plugins by setting the <code>Plugins</code> parameter",
     "NormalDesc1": "Push data to the spreadsheet by calling the instance method <code>PushDataAsync</code>. Click the <b>Save Data</b> button to get the serialized data of the table data",
     "NormalDesc2": "Click the <b>Push Data</b> button to push data to the table, and click the first icon on the <b>Toolbar</b> to get data from the server.",
+    "NormalDescRibbonType": "Set the toolbar style using the parameter <code>RibbonType</code>.",
     "PushButtonText": "Push",
     "SaveButtonText": "Save",
     "ToastOnReadyTitle": "Notification",
