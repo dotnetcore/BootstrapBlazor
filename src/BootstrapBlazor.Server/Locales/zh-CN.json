@@ -7012,6 +7012,7 @@
     "NormalDesc1": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>保存数据</b> 按钮获得表格数据序列化的数据",
     "NormalDesc2": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>工具栏</b> 第一个小按钮主动从服务器端获取数据",
     "NormalDescRibbonType": "通过参数 <code>RibbonType</code> 设置工具栏样式",
+    "NormalDescDarkMode": "通过参数 <code>IsDarkMode</code> 控制组件是否使用暗黑模式",
     "PushButtonText": "推送数据",
     "SaveButtonText": "保存数据",
     "ToastOnReadyTitle": "组件通知",
