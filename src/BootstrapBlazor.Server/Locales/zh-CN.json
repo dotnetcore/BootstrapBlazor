@@ -2460,6 +2460,8 @@
     "EditorsTitle": "Editor 富文本框",
     "EditorsDescription": "将输入的文字转化为 <code>html</code> 代码片段",
     "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>JavaScript</code> 均按需动态加载，使用者无需设置。由于 <code>summernote</code> 组件依赖 <b>jQuery</b>，所以需要自行引用 <code>jQuery</code> 脚本包。如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
+    "EditorsUploadDesc": "文件上传回调",
+    "EditorsUploadDesc2": "组件设置回调后，在组件中选择文件上传时，会以 <code>EditorUploadFile</code> 实例形式返回给调用者，通过其属性 <code>Stream</code> 可以实现保存到服务器或者直接存储到 <b>云对象存储（OSS）</b>中。回调返回值为文件存储后用于预览的 <b>Url</b>",
     "EditorNormalTitle": "基础用法",
     "EditorNormalIntro": "默认呈现为 <code>div</code> 点击后变为富文本编辑框",
     "EditorNormalDescription": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",
