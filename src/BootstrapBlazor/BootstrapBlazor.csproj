@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>10.1.4</Version>
+    <Version>10.1.5-beta01</Version>
   </PropertyGroup>
 
   <ItemGroup>
