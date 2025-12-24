@@ -30,6 +30,8 @@ public partial class HikVisions
     private bool _logoutStatus = true;
     private bool _startRealPlayStatus = true;
     private bool _stopRealPlayStatus = true;
+    private bool _openSoundStatus = true;
+    private bool _closeSoundStatus = true;
 
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
@@ -56,6 +58,8 @@ public partial class HikVisions
         _logoutStatus = true;
         _startRealPlayStatus = true;
         _stopRealPlayStatus = true;
+        _openSoundStatus = true;
+        _closeSoundStatus = true;
         await _hikVision.Logout();
     }
 
@@ -70,6 +74,8 @@ public partial class HikVisions
     {
         _startRealPlayStatus = true;
         _stopRealPlayStatus = true;
+        _openSoundStatus = true;
+        _closeSoundStatus = true;
         await _hikVision.StopRealPlay();
     }
 
@@ -78,6 +84,8 @@ public partial class HikVisions
         var result = await _hikVision.OpenSound();
         if (result)
         {
+            _openSoundStatus = true;
+            _closeSoundStatus = false;
             await ToastService.Success("消息通知", "打开声音成功");
         }
         else
@@ -91,6 +99,8 @@ public partial class HikVisions
         var result = await _hikVision.CloseSound();
         if (result)
         {
+            _openSoundStatus = false;
+            _closeSoundStatus = true;
             await ToastService.Success("消息通知", "关闭声音成功");
         }
         else
