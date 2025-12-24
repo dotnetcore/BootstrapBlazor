@@ -15,6 +15,9 @@ public partial class HikVisions
     [Inject, NotNull]
     private SwalService? SwalService { get; set; }
 
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     private HikVisionWebPlugin _hikVision = default!;
 
     private string _ip = "47.121.113.151";
@@ -68,6 +71,32 @@ public partial class HikVisions
         _startRealPlayStatus = true;
         _stopRealPlayStatus = true;
         await _hikVision.StopRealPlay();
+    }
+
+    private async Task OnOpenSound()
+    {
+        var result = await _hikVision.OpenSound();
+        if (result)
+        {
+            await ToastService.Success("消息通知", "打开声音成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "打开声音失败");
+        }
+    }
+
+    private async Task OnCloseSound()
+    {
+        var result = await _hikVision.CloseSound();
+        if (result)
+        {
+            await ToastService.Success("消息通知", "关闭声音成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "关闭声音失败");
+        }
     }
 
     private async Task OnInitedAsync(bool initialized)
