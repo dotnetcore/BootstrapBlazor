@@ -67,6 +67,8 @@ public partial class HikVisions
     {
         _startRealPlayStatus = true;
         _stopRealPlayStatus = true;
+        _openSoundStatus = false;
+        _closeSoundStatus = true;
         await _hikVision.StartRealPlay(_streamType, _channelId);
     }
 
