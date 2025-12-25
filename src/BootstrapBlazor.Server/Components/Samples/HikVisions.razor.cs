@@ -95,7 +95,28 @@ public partial class HikVisions
 
     private async Task OnCapture()
     {
-        await _hikVision.CapturePictureAndDownload();
+        var result = await _hikVision.CapturePicture();
+        if (result)
+        {
+            await ToastService.Success("消息通知", "抓图成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "抓图失败");
+        }
+    }
+
+    private async Task OnCaptureAndDownload()
+    {
+        var result = await _hikVision.CapturePictureAndDownload();
+        if (result)
+        {
+            await ToastService.Success("消息通知", "抓图成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "抓图失败");
+        }
     }
 
     private async Task OnStartRecord()
