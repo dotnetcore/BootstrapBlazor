@@ -605,7 +605,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (confirm)
         {
             _activeItem = item;
-            if (ClickToggleNode && item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled))
+            if (ClickToggleNode)
             {
                 await OnToggleNodeAsync(item);
             }
