@@ -26,14 +26,14 @@ public partial class HikVisions
     private string _userName = "admin";
     private bool _inited;
 
-    private bool _loginStatus = true;
-    private bool _logoutStatus = true;
-    private bool _startRealPlayStatus = true;
-    private bool _stopRealPlayStatus = true;
-    private bool _openSoundStatus = true;
-    private bool _closeSoundStatus = true;
-    private bool _startRecordStatus = true;
-    private bool _stopRecordStatus = true;
+    private bool _loginStatus => _hikVision.IsLogin;
+    private bool _logoutStatus => !_hikVision.IsLogin;
+    private bool _startRealPlayStatus => _hikVision is not { IsLogin: true, IsRealPlaying: false };
+    private bool _stopRealPlayStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true };
+    private bool _openSoundStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: false };
+    private bool _closeSoundStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: true };
+    private bool _startRecordStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: false };
+    private bool _stopRecordStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: true };
 
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
@@ -48,36 +48,22 @@ public partial class HikVisions
 
     private async Task OnLogin()
     {
-        _loginStatus = true;
-        _logoutStatus = true;
-        _loginStatus = await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http);
+        await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http);
     }
 
     private async Task OnLogout()
     {
         _analogChannels.Clear();
-        _loginStatus = true;
-        _logoutStatus = true;
-        _startRealPlayStatus = true;
-        _stopRealPlayStatus = true;
-        _openSoundStatus = true;
-        _closeSoundStatus = true;
         await _hikVision.Logout();
     }
 
     private async Task OnStartRealPlay()
     {
-        _startRealPlayStatus = true;
-        _stopRealPlayStatus = true;
         await _hikVision.StartRealPlay(_streamType, _channelId);
     }
 
     private async Task OnStopRealPlay()
     {
-        _startRealPlayStatus = true;
-        _stopRealPlayStatus = true;
-        _openSoundStatus = true;
-        _closeSoundStatus = true;
         await _hikVision.StopRealPlay();
     }
 
@@ -86,8 +72,6 @@ public partial class HikVisions
         var result = await _hikVision.OpenSound();
         if (result)
         {
-            _openSoundStatus = true;
-            _closeSoundStatus = false;
             await ToastService.Success("消息通知", "打开声音成功");
         }
         else
@@ -101,8 +85,6 @@ public partial class HikVisions
         var result = await _hikVision.CloseSound();
         if (result)
         {
-            _openSoundStatus = false;
-            _closeSoundStatus = true;
             await ToastService.Success("消息通知", "关闭声音成功");
         }
         else
@@ -121,8 +103,6 @@ public partial class HikVisions
         var result = await _hikVision.StartRecord();
         if (result)
         {
-            _startRecordStatus = true;
-            _stopRecordStatus = false;
             await ToastService.Success("消息通知", "开始录像成功");
         }
         else
@@ -136,8 +116,6 @@ public partial class HikVisions
         var result = await _hikVision.StopRecord();
         if (result)
         {
-            _startRecordStatus = false;
-            _stopRecordStatus = true;
             await ToastService.Success("消息通知", "结束录像成功");
         }
         else
@@ -151,7 +129,6 @@ public partial class HikVisions
         _inited = initialized;
         if (_inited)
         {
-            _loginStatus = false;
             StateHasChanged();
         }
         else
@@ -181,10 +158,6 @@ public partial class HikVisions
 
     private Task OnLoginAsync()
     {
-        _loginStatus = true;
-        _logoutStatus = !_loginStatus;
-        _startRealPlayStatus = _logoutStatus;
-        _stopRealPlayStatus = !_startRealPlayStatus;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -199,34 +172,18 @@ public partial class HikVisions
 
     private Task OnLogoutAsync()
     {
-        _loginStatus = _hikVision.IsLogin;
-        _logoutStatus = !_loginStatus;
-        _startRealPlayStatus = true;
-        _stopRealPlayStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnStartRealPlayedAsync()
     {
-        _startRealPlayStatus = _hikVision.IsRealPlaying;
-        _stopRealPlayStatus = !_startRealPlayStatus;
-        _openSoundStatus = false;
-        _closeSoundStatus = true;
-        _startRecordStatus = false;
-        _stopRecordStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnStopRealPlayedAsync()
     {
-        _startRealPlayStatus = _hikVision.IsRealPlaying;
-        _stopRealPlayStatus = !_startRealPlayStatus;
-        _openSoundStatus = true;
-        _closeSoundStatus = true;
-        _startRecordStatus = true;
-        _stopRecordStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }

@@ -1,3 +1,0 @@
-.col-12 ::deep .btn:not(:first-child) {
-    margin-inline-start: 0.5rem;
-}
