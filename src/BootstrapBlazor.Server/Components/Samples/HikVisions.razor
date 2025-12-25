@@ -19,6 +19,12 @@
             <li>由于核心功能均由海康威视 Web 插件提供所有浏览器控制台中会有部分提示或者报错信息均属于正常现象</li>
             <li>由海康威视 Web 插件绘制的预览窗口并不是 html dom 元素，所以出现被截断遮挡其他窗口，多屏显示不正确时请刷新浏览器即可</li>
         </ul>
+        <p class="code-label">抓图功能说明：</p>
+        <ul class="ul-demo">
+            <li>必须登录并且开始预览后才可以开启抓图功能</li>
+            <li>抓图后，文件默认存储在插件安装路径文件夹内（C:\Users\[UserName]\HCWebSDKPlugins\CaptureFiles）</li>
+            <li>组件提供两种抓图方法，<code>CapturePicture</code> 方法直接抓图到本地存储路径；<code>CapturePictureAndDownload</code> 方法抓图后直接弹窗下载文件</li>
+        </ul>
         <p class="code-label">录像功能说明：</p>
         <ul class="ul-demo">
             <li>必须登录并且开始预览后才可以开启录像功能</li>
@@ -90,6 +96,9 @@
                         </Button>
                         <Button OnClick="OnCapture" IsDisabled="_stopRealPlayStatus">
                             <span>抓图</span>
+                        </Button>
+                        <Button OnClick="OnCaptureAndDownload" IsDisabled="_stopRealPlayStatus">
+                            <span>抓图下载</span>
                         </Button>
                         <Button OnClick="OnStartRecord" IsDisabled="_startRecordStatus">
                             <span>开始录像</span>
