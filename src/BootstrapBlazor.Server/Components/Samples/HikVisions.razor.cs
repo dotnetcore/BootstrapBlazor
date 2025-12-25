@@ -67,8 +67,6 @@ public partial class HikVisions
     {
         _startRealPlayStatus = true;
         _stopRealPlayStatus = true;
-        _openSoundStatus = false;
-        _closeSoundStatus = true;
         await _hikVision.StartRealPlay(_streamType, _channelId);
     }
 
@@ -109,6 +107,11 @@ public partial class HikVisions
         {
             await ToastService.Error("消息通知", "关闭声音失败");
         }
+    }
+
+    private async Task OnCapture()
+    {
+        await _hikVision.CapturePictureAndDownload();
     }
 
     private async Task OnInitedAsync(bool initialized)
@@ -176,6 +179,8 @@ public partial class HikVisions
     {
         _startRealPlayStatus = _hikVision.IsRealPlaying;
         _stopRealPlayStatus = !_startRealPlayStatus;
+        _openSoundStatus = false;
+        _closeSoundStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -184,6 +189,8 @@ public partial class HikVisions
     {
         _startRealPlayStatus = _hikVision.IsRealPlaying;
         _stopRealPlayStatus = !_startRealPlayStatus;
+        _openSoundStatus = true;
+        _closeSoundStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
