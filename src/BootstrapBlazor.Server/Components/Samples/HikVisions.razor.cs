@@ -32,6 +32,8 @@ public partial class HikVisions
     private bool _stopRealPlayStatus = true;
     private bool _openSoundStatus = true;
     private bool _closeSoundStatus = true;
+    private bool _startRecordStatus = true;
+    private bool _stopRecordStatus = true;
 
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
@@ -114,6 +116,36 @@ public partial class HikVisions
         await _hikVision.CapturePictureAndDownload();
     }
 
+    private async Task OnStartRecord()
+    {
+        var result = await _hikVision.StartRecord();
+        if (result)
+        {
+            _startRecordStatus = true;
+            _stopRecordStatus = false;
+            await ToastService.Success("消息通知", "开始录像成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "开始录像失败");
+        }
+    }
+
+    private async Task OnStopRecord()
+    {
+        var result = await _hikVision.StopRecord();
+        if (result)
+        {
+            _startRecordStatus = false;
+            _stopRecordStatus = true;
+            await ToastService.Success("消息通知", "结束录像成功");
+        }
+        else
+        {
+            await ToastService.Error("消息通知", "结束录像失败");
+        }
+    }
+
     private async Task OnInitedAsync(bool initialized)
     {
         _inited = initialized;
@@ -181,6 +213,8 @@ public partial class HikVisions
         _stopRealPlayStatus = !_startRealPlayStatus;
         _openSoundStatus = false;
         _closeSoundStatus = true;
+        _startRecordStatus = false;
+        _stopRecordStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -191,6 +225,8 @@ public partial class HikVisions
         _stopRealPlayStatus = !_startRealPlayStatus;
         _openSoundStatus = true;
         _closeSoundStatus = true;
+        _startRecordStatus = true;
+        _stopRecordStatus = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
