@@ -69,33 +69,35 @@
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12">
-                    <Button OnClick="OnLogin" IsDisabled="_loginStatus">
-                        <span>登录</span>
-                    </Button>
-                    <Button OnClick="OnLogout" IsDisabled="_logoutStatus">
-                        <span>退出</span>
-                    </Button>
-                    <Button OnClick="OnStartRealPlay" IsDisabled="_startRealPlayStatus">
-                        <span>开始预览</span>
-                    </Button>
-                    <Button OnClick="OnStopRealPlay" IsDisabled="_stopRealPlayStatus">
-                        <span>停止预览</span>
-                    </Button>
-                    <Button OnClick="OnOpenSound" IsDisabled="_openSoundStatus">
-                        <span>打开声音</span>
-                    </Button>
-                    <Button OnClick="OnCloseSound" IsDisabled="_closeSoundStatus">
-                        <span>关闭声音</span>
-                    </Button>
-                    <Button OnClick="OnCapture" IsDisabled="_stopRealPlayStatus">
-                        <span>抓图</span>
-                    </Button>
-                    <Button OnClick="OnStartRecord" IsDisabled="_startRecordStatus">
-                        <span>开始录像</span>
-                    </Button>
-                    <Button OnClick="OnStopRecord" IsDisabled="_stopRecordStatus">
-                        <span>停止录像</span>
-                    </Button>
+                    <div style="width: 100%; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));">
+                        <Button OnClick="OnLogin" IsDisabled="_loginStatus">
+                            <span>登录</span>
+                        </Button>
+                        <Button OnClick="OnLogout" IsDisabled="_logoutStatus">
+                            <span>退出</span>
+                        </Button>
+                        <Button OnClick="OnStartRealPlay" IsDisabled="_startRealPlayStatus">
+                            <span>开始预览</span>
+                        </Button>
+                        <Button OnClick="OnStopRealPlay" IsDisabled="_stopRealPlayStatus">
+                            <span>停止预览</span>
+                        </Button>
+                        <Button OnClick="OnOpenSound" IsDisabled="_openSoundStatus">
+                            <span>打开声音</span>
+                        </Button>
+                        <Button OnClick="OnCloseSound" IsDisabled="_closeSoundStatus">
+                            <span>关闭声音</span>
+                        </Button>
+                        <Button OnClick="OnCapture" IsDisabled="_stopRealPlayStatus">
+                            <span>抓图</span>
+                        </Button>
+                        <Button OnClick="OnStartRecord" IsDisabled="_startRecordStatus">
+                            <span>开始录像</span>
+                        </Button>
+                        <Button OnClick="OnStopRecord" IsDisabled="_stopRecordStatus">
+                            <span>停止录像</span>
+                        </Button>
+                    </div>
                 </div>
             }
         </div>
