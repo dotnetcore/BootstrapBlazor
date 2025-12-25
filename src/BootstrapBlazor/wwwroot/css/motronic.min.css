@@ -235,7 +235,7 @@
     --bs-btn-disabled-color: var(--bs-btn-color);
     --bs-btn-disabled-border-color: var(--bs-btn-color);
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #0589d3;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -246,7 +246,7 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #aeaebc;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -257,7 +257,7 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #3aab6d;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -269,7 +269,8 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #612ad6;
+    --bs-btn-active-color: var(--bs-btn-hover-color);
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -280,7 +281,7 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #ddae08;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -291,7 +292,7 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #c41540;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -302,7 +303,7 @@
     --bs-btn-hover-border-color: var(--bs-btn-hover-bg);
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
-    --bs-btn-active-bg: var(--bs-btn-hover-bg);
+    --bs-btn-active-bg: #212641;
     --bs-btn-active-border-color: var(--bs-btn-hover-bg);
 }
 
@@ -314,7 +315,8 @@
     --bs-btn-disabled-color: var(--bs-btn-border-color);
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
     --bs-btn-active-bg: var(--bs-btn-hover-bg);
-    --bs-btn-active-border-color: var(--bs-btn-hover-bg);
+    --bs-btn-active-border-color: var(--bs-btn-border-color);
+    --bs-btn-hover-border-color: var(--bs-btn-border-color);
 }
 
 .btn-outline-light {
@@ -325,6 +327,7 @@
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
     --bs-btn-hover-border-color: #B5B5C3;
     --bs-btn-active-border-color: #B5B5C3;
+    --bs-btn-active-color: #564e4e;
 }
 
 .modal-backdrop {
