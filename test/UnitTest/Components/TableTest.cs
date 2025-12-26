@@ -8869,6 +8869,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("<div>dropdown-item-more-template</div");
+        cut.Contains("更多");
 
         cut.Render(pb =>
         {
