@@ -1,4 +1,4 @@
-﻿import { getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
+import { getTargetElement, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export function init(id) {
@@ -48,7 +48,7 @@ export function init(id) {
     }
     Data.set(id, menu)
 
-    scrollElementToView(menu.element)
+    scrollElementToView(menu)
 }
 
 export function update(id) {
@@ -74,13 +74,13 @@ export function update(id) {
         }
     });
 
-    scrollElementToView(menu.element)
+    scrollElementToView(menu)
 }
 
 export function scrollToView(id) {
     const menu = Data.get(id)
     if (menu) {
-        scrollElementToView(menu.element);
+        scrollElementToView(menu);
     }
 }
 
@@ -97,13 +97,23 @@ export function dispose(id) {
     })
 }
 
-const scrollElementToView = element => {
+const scrollElementToView = menu => {
+    const { element } = menu;
     const scroll = element.hasAttribute('data-bb-scroll-view')
     if (scroll) {
-        var links = [...element.querySelectorAll('.nav-link.active')]
-        if (links.length > 0) {
-            var link = links.pop()
-            link.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'start' });
-        }
+        let count = 0;
+        menu.handler = setInterval(() => {
+            if (count < 3) {
+                var links = [...element.querySelectorAll('.nav-link.active')]
+                if (links.length > 0) {
+                    clearInterval(menu.handler);
+                    menu.handler = null;
+
+                    var link = links.pop()
+                    link.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'start' });
+                }
+            }
+            count++;
+        }, 100);
     }
 }
