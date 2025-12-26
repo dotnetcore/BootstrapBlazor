@@ -190,6 +190,11 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             await OnAllFileUploaded(items);
         }
 
+        UpdateValue(items);
+    }
+
+    private void UpdateValue(List<UploadFile> items)
+    {
         if (ValueType.IsAssignableTo(typeof(IEnumerable<UploadFile>)))
         {
             CurrentValue = (TValue)(object)items;
@@ -248,6 +253,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             UploadFiles.Remove(item);
             DefaultFileList?.Remove(item);
             _filesCache = null;
+
+            UpdateValue(Files);
         }
         StateHasChanged();
         return ret;

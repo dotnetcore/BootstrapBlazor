@@ -169,6 +169,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Accept, "Image");
                 pb.Add(a => a.Value, foo.Files);
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<List<UploadFile>?>(this, v => foo.Files = v));
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Files", typeof(List<UploadFile>)));
                 pb.Add(a => a.AllowExtensions, [".jpg"]);
                 pb.Add(a => a.ShowDeleteButton, true);
@@ -214,11 +215,13 @@ public class UploadCardTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, false);
         });
-        // 清空所有文件
+
         var items = cut.FindAll(".btn-outline-danger");
         Assert.Single(items);
         await cut.InvokeAsync(() => items[0].Click());
-        form.Submit();
+
+        form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
     }
 
     [Fact]
