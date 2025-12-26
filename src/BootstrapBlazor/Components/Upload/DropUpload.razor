@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits FileListUploadBase<string>
 
 @if (IsShowLabel)
@@ -51,7 +51,8 @@
     @if (ShowUploadFileList)
     {
         <UploadPreviewList Items="Files" IsDisabled="@IsDisabled" ShowProgress="@ShowProgress"
-                           OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel" CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
+                           OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel"
+                           CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
                            InvalidStatusIcon="@InvalidStatusIcon" ValidStatusIcon="@ValidStatusIcon"
                            ShowDownloadButton="@ShowDownloadButton" DownloadIcon="@DownloadIcon" OnDownload="@OnDownload"
                            DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete">
