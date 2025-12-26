@@ -1,4 +1,4 @@
-﻿@page "/table/search"
+@page "/table/search"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesSearch> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
@@ -49,11 +49,6 @@
                     </div>
                 </GroupBox>
             </SearchTemplate>
-			<MoreButtonDropdownTemplate>
-				<DropdownItem Text="Action1" Icon="fa-solid fa-flag" OnClick="@(() => OnAction(context, "Action1"))"></DropdownItem>
-				<Divider></Divider>
-				<DropdownItem Text="Action2" Icon="fa-solid fa-home" OnClick="@(() => OnAction(context, "Action2"))"></DropdownItem>
-			</MoreButtonDropdownTemplate>
         </Table>
     </div>
 </DemoBlock>
