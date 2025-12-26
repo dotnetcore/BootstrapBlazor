@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
@@ -150,20 +151,63 @@ public class UploadCardTest : BootstrapBlazorTestBase
         cut.DoesNotContain("upload-item-file-size");
     }
 
-    [Fact]
-    public void CardUpload_ValidateForm_Ok()
+    private class Dummy
     {
-        var foo = new Foo();
+        [Required]
+        public List<UploadFile>? Files { get; set; }
+    }
+
+    [Fact]
+    public async Task CardUpload_ValidateForm_Ok()
+    {
+        var invalid = false;
+        var foo = new Dummy();
         var cut = Context.Render<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<CardUpload<string>>(pb =>
+            pb.AddChildContent<CardUpload<List<UploadFile>>>(pb =>
             {
-                pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+                pb.Add(a => a.Accept, "Image");
+                pb.Add(a => a.Value, foo.Files);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Files", typeof(List<UploadFile>)));
+                pb.Add(a => a.AllowExtensions, [".jpg"]);
+            });
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                invalid = false;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
             });
         });
-        cut.Contains("form-label");
+
+        // 提交表单
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(async () =>
+        {
+            await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+            form.Submit();
+        });
+        Assert.False(invalid);
+
+        // 设置 Disabled 取消校验
+        var upload = cut.FindComponent<CardUpload<List<UploadFile>>>();
+        upload.Render(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+
+        Assert.DoesNotContain("is-invalid", upload.Markup);
     }
 
     [Fact]
