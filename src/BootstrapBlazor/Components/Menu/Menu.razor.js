@@ -86,7 +86,12 @@ export function scrollToView(id) {
 
 export function dispose(id) {
     const menu = Data.get(id)
-    Data.remove(id)
+    Data.remove(id);
+
+    if (menu.handler) {
+        clearInterval(menu.handler);
+        menu.handler = null;
+    }
 
     menu.collapses.forEach(el => {
         const target = getTargetElement(el)
