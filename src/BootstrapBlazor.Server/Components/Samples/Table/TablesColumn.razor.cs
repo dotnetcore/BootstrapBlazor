@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -192,6 +192,11 @@ public partial class TablesColumn
         public string Name { get; set; } = name;
     }
 
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnAction(Foo foo, string actionName) => ToastService.Information(foo.Name, $"Trigger {actionName}");
+
     /// <summary>
     /// 示例复杂类型 ComplexFoo
     /// Complex class sample ComplexFoo
@@ -239,8 +244,7 @@ public partial class TablesColumn
         /// 返回一个含有随机数据的 ComplexFoo 实例集合
         /// Return a List of ComplexFoo instances with random data
         /// </returns>
-        public static List<ComplexFoo> GenerateComplexFoo(IStringLocalizer<Foo> localizer, int count = 80)
-            => Enumerable.Range(1, count).Select(i => new ComplexFoo(Random.Shared.Next(20, 65))
+        public static List<ComplexFoo> GenerateComplexFoo(IStringLocalizer<Foo> localizer, int count = 80) => Enumerable.Range(1, count).Select(i => new ComplexFoo(Random.Shared.Next(20, 65))
         {
             Id = i,
             Name = localizer["Foo.Name", $"{i:d4}"],
