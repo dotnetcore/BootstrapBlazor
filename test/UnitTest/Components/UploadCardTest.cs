@@ -171,6 +171,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Value, foo.Files);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Files", typeof(List<UploadFile>)));
                 pb.Add(a => a.AllowExtensions, [".jpg"]);
+                pb.Add(a => a.ShowDeleteButton, true);
             });
             pb.Add(a => a.OnValidSubmit, context =>
             {
@@ -208,6 +209,16 @@ public class UploadCardTest : BootstrapBlazorTestBase
         });
 
         Assert.DoesNotContain("is-invalid", upload.Markup);
+
+        upload.Render(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+        });
+        // 清空所有文件
+        var items = cut.FindAll(".btn-outline-danger");
+        Assert.Single(items);
+        await cut.InvokeAsync(() => items[0].Click());
+        form.Submit();
     }
 
     [Fact]
