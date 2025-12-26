@@ -256,7 +256,8 @@
     "AlignRightText": "Right",
     "AlignRightTooltipText": "Click to align text in this column to the right",
     "ColumnListSelectAllText": "All",
-    "ColumnListSelectInvertText": "Invert"
+    "ColumnListSelectInvertText": "Invert",
+    "MoreButtonText": "More"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

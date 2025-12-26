@@ -5111,7 +5111,9 @@
     "ColumnOrderIntro": "Set the order by setting the <code>Order</code> parameter of <code>TableColumn</code>",
     "ShowMoreButtonTitle": "ShowMoreButton",
     "ShowMoreButtonIntro": "By setting the <code>ShowMoreButton</code> parameter, a <b>More</b> button appears when the row expands. Furthermore, by setting the <code>MoreButtonDropdownTemplate</code> template, the dropdown menu options are customized. This design significantly reduces the amount of row space occupied.",
-    "ShowMoreButtonDesc": "<code>MoreButtonDropdownTemplate</code> Context <code>context</code> is the instance of the current row."
+    "ShowMoreButtonDesc": "<code>MoreButtonDropdownTemplate</code> Context <code>context</code> is the instance of the current row.",
+    "MoreButtonTextDesc": "Set the button's text using <code>MoreButtonText</code>",
+    "MoreButtonColorDesc": "Set the button color using <code>MoreButtonColor</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "TablesColumnTitle": "Table Column",

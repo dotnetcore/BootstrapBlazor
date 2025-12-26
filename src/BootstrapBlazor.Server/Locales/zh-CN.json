@@ -5111,7 +5111,9 @@
     "ColumnOrderIntro": "通过设置 <code>TableColumn</code> 的 <code>Order</code> 参数进行设置顺序",
     "ShowMoreButtonTitle": "更多按钮",
     "ShowMoreButtonIntro": "通过设置 <code>ShowMoreButton</code> 参数使行扩展按钮出现 <b>更多</b> 按钮，通过设置 <code>MoreButtonDropdownTemplate</code> 模板自定义下拉菜单选项，通过这样的设计大大减少行空间占用",
-    "ShowMoreButtonDesc": "<code>MoreButtonDropdownTemplate</code> 上下文 <code>context</code> 为当前行实例"
+    "ShowMoreButtonDesc": "<code>MoreButtonDropdownTemplate</code> 上下文 <code>context</code> 为当前行实例",
+    "MoreButtonTextDesc": "通过 <code>MoreButtonText</code> 设置按钮显示文本",
+    "MoreButtonColorDesc": "通过 <code>MoreButtonColor</code> 设置按钮颜色"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "TablesColumnTitle": "Table 表格",

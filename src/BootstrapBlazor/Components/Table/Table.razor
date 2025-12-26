@@ -1041,7 +1041,7 @@
         </td>;
 
     RenderFragment<TItem> RenderMoreButton => item =>
-        @<Dropdown TValue="string" Color="Color.Secondary" IsFixedButtonText="true" FixedButtonText="更多"
+        @<Dropdown TValue="string" Color="@MoreButtonColor" IsFixedButtonText="true" FixedButtonText="@MoreButtonText"
                    Size="Size.ExtraSmall" IsPopover="true" Icon="@MoreButtonIcon">
             <ItemsTemplate>
                 @if (MoreButtonDropdownTemplate != null)

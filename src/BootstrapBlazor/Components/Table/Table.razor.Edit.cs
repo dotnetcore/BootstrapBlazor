@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -156,6 +156,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool ShowMoreButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 更多按钮颜色 默认 <see cref="Color.Secondary"/>
+    /// </summary>
+    [Parameter]
+    public Color MoreButtonColor { get; set; } = Color.Secondary;
+
+    /// <summary>
+    /// 获得/设置 更多按钮文本 默认 null 读取资源文件设置文本
+    /// </summary>
+    [Parameter]
+    public string? MoreButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 行内更多按钮下拉框模板 默认 null
