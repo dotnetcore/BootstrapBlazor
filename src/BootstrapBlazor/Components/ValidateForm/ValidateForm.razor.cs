@@ -509,7 +509,11 @@ public partial class ValidateForm
             else
             {
                 // 未选择文件
-                if (propertyValue is IEnumerable)
+                if (propertyValue is string)
+                {
+
+                }
+                else if (propertyValue is IEnumerable)
                 {
                     propertyValue = null;
                 }

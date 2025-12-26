@@ -286,6 +286,26 @@ public class UploadAvatarTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => items[1].Click());
     }
 
+    [Fact]
+    public void UploadValidateItem_Ok()
+    {
+        var type = Type.GetType("BootstrapBlazor.Components.UploadValidateItem, BootstrapBlazor");
+        Assert.NotNull(type);
+
+        var instance = Activator.CreateInstance(type, ["addId", "mock_ErrorMessage"]);
+        var propertyInfo = type.GetProperty("Id");
+        Assert.NotNull(propertyInfo);
+
+        var v = propertyInfo.GetValue(instance, null);
+        Assert.Equal("addId", v);
+
+        propertyInfo = type.GetProperty("ErrorMessage");
+        Assert.NotNull(propertyInfo);
+
+        v = propertyInfo.GetValue(instance, null);
+        Assert.Equal("mock_ErrorMessage", v);
+    }
+
     private class Person
     {
         [Required]

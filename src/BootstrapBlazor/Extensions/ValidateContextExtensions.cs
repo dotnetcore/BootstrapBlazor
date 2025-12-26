@@ -43,15 +43,7 @@ public static class ValidationContextExtensions
         return new ValidationResult(errorMessage, memberNames);
     }
 
-    internal static List<ValidateItem> GetInvalidItems(this IReadOnlyCollection<ValidationResult> source, bool isInValidOnAddItem, string? newId) => isInValidOnAddItem
-        ? [new ValidateItem() { Id = newId, ErrorMessage = source.First().ErrorMessage }]
-        : source.Select(i => new ValidateItem() { Id = i.MemberNames.FirstOrDefault(), ErrorMessage = i.ErrorMessage }).ToList();
-
-    [ExcludeFromCodeCoverage]
-    internal readonly record struct ValidateItem
-    {
-        public string? Id { get; init; }
-
-        public string? ErrorMessage { get; init; }
-    }
+    internal static List<UploadValidateItem> GetInvalidItems(this IReadOnlyCollection<ValidationResult> source, bool isInValidOnAddItem, string? newId) => isInValidOnAddItem
+        ? [new UploadValidateItem() { Id = newId, ErrorMessage = source.First().ErrorMessage }]
+        : source.Select(i => new UploadValidateItem() { Id = i.MemberNames.FirstOrDefault(), ErrorMessage = i.ErrorMessage }).ToList();
 }
