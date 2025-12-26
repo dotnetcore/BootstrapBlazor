@@ -35,6 +35,7 @@ public partial class CardUpload<TValue>
     private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
     private string? CardItemClass => CssBuilder.Default("upload-item upload-item-plus btn-browser upload-drop-body")
+        .AddClass(ValidCss, Files.Count == 0)
         .AddClass("disabled", IsDisabled)
         .Build();
 
