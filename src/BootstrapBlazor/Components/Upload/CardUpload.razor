@@ -14,7 +14,7 @@
         }
         @foreach (var item in Files)
         {
-            <div @key="@item" class="@GetItemClassString(item)">
+            <div @key="@item" id="@item.ValidateId" class="@GetItemClassString(item)">
                 <div class="upload-item-body">
                     @if (IconTemplate != null)
                     {
@@ -98,7 +98,7 @@
 
 @code {
     RenderFragment RenderAdd =>
-    @<div class="@CardItemClass">
+    @<div id="@AddId" class="@CardItemClass">
         <i class="@AddIcon"></i>
     </div>;
 }

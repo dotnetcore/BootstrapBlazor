@@ -18,6 +18,7 @@ public partial class CardUpload<TValue>
         .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
         .AddClass("is-invalid", item.Code != 0)
         .Build();
+
     private string? ItemClassString => CssBuilder.Default("upload-item")
         .AddClass("disabled", CanUpload() == false)
         .Build();
@@ -35,7 +36,6 @@ public partial class CardUpload<TValue>
     private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
     private string? CardItemClass => CssBuilder.Default("upload-item upload-item-plus btn-browser upload-drop-body")
-        .AddClass(ValidCss, Files.Count == 0)
         .AddClass("disabled", IsDisabled)
         .Build();
 
@@ -162,6 +162,54 @@ public partial class CardUpload<TValue>
         }
         await base.TriggerOnChanged(file);
     }
+
+    private IReadOnlyCollection<ValidationResult> _results = [];
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="results"></param>
+    public override async Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
+    {
+        _results = results;
+        IsValid = results.Count == 0;
+
+        ValidateModule ??= await LoadValidateModule();
+
+        var invalidItems = IsInValidOnAddItem
+            ? [new { Id = AddId, _results.First().ErrorMessage }]
+            : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage }).ToList();
+
+        var items = IsInValidOnAddItem
+            ? [AddId]
+            : Files.Select(i => i.ValidateId).ToList();
+
+        var addId = IsInValidOnAddItem ? null : AddId;
+        await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, addId);
+    }
+
+    private bool IsInValidOnAddItem => Files.Count == 0 && _results.Count > 0;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override ValueTask ShowValidResult() => ValueTask.CompletedTask;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="validateId"></param>
+    /// <returns></returns>
+    protected override async ValueTask RemoveValidResult(string? validateId = null)
+    {
+        if (!string.IsNullOrEmpty(validateId))
+        {
+            await base.RemoveValidResult(validateId);
+        }
+    }
+
+    private string? AddId => $"{Id}_new";
 
     private async Task OnCardFileDelete(UploadFile item)
     {
