@@ -219,6 +219,14 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowMoreButtonTitle"]" Introduction="@Localizer["ShowMoreButtonIntro"]" Name="ShowMoreButton">
+    <section ignore>
+        <p>@((MarkupString)Localizer["ShowMoreButtonDesc"].Value)</p>
+        <Pre>&lt;MoreButtonDropdownTemplate&gt;
+    &lt;DropdownItem Text="Action1" Icon="fa-solid fa-flag" OnClick="@@(() =&gt; OnAction(context, "Action1"))"&gt;&lt;/DropdownItem&gt;
+    &lt;Divider&gt;&lt;/Divider&gt;
+    &lt;DropdownItem Text="Action2" Icon="fa-solid fa-home" OnClick="@@(() =&gt; OnAction(context, "Action2"))"&gt;&lt;/DropdownItem&gt;
+&lt;/MoreButtonDropdownTemplate&gt;</Pre>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="new int[] {10, 20}"
            IsStriped="true" IsBordered="true" ShowMoreButton="true"

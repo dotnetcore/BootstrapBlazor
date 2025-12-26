@@ -5108,7 +5108,10 @@
     "ColumnIgnoreIntro": "通过设置 <code>Ignore</code> 参数控制列是否渲染，此参数与 <code>Visible</code> 不同，设置 <code>Visible=\"false\"</code> 后不显示列可通过 <code>ShowColumnList=\"true\"</code> 在列表中勾选并显示",
     "ColumnIgnoreButtonText": "忽略/不忽略",
     "ColumnOrderTitle": "列顺序",
-    "ColumnOrderIntro": "通过设置 <code>TableColumn</code> 的 <code>Order</code> 参数进行设置顺序"
+    "ColumnOrderIntro": "通过设置 <code>TableColumn</code> 的 <code>Order</code> 参数进行设置顺序",
+    "ShowMoreButtonTitle": "更多按钮",
+    "ShowMoreButtonIntro": "通过设置 <code>ShowMoreButton</code> 参数使行扩展按钮出现 <b>更多</b> 按钮，通过设置 <code>MoreButtonDropdownTemplate</code> 模板自定义下拉菜单选项，通过这样的设计大大减少行空间占用",
+    "ShowMoreButtonDesc": "<code>MoreButtonDropdownTemplate</code> 上下文 <code>context</code> 为当前行实例"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "TablesColumnTitle": "Table 表格",
