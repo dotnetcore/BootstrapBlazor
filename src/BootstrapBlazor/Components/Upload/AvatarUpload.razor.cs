@@ -187,19 +187,19 @@ public partial class AvatarUpload<TValue>
 
         ValidateModule ??= await LoadValidateModule();
 
-        var invalidItems = IsInValiadOnAddItem
+        var invalidItems = IsInValidOnAddItem
             ? [new { Id = AddId, _results.First().ErrorMessage }]
             : _results.Select(i => new { Id = i.MemberNames.FirstOrDefault(), i.ErrorMessage }).ToList();
 
-        var items = IsInValiadOnAddItem
+        var items = IsInValidOnAddItem
             ? [AddId]
             : Files.Select(i => i.ValidateId).ToList();
 
-        var addId = IsInValiadOnAddItem ? null : AddId;
+        var addId = IsInValidOnAddItem ? null : AddId;
         await ValidateModule.InvokeVoidAsync("executeUpload", items, invalidItems, addId);
     }
 
-    private bool IsInValiadOnAddItem => Files.Count == 0 && _results.Count > 0;
+    private bool IsInValidOnAddItem => Files.Count == 0 && _results.Count > 0;
 
     /// <summary>
     /// <inheritdoc/>
@@ -238,7 +238,7 @@ public partial class AvatarUpload<TValue>
 
             if (ValidateModule != null)
             {
-                var items = IsInValiadOnAddItem
+                var items = IsInValidOnAddItem
                     ? [AddId]
                     : Files.Select(i => i.ValidateId).ToList();
 

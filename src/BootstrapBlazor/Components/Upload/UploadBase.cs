@@ -190,7 +190,11 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             await OnAllFileUploaded(items);
         }
 
-        if (ValueType.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
+        if (ValueType.IsAssignableTo(typeof(IEnumerable<UploadFile>)))
+        {
+            CurrentValue = (TValue)(object)items;
+        }
+        else if (ValueType.IsAssignableTo(typeof(IEnumerable<IBrowserFile>)))
         {
             CurrentValue = (TValue)(object)items.Select(f => f.File).ToList();
         }
