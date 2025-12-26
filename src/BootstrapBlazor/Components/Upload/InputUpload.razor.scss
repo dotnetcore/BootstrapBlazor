@@ -119,7 +119,7 @@
 .upload .upload-body.is-avatar .upload-item:not(.is-form):not(.is-valid):not(.is-invalid):hover,
 .upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
 .upload .upload-body.is-card .upload-item.is-valid,
-.upload .upload-body.is-card .upload-item:not(.disabled):hover {
+.upload .upload-body.is-card .upload-item:not(.disabled):not(.is-valid):not(.is-invalid):hover {
     border-color: var(--bb-upload-body-list-item-hover-color);
 }
 
@@ -194,8 +194,12 @@
     display: block;
 }
 
-.upload .upload-body.is-card .is-invalid .upload-item-body {
+.upload .upload-body.is-card .upload-item.is-invalid {
     border-color: var(--bs-danger);
+}
+
+.upload .upload-body.is-card .upload-item.is-valid {
+    border-color: var(--bs-success);
 }
 
 .upload .upload-body.is-card .upload-item-body {
