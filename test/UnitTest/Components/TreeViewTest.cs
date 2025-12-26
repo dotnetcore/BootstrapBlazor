@@ -890,7 +890,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, true);
         });
         node = cut.Find(".node-icon");
-        Assert.Contains("disabled", node.ClassList);
+        Assert.DoesNotContain("disabled", node.ClassList);
     }
 
     [Fact]

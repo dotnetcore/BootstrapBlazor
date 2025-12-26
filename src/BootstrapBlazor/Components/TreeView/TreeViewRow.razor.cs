@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -154,8 +154,18 @@ public partial class TreeViewRow<TItem>
         .AddClass("visible", Item.HasChildren || Item.Items.Count > 0)
         .AddClass(NodeIcon, !Item.IsExpand)
         .AddClass(ExpandNodeIcon, Item.IsExpand)
-        .AddClass("disabled", !CanTriggerClickNode)
+        .AddClass("disabled", GetDisabledStatus())
         .Build();
+
+    private bool GetDisabledStatus()
+    {
+        if (IsDisabled || Item.IsDisabled)
+        {
+            return !CanExpandWhenDisabled;
+        }
+
+        return false;
+    }
 
     private string? NodeLoadingClassString => CssBuilder.Default("node-icon node-loading")
         .AddClass(LoadingIcon)
@@ -252,7 +262,7 @@ public partial class TreeViewRow<TItem>
         return $"--bb-tree-view-level: {level};";
     }
 
-    private bool CanTriggerClickNode => Item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled);
+    private bool CanTriggerClickNode => !GetDisabledStatus();
 
     private bool ItemDisabledState => Item.IsDisabled || IsDisabled;
 
