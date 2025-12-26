@@ -1,4 +1,4 @@
-﻿@page "/table/column"
+@page "/table/column"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumn> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
@@ -215,6 +215,34 @@
            <TableColumns>
                <TableColumn @bind-Field="context.Hobby" Ignore="true"></TableColumn>
            </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowMoreButtonTitle"]" Introduction="@Localizer["ShowMoreButtonIntro"]" Name="ShowMoreButton">
+    <section ignore>
+        <p>@((MarkupString)Localizer["ShowMoreButtonDesc"].Value)</p>
+        <Pre>&lt;MoreButtonDropdownTemplate&gt;
+    &lt;DropdownItem Text="Action1" Icon="fa-solid fa-flag" OnClick="@@(() =&gt; OnAction(context, "Action1"))"&gt;&lt;/DropdownItem&gt;
+    &lt;Divider&gt;&lt;/Divider&gt;
+    &lt;DropdownItem Text="Action2" Icon="fa-solid fa-home" OnClick="@@(() =&gt; OnAction(context, "Action2"))"&gt;&lt;/DropdownItem&gt;
+&lt;/MoreButtonDropdownTemplate&gt;</Pre>
+    </section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="new int[] {10, 20}"
+           IsStriped="true" IsBordered="true" ShowMoreButton="true"
+           ShowToolbar="true" ShowCardView="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           ShowEmpty="true" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+        <MoreButtonDropdownTemplate>
+            <DropdownItem Text="Action1" Icon="fa-solid fa-flag" OnClick="@(() => OnAction(context, "Action1"))"></DropdownItem>
+            <Divider></Divider>
+            <DropdownItem Text="Action2" Icon="fa-solid fa-home" OnClick="@(() => OnAction(context, "Action2"))"></DropdownItem>
+        </MoreButtonDropdownTemplate>
     </Table>
 </DemoBlock>
 
