@@ -1,4 +1,4 @@
-﻿@page "/docs"
+@page "/docs"
 @page "/introduction"
 @page "/components"
 
@@ -44,8 +44,6 @@
 <p class="code-label">@Localizer["ProjectsShow"]</p>
 
 <p>@((MarkupString)Localizer["P5", LocalizerRules].Value)</p>
-
-<p>@Localizer["ShowWebSiteTitle1"]：<a href="@($"{WebsiteOption.Value.AdminUrl}/Pages")" target="_blank">@WebsiteOption.Value.AdminUrl</a></p>
 
 <p>@Localizer["ShowWebSiteTitle2"]：<a href="@($"{WebsiteOption.Value.AdminProUrl}")" target="_blank" class="text-success">@WebsiteOption.Value.AdminProUrl</a></p>
 
