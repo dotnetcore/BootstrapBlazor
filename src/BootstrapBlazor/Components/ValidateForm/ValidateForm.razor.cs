@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -508,7 +509,10 @@ public partial class ValidateForm
             else
             {
                 // 未选择文件
-                propertyValue = null;
+                if (propertyValue is IEnumerable)
+                {
+                    propertyValue = null;
+                }
                 ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
 
