@@ -434,5 +434,7 @@ public partial class Table<TItem>
         AlignCenterTooltipText ??= Localizer[nameof(AlignCenterTooltipText)];
         AlignRightText ??= Localizer[nameof(AlignRightText)];
         AlignRightTooltipText ??= Localizer[nameof(AlignRightTooltipText)];
+
+        MoreButtonText ??= Localizer[nameof(MoreButtonText)];
     }
 }
