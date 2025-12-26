@@ -1,4 +1,4 @@
-﻿@page "/tutorials/admin"
+@page "/tutorials/admin"
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <p>后台权限管理演示系统</p>
@@ -15,13 +15,5 @@
         </a>
     </div>
     <div class="col-12 col-sm-6">
-        <a href="https://admin.blazor.zone" target="_blank">
-            <div class="card">
-                <div class="card-header">MVC & Blazor 混合实现</div>
-                <div class="card-body">
-                    <img src="@WebsiteOption.Value.GetAssetUrl("images/tutorials/admin.jpg")" class="w-100" />
-                </div>
-            </div>
-        </a>
     </div>
 </div>

@@ -5726,7 +5726,6 @@
     "Summarize": "总结",
     "ProjectsShow": "作品展示",
     "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> 作品 <b><a href='{3}' target='_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
-    "ShowWebSiteTitle1": "实战网站（混合版本）",
     "ShowWebSiteTitle2": "实战网站（纯 Blazor 版本）",
     "GetStarted": "快速上手",
     "QuickStart": "快速入门",
