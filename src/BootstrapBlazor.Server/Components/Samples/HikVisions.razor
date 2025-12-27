@@ -75,7 +75,7 @@
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12">
-                    <div style="width: 100%; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));">
+                    <div class="hik-controls">
                         <Button OnClick="OnLogin" IsDisabled="_loginStatus">
                             <span>登录</span>
                         </Button>
@@ -106,6 +106,12 @@
                         <Button OnClick="OnStopRecord" IsDisabled="_stopRecordStatus">
                             <span>停止录像</span>
                         </Button>
+                        <Dropdown Value="@_iWndType" IsDisabled="false" Items="_iWndTypes"
+                                  MenuAlignment="Alignment.Right" OnSelectedItemChanged="OnWndTypeChanged">
+                            <ButtonTemplate>
+                                <span>分屏 (@context.Text)</span>
+                            </ButtonTemplate>
+                        </Dropdown>
                     </div>
                 </div>
             }

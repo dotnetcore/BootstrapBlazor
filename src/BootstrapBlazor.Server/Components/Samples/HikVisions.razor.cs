@@ -26,14 +26,14 @@ public partial class HikVisions
     private string _userName = "admin";
     private bool _inited;
 
-    private bool _loginStatus => _hikVision.IsLogin;
-    private bool _logoutStatus => !_hikVision.IsLogin;
-    private bool _startRealPlayStatus => _hikVision is not { IsLogin: true, IsRealPlaying: false };
-    private bool _stopRealPlayStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true };
-    private bool _openSoundStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: false };
-    private bool _closeSoundStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: true };
-    private bool _startRecordStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: false };
-    private bool _stopRecordStatus => _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: true };
+    private bool _loginStatus => _hikVision.IsMultipleWindowType ? false : _hikVision.IsLogin;
+    private bool _logoutStatus => _hikVision.IsMultipleWindowType ? false : !_hikVision.IsLogin;
+    private bool _startRealPlayStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: false };
+    private bool _stopRealPlayStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: true };
+    private bool _openSoundStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: false };
+    private bool _closeSoundStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: true, IsOpenSound: true };
+    private bool _startRecordStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: false };
+    private bool _stopRecordStatus => _hikVision.IsMultipleWindowType ? false : _hikVision is not { IsLogin: true, IsRealPlaying: true, IsStartRecord: true };
 
     private List<SelectedItem> _analogChannels = [];
     private int _channelId = 1;
@@ -45,7 +45,16 @@ public partial class HikVisions
         new SelectedItem("3", "第三码流"),
         new SelectedItem("4", "转码码流")
     ];
-
+    private readonly List<SelectedItem> _iWndTypes =
+    [
+        new SelectedItem("1", "1*1"),
+        new SelectedItem("2", "2*2"),
+        new SelectedItem("3", "3*3"),
+        new SelectedItem("4", "4*4"),
+        new SelectedItem("1*2", "1*2"),
+        new SelectedItem("2*1", "2*1")
+    ];
+    private string _iWndType = "1";
     private async Task OnLogin()
     {
         await _hikVision.Login(_ip, _port, _userName, _password, HikVisionLoginType.Http);
@@ -207,5 +216,12 @@ public partial class HikVisions
     {
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    private async Task OnWndTypeChanged(SelectedItem item)
+    {
+        _iWndType = item.Value;
+        await _hikVision.ChangeWindowNum(_iWndType);
+        StateHasChanged();
     }
 }

@@ -1,0 +1,10 @@
+.hik-controls {
+    width: 100%;
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+}
+
+    .hik-controls ::deep .btn {
+        white-space: nowrap;
+    }
