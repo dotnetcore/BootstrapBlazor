@@ -106,6 +106,12 @@
                         <Button OnClick="OnStopRecord" IsDisabled="_stopRecordStatus">
                             <span>停止录像</span>
                         </Button>
+                        <Dropdown Value="@_iWndType" IsDisabled="false" Items="_iWndTypes"
+                                  MenuAlignment="Alignment.Right" OnSelectedItemChanged="OnWndTypeChanged">
+                            <ButtonTemplate>
+                                <span>分屏 (@context.Text)</span>
+                            </ButtonTemplate>
+                        </Dropdown>
                     </div>
                 </div>
             }
