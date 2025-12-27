@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -42,7 +42,7 @@
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.9" />
+    <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.1" />
