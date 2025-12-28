@@ -709,7 +709,7 @@ public partial class Table<TItem>
             return;
         }
 
-        var context = _inCellValidateForm?.GetEditContext() ?? new EditContext(EditModel);
+        var context = new EditContext(EditModel);
         await SaveAsync(context, AddInCell ? ItemChangedType.Add : ItemChangedType.Update);
     }
 

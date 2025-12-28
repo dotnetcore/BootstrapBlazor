@@ -665,12 +665,6 @@ public partial class ValidateForm
     private EditContext? _formlessEditContext;
 
     /// <summary>
-    /// 获取 EditContext 实例
-    /// </summary>
-    /// <returns></returns>
-    public EditContext? GetEditContext() => _formlessEditContext;
-
-    /// <summary>
     /// 验证方法 用于代码调用触发表单验证
     /// </summary>
     /// <returns></returns>
