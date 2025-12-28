@@ -3887,6 +3887,19 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var button = cut.Find("tbody tr td button");
         await cut.InvokeAsync(() => button.Click());
+
+        // 增加 Validate 测试
+        // 设置姓名为 null 保存按钮不成功
+        var nameField = cut.Find("tbody tr td input");
+        Assert.Equal("张三 0001", nameField.GetAttribute("value"));
+
+        await cut.InvokeAsync(() => nameField.Change(""));
+        Assert.Contains("is-invalid", nameField.ToMarkup());
+        await cut.InvokeAsync(() => button.Click());
+
+        await cut.InvokeAsync(() => nameField.Change("张三 0001"));
+        Assert.Contains("is-valid", nameField.ToMarkup());
+        await cut.InvokeAsync(() => button.Click());
     }
 
     [Fact]

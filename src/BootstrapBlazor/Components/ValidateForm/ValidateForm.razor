@@ -1,16 +1,26 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
 @if (Model != null)
 {
     <CascadingValue Value="this" IsFixed="true">
-        <EditForm @attributes="@AdditionalAttributes" id="@Id" Model="@Model" 
-                  data-bb-dissubmit="@DisableAutoSubmitString" data-bb-invalid-result="@ShowAllInvalidResultString"
-                  style="@StyleString"
-                  OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
-            <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
-            @ChildContent
-        </EditForm>
+        @if (IsFormless)
+        {
+            <CascadingValue Value="_formlessEditContext" IsFixed="true">
+                <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
+                @ChildContent
+            </CascadingValue>
+        }
+        else
+        {
+            <EditForm @attributes="@AdditionalAttributes" id="@Id" Model="@Model"
+                      data-bb-dissubmit="@DisableAutoSubmitString" data-bb-invalid-result="@ShowAllInvalidResultString"
+                      style="@StyleString"
+                      OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
+                <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
+                @ChildContent
+            </EditForm>
+        }
     </CascadingValue>
 }
