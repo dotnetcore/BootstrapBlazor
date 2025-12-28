@@ -1501,7 +1501,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             : col.Template(item);
 
         RenderFragment RenderEditTemplate() => col.EditTemplate == null
-            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: true))
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, isSearch: false, col.GetLookupService(InjectLookupService), skipValidate: false))
             : col.EditTemplate(item);
     }
 
@@ -1839,6 +1839,36 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     private object? GetKeyByITem(TItem item) => SortableList != null ? item : null; //OnGetRowKey?.Invoke(item);
+
+    private RenderFragment RenderRowCell(TItem item) => builder =>
+    {
+        var isInCellEditRow = InCellMode && SelectedRows.FirstOrDefault() == item;
+        if (isInCellEditRow)
+        {
+            builder.AddContent(0, RenderRowContentWithValidateForm(item));
+        }
+        else
+        {
+            builder.AddContent(1, RenderRowContent(item));
+        }
+    };
+
+    private RenderFragment RenderRowContent(TItem item) => builder =>
+    {
+        if (RowContentTemplate != null)
+        {
+            var columns = GetVisibleColumns();
+            builder.AddContent(0, RowContentTemplate(new(item, columns, ActiveRenderMode)));
+        }
+        else
+        {
+            builder.AddContent(1, RenderContentRow(item));
+        }
+        if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+        {
+            builder.AddContent(2, RenderRowExtendButtons(item));
+        }
+    };
 
     /// <summary>
     /// Dispose 方法

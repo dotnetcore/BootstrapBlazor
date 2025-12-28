@@ -84,6 +84,13 @@ public partial class ValidateForm
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为无表单模式 默认 false
+    /// </summary>
+    /// <remarks>设置为 true 时不渲染 form 元素，仅级联 EditContext 用于 Table InCell 编辑模式</remarks>
+    [Parameter]
+    public bool IsFormless { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
     /// </summary>
     [Parameter]
@@ -145,6 +152,12 @@ public partial class ValidateForm
         if (!DisableAutoSubmitFormByEnter.HasValue && BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.HasValue)
         {
             DisableAutoSubmitFormByEnter = BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.Value;
+        }
+
+        // 无表单模式下创建/更新 EditContext
+        if (IsFormless)
+        {
+            _formlessEditContext ??= new EditContext(Model);
         }
     }
 
@@ -329,6 +342,13 @@ public partial class ValidateForm
             foreach (var (validator, messages) in _validateResults)
             {
                 await validator.ToggleMessage(messages);
+            }
+
+            // 确保 _invalid 在没有验证组件时被正确设置
+            // Ensure _invalid is properly set when there are no validation components
+            if (_validatorCache.IsEmpty)
+            {
+                _invalid = results.Count > 0;
             }
         }
     }
@@ -635,6 +655,11 @@ public partial class ValidateForm
 
     [NotNull]
     private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
+
+    /// <summary>
+    /// 获得/设置 无表单模式下的 EditContext 实例
+    /// </summary>
+    private EditContext? _formlessEditContext;
 
     /// <summary>
     /// 验证方法 用于代码调用触发表单验证

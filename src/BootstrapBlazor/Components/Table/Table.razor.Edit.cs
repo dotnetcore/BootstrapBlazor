@@ -703,6 +703,12 @@ public partial class Table<TItem>
 
     private async Task ClickUpdateButtonCallback()
     {
+        // 验证 InCell 模式下的表单
+        if (!_inCellValidateForm.Validate())
+        {
+            return;
+        }
+
         var context = new EditContext(EditModel);
         await SaveAsync(context, AddInCell ? ItemChangedType.Add : ItemChangedType.Update);
     }

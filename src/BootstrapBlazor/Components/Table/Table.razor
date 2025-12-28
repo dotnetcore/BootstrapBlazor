@@ -787,19 +787,7 @@
             {
                 @RenderRowExtendButtons(item)
             }
-            @if (RowContentTemplate != null)
-            {
-                var columns = GetVisibleColumns();
-                @RowContentTemplate(new(item, columns, ActiveRenderMode))
-            }
-            else
-            {
-                @RenderContentRow(item)
-            }
-            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
-            {
-                @RenderRowExtendButtons(item)
-            }
+            @RenderRowCell(item)
         </DynamicElement>;
 
     RenderFragment<TableContentCellContext<TItem>> RenderContentCell => context =>
@@ -1152,4 +1140,9 @@
                         OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
             </Checkbox>
         </div>;
+
+    RenderFragment<TItem> RenderRowContentWithValidateForm => item =>
+        @<ValidateForm @ref="_inCellValidateForm" Model="EditModel" IsFormless="true" ShowLabel="false">
+            @RenderRowContent(item)
+        </ValidateForm>;
 }

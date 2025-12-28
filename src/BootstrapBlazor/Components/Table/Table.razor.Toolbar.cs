@@ -500,6 +500,11 @@ public partial class Table<TItem>
     private bool InCellMode => AddInCell || EditInCell;
 
     /// <summary>
+    /// 获得 InCell 模式下的 ValidateForm 实例
+    /// </summary>
+    private ValidateForm _inCellValidateForm = default!;
+
+    /// <summary>
     /// 新建按钮方法
     /// </summary>
     public async Task AddAsync()
