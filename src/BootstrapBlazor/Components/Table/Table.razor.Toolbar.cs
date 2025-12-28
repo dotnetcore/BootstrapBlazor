@@ -502,7 +502,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得 InCell 模式下的 ValidateForm 实例
     /// </summary>
-    private ValidateForm? _inCellValidateForm;
+    private ValidateForm _inCellValidateForm = default!;
 
     /// <summary>
     /// 新建按钮方法
