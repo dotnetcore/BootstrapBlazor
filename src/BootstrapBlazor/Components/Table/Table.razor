@@ -787,18 +787,42 @@
             {
                 @RenderRowExtendButtons(item)
             }
-            @if (RowContentTemplate != null)
+            @{
+                var isInCellEditRow = InCellMode && SelectedRows.FirstOrDefault() == item;
+            }
+            @if (isInCellEditRow)
             {
-                var columns = GetVisibleColumns();
-                @RowContentTemplate(new(item, columns, ActiveRenderMode))
+                <ValidateForm @ref="_inCellValidateForm" Model="EditModel" IsFormless="true">
+                    @if (RowContentTemplate != null)
+                    {
+                        var columns = GetVisibleColumns();
+                        @RowContentTemplate(new(item, columns, ActiveRenderMode))
+                    }
+                    else
+                    {
+                        @RenderContentRow(item)
+                    }
+                    @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+                    {
+                        @RenderRowExtendButtons(item)
+                    }
+                </ValidateForm>
             }
             else
             {
-                @RenderContentRow(item)
-            }
-            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
-            {
-                @RenderRowExtendButtons(item)
+                @if (RowContentTemplate != null)
+                {
+                    var columns = GetVisibleColumns();
+                    @RowContentTemplate(new(item, columns, ActiveRenderMode))
+                }
+                else
+                {
+                    @RenderContentRow(item)
+                }
+                @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+                {
+                    @RenderRowExtendButtons(item)
+                }
             }
         </DynamicElement>;
 
