@@ -346,7 +346,7 @@ public partial class ValidateForm
 
             // 确保 _invalid 在没有验证组件时被正确设置
             // Ensure _invalid is properly set when there are no validation components
-            if (_validatorCache.Count == 0)
+            if (_validatorCache.IsEmpty)
             {
                 _invalid = results.Count > 0;
             }
