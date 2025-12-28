@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
@@ -7,7 +7,7 @@
     <CascadingValue Value="this" IsFixed="true">
         @if (IsFormless)
         {
-            <CascadingValue Value="_formlessEditContext" IsFixed="false">
+            <CascadingValue Value="_formlessEditContext" IsFixed="true">
                 <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
                 @ChildContent
             </CascadingValue>

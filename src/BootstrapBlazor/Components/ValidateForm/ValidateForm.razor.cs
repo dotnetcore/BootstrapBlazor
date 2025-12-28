@@ -155,12 +155,9 @@ public partial class ValidateForm
         }
 
         // 无表单模式下创建/更新 EditContext
-        if (IsFormless && Model != null)
+        if (IsFormless)
         {
-            if (_formlessEditContext == null || _formlessEditContext.Model != Model)
-            {
-                _formlessEditContext = new EditContext(Model);
-            }
+            _formlessEditContext ??= new EditContext(Model);
         }
     }
 
