@@ -542,9 +542,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         Assert.Contains("form-control valid", cut.Markup);
 
-        var form = cut.Instance;
-        await cut.InvokeAsync(() => form.Validate());
-        Assert.Contains("form-control valid is-invalid", cut.Markup);
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.Contains("form-control invalid is-invalid", cut.Markup);
     }
 
     [Fact]
@@ -566,7 +566,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal(HasServiceAttribute.Success, msg);
     }
-    
+
     [Fact]
     public async Task TestService_Ok()
     {
@@ -771,7 +771,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         [HasService]
         public string? Tag { get; set; }
-        
+
         [TestValidateRule]
         public string? Tag2 { get; set; }
     }

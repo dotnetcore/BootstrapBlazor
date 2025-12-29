@@ -1086,9 +1086,9 @@ public partial class Table<TItem>
                         // 由于数据删除导致页码会改变，尤其是最后一页
                         // 重新计算页码
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
-                        var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                        if (items.Any())
+                        PageIndex = GetSafePageIndex();
+                        var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count)).ToList();
+                        if (items.Count > 0)
                         {
                             _pageItems = Math.Min(_pageItems, items.Min());
                         }
@@ -1150,15 +1150,17 @@ public partial class Table<TItem>
             {
                 TotalCount = items.Count();
                 PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, _pageItems));
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
+                PageIndex = GetSafePageIndex();
                 items = items.Skip((PageIndex - 1) * _pageItems).Take(_pageItems);
             }
-            QueryItems = items.Cast<TItem>();
+            QueryItems = items.Cast<TItem>().ToList();
 
             // 重置选中行
             ResetSelectedRows(QueryItems);
         }
     }
+
+    private int GetSafePageIndex() => Math.Max(1, Math.Min(PageIndex, (int)Math.Ceiling((TotalCount - SelectedRows.Count) * 1.0 / _pageItems)));
 
     private async Task ExecuteExportAsync(Func<Task<bool>> callback)
     {

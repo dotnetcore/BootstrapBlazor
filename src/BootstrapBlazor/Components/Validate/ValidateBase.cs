@@ -251,7 +251,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         .Build();
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -274,7 +274,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -291,7 +291,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -329,6 +329,26 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender()
+    {
+        if (ValidateForm == null)
+        {
+            return true;
+        }
+
+        if (_shouldRender is true)
+        {
+            _shouldRender = false;
+            return true;
+        }
+
+        return _shouldRender ?? true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -345,6 +365,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 await ShowValidResult();
             }
+        }
+
+        if (_shouldRender == false)
+        {
+            _shouldRender = null;
         }
     }
 
@@ -456,6 +481,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
+    private bool? _shouldRender = null;
+
     /// <summary>
     /// 显示/隐藏验证结果方法
     /// </summary>
@@ -480,6 +507,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
 
         // 必须刷新一次 UI 保证状态正确
+        _shouldRender = true;
         StateHasChanged();
         return Task.CompletedTask;
     }
