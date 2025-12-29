@@ -337,13 +337,13 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             return true;
         }
 
-        if (_pendingToggleRender)
+        if (_shouldRender is true)
         {
-            _pendingToggleRender = false;
+            _shouldRender = false;
             return true;
         }
 
-        return false;
+        return _shouldRender ?? true;
     }
 
     /// <summary>
@@ -365,6 +365,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 await ShowValidResult();
             }
+        }
+
+        if (_shouldRender == false)
+        {
+            _shouldRender = null;
         }
     }
 
@@ -476,7 +481,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
-    private bool _pendingToggleRender = false;
+    private bool? _shouldRender = null;
 
     /// <summary>
     /// 显示/隐藏验证结果方法
@@ -502,8 +507,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
 
         // 必须刷新一次 UI 保证状态正确
-        _pendingToggleRender = true;
-        StateHasChanged();
+        _shouldRender = true;
         return Task.CompletedTask;
     }
 
