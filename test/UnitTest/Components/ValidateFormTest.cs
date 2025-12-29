@@ -566,7 +566,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal(HasServiceAttribute.Success, msg);
     }
-    
+
     [Fact]
     public async Task TestService_Ok()
     {
@@ -771,7 +771,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         [HasService]
         public string? Tag { get; set; }
-        
+
         [TestValidateRule]
         public string? Tag2 { get; set; }
     }
