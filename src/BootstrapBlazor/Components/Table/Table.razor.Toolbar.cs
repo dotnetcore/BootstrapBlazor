@@ -3,8 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Globalization;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -1151,7 +1151,7 @@ public partial class Table<TItem>
             {
                 TotalCount = items.Count();
                 PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, _pageItems));
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString(CultureInfo.InvariantCulture))));
+                PageIndex = Math.Max(1, Math.Min(PageIndex, (int)Math.Ceiling((TotalCount - SelectedRows.Count) * 1.0 / _pageItems)));
                 items = items.Skip((PageIndex - 1) * _pageItems).Take(_pageItems);
             }
             QueryItems = items.Cast<TItem>();
