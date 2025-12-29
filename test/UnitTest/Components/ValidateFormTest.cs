@@ -542,9 +542,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         Assert.Contains("form-control valid", cut.Markup);
 
-        var form = cut.Instance;
-        await cut.InvokeAsync(() => form.Validate());
-        Assert.Contains("form-control valid is-invalid", cut.Markup);
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.Contains("form-control invalid is-invalid", cut.Markup);
     }
 
     [Fact]
