@@ -34,7 +34,7 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Dom2Image" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="10.0.0" />
