@@ -22,6 +22,12 @@
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
+                <BootstrapInputGroupLabel>ShowFileName</BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showFileName"></Switch>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
                 <BootstrapInputGroupLabel>ShowDownload</BootstrapInputGroupLabel>
                 <Switch @bind-Value="_showDownload"></Switch>
             </BootstrapInputGroup>
@@ -53,6 +59,6 @@
     </section>
     <PdfReader Url="@_url" EnableThumbnails="_enableThumbnails"
                ShowTwoPagesOneView="_showTwoPagesOneView" ShowDownload="_showDownload"
-               ShowToolbar="_showToolbar" ShowPrint="_showPrint"
+               ShowToolbar="_showToolbar" ShowPrint="_showPrint" ShowFileName="_showFileName"
                ViewHeight="600px" OnGetStreamAsync="OnGetStreamAsync"></PdfReader>
 </DemoBlock>

@@ -21,6 +21,7 @@ public partial class PdfReaders
     private bool _enableThumbnails = true;
     private bool _showDownload = true;
     private bool _showToolbar = true;
+    private bool _showFileName = true;
     private string _url = "./samples/sample.pdf";
     private string _streamFileName = "";
 
