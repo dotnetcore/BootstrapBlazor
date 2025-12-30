@@ -694,11 +694,6 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="fix"></param>
-    /// <param name="data"></param>
     private class CustomDynamicData(Dictionary<string, string> data) : System.Dynamic.DynamicObject
     {
         /// <summary>
@@ -719,9 +714,9 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         /// <returns></returns>
         public override bool TryGetMember(GetMemberBinder binder, out object? result)
         {
-            if (Dynamic.ContainsKey(binder.Name))
+            if (Dynamic.TryGetValue(binder.Name, out string? value))
             {
-                result = Dynamic[binder.Name];
+                result = value;
             }
             else
             {
