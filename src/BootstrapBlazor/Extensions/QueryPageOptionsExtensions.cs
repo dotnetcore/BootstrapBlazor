@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -56,15 +56,17 @@ public static class QueryPageOptionsExtensions
     /// 将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/> 推荐 Linq 使用
     /// </summary>
     /// <param name="option"></param>
+    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
     /// <returns></returns>
-    public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option) => option.ToFilterLambda<TItem>().Compile();
+    public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
     /// 将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/> 推荐 EFCore <see cref="IQueryable"/> 使用
     /// </summary>
     /// <param name="option"></param>
+    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
     /// <returns></returns>
-    public static Expression<Func<TItem, bool>> ToFilterLambda<TItem>(this QueryPageOptions option) => option.ToFilter().GetFilterLambda<TItem>();
+    public static Expression<Func<TItem, bool>> ToFilterLambda<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilter().GetFilterLambda<TItem>(comparison);
 
     /// <summary>
     /// 是否包含过滤条件

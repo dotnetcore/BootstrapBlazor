@@ -13,6 +13,30 @@ namespace UnitTest.Extensions;
 public class LambadaExtensionsTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void GetFilterFunc_Comparison()
+    {
+        var filter = new FilterKeyValueAction()
+        {
+            FieldKey = "Name",
+            FilterAction = FilterAction.Contains,
+            FieldValue = "T"
+        };
+
+        var foos = new Foo[]
+        {
+            new() { Name = "Test1" },
+            new() { Name = "test2" },
+        };
+
+        var items = foos.Where(filter.GetFilterFunc<Foo>());
+        Assert.Single(items);
+
+        // 忽略大小写
+        items = foos.Where(filter.GetFilterFunc<Foo>(StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(2, items.Count());
+    }
+
+    [Fact]
     public void GetFilterFunc_Null()
     {
         var foos = new Foo[]
@@ -694,11 +718,6 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="fix"></param>
-    /// <param name="data"></param>
     private class CustomDynamicData(Dictionary<string, string> data) : System.Dynamic.DynamicObject
     {
         /// <summary>
@@ -719,9 +738,9 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
         /// <returns></returns>
         public override bool TryGetMember(GetMemberBinder binder, out object? result)
         {
-            if (Dynamic.ContainsKey(binder.Name))
+            if (Dynamic.TryGetValue(binder.Name, out string? value))
             {
-                result = Dynamic[binder.Name];
+                result = value;
             }
             else
             {

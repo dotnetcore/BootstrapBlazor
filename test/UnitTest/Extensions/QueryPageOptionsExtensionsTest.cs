@@ -39,6 +39,11 @@ public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
         expected = _foos.Where(predicate);
         Assert.Equal(2, expected.Count());
 
+        // 忽略大小写
+        predicate = option.ToFilterFunc<Foo>(StringComparison.OrdinalIgnoreCase);
+        expected = _foos.Where(predicate);
+        Assert.Equal(4, expected.Count());
+
         option.Searches.Clear();
         option.Searches.Add(new SearchFilterAction("Name", "Mock"));
         predicate = option.ToFilterFunc<Foo>();

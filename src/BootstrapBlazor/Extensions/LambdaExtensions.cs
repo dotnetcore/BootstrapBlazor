@@ -34,27 +34,27 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <returns></returns>
-    public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>().Compile();
+    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null) => filter.GetFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
     /// 指定 FilterKeyValueAction 获取 Lambda 表达式
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
+    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
+    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null)
     {
         var express = new List<Expression<Func<TItem, bool>>>();
         if (filter.Filters.Count > 0)
         {
             express.AddRange(filter.Filters.Select(f => f.Filters.Count > 0
-                ? f.Filters.GetFilterLambda<TItem>(f.FilterLogic)
-                : f.GetInnerFilterLambda<TItem>()));
+                ? f.Filters.GetFilterLambda<TItem>(f.FilterLogic, comparison)
+                : f.GetInnerFilterLambda<TItem>(comparison)));
         }
         else
         {
-            express.Add(filter.GetInnerFilterLambda<TItem>());
+            express.Add(filter.GetInnerFilterLambda<TItem>(comparison));
         }
         return express.ExpressionAndLambda(filter.FilterLogic);
     }
@@ -83,12 +83,13 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
     /// <param name="logic"></param>
+    /// <param name="comparison"><see cref="StringComparison"/> 实例</param>
     /// <returns></returns>
-    private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic)
+    private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic, StringComparison? comparison = null)
     {
         var express = filters.Select(filter => filter.Filters.Count > 0
-                ? filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic)
-                : filter.GetInnerFilterLambda<TItem>())
+                ? filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic, comparison)
+                : filter.GetInnerFilterLambda<TItem>(comparison))
             .ToList();
         return express.ExpressionAndLambda(logic);
     }
@@ -126,13 +127,7 @@ public static class LambdaExtensions
         return ret ?? (r => true);
     }
 
-    /// <summary>
-    /// 指定 FilterKeyValueAction 获取 Lambda 表达式
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <param name="filter"></param>
-    /// <returns></returns>
-    private static Expression<Func<TItem, bool>> GetInnerFilterLambda<TItem>(this FilterKeyValueAction filter)
+    private static Expression<Func<TItem, bool>> GetInnerFilterLambda<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null)
     {
         Expression<Func<TItem, bool>> ret = t => true;
         var type = typeof(TItem);
@@ -148,7 +143,7 @@ public static class LambdaExtensions
             var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
             var parameter = Expression.Parameter(type);
             var fieldExpression = Expression.Property(parameter, prop);
-            ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
+            ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter, comparison);
             return ret;
         }
 
@@ -175,13 +170,13 @@ public static class LambdaExtensions
 
             if (fieldExpression != null)
             {
-                ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
+                ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter, comparison);
             }
             return ret;
         }
     }
 
-    private static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter, PropertyInfo? prop, Expression fieldExpression, ParameterExpression parameter)
+    private static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter, PropertyInfo? prop, Expression fieldExpression, ParameterExpression parameter, StringComparison? comparison = null)
     {
         var isNullable = false;
         var eq = fieldExpression;
@@ -201,12 +196,12 @@ public static class LambdaExtensions
             }
         }
         eq = isNullable
-            ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
-            : filter.GetExpression(eq);
+            ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq, comparison))
+            : filter.GetExpression(eq, comparison);
         return Expression.Lambda<Func<TItem, bool>>(eq, parameter);
     }
 
-    private static Expression GetExpression(this FilterKeyValueAction filter, Expression left)
+    private static Expression GetExpression(this FilterKeyValueAction filter, Expression left, StringComparison? comparison = null)
     {
         var right = Expression.Constant(filter.FieldValue);
         return filter.FilterAction switch
@@ -217,8 +212,8 @@ public static class LambdaExtensions
             FilterAction.GreaterThanOrEqual => Expression.GreaterThanOrEqual(left, right),
             FilterAction.LessThan => Expression.LessThan(left, right),
             FilterAction.LessThanOrEqual => Expression.LessThanOrEqual(left, right),
-            FilterAction.Contains => left.Contains(right),
-            FilterAction.NotContains => Expression.Not(left.Contains(right)),
+            FilterAction.Contains => left.Contains(right, comparison),
+            FilterAction.NotContains => Expression.Not(left.Contains(right, comparison)),
             _ => filter.FieldValue switch
             {
                 LambdaExpression t => Expression.Invoke(t, left),
@@ -228,10 +223,21 @@ public static class LambdaExtensions
         };
     }
 
-    private static BinaryExpression Contains(this Expression left, Expression right)
+    private static BinaryExpression Contains(this Expression left, Expression right, StringComparison? comparison) => comparison.HasValue
+        ? ContainsWidthComparison(left, right, comparison.Value)
+        : ContainsWithoutComparison(left, right);
+
+    private static BinaryExpression ContainsWithoutComparison(this Expression left, Expression right)
     {
         var method = typeof(string).GetMethod("Contains", [typeof(string)])!;
         return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
+    }
+
+    private static BinaryExpression ContainsWidthComparison(this Expression left, Expression right, StringComparison comparison)
+    {
+        var method = typeof(string).GetMethod("Contains", [typeof(string), typeof(StringComparison)])!;
+        var comparisonConstant = Expression.Constant(comparison);
+        return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right, comparisonConstant));
     }
 
     #region Count
