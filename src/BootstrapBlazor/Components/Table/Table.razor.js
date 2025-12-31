@@ -1,6 +1,6 @@
 export { getResponsive } from '../../modules/responsive.js'
 import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js'
-import '../../modules/browser.js'
+import  browser from '../../modules/browser.min.mjs'
 import Data from '../../modules/data.js'
 import EventHandler from '../../modules/event-handler.js'
 import Popover from "../../modules/base-popover.js"
@@ -54,7 +54,7 @@ export function saveColumnOrder(options) {
     localStorage.setItem(key, JSON.stringify(options.columns));
 }
 
-export function reset(id) {
+export async function reset(id) {
     const table = Data.get(id)
     if (table === null) {
         return;
@@ -79,7 +79,7 @@ export function reset(id) {
             table.tables.push(table.thead.firstChild)
             table.tables.push(table.body.firstChild)
             table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
-            fixHeader(table)
+            await fixHeader(table);
 
             EventHandler.on(table.body, 'scroll', () => {
                 const left = table.body.scrollLeft
@@ -388,7 +388,7 @@ const setBodyHeight = table => {
     }
 }
 
-const fixHeader = table => {
+const fixHeader = async table => {
     const el = table.el
     const fs = el.querySelector('.fixed-scroll')
 
@@ -398,8 +398,8 @@ const fixHeader = table => {
             if (prev.classList.contains('fixed-right') && !prev.classList.contains('modified')) {
                 let margin = prev.style.right
                 margin = margin.replace('px', '')
-                const b = window.browser()
-                if (b.device !== 'PC') {
+                const b = await browser.getInfo();
+                if (b.device !== 'Desktop') {
                     margin = (parseFloat(margin) - table.scrollWidth) + 'px'
                 }
                 prev.classList.add('modified')
