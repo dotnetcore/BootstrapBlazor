@@ -270,6 +270,7 @@ public partial class ValidateForm
     /// <param name="results"></param>
     internal async Task ValidateObject(ValidationContext context, List<ValidationResult> results)
     {
+        _tcs = new TaskCompletionSource<bool>();
         _validateResults.Clear();
 
         if (ValidateAllProperties)
@@ -343,14 +344,9 @@ public partial class ValidateForm
             {
                 await validator.ToggleMessage(messages);
             }
-
-            // 确保 _invalid 在没有验证组件时被正确设置
-            // Ensure _invalid is properly set when there are no validation components
-            if (_validatorCache.IsEmpty)
-            {
-                _invalid = results.Count > 0;
-            }
         }
+
+        _tcs.TrySetResult(results.Count == 0);
     }
 
     /// <summary>
@@ -539,9 +535,6 @@ public partial class ValidateForm
                 }
                 ValidateDataAnnotations(propertyValue, context, messages, pi);
             }
-
-            _tcs = new TaskCompletionSource<bool>();
-            _tcs.TrySetResult(messages.Count == 0);
         }
         else
         {
@@ -549,9 +542,7 @@ public partial class ValidateForm
             if (messages.Count == 0)
             {
                 // 自定义验证组件
-                _tcs = new TaskCompletionSource<bool>();
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
-                _tcs.TrySetResult(messages.Count == 0);
             }
 
             if (messages.Count == 0)
@@ -574,11 +565,7 @@ public partial class ValidateForm
                 }
             }
         }
-
-        _invalid = messages.Count > 0;
     }
-
-    private bool _invalid = false;
 
     private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
@@ -665,11 +652,7 @@ public partial class ValidateForm
     /// 验证方法 用于代码调用触发表单验证
     /// </summary>
     /// <returns></returns>
-    public bool Validate()
-    {
-        _invalid = true;
-        return Validator.Validate() && !_invalid;
-    }
+    public bool Validate() => Validator.Validate();
 
     /// <summary>
     /// 通知属性改变方法
