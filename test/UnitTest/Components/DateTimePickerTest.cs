@@ -1255,6 +1255,41 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
+
+    [Fact]
+    public async Task ValidateForm_IsEditable_Ok()
+    {
+        var model = new Foo() { DateTime = new DateTime(2024, 2, 15) };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<DateTimePicker<DateTime?>>(builder =>
+            {
+                builder.Add(a => a.IsEditable, true);
+                builder.Add(a => a.ViewMode, DatePickerViewMode.Date);
+                builder.Add(a => a.DateFormat, "MM/dd/yyyy");
+                builder.Add(a => a.Value, model.DateTime);
+                builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime?>(this, v =>
+                {
+                    model.DateTime = v;
+                }));
+                builder.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.DateTime), typeof(DateTime?)));
+            });
+        });
+        var input = cut.Find(".datetime-picker-input");
+
+        // 更改成非法数值 测试 CurrentValueAsString 赋值逻辑
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("00/15/2024");
+        });
+        Assert.NotNull(model.DateTime);
+        Assert.Equal("02/15/2024", model.DateTime.Value.ToString("MM/dd/yyyy"));
+
+        var valid = cut.Instance.Validate();
+        Assert.True(valid);
+    }
+
     [Fact]
     public void MinValueToEmpty_Ok()
     {
