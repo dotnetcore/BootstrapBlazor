@@ -1255,7 +1255,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
-
     [Fact]
     public async Task ValidateForm_IsEditable_Ok()
     {
@@ -1286,6 +1285,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.NotNull(model.DateTime);
         Assert.Equal("02/15/2024", model.DateTime.Value.ToString("MM/dd/yyyy"));
 
+        // 录入非法数值 Validate 通过
         var valid = cut.Instance.Validate();
         Assert.True(valid);
     }
