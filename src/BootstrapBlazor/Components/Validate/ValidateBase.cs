@@ -136,7 +136,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
                 if (FieldIdentifier != null)
                 {
-                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage ?? "");
+                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
 
                     // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
