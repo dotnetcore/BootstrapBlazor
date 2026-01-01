@@ -119,6 +119,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 PreviousParsingAttemptFailed = false;
                 CurrentValue = parsedValue;
             }
+            else if (string.IsNullOrEmpty(validationErrorMessage))
+            {
+                // validationErrorMessage 为 null 表示转换目标值失败组件值未改变
+                PreviousParsingAttemptFailed = false;
+            }
             else
             {
                 PreviousParsingAttemptFailed = true;
