@@ -281,7 +281,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
-        validationErrorMessage = "";
+        validationErrorMessage = null;
         return SelectedItem != null;
     }
 
