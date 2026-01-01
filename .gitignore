@@ -379,3 +379,6 @@ src/**/wwwroot/**/uploader
 
 # css
 **/BootstrapBlazor/wwwroot/css/bootstrap.blazor.bundle.*.css
+
+# Code Agents
+.claude

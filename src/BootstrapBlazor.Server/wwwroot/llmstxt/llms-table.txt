@@ -1,0 +1,393 @@
+# BootstrapBlazor Table Components
+
+> Auto-generated parameter reference for table components
+
+## Components
+
+- [SelectTable](#selecttable)
+- [SkeletonTable](#skeletontable)
+- [Table](#table)
+- [TableAdvancedSortDialog](#tableadvancedsortdialog)
+- [TableColumnFilter](#tablecolumnfilter)
+- [TableExtensionButton](#tableextensionbutton)
+- [TableFooterCell](#tablefootercell)
+- [TableToolbar](#tabletoolbar)
+
+## SelectTable
+
+下拉表格组件实现类
+
+### Type Parameters
+
+- `TItem` - Generic type parameter
+
+**Inherits from**: `IColumnCollection`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| GetTextCallback | `Func<TItem, string???` | - | 获得 显示文字回调方法 默认 null **[Required]** |
+| OnQueryAsync | `Func<QueryPageOptions, Task<QueryData<TItem????` | - | 异步查询回调方法 **[Required]** |
+| AutoGenerateColumns | `bool` | - | 获得/设置 是否自动生成列信息 默认为 false |
+| ClearIcon | `string?` | - | 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up |
+| CollapsedTopSearch | `bool` | - | 获得/设置 是否收缩顶部搜索框 默认为 false 不收缩搜索框 是否显示搜索框请设置 <see cref="SearchMode"/> 值 Top |
+| Color | `Color` | - | 获得/设置 颜色 默认 Color.None 无设置 |
+| CustomerSearchModel | `ITableSearchModel?` | - | 获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/> |
+| CustomerSearchTemplate | `RenderFragment<ITableSearchModel??` | - | 获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/> |
+| DropdownIcon | `string?` | - | 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up |
+| EmptyTemplate | `RenderFragment?` | - | 获得/设置 无数据时显示模板 默认 null |
+| Height | `int` | 486 | 获得/设置 表格高度 默认 486px |
+| IsClearable | `bool` | - | 获得/设置 是否可清除 默认 false |
+| IsPagination | `bool` | - | 获得/设置 是否分页 默认为 false |
+| OnClearAsync | `Func<Task??` | - | 获得/设置 清除文本内容 OnClear 回调方法 默认 null |
+| PageItemsSource | `IEnumerable<int??` | - | 获得/设置 每页显示数据数量的外部数据源 |
+| PlaceHolder | `string?` | - | 获得 PlaceHolder 属性 |
+| SearchModel | `TItem` | new() | 获得/设置 SearchModel 实例 |
+| SearchTemplate | `RenderFragment<TItem??` | - | 获得/设置 SearchTemplate 实例 |
+| ShowAppendArrow | `bool` | true | 获得/设置 是否显示组件右侧扩展箭头 默认 true 显示 |
+| ShowEmpty | `bool` | - | 获得/设置 是否显示无数据空记录 默认 false 不显示 |
+| ShowSearch | `bool` | - | 获得/设置 是否显示搜索框 默认为 false 不显示搜索框 |
+| TableColumns | `RenderFragment<TItem??` | - | 获得/设置 TableHeader 实例 |
+| TableMinWidth | `int?` | - | 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值 |
+| Template | `RenderFragment<TItem??` | - | 获得/设置 Value 显示模板 默认 null |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `Task QueryAsync()`
+  - 查询方法
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Select/SelectTable.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Select/SelectTable.razor.cs)
+- Examples: [src/BootstrapBlazor.Server/Components/Samples/SelectTables.razor](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Components/Samples/SelectTables.razor)
+
+## SkeletonTable
+
+表格骨架屏组件
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Columns | `int` | 3 | 获得/设置 行数 默认 3 列 |
+| Rows | `int` | 7 | 获得/设置 行数 默认 7 行 |
+| ShowToolbar | `bool` | true | 获得/设置 是否显示工具栏 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Skeleton/SkeletonTable.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Skeleton/SkeletonTable.razor.cs)
+
+## Table
+
+Table 组件基类
+
+### Type Parameters
+
+- `TItem` - Generic type parameter
+
+**Inherits from**: `ITable`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| AlignCenterText | `string?` | - | 获得/设置 居中对齐显示文本 |
+| AlignCenterTooltipText | `string?` | - | 获得/设置 居中对齐提示信息文本 |
+| AlignLeftText | `string?` | - | 获得/设置 左对齐显示文本 |
+| AlignLeftTooltipText | `string?` | - | 获得/设置左对齐提示信息文本 |
+| AlignRightText | `string?` | - | 获得/设置 右对齐显示文本 |
+| AlignRightTooltipText | `string?` | - | 获得/设置 右对齐提示信息文本 |
+| AllowDragColumn | `bool` | - | 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false |
+| AllowResizing | `bool` | - | 获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效 |
+| AutoRefreshInterval | `int` | 2000 | 获得/设置 自动刷新时间间隔 默认 2000 毫秒 |
+| AutoScrollLastSelectedRowToView | `bool` | - | 获得/设置 是否自动将选中行滚动到可视区域 默认 false |
+| AutoScrollVerticalAlign | `ScrollToViewAlign` | ScrollToViewAlign.Center | 获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center |
+| AutoSearchOnInput | `bool` | - | Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false. |
+| CheckboxColumnCompactWidth | `int` | - | 获得/设置 紧凑模式下复选框宽度 默认 28 |
+| CheckboxColumnWidth | `int` | - | 获得/设置 复选框宽度 默认 36 |
+| ClientTableName | `string?` | - | 获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能 |
+| ColumnMinWidth | `int?` | - | 获得/设置 列最小宽度 默认 null 未设置 可通过 <see cref="TableSettings.ColumnMinWidth"/> 统一设置 |
+| ColumnOrderCallback | `Func<IEnumerable<ITableColumn?, IEnumerable<ITableColumn???` | - | 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序 |
+| ColumnToolboxIcon | `string?` | - | 获得/设置 列工具栏图标 fa-solid fa-gear |
+| ColumnWidthTooltipPrefix | `string?` | - | 获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字 |
+| CopyColumnCopiedTooltipText | `string?` | - | 获得/设置 列拷贝完毕后 Tooltip 文字 |
+| CopyColumnTooltipText | `string?` | - | 获得/设置 列拷贝 Tooltip 文字 |
+| CustomKeyAttribute | `Type?` | typeof(KeyAttribute) | 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键 |
+| DefaultFixedColumnWidth | `int` | 200 | 获得/设置 默认固定列宽度 默认 200 单位 px |
+| DetailColumnWidth | `int` | - | 获得/设置 明细行 Row Header 宽度 默认 24 |
+| DetailRowTemplate | `RenderFragment<TItem??` | - | 获得/设置 明细行模板 <see cref="IsDetails" /> |
+| DisableAddButtonCallback | `Func<List<TItem?, bool??` | - | 获得/设置 新建按钮是否禁用回调方法 默认 null 未设置 |
+| DisableAutoSubmitFormByEnter | `bool?` | - | 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置 |
+| DisableDeleteButtonCallback | `Func<List<TItem?, bool??` | - | 获得/设置 删除按钮是否禁用回调方法 默认 null 未设置 |
+| DisableEditButtonCallback | `Func<List<TItem?, bool??` | - | 获得/设置 编辑按钮是否禁用回调方法 默认 null 未设置 |
+| DynamicContext | `IDynamicobjectContext?` | - | 获得/设置 动态数据上下文实例 |
+| EditDialogItemsPerRow | `int` | 2 | 获得/设置 每行显示组件数量 默认为 2 |
+| EditDialogLabelAlign | `Alignment` | - | 获得/设置 设置 <see cref="EditDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐 |
+| EditDialogRowType | `RowType` | RowType.Inline | 获得/设置 设置行内组件布局格式 默认 Inline 布局 |
+| EmptyImage | `string?` | - | 获得/设置 无数据时显示图片路径 默认 null 未设置 |
+| EmptyTemplate | `RenderFragment?` | - | 获得/设置 无数据时显示模板 默认 null |
+| EmptyText | `string?` | - | 获得/设置 无数据时显示文本 默认取资源文件 英文 NoData 中文 无数据 |
+| EnableKeyboardNavigationCell | `bool` | true | 获得/设置 是否启用 Excel 模式下的键盘导航功能 默认 true |
+| FitColumnWidthIncludeHeader | `bool` | - | 获得/设置 列宽自适应时是否包含表头 默认 false |
+| FooterTemplate | `RenderFragment<IEnumerable<TItem???` | - | 获得/设置 Table Footer 模板 |
+| GetAdvancedSearchFilterCallback | `Func<PropertyInfo, TItem, List<SearchFilterAction????` | - | 获得/设置 获得高级搜索条件回调方法 默认 null |
+| HeaderStyle | `TableHeaderStyle` | TableHeaderStyle.None | 获取/设置 表格 thead 样式 <see cref="TableHeaderStyle"/>，默认为浅色<see cref="TableHeaderStyle.None"/> |
+| HeaderTextWrap | `bool` | - | 获得/设置 是否表头允许折行 默认 false 不折行 此设置为 true 时覆盖 <see cref="ITableColumn.HeaderTextWrap"/> 参数值 |
+| Height | `int?` | - | 获得/设置 Table 高度 默认为 null |
+| IsAccordion | `bool` | - | 获得/设置 明细行手风琴效果 默认 false |
+| IsAutoQueryFirstRender | `bool` | true | 获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用 |
+| IsAutoRefresh | `bool` | - | 获得/设置 是否自动刷新表格 默认为 false |
+| IsAutoScrollTopWhenClickPage | `bool` | - | 获得/设置 翻页时是否自动滚动到顶部 默认 false |
+| IsBordered | `bool` | - | 获得/设置 是否带边框样式 默认为 false |
+| IsDetails | `bool?` | - | 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断 |
+| IsExcel | `bool` | - | 获得/设置 组件工作模式为 Excel 模式 默认 false |
+| IsFixedFooter | `bool` | - | 获得/设置 固定 Footer 默认 false |
+| IsFixedHeader | `bool` | - | 获得/设置 固定表头 默认 false |
+| IsGroupExtendButtons | `bool` | true | 获得/设置 是否使用按钮组显示行内扩展按钮 默认 true |
+| IsHideFooterWhenNoData | `bool` | - | 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏 |
+| IsPopoverToolbarDropdownButton | `bool` | - | 获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false |
+| IsStriped | `bool` | - | 获得/设置 是否斑马线样式 默认为 false |
+| IsTracking | `bool` | - | 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false |
+| Items | `IEnumerable<TItem??` | - | 获得/设置 数据集合，适用于无功能仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托 |
+| LineNoColumnAlignment | `Alignment` | - | 获得/设置 行号内容位置 |
+| LineNoColumnWidth | `int` | - | 获得/设置 行号列宽度 默认 60 |
+| LoadingTemplate | `RenderFragment?` | - | 获得/设置 Loading 模板 |
+| ModelEqualityComparer | `Func<TItem, TItem, bool??` | - | 获得/设置 比较数据是否相同回调方法 默认为 null <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para> |
+| MultiHeaderTemplate | `RenderFragment?` | - | 获得/设置 多表头模板 |
+| NotSupportedColumnFilterMessage | `string?` | - | 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容 |
+| OnAfterRenderCallback | `Func<Table<TItem?, bool, Task??` | - | 获得/设置 Table 组件渲染完毕回调 |
+| OnAutoFitColumnWidthCallback | `Func<string, float, Task<float???` | - | 获得/设置 自动调整列宽回调方法 |
+| OnBeforeRenderRow | `Action<TItem??` | - | 获得/设置 呈现每行之前的回调 |
+| OnClickRowCallback | `Func<TItem, Task??` | - | 获得/设置 单击行回调委托方法 |
+| OnColumnCreating | `Func<List<ITableColumn?, Task??` | - | 获得/设置 列创建时回调委托方法 |
+| OnDoubleClickCellCallback | `Func<string, TItem, object?, Task??` | - | 获得/设置 双击单元格回调委托 |
+| OnDoubleClickRowCallback | `Func<TItem, Task??` | - | 获得/设置 双击行回调委托方法 |
+| OnDragColumnEndAsync | `Func<string, IEnumerable<ITableColumn?, Task??` | - | 获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序 |
+| OnResizeColumnAsync | `Func<string, float, Task??` | - | 获得/设置 设置列宽回调方法 |
+| OnToggleDetailRowCallback | `Func<TItem, bool, Task??` | - | 获得/设置 展开收起明细行回调方法 第二个参数 true 时表示展开 false 时表示收起 |
+| OverscanCount | `int` | 10 | Gets or sets the overscan count for virtual scrolling. Default is 10. |
+| RowContentTemplate | `RenderFragment<TableRowContext<TItem???` | - | 获得/设置 行内容模板 |
+| RowHeight | `float` | 38f | 获得/设置 虚拟滚动行高 默认为 38 |
+| RowTemplate | `RenderFragment<TableRowContext<TItem???` | - | 获得/设置 行模板 |
+| ScrollHoverWidth | `int?` | - | 获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/> |
+| ScrollMode | `ScrollMode` | - | 获得/设置 数据滚动模式 |
+| ScrollWidth | `int?` | - | 获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/> |
+| ShowCheckboxTextColumnWidth | `int` | - | 获得/设置 显示文字的复选框列宽度 默认 80 |
+| ShowColumnWidthTooltip | `bool` | - | 获得/设置 是否显示列宽提示信息，默认 false 显示 |
+| ShowCopyColumnTooltip | `bool` | true | 获得/设置 CopyColumn Tooltip 默认 true |
+| ShowDetailRow | `Func<TItem, bool??` | - | 获得/设置 是否显示每行的明细行展开图标 |
+| ShowEmpty | `bool` | - | 获得/设置 是否显示无数据空记录 默认 false 不显示 |
+| ShowFilterHeader | `bool` | - | 获得/设置 是否显示过滤表头 默认 false 不显示 |
+| ShowFooter | `bool` | - | 获得/设置 是否显示表脚 默认为 false |
+| ShowMultiFilterHeader | `bool` | - | 获得/设置 是否显示过滤表头 默认 false 不显示 |
+| SortAscText | `string?` | - | 获得/设置 升序排序时 tooltip 显示文字 默认点击降序 |
+| SortDescText | `string?` | - | 获得/设置 降序排序时 tooltip 显示文字 默认取消排序 |
+| TableColumns | `RenderFragment<TItem??` | - | 获得/设置 TableHeader 实例 |
+| TableFooter | `RenderFragment<IEnumerable<TItem???` | - | 获得/设置 TableFooter 实例 |
+| TableSize | `TableSize` | - | 获得/设置 表格组件大小 默认为 Normal 正常模式 |
+| UnsetText | `string?` | - | 获得/设置 未设置排序时 tooltip 显示文字 默认点击升序 |
+| ItemsChanged | `EventCallback<IEnumerable<TItem??` | - | 获得/设置 数据集合回调方法 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Event Callbacks
+
+| Event | Type | Description |
+|-------|------|-------------|
+| ItemsChanged | `EventCallback<IEnumerable<TItem??` | 获得/设置 数据集合回调方法 |
+
+### Public Methods
+
+- `Task<float? AutoFitColumnWidthCallback(string fieldName, float calcWidth)`
+  - 列宽自适应回调方法 由 JavaScript 脚本调用
+  - *[JSInvokable]*
+- `Task DragColumnCallback(int originIndex, int currentIndex)`
+  - 重置列方法 由 JavaScript 脚本调用
+  - *[JSInvokable]*
+- `Task ExpandDetailRow(TItem item)`
+  - 明细行功能中切换行状态时调用此方法
+- `Task FitAllColumnWidth()`
+  - 列宽自适应方法
+- `Task ResetFilters()`
+  - Reset all Columns Filter
+- `Task ResetSortAsync()`
+  - Reset all Columns Sort
+- `void ResetVisibleColumns(IEnumerable<ColumnVisibleItem? columns)`
+  - 设置 列可见方法
+- `Task ResizeColumnCallback(int index, float width)`
+  - 设置列宽方法 由 JavaScript 脚本调用
+  - *[JSInvokable]*
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Table/Table.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Table/Table.razor.cs)
+- Examples: [src/BootstrapBlazor.Server/Components/Samples/Table/Tables.razor](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Components/Samples/Table/Tables.razor)
+
+## TableAdvancedSortDialog
+
+Table 高级排序弹窗的内容组件
+
+**Inherits from**: `ComponentBase`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Items | `IEnumerable<SelectedItem??` | - | 获得/设置 可排序列的列表 |
+| MinusIcon | `string?` | - | 获得/设置 减少排序条件图标 |
+| PlusIcon | `string?` | - | 获得/设置 增加排序条件图标 |
+| RemoveIcon | `string?` | - | 获得/设置 移除排序条件图标 |
+| Value | `List<TableSortItem??` | - | 获得/设置 排序列列表 实例值 |
+| ValueChanged | `EventCallback<List<TableSortItem??` | - | 获得/设置 排序列列表 回调方法 支持双向绑定 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Event Callbacks
+
+| Event | Type | Description |
+|-------|------|-------------|
+| ValueChanged | `EventCallback<List<TableSortItem??` | 获得/设置 排序列列表 回调方法 支持双向绑定 |
+
+### Public Methods
+
+- `Task OnClose(DialogResult result)`
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Table/TableAdvancedSortDialog.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Table/TableAdvancedSortDialog.razor.cs)
+
+## TableColumnFilter
+
+TableFilter component
+
+**Inherits from**: `IFilter`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Column | `ITableColumn?` | - | 获得 相关联 ITableColumn 实例 |
+| Icon | `string?` | - | 获得/设置 过滤图标 |
+| IsActive | `bool` | - | 获得/设置 是否 active |
+| IsHeaderRow | `bool` | - | 获得/设置 是否为 HeaderRow 模式 默认 false |
+| NotSupportedColumnFilterMessage | `string?` | - | 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容 |
+| Table | `ITable?` | - | 获得/设置 ITable 实例 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `Task OnFilterAsync()`
+  - Filter method
+- `Task Reset()`
+  - Reset filter method
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Filters/TableColumnFilter.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Filters/TableColumnFilter.razor.cs)
+
+## TableExtensionButton
+
+TableExtensionButton 表格扩展按钮类
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| ChildContent | `RenderFragment?` | - | Specifies the content to be rendered inside this |
+| OnClickButton | `Func<TableCellButtonArgs, Task??` | - | 获得/设置 扩展按钮点击回调方法 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `void AddButton(ITableCellComponent button)`
+  - 添加按钮到工具栏方法
+- `void RemoveButton(ITableCellComponent button)`
+  - 从工具栏中移除按钮
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Table/TableExtensionButton.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Table/TableExtensionButton.razor.cs)
+
+## TableFooterCell
+
+TableFooterCell 组件
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Aggregate | `AggregateType` | - | 获得/设置 聚合方法枚举 默认 Sum |
+| Align | `Alignment` | - | 获得/设置 文字对齐方式 默认为 Alignment.None |
+| ColspanCallback | `Func<BreakPoint, int??` | - | 获得/设置 colspan 值 默认 null 自己手动设置值 |
+| CustomerAggregateCallback | `Func<object?, string?, string??` | - | 获得/设置 自定义统计列回调方法 |
+| Field | `string?` | - | 获得/设置 统计列名称 默认为 null 不参与统计仅作为显示单元格 |
+| FormatString | `string?` | - | 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd |
+| Formatter | `Func<object?, Task<string????` | - | 获得/设置 列格式化回调委托 |
+| ShownWithBreakPoint | `BreakPoint` | - | 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置 |
+| Text | `string?` | - | 获得/设置 单元格内容 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Table/TableFooterCell.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Table/TableFooterCell.razor.cs)
+
+## TableToolbar
+
+Table Toolbar 组件
+
+### Type Parameters
+
+- `TItem` - Generic type parameter
+
+**Inherits from**: `ComponentBase`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| ChildContent | `RenderFragment?` | - | Specifies the content to be rendered inside this |
+| GearIcon | `string?` | - | 获得/设置 移动端按钮图标 |
+| IsAutoCollapsedToolbarButton | `bool` | true | 获得/设置 是否自动收缩工具栏按钮 默认 true |
+| OnGetSelectedRows | `Func<IEnumerable<TItem???` | - | 获得/设置 按钮点击后回调委托 |
+| ShowColorWhenToolbarButtonsCollapsed | `bool` | - | 获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式 默认 false |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `void AddButton(IToolbarComponent button)`
+  - 添加按钮到工具栏方法
+- `void RemoveButton(IToolbarComponent button)`
+  - 移除按钮到工具栏方法
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Table/TableToolbar.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Table/TableToolbar.razor.cs)
+
+---
+<!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
+<!-- Generated: 2026-01-01 14:14:46 UTC -->

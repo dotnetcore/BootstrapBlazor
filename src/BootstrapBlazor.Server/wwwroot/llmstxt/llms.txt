@@ -1,0 +1,145 @@
+# BootstrapBlazor
+
+> Enterprise-class Blazor UI component library based on Bootstrap 5
+
+## Quick Start
+
+```bash
+dotnet add package BootstrapBlazor
+```
+
+### Configuration
+
+```csharp
+// Program.cs
+builder.Services.AddBootstrapBlazor();
+```
+
+```razor
+@* _Imports.razor *@
+@using BootstrapBlazor.Components
+```
+
+```html
+<!-- App.razor or _Host.cshtml -->
+<link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet" />
+<script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+```
+
+## Component Categories
+
+For detailed documentation, refer to the specific llms-{category}.txt files.
+
+### Buttons
+→ See: llms-button.txt
+
+Button, button group, dropdown button, split button
+
+Components: Button, ButtonBase, ButtonUpload, DialButton, FilterButton, FullScreenButton, GoTop, NavbarToggleButton, PopConfirmButton, PopConfirmButtonBase
+  ... and 9 more
+
+### Containers
+→ See: llms-card.txt
+
+Card, collapse, group box, split, layout
+
+Components: Card, CardUpload, Collapse, GroupBox
+
+### Dialogs & Feedback
+→ See: llms-dialog.txt
+
+Modal, drawer, dialog service, message, toast
+
+Components: DialogBase, Drawer, EditDialog, IconDialog, Message, Modal, ModalDialog, ResultDialogFooter, SearchDialog, Toast
+  ... and 1 more
+
+### Form Validation
+→ See: llms-form.txt
+
+ValidateForm, editor form, validation rules
+
+Components: EditorForm, ValidateForm
+
+### Form Inputs
+→ See: llms-input.txt
+
+Text input, number input, textarea, date picker
+
+Components: BootstrapInput, BootstrapInputBase, BootstrapInputEventBase, BootstrapInputGroup, BootstrapInputGroupIcon, BootstrapInputNumber, InputUpload, OtpInput, Textarea
+
+### Navigation
+→ See: llms-nav.txt
+
+Menu, tabs, breadcrumb, steps, pagination
+
+Components: Anchor, AnchorLink, Breadcrumb, ContextMenu, ContextMenuZone, GotoNavigator, Menu, MenuLink, Nav, Navbar
+  ... and 14 more
+
+### Other Components
+→ See: llms-other.txt
+
+Miscellaneous components
+
+Components: Affix, Alert, AlertBase, AutoFill, Avatar, AvatarUpload, Badge, BoolFilter, BootstrapBlazorIcon, BootstrapBlazorRoot
+  ... and 107 more
+
+### Selection Components
+→ See: llms-select.txt
+
+Select, multi-select, autocomplete, cascader, transfer
+
+Components: AutoComplete, Cascader, Dropdown, DropdownItem, DropdownWidget, MultiSelect, MultiSelectFilter, MultiSelectGeneric, NavbarDropdown, NavbarDropdownItem
+  ... and 11 more
+
+### Data Display - Table
+→ See: llms-table.txt
+
+Complex data table with sorting, filtering, paging, editing
+
+Components: SelectTable, SkeletonTable, Table, TableAdvancedSortDialog, TableColumnFilter, TableExtensionButton, TableFooterCell, TableToolbar
+
+### Tree Components
+→ See: llms-treeview.txt
+
+TreeView, tree select
+
+Components: SkeletonTree, Tree, TreeView, TreeViewRow
+
+## Source Code Reference
+
+GitHub Repository: https://github.com/dotnetcore/BootstrapBlazor
+
+When documentation is insufficient, consult the source code:
+
+### File Structure
+
+```
+https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/{ComponentName}/
+├── {Component}.razor          # Razor template
+├── {Component}.razor.cs       # Component logic & parameters
+├── {Component}Base.cs         # Base class (if exists)
+├── {Component}Option.cs       # Configuration options
+└── {Component}Service.cs      # Service class (Dialog, Toast, etc.)
+```
+
+### Examples
+
+```
+https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Components/Samples/{ComponentName}s.razor
+```
+
+### Reading Component Parameters
+
+Look for properties with `[Parameter]` attribute:
+
+```csharp
+/// <summary>
+/// Gets or sets whether to show the toolbar
+/// </summary>
+[Parameter]
+public bool ShowToolbar { get; set; }
+```
+
+---
+Generated: 2026-01-01
+Repository: https://github.com/dotnetcore/BootstrapBlazor/blob/main/

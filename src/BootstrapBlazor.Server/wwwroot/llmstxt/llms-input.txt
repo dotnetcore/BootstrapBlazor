@@ -1,0 +1,265 @@
+# BootstrapBlazor Input Components
+
+> Auto-generated parameter reference for input components
+
+## Components
+
+- [BootstrapInput](#bootstrapinput)
+- [BootstrapInputBase](#bootstrapinputbase)
+- [BootstrapInputEventBase](#bootstrapinputeventbase)
+- [BootstrapInputGroup](#bootstrapinputgroup)
+- [BootstrapInputGroupIcon](#bootstrapinputgroupicon)
+- [BootstrapInputNumber](#bootstrapinputnumber)
+- [InputUpload](#inputupload)
+- [OtpInput](#otpinput)
+- [Textarea](#textarea)
+
+## BootstrapInput
+
+BootstrapInput 组件
+
+### Type Parameters
+
+- `TValue` - Generic type parameter
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| AutoSetDefaultWhenNull | `bool` | - | 获得/设置 用户删除后是否自动更改为默认值 0 默认 false |
+| ClearIcon | `string?` | - | 获得/设置 清空小按钮图标 默认 null |
+| IsClearable | `bool` | - | 获得/设置 是否显示清空小按钮 默认 false |
+| OnClear | `Func<TValue, Task??` | - | 获得/设置 清空文本框时回调方法 默认 null |
+| Readonly | `bool` | - | 获得/设置 是否为只读 默认 false |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/BootstrapInput.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/BootstrapInput.razor.cs)
+
+## BootstrapInputBase
+
+Base class for BootstrapInput components
+
+### Type Parameters
+
+- `TValue` - Generic type parameter
+
+**Inherits from**: `ValidateBase<TValue>`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Color | `Color` | Color.None | Gets or sets the button color |
+| FormatString | `string?` | - | Gets or sets the format string, e.g., "yyyy-MM-dd" for date types |
+| Formatter | `Func<TValue?, string??` | - | Gets or sets the formatter function |
+| IsAutoFocus | `bool` | - | Gets or sets whether to automatically focus, default is false |
+| IsSelectAllTextOnEnter | `bool` | - | Gets or sets whether to automatically select all text on Enter key press, default is false |
+| IsSelectAllTextOnFocus | `bool` | - | Gets or sets whether to automatically select all text on focus, default is false |
+| IsTrim | `bool` | - | Gets or sets whether to automatically trim whitespace, default is false |
+| OnBlurAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for blur event, default is null |
+| OnEnterAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for Enter key press, default is null |
+| OnEscAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for Esc key press, default is null |
+| PlaceHolder | `string?` | - | Gets or sets the placeholder attribute value |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `Task EnterCallback()`
+  - Client-side EnterCallback method
+  - *[JSInvokable]*
+- `Task EscCallback()`
+  - Client-side EscCallback method
+  - *[JSInvokable]*
+- `Task FocusAsync()`
+  - Method to focus the element
+- `ValueTask SelectAllTextAsync()`
+  - Method to select all text
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/BootstrapInputBase.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/BootstrapInputBase.cs)
+
+## BootstrapInputEventBase
+
+输入框基类
+
+### Type Parameters
+
+- `TValue` - Generic type parameter
+
+**Inherits from**: `BootstrapInputBase<TValue>`
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| UseInputEvent | `bool` | - | 获得/设置 是否在文本框输入值时触发 bind-value:event="oninput" 默认 false |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/BootstrapInputEventBase.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/BootstrapInputEventBase.cs)
+
+## BootstrapInputGroup
+
+BootstrapInputGroup 组件
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| ChildContent | `RenderFragment?` | - | 获得/设置 子组件 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/BootstrapInputGroup.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/BootstrapInputGroup.razor.cs)
+
+## BootstrapInputGroupIcon
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Icon | `string?` | - |  |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/BootstrapInputGroupIcon.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/BootstrapInputGroupIcon.razor.cs)
+
+## BootstrapInputNumber
+
+An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.
+
+### Type Parameters
+
+- `TValue` - Generic type parameter
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Max | `string?` | - | 获得/设置 最大值 |
+| Min | `string?` | - | 获得/设置 最小值 |
+| MinusIcon | `string?` | - | 获得/设置 减小数值图标 |
+| OnDecrement | `Func<TValue?, Task??` | - | 获得/设置 数值减少时回调委托 |
+| OnIncrement | `Func<TValue?, Task??` | - | 获得/设置 数值增加时回调委托 |
+| PlusIcon | `string?` | - | 获得/设置 增加数值图标 |
+| ShowButton | `bool` | - | 获得/设置 是否显示加减按钮 |
+| Step | `string?` | - | 获得/设置 步长 默认为 null |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/InputNumber/BootstrapInputNumber.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/InputNumber/BootstrapInputNumber.razor.cs)
+
+## InputUpload
+
+InputUpload 组件
+
+### Type Parameters
+
+- `TValue` - Generic type parameter
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| BrowserButtonClass | `string` | "btn-primary" | 获得/设置 上传按钮样式 默认 btn-primary |
+| BrowserButtonIcon | `string?` | - | 获得/设置 浏览按钮图标 |
+| BrowserButtonText | `string?` | - | 获得/设置 浏览按钮显示文字 |
+| DeleteButtonClass | `string` | "btn-danger" | 获得/设置 删除按钮样式 默认 btn-danger |
+| DeleteButtonIcon | `string?` | - | 获得/设置 删除按钮图标 |
+| DeleteButtonText | `string?` | - | 获得/设置 重置按钮显示文字 |
+| PlaceHolder | `string?` | - | 获得/设置 PlaceHolder 占位符文本 |
+| ShowDeleteButton | `bool` | - | 获得/设置 是否显示删除按钮 默认为 false 不显示 |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Upload/InputUpload.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Upload/InputUpload.razor.cs)
+
+## OtpInput
+
+OTP input component
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| Digits | `int` | 6 | Gets or sets the length of the OTP input. Default is 6. |
+| IsReadonly | `bool` | - | Gets or sets whether the OTP input is readonly. Default is false. |
+| PlaceHolder | `string?` | - | Gets or sets the placeholder of the OTP input. Default is null. |
+| Type | `OtpInputType` | - | Gets or sets the value type of the OTP input. Default is <see cref="OtpInputType.Number"/>. |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `Task TriggerSetValue(string val)`
+  - Trigger value changed event callback. Trigger by JavaScript.
+  - *[JSInvokable]*
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Input/OtpInput.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Input/OtpInput.razor.cs)
+- Examples: [src/BootstrapBlazor.Server/Components/Samples/OtpInputs.razor](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Components/Samples/OtpInputs.razor)
+
+## Textarea
+
+Textarea component
+
+### Parameters
+
+<!-- AUTO-GENERATED-PARAMETERS-START -->
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| IsAutoScroll | `bool` | - | Gets or sets whether auto-scroll is enabled. Default is false. |
+| UseShiftEnter | `bool` | - | Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false. |
+
+<!-- AUTO-GENERATED-PARAMETERS-END -->
+
+### Public Methods
+
+- `Task ScrollTo(int value)`
+  - Scroll to a specific value
+- `Task ScrollToBottom()`
+  - Scroll to the bottom
+- `Task ScrollToTop()`
+  - Scroll to the top
+
+### Source
+
+- Component: [src/BootstrapBlazor/Components/Textarea/Textarea.razor.cs](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor/Components/Textarea/Textarea.razor.cs)
+- Examples: [src/BootstrapBlazor.Server/Components/Samples/TextAreas.razor](https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Components/Samples/TextAreas.razor)
+
+---
+<!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
+<!-- Generated: 2026-01-01 14:14:46 UTC -->
