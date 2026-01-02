@@ -15,11 +15,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /
 COPY . .
 
-# Generate LLM documentation
-WORKDIR /tools/LlmsDocsGenerator
-RUN dotnet run
-
-WORKDIR "/src/BootstrapBlazor.Server"
+WORKDIR "src/BootstrapBlazor.Server"
 FROM build AS publish
 RUN dotnet build
 RUN dotnet publish -c Release -o /app
