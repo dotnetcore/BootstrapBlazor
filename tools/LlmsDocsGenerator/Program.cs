@@ -10,6 +10,7 @@ var componentOption = new Option<string?>("--component") { Description = "Genera
 var indexOnlyOption = new Option<bool>("--index-only") { Description = "Generate only the index file (llms.txt)" };
 var checkOption = new Option<bool>("--check") { Description = "Check if documentation is up-to-date (for CI/CD)" };
 var rootFolderOption = new Option<string?>("--root") { Description = "Set the root folder of project" };
+var debugOption = new Option<bool>("--debug") { Description = "Set the environment to development and display debugging information." };
 
 var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator")
 {
@@ -17,12 +18,14 @@ var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator"
     indexOnlyOption,
     checkOption,
     rootFolderOption,
+    debugOption
 };
 
 rootCommand.SetAction(async result =>
 {
+    var debug = result.GetValue(debugOption);
     var rootFolder = result.GetValue(rootFolderOption);
-    var generator = new DocsGenerator(rootFolder);
+    var generator = new DocsGenerator(rootFolder, debug);
 
     var check = result.GetValue(checkOption);
     if (check)

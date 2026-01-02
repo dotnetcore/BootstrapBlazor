@@ -14,9 +14,12 @@ public class DocsGenerator
     private readonly string _sourcePath;
     private readonly ComponentAnalyzer _analyzer;
     private readonly MarkdownBuilder _markdownBuilder;
+    private readonly bool _debug;
 
-    public DocsGenerator(string? rootFolder)
+    public DocsGenerator(string? rootFolder, bool debug)
     {
+        _debug = debug;
+
         // Find the source directory (relative to tool location or current directory)
         var root = FindSourcePath(rootFolder);
 
@@ -26,11 +29,11 @@ public class DocsGenerator
         _markdownBuilder = new MarkdownBuilder();
     }
 
-    private static string FindSourcePath(string? rootFolder)
+    private string FindSourcePath(string? rootFolder)
     {
         // Try to find src/BootstrapBlazor from current directory or parent directories
         var current = rootFolder ?? AppContext.BaseDirectory;
-        System.Console.WriteLine(current);
+        Logger($"Root path: {current}");
 
         while (!string.IsNullOrEmpty(current))
         {
@@ -54,15 +57,13 @@ public class DocsGenerator
     /// </summary>
     public async Task GenerateAllAsync()
     {
-        Console.WriteLine($"Source path: {_sourcePath}");
-        Console.WriteLine($"Output path: {_outputPath}");
-        Console.WriteLine();
+        Logger($"Source path: {_sourcePath}");
+        Logger($"Output path: {_outputPath}");
 
         // Analyze all components
-        Console.WriteLine("Analyzing components...");
+        Logger("Analyzing components...");
         var components = await _analyzer.AnalyzeAllComponentsAsync();
-        Console.WriteLine($"Found {components.Count} components");
-        Console.WriteLine();
+        Logger($"Found {components.Count} components");
 
         // Group components by category
         var categorized = CategorizeComponents(components);
@@ -73,12 +74,11 @@ public class DocsGenerator
         // Generate component documentation files
         foreach (var category in categorized)
         {
-            Console.WriteLine($"Generating {category.Key} documentation...");
+            Logger($"Generating {category.Key} documentation...");
             await GenerateCategoryDocAsync(category.Key, category.Value);
         }
 
-        Console.WriteLine();
-        Console.WriteLine("Documentation generation complete!");
+        Logger("Documentation generation complete!");
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public class DocsGenerator
         var indexPath = Path.Combine(_outputPath, "llms.txt");
         var content = _markdownBuilder.BuildIndex(categorized);
         await File.WriteAllTextAsync(indexPath, content);
-        Console.WriteLine($"Generated: {indexPath}");
+        Logger($"Generated: {indexPath}");
     }
 
     /// <summary>
@@ -110,7 +110,7 @@ public class DocsGenerator
         var component = await _analyzer.AnalyzeComponentAsync(componentName);
         if (component == null)
         {
-            Console.WriteLine($"Component not found: {componentName}");
+            Logger($"Component not found: {componentName}");
             return;
         }
 
@@ -121,7 +121,7 @@ public class DocsGenerator
         var fileName = $"llms-{componentName.ToLowerInvariant()}.txt";
         var filePath = Path.Combine(_outputPath, fileName);
         await File.WriteAllTextAsync(filePath, content);
-        Console.WriteLine($"Generated: {filePath}");
+        Logger($"Generated: {filePath}");
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public class DocsGenerator
     /// </summary>
     public async Task<bool> CheckAsync()
     {
-        Console.WriteLine("Checking documentation freshness...");
+        Logger("Checking documentation freshness...");
 
         var components = await _analyzer.AnalyzeAllComponentsAsync();
         var categorized = CategorizeComponents(components);
@@ -138,7 +138,7 @@ public class DocsGenerator
         var indexPath = Path.Combine(_outputPath, "llms.txt");
         if (!File.Exists(indexPath))
         {
-            Console.WriteLine("OUTDATED: llms.txt does not exist");
+            Logger("OUTDATED: llms.txt does not exist");
             return false;
         }
 
@@ -152,7 +152,7 @@ public class DocsGenerator
 
         if (indexLastWrite < newestComponentWrite)
         {
-            Console.WriteLine("Index file is stale relative to component sources. Please regenerate docs.");
+            Logger("Index file is stale relative to component sources. Please regenerate docs.");
             return false;
         }
         // Check each category file
@@ -163,7 +163,7 @@ public class DocsGenerator
 
             if (!File.Exists(filePath))
             {
-                Console.WriteLine($"OUTDATED: {fileName} does not exist");
+                Logger($"OUTDATED: {fileName} does not exist");
                 return false;
             }
 
@@ -173,13 +173,13 @@ public class DocsGenerator
             {
                 if (component.LastModified > docLastWrite)
                 {
-                    Console.WriteLine($"OUTDATED: {component.Name} was modified after {fileName}");
+                    Logger($"OUTDATED: {component.Name} was modified after {fileName}");
                     return false;
                 }
             }
         }
 
-        Console.WriteLine("Documentation is up-to-date");
+        Logger("Documentation is up-to-date");
         return true;
     }
 
@@ -276,6 +276,14 @@ public class DocsGenerator
         var filePath = Path.Combine(_outputPath, fileName);
         var content = _markdownBuilder.BuildCategoryDoc(category, components);
         await File.WriteAllTextAsync(filePath, content);
-        Console.WriteLine($"Generated: {filePath}");
+        Logger($"Generated: {filePath}");
+    }
+
+    private void Logger(string message)
+    {
+        if (_debug)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
