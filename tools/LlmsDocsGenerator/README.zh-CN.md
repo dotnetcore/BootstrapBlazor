@@ -111,12 +111,12 @@ dotnet tool uninstall --global BootstrapBlazor.LlmsDocsGenerator
 
 ## 使用方法
 
-安装为全局工具后，使用 `bbllmsdocs` 命令：
+安装为全局工具后，使用 `llms-docs` 命令：
 
 ### 生成所有文档
 
 ```bash
-bbllmsdocs
+llms-docs
 ```
 
 或从源代码运行：
@@ -128,19 +128,19 @@ dotnet run --project tools/LlmsDocsGenerator
 ### 生成特定组件
 
 ```bash
-bbllmsdocs --component Table
+llms-docs --component Table
 ```
 
 ### 仅生成索引
 
 ```bash
-bbllmsdocs --index-only
+llms-docs --index-only
 ```
 
 ### 检查文档是否过期（CI/CD）
 
 ```bash
-bbllmsdocs --check
+llms-docs --check
 ```
 
 如果文档过期，返回退出码 1。
@@ -148,13 +148,13 @@ bbllmsdocs --check
 ### 自定义输出目录
 
 ```bash
-bbllmsdocs --output ./docs
+llms-docs --output ./docs
 ```
 
 ### 显示帮助
 
 ```bash
-bbllmsdocs --help
+llms-docs --help
 ```
 
 ## CI/CD 集成

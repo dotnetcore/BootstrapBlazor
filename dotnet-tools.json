@@ -9,7 +9,7 @@
       ],
       "rollForward": false
     },
-    "limsdocsgenerator": {
+    "llmsdocsgenerator": {
       "version": "10.0.0",
       "commands": [
         "llms-docs"

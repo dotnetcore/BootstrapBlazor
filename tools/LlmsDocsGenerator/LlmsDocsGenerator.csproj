@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <Title>BootstrapBlazor LLMS docs Generator</Title>
-    <PackageId>LimsDocsGenerator</PackageId>
+    <PackageId>BootstrapBlazor.LlmsDocsGenerator</PackageId>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>llms-docs</ToolCommandName>
     <Authors>ice6 (ice6@live.cn)</Authors>

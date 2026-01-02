@@ -111,12 +111,12 @@ dotnet tool uninstall --global BootstrapBlazor.LlmsDocsGenerator
 
 ## Usage
 
-Once installed as a global tool, use the `bbllmsdocs` command:
+Once installed as a global tool, use the `llms-docs` command:
 
 ### Generate All Documentation
 
 ```bash
-bbllmsdocs
+llms-docs
 ```
 
 Or when running from source:
@@ -128,19 +128,19 @@ dotnet run --project tools/LlmsDocsGenerator
 ### Generate Specific Component
 
 ```bash
-bbllmsdocs --component Table
+llms-docs --component Table
 ```
 
 ### Generate Index Only
 
 ```bash
-bbllmsdocs --index-only
+llms-docs --index-only
 ```
 
 ### Check Freshness (CI/CD)
 
 ```bash
-bbllmsdocs --check
+llms-docs --check
 ```
 
 Returns exit code 1 if documentation is outdated.
@@ -148,13 +148,13 @@ Returns exit code 1 if documentation is outdated.
 ### Custom Output Directory
 
 ```bash
-bbllmsdocs --output ./docs
+llms-docs --output ./docs
 ```
 
 ### Show Help
 
 ```bash
-bbllmsdocs --help
+llms-docs --help
 ```
 
 ## CI/CD Integration
