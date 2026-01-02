@@ -119,6 +119,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 PreviousParsingAttemptFailed = false;
                 CurrentValue = parsedValue;
             }
+            else if (string.IsNullOrEmpty(validationErrorMessage))
+            {
+                // validationErrorMessage 为 null 表示转换目标值失败组件值未改变
+                PreviousParsingAttemptFailed = false;
+            }
             else
             {
                 PreviousParsingAttemptFailed = true;
@@ -131,7 +136,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
                 if (FieldIdentifier != null)
                 {
-                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage ?? "");
+                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
 
                     // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);

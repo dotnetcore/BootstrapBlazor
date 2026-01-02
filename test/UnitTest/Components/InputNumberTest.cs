@@ -216,6 +216,88 @@ public class InputNumberTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => buttons[1].Click());
     }
 
+    [Fact]
+    public async Task Validate_Ok()
+    {
+        var model = new Foo() { Count = 1 };
+        var cut = Context.Render<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<BootstrapInputNumber<int>>(builder =>
+            {
+                builder.Add(a => a.Value, model.Count);
+                builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<int>(this, v =>
+                {
+                    model.Count = v;
+                }));
+                builder.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Count), typeof(int)));
+            });
+        });
+        var input = cut.Find(".form-control");
+
+        // 更改成非法数值 测试 CurrentValueAsString 赋值逻辑
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("t");
+        });
+        Assert.Equal(1, model.Count);
+
+        var valid = cut.Instance.Validate();
+        Assert.False(valid);
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("t2");
+        });
+        Assert.Equal(1, model.Count);
+        valid = cut.Instance.Validate();
+        Assert.False(valid);
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("2");
+        });
+        Assert.Equal(2, model.Count);
+
+        valid = cut.Instance.Validate();
+        Assert.True(valid);
+    }
+
+    [Fact]
+    public async Task TryParseValueFromString_Ok()
+    {
+        var model = new Foo() { Count = 1 };
+        var cut = Context.Render<BootstrapInputNumber<int>>(pb =>
+        {
+            pb.Add(a => a.Value, 1);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<int>(this, v =>
+            {
+                model.Count = v;
+            }));
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Count), typeof(int)));
+        });
+        var input = cut.Find(".form-control");
+
+        // 更改成非法数值 测试 CurrentValueAsString 赋值逻辑
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("t");
+        });
+        Assert.Equal(1, model.Count);
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("t2");
+        });
+        Assert.Equal(1, model.Count);
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("2");
+        });
+        Assert.Equal(2, model.Count);
+    }
+
     private class Cat
     {
         [Range(1, 10)]
