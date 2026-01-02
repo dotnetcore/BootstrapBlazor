@@ -93,6 +93,9 @@ public class DocsGenerator
 
     private async Task GenerateIndexAsync(Dictionary<string, List<ComponentInfo>> categorized)
     {
+        // Ensure output directory exists
+        Directory.CreateDirectory(_outputPath);
+
         var indexPath = Path.Combine(_outputPath, "llms.txt");
         var content = _markdownBuilder.BuildIndex(categorized);
         await File.WriteAllTextAsync(indexPath, content);
@@ -110,6 +113,9 @@ public class DocsGenerator
             Console.WriteLine($"Component not found: {componentName}");
             return;
         }
+
+        // Ensure output directory exists
+        Directory.CreateDirectory(_outputPath);
 
         var content = _markdownBuilder.BuildComponentDoc(component);
         var fileName = $"llms-{componentName.ToLowerInvariant()}.txt";
@@ -263,6 +269,9 @@ public class DocsGenerator
 
     private async Task GenerateCategoryDocAsync(string category, List<ComponentInfo> components)
     {
+        // Ensure output directory exists
+        Directory.CreateDirectory(_outputPath);
+
         var fileName = GetCategoryFileName(category);
         var filePath = Path.Combine(_outputPath, fileName);
         var content = _markdownBuilder.BuildCategoryDoc(category, components);
