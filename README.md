@@ -93,27 +93,27 @@ This project includes LLM-friendly documentation to help AI coding assistants (C
 
 ### Online Access
 
-Documentation files are available at: `https://www.blazor.zone/llmstxt/`
+Documentation files are available at: `https://www.blazor.zone/llms/`
 
 | File | URL |
 |------|-----|
-| Index | https://www.blazor.zone/llmstxt/llms.txt |
-| Table | https://www.blazor.zone/llmstxt/llms-table.txt |
-| Input | https://www.blazor.zone/llmstxt/llms-input.txt |
-| Select | https://www.blazor.zone/llmstxt/llms-select.txt |
-| Button | https://www.blazor.zone/llmstxt/llms-button.txt |
-| Dialog | https://www.blazor.zone/llmstxt/llms-dialog.txt |
-| Nav | https://www.blazor.zone/llmstxt/llms-nav.txt |
-| Card | https://www.blazor.zone/llmstxt/llms-card.txt |
-| TreeView | https://www.blazor.zone/llmstxt/llms-treeview.txt |
-| Form | https://www.blazor.zone/llmstxt/llms-form.txt |
-| Other | https://www.blazor.zone/llmstxt/llms-other.txt |
+| Index | https://www.blazor.zone/llms/llms.txt |
+| Table | https://www.blazor.zone/llms/llms-table.txt |
+| Input | https://www.blazor.zone/llms/llms-input.txt |
+| Select | https://www.blazor.zone/llms/llms-select.txt |
+| Button | https://www.blazor.zone/llms/llms-button.txt |
+| Dialog | https://www.blazor.zone/llms/llms-dialog.txt |
+| Nav | https://www.blazor.zone/llms/llms-nav.txt |
+| Card | https://www.blazor.zone/llms/llms-card.txt |
+| TreeView | https://www.blazor.zone/llms/llms-treeview.txt |
+| Form | https://www.blazor.zone/llms/llms-form.txt |
+| Other | https://www.blazor.zone/llms/llms-other.txt |
 
 ### Using in Your Project
 
 Create a `llms.txt` in your project root to reference BootstrapBlazor documentation.
 
-See the full example template: https://www.blazor.zone/llmstxt/llms-example-project.txt
+See the full example template: https://www.blazor.zone/llms/llms-example-project.txt
 
 Quick example:
 
@@ -124,12 +124,12 @@ Quick example:
 
 ### BootstrapBlazor
 - NuGet: BootstrapBlazor
-- Documentation: https://www.blazor.zone/llmstxt/llms.txt
+- Documentation: https://www.blazor.zone/llms/llms.txt
 - Source Code: https://github.com/dotnetcore/BootstrapBlazor
 
 For component parameters and usage:
-- Table: https://www.blazor.zone/llmstxt/llms-table.txt
-- Dialog: https://www.blazor.zone/llmstxt/llms-dialog.txt
+- Table: https://www.blazor.zone/llms/llms-table.txt
+- Dialog: https://www.blazor.zone/llms/llms-dialog.txt
 - ... (add others as needed)
 ```
 

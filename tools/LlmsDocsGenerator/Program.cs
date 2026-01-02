@@ -3,8 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.CommandLine;
 using LlmsDocsGenerator;
+using System.CommandLine;
 
 var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator");
 
@@ -22,8 +22,8 @@ var checkOption = new Option<bool>(
 
 var outputOption = new Option<string>(
     name: "--output",
-    getDefaultValue: () => "src/BootstrapBlazor.Server/wwwroot/llmstxt",
-    description: "Output directory for generated files (default: src/BootstrapBlazor.Server/wwwroot/llmstxt)");
+    getDefaultValue: () => "src/BootstrapBlazor.Server/wwwroot/llms",
+    description: "Output directory for generated files (default: src/BootstrapBlazor.Server/wwwroot/llms)");
 
 rootCommand.AddOption(componentOption);
 rootCommand.AddOption(indexOnlyOption);

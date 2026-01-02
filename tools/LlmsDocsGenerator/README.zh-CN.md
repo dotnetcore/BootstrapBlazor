@@ -23,7 +23,7 @@ AI 编程助手（Claude Code、Cursor、GitHub Copilot）经常因为缺乏准�
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              输出目录: wwwroot/llmstxt/                      │
+│              输出目录: wwwroot/llms/                        │
 ├─────────────────────────────────────────────────────────────┤
 │  llms.txt              → 索引文件，包含快速入门指南           │
 │  llms-table.txt        → 表格组件文档                        │
@@ -186,8 +186,8 @@ RUN dotnet run
 ## 依赖
 
 ### BootstrapBlazor
-- 文档: https://www.blazor.zone/llmstxt/llms.txt
-- 表格: https://www.blazor.zone/llmstxt/llms-table.txt
+- 文档: https://www.blazor.zone/llms/llms.txt
+- 表格: https://www.blazor.zone/llms/llms-table.txt
 ```
 
 完整模板请参考 `llms-example-project.txt`。

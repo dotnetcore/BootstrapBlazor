@@ -14,7 +14,7 @@ AI coding assistants (Claude Code, Cursor, GitHub Copilot) often generate incorr
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    LlmsDocsGenerator                         │
+│                    LlmsDocsGenerator                        │
 ├─────────────────────────────────────────────────────────────┤
 │  ComponentAnalyzer     → Roslyn-based source code parser    │
 │  MarkdownBuilder       → Generates markdown documentation   │
@@ -23,7 +23,7 @@ AI coding assistants (Claude Code, Cursor, GitHub Copilot) often generate incorr
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              Output: wwwroot/llmstxt/                        │
+│              Output: wwwroot/llms/                       │
 ├─────────────────────────────────────────────────────────────┤
 │  llms.txt              → Index with quick start guide       │
 │  llms-table.txt        → Table component documentation      │
@@ -186,8 +186,8 @@ Users can reference this documentation in their own projects by creating a `llms
 ## Dependencies
 
 ### BootstrapBlazor
-- Documentation: https://www.blazor.zone/llmstxt/llms.txt
-- Table: https://www.blazor.zone/llmstxt/llms-table.txt
+- Documentation: https://www.blazor.zone/llms/llms.txt
+- Table: https://www.blazor.zone/llms/llms-table.txt
 ```
 
 See `llms-example-project.txt` for a complete template.
