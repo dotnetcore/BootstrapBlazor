@@ -135,15 +135,7 @@ public partial class ComponentAnalyzer
 
     private string GetClassName(ClassDeclarationSyntax classDeclaration)
     {
-        var name = classDeclaration.Identifier.Text;
-
-        // Remove generic part for display name
-        if (classDeclaration.TypeParameterList != null)
-        {
-            return name;
-        }
-
-        return name;
+        return classDeclaration.Identifier.Text;
     }
 
     private string GetFullClassName(ClassDeclarationSyntax classDeclaration, SyntaxNode root)
