@@ -1020,7 +1020,7 @@ DateTimePickerCell 组件
 
 ## DateTimeFilter
 
-DataTime filter component
+DateTime filter component
 
 ### Parameters
 

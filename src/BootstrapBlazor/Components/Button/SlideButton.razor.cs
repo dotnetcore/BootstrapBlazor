@@ -55,7 +55,7 @@ public partial class SlideButton
     public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 展开项显示位置
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }

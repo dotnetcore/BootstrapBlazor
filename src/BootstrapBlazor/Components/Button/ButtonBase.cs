@@ -129,7 +129,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击时间是否向上传播 默认 false
+    /// 获得/设置 点击事件是否向上传播 默认 false
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }

@@ -418,7 +418,7 @@ SlideButton 组件
 | IsDisabled | `bool` | - | 获得/设置 是否禁用 默认为 false |
 | Items | `IEnumerable<SelectedItem>?` | - | 获得/设置 展开项集合 |
 | Offset | `float` | 8 | 获得/设置 弹窗偏移量 默认 8px |
-| Placement | `Placement` | - | 获得/设置 按钮颜色 |
+| Placement | `Placement` | - | 获得/设置 展开项显示位置 |
 | ShowHeader | `bool` | - | 获得/设置 是否显示标题 默认 false 不显示 |
 | Size | `Size` | - | 获得/设置 Size 大小 |
 | SlideButtonItems | `RenderFragment?` | - | 获得/设置 数据项模板 |

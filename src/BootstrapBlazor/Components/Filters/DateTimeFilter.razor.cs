@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DataTime filter component
+/// DateTime filter component
 /// </summary>
 public partial class DateTimeFilter
 {
