@@ -314,19 +314,28 @@ public partial class ComponentAnalyzer
 
     private string SimplifyTypeName(string typeName)
     {
-        // Simplify common type names
-        return typeName
+        // Remove common namespace prefixes
+        var result = typeName
             .Replace("System.", "")
             .Replace("Collections.Generic.", "")
-            .Replace("Threading.Tasks.", "")
-            .Replace("Nullable<", "")
-            .Replace(">", "?")
+            .Replace("Threading.Tasks.", "");
+
+        // Handle Nullable<T> -> T? (must be done carefully to not break other generics)
+        result = NullableRegex().Replace(result, "$1?");
+
+        // Simplify primitive type names
+        result = result
             .Replace("Int32", "int")
             .Replace("Int64", "long")
             .Replace("Boolean", "bool")
             .Replace("String", "string")
             .Replace("Object", "object");
+
+        return result;
     }
+
+    [GeneratedRegex(@"Nullable<([^>]+)>")]
+    private static partial Regex NullableRegex();
 
     private bool HasAttribute(MemberDeclarationSyntax member, string attributeName)
     {
