@@ -29,9 +29,9 @@ public class DocsGenerator
     private string FindSourcePath()
     {
         // Try to find src/BootstrapBlazor from current directory or parent directories
-        var current = Directory.GetCurrentDirectory();
+        var current = AppContext.BaseDirectory;
 
-        for (int i = 0; i < 5; i++)
+        while (!string.IsNullOrEmpty(current))
         {
             var srcPath = Path.Combine(current, "src", "BootstrapBlazor");
             if (Directory.Exists(srcPath))

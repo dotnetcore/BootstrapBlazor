@@ -6,34 +6,30 @@
 using LlmsDocsGenerator;
 using System.CommandLine;
 
-var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator");
 
-var componentOption = new Option<string?>(
-    name: "--component",
-    description: "Generate documentation for a specific component only");
-
-var indexOnlyOption = new Option<bool>(
-    name: "--index-only",
-    description: "Generate only the index file (llms.txt)");
-
-var checkOption = new Option<bool>(
-    name: "--check",
-    description: "Check if documentation is up-to-date (for CI/CD)");
-
-var outputOption = new Option<string>(
-    name: "--output",
-    getDefaultValue: () => "src/BootstrapBlazor.Server/wwwroot/llms",
-    description: "Output directory for generated files (default: src/BootstrapBlazor.Server/wwwroot/llms)");
-
-rootCommand.AddOption(componentOption);
-rootCommand.AddOption(indexOnlyOption);
-rootCommand.AddOption(checkOption);
-rootCommand.AddOption(outputOption);
-
-rootCommand.SetHandler(async (component, indexOnly, check, output) =>
+var componentOption = new Option<string?>("--component") { Description = "Generate documentation for a specific component only" };
+var indexOnlyOption = new Option<bool>("--index-only") { Description = "Generate only the index file (llms.txt)" };
+var checkOption = new Option<bool>("--check") { Description = "Check if documentation is up-to-date (for CI/CD)" };
+var outputOption = new Option<string>("--output")
 {
+    Description = "Output directory for generated files (default: src/BootstrapBlazor.Server/wwwroot/llms)",
+    DefaultValueFactory = result => "src/BootstrapBlazor.Server/wwwroot/llms"
+};
+
+var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator")
+{
+    componentOption,
+    indexOnlyOption,
+    checkOption,
+    outputOption
+};
+
+rootCommand.SetAction(async result =>
+{
+    var output = result.GetValue(outputOption);
     var generator = new DocsGenerator(output);
 
+    var check = result.GetValue(checkOption);
     if (check)
     {
         var isUpToDate = await generator.CheckAsync();
@@ -41,12 +37,14 @@ rootCommand.SetHandler(async (component, indexOnly, check, output) =>
         return;
     }
 
+    var indexOnly = result.GetValue(indexOnlyOption);
     if (indexOnly)
     {
         await generator.GenerateIndexAsync();
         return;
     }
 
+    var component = result.GetValue(componentOption);
     if (!string.IsNullOrEmpty(component))
     {
         await generator.GenerateComponentAsync(component);
@@ -54,7 +52,6 @@ rootCommand.SetHandler(async (component, indexOnly, check, output) =>
     }
 
     await generator.GenerateAllAsync();
+});
 
-}, componentOption, indexOnlyOption, checkOption, outputOption);
-
-return await rootCommand.InvokeAsync(args);
+return await rootCommand.Parse(args).InvokeAsync();
