@@ -249,7 +249,7 @@ RUN dotnet run
 ```
 AI 代理工作流程：
 1. 读取 llms.txt (5KB) → 快速了解组件分类
-2. 按需读取 llms-{category}.txt → 获取详细参数
+2. 按需读取 llms-{component}.txt → 获取详细参数
 3. 不确定时查阅 GitHub 源码 → 获取准确信息
 4. 参考 Samples 目录 → 学习官方用法
 ```

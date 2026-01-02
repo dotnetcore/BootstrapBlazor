@@ -23,7 +23,7 @@ AI coding assistants (Claude Code, Cursor, GitHub Copilot) often generate incorr
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│              Output: wwwroot/llms/                       │
+│              Output: wwwroot/llms/                          │
 ├─────────────────────────────────────────────────────────────┤
 │  llms.txt              → Index with quick start guide       │
 │  llms-table.txt        → Table component documentation      │
