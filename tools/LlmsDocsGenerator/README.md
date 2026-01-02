@@ -82,9 +82,44 @@ Components are automatically grouped into categories:
 | form | ValidateForm, EditorForm |
 | other | All other components |
 
+## Installation
+
+### Install as Global Tool
+
+```bash
+dotnet pack tools/LlmsDocsGenerator
+dotnet tool install --global --add-source ./tools/LlmsDocsGenerator/bin/Release BootstrapBlazor.LlmsDocsGenerator
+```
+
+Or install from NuGet (once published):
+
+```bash
+dotnet tool install --global BootstrapBlazor.LlmsDocsGenerator
+```
+
+### Update Tool
+
+```bash
+dotnet tool update --global BootstrapBlazor.LlmsDocsGenerator
+```
+
+### Uninstall Tool
+
+```bash
+dotnet tool uninstall --global BootstrapBlazor.LlmsDocsGenerator
+```
+
 ## Usage
 
+Once installed as a global tool, use the `bbllmsdocs` command:
+
 ### Generate All Documentation
+
+```bash
+bbllmsdocs
+```
+
+Or when running from source:
 
 ```bash
 dotnet run --project tools/LlmsDocsGenerator
@@ -93,19 +128,19 @@ dotnet run --project tools/LlmsDocsGenerator
 ### Generate Specific Component
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --component Table
+bbllmsdocs --component Table
 ```
 
 ### Generate Index Only
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --index-only
+bbllmsdocs --index-only
 ```
 
 ### Check Freshness (CI/CD)
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --check
+bbllmsdocs --check
 ```
 
 Returns exit code 1 if documentation is outdated.
@@ -113,7 +148,13 @@ Returns exit code 1 if documentation is outdated.
 ### Custom Output Directory
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --output ./docs
+bbllmsdocs --output ./docs
+```
+
+### Show Help
+
+```bash
+bbllmsdocs --help
 ```
 
 ## CI/CD Integration

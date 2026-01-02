@@ -6,6 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>LlmsDocsGenerator</RootNamespace>
+
+    <!-- CLI Tool Configuration -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>bbllmsdocs</ToolCommandName>
+    <PackageId>BootstrapBlazor.LlmsDocsGenerator</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>BootstrapBlazor</Authors>
+    <Company>BootstrapBlazor</Company>
+    <Description>A CLI tool to generate LLM-friendly documentation for BootstrapBlazor components</Description>
+    <PackageProjectUrl>https://github.com/dotnetcore/BootstrapBlazor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor</RepositoryUrl>
+    <PackageTags>blazor;bootstrap;documentation;llm;ai</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

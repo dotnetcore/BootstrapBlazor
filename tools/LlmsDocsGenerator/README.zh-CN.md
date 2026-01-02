@@ -82,9 +82,44 @@ var summary = ExtractXmlSummary(property);
 | form | ValidateForm, EditorForm |
 | other | 其他所有组件 |
 
+## 安装dotnet tool install --global --add-source ./tools/LlmsDocsGenerator/bin/Debug BootstrapBlazor.LlmsDocsGenerator
+
+### 作为全局工具安装
+
+```bash
+dotnet pack tools/LlmsDocsGenerator
+dotnet tool install --global --add-source ./tools/LlmsDocsGenerator/bin/Release BootstrapBlazor.LlmsDocsGenerator
+```
+
+或从 NuGet 安装（发布后）：
+
+```bash
+dotnet tool install --global BootstrapBlazor.LlmsDocsGenerator
+```
+
+### 更新工具
+
+```bash
+dotnet tool update --global BootstrapBlazor.LlmsDocsGenerator
+```
+
+### 卸载工具
+
+```bash
+dotnet tool uninstall --global BootstrapBlazor.LlmsDocsGenerator
+```
+
 ## 使用方法
 
+安装为全局工具后，使用 `bbllmsdocs` 命令：
+
 ### 生成所有文档
+
+```bash
+bbllmsdocs
+```
+
+或从源代码运行：
 
 ```bash
 dotnet run --project tools/LlmsDocsGenerator
@@ -93,19 +128,19 @@ dotnet run --project tools/LlmsDocsGenerator
 ### 生成特定组件
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --component Table
+bbllmsdocs --component Table
 ```
 
 ### 仅生成索引
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --index-only
+bbllmsdocs --index-only
 ```
 
 ### 检查文档是否过期（CI/CD）
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --check
+bbllmsdocs --check
 ```
 
 如果文档过期，返回退出码 1。
@@ -113,7 +148,13 @@ dotnet run --project tools/LlmsDocsGenerator -- --check
 ### 自定义输出目录
 
 ```bash
-dotnet run --project tools/LlmsDocsGenerator -- --output ./docs
+bbllmsdocs --output ./docs
+```
+
+### 显示帮助
+
+```bash
+bbllmsdocs --help
 ```
 
 ## CI/CD 集成
