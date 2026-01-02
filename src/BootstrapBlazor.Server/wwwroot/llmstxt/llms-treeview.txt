@@ -41,11 +41,11 @@ Tree 组件
 | ClickToggleNode | `bool` | - | 获得/设置 是否点击节点时展开或者收缩子项 默认 false |
 | ExpandNodeIcon | `string?` | - | 获得/设置 Tree Node 展开节点图标 |
 | IsAccordion | `bool` | - | 获得/设置 是否为手风琴效果 默认为 false |
-| Items | `List<TreeItem??` | - | 获得/设置 菜单数据集合 |
+| Items | `List<TreeItem>?` | - | 获得/设置 菜单数据集合 |
 | NodeIcon | `string?` | - | 获得/设置 Tree Node 节点图标 |
-| OnExpandNode | `Func<TreeItem, Task??` | - | 获得/设置 节点展开前回调委托 |
-| OnTreeItemChecked | `Func<List<TreeItem?, Task??` | - | 获得/设置 树形控件节点选中时回调委托 |
-| OnTreeItemClick | `Func<TreeItem, Task??` | - | 获得/设置 树形控件节点点击时回调委托 |
+| OnExpandNode | `Func<TreeItem, Task>?` | - | 获得/设置 节点展开前回调委托 |
+| OnTreeItemChecked | `Func<List<TreeItem>, Task>?` | - | 获得/设置 树形控件节点选中时回调委托 |
+| OnTreeItemClick | `Func<TreeItem, Task>?` | - | 获得/设置 树形控件节点点击时回调委托 |
 | ShowCheckbox | `bool` | - | 获得/设置 是否显示 CheckBox 默认 false 不显示 |
 | ShowIcon | `bool` | - | 获得/设置 是否显示 Icon 图标 默认 false 不显示 |
 | ShowRadio | `bool` | - | 获得/设置 是否显示 Radio 默认 false 不显示 |
@@ -55,7 +55,7 @@ Tree 组件
 
 ### Public Methods
 
-- `IEnumerable<TreeItem? GetCheckedItems()`
+- `IEnumerable<TreeItem> GetCheckedItems()`
   - 获得 所有选中节点集合
 
 ### Source
@@ -91,19 +91,19 @@ Tree component
 | IsAccordion | `bool` | - | Gets or sets whether the tree view has accordion behavior. Default is false. Accordion behavior is not supported in virtual scrolling mode. |
 | IsDisabled | `bool` | - | Gets or sets whether the entire component is disabled. Default is false. |
 | IsVirtualize | `bool` | - | Gets or sets whether to enable virtual scrolling. Default is false. |
-| Items | `List<TreeViewItem<TItem???` | - | Gets or sets the hierarchical data collection. |
+| Items | `List<TreeViewItem<TItem>>?` | - | Gets or sets the hierarchical data collection. |
 | LoadingIcon | `string?` | - | Gets or sets the loading icon for tree nodes. |
 | MaxSelectedCount | `int` | - | Gets or sets the maximum number of selected items. |
-| ModelEqualityComparer | `Func<TItem, TItem, bool??` | - | <inheritdoc/> |
+| ModelEqualityComparer | `Func<TItem, TItem, bool>?` | - | <inheritdoc/> |
 | NodeIcon | `string?` | - | Gets or sets the icon for tree nodes. |
-| OnBeforeTreeItemClick | `Func<TreeViewItem<TItem?, Task<bool???` | - | 获得/设置 点击节点前回调方法 |
-| OnDragItemEndAsync | `Func<TreeViewDragContext<TItem?, Task??` | - | 获得/设置 拖动标签页结束回调方法 |
-| OnExpandNodeAsync | `Func<TreeViewItem<TItem?, Task<IEnumerable<TreeViewItem<TItem?????` | - | Gets or sets the callback method to get child data when a node is expanded. |
-| OnMaxSelectedCountExceed | `Func<Task??` | - | Gets or sets the callback method when the maximum number of selected items is exceeded. |
-| OnSearchAsync | `Func<string?, Task<List<TreeViewItem<TItem??????` | - | Gets or sets the search callback method. Default is null. |
-| OnTreeItemChecked | `Func<List<TreeViewItem<TItem??, Task??` | - | Gets or sets the callback method when a tree item is checked. |
-| OnTreeItemClick | `Func<TreeViewItem<TItem?, Task??` | - | Gets or sets the callback method when a tree item is clicked. |
-| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool???` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
+| OnBeforeTreeItemClick | `Func<TreeViewItem<TItem>, Task<bool>>?` | - | 获得/设置 点击节点前回调方法 |
+| OnDragItemEndAsync | `Func<TreeViewDragContext<TItem>, Task>?` | - | 获得/设置 拖动标签页结束回调方法 |
+| OnExpandNodeAsync | `Func<TreeViewItem<TItem>, Task<IEnumerable<TreeViewItem<TItem>>>>?` | - | Gets or sets the callback method to get child data when a node is expanded. |
+| OnMaxSelectedCountExceed | `Func<Task>?` | - | Gets or sets the callback method when the maximum number of selected items is exceeded. |
+| OnSearchAsync | `Func<string?, Task<List<TreeViewItem<TItem>>?>>?` | - | Gets or sets the search callback method. Default is null. |
+| OnTreeItemChecked | `Func<List<TreeViewItem<TItem>>, Task>?` | - | Gets or sets the callback method when a tree item is checked. |
+| OnTreeItemClick | `Func<TreeViewItem<TItem>, Task>?` | - | Gets or sets the callback method when a tree item is clicked. |
+| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool>>?` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
 | OverscanCount | `int` | 10 | Gets or sets the overscan count for virtual scrolling. Default is 10. |
 | RowHeight | `float` | 29f | Gets or sets the row height for virtual scrolling. Default is 29f. |
 | ScrollIntoViewOptions | `ScrollIntoViewOptions?` | - | Gets or sets the scroll into view options for keyboard navigation. Default is null, using { behavior: "smooth", block: "nearest", inline: "start" }. |
@@ -115,10 +115,10 @@ Tree component
 | ShowSearch | `bool` | - | Gets or sets whether to show the search bar. Default is false. |
 | ShowSkeleton | `bool` | - | Gets or sets whether to show the loading skeleton. Default is false. |
 | ShowToolbar | `bool` | - | Gets or sets whether show the toolbar of tree view item. Default is false. |
-| ShowToolbarCallback | `Func<TreeViewItem<TItem?, Task<bool???` | - | Gets or sts A callback method that determines whether to show the toolbar of the tree view item. |
+| ShowToolbarCallback | `Func<TreeViewItem<TItem>, Task<bool>>?` | - | Gets or sts A callback method that determines whether to show the toolbar of the tree view item. |
 | ToolbarEditLabelText | `string?` | - | Gets or sets the title of the popup-window. Default is null. |
 | ToolbarEditTitle | `string?` | - | Gets or sets the title of the popup-window. Default is null. |
-| ToolbarTemplate | `RenderFragment<TItem??` | - | Gets or sets the toolbar content template. Default is null. |
+| ToolbarTemplate | `RenderFragment<TItem>?` | - | Gets or sets the toolbar content template. Default is null. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -128,16 +128,16 @@ Tree component
   - Clear all selected nodes
 - `bool Equals(TItem? x, TItem? y)`
   - Check if the data is the same
-- `IEnumerable<TreeViewItem<TItem?? GetCheckedItems()`
+- `IEnumerable<TreeViewItem<TItem>> GetCheckedItems()`
   - Gets all selected node collections
-- `Task<List<CheckboxState?? GetParentsState(List<int? items)`
+- `Task<List<CheckboxState>> GetParentsState(List<int> items)`
   - Client-side method to query the state of the specified row checkbox, called by JavaScript
   - *[JSInvokable]*
-- `void SetActiveItem(TreeViewItem<TItem?? item)`
+- `void SetActiveItem(TreeViewItem<TItem>? item)`
   - Set the active node
 - `void SetActiveItem(TItem item)`
   - Set the active node
-- `void SetItems(List<TreeViewItem<TItem?? items)`
+- `void SetItems(List<TreeViewItem<TItem>> items)`
   - Set the data source method for <see cref="Items"/>
 - `ValueTask TriggerDragEnd(int originIndex, int currentIndex, bool isChildren)`
   - Triggers the end of a drag-and-drop operation within the tree view.
@@ -170,22 +170,22 @@ TreeViewRow component
 | Index | `int` | - | Gets or sets the node index. Default is 0. |
 | IsActive | `bool` | - | Gets or sets whether the node is active. Default is false. |
 | IsDisabled | `bool` | - | Gets or sets whether the entire component is disabled. Default is false. |
-| Item | `TreeViewItem<TItem??` | - | Gets or sets the tree node item. Default is null. |
+| Item | `TreeViewItem<TItem>?` | - | Gets or sets the tree node item. Default is null. |
 | LoadingIcon | `string?` | - | Gets or sets the loading icon for tree nodes. |
 | MaxSelectedCount | `int` | - | Gets or sets the maximum number of selected items. |
 | NodeIcon | `string?` | - | Gets or sets the icon for tree nodes. |
-| OnBeforeStateChangedCallback | `Func<TreeViewItem<TItem?, CheckboxState, Task<bool???` | - | Gets or sets the callback that is invoked before the node state changes. |
-| OnCheckStateChanged | `Func<TreeViewItem<TItem?, CheckboxState, Task??` | - | Get or sets the node checkbox state change event callback. |
-| OnClick | `Func<TreeViewItem<TItem?, Task??` | - | Gets or sets the click event callback. Default is null. |
-| OnToggleNodeAsync | `Func<TreeViewItem<TItem?, Task??` | - | Get or sets the node click event callback. |
-| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool???` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
+| OnBeforeStateChangedCallback | `Func<TreeViewItem<TItem>, CheckboxState, Task<bool>>?` | - | Gets or sets the callback that is invoked before the node state changes. |
+| OnCheckStateChanged | `Func<TreeViewItem<TItem>, CheckboxState, Task>?` | - | Get or sets the node checkbox state change event callback. |
+| OnClick | `Func<TreeViewItem<TItem>, Task>?` | - | Gets or sets the click event callback. Default is null. |
+| OnToggleNodeAsync | `Func<TreeViewItem<TItem>, Task>?` | - | Get or sets the node click event callback. |
+| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool>>?` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
 | ShowCheckbox | `bool` | - | Gets or sets whether to show checkboxes. Default is false. |
 | ShowIcon | `bool` | - | Gets or sets whether to show icons. Default is false. |
 | ShowToolbar | `bool` | - | Gets or sets whether show the toolbar of tree view item. Default is false. |
-| ShowToolbarCallback | `Func<TreeViewItem<TItem?, Task<bool???` | - | A callback method that determines whether to show the toolbar of the tree view item. |
+| ShowToolbarCallback | `Func<TreeViewItem<TItem>, Task<bool>>?` | - | A callback method that determines whether to show the toolbar of the tree view item. |
 | ToolbarEditLabelText | `string?` | - | Gets or sets the title of the popup-window. Default is null. |
 | ToolbarEditTitle | `string?` | - | Gets or sets the title of the popup-window. Default is null. |
-| ToolbarTemplate | `RenderFragment<TItem??` | - | Gets or sets the toolbar content template. Default is null. |
+| ToolbarTemplate | `RenderFragment<TItem>?` | - | Gets or sets the toolbar content template. Default is null. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -195,4 +195,4 @@ TreeViewRow component
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

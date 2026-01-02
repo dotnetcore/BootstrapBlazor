@@ -30,7 +30,7 @@ Card 组件
 | IsCenter | `bool` | - | 获得/设置 是否居中 默认 false |
 | IsCollapsible | `bool` | - | 获得/设置 是否可收缩 默认 false |
 | IsShadow | `bool` | - | 获得/设置 是否显示阴影 默认 false |
-| CollapsedChanged | `EventCallback<bool?` | - | 获得/设置 是否收缩 默认 false 展开 |
+| CollapsedChanged | `EventCallback<bool>` | - | 获得/设置 是否收缩 默认 false 展开 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -38,7 +38,7 @@ Card 组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| CollapsedChanged | `EventCallback<bool?` | 获得/设置 是否收缩 默认 false 展开 |
+| CollapsedChanged | `EventCallback<bool>` | 获得/设置 是否收缩 默认 false 展开 |
 
 ### Public Methods
 
@@ -65,14 +65,14 @@ CardUpload component
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| ActionButtonTemplate | `RenderFragment<UploadFile??` | - | 获得/设置 操作按钮模板 |
+| ActionButtonTemplate | `RenderFragment<UploadFile>?` | - | 获得/设置 操作按钮模板 |
 | AddIcon | `string?` | - | 获得/设置 新建图标 |
-| AllowExtensions | `List<string??` | - | 获得/设置 图标文件扩展名集合 ".png" |
-| BeforeActionButtonTemplate | `RenderFragment<UploadFile??` | - | 获得/设置 操作按钮模板 |
-| CanPreviewCallback | `Func<UploadFile, bool??` | - | 获得/设置 是否允许预览回调方法 默认 null |
-| IconTemplate | `RenderFragment<UploadFile??` | - | 获得/设置 图标模板 |
+| AllowExtensions | `List<string>?` | - | 获得/设置 图标文件扩展名集合 ".png" |
+| BeforeActionButtonTemplate | `RenderFragment<UploadFile>?` | - | 获得/设置 操作按钮模板 |
+| CanPreviewCallback | `Func<UploadFile, bool>?` | - | 获得/设置 是否允许预览回调方法 默认 null |
+| IconTemplate | `RenderFragment<UploadFile>?` | - | 获得/设置 图标模板 |
 | IsUploadButtonAtFirst | `bool` | - | 获得/设置 继续上传按钮是否在列表前 默认 false |
-| OnZoomAsync | `Func<UploadFile, Task??` | - | 获得/设置 点击 Zoom 图标回调方法 |
+| OnZoomAsync | `Func<UploadFile, Task>?` | - | 获得/设置 点击 Zoom 图标回调方法 |
 | RemoveIcon | `string?` | - | 获得/设置 移除图标 |
 | ShowFileSize | `bool` | true | 获得/设置 是否显示文件尺寸，默认为 true 显示 |
 | ShowZoomButton | `bool` | true | 获得/设置 是否显示放大按钮 默认 true |
@@ -97,7 +97,7 @@ Collapse 组件
 |-----------|------|---------|-------------|
 | CollapseItems | `RenderFragment?` | - | 获得/设置 CollapseItems 模板 |
 | IsAccordion | `bool` | - | 获得/设置 是否为手风琴效果 默认为 false |
-| OnCollapseChanged | `Func<CollapseItem, Task??` | - | 获得/设置 CollapseItem 展开收缩时回调方法 |
+| OnCollapseChanged | `Func<CollapseItem, Task>?` | - | 获得/设置 CollapseItem 展开收缩时回调方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -125,4 +125,4 @@ Collapse 组件
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

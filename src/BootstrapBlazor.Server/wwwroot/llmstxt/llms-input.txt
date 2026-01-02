@@ -31,7 +31,7 @@ BootstrapInput 组件
 | AutoSetDefaultWhenNull | `bool` | - | 获得/设置 用户删除后是否自动更改为默认值 0 默认 false |
 | ClearIcon | `string?` | - | 获得/设置 清空小按钮图标 默认 null |
 | IsClearable | `bool` | - | 获得/设置 是否显示清空小按钮 默认 false |
-| OnClear | `Func<TValue, Task??` | - | 获得/设置 清空文本框时回调方法 默认 null |
+| OnClear | `Func<TValue, Task>?` | - | 获得/设置 清空文本框时回调方法 默认 null |
 | Readonly | `bool` | - | 获得/设置 是否为只读 默认 false |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -58,14 +58,14 @@ Base class for BootstrapInput components
 |-----------|------|---------|-------------|
 | Color | `Color` | Color.None | Gets or sets the button color |
 | FormatString | `string?` | - | Gets or sets the format string, e.g., "yyyy-MM-dd" for date types |
-| Formatter | `Func<TValue?, string??` | - | Gets or sets the formatter function |
+| Formatter | `Func<TValue?, string>?` | - | Gets or sets the formatter function |
 | IsAutoFocus | `bool` | - | Gets or sets whether to automatically focus, default is false |
 | IsSelectAllTextOnEnter | `bool` | - | Gets or sets whether to automatically select all text on Enter key press, default is false |
 | IsSelectAllTextOnFocus | `bool` | - | Gets or sets whether to automatically select all text on focus, default is false |
 | IsTrim | `bool` | - | Gets or sets whether to automatically trim whitespace, default is false |
-| OnBlurAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for blur event, default is null |
-| OnEnterAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for Enter key press, default is null |
-| OnEscAsync | `Func<TValue, Task??` | - | Gets or sets the callback method for Esc key press, default is null |
+| OnBlurAsync | `Func<TValue, Task>?` | - | Gets or sets the callback method for blur event, default is null |
+| OnEnterAsync | `Func<TValue, Task>?` | - | Gets or sets the callback method for Enter key press, default is null |
+| OnEscAsync | `Func<TValue, Task>?` | - | Gets or sets the callback method for Esc key press, default is null |
 | PlaceHolder | `string?` | - | Gets or sets the placeholder attribute value |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -162,8 +162,8 @@ An input component for editing numeric values. Supported numeric types are <see 
 | Max | `string?` | - | 获得/设置 最大值 |
 | Min | `string?` | - | 获得/设置 最小值 |
 | MinusIcon | `string?` | - | 获得/设置 减小数值图标 |
-| OnDecrement | `Func<TValue?, Task??` | - | 获得/设置 数值减少时回调委托 |
-| OnIncrement | `Func<TValue?, Task??` | - | 获得/设置 数值增加时回调委托 |
+| OnDecrement | `Func<TValue?, Task>?` | - | 获得/设置 数值减少时回调委托 |
+| OnIncrement | `Func<TValue?, Task>?` | - | 获得/设置 数值增加时回调委托 |
 | PlusIcon | `string?` | - | 获得/设置 增加数值图标 |
 | ShowButton | `bool` | - | 获得/设置 是否显示加减按钮 |
 | Step | `string?` | - | 获得/设置 步长 默认为 null |
@@ -262,4 +262,4 @@ Textarea component
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

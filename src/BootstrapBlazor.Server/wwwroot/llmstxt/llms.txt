@@ -141,5 +141,5 @@ public bool ShowToolbar { get; set; }
 ```
 
 ---
-Generated: 2026-01-01
+Generated: 2026-01-02
 Repository: https://github.com/dotnetcore/BootstrapBlazor/blob/main/

@@ -32,8 +32,8 @@ Dialog 组件基类
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| BodyTemplate | `RenderFragment<TModel??` | - | 获得/设置 BodyTemplate 实例 |
-| Items | `IEnumerable<IEditorItem??` | - | 获得 数据项集合 |
+| BodyTemplate | `RenderFragment<TModel>?` | - | 获得/设置 BodyTemplate 实例 |
+| Items | `IEnumerable<IEditorItem>?` | - | 获得 数据项集合 |
 | ItemsPerRow | `int?` | - | 获得/设置 每行显示组件数量 默认为 null |
 | LabelAlign | `Alignment` | - | 获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐 |
 | Model | `TModel?` | - | 获得/设置 EditModel 实例 |
@@ -65,14 +65,14 @@ Drawer component
 | IsBackdrop | `bool` | - | 获得/设置 点击遮罩是否关闭抽屉 默认为 false |
 | IsKeyboard | `bool` | - | 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false |
 | IsOpen | `bool` | - | 获得/设置 抽屉是否打开 默认 false 未打开 |
-| OnClickBackdrop | `Func<Task??` | - | 获得/设置 点击背景遮罩时回调委托方法 默认为 null |
-| OnCloseAsync | `Func<Task??` | - | 获得/设置 关闭抽屉回调委托 默认 null |
+| OnClickBackdrop | `Func<Task>?` | - | 获得/设置 点击背景遮罩时回调委托方法 默认为 null |
+| OnCloseAsync | `Func<Task>?` | - | 获得/设置 关闭抽屉回调委托 默认 null |
 | Placement | `Placement` | Placement.Left | 获得/设置 组件出现位置 默认显示在 Left 位置 |
 | Position | `string?` | - | 获得/设置 组件定位位置 默认 null 未设置 使用样式内置定位 fixed 可更改为 absolute |
 | ShowBackdrop | `bool` | true | 获得/设置 是否显示遮罩 默认为 true 显示遮罩 |
 | Width | `string` | "360px" | 获得/设置 抽屉宽度 左右布局时生效 |
 | ZIndex | `int?` | - | 获得/设置 z-index 参数值 默认 null 未设置 |
-| IsOpenChanged | `EventCallback<bool?` | - | 获得/设置 IsOpen 属性改变时回调委托方法 |
+| IsOpenChanged | `EventCallback<bool>` | - | 获得/设置 IsOpen 属性改变时回调委托方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -80,7 +80,7 @@ Drawer component
 
 | Event | Type | Description |
 |-------|------|-------------|
-| IsOpenChanged | `EventCallback<bool?` | 获得/设置 IsOpen 属性改变时回调委托方法 |
+| IsOpenChanged | `EventCallback<bool>` | 获得/设置 IsOpen 属性改变时回调委托方法 |
 
 ### Public Methods
 
@@ -112,11 +112,11 @@ Drawer component
 | CloseButtonIcon | `string?` | - | 获得/设置 关闭按钮图标 |
 | CloseButtonText | `string?` | - | 获得/设置 获得/设置 重置按钮文本 |
 | DisableAutoSubmitFormByEnter | `bool?` | - | 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置 |
-| FooterTemplate | `RenderFragment<TModel??` | - | 获得/设置 DialogFooterTemplate 实例 |
+| FooterTemplate | `RenderFragment<TModel>?` | - | 获得/设置 DialogFooterTemplate 实例 |
 | IsTracking | `bool` | - | 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false |
 | ItemChangedType | `ItemChangedType` | - | 获得/设置 实体类编辑模式 Add 还是 Update |
-| OnCloseAsync | `Func<Task??` | - | 获得/设置 关闭弹窗回调方法 |
-| OnSaveAsync | `Func<EditContext, Task<bool???` | - | 获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗 |
+| OnCloseAsync | `Func<Task>?` | - | 获得/设置 关闭弹窗回调方法 |
+| OnSaveAsync | `Func<EditContext, Task<bool>>?` | - | 获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗 |
 | SaveButtonIcon | `string?` | - | 获得/设置 保存按钮图标 |
 | SaveButtonText | `string?` | - | 获得/设置 保存按钮文本 |
 | ShowLoading | `bool` | - | 获得/设置 查询时是否显示正在加载中动画 默认为 false |
@@ -196,12 +196,12 @@ Modal component
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | ChildContent | `RenderFragment?` | - | Gets or sets the child component |
-| FirstAfterRenderCallbackAsync | `Func<Modal, Task??` | - | Gets or sets the callback method when the component has finished rendering |
+| FirstAfterRenderCallbackAsync | `Func<Modal, Task>?` | - | Gets or sets the callback method when the component has finished rendering |
 | IsBackdrop | `bool` | - | Gets or sets whether to close the popup in the background, default is false |
 | IsFade | `bool?` | - | Gets or sets whether to enable fade in and out animation, default is null |
 | IsKeyboard | `bool` | true | Gets or sets whether to enable keyboard support, default is true to respond to the ESC key |
-| OnCloseAsync | `Func<Task??` | - | Gets or sets the callback delegate when the popup is closed |
-| OnShownAsync | `Func<Task??` | - | Gets or sets the callback method when the popup is shown |
+| OnCloseAsync | `Func<Task>?` | - | Gets or sets the callback delegate when the popup is closed |
+| OnShownAsync | `Func<Task>?` | - | Gets or sets the callback method when the popup is shown |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -212,7 +212,7 @@ Modal component
 - `Task CloseCallback()`
   - Callback method when the popup has been closed, called by JSInvoke
   - *[JSInvokable]*
-- `void RegisterShownCallback(IComponent component, Func<Task? value)`
+- `void RegisterShownCallback(IComponent component, Func<Task> value)`
   - Registers a callback method to be called after the popup is shown, equivalent to setting the OnShownAsync parameter
 - `void SetHeaderText(string text)`
   - Method to set the header text
@@ -252,7 +252,7 @@ ModalDialog 组件
 | FooterContentTemplate | `RenderFragment?` | - | Gets or sets the footer content template. Default is null. |
 | FooterTemplate | `RenderFragment?` | - | 获得/设置 ModalFooter 组件 |
 | FullScreenSize | `FullScreenSize` | - | 获得/设置 弹窗大小 默认为 <see cref="FullScreenSize.None"/> |
-| GetResultDialog | `Func<IResultDialog???` | - | 获得/设置 获得模态弹窗方法 默认 null |
+| GetResultDialog | `Func<IResultDialog?>?` | - | 获得/设置 获得模态弹窗方法 默认 null |
 | HeaderTemplate | `RenderFragment?` | - | 获得/设置 ModalHeader 组件 |
 | HeaderToolbarTemplate | `RenderFragment?` | - | 获得/设置 Header 中按钮模板 |
 | IsAutoCloseAfterSave | `bool` | true | 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭 |
@@ -261,12 +261,12 @@ ModalDialog 组件
 | IsHidePreviousDialog | `bool` | - | Gets or sets whether to hide the previous dialog when opening a new one, default is false |
 | IsScrolling | `bool` | - | 获得/设置 是否弹窗正文超长时滚动 默认为 false |
 | MaximizeWindowIcon | `string?` | - | 获得/设置 最大化按钮图标 |
-| OnSaveAsync | `Func<Task<bool???` | - | 获得/设置 保存按钮回调委托 返回 true 并且设置 <see cref="IsAutoCloseAfterSave"/> true 时自动关闭弹窗 |
+| OnSaveAsync | `Func<Task<bool>>?` | - | 获得/设置 保存按钮回调委托 返回 true 并且设置 <see cref="IsAutoCloseAfterSave"/> true 时自动关闭弹窗 |
 | PrintButtonColor | `Color` | Color.Primary | 获得/设置 打印按钮颜色 默认 Color.Primary |
 | PrintButtonIcon | `string?` | - | 获得/设置 打印按钮图标 未设置 取当前图标主题下打印图标 |
 | PrintButtonText | `string?` | - | 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 |
 | RestoreWindowIcon | `string?` | - | 获得/设置 恢复按钮图标 |
-| ResultTask | `TaskCompletionSource<DialogResult??` | - | 获得/设置 模态弹窗任务 <see cref="TaskCompletionSource{TResult}"/> 实例 默认 null |
+| ResultTask | `TaskCompletionSource<DialogResult>?` | - | 获得/设置 模态弹窗任务 <see cref="TaskCompletionSource{TResult}"/> 实例 默认 null |
 | SaveButtonIcon | `string?` | - | 获得/设置 保存按钮显示图标 未设置时 使用主题图标 |
 | SaveButtonText | `string?` | - | 获得/设置 保存按钮显示文字 资源文件设置为 保存 |
 | ShowCloseButton | `bool` | true | 获得/设置 是否显示关闭按钮 默认为 true 显示 |
@@ -287,7 +287,7 @@ ModalDialog 组件
 
 ### Public Methods
 
-- `Task HandlerException(Exception ex, RenderFragment<Exception? errorContent)`
+- `Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)`
   - <inheritdoc/>
 - `void SetHeaderText(string text)`
   - 设置 Header 文字方法
@@ -336,8 +336,8 @@ ResultDialog 对话框类
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | ClearIcon | `string?` | - | 获得/设置 清空按钮图标 |
-| OnResetSearchClick | `Func<Task??` | - | 获得/设置 重置回调委托 |
-| OnSearchClick | `Func<Task??` | - | 获得/设置 搜索回调委托 |
+| OnResetSearchClick | `Func<Task>?` | - | 获得/设置 重置回调委托 |
+| OnSearchClick | `Func<Task>?` | - | 获得/设置 搜索回调委托 |
 | QueryButtonText | `string?` | - | 获得/设置 查询按钮文本 |
 | ResetButtonText | `string?` | - | 获得/设置 重置按钮文本 |
 | SearchIcon | `string?` | - | 获得/设置 搜索按钮图标 |
@@ -405,4 +405,4 @@ Toast 弹出窗组件
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

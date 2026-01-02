@@ -83,7 +83,7 @@ Breadcrumb 组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Value | `IEnumerable<BreadcrumbItem??` | - | 获得/设置 数据集 |
+| Value | `IEnumerable<BreadcrumbItem>?` | - | 获得/设置 数据集 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -103,7 +103,7 @@ ContextMenu 组件
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | ChildContent | `RenderFragment?` | - | 获得/设置 子组件 |
-| OnBeforeShowCallback | `Func<object?, Task??` | - | 获得/设置 弹出前回调方法 默认 null |
+| OnBeforeShowCallback | `Func<object?, Task>?` | - | 获得/设置 弹出前回调方法 默认 null |
 | ShowShadow | `bool` | true | 获得/设置 是否显示阴影 默认 true |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -141,7 +141,7 @@ ContextMenuZone 组件
 |-----------|------|---------|-------------|
 | GotoText | `string?` | - | 获得/设置 跳转文本 默认 null |
 | Index | `int` | - | 获得/设置 跳转页码 默认 null |
-| OnNavigation | `Func<int, Task??` | - | 获得/设置 导航回调方法 默认 null |
+| OnNavigation | `Func<int, Task>?` | - | 获得/设置 导航回调方法 默认 null |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -167,8 +167,8 @@ Menu 组件基类
 | IsExpandAll | `bool` | - | 获得/设置 是否全部展开 默认为 false |
 | IsScrollIntoView | `bool` | true | 获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效 |
 | IsVertical | `bool` | - | 获得/设置 侧栏垂直模式 默认 false |
-| Items | `IEnumerable<MenuItem??` | - | 获得/设置 菜单数据集合 |
-| OnClick | `Func<MenuItem, Task??` | - | 获得/设置 菜单项点击回调委托 |
+| Items | `IEnumerable<MenuItem>?` | - | 获得/设置 菜单数据集合 |
+| OnClick | `Func<MenuItem, Task>?` | - | 获得/设置 菜单项点击回调委托 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -212,7 +212,7 @@ NavMenu 组件基类
 | IsJustified | `bool` | - | 获得/设置 是否等宽 |
 | IsPills | `bool` | - | 获得/设置 是否为胶囊 |
 | IsVertical | `bool` | - | 获得/设置 是否垂直分布 |
-| Items | `IEnumerable<NavLink??` | - | 获得/设置 组件数据源 |
+| Items | `IEnumerable<NavLink>?` | - | 获得/设置 组件数据源 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -347,14 +347,14 @@ RibbonTab 组件
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | ChildContent | `RenderFragment?` | - | 获得/设置 内容模板 |
-| DecodeAnchorCallback | `Func<string, string???` | - | 解码锚点回调方法 |
-| EncodeAnchorCallback | `Func<string, string?, string???` | - | 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径 |
+| DecodeAnchorCallback | `Func<string, string?>?` | - | 解码锚点回调方法 |
+| EncodeAnchorCallback | `Func<string, string?, string?>?` | - | 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径 |
 | IsBorder | `bool` | true | 获得/设置 是否为带边框卡片样式 默认 true |
 | IsSupportAnchor | `bool` | - | 获得/设置 是否开启 Url 锚点 |
-| Items | `IEnumerable<RibbonTabItem??` | - | 获得/设置 数据源 |
-| OnFloatChanged | `Func<bool, Task??` | - | 获得/设置 组件是否悬浮状态改变时回调方法 默认 null |
-| OnItemClickAsync | `Func<RibbonTabItem, Task??` | - | 获得/设置 点击命令按钮回调方法 |
-| OnMenuClickAsync | `Func<RibbonTabItem, Task??` | - | 获得/设置 点击标签 Menu 回调方法 |
+| Items | `IEnumerable<RibbonTabItem>?` | - | 获得/设置 数据源 |
+| OnFloatChanged | `Func<bool, Task>?` | - | 获得/设置 组件是否悬浮状态改变时回调方法 默认 null |
+| OnItemClickAsync | `Func<RibbonTabItem, Task>?` | - | 获得/设置 点击命令按钮回调方法 |
+| OnMenuClickAsync | `Func<RibbonTabItem, Task>?` | - | 获得/设置 点击标签 Menu 回调方法 |
 | RibbonArrowDownIcon | `string?` | - | 获得/设置 选项卡向下箭头图标 |
 | RibbonArrowPinIcon | `string?` | - | 获得/设置 选项卡可固定图标 |
 | RibbonArrowUpIcon | `string?` | - | 获得/设置 选项卡向上箭头图标 |
@@ -386,13 +386,13 @@ Header 组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Items | `IEnumerable<RibbonTabItem??` | - | 获得/设置 数据源 **[Required]** |
-| DecodeAnchorCallback | `Func<string, string???` | - | 解码锚点回调方法 |
-| EncodeAnchorCallback | `Func<string, string?, string???` | - | 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径 |
+| Items | `IEnumerable<RibbonTabItem>?` | - | 获得/设置 数据源 **[Required]** |
+| DecodeAnchorCallback | `Func<string, string?>?` | - | 解码锚点回调方法 |
+| EncodeAnchorCallback | `Func<string, string?, string?>?` | - | 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径 |
 | IsSupportAnchor | `bool` | - | 获得/设置 是否开启 Url 锚点 |
-| OnFloatChanged | `Func<bool, Task??` | - | 获得/设置 组件是否悬浮状态改变时回调方法 默认 null |
-| OnItemClickAsync | `Func<RibbonTabItem, Task??` | - | 获得/设置 点击命令按钮回调方法 |
-| OnMenuClickAsync | `Func<RibbonTabItem, Task??` | - | 获得/设置 点击标签 Menu 回调方法 |
+| OnFloatChanged | `Func<bool, Task>?` | - | 获得/设置 组件是否悬浮状态改变时回调方法 默认 null |
+| OnItemClickAsync | `Func<RibbonTabItem, Task>?` | - | 获得/设置 点击命令按钮回调方法 |
+| OnMenuClickAsync | `Func<RibbonTabItem, Task>?` | - | 获得/设置 点击标签 Menu 回调方法 |
 | RibbonArrowDownIcon | `string?` | - | 获得/设置 选项卡向下箭头图标 |
 | RibbonArrowPinIcon | `string?` | - | 获得/设置 选项卡可固定图标 |
 | RibbonArrowUpIcon | `string?` | - | 获得/设置 选项卡向上箭头图标 |
@@ -424,8 +424,8 @@ SideMenu 组件
 |-----------|------|---------|-------------|
 | ArrowIcon | `string?` | - | 获得/设置 菜单箭头图标 |
 | DropdownIcon | `string?` | - | 获得/设置 组件数据源 |
-| Items | `IEnumerable<MenuItem??` | - | 获得/设置 菜单数据集合 |
-| OnClick | `Func<MenuItem, Task??` | - | 获得/设置 菜单项点击回调委托 |
+| Items | `IEnumerable<MenuItem>?` | - | 获得/设置 菜单数据集合 |
+| OnClick | `Func<MenuItem, Task>?` | - | 获得/设置 菜单项点击回调委托 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -462,8 +462,8 @@ Step 组件类
 | ChildContent | `RenderFragment?` | - | 获得/设置 组件内容实例 |
 | FinishedTemplate | `RenderFragment?` | - | 获得/设置 步骤全部完成时模板 默认 null |
 | IsVertical | `bool` | - | 获得/设置 是否垂直渲染 默认 false 水平渲染 |
-| Items | `List<StepOption??` | - | 获得/设置 步骤集合 |
-| OnFinishedCallback | `Func<Task??` | - | 获得/设置 步骤全部完成时回调方法 |
+| Items | `List<StepOption>?` | - | 获得/设置 步骤集合 |
+| OnFinishedCallback | `Func<Task>?` | - | 获得/设置 步骤全部完成时回调方法 |
 | StepIndex | `int` | - | 获得/设置 当前步骤索引 默认 0 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -474,7 +474,7 @@ Step 组件类
   - 添加步骤到组件中
 - `void Insert(int index, StepOption option)`
   - 插入步骤到组件中
-- `Task<int? Next()`
+- `Task<int> Next()`
   - 移动到下一步方法 返回当前 StepIndex 值
 - `int Prev()`
   - 移动到上一步方法 返回当前 StepIndex 值
@@ -499,7 +499,7 @@ Step 组件类
 | ArrowIcon | `string?` | - | 获得/设置 菜单箭头图标 |
 | DropdownIcon | `string?` | - | 获得/设置 组件数据源 |
 | Item | `MenuItem?` | - | 获得/设置 组件数据源 |
-| OnClick | `Func<MenuItem, Task??` | - | 获得/设置 菜单项点击回调委托 |
+| OnClick | `Func<MenuItem, Task>?` | - | 获得/设置 菜单项点击回调委托 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -517,13 +517,13 @@ Tab component
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| AdditionalAssemblies | `IEnumerable<Assembly??` | - | 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs. |
-| AfterNavigatorTemplate | `RenderFragment<Tab??` | - | 获得/设置 标签页后置模板 默认 null <para>在向后移动标签页按钮前</para> |
+| AdditionalAssemblies | `IEnumerable<Assembly>?` | - | 获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs. |
+| AfterNavigatorTemplate | `RenderFragment<Tab>?` | - | 获得/设置 标签页后置模板 默认 null <para>在向后移动标签页按钮前</para> |
 | AllowDrag | `bool` | - | 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false |
-| BeforeContextMenuTemplate | `RenderFragment<Tab??` | - | Gets or sets the template of before context menu. Default is null. |
-| BeforeNavigatorTemplate | `RenderFragment<Tab??` | - | 获得/设置 标签页前置模板 默认 null <para>在向前移动标签页按钮前</para> |
+| BeforeContextMenuTemplate | `RenderFragment<Tab>?` | - | Gets or sets the template of before context menu. Default is null. |
+| BeforeNavigatorTemplate | `RenderFragment<Tab>?` | - | 获得/设置 标签页前置模板 默认 null <para>在向前移动标签页按钮前</para> |
 | Body | `RenderFragment?` | - | 获得/设置 TabItems 模板 |
-| ButtonTemplate | `RenderFragment<Tab??` | - | 获得/设置 按钮模板 默认 null |
+| ButtonTemplate | `RenderFragment<Tab>?` | - | 获得/设置 按钮模板 默认 null |
 | ChildContent | `RenderFragment?` | - | 获得/设置 TabItems 模板 |
 | ClickTabToNavigation | `bool` | - | 获得/设置 点击 TabItem 时是否自动导航 默认为 false 不导航 |
 | CloseAllTabsText | `string?` | - | 获得/设置 关闭所有 TabItem 菜单文本 |
@@ -536,12 +536,12 @@ Tab component
 | ContextMenuCloseOtherIcon | `string?` | - | Gets or sets the icon of tab item context menu close other button. Default is null. |
 | ContextMenuFullScreenIcon | `string?` | - | Gets or sets the icon of tab item context menu full screen button. Default is null. |
 | ContextMenuRefreshIcon | `string?` | - | Gets or sets the icon of tab item context menu refresh button. Default is null. |
-| ContextMenuTemplate | `RenderFragment<Tab??` | - | Gets or sets the template of context menu. Default is null. |
+| ContextMenuTemplate | `RenderFragment<Tab>?` | - | Gets or sets the template of context menu. Default is null. |
 | DefaultUrl | `string?` | - | 获得/设置 默认标签页 关闭所有标签页时自动打开此地址 默认 null 未设置 |
 | DropdownIcon | `string?` | - | 获得/设置 下拉菜单标签图标 |
 | EnableErrorLogger | `bool?` | - | 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 值 |
 | ErrorLoggerToastTitle | `string?` | - | 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null |
-| ExcludeUrls | `IEnumerable<string??` | - | 获得/设置 排除地址支持通配符 |
+| ExcludeUrls | `IEnumerable<string>?` | - | 获得/设置 排除地址支持通配符 |
 | FullscreenToolbarButtonIcon | `string?` | - | Gets or sets the full screen toolbar button icon string. Default is null. |
 | FullscreenToolbarTooltipText | `string?` | - | Gets or sets the full screen toolbar button tooltip string. Default is null. |
 | Height | `int` | - | 获得/设置 组件高度 默认值为 0 高度自动 |
@@ -550,18 +550,18 @@ Tab component
 | IsLazyLoadTabItem | `bool` | - | 获得/设置 懒加载 TabItem, 首次不渲染 默认 false |
 | IsLoopSwitchTabItem | `bool` | true | Gets or sets whether auto reset tab item index. Default is true. |
 | IsOnlyRenderActiveTab | `bool` | - | 获得/设置 是否仅渲染 Active 标签 默认 false |
-| Menus | `IEnumerable<MenuItem??` | - | 获得/设置 导航菜单集合 默认 null |
+| Menus | `IEnumerable<MenuItem>?` | - | 获得/设置 导航菜单集合 默认 null |
 | NextIcon | `string?` | - | 获得/设置 下一个标签图标 |
 | NextTabNavLinkTooltipText | `string?` | - | Gets or sets the next tab navigation link tooltip text. Default is null. |
 | NotAuthorized | `RenderFragment?` | - | 获得/设置 NotAuthorized 模板 默认 null NET6.0/7.0 有效 |
 | NotFound | `RenderFragment?` | - | 获得/设置 NotFound 模板 默认 null NET6.0/7.0 有效 |
 | NotFoundTabText | `string?` | - | 获得/设置 NotFound 标签文本 默认 null NET6.0/7.0 有效 |
-| OnBeforeShowContextMenu | `Func<TabItem, Task<bool???` | - | Gets or sets before popup context menu callback. Default is null. |
-| OnClickTabItemAsync | `Func<TabItem, Task??` | - | 获得/设置 点击 TabItem 时回调方法 |
-| OnCloseTabItemAsync | `Func<TabItem, Task<bool???` | - | 关闭标签页回调方法 |
-| OnDragItemEndAsync | `Func<TabItem, Task??` | - | 获得/设置 拖动标签页结束回调方法 |
-| OnTabHeaderTextLocalizer | `Func<string?, string???` | - | 获得/设置 Tab 标签头文本本地化回调方法 |
-| OnToolbarRefreshCallback | `Func<Task??` | - | Gets or sets the refresh toolbar button click event callback. Default is null. |
+| OnBeforeShowContextMenu | `Func<TabItem, Task<bool>>?` | - | Gets or sets before popup context menu callback. Default is null. |
+| OnClickTabItemAsync | `Func<TabItem, Task>?` | - | 获得/设置 点击 TabItem 时回调方法 |
+| OnCloseTabItemAsync | `Func<TabItem, Task<bool>>?` | - | 关闭标签页回调方法 |
+| OnDragItemEndAsync | `Func<TabItem, Task>?` | - | 获得/设置 拖动标签页结束回调方法 |
+| OnTabHeaderTextLocalizer | `Func<string?, string?>?` | - | 获得/设置 Tab 标签头文本本地化回调方法 |
+| OnToolbarRefreshCallback | `Func<Task>?` | - | Gets or sets the refresh toolbar button click event callback. Default is null. |
 | Placement | `Placement` | Placement.Top | 获得/设置 组件标签显示位置 默认显示在 Top 位置 |
 | PreviousIcon | `string?` | - | 获得/设置 上一个标签图标 |
 | PrevTabNavLinkTooltipText | `string?` | - | Gets or sets the previous tab navigation link tooltip text. Default is null. |
@@ -579,7 +579,7 @@ Tab component
 | ShowToolbar | `bool` | - | Gets or sets whether show the toolbar. Default is false. |
 | TabHeader | `ITabHeader?` | - | Gets or sets the <see cref="ITabHeader"/> instance. Default is null. |
 | TabStyle | `TabStyle` | - | Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>. |
-| ToolbarTemplate | `RenderFragment<Tab??` | - | Gets or sets the template of the toolbar button. Default is null. |
+| ToolbarTemplate | `RenderFragment<Tab>?` | - | Gets or sets the template of the toolbar button. Default is null. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -591,7 +591,7 @@ Tab component
   - 设置指定 TabItem 为激活状态
 - `void AddTab(string url, string text, string? icon, bool active, bool closable)`
   - 通过 Url 添加 TabItem 标签方法
-- `void AddTab(Dictionary<string, object?? parameters, int? index)`
+- `void AddTab(Dictionary<string, object?> parameters, int? index)`
   - 添加 TabItem 方法
 - `void ClickNextTab()`
   - 切换到下一个标签方法
@@ -635,7 +635,7 @@ Represents a link within a tab component.
 | ChildContent | `RenderFragment?` | - | Gets or sets the content of the component. Default is null |
 | Closable | `bool` | true | Gets or sets a value indicating whether the tab item is closable. Default is true. |
 | Icon | `string?` | - | Gets or sets the icon of the link. Default is null |
-| OnClick | `Func<Task??` | - | Gets or sets the callback method when the link is clicked. Default is null. |
+| OnClick | `Func<Task>?` | - | Gets or sets the callback method when the link is clicked. Default is null. |
 | Text | `string?` | - | Gets or sets the text of the link. Default is null |
 | Url | `string?` | - | Gets or sets the URL of the link. Default is null |
 
@@ -657,8 +657,8 @@ Represents a link within a tab component.
 |-----------|------|---------|-------------|
 | ArrowIcon | `string?` | - | 获得/设置 菜单箭头图标 |
 | DropdownIcon | `string?` | - | 获得/设置 组件数据源 |
-| Items | `IEnumerable<MenuItem??` | - | 获得/设置 菜单数据集合 |
-| OnClick | `Func<MenuItem, Task??` | - | 获得/设置 菜单项点击回调委托 |
+| Items | `IEnumerable<MenuItem>?` | - | 获得/设置 菜单数据集合 |
+| OnClick | `Func<MenuItem, Task>?` | - | 获得/设置 菜单项点击回调委托 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -668,4 +668,4 @@ Represents a link within a tab component.
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

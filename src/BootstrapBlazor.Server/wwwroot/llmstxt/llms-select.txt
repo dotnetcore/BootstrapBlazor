@@ -40,9 +40,9 @@ AutoComplete component
 | Icon | `string?` | - | Gets or sets the icon |
 | IgnoreCase | `bool` | true | Gets or sets whether to ignore case when matching, default is true |
 | IsLikeMatch | `bool` | - | Gets or sets whether to enable fuzzy search, default is false |
-| Items | `IEnumerable<string??` | - | Gets or sets the collection of matching data obtained by inputting a string |
+| Items | `IEnumerable<string>?` | - | Gets or sets the collection of matching data obtained by inputting a string |
 | LoadingIcon | `string?` | - | Gets or sets the loading icon |
-| OnCustomFilter | `Func<string, Task<IEnumerable<string????` | - | Gets or sets custom collection filtering rules, default is null |
+| OnCustomFilter | `Func<string, Task<IEnumerable<string>>>?` | - | Gets or sets custom collection filtering rules, default is null |
 | ShowDropdownListOnFocus | `bool` | true | Gets or sets whether to expand the dropdown candidate menu when focused, default is true |
 | ShowNoDataTip | `bool` | true | Gets or sets whether to show the no matching data option, default is true |
 
@@ -83,10 +83,10 @@ Cascader 组件实现类
 | Color | `Color` | Color.None | 获得/设置 按钮颜色 |
 | Icon | `string?` | - | 获得/设置 菜单指示图标 |
 | IsClearable | `bool` | - | 获得/设置 是否可清除 默认 false |
-| Items | `IEnumerable<CascaderItem??` | - | 获得/设置 绑定数据集 |
-| OnBlurAsync | `Func<TValue, Task??` | - | 获得/设置 失去焦点回调方法 默认 null |
-| OnClearAsync | `Func<Task??` | - | 获得/设置 清除文本内容 OnClear 回调方法 默认 null |
-| OnSelectedItemChanged | `Func<CascaderItem[], Task??` | - | 获得/设置 ValueChanged 方法 |
+| Items | `IEnumerable<CascaderItem>?` | - | 获得/设置 绑定数据集 |
+| OnBlurAsync | `Func<TValue, Task>?` | - | 获得/设置 失去焦点回调方法 默认 null |
+| OnClearAsync | `Func<Task>?` | - | 获得/设置 清除文本内容 OnClear 回调方法 默认 null |
+| OnSelectedItemChanged | `Func<CascaderItem[], Task>?` | - | 获得/设置 ValueChanged 方法 |
 | ParentSelectable | `bool` | true | 获得/设置 父节点是否可选择 默认 true |
 | PlaceHolder | `string?` | - | 获得/设置 组件 PlaceHolder 文字 默认为 请选择 ... |
 | ShowFullLevels | `bool` | true | 获得/设置 是否显示全路径 默认 true |
@@ -113,7 +113,7 @@ Dropdown 下拉框组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| ButtonTemplate | `RenderFragment<SelectedItem???` | - | 获得/设置 按钮内容模板 |
+| ButtonTemplate | `RenderFragment<SelectedItem?>?` | - | 获得/设置 按钮内容模板 |
 | Color | `Color` | Color.Primary | 获得/设置 颜色 默认 Color.Primary 无设置 |
 | Direction | `Direction` | - | 获得/设置 下拉选项方向 默认 Dropdown 向下 |
 | FixedButtonText | `string?` | - | 获得/设置 固定按钮显示文字 默认 null |
@@ -121,17 +121,17 @@ Dropdown 下拉框组件
 | IsAsync | `bool` | - | 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
 | IsFixedButtonText | `bool` | - | 获得/设置 是否固定按钮文字 更改下拉框选项时按钮文字保持不变 默认 false 不固定 |
 | IsKeepDisabled | `bool` | - | 获得/设置 是否异步结束后是否保持禁用状态，默认为 false |
-| Items | `IEnumerable<SelectedItem??` | - | 获得/设置 绑定数据集 |
+| Items | `IEnumerable<SelectedItem>?` | - | 获得/设置 绑定数据集 |
 | ItemsTemplate | `RenderFragment?` | - | 获得/设置 Items 模板 默认 null |
-| ItemTemplate | `RenderFragment<SelectedItem??` | - | 获得/设置 选项模板 |
+| ItemTemplate | `RenderFragment<SelectedItem>?` | - | 获得/设置 选项模板 |
 | LoadingIcon | `string?` | - | 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner |
 | MenuAlignment | `Alignment` | - | 获得/设置 获取菜单对齐方式 默认 none 未设置 |
-| OnClickWithoutRender | `Func<Task??` | - | 获得/设置 OnClick 事件不刷新父组件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
-| OnSelectedItemChanged | `Func<SelectedItem, Task??` | - | SelectedItemChanged 回调方法 |
+| OnClickWithoutRender | `Func<Task>?` | - | 获得/设置 OnClick 事件不刷新父组件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
+| OnSelectedItemChanged | `Func<SelectedItem, Task>?` | - | SelectedItemChanged 回调方法 |
 | ShowFixedButtonTextInDropdown | `bool` | - | 获得/设置 下拉菜单中是否显示固定文字 默认 false 不显示 |
 | ShowSplit | `bool` | - | 获得/设置 是否开启分裂式 默认 false |
 | Size | `Size` | - | 获得/设置 组件尺寸 默认 none 未设置 |
-| OnClick | `EventCallback<MouseEventArgs?` | - | 获得/设置 OnClick 事件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
+| OnClick | `EventCallback<MouseEventArgs>` | - | 获得/设置 OnClick 事件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -139,7 +139,7 @@ Dropdown 下拉框组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| OnClick | `EventCallback<MouseEventArgs?` | 获得/设置 OnClick 事件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
+| OnClick | `EventCallback<MouseEventArgs>` | 获得/设置 OnClick 事件 <para><see cref="ShowSplit"/> 为 true 时生效</para> |
 
 ### Source
 
@@ -159,8 +159,8 @@ DropdownItem 组件
 | ChildContent | `RenderFragment?` | - | 获得/设置 组件内容 |
 | Disabled | `bool` | - | 获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/> |
 | Icon | `string?` | - | 获得/设置 图标 |
-| OnClick | `Func<Task??` | - | 获得/设置 点击回调方法 默认 null |
-| OnDisabledCallback | `Func<bool??` | - | 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/> |
+| OnClick | `Func<Task>?` | - | 获得/设置 点击回调方法 默认 null |
+| OnDisabledCallback | `Func<bool>?` | - | 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/> |
 | Text | `string?` | - | 获得/设置 显示文本 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -180,9 +180,9 @@ DropdownWidget 组件
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | ChildContent | `RenderFragment?` | - | 获得/设置 选项模板支持静态数据 |
-| Items | `IEnumerable<DropdownWidgetItem??` | - | 获得/设置 挂件数据集合 |
-| OnItemCloseAsync | `Func<DropdownWidgetItem, Task??` | - | 获得/设置 下拉项关闭回调方法 |
-| OnItemShownAsync | `Func<DropdownWidgetItem, Task??` | - | 获得/设置 下拉项关闭回调方法 |
+| Items | `IEnumerable<DropdownWidgetItem>?` | - | 获得/设置 挂件数据集合 |
+| OnItemCloseAsync | `Func<DropdownWidgetItem, Task>?` | - | 获得/设置 下拉项关闭回调方法 |
+| OnItemShownAsync | `Func<DropdownWidgetItem, Task>?` | - | 获得/设置 下拉项关闭回调方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -215,7 +215,7 @@ MultiSelect component
 | ClearText | `string?` | - | 获得/设置 全选按钮显示文本 |
 | CloseButtonIcon | `string?` | - | 获得/设置 关闭按钮图标 默认为 null |
 | DefaultVirtualizeItemText | `string?` | - | Gets or sets the default virtualize items text. |
-| DisplayTemplate | `RenderFragment<List<SelectedItem???` | - | 获得/设置 显示部分模板 默认 null |
+| DisplayTemplate | `RenderFragment<List<SelectedItem>>?` | - | 获得/设置 显示部分模板 默认 null |
 | EditSubmitKey | `EditSubmitKey` | - | 获得/设置 编辑提交按键 默认 Enter |
 | IsFixedHeight | `bool` | - | 获得/设置 是否固定高度 默认 false |
 | IsSingleLine | `bool` | - | 获得/设置 是否为单行模式 默认 false |
@@ -223,8 +223,8 @@ MultiSelect component
 | MaxErrorMessage | `string?` | - | 获得/设置 设置最大值时错误消息文字 |
 | Min | `int` | - | 获得/设置 选项最小数 默认为 0 不限制 |
 | MinErrorMessage | `string?` | - | 获得/设置 设置最小值时错误消息文字 |
-| OnEditCallback | `Func<string, Task<SelectedItem???` | - | 获得/设置 编辑模式下输入选项更新后回调方法 默认 null <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para> |
-| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem?, Task??` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
+| OnEditCallback | `Func<string, Task<SelectedItem>>?` | - | 获得/设置 编辑模式下输入选项更新后回调方法 默认 null <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para> |
+| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem>, Task>?` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
 | ReverseSelectText | `string?` | - | 获得/设置 全选按钮显示文本 |
 | SelectAllText | `string?` | - | 获得/设置 全选按钮显示文本 |
 | ShowCloseButton | `bool` | true | 获得/设置 是否显示关闭按钮 默认为 true 显示 |
@@ -247,7 +247,7 @@ MultiSelect component
 - `Task ToggleRow(string val)`
   - 切换当前选项方法
   - *[JSInvokable]*
-- `Task<bool? TriggerEditTag(string val)`
+- `Task<bool> TriggerEditTag(string val)`
   - 客户端编辑提交数据回调方法
   - *[JSInvokable]*
 
@@ -270,7 +270,7 @@ MultiSelect component
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Items | `List<SelectedItem??` | - | Gets or sets the filter items. |
+| Items | `List<SelectedItem>?` | - | Gets or sets the filter items. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -299,26 +299,26 @@ MultiSelectGeneric component
 | CloseButtonIcon | `string?` | - | 获得/设置 关闭按钮图标 默认为 null |
 | CustomKeyAttribute | `Type?` | typeof(KeyAttribute) | 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键 |
 | DefaultVirtualizeItemText | `string?` | - | Gets or sets the default virtualize items text. |
-| DisplayTemplate | `RenderFragment<List<SelectedItem<TValue????` | - | 获得/设置 显示部分模板 默认 null |
+| DisplayTemplate | `RenderFragment<List<SelectedItem<TValue>>>?` | - | 获得/设置 显示部分模板 默认 null |
 | EditSubmitKey | `EditSubmitKey` | - | 获得/设置 编辑提交按键 默认 Enter |
 | IsFixedHeight | `bool` | - | 获得/设置 是否固定高度 默认 false |
 | IsSingleLine | `bool` | - | 获得/设置 是否为单行模式 默认 false |
-| Items | `IEnumerable<SelectedItem<TValue???` | - | Gets or sets the items. |
-| ItemTemplate | `RenderFragment<SelectedItem<TValue???` | - | Gets or sets the item template. |
+| Items | `IEnumerable<SelectedItem<TValue>>?` | - | Gets or sets the items. |
+| ItemTemplate | `RenderFragment<SelectedItem<TValue>>?` | - | Gets or sets the item template. |
 | Max | `int` | - | 获得/设置 选项最大数 默认为 0 不限制 |
 | MaxErrorMessage | `string?` | - | 获得/设置 设置最大值时错误消息文字 |
 | Min | `int` | - | 获得/设置 选项最小数 默认为 0 不限制 |
 | MinErrorMessage | `string?` | - | 获得/设置 设置最小值时错误消息文字 |
-| OnEditCallback | `Func<string, Task<SelectedItem???` | - | 获得/设置 编辑模式下输入选项更新后回调方法 默认 null <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para> |
-| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue?????` | - | Gets or sets the callback method for loading virtualized items. |
-| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem<TValue????` | - | Gets or sets the callback method when the search text changes. |
-| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem<TValue??, Task??` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
+| OnEditCallback | `Func<string, Task<SelectedItem>>?` | - | 获得/设置 编辑模式下输入选项更新后回调方法 默认 null <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para> |
+| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue>>>>?` | - | Gets or sets the callback method for loading virtualized items. |
+| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem<TValue>>>?` | - | Gets or sets the callback method when the search text changes. |
+| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem<TValue>>, Task>?` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
 | ReverseSelectText | `string?` | - | 获得/设置 全选按钮显示文本 |
 | SelectAllText | `string?` | - | 获得/设置 全选按钮显示文本 |
 | ShowCloseButton | `bool` | true | 获得/设置 是否显示关闭按钮 默认为 true 显示 |
 | ShowDefaultButtons | `bool` | true | 获得/设置 是否显示默认功能按钮 默认为 true 显示 |
 | ShowToolbar | `bool` | - | 获得/设置 是否显示功能按钮 默认为 false 不显示 |
-| ValueEqualityComparer | `Func<TValue, TValue, bool??` | - | 获得/设置 比较数据是否相同回调方法 默认为 null <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para> |
+| ValueEqualityComparer | `Func<TValue, TValue, bool>?` | - | 获得/设置 比较数据是否相同回调方法 默认为 null <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para> |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -454,16 +454,16 @@ Select component
 |-----------|------|---------|-------------|
 | DefaultVirtualizeItemText | `string?` | - | Gets or sets the default text for virtualized items. Default is null. |
 | DisableItemChangedWhenFirstRender | `bool` | - | Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false. |
-| DisplayTemplate | `RenderFragment<SelectedItem???` | - | Gets or sets the display template. Default is null. |
+| DisplayTemplate | `RenderFragment<SelectedItem?>?` | - | Gets or sets the display template. Default is null. |
 | IsAutoClearSearchTextWhenCollapsed | `bool` | - | Gets or sets whether auto clear the search text when dropdown closed. |
 | IsUseDefaultItemWhenValueIsNull | `bool` | - | 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值 <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para> |
 | LookupService | `ILookupService?` | - | <inheritdoc/> |
 | LookupServiceData | `object?` | - | <inheritdoc/> |
 | LookupServiceKey | `string?` | - | <inheritdoc/> |
-| OnBeforeSelectedItemChange | `Func<SelectedItem, Task<bool???` | - | 获取/设置 选中项改变前的回调方法。返回 true 则改变选中项的值；否则选中项的值不变。 <para>Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.</para> |
-| OnCollapsed | `Func<Task??` | - | Gets or sets the dropdown collapsed callback method. |
-| OnInputChangedCallback | `Func<string, Task??` | - | Gets or sets the callback method when the input value changes. Default is null. |
-| OnSelectedItemChanged | `Func<SelectedItem, Task??` | - | Gets or sets the callback method when the selected item changes. |
+| OnBeforeSelectedItemChange | `Func<SelectedItem, Task<bool>>?` | - | 获取/设置 选中项改变前的回调方法。返回 true 则改变选中项的值；否则选中项的值不变。 <para>Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.</para> |
+| OnCollapsed | `Func<Task>?` | - | Gets or sets the dropdown collapsed callback method. |
+| OnInputChangedCallback | `Func<string, Task>?` | - | Gets or sets the callback method when the input value changes. Default is null. |
+| OnSelectedItemChanged | `Func<SelectedItem, Task>?` | - | Gets or sets the callback method when the selected item changes. |
 | Options | `RenderFragment?` | - | Gets or sets the options template for static data. |
 | ShowSwal | `bool` | - | Gets or sets whether to show the Swal confirmation popup. Default is false. 获得/设置 是否显示 Swal 确认弹窗 默认值 为 false |
 | SwalCategory | `SwalCategory` | SwalCategory.Question | Gets or sets the Swal category. Default is Question. |
@@ -508,12 +508,12 @@ SelectBase component base class
 | ClearIcon | `string?` | - | Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up. |
 | Color | `Color` | - | Gets or sets the color. The default is <see cref="Color.None"/> (no color). |
 | DropdownIcon | `string?` | - | Gets or sets the dropdown icon. The default is "fa-solid fa-angle-up". |
-| GroupItemTemplate | `RenderFragment<string??` | - | Gets or sets the group item template. |
+| GroupItemTemplate | `RenderFragment<string>?` | - | Gets or sets the group item template. |
 | IsClearable | `bool` | - | Gets or sets whether the select component is clearable. Default is false. |
 | IsMarkupString | `bool` | - | Gets or sets a value indicating whether the content is a <see cref="MarkupString"/>. The default is <c>false</c>. |
 | IsVirtualize | `bool` | - | Gets or sets whether virtual scrolling is enabled. Default is false. |
 | NoSearchDataText | `string?` | - | Gets or sets the text to display when no search results are found. |
-| OnClearAsync | `Func<Task??` | - | Gets or sets the callback method when the clear button is clicked. Default is null. |
+| OnClearAsync | `Func<Task>?` | - | Gets or sets the callback method when the clear button is clicked. Default is null. |
 | OverscanCount | `int` | 4 | Gets or sets the overscan count for virtual scrolling. Default is 4. |
 | PlaceHolder | `string?` | - | Gets or sets the placeholder text. |
 | RowHeight | `float` | 33f | Gets or sets the row height for virtual scrolling. Default is 33. |
@@ -556,28 +556,28 @@ Select 泛型组件实现类
 |-----------|------|---------|-------------|
 | CustomKeyAttribute | `Type?` | typeof(KeyAttribute) | 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键 |
 | DisableItemChangedWhenFirstRender | `bool` | - | 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false |
-| DisplayTemplate | `RenderFragment<SelectedItem<TValue????` | - | 获得/设置 显示部分模板 默认 null |
+| DisplayTemplate | `RenderFragment<SelectedItem<TValue>?>?` | - | 获得/设置 显示部分模板 默认 null |
 | IsEditable | `bool` | - | 获得/设置 是否可编辑 默认 false |
-| Items | `IEnumerable<SelectedItem<TValue???` | - | 获得/设置 绑定数据集 |
-| ItemTemplate | `RenderFragment<SelectedItem<TValue???` | - | 获得/设置 选项模板 |
-| OnBeforeSelectedItemChange | `Func<SelectedItem<TValue?, Task<bool???` | - | 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变 |
-| OnInputChangedCallback | `Func<string, Task??` | - | 获得/设置 选项输入更新后回调方法 默认 null |
-| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue?????` | - | 虚拟滚动数据加载回调方法 |
-| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem<TValue????` | - | 获得/设置 搜索文本发生变化时回调此方法 |
-| OnSelectedItemChanged | `Func<SelectedItem<TValue?, Task??` | - | SelectedItemChanged 回调方法 |
+| Items | `IEnumerable<SelectedItem<TValue>>?` | - | 获得/设置 绑定数据集 |
+| ItemTemplate | `RenderFragment<SelectedItem<TValue>>?` | - | 获得/设置 选项模板 |
+| OnBeforeSelectedItemChange | `Func<SelectedItem<TValue>, Task<bool>>?` | - | 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变 |
+| OnInputChangedCallback | `Func<string, Task>?` | - | 获得/设置 选项输入更新后回调方法 默认 null |
+| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue>>>>?` | - | 虚拟滚动数据加载回调方法 |
+| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem<TValue>>>?` | - | 获得/设置 搜索文本发生变化时回调此方法 |
+| OnSelectedItemChanged | `Func<SelectedItem<TValue>, Task>?` | - | SelectedItemChanged 回调方法 |
 | Options | `RenderFragment?` | - | 获得/设置 选项模板支持静态数据 |
 | SwalCategory | `SwalCategory` | SwalCategory.Question | 获得/设置 Swal 图标 默认 Question |
 | SwalContent | `string?` | - | 获得/设置 Swal 内容 默认 null |
 | SwalFooter | `string?` | - | 获得/设置 Footer 默认 null |
 | SwalTitle | `string?` | - | 获得/设置 Swal 标题 默认 null |
-| TextConvertToValueCallback | `Func<string, Task<TValue????` | - | 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null <para>返回值为 null 时放弃操作</para> |
-| ValueEqualityComparer | `Func<TValue, TValue, bool??` | - | 获得/设置 比较数据是否相同回调方法 默认为 null <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para> |
+| TextConvertToValueCallback | `Func<string, Task<TValue?>>?` | - | 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null <para>返回值为 null 时放弃操作</para> |
+| ValueEqualityComparer | `Func<TValue, TValue, bool>?` | - | 获得/设置 比较数据是否相同回调方法 默认为 null <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para> |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
 ### Public Methods
 
-- `void Add(SelectedItem<TValue? item)`
+- `void Add(SelectedItem<TValue> item)`
   - 添加静态下拉项方法
 - `Task ConfirmSelectedItem(int index)`
   - 客户端回车回调方法
@@ -607,18 +607,18 @@ Select 组件实现类
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| ChildContent | `RenderFragment<ISelectobjectContext<TItem???` | - | 获得/设置 下拉列表内容模板 **[Required]** |
-| GetTextCallback | `Func<TItem, string???` | - | 获得 显示文字回调方法 默认 null **[Required]** |
+| ChildContent | `RenderFragment<ISelectobjectContext<TItem>>?` | - | 获得/设置 下拉列表内容模板 **[Required]** |
+| GetTextCallback | `Func<TItem, string?>?` | - | 获得 显示文字回调方法 默认 null **[Required]** |
 | ClearIcon | `string?` | - | 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up |
 | Color | `Color` | - | 获得/设置 颜色 默认 Color.None 无设置 |
 | DropdownIcon | `string?` | - | 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up |
 | DropdownMinWidth | `int?` | - | 获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值 |
 | Height | `int` | 486 | 获得/设置 弹窗高度 默认 486px; |
 | IsClearable | `bool` | - | 获得/设置 是否可清除 默认 false |
-| OnClearAsync | `Func<Task??` | - | 获得/设置 清除文本内容 OnClear 回调方法 默认 null |
+| OnClearAsync | `Func<Task>?` | - | 获得/设置 清除文本内容 OnClear 回调方法 默认 null |
 | PlaceHolder | `string?` | - | 获得 PlaceHolder 属性 |
 | ShowAppendArrow | `bool` | true | 获得/设置 是否显示组件右侧扩展箭头 默认 true 显示 |
-| Template | `RenderFragment<TItem??` | - | 获得/设置 Value 显示模板 默认 null |
+| Template | `RenderFragment<TItem>?` | - | 获得/设置 Value 显示模板 默认 null |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -648,15 +648,15 @@ Select 组件实现类
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Items | `List<TreeViewItem<TValue???` | - | 获得/设置 带层次数据集合 **[Required]** |
+| Items | `List<TreeViewItem<TValue>>?` | - | 获得/设置 带层次数据集合 **[Required]** |
 | CanExpandWhenDisabled | `bool` | false | Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false. |
 | Color | `Color` | - | 获得/设置 颜色 默认 Color.None 无设置 |
 | CustomKeyAttribute | `Type` | typeof(KeyAttribute) | <inheritdoc/> |
 | DropdownIcon | `string?` | - | 获得/设置 下拉箭头 Icon 图标 |
 | IsEditable | `bool` | - | 获得/设置 是否可编辑 默认 false |
-| ModelEqualityComparer | `Func<TValue, TValue, bool??` | - | 获得/设置 比较数据是否相同回调方法 默认为 null |
-| OnExpandNodeAsync | `Func<TreeViewItem<TValue?, Task<IEnumerable<TreeViewItem<TValue?????` | - | 获得/设置 点击节点获取子数据集合回调方法 |
-| OnSelectedItemChanged | `Func<TValue, Task??` | - | SelectedItemChanged 回调方法 |
+| ModelEqualityComparer | `Func<TValue, TValue, bool>?` | - | 获得/设置 比较数据是否相同回调方法 默认为 null |
+| OnExpandNodeAsync | `Func<TreeViewItem<TValue>, Task<IEnumerable<TreeViewItem<TValue>>>>?` | - | 获得/设置 点击节点获取子数据集合回调方法 |
+| OnSelectedItemChanged | `Func<TValue, Task>?` | - | SelectedItemChanged 回调方法 |
 | PlaceHolder | `string?` | - | 获得 PlaceHolder 属性 |
 | ShowIcon | `bool` | - | 获得/设置 是否显示 Icon 图标 默认 false 不显示 |
 | ShowResetSearchButton | `bool` | true | 获得/设置 是否显示重置搜索栏按钮 默认 true 显示 |
@@ -692,10 +692,10 @@ SimpleSelectBase component base class
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | IsEditable | `bool` | - | Gets or sets whether the select component is editable. Default is false. |
-| Items | `IEnumerable<SelectedItem??` | - | Gets or sets the items. |
-| ItemTemplate | `RenderFragment<SelectedItem??` | - | Gets or sets the item template. |
-| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem????` | - | Gets or sets the callback method for loading virtualized items. |
-| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem???` | - | Gets or sets the callback method when the search text changes. |
+| Items | `IEnumerable<SelectedItem>?` | - | Gets or sets the items. |
+| ItemTemplate | `RenderFragment<SelectedItem>?` | - | Gets or sets the item template. |
+| OnQueryAsync | `Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>?` | - | Gets or sets the callback method for loading virtualized items. |
+| OnSearchTextChanged | `Func<string, IEnumerable<SelectedItem>>?` | - | Gets or sets the callback method when the search text changes. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -719,8 +719,8 @@ SubCascader 组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Items | `IEnumerable<CascaderItem??` | - | 获得/设置 组件数据源 |
-| OnClick | `Func<CascaderItem, Task??` | - | 获得/设置 选择项点击回调委托 |
+| Items | `IEnumerable<CascaderItem>?` | - | 获得/设置 组件数据源 |
+| OnClick | `Func<CascaderItem, Task>?` | - | 获得/设置 选择项点击回调委托 |
 | SubMenuIcon | `string?` | - | 获得/设置 子菜单指示图标 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -743,27 +743,27 @@ SubCascader 组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| Items | `IEnumerable<SelectedItem??` | - | 获得/设置 组件绑定数据项集合 **[Required]** |
+| Items | `IEnumerable<SelectedItem>?` | - | 获得/设置 组件绑定数据项集合 **[Required]** |
 | Height | `string?` | - | 获得/设置 组件高度 默认值 null 未设置 |
 | IsWrapItem | `bool` | true | 获得/设置 候选项是否为换行模式 默认 false 不换行 |
 | IsWrapItemText | `bool` | - | 获得/设置 候选项文本是否为换行 默认 false 不换行 |
 | ItemWidth | `string?` | - | 获得/设置 候选项宽度 默认 null 未设置 |
 | LeftButtonText | `string?` | - | 获得/设置 左侧按钮显示文本 |
-| LeftHeaderTemplate | `RenderFragment<List<SelectedItem???` | - | 获得/设置 左侧 Panel Header 模板 |
+| LeftHeaderTemplate | `RenderFragment<List<SelectedItem>>?` | - | 获得/设置 左侧 Panel Header 模板 |
 | LeftIcon | `string?` | - | 获得/设置 向左侧转移图标 |
-| LeftItemTemplate | `RenderFragment<SelectedItem??` | - | 获得/设置 左侧 Panel Item 模板 |
+| LeftItemTemplate | `RenderFragment<SelectedItem>?` | - | 获得/设置 左侧 Panel Item 模板 |
 | LeftPanelSearchPlaceHolderString | `string?` | - | 获得/设置 左侧面板搜索框 placeholder 文字 |
 | LeftPanelText | `string?` | - | 获得/设置 左侧面板 Header 显示文本 |
 | Max | `int` | - | 获得/设置 右侧面板包含的最大数量, 默认为 0 不限制 |
 | MaxErrorMessage | `string?` | - | 获得/设置 设置最大值时错误消息文字 |
 | Min | `int` | - | 获得/设置 右侧面板包含的最大数量，默认为 0 不限制 |
 | MinErrorMessage | `string?` | - | 获得/设置 设置最小值时错误消息文字 |
-| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem?, Task??` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
-| OnSetItemClass | `Func<SelectedItem, string???` | - | 获得/设置 数据样式回调方法 默认为 null |
+| OnSelectedItemsChanged | `Func<IEnumerable<SelectedItem>, Task>?` | - | 获得/设置 选中项集合发生改变时回调委托方法 |
+| OnSetItemClass | `Func<SelectedItem, string?>?` | - | 获得/设置 数据样式回调方法 默认为 null |
 | RightButtonText | `string?` | - | 获得/设置 右侧按钮显示文本 |
-| RightHeaderTemplate | `RenderFragment<List<SelectedItem???` | - | 获得/设置 右侧 Panel Header 模板 |
+| RightHeaderTemplate | `RenderFragment<List<SelectedItem>>?` | - | 获得/设置 右侧 Panel Header 模板 |
 | RightIcon | `string?` | - | 获得/设置 向右侧转移图标 |
-| RightItemTemplate | `RenderFragment<SelectedItem??` | - | 获得/设置 右侧 Panel Item 模板 |
+| RightItemTemplate | `RenderFragment<SelectedItem>?` | - | 获得/设置 右侧 Panel Item 模板 |
 | RightPanelSearchPlaceHolderString | `string?` | - | 获得/设置 右侧面板搜索框 placeholder 文字 |
 | RightPanelText | `string?` | - | 获得/设置 右侧面板 Header 显示文本 |
 | ShowSearch | `bool` | - | 获得/设置 是否显示搜索框 |
@@ -785,12 +785,12 @@ TransferPanelBase 穿梭框面板组件
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| HeaderTemplate | `RenderFragment<List<SelectedItem???` | - | 获得/设置 Header 模板 |
+| HeaderTemplate | `RenderFragment<List<SelectedItem>>?` | - | 获得/设置 Header 模板 |
 | IsDisabled | `bool` | - | 获得/设置 是否禁用 默认为 false |
-| Items | `List<SelectedItem??` | - | 获得/设置 数据集合 |
-| ItemTemplate | `RenderFragment<SelectedItem??` | - | 获得/设置 Item 模板 |
-| OnSelectedItemsChanged | `Func<Task??` | - | 获得/设置 选项状态变化时回调方法 |
-| OnSetItemClass | `Func<SelectedItem, string???` | - | 获得/设置 数据样式回调方法 默认为 null |
+| Items | `List<SelectedItem>?` | - | 获得/设置 数据集合 |
+| ItemTemplate | `RenderFragment<SelectedItem>?` | - | 获得/设置 Item 模板 |
+| OnSelectedItemsChanged | `Func<Task>?` | - | 获得/设置 选项状态变化时回调方法 |
+| OnSetItemClass | `Func<SelectedItem, string?>?` | - | 获得/设置 数据样式回调方法 默认为 null |
 | SearchIcon | `string?` | - | 获得/设置 搜索框图标 |
 | SearchPlaceHolderString | `string?` | - | 获得/设置 搜索框的 placeholder 字符串 |
 | ShowSearch | `bool` | - | 获得/设置 是否显示搜索框 |
@@ -804,4 +804,4 @@ TransferPanelBase 穿梭框面板组件
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->

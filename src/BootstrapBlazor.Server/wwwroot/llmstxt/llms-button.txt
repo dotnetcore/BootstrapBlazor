@@ -73,11 +73,11 @@ Button 按钮组件
 | IsKeepDisabled | `bool` | - | 获得/设置 是否异步结束后是否保持禁用状态，默认为 false |
 | IsOutline | `bool` | - | 获得/设置 Outline 样式 默认 false |
 | LoadingIcon | `string?` | - | 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner |
-| OnClickWithoutRender | `Func<Task??` | - | 获得/设置 OnClick 事件不刷新父组件 |
+| OnClickWithoutRender | `Func<Task>?` | - | 获得/设置 OnClick 事件不刷新父组件 |
 | Size | `Size` | - | 获得/设置 Size 大小 |
 | StopPropagation | `bool` | - | 获得/设置 点击时间是否向上传播 默认 false |
 | Text | `string?` | - | 获得/设置 显示文字 |
-| OnClick | `EventCallback<MouseEventArgs?` | - | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<MouseEventArgs>` | - | 获得/设置 OnClick 事件 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -85,7 +85,7 @@ Button 按钮组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| OnClick | `EventCallback<MouseEventArgs?` | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<MouseEventArgs>` | 获得/设置 OnClick 事件 |
 
 ### Public Methods
 
@@ -121,7 +121,7 @@ Button 按钮组件
 | ChildContent | `RenderFragment?` | - | 获得/设置 子组件内容 |
 | InvalidStatusIcon | `string?` | - | 获得/设置 上传失败状态图标 |
 | LoadingIcon | `string?` | - | 获得/设置 浏览按钮加载中图标 |
-| OnGetFileFormat | `Func<string?, string??` | - | 获得/设置 设置文件格式图标回调委托 |
+| OnGetFileFormat | `Func<string?, string>?` | - | 获得/设置 设置文件格式图标回调委托 |
 | ShowUploadFileList | `bool` | true | 获得/设置 是否显示上传列表 默认 true |
 | Size | `Size` | - | 获得/设置 Size 大小 |
 | ValidStatusIcon | `string?` | - | 获得/设置 上传成功状态图标 |
@@ -150,13 +150,13 @@ Button 按钮组件
 | Icon | `string?` | - | 获得/设置 显示图标 |
 | IsAutoClose | `bool` | true | 获得/设置 是否自动关闭弹窗 默认为 true |
 | IsDisabled | `bool` | - | 获得/设置 是否禁用 默认为 false |
-| Items | `IEnumerable<DialButtonItem??` | - | 展开项集合 |
-| ItemTemplate | `RenderFragment<DialButtonItem??` | - | 展开部分模板 |
+| Items | `IEnumerable<DialButtonItem>?` | - | 展开项集合 |
+| ItemTemplate | `RenderFragment<DialButtonItem>?` | - | 展开部分模板 |
 | Offset | `float` | 8 | 获得/设置 弹窗便宜量 默认 8px |
 | Placement | `Placement` | - | 获得/设置 位置 |
 | Radius | `int` | 75 | 获得/设置 <see cref="DialMode"/> 为 <seealso cref="DialMode.Radial"/> 时扇形分布半径值 默认 75; |
 | Size | `Size` | - | 获得/设置 Size 大小 |
-| OnClick | `EventCallback<DialButtonItem?` | - | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<DialButtonItem>` | - | 获得/设置 OnClick 事件 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -164,7 +164,7 @@ Button 按钮组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| OnClick | `EventCallback<DialButtonItem?` | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<DialButtonItem>` | 获得/设置 OnClick 事件 |
 
 ### Source
 
@@ -189,7 +189,7 @@ FilterButton 组件
 |-----------|------|---------|-------------|
 | ClearIcon | `string?` | - | 获得/设置 重置按钮图标 |
 | FilterIcon | `string?` | - | 获得/设置 过滤按钮图标 |
-| OnClearFilter | `Func<Task??` | - | 获得/设置 清除过滤条件时的回调方法 |
+| OnClearFilter | `Func<Task>?` | - | 获得/设置 清除过滤条件时的回调方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -299,9 +299,9 @@ PopConfirmButton 组件
 | Content | `string?` | - | 获得/设置 显示文字 |
 | CustomClass | `string?` | - | 获得/设置 自定义样式 默认 null |
 | IsLink | `bool` | - | 获得/设置 是否为 A 标签 默认 false 使用 button 渲染 |
-| OnBeforeClick | `Func<Task<bool???` | - | 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null |
-| OnClose | `Func<Task??` | - | 获得/设置 点击关闭时回调方法 |
-| OnConfirm | `Func<Task??` | - | 获得/设置 点击确认时回调方法 |
+| OnBeforeClick | `Func<Task<bool>>?` | - | 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null |
+| OnClose | `Func<Task>?` | - | 获得/设置 点击关闭时回调方法 |
+| OnConfirm | `Func<Task>?` | - | 获得/设置 点击确认时回调方法 |
 | Placement | `Placement` | - | 获得/设置 弹窗显示位置 默认 <see cref="Placement.Auto"/> |
 | ShowCloseButton | `bool` | true | 获得/设置 是否显示关闭按钮 |
 | ShowConfirmButton | `bool` | true | 获得/设置 是否显示确认按钮 |
@@ -340,8 +340,8 @@ Popover Confirm 组件
 | ConfirmButtonText | `string?` | - | 获得/设置 确认按钮显示文字 |
 | Content | `string?` | - | 获得/设置 显示文字 |
 | Icon | `string?` | - | 获得/设置 确认框图标 |
-| OnClose | `Func<Task??` | - | 获得/设置 确认按钮回调方法 |
-| OnConfirm | `Func<Task??` | - | 获得/设置 确认按钮回调方法 |
+| OnClose | `Func<Task>?` | - | 获得/设置 确认按钮回调方法 |
+| OnConfirm | `Func<Task>?` | - | 获得/设置 确认按钮回调方法 |
 | ShowCloseButton | `bool` | true | 获得/设置 是否显示关闭按钮 |
 | ShowConfirmButton | `bool` | true | 获得/设置 是否显示确认按钮 |
 | Title | `string?` | - | 获得/设置 显示标题 |
@@ -408,7 +408,7 @@ SlideButton 组件
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | BodyTemplate | `RenderFragment?` | - | 获得/设置 展开部分模板 |
-| ButtonItemTemplate | `RenderFragment<SelectedItem??` | - | 获得/设置 展开按钮项模板 |
+| ButtonItemTemplate | `RenderFragment<SelectedItem>?` | - | 获得/设置 展开按钮项模板 |
 | ButtonTemplate | `RenderFragment?` | - | 获得/设置 按钮模板 |
 | Color | `Color` | Color.Primary | 获得/设置 按钮颜色 |
 | HeaderTemplate | `RenderFragment?` | - | 获得/设置 Header 部分模板 |
@@ -416,14 +416,14 @@ SlideButton 组件
 | Icon | `string?` | - | 获得/设置 显示图标 |
 | IsAutoClose | `bool` | true | 获得/设置 是否自动关闭弹窗 默认为 true |
 | IsDisabled | `bool` | - | 获得/设置 是否禁用 默认为 false |
-| Items | `IEnumerable<SelectedItem??` | - | 获得/设置 展开项集合 |
+| Items | `IEnumerable<SelectedItem>?` | - | 获得/设置 展开项集合 |
 | Offset | `float` | 8 | 获得/设置 弹窗偏移量 默认 8px |
 | Placement | `Placement` | - | 获得/设置 按钮颜色 |
 | ShowHeader | `bool` | - | 获得/设置 是否显示标题 默认 false 不显示 |
 | Size | `Size` | - | 获得/设置 Size 大小 |
 | SlideButtonItems | `RenderFragment?` | - | 获得/设置 数据项模板 |
 | Text | `string?` | - | 获得/设置 显示文本 |
-| OnClick | `EventCallback<SelectedItem?` | - | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<SelectedItem>` | - | 获得/设置 OnClick 事件 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -431,7 +431,7 @@ SlideButton 组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| OnClick | `EventCallback<SelectedItem?` | 获得/设置 OnClick 事件 |
+| OnClick | `EventCallback<SelectedItem>` | 获得/设置 OnClick 事件 |
 
 ### Source
 
@@ -451,8 +451,8 @@ Switch Button
 | OffText | `string?` | - | 获得/设置 Off 状态显示文字 |
 | OnText | `string?` | - | 获得/设置 On 状态显示文字 |
 | ToggleState | `bool` | - | 获得/设置 当前状态 |
-| OnClick | `EventCallback<MouseEventArgs?` | - | 点击回调方法 |
-| ToggleStateChanged | `EventCallback<bool?` | - | 状态切换回调方法 |
+| OnClick | `EventCallback<MouseEventArgs>` | - | 点击回调方法 |
+| ToggleStateChanged | `EventCallback<bool>` | - | 状态切换回调方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -460,8 +460,8 @@ Switch Button
 
 | Event | Type | Description |
 |-------|------|-------------|
-| OnClick | `EventCallback<MouseEventArgs?` | 点击回调方法 |
-| ToggleStateChanged | `EventCallback<bool?` | 状态切换回调方法 |
+| OnClick | `EventCallback<MouseEventArgs>` | 点击回调方法 |
+| ToggleStateChanged | `EventCallback<bool>` | 状态切换回调方法 |
 
 ### Source
 
@@ -479,7 +479,7 @@ TabToolbarButton component
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | Icon | `string?` | - | Gets or sets the button icon string. Default is null. |
-| OnClickAsync | `Func<Task??` | - | Gets or sets the button click event handler. Default is null. |
+| OnClickAsync | `Func<Task>?` | - | Gets or sets the button click event handler. Default is null. |
 | TooltipText | `string?` | - | Gets or sets the tooltip text. Default is null. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
@@ -499,8 +499,8 @@ Toggle Button 按钮组件
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | IsActive | `bool` | - | 获得/设置 当前状态是否为激活状态 默认 false |
-| OnToggleAsync | `Func<bool, Task??` | - | 获得/设置 状态切换回调方法 |
-| IsActiveChanged | `EventCallback<bool?` | - | 获得/设置 激活状态回调方法 |
+| OnToggleAsync | `Func<bool, Task>?` | - | 获得/设置 状态切换回调方法 |
+| IsActiveChanged | `EventCallback<bool>` | - | 获得/设置 激活状态回调方法 |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -508,7 +508,7 @@ Toggle Button 按钮组件
 
 | Event | Type | Description |
 |-------|------|-------------|
-| IsActiveChanged | `EventCallback<bool?` | 获得/设置 激活状态回调方法 |
+| IsActiveChanged | `EventCallback<bool>` | 获得/设置 激活状态回调方法 |
 
 ### Source
 
@@ -549,11 +549,11 @@ TreeViewToolbarEditButton component
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | Icon | `string?` | - | Gets or sets the icon of the edit button. Default is null. |
-| Item | `TreeViewItem<TItem??` | - | Gets or sets the tree view item. Default is null. |
-| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool???` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
+| Item | `TreeViewItem<TItem>?` | - | Gets or sets the tree view item. Default is null. |
+| OnUpdateCallbackAsync | `Func<TItem, string?, Task<bool>>?` | - | Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para> |
 | Text | `string?` | - | Gets or sets the text of the popup-window label. Default is null. |
 | Title | `string?` | - | Gets or sets the title of the popup-window. Default is null. |
-| ItemChanged | `EventCallback<TreeViewItem<TItem??` | - | Gets or sets the item changed event callback. |
+| ItemChanged | `EventCallback<TreeViewItem<TItem>>` | - | Gets or sets the item changed event callback. |
 
 <!-- AUTO-GENERATED-PARAMETERS-END -->
 
@@ -561,7 +561,7 @@ TreeViewToolbarEditButton component
 
 | Event | Type | Description |
 |-------|------|-------------|
-| ItemChanged | `EventCallback<TreeViewItem<TItem??` | Gets or sets the item changed event callback. |
+| ItemChanged | `EventCallback<TreeViewItem<TItem>>` | Gets or sets the item changed event callback. |
 
 ### Source
 
@@ -569,4 +569,4 @@ TreeViewToolbarEditButton component
 
 ---
 <!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->
-<!-- Generated: 2026-01-01 14:14:46 UTC -->
+<!-- Generated: 2026-01-02 01:56:17 UTC -->
