@@ -11,6 +11,7 @@ namespace LlmsDocsGenerator;
 public class DocsGenerator
 {
     private readonly string _outputPath;
+    private readonly string _componentsOutputPath;
     private readonly string _sourcePath;
     private readonly ComponentAnalyzer _analyzer;
     private readonly MarkdownBuilder _markdownBuilder;
@@ -25,6 +26,7 @@ public class DocsGenerator
 
         _sourcePath = Path.Combine(root, "src", "BootstrapBlazor");
         _outputPath = Path.Combine(root, "src", "BootstrapBlazor.Server", "wwwroot", "llms");
+        _componentsOutputPath = Path.Combine(_outputPath, "components");
         _analyzer = new ComponentAnalyzer(_sourcePath);
         _markdownBuilder = new MarkdownBuilder();
     }
@@ -59,23 +61,25 @@ public class DocsGenerator
     {
         Logger($"Source path: {_sourcePath}");
         Logger($"Output path: {_outputPath}");
+        Logger($"Components path: {_componentsOutputPath}");
+
+        // Ensure output directories exist
+        Directory.CreateDirectory(_outputPath);
+        Directory.CreateDirectory(_componentsOutputPath);
 
         // Analyze all components
         Logger("Analyzing components...");
         var components = await _analyzer.AnalyzeAllComponentsAsync();
         Logger($"Found {components.Count} components");
 
-        // Group components by category
-        var categorized = CategorizeComponents(components);
-
         // Generate index file
-        await GenerateIndexAsync(categorized);
+        await GenerateIndexAsync(components);
 
-        // Generate component documentation files
-        foreach (var category in categorized)
+        // Generate individual component documentation files
+        Logger("Generating individual component documentation...");
+        foreach (var component in components)
         {
-            Logger($"Generating {category.Key} documentation...");
-            await GenerateCategoryDocAsync(category.Key, category.Value);
+            await GenerateComponentDocAsync(component);
         }
 
         Logger("Documentation generation complete!");
@@ -87,17 +91,16 @@ public class DocsGenerator
     public async Task GenerateIndexAsync()
     {
         var components = await _analyzer.AnalyzeAllComponentsAsync();
-        var categorized = CategorizeComponents(components);
-        await GenerateIndexAsync(categorized);
+        await GenerateIndexAsync(components);
     }
 
-    private async Task GenerateIndexAsync(Dictionary<string, List<ComponentInfo>> categorized)
+    private async Task GenerateIndexAsync(List<ComponentInfo> components)
     {
         // Ensure output directory exists
         Directory.CreateDirectory(_outputPath);
 
         var indexPath = Path.Combine(_outputPath, "llms.txt");
-        var content = _markdownBuilder.BuildIndex(categorized);
+        var content = _markdownBuilder.BuildIndex(components);
         await File.WriteAllTextAsync(indexPath, content);
         Logger($"Generated: {indexPath}");
     }
@@ -115,11 +118,16 @@ public class DocsGenerator
         }
 
         // Ensure output directory exists
-        Directory.CreateDirectory(_outputPath);
+        Directory.CreateDirectory(_componentsOutputPath);
 
+        await GenerateComponentDocAsync(component);
+    }
+
+    private async Task GenerateComponentDocAsync(ComponentInfo component)
+    {
         var content = _markdownBuilder.BuildComponentDoc(component);
-        var fileName = $"llms-{componentName.ToLowerInvariant()}.txt";
-        var filePath = Path.Combine(_outputPath, fileName);
+        var fileName = $"{component.Name}.txt";
+        var filePath = Path.Combine(_componentsOutputPath, fileName);
         await File.WriteAllTextAsync(filePath, content);
         Logger($"Generated: {filePath}");
     }
@@ -132,7 +140,6 @@ public class DocsGenerator
         Logger("Checking documentation freshness...");
 
         var components = await _analyzer.AnalyzeAllComponentsAsync();
-        var categorized = CategorizeComponents(components);
 
         // Check index file
         var indexPath = Path.Combine(_outputPath, "llms.txt");
@@ -155,11 +162,12 @@ public class DocsGenerator
             Logger("Index file is stale relative to component sources. Please regenerate docs.");
             return false;
         }
-        // Check each category file
-        foreach (var category in categorized)
+
+        // Check each component file
+        foreach (var component in components)
         {
-            var fileName = GetCategoryFileName(category.Key);
-            var filePath = Path.Combine(_outputPath, fileName);
+            var fileName = $"{component.Name}.txt";
+            var filePath = Path.Combine(_componentsOutputPath, fileName);
 
             if (!File.Exists(filePath))
             {
@@ -167,15 +175,12 @@ public class DocsGenerator
                 return false;
             }
 
-            // Check if any source file is newer than the doc file
+            // Check if source file is newer than the doc file
             var docLastWrite = File.GetLastWriteTimeUtc(filePath);
-            foreach (var component in category.Value)
+            if (component.LastModified > docLastWrite)
             {
-                if (component.LastModified > docLastWrite)
-                {
-                    Logger($"OUTDATED: {component.Name} was modified after {fileName}");
-                    return false;
-                }
+                Logger($"OUTDATED: {component.Name} was modified after {fileName}");
+                return false;
             }
         }
 
@@ -183,41 +188,7 @@ public class DocsGenerator
         return true;
     }
 
-    private Dictionary<string, List<ComponentInfo>> CategorizeComponents(List<ComponentInfo> components)
-    {
-        var categories = new Dictionary<string, List<ComponentInfo>>
-        {
-            ["table"] = new(),
-            ["input"] = new(),
-            ["select"] = new(),
-            ["button"] = new(),
-            ["dialog"] = new(),
-            ["nav"] = new(),
-            ["card"] = new(),
-            ["treeview"] = new(),
-            ["form"] = new(),
-            ["other"] = new()
-        };
-
-        foreach (var component in components)
-        {
-            var category = GetComponentCategory(component.Name);
-            if (categories.ContainsKey(category))
-            {
-                categories[category].Add(component);
-            }
-            else
-            {
-                categories["other"].Add(component);
-            }
-        }
-
-        // Remove empty categories
-        return categories.Where(c => c.Value.Count > 0)
-                        .ToDictionary(c => c.Key, c => c.Value);
-    }
-
-    private string GetComponentCategory(string componentName)
+    private static string GetComponentCategory(string componentName)
     {
         return componentName.ToLowerInvariant() switch
         {
@@ -260,23 +231,6 @@ public class DocsGenerator
 
             _ => "other"
         };
-    }
-
-    private string GetCategoryFileName(string category)
-    {
-        return $"llms-{category}.txt";
-    }
-
-    private async Task GenerateCategoryDocAsync(string category, List<ComponentInfo> components)
-    {
-        // Ensure output directory exists
-        Directory.CreateDirectory(_outputPath);
-
-        var fileName = GetCategoryFileName(category);
-        var filePath = Path.Combine(_outputPath, fileName);
-        var content = _markdownBuilder.BuildCategoryDoc(category, components);
-        await File.WriteAllTextAsync(filePath, content);
-        Logger($"Generated: {filePath}");
     }
 
     private void Logger(string message)

@@ -26,19 +26,26 @@ AI 编程助手（Claude Code、Cursor、GitHub Copilot）经常因为缺乏准�
 │              输出目录: wwwroot/llms/                        │
 ├─────────────────────────────────────────────────────────────┤
 │  llms.txt              → 索引文件，包含快速入门指南           │
-│  llms-table.txt        → 表格组件文档                        │
-│  llms-input.txt        → 输入组件文档                        │
-│  llms-select.txt       → 选择组件文档                        │
-│  llms-button.txt       → 按钮组件文档                        │
-│  llms-dialog.txt       → 对话框组件文档                      │
-│  llms-nav.txt          → 导航组件文档                        │
-│  llms-card.txt         → 容器组件文档                        │
-│  llms-treeview.txt     → 树形组件文档                        │
-│  llms-form.txt         → 表单组件文档                        │
-│  llms-other.txt        → 其他组件文档                        │
-│  llms-example-project.txt → 用户项目模板                    │
+│  components/           → 单独的组件文档目录                   │
+│    ├── Button.txt      → Button 组件 API 参考                │
+│    ├── Table.txt       → Table 组件 API 参考                 │
+│    ├── Select.txt      → Select 组件 API 参考                │
+│    ├── Modal.txt       → Modal 组件 API 参考                 │
+│    └── ...             → 每个组件一个文件                     │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+### 为什么每个组件单独一个文件？
+
+这种设计针对 LLM 和 Code Agent 进行了优化：
+
+| 方面 | 按分类（旧方案） | 按组件（新方案） |
+|------|-----------------|-----------------|
+| **精确性** | ❌ 加载无关组件 | ✅ 只加载需要的 API |
+| **Token 效率** | ❌ 浪费 token 在无关数据上 | ✅ 最小化上下文加载 |
+| **缓存友好** | ❌ 需重新生成整个分类 | ✅ 只更新单个文件 |
+| **RAG 检索** | ❌ 粗粒度匹配 | ✅ 细粒度匹配 |
+| **增量更新** | ❌ CI/CD 检查复杂 | ✅ 简单的文件映射 |
 
 ## 工作原理
 
@@ -65,9 +72,9 @@ var summary = ExtractXmlSummary(property);
 - 公共方法
 - GitHub 源码链接
 
-### 3. 组件分类
+### 3. 组件组织
 
-组件自动分组到以下类别：
+组件在索引中按类别组织便于导航，但每个组件有独立的文档文件：
 
 | 类别 | 组件示例 |
 |------|----------|
@@ -227,11 +234,15 @@ RUN dotnet run
 ## 依赖
 
 ### BootstrapBlazor
-- 文档: https://www.blazor.zone/llms/llms.txt
-- 表格: https://www.blazor.zone/llms/llms-table.txt
+- 文档索引: https://www.blazor.zone/llms/llms.txt
+- Button: https://www.blazor.zone/llms/components/Button.txt
+- Table: https://www.blazor.zone/llms/components/Table.txt
+- Modal: https://www.blazor.zone/llms/components/Modal.txt
 ```
 
-完整模板请参考 `llms-example-project.txt`。
+LLM 代理可以：
+1. 先读取 `llms.txt` 了解有哪些组件
+2. 然后获取 `components/{ComponentName}.txt` 获取详细 API 信息
 
 ## 设计理念
 
@@ -241,15 +252,15 @@ RUN dotnet run
 |------|----------|
 | AI 生成错误的组件代码 | 提供准确的参数文档 |
 | 手动维护文档容易过期 | 自动从源码生成 |
-| 文档太大占用上下文 | 按类别分割，按需加载 |
+| 文档太大占用上下文 | 每组件单独文件，按需加载 |
 | 用户不知道如何引用 | 提供项目模板 |
 
 ### 混合文档策略
 
 ```
 AI 代理工作流程：
-1. 读取 llms.txt (5KB) → 快速了解组件分类
-2. 按需读取 llms-{component}.txt → 获取详细参数
+1. 读取 llms.txt (轻量索引) → 快速了解组件列表
+2. 按需读取 components/{Component}.txt → 获取精确的 API 参考
 3. 不确定时查阅 GitHub 源码 → 获取准确信息
 4. 参考 Samples 目录 → 学习官方用法
 ```

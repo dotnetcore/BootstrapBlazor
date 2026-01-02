@@ -26,19 +26,26 @@ AI coding assistants (Claude Code, Cursor, GitHub Copilot) often generate incorr
 │              Output: wwwroot/llms/                          │
 ├─────────────────────────────────────────────────────────────┤
 │  llms.txt              → Index with quick start guide       │
-│  llms-table.txt        → Table component documentation      │
-│  llms-input.txt        → Input component documentation      │
-│  llms-select.txt       → Selection component documentation  │
-│  llms-button.txt       → Button component documentation     │
-│  llms-dialog.txt       → Dialog component documentation     │
-│  llms-nav.txt          → Navigation component documentation │
-│  llms-card.txt         → Container component documentation  │
-│  llms-treeview.txt     → Tree component documentation       │
-│  llms-form.txt         → Form component documentation       │
-│  llms-other.txt        → Other component documentation      │
-│  llms-example-project.txt → Template for user projects      │
+│  components/           → Individual component documentation │
+│    ├── Button.txt      → Button component API reference     │
+│    ├── Table.txt       → Table component API reference      │
+│    ├── Select.txt      → Select component API reference     │
+│    ├── Modal.txt       → Modal component API reference      │
+│    └── ...             → One file per component             │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+### Why One File Per Component?
+
+This design optimizes for LLM and Code Agent consumption:
+
+| Aspect | Per-Category (Old) | Per-Component (New) |
+|--------|-------------------|---------------------|
+| **Precision** | ❌ Loads unrelated components | ✅ Only needed API info |
+| **Token Efficiency** | ❌ Wastes tokens on irrelevant data | ✅ Minimal context loading |
+| **Cache Friendly** | ❌ Regenerates entire category | ✅ Updates single file |
+| **RAG Retrieval** | ❌ Coarse-grained matches | ✅ Fine-grained matches |
+| **Incremental Updates** | ❌ Complex CI/CD checks | ✅ Simple file mapping |
 
 ## How It Works
 
@@ -65,12 +72,12 @@ The `MarkdownBuilder` creates structured markdown with:
 - Public methods
 - GitHub source links
 
-### 3. Component Categorization
+### 3. Component Organization
 
-Components are automatically grouped into categories:
+Components are organized in the index by category for easy navigation, but each component has its own dedicated documentation file:
 
-| Category | Components |
-|----------|------------|
+| Category | Example Components |
+|----------|-------------------|
 | table | Table, SelectTable, TableToolbar |
 | input | BootstrapInput, Textarea, OtpInput |
 | select | Select, AutoComplete, Cascader |
@@ -227,8 +234,12 @@ Users can reference this documentation in their own projects by creating a `llms
 ## Dependencies
 
 ### BootstrapBlazor
-- Documentation: https://www.blazor.zone/llms/llms.txt
-- Table: https://www.blazor.zone/llms/llms-table.txt
+- Documentation Index: https://www.blazor.zone/llms/llms.txt
+- Button: https://www.blazor.zone/llms/components/Button.txt
+- Table: https://www.blazor.zone/llms/components/Table.txt
+- Modal: https://www.blazor.zone/llms/components/Modal.txt
 ```
 
-See `llms-example-project.txt` for a complete template.
+LLM agents can:
+1. First read `llms.txt` to discover available components
+2. Then fetch specific `components/{ComponentName}.txt` for detailed API info

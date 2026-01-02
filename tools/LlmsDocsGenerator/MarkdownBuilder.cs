@@ -18,7 +18,7 @@ public class MarkdownBuilder
     /// <summary>
     /// Build the main llms.txt index file
     /// </summary>
-    public string BuildIndex(Dictionary<string, List<ComponentInfo>> categorizedComponents)
+    public string BuildIndex(List<ComponentInfo> components)
     {
         _sb.Clear();
 
@@ -53,11 +53,15 @@ public class MarkdownBuilder
         _sb.AppendLine("```");
         _sb.AppendLine();
 
-        // Component Categories
-        _sb.AppendLine("## Component Categories");
+        // Component List - grouped by category for easy navigation
+        _sb.AppendLine("## Components");
         _sb.AppendLine();
-        _sb.AppendLine("For detailed documentation, refer to the specific llms-{category}.txt files.");
+        _sb.AppendLine("Each component has its own documentation file in the `components/` directory.");
+        _sb.AppendLine("Use `components/{ComponentName}.txt` to get detailed API information.");
         _sb.AppendLine();
+
+        // Group components by category for the index
+        var categorized = CategorizeComponents(components);
 
         var categoryDescriptions = new Dictionary<string, (string Title, string Description)>
         {
@@ -73,20 +77,23 @@ public class MarkdownBuilder
             ["other"] = ("Other Components", "Miscellaneous components")
         };
 
-        foreach (var (category, components) in categorizedComponents.OrderBy(c => c.Key))
+        foreach (var (category, categoryComponents) in categorized.OrderBy(c => c.Key))
         {
-            if (components.Count == 0) continue;
+            if (categoryComponents.Count == 0) continue;
 
             var (title, description) = categoryDescriptions.GetValueOrDefault(category, (category, ""));
             _sb.AppendLine($"### {title}");
-            _sb.AppendLine($"→ See: llms-{category}.txt");
             _sb.AppendLine();
             _sb.AppendLine($"{description}");
             _sb.AppendLine();
-            _sb.AppendLine("Components: " + string.Join(", ", components.Take(10).Select(c => c.Name)));
-            if (components.Count > 10)
+
+            // List components with links to their individual docs
+            foreach (var component in categoryComponents.OrderBy(c => c.Name))
             {
-                _sb.AppendLine($"  ... and {components.Count - 10} more");
+                var summary = !string.IsNullOrEmpty(component.Summary)
+                    ? $" - {TruncateSummary(component.Summary, 60)}"
+                    : "";
+                _sb.AppendLine($"- [{component.Name}](components/{component.Name}.txt){summary}");
             }
             _sb.AppendLine();
         }
@@ -131,60 +138,78 @@ public class MarkdownBuilder
         // Footer
         _sb.AppendLine("---");
         _sb.AppendLine($"Generated: {DateTime.UtcNow:yyyy-MM-dd}");
+        _sb.AppendLine($"Total Components: {components.Count}");
         _sb.AppendLine($"Repository: {GitHubBaseUrl}");
 
         return _sb.ToString();
     }
 
-    /// <summary>
-    /// Build documentation for a category of components
-    /// </summary>
-    public string BuildCategoryDoc(string category, List<ComponentInfo> components)
+    private static Dictionary<string, List<ComponentInfo>> CategorizeComponents(List<ComponentInfo> components)
     {
-        _sb.Clear();
-
-        var categoryTitles = new Dictionary<string, string>
+        var categories = new Dictionary<string, List<ComponentInfo>>
         {
-            ["table"] = "Table Components",
-            ["input"] = "Input Components",
-            ["select"] = "Selection Components",
-            ["button"] = "Button Components",
-            ["dialog"] = "Dialog & Feedback Components",
-            ["nav"] = "Navigation Components",
-            ["card"] = "Container Components",
-            ["treeview"] = "Tree Components",
-            ["form"] = "Form Components",
-            ["other"] = "Other Components"
+            ["table"] = [],
+            ["input"] = [],
+            ["select"] = [],
+            ["button"] = [],
+            ["dialog"] = [],
+            ["nav"] = [],
+            ["card"] = [],
+            ["treeview"] = [],
+            ["form"] = [],
+            ["other"] = []
         };
 
-        var title = categoryTitles.GetValueOrDefault(category, $"{category} Components");
-
-        _sb.AppendLine($"# BootstrapBlazor {title}");
-        _sb.AppendLine();
-        _sb.AppendLine($"> Auto-generated parameter reference for {category} components");
-        _sb.AppendLine();
-
-        // Table of contents
-        _sb.AppendLine("## Components");
-        _sb.AppendLine();
-        foreach (var component in components.OrderBy(c => c.Name))
+        foreach (var component in components)
         {
-            _sb.AppendLine($"- [{component.Name}](#{component.Name.ToLowerInvariant()})");
-        }
-        _sb.AppendLine();
-
-        // Each component
-        foreach (var component in components.OrderBy(c => c.Name))
-        {
-            BuildComponentSection(component);
+            var category = GetComponentCategory(component.Name);
+            if (categories.TryGetValue(category, out var list))
+            {
+                list.Add(component);
+            }
+            else
+            {
+                categories["other"].Add(component);
+            }
         }
 
-        // Footer
-        _sb.AppendLine("---");
-        _sb.AppendLine("<!-- AUTO-GENERATED - DO NOT EDIT MANUALLY -->");
-        _sb.AppendLine($"<!-- Generated: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC -->");
+        // Remove empty categories
+        return categories.Where(c => c.Value.Count > 0)
+                        .ToDictionary(c => c.Key, c => c.Value);
+    }
 
-        return _sb.ToString();
+    private static string GetComponentCategory(string componentName)
+    {
+        return componentName.ToLowerInvariant() switch
+        {
+            var n when n.Contains("table") => "table",
+            var n when n.Contains("input") || n.Contains("textarea") ||
+                       n.Contains("password") || n == "otpinput" => "input",
+            var n when n.Contains("select") || n.Contains("dropdown") ||
+                       n.Contains("autocomplete") || n.Contains("cascader") ||
+                       n.Contains("transfer") || n.Contains("multiselect") => "select",
+            var n when n.Contains("button") || n == "gotop" ||
+                       n.Contains("popconfirm") => "button",
+            var n when n.Contains("dialog") || n.Contains("modal") ||
+                       n.Contains("drawer") || n.Contains("swal") ||
+                       n.Contains("toast") || n.Contains("message") => "dialog",
+            var n when n.Contains("menu") || n.Contains("tab") ||
+                       n.Contains("breadcrumb") || n.Contains("step") ||
+                       n.Contains("anchor") || n.Contains("nav") => "nav",
+            var n when n.Contains("card") || n.Contains("collapse") ||
+                       n.Contains("groupbox") || n.Contains("panel") => "card",
+            var n when n.Contains("tree") => "treeview",
+            var n when n.Contains("validateform") || n.Contains("editorform") ||
+                       n.Contains("validator") => "form",
+            _ => "other"
+        };
+    }
+
+    private static string TruncateSummary(string summary, int maxLength)
+    {
+        if (string.IsNullOrEmpty(summary)) return "";
+        summary = summary.Replace("\n", " ").Replace("\r", "").Trim();
+        return summary.Length <= maxLength ? summary : summary[..(maxLength - 3)] + "...";
     }
 
     /// <summary>
