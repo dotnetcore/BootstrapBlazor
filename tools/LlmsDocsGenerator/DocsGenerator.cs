@@ -15,34 +15,33 @@ public class DocsGenerator
     private readonly ComponentAnalyzer _analyzer;
     private readonly MarkdownBuilder _markdownBuilder;
 
-    public DocsGenerator()
+    public DocsGenerator(string? rootFolder)
     {
         // Find the source directory (relative to tool location or current directory)
-        var rootFolder = FindSourcePath();
+        var root = FindSourcePath(rootFolder);
 
-        _sourcePath = Path.Combine(rootFolder, "BootstrapBlazor");
-        _outputPath = Path.Combine(rootFolder, "BootstrapBlazor.Server", "wwwroot", "llms");
+        _sourcePath = Path.Combine(root, "src", "BootstrapBlazor");
+        _outputPath = Path.Combine(root, "src", "BootstrapBlazor.Server", "wwwroot", "llms");
         _analyzer = new ComponentAnalyzer(_sourcePath);
         _markdownBuilder = new MarkdownBuilder();
     }
 
-    private static string FindSourcePath()
+    private static string FindSourcePath(string? rootFolder)
     {
         // Try to find src/BootstrapBlazor from current directory or parent directories
-        var current = AppContext.BaseDirectory;
+        var current = rootFolder ?? AppContext.BaseDirectory;
+        System.Console.WriteLine(current);
 
         while (!string.IsNullOrEmpty(current))
         {
-            var srcPath = Path.Combine(current, "src");
-            if (Directory.Exists(srcPath))
-            {
-                return srcPath;
-            }
-
             var parent = Directory.GetParent(current);
             if (parent == null)
             {
                 break;
+            }
+            if (parent.Name.Equals("BootstrapBlazor", StringComparison.OrdinalIgnoreCase))
+            {
+                return parent.FullName;
             }
             current = parent.FullName;
         }
