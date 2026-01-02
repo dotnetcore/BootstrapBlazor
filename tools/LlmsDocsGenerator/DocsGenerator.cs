@@ -140,7 +140,7 @@ public class DocsGenerator
 
         // compute the most recent component source timestamp:
         var newestComponentWrite = components
-            .SelectMany(c => c.SourceFiles)
+            .Select(c => c.SourcePath)
             .Select(File.GetLastWriteTimeUtc)
             .DefaultIfEmpty(indexLastWrite)
             .Max();
