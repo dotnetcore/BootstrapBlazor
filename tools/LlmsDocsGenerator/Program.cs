@@ -6,28 +6,20 @@
 using LlmsDocsGenerator;
 using System.CommandLine;
 
-
 var componentOption = new Option<string?>("--component") { Description = "Generate documentation for a specific component only" };
 var indexOnlyOption = new Option<bool>("--index-only") { Description = "Generate only the index file (llms.txt)" };
 var checkOption = new Option<bool>("--check") { Description = "Check if documentation is up-to-date (for CI/CD)" };
-var outputOption = new Option<string>("--output")
-{
-    Description = "Output directory for generated files (default: src/BootstrapBlazor.Server/wwwroot/llms)",
-    DefaultValueFactory = result => "src/BootstrapBlazor.Server/wwwroot/llms"
-};
 
 var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator")
 {
     componentOption,
     indexOnlyOption,
-    checkOption,
-    outputOption
+    checkOption
 };
 
 rootCommand.SetAction(async result =>
 {
-    var output = result.GetRequiredValue(outputOption);
-    var generator = new DocsGenerator(output);
+    var generator = new DocsGenerator();
 
     var check = result.GetValue(checkOption);
     if (check)

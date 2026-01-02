@@ -15,38 +15,39 @@ public class DocsGenerator
     private readonly ComponentAnalyzer _analyzer;
     private readonly MarkdownBuilder _markdownBuilder;
 
-    public DocsGenerator(string outputPath)
+    public DocsGenerator()
     {
-        _outputPath = Path.GetFullPath(outputPath);
-
         // Find the source directory (relative to tool location or current directory)
-        _sourcePath = FindSourcePath();
+        var rootFolder = FindSourcePath();
 
+        _sourcePath = Path.Combine(rootFolder, "BootstrapBlazor");
+        _outputPath = Path.Combine(rootFolder, "BootstrapBlazor.Server", "wwwroot", "llms");
         _analyzer = new ComponentAnalyzer(_sourcePath);
         _markdownBuilder = new MarkdownBuilder();
     }
 
-    private string FindSourcePath()
+    private static string FindSourcePath()
     {
         // Try to find src/BootstrapBlazor from current directory or parent directories
         var current = AppContext.BaseDirectory;
 
         while (!string.IsNullOrEmpty(current))
         {
-            var srcPath = Path.Combine(current, "src", "BootstrapBlazor");
+            var srcPath = Path.Combine(current, "src");
             if (Directory.Exists(srcPath))
             {
                 return srcPath;
             }
 
             var parent = Directory.GetParent(current);
-            if (parent == null) break;
+            if (parent == null)
+            {
+                break;
+            }
             current = parent.FullName;
         }
 
-        throw new DirectoryNotFoundException(
-            "Could not find src/BootstrapBlazor directory. " +
-            "Please run this tool from the BootstrapBlazor repository root.");
+        throw new DirectoryNotFoundException("Could not find src/BootstrapBlazor directory. Please run this tool from the BootstrapBlazor repository root.");
     }
 
     /// <summary>
