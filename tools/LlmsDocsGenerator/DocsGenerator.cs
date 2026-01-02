@@ -136,6 +136,20 @@ public class DocsGenerator
             return false;
         }
 
+        var indexLastWrite = File.GetLastWriteTimeUtc(indexPath);
+
+        // compute the most recent component source timestamp:
+        var newestComponentWrite = components
+            .SelectMany(c => c.SourceFiles)
+            .Select(File.GetLastWriteTimeUtc)
+            .DefaultIfEmpty(indexLastWrite)
+            .Max();
+
+        if (indexLastWrite < newestComponentWrite)
+        {
+            Console.WriteLine("Index file is stale relative to component sources. Please regenerate docs.");
+            return false;
+        }
         // Check each category file
         foreach (var category in categorized)
         {
