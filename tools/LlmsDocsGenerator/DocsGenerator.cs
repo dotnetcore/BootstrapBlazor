@@ -47,7 +47,7 @@ public class DocsGenerator
             current = parent.FullName;
         }
 
-        throw new DirectoryNotFoundException("Could not find src/BootstrapBlazor directory. Please run this tool from the BootstrapBlazor repository root.");
+        throw new DirectoryNotFoundException("Could not find src directory. Please run this tool from the BootstrapBlazor repository root.");
     }
 
     /// <summary>
