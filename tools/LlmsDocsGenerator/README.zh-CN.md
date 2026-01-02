@@ -82,7 +82,7 @@ var summary = ExtractXmlSummary(property);
 | form | ValidateForm, EditorForm |
 | other | 其他所有组件 |
 
-## 安装dotnet tool install --global --add-source ./tools/LlmsDocsGenerator/bin/Debug BootstrapBlazor.LlmsDocsGenerator
+## 安装
 
 ### 作为全局工具安装
 
