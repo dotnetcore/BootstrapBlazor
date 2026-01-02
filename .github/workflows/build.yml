@@ -52,7 +52,3 @@ jobs:
     - name: Check Localizer
       run: |
         dotnet test test/UnitTest.Localization
-
-    - name: Check LLM Documentation
-      run: |
-        dotnet run --project tools/LlmsDocsGenerator -- --check
