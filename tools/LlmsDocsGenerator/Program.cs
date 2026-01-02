@@ -26,7 +26,7 @@ var rootCommand = new RootCommand("BootstrapBlazor LLMs Documentation Generator"
 
 rootCommand.SetAction(async result =>
 {
-    var output = result.GetValue(outputOption);
+    var output = result.GetRequiredValue(outputOption);
     var generator = new DocsGenerator(output);
 
     var check = result.GetValue(checkOption);
