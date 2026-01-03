@@ -87,64 +87,6 @@ dotnet new install Bootstrap.Blazor.Templates::*
 dotnet new bbapp
 ```
 
-## For AI Code Agents
-
-This project includes LLM-friendly documentation to help AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.) generate correct component usage.
-
-### Online Access
-
-Documentation files are available at: `https://www.blazor.zone/llmstxt/`
-
-| File | URL |
-|------|-----|
-| Index | https://www.blazor.zone/llmstxt/llms.txt |
-| Table | https://www.blazor.zone/llmstxt/llms-table.txt |
-| Input | https://www.blazor.zone/llmstxt/llms-input.txt |
-| Select | https://www.blazor.zone/llmstxt/llms-select.txt |
-| Button | https://www.blazor.zone/llmstxt/llms-button.txt |
-| Dialog | https://www.blazor.zone/llmstxt/llms-dialog.txt |
-| Nav | https://www.blazor.zone/llmstxt/llms-nav.txt |
-| Card | https://www.blazor.zone/llmstxt/llms-card.txt |
-| TreeView | https://www.blazor.zone/llmstxt/llms-treeview.txt |
-| Form | https://www.blazor.zone/llmstxt/llms-form.txt |
-| Other | https://www.blazor.zone/llmstxt/llms-other.txt |
-
-### Using in Your Project
-
-Create a `llms.txt` in your project root to reference BootstrapBlazor documentation.
-
-See the full example template: https://www.blazor.zone/llmstxt/llms-example-project.txt
-
-Quick example:
-
-```markdown
-# My Project
-
-## Dependencies
-
-### BootstrapBlazor
-- NuGet: BootstrapBlazor
-- Documentation: https://www.blazor.zone/llmstxt/llms.txt
-- Source Code: https://github.com/dotnetcore/BootstrapBlazor
-
-For component parameters and usage:
-- Table: https://www.blazor.zone/llmstxt/llms-table.txt
-- Dialog: https://www.blazor.zone/llmstxt/llms-dialog.txt
-- ... (add others as needed)
-```
-
-### Regenerate Documentation
-
-```bash
-dotnet run --project tools/LlmsDocsGenerator
-```
-
-### Check Documentation Freshness
-
-```bash
-dotnet run --project tools/LlmsDocsGenerator -- --check
-```
-
 ## Contribution
 1. Fork
 2. Create Feat_xxx branch
