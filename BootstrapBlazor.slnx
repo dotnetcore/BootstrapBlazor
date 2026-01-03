@@ -74,6 +74,5 @@
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
-    <Project Path="tools/LLMsDocsGenerator/LLMsDocsGenerator.csproj" />
   </Folder>
 </Solution>
