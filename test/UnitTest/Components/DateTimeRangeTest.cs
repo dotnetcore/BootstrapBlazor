@@ -479,13 +479,12 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.Contains("class=\"form-label\"");
 
         // 验证
-        var validate = true;
-        await cut.InvokeAsync(() => validate = cut.Instance.Validate());
+        var validate = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.False(validate);
 
         var range = cut.FindComponent<DateTimeRange>();
         var clear = range.Find(".is-clear");
-        clear.Click();
+        await cut.InvokeAsync(() => clear.Click());
 
         range.Render(pb =>
         {
@@ -504,8 +503,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Model, foo);
         });
-        validate = false;
-        await cut.InvokeAsync(() => validate = cut.Instance.Validate());
+        validate = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.True(validate);
     }
 

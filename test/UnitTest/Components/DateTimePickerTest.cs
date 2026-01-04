@@ -1286,7 +1286,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("02/15/2024", model.DateTime.Value.ToString("MM/dd/yyyy"));
 
         // 录入非法数值 Validate 通过
-        var valid = cut.Instance.Validate();
+        var valid = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.True(valid);
     }
 
