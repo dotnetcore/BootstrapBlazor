@@ -242,7 +242,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         });
         Assert.Equal(1, model.Count);
 
-        var valid = cut.Instance.Validate();
+        var valid = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.False(valid);
 
         await cut.InvokeAsync(() =>
@@ -250,7 +250,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
             input.Change("t2");
         });
         Assert.Equal(1, model.Count);
-        valid = cut.Instance.Validate();
+        valid = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.False(valid);
 
         await cut.InvokeAsync(() =>
@@ -259,7 +259,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
         });
         Assert.Equal(2, model.Count);
 
-        valid = cut.Instance.Validate();
+        valid = await cut.InvokeAsync(cut.Instance.ValidateAsync);
         Assert.True(valid);
     }
 
