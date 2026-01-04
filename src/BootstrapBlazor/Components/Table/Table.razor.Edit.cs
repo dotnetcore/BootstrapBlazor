@@ -704,7 +704,8 @@ public partial class Table<TItem>
     private async Task ClickUpdateButtonCallback()
     {
         // 验证 InCell 模式下的表单
-        if (!_inCellValidateForm.Validate())
+        var valid = await _inCellValidateForm.Validate();
+        if (!valid)
         {
             return;
         }
