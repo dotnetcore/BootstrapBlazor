@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -136,6 +138,44 @@ public partial class CardUpload<TValue>
     public List<string>? AllowExtensions { get; set; }
 
     /// <summary>
+    /// 获得/设置 删除前是否显示确认对话框，依赖 <see cref="FileListUploadBase{TValue}.ShowDeleteButton"/> 属性为 true 时有效
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteConfirmButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除确认弹窗中确认按钮颜色 默认 <see cref="Color.Danger"/>
+    /// </summary>
+    [Parameter]
+    public Color DeleteConfirmButtonColor { get; set; } = Color.Danger;
+
+    /// <summary>
+    /// 获得/设置 删除确认弹窗中确认按钮图标 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除确认弹窗中确认文本内容 默认 null 未设置 使用资源文件中内置文字
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmContent { get; set; }
+    /// <summary>
+    /// 获得/设置 删除确认弹窗中确认按钮显示文字 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? DeleteConfirmButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除确认弹窗中取消按钮显示文字 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? DeleteCloseButtonText { get; set; }
+
+    [Inject, NotNull]
+    private IStringLocalizer<CardUpload<TValue>>? Localizer { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -146,6 +186,8 @@ public partial class CardUpload<TValue>
         StatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadStatusIcon);
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
+
+        DeleteConfirmContent ??= Localizer["DeleteConfirmContent"];
     }
 
     /// <summary>
