@@ -69,14 +69,15 @@
                     {
                         @if (ShowDeleteConfirmButton)
                         {
-                            <PopConfirmButton Placement="Placement.Top"
-                                              Color="Color.Danger"
-                                              ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
-                                              ConfirmButtonColor="Color.Danger"
-                                              Content="确定删除数据吗？"
-                                              Icon="fa-regular fa-trash-can"
+                            <PopConfirmButton Placement="Placement.Top" class="btn btn-sm btn-outline-danger"
+                                              ConfirmIcon="@DeleteConfirmButtonIcon"
+                                              ConfirmButtonColor="DeleteConfirmButtonColor"
+                                              ConfirmButtonText="@DeleteConfirmButtonText"
+                                              CloseButtonText="@DeleteCloseButtonText" 
+                                              Content="@DeleteConfirmContent"
+                                              Icon="@RemoveIcon"
                                               IsAsync="true"
-                                              OnConfirm="@(async()=>await OnCardFileDelete(item))"/>
+                                              OnConfirm="@(async ()=> await OnCardFileDelete(item))" />
                         }
                         else
                         {
@@ -86,7 +87,7 @@
                                 <i class="@RemoveIcon"></i>
                             </button>
                         }
-                        
+
                     }
                 </div>
                 @if (GetShowProgress(item))
@@ -114,6 +115,6 @@
 @code {
     RenderFragment RenderAdd =>
     @<div id="@AddId" class="@CardItemClass">
-        <i class="@AddIcon"></i>
+            <i class="@AddIcon"></i>
     </div>;
 }
