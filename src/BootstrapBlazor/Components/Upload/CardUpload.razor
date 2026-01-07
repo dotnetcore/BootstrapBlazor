@@ -67,11 +67,26 @@
                     </div>
                     @if (ShowDeleteButton)
                     {
-                        <button type="button" class="btn btn-sm btn-outline-danger"
-                                disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
-                                @onclick="() => OnCardFileDelete(item)">
-                            <i class="@RemoveIcon"></i>
-                        </button>
+                        @if (ShowDeleteConfirmButton)
+                        {
+                            <PopConfirmButton Placement="Placement.Top"
+                                              Color="Color.Danger"
+                                              ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                                              ConfirmButtonColor="Color.Danger"
+                                              Content="确定删除数据吗？"
+                                              Icon="fa-regular fa-trash-can"
+                                              IsAsync="true"
+                                              OnConfirm="@(async()=>await OnCardFileDelete(item))"/>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                    disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
+                                    @onclick="() => OnCardFileDelete(item)">
+                                <i class="@RemoveIcon"></i>
+                            </button>
+                        }
+                        
                     }
                 </div>
                 @if (GetShowProgress(item))

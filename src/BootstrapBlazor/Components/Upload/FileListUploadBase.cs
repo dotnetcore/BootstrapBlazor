@@ -18,6 +18,12 @@ public class FileListUploadBase<TValue> : UploadBase<TValue>
     public bool ShowDeleteButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 删除前是否显示确认对话框，依赖 ShowDeleteButton 属性为true时有效
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteConfirmButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 删除按钮图标
     /// </summary>
     [Parameter]

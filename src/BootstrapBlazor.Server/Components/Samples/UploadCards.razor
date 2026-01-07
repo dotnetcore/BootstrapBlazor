@@ -1,4 +1,4 @@
-﻿@page "/upload-card"
+@page "/upload-card"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<UploadCards> Localizer
 @inject ToastService ToastService
@@ -54,6 +54,12 @@
             </div>
             <div class="col-12 col-sm-6 col-xl-3">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowDeleteConfirmButton"></BootstrapInputGroupLabel>
+                    <Switch @bind-Value="@_showDeleteConfirmButton"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="ShowZoomButton"></BootstrapInputGroupLabel>
                     <Switch @bind-Value="@_showZoomButton"></Switch>
                 </BootstrapInputGroup>
@@ -68,7 +74,7 @@
     </section>
     <CardUpload TValue="string" IsMultiple="@_isMultiple" IsDirectory="@_isDirectory"
                 IsDisabled="@_isDisabled" IsUploadButtonAtFirst="@_isUploadButtonAtFirst"
-                ShowProgress="@_showProgress" ShowDeleteButton="@_showDeleteButton"
+                ShowProgress="@_showProgress" ShowDeleteButton="@_showDeleteButton" ShowDeleteConfirmButton="@_showDeleteConfirmButton"
                 ShowDownloadButton="@_showDownloadButton" ShowZoomButton="@_showZoomButton" OnChange="@OnCardUpload"></CardUpload>
 </DemoBlock>
 
