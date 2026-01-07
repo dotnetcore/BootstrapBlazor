@@ -1,9 +1,9 @@
 <Project>
 
-  <Target Name="LLMs" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
+  <Target Name="LLMs" AfterTargets="AfterPublish" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
     <Message Text="LLMs documentation generating ..." Importance="high"></Message>
     <Exec Command="dotnet tool restore"></Exec>
-    <Exec Command="dotnet llms-docs --root=$(MSBuildThisFileDirectory) --debug"></Exec>
+    <Exec Command="dotnet llms-docs --root=$(MSBuildThisFileDirectory)"></Exec>
   </Target>
 
 </Project>
