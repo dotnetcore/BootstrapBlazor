@@ -32,42 +32,42 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET9Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET9Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET9Version)" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET9Version)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET9Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET10Version)" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET9Version)" />
   </ItemGroup>
 
