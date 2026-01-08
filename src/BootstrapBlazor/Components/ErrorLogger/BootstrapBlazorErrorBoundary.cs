@@ -67,7 +67,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="exception"></param>
     protected override Task OnErrorAsync(Exception exception)
     {
-        if (EnableILogger)
+        if (EnableILogger && Logger.IsEnabled(LogLevel.Error))
         {
             Logger.LogError(exception, "BootstrapBlazorErrorBoundary OnErrorAsync log this error occurred at {Page}", NavigationManager.Uri);
         }
