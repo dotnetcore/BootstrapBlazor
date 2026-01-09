@@ -44,7 +44,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得/设置 自定义错误处理回调方法
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
