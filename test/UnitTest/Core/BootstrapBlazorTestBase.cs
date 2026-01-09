@@ -13,9 +13,8 @@ public class BootstrapBlazorTestBase : TestBase
 
     public BootstrapBlazorTestBase() : base()
     {
-        ConfigureServices(Context.Services);
-
         ConfigureConfiguration(Context.Services);
+        ConfigureServices(Context.Services);
 
         // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
         Cache = Context.Services.GetRequiredService<ICacheManager>();
@@ -30,6 +29,8 @@ public class BootstrapBlazorTestBase : TestBase
         });
         services.AddSingleton<ILookupService, FooLookupService>();
         services.AddKeyedSingleton<ILookupService, FooLookupServiceAsync>("FooLookupAsync");
+
+        services.AddLogging(builder => builder.AddMockLoggerProvider());
     }
 
     protected virtual void ConfigureConfiguration(IServiceCollection services)

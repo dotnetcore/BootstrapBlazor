@@ -6,6 +6,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +20,8 @@ internal static class IServiceCollectionExtensions
         {
             builder.AddInMemoryCollection(new Dictionary<string, string?>()
             {
-                ["BootstrapBlazorOptions:DefaultCultureInfo"] = cultureName
+                ["BootstrapBlazorOptions:DefaultCultureInfo"] = cultureName,
+                ["Logging:LogLevel:Default"] = "Information"
             });
         }
         var config = builder.Build();
@@ -31,6 +33,33 @@ internal static class IServiceCollectionExtensions
     {
         services.AddSingleton<IHostEnvironment, MockEnvironment>();
         return services;
+    }
+
+    public static ILoggingBuilder AddMockLoggerProvider(this ILoggingBuilder builder)
+    {
+        return builder.AddProvider(new TestLoggerProvider());
+    }
+
+    class TestLoggerProvider : ILoggerProvider
+    {
+        public ILogger CreateLogger(string categoryName) => new TestLogger();
+
+        public void Dispose() { }
+    }
+
+    class TestLogger : ILogger
+    {
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        {
+            return null;
+        }
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+
+        }
     }
 
     class MockEnvironment : IHostEnvironment

@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
@@ -126,8 +126,9 @@
         }
         else
         {
-            <ErrorLogger EnableErrorLogger="@EnableLogger" ShowToast="@ShowToast" ToastTitle="@ErrorLoggerToastTitle"
-                         EnableILogger="@EnableILogger" OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
+            <ErrorLogger EnableErrorLogger="@EnableLogger" EnableILogger="@EnableILogger"
+                         ShowToast="@ShowToast" ToastTitle="@ErrorLoggerToastTitle"
+                         OnErrorHandleAsync="OnErrorHandleAsync" OnInitializedCallback="OnErrorLoggerInitialized">
                 @HandlerMain()
             </ErrorLogger>
         }

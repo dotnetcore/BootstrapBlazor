@@ -28,13 +28,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool ShowToast { get; set; } = true;
+    public bool EnableILogger { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool EnableILogger { get; set; } = true;
+    public bool ShowToast { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -44,7 +44,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得/设置 自定义错误处理回调方法
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }

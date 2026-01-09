@@ -5,8 +5,6 @@
 
 //using HarmonyLib;
 
-using Bunit.TestDoubles;
-
 namespace UnitTest.Components;
 
 public class BootstrapBlazorRootTest : TestBase
@@ -27,7 +25,6 @@ public class BootstrapBlazorRootTest : TestBase
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public RenderFragment Generator() => builder =>
         {
             builder.AddContent(0, new MarkupString("<div class=\"auto-generator\"></div>"));

@@ -1,8 +1,9 @@
-﻿@inherits ComponentBase
+@inherits ComponentBase
 @namespace BootstrapBlazor.Components
 
 <CascadingValue Value="this" IsFixed="true">
-    <ErrorLogger EnableErrorLogger="EnableErrorLoggerValue" ShowToast="ShowToastValue" ToastTitle="@ToastTitle"
+    <ErrorLogger EnableErrorLogger="EnableErrorLoggerValue" EnableILogger="EnableErrorLoggerILoggerValue"
+                 ShowToast="ShowToastValue" ToastTitle="@ToastTitle"
                  OnErrorHandleAsync="OnErrorHandleAsync">
         @ChildContent
 
