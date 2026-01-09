@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -43,16 +43,16 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示弹窗 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowToast { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 是否启用日志记录功能 默认 true 启用
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示弹窗 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowToast { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 Toast 弹窗标题

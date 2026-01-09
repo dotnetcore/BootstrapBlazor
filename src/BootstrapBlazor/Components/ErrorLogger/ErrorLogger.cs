@@ -28,13 +28,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool ShowToast { get; set; } = true;
+    public bool EnableILogger { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool EnableILogger { get; set; } = true;
+    public bool ShowToast { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
