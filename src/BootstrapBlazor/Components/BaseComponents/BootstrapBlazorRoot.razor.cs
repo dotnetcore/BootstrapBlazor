@@ -42,13 +42,13 @@ public partial class BootstrapBlazorRoot
     public ToastContainer? ToastContainer { get; private set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
+    /// 获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 读取配置文件 EnableErrorLoggerILogger 值
+    /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
     /// </summary>
     [Parameter]
     public bool? EnableErrorLoggerILogger { get; set; } = true;
@@ -57,7 +57,15 @@ public partial class BootstrapBlazorRoot
     /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
     /// </summary>
     [Parameter]
-    public bool? ShowToast { get; set; }
+    [Obsolete("已弃用，请使用 ShowErrorLoggerToast 参数. Deprecated, please use ShowErrorLoggerToast parameter")]
+    [ExcludeFromCodeCoverage]
+    public bool? ShowToast { get => ShowErrorLoggerToast; set => ShowErrorLoggerToast = value; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? ShowErrorLoggerToast { get; set; }
 
     /// <summary>
     /// 获得/设置 Error Toast 弹窗标题
@@ -75,7 +83,7 @@ public partial class BootstrapBlazorRoot
 
     private bool EnableErrorLoggerILoggerValue => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
 
-    private bool ShowToastValue => ShowToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+    private bool ShowToastValue => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// SetParametersAsync 方法
