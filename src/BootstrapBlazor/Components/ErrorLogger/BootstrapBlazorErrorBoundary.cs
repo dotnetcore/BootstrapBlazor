@@ -164,7 +164,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             if (HostEnvironment.IsDevelopment())
             {
                 // IHandlerException 处理异常逻辑
-                await handler.HandlerException(exception, ExceptionContent);
+                await handler.HandlerExceptionAsync(exception, ExceptionContent);
             }
             else
             {

@@ -88,7 +88,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public Task HandlerException(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
+    public Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
 
     /// <summary>
     /// IDispose 方法用于释放资源
