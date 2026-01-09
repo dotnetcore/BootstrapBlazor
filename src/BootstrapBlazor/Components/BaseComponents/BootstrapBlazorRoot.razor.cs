@@ -51,7 +51,7 @@ public partial class BootstrapBlazorRoot
     /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
     /// </summary>
     [Parameter]
-    public bool? EnableErrorLoggerILogger { get; set; } = true;
+    public bool? EnableErrorLoggerILogger { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
@@ -86,7 +86,7 @@ public partial class BootstrapBlazorRoot
     private bool ShowToastValue => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
