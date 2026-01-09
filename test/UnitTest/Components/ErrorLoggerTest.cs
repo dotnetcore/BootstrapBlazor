@@ -136,7 +136,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
-            pb.Add(a => a.ShowToast, false);
+            pb.Add(a => a.ShowErrorLoggerToast, false);
             pb.Add(a => a.ToastTitle, "Test");
             pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
             {
@@ -163,7 +163,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(a => a.EnableErrorLogger, true);
-            pb.Add(a => a.ShowToast, true);
+            pb.Add(a => a.ShowErrorLoggerToast, true);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(b => b.OnClick, () =>
