@@ -94,7 +94,8 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         RenderContent();
     }
 
-    private bool? _errorDetails;
+    private bool _detailedErrorsLoaded;
+    private bool _showDetailedErrors;
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -102,19 +103,20 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     /// <param name="errorContent"></param>
     public async Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
     {
-        _errorDetails ??= Configuration.GetValue("DetailedErrors", false);
+        if (!_detailedErrorsLoaded)
+        {
+            _showDetailedErrors = Configuration.GetValue("DetailedErrors", false);
+            _detailedErrorsLoaded = true;
+        }
 
-        if (_errorDetails is true)
+        var useDialog = _showDetailedErrors || !ShowErrorLoggerToast;
+        if (useDialog)
         {
             await DialogService.ShowErrorHandlerDialog(errorContent(ex));
-        }
-        else if (ShowErrorLoggerToast)
-        {
-            await ToastService.Error(ToastTitle, ex.Message);
         }
         else
         {
-            await DialogService.ShowErrorHandlerDialog(errorContent(ex));
+            await ToastService.Error(ToastTitle, ex.Message);
         }
     }
 
