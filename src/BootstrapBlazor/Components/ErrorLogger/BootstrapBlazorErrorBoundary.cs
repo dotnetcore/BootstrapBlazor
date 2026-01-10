@@ -56,6 +56,9 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     public string? ToastTitle { get; set; }
 
+    [CascadingParameter, NotNull]
+    private IErrorLogger? ErrorLogger { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
