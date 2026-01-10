@@ -64,7 +64,6 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET10Version)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(NET10Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET9Version)" />
   </ItemGroup>
 
