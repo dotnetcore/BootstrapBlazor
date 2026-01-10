@@ -683,9 +683,9 @@ public partial class Layout : IHandlerException, ITabHeader
         await TriggerCollapseChanged();
     }
 
-    private ErrorLogger? _errorLogger;
+    private IErrorLogger? _errorLogger;
 
-    private Task OnErrorLoggerInitialized(ErrorLogger logger)
+    private Task OnErrorLoggerInitialized(IErrorLogger logger)
     {
         _errorLogger = logger;
         _errorLogger.Register(this);

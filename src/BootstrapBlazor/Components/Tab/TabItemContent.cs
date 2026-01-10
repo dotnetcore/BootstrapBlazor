@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,7 +28,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
-    private ErrorLogger? _logger;
+    private IErrorLogger? _logger;
 
     private RenderHandle _renderHandle;
 
@@ -64,7 +64,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         // TabItem 不需要 Toast 提示错误信息
         builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), false);
         builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
-        builder.AddAttribute(5, nameof(ErrorLogger.OnInitializedCallback), new Func<ErrorLogger, Task>(logger =>
+        builder.AddAttribute(5, nameof(ErrorLogger.OnInitializedCallback), new Func<IErrorLogger, Task>(logger =>
         {
             _logger = logger;
             _logger.Register(this);

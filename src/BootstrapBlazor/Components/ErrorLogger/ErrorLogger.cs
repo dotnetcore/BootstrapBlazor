@@ -66,7 +66,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// Gets or sets the callback function to be invoked during initialization.
     /// </summary>
     [Parameter]
-    public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
+    public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
 
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
