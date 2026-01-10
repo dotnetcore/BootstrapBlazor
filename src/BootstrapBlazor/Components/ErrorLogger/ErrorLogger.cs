@@ -66,7 +66,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// Gets or sets the callback function to be invoked during initialization.
     /// </summary>
     [Parameter]
-    public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
+    public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
 
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
@@ -133,7 +133,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
-    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, _cache.LastOrDefault());
+    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, GetLastOrDefaultHandler());
 
     private readonly List<IHandlerException> _cache = [];
 
