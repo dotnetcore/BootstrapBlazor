@@ -74,7 +74,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), EnableErrorLogger);
         builder.AddAttribute(3, nameof(ErrorLogger.EnableILogger), EnableErrorLoggerILogger);
         builder.AddAttribute(4, nameof(ErrorLogger.ShowToast), ShowErrorLoggerToast);
-        builder.AddAttribute(5, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
+        builder.AddAttribute(5, nameof(ErrorLogger.ToastTitle), ToastTitle);
         builder.AddAttribute(6, nameof(ErrorLogger.OnInitializedCallback), new Func<IErrorLogger, Task>(logger =>
         {
             _logger = logger;
