@@ -149,7 +149,9 @@
           RefreshToolbarTooltipText="@RefreshToolbarTooltipText" FullscreenToolbarTooltipText="@FullscreenToolbarTooltipText"
           OnToolbarRefreshCallback="OnToolbarRefreshCallback" TabHeader="TabHeader" OnCloseTabItemAsync="OnCloseTabItemAsync"
           Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" NotFoundTabText="@NotFoundTabText"
-          EnableErrorLogger="@EnableLogger" ErrorLoggerToastTitle="@ErrorLoggerToastTitle">
+          EnableErrorLogger="@EnableLogger" EnableErrorLoggerILogger="@EnableErrorLoggerILogger"
+          ShowErrorLoggerToast="ShowErrorLoggerToast" ErrorLoggerToastTitle="@ErrorLoggerToastTitle"
+          OnErrorHandleAsync="OnErrorHandleAsync">
     </Tab>;
 
     RenderFragment RenderFooter =>
