@@ -195,7 +195,19 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     {
         if (ShowToast)
         {
-            await ToastService.Error(ToastTitle, exception.Message);
+            if (ExceptionContent != null)
+            {
+                var option = new ToastOption()
+                {
+                    Category = ToastCategory.Error,
+                    ChildContent = ExceptionContent(exception)
+                };
+                await ToastService.Show(option);
+            }
+            else
+            {
+                await ToastService.Error(ToastTitle, exception.Message);
+            }
         }
     }
 }
