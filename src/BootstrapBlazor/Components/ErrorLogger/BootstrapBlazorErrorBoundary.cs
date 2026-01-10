@@ -5,7 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -31,10 +30,6 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IHostEnvironment? HostEnvironment { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
