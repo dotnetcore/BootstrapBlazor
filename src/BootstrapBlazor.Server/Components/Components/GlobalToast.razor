@@ -1,0 +1,14 @@
+@inherits WebSiteModuleComponentBase
+
+@code {
+    RenderFragment RenderVote =>
+    @<div>
+        <div style="font-size: 48px; text-align: center;">🏆</div>
+        <p class="text-center mt-2">正在参加 <b>Gitee 2025 最受欢迎的开源软件</b> 投票活动，快来给我投票吧！</p>
+        <div class="my-3 text-center">您的每一票都是对开源社区的支持，感谢您的参与！</div>
+        <div style="display: flex; justify-content: space-around;" id="bb-g-toast">
+            <a href="https://gitee.com/activity/2025opensource?ident=I6MYBB" target="_blank" style="font-weight: bold; padding: 6px 12px; border-radius: var(--bs-border-radius); background: linear-gradient(135deg, #667eea, #764ba2); color: #fff;">🚀 必须投一票</a>
+            <a href="https://gitee.com/activity/2025opensource?ident=I6MYBB" target="_blank" class="text-muted" style="padding: 6px 12px;" title="老六你居然不投票">我知道了</a>
+        </div>
+    </div>;
+}
