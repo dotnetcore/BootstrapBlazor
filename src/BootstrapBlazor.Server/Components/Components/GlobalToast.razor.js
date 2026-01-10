@@ -1,7 +1,8 @@
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
-export function init(invoke, debug) {
-    const v = localStorage.getItem('bb-gitee-vote');
+export function init(invoke, method, debug) {
+    const localstorageKey = 'bb-g-toast'
+    const v = localStorage.getItem(localstorageKey);
     if (v) {
         try {
             const differ = new Date().getTime() - v;
@@ -10,27 +11,27 @@ export function init(invoke, debug) {
             }
         }
         catch {
-            localStorage.removeItem('bb-gitee-vote');
+            localStorage.removeItem(localstorageKey);
         }
     }
 
     if (debug !== true) {
         const handler = setTimeout(async () => {
             clearTimeout(handler);
-            await invoke.invokeMethodAsync("ShowVoteToast");
+            await invoke.invokeMethodAsync(method);
         }, 10000);
     }
 
-    EventHandler.on(document, 'click', '#bb-gitee-vote', e => {
+    EventHandler.on(document, 'click', '#bb-g-toast', e => {
         const toast = e.delegateTarget.closest('.toast');
         if (toast) {
             toast.classList.remove('show');
 
-            localStorage.setItem('bb-gitee-vote', new Date().getTime());
+            localStorage.setItem(localstorageKey, new Date().getTime());
         }
     });
 }
 
 export function dispose() {
-    EventHandler.off(document, 'click', '#bb-gitee-vote');
+    EventHandler.off(document, 'click', '#bb-g-toast');
 }
