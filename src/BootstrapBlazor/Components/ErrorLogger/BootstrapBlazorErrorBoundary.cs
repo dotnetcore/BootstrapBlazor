@@ -82,24 +82,29 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         var ex = CurrentException ?? _exception;
         if (ex != null)
         {
-            // 处理自定义异常逻辑
-            if (OnErrorHandleAsync != null)
-            {
-                _ = OnErrorHandleAsync(Logger, ex);
-                return;
-            }
-
-            // 渲染异常内容
-            builder.AddContent(0, ExceptionContent(ex));
-
             // 重置 CurrentException
             ResetException();
+
+            // 渲染异常
+            var handler = GetLastOrDefaultHandler();
+            if (handler != null)
+            {
+                _ = RenderException(ex, handler);
+            }
         }
-        else
+
+        // 渲染正常内容
+        builder.AddContent(1, ChildContent);
+    }
+
+    private IHandlerException? GetLastOrDefaultHandler()
+    {
+        IHandlerException? handler = null;
+        if (ErrorLogger is Components.ErrorLogger logger)
         {
-            // 渲染正常内容
-            builder.AddContent(1, ChildContent);
+            handler = logger.GetLastOrDefaultHandler();
         }
+        return handler;
     }
 
     private PropertyInfo? _currentExceptionPropertyInfo;
@@ -147,35 +152,25 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="handler"></param>
     public async Task RenderException(Exception exception, IHandlerException? handler)
     {
+        // 记录日志
+        await OnErrorAsync(exception);
+
         // 外部调用
         if (OnErrorHandleAsync != null)
         {
             await OnErrorHandleAsync(Logger, exception);
-            return;
         }
-
-        // 记录日志
-        await OnErrorAsync(exception);
 
         if (handler != null)
         {
-            if (HostEnvironment.IsDevelopment())
-            {
-                // IHandlerException 处理异常逻辑
-                await handler.HandlerExceptionAsync(exception, ExceptionContent);
-            }
-            else
-            {
-                // 非开发模式下弹窗提示错误信息
-                await ToastService.Error(ToastTitle, exception.Message);
-            }
-            return;
+            // IHandlerException 处理异常逻辑
+            await handler.HandlerExceptionAsync(exception, ExceptionContent);
         }
-
-        // 显示异常信息
-        await ShowErrorToast(exception);
-        _exception = exception;
-        StateHasChanged();
+        else
+        {
+            // 显示异常信息
+            await ShowErrorToast(exception);
+        }
     }
 
     private async Task ShowErrorToast(Exception exception)
