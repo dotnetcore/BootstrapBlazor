@@ -137,7 +137,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
 
     private readonly List<IHandlerException> _cache = [];
 
-    internal IHandlerException? GetLastOrDefaultHandler() => _cache.FirstOrDefault();
+    internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
 
     /// <summary>
     /// <inheritdoc/>
