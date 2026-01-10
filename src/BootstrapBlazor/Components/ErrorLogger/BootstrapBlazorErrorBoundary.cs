@@ -79,9 +79,12 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // 页面生命周期内异常直接调用这里
+        var pageException = false;
         var ex = CurrentException ?? _exception;
         if (ex != null)
         {
+            pageException = IsPageException(ex);
+
             // 重置 CurrentException
             ResetException();
 
@@ -93,8 +96,23 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             }
         }
 
-        // 渲染正常内容
-        builder.AddContent(1, ChildContent);
+        // 判断是否为组件周期内异常
+        if (!pageException)
+        {
+            // 渲染正常内容
+            builder.AddContent(1, ChildContent);
+        }
+    }
+
+    private static bool IsPageException(Exception ex)
+    {
+        bool ret = false;
+        var stack = ex.StackTrace;
+        if (!string.IsNullOrEmpty(stack))
+        {
+            ret = stack.Contains("RunInitAndSetParametersAsync");
+        }
+        return ret;
     }
 
     private IHandlerException? GetLastOrDefaultHandler()
