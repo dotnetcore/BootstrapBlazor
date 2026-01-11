@@ -104,15 +104,12 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         }
     }
 
+    private static readonly string[] PageMethods = new string[] { "SetParametersAsync", "RunInitAndSetParametersAsync", "NotifyRenderCompletedAsync" };
+
     private static bool IsPageException(Exception ex)
     {
-        bool ret = false;
-        var stack = ex.StackTrace;
-        if (!string.IsNullOrEmpty(stack))
-        {
-            ret = stack.Contains("RunInitAndSetParametersAsync");
-        }
-        return ret;
+        var errorMessage = ex.ToString();
+        return PageMethods.Any(i => errorMessage.Contains(i, StringComparison.OrdinalIgnoreCase));
     }
 
     private IHandlerException? GetLastOrDefaultHandler()
