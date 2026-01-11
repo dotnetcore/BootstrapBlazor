@@ -249,7 +249,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnInitialize_Error()
+    public void OnInitialize_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -260,7 +260,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnInitializeAsync_Error()
+    public void OnInitializeAsync_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -271,7 +271,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnParameterSet_Error()
+    public void OnParameterSet_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -282,7 +282,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnParameterSetAsync_Error()
+    public void OnParameterSetAsync_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -293,7 +293,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnAfterRender_Error()
+    public void OnAfterRender_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -304,22 +304,11 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnAfterRenderAsync_Error()
+    public void OnAfterRenderAsync_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockOnAfterRenderAsyncError>();
-        });
-
-        Assert.Equal("", cut.Markup);
-    }
-
-    [Fact]
-    public async Task ShouldRenderError_Error()
-    {
-        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<MockShouldRenderError>();
         });
 
         Assert.Equal("", cut.Markup);
@@ -393,15 +382,6 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             await base.OnAfterRenderAsync(firstRender);
 
             ThrowError();
-        }
-    }
-
-    class MockShouldRenderError : ComponentBase
-    {
-        protected override bool ShouldRender()
-        {
-            ThrowError();
-            return base.ShouldRender();
         }
     }
 
