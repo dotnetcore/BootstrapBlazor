@@ -69,7 +69,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     public async Task OnErrorHandleAsync_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();
-        var cut = Context.Render<ErrorLogger>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
             {
@@ -180,6 +180,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             });
         });
 
+        // ErrorContent 不为空与 Toast 内容合并显示
         var errorLogger = cut.FindComponent<ErrorLogger>();
         errorLogger.Render(pb =>
         {
@@ -201,6 +202,9 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Tab>(pb =>
             {
+                pb.Add(a => a.EnableErrorLogger, true);
+                pb.Add(a => a.EnableErrorLoggerILogger, true);
+                pb.Add(a => a.ShowErrorLoggerToast, true);
                 pb.AddChildContent<TabItem>(pb =>
                 {
                     pb.Add(a => a.Text, "Text1");
