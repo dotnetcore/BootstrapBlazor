@@ -104,7 +104,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         }
     }
 
-    private static readonly string[] PageMethods = new string[] { "SetParametersAsync", "RunInitAndSetParametersAsync", "NotifyRenderCompletedAsync" };
+    private static readonly string[] PageMethods = new string[] { "SetParametersAsync", "RunInitAndSetParametersAsync", "OnAfterRenderAsync" };
 
     private static bool IsPageException(Exception ex)
     {
