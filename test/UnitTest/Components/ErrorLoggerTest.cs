@@ -164,7 +164,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ErrorContent_Ok()
+    public async Task Toast_ErrorContent_Ok()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -190,6 +190,38 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
                 builder.AddContent(1, "error_content_template");
             }));
         });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        cut.Contains("Attempted to divide by zero.error_content_template");
+    }
+
+    [Fact]
+    public async Task ErrorLogger_Handler()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, RenderButton()));
+                });
+            });
+        });
+
+        var tab = cut.FindComponent<Tab>();
+        var logger = tab.FindComponent<ErrorLogger>();
+        logger.Render(pb =>
+        {
+            pb.Add(a => a.ErrorContent, new RenderFragment<Exception>(ex => builder =>
+            {
+                builder.AddContent(0, ex.Message);
+                builder.AddContent(1, "error_content_template");
+            }));
+        });
+
+        // 触发异常
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
         cut.Contains("Attempted to divide by zero.error_content_template");
