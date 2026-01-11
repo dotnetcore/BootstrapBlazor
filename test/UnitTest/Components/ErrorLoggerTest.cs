@@ -215,7 +215,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         // 页面不崩溃，由弹窗显示异常信息
         cut.Contains("<div class=\"error-stack\">TimeStamp:");
 
-        // 单元测试覆盖 TabItemContent Dispose 方法
+        // 单元测试覆盖 TabItemContent Dispose 方法 覆盖内部 _logger 变量为空情况
         var handler = Activator.CreateInstance("BootstrapBlazor", "BootstrapBlazor.Components.TabItemContent");
         Assert.NotNull(handler);
         var content = handler.Unwrap();
