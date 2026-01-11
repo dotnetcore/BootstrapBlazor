@@ -5,8 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 
 namespace UnitTest.Components;
 
@@ -232,7 +230,6 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     {
         var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        context.Services.AddSingleton<IHostEnvironment, MockProductionEnironment>();
         context.Services.AddBootstrapBlazor();
         context.Services.GetRequiredService<ICacheManager>();
 
@@ -251,6 +248,83 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
+    [Fact]
+    public async Task OnInitialize_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockInitializedError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnInitializeAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockInitializedAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnParameterSet_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnParametersSetError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnParameterSetAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnParameterSetAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnAfterRender_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnAfterRenderError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnAfterRenderAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnAfterRenderAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public async Task ShouldRenderError_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockShouldRenderError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
     private RenderFragment RenderButton() => builder =>
     {
         builder.OpenComponent<Button>(0);
@@ -262,14 +336,79 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         builder.CloseComponent();
     };
 
-    class MockProductionEnironment : IHostEnvironment
+    class MockInitializedError : ComponentBase
     {
-        public string EnvironmentName { get; set; } = "Production";
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-        public string ApplicationName { get; set; } = "Test";
+            ThrowError();
+        }
+    }
 
-        public string ContentRootPath { get; set; } = "UniTest";
+    class MockInitializedAsyncError : ComponentBase
+    {
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
 
-        public IFileProvider ContentRootFileProvider { get; set; } = null!;
+            ThrowError();
+        }
+    }
+
+    class MockOnParametersSetError : ComponentBase
+    {
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            ThrowError();
+        }
+    }
+
+    class MockOnParameterSetAsyncError : ComponentBase
+    {
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            ThrowError();
+        }
+    }
+
+    class MockOnAfterRenderError : ComponentBase
+    {
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            ThrowError();
+        }
+    }
+
+    class MockOnAfterRenderAsyncError : ComponentBase
+    {
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            ThrowError();
+        }
+    }
+
+    class MockShouldRenderError : ComponentBase
+    {
+        protected override bool ShouldRender()
+        {
+            ThrowError();
+            return base.ShouldRender();
+        }
+    }
+
+    private static void ThrowError()
+    {
+        var a = 1;
+        var b = 0;
+        var c = a / b;
     }
 }
