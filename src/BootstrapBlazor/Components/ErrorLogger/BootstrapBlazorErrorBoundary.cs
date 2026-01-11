@@ -90,10 +90,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
             // 渲染异常
             var handler = GetLastOrDefaultHandler();
-            if (handler != null)
-            {
-                _ = RenderException(ex, handler);
-            }
+            _ = RenderException(ex, handler);
         }
 
         // 判断是否为组件周期内异常
@@ -192,12 +189,12 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     {
         if (ShowToast)
         {
-            if (ExceptionContent != null)
+            if (ErrorContent != null)
             {
                 var option = new ToastOption()
                 {
                     Category = ToastCategory.Error,
-                    ChildContent = ExceptionContent(exception)
+                    ChildContent = ErrorContent(exception)
                 };
                 await ToastService.Show(option);
             }
