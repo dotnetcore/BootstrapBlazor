@@ -40,17 +40,18 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
-    [Fact]
-    public async Task DetailedErrors_False()
+    [Theory]
+    [InlineData("true")]
+    [InlineData("false")]
+    public async Task DetailedErrors_Ok(string detailedError)
     {
         var config = Context.Services.GetRequiredService<IConfiguration>();
-        config["DetailedErrors"] = "false";
+        config["DetailedErrors"] = detailedError;
 
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<ErrorLogger>(pb =>
             {
-                pb.Add(e => e.ShowToast, false);
                 pb.AddChildContent<Button>(pb =>
                 {
                     pb.Add(b => b.OnClick, () =>
@@ -196,7 +197,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ErrorLogger_Handler()
+    public async Task ErrorContent_Ok()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {

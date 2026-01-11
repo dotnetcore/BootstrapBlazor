@@ -139,10 +139,9 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         }
         else
         {
-            var index = 0;
-            builder.OpenElement(index++, "div");
-            builder.AddAttribute(index++, "class", "error-stack");
-            builder.AddContent(index++, GetErrorContentMarkupString(ex));
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "error-stack");
+            builder.AddContent(2, GetErrorContentMarkupString(ex));
             builder.CloseElement();
         }
     };
@@ -189,19 +188,15 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     {
         if (ShowToast)
         {
-            if (ErrorContent != null)
+            var option = new ToastOption()
             {
-                var option = new ToastOption()
-                {
-                    Category = ToastCategory.Error,
-                    ChildContent = ErrorContent(exception)
-                };
-                await ToastService.Show(option);
-            }
-            else
-            {
-                await ToastService.Error(ToastTitle, exception.Message);
-            }
+                Category = ToastCategory.Error,
+                Title = ToastTitle,
+                ChildContent = ErrorContent == null
+                    ? ExceptionContent(exception)
+                    : ErrorContent(exception)
+            };
+            await ToastService.Show(option);
         }
     }
 }
