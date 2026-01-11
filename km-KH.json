@@ -1,0 +1,409 @@
+{
+  "BootstrapBlazor.Components.AutoComplete": {
+    "NoDataTip": "គ្មាន​ទិន្នន័យ",
+    "PlaceHolder": "សូម​បញ្ចូល"
+  },
+  "BootstrapBlazor.Components.Captcha": {
+    "HeaderText": "ខេបឆា",
+    "BarText": "អូស​ទៅ​ស្តាំ​ដើម្បី​ដោះ​ស្រាយ​ល្បែង​តុក្កតា",
+    "FailedText": "ផ្ទុក​មិន​បាន​ជោគជ័យ",
+    "LoadText": "កំពុង​ផ្ទុក ..."
+  },
+  "BootstrapBlazor.Components.Calendar": {
+    "PreviousYear": "ឆ្នាំ​មុន",
+    "PreviousMonth": "ខែ​មុន",
+    "Today": "ថ្ងៃនេះ",
+    "NextMonth": "ខែ​ក្រោយ",
+    "NextYear": "ឆ្នាំ​ក្រោយ",
+    "PreviousWeek": "សប្តាហ៍​មុន",
+    "WeekText": "សប្តាហ៍",
+    "NextWeek": "សប្តាហ៍​ក្រោយ",
+    "WeekHeaderText": "",
+    "WeekLists": "អាទិត្យ,ចន្ទ,អង្គារ,ពុធ,ព្រហស្បតិ៍,សុក្រ,សៅរ៍",
+    "WeekNumberText": "{0} សប្តាហ៍",
+    "Months": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
+    "Title": "{0} {1}"
+  },
+  "BootstrapBlazor.Components.Cascader": {
+    "PlaceHolder": "សូម​ជ្រើសរើស ..."
+  },
+  "BootstrapBlazor.Components.Console": {
+    "HeaderText": "ត្រួតពិនិត្យ",
+    "LightTitle": "ពន្លឺ",
+    "ClearButtonText": "សម្អាត",
+    "AutoScrollText": "រំកិល​ដោយ​ស្វ័យប្រវត្តិ"
+  },
+  "BootstrapBlazor.Components.DateTimePicker": {
+    "PickerButtonText": "ជ្រើសរើស ...",
+    "DatePlaceHolder": "ជ្រើសរើស​កាលបរិច្ឆេទ",
+    "TimePlaceHolder": "ជ្រើសរើស​ម៉ោង",
+    "DateTimePlaceHolderText": "សូម​ជ្រើសរើស ...",
+    "DatePlaceHolderText": "សូម​ជ្រើសរើស ...",
+    "TimeFormat": "hh\\:mm\\:ss",
+    "DateFormat": "M/d/yyyy",
+    "DateTimeFormat": "M/d/yyyy HH\\:mm\\:ss",
+    "AiraPrevYearLabel": "ឆ្នាំ​មុន",
+    "AiraNextYearLabel": "ឆ្នាំ​ក្រោយ",
+    "AiraPrevMonthLabel": "ខែ​មុន",
+    "AiraNextMonthLabel": "ខែ​ក្រោយ",
+    "ClearButtonText": "សម្អាត",
+    "NowButtonText": "ឥឡូវនេះ",
+    "ConfirmButtonText": "យល់ព្រម",
+    "CancelButtonText": "បោះបង់",
+    "YearText": "{0}",
+    "MonthText": "{0}",
+    "YearPeriodText": "{0} - {1}",
+    "Months": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
+    "MonthLists": "មករា,កុម្ភៈ,មីនា,មេសា,ឧសភា,មិថុនា,កក្កដា,សីហា,កញ្ញា,តុលា,វិច្ឆិកា,ធ្នូ",
+    "WeekLists": "អាទិត្យ,ចន្ទ,អង្គារ,ពុធ,ព្រហស្បតិ៍,សុក្រ,សៅរ៍",
+    "GenericTypeErrorMessage": "DateTimePicker ដំណើរការតែ DateTime, DateTime?, DateTimeOffset និង DateTimeOffset? ប៉ុណ្ណោះ",
+    "Today": "ថ្ងៃនេះ",
+    "Yesterday": "ម្សិលមិញ",
+    "Week": "មួយ​សប្តាហ៍​មុន"
+  },
+  "BootstrapBlazor.Components.DateTimeRange": {
+    "SeparateText": "ដល់",
+    "StartPlaceHolderText": "កាលបរិច្ឆេទ​ចាប់ផ្តើម",
+    "EndPlaceHolderText": "កាលបរិច្ឆេទ​បញ្ចប់",
+    "ClearButtonText": "សម្អាត",
+    "TodayButtonText": "ថ្ងៃនេះ",
+    "ConfirmButtonText": "យល់ព្រម",
+    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
+    "DateFormat": "M/d/yyyy",
+    "Last7Days": "7 ថ្ងៃ​ចុងក្រោយ",
+    "Last30Days": "30 ថ្ងៃ​ចុងក្រោយ",
+    "ThisMonth": "ខែ​នេះ",
+    "LastMonth": "ខែ​មុន"
+  },
+  "BootstrapBlazor.Components.BootstrapInputNumber": {
+    "ParsingErrorMessage": "ទិន្នន័យ {0} ត្រូវ​តែ​ជា​លេខ។"
+  },
+  "BootstrapBlazor.Components.ResultDialogOption": {
+    "ButtonYesText": "បាទ/ចាស៎",
+    "ButtonNoText": "ទេ",
+    "ButtonCloseText": "បិទ"
+  },
+  "BootstrapBlazor.Components.DropdownList": {
+    "PlaceHolder": "សូម​ជ្រើសរើស ..."
+  },
+  "BootstrapBlazor.Components.Editor": {
+    "PlaceHolder": "ចុច​ដើម្បី​កែសម្រួល"
+  },
+  "BootstrapBlazor.Components.EditorForm": {
+    "ModelInvalidOperationExceptionMessage": "MODEL នៃ ValidateForm​ មិនត្រូវគ្នានឹង MODEL របស់ {0} ទេ",
+    "PlaceHolderText": "សូម​បញ្ចូល ..."
+  },
+  "BootstrapBlazor.Components.Empty": {
+    "Text": "គ្មាន​ទិន្នន័យ"
+  },
+  "BootstrapBlazor.Components.EqualToValidator": {
+    "ErrorMessage": "សូម​បញ្ចូល​តម្លៃ​ដូច​គ្នា​ម្តង​ទៀត"
+  },
+  "BootstrapBlazor.Components.ErrorLogger": {
+    "ToastTitle": "កំហុស​កម្មវិធី"
+  },
+  "BootstrapBlazor.Components.GoTop": {
+    "TooltipText": "ទៅ​កំពូល"
+  },
+  "BootstrapBlazor.Components.Layout": {
+    "TooltipText": "ចុច​ដើម្បី​បើក/បិទ​របារ​ចំហៀង"
+  },
+  "BootstrapBlazor.Components.Logout": {
+    "PrefixDisplayNameText": "សូម​ស្វាគមន៍",
+    "PrefixUserNameText": "គណនី:"
+  },
+  "BootstrapBlazor.Components.LogoutLink": {
+    "Text": "ចាកចេញ"
+  },
+  "BootstrapBlazor.Components.Menu": {
+    "InvalidOperationExceptionMessage": "មិន​អាច​ប្រើ​ផ្នែក SideMenu ដោយ​ឯករាជ្យ​បាន​ទេ។ សូម​ប្រើ​ផ្នែក Menu ហើយ​កំណត់ IsVertical = true"
+  },
+  "BootstrapBlazor.Components.ModalDialog": {
+    "CloseButtonText": "បិទ",
+    "SaveButtonText": "រក្សាទុក",
+    "PrintButtonText": "បោះពុម្ព",
+    "ExportPdfButtonText": "នាំចេញ PDF"
+  },
+  "BootstrapBlazor.Components.MultiSelect": {
+    "PlaceHolder": "ជ្រើសរើស​ធាតុ ...",
+    "SelectAllText": "ទាំងអស់",
+    "ReverseSelectText": "ផ្លាស់ប្តូរ",
+    "ClearText": "សម្អាត",
+    "MinErrorMessage": "សូម​ជ្រើសរើស​យ៉ាង​ហោចណាស់ {0} ធាតុ",
+    "MaxErrorMessage": "អាច​ជ្រើសរើស​បាន​ច្រើន​បំផុត {0} ធាតុ",
+    "NoSearchDataText": "គ្មាន​លទ្ធផល"
+  },
+  "BootstrapBlazor.Components.Pagination": {
+    "GotoNavigatorLabelText": "ទៅកាន់"
+  },
+  "BootstrapBlazor.Components.PopConfirmButton": {
+    "CloseButtonText": "បោះបង់",
+    "ConfirmButtonText": "យល់ព្រម",
+    "Content": "តើ​អ្នក​ប្រាកដ​ទេ​ថា​ចង់​ធ្វើ​ប្រតិបត្តិការ​នេះ?"
+  },
+  "BootstrapBlazor.Components.PrintButton": {
+    "Text": "បោះពុម្ព"
+  },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "គ្មាន​ទិន្នន័យ"
+  },
+  "BootstrapBlazor.Components.Search": {
+    "SearchButtonText": "ស្វែងរក",
+    "NoDataTip": "គ្មាន​កំណត់ត្រា​រក​ឃើញ"
+  },
+  "BootstrapBlazor.Components.Select": {
+    "PlaceHolder": "សូម​ជ្រើសរើស ...",
+    "NoSearchDataText": "គ្មាន​លទ្ធផល"
+  },
+  "BootstrapBlazor.Components.SelectTree": {
+    "PlaceHolder": "សូម​ជ្រើសរើស ..."
+  },
+  "BootstrapBlazor.Components.StringLengthValidator": {
+    "ErrorMessage": "សូម​បញ្ចូល​តម្លៃ​ដែល​មាន​ប្រវែង​តិច​ជាង​ឬ​ស្មើ {{0}}"
+  },
+  "BootstrapBlazor.Components.SweetAlert": {
+    "CloseButtonText": "បិទ",
+    "CancelButtonText": "បោះបង់",
+    "ConfirmButtonText": "បញ្ជាក់"
+  },
+  "BootstrapBlazor.Components.Switch": {
+    "OnInnerText": "បើក",
+    "OffInnerText": "បិទ"
+  },
+  "BootstrapBlazor.Components.Tab": {
+    "CloseCurrentTabText": "បិទ",
+    "CloseOtherTabsText": "បិទ​ផ្ទាំង​ផ្សេងទៀត",
+    "CloseAllTabsText": "បិទ​ទាំងអស់",
+    "NotFoundTabText": "រក​មិន​ឃើញ",
+    "RefreshToolbarTooltipText": "ផ្ទុក​ឡើងវិញ",
+    "FullscreenToolbarTooltipText": "ពេញ​អេក្រង់",
+    "PrevTabNavLinkTooltipText": "ផ្ទាំង​មុន",
+    "NextTabNavLinkTooltipText": "ផ្ទាំង​បន្ទាប់",
+    "CloseTabNavLinkTooltipText": "បិទ",
+    "ContextRefresh": "ផ្ទុក​ឡើងវិញ",
+    "ContextClose": "បិទ",
+    "ContextCloseOther": "បិទ​ផ្ទាំង​ផ្សេងទៀត",
+    "ContextCloseAll": "បិទ​ទាំងអស់",
+    "ContextFullScreen": "ពេញ​អេក្រង់"
+  },
+  "BootstrapBlazor.Components.Table": {
+    "AddButtonText": "បន្ថែម",
+    "EditButtonText": "កែសម្រួល",
+    "UpdateButtonText": "ធ្វើ​បច្ចុប្បន្នភាព",
+    "DeleteButtonText": "លុប",
+    "CancelButtonText": "បោះបង់",
+    "SaveButtonText": "រក្សាទុក",
+    "CloseButtonText": "បិទ",
+    "CancelDeleteButtonText": "បោះបង់",
+    "ConfirmDeleteButtonText": "លុប",
+    "ConfirmDeleteContentText": "តើ​អ្នក​ប្រាកដ​ទេ​ថា​ចង់​លុប​ជួរ​ដេក​ដែល​បាន​ជ្រើសរើស​ទាំងអស់?",
+    "RefreshButtonText": "ផ្ទុក​ឡើងវិញ",
+    "CardViewButtonText": "មើល",
+    "ColumnButtonTitleText": "បង្ហាញ/លាក់​ជូរ",
+    "ColumnButtonText": "ជូរ",
+    "ExportButtonText": "នាំចេញ",
+    "SearchPlaceholderText": "ស្វែងរក",
+    "SearchButtonText": "ស្វែងរក",
+    "ResetSearchButtonText": "កំណត់​ឡើងវិញ",
+    "AdvanceButtonText": "ស្វែងរក​កម្រិត​ខ្ពស់",
+    "AdvancedSortModalTitle": "តម្រៀប",
+    "AdvancedSortButtonText": "តម្រៀប​កម្រិត​ខ្ពស់",
+    "CheckboxDisplayText": "ទាំងអស់",
+    "EditModalTitle": "កែសម្រួល",
+    "AddModalTitle": "ថ្មី",
+    "LineNoText": "លរ.",
+    "ColumnButtonTemplateHeaderText": "សកម្មភាព",
+    "SearchTooltip": "<div class='search-input-tooltip'>សូម​បញ្ចូល ...</br><kbd>Enter</kbd> ស្វែងរក <kbd>ESC</kbd> សម្អាត</div>",
+    "SearchModalTitle": "កំពុង​ស្វែងរក",
+    "AddButtonToastTitle": "បន្ថែម​ទិន្នន័យ",
+    "AddButtonToastContent": "បន្ថែម​ទិន្នន័យ​មិន​បាន​ជោគជ័យ។ សូម​ផ្តល់​វិធី OnAddAsync",
+    "EditButtonToastTitle": "បន្ថែម​ទិន្នន័យ",
+    "EditButtonToastNotSelectContent": "រក្សាទុក​ទិន្នន័យ​មិន​បាន​ជោគជ័យ។ សូម​ផ្តល់​វិធី OnSaveAsync",
+    "EditButtonToastReadonlyContent": "ទិន្នន័យ​ដែល​បាន​ជ្រើសរើស​មិន​អាច​កែសម្រួល​បាន​ទេ",
+    "EditButtonToastMoreSelectContent": "អាច​កែសម្រួល​បាន​តែ​មួយ​ជួរ​ដេក​ប៉ុណ្ណោះ",
+    "EditButtonToastNoSaveMethodContent": "មិន​អាច​កែសម្រួល​ទិន្នន័យ​បាន​ទេ។ សូម​ផ្តល់​វិធី OnSaveAsync",
+    "SaveButtonToastTitle": "រក្សាទុក​ទិន្នន័យ",
+    "SaveButtonToastContent": "រក្សាទុក​ទិន្នន័យ​មិន​បាន​ជោគជ័យ។ សូម​ផ្តល់​វិធី OnSaveAsync",
+    "SaveButtonToastResultContent": "រក្សាទុក​ទិន្នន័យ {0}, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {1} វិនាទី",
+    "SuccessText": "ជោគជ័យ",
+    "FailText": "បរាជ័យ",
+    "DeleteButtonToastTitle": "លុប​ទិន្នន័យ",
+    "DeleteButtonToastContent": "សូម​ជ្រើសរើស​ជួរ​ដេក​ដែល​ត្រូវ​លុប, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {0} វិនាទី",
+    "DeleteButtonToastResultContent": "លុប​ទិន្នន័យ {0}, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {1} វិនាទី",
+    "DeleteButtonToastCanNotDeleteContent": "មាន​ទិន្នន័យ​មិន​អាច​លុប​បាន​នៅ​ក្នុង​ទិន្នន័យ​ដែល​បាន​ជ្រើសរើស, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {0} វិនាទី",
+    "DataServiceInvalidOperationText": "មិន​អាច​ផ្តល់​តម្លៃ​សម្រាប់​លក្ខណៈ 'DataService' នៅ​លើ​ប្រភេទ 'BootstrapBlazor.Components.Table`1[[{0}]]' បាន​ទេ។ គ្មាន​សេវាកម្ម​ដែល​បាន​ចុះ​ឈ្មោះ​ប្រភេទ 'BootstrapBlazor.Components.IDataService`1[{0}]' នោះ​ទេ។",
+    "NotSetOnTreeExpandErrorMessage": "មិន​បាន​កំណត់​ប៉ារ៉ាម៉ែត្រ OnTreeExpand",
+    "UnsetText": "ឡើង",
+    "SortAscText": "ចុះ",
+    "SortDescText": "មិន​កំណត់",
+    "EmptyText": "គ្មាន​ទិន្នន័យ",
+    "ExportToastTitle": "នាំចេញ",
+    "ExportToastContent": "នាំចេញ​ទិន្នន័យ {0}, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {1} វិនាទី",
+    "ExportToastInProgressContent": "កំពុង​នាំចេញ​ទិន្នន័យ, សូម​រង់ចាំ​បន្តិច, បិទ​ដោយ​ស្វ័យប្រវត្តិ​ក្នុង {0} វិនាទី",
+    "ExportCsvDropdownItemText": "MS-Csv",
+    "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
+    "PageInfoText": "{0} - {1} សរុប {2}",
+    "PageItemsText": "{0}/ទំព័រ",
+    "CopyColumnTooltipText": "ចម្លង​ទិន្នន័យ​ជូរ​ទាំងមូល​ទៅ​ក្ដារ​តម្បៀត",
+    "CopyColumnCopiedTooltipText": "បាន​ចម្លង!",
+    "ColumnWidthTooltipPrefix": "ទទឹង: ",
+    "ColumnToolboxTitle": "ឧបករណ៍",
+    "AlignLeftText": "ឆ្វេង",
+    "AlignLeftTooltipText": "ចុច​ដើម្បី​កំណត់​អក្សរ​នៅ​ក្នុង​ជូរ​នេះ​ឱ្យ​ស្ថិត​នៅ​ឆ្វេង",
+    "AlignCenterText": "កណ្តាល",
+    "AlignCenterTooltipText": "ចុច​ដើម្បី​កំណត់​អក្សរ​នៅ​ក្នុង​ជូរ​នេះ​ឱ្យ​ស្ថិត​នៅ​កណ្តាល",
+    "AlignRightText": "ស្តាំ",
+    "AlignRightTooltipText": "ចុច​ដើម្បី​កំណត់​អក្សរ​នៅ​ក្នុង​ជូរ​នេះ​ឱ្យ​ស្ថិត​នៅ​ស្តាំ",
+    "ColumnListSelectAllText": "ទាំងអស់",
+    "ColumnListSelectInvertText": "ផ្លាស់ប្តូរ",
+    "MoreButtonText": "ច្រើន​ទៀត"
+  },
+  "BootstrapBlazor.Components.EditDialog": {
+    "CloseButtonText": "បិទ",
+    "SaveButtonText": "រក្សាទុក"
+  },
+  "BootstrapBlazor.Components.TableColumnFilter": {
+    "ClearButtonText": "សម្អាត",
+    "FilterButtonText": "ត្រង",
+    "BoolFilter.AllText": "ទាំងអស់",
+    "BoolFilter.TrueText": "ពិត",
+    "BoolFilter.FalseText": "មិន​ពិត",
+    "GreaterThanOrEqual": "ធំ​ជាង​ឬ​ស្មើ",
+    "LessThanOrEqual": "តូច​ជាង​ឬ​ស្មើ",
+    "GreaterThan": "ធំ​ជាង",
+    "LessThan": "តូច​ជាង",
+    "Equal": "ស្មើ",
+    "NotEqual": "មិន​ស្មើ",
+    "Contains": "មាន",
+    "NotContains": "មិន​មាន",
+    "EnumFilter.AllText": "ទាំងអស់",
+    "NotSupportedColumnFilterMessage": "<p>ប្រភេទ​ត្រង​មិន​គាំទ្រ, សូម​ប្តូរ​តម្រូវការ​ត្រង​ដោយ​ប្រើ <code>FilterTemplate</code></p><div>សូម​យោង <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
+    "MultiFilterSearchPlaceHolderText": "សូម​បញ្ចូល ...",
+    "MultiFilterSelectAllText": "ជ្រើសរើស​ទាំងអស់"
+  },
+  "BootstrapBlazor.Components.FilterLogicItem": {
+    "And": "និង",
+    "Or": "ឬ"
+  },
+  "BootstrapBlazor.Components.SearchDialog": {
+    "ResetButtonText": "កំណត់​ឡើងវិញ",
+    "QueryButtonText": "ស្វែងរក"
+  },
+  "BootstrapBlazor.Components.SwitchButton": {
+    "OnText": "បើក",
+    "OffText": "បិទ"
+  },
+  "BootstrapBlazor.Components.Timer": {
+    "PauseText": "ផ្អាក",
+    "ResumeText": "បន្ត",
+    "CancelText": "បោះបង់",
+    "StarText": "ផ្កាយ"
+  },
+  "BootstrapBlazor.Components.Toggle": {
+    "OnText": "ពង្រីក",
+    "OffText": "បង្រួម"
+  },
+  "BootstrapBlazor.Components.Transfer": {
+    "LeftPanelText": "ទាំងអស់",
+    "RightPanelText": "បាន​ជ្រើសរើស",
+    "MinErrorMessage": "សូម​ជ្រើសរើស​យ៉ាង​ហោចណាស់ {0} ធាតុ",
+    "MaxErrorMessage": "អាច​ជ្រើសរើស​បាន​ច្រើន​បំផុត {0} ធាតុ"
+  },
+  "BootstrapBlazor.Components.TransferPanel": {
+    "SearchPlaceHolderString": "សូម​បញ្ចូល ...",
+    "Text": "បញ្ជី"
+  },
+  "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "មិន​បាន​កំណត់​ប៉ារ៉ាម៉ែត្រ OnExpandNodeAsync"
+  },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "មិន​បាន​កំណត់​ប៉ារ៉ាម៉ែត្រ OnExpandNodeAsync",
+    "ToolbarEditTitle": "កែសម្រួល​ថ្នាំង​មែកធាង",
+    "ToolbarEditLabelText": "ប្តូរ​ឈ្មោះ"
+  },
+  "BootstrapBlazor.Components.UploadBase": {
+    "DeleteButtonText": "លុប",
+    "BrowserButtonText": "រក​មើល",
+    "FileExtensions": "ឯកសារ​ត្រូវ​តែ​មាន​កន្ទុយ​ឯកសារ​ដូច​ខាងក្រោម: {0}",
+    "FileSizeValidation": "ទំហំ​ឯកសារ​ត្រូវ​តិច​ជាង {0}",
+    "DropUploadText": "ទម្លាក់​ឯកសារ​នៅ​ទីនេះ ឬ <em>ចុច​ដើម្បី​ផ្ទុក​ឡើង</em>"
+  },
+  "BootstrapBlazor.Components.Handwritten": {
+    "SaveButtonText": "រក្សាទុក",
+    "ClearButtonText": "សម្អាត"
+  },
+  "BootstrapBlazor.Components.SignaturePad": {
+    "SignAboveLabel": "ចុះ​ហត្ថលេខា​នៅ​ក្នុង​ប្រអប់",
+    "ClearBtnTitle": "សម្អាត",
+    "SignatureAlertText": "សូម​ផ្តល់​ហត្ថលេខា​មុន​សិន",
+    "ChangeColorBtnTitle": "ផ្លាស់ប្តូរ​ពណ៌",
+    "UndoBtnTitle": "ដក​ការ​ធ្វើ",
+    "CloseBtnTitle": "បិទ",
+    "SaveBase64BtnTitle": "យល់ព្រម",
+    "SavePNGBtnTitle": "PNG",
+    "SaveJPGBtnTitle": "JPG",
+    "SaveSVGBtnTitle": "SVG"
+  },
+  "BootstrapBlazor.Components.NullableBoolItemsAttribute": {
+    "NullValueDisplayText": "សូម​ជ្រើសរើស ...",
+    "TrueValueDisplayText": "ពិត",
+    "FalseValueDisplayText": "មិន​ពិត"
+  },
+  "BootstrapBlazor.Components.InsertRowMode": {
+    "Last": "ចុងក្រោយ",
+    "First": "ដំបូង"
+  },
+  "BootstrapBlazor.Components.IconDialog": {
+    "LabelText": "រូបតំណាង",
+    "LabelFullText": "Html",
+    "ButtonText": "ចម្លង",
+    "DialogHeaderText": "រូបតំណាង​ដែល​បាន​ជ្រើសរើស",
+    "CopiedTooltipText": "បាន​ចម្លង"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "កំពុង​ផ្ទុក ..."
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "និង",
+    "Or": "ឬ",
+    "GreaterThanOrEqual": "ធំ​ជាង​ឬ​ស្មើ",
+    "LessThanOrEqual": "តូច​ជាង​ឬ​ស្មើ",
+    "GreaterThan": "ធំ​ជាង",
+    "LessThan": "តូច​ជាង",
+    "Equal": "ស្មើ",
+    "NotEqual": "មិន​ស្មើ",
+    "Contains": "មាន",
+    "NotContains": "មិន​មាន",
+    "GroupText": "ក្រុម",
+    "ItemText": "ធាតុ"
+  },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "ឡើង",
+    "DescText": "ចុះ"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "ព្រឹក",
+    "PMText": "ល្ងាច"
+  },
+  "BootstrapBlazor.Components.ThemeProvider": {
+    "AutoModeText": "ស្វ័យប្រវត្តិ",
+    "DarkModeText": "ងងឹត",
+    "LightModeText": "ភ្លឺ"
+  },
+  "BootstrapBlazor.Components.ValidateBase": {
+    "DefaultRequiredErrorMessage": "{0} គឺ​ចាំបាច់។"
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "បណ្តាញ",
+    "NetworkType": "ប្រភេទ​បណ្តាញ",
+    "Downlink": "Downlink",
+    "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "គ្មាន​ទិន្នន័យ​ទៀត​ទេ"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "តើ​អ្នក​ប្រាកដ​ទេ​ថា​ចង់​លុប​ទិន្នន័យ​បច្ចុប្បន្ន?"
+  }
+}
