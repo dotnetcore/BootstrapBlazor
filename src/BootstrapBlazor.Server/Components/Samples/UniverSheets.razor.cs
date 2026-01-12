@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -46,8 +46,12 @@ public partial class UniverSheets
         }
     }
 
-    private async Task OnReadyAsync() => await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
+    private async Task OnReadyAsync()
+    {
+        await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
 
+        await OnPushExcelData();
+    }
     private static Task<UniverSheetData> OnPostDataAsync(UniverSheetData data)
     {
         // 这里可以根据 data 的内容进行处理然后返回处理后的数据
