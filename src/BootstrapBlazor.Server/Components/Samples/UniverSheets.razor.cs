@@ -46,12 +46,10 @@ public partial class UniverSheets
         }
     }
 
-    private async Task OnReadyAsync()
-    {
-        await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
+    private Task OnReadyAsync() => ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
 
-        await OnPushExcelData();
-    }
+    private Task OnReadyPushAsync() => OnPushPluginData();
+
     private static Task<UniverSheetData> OnPostDataAsync(UniverSheetData data)
     {
         // 这里可以根据 data 的内容进行处理然后返回处理后的数据
