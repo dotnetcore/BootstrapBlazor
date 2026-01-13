@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// PdfReaders
 /// </summary>
-public partial class PdfReaders
+public partial class EmbedPdfs
 {
     [Inject, NotNull]
     private IWebHostEnvironment? WebHostEnvironment { get; set; }
