@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Configuration;
 
 namespace BootstrapBlazor.Components;
 
@@ -15,9 +16,6 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
 
-    [CascadingParameter]
-    private Layout? Layout { get; set; }
-
     [CascadingParameter, NotNull]
     private Tab? TabSet { get; set; }
 
@@ -26,7 +24,15 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
 
     [Inject]
     [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject]
+    [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IConfiguration? Configuration { get; set; }
 
     private IErrorLogger? _logger;
 
@@ -52,25 +58,27 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
 
     private Guid _key = Guid.NewGuid();
 
+    private bool EnableErrorLogger => TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
+    private bool EnableErrorLoggerILogger => TabSet.EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
+    private bool ShowErrorLoggerToast => TabSet.ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
+    private string ToastTitle => TabSet.ErrorLoggerToastTitle ?? "Error";
+
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenComponent<ErrorLogger>(0);
         builder.SetKey(_key);
         builder.AddAttribute(1, nameof(ErrorLogger.ChildContent), Item.ChildContent);
-
-        var enableErrorLogger = TabSet.EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
-        builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), enableErrorLogger);
-
-        // TabItem 不需要 Toast 提示错误信息
-        builder.AddAttribute(3, nameof(ErrorLogger.ShowToast), false);
-        builder.AddAttribute(4, nameof(ErrorLogger.ToastTitle), TabSet.ErrorLoggerToastTitle);
-        builder.AddAttribute(5, nameof(ErrorLogger.OnInitializedCallback), new Func<IErrorLogger, Task>(logger =>
+        builder.AddAttribute(2, nameof(ErrorLogger.EnableErrorLogger), EnableErrorLogger);
+        builder.AddAttribute(3, nameof(ErrorLogger.EnableILogger), EnableErrorLoggerILogger);
+        builder.AddAttribute(4, nameof(ErrorLogger.ShowToast), ShowErrorLoggerToast);
+        builder.AddAttribute(5, nameof(ErrorLogger.ToastTitle), ToastTitle);
+        builder.AddAttribute(6, nameof(ErrorLogger.OnInitializedCallback), new Func<IErrorLogger, Task>(logger =>
         {
             _logger = logger;
             _logger.Register(this);
             return Task.CompletedTask;
         }));
-        builder.AddAttribute(6, nameof(ErrorLogger.OnErrorHandleAsync), Layout?.OnErrorHandleAsync);
+        builder.AddAttribute(7, nameof(ErrorLogger.OnErrorHandleAsync), TabSet.OnErrorHandleAsync);
         builder.CloseComponent();
     }
 
@@ -83,12 +91,31 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         RenderContent();
     }
 
+    private bool _detailedErrorsLoaded;
+    private bool _showDetailedErrors;
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
+    public async Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
+    {
+        if (!_detailedErrorsLoaded)
+        {
+            _showDetailedErrors = Configuration.GetValue("DetailedErrors", false);
+            _detailedErrorsLoaded = true;
+        }
+
+        var useDialog = _showDetailedErrors || !ShowErrorLoggerToast;
+        if (useDialog)
+        {
+            await DialogService.ShowErrorHandlerDialog(errorContent(ex));
+        }
+        else
+        {
+            await ToastService.Error(ToastTitle, ex.Message);
+        }
+    }
 
     /// <summary>
     /// IDispose 方法用于释放资源

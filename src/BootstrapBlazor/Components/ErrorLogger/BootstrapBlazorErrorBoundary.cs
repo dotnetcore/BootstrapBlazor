@@ -56,6 +56,9 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     public string? ToastTitle { get; set; }
 
+    [CascadingParameter, NotNull]
+    private IErrorLogger? ErrorLogger { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -76,27 +79,44 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // 页面生命周期内异常直接调用这里
+        var pageException = false;
         var ex = CurrentException ?? _exception;
         if (ex != null)
         {
-            // 处理自定义异常逻辑
-            if (OnErrorHandleAsync != null)
-            {
-                _ = OnErrorHandleAsync(Logger, ex);
-                return;
-            }
-
-            // 渲染异常内容
-            builder.AddContent(0, ExceptionContent(ex));
+            pageException = IsPageException(ex);
 
             // 重置 CurrentException
             ResetException();
+
+            // 渲染异常
+            var handler = GetLastOrDefaultHandler();
+            _ = RenderException(ex, handler);
         }
-        else
+
+        // 判断是否为组件周期内异常
+        if (!pageException)
         {
             // 渲染正常内容
             builder.AddContent(1, ChildContent);
         }
+    }
+
+    private static readonly string[] PageMethods = new string[] { "SetParametersAsync", "RunInitAndSetParametersAsync", "OnAfterRenderAsync" };
+
+    private static bool IsPageException(Exception ex)
+    {
+        var errorMessage = ex.ToString();
+        return PageMethods.Any(i => errorMessage.Contains(i, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private IHandlerException? GetLastOrDefaultHandler()
+    {
+        IHandlerException? handler = null;
+        if (ErrorLogger is Components.ErrorLogger logger)
+        {
+            handler = logger.GetLastOrDefaultHandler();
+        }
+        return handler;
     }
 
     private PropertyInfo? _currentExceptionPropertyInfo;
@@ -119,10 +139,9 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         }
         else
         {
-            var index = 0;
-            builder.OpenElement(index++, "div");
-            builder.AddAttribute(index++, "class", "error-stack");
-            builder.AddContent(index++, GetErrorContentMarkupString(ex));
+            builder.OpenElement(0, "div");
+            builder.AddAttribute(1, "class", "error-stack");
+            builder.AddContent(2, GetErrorContentMarkupString(ex));
             builder.CloseElement();
         }
     };
@@ -144,34 +163,40 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="handler"></param>
     public async Task RenderException(Exception exception, IHandlerException? handler)
     {
+        // 记录日志
+        await OnErrorAsync(exception);
+
         // 外部调用
         if (OnErrorHandleAsync != null)
         {
             await OnErrorHandleAsync(Logger, exception);
-            return;
         }
-
-        // 记录日志
-        await OnErrorAsync(exception);
 
         if (handler != null)
         {
-            // 非开发模式下弹窗提示错误信息
-            await ToastService.Error(ToastTitle, exception.Message);
-            return;
+            // IHandlerException 处理异常逻辑
+            await handler.HandlerExceptionAsync(exception, ExceptionContent);
         }
-
-        // 显示异常信息
-        await ShowErrorToast(exception);
-        _exception = exception;
-        StateHasChanged();
+        else
+        {
+            // 显示异常信息
+            await ShowErrorToast(exception);
+        }
     }
 
     private async Task ShowErrorToast(Exception exception)
     {
         if (ShowToast)
         {
-            await ToastService.Error(ToastTitle, exception.Message);
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                Title = ToastTitle,
+                ChildContent = ErrorContent == null
+                    ? ExceptionContent(exception)
+                    : ErrorContent(exception)
+            };
+            await ToastService.Show(option);
         }
     }
 }
