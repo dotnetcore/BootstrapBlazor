@@ -1,4 +1,4 @@
-﻿@use "variables" as *;
+@use "variables" as *;
 
 :root {
     --bb-primary-color: #{$bb-primary-color};
@@ -83,12 +83,14 @@ a, a:hover, a:focus {
 }
 
 ::view-transition-old(*) {
+    animation-fill-mode: both;
     mix-blend-mode: normal;
     animation: none;
     z-index: 1;
 }
 
 ::view-transition-new(*) {
+    animation-fill-mode: both;
     mix-blend-mode: normal;
     animation: clip .3s ease-in-out;
     z-index: 9999;
