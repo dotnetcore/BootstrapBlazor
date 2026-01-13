@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Reflection;
 
@@ -443,10 +444,28 @@ public partial class Tab
     public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? EnableErrorLoggerILogger { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? ShowErrorLoggerToast { get; set; }
+
+    /// <summary>
     /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
     /// </summary>
     [Parameter]
     public string? ErrorLoggerToastTitle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义错误处理回调方法
+    /// </summary>
+    [Parameter]
+    public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }

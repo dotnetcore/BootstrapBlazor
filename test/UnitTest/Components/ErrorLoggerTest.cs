@@ -5,8 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 
 namespace UnitTest.Components;
 
@@ -42,17 +40,18 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
-    [Fact]
-    public async Task DetailedErrors_False()
+    [Theory]
+    [InlineData("true")]
+    [InlineData("false")]
+    public async Task DetailedErrors_Ok(string detailedError)
     {
         var config = Context.Services.GetRequiredService<IConfiguration>();
-        config["DetailedErrors"] = "false";
+        config["DetailedErrors"] = detailedError;
 
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<ErrorLogger>(pb =>
             {
-                pb.Add(e => e.ShowToast, false);
                 pb.AddChildContent<Button>(pb =>
                 {
                     pb.Add(b => b.OnClick, () =>
@@ -71,7 +70,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     public async Task OnErrorHandleAsync_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();
-        var cut = Context.Render<ErrorLogger>(pb =>
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
             {
@@ -166,7 +165,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ErrorContent_Ok()
+    public async Task Toast_ErrorContent_Ok()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -182,6 +181,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             });
         });
 
+        // ErrorContent 不为空与 Toast 内容合并显示
         var errorLogger = cut.FindComponent<ErrorLogger>();
         errorLogger.Render(pb =>
         {
@@ -197,12 +197,47 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ErrorContent_Ok()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, RenderButton()));
+                });
+            });
+        });
+
+        var tab = cut.FindComponent<Tab>();
+        var logger = tab.FindComponent<ErrorLogger>();
+        logger.Render(pb =>
+        {
+            pb.Add(a => a.ErrorContent, new RenderFragment<Exception>(ex => builder =>
+            {
+                builder.AddContent(0, ex.Message);
+                builder.AddContent(1, "error_content_template");
+            }));
+        });
+
+        // 触发异常
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+        cut.Contains("Attempted to divide by zero.error_content_template");
+    }
+
+    [Fact]
     public async Task TabItem_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Tab>(pb =>
             {
+                pb.Add(a => a.EnableErrorLogger, true);
+                pb.Add(a => a.EnableErrorLoggerILogger, true);
+                pb.Add(a => a.ShowErrorLoggerToast, true);
                 pb.AddChildContent<TabItem>(pb =>
                 {
                     pb.Add(a => a.Text, "Text1");
@@ -217,7 +252,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         // 页面不崩溃，由弹窗显示异常信息
         cut.Contains("<div class=\"error-stack\">TimeStamp:");
 
-        // 单元测试覆盖 TabItemContent Dispose 方法
+        // 单元测试覆盖 TabItemContent Dispose 方法 覆盖内部 _logger 变量为空情况
         var handler = Activator.CreateInstance("BootstrapBlazor", "BootstrapBlazor.Components.TabItemContent");
         Assert.NotNull(handler);
         var content = handler.Unwrap();
@@ -232,7 +267,6 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     {
         var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
-        context.Services.AddSingleton<IHostEnvironment, MockProductionEnironment>();
         context.Services.AddBootstrapBlazor();
         context.Services.GetRequiredService<ICacheManager>();
 
@@ -251,6 +285,72 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
+    [Fact]
+    public void OnInitialize_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockInitializedError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void OnInitializeAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockInitializedAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void OnParameterSet_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnParametersSetError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void OnParameterSetAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnParameterSetAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void OnAfterRender_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnAfterRenderError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
+    [Fact]
+    public void OnAfterRenderAsync_Error()
+    {
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockOnAfterRenderAsyncError>();
+        });
+
+        Assert.Equal("", cut.Markup);
+    }
+
     private RenderFragment RenderButton() => builder =>
     {
         builder.OpenComponent<Button>(0);
@@ -262,14 +362,70 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         builder.CloseComponent();
     };
 
-    class MockProductionEnironment : IHostEnvironment
+    class MockInitializedError : ComponentBase
     {
-        public string EnvironmentName { get; set; } = "Production";
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
 
-        public string ApplicationName { get; set; } = "Test";
+            ThrowError();
+        }
+    }
 
-        public string ContentRootPath { get; set; } = "UniTest";
+    class MockInitializedAsyncError : ComponentBase
+    {
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
 
-        public IFileProvider ContentRootFileProvider { get; set; } = null!;
+            ThrowError();
+        }
+    }
+
+    class MockOnParametersSetError : ComponentBase
+    {
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            ThrowError();
+        }
+    }
+
+    class MockOnParameterSetAsyncError : ComponentBase
+    {
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            ThrowError();
+        }
+    }
+
+    class MockOnAfterRenderError : ComponentBase
+    {
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+
+            ThrowError();
+        }
+    }
+
+    class MockOnAfterRenderAsyncError : ComponentBase
+    {
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            ThrowError();
+        }
+    }
+
+    private static void ThrowError()
+    {
+        var a = 1;
+        var b = 0;
+        var c = a / b;
     }
 }
