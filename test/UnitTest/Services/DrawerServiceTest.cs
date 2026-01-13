@@ -53,6 +53,17 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
         await service.Show(type);
         button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
+
+        // 测试 Option 关闭方法
+        var closed = false;
+        option.OnCloseAsync = () =>
+        {
+            closed = true;
+            return Task.CompletedTask;
+        };
+        await service.Show(option);
+        await cut.InvokeAsync(option.CloseAsync);
+        Assert.True(closed);
     }
 
     private static RenderFragment RenderContent() => builder =>
