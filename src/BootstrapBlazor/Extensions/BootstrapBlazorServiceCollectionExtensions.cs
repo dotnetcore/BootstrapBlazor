@@ -1,11 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -36,9 +35,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
-
-        // 增加 IHostEnvironment 服务
-        services.TryAddSingleton<IHostEnvironment, MockWasmHostEnvironment>();
 
         // 增加 OtpOptions 配置支持
         services.AddOptionsMonitor<OtpOptions>();
