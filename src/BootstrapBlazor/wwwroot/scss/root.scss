@@ -82,37 +82,41 @@ a, a:hover, a:focus {
     display: none;
 }
 
-::view-transition-old(*) {
-    animation-fill-mode: both;
+::view-transition-old(root) {
     mix-blend-mode: normal;
     animation: none;
     z-index: 1;
 }
 
-::view-transition-new(*) {
-    animation-fill-mode: both;
+::view-transition-new(root) {
+    will-change: clip-path, opacity;
     mix-blend-mode: normal;
-    animation: clip .3s ease-in-out;
+    animation: clip .3s ease-in-out both;
     z-index: 9999;
 }
 
 @keyframes clip {
     from {
         clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+        opacity: 0.99;
+        transform: translateZ(0);
     }
 
     to {
         clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+        opacity: 1;
+        transform: translateZ(0);
     }
 }
 
 [data-bs-theme='dark'] {
-    &::view-transition-old(*) {
-        animation: clip2 .3s ease-in-out;
+    &::view-transition-old(root) {
+        will-change: clip-path, opacity;
+        animation: clip2 .3s ease-in-out both;
         z-index: 9999;
     }
 
-    &::view-transition-new(*) {
+    &::view-transition-new(root) {
         animation: none;
         z-index: 1;
     }
@@ -121,10 +125,14 @@ a, a:hover, a:focus {
 @keyframes clip2 {
     from {
         clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+        opacity: 0.99;
+        transform: translateZ(0);
     }
 
     to {
         clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+        opacity: 1;
+        transform: translateZ(0);
     }
 }
 
