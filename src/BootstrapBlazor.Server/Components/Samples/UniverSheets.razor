@@ -34,6 +34,6 @@
         <Button OnClickWithoutRender="OnPushPluginData" Text="@Localizer["PushButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetPlugin" Plugins="_plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
+        <UniverSheet @ref="_sheetPlugin" Plugins="_plugins" OnReadyAsync="OnReadyPushAsync" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
     </div>
 </DemoBlock>
