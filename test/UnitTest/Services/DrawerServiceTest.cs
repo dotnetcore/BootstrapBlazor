@@ -55,6 +55,7 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
 
         // 测试 Option 关闭方法
+        Context.JSInterop.Setup<bool>("execute", matcher => true).SetResult(true);
         var closed = false;
         option.OnCloseAsync = () =>
         {
