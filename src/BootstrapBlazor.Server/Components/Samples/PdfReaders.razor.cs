@@ -40,7 +40,7 @@ public partial class PdfReaders
     private void GetTestStream()
     {
         _url = "";
-        _streamFileName = "sample2.pdf";
+        _streamFileName = "ebook.pdf";
     }
 
     private void GetSampleStream()
