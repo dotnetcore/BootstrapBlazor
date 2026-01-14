@@ -20,7 +20,8 @@ public partial class EmbedPdfs
     private bool _showPrint = true;
     private bool _enableThumbnails = true;
     private bool _showDownload = true;
-    private bool _showToolbar = true;
+    private EmbedPDFTabBarMode _tabBarMode = EmbedPDFTabBarMode.Always;
+    private EmbedPDFTheme _theme = EmbedPDFTheme.System;
     private bool _showFileName = true;
     private string _url = "./samples/sample.pdf";
     private string _streamFileName = "";
