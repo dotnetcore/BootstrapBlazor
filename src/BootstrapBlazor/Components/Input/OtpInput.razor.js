@@ -9,6 +9,9 @@ export function init(id, invoke, method) {
             e.target.value = e.target.value.slice(1, 2);
         }
         setValue(el, invoke, method);
+        if (e.target.value.length === 1) {
+            setNextFocus(el, e.target);
+        }
     });
     EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
         if (e.ctrlKey) {
