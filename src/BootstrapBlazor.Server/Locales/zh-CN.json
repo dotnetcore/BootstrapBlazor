@@ -4677,6 +4677,7 @@
     "RibbonTab": "选项卡菜单 RibbonTab",
     "PulseButton": "心跳按钮 PulseButton",
     "Bluetooth": "蓝牙服务 IBluetoothService",
+    "EmbedPdf": "PDF阅读器 Embed PDF",
     "PdfReader": "PDF阅读器 PDF Reader",
     "PdfViewer": "PDF阅读器 PDF Viewer",
     "VideoPlayer": "视频播放器 VideoPlayer",
@@ -5970,7 +5971,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "PdfTitle": "PDF Reader PDF 文档阅读器",
-    "PdfIntro": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
+    "PdfDescription": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
     "PdfReaderNormalText": "基础用法",
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址，或者使用 <code>OnGetStreamAsync</code> 参数指定用于渲染的文件流",
     "PdfReaderFAIconDesc": "<code>PdfReader</code> 组件图标依赖 <code>BootstrapBlazor.FontAwesome</code> 包，需要引用如下样式，否则工具栏图标无法显示",
@@ -6024,6 +6025,12 @@
     "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件，设置 <code>UseGoogleDocs</code> 使用 docs.google.com 预览",
     "PdfViewerToastSuccessfulContent": "PDF 文档加载成功",
     "PdfViewerToastNotSupportContent": "当前浏览器不支持 Pdf 文档预览功能"
+  },
+  "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
+    "PdfTitle": "EmbedPDF PDF 文档阅读器",
+    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持",
+    "PdfReaderNormalText": "基础用法",
+    "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址"
   },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer 视频播放器",
