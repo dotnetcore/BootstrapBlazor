@@ -1,4 +1,4 @@
-﻿import EventHandler from '../../modules/event-handler.js'
+import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
@@ -10,11 +10,11 @@ export function init(id, invoke, method) {
         }
         setValue(el, invoke, method);
     });
-    EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
+    EventHandler.on(el, 'keyup', '.bb-otp-item', e => {
         if (e.ctrlKey) {
             return;
         }
-
+        
         const isNumber = e.target.getAttribute('type') === 'number';
         if (skipKeys.indexOf(e.key) > -1) {
 
@@ -26,7 +26,8 @@ export function init(id, invoke, method) {
             setNextFocus(el, e.target);
         }
         else if (isNumber) {
-            if ("0123456789".indexOf(e.key) > -1) {
+            if ("0123456789".indexOf(e.target.value) > -1) {
+                
                 setNextFocus(el, e.target);
             }
             else {
@@ -67,7 +68,6 @@ export function init(id, invoke, method) {
         setValue(el, invoke, method);
     });
 }
-
 const setValue = (el, invoke, method) => {
     const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('');
     invoke.invokeMethodAsync(method, val);
