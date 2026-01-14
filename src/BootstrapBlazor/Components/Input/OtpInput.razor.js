@@ -1,4 +1,4 @@
-﻿import EventHandler from '../../modules/event-handler.js'
+import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
@@ -98,7 +98,7 @@ const setFocus = target => {
         if (target.focus) {
             target.focus();
         }
-    }, 10);
+    }, 0);
 }
 
 export function dispose(id) {
