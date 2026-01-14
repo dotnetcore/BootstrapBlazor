@@ -17,6 +17,12 @@
         <div class="row form-inline g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>Language</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_language" Items="_languages"></Select>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel>TabBarMode</BootstrapInputGroupLabel>
                     <Select @bind-Value="_tabBarMode"></Select>
                 </BootstrapInputGroup>
@@ -29,23 +35,12 @@
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel>EnableThumbnails</BootstrapInputGroupLabel>
-                    <Switch @bind-Value="_enableThumbnails"></Switch>
+                    <BootstrapInputGroupLabel>ScrollStrategy</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_strategy"></Select>
                 </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel>ShowPrint</BootstrapInputGroupLabel>
-                    <Switch @bind-Value="_showPrint"></Switch>
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12">
-                <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/sample.pdf")" class="me-2">sample-Url</Button>
-                <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/ebook.pdf")" class="me-2">ebook-Url</Button>
-                <Button Color="Color.Danger" OnClick="GetSampleStream" class="me-2">Sample-Stream</Button>
-                <Button Color="Color.Danger" OnClick="GetTestStream">Sample2-Stream</Button>
             </div>
         </div>
     </section>
-    <EmbedPDF Url="@_url" ViewHeight="600px" TabBarMode="_tabBarMode" Theme="_theme"></EmbedPDF>
+    <EmbedPDF Url="@_url" ViewHeight="600px" Language="@_language"
+              TabBarMode="_tabBarMode" Theme="_theme" ScrollStrategy="_strategy"></EmbedPDF>
 </DemoBlock>

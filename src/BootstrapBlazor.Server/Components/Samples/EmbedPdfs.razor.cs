@@ -16,15 +16,18 @@ public partial class EmbedPdfs
     [Inject, NotNull]
     private DownloadService? DownloadService { get; set; }
 
-    private bool _showTwoPagesOneView = true;
-    private bool _showPrint = true;
-    private bool _enableThumbnails = true;
-    private bool _showDownload = true;
     private EmbedPDFTabBarMode _tabBarMode = EmbedPDFTabBarMode.Always;
     private EmbedPDFTheme _theme = EmbedPDFTheme.System;
-    private bool _showFileName = true;
+    private EmbedPDFScrollStrategy _strategy = EmbedPDFScrollStrategy.Vertical;
     private string _url = "./samples/sample.pdf";
     private string _streamFileName = "";
+    private string _language = "";
+
+    private List<SelectedItem> _languages = new List<SelectedItem>() {
+        new SelectedItem("", "Auto"),
+        new SelectedItem("en", "en-US"),
+        new SelectedItem("zh-CN", "zh-CN")
+    };
 
     private async Task<Stream> OnGetStreamAsync()
     {
