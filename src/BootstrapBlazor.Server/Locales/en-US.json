@@ -4677,6 +4677,7 @@
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
     "Bluetooth": "IBluetooth",
+    "EmbedPdf": "Embed PDF",
     "PdfReader": "PDF Reader",
     "PdfViewer": "PDF Viewer",
     "VideoPlayer": "VideoPlayer",

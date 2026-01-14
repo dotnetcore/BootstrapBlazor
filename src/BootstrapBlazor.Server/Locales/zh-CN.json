@@ -4677,6 +4677,7 @@
     "RibbonTab": "选项卡菜单 RibbonTab",
     "PulseButton": "心跳按钮 PulseButton",
     "Bluetooth": "蓝牙服务 IBluetoothService",
+    "EmbedPdf": "PDF阅读器 Embed PDF",
     "PdfReader": "PDF阅读器 PDF Reader",
     "PdfViewer": "PDF阅读器 PDF Viewer",
     "VideoPlayer": "视频播放器 VideoPlayer",

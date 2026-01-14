@@ -800,6 +800,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["EmbedPdf"],
+                    Url = "embed-pdf"
+                },
+                new()
+                {
                     Text = Localizer["PdfReader"],
                     Url = "pdf-reader"
                 },
