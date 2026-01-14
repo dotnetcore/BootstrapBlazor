@@ -5970,7 +5970,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "PdfTitle": "PDF Reader PDF 文档阅读器",
-    "PdfIntro": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
+    "PdfDescription": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
     "PdfReaderNormalText": "基础用法",
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址，或者使用 <code>OnGetStreamAsync</code> 参数指定用于渲染的文件流",
     "PdfReaderFAIconDesc": "<code>PdfReader</code> 组件图标依赖 <code>BootstrapBlazor.FontAwesome</code> 包，需要引用如下样式，否则工具栏图标无法显示",

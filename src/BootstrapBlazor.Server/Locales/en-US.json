@@ -5970,7 +5970,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "PdfTitle": "PDF Reader",
-    "PdfIntro": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
+    "PdfDescription": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter, or specify the file stream to be rendered using the <code>OnGetStreamAsync</code> parameter.",
     "PdfReaderFAIconDesc": "The <code>PdfReader</code> component icon depends on the <code>BootstrapBlazor.FontAwesome</code> package. You need to reference the following styles; otherwise, the toolbar icon will not display.",
