@@ -7,54 +7,56 @@
 <PackageTips Name="BootstrapBlazor.PdfReader" />
 
 <DemoBlock Title="@Localizer["PdfReaderNormalText"]" Introduction="@Localizer["PdfReaderNormalIntro"]" Name="Normal">
-    <p>@((MarkupString)Localizer["PdfReaderFAIconDesc"].Value)</p>
-    <Pre>&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" /&gt;</Pre>
-    <ul class="ul-demo">
-        <li>@((MarkupString)Localizer["PdfReaderSetPdfStreamDesc"].Value)</li>
-        <li>@((MarkupString)Localizer["PdfReaderDownloadFileNameDesc"].Value)</li>
-    </ul>
-    <section ignore class="row form-inline g-3" style="--bb-input-group-label-width: 176px;">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowToolbar</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showToolbar"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowFileName</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showFileName"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowDownload</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showDownload"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>EnableThumbnails</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_enableThumbnails"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowPrint</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showPrint"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel>ShowTwoPagesOneView</BootstrapInputGroupLabel>
-                <Switch @bind-Value="_showTwoPagesOneView"></Switch>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12">
-            <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/sample.pdf")" class="me-2">sample-Url</Button>
-            <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/ebook.pdf")" class="me-2">ebook-Url</Button>
-            <Button Color="Color.Danger" OnClick="GetSampleStream" class="me-2">Sample-Stream</Button>
-            <Button Color="Color.Danger" OnClick="GetTestStream">Sample2-Stream</Button>
+    <section ignore style="--bb-input-group-label-width: 176px;">
+        <p>@((MarkupString)Localizer["PdfReaderFAIconDesc"].Value)</p>
+        <Pre>&lt;link rel="stylesheet" href="@@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" /&gt;</Pre>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["PdfReaderSetPdfStreamDesc"].Value)</li>
+            <li>@((MarkupString)Localizer["PdfReaderDownloadFileNameDesc"].Value)</li>
+        </ul>
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowToolbar</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showToolbar"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowFileName</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showFileName"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowDownload</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showDownload"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>EnableThumbnails</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_enableThumbnails"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowPrint</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showPrint"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowTwoPagesOneView</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showTwoPagesOneView"></Switch>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/sample.pdf")" class="me-2">sample-Url</Button>
+                <Button Color="Color.Primary" OnClick="@(() => _url = "./samples/ebook.pdf")" class="me-2">ebook-Url</Button>
+                <Button Color="Color.Danger" OnClick="GetSampleStream" class="me-2">Sample-Stream</Button>
+                <Button Color="Color.Danger" OnClick="GetTestStream">Sample2-Stream</Button>
+            </div>
         </div>
     </section>
     <PdfReader Url="@_url" EnableThumbnails="_enableThumbnails"
