@@ -1,0 +1,13 @@
+@page "/embed-pdf"
+@inject IStringLocalizer<EmbedPdfs> Localizer
+
+@* <h3>@Localizer["PdfTitle"]</h3>
+<h3>@Localizer["PdfDescription"]</h3>
+
+<PackageTips Name="BootstrapBlazor.EmbedPDF" />
+ *@
+<DemoBlock Title="@Localizer["PdfReaderNormalText"]" Introduction="@Localizer["PdfReaderNormalIntro"]" Name="Normal">
+    <div class="" style="border: 1px solid var(--bs-border-color); border-radius: var(--bs-border-radius); overflow: hidden;">
+        <EmbedPDF></EmbedPDF>
+    </div>
+</DemoBlock>
