@@ -6026,6 +6026,12 @@
     "PdfViewerToastSuccessfulContent": "PDF 文档加载成功",
     "PdfViewerToastNotSupportContent": "当前浏览器不支持 Pdf 文档预览功能"
   },
+  "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
+    "PdfTitle": "EmbedPDF PDF 文档阅读器",
+    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持",
+    "PdfReaderNormalText": "基础用法",
+    "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址"
+  },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer 视频播放器",
     "VideoPlayersNormalTitle": "基础用法",
