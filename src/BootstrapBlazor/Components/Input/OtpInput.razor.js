@@ -68,7 +68,7 @@ export function init(id, invoke, method) {
 }
 
 const setValue = (el, invoke, method) => {
-    const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('');
+    const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('|');
     invoke.invokeMethodAsync(method, val);
 }
 
