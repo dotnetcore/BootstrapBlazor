@@ -22,7 +22,8 @@ export function init(id, invoke, method) {
         if (e.ctrlKey) {
             return;
         }
-        if (e.key.charCodeat !== void 0 && e.key.charCodeat(0) === 0) {
+
+        if (e.key.charCodeAt(0) === 0) {
             return;
         }
         triggerKeydown = true;
@@ -37,6 +38,9 @@ export function init(id, invoke, method) {
         }
         else if (value === 'ArrowRight') {
             setNextFocus(el, input);
+        }
+        else if (value === 'Delete') {
+            setFocus(input);
         }
     })
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
@@ -125,5 +129,7 @@ export function dispose(id) {
     const el = document.getElementById(id);
     EventHandler.off(el, 'input');
     EventHandler.off(el, 'keydown');
+    EventHandler.off(el, 'keyup');
+    EventHandler.off(el, 'beforeinput');
     EventHandler.off(el, 'focus');
 }
