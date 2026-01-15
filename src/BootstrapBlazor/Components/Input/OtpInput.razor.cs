@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -106,7 +106,11 @@ public partial class OtpInput
     [JSInvokable]
     public Task TriggerSetValue(string val)
     {
-        SetValue(val);
+        var segs = val.Split('|', StringSplitOptions.RemoveEmptyEntries);
+        if (segs.Length == 0 || segs.Length == Digits)
+        {
+            SetValue(string.Join("", segs));
+        }
         return Task.CompletedTask;
     }
 }
