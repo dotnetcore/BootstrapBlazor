@@ -22,11 +22,23 @@ export function init(id, invoke, method) {
         if (e.ctrlKey) {
             return;
         }
-        if (e.key.charCodeat(0) !== 0) {
-            triggerKeydown = true;
-            processKey(el, e, e.key);
+        if (e.key.charCodeat !== void 0 && e.key.charCodeat(0) === 0) {
+            return;
         }
+        triggerKeydown = true;
+        processKey(el, e, e.key);
     });
+    EventHandler.on(el, 'keyup', '.bb-otp-item', e => {
+        const input = event.target;
+        const value = e.key;
+
+        if (value === 'Backspace' || value === 'ArrowLeft') {
+            setPrevFocus(el, input);
+        }
+        else if (value === 'ArrowRight') {
+            setNextFocus(el, input);
+        }
+    })
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
             e.target.select();
@@ -86,18 +98,12 @@ const setFocus = target => {
 }
 
 const processKey = (el, event, value) => {
-    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
+    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'];
     const input = event.target;
     const isNumber = input.getAttribute('type') === 'number';
 
     if (skipKeys.indexOf(value) > -1) {
 
-    }
-    else if (value === 'Backspace' || value === 'ArrowLeft') {
-        setPrevFocus(el, input);
-    }
-    else if (value === 'ArrowRight') {
-        setNextFocus(el, input);
     }
     else if (isNumber) {
         if ("0123456789".indexOf(value) > -1) {
