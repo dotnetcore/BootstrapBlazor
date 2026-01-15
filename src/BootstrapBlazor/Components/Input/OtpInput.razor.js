@@ -2,7 +2,6 @@ import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
-    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     let isComposing = false;
 
     EventHandler.on(el, 'input', '.bb-otp-item', e => {
@@ -20,7 +19,7 @@ export function init(id, invoke, method) {
             return;
         }
 
-        processKey(el, e.target, e.key);
+        processKey(el, e);
     });
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
@@ -60,6 +59,7 @@ export function init(id, invoke, method) {
 
 const setValue = (el, invoke, method) => {
     const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('');
+    console.log(val);
     invoke.invokeMethodAsync(method, val);
 }
 
@@ -88,30 +88,33 @@ const setFocus = target => {
     }, 0);
 }
 
-const processKey = (el, input, key) => {
+const processKey = (el, event) => {
+    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
+    const input = event.target;
     const isNumber = input.getAttribute('type') === 'number';
-    if (skipKeys.indexOf(key) > -1) {
+
+    if (skipKeys.indexOf(event.key) > -1) {
 
     }
-    else if (e.key === 'Backspace' || e.key === 'ArrowLeft') {
+    else if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
         setPrevFocus(el, input);
     }
-    else if (e.key === 'ArrowRight') {
+    else if (event.key === 'ArrowRight') {
         setNextFocus(el, input);
     }
     else if (isNumber) {
-        if ("0123456789".indexOf(key) > -1) {
+        if ("0123456789".indexOf(event.key) > -1) {
             setNextFocus(el, input);
         }
         else {
-            e.preventDefault();
+            event.preventDefault();
         }
     }
-    else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(key) > -1) {
+    else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(event.key) > -1) {
         setNextFocus(el, input);
     }
     else {
-        e.preventDefault();
+        event.preventDefault();
     }
 }
 
