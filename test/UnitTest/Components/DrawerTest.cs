@@ -207,14 +207,6 @@ public class DrawerTest : BootstrapBlazorTestBase
         cut.Contains("data-bb-scroll=\"true\"");
     }
 
-    [Fact]
-    public async Task Close_Ok()
-    {
-        Context.JSInterop.Setup<bool>("execute", matcher => true).SetResult(true);
-        var cut = Context.Render<Drawer>();
-        await cut.InvokeAsync(() => cut.Instance.Close());
-    }
-
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]

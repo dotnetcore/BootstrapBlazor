@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -473,22 +473,22 @@ public partial class Layout : IHandlerException, ITabHeader
     public object? Resource { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 读取配置文件 EnableErrorLogger 值
+    /// 获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
+    /// </summary>
+    [Parameter]
+    public bool? EnableErrorLoggerILogger { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
     /// </summary>
     [Parameter]
     public bool? ShowErrorLoggerToast { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否启用日志记录功能 默认 null 启用 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
-    /// </summary>
-    [Parameter]
-    public bool? EnableErrorLoggerILogger { get; set; }
 
     /// <summary>
     /// 获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null
@@ -526,9 +526,9 @@ public partial class Layout : IHandlerException, ITabHeader
 
     private bool EnableLogger => EnableErrorLogger ?? Options.CurrentValue.EnableErrorLogger;
 
-    private bool ShowToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
-
     private bool EnableILogger => EnableErrorLoggerILogger ?? Options.CurrentValue.EnableErrorLoggerILogger;
+
+    private bool ShowToast => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
     /// <inheritdoc/>
@@ -683,9 +683,9 @@ public partial class Layout : IHandlerException, ITabHeader
         await TriggerCollapseChanged();
     }
 
-    private ErrorLogger? _errorLogger;
+    private IErrorLogger? _errorLogger;
 
-    private Task OnErrorLoggerInitialized(ErrorLogger logger)
+    private Task OnErrorLoggerInitialized(IErrorLogger logger)
     {
         _errorLogger = logger;
         _errorLogger.Register(this);
@@ -702,7 +702,7 @@ public partial class Layout : IHandlerException, ITabHeader
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
+    public virtual Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
     {
         _errorContent = errorContent(ex);
         StateHasChanged();

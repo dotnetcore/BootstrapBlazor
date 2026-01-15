@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,13 +28,13 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool ShowToast { get; set; } = true;
+    public bool EnableILogger { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool EnableILogger { get; set; } = true;
+    public bool ShowToast { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -44,7 +44,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得/设置 自定义错误处理回调方法
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -66,7 +66,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// Gets or sets the callback function to be invoked during initialization.
     /// </summary>
     [Parameter]
-    public Func<ErrorLogger, Task>? OnInitializedCallback { get; set; }
+    public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
 
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
@@ -101,14 +101,19 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<>.Value), this);
-        builder.AddAttribute(2, nameof(CascadingValue<>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<>.ChildContent), RenderContent);
-        builder.CloseComponent();
+        if (EnableErrorLogger)
+        {
+            builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
+            builder.AddAttribute(1, nameof(CascadingValue<>.Value), this);
+            builder.AddAttribute(2, nameof(CascadingValue<>.IsFixed), true);
+            builder.AddAttribute(3, nameof(CascadingValue<>.ChildContent), RenderError);
+            builder.CloseComponent();
+        }
+        else
+        {
+            builder.AddContent(10, ChildContent);
+        }
     }
-
-    private RenderFragment? RenderContent => EnableErrorLogger ? RenderError : ChildContent;
 
     private RenderFragment RenderError => builder =>
     {
@@ -119,7 +124,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
         builder.AddAttribute(6, nameof(BootstrapBlazorErrorBoundary.EnableILogger), EnableILogger);
-        builder.AddComponentReferenceCapture(5, obj => _errorBoundary = (BootstrapBlazorErrorBoundary)obj);
+        builder.AddComponentReferenceCapture(7, obj => _errorBoundary = (BootstrapBlazorErrorBoundary)obj);
         builder.CloseComponent();
     };
 
@@ -128,9 +133,11 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
-    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, _cache.LastOrDefault());
+    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, GetLastOrDefaultHandler());
 
     private readonly List<IHandlerException> _cache = [];
+
+    internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
 
     /// <summary>
     /// <inheritdoc/>

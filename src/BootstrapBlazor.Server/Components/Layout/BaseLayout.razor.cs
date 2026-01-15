@@ -5,14 +5,13 @@
 
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
-using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 母版页基类
 /// </summary>
-public partial class BaseLayout : IAsyncDisposable
+public partial class BaseLayout : IDisposable
 {
     [Inject]
     [NotNull]
@@ -51,8 +50,6 @@ public partial class BaseLayout : IAsyncDisposable
     private string? CancelText { get; set; }
 
     private bool _init = false;
-    private JSModule? _module;
-    private DotNetObjectReference<BaseLayout>? _interop;
 
     /// <summary>
     /// <inheritdoc/>
@@ -74,18 +71,13 @@ public partial class BaseLayout : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
 
-        if (firstRender)
-        {
-            _module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
-            _interop = DotNetObjectReference.Create(this);
-            await _module.InvokeVoidAsync("doTask", _interop, WebsiteOption.Value.IsDevelopment);
-            _init = true;
-            StateHasChanged();
-        }
+        var module = await JSRuntime.LoadModule($"{WebsiteOption.Value.JSModuleRootPath}Layout/BaseLayout.razor.js");
+        await module.InvokeVoidAsync("initTheme");
+        _init = true;
     }
 
     private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
@@ -130,55 +122,24 @@ public partial class BaseLayout : IAsyncDisposable
     }
 
     /// <summary>
-    /// 显示投票弹窗
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task ShowVoteToast()
-    {
-        // 英文环境不投票
-        if (CultureInfo.CurrentUICulture.Name == "en-US")
-        {
-            return;
-        }
-
-        _option = new ToastOption()
-        {
-            Category = ToastCategory.Information,
-            Title = "邀请您支持 BB 参与 Gitee 项目评选活动",
-            IsAutoHide = false,
-            ChildContent = RenderVote,
-            PreventDuplicates = true,
-            ClassString = "bb-vote-toast"
-        };
-        await Toast.Show(_option);
-    }
-
-    /// <summary>
     /// 释放资源
     /// </summary>
     /// <param name="disposing"></param>
-    private async ValueTask DisposeAsync(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (disposing)
         {
             CommitDispatchService.UnSubscribe(NotifyCommit);
             RebootDispatchService.UnSubscribe(NotifyReboot);
-
-            if (_module != null)
-            {
-                await _module.InvokeVoidAsync("dispose");
-                await _module.DisposeAsync();
-            }
         }
     }
 
     /// <summary>
     /// 释放资源
     /// </summary>
-    public async ValueTask DisposeAsync()
+    public void Dispose()
     {
-        await DisposeAsync(true);
+        Dispose(true);
         GC.SuppressFinalize(this);
     }
 }

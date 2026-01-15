@@ -1,0 +1,46 @@
+@page "/embed-pdf"
+@inject IStringLocalizer<EmbedPdfs> Localizer
+
+<h3>@Localizer["PdfTitle"]</h3>
+<h4>@Localizer["PdfDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.EmbedPDF" />
+
+<DemoBlock Title="@Localizer["PdfReaderNormalText"]" Introduction="@Localizer["PdfReaderNormalIntro"]" Name="Normal">
+    <section ignore style="--bb-input-group-label-width: 176px;">
+        <p class="code-label">适用场景：</p>
+        <ul class="ul-demo">
+            <li>企业内部文档管理系统：需要在线审阅、批注合同或报告。</li>
+            <li>在线教学平台：学生可以在电子教材上做笔记和划重点。</li>
+            <li>SaaS产品：为客户提供专业的PDF文档预览和轻量级编辑功能。</li>
+        </ul>
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>Language</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_language" Items="_languages"></Select>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>TabBarMode</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_tabBarMode"></Select>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>Theme</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_theme"></Select>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ScrollStrategy</BootstrapInputGroupLabel>
+                    <Select @bind-Value="_strategy"></Select>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <EmbedPDF Url="@_url" ViewHeight="600px" Language="@_language"
+              TabBarMode="_tabBarMode" Theme="_theme" ScrollStrategy="_strategy"></EmbedPDF>
+</DemoBlock>

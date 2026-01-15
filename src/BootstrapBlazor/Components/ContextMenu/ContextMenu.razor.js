@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import { createPopper, computePosition } from '../../modules/floating-ui.js'
 import { registerBootstrapBlazorModule } from "../../modules/utility.js"
@@ -36,21 +36,23 @@ export function init(id) {
 }
 
 export function show(id, event) {
-    const cm = Data.get(id)
+    setTimeout(() => {
+        const cm = Data.get(id)
 
-    if (cm) {
-        const el = cm.el
-        const zone = cm.zone
+        if (cm) {
+            const el = cm.el
+            const zone = cm.zone
 
-        const body = document.body
-        body.appendChild(el)
+            const body = document.body
+            body.appendChild(el)
 
-        if (cm.popper) {
-            cm.popper()
+            if (cm.popper) {
+                cm.popper()
+            }
+
+            cm.popper = createPopper(zone, el, () => showContextMenu(zone, el, event))
         }
-
-        cm.popper = createPopper(zone, el, () => showContextMenu(zone, el, event))
-    }
+    }, 0);
 }
 
 export function dispose(id) {

@@ -4677,6 +4677,7 @@
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
     "Bluetooth": "IBluetooth",
+    "EmbedPdf": "Embed PDF",
     "PdfReader": "PDF Reader",
     "PdfViewer": "PDF Viewer",
     "VideoPlayer": "VideoPlayer",
@@ -5970,7 +5971,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "PdfTitle": "PDF Reader",
-    "PdfIntro": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
+    "PdfDescription": "Embed and display PDF documents directly in web pages without relying on a PDF reader installed locally by the user.",
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter, or specify the file stream to be rendered using the <code>OnGetStreamAsync</code> parameter.",
     "PdfReaderFAIconDesc": "The <code>PdfReader</code> component icon depends on the <code>BootstrapBlazor.FontAwesome</code> package. You need to reference the following styles; otherwise, the toolbar icon will not display.",
@@ -6024,6 +6025,12 @@
     "PdfViewerNormalIntro": "Load a PDF file by setting the <code>Url</code> parameter. Set <code>UseGoogleDocs</code> to use docs.google.com preview",
     "PdfViewerToastSuccessfulContent": "PDF document loaded successfully.",
     "PdfViewerToastNotSupportContent": "The browser does not support inline viewing of PDF files."
+  },
+  "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
+    "PdfTitle": "EmbedPDF PDF",
+    "PdfDescription": "EmbedPDF is an open-source JavaScript PDF reader based on PDFium, which renders directly in the browser without requiring backend support.",
+    "PdfReaderNormalText": "Basic usage",
+    "PdfReaderNormalIntro": "Set the PDF file address using the <code>Url</code> parameter."
   },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer",
