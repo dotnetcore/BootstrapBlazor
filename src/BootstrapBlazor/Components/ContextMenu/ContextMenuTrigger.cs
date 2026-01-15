@@ -43,7 +43,7 @@ public class ContextMenuTrigger(IOptionsMonitor<BootstrapBlazorOptions> options)
     public int OnTouchDelay
     {
         get;
-        set { if(value > 0) field = value; }
+        set { if (value > 0) field = value; }
     } = options.CurrentValue.ContextMenuOptions.OnTouchDelay;
 
     private string? ClassString => CssBuilder.Default()
