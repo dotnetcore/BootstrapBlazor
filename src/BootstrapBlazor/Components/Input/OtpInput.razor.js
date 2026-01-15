@@ -2,7 +2,6 @@ import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
-    let isComposing = false;
 
     EventHandler.on(el, 'input', '.bb-otp-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
@@ -12,9 +11,6 @@ export function init(id, invoke, method) {
         setValue(el, invoke, method);
     });
     EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
-        if (isComposing === true) {
-            return;
-        }
         if (e.ctrlKey) {
             return;
         }
@@ -46,14 +42,6 @@ export function init(id, invoke, method) {
         }
         e.target.blur();
         setValue(el, invoke, method);
-    });
-
-    EventHandler.on(el, 'compositionstart', '.bb-otp-item', e => {
-        isComposing = true;
-    });
-
-    EventHandler.on(el, 'compositionend', '.bb-otp-item', e => {
-        isComposing = false;
     });
 }
 
