@@ -58,7 +58,6 @@ export function init(id, invoke, method) {
 
 const setValue = (el, invoke, method) => {
     const val = [...el.querySelectorAll('.bb-otp-item')].map(input => input.value).join('');
-    console.log(val);
     invoke.invokeMethodAsync(method, val);
 }
 
