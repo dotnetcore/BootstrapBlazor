@@ -1,14 +1,32 @@
-﻿import EventHandler from '../../modules/event-handler.js'
+import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
+
+    const totalInputs = [...el.querySelectorAll('.bb-otp-item')];
+
     EventHandler.on(el, 'input', '.bb-otp-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (isNumber && e.target.value.length > 1) {
             e.target.value = e.target.value.slice(1, 2);
         }
-        setValue(el, invoke, method);
+
+        if (/^\d$/.test(e.target.value)) {
+
+            setValue(el, invoke, method);
+
+            let index = totalInputs.indexOf(e.target);
+            if (index < totalInputs.length - 1) {
+                setFocus(totalInputs[index + 1]);
+            } else {
+                // 如果是最后一个输入框，移除焦点
+                e.target.blur();
+            }
+        }
+        else {
+            e.target.value = '';
+        }
     });
     EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
         if (e.ctrlKey) {
@@ -25,20 +43,20 @@ export function init(id, invoke, method) {
         else if (e.key === 'ArrowRight') {
             setNextFocus(el, e.target);
         }
-        else if (isNumber) {
-            if ("0123456789".indexOf(e.key) > -1) {
-                setNextFocus(el, e.target);
-            }
-            else {
-                e.preventDefault();
-            }
-        }
-        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
-            setNextFocus(el, e.target);
-        }
-        else {
-            e.preventDefault();
-        }
+        //else if (isNumber) {
+        //    if ("0123456789".indexOf(e.key) > -1) {
+        //        setNextFocus(el, e.target);
+        //    }
+        //    else {
+        //        e.preventDefault();
+        //    }
+        //}
+        //else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
+        //    setNextFocus(el, e.target);
+        //}
+        //else {
+        //    e.preventDefault();
+        //}
     });
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
