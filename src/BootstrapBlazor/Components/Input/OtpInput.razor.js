@@ -22,8 +22,7 @@ export function init(id, invoke, method) {
         if (e.ctrlKey) {
             return;
         }
-
-        if (e.key) {
+        if (e.key.charCodeat(0) !== 0) {
             triggerKeydown = true;
             processKey(el, e, e.key);
         }
