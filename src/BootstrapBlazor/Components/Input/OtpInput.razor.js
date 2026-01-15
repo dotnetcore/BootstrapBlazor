@@ -3,45 +3,24 @@ import EventHandler from '../../modules/event-handler.js'
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
+    let isComposing = false;
+
     EventHandler.on(el, 'input', '.bb-otp-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (isNumber && e.target.value.length > 1) {
             e.target.value = e.target.value.slice(1, 2);
         }
         setValue(el, invoke, method);
-        if (e.target.value.length === 1) {
-            setNextFocus(el, e.target);
-        }
     });
     EventHandler.on(el, 'keydown', '.bb-otp-item', e => {
+        if (isComposing === true) {
+            return;
+        }
         if (e.ctrlKey) {
             return;
         }
 
-        const isNumber = e.target.getAttribute('type') === 'number';
-        if (skipKeys.indexOf(e.key) > -1) {
-
-        }
-        else if (e.key === 'Backspace' || e.key === 'ArrowLeft') {
-            setPrevFocus(el, e.target);
-        }
-        else if (e.key === 'ArrowRight') {
-            setNextFocus(el, e.target);
-        }
-        else if (isNumber) {
-            if ("0123456789".indexOf(e.key) > -1) {
-                setNextFocus(el, e.target);
-            }
-            else {
-                e.preventDefault();
-            }
-        }
-        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
-            setNextFocus(el, e.target);
-        }
-        else {
-            e.preventDefault();
-        }
+        processKey(el, e.target, e.key);
     });
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
@@ -68,6 +47,14 @@ export function init(id, invoke, method) {
         }
         e.target.blur();
         setValue(el, invoke, method);
+    });
+
+    EventHandler.on(el, 'compositionstart', '.bb-otp-item', e => {
+        isComposing = true;
+    });
+
+    EventHandler.on(el, 'compositionend', '.bb-otp-item', e => {
+        isComposing = false;
     });
 }
 
@@ -99,6 +86,33 @@ const setFocus = target => {
             target.focus();
         }
     }, 0);
+}
+
+const processKey = (el, input, key) => {
+    const isNumber = input.getAttribute('type') === 'number';
+    if (skipKeys.indexOf(key) > -1) {
+
+    }
+    else if (e.key === 'Backspace' || e.key === 'ArrowLeft') {
+        setPrevFocus(el, input);
+    }
+    else if (e.key === 'ArrowRight') {
+        setNextFocus(el, input);
+    }
+    else if (isNumber) {
+        if ("0123456789".indexOf(key) > -1) {
+            setNextFocus(el, input);
+        }
+        else {
+            e.preventDefault();
+        }
+    }
+    else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(key) > -1) {
+        setNextFocus(el, input);
+    }
+    else {
+        e.preventDefault();
+    }
 }
 
 export function dispose(id) {
