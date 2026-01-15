@@ -1,16 +1,8 @@
-import EventHandler from '../../modules/event-handler.js'
+﻿import EventHandler from '../../modules/event-handler.js'
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
-    let triggerKeydown = false;
-
-    EventHandler.on(el, 'beforeinput', '.bb-otp-item', e => {
-        if (triggerKeydown) {
-            return;
-        }
-
-        processKey(el, e, e.data);
-    });
+    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt'];
     EventHandler.on(el, 'input', '.bb-otp-item', e => {
         const isNumber = e.target.getAttribute('type') === 'number';
         if (isNumber && e.target.value.length > 1) {
@@ -23,26 +15,31 @@ export function init(id, invoke, method) {
             return;
         }
 
-        if (e.key.charCodeAt(0) === 0) {
-            return;
-        }
-        triggerKeydown = true;
-        processKey(el, e, e.key);
-    });
-    EventHandler.on(el, 'keyup', '.bb-otp-item', e => {
-        const input = event.target;
-        const value = e.key;
+        const isNumber = e.target.getAttribute('type') === 'number';
+        if (skipKeys.indexOf(e.key) > -1) {
 
-        if (value === 'Backspace' || value === 'ArrowLeft') {
-            setPrevFocus(el, input);
         }
-        else if (value === 'ArrowRight') {
-            setNextFocus(el, input);
+        else if (e.key === 'Backspace' || e.key === 'ArrowLeft') {
+            setPrevFocus(el, e.target);
         }
-        else if (value === 'Delete') {
-            setFocus(input);
+        else if (e.key === 'ArrowRight') {
+            setNextFocus(el, e.target);
         }
-    })
+        else if (isNumber) {
+            if ("0123456789".indexOf(e.key) > -1) {
+                setNextFocus(el, e.target);
+            }
+            else {
+                e.preventDefault();
+            }
+        }
+        else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(e.key) > -1) {
+            setNextFocus(el, e.target);
+        }
+        else {
+            e.preventDefault();
+        }
+    });
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
         if (e.target.select) {
             e.target.select();
@@ -98,38 +95,12 @@ const setFocus = target => {
         if (target.focus) {
             target.focus();
         }
-    }, 0);
-}
-
-const processKey = (el, event, value) => {
-    const skipKeys = ['Enter', 'Tab', 'Shift', 'Control', 'Alt', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'];
-    const input = event.target;
-    const isNumber = input.getAttribute('type') === 'number';
-
-    if (skipKeys.indexOf(value) > -1) {
-
-    }
-    else if (isNumber) {
-        if ("0123456789".indexOf(value) > -1) {
-            setNextFocus(el, input);
-        }
-        else {
-            event.preventDefault();
-        }
-    }
-    else if ("abcdefghijklmnopqrstuvwxyzABCDEDFGHIJKLMNOPQRSTUVWXYZ0123456789".indexOf(value) > -1) {
-        setNextFocus(el, input);
-    }
-    else {
-        event.preventDefault();
-    }
+    }, 10);
 }
 
 export function dispose(id) {
     const el = document.getElementById(id);
     EventHandler.off(el, 'input');
     EventHandler.off(el, 'keydown');
-    EventHandler.off(el, 'keyup');
-    EventHandler.off(el, 'beforeinput');
     EventHandler.off(el, 'focus');
 }
