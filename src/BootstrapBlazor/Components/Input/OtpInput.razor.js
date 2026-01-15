@@ -25,7 +25,7 @@ export function init(id, invoke, method) {
 
         if (e.key) {
             triggerKeydown = true;
-            processKey(el, e);
+            processKey(el, e, e.key);
         }
     });
     EventHandler.on(el, 'focus', '.bb-otp-item', e => {
