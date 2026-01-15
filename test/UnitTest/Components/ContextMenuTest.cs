@@ -143,10 +143,11 @@ public class ContextMenuTest : BootstrapBlazorTestBase
 
         var element = sut.Find(".context-trigger");
         var sw = Stopwatch.StartNew();
-        await element.TouchStartAsync(new TouchEventArgs()
-                                      { Detail  = 0
-                                      , Touches = [new TouchPoint() { ClientX = 10, ClientY = 10, ScreenX = 10, ScreenY = 10 }]
-                                      });
+        await element.TouchStartAsync(new TouchEventArgs
+        {
+            Detail = 0,
+            Touches = [new TouchPoint { ClientX = 10, ClientY = 10, ScreenX = 10, ScreenY = 10 }]
+        });
         Assert.True(sut.FindComponent<ContextMenuTrigger>().Instance.IsTouchStarted);
         await element.TouchEndAsync();
         sw.Stop();
