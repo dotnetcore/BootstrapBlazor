@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,12 +12,18 @@ namespace BootstrapBlazor.Components;
 public enum DateTimeRangeRenderMode
 {
     /// <summary>
-    /// Single Component Mode
+    /// <para lang="zh">Single Component Mode
+    ///</para>
+    /// <para lang="en">Single Component Mode
+    ///</para>
     /// </summary>
     Single,
 
     /// <summary>
-    /// Double Panel Mode
+    /// <para lang="zh">Double Panel Mode
+    ///</para>
+    /// <para lang="en">Double Panel Mode
+    ///</para>
     /// </summary>
     Double
 }

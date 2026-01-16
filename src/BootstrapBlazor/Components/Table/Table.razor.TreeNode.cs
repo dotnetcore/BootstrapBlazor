@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,6 +10,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为树形数据 默认为 false</para>
     /// <para lang="en">Get/Set Whether it is tree data. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTree { get; set; }
@@ -17,6 +18,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 生成树状结构回调方法</para>
     /// <para lang="en">Get/Set Callback for generating tree structure</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
@@ -24,6 +26,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 树形数据节点展开式回调委托方法</para>
     /// <para lang="en">Get/Set Callback delegate for expanding tree data node</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task<IEnumerable<TableTreeNode<TItem>>>>? OnTreeExpand { get; set; }
@@ -46,6 +49,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 数型结构小箭头图标</para>
     /// <para lang="en">Get/Set Tree Node Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeIcon { get; set; }
@@ -53,6 +57,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 数型结构展开小箭头图标</para>
     /// <para lang="en">Get/Set Tree Node Expand Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeExpandIcon { get; set; }
@@ -60,6 +65,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 数型结构正在加载图标</para>
     /// <para lang="en">Get/Set Tree Node Loading Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeNodeLoadingIcon { get; set; }
@@ -67,6 +73,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
     /// <para lang="en">Get/Set Indent Size. Default 16 px</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int IndentSize { get; set; } = 16;

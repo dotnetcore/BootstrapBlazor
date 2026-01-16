@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -28,6 +28,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 图片 Url 默认 null 必填</para>
     /// <para lang="en">Get/Set Image Url Default null Required</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -37,6 +38,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 图片是否异步加载</para>
     /// <para lang="en">Get/Set whether the image is loaded asynchronously</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAsync { get; set; }
@@ -44,6 +46,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 原生 alt 属性 默认 null 未设置</para>
     /// <para lang="en">Get/Set Native alt Attribute Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Alt { get; set; }
@@ -51,6 +54,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示占位符 适用于大图片加载 默认 false</para>
     /// <para lang="en">Get/Set Whether to show placeholder. Suitable for large image loading. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPlaceHolder { get; set; }
@@ -58,6 +62,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 加载失败时是否显示错误占位符 默认 false</para>
     /// <para lang="en">Get/Set Whether to show error placeholder when loading fails. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool HandleError { get; set; }
@@ -65,6 +70,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 占位模板 未设置 <see cref="Url"/> 或者 正在加载时显示 默认 null 未设置</para>
     /// <para lang="en">Get/Set Placeholder Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? PlaceHolderTemplate { get; set; }
@@ -72,6 +78,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 错误模板 默认 null 未设置</para>
     /// <para lang="en">Get/Set Error Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ErrorTemplate { get; set; }
@@ -79,6 +86,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 原生 object-fit 属性 默认 fill 未设置</para>
     /// <para lang="en">Get/Set Native object-fit Attribute. Default fill</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ObjectFitMode FitMode { get; set; }
@@ -86,6 +94,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 原生 z-index 属性 默认 2050</para>
     /// <para lang="en">Get/Set Native z-index Attribute. Default 2050</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ZIndex { get; set; } = 2050;
@@ -93,6 +102,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 预览大图链接集合 默认 null</para>
     /// <para lang="en">Get/Set Preview Image List Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
@@ -100,6 +110,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 预览大图当前链接集合点开的索引 默认为 0</para>
     /// <para lang="en">Get/Set Index of the currently opened link in the preview image list Default 0</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int PreviewIndex { get; set; } = 0;
@@ -107,6 +118,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 图片加载失败时回调方法</para>
     /// <para lang="en">Get/Set Callback method when image loading fails</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnErrorAsync { get; set; }
@@ -114,6 +126,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 图片加载成功时回调方法</para>
     /// <para lang="en">Get/Set Callback method when image loading succeeds</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnLoadAsync { get; set; }
@@ -121,6 +134,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 图片文件图标</para>
     /// <para lang="en">Get/Set Image File Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIcon { get; set; }
@@ -128,6 +142,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 是否交叉监听 默认 false</para>
     /// <para lang="en">Get/Set Whether Intersection Observer. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">不可见时不加载图片，当图片即将可见时才开始加载图片</para>
@@ -139,6 +154,7 @@ public partial class ImageViewer
     /// <summary>
     /// <para lang="zh">获得/设置 预览缩放速度 默认 null 未设置取 0.015 值</para>
     /// <para lang="en">Get/Set Zoom Speed Default null 0.015 if not set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public double? ZoomSpeed { get; set; }

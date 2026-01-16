@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// WebSpeechSynthesizer 类
+/// <para lang="zh">WebSpeechSynthesizer 类
+///</para>
+/// <para lang="en">WebSpeechSynthesizer 类
+///</para>
 /// </summary>
 public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator componentIdGenerator)
 {
@@ -15,23 +18,35 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
-    /// 获得/设置 朗读结束回调方法 默认 null
+    /// <para lang="zh">获得/设置 朗读结束回调方法 默认 null
+    ///</para>
+    /// <para lang="en">Gets or sets 朗读结束callback method Default is null
+    ///</para>
     /// </summary>
     public Func<Task>? OnEndAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 发生错误回调方法 默认 null
+    /// <para lang="zh">获得/设置 发生错误回调方法 默认 null
+    ///</para>
+    /// <para lang="en">Gets or sets 发生错误callback method Default is null
+    ///</para>
     /// </summary>
     public Func<WebSpeechSynthesisError, Task>? OnErrorAsync { get; set; }
 
     /// <summary>
-    /// 获得 语音包方法
+    /// <para lang="zh">获得 语音包方法
+    ///</para>
+    /// <para lang="en">Gets 语音包方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public async Task<WebSpeechSynthesisVoice[]?> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]?>("getVoices");
 
     /// <summary>
-    /// 开始朗读方法
+    /// <para lang="zh">开始朗读方法
+    ///</para>
+    /// <para lang="en">开始朗读方法
+    ///</para>
     /// </summary>
     /// <param name="utterance"></param>
     public async Task SpeakAsync(WebSpeechSynthesisUtterance utterance)
@@ -42,7 +57,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 开始朗读方法
+    /// <para lang="zh">开始朗读方法
+    ///</para>
+    /// <para lang="en">开始朗读方法
+    ///</para>
     /// </summary>
     /// <param name="text"></param>
     /// <param name="lang"></param>
@@ -53,7 +71,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     });
 
     /// <summary>
-    /// 开始朗读方法
+    /// <para lang="zh">开始朗读方法
+    ///</para>
+    /// <para lang="en">开始朗读方法
+    ///</para>
     /// </summary>
     /// <param name="text"></param>
     /// <param name="voice"></param>
@@ -64,7 +85,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     });
 
     /// <summary>
-    /// 暂停朗读方法
+    /// <para lang="zh">暂停朗读方法
+    ///</para>
+    /// <para lang="en">暂停朗读方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public async Task PauseAsync()
@@ -73,7 +97,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 恢复朗读方法
+    /// <para lang="zh">恢复朗读方法
+    ///</para>
+    /// <para lang="en">恢复朗读方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public async Task ResumeAsync()
@@ -82,7 +109,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 取消朗读方法
+    /// <para lang="zh">取消朗读方法
+    ///</para>
+    /// <para lang="en">取消朗读方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public async Task CancelAsync()
@@ -91,7 +121,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 朗读异常回调方法由 Javascript 调用
+    /// <para lang="zh">朗读异常回调方法由 Javascript 调用
+    ///</para>
+    /// <para lang="en">朗读exceptioncallback method由 Javascript 调用
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -104,7 +137,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 朗读结束回调方法由 Javascript 调用
+    /// <para lang="zh">朗读结束回调方法由 Javascript 调用
+    ///</para>
+    /// <para lang="en">朗读结束callback method由 Javascript 调用
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -117,7 +153,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 正在朗读回调方法由 Javascript 调用
+    /// <para lang="zh">正在朗读回调方法由 Javascript 调用
+    ///</para>
+    /// <para lang="en">正在朗读callback method由 Javascript 调用
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

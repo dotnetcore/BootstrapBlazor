@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public partial class BootstrapBlazorIcon
     /// <summary>
     /// <para lang="zh">获得/设置 图标名称</para>
     /// <para lang="en">Get/Set Icon Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">如果是字库图标应该是样式名称如 fa-solid fa-home 如果是 svg sprites 应该为 Id</para>
@@ -26,6 +27,7 @@ public partial class BootstrapBlazorIcon
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 svg sprites 默认 false</para>
     /// <para lang="en">Get/Set Whether is svg sprites Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSvgSprites { get; set; }
@@ -33,6 +35,7 @@ public partial class BootstrapBlazorIcon
     /// <summary>
     /// <para lang="zh">获得/设置 Svg Sprites 路径</para>
     /// <para lang="en">Get/Set Svg Sprites Path</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
@@ -40,6 +43,7 @@ public partial class BootstrapBlazorIcon
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

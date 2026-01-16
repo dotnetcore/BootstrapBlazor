@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -57,6 +57,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
     /// <para lang="en">Gets or sets the button color. Default is None (not set)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -64,6 +65,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 Size 大小 默认为 None</para>
     /// <para lang="en">Gets or sets the Size. Default is None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
@@ -71,6 +73,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false</para>
     /// <para lang="en">Gets or sets whether to show the Checkbox post label text. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAfterLabel { get; set; }
@@ -78,6 +81,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选择框状态</para>
     /// <para lang="en">Gets or sets the checkbox state</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CheckboxState State { get; set; }
@@ -85,6 +89,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 State 状态改变回调方法</para>
     /// <para lang="en">Gets or sets the State change callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -93,6 +98,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中状态改变前回调此方法 返回 false 可以阻止状态改变</para>
     /// <para lang="en">Gets or sets the callback method before the selected state changes. Returning false can prevent the state change</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CheckboxState, Task<bool>>? OnBeforeStateChanged { get; set; }
@@ -100,6 +106,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选择框状态改变时回调此方法</para>
     /// <para lang="en">Gets or sets the callback method when the checkbox state changes</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
@@ -107,6 +114,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否事件冒泡 默认为 false</para>
     /// <para lang="en">Gets or sets whether event bubbling. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }
@@ -114,6 +122,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 子组件 RenderFragment 实例</para>
     /// <para lang="en">Gets or sets the child component RenderFragment instance</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

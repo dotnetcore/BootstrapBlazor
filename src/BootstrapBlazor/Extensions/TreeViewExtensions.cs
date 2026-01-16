@@ -6,12 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 树状结构获取所有项目扩展方法类
+/// <para lang="zh">树状结构获取所有项目扩展方法类
+///</para>
+/// <para lang="en">树状结构获取所有项目扩展方法类
+///</para>
 /// </summary>
 public static class TreeViewExtensions
 {
     /// <summary>
-    /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
+    /// <para lang="zh">在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
+    ///</para>
+    /// <para lang="en">在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
+    ///</para>
     /// </summary>
     /// <param name="source"></param>
     public static TreeViewItem<TItem>? FirstOrDefaultActiveItem<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
@@ -29,7 +35,10 @@ public static class TreeViewExtensions
     }
 
     /// <summary>
-    ///  获取全部节点
+    /// <para lang="zh">获取全部节点
+    ///</para>
+    /// <para lang="en">获取全部节点
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
@@ -37,7 +46,10 @@ public static class TreeViewExtensions
     public static IEnumerable<TreeViewItem<TItem>> GetAllItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => GetAllSubItems(source).Union(source);
 
     /// <summary>
-    /// 获取全部子节点
+    /// <para lang="zh">获取全部子节点
+    ///</para>
+    /// <para lang="en">获取全部子节点
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
@@ -45,7 +57,10 @@ public static class TreeViewExtensions
     public static IEnumerable<TreeViewItem<TItem>> GetAllSubItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => source.SelectMany(i => i.Items.Count > 0 ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items);
 
     /// <summary>
-    /// 将带层次结构的树状数据转换为扁平数据集合
+    /// <para lang="zh">将带层次结构的树状数据转换为扁平数据集合
+    ///</para>
+    /// <para lang="en">将带层次结构的树状data转换为扁平datacollection
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>

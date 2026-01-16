@@ -35,6 +35,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
     /// <para lang="en">Get/Set Custom Error Handler</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -42,6 +43,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
     /// <para lang="en">Get/Set Whether to Enable Logging Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
@@ -49,6 +51,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示弹窗 默认 true 显示</para>
     /// <para lang="en">Get/Set Whether to Show Toast Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
@@ -56,6 +59,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <summary>
     /// <para lang="zh">获得/设置 Toast 弹窗标题</para>
     /// <para lang="en">Get/Set Toast Title</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

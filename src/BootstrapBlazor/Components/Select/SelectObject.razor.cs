@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -17,6 +17,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
     /// <para lang="en">Get/Set Color. Default Color.None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -24,6 +25,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示组件右侧扩展箭头 默认 true 显示</para>
     /// <para lang="en">Get/Set Whether to show the component right extension arrow. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAppendArrow { get; set; } = true;
@@ -31,6 +33,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值</para>
     /// <para lang="en">Get/Set Dropdown Min Width. Default null (use style default)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? DropdownMinWidth { get; set; }
@@ -38,6 +41,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得 显示文字回调方法 默认 null</para>
     /// <para lang="en">Get Display Text Callback Method. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -47,6 +51,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up</para>
     /// <para lang="en">Get/Set Dropdown Icon. Default fa-solid fa-angle-up</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -55,6 +60,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
     /// <para lang="en">Get/Set Whether clearable. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
@@ -62,6 +68,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
     /// <para lang="en">Get/Set Clear Icon. Default fa-solid fa-angle-up</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -70,6 +77,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 下拉列表内容模板</para>
     /// <para lang="en">Get/Set Dropdown Content Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -125,6 +133,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得 PlaceHolder 属性</para>
     /// <para lang="en">Get PlaceHolder Attribute</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -132,6 +141,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗高度 默认 486px;</para>
     /// <para lang="en">Get/Set Dropdown Height. Default 486px</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;
@@ -139,6 +149,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 Value 显示模板 默认 null</para>
     /// <para lang="en">Get/Set Value Display Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
@@ -146,6 +157,7 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
     /// <para lang="en">Get/Set OnClear Callback Method. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }

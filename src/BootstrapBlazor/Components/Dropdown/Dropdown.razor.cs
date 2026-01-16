@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -75,6 +75,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.Primary 无设置</para>
     /// <para lang="en">Get/Set Color. Default is Color.Primary</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
@@ -82,6 +83,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
     /// <para lang="en">Get/Set Data Items</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -90,6 +92,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板</para>
     /// <para lang="en">Get/Set Item Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
@@ -97,6 +100,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 按钮内容模板</para>
     /// <para lang="en">Get/Set Button Content Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem?>? ButtonTemplate { get; set; }
@@ -104,6 +108,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启分裂式 默认 false</para>
     /// <para lang="en">Get/Set Is Split Button. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSplit { get; set; }
@@ -113,6 +118,7 @@ public partial class Dropdown<TValue>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
     /// <para lang="en">Get/Set OnClick Event</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -122,6 +128,7 @@ public partial class Dropdown<TValue>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
     /// <para lang="en">Get/Set OnClick Event without render parent</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickWithoutRender { get; set; }
@@ -131,6 +138,7 @@ public partial class Dropdown<TValue>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
     /// <para lang="en">Get/Set Is Async Button. Default is false. If true, button is disabled and shows loading animation on click</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAsync { get; set; }
@@ -138,6 +146,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否异步结束后是否保持禁用状态，默认为 false</para>
     /// <para lang="en">Get/Set Keep Disabled after async completion. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks><see cref="IsAsync"/> 开启时有效</remarks>
     [Parameter]
@@ -146,6 +155,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 显示图标</para>
     /// <para lang="en">Get/Set Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -153,6 +163,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner</para>
     /// <para lang="en">Get/Set Loading Icon. Default is fa-solid fa-spin fa-spinner</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -161,6 +172,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 获取菜单对齐方式 默认 none 未设置</para>
     /// <para lang="en">Get/Set Menu Alignment. Default is none</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment MenuAlignment { get; set; }
@@ -168,6 +180,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 下拉选项方向 默认 Dropdown 向下</para>
     /// <para lang="en">Get/Set Dropdown Direction. Default is Dropdown (down)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Direction Direction { get; set; }
@@ -175,6 +188,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件尺寸 默认 none 未设置</para>
     /// <para lang="en">Get/Set Size. Default is none</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
@@ -182,6 +196,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定按钮文字 更改下拉框选项时按钮文字保持不变 默认 false 不固定</para>
     /// <para lang="en">Get/Set Whether Fixed Button Text. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFixedButtonText { get; set; }
@@ -189,6 +204,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 下拉菜单中是否显示固定文字 默认 false 不显示</para>
     /// <para lang="en">Get/Set Whether Show Fixed Button Text in Dropdown. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFixedButtonTextInDropdown { get; set; }
@@ -196,6 +212,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 固定按钮显示文字 默认 null</para>
     /// <para lang="en">Get/Set Fixed Button Text. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FixedButtonText { get; set; }
@@ -203,6 +220,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 Items 模板 默认 null</para>
     /// <para lang="en">Get/Set Items Template. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ItemsTemplate { get; set; }
@@ -210,6 +228,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">SelectedItemChanged 回调方法</para>
     /// <para lang="en">SelectedItemChanged Callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }

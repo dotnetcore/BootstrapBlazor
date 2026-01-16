@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,14 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ToastService 扩展方法
+/// <para lang="zh">ToastService 扩展方法
+///</para>
+/// <para lang="en">ToastService 扩展方法
+///</para>
 /// </summary>
 public static class ToastServiceExtensions
 {
     // 特别备注：此处方法使用三个参数被 UniLite 插件系统使用，请勿删除
 
     /// <summary>
-    /// Toast 调用成功快捷方法
+    /// <para lang="zh">Toast 调用成功快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用成功快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -22,7 +28,10 @@ public static class ToastServiceExtensions
     public static Task Success(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Success(service, title, content, autoHide, true);
 
     /// <summary>
-    /// Toast 调用成功快捷方法
+    /// <para lang="zh">Toast 调用成功快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用成功快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -39,7 +48,10 @@ public static class ToastServiceExtensions
     });
 
     /// <summary>
-    /// Toast 调用错误快捷方法
+    /// <para lang="zh">Toast 调用错误快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用错误快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -48,7 +60,10 @@ public static class ToastServiceExtensions
     public static Task Error(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Error(service, title, content, autoHide, true);
 
     /// <summary>
-    /// Toast 调用错误快捷方法
+    /// <para lang="zh">Toast 调用错误快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用错误快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -65,7 +80,10 @@ public static class ToastServiceExtensions
     });
 
     /// <summary>
-    /// Toast 调用提示信息快捷方法
+    /// <para lang="zh">Toast 调用提示信息快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用提示信息快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -74,7 +92,10 @@ public static class ToastServiceExtensions
     public static Task Information(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Information(service, title, content, autoHide, true);
 
     /// <summary>
-    /// Toast 调用提示信息快捷方法
+    /// <para lang="zh">Toast 调用提示信息快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用提示信息快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -91,7 +112,10 @@ public static class ToastServiceExtensions
     });
 
     /// <summary>
-    /// Toast 调用警告信息快捷方法
+    /// <para lang="zh">Toast 调用警告信息快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用警告信息快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>
@@ -100,7 +124,10 @@ public static class ToastServiceExtensions
     public static Task Warning(this ToastService service, string? title = null, string? content = null, bool autoHide = true) => Warning(service, title, content, autoHide, true);
 
     /// <summary>
-    /// Toast 调用警告信息快捷方法
+    /// <para lang="zh">Toast 调用警告信息快捷方法
+    ///</para>
+    /// <para lang="en">Toast 调用警告信息快捷方法
+    ///</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="title">Title 属性</param>

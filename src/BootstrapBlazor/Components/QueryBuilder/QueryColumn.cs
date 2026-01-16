@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -17,6 +17,7 @@ public class QueryColumn<TType> : QueryGroup
     /// <summary>
     /// <para lang="zh">获得/设置 条件字段名称</para>
     /// <para lang="en">Get/Set Condition Field Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TType? Field { get; set; }
@@ -24,6 +25,7 @@ public class QueryColumn<TType> : QueryGroup
     /// <summary>
     /// <para lang="zh">获得/设置 FieldExpression 表达式</para>
     /// <para lang="en">Get/Set FieldExpression</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TType>>? FieldExpression { get; set; }
@@ -31,6 +33,7 @@ public class QueryColumn<TType> : QueryGroup
     /// <summary>
     /// <para lang="zh">获得/设置 条件操作符号</para>
     /// <para lang="en">Get/Set Condition Operator</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public FilterAction Operator { get; set; }
@@ -38,6 +41,7 @@ public class QueryColumn<TType> : QueryGroup
     /// <summary>
     /// <para lang="zh">获得/设置 条件值</para>
     /// <para lang="en">Get/Set Condition Value</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? Value { get; set; }

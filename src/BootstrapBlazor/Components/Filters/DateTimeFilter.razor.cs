@@ -6,7 +6,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTime filter component
+/// <para lang="zh">DateTime filter component
+///</para>
+/// <para lang="en">DateTime filter component
+///</para>
 /// </summary>
 public partial class DateTimeFilter
 {
@@ -20,7 +23,11 @@ public partial class DateTimeFilter
         .Build();
 
     /// <summary>
-    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.
+    ///</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }

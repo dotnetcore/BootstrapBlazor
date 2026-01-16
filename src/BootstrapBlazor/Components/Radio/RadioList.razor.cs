@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,6 +16,7 @@ public partial class RadioList<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
     /// <para lang="en">Get/Set Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoAddNullItem { get; set; }
@@ -23,6 +24,7 @@ public partial class RadioList<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
     /// <para lang="en">Get/Set Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -31,6 +33,7 @@ public partial class RadioList<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 未设置选中项时是否自动选择第一项 默认 true</para>
     /// <para lang="en">Get/Set Whether to auto select first item when no item is selected. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoSelectFirstWhenValueIsNull { get; set; } = true;
@@ -109,14 +112,18 @@ public partial class RadioList<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <param name="typeValue"></param>
     /// <param name="list"></param>
     protected override void ProcessGenericItems(Type typeValue, IEnumerable? list) { }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc />
+    ///</para>
+    /// <para lang="en"><inheritdoc />
+    ///</para>
     /// </summary>
     protected override void EnsureParameterValid() { }
 

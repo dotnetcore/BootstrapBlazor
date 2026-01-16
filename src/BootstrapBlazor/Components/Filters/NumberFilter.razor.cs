@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// NumberFilter component
+/// <para lang="zh">NumberFilter component
+///</para>
+/// <para lang="en">NumberFilter component
+///</para>
 /// </summary>
 public partial class NumberFilter<TType>
 {
@@ -21,7 +24,11 @@ public partial class NumberFilter<TType>
         .Build();
 
     /// <summary>
-    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.
+    ///</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }

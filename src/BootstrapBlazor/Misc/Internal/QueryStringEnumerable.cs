@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -7,7 +7,10 @@
 namespace Microsoft.AspNetCore.Internal;
 
 /// <summary>
-/// An enumerable that can supply the name/value pairs from a URI query string.
+/// <para lang="zh">An 枚举erable that can supply the name/value pairs from a URI query string.
+///</para>
+/// <para lang="en">An enumerable that can supply the name/value pairs from a URI query string.
+///</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 internal readonly struct QueryStringEnumerable
@@ -15,7 +18,10 @@ internal readonly struct QueryStringEnumerable
     private readonly ReadOnlyMemory<char> _queryString;
 
     /// <summary>
-    /// Constructs an instance of <see cref="QueryStringEnumerable"/>.
+    /// <para lang="zh">Constructs an 实例 of <see cref="QueryStringEnumerable"/>.
+    ///</para>
+    /// <para lang="en">Constructs an instance of <see cref="QueryStringEnumerable"/>.
+    ///</para>
     /// </summary>
     /// <param name="queryString">The query string.</param>
     public QueryStringEnumerable(string? queryString)
@@ -24,7 +30,10 @@ internal readonly struct QueryStringEnumerable
     }
 
     /// <summary>
-    /// Constructs an instance of <see cref="QueryStringEnumerable"/>.
+    /// <para lang="zh">Constructs an 实例 of <see cref="QueryStringEnumerable"/>.
+    ///</para>
+    /// <para lang="en">Constructs an instance of <see cref="QueryStringEnumerable"/>.
+    ///</para>
     /// </summary>
     /// <param name="queryString">The query string.</param>
     public QueryStringEnumerable(ReadOnlyMemory<char> queryString)
@@ -33,25 +42,39 @@ internal readonly struct QueryStringEnumerable
     }
 
     /// <summary>
-    /// Retrieves an object that can iterate through the name/value pairs in the query string.
+    /// <para lang="zh">Retrieves an object that can iterate through the name/value pairs in the query string.
+    ///</para>
+    /// <para lang="en">Retrieves an object that can iterate through the name/value pairs in the query string.
+    ///</para>
     /// </summary>
     /// <returns>An object that can iterate through the name/value pairs in the query string.</returns>
     public Enumerator GetEnumerator() => new(_queryString);
 
     /// <summary>
-    /// Represents a single name/value pair extracted from a query string during enumeration.
+    /// <para lang="zh">Represents a single name/value pair extracted from a query string during 枚举eration.
+    ///</para>
+    /// <para lang="en">Represents a single name/value pair extracted from a query string during enumeration.
+    ///</para>
     /// </summary>
     public readonly struct EncodedNameValuePair
     {
         /// <summary>
-        /// Gets the name from this name/value pair in its original encoded form.
+        /// <para lang="zh">获得 the name from this name/value pair in its original encoded form.
         /// To get the decoded string, call <see cref="DecodeName"/>.
+        ///</para>
+        /// <para lang="en">Gets the name from this name/value pair in its original encoded form.
+        /// To get the decoded string, call <see cref="DecodeName"/>.
+        ///</para>
         /// </summary>
         public readonly ReadOnlyMemory<char> EncodedName { get; }
 
         /// <summary>
-        /// Gets the value from this name/value pair in its original encoded form.
+        /// <para lang="zh">获得 the value from this name/value pair in its original encoded form.
         /// To get the decoded string, call <see cref="DecodeValue"/>.
+        ///</para>
+        /// <para lang="en">Gets the value from this name/value pair in its original encoded form.
+        /// To get the decoded string, call <see cref="DecodeValue"/>.
+        ///</para>
         /// </summary>
         public readonly ReadOnlyMemory<char> EncodedValue { get; }
 
@@ -62,14 +85,20 @@ internal readonly struct QueryStringEnumerable
         }
 
         /// <summary>
-        /// Decodes the name from this name/value pair.
+        /// <para lang="zh">Decodes the name from this name/value pair.
+        ///</para>
+        /// <para lang="en">Decodes the name from this name/value pair.
+        ///</para>
         /// </summary>
         /// <returns>Characters representing the decoded name.</returns>
         public ReadOnlyMemory<char> DecodeName()
             => Decode(EncodedName);
 
         /// <summary>
-        /// Decodes the value from this name/value pair.
+        /// <para lang="zh">Decodes the value from this name/value pair.
+        ///</para>
+        /// <para lang="en">Decodes the value from this name/value pair.
+        ///</para>
         /// </summary>
         /// <returns>Characters representing the decoded value.</returns>
         public ReadOnlyMemory<char> DecodeValue()
@@ -88,7 +117,10 @@ internal readonly struct QueryStringEnumerable
     }
 
     /// <summary>
-    /// An enumerator that supplies the name/value pairs from a URI query string.
+    /// <para lang="zh">An 枚举erator that supplies the name/value pairs from a URI query string.
+    ///</para>
+    /// <para lang="en">An enumerator that supplies the name/value pairs from a URI query string.
+    ///</para>
     /// </summary>
     public struct Enumerator
     {
@@ -103,12 +135,18 @@ internal readonly struct QueryStringEnumerable
         }
 
         /// <summary>
-        /// Gets the currently referenced key/value pair in the query string being enumerated.
+        /// <para lang="zh">获得 the currently referenced key/value pair in the query string being 枚举erated.
+        ///</para>
+        /// <para lang="en">Gets the currently referenced key/value pair in the query string being enumerated.
+        ///</para>
         /// </summary>
         public EncodedNameValuePair Current { get; private set; }
 
         /// <summary>
-        /// Moves to the next key/value pair in the query string being enumerated.
+        /// <para lang="zh">Moves to the next key/value pair in the query string being 枚举erated.
+        ///</para>
+        /// <para lang="en">Moves to the next key/value pair in the query string being enumerated.
+        ///</para>
         /// </summary>
         /// <returns>True if there is another key/value pair, otherwise false.</returns>
         public bool MoveNext()

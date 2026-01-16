@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,24 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TypedJs 组件类
+/// <para lang="zh">TypedJs 组件类
+///</para>
+/// <para lang="en">TypedJs component类
+///</para>
 /// </summary>
 public partial class Typed
 {
     /// <summary>
-    /// 获得/设置 组件显示文字 默认 null 未设置
+    /// <para lang="zh">获得/设置 组件显示文字 默认 null 未设置
+    ///</para>
+    /// <para lang="en">Gets or sets componentdisplay文字 Default is null 未Sets
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null
+    /// <para lang="zh">获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null
+    ///</para>
+    /// <para lang="en">Gets or sets component配置 <see cref="TypedOptions"/> instance Default is null
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TypedOptions? Options { get; set; }
 
     /// <summary>
-    /// 获得/设置 打字结束回调方法 默认 null
+    /// <para lang="zh">获得/设置 打字结束回调方法 默认 null
+    ///</para>
+    /// <para lang="en">Gets or sets 打字结束callback method Default is null
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCompleteAsync { get; set; }
@@ -62,7 +77,10 @@ public partial class Typed
     });
 
     /// <summary>
-    /// 打字结束方法 由 Javascript 触发
+    /// <para lang="zh">打字结束方法 由 Javascript 触发
+    ///</para>
+    /// <para lang="en">打字结束方法 由 Javascript 触发
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

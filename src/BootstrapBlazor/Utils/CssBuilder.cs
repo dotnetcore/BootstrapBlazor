@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,15 +18,23 @@ public class CssBuilder
     private bool _hasConent;
 
     /// <summary>
-    /// Creates a CssBuilder used to define conditional CSS classes used in a component.
+    /// <para lang="zh">Creates a CssBuilder used to define conditional CSS classes used in a component.
     /// Call Build() to return the completed CSS Classes as a string.
+    ///</para>
+    /// <para lang="en">Creates a CssBuilder used to define conditional CSS classes used in a component.
+    /// Call Build() to return the completed CSS Classes as a string.
+    ///</para>
     /// </summary>
     /// <param name="value"></param>
     public static CssBuilder Default(string? value = null) => new(value);
 
     /// <summary>
-    /// Creates a CssBuilder used to define conditional CSS classes used in a component.
+    /// <para lang="zh">Creates a CssBuilder used to define conditional CSS classes used in a component.
     /// Call Build() to return the completed CSS Classes as a string.
+    ///</para>
+    /// <para lang="en">Creates a CssBuilder used to define conditional CSS classes used in a component.
+    /// Call Build() to return the completed CSS Classes as a string.
+    ///</para>
     /// </summary>
     /// <param name="value"></param>
     protected CssBuilder(string? value)
@@ -39,7 +47,10 @@ public class CssBuilder
     }
 
     /// <summary>
-    /// Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
+    /// <para lang="zh">Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
+    ///</para>
+    /// <para lang="en">Adds a raw string to the builder that will be concatenated with the next class or value added to the builder.
+    ///</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns>CssBuilder</returns>
@@ -61,7 +72,10 @@ public class CssBuilder
     }
 
     /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="value">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -69,7 +83,10 @@ public class CssBuilder
     public CssBuilder AddClass(string? value, bool when = true) => when ? AddClass(value) : this;
 
     /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="value">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -77,7 +94,10 @@ public class CssBuilder
     public CssBuilder AddClass(string? value, Func<bool> when) => AddClass(value, when());
 
     /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -85,7 +105,10 @@ public class CssBuilder
     public CssBuilder AddClass(Func<string?> value, bool when = true) => when ? AddClass(value()) : this;
 
     /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="value">Function that returns a CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -93,7 +116,10 @@ public class CssBuilder
     public CssBuilder AddClass(Func<string?> value, Func<bool> when) => AddClass(value, when());
 
     /// <summary>
-    /// Adds a conditional nested CssBuilder to the builder with space separator.
+    /// <para lang="zh">Adds a conditional nested CssBuilder to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional nested CssBuilder to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="builder">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -101,7 +127,10 @@ public class CssBuilder
     public CssBuilder AddClass(CssBuilder builder, bool when = true) => when ? AddClass(builder.Build()) : this;
 
     /// <summary>
-    /// Adds a conditional CSS Class to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class to the builder with space separator.
+    ///</para>
     /// </summary>
     /// <param name="builder">CSS Class to conditionally add.</param>
     /// <param name="when">Condition in which the CSS Class is added.</param>
@@ -109,8 +138,12 @@ public class CssBuilder
     public CssBuilder AddClass(CssBuilder builder, Func<bool> when) => AddClass(builder, when());
 
     /// <summary>
-    /// Adds a conditional CSS Class when it exists in a dictionary to the builder with space separator.
+    /// <para lang="zh">Adds a conditional CSS Class when it exists in a dictionary to the builder with space separator.
     /// Null safe operation.
+    ///</para>
+    /// <para lang="en">Adds a conditional CSS Class when it exists in a dictionary to the builder with space separator.
+    /// Null safe operation.
+    ///</para>
     /// </summary>
     /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
     /// <returns>CssBuilder</returns>
@@ -125,8 +158,12 @@ public class CssBuilder
     }
 
     /// <summary>
-    /// Adds a conditional css Style when it exists in a dictionary to the builder with space separator.
+    /// <para lang="zh">Adds a conditional css Style when it exists in a dictionary to the builder with space separator.
     /// Null safe operation.
+    ///</para>
+    /// <para lang="en">Adds a conditional css Style when it exists in a dictionary to the builder with space separator.
+    /// Null safe operation.
+    ///</para>
     /// </summary>
     /// <param name="additionalAttributes">Additional Attribute splat parameters</param>
     /// <returns>CssBuilder</returns>
@@ -141,7 +178,10 @@ public class CssBuilder
     }
 
     /// <summary>
-    /// Finalize the completed CSS Classes as a string.
+    /// <para lang="zh">Finalize the completed CSS Classes as a string.
+    ///</para>
+    /// <para lang="en">Finalize the completed CSS Classes as a string.
+    ///</para>
     /// </summary>
     /// <returns>string</returns>
     public string? Build() => _hasConent ? _builder.ToString() : null;

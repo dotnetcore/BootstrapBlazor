@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,6 +16,7 @@ public partial class ConsoleLogger
     /// <summary>
     /// <para lang="zh">获得/设置 最大行数 默认 3 行</para>
     /// <para lang="en">Get/Set max rows, default is 3</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 3;
@@ -23,6 +24,7 @@ public partial class ConsoleLogger
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
     /// <para lang="en">Get/Set whether it is Html code, default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -19,6 +19,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 内容</para>
     /// <para lang="en">Get/Set Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -26,6 +27,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动充满 默认 false</para>
     /// <para lang="en">Get/Set Is Fill. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFill { get; set; }
@@ -33,6 +35,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
     /// <para lang="en">Get/Set Align Self. Default StackAlignItems.Stretch</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StackAlignItems AlignSelf { get; set; }

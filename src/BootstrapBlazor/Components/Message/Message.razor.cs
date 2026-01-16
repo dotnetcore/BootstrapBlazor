@@ -37,6 +37,7 @@ public partial class Message
     /// <summary>
     /// <para lang="zh">获得/设置 显示位置 默认为 Top</para>
     /// <para lang="en">Get/Set Display placement. Default Top</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;

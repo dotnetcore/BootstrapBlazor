@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,12 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DirectoryInfo 扩展方法
+/// <para lang="zh">DirectoryInfo 扩展方法
+///</para>
+/// <para lang="en">DirectoryInfo 扩展方法
+///</para>
 /// </summary>
 public static class DirectoryInfoExtensions
 {
     /// <summary>
-    /// Copies the contents of the current directory to a specified destination directory.
+    /// <para lang="zh">Copies the 内容s of the current directory to a specified destination directory.
+    ///</para>
+    /// <para lang="en">Copies the contents of the current directory to a specified destination directory.
+    ///</para>
     /// </summary>
     /// <remarks>This method creates the destination directory if it does not already exist. Files in the
     /// source directory are copied to the destination directory, and if <paramref name="recursive"/> is <see

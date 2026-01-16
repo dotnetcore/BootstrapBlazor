@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -168,7 +168,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Tries to convert the string representation of a value to a specified type.
+    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型.
+    ///</para>
+    /// <para lang="en">Tries to convert the string representation of a value to a specified type.
+    ///</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="source"></param>
@@ -212,7 +215,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Formats the file size into a string with appropriate units
+    /// <para lang="zh">Formats the file size into a string with appropriate units
+    ///</para>
+    /// <para lang="en">Formats the file size into a string with appropriate units
+    ///</para>
     /// </summary>
     /// <param name="fileSize"></param>
     /// <returns></returns>
@@ -249,7 +255,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Creates an instance of a type and ensures all class-type properties are initialized.
+    /// <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized.
+    ///</para>
+    /// <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized.
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
@@ -280,7 +289,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Ensures that all class-type properties of the instance are initialized.
+    /// <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized.
+    ///</para>
+    /// <para lang="en">Ensures that all class-type properties of the instance are initialized.
+    ///</para>
     /// </summary>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <param name="instance">The instance to initialize properties for.</param>

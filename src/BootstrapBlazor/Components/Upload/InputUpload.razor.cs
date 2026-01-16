@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,56 +8,91 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// InputUpload 组件
+/// <para lang="zh">InputUpload 组件
+///</para>
+/// <para lang="en">InputUpload component
+///</para>
 /// </summary>
 public partial class InputUpload<TValue>
 {
     /// <summary>
-    /// 获得/设置 浏览按钮图标
+    /// <para lang="zh">获得/设置 浏览按钮图标
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览buttonicon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传按钮样式 默认 btn-primary
+    /// <para lang="zh">获得/设置 上传按钮样式 默认 btn-primary
+    ///</para>
+    /// <para lang="en">Gets or sets 上传buttonstyle Default is btn-primary
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string BrowserButtonClass { get; set; } = "btn-primary";
 
     /// <summary>
-    /// 获得/设置 浏览按钮显示文字
+    /// <para lang="zh">获得/设置 浏览按钮显示文字
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览buttondisplay文字
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? BrowserButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除按钮样式 默认 btn-danger
+    /// <para lang="zh">获得/设置 删除按钮样式 默认 btn-danger
+    ///</para>
+    /// <para lang="en">Gets or sets 删除buttonstyle Default is btn-danger
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string DeleteButtonClass { get; set; } = "btn-danger";
 
     /// <summary>
-    /// 获得/设置 删除按钮图标
+    /// <para lang="zh">获得/设置 删除按钮图标
+    ///</para>
+    /// <para lang="en">Gets or sets 删除buttonicon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 重置按钮显示文字
+    /// <para lang="zh">获得/设置 重置按钮显示文字
+    ///</para>
+    /// <para lang="en">Gets or sets 重置buttondisplay文字
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示删除按钮 默认为 false 不显示
+    /// <para lang="zh">获得/设置 是否显示删除按钮 默认为 false 不显示
+    ///</para>
+    /// <para lang="en">Gets or sets whetherdisplay删除button Default is为 false 不display
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 PlaceHolder 占位符文本
+    /// <para lang="zh">获得/设置 PlaceHolder 占位符文本
+    ///</para>
+    /// <para lang="en">Gets or sets PlaceHolder 占位符文本
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }

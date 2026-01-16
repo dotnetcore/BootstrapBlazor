@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -64,7 +64,8 @@ internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : 
     });
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <param name="model"></param>
     /// <param name="changedType"></param>
@@ -72,7 +73,8 @@ internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : 
     public override Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(false);
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <param name="models"></param>
     /// <returns></returns>

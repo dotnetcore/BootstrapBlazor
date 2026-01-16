@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -24,6 +24,7 @@ public partial class ClockPicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示表盘刻度 默认 false</para>
     /// <para lang="en">Get/Set whether to show clock scale, default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClockScale { get; set; }
@@ -31,6 +32,7 @@ public partial class ClockPicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示秒 默认 true</para>
     /// <para lang="en">Get/Set whether to show second, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSecond { get; set; } = true;
@@ -38,6 +40,7 @@ public partial class ClockPicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示分钟 默认 true</para>
     /// <para lang="en">Get/Set whether to show minute, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowMinute { get; set; } = true;
@@ -45,6 +48,7 @@ public partial class ClockPicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true</para>
     /// <para lang="en">Get/Set whether to automatically switch hour/minute/second, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
@@ -60,7 +64,10 @@ public partial class ClockPicker
     private string? CurrentDateString => DatePicker.Value.ToString(DatePicker.DateFormat);
 
     /// <summary>
-    /// is hour or min or sec mode
+    /// <para lang="zh">is hour or min or sec mode
+    ///</para>
+    /// <para lang="en">is hour or min or sec mode
+    ///</para>
     /// </summary>
     private TimeMode Mode { get; set; } = TimeMode.Hour;
 

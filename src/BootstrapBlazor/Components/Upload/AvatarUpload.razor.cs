@@ -6,79 +6,131 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 头像上传组件
+/// <para lang="zh">头像上传组件
 /// <para>AvatarUpload Component</para>
+///</para>
+/// <para lang="en">头像上传component
+/// <para>AvatarUpload Component</para>
+///</para>
 /// </summary>
 public partial class AvatarUpload<TValue>
 {
     /// <summary>
-    /// 获得/设置 文件预览框宽度
+    /// <para lang="zh">获得/设置 文件预览框宽度
+    ///</para>
+    /// <para lang="en">Gets or sets 文件预览框width
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Width { get; set; } = 100;
 
     /// <summary>
-    /// 获得/设置 文件预览框高度
+    /// <para lang="zh">获得/设置 文件预览框高度
+    ///</para>
+    /// <para lang="en">Gets or sets 文件预览框height
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 100;
 
     /// <summary>
-    /// 获得/设置 是否圆形图片框 Avatar 模式时生效 默认为 false
+    /// <para lang="zh">获得/设置 是否圆形图片框 Avatar 模式时生效 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether圆形图片框 Avatar 模式时生效 Default is为 false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCircle { get; set; }
 
     /// <summary>
-    /// Gets or sets the border radius. Default is null.
+    /// <para lang="zh">获得/设置 the border radius. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the border radius. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BorderRadius { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标文件扩展名集合 ".png"
+    /// <para lang="zh">获得/设置 图标文件扩展名集合 ".png"
+    ///</para>
+    /// <para lang="en">Gets or sets icon文件扩展名collection ".png"
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<string>? AllowExtensions { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除图标
+    /// <para lang="zh">获得/设置 删除图标
+    ///</para>
+    /// <para lang="en">Gets or sets 删除icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 加载图标
+    /// <para lang="zh">获得/设置 加载图标
+    ///</para>
+    /// <para lang="en">Gets or sets 加载icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建图标
+    /// <para lang="zh">获得/设置 新建图标
+    ///</para>
+    /// <para lang="en">Gets or sets 新建icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AddIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 状态正常图标
+    /// <para lang="zh">获得/设置 状态正常图标
+    ///</para>
+    /// <para lang="en">Gets or sets 状态正常icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 状态正常图标
+    /// <para lang="zh">获得/设置 状态正常图标
+    ///</para>
+    /// <para lang="en">Gets or sets 状态正常icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 继续上传按钮是否在列表前 默认 false
+    /// <para lang="zh">获得/设置 继续上传按钮是否在列表前 默认 false
+    ///</para>
+    /// <para lang="en">Gets or sets 继续上传buttonwhether在列表前 Default is false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许预览回调方法 默认 null
+    /// <para lang="zh">获得/设置 是否允许预览回调方法 默认 null
+    ///</para>
+    /// <para lang="en">Gets or sets whether允许预览callback method Default is null
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, bool>? CanPreviewCallback { get; set; }
@@ -98,7 +150,10 @@ public partial class AvatarUpload<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 预览框 Style 属性
+    /// <para lang="zh">获得/设置 预览框 Style 属性
+    ///</para>
+    /// <para lang="en">Gets or sets 预览框 Style property
+    ///</para>
     /// </summary>
     private string? ItemStyleString => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)
@@ -151,7 +206,10 @@ public partial class AvatarUpload<TValue>
     }
 
     /// <summary>
-    /// 预览当前头像方法
+    /// <para lang="zh">预览当前头像方法
+    ///</para>
+    /// <para lang="en">预览当前头像方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public async Task Preview()

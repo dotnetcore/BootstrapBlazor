@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -51,7 +51,10 @@ public static class EnumExtensions
     public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName<TEnum>(@enum.ToString());
 
     /// <summary>
-    /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
+    /// <para lang="zh">获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
+    ///</para>
+    /// <para lang="en">获取指定enumtype的enum值collection，Default is通过 DisplayAttribute DescriptionAttribute 标签display DisplayName 支持资源文件 回退机制display字段名称
+    ///</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>
@@ -73,7 +76,10 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
+    /// <para lang="zh">获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
+    ///</para>
+    /// <para lang="en">获取指定enumtype的enum值collection，Default is通过 DisplayAttribute DescriptionAttribute 标签display DisplayName 支持资源文件 回退机制display字段名称
+    ///</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>

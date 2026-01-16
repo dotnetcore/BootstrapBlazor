@@ -41,6 +41,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗标题</para>
     /// <para lang="en">Get/Set Popup Title</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -48,6 +49,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗自定义样式</para>
     /// <para lang="en">Get/Set Popup Custom Style</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Class { get; set; }
@@ -55,6 +57,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否可以 Resize 弹窗 默认 false</para>
     /// <para lang="en">Get/Set Whether popup can be resized. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowResize { get; set; }
@@ -62,6 +65,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗大小 默认为 <see cref="Size.ExtraExtraLarge"/></para>
     /// <para lang="en">Get/Set Popup Size. Default <see cref="Size.ExtraExtraLarge"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; } = Size.ExtraExtraLarge;
@@ -69,6 +73,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗大小 默认为 <see cref="FullScreenSize.None"/></para>
     /// <para lang="en">Get/Set Popup Full Screen Size. Default <see cref="FullScreenSize.None"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">为保证功能正常，设置值后 <see cref="ShowMaximizeButton"/> <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</para>
@@ -80,6 +85,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否垂直居中 默认为 true</para>
     /// <para lang="en">Get/Set Whether to center vertically. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCentered { get; set; } = true;
@@ -87,12 +93,17 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否弹窗正文超长时滚动 默认为 false</para>
     /// <para lang="en">Get/Set Whether to scroll when popup body is too long. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsScrolling { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to hide the previous dialog when opening a new one, default is false
+    /// <para lang="zh">获得/设置 是否 to hide the previous dialog when opening a new one, default is false
+    ///</para>
+    /// <para lang="en">Gets or sets whether to hide the previous dialog when opening a new one, default is false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHidePreviousDialog { get; set; }
@@ -100,6 +111,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否可以拖拽弹窗 默认 false 不可以拖动</para>
     /// <para lang="en">Get/Set Whether popup can be dragged. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDraggable { get; set; }
@@ -107,6 +119,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示最大化按钮 默认为 false</para>
     /// <para lang="en">Get/Set Whether to show maximize button. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">为保证功能正常，设置值为 true 后 <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</para>
@@ -118,6 +131,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮 默认为 true 显示</para>
     /// <para lang="en">Get/Set Whether to show close button. Default true (Show)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
@@ -125,6 +139,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示保存按钮 默认为 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show save button. Default false (Not shown)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSaveButton { get; set; }
@@ -132,6 +147,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示打印按钮 默认为 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show print button. Default false (Not shown)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPrintButton { get; set; }
@@ -139,6 +155,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 Header 中是否显示打印按钮 默认 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show print button in Header. Default false (Not shown)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPrintButtonInHeader { get; set; }
@@ -146,6 +163,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印</para>
     /// <para lang="en">Get/Set Print button text in Header. Default from resource file "Print"</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrintButtonText { get; set; }
@@ -153,6 +171,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 打印按钮图标 未设置 取当前图标主题下打印图标</para>
     /// <para lang="en">Get/Set Print button icon. If not set, use print icon from current icon theme</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrintButtonIcon { get; set; }
@@ -160,6 +179,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 打印按钮颜色 默认 Color.Primary</para>
     /// <para lang="en">Get/Set Print button color. Default Color.Primary</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color PrintButtonColor { get; set; } = Color.Primary;
@@ -167,6 +187,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示导出 Pdf 按钮 默认为 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show Export PDF button. Default false (Not shown)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportPdfButton { get; set; }
@@ -174,6 +195,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 Header 中是否显示导出 Pdf 按钮 默认 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show Export PDF button in Header. Default false (Not shown)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportPdfButtonInHeader { get; set; }
@@ -181,6 +203,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 导出 Pdf 按钮配置项</para>
     /// <para lang="en">Get/Set Export PDF button options</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -189,6 +212,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Header 关闭按钮</para>
     /// <para lang="en">Get/Set Whether to show Header Close Button</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowHeaderCloseButton { get; set; } = true;
@@ -196,6 +220,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Header 默认为 true</para>
     /// <para lang="en">Get/Set Whether to show Header. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowHeader { get; set; } = true;
@@ -203,6 +228,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Footer 默认为 true</para>
     /// <para lang="en">Get/Set Whether to show Footer. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; } = true;
@@ -210,6 +236,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗内容相关数据 多用于传值</para>
     /// <para lang="en">Get/Set Data related to popup content. Often used for passing values</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? BodyContext { get; set; }
@@ -217,6 +244,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 Header 中按钮模板</para>
     /// <para lang="en">Get/Set Button template in Header</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderToolbarTemplate { get; set; }
@@ -224,6 +252,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 ModalBody 组件</para>
     /// <para lang="en">Get/Set ModalBody Component</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -231,12 +260,17 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 ModalFooter 组件</para>
     /// <para lang="en">Get/Set ModalFooter Component</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the footer content template. Default is null.
+    /// <para lang="zh">获得/设置 the footer 内容 模板. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the footer content template. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterContentTemplate { get; set; }
@@ -244,6 +278,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 ModalHeader 组件</para>
     /// <para lang="en">Get/Set ModalHeader Component</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -251,6 +286,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮回调委托 返回 true 并且设置 <see cref="IsAutoCloseAfterSave"/> true 时自动关闭弹窗</para>
     /// <para lang="en">Get/Set Save button callback delegate. Returns true and automatically closes popup if <see cref="IsAutoCloseAfterSave"/> is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
@@ -258,6 +294,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭</para>
     /// <para lang="en">Get/Set Whether to automatically close popup after successful save. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoCloseAfterSave { get; set; } = true;
@@ -265,6 +302,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮显示文字 资源文件设置为 关闭</para>
     /// <para lang="en">Get/Set Close button text. Resource file set to Close</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -273,6 +311,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮显示图标 未设置时 使用 fa-solid fa-fw fa-xmark</para>
     /// <para lang="en">Get/Set Close button icon. Use fa-solid fa-fw fa-xmark if not set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -281,6 +320,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮显示文字 资源文件设置为 保存</para>
     /// <para lang="en">Get/Set Save button text. Resource file set to Save</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -289,6 +329,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮显示图标 未设置时 使用主题图标</para>
     /// <para lang="en">Get/Set Save button icon. Use theme icon if not set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -297,6 +338,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 最大化按钮图标</para>
     /// <para lang="en">Get/Set Maximize button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -305,6 +347,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 恢复按钮图标</para>
     /// <para lang="en">Get/Set Restore button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -313,6 +356,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮图标</para>
     /// <para lang="en">Get/Set Save button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -323,6 +367,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 模态弹窗任务 <see cref="TaskCompletionSource{TResult}"/> 实例 默认 null</para>
     /// <para lang="en">Get/Set Modal Popup Task <see cref="TaskCompletionSource{TResult}"/> Instance. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TaskCompletionSource<DialogResult>? ResultTask { get; set; }
@@ -330,6 +375,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// <para lang="zh">获得/设置 获得模态弹窗方法 默认 null</para>
     /// <para lang="en">Get/Set Get Modal Popup Method. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IResultDialog?>? GetResultDialog { get; set; }

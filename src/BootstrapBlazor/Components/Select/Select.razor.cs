@@ -9,7 +9,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select component
+/// <para lang="zh">Select component
+///</para>
+/// <para lang="en">Select component
+///</para>
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class Select<TValue> : ISelect, ILookup
@@ -29,6 +32,7 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值</para>
     /// <para lang="en">Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsUseDefaultItemWhenValueIsNull 参数代替；Deprecated, use the IsUseDefaultItemWhenValueIsNull parameter instead")]
@@ -42,31 +46,48 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值</para>
     /// <para lang="en">Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsUseDefaultItemWhenValueIsNull { get; set; }
 
     /// <summary>
-    /// Gets or sets the display template. Default is null.
+    /// <para lang="zh">获得/设置 the 显示 模板. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the display template. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method when the input value changes. Default is null.
+    /// <para lang="zh">获得/设置 the 回调方法 when the input value changes. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the callback method when the input value changes. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// Gets or sets the options template for static data.
+    /// <para lang="zh">获得/设置 the options 模板 for static 数据.
+    ///</para>
+    /// <para lang="en">Gets or sets the options template for static data.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Options { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
+    /// <para lang="zh">获得/设置 是否 to disable the OnSelectedItemChanged 回调方法 on first render. 默认为 false.
+    ///</para>
+    /// <para lang="en">Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
@@ -74,6 +95,7 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <para lang="zh">获取/设置 选中项改变前的回调方法。返回 true 则改变选中项的值；否则选中项的值不变。</para>
     /// <para lang="en">Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
@@ -81,72 +103,108 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Swal 确认弹窗 默认值 为 false</para>
     /// <para lang="en">Gets or sets whether to show the Swal confirmation popup. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSwal { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method when the selected item changes.
+    /// <para lang="zh">获得/设置 the 回调方法 when the selected item changes.
+    ///</para>
+    /// <para lang="en">Gets or sets the callback method when the selected item changes.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the Swal category. Default is Question.
+    /// <para lang="zh">获得/设置 the Swal category. 默认为 Question.
+    ///</para>
+    /// <para lang="en">Gets or sets the Swal category. Default is Question.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
 
     /// <summary>
-    /// Gets or sets the Swal title. Default is null.
+    /// <para lang="zh">获得/设置 the Swal title. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the Swal title. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalTitle { get; set; }
 
     /// <summary>
-    /// Gets or sets the Swal content. Default is null.
+    /// <para lang="zh">获得/设置 the Swal 内容. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the Swal content. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the Swal footer. Default is null.
+    /// <para lang="zh">获得/设置 the Swal footer. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the Swal footer. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalFooter { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// Gets or sets the default text for virtualized items. Default is null.
+    /// <para lang="zh">获得/设置 the default text for virtualized items. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the default text for virtualized items. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
-    /// Gets or sets whether auto clear the search text when dropdown closed.
+    /// <para lang="zh">获得/设置 是否 auto clear the search text when dropdown closed.
+    ///</para>
+    /// <para lang="en">Gets or sets whether auto clear the search text when dropdown closed.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoClearSearchTextWhenCollapsed { get; set; }
 
     /// <summary>
-    /// Gets or sets the dropdown collapsed callback method.
+    /// <para lang="zh">获得/设置 the dropdown collapsed 回调方法.
+    ///</para>
+    /// <para lang="en">Gets or sets the dropdown collapsed callback method.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCollapsed { get; set; }
@@ -309,7 +367,10 @@ public partial class Select<TValue> : ISelect, ILookup
     });
 
     /// <summary>
-    /// Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript.
+    /// <para lang="zh">Trigger <see cref="OnCollapsed"/> event 回调方法. called by JavaScript.
+    ///</para>
+    /// <para lang="en">Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript.
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -344,7 +405,10 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// Confirms the selected item.
+    /// <para lang="zh">Confirms the selected item.
+    ///</para>
+    /// <para lang="en">Confirms the selected item.
+    ///</para>
     /// </summary>
     /// <param name="index">The index of the selected item.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
@@ -359,7 +423,10 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// Handles the click event for a dropdown item.
+    /// <para lang="zh">Handles the click event for a dropdown item.
+    ///</para>
+    /// <para lang="en">Handles the click event for a dropdown item.
+    ///</para>
     /// </summary>
     /// <param name="item">The selected item.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>

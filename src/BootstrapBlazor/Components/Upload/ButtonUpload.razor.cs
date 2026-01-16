@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,74 +8,122 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 按钮上传组件
+/// <para lang="zh">按钮上传组件
 /// <para>ButtonUpload Component</para>
+///</para>
+/// <para lang="en">button上传component
+/// <para>ButtonUpload Component</para>
+///</para>
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
     /// <summary>
-    /// 获得/设置 浏览按钮加载中图标
+    /// <para lang="zh">获得/设置 浏览按钮加载中图标
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览button加载中icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传失败状态图标
+    /// <para lang="zh">获得/设置 上传失败状态图标
+    ///</para>
+    /// <para lang="en">Gets or sets 上传失败状态icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传成功状态图标
+    /// <para lang="zh">获得/设置 上传成功状态图标
+    ///</para>
+    /// <para lang="en">Gets or sets 上传成功状态icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 浏览按钮图标
+    /// <para lang="zh">获得/设置 浏览按钮图标
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览buttonicon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上传按钮样式 默认 null 使用 Button 默认 Color Primary
+    /// <para lang="zh">获得/设置 上传按钮样式 默认 null 使用 Button 默认 Color Primary
+    ///</para>
+    /// <para lang="en">Gets or sets 上传buttonstyle Default is null 使用 Button Default is Color Primary
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示上传列表 默认 true
+    /// <para lang="zh">获得/设置 是否显示上传列表 默认 true
+    ///</para>
+    /// <para lang="en">Gets or sets whetherdisplay上传列表 Default is true
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowUploadFileList { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 浏览按钮显示文字
+    /// <para lang="zh">获得/设置 浏览按钮显示文字
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览buttondisplay文字
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? BrowserButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 浏览按钮颜色
+    /// <para lang="zh">获得/设置 浏览按钮颜色
+    ///</para>
+    /// <para lang="en">Gets or sets 浏览buttoncolor
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color BrowserButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 Size 大小
+    /// <para lang="zh">获得/设置 Size 大小
+    ///</para>
+    /// <para lang="en">Gets or sets Size 大小
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件内容
+    /// <para lang="zh">获得/设置 子组件内容
+    ///</para>
+    /// <para lang="en">Gets or sets 子componentcontent
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置文件格式图标回调委托
+    /// <para lang="zh">获得/设置 设置文件格式图标回调委托
+    ///</para>
+    /// <para lang="en">Gets or sets Sets文件格式icon回调delegate
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, string>? OnGetFileFormat { get; set; }

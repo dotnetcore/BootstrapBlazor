@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -53,6 +53,7 @@ public partial class Collapse
     /// <summary>
     /// <para lang="zh">获得/设置 是否为手风琴效果 默认为 false</para>
     /// <para lang="en">Get/Set whether to use accordion effect, default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
@@ -60,6 +61,7 @@ public partial class Collapse
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItems 模板</para>
     /// <para lang="en">Get/Set CollapseItems template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? CollapseItems { get; set; }
@@ -67,6 +69,7 @@ public partial class Collapse
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItem 展开收缩时回调方法</para>
     /// <para lang="en">Get/Set callback when CollapseItem expands or collapses</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">///</para>
+/// <para lang="en">///</para>
 /// </summary>
 public sealed partial class SubMenu
 {
@@ -32,6 +33,7 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 组件数据源</para>
     /// <para lang="en">Get/Set Component Data Source</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -40,6 +42,7 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
     /// <para lang="en">Get/Set DropdownIcon Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
@@ -47,6 +50,7 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单箭头图标</para>
     /// <para lang="en">Get/Set Menu Arrow Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }
@@ -54,6 +58,7 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
     /// <para lang="en">Get/Set Menu item click callback delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<MenuItem, Task>? OnClick { get; set; }

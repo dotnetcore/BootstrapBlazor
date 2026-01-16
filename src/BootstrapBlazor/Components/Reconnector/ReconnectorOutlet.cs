@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,6 +16,7 @@ public class ReconnectorOutlet : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动尝试重连 默认 true</para>
     /// <para lang="en">Get/Set Whether to auto reconnect. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoReconnect { get; set; } = true;
@@ -23,6 +24,7 @@ public class ReconnectorOutlet : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒</para>
     /// <para lang="en">Get/Set Auto reconnect interval. Default 5000ms. Min 1000ms</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ReconnectInterval { get; set; } = 5000;

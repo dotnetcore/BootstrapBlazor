@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -27,6 +27,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 A 标签 默认 false 使用 button 渲染</para>
     /// <para lang="en">Gets or sets whether it is an anchor tag. Default is false (renders as button)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLink { get; set; }
@@ -34,6 +35,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗显示位置 默认 <see cref="Placement.Auto"/></para>
     /// <para lang="en">Gets or sets the popup placement. Default is <see cref="Placement.Auto"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks><para lang="zh">仅支持 <see cref="Placement.Auto"/> <see cref="Placement.Top"/> <see cref="Placement.Right"/> <see cref="Placement.Bottom"/> <see cref="Placement.Left"/></para><para lang="en">Only supports <see cref="Placement.Auto"/> <see cref="Placement.Top"/> <see cref="Placement.Right"/> <see cref="Placement.Bottom"/> <see cref="Placement.Left"/></para></remarks>
     [Parameter]
@@ -42,6 +44,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗触发方式 默认 click 可设置 hover focus</para>
     /// <para lang="en">Gets or sets the popup trigger method. Default is click (can be hover, focus)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Trigger { get; set; }
@@ -49,6 +52,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示文字</para>
     /// <para lang="en">Gets or sets the display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
@@ -56,6 +60,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 自定义内容</para>
     /// <para lang="en">Gets or sets the custom content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -64,6 +69,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击确认时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when confirm is clicked</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnConfirm { get; set; }
@@ -71,6 +77,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示确认按钮</para>
     /// <para lang="en">Gets or sets whether to show the confirm button</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowConfirmButton { get; set; } = true;
@@ -78,6 +85,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击关闭时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when close is clicked</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
@@ -85,6 +93,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮</para>
     /// <para lang="en">Gets or sets whether to show the close button</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
@@ -92,6 +101,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null</para>
     /// <para lang="en">Gets or sets the callback method before showing the confirm popup. Returns true to show, false to prevent. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -100,6 +110,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示标题</para>
     /// <para lang="en">Gets or sets the title</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -107,6 +118,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮颜色</para>
     /// <para lang="en">Gets or sets the close button color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color CloseButtonColor { get; set; } = Color.Secondary;
@@ -114,6 +126,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮显示文字 默认为 关闭</para>
     /// <para lang="en">Gets or sets the close button text. Default is Close</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -122,6 +135,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮显示图标</para>
     /// <para lang="en">Gets or sets the close button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonIcon { get; set; }
@@ -129,6 +143,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 确认按钮显示文字 默认为 确定</para>
     /// <para lang="en">Gets or sets the confirm button text. Default is OK</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -137,6 +152,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 确认按钮颜色</para>
     /// <para lang="en">Gets or sets the confirm button color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color ConfirmButtonColor { get; set; } = Color.Primary;
@@ -144,6 +160,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 确认按钮显示图标</para>
     /// <para lang="en">Gets or sets the confirm button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ConfirmButtonIcon { get; set; }
@@ -151,6 +168,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 确认框图标</para>
     /// <para lang="en">Gets or sets the confirm icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -159,6 +177,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 自定义样式 默认 null</para>
     /// <para lang="en">Gets or sets the custom class. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks><para lang="zh">由 data-bs-custom-class 实现</para><para lang="en">Implemented by data-bs-custom-class</para></remarks>
     [Parameter]
@@ -167,6 +186,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
     /// <para lang="en">Gets or sets whether to show shadow. Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
@@ -196,7 +216,10 @@ public abstract class PopConfirmButtonBase : ButtonBase
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerCloseCallback));
 
     /// <summary>
-    /// Trigger OnClose event callback.
+    /// <para lang="zh">Trigger OnClose event 回调.
+    ///</para>
+    /// <para lang="en">Trigger OnClose event callback.
+    ///</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

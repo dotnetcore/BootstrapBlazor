@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,10 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MultiSelect component
+/// <para lang="zh">MultiSelect component
+///</para>
+/// <para lang="en">MultiSelect component
+///</para>
 /// </summary>
 public partial class MultiSelect<TValue>
 {
@@ -47,6 +50,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 显示部分模板 默认 null</para>
     /// <para lang="en">Get/Set Display Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? DisplayTemplate { get; set; }
@@ -54,6 +58,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮 默认为 true 显示</para>
     /// <para lang="en">Get/Set Whether to show close button. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
@@ -61,6 +66,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标 默认为 null</para>
     /// <para lang="en">Get/Set Close Button Icon. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonIcon { get; set; }
@@ -68,6 +74,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示功能按钮 默认为 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show toolbar. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
@@ -75,6 +82,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示默认功能按钮 默认为 true 显示</para>
     /// <para lang="en">Get/Set Whether to show default buttons. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDefaultButtons { get; set; } = true;
@@ -82,6 +90,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定高度 默认 false</para>
     /// <para lang="en">Get/Set Whether fixed height. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFixedHeight { get; set; }
@@ -89,6 +98,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为单行模式 默认 false</para>
     /// <para lang="en">Get/Set Whether single line mode. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSingleLine { get; set; }
@@ -98,6 +108,7 @@ public partial class MultiSelect<TValue>
     /// <para lang="en">Get/Set Callback method after input option updated in edit mode. Default null</para>
     /// <para lang="zh">返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
     /// <para lang="en">Return <see cref="SelectedItem"/> instance to take effect, return null to discard, recommend prompt in callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
@@ -106,6 +117,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑提交按键 默认 Enter</para>
     /// <para lang="en">Get/Set Edit Submit Key. Default Enter</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EditSubmitKey EditSubmitKey { get; set; }
@@ -113,6 +125,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 扩展按钮模板</para>
     /// <para lang="en">Get/Set Extension Button Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
@@ -120,12 +133,17 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中项集合发生改变时回调委托方法</para>
     /// <para lang="en">Get/Set Selected Items Changed Callback Method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the default virtualize items text.
+    /// <para lang="zh">获得/设置 the default virtualize items text.
+    ///</para>
+    /// <para lang="en">Gets or sets the default virtualize items text.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
@@ -133,6 +151,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Select All Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -141,6 +160,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Reverse Select Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -149,6 +169,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Clear Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -157,6 +178,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项最大数 默认为 0 不限制</para>
     /// <para lang="en">Get/Set Max items. Default 0 (unlimited)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Max { get; set; }
@@ -164,6 +186,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 设置最大值时错误消息文字</para>
     /// <para lang="en">Get/Set Max Error Message</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -172,6 +195,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项最小数 默认为 0 不限制</para>
     /// <para lang="en">Get/Set Min items. Default 0 (unlimited)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Min { get; set; }
@@ -179,6 +203,7 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 设置最小值时错误消息文字</para>
     /// <para lang="en">Get/Set Min Error Message</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

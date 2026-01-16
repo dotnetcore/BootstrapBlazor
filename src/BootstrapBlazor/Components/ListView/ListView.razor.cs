@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -23,6 +23,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 CardHeader</para>
     /// <para lang="en">Get/Set Card Header</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -30,6 +31,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 获得 <see cref="CollapseItem.Text"/> 值 默认 null 使用分组 Key.ToString() 方法获取</para>
     /// <para lang="en">Get/Set Get <see cref="CollapseItem.Text"/> value. Default null. Use Group Key.ToString() method to get</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, string?>? GroupHeaderTextCallback { get; set; }
@@ -37,6 +39,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组排序回调方法 默认 null 使用内置</para>
     /// <para lang="en">Get/Set Group sort callback method. Default null. Use built-in</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>? GroupOrderCallback { get; set; }
@@ -44,6 +47,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组内项目排序回调方法 默认 null</para>
     /// <para lang="en">Get/Set Group item sort callback method. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupItemOrderCallback { get; set; }
@@ -51,6 +55,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 BodyTemplate</para>
     /// <para lang="en">Get/Set Body Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [EditorRequired]
@@ -59,6 +64,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="IsPagination"/> 参数不起作用，请自行实现分页功能</para>
     /// <para lang="en">Get/Set Footer Template. Default null. If set, <see cref="IsPagination"/> parameter will not work, please implement pagination manually</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -66,6 +72,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
     /// <para lang="en">Get/Set Data Source</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
@@ -73,6 +80,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用</para>
     /// <para lang="en">Get/Set Whether to page. Default false. Paging is automatically disabled when <see cref="FooterTemplate"/> is set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsPagination 代替。Deprecated, use IsPagination instead")]
@@ -82,6 +90,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用</para>
     /// <para lang="en">Get/Set Whether to page. Default false. Paging is automatically disabled when <see cref="FooterTemplate"/> is set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPagination { get; set; }
@@ -89,6 +98,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 分组 Lambda 表达式 默认 null</para>
     /// <para lang="en">Get/Set Grouping Lambda Expression. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, object?>? GroupName { get; set; }
@@ -96,6 +106,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否可折叠 默认 false 需要开启分组设置 <see cref="GroupName"/></para>
     /// <para lang="en">Get/Set Whether it is collapsible. Default false. Need to enable grouping setting <see cref="GroupName"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Collapsible { get; set; }
@@ -103,6 +114,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsible"/></para>
     /// <para lang="en">Get/Set Accordion effect. Default false. Need to enable collapsible setting <see cref="Collapsible"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
@@ -110,6 +122,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsible"/></para>
     /// <para lang="en">Get/Set Callback method when CollapseItem is expanded/collapsed. Default false. Need to enable collapsible setting <see cref="Collapsible"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
@@ -117,6 +130,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 首次渲染是否收缩回调委托</para>
     /// <para lang="en">Get/Set Callback delegate for whether to collapse on first render</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, bool>? CollapsedGroupCallback { get; set; }
@@ -124,6 +138,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">异步查询回调方法</para>
     /// <para lang="en">Async query callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
@@ -131,6 +146,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 ListView组件元素点击时回调委托</para>
     /// <para lang="en">Get/Set Callback delegate when ListView component element is clicked</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnListViewItemClick { get; set; }
@@ -138,6 +154,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
     /// <para lang="en">Get/Set Whether to arrange vertically. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
@@ -145,6 +162,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 每页数据数量 默认 20</para>
     /// <para lang="en">Get/Set Number of items per page. Default 20</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int PageItems { get; set; } = 20;
@@ -152,6 +170,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度 默认 null 未设置高度 如：50% 100px 10rem 10vh 等</para>
     /// <para lang="en">Get/Set Component height. Default null. Not set. e.g. 50% 100px 10rem 10vh etc.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
@@ -159,6 +178,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时模板 默认 null 未设置</para>
     /// <para lang="en">Get/Set Template when no data. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? EmptyTemplate { get; set; }
@@ -166,6 +186,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时显示文字 默认 null 未设置使用资源文件设置文字</para>
     /// <para lang="en">Get/Set Text to display when no data. Default null. Use resource file to set text if not set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? EmptyText { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -31,6 +31,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项集合 默认 null</para>
     /// <para lang="en">Get/Set Items. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -39,6 +40,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值 默认 null</para>
     /// <para lang="en">Get/Set Value. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -47,6 +49,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值回调委托 默认 null</para>
     /// <para lang="en">Get/Set Value Changed Callback Delegate. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
@@ -54,6 +57,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值改变后回调委托方法 默认 null</para>
     /// <para lang="en">Get/Set Value Changed Callback Method. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnValueChanged { get; set; }
@@ -61,6 +65,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
     /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -68,6 +73,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否充满父元素 默认 false</para>
     /// <para lang="en">Get/Set Whether is block. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBlock { get; set; }
@@ -75,6 +81,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动显示 Tooltip 默认 false</para>
     /// <para lang="en">Get/Set Whether to show tooltip. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowTooltip { get; set; }
@@ -82,6 +89,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容</para>
     /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -89,6 +97,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件大小 默认值 <see cref="Size.None"/></para>
     /// <para lang="en">Get/Set Size. Default <see cref="Size.None"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -97,6 +106,7 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 候选项模板 默认 null</para>
     /// <para lang="en">Get/Set Item Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

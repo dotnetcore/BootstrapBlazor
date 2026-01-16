@@ -25,7 +25,10 @@ public interface IFilterAction
     FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <para lang="zh">Override existing filter conditions
+    ///</para>
+    /// <para lang="en">Override existing filter conditions
+    ///</para>
     /// </summary>
     Task SetFilterConditionsAsync(FilterKeyValueAction conditions);
 }

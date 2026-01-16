@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,7 +9,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MultiSelectGeneric component
+/// <para lang="zh">MultiSelectGeneric component
+///</para>
+/// <para lang="en">MultiSelectGeneric component
+///</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
@@ -45,6 +48,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 显示部分模板 默认 null</para>
     /// <para lang="en">Get/Set Display Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem<TValue>>>? DisplayTemplate { get; set; }
@@ -52,6 +56,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮 默认为 true 显示</para>
     /// <para lang="en">Get/Set Whether to show close button. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
@@ -59,6 +64,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标 默认为 null</para>
     /// <para lang="en">Get/Set Close button icon. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonIcon { get; set; }
@@ -66,6 +72,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示功能按钮 默认为 false 不显示</para>
     /// <para lang="en">Get/Set Whether to show toolbar. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
@@ -73,6 +80,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示默认功能按钮 默认为 true 显示</para>
     /// <para lang="en">Get/Set Whether to show default buttons. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDefaultButtons { get; set; } = true;
@@ -80,6 +88,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定高度 默认 false</para>
     /// <para lang="en">Get/Set Whether fixed height. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFixedHeight { get; set; }
@@ -87,6 +96,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为单行模式 默认 false</para>
     /// <para lang="en">Get/Set Whether single line mode. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSingleLine { get; set; }
@@ -96,6 +106,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <para lang="en">Get/Set Callback method when input option is updated in edit mode. Default null</para>
     /// <para lang="zh">返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
     /// <para lang="en">Return <see cref="SelectedItem"/> instance to take effect, return null to discard, it is recommended to prompt in the callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
@@ -104,6 +115,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑提交按键 默认 Enter</para>
     /// <para lang="en">Get/Set Edit Submit Key. Default Enter</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EditSubmitKey EditSubmitKey { get; set; }
@@ -111,6 +123,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 扩展按钮模板</para>
     /// <para lang="en">Get/Set Button Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
@@ -118,12 +131,17 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中项集合发生改变时回调委托方法</para>
     /// <para lang="en">Callback method when selected items collection changes</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem<TValue>>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the default virtualize items text.
+    /// <para lang="zh">获得/设置 the default virtualize items text.
+    ///</para>
+    /// <para lang="en">Gets or sets the default virtualize items text.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
@@ -131,6 +149,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Select All Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -139,6 +158,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Reverse Select Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -147,6 +167,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮显示文本</para>
     /// <para lang="en">Get/Set Clear Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -155,6 +176,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项最大数 默认为 0 不限制</para>
     /// <para lang="en">Get/Set Max items. Default 0 (no limit)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Max { get; set; }
@@ -162,6 +184,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 设置最大值时错误消息文字</para>
     /// <para lang="en">Get/Set Error message when max value is set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -170,6 +193,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项最小数 默认为 0 不限制</para>
     /// <para lang="en">Get/Set Min items. Default 0 (no limit)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Min { get; set; }
@@ -177,33 +201,50 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 设置最小值时错误消息文字</para>
     /// <para lang="en">Get/Set Error message when min value is set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets or sets the items.
+    /// <para lang="zh">获得/设置 the items.
+    ///</para>
+    /// <para lang="en">Gets or sets the items.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method for loading virtualized items.
+    /// <para lang="zh">获得/设置 the 回调方法 for loading virtualized items.
+    ///</para>
+    /// <para lang="en">Gets or sets the callback method for loading virtualized items.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue>>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method when the search text changes.
+    /// <para lang="zh">获得/设置 the 回调方法 when the search text changes.
+    ///</para>
+    /// <para lang="en">Gets or sets the callback method when the search text changes.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the item template.
+    /// <para lang="zh">获得/设置 the item 模板.
+    ///</para>
+    /// <para lang="en">Gets or sets the item template.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
@@ -213,6 +254,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <para lang="en">Get/Set Value Equality Comparer. Default null</para>
     /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
@@ -226,6 +268,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键</para>
     /// <para lang="en">Get/Set Identifier tag for data primary key. Default is <see cref="KeyAttribute"/>. Used to determine date primary key tag. If the model does not set a primary key, you can use the <see cref="ValueEqualityComparer"/> parameter to customize the judgment of the data model supporting joint primary keys</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -294,7 +337,10 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     });
 
     /// <summary>
-    /// Triggers the search callback method.
+    /// <para lang="zh">Triggers the search 回调方法.
+    ///</para>
+    /// <para lang="en">Triggers the search callback method.
+    ///</para>
     /// </summary>
     /// <param name="searchText">The search text.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
@@ -308,7 +354,10 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// Refreshes the virtualize component.
+    /// <para lang="zh">Refreshes the virtualize component.
+    ///</para>
+    /// <para lang="en">Refreshes the virtualize component.
+    ///</para>
     /// </summary>
     /// <returns></returns>
     private async Task RefreshVirtualizeElement()
@@ -323,7 +372,10 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
     private List<SelectedItem<TValue>>? _itemsCache;
     /// <summary>
-    /// <para lang="zh">Gets the dropdown menu rows.</para>
+    /// <para lang="zh"><para lang="zh">获得 the dropdown menu rows.</para>
+    ///</para>
+    /// <para lang="en"><para lang="zh">Gets the dropdown menu rows.</para>
+    ///</para>
     /// </summary>
     private List<SelectedItem<TValue>> Rows
     {

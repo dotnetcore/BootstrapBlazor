@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,12 +8,19 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Table 高级排序弹窗的内容组件
+/// <para lang="zh">Table 高级排序弹窗的内容组件
+///</para>
+/// <para lang="en">Table 高级排序弹窗的contentcomponent
+///</para>
 /// </summary>
 public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 {
     /// <summary>
-    /// 获得/设置 排序列列表 实例值
+    /// <para lang="zh">获得/设置 排序列列表 实例值
+    ///</para>
+    /// <para lang="en">Gets or sets 排序列列表 instance值
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,37 +30,60 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     public List<TableSortItem>? Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 排序列列表 回调方法 支持双向绑定
+    /// <para lang="zh">获得/设置 排序列列表 回调方法 支持双向绑定
+    ///</para>
+    /// <para lang="en">Gets or sets 排序列列表 callback method 支持双向绑定
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<List<TableSortItem>> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 可排序列的列表
+    /// <para lang="zh">获得/设置 可排序列的列表
+    ///</para>
+    /// <para lang="en">Gets or sets 可排序列的列表
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加排序条件图标
+    /// <para lang="zh">获得/设置 增加排序条件图标
+    ///</para>
+    /// <para lang="en">Gets or sets 增加排序条件icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 移除排序条件图标
+    /// <para lang="zh">获得/设置 移除排序条件图标
+    ///</para>
+    /// <para lang="en">Gets or sets 移除排序条件icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RemoveIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 减少排序条件图标
+    /// <para lang="zh">获得/设置 减少排序条件图标
+    ///</para>
+    /// <para lang="en">Gets or sets 减少排序条件icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// 排序规则列表
+    /// <para lang="zh">排序规则列表
+    ///</para>
+    /// <para lang="en">排序规则列表
+    ///</para>
     /// </summary>
     private List<SelectedItem>? SortOrders { get; set; }
 
@@ -101,7 +131,8 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     public async Task OnClose(DialogResult result)
     {

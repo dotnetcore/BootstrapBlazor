@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,12 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JSModule extensions class
+/// <para lang="zh">JSModule extensions class
+///</para>
+/// <para lang="en">JSModule extensions class
+///</para>
 /// </summary>
 public static class JSModuleExtensions
 {
     /// <summary>
-    /// Load utility js module
+    /// <para lang="zh">Load utility js module
+    ///</para>
+    /// <para lang="en">Load utility js module
+    ///</para>
     /// </summary>
     /// <param name="jsRuntime">The <see cref="IJSRuntime"/> instance</param>
     /// <param name="version">The version of the module</param>
@@ -19,7 +25,10 @@ public static class JSModuleExtensions
     public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime, string? version = null) => LoadModuleByName(jsRuntime, "utility", version);
 
     /// <summary>
-    /// Load built-in script module by name
+    /// <para lang="zh">Load built-in script module by name
+    ///</para>
+    /// <para lang="en">Load built-in script module by name
+    ///</para>
     /// </summary>
     /// <param name="jsRuntime">The <see cref="IJSRuntime"/> instance</param>
     /// <param name="moduleName">The name of the module</param>
@@ -32,7 +41,10 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// IJSRuntime extension method to dynamically load scripts
+    /// <para lang="zh">IJSRuntime extension method to dynamically load scripts
+    ///</para>
+    /// <para lang="en">IJSRuntime extension method to dynamically load scripts
+    ///</para>
     /// </summary>
     /// <param name="jsRuntime">The <see cref="IJSRuntime"/> instance</param>
     /// <param name="fileName">The file name of the script</param>
@@ -64,7 +76,10 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// Get the module name of the specified type
+    /// <para lang="zh">Get the module name of the specified 类型
+    ///</para>
+    /// <para lang="en">Get the module name of the specified type
+    ///</para>
     /// </summary>
     /// <param name="type">The type</param>
     /// <returns>The module name</returns>
@@ -80,7 +95,10 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// Open the specified URL in a new tab
+    /// <para lang="zh">Open the specified URL in a new tab
+    ///</para>
+    /// <para lang="en">Open the specified URL in a new tab
+    ///</para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> instance</param>
     /// <param name="url">The URL to open</param>
@@ -90,7 +108,10 @@ public static class JSModuleExtensions
     public static ValueTask OpenUrl(this JSModule module, string url, string? target = "_blank", string? features = null) => module.InvokeVoidAsync("openUrl", url, target, features);
 
     /// <summary>
-    /// Dynamically run js code
+    /// <para lang="zh">Dynamically run js code
+    ///</para>
+    /// <para lang="en">Dynamically run js code
+    ///</para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> instance</param>
     /// <param name="script">The script to run</param>
@@ -98,7 +119,10 @@ public static class JSModuleExtensions
     public static async ValueTask Eval(this JSModule module, string script) => await module.InvokeVoidAsync("runEval", script);
 
     /// <summary>
-    /// Dynamically run JavaScript code via Eval
+    /// <para lang="zh">Dynamically run JavaScript code via Eval
+    ///</para>
+    /// <para lang="en">Dynamically run JavaScript code via Eval
+    ///</para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> instance</param>
     /// <param name="script">The script to run</param>
@@ -106,7 +130,10 @@ public static class JSModuleExtensions
     public static ValueTask<TValue?> Eval<TValue>(this JSModule module, string script) => module.InvokeAsync<TValue?>("runEval", script);
 
     /// <summary>
-    /// Dynamically run JavaScript code via Function
+    /// <para lang="zh">Dynamically run JavaScript code via Function
+    ///</para>
+    /// <para lang="en">Dynamically run JavaScript code via Function
+    ///</para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> instance</param>
     /// <param name="script">The script to run</param>
@@ -115,7 +142,10 @@ public static class JSModuleExtensions
     public static ValueTask Function(this JSModule module, string script, params object?[]? args) => module.InvokeVoidAsync("runFunction", script, args);
 
     /// <summary>
-    /// Dynamically run js code
+    /// <para lang="zh">Dynamically run js code
+    ///</para>
+    /// <para lang="en">Dynamically run js code
+    ///</para>
     /// </summary>
     /// <typeparam name="TValue">The return type</typeparam>
     /// <param name="module"><see cref="JSModule"/> instance</param>
@@ -133,14 +163,20 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// Check if the current terminal is a mobile device
+    /// <para lang="zh">Check if the current terminal is a mobile device
+    ///</para>
+    /// <para lang="en">Check if the current terminal is a mobile device
+    ///</para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> instance</param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobile");
 
     /// <summary>
-    /// Get a unique element ID on a page
+    /// <para lang="zh">Get a unique element ID on a page
+    ///</para>
+    /// <para lang="en">Get a unique element ID on a page
+    ///</para>
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="prefix">A prefix of type <see cref="string"/></param>
@@ -148,7 +184,10 @@ public static class JSModuleExtensions
     public static ValueTask<string?> GenerateId(this JSModule module, string? prefix = null) => module.InvokeAsync<string?>("getUID", prefix);
 
     /// <summary>
-    /// Get the HTML string of a specified element on a page
+    /// <para lang="zh">Get the HTML string of a specified element on a page
+    ///</para>
+    /// <para lang="en">Get the HTML string of a specified element on a page
+    ///</para>
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="id">The ID of the element</param>
@@ -157,7 +196,10 @@ public static class JSModuleExtensions
     public static ValueTask<string?> GetHtml(this JSModule module, string? id = null, string? selector = null) => module.InvokeAsync<string?>("getHtml", new { id, selector });
 
     /// <summary>
-    /// Set the theme method
+    /// <para lang="zh">Set the theme method
+    ///</para>
+    /// <para lang="en">Set the theme method
+    ///</para>
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="themeName">The name of the theme</param>
@@ -165,14 +207,20 @@ public static class JSModuleExtensions
     public static ValueTask SetThemeAsync(this JSModule module, string themeName) => module.InvokeVoidAsync("setTheme", themeName, true);
 
     /// <summary>
-    /// Get the theme method
+    /// <para lang="zh">Get the theme method
+    ///</para>
+    /// <para lang="en">Get the theme method
+    ///</para>
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <returns></returns>
     public static ValueTask<string?> GetThemeAsync(this JSModule module) => module.InvokeAsync<string?>("getTheme");
 
     /// <summary>
-    /// Set memorial mode
+    /// <para lang="zh">Set memorial mode
+    ///</para>
+    /// <para lang="en">Set memorial mode
+    ///</para>
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="isMemorial">Whether it is memorial mode</param>

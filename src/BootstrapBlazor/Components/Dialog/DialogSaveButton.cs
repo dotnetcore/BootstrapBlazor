@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -20,6 +20,7 @@ public partial class DialogSaveButton : Button
     /// <summary>
     /// <para lang="zh">获得/设置 保存回调方法 返回 true 时自动关闭弹窗</para>
     /// <para lang="en">Get/Set Save Callback Method. Close Dialog when return true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }

@@ -207,7 +207,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    ///</para>
+    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    ///</para>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>

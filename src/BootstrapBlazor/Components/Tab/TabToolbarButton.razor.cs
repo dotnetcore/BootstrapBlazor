@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,24 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TabToolbarButton component
+/// <para lang="zh">TabToolbarButton component
+///</para>
+/// <para lang="en">TabToolbarButton component
+///</para>
 /// </summary>
 public partial class TabToolbarButton
 {
     /// <summary>
-    /// Gets or sets the button icon string. Default is null.
+    /// <para lang="zh">获得/设置 the 按钮 图标 string. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the button icon string. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the button click event handler. Default is null.
+    /// <para lang="zh">获得/设置 the 按钮 click event handler. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the button click event handler. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets the tooltip text. Default is null.
+    /// <para lang="zh">获得/设置 the tooltip text. 默认为 null.
+    ///</para>
+    /// <para lang="en">Gets or sets the tooltip text. Default is null.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }

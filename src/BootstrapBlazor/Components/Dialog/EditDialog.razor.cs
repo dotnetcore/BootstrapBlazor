@@ -17,6 +17,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 查询时是否显示正在加载中动画 默认为 false</para>
     /// <para lang="en">Get/Set Whether to Show Loading Animation When Querying. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLoading { get; set; }
@@ -24,6 +25,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false</para>
     /// <para lang="en">Get/Set Whether Component Uses Tracking Mode to Update Editing Items Directly. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTracking { get; set; }
@@ -31,6 +33,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 实体类编辑模式 Add 还是 Update</para>
     /// <para lang="en">Get/Set Item Changed Type (Add or Update)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ItemChangedType ItemChangedType { get; set; }
@@ -38,6 +41,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮图标</para>
     /// <para lang="en">Get/Set Save Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SaveButtonIcon { get; set; }
@@ -45,6 +49,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮文本</para>
     /// <para lang="en">Get/Set Save Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SaveButtonText { get; set; }
@@ -52,6 +57,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗</para>
     /// <para lang="en">Get/Set Save Callback Delegate. Return false to keep edit dialog, true to close it</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
 #if NET6_0_OR_GREATER
@@ -62,6 +68,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标</para>
     /// <para lang="en">Get/Set Close Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonIcon { get; set; }
@@ -69,6 +76,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 获得/设置 重置按钮文本</para>
     /// <para lang="en">Get/Set Reset Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonText { get; set; }
@@ -76,6 +84,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭弹窗回调方法</para>
     /// <para lang="en">Get/Set Close Dialog Callback Method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
@@ -83,6 +92,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
     /// <para lang="en">Get/Set Whether to Disable Auto Submit Form By Enter. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
@@ -90,6 +100,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 DialogFooterTemplate 实例</para>
     /// <para lang="en">Get/Set DialogFooterTemplate Instance</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }

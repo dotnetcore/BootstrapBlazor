@@ -28,7 +28,10 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool? TextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// <para lang="zh">获得/设置 是否不进行验证 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether不进行验证 Default is为 false
+    ///</para>
     /// </summary>
     public bool SkipValidate { get; set; }
 

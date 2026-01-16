@@ -17,6 +17,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Get/Set child content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -24,6 +25,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 包裹组件 TagName 默认为 div</para>
     /// <para lang="en">Get/Set wrapper component TagName, default is div</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string WrapperTag { get; set; } = "div";
@@ -31,6 +33,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 上下文数据</para>
     /// <para lang="en">Get/Set context data</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? ContextItem { get; set; }

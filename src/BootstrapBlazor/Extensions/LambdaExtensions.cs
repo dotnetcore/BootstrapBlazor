@@ -74,7 +74,10 @@ public static class LambdaExtensions
     public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
-    /// 指定 IFilter 集合获取 Lambda 表达式
+    /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式
+    ///</para>
+    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -285,7 +288,10 @@ public static class LambdaExtensions
 
     #region Sort
     /// <summary>
-    /// 获得排序 Expression 表达式
+    /// <para lang="zh">获得排序 Expression 表达式
+    ///</para>
+    /// <para lang="en">Gets排序 Expression 表达式
+    ///</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
@@ -811,7 +817,10 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 数组转成字符串表达式
+    /// <para lang="zh">数组转成字符串表达式
+    ///</para>
+    /// <para lang="en">数组转成字符串表达式
+    ///</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
@@ -848,7 +857,10 @@ public static class LambdaExtensions
     private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
 
     /// <summary>
-    /// 数组转成字符串表达式
+    /// <para lang="zh">数组转成字符串表达式
+    ///</para>
+    /// <para lang="en">数组转成字符串表达式
+    ///</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="typeResolver"></param>

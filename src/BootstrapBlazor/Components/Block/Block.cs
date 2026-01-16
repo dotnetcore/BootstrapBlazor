@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,6 +18,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Block 名字 此名字通过 <see cref="OnQueryCondition"/> 第一个参数传递给使用者</para>
     /// <para lang="en">Gets or sets the Block name. This name is passed to the user via the first parameter of <see cref="OnQueryCondition"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
@@ -25,6 +26,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Block 允许的角色集合</para>
     /// <para lang="en">Gets or sets the allowed roles for the Block</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<string>? Roles { get; set; }
@@ -32,6 +34,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Block 允许的用户集合</para>
     /// <para lang="en">Gets or sets the allowed users for the Block</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<string>? Users { get; set; }
@@ -39,6 +42,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示此 Block 默认显示 返回 true 时显示</para>
     /// <para lang="en">Gets or sets whether to show this Block. Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, Task<bool>>? OnQueryCondition { get; set; }
@@ -46,6 +50,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示此 Block 默认显示 null 未参与判断 设置 true 时显示</para>
     /// <para lang="en">Gets or sets whether to show this Block. Default is null (not participating in judgment). Show if set to true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? Condition { get; set; }
@@ -53,6 +58,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 子组件内容</para>
     /// <para lang="en">Gets or sets the child content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -60,6 +66,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 符合条件显示的内容</para>
     /// <para lang="en">Gets or sets the authorized content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Authorized { get; set; }
@@ -67,6 +74,7 @@ public class Block : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 不符合条件显示的内容</para>
     /// <para lang="en">Gets or sets the not authorized content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }

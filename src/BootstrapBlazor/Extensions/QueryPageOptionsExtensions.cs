@@ -8,12 +8,18 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// QueryPageOptions 扩展方法
+/// <para lang="zh">QueryPageOptions 扩展方法
+///</para>
+/// <para lang="en">QueryPageOptions 扩展方法
+///</para>
 /// </summary>
 public static class QueryPageOptionsExtensions
 {
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 <see cref="FilterKeyValueAction"/>
+    /// <para lang="zh">将 QueryPageOptions 过滤条件转换为 <see cref="FilterKeyValueAction"/>
+    ///</para>
+    /// <para lang="en">将 QueryPageOptions 过滤条件转换为 <see cref="FilterKeyValueAction"/>
+    ///</para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -53,7 +59,10 @@ public static class QueryPageOptionsExtensions
     }
 
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/> 推荐 Linq 使用
+    /// <para lang="zh">将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/> 推荐 Linq 使用
+    ///</para>
+    /// <para lang="en">将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/> 推荐 Linq 使用
+    ///</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
@@ -61,7 +70,10 @@ public static class QueryPageOptionsExtensions
     public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/> 推荐 EFCore <see cref="IQueryable"/> 使用
+    /// <para lang="zh">将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/> 推荐 EFCore <see cref="IQueryable"/> 使用
+    ///</para>
+    /// <para lang="en">将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/> 推荐 EFCore <see cref="IQueryable"/> 使用
+    ///</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
@@ -69,7 +81,10 @@ public static class QueryPageOptionsExtensions
     public static Expression<Func<TItem, bool>> ToFilterLambda<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilter().GetFilterLambda<TItem>(comparison);
 
     /// <summary>
-    /// 是否包含过滤条件
+    /// <para lang="zh">是否包含过滤条件
+    ///</para>
+    /// <para lang="en">whether包含过滤条件
+    ///</para>
     /// </summary>
     /// <param name="filterKeyValueAction"></param>
     /// <returns></returns>

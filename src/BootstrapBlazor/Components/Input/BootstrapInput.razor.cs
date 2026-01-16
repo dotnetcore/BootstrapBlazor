@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为只读 默认 false</para>
     /// <para lang="en">Get/Set Readonly. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Readonly { get; set; }
@@ -21,6 +22,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 用户删除后是否自动更改为默认值 0 默认 false</para>
     /// <para lang="en">Get/Set Whether to automatically set default value when user deletes. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoSetDefaultWhenNull { get; set; }
@@ -28,6 +30,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空小按钮 默认 false</para>
     /// <para lang="en">Get/Set Whether to show clear button. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsClearable 参数；Deprecated use the IsClearable parameter")]
@@ -37,6 +40,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空小按钮 默认 false</para>
     /// <para lang="en">Get/Set Whether to show clear button. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
@@ -44,6 +48,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 清空文本框时回调方法 默认 null</para>
     /// <para lang="en">Get/Set Callback when clearing text box. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnClear { get; set; }
@@ -51,6 +56,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 清空小按钮图标 默认 null</para>
     /// <para lang="en">Get/Set Clear button icon. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ClearIcon 参数；Deprecated use the ClearIcon parameter")]
@@ -60,6 +66,7 @@ public partial class BootstrapInput<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 清空小按钮图标 默认 null</para>
     /// <para lang="en">Get/Set Clear button icon. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }

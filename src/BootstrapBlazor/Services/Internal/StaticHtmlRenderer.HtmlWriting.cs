@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -23,7 +23,10 @@ partial class StaticHtmlRenderer
     private string? _closestSelectValueAsString;
 
     /// <summary>
-    /// Renders the specified component as HTML to the output.
+    /// <para lang="zh">Renders the specified component as HTML to the output.
+    ///</para>
+    /// <para lang="en">Renders the specified component as HTML to the output.
+    ///</para>
     /// </summary>
     /// <param name="componentId">The ID of the component whose current HTML state is to be rendered.</param>
     /// <param name="output">The output destination.</param>

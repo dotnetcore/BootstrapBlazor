@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,6 +16,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 重置回调委托</para>
     /// <para lang="en">Get/Set Reset Callback Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <returns></returns>
     [Parameter]
@@ -25,6 +26,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索回调委托</para>
     /// <para lang="en">Get/Set Search Callback Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <returns></returns>
     [Parameter]
@@ -34,6 +36,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮文本</para>
     /// <para lang="en">Get/Set Reset Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -42,6 +45,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 查询按钮文本</para>
     /// <para lang="en">Get/Set Query Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -50,6 +54,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 清空按钮图标</para>
     /// <para lang="en">Get/Set Clear Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
@@ -57,6 +62,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索按钮图标</para>
     /// <para lang="en">Get/Set Search Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }

@@ -33,6 +33,7 @@ public partial class PopConfirmButton
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets the button color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.None;

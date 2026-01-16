@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">组件内容</para>
     /// <para lang="en">Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -21,6 +22,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
     /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -28,6 +30,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否选中 默认 false</para>
     /// <para lang="en">Get/Set Whether active. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
@@ -35,6 +38,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 图标 默认 null</para>
     /// <para lang="en">Get/Set Icon. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -42,6 +46,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 文字 默认 null</para>
     /// <para lang="en">Get/Set Text. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -49,6 +54,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 组件值 默认 null</para>
     /// <para lang="en">Get/Set Value. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }

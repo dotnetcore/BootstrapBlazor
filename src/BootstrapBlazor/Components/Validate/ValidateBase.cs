@@ -10,56 +10,86 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 支持客户端验证的文本框基类
+/// <para lang="zh">支持客户端验证的文本框基类
+///</para>
+/// <para lang="en">支持客户端验证的文本框基类
+///</para>
 /// </summary>
 public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateComponent
 {
     private ValidationMessageStore? _parsingValidationMessages;
 
     /// <summary>
-    /// 获得/设置 上一次转化是否失败 为 true 时表示上一次转化失败
+    /// <para lang="zh">获得/设置 上一次转化是否失败 为 true 时表示上一次转化失败
+    ///</para>
+    /// <para lang="en">Gets or sets 上一次转化whether失败 为 true 时表示上一次转化失败
+    ///</para>
     /// </summary>
     protected bool PreviousParsingAttemptFailed { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一次转化失败错误描述信息
+    /// <para lang="zh">获得/设置 上一次转化失败错误描述信息
+    ///</para>
+    /// <para lang="en">Gets or sets 上一次转化失败错误描述信息
+    ///</para>
     /// </summary>
     protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="EditContext"/>
+    /// <para lang="zh">获得 the associated <see cref="EditContext"/>
+    ///</para>
+    /// <para lang="en">Gets the associated <see cref="EditContext"/>
+    ///</para>
     /// </summary>
     protected EditContext? EditContext { get; set; }
 
     /// <summary>
-    /// 获得/设置 错误描述信息
+    /// <para lang="zh">获得/设置 错误描述信息
+    ///</para>
+    /// <para lang="en">Gets or sets 错误描述信息
+    ///</para>
     /// </summary>
     protected string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据合规样式
+    /// <para lang="zh">获得/设置 数据合规样式
+    ///</para>
+    /// <para lang="en">Gets or sets data合规style
+    ///</para>
     /// </summary>
     protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
 
     private static string GetValidString(bool valid) => valid ? "is-valid" : "is-invalid";
 
     /// <summary>
-    /// 获得/设置 组件是否合规 默认为 null 未检查
+    /// <para lang="zh">获得/设置 组件是否合规 默认为 null 未检查
+    ///</para>
+    /// <para lang="en">Gets or sets componentwhether合规 Default is为 null 未检查
+    ///</para>
     /// </summary>
     protected bool? IsValid { get; set; }
 
     /// <summary>
-    /// 获得 组件是否被禁用属性值
+    /// <para lang="zh">获得 组件是否被禁用属性值
+    ///</para>
+    /// <para lang="en">Gets componentwhether被禁用property值
+    ///</para>
     /// </summary>
     protected string? Disabled => IsDisabled ? "disabled" : null;
 
     /// <summary>
-    /// 是否显示 必填项标记
+    /// <para lang="zh">是否显示 必填项标记
+    ///</para>
+    /// <para lang="en">whetherdisplay 必填项标记
+    ///</para>
     /// </summary>
     protected string? Required { get; set; }
 
     /// <summary>
-    /// Gets or sets the current value of the input.
+    /// <para lang="zh">获得/设置 the current value of the input.
+    ///</para>
+    /// <para lang="en">Gets or sets the current value of the input.
+    ///</para>
     /// </summary>
     protected TValue? CurrentValue
     {
@@ -92,7 +122,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// Gets or sets the current value of the input, represented as a string.
+    /// <para lang="zh">获得/设置 the current value of the input, represented as a string.
+    ///</para>
+    /// <para lang="en">Gets or sets the current value of the input, represented as a string.
+    ///</para>
     /// </summary>
     protected string CurrentValueAsString
     {
@@ -152,44 +185,71 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 获得/设置 Value 改变时回调方法
+    /// <para lang="zh">获得/设置 Value 改变时回调方法
+    ///</para>
+    /// <para lang="en">Gets or sets Value 改变时callback method
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 类型转化失败格式化字符串 默认为 null
+    /// <para lang="zh">获得/设置 类型转化失败格式化字符串 默认为 null
+    ///</para>
+    /// <para lang="en">Gets or sets type转化失败格式化字符串 Default is为 null
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ParsingErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// <para lang="zh">获得/设置 是否不进行验证 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether不进行验证 Default is为 false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用 默认为 false
+    /// <para lang="zh">获得/设置 是否禁用 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether禁用 Default is为 false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示必填项标记 默认为 null 未设置
+    /// <para lang="zh">获得/设置 是否显示必填项标记 默认为 null 未设置
+    ///</para>
+    /// <para lang="en">Gets or sets whetherdisplay必填项标记 Default is为 null 未Sets
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowRequired { get; set; }
 
     /// <summary>
-    /// 获得/设置 必填项错误文本 默认为 null 未设置
+    /// <para lang="zh">获得/设置 必填项错误文本 默认为 null 未设置
+    ///</para>
+    /// <para lang="en">Gets or sets 必填项错误文本 Default is为 null 未Sets
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得 父组件的 EditContext 实例
+    /// <para lang="zh">获得 父组件的 EditContext 实例
+    ///</para>
+    /// <para lang="en">Gets 父component的 EditContext instance
+    ///</para>
     /// </summary>
     [CascadingParameter]
     protected EditContext? CascadedEditContext { get; set; }
@@ -202,8 +262,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
-    /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
+    /// <para lang="zh">Parses a string to create an 实例 of <类型paramref name="TValue"/>. Derived classes can override this to change how
     /// <see cref="CurrentValueAsString"/> interprets incoming values.
+    ///</para>
+    /// <para lang="en">Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
+    /// <see cref="CurrentValueAsString"/> interprets incoming values.
+    ///</para>
     /// </summary>
     /// <param name="value">The string value to be parsed.</param>
     /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
@@ -226,13 +290,17 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <returns></returns>
     protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
     /// <summary>
-    /// 判断是否为必填字段
+    /// <para lang="zh">判断是否为必填字段
+    ///</para>
+    /// <para lang="en">判断whether为必填字段
+    ///</para>
     /// </summary>
     /// <returns></returns>
     protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
@@ -241,14 +309,22 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         || (ValidateRules?.OfType<RequiredValidator>().Any() ?? false);
 
     /// <summary>
-    /// Gets a string that indicates the status of the field being edited. This will include
+    /// <para lang="zh">获得 a string that indicates the status of the field being edited. This will include
     /// some combination of "modified", "valid", or "invalid", depending on the status of the field.
+    ///</para>
+    /// <para lang="en">Gets a string that indicates the status of the field being edited. This will include
+    /// some combination of "modified", "valid", or "invalid", depending on the status of the field.
+    ///</para>
     /// </summary>
     protected string FieldClass => (EditContext != null && FieldIdentifier != null) ? EditContext.FieldCssClass(FieldIdentifier.Value) : "";
 
     /// <summary>
-    /// Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>
+    /// <para lang="zh">获得 a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>
     /// properties. Derived components should typically use this value for the primary HTML element's class attribute.
+    ///</para>
+    /// <para lang="en">Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>
+    /// properties. Derived components should typically use this value for the primary HTML element's class attribute.
+    ///</para>
     /// </summary>
     protected string? CssClass => CssBuilder.Default()
         .AddClass(FieldClass, IsNeedValidate)
@@ -388,18 +464,28 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     #region Validation
     /// <summary>
-    /// 获得 数据验证方法集合
+    /// <para lang="zh">获得 数据验证方法集合
+    ///</para>
+    /// <para lang="en">Gets data验证方法collection
+    ///</para>
     /// </summary>
     protected List<IValidator> Rules { get; } = [];
 
     /// <summary>
-    /// 获得/设置 自定义验证集合
+    /// <para lang="zh">获得/设置 自定义验证集合
+    ///</para>
+    /// <para lang="en">Gets or sets 自定义验证collection
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// <para lang="zh">获得/设置 是否不进行验证 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether不进行验证 Default is为 false
+    ///</para>
     /// </summary>
     public bool IsNeedValidate => !IsDisabled && !SkipValidate;
 
@@ -413,7 +499,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         && value.GetType().IsClass;
 
     /// <summary>
-    /// 属性验证方法
+    /// <para lang="zh">属性验证方法
+    ///</para>
+    /// <para lang="en">property验证方法
+    ///</para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
@@ -489,7 +578,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     private bool? _shouldRender = null;
 
     /// <summary>
-    /// 显示/隐藏验证结果方法
+    /// <para lang="zh">显示/隐藏验证结果方法
+    ///</para>
+    /// <para lang="en">display/隐藏验证结果方法
+    ///</para>
     /// </summary>
     /// <param name="results"></param>
     public virtual Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
@@ -518,18 +610,27 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// Gets or sets the module of validate instance.
+    /// <para lang="zh">获得/设置 the module of validate 实例.
+    ///</para>
+    /// <para lang="en">Gets or sets the module of validate instance.
+    ///</para>
     /// </summary>
     protected JSModule? ValidateModule { get; set; }
 
     /// <summary>
-    /// 加载 validate 模块方法
+    /// <para lang="zh">加载 validate 模块方法
+    ///</para>
+    /// <para lang="en">加载 validate 模块方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     protected Task<JSModule> LoadValidateModule() => JSRuntime.LoadModuleByName("validate");
 
     /// <summary>
-    /// 增加客户端 Tooltip 方法
+    /// <para lang="zh">增加客户端 Tooltip 方法
+    ///</para>
+    /// <para lang="en">增加客户端 Tooltip 方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     protected virtual async ValueTask ShowValidResult()
@@ -543,7 +644,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 移除客户端 Tooltip 方法
+    /// <para lang="zh">移除客户端 Tooltip 方法
+    ///</para>
+    /// <para lang="en">移除客户端 Tooltip 方法
+    ///</para>
     /// </summary>
     /// <returns></returns>
     protected virtual async ValueTask RemoveValidResult(string? validateId = null)
@@ -557,7 +661,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 客户端检查完成时调用此方法
+    /// <para lang="zh">客户端检查完成时调用此方法
+    ///</para>
+    /// <para lang="en">客户端检查完成时调用此方法
+    ///</para>
     /// </summary>
     /// <param name="valid">检查结果</param>
     protected virtual void OnValidate(bool? valid)
@@ -590,7 +697,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 增加 <see cref="RequiredValidator"/> 方法
+    /// <para lang="zh">增加 <see cref="RequiredValidator"/> 方法
+    ///</para>
+    /// <para lang="en">增加 <see cref="RequiredValidator"/> 方法
+    ///</para>
     /// </summary>
     protected virtual void AddRequiredValidator()
     {
@@ -606,7 +716,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     #endregion
 
     /// <summary>
-    /// 设置是否可用状态
+    /// <para lang="zh">设置是否可用状态
+    ///</para>
+    /// <para lang="en">Setswhether可用状态
+    ///</para>
     /// </summary>
     /// <param name="disable"></param>
     public void SetDisable(bool disable)
@@ -616,7 +729,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 设置 Value 值
+    /// <para lang="zh">设置 Value 值
+    ///</para>
+    /// <para lang="en">Sets Value 值
+    ///</para>
     /// </summary>
     /// <param name="value"></param>
     public void SetValue(TValue value)
@@ -631,7 +747,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     }
 
     /// <summary>
-    /// 设置 Label 值
+    /// <para lang="zh">设置 Label 值
+    ///</para>
+    /// <para lang="en">Sets Label 值
+    ///</para>
     /// </summary>
     /// <param name="label"></param>
     public void SetLabel(string label)

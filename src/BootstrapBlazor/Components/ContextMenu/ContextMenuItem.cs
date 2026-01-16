@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 显示文本</para>
     /// <para lang="en">Get/Set display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -21,6 +22,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
     /// <para lang="en">Get/Set icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -28,6 +30,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/></para>
     /// <para lang="en">Get/Set whether it is disabled, default is false, priority lower than <see cref="OnDisabledCallback"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
@@ -35,6 +38,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/></para>
     /// <para lang="en">Get/Set callback method for disabled state, default is null, priority higher than <see cref="Disabled"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, bool>? OnDisabledCallback { get; set; }
@@ -42,6 +46,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 点击回调方法 默认 null</para>
     /// <para lang="en">Get/Set click callback method, default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -36,6 +36,7 @@ public sealed partial class MenuLink
     /// <summary>
     /// <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
     /// <para lang="en">Get/Set MenuItem Instance. Cannot be null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -44,6 +45,7 @@ public sealed partial class MenuLink
     /// <summary>
     /// <para lang="zh">获得/设置 ArrowIcon 图标</para>
     /// <para lang="en">Get/Set ArrowIcon Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }

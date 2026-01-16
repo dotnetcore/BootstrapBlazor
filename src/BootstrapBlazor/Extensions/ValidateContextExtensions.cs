@@ -9,12 +9,18 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ValidationContext 扩展方法
+/// <para lang="zh">ValidationContext 扩展方法
+///</para>
+/// <para lang="en">ValidationContext 扩展方法
+///</para>
 /// </summary>
 public static class ValidationContextExtensions
 {
     /// <summary>
-    /// 从 <see cref="MetadataTypeAttribute"/> 中获取指定类型实例
+    /// <para lang="zh">从 <see cref="MetadataTypeAttribute"/> 中获取指定类型实例
+    ///</para>
+    /// <para lang="en">从 <see cref="MetadataTypeAttribute"/> 中获取指定typeinstance
+    ///</para>
     /// </summary>
     /// <typeparam name="T">验证接口类型</typeparam>
     /// <param name="context"></param>
@@ -32,7 +38,10 @@ public static class ValidationContextExtensions
     }
 
     /// <summary>
-    /// 获得 <see cref="ValidationResult"/> 实例
+    /// <para lang="zh">获得 <see cref="ValidationResult"/> 实例
+    ///</para>
+    /// <para lang="en">Gets <see cref="ValidationResult"/> instance
+    ///</para>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="errorMessage"></param>

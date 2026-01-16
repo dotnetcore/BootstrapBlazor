@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,6 +15,7 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否使用 Popover 渲染下拉框 默认 false</para>
     /// <para lang="en">Get/Set Whether to use Popover to render dropdown. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
@@ -22,6 +23,7 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗偏移量 默认 [0, 10]</para>
     /// <para lang="en">Get/Set Popover Offset. Default [0, 10]</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Offset { get; set; }

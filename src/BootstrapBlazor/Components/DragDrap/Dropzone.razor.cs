@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -17,6 +17,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获取/设置 拖拽列表</para>
     /// <para lang="en">Get/Set Items to Drag</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -25,6 +26,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获取/设置 最大数量 默认 null 不限制</para>
     /// <para lang="en">Get/Set Max Items. Default is null (unlimited)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? MaxItems { get; set; }
@@ -32,6 +34,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ChildContent { get; set; }
@@ -39,6 +42,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 每个 Item 的特殊 class</para>
     /// <para lang="en">Get/Set Item Wrapper Class</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, string>? ItemWrapperClass { get; set; }
@@ -46,6 +50,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 复制内容</para>
     /// <para lang="en">Get/Set Copy Item Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, TItem>? CopyItem { get; set; }
@@ -53,6 +58,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许拖拽释放</para>
     /// <para lang="en">Get/Set Accepts Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem?, TItem?, bool>? Accepts { get; set; }
@@ -60,6 +66,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 当拖拽因为数量超限被禁止时调用</para>
     /// <para lang="en">Get/Set Callback for drop rejection by max item limit</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TItem> OnItemDropRejectedByMaxItemLimit { get; set; }
@@ -67,6 +74,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 当拖拽被禁止时调用</para>
     /// <para lang="en">Get/Set Callback for drop rejection</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TItem> OnItemDropRejected { get; set; }
@@ -74,6 +82,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 返回被替换的 Item</para>
     /// <para lang="en">Get/Set Callback for Replaced Item Drop</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TItem> OnReplacedItemDrop { get; set; }
@@ -81,6 +90,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 返回放下的 Item</para>
     /// <para lang="en">Get/Set Callback for Item Drop</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TItem> OnItemDrop { get; set; }
@@ -88,6 +98,7 @@ public partial class Dropzone<TItem> : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 当前节点是否允许被拖拽</para>
     /// <para lang="en">Get/Set Whether current item allows drag</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? AllowsDrag { get; set; }

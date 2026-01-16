@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,12 +9,18 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TransferPanelBase 穿梭框面板组件
+/// <para lang="zh">TransferPanelBase 穿梭框面板组件
+///</para>
+/// <para lang="en">TransferPanelBase 穿梭框面板component
+///</para>
 /// </summary>
 public partial class TransferPanel
 {
     /// <summary>
-    /// 获得/设置 搜索关键字
+    /// <para lang="zh">获得/设置 搜索关键字
+    ///</para>
+    /// <para lang="en">Gets or sets 搜索关键字
+    ///</para>
     /// </summary>
     protected string? SearchText { get; set; }
 
@@ -23,7 +29,10 @@ public partial class TransferPanel
         .Build();
 
     /// <summary>
-    /// 获得 搜索图标样式
+    /// <para lang="zh">获得 搜索图标样式
+    ///</para>
+    /// <para lang="en">Gets 搜索iconstyle
+    ///</para>
     /// </summary>
     private string? SearchClass => CssBuilder.Default("input-prefix")
         .AddClass("is-on", !string.IsNullOrEmpty(SearchText))
@@ -31,7 +40,10 @@ public partial class TransferPanel
         .Build();
 
     /// <summary>
-    /// 获得 Panel 样式
+    /// <para lang="zh">获得 Panel 样式
+    ///</para>
+    /// <para lang="en">Gets Panel style
+    ///</para>
     /// </summary>
     private string? PanelListClassString => CssBuilder.Default("transfer-panel-list scroll")
         .AddClass("search", ShowSearch)
@@ -43,12 +55,19 @@ public partial class TransferPanel
         .Build();
 
     /// <summary>
-    /// 获得 组件是否被禁用属性值
+    /// <para lang="zh">获得 组件是否被禁用属性值
+    ///</para>
+    /// <para lang="en">Gets componentwhether被禁用property值
+    ///</para>
     /// </summary>
     private string? Disabled => IsDisabled ? "disabled" : null;
 
     /// <summary>
-    /// 获得/设置 数据集合
+    /// <para lang="zh">获得/设置 数据集合
+    ///</para>
+    /// <para lang="en">Gets or sets datacollection
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -58,57 +77,93 @@ public partial class TransferPanel
     public List<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据样式回调方法 默认为 null
+    /// <para lang="zh">获得/设置 数据样式回调方法 默认为 null
+    ///</para>
+    /// <para lang="en">Gets or sets datastylecallback method Default is为 null
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 面板显示文字
+    /// <para lang="zh">获得/设置 面板显示文字
+    ///</para>
+    /// <para lang="en">Gets or sets 面板display文字
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框
+    /// <para lang="zh">获得/设置 是否显示搜索框
+    ///</para>
+    /// <para lang="en">Gets or sets whetherdisplay搜索框
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框图标
+    /// <para lang="zh">获得/设置 搜索框图标
+    ///</para>
+    /// <para lang="en">Gets or sets 搜索框icon
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 选项状态变化时回调方法
+    /// <para lang="zh">获得/设置 选项状态变化时回调方法
+    ///</para>
+    /// <para lang="en">Gets or sets 选项状态变化时callback method
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框的 placeholder 字符串
+    /// <para lang="zh">获得/设置 搜索框的 placeholder 字符串
+    ///</para>
+    /// <para lang="en">Gets or sets 搜索框的 placeholder 字符串
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SearchPlaceHolderString { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用 默认为 false
+    /// <para lang="zh">获得/设置 是否禁用 默认为 false
+    ///</para>
+    /// <para lang="en">Gets or sets whether禁用 Default is为 false
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板
+    /// <para lang="zh">获得/设置 Header 模板
+    ///</para>
+    /// <para lang="en">Gets or sets Header template
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Item 模板
+    /// <para lang="zh">获得/设置 Item 模板
+    ///</para>
+    /// <para lang="en">Gets or sets Item template
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
@@ -122,7 +177,10 @@ public partial class TransferPanel
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法
+    ///</para>
+    /// <para lang="en">OnParametersSet 方法
+    ///</para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -136,7 +194,10 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 头部复选框初始化值方法
+    /// <para lang="zh">头部复选框初始化值方法
+    ///</para>
+    /// <para lang="en">头部复选框初始化值方法
+    ///</para>
     /// </summary>
     protected CheckboxState HeaderCheckState()
     {
@@ -154,7 +215,10 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 左侧头部复选框初始化值方法
+    /// <para lang="zh">左侧头部复选框初始化值方法
+    ///</para>
+    /// <para lang="en">左侧头部复选框初始化值方法
+    ///</para>
     /// </summary>
     protected async Task OnHeaderCheck(CheckboxState state, SelectedItem item)
     {
@@ -177,7 +241,8 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <returns></returns>
     protected async Task OnStateChanged(CheckboxState state, SelectedItem item)
@@ -193,7 +258,10 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 搜索框文本改变时回调此方法
+    /// <para lang="zh">搜索框文本改变时回调此方法
+    ///</para>
+    /// <para lang="en">搜索框文本改变时回调此方法
+    ///</para>
     /// </summary>
     /// <param name="e"></param>
     protected virtual void OnSearch(ChangeEventArgs e)
@@ -205,7 +273,10 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 搜索文本框按键回调方法
+    /// <para lang="zh">搜索文本框按键回调方法
+    ///</para>
+    /// <para lang="en">搜索文本框按键callback method
+    ///</para>
     /// </summary>
     /// <param name="e"></param>
     protected void OnKeyUp(KeyboardEventArgs e)
@@ -218,7 +289,10 @@ public partial class TransferPanel
     }
 
     /// <summary>
-    /// 清空搜索条件方法
+    /// <para lang="zh">清空搜索条件方法
+    ///</para>
+    /// <para lang="en">清空搜索条件方法
+    ///</para>
     /// </summary>
     protected void ClearSearch()
     {

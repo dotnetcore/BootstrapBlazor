@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -34,6 +34,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 是否为圆形</para>
     /// <para lang="en">Gets or sets whether it is a circle</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCircle { get; set; }
@@ -41,6 +42,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 Image 头像路径地址</para>
     /// <para lang="en">Gets or sets the image path</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
@@ -48,6 +50,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 是否为图标</para>
     /// <para lang="en">Gets or sets whether it is an icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsIcon { get; set; }
@@ -55,6 +58,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 头像框显示图标</para>
     /// <para lang="en">Gets or sets the icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -62,6 +66,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示为文字</para>
     /// <para lang="en">Gets or sets whether to display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsText { get; set; }
@@ -69,6 +74,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 头像框显示文字</para>
     /// <para lang="en">Gets or sets the text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -76,6 +82,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 头像框大小</para>
     /// <para lang="en">Gets or sets the size</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; } = Size.Medium;
@@ -83,6 +90,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Border 默认为 false</para>
     /// <para lang="en">Gets or sets whether to show border. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBorder { get; set; }
@@ -90,6 +98,7 @@ public partial class Avatar
     /// <summary>
     /// <para lang="zh">获得/设置 获取图片地址异步回调方法</para>
     /// <para lang="en">Gets or sets the async callback method to get image url</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<string>>? GetUrlAsync { get; set; }

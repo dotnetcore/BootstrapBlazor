@@ -24,6 +24,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否保持选择行，默认为 false 不保持</para>
     /// <para lang="en">Get/Set Whether to keep selected rows. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeepSelectedRows { get; set; }
@@ -31,6 +32,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建数据是否保持原选择行，默认为 false 不保持</para>
     /// <para lang="en">Get/Set Keep selected rows after adding data. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeepSelectedRowAfterAdd { get; set; }
@@ -77,6 +79,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为多选模式 默认为 false</para>
     /// <para lang="en">Get/Set Multiple Selection Mode. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>此参数在 <see cref="IsExcel"/> 模式下为 true</remarks>
     [Parameter]
@@ -85,6 +88,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示选择框文字 默认为 false</para>
     /// <para lang="en">Get/Set Show Checkbox Text. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -93,6 +97,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 显示选择框文字 默认为 选择</para>
     /// <para lang="en">Get/Set Checkbox Display Text. Default "Select"</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -102,6 +107,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 表格行是否显示选择框 默认全部显示 此属性在 <see cref="IsMultipleSelect"/> 参数为 true 时生效</para>
     /// <para lang="en">Get/Set Whether to show row checkbox. Default show all. This property is effective when <see cref="IsMultipleSelect"/> is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowRowCheckboxCallback { get; set; }
@@ -168,6 +174,7 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 列改变显示状态回调方法</para>
     /// <para lang="en">Get/Set Column Visible Changed Callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, bool, Task>? OnColumnVisibleChanged { get; set; }

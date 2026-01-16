@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -26,6 +26,7 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否闪烁 默认为 false 不闪烁</para>
     /// <para lang="en">Get/Set Whether the component is flashing. Default is false (No flash)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlash { get; set; }
@@ -33,6 +34,7 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 是否为平面图形 默认 false</para>
     /// <para lang="en">Get/Set Whether it is a flat graphic. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlat { get; set; }
@@ -40,6 +42,7 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 指示灯颜色 默认为 Success 绿色</para>
     /// <para lang="en">Get/Set Indicator Color. Default Success (Green)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;

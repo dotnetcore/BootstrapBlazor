@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,42 +6,65 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Textarea component
+/// <para lang="zh">Textarea component
+///</para>
+/// <para lang="en">Textarea component
+///</para>
 /// </summary>
 public partial class Textarea
 {
     /// <summary>
-    /// Scroll to the top
+    /// <para lang="zh">Scroll to the top
+    ///</para>
+    /// <para lang="en">Scroll to the top
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollToTop() => InvokeVoidAsync("execute", Id, "toTop");
 
     /// <summary>
-    /// Scroll to a specific value
+    /// <para lang="zh">Scroll to a specific value
+    ///</para>
+    /// <para lang="en">Scroll to a specific value
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollTo(int value) => InvokeVoidAsync("execute", Id, "to", value);
 
     /// <summary>
-    /// Scroll to the bottom
+    /// <para lang="zh">Scroll to the bottom
+    ///</para>
+    /// <para lang="en">Scroll to the bottom
+    ///</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollToBottom() => InvokeVoidAsync("execute", Id, "toBottom");
 
     /// <summary>
-    /// Gets or sets whether auto-scroll is enabled. Default is false.
+    /// <para lang="zh">获得/设置 是否 auto-scroll is enabled. 默认为 false.
+    ///</para>
+    /// <para lang="en">Gets or sets whether auto-scroll is enabled. Default is false.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
-    /// Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false.
+    /// <para lang="zh">获得/设置 是否 Shift + Enter replaces the default Enter key behavior. 默认为 false.
+    ///</para>
+    /// <para lang="en">Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool UseShiftEnter { get; set; }
 
     /// <summary>
-    /// Gets the client-side auto-scroll identifier.
+    /// <para lang="zh">获得 the client-side auto-scroll identifier.
+    ///</para>
+    /// <para lang="en">Gets the client-side auto-scroll identifier.
+    ///</para>
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
 

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public partial class QueryGroup : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -21,6 +22,7 @@ public partial class QueryGroup : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符</para>
     /// <para lang="en">Get/Set Logic Operator</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -49,6 +49,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
     /// <para lang="en">Gets or sets the data source</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -57,6 +58,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为按钮样式 默认 false</para>
     /// <para lang="en">Gets or sets whether it is a button style. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsButton { get; set; }
@@ -64,6 +66,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置  是否显示按钮边框颜色 默认为 false</para>
     /// <para lang="en">Gets or sets whether to show the button border color. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowButtonBorderColor { get; set; }
@@ -71,6 +74,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 Checkbox 组件布局样式</para>
     /// <para lang="en">Gets or sets the Checkbox component layout style</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CheckboxItemClass { get; set; }
@@ -78,6 +82,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 非按钮模式下是否显示组件边框 默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the component border in non-button mode. Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowBorder { get; set; } = true;
@@ -85,6 +90,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
     /// <para lang="en">Gets or sets whether to arrange vertically. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
@@ -92,6 +98,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
     /// <para lang="en">Gets or sets the button color. Default is None (not set)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -99,6 +106,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 SelectedItemChanged 方法</para>
     /// <para lang="en">Gets or sets the SelectedItemChanged method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem>, TValue, Task>? OnSelectedChanged { get; set; }
@@ -106,6 +114,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 最多选中数量</para>
     /// <para lang="en">Gets or sets the maximum number of selected items</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxSelectedCount { get; set; }
@@ -113,6 +122,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 超过最大选中数量时回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate when the maximum number of selected items is exceeded</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnMaxSelectedCountExceed { get; set; }
@@ -120,6 +130,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 项模板</para>
     /// <para lang="en">Gets or sets the item template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
@@ -237,7 +248,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     /// <param name="typeValue"></param>
     /// <param name="list"></param>

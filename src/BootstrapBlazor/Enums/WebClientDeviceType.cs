@@ -6,22 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 客户端设备类型
+/// <para lang="zh">客户端设备类型
+///</para>
+/// <para lang="en">客户端设备type
+///</para>
 /// </summary>
 public enum WebClientDeviceType
 {
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     Desktop,
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     Mobile,
 
     /// <summary>
-    /// 
+    /// <para lang="zh">///</para>
+    /// <para lang="en">///</para>
     /// </summary>
     Tablet
 }

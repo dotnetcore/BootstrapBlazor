@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -14,6 +14,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
     /// <para lang="en">Get/Set Display Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -21,6 +22,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 选项值</para>
     /// <para lang="en">Get/Set Option Value</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }
@@ -28,6 +30,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否选中 默认 false</para>
     /// <para lang="en">Get/Set Whether selected. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Active { get; set; }
@@ -35,6 +38,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
     /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -42,6 +46,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 分组名称</para>
     /// <para lang="en">Get/Set Group Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }

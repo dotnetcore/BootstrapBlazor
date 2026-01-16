@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -64,6 +64,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 文件预览框宽度</para>
     /// <para lang="en">Get/Set file preview box width</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public virtual int Width { get; set; } = 120;
@@ -71,6 +72,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 进度条宽度 默认为 2</para>
     /// <para lang="en">Get/Set progress bar width, default is 2</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public virtual int StrokeWidth { get; set; } = 2;
@@ -78,6 +80,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组件进度条颜色</para>
     /// <para lang="en">Get/Set component progress bar color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
@@ -85,6 +88,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示进度百分比 默认显示</para>
     /// <para lang="en">Get/Set whether to show progress percentage, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; } = true;
@@ -92,6 +96,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Get/Set child content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -15,9 +15,14 @@ namespace Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure;
 #pragma warning disable BL0006 // Do not use RenderTree types
 
 /// <summary>
-/// A <see cref="Renderer"/> subclass that is intended for static HTML rendering. Application
+/// <para lang="zh">A <see cref="Renderer"/> subclass that is intended for static HTML rendering. Application
 /// developers should not normally use this class directly. Instead, use
 /// <see cref="HtmlRenderer"/> for a more convenient API.
+///</para>
+/// <para lang="en">A <see cref="Renderer"/> subclass that is intended for static HTML rendering. Application
+/// developers should not normally use this class directly. Instead, use
+/// <see cref="HtmlRenderer"/> for a more convenient API.
+///</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 partial class StaticHtmlRenderer : Renderer
@@ -25,7 +30,10 @@ partial class StaticHtmlRenderer : Renderer
     private static readonly Task CanceledRenderTask = Task.FromCanceled(new CancellationToken(canceled: true));
 
     /// <summary>
-    /// Constructs an instance of <see cref="StaticHtmlRenderer"/>.
+    /// <para lang="zh">Constructs an 实例 of <see cref="StaticHtmlRenderer"/>.
+    ///</para>
+    /// <para lang="en">Constructs an instance of <see cref="StaticHtmlRenderer"/>.
+    ///</para>
     /// </summary>
     /// <param name="serviceProvider">The <see cref="IServiceProvider"/> to be used when initializing components.</param>
     /// <param name="loggerFactory">The <see cref="ILoggerFactory"/>.</param>
@@ -38,7 +46,10 @@ partial class StaticHtmlRenderer : Renderer
     public override Dispatcher Dispatcher { get; } = Dispatcher.CreateDefault();
 
     /// <summary>
-    /// Adds a root component of the specified type and begins rendering it.
+    /// <para lang="zh">Adds a root component of the specified 类型 and begins rendering it.
+    ///</para>
+    /// <para lang="en">Adds a root component of the specified type and begins rendering it.
+    ///</para>
     /// </summary>
     /// <param name="componentType">The component type. This must implement <see cref="IComponent"/>.</param>
     /// <param name="initialParameters">Parameters for the component.</param>
@@ -52,7 +63,10 @@ partial class StaticHtmlRenderer : Renderer
     }
 
     /// <summary>
-    /// Adds a root component and begins rendering it.
+    /// <para lang="zh">Adds a root component and begins rendering it.
+    ///</para>
+    /// <para lang="en">Adds a root component and begins rendering it.
+    ///</para>
     /// </summary>
     /// <param name="component">The root component instance to be added and rendered. This must not already be associated with any renderer.</param>
     /// <param name="initialParameters">Parameters for the component.</param>

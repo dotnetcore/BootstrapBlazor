@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -16,6 +16,7 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Icon 名称</para>
     /// <para lang="en">Get/Set Icon Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -27,6 +28,7 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Label 显示文字</para>
     /// <para lang="en">Get/Set Label Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelText { get; set; }
@@ -34,6 +36,7 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Label 显示文字</para>
     /// <para lang="en">Get/Set Label Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelFullText { get; set; }
@@ -41,6 +44,7 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 拷贝按钮显示文字</para>
     /// <para lang="en">Get/Set Copy Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ButtonText { get; set; }
@@ -48,6 +52,7 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 拷贝成功提示文字</para>
     /// <para lang="en">Get/Set Copied Tooltip Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CopiedTooltipText { get; set; }

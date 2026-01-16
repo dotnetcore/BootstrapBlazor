@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -21,7 +21,10 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected bool IsShowLabel { get; set; }
 
     /// <summary>
-    /// Gets the <see cref="FieldIdentifier"/> for the bound value.
+    /// <para lang="zh">获得 the <see cref="FieldIdentifier"/> for the bound value.
+    ///</para>
+    /// <para lang="en">Gets the <see cref="FieldIdentifier"/> for the bound value.
+    ///</para>
     /// </summary>
     protected FieldIdentifier? FieldIdentifier { get; set; }
 
@@ -39,7 +42,11 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected Type? ValueType { get; set; }
 
     /// <summary>
-    /// Gets or sets the value of the input. This should be used with two-way binding.
+    /// <para lang="zh">获得/设置 the value of the input. This should be used with two-way binding.
+    ///</para>
+    /// <para lang="en">Gets or sets the value of the input. This should be used with two-way binding.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <example>
     /// @bind-Value="model.PropertyName"
@@ -49,13 +56,21 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public TValue? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that updates the bound value.
+    /// <para lang="zh">获得/设置 a 回调 that updates the bound value.
+    ///</para>
+    /// <para lang="en">Gets or sets a callback that updates the bound value.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue?> ValueChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets an expression that identifies the bound value.
+    /// <para lang="zh">获得/设置 an expression that identifies the bound value.
+    ///</para>
+    /// <para lang="en">Gets or sets an expression that identifies the bound value.
+    ///</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue?>>? ValueExpression { get; set; }
@@ -63,6 +78,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示前置标签 默认值为 null 为空时默认不显示标签</para>
     /// <para lang="en">Get/Set Whether to Show Label. Default is null, not show label when null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabel { get; set; }
@@ -70,6 +86,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于文字过长导致裁减时使用 默认 null</para>
     /// <para lang="en">Get/Set Whether to Show Tooltip. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
@@ -77,6 +94,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
     /// <para lang="en">Get/Set Display Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DisplayText { get; set; }
