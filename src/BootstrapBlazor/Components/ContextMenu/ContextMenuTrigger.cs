@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuTrigger 组件
 /// </summary>
-public class ContextMenuTrigger(IOptionsMonitor<BootstrapBlazorOptions> options) : BootstrapComponentBase
+public class ContextMenuTrigger : BootstrapComponentBase
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -40,15 +40,24 @@ public class ContextMenuTrigger(IOptionsMonitor<BootstrapBlazorOptions> options)
     /// Default is <see cref="ContextMenuOptions.OnTouchDelay"/> milliseconds. Must be greater than 0.
     /// </summary>
     [Parameter]
-    public int OnTouchDelay
-    {
-        get;
-        set { if (value > 0) field = value; }
-    } = options.CurrentValue.ContextMenuOptions.OnTouchDelay;
+    public int? OnTouchDelay { get; set; }
+
+    [Inject, NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     private string? ClassString => CssBuilder.Default()
-                                             .AddClassFromAttributes(AdditionalAttributes)
-                                             .Build();
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        OnTouchDelay ??= Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -92,7 +101,10 @@ public class ContextMenuTrigger(IOptionsMonitor<BootstrapBlazorOptions> options)
 
             // 延时保持 TouchStart 状态
             // Delay to maintain TouchStart state
-            await Task.Delay(OnTouchDelay);
+            if (OnTouchDelay.HasValue)
+            {
+                await Task.Delay(OnTouchDelay.Value);
+            }
             if (IsTouchStarted)
             {
                 var args = new MouseEventArgs()
@@ -102,12 +114,15 @@ public class ContextMenuTrigger(IOptionsMonitor<BootstrapBlazorOptions> options)
                     ScreenX = e.Touches[0].ScreenX,
                     ScreenY = e.Touches[0].ScreenY,
                 };
-                // 弹出关联菜单
+
                 await OnContextMenu(args);
 
                 // 延时防止重复激活菜单功能
                 // Delay to prevent repeated activation of menu functions
-                await Task.Delay(OnTouchDelay);
+                if (OnTouchDelay.HasValue)
+                {
+                    await Task.Delay(OnTouchDelay.Value);
+                }
             }
             IsBusy = false;
         }
