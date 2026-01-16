@@ -90,7 +90,10 @@ public class OtpInputTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerSetValue("234567"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerSetValue(["2", "3", "4", "5", "6", "7"]));
         Assert.Equal("234567", v);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerSetValue(["", "3", "4", "5", "6", "7"]));
+        Assert.Equal(" 34567", v);
     }
 }
