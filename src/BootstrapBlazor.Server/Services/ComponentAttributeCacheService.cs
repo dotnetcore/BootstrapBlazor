@@ -16,12 +16,12 @@ namespace BootstrapBlazor.Server.Services;
 /// </summary>
 public static class ComponentAttributeCacheService
 {
-    private static readonly ConcurrentDictionary<string, AttributeItem[]> _cache = new();
+    private static readonly ConcurrentDictionary<string, List<AttributeItem>> _cache = new();
 
     /// <summary>
     /// 获取组件的 AttributeItem 列表(带缓存)
     /// </summary>
-    public static AttributeItem[] GetAttributes(Type componentType)
+    public static List<AttributeItem> GetAttributes(Type componentType)
     {
         var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
         var key = $"{componentType.FullName}_{currentLanguage}";
@@ -44,7 +44,7 @@ public static class ComponentAttributeCacheService
                 attributes.Add(item);
             }
 
-            return attributes.ToArray();
+            return attributes;
         });
     }
 
