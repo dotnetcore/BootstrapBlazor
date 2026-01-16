@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenuDivider 组件
+/// <para lang="zh">ContextMenuDivider 组件</para>
+/// <para lang="en">ContextMenuDivider component</para>
 /// </summary>
 public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
@@ -29,15 +30,16 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="builder"></param>
+    /// <param name="builder"><para lang="zh">渲染树生成器</para><para lang="en">The render tree builder</para></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder) { }
 
     private bool disposedValue;
 
     /// <summary>
-    /// 释放资源方法
+    /// <para lang="zh">释放资源方法</para>
+    /// <para lang="en">Method to release resources.</para>
     /// </summary>
-    /// <param name="disposing"></param>
+    /// <param name="disposing"><para lang="zh">是否释放托管资源</para><para lang="en">Whether to release managed resources</para></param>
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)
