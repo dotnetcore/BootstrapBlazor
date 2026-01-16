@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Version>10.2.2-beta02</Version>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
