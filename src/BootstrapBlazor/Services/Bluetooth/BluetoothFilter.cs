@@ -8,7 +8,8 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BluetoothFilter 类
+/// <para lang="zh">BluetoothFilter 类</para>
+/// <para lang="en">BluetoothFilter Class</para>
 /// </summary>
 public class BluetoothFilter
 {

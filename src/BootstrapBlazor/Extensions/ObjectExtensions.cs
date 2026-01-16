@@ -9,12 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Object 扩展方法
+/// <para lang="zh">Object 扩展方法</para>
+/// <para lang="en">Object extension methods</para>
 /// </summary>
 public static class ObjectExtensions
 {
     /// <summary>
-    /// 转化为带单位的字符串 [% px] => [% px] [int] => [int]px
+    /// <para lang="zh">转化为带单位的字符串 [% px] => [% px] [int] => [int]px</para>
+    /// <para lang="en">Convert to string with unit [% px] => [% px] [int] => [int]px</para>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
@@ -44,7 +46,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 Number 数据类型
+    /// <para lang="zh">检查是否为 Number 数据类型</para>
+    /// <para lang="en">Check if it is a Number data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -56,7 +59,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/>
+    /// <para lang="zh">检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/></para>
+    /// <para lang="en">Check if it should be rendered as <see cref="BootstrapInputNumber{TValue}"/></para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -71,7 +75,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 Boolean 数据类型
+    /// <para lang="zh">检查是否为 Boolean 数据类型</para>
+    /// <para lang="en">Check if it is a Boolean data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -82,7 +87,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 DateTime 数据类型
+    /// <para lang="zh">检查是否为 DateTime 数据类型</para>
+    /// <para lang="en">Check if it is a DateTime data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -94,7 +100,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 TimeSpan 数据类型
+    /// <para lang="zh">检查是否为 TimeSpan 数据类型</para>
+    /// <para lang="en">Check if it is a TimeSpan data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -106,7 +113,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 通过类型获取类型描述文字
+    /// <para lang="zh">通过类型获取类型描述文字</para>
+    /// <para lang="en">Get type description text by type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -134,7 +142,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 字符串类型转换为其他数据类型
+    /// <para lang="zh">字符串类型转换为其他数据类型</para>
+    /// <para lang="en">String type converted to other data types</para>
     /// </summary>
     /// <returns></returns>
     public static bool TryConvertTo(this string? source, Type type, out object? val)
@@ -221,7 +230,8 @@ public static class ObjectExtensions
         {
             var type = typeof(TModel);
 
-            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            // <para lang="zh">20200608 tian_teng@outlook.com 支持字段和只读属性</para>
+            // <para lang="en">20200608 tian_teng@outlook.com Support fields and read-only properties</para>
             foreach (var f in type.GetFields())
             {
                 var v = f.GetValue(item);
@@ -246,7 +256,7 @@ public static class ObjectExtensions
     /// <returns>An instance of the specified type with initialized properties.</returns>
     public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
-        if(typeof(TItem).IsInterface)
+        if (typeof(TItem).IsInterface)
         {
             return default;
         }

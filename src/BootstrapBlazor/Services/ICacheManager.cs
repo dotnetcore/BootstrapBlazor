@@ -8,7 +8,8 @@ using Microsoft.Extensions.Caching.Memory;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// CacheManager 接口类
+/// <para lang="zh">CacheManager 接口类</para>
+/// <para lang="en">CacheManager Interface Class</para>
 /// </summary>
 public interface ICacheManager
 {
@@ -31,7 +32,8 @@ public interface ICacheManager
     Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
 
     /// <summary>
-    /// 获取指定键值
+    /// <para lang="zh">获取指定键值</para>
+    /// <para lang="en">Get specified key value</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
@@ -40,35 +42,41 @@ public interface ICacheManager
     bool TryGetValue<TItem>(object key, [NotNullWhen(true)] out TItem? value);
 
     /// <summary>
-    /// 设置 App 开始时间
+    /// <para lang="zh">设置 App 开始时间</para>
+    /// <para lang="en">Set App Start Time</para>
     /// </summary>
     void SetStartTime();
 
     /// <summary>
-    /// 获取 App 开始时间
+    /// <para lang="zh">获取 App 开始时间</para>
+    /// <para lang="en">Get App Start Time</para>
     /// </summary>
     /// <returns></returns>
     DateTimeOffset GetStartTime();
 
     /// <summary>
-    /// 通过指定 key 清除缓存方法
+    /// <para lang="zh">通过指定 key 清除缓存方法</para>
+    /// <para lang="en">Clear cache method by specified key</para>
     /// </summary>
     /// <param name="key"></param>
     void Clear(object? key = null);
 
     /// <summary>
-    /// 获得 缓存数量
+    /// <para lang="zh">获得 缓存数量</para>
+    /// <para lang="en">Get Cache Count</para>
     /// </summary>
     long Count { get; }
 
 #if NET9_0_OR_GREATER
     /// <summary>
-    /// 获得 缓存键集合
+    /// <para lang="zh">获得 缓存键集合</para>
+    /// <para lang="en">Get Cache Keys</para>
     /// </summary>
     IEnumerable<object> Keys { get; }
 
     /// <summary>
-    /// 通过指定 key 获取缓存项 <see cref="ICacheEntry"/> 实例
+    /// <para lang="zh">通过指定 key 获取缓存项 <see cref="ICacheEntry"/> 实例</para>
+    /// <para lang="en">Get <see cref="ICacheEntry"/> instance by specified key</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>

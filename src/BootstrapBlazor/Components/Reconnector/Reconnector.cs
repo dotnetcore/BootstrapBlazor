@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Reconnector 组件
+/// <para lang="zh">Reconnector 组件</para>
+/// <para lang="en">Reconnector Component</para>
 /// </summary>
 public class Reconnector : ComponentBase, IReconnector
 {
     /// <summary>
-    /// 获得/设置 正在尝试重试连接对话框的模板
+    /// <para lang="zh">获得/设置 正在尝试重试连接对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnecting Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectingTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 连接失败对话框的模板
+    /// <para lang="zh">获得/设置 连接失败对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnect Failed Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectFailedTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 连接被拒绝对话框的模板
+    /// <para lang="zh">获得/设置 连接被拒绝对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnect Rejected Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectRejectedTemplate { get; set; }
@@ -33,7 +37,8 @@ public class Reconnector : ComponentBase, IReconnector
     private IReconnectorProvider? Provider { get; set; }
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// <para lang="zh">OnAfterRender 方法</para>
+    /// <para lang="en">OnAfterRender Method</para>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)

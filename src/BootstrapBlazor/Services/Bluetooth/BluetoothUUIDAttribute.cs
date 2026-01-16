@@ -6,13 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// UUID 标签
+/// <para lang="zh">UUID 标签</para>
+/// <para lang="en">UUID Attribute</para>
 /// </summary>
 [AttributeUsage(AttributeTargets.All)]
 public class BluetoothUUIDAttribute(string name) : Attribute
 {
     /// <summary>
-    /// 获得 UUID 值
+    /// <para lang="zh">获得 UUID 值</para>
+    /// <para lang="en">Get UUID Value</para>
     /// </summary>
     public string Name => name;
 }

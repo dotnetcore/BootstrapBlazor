@@ -116,7 +116,8 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     {
         if (IsVirtualize && OnQueryAsync != null)
         {
-            // 通过 ItemProvider 提供数据
+            // <para lang="zh">通过 ItemProvider 提供数据</para>
+            // <para lang="en">Data provided by ItemProvider</para>
             await _virtualizeElement.RefreshDataAsync();
         }
     }

@@ -6,32 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 函数枚举
+/// <para lang="zh">函数枚举</para>
+/// <para lang="en">Aggregate Functions Enum</para>
 /// </summary>
 public enum AggregateType
 {
     /// <summary>
-    /// 合计
+    /// <para lang="zh">合计</para>
+    /// <para lang="en">Sum</para>
     /// </summary>
     Sum,
     /// <summary>
-    /// 平均数
+    /// <para lang="zh">平均数</para>
+    /// <para lang="en">Average</para>
     /// </summary>
     Average,
     /// <summary>
-    /// 数量
+    /// <para lang="zh">数量</para>
+    /// <para lang="en">Count</para>
     /// </summary>
     Count,
     /// <summary>
-    /// 最小值
+    /// <para lang="zh">最小值</para>
+    /// <para lang="en">Min</para>
     /// </summary>
     Min,
     /// <summary>
-    /// 最大值
+    /// <para lang="zh">最大值</para>
+    /// <para lang="en">Max</para>
     /// </summary>
     Max,
     /// <summary>
-    /// 自定义
+    /// <para lang="zh">自定义</para>
+    /// <para lang="en">Custom</para>
     /// </summary>
     Customer
 }

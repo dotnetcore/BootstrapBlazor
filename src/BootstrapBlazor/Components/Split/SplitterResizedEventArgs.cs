@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SplitterResizedEventArgs 类
+/// <para lang="zh">SplitterResizedEventArgs 类</para>
+/// <para lang="en">SplitterResizedEventArgs Class</para>
 /// </summary>
 public class SplitterResizedEventArgs(string left)
 {
@@ -16,12 +17,14 @@ public class SplitterResizedEventArgs(string left)
     public string FirstPanelSize => left;
 
     /// <summary>
-    /// 获得 组件第一个面板是否折叠
+    /// <para lang="zh">获得 组件第一个面板是否折叠</para>
+    /// <para lang="en">Get Whether the first panel of the component is collapsed</para>
     /// </summary>
     public bool IsCollapsed => left == "0%";
 
     /// <summary>
-    /// 获得 组件第一个面板是否展开
+    /// <para lang="zh">获得 组件第一个面板是否展开</para>
+    /// <para lang="en">Get Whether the first panel of the component is expanded</para>
     /// </summary>
     public bool IsExpanded => left == "100%";
 }

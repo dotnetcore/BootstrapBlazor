@@ -8,25 +8,29 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 单选框组合组件
+/// <para lang="zh">单选框组合组件</para>
+/// <para lang="en">RadioList Component</para>
 /// </summary>
 public partial class RadioList<TValue>
 {
     /// <summary>
-    /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
+    /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
+    /// <para lang="en">Get/Set Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
     /// </summary>
     [Parameter]
     public bool IsAutoAddNullItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
+    /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
+    /// <para lang="en">Get/Set Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NullItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 未设置选中项时是否自动选择第一项 默认 true
+    /// <para lang="zh">获得/设置 未设置选中项时是否自动选择第一项 默认 true</para>
+    /// <para lang="en">Get/Set Whether to auto select first item when no item is selected. Default true</para>
     /// </summary>
     [Parameter]
     public bool AutoSelectFirstWhenValueIsNull { get; set; } = true;
@@ -117,7 +121,8 @@ public partial class RadioList<TValue>
     protected override void EnsureParameterValid() { }
 
     /// <summary>
-    /// 点击选择框方法
+    /// <para lang="zh">点击选择框方法</para>
+    /// <para lang="en">Click Checkbox Method</para>
     /// </summary>
     private async Task OnClick(SelectedItem item)
     {

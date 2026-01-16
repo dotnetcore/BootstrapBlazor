@@ -18,7 +18,8 @@ class DefaultGeoLocationService : IGeoLocationService
     private long WatchId { get; set; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     public DefaultGeoLocationService(IJSRuntime jsRuntime)
@@ -69,7 +70,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// 获得 当前设备地理位置由 JS 调用
+    /// <para lang="zh">获得 当前设备地理位置由 JS 调用</para>
+    /// <para lang="en">Get current device location (invoked by JS)</para>
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
@@ -85,7 +87,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// DisposeAsync 方法
+    /// <para lang="zh">DisposeAsync 方法</para>
+    /// <para lang="en">DisposeAsync Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)

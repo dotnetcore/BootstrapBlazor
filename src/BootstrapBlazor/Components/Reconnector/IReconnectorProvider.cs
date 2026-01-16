@@ -6,18 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IContentSubscriber 接口
+/// <para lang="zh">IContentSubscriber 接口</para>
+/// <para lang="en">IContentSubscriber Interface</para>
 /// </summary>
 internal interface IReconnectorProvider
 {
     /// <summary>
-    /// 注册回调方法
+    /// <para lang="zh">注册回调方法</para>
+    /// <para lang="en">Register Callback Method</para>
     /// </summary>
     /// <param name="action"></param>
     void Register(Action<RenderFragment?, RenderFragment?, RenderFragment?> action);
 
     /// <summary>
-    /// 内容变化通知方法
+    /// <para lang="zh">内容变化通知方法</para>
+    /// <para lang="en">Notify Content Changed Method</para>
     /// </summary>
     /// <param name="content"></param>
     void NotifyContentChanged(IReconnector content);

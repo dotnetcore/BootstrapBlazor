@@ -6,22 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IReconnector 接口
+/// <para lang="zh">IReconnector 接口</para>
+/// <para lang="en">IReconnector Interface</para>
 /// </summary>
 public interface IReconnector
 {
     /// <summary>
-    /// 获得/设置 正在尝试重试连接对话框的模板
+    /// <para lang="zh">获得/设置 正在尝试重试连接对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnecting Template</para>
     /// </summary>
     RenderFragment? ReconnectingTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 连接失败对话框的模板
+    /// <para lang="zh">获得/设置 连接失败对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnect Failed Template</para>
     /// </summary>
     RenderFragment? ReconnectFailedTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 连接被拒绝对话框的模板
+    /// <para lang="zh">获得/设置 连接被拒绝对话框的模板</para>
+    /// <para lang="en">Get/Set Reconnect Rejected Template</para>
     /// </summary>
     RenderFragment? ReconnectRejectedTemplate { get; set; }
 }

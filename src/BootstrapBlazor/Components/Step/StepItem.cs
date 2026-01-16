@@ -6,60 +6,70 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// StepItem 组件
+/// <para lang="zh">StepItem 组件</para>
+/// <para lang="en">StepItem Component</para>
 /// </summary>
 public class StepItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 获得/设置 步骤显示文字
+    /// <para lang="zh">获得/设置 步骤显示文字</para>
+    /// <para lang="en">Get/Set Text</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤显示文字
+    /// <para lang="zh">获得/设置 步骤显示文字</para>
+    /// <para lang="en">Get/Set Title</para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤显示图标
+    /// <para lang="zh">获得/设置 步骤显示图标</para>
+    /// <para lang="en">Get/Set Icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤完成显示图标
+    /// <para lang="zh">获得/设置 步骤完成显示图标</para>
+    /// <para lang="en">Get/Set Finished Icon</para>
     /// </summary>
     [Parameter]
     public string? FinishedIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 描述信息
+    /// <para lang="zh">获得/设置 描述信息</para>
+    /// <para lang="en">Get/Set Description</para>
     /// </summary>
     [Parameter]
     public string? Description { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板
+    /// <para lang="zh">获得/设置 Header 模板</para>
+    /// <para lang="en">Get/Set Header Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<StepOption>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Title 模板
+    /// <para lang="zh">获得/设置 Title 模板</para>
+    /// <para lang="en">Get/Set Title Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<StepOption>? TitleTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件内容实例
+    /// <para lang="zh">获得/设置 组件内容实例</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 父级组件 Step 实例
+    /// <para lang="zh">获得/设置 父级组件 Step 实例</para>
+    /// <para lang="en">Get/Set Parent Step Component Instance</para>
     /// </summary>
     [CascadingParameter]
     private Step? Step { get; set; }
@@ -94,7 +104,8 @@ public class StepItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 销毁方法
+    /// <para lang="zh">销毁方法</para>
+    /// <para lang="en">Dispose Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

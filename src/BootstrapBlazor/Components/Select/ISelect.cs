@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ISelect 接口
+/// <para lang="zh">ISelect 接口</para>
+/// <para lang="en">ISelect Interface</para>
 /// </summary>
 public interface ISelect
 {
     /// <summary>
-    /// 增加 SelectedItem 项方法
+    /// <para lang="zh">增加 SelectedItem 项方法</para>
+    /// <para lang="en">Add SelectedItem Method</para>
     /// </summary>
     /// <param name="item"></param>
     void Add(SelectedItem item);

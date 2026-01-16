@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IHtml2ImageOptions 选项类接口
+/// <para lang="zh">IHtml2ImageOptions 选项类接口</para>
+/// <para lang="en">IHtml2ImageOptions Class Interface</para>
 /// </summary>
 public interface IHtml2ImageOptions
 {

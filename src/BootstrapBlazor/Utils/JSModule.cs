@@ -6,13 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 模块加载器
+/// <para lang="zh">模块加载器</para>
+/// <para lang="en">Module loader</para>
 /// </summary>
 /// <param name="jSObjectReference"></param>
 public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
-    /// InvokeVoidAsync 方法
+    /// <para lang="zh">InvokeVoidAsync 方法</para>
+    /// <para lang="en">InvokeVoidAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -20,7 +22,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     public virtual ValueTask InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// InvokeVoidAsync 方法
+    /// <para lang="zh">InvokeVoidAsync 方法</para>
+    /// <para lang="en">InvokeVoidAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -34,7 +37,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// InvokeVoidAsync 方法
+    /// <para lang="zh">InvokeVoidAsync 方法</para>
+    /// <para lang="en">InvokeVoidAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -67,7 +71,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// InvokeAsync 方法
+    /// <para lang="zh">InvokeAsync 方法</para>
+    /// <para lang="en">InvokeAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -75,7 +80,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     public virtual ValueTask<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// InvokeAsync 方法
+    /// <para lang="zh">InvokeAsync 方法</para>
+    /// <para lang="en">InvokeAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -89,7 +95,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// InvokeAsync 方法
+    /// <para lang="zh">InvokeAsync 方法</para>
+    /// <para lang="en">InvokeAsync method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -126,7 +133,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsyncCore(bool disposing)
@@ -145,7 +153,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

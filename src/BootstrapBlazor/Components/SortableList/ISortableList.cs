@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SortableList 组件接口
+/// <para lang="zh">SortableList 组件接口</para>
+/// <para lang="en">SortableList Component Interface</para>
 /// </summary>
 public interface ISortableList
 {

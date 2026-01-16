@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 内部默认字典服务实现类
+/// <para lang="zh">内部默认字典服务实现类</para>
+/// <para lang="en">Internal Default Lookup Service Implementation</para>
 /// </summary>
 class NullLookupService : LookupServiceBase
 {

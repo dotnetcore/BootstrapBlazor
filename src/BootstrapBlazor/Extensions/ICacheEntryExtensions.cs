@@ -9,12 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <see cref="ICacheEntry"/> 扩展方法
+/// <para lang="zh"><see cref="ICacheEntry"/> 扩展方法</para>
+/// <para lang="en"><see cref="ICacheEntry"/> extension methods</para>
 /// </summary>
 public static class ICacheEntryExtensions
 {
     /// <summary>
-    /// 获得缓存项 <see cref="ICacheEntry"/> 最后访问时间
+    /// <para lang="zh">获得缓存项 <see cref="ICacheEntry"/> 最后访问时间</para>
+    /// <para lang="en">Get the last access time of the cache entry <see cref="ICacheEntry"/></para>
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="force"></param>

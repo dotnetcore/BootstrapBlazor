@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 表格骨架屏组件
+/// <para lang="zh">表格骨架屏组件</para>
+/// <para lang="en">SkeletonTable Component</para>
 /// </summary>
 public partial class SkeletonTable
 {
     /// <summary>
-    /// 获得/设置 行数 默认 7 行
+    /// <para lang="zh">获得/设置 行数 默认 7 行</para>
+    /// <para lang="en">Get/Set Rows. Default 7</para>
     /// </summary>
     [Parameter]
     public int Rows { get; set; } = 7;
 
     /// <summary>
-    /// 获得/设置 行数 默认 3 列
+    /// <para lang="zh">获得/设置 行数 默认 3 列</para>
+    /// <para lang="en">Get/Set Columns. Default 3</para>
     /// </summary>
     [Parameter]
     public int Columns { get; set; } = 3;
 
     /// <summary>
-    /// 获得/设置 是否显示工具栏
+    /// <para lang="zh">获得/设置 是否显示工具栏</para>
+    /// <para lang="en">Get/Set Whether to show toolbar</para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; } = true;

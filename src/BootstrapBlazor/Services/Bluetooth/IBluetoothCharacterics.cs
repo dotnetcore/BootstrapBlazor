@@ -6,32 +6,38 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IBluetoothCharacteristic 接口定义
+/// <para lang="zh">IBluetoothCharacteristic 接口定义</para>
+/// <para lang="en">IBluetoothCharacteristic Interface Definition</para>
 /// </summary>
 public interface IBluetoothCharacteristic
 {
     /// <summary>
-    /// 获得 上次运行错误描述信息
+    /// <para lang="zh">获得 上次运行错误描述信息</para>
+    /// <para lang="en">Get Last Error Message</para>
     /// </summary>
     string? ErrorMessage { get; }
 
     /// <summary>
-    /// 获得 服务 UUID 值
+    /// <para lang="zh">获得 服务 UUID 值</para>
+    /// <para lang="en">Get Service UUID Value</para>
     /// </summary>
     string ServiceUUID { get; }
 
     /// <summary>
-    /// 获得 特征 UUID 值
+    /// <para lang="zh">获得 特征 UUID 值</para>
+    /// <para lang="en">Get Characteristic UUID Value</para>
     /// </summary>
     public string UUID { get; }
 
     /// <summary>
-    /// 获得 是否已经开始调用 <see cref="StartNotifications"/> 方法
+    /// <para lang="zh">获得 是否已经开始调用 <see cref="StartNotifications"/> 方法</para>
+    /// <para lang="en">Get if <see cref="StartNotifications"/> method has been called</para>
     /// </summary>
     public bool IsNotify { get; }
 
     /// <summary>
-    /// 设备指定特征开始持续回调方法
+    /// <para lang="zh">设备指定特征开始持续回调方法</para>
+    /// <para lang="en">Start Notifications Method</para>
     /// </summary>
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
@@ -39,16 +45,18 @@ public interface IBluetoothCharacteristic
     Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default);
 
     /// <summary>
-    /// 设备指定特征结束回调方法
+    /// <para lang="zh">设备指定特征结束回调方法</para>
+    /// <para lang="en">Stop Notifications Method</para>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
     Task<bool> StopNotifications(CancellationToken token = default);
 
     /// <summary>
-    /// 获得设备指定值方法
+    /// <para lang="zh">获得设备指定值方法</para>
+    /// <para lang="en">Read Value Method</para>
     /// </summary>
-    /// <remarks>比如获得电量方法为 ReadValue("battery_service", "battery_level")</remarks>
+    /// <remarks><para lang="zh">比如获得电量方法为 ReadValue("battery_service", "battery_level")</para><para lang="en">For example, get battery level method is ReadValue("battery_service", "battery_level")</para></remarks>
     /// <returns></returns>
     Task<byte[]?> ReadValue(CancellationToken token = default);
 }

@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 泛型实现类
+/// <para lang="zh">泛型实现类</para>
+/// <para lang="en">Generic implementation class</para>
 /// </summary>
 public class SelectedItem<T>
 {
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     public SelectedItem() { Value = default!; }
 
@@ -27,27 +29,32 @@ public class SelectedItem<T>
     }
 
     /// <summary>
-    /// 获得/设置 显示名称
+    /// <para lang="zh">获得/设置 显示名称</para>
+    /// <para lang="en">Get/Set display text</para>
     /// </summary>
     public string Text { get; set; } = "";
 
     /// <summary>
-    /// 获得/设置 选项值
+    /// <para lang="zh">获得/设置 选项值</para>
+    /// <para lang="en">Get/Set item value</para>
     /// </summary>
     public T Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否选中
+    /// <para lang="zh">获得/设置 是否选中</para>
+    /// <para lang="en">Get/Set whether active</para>
     /// </summary>
     public bool Active { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用
+    /// <para lang="zh">获得/设置 是否禁用</para>
+    /// <para lang="en">Get/Set whether disabled</para>
     /// </summary>
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 分组名称
+    /// <para lang="zh">获得/设置 分组名称</para>
+    /// <para lang="en">Get/Set group name</para>
     /// </summary>
     public string GroupName { get; set; } = "";
 }

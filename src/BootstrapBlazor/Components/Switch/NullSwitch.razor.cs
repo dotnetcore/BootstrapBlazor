@@ -8,12 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 可为空布尔值组件
+/// <para lang="zh">可为空布尔值组件</para>
+/// <para lang="en">Nullable Boolean Component</para>
 /// </summary>
 public partial class NullSwitch
 {
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Class Name</para>
     /// </summary>
     private string? ClassName => CssBuilder.Default("switch")
         .AddClass("is-checked", ComponentValue)
@@ -39,12 +41,14 @@ public partial class NullSwitch
     }
 
     /// <summary>
-    /// 获得 显示文字
+    /// <para lang="zh">获得 显示文字</para>
+    /// <para lang="en">Get Text</para>
     /// </summary>
     private string? Text => ComponentValue ? OnText : OffText;
 
     /// <summary>
-    /// 获得 组件最小宽度
+    /// <para lang="zh">获得 组件最小宽度</para>
+    /// <para lang="en">Get Component Minimum Width</para>
     /// </summary>
     private string? SwitchStyleName => CssBuilder.Default()
         .AddClass($"min-width: {Width}px;", Width > 0)
@@ -52,7 +56,8 @@ public partial class NullSwitch
         .Build();
 
     /// <summary>
-    /// 获得 Style 集合
+    /// <para lang="zh">获得 Style 集合</para>
+    /// <para lang="en">Get Style Name</para>
     /// </summary>
     protected override string? StyleName => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)
@@ -60,45 +65,52 @@ public partial class NullSwitch
         .Build();
 
     /// <summary>
-    /// 获得/设置 开颜色
+    /// <para lang="zh">获得/设置 开颜色</para>
+    /// <para lang="en">Get/Set On Color</para>
     /// </summary>
     [Parameter]
     public Color OnColor { get; set; } = Color.Success;
 
     /// <summary>
-    /// 获得/设置 关颜色
+    /// <para lang="zh">获得/设置 关颜色</para>
+    /// <para lang="en">Get/Set Off Color</para>
     /// </summary>
     [Parameter]
     public Color OffColor { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件宽度 默认 40
+    /// <para lang="zh">获得/设置 组件宽度 默认 40</para>
+    /// <para lang="en">Get/Set Component Width. Default 40</para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 40;
 
     /// <summary>
-    /// 获得/设置 控件高度默认 20px
+    /// <para lang="zh">获得/设置 控件高度默认 20px</para>
+    /// <para lang="en">Get/Set Component Height. Default 20px</para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 20;
 
     /// <summary>
-    /// 获得/设置 组件 On 时内置显示文本
+    /// <para lang="zh">获得/设置 组件 On 时内置显示文本</para>
+    /// <para lang="en">Get/Set On Inner Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OnInnerText { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件 Off 时内置显示文本
+    /// <para lang="zh">获得/设置 组件 Off 时内置显示文本</para>
+    /// <para lang="en">Get/Set Off Inner Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OffInnerText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示内置文字 默认 false 显示
+    /// <para lang="zh">获得/设置 是否显示内置文字 默认 false 显示</para>
+    /// <para lang="en">Get/Set Whether to show inner text. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowInnerText { get; set; }
@@ -108,18 +120,21 @@ public partial class NullSwitch
     private IStringLocalizer<Switch>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定值为空时的默认值 默认为 false
+    /// <para lang="zh">获得/设置 绑定值为空时的默认值 默认为 false</para>
+    /// <para lang="en">Get/Set Default value when null. Default false</para>
     /// </summary>
     [Parameter]
     public bool DefaultValueWhenNull { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件 Value 值
+    /// <para lang="zh">获得/设置 组件 Value 值</para>
+    /// <para lang="en">Get/Set Component Value</para>
     /// </summary>
     protected bool ComponentValue => Value ?? DefaultValueWhenNull;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -130,7 +145,8 @@ public partial class NullSwitch
     }
 
     /// <summary>
-    /// 点击控件时触发此方法
+    /// <para lang="zh">点击控件时触发此方法</para>
+    /// <para lang="en">Method triggered when clicking the control</para>
     /// </summary>
     private async Task OnClick()
     {

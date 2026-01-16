@@ -118,7 +118,8 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// IDispose 方法用于释放资源
+    /// <para lang="zh">IDispose 方法用于释放资源</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     public void Dispose()
     {

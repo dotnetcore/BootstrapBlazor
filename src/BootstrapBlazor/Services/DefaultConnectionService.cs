@@ -8,7 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 当前链接服务
+/// <para lang="zh">当前链接服务</para>
+/// <para lang="en">Current Connection Service</para>
 /// </summary>
 class DefaultConnectionService : IConnectionService, IDisposable
 {

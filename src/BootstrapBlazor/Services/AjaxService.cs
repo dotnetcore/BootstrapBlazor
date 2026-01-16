@@ -8,7 +8,8 @@ using System.Text.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Ajax 服务类
+/// <para lang="zh">Ajax 服务类</para>
+/// <para lang="en">Ajax Service</para>
 /// </summary>
 public class AjaxService(IJSRuntime jSRuntime)
 {
@@ -18,7 +19,8 @@ public class AjaxService(IJSRuntime jSRuntime)
     private Task<JSModule> LoadModule() => jSRuntime.LoadModuleByName("ajax");
 
     /// <summary>
-    /// 调用Ajax方法发送请求
+    /// <para lang="zh">调用Ajax方法发送请求</para>
+    /// <para lang="en">Invoke Ajax method to send request</para>
     /// </summary>
     public async Task<JsonDocument?> InvokeAsync(AjaxOption option, CancellationToken token = default)
     {
@@ -27,7 +29,8 @@ public class AjaxService(IJSRuntime jSRuntime)
     }
 
     /// <summary>
-    /// 调用 Goto 方法跳转其他页面
+    /// <para lang="zh">调用 Goto 方法跳转其他页面</para>
+    /// <para lang="en">Invoke Goto method to navigate to other page</para>
     /// </summary>
     /// <param name="url"></param>
     /// <param name="token"></param>

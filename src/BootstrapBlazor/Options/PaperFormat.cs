@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 纸张规格配置类
+/// <para lang="zh">纸张规格配置类</para>
+/// <para lang="en">Paper format configuration class</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public record PaperFormat

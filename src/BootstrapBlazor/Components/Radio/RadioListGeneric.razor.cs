@@ -6,82 +6,96 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 单选框组合组件
+/// <para lang="zh">单选框组合组件</para>
+/// <para lang="en">RadioListGeneric Component</para>
 /// </summary>
 public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
-    /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
+    /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
+    /// <para lang="en">Get/Set Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
     /// </summary>
     [Parameter]
     public bool IsAutoAddNullItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/>
+    /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
+    /// <para lang="en">Get/Set Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NullItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 项模板
+    /// <para lang="zh">获得/设置 项模板</para>
+    /// <para lang="en">Get/Set Item Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
+    /// <para lang="zh">获得/设置 是否为按钮样式 默认 false</para>
+    /// <para lang="en">Get/Set Whether to be button style. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示边框 默认为 true
+    /// <para lang="zh">获得/设置 是否显示边框 默认为 true</para>
+    /// <para lang="en">Get/Set Whether to show border. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowBorder { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否为竖向排列 默认为 false
+    /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
+    /// <para lang="en">Get/Set Whether to be vertical layout. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色 默认为 None 未设置
+    /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
+    /// <para lang="en">Get/Set Button Color. Default None</para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据源
+    /// <para lang="zh">获得/设置 数据源</para>
+    /// <para lang="en">Get/Set Items</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 SelectedItemChanged 方法
+    /// <para lang="zh">获得/设置 SelectedItemChanged 方法</para>
+    /// <para lang="en">Get/Set OnSelectedChanged Method</para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
+    /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</para>
+    /// <para lang="en">Get/Set Data primary key identification attribute. Default <see cref="KeyAttribute"/><code><br /></code>Used to identify data primary key attribute, if model does not set primary key, you can use <see cref="ModelEqualityComparer"/> parameter to customize judgment <code><br /></code>Data model supports composite primary keys</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
-    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
+    /// <para lang="en">Get/Set Callback method for comparing whether data is the same. Default null</para>
+    /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> property when providing this callback method</para>
     /// </summary>
     [Parameter]
     public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
-    /// 获得 当前选项是否被禁用
+    /// <para lang="zh">获得 当前选项是否被禁用</para>
+    /// <para lang="en">Get Whether current option is disabled</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
@@ -137,7 +151,8 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// 点击选择框方法
+    /// <para lang="zh">点击选择框方法</para>
+    /// <para lang="en">Click Checkbox Method</para>
     /// </summary>
     private async Task OnClick(SelectedItem<TValue> item)
     {

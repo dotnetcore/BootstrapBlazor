@@ -6,30 +6,34 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 限流器泛型类
+/// <para lang="zh">限流器泛型类</para>
+/// <para lang="en">Throttle Dispatcher Generic Class</para>
 /// </summary>
 public class ThrottleDispatcher(ThrottleOptions options)
 {
     private DateTime? _invokeTime;
 
     /// <summary>
-    /// 判断是否等待方法
+    /// <para lang="zh">判断是否等待方法</para>
+    /// <para lang="en">Check if Should Wait Method</para>
     /// </summary>
     /// <returns></returns>
     protected virtual bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value) < options.Interval;
 
     /// <summary>
-    /// 异步限流方法
+    /// <para lang="zh">异步限流方法</para>
+    /// <para lang="en">Throttle Async Method</para>
     /// </summary>
-    /// <param name="function">异步回调方法</param>
-    /// <param name="cancellationToken">取消令牌</param>
+    /// <param name="function"><para lang="zh">异步回调方法</para><para lang="en">Async Callback Function</para></param>
+    /// <param name="cancellationToken"><para lang="zh">取消令牌</para><para lang="en">Cancellation Token</para></param>
     public Task ThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default) => InternalThrottleAsync(function, cancellationToken);
 
     /// <summary>
-    /// 同步限流方法
+    /// <para lang="zh">同步限流方法</para>
+    /// <para lang="en">Throttle Method</para>
     /// </summary>
-    /// <param name="action">同步回调方法</param>
-    /// <param name="token">取消令牌</param>
+    /// <param name="action"><para lang="zh">同步回调方法</para><para lang="en">Sync Callback Action</para></param>
+    /// <param name="token"><para lang="zh">取消令牌</para><para lang="en">Cancellation Token</para></param>
     public void Throttle(Action action, CancellationToken token = default)
     {
         var task = InternalThrottleAsync(() =>
@@ -42,7 +46,8 @@ public class ThrottleDispatcher(ThrottleOptions options)
     }
 
     /// <summary>
-    /// 限流异步方法
+    /// <para lang="zh">限流异步方法</para>
+    /// <para lang="en">Internal Throttle Async Method</para>
     /// </summary>
     /// <param name="function">异步回调方法</param>
     /// <param name="cancellationToken">取消令牌</param>

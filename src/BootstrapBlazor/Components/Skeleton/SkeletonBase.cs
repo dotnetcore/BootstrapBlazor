@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 骨架屏组件基类
+/// <para lang="zh">骨架屏组件基类</para>
+/// <para lang="en">Skeleton Base Component</para>
 /// </summary>
 public abstract class SkeletonBase : BootstrapComponentBase
 {
     /// <summary>
-    /// 获得/设置 是否圆角 默认为 true
+    /// <para lang="zh">获得/设置 是否圆角 默认为 true</para>
+    /// <para lang="en">Get/Set Whether round. Default true</para>
     /// </summary>
     [Parameter]
     public bool Round { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示动画 默认为 true
+    /// <para lang="zh">获得/设置 是否显示动画 默认为 true</para>
+    /// <para lang="en">Get/Set Whether active. Default true</para>
     /// </summary>
     [Parameter]
     public bool Active { get; set; } = true;
 
     /// <summary>
-    /// 获得 样式
+    /// <para lang="zh">获得 样式</para>
+    /// <para lang="en">Get Class Name</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("skeleton-content")
         .AddClass("active", Active)

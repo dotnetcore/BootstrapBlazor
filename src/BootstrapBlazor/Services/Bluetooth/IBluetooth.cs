@@ -6,27 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 蓝牙服务接口
+/// <para lang="zh">蓝牙服务接口</para>
+/// <para lang="en">Bluetooth Service Interface</para>
 /// </summary>
 public interface IBluetooth
 {
     /// <summary>
-    /// 获得 浏览器是否支持蓝牙
+    /// <para lang="zh">获得 浏览器是否支持蓝牙</para>
+    /// <para lang="en">Get if browser supports Bluetooth</para>
     /// </summary>
     bool IsSupport { get; }
 
     /// <summary>
-    /// 获得 是否有蓝牙模块
+    /// <para lang="zh">获得 是否有蓝牙模块</para>
+    /// <para lang="en">Get if Bluetooth module is available</para>
     /// </summary>
     bool IsAvailable { get; }
 
     /// <summary>
-    /// 获得 上次运行错误描述信息
+    /// <para lang="zh">获得 上次运行错误描述信息</para>
+    /// <para lang="en">Get Last Error Message</para>
     /// </summary>
     string? ErrorMessage { get; }
 
     /// <summary>
-    /// 获得所有可用串口
+    /// <para lang="zh">获得所有可用串口</para>
+    /// <para lang="en">Get all available serial ports</para>
     /// </summary>
     /// <returns></returns>
     Task<bool> GetAvailability(CancellationToken token = default);

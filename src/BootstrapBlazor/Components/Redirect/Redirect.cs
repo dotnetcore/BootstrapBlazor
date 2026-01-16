@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">Redirect 组件</para>
+/// <para lang="en">Redirect Component</para>
 /// </summary>
 public class Redirect : ComponentBase
 {
@@ -15,20 +16,26 @@ public class Redirect : ComponentBase
     private NavigationManager? Navigation { get; set; }
 
     /// <summary>
-    /// 获得/设置 登录地址 默认 Account/Login
+    /// <para lang="zh">获得/设置 登录地址 默认 Account/Login</para>
+    /// <para lang="en">Get/Set Login URL. Default Account/Login</para>
     /// </summary>
     [Parameter]
     public string Url { get; set; } = "Account/Login";
 
     /// <summary>
-    /// 获得/设置 是否强制导航 默认 true
+    /// <para lang="zh">获得/设置 是否强制导航 默认 true</para>
+    /// <para lang="en">Get/Set Whether to force load. Default true</para>
     /// </summary>
-    /// <remarks>设置 false 时适用 SPA 程序不会强制页面重新加载</remarks>
+    /// <remarks>
+    /// <para lang="zh">设置 false 时适用 SPA 程序不会强制页面重新加载</para>
+    /// <para lang="en">Applicable to SPA programs when set to false, will not force page reload</para>
+    /// </remarks>
     [Parameter]
     public bool ForceLoad { get; set; } = true;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {

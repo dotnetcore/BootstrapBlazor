@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FontAwesome 图标库扩展方法
+/// <para lang="zh">FontAwesome 图标库扩展方法</para>
+/// <para lang="en">FontAwesome Icon Theme Extensions</para>
 /// </summary>
 public static class IIconThemeExtensions
 {
     /// <summary>
-    /// 通过指定 Key 获得 Icon 字符串方法
+    /// <para lang="zh">通过指定 Key 获得 Icon 字符串方法</para>
+    /// <para lang="en">Get Icon string by key</para>
     /// </summary>
     /// <param name="iconTheme"></param>
     /// <param name="key"></param>

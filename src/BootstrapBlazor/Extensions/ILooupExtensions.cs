@@ -6,19 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <see cref="ILookup"/> 扩展方法
+/// <para lang="zh"><see cref="ILookup"/> 扩展方法</para>
+/// <para lang="en"><see cref="ILookup"/> extension methods</para>
 /// </summary>
 public static class ILooupExtensions
 {
     /// <summary>
-    /// 判断当前 <see cref="ILookup"/> 实例是否配置 Lookup 数据
+    /// <para lang="zh">判断当前 <see cref="ILookup"/> 实例是否配置 Lookup 数据</para>
+    /// <para lang="en">Determine whether the current <see cref="ILookup"/> instance is configured with Lookup data</para>
     /// </summary>
     /// <param name="lookup"></param>
     /// <returns></returns>
     public static bool IsLookup(this ILookup lookup) => lookup.Lookup != null || !string.IsNullOrEmpty(lookup.LookupServiceKey);
 
     /// <summary>
-    /// 获得 ILookupService 实例
+    /// <para lang="zh">获得 ILookupService 实例</para>
+    /// <para lang="en">Get ILookupService instance</para>
     /// </summary>
     /// <param name="lookup"></param>
     /// <param name="service"></param>
@@ -36,7 +39,8 @@ public static class ILooupExtensions
     public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookup lookup, ILookupService service, string? key, object? data) => lookup.Lookup ?? await lookup.GetLookupService(service).GetItemsAsync(key, data);
 
     /// <summary>
-    /// 根据指定键值获取 Lookup 集合扩展方法，先调用同步方法，如果返回 null 则调用异步方法
+    /// <para lang="zh">根据指定键值获取 Lookup 集合扩展方法，先调用同步方法，如果返回 null 则调用异步方法</para>
+    /// <para lang="en">Get Lookup collection extension method based on specified key value, call synchronous method first, if return null then call asynchronous method</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="key"></param>

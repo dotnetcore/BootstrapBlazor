@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DefaultBluetoothService 实现类
+/// <para lang="zh">DefaultBluetoothService 实现类</para>
+/// <para lang="en">DefaultBluetoothService Implementation Class</para>
 /// </summary>
 sealed class DefaultBluetoothService : IBluetoothService
 {
@@ -35,7 +36,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     public string? ErrorMessage { get; private set; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="module"></param>
     /// <param name="clientId"></param>
@@ -86,7 +88,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

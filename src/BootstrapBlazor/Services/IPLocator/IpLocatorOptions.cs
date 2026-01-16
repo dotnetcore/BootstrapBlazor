@@ -6,22 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IpLocator 配置类
+/// <para lang="zh">IpLocator 配置类</para>
+/// <para lang="en">IpLocator Options</para>
 /// </summary>
 public class IpLocatorOptions
 {
     /// <summary>
-    /// 获得/设置 定位器名称 内置支持 BaiduIpLocatorProvider BaiduIpLocatorProviderV2
+    /// <para lang="zh">获得/设置 定位器名称 内置支持 BaiduIpLocatorProvider BaiduIpLocatorProviderV2</para>
+    /// <para lang="en">Get/Set Locator Name, built-in support for BaiduIpLocatorProvider, BaiduIpLocatorProviderV2</para>
     /// </summary>
     public string? ProviderName { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启缓存降低请求频率 默认 true 缓存
+    /// <para lang="zh">获得/设置 是否开启缓存降低请求频率 默认 true 缓存</para>
+    /// <para lang="en">Get/Set Enable Cache to reduce request frequency, default true</para>
     /// </summary>
     public bool EnableCache { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 滑动过期时间 默认 5 分钟
+    /// <para lang="zh">获得/设置 滑动过期时间 默认 5 分钟</para>
+    /// <para lang="en">Get/Set Sliding Expiration, default 5 minutes</para>
     /// </summary>
     public TimeSpan SlidingExpiration { get; set; } = TimeSpan.FromMinutes(5);
 }

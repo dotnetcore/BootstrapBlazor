@@ -8,12 +8,14 @@ using Microsoft.Extensions.Configuration;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BlazorConfigureFromConfigurationOptions 配置实现类
+/// <para lang="zh">BlazorConfigureFromConfigurationOptions 配置实现类</para>
+/// <para lang="en">BlazorConfigureFromConfigurationOptions configuration implementation class</para>
 /// </summary>
 public class ConfigureOptions<TOption> : ConfigureFromConfigurationOptions<TOption> where TOption : class
 {
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="config"></param>
     public ConfigureOptions(IConfiguration config)

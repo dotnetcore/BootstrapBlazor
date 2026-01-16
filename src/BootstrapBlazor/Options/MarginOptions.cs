@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 页面边距选项
+/// <para lang="zh">页面边距选项</para>
+/// <para lang="en">Page margin options</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public record MarginOptions

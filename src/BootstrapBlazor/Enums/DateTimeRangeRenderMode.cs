@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTimeRangeRenderMode 组件视图显示模式
+/// <para lang="zh">DateTimeRangeRenderMode 组件视图显示模式</para>
+/// <para lang="en">DateTimeRangeRenderMode Enum</para>
 /// </summary>
 public enum DateTimeRangeRenderMode
 {

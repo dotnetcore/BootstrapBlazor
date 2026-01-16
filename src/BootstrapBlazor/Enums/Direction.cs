@@ -8,7 +8,8 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 下拉框枚举类
+/// <para lang="zh">下拉框枚举类</para>
+/// <para lang="en">Dropdown Direction Enum</para>
 /// </summary>
 public enum Direction
 {

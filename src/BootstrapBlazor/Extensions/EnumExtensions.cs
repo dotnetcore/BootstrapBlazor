@@ -9,19 +9,22 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 枚举类型扩展方法
+/// <para lang="zh">枚举类型扩展方法</para>
+/// <para lang="en">Enum Extensions</para>
 /// </summary>
 public static class EnumExtensions
 {
     /// <summary>
-    /// 获取 DescriptionAttribute 标签方法
+    /// <para lang="zh">获取 DescriptionAttribute 标签方法</para>
+    /// <para lang="en">Get DescriptionAttribute method</para>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
     public static string ToDescriptionString<TEnum>(this TEnum val) where TEnum : Enum => typeof(TEnum).ToDescriptionString(val.ToString());
 
     /// <summary>
-    /// 通过字段名称获取 DescriptionAttribute 标签值
+    /// <para lang="zh">通过字段名称获取 DescriptionAttribute 标签值</para>
+    /// <para lang="en">Get DescriptionAttribute value by field name</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="fieldName"></param>
@@ -39,7 +42,8 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// 通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值
+    /// <para lang="zh">通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值</para>
+    /// <para lang="en">Get DisplayAttribute/DescriptionAttribute value by field name</para>
     /// </summary>
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="enum"></param>
@@ -96,7 +100,8 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// 判断类型是否为枚举类型
+    /// <para lang="zh">判断类型是否为枚举类型</para>
+    /// <para lang="en">Determine whether the type is an enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
@@ -112,14 +117,16 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// 判断类型是否为 Flag 枚举类型
+    /// <para lang="zh">判断类型是否为 Flag 枚举类型</para>
+    /// <para lang="en">Determine whether the type is a Flag enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
     public static bool IsFlagEnum(this Type? type) => type != null && IsEnum(type) && type.GetCustomAttribute<FlagsAttribute>() != null;
 
     /// <summary>
-    /// 将 <see cref="IEnumerable{T}"/> 集合转换为 Flag 枚举值
+    /// <para lang="zh">将 <see cref="IEnumerable{T}"/> 集合转换为 Flag 枚举值</para>
+    /// <para lang="en">Convert <see cref="IEnumerable{T}"/> collection to Flag enumeration value</para>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="type"></param>

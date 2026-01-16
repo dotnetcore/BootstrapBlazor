@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 默认 Html to Pdf 实现 
+/// <para lang="zh">默认 Html to Pdf 实现 </para>
+/// <para lang="en">Default Html to Pdf Implementation</para>
 /// </summary>
 class DefaultHtml2PdfService : IHtml2Pdf
 {

@@ -8,31 +8,36 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件实现类
+/// <para lang="zh">Select 组件实现类</para>
+/// <para lang="en">Select Component Implementation Class</para>
 /// </summary>
 [CascadingTypeParameter(nameof(TItem))]
 public partial class SelectObject<TItem>
 {
     /// <summary>
-    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
+    /// <para lang="en">Get/Set Color. Default Color.None</para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示组件右侧扩展箭头 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示组件右侧扩展箭头 默认 true 显示</para>
+    /// <para lang="en">Get/Set Whether to show the component right extension arrow. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowAppendArrow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值
+    /// <para lang="zh">获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值</para>
+    /// <para lang="en">Get/Set Dropdown Min Width. Default null (use style default)</para>
     /// </summary>
     [Parameter]
     public int? DropdownMinWidth { get; set; }
 
     /// <summary>
-    /// 获得 显示文字回调方法 默认 null
+    /// <para lang="zh">获得 显示文字回调方法 默认 null</para>
+    /// <para lang="en">Get Display Text Callback Method. Default null</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -40,27 +45,31 @@ public partial class SelectObject<TItem>
     public Func<TItem, string?>? GetTextCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// <para lang="zh">获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up</para>
+    /// <para lang="en">Get/Set Dropdown Icon. Default fa-solid fa-angle-up</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可清除 默认 false
+    /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
+    /// <para lang="en">Get/Set Whether clearable. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
+    /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
+    /// <para lang="en">Get/Set Clear Icon. Default fa-solid fa-angle-up</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉列表内容模板
+    /// <para lang="zh">获得/设置 下拉列表内容模板</para>
+    /// <para lang="en">Get/Set Dropdown Content Template</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -68,14 +77,16 @@ public partial class SelectObject<TItem>
     public RenderFragment<ISelectObjectContext<TItem>>? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 IIconTheme 服务实例
+    /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
+    /// <para lang="en">Get/Set IIconTheme Service Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
     protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Class Name</para>
     /// </summary>
     private string? ClassName => CssBuilder.Default("select select-object dropdown")
         .AddClass("disabled", IsDisabled)
@@ -84,7 +95,8 @@ public partial class SelectObject<TItem>
         .Build();
 
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Input Class Name</para>
     /// </summary>
     private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
@@ -95,7 +107,8 @@ public partial class SelectObject<TItem>
         .Build();
 
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Append Class Name</para>
     /// </summary>
     private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
@@ -110,25 +123,29 @@ public partial class SelectObject<TItem>
         .Build();
 
     /// <summary>
-    /// 获得 PlaceHolder 属性
+    /// <para lang="zh">获得 PlaceHolder 属性</para>
+    /// <para lang="en">Get PlaceHolder Attribute</para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗高度 默认 486px;
+    /// <para lang="zh">获得/设置 弹窗高度 默认 486px;</para>
+    /// <para lang="en">Get/Set Dropdown Height. Default 486px</para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;
 
     /// <summary>
-    /// 获得/设置 Value 显示模板 默认 null
+    /// <para lang="zh">获得/设置 Value 显示模板 默认 null</para>
+    /// <para lang="en">Get/Set Value Display Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
 
     /// <summary>
-    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
+    /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
+    /// <para lang="en">Get/Set OnClear Callback Method. Default null</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
@@ -138,13 +155,15 @@ public partial class SelectObject<TItem>
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得 input 组件 Id 方法
+    /// <para lang="zh">获得 input 组件 Id 方法</para>
+    /// <para lang="en">Get input Component Id Method</para>
     /// </summary>
     /// <returns></returns>
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
-    /// 获得/设置 内部 Input 组件 Id
+    /// <para lang="zh">获得/设置 内部 Input 组件 Id</para>
+    /// <para lang="en">Get/Set Internal Input Component Id</para>
     /// </summary>
     private string InputId => $"{Id}_input";
 
@@ -164,7 +183,8 @@ public partial class SelectObject<TItem>
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet Method</para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -183,13 +203,15 @@ public partial class SelectObject<TItem>
     private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
-    /// 获得 Text 显示文字
+    /// <para lang="zh">获得 Text 显示文字</para>
+    /// <para lang="en">Get Display Text</para>
     /// </summary>
     /// <returns></returns>
     private string? GetText() => GetTextCallback(Value);
 
     /// <summary>
-    /// 关闭当前弹窗方法
+    /// <para lang="zh">关闭当前弹窗方法</para>
+    /// <para lang="en">Close Current Dropdown Method</para>
     /// </summary>
     /// <returns></returns>
     public Task CloseAsync() => InvokeVoidAsync("close", Id);

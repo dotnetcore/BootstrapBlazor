@@ -6,30 +6,35 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 语音识别波形图组件
+/// <para lang="zh">语音识别波形图组件</para>
+/// <para lang="en">Speech Recognition Waveform Component</para>
 /// </summary>
 public partial class SpeechWave : IDisposable
 {
     /// <summary>
-    /// 获得/设置 是否显示波形图 默认 false
+    /// <para lang="zh">获得/设置 是否显示波形图 默认 false</para>
+    /// <para lang="en">Get/Set Whether to show waveform. Default false</para>
     /// </summary>
     [Parameter]
     public bool Show { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示已用时长 默认 true
+    /// <para lang="zh">获得/设置 是否显示已用时长 默认 true</para>
+    /// <para lang="en">Get/Set Whether to show used time. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowUsedTime { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 倒计时结束时回调委托
+    /// <para lang="zh">获得/设置 倒计时结束时回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate when countdown ends</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTimeout { get; set; }
 
     /// <summary>
-    /// 获得/设置 总时长 默认 60 000 毫秒
+    /// <para lang="zh">获得/设置 总时长 默认 60 000 毫秒</para>
+    /// <para lang="en">Get/Set Total Time. Default 60000 ms</para>
     /// </summary>
     [Parameter]
     public int TotalTime { get; set; } = 60 * 1000;

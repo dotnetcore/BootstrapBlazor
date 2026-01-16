@@ -8,7 +8,8 @@ namespace BootstrapBlazor.Components;
 static class ConsoleMessageItemExtensions
 {
     /// <summary>
-    /// 渲染消息方法
+    /// <para lang="zh">渲染消息方法</para>
+    /// <para lang="en">Render Message</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>

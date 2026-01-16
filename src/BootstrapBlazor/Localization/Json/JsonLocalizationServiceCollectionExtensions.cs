@@ -9,19 +9,22 @@ using Microsoft.Extensions.Localization;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// 多语言支持注入服务扩展类
+/// <para lang="zh">多语言支持注入服务扩展类</para>
+/// <para lang="en">Multi-language support injection service extension class</para>
 /// </summary>
 internal static class JsonLocalizationServiceCollectionExtensions
 {
     /// <summary>
-    /// 注入 Json 格式多语言服务
+    /// <para lang="zh">注入 Json 格式多语言服务</para>
+    /// <para lang="en">Inject Json format multi-language service</para>
     /// </summary>
-    /// <param name="services">IServiceCollection 实例</param>
-    /// <param name="localizationConfigure">JsonLocalizationOptions 配置回调方法</param>
+    /// <param name="services"><para lang="zh">IServiceCollection 实例</para><para lang="en">IServiceCollection instance</para></param>
+    /// <param name="localizationConfigure"><para lang="zh">JsonLocalizationOptions 配置回调方法</para><para lang="en">JsonLocalizationOptions configuration callback method</para></param>
     /// <returns></returns>
     public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
-        // 防止被 AddLocalization 覆盖掉
+        // <para lang="zh">防止被 AddLocalization 覆盖掉</para>
+        // <para lang="en">Prevent being overwritten by AddLocalization</para>
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
         services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         services.TryAddTransient<IStringLocalizer, StringLocalizer>();

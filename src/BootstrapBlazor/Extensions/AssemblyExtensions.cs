@@ -10,7 +10,8 @@ namespace BootstrapBlazor.Components;
 static class AssemblyExtensions
 {
     /// <summary>
-    /// 获得唯一类型名称方法
+    /// <para lang="zh">获得唯一类型名称方法</para>
+    /// <para lang="en">Get Unique Type Name</para>
     /// </summary>
     /// <param name="assembly"></param>
     /// <returns></returns>

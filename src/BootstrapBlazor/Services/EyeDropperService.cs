@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// EyeDropper 服务用于屏幕吸色
+/// <para lang="zh">EyeDropper 服务用于屏幕吸色</para>
+/// <para lang="en">EyeDropper Service for screen color picking</para>
 /// </summary>
 public class EyeDropperService(IJSRuntime jSRuntime)
 {
@@ -14,7 +15,8 @@ public class EyeDropperService(IJSRuntime jSRuntime)
     private JSModule? _module = null;
 
     /// <summary>
-    /// 全屏方法，已经全屏时再次调用后退出全屏
+    /// <para lang="zh">全屏方法，已经全屏时再次调用后退出全屏</para>
+    /// <para lang="en">Fullscreen method, exit fullscreen if called again when already in fullscreen</para>
     /// </summary>
     /// <returns></returns>
     public async Task<string?> PickAsync(CancellationToken token = default)

@@ -9,7 +9,8 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BluetoothRequestOptions 参数类
+/// <para lang="zh">BluetoothRequestOptions 参数类</para>
+/// <para lang="en">BluetoothRequestOptions Parameter Class</para>
 /// </summary>
 public class BluetoothRequestOptions
 {
@@ -45,7 +46,8 @@ public class BluetoothRequestOptions
     public bool AcceptAllDevices { get; set; }
 
     /// <summary>
-    /// 获得所有蓝牙服务
+    /// <para lang="zh">获得所有蓝牙服务</para>
+    /// <para lang="en">Get All Bluetooth Services</para>
     /// </summary>
     /// <returns></returns>
     public static List<string> GetAllServices() => typeof(BluetoothServicesEnum).GetEnumNames().Select(i =>

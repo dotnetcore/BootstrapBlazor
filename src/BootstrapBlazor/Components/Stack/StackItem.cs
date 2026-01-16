@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Stack Item 组件
+/// <para lang="zh">Stack Item 组件</para>
+/// <para lang="en">Stack Item Component</para>
 /// </summary>
 public class StackItem : BootstrapComponentBase, IDisposable
 {
@@ -16,19 +17,22 @@ public class StackItem : BootstrapComponentBase, IDisposable
     private Stack? Stack { get; set; }
 
     /// <summary>
-    /// 获得/设置 内容
+    /// <para lang="zh">获得/设置 内容</para>
+    /// <para lang="en">Get/Set Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动充满 默认 false
+    /// <para lang="zh">获得/设置 是否自动充满 默认 false</para>
+    /// <para lang="en">Get/Set Is Fill. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsFill { get; set; }
 
     /// <summary>
-    /// 获得/设置 垂直布局模式 默认 StackAlignItems.Stretch
+    /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
+    /// <para lang="en">Get/Set Align Self. Default StackAlignItems.Stretch</para>
     /// </summary>
     [Parameter]
     public StackAlignItems AlignSelf { get; set; }
@@ -56,7 +60,8 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 销毁资源
+    /// <para lang="zh">销毁资源</para>
+    /// <para lang="en">Dispose</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -68,7 +73,8 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 销毁资源
+    /// <para lang="zh">销毁资源</para>
+    /// <para lang="en">Dispose</para>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     public void Dispose()

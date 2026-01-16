@@ -8,12 +8,14 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 颜色枚举类型
+/// <para lang="zh">颜色枚举类型</para>
+/// <para lang="en">Color Enum</para>
 /// </summary>
 public enum Color
 {
     /// <summary>
-    /// 无颜色
+    /// <para lang="zh">无颜色</para>
+    /// <para lang="en">None</para>
     /// </summary>
     [Description("none")]
     None,

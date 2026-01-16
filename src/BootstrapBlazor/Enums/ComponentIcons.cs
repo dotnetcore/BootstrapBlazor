@@ -6,42 +6,50 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 组件内置图标枚举
+/// <para lang="zh">组件内置图标枚举</para>
+/// <para lang="en">Component Built-in Icons Enum</para>
 /// </summary>
 public enum ComponentIcons
 {
     /// <summary>
-    /// AnchorLink 组件 Icon 属性图标
+    /// <para lang="zh">AnchorLink 组件 Icon 属性图标</para>
+    /// <para lang="en">AnchorLink Component Icon</para>
     /// </summary>
     AnchorLinkIcon,
 
     /// <summary>
-    /// Avatar 组件 Icon 属性图标
+    /// <para lang="zh">Avatar 组件 Icon 属性图标</para>
+    /// <para lang="en">Avatar Component Icon</para>
     /// </summary>
     AvatarIcon,
 
     /// <summary>
-    /// AvatarUpload 组件 DeleteIcon 属性图标
+    /// <para lang="zh">AvatarUpload 组件 DeleteIcon 属性图标</para>
+    /// <para lang="en">AvatarUpload Component Delete Icon</para>
     /// </summary>
     AvatarUploadDeleteIcon,
 
     /// <summary>
-    /// AvatarUpload 组件 LoadingIcon 属性图标
+    /// <para lang="zh">AvatarUpload 组件 LoadingIcon 属性图标</para>
+    /// <para lang="en">AvatarUpload Component Loading Icon</para>
     /// </summary>
     AvatarUploadLoadingIcon,
 
     /// <summary>
-    /// AvatarUpload 组件 AddIcon 属性图标
+    /// <para lang="zh">AvatarUpload 组件 AddIcon 属性图标</para>
+    /// <para lang="en">AvatarUpload Component Add Icon</para>
     /// </summary>
     AvatarUploadAddIcon,
 
     /// <summary>
-    /// AvatarUpload 组件 ValidStatusIcon 属性图标
+    /// <para lang="zh">AvatarUpload 组件 ValidStatusIcon 属性图标</para>
+    /// <para lang="en">AvatarUpload Component Valid Status Icon</para>
     /// </summary>
     AvatarUploadValidStatusIcon,
 
     /// <summary>
-    /// AvatarUpload 组件 InvalidStatusIcon 属性图标
+    /// <para lang="zh">AvatarUpload 组件 InvalidStatusIcon 属性图标</para>
+    /// <para lang="en">AvatarUpload Component Invalid Status Icon</para>
     /// </summary>
     AvatarUploadInvalidStatusIcon,
 
@@ -56,822 +64,986 @@ public enum ComponentIcons
     AutoFillIcon,
 
     /// <summary>
-    /// ButtonUpload 组件 BrowserButtonIcon 属性图标
+    /// <para lang="zh">ButtonUpload 组件 BrowserButtonIcon 属性图标</para>
+    /// <para lang="en">ButtonUpload Component Browser Button Icon</para>
     /// </summary>
     ButtonUploadBrowserButtonIcon,
 
     /// <summary>
-    /// Camera 组件 PlayIcon 属性图标
+    /// <para lang="zh">Camera 组件 PlayIcon 属性图标</para>
+    /// <para lang="en">Camera Component Play Icon</para>
     /// </summary>
     CameraPlayIcon,
 
     /// <summary>
-    /// Camera 组件 StopIcon 属性图标
+    /// <para lang="zh">Camera 组件 StopIcon 属性图标</para>
+    /// <para lang="en">Camera Component Stop Icon</para>
     /// </summary>
     CameraStopIcon,
 
     /// <summary>
-    /// Camera 组件 PhotoIcon 属性图标
+    /// <para lang="zh">Camera 组件 PhotoIcon 属性图标</para>
+    /// <para lang="en">Camera Component Photo Icon</para>
     /// </summary>
     CameraPhotoIcon,
 
     /// <summary>
-    /// Card 组件 CollapseIcon 属性图标
+    /// <para lang="zh">Card 组件 CollapseIcon 属性图标</para>
+    /// <para lang="en">Card Component Collapse Icon</para>
     /// </summary>
     CardCollapseIcon,
 
     /// <summary>
-    /// CardUpload 组件 AddIcon 图标
+    /// <para lang="zh">CardUpload 组件 AddIcon 图标</para>
+    /// <para lang="en">CardUpload Component Add Icon</para>
     /// </summary>
     CardUploadAddIcon,
 
     /// <summary>
-    /// CardUpload 组件 StatusIcon 图标
+    /// <para lang="zh">CardUpload 组件 StatusIcon 图标</para>
+    /// <para lang="en">CardUpload Component Status Icon</para>
     /// </summary>
     CardUploadStatusIcon,
 
     /// <summary>
-    /// CardUpload 组件 RemoveIcon 图标
+    /// <para lang="zh">CardUpload 组件 RemoveIcon 图标</para>
+    /// <para lang="en">CardUpload Component Remove Icon</para>
     /// </summary>
     CardUploadRemoveIcon,
 
     /// <summary>
-    /// CardUpload 组件 ZoomIcon 图标
+    /// <para lang="zh">CardUpload 组件 ZoomIcon 图标</para>
+    /// <para lang="en">CardUpload Component Zoom Icon</para>
     /// </summary>
     CardUploadZoomIcon,
 
     /// <summary>
-    /// ButtonUpload 组件 LoadingIcon 属性图标
+    /// <para lang="zh">ButtonUpload 组件 LoadingIcon 属性图标</para>
+    /// <para lang="en">ButtonUpload Component Loading Icon</para>
     /// </summary>
     UploadLoadingIcon,
 
     /// <summary>
-    /// ButtonUpload 组件 FailedInvalidIcon 属性图标
+    /// <para lang="zh">ButtonUpload 组件 FailedInvalidIcon 属性图标</para>
+    /// <para lang="en">ButtonUpload Component Failed Invalid Icon</para>
     /// </summary>
     UploadInvalidStatusIcon,
 
     /// <summary>
-    /// ButtonUpload 组件 FailedValidIcon 属性图标
+    /// <para lang="zh">ButtonUpload 组件 FailedValidIcon 属性图标</para>
+    /// <para lang="en">ButtonUpload Component Failed Valid Icon</para>
     /// </summary>
     UploadValidStatusIcon,
 
     /// <summary>
-    /// Upload 组件 CancelIcon 图标
+    /// <para lang="zh">Upload 组件 CancelIcon 图标</para>
+    /// <para lang="en">Upload Component Cancel Icon</para>
     /// </summary>
     UploadCancelIcon,
 
     /// <summary>
-    /// CardUpload 组件 DeleteIcon 图标
+    /// <para lang="zh">CardUpload 组件 DeleteIcon 图标</para>
+    /// <para lang="en">CardUpload Component Delete Icon</para>
     /// </summary>
     UploadDeleteIcon,
 
     /// <summary>
-    /// CardUpload 组件 DownloadIcon 图标
+    /// <para lang="zh">CardUpload 组件 DownloadIcon 图标</para>
+    /// <para lang="en">CardUpload Component Download Icon</para>
     /// </summary>
     UploadDownloadIcon,
 
     /// <summary>
-    /// Upload 组件 UploadIcon 图标
+    /// <para lang="zh">Upload 组件 UploadIcon 图标</para>
+    /// <para lang="en">Upload Component Upload Icon</para>
     /// </summary>
     DropUploadIcon,
 
     /// <summary>
-    /// Cascader 组件 Icon 属性图标
+    /// <para lang="zh">Cascader 组件 Icon 属性图标</para>
+    /// <para lang="en">Cascader Component Icon</para>
     /// </summary>
     CascaderIcon,
 
     /// <summary>
-    /// Cascader 组件 SubMenuIcon 属性图标
+    /// <para lang="zh">Cascader 组件 SubMenuIcon 属性图标</para>
+    /// <para lang="en">Cascader Component SubMenu Icon</para>
     /// </summary>
     CascaderSubMenuIcon,
 
     /// <summary>
-    /// Console 组件 ClearButtonIcon 属性图标
+    /// <para lang="zh">Console 组件 ClearButtonIcon 属性图标</para>
+    /// <para lang="en">Console Component Clear Button Icon</para>
     /// </summary>
     ConsoleClearButtonIcon,
 
     /// <summary>
-    /// Button 组件 LoadingIcon 属性图标
+    /// <para lang="zh">Button 组件 LoadingIcon 属性图标</para>
+    /// <para lang="en">Button Component Loading Icon</para>
     /// </summary>
     ButtonLoadingIcon,
 
     /// <summary>
-    /// Captcha 组件 RefreshIcon 属性图标
+    /// <para lang="zh">Captcha 组件 RefreshIcon 属性图标</para>
+    /// <para lang="en">Captcha Component Refresh Icon</para>
     /// </summary>
     CaptchaRefreshIcon,
 
     /// <summary>
-    /// Captcha 组件 BarIcon 属性图标
+    /// <para lang="zh">Captcha 组件 BarIcon 属性图标</para>
+    /// <para lang="en">Captcha Component Bar Icon</para>
     /// </summary>
     CaptchaBarIcon,
 
     /// <summary>
-    /// Carousel 组件 PreviousIcon 属性图标
+    /// <para lang="zh">Carousel 组件 PreviousIcon 属性图标</para>
+    /// <para lang="en">Carousel Component Previous Icon</para>
     /// </summary>
     CarouselPreviousIcon,
 
     /// <summary>
-    /// Carousel 组件 NextIcon 属性图标
+    /// <para lang="zh">Carousel 组件 NextIcon 属性图标</para>
+    /// <para lang="en">Carousel Component Next Icon</para>
     /// </summary>
     CarouselNextIcon,
 
     /// <summary>
-    /// DateTimeBody 组件 上一年属性图标
+    /// <para lang="zh">DateTimeBody 组件 上一年属性图标</para>
+    /// <para lang="en">DateTimeBody Component Previous Year Icon</para>
     /// </summary>
     DatePickBodyPreviousYearIcon,
 
     /// <summary>
-    /// DateTimeBody 组件 上一月属性图标
+    /// <para lang="zh">DateTimeBody 组件 上一月属性图标</para>
+    /// <para lang="en">DateTimeBody Component Previous Month Icon</para>
     /// </summary>
     DatePickBodyPreviousMonthIcon,
 
     /// <summary>
-    /// DateTimeBody 组件 下一月属性图标
+    /// <para lang="zh">DateTimeBody 组件 下一月属性图标</para>
+    /// <para lang="en">DateTimeBody Component Next Month Icon</para>
     /// </summary>
     DatePickBodyNextMonthIcon,
 
     /// <summary>
-    /// DateTimeBody 组件 下一年属性图标
+    /// <para lang="zh">DateTimeBody 组件 下一年属性图标</para>
+    /// <para lang="en">DateTimeBody Component Next Year Icon</para>
     /// </summary>
     DatePickBodyNextYearIcon,
 
     /// <summary>
-    /// DateTimePicker 组件 Icon 属性图标
+    /// <para lang="zh">DateTimePicker 组件 Icon 属性图标</para>
+    /// <para lang="en">DateTimePicker Component Icon</para>
     /// </summary>
     DateTimePickerIcon,
 
     /// <summary>
-    /// Dialog 组件 CloseButtonIcon 属性图标
+    /// <para lang="zh">Dialog 组件 CloseButtonIcon 属性图标</para>
+    /// <para lang="en">Dialog Component Close Button Icon</para>
     /// </summary>
     DialogCloseButtonIcon,
 
     /// <summary>
-    /// Dialog 组件 SaveButtonIcon 属性图标
+    /// <para lang="zh">Dialog 组件 SaveButtonIcon 属性图标</para>
+    /// <para lang="en">Dialog Component Save Button Icon</para>
     /// </summary>
     DialogSaveButtonIcon,
 
     /// <summary>
-    /// Dialog 组件 MaximizeIcon 属性图标
+    /// <para lang="zh">Dialog 组件 MaximizeIcon 属性图标</para>
+    /// <para lang="en">Dialog Component Maximize Icon</para>
     /// </summary>
     DialogMaximizeWindowIcon,
 
     /// <summary>
-    /// Dialog 组件 MaximizeIcon 属性图标
+    /// <para lang="zh">Dialog 组件 MaximizeIcon 属性图标</para>
+    /// <para lang="en">Dialog Component Maximize Icon</para>
     /// </summary>
     DialogRestoreWindowIcon,
 
     /// <summary>
-    /// ResultDialog 组件 YesIcon 属性图标
+    /// <para lang="zh">ResultDialog 组件 YesIcon 属性图标</para>
+    /// <para lang="en">ResultDialog Component Yes Icon</para>
     /// </summary>
     ResultDialogYesIcon,
 
     /// <summary>
-    /// ResultDialog 组件 NoIcon 属性图标
+    /// <para lang="zh">ResultDialog 组件 NoIcon 属性图标</para>
+    /// <para lang="en">ResultDialog Component No Icon</para>
     /// </summary>
     ResultDialogNoIcon,
 
     /// <summary>
-    /// ResultDialog 组件 CloseIcon 属性图标
+    /// <para lang="zh">ResultDialog 组件 CloseIcon 属性图标</para>
+    /// <para lang="en">ResultDialog Component Close Icon</para>
     /// </summary>
     ResultDialogCloseIcon,
 
     /// <summary>
-    /// SearchDialog 组件 ClearIcon 属性图标
+    /// <para lang="zh">SearchDialog 组件 ClearIcon 属性图标</para>
+    /// <para lang="en">SearchDialog Component Clear Icon</para>
     /// </summary>
     SearchDialogClearIcon,
 
     /// <summary>
-    /// SearchDialog 组件 SearchIcon 属性图标
+    /// <para lang="zh">SearchDialog 组件 SearchIcon 属性图标</para>
+    /// <para lang="en">SearchDialog Component Search Icon</para>
     /// </summary>
     SearchDialogSearchIcon,
 
     /// <summary>
-    /// TimePickerCell 组件 UpIcon 属性图标
+    /// <para lang="zh">TimePickerCell 组件 UpIcon 属性图标</para>
+    /// <para lang="en">TimePickerCell Component Up Icon</para>
     /// </summary>
     TimePickerCellUpIcon,
 
     /// <summary>
-    /// TimePickerCell 组件 DownIcon 属性图标
+    /// <para lang="zh">TimePickerCell 组件 DownIcon 属性图标</para>
+    /// <para lang="en">TimePickerCell Component Down Icon</para>
     /// </summary>
     TimePickerCellDownIcon,
 
     /// <summary>
-    /// DateTimeRange 组件 Icon 属性图标
+    /// <para lang="zh">DateTimeRange 组件 Icon 属性图标</para>
+    /// <para lang="en">DateTimeRange Component Icon</para>
     /// </summary>
     DateTimeRangeIcon,
 
     /// <summary>
-    /// DateTimeRange 组件 ClearIcon 属性图标
+    /// <para lang="zh">DateTimeRange 组件 ClearIcon 属性图标</para>
+    /// <para lang="en">DateTimeRange Component Clear Icon</para>
     /// </summary>
     DateTimeRangeClearIcon,
 
     /// <summary>
-    /// FilterButton 组件 FilterIcon 图标
+    /// <para lang="zh">FilterButton 组件 FilterIcon 图标</para>
+    /// <para lang="en">FilterButton Component Filter Icon</para>
     /// </summary>
     FilterButtonFilterIcon,
 
     /// <summary>
-    /// FilterButton 组件 ClearIcon 图标
+    /// <para lang="zh">FilterButton 组件 ClearIcon 图标</para>
+    /// <para lang="en">FilterButton Component Clear Icon</para>
     /// </summary>
     FilterButtonClearIcon,
 
     /// <summary>
-    /// SideMenu 组件 DropdownIcon 图标
+    /// <para lang="zh">SideMenu 组件 DropdownIcon 图标</para>
+    /// <para lang="en">SideMenu Component Dropdown Icon</para>
     /// </summary>
     SideMenuDropdownIcon,
 
     /// <summary>
-    /// TopMenu 组件 DropdownIcon 图标
+    /// <para lang="zh">TopMenu 组件 DropdownIcon 图标</para>
+    /// <para lang="en">TopMenu Component Dropdown Icon</para>
     /// </summary>
     TopMenuDropdownIcon,
 
     /// <summary>
-    /// MenuLink 组件 ArrowIcon 图标
+    /// <para lang="zh">MenuLink 组件 ArrowIcon 图标</para>
+    /// <para lang="en">MenuLink Component Arrow Icon</para>
     /// </summary>
     MenuLinkArrowIcon,
 
     /// <summary>
-    /// TableFilter 组件 PlusIcon 图标
+    /// <para lang="zh">TableFilter 组件 PlusIcon 图标</para>
+    /// <para lang="en">TableFilter Component Plus Icon</para>
     /// </summary>
     TableFilterPlusIcon,
 
     /// <summary>
-    /// TableFilter 组件 MinusIcon 图标
+    /// <para lang="zh">TableFilter 组件 MinusIcon 图标</para>
+    /// <para lang="en">TableFilter Component Minus Icon</para>
     /// </summary>
     TableFilterMinusIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 PreviousIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 PreviousIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Previous Icon</para>
     /// </summary>
     ImagePreviewPreviousIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 NextIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 NextIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Next Icon</para>
     /// </summary>
     ImagePreviewNextIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 MinusIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 MinusIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Minus Icon</para>
     /// </summary>
     ImagePreviewMinusIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 PlusIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 PlusIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Plus Icon</para>
     /// </summary>
     ImagePreviewPlusIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 RotateLeftIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 RotateLeftIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Rotate Left Icon</para>
     /// </summary>
     ImagePreviewRotateLeftIcon,
 
     /// <summary>
-    /// ImagePreviewer 组件 RotateRightIcon 图标
+    /// <para lang="zh">ImagePreviewer 组件 RotateRightIcon 图标</para>
+    /// <para lang="en">ImagePreviewer Component Rotate Right Icon</para>
     /// </summary>
     ImagePreviewRotateRightIcon,
 
     /// <summary>
-    /// ImageViewer 组件 FileIcon 图标
+    /// <para lang="zh">ImageViewer 组件 FileIcon 图标</para>
+    /// <para lang="en">ImageViewer Component File Icon</para>
     /// </summary>
     ImageViewerFileIcon,
 
     /// <summary>
-    /// InputNumber 组件 MinusIcon 图标
+    /// <para lang="zh">InputNumber 组件 MinusIcon 图标</para>
+    /// <para lang="en">InputNumber Component Minus Icon</para>
     /// </summary>
     InputNumberMinusIcon,
 
     /// <summary>
-    /// InputNumber 组件 PlusIcon 图标
+    /// <para lang="zh">InputNumber 组件 PlusIcon 图标</para>
+    /// <para lang="en">InputNumber Component Plus Icon</para>
     /// </summary>
     InputNumberPlusIcon,
 
     /// <summary>
-    /// InputUpload 组件 BrowserIcon 图标
+    /// <para lang="zh">InputUpload 组件 BrowserIcon 图标</para>
+    /// <para lang="en">InputUpload Component Browser Icon</para>
     /// </summary>
     InputUploadBrowserButtonIcon,
 
     /// <summary>
-    /// InputUpload 组件 BrowserIcon 图标
+    /// <para lang="zh">InputUpload 组件 BrowserIcon 图标</para>
+    /// <para lang="en">InputUpload Component Browser Icon</para>
     /// </summary>
     InputUploadDeleteButtonIcon,
 
     /// <summary>
-    /// Layout 组件 MenuBarIcon 图标
+    /// <para lang="zh">Layout 组件 MenuBarIcon 图标</para>
+    /// <para lang="en">Layout Component MenuBar Icon</para>
     /// </summary>
     LayoutMenuBarIcon,
 
     /// <summary>
-    /// LogoutLink 组件 Icon 图标
+    /// <para lang="zh">LogoutLink 组件 Icon 图标</para>
+    /// <para lang="en">LogoutLink Component Icon</para>
     /// </summary>
     LogoutLinkIcon,
 
     /// <summary>
-    /// Button 组件 LoadingIcon 图标
+    /// <para lang="zh">Button 组件 LoadingIcon 图标</para>
+    /// <para lang="en">Button Component Loading Icon</para>
     /// </summary>
     LoadingIcon,
 
     /// <summary>
-    /// GoTop 组件 Icon 图标
+    /// <para lang="zh">GoTop 组件 Icon 图标</para>
+    /// <para lang="en">GoTop Component Icon</para>
     /// </summary>
     GoTopIcon,
 
     /// <summary>
-    /// Pagination 组件 PrevPageIcon 图标
+    /// <para lang="zh">Pagination 组件 PrevPageIcon 图标</para>
+    /// <para lang="en">Pagination Component Prev Page Icon</para>
     /// </summary>
     PaginationPrevPageIcon,
 
     /// <summary>
-    /// Pagination 组件 NextPageIcon 图标
+    /// <para lang="zh">Pagination 组件 NextPageIcon 图标</para>
+    /// <para lang="en">Pagination Component Next Page Icon</para>
     /// </summary>
     PaginationNextPageIcon,
 
     /// <summary>
-    /// Pagination 组件 PrevEllipsisPageIcon 图标
+    /// <para lang="zh">Pagination 组件 PrevEllipsisPageIcon 图标</para>
+    /// <para lang="en">Pagination Component Prev Ellipsis Page Icon</para>
     /// </summary>
     PaginationPrevEllipsisPageIcon,
 
     /// <summary>
-    /// Pagination 组件 NextEllipsisPageIcon 图标
+    /// <para lang="zh">Pagination 组件 NextEllipsisPageIcon 图标</para>
+    /// <para lang="en">Pagination Component Next Ellipsis Page Icon</para>
     /// </summary>
     PaginationNextEllipsisPageIcon,
 
     /// <summary>
-    /// PopConfirmButton 组件 ConfirmIcon 图标
+    /// <para lang="zh">PopConfirmButton 组件 ConfirmIcon 图标</para>
+    /// <para lang="en">PopConfirmButton Component Confirm Icon</para>
     /// </summary>
     PopConfirmButtonConfirmIcon,
 
     /// <summary>
-    /// PopConfirmButton 组件弹窗中 CloseButtonIcon 图标
+    /// <para lang="zh">PopConfirmButton 组件弹窗中 CloseButtonIcon 图标</para>
+    /// <para lang="en">PopConfirmButton Component Dialog Close Button Icon</para>
     /// </summary>
     PopConfirmButtonContentCloseButtonIcon,
 
     /// <summary>
-    /// PopConfirmButton 组件弹窗中 ConfirmButtonIcon 图标
+    /// <para lang="zh">PopConfirmButton 组件弹窗中 ConfirmButtonIcon 图标</para>
+    /// <para lang="en">PopConfirmButton Component Dialog Confirm Button Icon</para>
     /// </summary>
     PopConfirmButtonContentConfirmButtonIcon,
 
     /// <summary>
-    /// Rate 组件 StarIcon 图标
+    /// <para lang="zh">Rate 组件 StarIcon 图标</para>
+    /// <para lang="en">Rate Component Star Icon</para>
     /// </summary>
     RateStarIcon,
 
     /// <summary>
-    /// Rate 组件 UnStarIcon 图标
+    /// <para lang="zh">Rate 组件 UnStarIcon 图标</para>
+    /// <para lang="en">Rate Component UnStar Icon</para>
     /// </summary>
     RateUnStarIcon,
 
     /// <summary>
-    /// RibbonTab 组件 ArrowUpIcon 图标
+    /// <para lang="zh">RibbonTab 组件 ArrowUpIcon 图标</para>
+    /// <para lang="en">RibbonTab Component Arrow Up Icon</para>
     /// </summary>
     RibbonTabArrowUpIcon,
 
     /// <summary>
-    /// RibbonTab 组件 ArrowDownIcon 图标
+    /// <para lang="zh">RibbonTab 组件 ArrowDownIcon 图标</para>
+    /// <para lang="en">RibbonTab Component Arrow Down Icon</para>
     /// </summary>
     RibbonTabArrowDownIcon,
 
     /// <summary>
-    /// RibbonTab 组件 ArrowPinIcon 图标
+    /// <para lang="zh">RibbonTab 组件 ArrowPinIcon 图标</para>
+    /// <para lang="en">RibbonTab Component Arrow Pin Icon</para>
     /// </summary>
     RibbonTabArrowPinIcon,
 
     /// <summary>
-    /// MultiSelect 组件 DropdownIcon 图标
+    /// <para lang="zh">MultiSelect 组件 DropdownIcon 图标</para>
+    /// <para lang="en">MultiSelect Component Dropdown Icon</para>
     /// </summary>
     MultiSelectDropdownIcon,
 
     /// <summary>
-    /// MultiSelect 组件 CloseButtonIcon 图标
+    /// <para lang="zh">MultiSelect 组件 CloseButtonIcon 图标</para>
+    /// <para lang="en">MultiSelect Component Close Button Icon</para>
     /// </summary>
     MultiSelectCloseIcon,
 
     /// <summary>
-    /// MultiSelect 组件 ClearIcon 图标
+    /// <para lang="zh">MultiSelect 组件 ClearIcon 图标</para>
+    /// <para lang="en">MultiSelect Component Clear Icon</para>
     /// </summary>
     MultiSelectClearIcon,
 
     /// <summary>
-    /// SelectTree 组件 DropdownIcon 图标
+    /// <para lang="zh">SelectTree 组件 DropdownIcon 图标</para>
+    /// <para lang="en">SelectTree Component Dropdown Icon</para>
     /// </summary>
     SelectTreeDropdownIcon,
 
     /// <summary>
-    /// Step 组件 Icon 图标
+    /// <para lang="zh">Step 组件 Icon 图标</para>
+    /// <para lang="en">Step Component Icon</para>
     /// </summary>
     StepIcon,
 
     /// <summary>
-    /// Step 组件 ErrorIcon 图标
+    /// <para lang="zh">Step 组件 ErrorIcon 图标</para>
+    /// <para lang="en">Step Component Error Icon</para>
     /// </summary>
     StepErrorIcon,
 
     /// <summary>
-    /// Table 组件 ColumnToolboxIcon 属性图标
+    /// <para lang="zh">Table 组件 ColumnToolboxIcon 属性图标</para>
+    /// <para lang="en">Table Component Column Toolbox Icon</para>
     /// </summary>
     TableColumnToolboxIcon,
 
     /// <summary>
-    /// Table 组件 SortIconAsc 属性图标
+    /// <para lang="zh">Table 组件 SortIconAsc 属性图标</para>
+    /// <para lang="en">Table Component Sort Icon Asc</para>
     /// </summary>
     TableSortIconAsc,
 
     /// <summary>
-    /// Table 组件 SortDesc 属性图标
+    /// <para lang="zh">Table 组件 SortDesc 属性图标</para>
+    /// <para lang="en">Table Component Sort Desc</para>
     /// </summary>
     TableSortDesc,
 
     /// <summary>
-    /// Table 组件 SortIcon 属性图标
+    /// <para lang="zh">Table 组件 SortIcon 属性图标</para>
+    /// <para lang="en">Table Component Sort Icon</para>
     /// </summary>
     TableSortIcon,
 
     /// <summary>
-    /// Table 组件 FilterIcon 属性图标
+    /// <para lang="zh">Table 组件 FilterIcon 属性图标</para>
+    /// <para lang="en">Table Component Filter Icon</para>
     /// </summary>
     TableFilterIcon,
 
     /// <summary>
-    /// Table 组件 ExportButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 ExportButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Export Button Icon</para>
     /// </summary>
     TableExportButtonIcon,
 
     /// <summary>
-    /// Search 组件 ClearButtonIcon 属性图标
+    /// <para lang="zh">Search 组件 ClearButtonIcon 属性图标</para>
+    /// <para lang="en">Search Component Clear Button Icon</para>
     /// </summary>
     SearchClearButtonIcon,
 
     /// <summary>
-    /// Search 组件 SearchButtonIcon 属性图标
+    /// <para lang="zh">Search 组件 SearchButtonIcon 属性图标</para>
+    /// <para lang="en">Search Component Search Button Icon</para>
     /// </summary>
     SearchButtonIcon,
 
     /// <summary>
-    /// Search 组件 SearchButtonLoadingIcon 属性图标
+    /// <para lang="zh">Search 组件 SearchButtonLoadingIcon 属性图标</para>
+    /// <para lang="en">Search Component Search Button Loading Icon</para>
     /// </summary>
     SearchButtonLoadingIcon,
 
     /// <summary>
-    /// Select 组件 DropdownIcon 属性图标
+    /// <para lang="zh">Select 组件 DropdownIcon 属性图标</para>
+    /// <para lang="en">Select Component Dropdown Icon</para>
     /// </summary>
     SelectDropdownIcon,
 
     /// <summary>
-    /// Select 组件 ClearIcon 属性图标
+    /// <para lang="zh">Select 组件 ClearIcon 属性图标</para>
+    /// <para lang="en">Select Component Clear Icon</para>
     /// </summary>
     SelectClearIcon,
 
     /// <summary>
-    /// Select 组件 SearchIcon 属性图标
+    /// <para lang="zh">Select 组件 SearchIcon 属性图标</para>
+    /// <para lang="en">Select Component Search Icon</para>
     /// </summary>
     SelectSearchIcon,
 
     /// <summary>
-    /// FullScreenButton 组件 Icon 属性图标
+    /// <para lang="zh">FullScreenButton 组件 Icon 属性图标</para>
+    /// <para lang="en">FullScreenButton Component Icon</para>
     /// </summary>
     FullScreenButtonIcon,
 
     /// <summary>
-    /// FullScreenButton 组件 FullScreenExitButtonIcon 属性图标
+    /// <para lang="zh">FullScreenButton 组件 FullScreenExitButtonIcon 属性图标</para>
+    /// <para lang="en">FullScreenButton Component FullScreenExitButton Icon</para>
     /// </summary>
     FullScreenExitButtonIcon,
 
     /// <summary>
-    /// Print 组件 ButtonIcon 属性图标
+    /// <para lang="zh">Print 组件 ButtonIcon 属性图标</para>
+    /// <para lang="en">Print Component Button Icon</para>
     /// </summary>
     PrintButtonIcon,
 
     /// <summary>
-    /// SweetAlertBody 组件 CloseButtonIcon 属性图标
+    /// <para lang="zh">SweetAlertBody 组件 CloseButtonIcon 属性图标</para>
+    /// <para lang="en">SweetAlertBody Component Close Button Icon</para>
     /// </summary>
     SweetAlertCloseIcon,
 
     /// <summary>
-    /// SweetAlertBody 组件 SweetAlertConfirmIcon 属性图标
+    /// <para lang="zh">SweetAlertBody 组件 SweetAlertConfirmIcon 属性图标</para>
+    /// <para lang="en">SweetAlertBody Component SweetAlertConfirm Icon</para>
     /// </summary>
     SweetAlertConfirmIcon,
 
     /// <summary>
-    /// Table 组件 AddButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 AddButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Add Button Icon</para>
     /// </summary>
     TableAddButtonIcon,
 
     /// <summary>
-    /// Table 组件 EditButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 EditButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Edit Button Icon</para>
     /// </summary>
     TableEditButtonIcon,
 
     /// <summary>
-    /// Table 组件 MoreButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 MoreButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component More Button Icon</para>
     /// </summary>
     TableMoreButtonIcon,
 
     /// <summary>
-    /// Table 组件 DeleteButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 DeleteButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Delete Button Icon</para>
     /// </summary>
     TableDeleteButtonIcon,
 
     /// <summary>
-    /// Table 组件 RefreshButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 RefreshButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Refresh Button Icon</para>
     /// </summary>
     TableRefreshButtonIcon,
 
     /// <summary>
-    /// Table 组件 CardViewButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 CardViewButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component CardView Button Icon</para>
     /// </summary>
     TableCardViewButtonIcon,
 
     /// <summary>
-    /// Table 组件 ColumnListButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 ColumnListButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component ColumnList Button Icon</para>
     /// </summary>
     TableColumnListButtonIcon,
 
     /// <summary>
-    /// Table 组件 ExportExcelIcon 属性图标
+    /// <para lang="zh">Table 组件 ExportExcelIcon 属性图标</para>
+    /// <para lang="en">Table Component Export Excel Icon</para>
     /// </summary>
     TableExportExcelIcon,
 
     /// <summary>
-    /// Table 组件 ExportCsvIcon 属性图标
+    /// <para lang="zh">Table 组件 ExportCsvIcon 属性图标</para>
+    /// <para lang="en">Table Component Export Csv Icon</para>
     /// </summary>
     TableExportCsvIcon,
 
     /// <summary>
-    /// Table 组件 ExportPdfIcon 属性图标
+    /// <para lang="zh">Table 组件 ExportPdfIcon 属性图标</para>
+    /// <para lang="en">Table Component Export Pdf Icon</para>
     /// </summary>
     TableExportPdfIcon,
 
     /// <summary>
-    /// Table 组件 SearchButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 SearchButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Search Button Icon</para>
     /// </summary>
     TableSearchButtonIcon,
 
     /// <summary>
-    /// Table 组件 ResetSearchButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 ResetSearchButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Reset Search Button Icon</para>
     /// </summary>
     TableResetSearchButtonIcon,
 
     /// <summary>
-    /// Table 组件 CloseButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 CloseButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Close Button Icon</para>
     /// </summary>
     TableCloseButtonIcon,
 
     /// <summary>
-    /// Table 组件 SaveButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 SaveButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Save Button Icon</para>
     /// </summary>
     TableSaveButtonIcon,
 
     /// <summary>
-    /// Table 组件 AdvanceButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 AdvanceButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Advance Button Icon</para>
     /// </summary>
     TableAdvanceButtonIcon,
 
     /// <summary>
-    /// Table 组件 CancelButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 CancelButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Cancel Button Icon</para>
     /// </summary>
     TableCancelButtonIcon,
 
     /// <summary>
-    /// Table 组件 TreeNodeLoadingIcon 属性图标
+    /// <para lang="zh">Table 组件 TreeNodeLoadingIcon 属性图标</para>
+    /// <para lang="en">Table Component TreeNode Loading Icon</para>
     /// </summary>
     TableTreeNodeLoadingIcon,
 
     /// <summary>
-    /// Table 组件 TreeIcon 属性图标
+    /// <para lang="zh">Table 组件 TreeIcon 属性图标</para>
+    /// <para lang="en">Table Component Tree Icon</para>
     /// </summary>
     TableTreeIcon,
 
     /// <summary>
-    /// Table 组件 TreeExpandIcon 属性图标
+    /// <para lang="zh">Table 组件 TreeExpandIcon 属性图标</para>
+    /// <para lang="en">Table Component TreeExpand Icon</para>
     /// </summary>
     TableTreeExpandIcon,
 
     /// <summary>
-    /// Table 组件 CopyColumnButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 CopyColumnButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component CopyColumn Button Icon</para>
     /// </summary>
     TableCopyColumnButtonIcon,
 
     /// <summary>
-    /// Table 组件 GearIcon 属性图标
+    /// <para lang="zh">Table 组件 GearIcon 属性图标</para>
+    /// <para lang="en">Table Component Gear Icon</para>
     /// </summary>
     TableGearIcon,
 
     /// <summary>
-    /// Table 组件 AdvancedSortButtonIcon 属性图标
+    /// <para lang="zh">Table 组件 AdvancedSortButtonIcon 属性图标</para>
+    /// <para lang="en">Table Component Advanced Sort Button Icon</para>
     /// </summary>
     TableAdvancedSortButtonIcon,
 
     /// <summary>
-    /// Tab 组件 PreviousIcon 属性图标
+    /// <para lang="zh">Tab 组件 PreviousIcon 属性图标</para>
+    /// <para lang="en">Tab Component Previous Icon</para>
     /// </summary>
     TabPreviousIcon,
 
     /// <summary>
-    /// Tab 组件 NextIcon 属性图标
+    /// <para lang="zh">Tab 组件 NextIcon 属性图标</para>
+    /// <para lang="en">Tab Component Next Icon</para>
     /// </summary>
     TabNextIcon,
 
     /// <summary>
-    /// ToastOption SuccessIcon 属性图标
+    /// <para lang="zh">ToastOption SuccessIcon 属性图标</para>
+    /// <para lang="en">ToastOption Success Icon</para>
     /// </summary>
     ToastSuccessIcon,
 
     /// <summary>
-    /// ToastOption InformationIcon 属性图标
+    /// <para lang="zh">ToastOption InformationIcon 属性图标</para>
+    /// <para lang="en">ToastOption Information Icon</para>
     /// </summary>
     ToastInformationIcon,
 
     /// <summary>
-    /// ToastOption WarningIcon 属性图标
+    /// <para lang="zh">ToastOption WarningIcon 属性图标</para>
+    /// <para lang="en">ToastOption Warning Icon</para>
     /// </summary>
     ToastWarningIcon,
 
     /// <summary>
-    /// ToastOption ErrorIcon 属性图标
+    /// <para lang="zh">ToastOption ErrorIcon 属性图标</para>
+    /// <para lang="en">ToastOption Error Icon</para>
     /// </summary>
     ToastErrorIcon,
 
     /// <summary>
-    /// Tab 组件 DropdownIcon 属性图标
+    /// <para lang="zh">Tab 组件 DropdownIcon 属性图标</para>
+    /// <para lang="en">Tab Component Dropdown Icon</para>
     /// </summary>
     TabDropdownIcon,
 
     /// <summary>
-    /// Tab 组件 CloseIcon 属性图标
+    /// <para lang="zh">Tab 组件 CloseIcon 属性图标</para>
+    /// <para lang="en">Tab Component Close Icon</para>
     /// </summary>
     TabCloseIcon,
 
     /// <summary>
-    /// Tab 组件 RefreshToolbarButtonIcon 属性图标
+    /// <para lang="zh">Tab 组件 RefreshToolbarButtonIcon 属性图标</para>
+    /// <para lang="en">Tab Component Refresh Toolbar Button Icon</para>
     /// </summary>
     TabRefreshButtonIcon,
 
     /// <summary>
-    /// Tab 组件 TabContextMenuRefreshIcon 属性图标
+    /// <para lang="zh">Tab 组件 TabContextMenuRefreshIcon 属性图标</para>
+    /// <para lang="en">Tab Component ContextMenu Refresh Icon</para>
     /// </summary>
     TabContextMenuRefreshIcon,
 
     /// <summary>
-    /// Tab 组件 TabContextMenuCloseIcon 属性图标
+    /// <para lang="zh">Tab 组件 TabContextMenuCloseIcon 属性图标</para>
+    /// <para lang="en">Tab Component ContextMenu Close Icon</para>
     /// </summary>
     TabContextMenuCloseIcon,
 
     /// <summary>
-    /// Tab 组件 TabContextMenuCloseOtherIcon 属性图标
+    /// <para lang="zh">Tab 组件 TabContextMenuCloseOtherIcon 属性图标</para>
+    /// <para lang="en">Tab Component ContextMenu Close Other Icon</para>
     /// </summary>
     TabContextMenuCloseOtherIcon,
 
     /// <summary>
-    /// Tab 组件 TabContextMenuCloseAllIcon 属性图标
+    /// <para lang="zh">Tab 组件 TabContextMenuCloseAllIcon 属性图标</para>
+    /// <para lang="en">Tab Component ContextMenu Close All Icon</para>
     /// </summary>
     TabContextMenuCloseAllIcon,
 
     /// <summary>
-    /// Tab 组件 TabContextMenuFullScreenIcon 属性图标
+    /// <para lang="zh">Tab 组件 TabContextMenuFullScreenIcon 属性图标</para>
+    /// <para lang="en">Tab Component ContextMenu FullScreen Icon</para>
     /// </summary>
     TabContextMenuFullScreenIcon,
 
     /// <summary>
-    /// Timer 组件 Icon 属性图标
+    /// <para lang="zh">Timer 组件 Icon 属性图标</para>
+    /// <para lang="en">Timer Component Icon</para>
     /// </summary>
     TimerIcon,
 
     /// <summary>
-    /// Transfer 组件 LeftIcon 属性图标
+    /// <para lang="zh">Transfer 组件 LeftIcon 属性图标</para>
+    /// <para lang="en">Transfer Component Left Icon</para>
     /// </summary>
     TransferLeftIcon,
 
     /// <summary>
-    /// Transfer 组件 RightIcon 属性图标
+    /// <para lang="zh">Transfer 组件 RightIcon 属性图标</para>
+    /// <para lang="en">Transfer Component Right Icon</para>
     /// </summary>
     TransferRightIcon,
 
     /// <summary>
-    /// TransferPanel 组件 SearchIcon 属性图标
+    /// <para lang="zh">TransferPanel 组件 SearchIcon 属性图标</para>
+    /// <para lang="en">TransferPanel Component Search Icon</para>
     /// </summary>
     TransferPanelSearchIcon,
 
     /// <summary>
-    /// TreeView 组件 ExpandNodeIcon 属性图标
+    /// <para lang="zh">TreeView 组件 ExpandNodeIcon 属性图标</para>
+    /// <para lang="en">TreeView Component Expand Node Icon</para>
     /// </summary>
     TreeViewExpandNodeIcon,
 
     /// <summary>
-    /// TreeView 组件 SearchIcon 属性图标
+    /// <para lang="zh">TreeView 组件 SearchIcon 属性图标</para>
+    /// <para lang="en">TreeView Component Search Icon</para>
     /// </summary>
     TreeViewSearchIcon,
 
     /// <summary>
-    /// TreeView 组件 ClearSearchIcon 属性图标
+    /// <para lang="zh">TreeView 组件 ClearSearchIcon 属性图标</para>
+    /// <para lang="en">TreeView Component Clear Search Icon</para>
     /// </summary>
     TreeViewResetSearchIcon,
 
     /// <summary>
-    /// TreeView 组件 LoadingIcon 属性图标
+    /// <para lang="zh">TreeView 组件 LoadingIcon 属性图标</para>
+    /// <para lang="en">TreeView Component Loading Icon</para>
     /// </summary>
     TreeViewLoadingIcon,
 
     /// <summary>
-    /// TreeView 组件 ToolbarEditButton 属性图标
+    /// <para lang="zh">TreeView 组件 ToolbarEditButton 属性图标</para>
+    /// <para lang="en">TreeView Component Toolbar Edit Button</para>
     /// </summary>
     TreeViewToolbarEditButton,
 
     /// <summary>
-    /// TreeView 组件 NodeIcon 属性图标
+    /// <para lang="zh">TreeView 组件 NodeIcon 属性图标</para>
+    /// <para lang="en">TreeView Component Node Icon</para>
     /// </summary>
     TreeViewNodeIcon,
 
     /// <summary>
-    /// Upload 组件 Excel 文件类型图标
+    /// <para lang="zh">Upload 组件 Excel 文件类型图标</para>
+    /// <para lang="en">Upload Component Excel File Icon</para>
     /// </summary>
     FileIconExcel,
 
     /// <summary>
-    /// Upload 组件 Word 文件类型图标
+    /// <para lang="zh">Upload 组件 Word 文件类型图标</para>
+    /// <para lang="en">Upload Component Word File Icon</para>
     /// </summary>
     FileIconDocx,
 
     /// <summary>
-    /// Upload 组件 PPT 文件类型图标
+    /// <para lang="zh">Upload 组件 PPT 文件类型图标</para>
+    /// <para lang="en">Upload Component PPT File Icon</para>
     /// </summary>
     FileIconPPT,
 
     /// <summary>
-    /// Upload 组件 音频文件类型图标
+    /// <para lang="zh">Upload 组件 音频文件类型图标</para>
+    /// <para lang="en">Upload Component Audio File Icon</para>
     /// </summary>
     FileIconAudio,
 
     /// <summary>
-    /// Upload 组件 视频文件类型图标
+    /// <para lang="zh">Upload 组件 视频文件类型图标</para>
+    /// <para lang="en">Upload Component Video File Icon</para>
     /// </summary>
     FileIconVideo,
 
     /// <summary>
-    /// Upload 组件 代码文件类型图标
+    /// <para lang="zh">Upload 组件 代码文件类型图标</para>
+    /// <para lang="en">Upload Component Code File Icon</para>
     /// </summary>
     FileIconCode,
 
     /// <summary>
-    /// Upload 组件 PDF 文件类型图标
+    /// <para lang="zh">Upload 组件 PDF 文件类型图标</para>
+    /// <para lang="en">Upload Component PDF File Icon</para>
     /// </summary>
     FileIconPdf,
 
     /// <summary>
-    /// Upload 组件 Zip 文件类型图标
+    /// <para lang="zh">Upload 组件 Zip 文件类型图标</para>
+    /// <para lang="en">Upload Component Zip File Icon</para>
     /// </summary>
     FileIconZip,
 
     /// <summary>
-    /// Upload 组件 文档文件类型图标
+    /// <para lang="zh">Upload 组件 文档文件类型图标</para>
+    /// <para lang="en">Upload Component Document File Icon</para>
     /// </summary>
     FileIconArchive,
 
     /// <summary>
-    /// Upload 组件 Image 文件类型图标
+    /// <para lang="zh">Upload 组件 Image 文件类型图标</para>
+    /// <para lang="en">Upload Component Image File Icon</para>
     /// </summary>
     FileIconImage,
 
     /// <summary>
-    /// Upload 组件 File 文件类型图标
+    /// <para lang="zh">Upload 组件 File 文件类型图标</para>
+    /// <para lang="en">Upload Component File Icon</para>
     /// </summary>
     FileIconFile,
 
     /// <summary>
-    /// QueryBuilder 组件 减少按钮图标
+    /// <para lang="zh">QueryBuilder 组件 减少按钮图标</para>
+    /// <para lang="en">QueryBuilder Component Minus Button Icon</para>
     /// </summary>
     QueryBuilderMinusIcon,
 
     /// <summary>
-    /// QueryBuilder 组件 增加按钮图标
+    /// <para lang="zh">QueryBuilder 组件 增加按钮图标</para>
+    /// <para lang="en">QueryBuilder Component Plus Button Icon</para>
     /// </summary>
     QueryBuilderPlusIcon,
 
     /// <summary>
-    /// QueryBuilder 组件 移除按钮图标
+    /// <para lang="zh">QueryBuilder 组件 移除按钮图标</para>
+    /// <para lang="en">QueryBuilder Component Remove Button Icon</para>
     /// </summary>
     QueryBuilderRemoveIcon,
 
     /// <summary>
-    /// ThemeProvider 组件 自动模式图标
+    /// <para lang="zh">ThemeProvider 组件 自动模式图标</para>
+    /// <para lang="en">ThemeProvider Component Auto Mode Icon</para>
     /// </summary>
     ThemeProviderAutoModeIcon,
 
     /// <summary>
-    /// ThemeProvider 组件 暗黑模式图标
+    /// <para lang="zh">ThemeProvider 组件 暗黑模式图标</para>
+    /// <para lang="en">ThemeProvider Component Dark Mode Icon</para>
     /// </summary>
     ThemeProviderDarkModeIcon,
 
     /// <summary>
-    /// ThemeProvider 组件 明亮模式图标
+    /// <para lang="zh">ThemeProvider 组件 明亮模式图标</para>
+    /// <para lang="en">ThemeProvider Component Light Mode Icon</para>
     /// </summary>
     ThemeProviderLightModeIcon,
 
     /// <summary>
-    /// ThemeProvider 组件 明亮模式图标
+    /// <para lang="zh">ThemeProvider 组件 明亮模式图标</para>
+    /// <para lang="en">ThemeProvider Component Light Mode Icon</para>
     /// </summary>
     ThemeProviderActiveModeIcon,
 
     /// <summary>
-    /// Input 组件 ClearIcon 图标
+    /// <para lang="zh">Input 组件 ClearIcon 图标</para>
+    /// <para lang="en">Input Component Clear Icon</para>
     /// </summary>
     InputClearIcon
 }

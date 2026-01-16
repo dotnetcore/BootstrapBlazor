@@ -6,17 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapServiceBase 基类
+/// <para lang="zh">BootstrapServiceBase 基类</para>
+/// <para lang="en">BootstrapServiceBase Base Class</para>
 /// </summary>
 public abstract class BootstrapServiceBase<TOption>
 {
     /// <summary>
-    /// 获得 回调委托缓存集合
+    /// <para lang="zh">获得 回调委托缓存集合</para>
+    /// <para lang="en">Get Callback Delegate Cache Collection</para>
     /// </summary>
     protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; } = [];
 
     /// <summary>
-    /// 异步回调方法
+    /// <para lang="zh">异步回调方法</para>
+    /// <para lang="en">Async Callback Method</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="component"></param>
@@ -39,7 +42,8 @@ public abstract class BootstrapServiceBase<TOption>
     }
 
     /// <summary>
-    /// 注册弹窗事件
+    /// <para lang="zh">注册弹窗事件</para>
+    /// <para lang="en">Register Dialog Event</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
@@ -49,7 +53,8 @@ public abstract class BootstrapServiceBase<TOption>
     }
 
     /// <summary>
-    /// 注销弹窗事件
+    /// <para lang="zh">注销弹窗事件</para>
+    /// <para lang="en">Unregister Dialog Event</para>
     /// </summary>
     internal void UnRegister(ComponentBase key)
     {

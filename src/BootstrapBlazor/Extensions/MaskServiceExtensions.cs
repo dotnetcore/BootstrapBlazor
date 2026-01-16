@@ -6,12 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MaskService 扩展方法
+/// <para lang="zh">MaskService 扩展方法</para>
+/// <para lang="en">MaskService extension methods</para>
 /// </summary>
 public static class MaskServiceExtensions
 {
+
     /// <summary>
-    /// Show 扩展方法
+    /// <para lang="zh">Show 扩展方法</para>
+    /// <para lang="en">Show extension method</para>
     /// </summary>
     /// <param name="maskService"></param>
     /// <param name="parameters"></param>
@@ -30,8 +33,10 @@ public static class MaskServiceExtensions
         ChildContent = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters).Render()
     }, mask);
 
+
     /// <summary>
-    /// Show 扩展方法
+    /// <para lang="zh">Show 扩展方法</para>
+    /// <para lang="en">Show extension method</para>
     /// </summary>
     /// <param name="maskService"></param>
     /// <param name="type"></param>

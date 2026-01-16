@@ -13,7 +13,8 @@ using System.Resources;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JsonStringLocalizer 实现类
+/// <para lang="zh">JsonStringLocalizer 实现类</para>
+/// <para lang="en">JsonStringLocalizer implementation class</para>
 /// </summary>
 /// <param name="assembly"></param>
 /// <param name="typeName"></param>
@@ -29,7 +30,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private ILogger Logger { get; } = logger;
 
     /// <summary>
-    /// 通过指定键值获取多语言值信息索引
+    /// <para lang="zh">通过指定键值获取多语言值信息索引</para>
+    /// <para lang="en">Get multi-language value info index by specified key</para>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -43,7 +45,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     }
 
     /// <summary>
-    /// 带格式化参数的通过指定键值获取多语言值信息索引
+    /// <para lang="zh">带格式化参数的通过指定键值获取多语言值信息索引</para>
+    /// <para lang="en">Get multi-language value info index by specified key with format arguments</para>
     /// </summary>
     /// <param name="name"></param>
     /// <param name="arguments"></param>
@@ -76,7 +79,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
 
     private string? GetStringFromService(string name)
     {
-        // get string from inject service
+        // <para lang="zh">get string from inject service</para>
+        // <para lang="en">get string from inject service</para>
         string? ret = null;
         if (jsonLocalizationOptions.DisableGetLocalizerFromService == false)
         {
@@ -106,7 +110,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
     private string? GetStringFromJson(string name)
     {
-        // get string from json localization file
+        // <para lang="zh">从 json 本地化文件中获取字符串</para>
+        // <para lang="en">get string from json localization file</para>
         var localizerStrings = MergeResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
         var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
         string? ret = null;
@@ -119,12 +124,14 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
             else
             {
-                // 如果没有找到资源信息则尝试从父类中查找
+                // <para lang="zh">如果没有找到资源信息则尝试从父类中查找</para>
+                // <para lang="en">If resource info not found, try to find from base class</para>
                 ret ??= GetStringFromBaseType(name);
 
                 if (ret is null)
                 {
-                    // 加入缺失资源信息缓存中
+                    // <para lang="zh">加入缺失资源信息缓存中</para>
+                    // <para lang="en">Add to missing resource info cache</para>
                     HandleMissingResourceItem(name);
                 }
             }
@@ -177,7 +184,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private List<LocalizedString>? _allLocalizedStrings;
 
     /// <summary>
-    /// 获取当前语言的所有资源信息
+    /// <para lang="zh">获取当前语言的所有资源信息</para>
+    /// <para lang="en">Get all resource info of current culture</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
@@ -193,7 +201,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
         return _allLocalizedStrings;
 
-        // 1. 从注入服务中获取所有资源信息
+        // <para lang="zh">1. 从注入服务中获取所有资源信息</para>
+        // <para lang="en">1. Get all resource info from injected service</para>
         // get all strings from the other inject service
         IEnumerable<LocalizedString>? GetAllStringsFromService()
         {
@@ -209,7 +218,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             return ret;
         }
 
-        // 2. 从父类 ResourceManagerStringLocalizer 中获取微软格式资源信息
+        // <para lang="zh">2. 从父类 ResourceManagerStringLocalizer 中获取微软格式资源信息</para>
+        // <para lang="en">2. Get Microsoft format resource info from base class ResourceManagerStringLocalizer</para>
         // get all strings from base json localization factory
         IEnumerable<LocalizedString>? GetAllStringsFromBase()
         {
@@ -232,7 +242,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             void CheckMissing() => _ = ret.Any();
         }
 
-        // 3. 从 Json 文件中获取资源信息
+        // <para lang="zh">3. 从 Json 文件中获取资源信息</para>
+        // <para lang="en">3. Get resource info from Json file</para>
         // get all strings from json localization file
         IEnumerable<LocalizedString>? GetAllStringsFromJson() => CacheManager.GetAllStringsByTypeName(Assembly, typeName);
     }

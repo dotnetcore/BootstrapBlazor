@@ -8,18 +8,21 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AffixPosition 枚举
+/// <para lang="zh">AffixPosition 枚举</para>
+/// <para lang="en">AffixPosition Enum</para>
 /// </summary>
 public enum AffixPosition
 {
     /// <summary>
-    /// 固定在顶部
+    /// <para lang="zh">固定在顶部</para>
+    /// <para lang="en">Fixed at the top</para>
     /// </summary>
     [Description("top")]
     Top,
 
     /// <summary>
-    /// 固定在底部
+    /// <para lang="zh">固定在底部</para>
+    /// <para lang="en">Fixed at the bottom</para>
     /// </summary>
     [Description("bottom")]
     Bottom

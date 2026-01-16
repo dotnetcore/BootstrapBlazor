@@ -6,30 +6,35 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Row 组件
+/// <para lang="zh">Row 组件</para>
+/// <para lang="en">Row Component</para>
 /// </summary>
 public partial class Row
 {
     /// <summary>
-    /// 获得/设置 设置一行显示多少个子组件
+    /// <para lang="zh">获得/设置 设置一行显示多少个子组件</para>
+    /// <para lang="en">Get/Set Items per row</para>
     /// </summary>
     [Parameter]
     public ItemsPerRow ItemsPerRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置行格式 默认 Row 布局
+    /// <para lang="zh">获得/设置 设置行格式 默认 Row 布局</para>
+    /// <para lang="en">Get/Set Row Type. Default Row Layout</para>
     /// </summary>
     [Parameter]
     public RowType RowType { get; set; }
 
     /// <summary>
-    /// 获得/设置 子 Row 跨父 Row 列数 默认为 null
+    /// <para lang="zh">获得/设置 子 Row 跨父 Row 列数 默认为 null</para>
+    /// <para lang="en">Get/Set Child Row span parent Row columns. Default null</para>
     /// </summary>
     [Parameter]
     public int? ColSpan { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

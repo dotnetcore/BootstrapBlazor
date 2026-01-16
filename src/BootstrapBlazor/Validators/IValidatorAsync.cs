@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 异步验证组件
+/// <para lang="zh">异步验证组件</para>
+/// <para lang="en">Async validation component</para>
 /// </summary>
 public interface IValidatorAsync : IValidator
 {
     /// <summary>
-    /// 异步验证方法
+    /// <para lang="zh">异步验证方法</para>
+    /// <para lang="en">Async validation method</para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>

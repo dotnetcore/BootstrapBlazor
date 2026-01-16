@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// QueryBuilder 组件
+/// <para lang="zh">QueryBuilder 组件</para>
+/// <para lang="en">QueryBuilder Component</para>
 /// </summary>
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TModel))]
@@ -20,7 +21,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         .Build();
 
     /// <summary>
-    /// 获得/设置 过滤模型 <see cref="FilterKeyValueAction"/> 实例值
+    /// <para lang="zh">获得/设置 过滤模型 <see cref="FilterKeyValueAction"/> 实例值</para>
+    /// <para lang="en">Get/Set Filter Model <see cref="FilterKeyValueAction"/> Value</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -28,61 +30,71 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     public FilterKeyValueAction? Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 Filter 回调方法 支持双向绑定
+    /// <para lang="zh">获得/设置 Filter 回调方法 支持双向绑定</para>
+    /// <para lang="en">Get/Set Filter Callback Method. Supports Two-way Binding</para>
     /// </summary>
     [Parameter]
     public EventCallback<FilterKeyValueAction> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 逻辑运算符
+    /// <para lang="zh">获得/设置 逻辑运算符</para>
+    /// <para lang="en">Get/Set Logic Operator</para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// 获得/设置 模板
+    /// <para lang="zh">获得/设置 模板</para>
+    /// <para lang="en">Get/Set Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Header 区域 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示 Header 区域 默认 true 显示</para>
+    /// <para lang="en">Get/Set Whether to show Header area. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowHeader { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 Header 模板 默认 null
+    /// <para lang="zh">获得/设置 Header 模板 默认 null</para>
+    /// <para lang="en">Get/Set Header Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<FilterKeyValueAction>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加过滤条件图标
+    /// <para lang="zh">获得/设置 增加过滤条件图标</para>
+    /// <para lang="en">Get/Set Add Filter Condition Icon</para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 移除过滤条件图标
+    /// <para lang="zh">获得/设置 移除过滤条件图标</para>
+    /// <para lang="en">Get/Set Remove Filter Condition Icon</para>
     /// </summary>
     [Parameter]
     public string? RemoveIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 减少过滤条件图标
+    /// <para lang="zh">获得/设置 减少过滤条件图标</para>
+    /// <para lang="en">Get/Set Reduce Filter Condition Icon</para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 组合过滤条件文本
+    /// <para lang="zh">获得/设置 组合过滤条件文本</para>
+    /// <para lang="en">Get/Set Group Filter Condition Text</para>
     /// </summary>
     [Parameter]
     public string? GroupText { get; set; }
 
     /// <summary>
-    /// 获得/设置 过滤条件文本
+    /// <para lang="zh">获得/设置 过滤条件文本</para>
+    /// <para lang="en">Get/Set Filter Condition Text</para>
     /// </summary>
     [Parameter]
     public string? ItemText { get; set; }

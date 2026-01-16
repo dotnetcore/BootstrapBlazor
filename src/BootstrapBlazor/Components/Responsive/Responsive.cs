@@ -6,13 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 响应监听 组件
+/// <para lang="zh">响应监听 组件</para>
+/// <para lang="en">Responsive Component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "responsive", JSObjectReference = true)]
 public class Responsive : BootstrapModuleComponentBase
 {
     /// <summary>
-    /// 获得/设置 浏览器断点阈值改变时触发 默认 null
+    /// <para lang="zh">获得/设置 浏览器断点阈值改变时触发 默认 null</para>
+    /// <para lang="en">Get/Set Trigger when browser breakpoint threshold changes. Default null</para>
     /// </summary>
     [Parameter]
     public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
@@ -26,7 +28,8 @@ public class Responsive : BootstrapModuleComponentBase
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnResize));
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke Callback Method</para>
     /// </summary>
     /// <param name="breakPoint"></param>
     /// <returns></returns>

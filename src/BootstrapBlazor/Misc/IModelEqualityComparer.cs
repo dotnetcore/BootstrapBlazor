@@ -6,22 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 模型比较接口
+/// <para lang="zh">模型比较接口</para>
+/// <para lang="en">Model equality comparer interface</para>
 /// </summary>
 public interface IModelEqualityComparer<TItem>
 {
     /// <summary>
-    /// 获得/设置 模型比对回调方法
+    /// <para lang="zh">获得/设置 模型比对回调方法</para>
+    /// <para lang="en">Get/Set model comparison callback method</para>
     /// </summary>
     Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
-    /// 获得/设置 模型键值标签
+    /// <para lang="zh">获得/设置 模型键值标签</para>
+    /// <para lang="en">Get/Set model key attribute</para>
     /// </summary>
     Type CustomKeyAttribute { get; set; }
 
     /// <summary>
-    /// 相等判定方法
+    /// <para lang="zh">相等判定方法</para>
+    /// <para lang="en">Equality determination method</para>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>

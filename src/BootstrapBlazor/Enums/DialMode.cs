@@ -6,17 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DialButton 呈现方式枚举
+/// <para lang="zh">DialButton 呈现方式枚举</para>
+/// <para lang="en">DialButton Render Mode Enum</para>
 /// </summary>
 public enum DialMode
 {
     /// <summary>
-    /// 线性分布
+    /// <para lang="zh">线性分布</para>
+    /// <para lang="en">Linear</para>
     /// </summary>
     Linear,
 
     /// <summary>
-    /// 辐射分布
+    /// <para lang="zh">辐射分布</para>
+    /// <para lang="en">Radial</para>
     /// </summary>
     Radial
 }

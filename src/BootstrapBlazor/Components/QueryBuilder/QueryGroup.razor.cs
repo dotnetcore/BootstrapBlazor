@@ -6,30 +6,35 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// QueryGroup 组件
+/// <para lang="zh">QueryGroup 组件</para>
+/// <para lang="en">QueryGroup Component</para>
 /// </summary>
 public partial class QueryGroup : IDisposable
 {
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 逻辑运算符
+    /// <para lang="zh">获得/设置 逻辑运算符</para>
+    /// <para lang="en">Get/Set Logic Operator</para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// 过滤条件集合
+    /// <para lang="zh">过滤条件集合</para>
+    /// <para lang="en">Filter collection</para>
     /// </summary>
     [CascadingParameter]
     protected List<FilterKeyValueAction>? Filters { get; set; }
 
     /// <summary>
-    /// 过滤条件集合
+    /// <para lang="zh">过滤条件集合</para>
+    /// <para lang="en">Filter collection</para>
     /// </summary>
     protected FilterKeyValueAction _filter = new();
 
@@ -54,7 +59,8 @@ public partial class QueryGroup : IDisposable
     }
 
     /// <summary>
-    /// 释放资源
+    /// <para lang="zh">释放资源</para>
+    /// <para lang="en">Dispose</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -66,7 +72,8 @@ public partial class QueryGroup : IDisposable
     }
 
     /// <summary>
-    /// 释放资源
+    /// <para lang="zh">释放资源</para>
+    /// <para lang="en">Dispose</para>
     /// </summary>
     public void Dispose()
     {

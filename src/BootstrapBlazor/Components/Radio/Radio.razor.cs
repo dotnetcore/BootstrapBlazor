@@ -6,19 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Radio 单选框组件
+/// <para lang="zh">Radio 单选框组件</para>
+/// <para lang="en">Radio Component</para>
 /// </summary>
 [JSModuleNotInherited]
 public partial class Radio<TValue> : Checkbox<TValue>
 {
     /// <summary>
-    /// 获得/设置 点击回调方法
+    /// <para lang="zh">获得/设置 点击回调方法</para>
+    /// <para lang="en">Get/Set Click Callback Method</para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置
+    /// <para lang="zh">获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置</para>
+    /// <para lang="en">Get/Set Radio Group Name. Default null</para>
     /// </summary>
     [Parameter]
     [EditorRequired]

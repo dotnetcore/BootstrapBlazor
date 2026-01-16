@@ -8,12 +8,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IEditorItem 扩展方法
+/// <para lang="zh">IEditorItem 扩展方法</para>
+/// <para lang="en">IEditorItem extension methods</para>
 /// </summary>
 public static class IEditorItemExtensions
 {
     /// <summary>
-    /// 判断当前 IEditorItem 实例是否可以编辑
+    /// <para lang="zh">判断当前 IEditorItem 实例是否可以编辑</para>
+    /// <para lang="en">Determine whether the current IEditorItem instance is editable</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="changedType"></param>
@@ -36,7 +38,8 @@ public static class IEditorItemExtensions
     }
 
     /// <summary>
-    /// 判断当前 IEditorItem 实例是否显示
+    /// <para lang="zh">判断当前 IEditorItem 实例是否显示</para>
+    /// <para lang="en">Determine whether the current IEditorItem instance is visible</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="changedType"></param>
@@ -46,7 +49,8 @@ public static class IEditorItemExtensions
 
     private static bool IsVisible(this IEditorItem item, ItemChangedType changedType)
     {
-        // IEditorItem 无 Visible 属性
+        // <para lang="zh">IEditorItem 无 Visible 属性</para>
+        // <para lang="en">IEditorItem has no Visible property</para>
         bool ret = !item.GetIgnore();
         if (item is ITableColumn col)
         {
@@ -60,7 +64,8 @@ public static class IEditorItemExtensions
     }
 
     /// <summary>
-    /// 判断当前 IEditorItem 示例是否可以编辑
+    /// <para lang="zh">判断当前 IEditorItem 示例是否可以编辑</para>
+    /// <para lang="en">Determine whether the current IEditorItem instance is editable</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="modelType"></param>
@@ -70,7 +75,8 @@ public static class IEditorItemExtensions
     public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
 
     /// <summary>
-    /// 判断模型是否可写
+    /// <para lang="zh">判断模型是否可写</para>
+    /// <para lang="en">Determine whether the model is writable</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="modelType"></param>

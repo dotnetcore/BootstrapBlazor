@@ -6,29 +6,33 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ILookupService 接口
+/// <para lang="zh">ILookupService 接口</para>
+/// <para lang="en">ILookupService Interface</para>
 /// </summary>
 public interface ILookupService
 {
     /// <summary>
-    /// 根据指定键值获取 Lookup 集合方法
+    /// <para lang="zh">根据指定键值获取 Lookup 集合方法</para>
+    /// <para lang="en">Get Lookup Collection by Key Method</para>
     /// </summary>
-    /// <param name="key">获得 Lookup 数据集合键值</param>
+    /// <param name="key"><para lang="zh">获得 Lookup 数据集合键值</para><para lang="en">Lookup Data Key</para></param>
     [Obsolete("已弃用，请使用 data 参数重载方法；Deprecated, please use the data parameter method")]
     [ExcludeFromCodeCoverage]
     IEnumerable<SelectedItem>? GetItemsByKey(string? key);
 
     /// <summary>
-    /// 根据指定键值获取 Lookup 集合方法
+    /// <para lang="zh">根据指定键值获取 Lookup 集合方法</para>
+    /// <para lang="en">Get Lookup Collection by Key Method</para>
     /// </summary>
-    /// <param name="key">获得 Lookup 数据集合键值</param>
-    /// <param name="data">Lookup 键值附加数据</param>
+    /// <param name="key"><para lang="zh">获得 Lookup 数据集合键值</para><para lang="en">Lookup Data Key</para></param>
+    /// <param name="data"><para lang="zh">Lookup 键值附加数据</para><para lang="en">Lookup Key Additional Data</para></param>
     IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data);
 
     /// <summary>
-    /// 根据指定键值获取 Lookup 集合异步方法
+    /// <para lang="zh">根据指定键值获取 Lookup 集合异步方法</para>
+    /// <para lang="en">Get Lookup Collection by Key Async Method</para>
     /// </summary>
-    /// <param name="key">获得 Lookup 数据集合键值</param>
-    /// <param name="data">Lookup 键值附加数据</param>
+    /// <param name="key"><para lang="zh">获得 Lookup 数据集合键值</para><para lang="en">Lookup Data Key</para></param>
+    /// <param name="data"><para lang="zh">Lookup 键值附加数据</para><para lang="en">Lookup Key Additional Data</para></param>
     Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data);
 }

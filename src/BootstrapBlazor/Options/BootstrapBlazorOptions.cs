@@ -147,7 +147,8 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public bool IsMemorialMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="Select{TValue}"/> 等组件是否将 <see cref="IsPopover"/> 参数默认值更改为 true 默认 false
+    /// <para lang="zh">获得/设置 <see cref="Select{TValue}"/> 等组件是否将 <see cref="IsPopover"/> 参数默认值更改为 true 默认 false</para>
+    /// <para lang="en">Get/Set whether the <see cref="IsPopover"/> parameter default value is changed to true for components such as <see cref="Select{TValue}"/> default false</para>
     /// </summary>
     public bool IsPopover { get; set; }
 

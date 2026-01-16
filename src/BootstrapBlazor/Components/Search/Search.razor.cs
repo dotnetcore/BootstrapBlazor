@@ -191,7 +191,8 @@ public partial class Search<TValue>
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         _filterItems ??= [];
 
-        // 这里应该获得初始值
+        // <para lang="zh">这里应该获得初始值</para>
+        // <para lang="en">Should get initial value here</para>
         _displayText = GetDisplayText(Value);
 
         if (Debounce == 0)
@@ -226,7 +227,8 @@ public partial class Search<TValue>
 
     private async Task OnClearClick()
     {
-        // 使用脚本更新 input 值
+        // <para lang="zh">使用脚本更新 input 值</para>
+        // <para lang="en">Update input value using script</para>
         await InvokeVoidAsync("setValue", Id, "");
 
         _displayText = null;
@@ -248,7 +250,8 @@ public partial class Search<TValue>
         CurrentValue = val;
         _displayText = GetDisplayText(val);
 
-        // 使用脚本更新 input 值
+        // <para lang="zh">使用脚本更新 input 值</para>
+        // <para lang="en">Update input value using script</para>
         await InvokeVoidAsync("setValue", Id, _displayText);
 
         if (OnSelectedItemChanged != null)

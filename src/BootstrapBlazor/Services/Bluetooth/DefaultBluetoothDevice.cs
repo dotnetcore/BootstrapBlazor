@@ -8,7 +8,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 蓝牙设备
+/// <para lang="zh">蓝牙设备</para>
+/// <para lang="en">Bluetooth Device</para>
 /// </summary>
 sealed class DefaultBluetoothDevice : IBluetoothDevice
 {
@@ -198,7 +199,8 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

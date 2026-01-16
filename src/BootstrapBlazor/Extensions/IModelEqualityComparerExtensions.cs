@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IModelEqualComparer 扩展方法类
+/// <para lang="zh">IModelEqualComparer 扩展方法类</para>
+/// <para lang="en">IModelEqualComparer extension methods</para>
 /// </summary>
 public static class IModelEqualityComparerExtensions
 {
     /// <summary>
-    /// Equals 扩展方法
+    /// <para lang="zh">Equals 扩展方法</para>
+    /// <para lang="en">Equals extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="comparer"></param>
@@ -42,12 +44,14 @@ public static class IModelEqualityComparerExtensions
             bool ret;
             if (x is IEqualityComparer<TItem> comparer)
             {
-                // 显式调用 IEqualityComparer 接口的 Equals 方法
+                // <para lang="zh">显式调用 IEqualityComparer 接口的 Equals 方法</para>
+                // <para lang="en">Explicitly call the Equals method of the IEqualityComparer interface</para>
                 ret = comparer.Equals(x, y);
             }
             else
             {
-                // 调用 Object 对象的 Equals 方法
+                // <para lang="zh">调用 Object 对象的 Equals 方法</para>
+                // <para lang="en">Call the Equals method of the Object object</para>
                 ret = x.Equals(y);
             }
             return ret;

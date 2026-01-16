@@ -16,7 +16,8 @@ static class BootstrapModuleAutoLoaderAttributeExtensions
         {
             string? path;
 
-            // 通过类名设置路径
+            // <para lang="zh">通过类名设置路径</para>
+            // <para lang="en">Set path by class name</para>
             if (string.IsNullOrEmpty(loader.Path))
             {
                 var moduleName = type.GetTypeModuleName();

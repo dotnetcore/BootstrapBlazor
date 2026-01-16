@@ -8,12 +8,14 @@ namespace BootstrapBlazor.Components;
 internal class SweetContext
 {
     /// <summary>
-    /// 获得/设置 弹窗返回值
+    /// <para lang="zh">获得/设置 弹窗返回值</para>
+    /// <para lang="en">Get/Set Dialog Return Value</para>
     /// </summary>
     public bool Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗任务上下文
+    /// <para lang="zh">获得/设置 弹窗任务上下文</para>
+    /// <para lang="en">Get/Set Dialog Task Context</para>
     /// </summary>
     [NotNull]
     public TaskCompletionSource<bool>? ConfirmTask { get; init; }

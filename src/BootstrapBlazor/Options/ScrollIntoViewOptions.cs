@@ -8,7 +8,8 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ScrollIntoViewOptions 配置类
+/// <para lang="zh">ScrollIntoViewOptions 配置类</para>
+/// <para lang="en">ScrollIntoViewOptions configuration class</para>
 /// </summary>
 public class ScrollIntoViewOptions
 {

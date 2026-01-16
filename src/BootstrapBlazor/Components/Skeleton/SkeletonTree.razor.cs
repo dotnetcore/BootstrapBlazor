@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 树状组件骨架屏组件
+/// <para lang="zh">树状组件骨架屏组件</para>
+/// <para lang="en">SkeletonTree Component</para>
 /// </summary>
 public partial class SkeletonTree
 {
@@ -16,7 +17,8 @@ public partial class SkeletonTree
         .Build();
 
     /// <summary>
-    /// 获得/设置 Loading 图标
+    /// <para lang="zh">获得/设置 Loading 图标</para>
+    /// <para lang="en">Get/Set Loading Icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

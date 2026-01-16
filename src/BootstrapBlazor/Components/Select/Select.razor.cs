@@ -27,8 +27,8 @@ public partial class Select<TValue> : ISelect, ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
-    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// <para lang="zh">获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值</para>
+    /// <para lang="en">Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsUseDefaultItemWhenValueIsNull 参数代替；Deprecated, use the IsUseDefaultItemWhenValueIsNull parameter instead")]
@@ -40,8 +40,8 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// 获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值
-    /// <para>Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
+    /// <para lang="zh">获得/设置 值为 null 时是否使用第一个选项或者标记为 active 的候选项作为默认值</para>
+    /// <para lang="en">Gets or sets a value indicating Whether to use the first option or the candidate marked as active as the default value when the value is null</para>
     /// </summary>
     [Parameter]
     public bool IsUseDefaultItemWhenValueIsNull { get; set; }
@@ -72,15 +72,15 @@ public partial class Select<TValue> : ISelect, ILookup
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
     /// <summary>
-    /// 获取/设置 选中项改变前的回调方法。返回 true 则改变选中项的值；否则选中项的值不变。
-    /// <para>Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.</para>
+    /// <para lang="zh">获取/设置 选中项改变前的回调方法。返回 true 则改变选中项的值；否则选中项的值不变。</para>
+    /// <para lang="en">Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.</para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to show the Swal confirmation popup. Default is false.
-    /// 获得/设置 是否显示 Swal 确认弹窗 默认值 为 false
+    /// <para lang="zh">获得/设置 是否显示 Swal 确认弹窗 默认值 为 false</para>
+    /// <para lang="en">Gets or sets whether to show the Swal confirmation popup. Default is false.</para>
     /// </summary>
     [Parameter]
     public bool ShowSwal { get; set; }
@@ -232,7 +232,8 @@ public partial class Select<TValue> : ISelect, ILookup
 
         Items ??= await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData) ?? [];
 
-        // 内置对枚举类型的支持
+        // <para lang="zh">内置对枚举类型的支持</para>
+        // <para lang="en">Built-in support for enum types</para>
         if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
@@ -249,8 +250,10 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
-        // 有搜索条件时使用原生请求数量
-        // 有总数时请求剩余数量
+        // <para lang="zh">有搜索条件时使用原生请求数量</para>
+        // <para lang="en">Use original request count when there is search condition</para>
+        // <para lang="zh">有总数时请求剩余数量</para>
+        // <para lang="en">Request remaining count when there is total count</para>
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
@@ -364,13 +367,15 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         var ret = true;
 
-        // 自定义回调方法 OnBeforeSelectedItemChange 返回 false 时不修改选中项
+        // <para lang="zh">自定义回调方法 OnBeforeSelectedItemChange 返回 false 时不修改选中项</para>
+        // <para lang="en">Do not modify the selected item when the custom callback method OnBeforeSelectedItemChange returns false</para>
         if (OnBeforeSelectedItemChange != null)
         {
             ret = await OnBeforeSelectedItemChange(item);
         }
 
-        // 如果 ShowSwal 为 true 且 则显示 Swal 确认弹窗，通过确认弹窗返回值决定是否修改选中项
+        // <para lang="zh">如果 ShowSwal 为 true 且 则显示 Swal 确认弹窗，通过确认弹窗返回值决定是否修改选中项</para>
+        // <para lang="en">If ShowSwal is true, show the Swal confirmation popup and decide whether to modify the selected item based on the confirmation popup return value</para>
         if (ret && ShowSwal)
         {
             var option = new SwalOption()
@@ -387,7 +392,8 @@ public partial class Select<TValue> : ISelect, ILookup
             ret = await SwalService.ShowModal(option);
         }
 
-        // 如果 ret 为 true 则修改选中项
+        // <para lang="zh">如果 ret 为 true 则修改选中项</para>
+        // <para lang="en">If ret is true, modify the selected item</para>
         if (ret)
         {
             _defaultVirtualizedItemText = item.Text;
@@ -438,7 +444,8 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (args.Value is string v)
         {
-            // Items 中没有时插入一个 SelectedItem
+            // <para lang="zh">Items 中没有时插入一个 SelectedItem</para>
+            // <para lang="en">Insert a SelectedItem when it is not in Items</para>
             var item = Items.FirstOrDefault(i => i.Text == v);
 
             if (item == null)

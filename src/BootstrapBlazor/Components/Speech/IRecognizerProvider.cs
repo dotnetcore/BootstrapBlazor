@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ISpeechService 服务接口定义
+/// <para lang="zh">ISpeechService 服务接口定义</para>
+/// <para lang="en">ISpeechService Interface Definition</para>
 /// </summary>
 public interface IRecognizerProvider
 {
     /// <summary>
-    /// 识别语音回调方法
+    /// <para lang="zh">识别语音回调方法</para>
+    /// <para lang="en">Recognize Speech Callback Method</para>
     /// </summary>
     /// <returns></returns>
     Task InvokeAsync(RecognizerOption option);

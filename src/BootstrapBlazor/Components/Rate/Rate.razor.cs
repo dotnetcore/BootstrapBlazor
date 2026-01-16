@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Rate 组件
+/// <para lang="zh">Rate 组件</para>
+/// <para lang="en">Rate Component</para>
 /// </summary>
 public partial class Rate
 {
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Style Collection</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("rate")
         .AddClass("text-nowrap", !IsWrap)
@@ -25,7 +27,8 @@ public partial class Rate
         .Build();
 
     /// <summary>
-    /// 判断是否显示部分星级
+    /// <para lang="zh">判断是否显示部分星级</para>
+    /// <para lang="en">Determine whether to show partial stars</para>
     /// </summary>
     /// <param name="i"></param>
     /// <returns></returns>
@@ -36,71 +39,82 @@ public partial class Rate
     private string GetWidthStyle(int i) => $"width: {Math.Round(Value + 1 - i, 2) * 100}%;";
 
     /// <summary>
-    /// 获得/设置 选中图标
+    /// <para lang="zh">获得/设置 选中图标</para>
+    /// <para lang="en">Get/Set Checked Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? StarIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 未选中图标
+    /// <para lang="zh">获得/设置 未选中图标</para>
+    /// <para lang="en">Get/Set Unchecked Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? UnStarIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值
+    /// <para lang="zh">获得/设置 组件值</para>
+    /// <para lang="en">Get/Set Value</para>
     /// </summary>
     [Parameter]
     public double Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用 默认为 false
+    /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
+    /// <para lang="en">Get/Set Whether disabled. Default false</para>
     /// </summary>
     /// <remarks>禁用模式下图标颜色为灰色，不可点击</remarks>
     [Parameter]
     public bool IsDisable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否只读 默认为 false
+    /// <para lang="zh">获得/设置 是否只读 默认为 false</para>
+    /// <para lang="en">Get/Set Whether readonly. Default false</para>
     /// </summary>
     /// <remarks>只读情况下图标为彩色，仅不可点击</remarks>
     [Parameter]
     public bool IsReadonly { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁止换行 默认为 true
+    /// <para lang="zh">获得/设置 是否禁止换行 默认为 true</para>
+    /// <para lang="en">Get/Set Whether to disable wrap. Default true</para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Value 默认为 false
+    /// <para lang="zh">获得/设置 是否显示 Value 默认为 false</para>
+    /// <para lang="en">Get/Set Whether to show Value. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 子项模板
+    /// <para lang="zh">获得/设置 子项模板</para>
+    /// <para lang="en">Get/Set Item Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<double>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值变化时回调委托
+    /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
+    /// <para lang="en">Get/Set Value Changed Callback Delegate</para>
     /// </summary>
     [Parameter]
     public EventCallback<double> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值变化时回调委托
+    /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
+    /// <para lang="en">Get/Set Value Changed Callback Delegate</para>
     /// </summary>
     [Parameter]
     public Func<double, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 最大值 默认 5
+    /// <para lang="zh">获得/设置 最大值 默认 5</para>
+    /// <para lang="en">Get/Set Max Value. Default 5</para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 5;

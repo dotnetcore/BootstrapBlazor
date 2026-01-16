@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenuOptions 配置类
+/// <para lang="zh">ContextMenuOptions 配置类</para>
+/// <para lang="en">ContextMenuOptions configuration class</para>
 /// </summary>
 public class ContextMenuOptions
 {
     /// <summary>
-    /// 获得/设置 移动端触屏右键菜单延时时长 默认 500 毫秒
+    /// <para lang="zh">获得/设置 移动端触屏右键菜单延时时长 默认 500 毫秒</para>
+    /// <para lang="en">Get/Set mobile touch context menu delay duration default 500 ms</para>
     /// </summary>
     public int OnTouchDelay { get; set; } = 500;
 }

@@ -9,7 +9,8 @@ using System.Text;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Css 生成操作类
+/// <para lang="zh">Css 生成操作类</para>
+/// <para lang="en">Css builder class</para>
 /// </summary>
 public class CssBuilder
 {

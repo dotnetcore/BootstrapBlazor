@@ -6,18 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 当前链接服务
+/// <para lang="zh">当前链接服务</para>
+/// <para lang="en">Current Connection Service</para>
 /// </summary>
 public interface IConnectionService
 {
     /// <summary>
-    /// 增加或更新当前 Key
+    /// <para lang="zh">增加或更新当前 Key</para>
+    /// <para lang="en">Add or Update Current Key</para>
     /// </summary>
     /// <param name="client">ClientInfo 实例</param>
     void AddOrUpdate(ClientInfo client);
 
     /// <summary>
-    /// 获得指定 key 的连接信息
+    /// <para lang="zh">获得指定 key 的连接信息</para>
+    /// <para lang="en">Get connection information for specified key</para>
     /// </summary>
     /// <param name="key">键值</param>
     /// <param name="value">连接信息</param>
@@ -25,12 +28,14 @@ public interface IConnectionService
     bool TryGetValue(string key, out ConnectionItem? value);
 
     /// <summary>
-    /// 获得 链接集合
+    /// <para lang="zh">获得 链接集合</para>
+    /// <para lang="en">Get Connections Collection</para>
     /// </summary>
     ICollection<ConnectionItem> Connections { get; }
 
     /// <summary>
-    /// 获得在线连接数
+    /// <para lang="zh">获得在线连接数</para>
+    /// <para lang="en">Get Online Connection Count</para>
     /// </summary>
     long Count { get; }
 }

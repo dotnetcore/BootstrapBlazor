@@ -8,7 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 网络状态服务
+/// <para lang="zh">网络状态服务</para>
+/// <para lang="en">Network State Service</para>
 /// </summary>
 class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
 {
@@ -87,7 +88,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke Callback Method</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

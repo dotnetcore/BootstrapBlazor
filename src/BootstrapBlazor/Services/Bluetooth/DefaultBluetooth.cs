@@ -32,7 +32,8 @@ sealed class DefaultBluetooth : IBluetooth
     private readonly DotNetObjectReference<DefaultBluetooth> _interop;
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     public DefaultBluetooth(IJSRuntime jsRuntime)
@@ -101,7 +102,8 @@ sealed class DefaultBluetooth : IBluetooth
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]
