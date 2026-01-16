@@ -104,13 +104,9 @@ public partial class OtpInput
     /// <param name="val"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task TriggerSetValue(string val)
+    public Task TriggerSetValue(string[] val)
     {
-        var segs = val.Split('|', StringSplitOptions.RemoveEmptyEntries);
-        if (segs.Length == 0 || segs.Length == Digits)
-        {
-            SetValue(string.Join("", segs));
-        }
+        SetValue(string.Join("", val.Select(i => string.IsNullOrEmpty(i) ? " " : i)));
         return Task.CompletedTask;
     }
 }
