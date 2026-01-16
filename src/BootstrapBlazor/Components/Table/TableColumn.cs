@@ -12,8 +12,8 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">表头组件</para>
 /// <para lang="en">表头component</para>
 /// </summary>
-/// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">modelgeneric</para></typeparam>
-/// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">bind字段valuetype</para></typeparam>
+/// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">model generic</para></typeparam>
+/// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">bind value type</para></typeparam>
 public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 {
     /// <summary>
@@ -24,7 +24,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件类型 默认为 null</para>
-    /// <para lang="en">Gets or sets componenttype Default is为 null</para>
+    /// <para lang="en">Gets or sets component type Default is为 null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -100,7 +100,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
-    /// <para lang="en">Gets or sets whetherdisplay标签 Tooltip 多用于标签文字过长导致裁减时使用 Default is null</para>
+    /// <para lang="en">Gets or sets whether  label tooltip Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

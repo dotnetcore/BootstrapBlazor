@@ -395,7 +395,7 @@ public partial class Tab
     public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.默认"/>.</para>
+    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.Default"/>.</para>
     /// <para lang="en">Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>

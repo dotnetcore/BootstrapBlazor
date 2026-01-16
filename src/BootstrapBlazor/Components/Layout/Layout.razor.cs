@@ -28,7 +28,7 @@ public partial class Layout : IHandlerException, ITabHeader
     public Func<string?, string?>? OnTabHeaderTextLocalizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.默认"/>.</para>
+    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.Default"/>.</para>
     /// <para lang="en">Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -184,21 +184,16 @@ public partial class Layout : IHandlerException, ITabHeader
     public RenderFragment? Side { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示分割栏 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show split bar. Default false</para>
-    /// <para lang="zh">仅在 左右布局时有效</para>
-    /// <para lang="en">Effective only in Left-Right Layout</para>
+    /// <para lang="zh">获得/设置 是否显示分割栏 默认 false 不显示 仅在 左右布局时有效</para>
+    /// <para lang="en">Get/Set Whether to show split bar. Default false Effective only in Left-Right Layout</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSplitBar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示分割栏 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show split bar. Default false</para>
-    /// <para lang="zh">仅在 左右布局时有效</para>
-    /// <para lang="en">Effective only in Left-Right Layout</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示分割栏 默认 false 不显示 仅在 左右布局时有效</para>
+    /// <para lang="en">Get/Set Whether to show split bar. Default false Effective only in Left-Right Layout</para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]

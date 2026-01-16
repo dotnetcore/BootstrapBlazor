@@ -14,7 +14,7 @@ public class TreeItem : NodeItem
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示正在加载动画 默认为 false</para>
-    /// <para lang="en">Gets or sets whetherdisplay正在加载动画 Default is为 false</para>
+    /// <para lang="en">Gets or sets whether display loading backdrop Default is false</para>
     /// </summary>
     public bool ShowLoading { get; set; }
 
@@ -55,7 +55,7 @@ public class TreeItem : NodeItem
     /// <returns></returns>
     public IEnumerable<TreeItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
 
-    private static IEnumerable<TreeItem> GetSubItems(List<TreeItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
+    private static IEnumerable<TreeItem> GetSubItems(List<TreeItem> items) => items.SelectMany(i => i.Items.Count > 0 ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
 
     /// <summary>
     /// <para lang="zh">级联设置复选状态</para>
@@ -66,7 +66,7 @@ public class TreeItem : NodeItem
         foreach (var item in Items)
         {
             item.Checked = isChecked;
-            if (item.Items.Any())
+            if (item.Items.Count > 0)
             {
                 item.CascadeSetCheck(isChecked);
             }
@@ -74,9 +74,9 @@ public class TreeItem : NodeItem
     }
 
     ///// <summary>
-    /// <para lang="zh">级联设置展开状态方法</para>
-    /// <para lang="en">级联Sets展开状态方法</para>
-    /// </summary>
+    ///// <para lang="zh">级联设置展开状态方法</para>
+    ///// <para lang="en">级联Sets展开状态方法</para>
+    ///// </summary>
     //public void CollapseOtherNodes()
     //{
     //    if (!string.IsNullOrEmpty(ParentId))

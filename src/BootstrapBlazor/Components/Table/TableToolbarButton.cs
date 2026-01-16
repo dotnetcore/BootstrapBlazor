@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">表格 Toolbar 按钮组件</para>
-/// <para lang="en">表格 Toolbar buttoncomponent</para>
+/// <para lang="en">Table toolbar button component</para>
 /// </summary>
 [JSModuleNotInherited]
 public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
@@ -30,7 +30,7 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮是否被禁用回调方法</para>
-    /// <para lang="en">Gets or sets buttonwhether被禁用callback method</para>
+    /// <para lang="en">Gets or sets button whether disable callback method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
-    /// <para lang="en">Gets or sets whetherdisplay Default is true display</para>
+    /// <para lang="en">Gets or sets whether display this button Default is true display</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

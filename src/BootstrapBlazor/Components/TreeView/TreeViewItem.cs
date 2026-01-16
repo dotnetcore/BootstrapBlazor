@@ -13,7 +13,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示正在加载动画 默认为 false</para>
-    /// <para lang="en">Gets or sets whetherdisplay正在加载动画 Default is为 false</para>
+    /// <para lang="en">Gets or sets whether display loading backdrop Default is为 false</para>
     /// </summary>
     [Obsolete("已弃用；Deprecated")]
     [ExcludeFromCodeCoverage]
@@ -21,7 +21,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否被选中</para>
-    /// <para lang="en">Gets or sets whether被选中</para>
+    /// <para lang="en">Gets or sets checked state</para>
     /// </summary>
     public CheckboxState CheckedState { get; set; }
 
@@ -68,20 +68,4 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     {
         Value = item;
     }
-
-    ///// <summary>
-    /// <para lang="zh">级联设置展开状态方法</para>
-    /// <para lang="en">级联Sets展开状态方法</para>
-    /// </summary>
-    //public void CollapseOtherNodes()
-    //{
-    //    if (!string.IsNullOrEmpty(ParentId))
-    //    {
-    //        var parent = Items.FirstOrDefault(i => i.Id)
-    //        foreach (var node in Parent.Items.Where(p => p.IsExpanded && p != this))
-    //        {
-    //            node.IsExpanded = false;
-    //        }
-    //    }
-    //}
 }
