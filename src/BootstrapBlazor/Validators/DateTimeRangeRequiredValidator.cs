@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">DateTimeRange 验证</para>
-///  <para lang="en">DateTimeRange validation</para>
+/// <para lang="zh">DateTimeRange 验证</para>
+/// <para lang="en">DateTimeRange validation</para>
 /// </summary>
 public class DateTimeRangeRequiredValidator : RequiredValidator
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {

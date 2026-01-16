@@ -8,8 +8,8 @@ namespace BootstrapBlazor.Components;
 class DefaultVideoDevice(IMediaDevices deviceService) : IVideoDevice
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public async Task<List<IMediaDeviceInfo>?> GetDevices()

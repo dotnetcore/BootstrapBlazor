@@ -8,97 +8,97 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Pagination 组件</para>
-///  <para lang="en">Pagination Component</para>
+/// <para lang="zh">Pagination 组件</para>
+/// <para lang="en">Pagination Component</para>
 /// </summary>
 public partial class Pagination
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 页码总数</para>
-    ///  <para lang="en">Get/Set Total Page Count</para>
+    /// <para lang="zh">获得/设置 页码总数</para>
+    /// <para lang="en">Get/Set Total Page Count</para>
     /// </summary>
     protected int InternalPageCount => Math.Max(1, PageCount);
 
     /// <summary>
-    ///  <para lang="zh">获得 组件 样式</para>
-    ///  <para lang="en">Get Component Style</para>
+    /// <para lang="zh">获得 组件 样式</para>
+    /// <para lang="en">Get Component Style</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("nav nav-pages")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得 组件 样式</para>
-    ///  <para lang="en">Get Component Style</para>
+    /// <para lang="zh">获得 组件 样式</para>
+    /// <para lang="en">Get Component Style</para>
     /// </summary>
     protected string? PaginationClassString => CssBuilder.Default("pagination")
         .AddClass($"justify-content-{Alignment.ToDescriptionString()}", Alignment != Alignment.None)
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 开始页码</para>
-    ///  <para lang="en">Get/Set Start Page Index</para>
+    /// <para lang="zh">获得/设置 开始页码</para>
+    /// <para lang="en">Get/Set Start Page Index</para>
     /// </summary>
     protected int StartPageIndex => Math.Max(2, Math.Min(InternalPageCount - MaxPageLinkCount, InternalPageIndex - MaxPageLinkCount / 2));
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 结束页码</para>
-    ///  <para lang="en">Get/Set End Page Index</para>
+    /// <para lang="zh">获得/设置 结束页码</para>
+    /// <para lang="en">Get/Set End Page Index</para>
     /// </summary>
     protected int EndPageIndex => Math.Min(InternalPageCount - 1, StartPageIndex + MaxPageLinkCount - 1);
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 对齐方式 默认 Alignment.Right</para>
-    ///  <para lang="en">Get/Set Alignment. Default Alignment.Right</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 对齐方式 默认 Alignment.Right</para>
+    /// <para lang="en">Get/Set Alignment. Default Alignment.Right</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment Alignment { get; set; } = Alignment.Right;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上一页图标</para>
-    ///  <para lang="en">Get/Set Previous Page Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上一页图标</para>
+    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrevPageIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上一页图标</para>
-    ///  <para lang="en">Get/Set Previous Page Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上一页图标</para>
+    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrevEllipsisPageIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 下一页图标</para>
-    ///  <para lang="en">Get/Set Next Page Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 下一页图标</para>
+    /// <para lang="en">Get/Set Next Page Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NextPageIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上一页图标</para>
-    ///  <para lang="en">Get/Set Previous Page Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上一页图标</para>
+    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NextEllipsisPageIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 当前页码</para>
-    ///  <para lang="en">Get/Set Current Page Index</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 当前页码</para>
+    /// <para lang="en">Get/Set Current Page Index</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int PageIndex { get; set; } = 1;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 页码总数</para>
-    ///  <para lang="en">Get/Set Total Page Count</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 页码总数</para>
+    /// <para lang="en">Get/Set Total Page Count</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
 #if NET6_0_OR_GREATER
@@ -107,17 +107,17 @@ public partial class Pagination
     public int PageCount { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Page up/down 页码数量 默认 5</para>
-    ///  <para lang="en">Get/Set Page up/down link count. Default 5</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Page up/down 页码数量 默认 5</para>
+    /// <para lang="en">Get/Set Page up/down link count. Default 5</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxPageLinkCount { get; set; } = 5;
 
     /// <summary>
-    ///  <para lang="zh">点击页码时回调方法 参数是当前页码</para>
-    ///  <para lang="en">Callback method when page link is clicked. Parameter is current page index</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">点击页码时回调方法 参数是当前页码</para>
+    /// <para lang="en">Callback method when page link is clicked. Parameter is current page index</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<int, Task>? OnPageLinkClick { get; set; }
@@ -127,50 +127,50 @@ public partial class Pagination
     private IStringLocalizer<Pagination>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示分页信息文字 默认为 null</para>
-    ///  <para lang="en">Get/Set Pagination Info Text. Default null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示分页信息文字 默认为 null</para>
+    /// <para lang="en">Get/Set Pagination Info Text. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? PageInfoText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Goto 导航模板 默认 null</para>
-    ///  <para lang="en">Get/Set Goto Navigation Template. Default null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Goto 导航模板 默认 null</para>
+    /// <para lang="en">Get/Set Goto Navigation Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? GotoTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示 Goto 跳转导航器 默认 false</para>
-    ///  <para lang="en">Get/Set Whether to show Goto Navigator. Default false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航器 默认 false</para>
+    /// <para lang="en">Get/Set Whether to show Goto Navigator. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowGotoNavigator { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Goto 导航标签显示文字 默认 导航到/Goto</para>
-    ///  <para lang="en">Get/Set Goto Navigator Label Text. Default Goto</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Goto 导航标签显示文字 默认 导航到/Goto</para>
+    /// <para lang="en">Get/Set Goto Navigator Label Text. Default Goto</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GotoNavigatorLabelText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示 分页信息 默认 true</para>
-    ///  <para lang="en">Get/Set Whether to show Page Info. Default true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示 分页信息 默认 true</para>
+    /// <para lang="en">Get/Set Whether to show Page Info. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPageInfo { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 分页信息模板 默认 null</para>
-    ///  <para lang="en">Get/Set Page Info Template. Default null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 分页信息模板 默认 null</para>
+    /// <para lang="en">Get/Set Page Info Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? PageInfoTemplate { get; set; }
@@ -182,8 +182,8 @@ public partial class Pagination
     private int InternalPageIndex => Math.Min(InternalPageCount, PageIndex);
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -212,8 +212,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    ///  <para lang="zh">上一页方法</para>
-    ///  <para lang="en">Move Previous Method</para>
+    /// <para lang="zh">上一页方法</para>
+    /// <para lang="en">Move Previous Method</para>
     /// </summary>
     protected async Task MovePrev(int index)
     {
@@ -226,8 +226,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    ///  <para lang="zh">下一页方法</para>
-    ///  <para lang="en">Move Next Method</para>
+    /// <para lang="zh">下一页方法</para>
+    /// <para lang="en">Move Next Method</para>
     /// </summary>
     protected async Task MoveNext(int index)
     {
@@ -240,8 +240,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    ///  <para lang="zh">点击页码时回调方法</para>
-    ///  <para lang="en">Callback method when page link is clicked</para>
+    /// <para lang="zh">点击页码时回调方法</para>
+    /// <para lang="en">Callback method when page link is clicked</para>
     /// </summary>
     /// <param name="pageIndex"></param>
     protected async Task OnPageItemClick(int pageIndex)

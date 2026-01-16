@@ -8,15 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">查询弹窗组件</para>
-///  <para lang="en">Search Dialog Component</para>
+/// <para lang="zh">查询弹窗组件</para>
+/// <para lang="en">Search Dialog Component</para>
 /// </summary>
 public partial class SearchDialog<TModel>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 重置回调委托</para>
-    ///  <para lang="en">Get/Set Reset Callback Delegate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 重置回调委托</para>
+    /// <para lang="en">Get/Set Reset Callback Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <returns></returns>
     [Parameter]
@@ -24,9 +24,9 @@ public partial class SearchDialog<TModel>
     public Func<Task>? OnResetSearchClick { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 搜索回调委托</para>
-    ///  <para lang="en">Get/Set Search Callback Delegate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 搜索回调委托</para>
+    /// <para lang="en">Get/Set Search Callback Delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <returns></returns>
     [Parameter]
@@ -34,35 +34,35 @@ public partial class SearchDialog<TModel>
     public Func<Task>? OnSearchClick { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 重置按钮文本</para>
-    ///  <para lang="en">Get/Set Reset Button Text</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 重置按钮文本</para>
+    /// <para lang="en">Get/Set Reset Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ResetButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 查询按钮文本</para>
-    ///  <para lang="en">Get/Set Query Button Text</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 查询按钮文本</para>
+    /// <para lang="en">Get/Set Query Button Text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? QueryButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 清空按钮图标</para>
-    ///  <para lang="en">Get/Set Clear Button Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 清空按钮图标</para>
+    /// <para lang="en">Get/Set Clear Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 搜索按钮图标</para>
-    ///  <para lang="en">Get/Set Search Button Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 搜索按钮图标</para>
+    /// <para lang="en">Get/Set Search Button Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }
@@ -76,8 +76,8 @@ public partial class SearchDialog<TModel>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">OnParametersSet 方法</para>
-    ///  <para lang="en">OnParametersSet Method</para>
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet Method</para>
     /// </summary>
     protected override void OnParametersSet()
     {

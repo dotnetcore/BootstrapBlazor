@@ -8,8 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Table Toolbar 组件</para>
-///  <para lang="en">Table Toolbar component</para>
+/// <para lang="zh">Table Toolbar 组件</para>
+/// <para lang="en">Table Toolbar component</para>
 /// </summary>
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
@@ -17,50 +17,50 @@ namespace BootstrapBlazor.Components;
 public partial class TableToolbar<TItem> : ComponentBase
 {
     /// <summary>
-    ///  <para lang="zh">获得 Toolbar 按钮集合</para>
-    ///  <para lang="en">Gets Toolbar buttoncollection</para>
+    /// <para lang="zh">获得 Toolbar 按钮集合</para>
+    /// <para lang="en">Gets Toolbar buttoncollection</para>
     /// </summary>
     private readonly List<IToolbarComponent> _buttons = [];
 
     private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new(ReferenceEqualityComparer.Instance);
 
     /// <summary>
-    ///  <para lang="zh">Specifies the 内容 to be rendered inside this</para>
-    ///  <para lang="en">Specifies the content to be rendered inside this</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">Specifies the 内容 to be rendered inside this</para>
+    /// <para lang="en">Specifies the content to be rendered inside this</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮点击后回调委托</para>
-    ///  <para lang="en">Gets or sets button点击后回调delegate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
+    /// <para lang="en">Gets or sets button点击后回调delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<IEnumerable<TItem>>? OnGetSelectedRows { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否自动收缩工具栏按钮 默认 true</para>
-    ///  <para lang="en">Gets or sets whether自动收缩工具栏button Default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮 默认 true</para>
+    /// <para lang="en">Gets or sets whether自动收缩工具栏button Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式 默认 false</para>
-    ///  <para lang="en">Gets or sets 工具栏button收缩后whether继承原先button的colorstyle Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式 默认 false</para>
+    /// <para lang="en">Gets or sets 工具栏button收缩后whether继承原先button的colorstyle Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 移动端按钮图标</para>
-    ///  <para lang="en">Gets or sets 移动端buttonicon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 移动端按钮图标</para>
+    /// <para lang="en">Gets or sets 移动端buttonicon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GearIcon { get; set; }
@@ -143,14 +143,14 @@ public partial class TableToolbar<TItem> : ComponentBase
     }
 
     /// <summary>
-    ///  <para lang="zh">添加按钮到工具栏方法</para>
-    ///  <para lang="en">添加button到工具栏方法</para>
+    /// <para lang="zh">添加按钮到工具栏方法</para>
+    /// <para lang="en">添加button到工具栏方法</para>
     /// </summary>
     public void AddButton(IToolbarComponent button) => _buttons.Add(button);
 
     /// <summary>
-    ///  <para lang="zh">移除按钮到工具栏方法</para>
-    ///  <para lang="en">移除button到工具栏方法</para>
+    /// <para lang="zh">移除按钮到工具栏方法</para>
+    /// <para lang="en">移除button到工具栏方法</para>
     /// </summary>
     public void RemoveButton(IToolbarComponent button) => _buttons.Remove(button);
 }

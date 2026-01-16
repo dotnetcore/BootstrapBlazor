@@ -8,67 +8,67 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">过滤器基类</para>
-///  <para lang="en">Filter Base Class</para>
+/// <para lang="zh">过滤器基类</para>
+/// <para lang="en">Filter Base Class</para>
 /// </summary>
 public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 <see cref="IStringLocalizer{TableFilter}"/> 实例</para>
-    ///  <para lang="en">Get/Set <see cref="IStringLocalizer{TableFilter}"/> Instance</para>
+    /// <para lang="zh">获得/设置 <see cref="IStringLocalizer{TableFilter}"/> 实例</para>
+    /// <para lang="en">Get/Set <see cref="IStringLocalizer{TableFilter}"/> Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
     protected IStringLocalizer<TableColumnFilter>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 相关 Field 字段名称</para>
-    ///  <para lang="en">Get/Set Related Field Name</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 相关 Field 字段名称</para>
+    /// <para lang="en">Get/Set Related Field Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? FieldKey { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
-    ///  <para lang="en">Get/Set Whether is HeaderRow Mode Default false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
+    /// <para lang="en">Get/Set Whether is HeaderRow Mode Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHeaderRow { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 条件数量</para>
-    ///  <para lang="en">Get/Set Condition Count</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 条件数量</para>
+    /// <para lang="en">Get/Set Condition Count</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Count { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 所属 TableFilter 实例</para>
-    ///  <para lang="en">Get/Set Belonging TableFilter Instance</para>
+    /// <para lang="zh">获得/设置 所属 TableFilter 实例</para>
+    /// <para lang="en">Get/Set Belonging TableFilter Instance</para>
     /// </summary>
     [CascadingParameter, NotNull]
     protected TableColumnFilter? TableColumnFilter { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the <see cref="FilterContext"/> 实例 from cascading parameter.</para>
-    ///  <para lang="en">Gets or sets the <see cref="FilterContext"/> instance from cascading parameter.</para>
+    /// <para lang="zh">获得/设置 the <see cref="FilterContext"/> 实例 from cascading parameter.</para>
+    /// <para lang="en">Gets or sets the <see cref="FilterContext"/> instance from cascading parameter.</para>
     /// </summary>
     [CascadingParameter]
     protected FilterContext? FilterContext { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 多个条件逻辑关系符号</para>
-    ///  <para lang="en">Get/Set Logical Operator for Multiple Conditions</para>
+    /// <para lang="zh">获得/设置 多个条件逻辑关系符号</para>
+    /// <para lang="en">Get/Set Logical Operator for Multiple Conditions</para>
     /// </summary>
     protected FilterLogic Logic { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -81,8 +81,8 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -97,8 +97,8 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    ///  <para lang="zh">重置按钮回调方法</para>
-    ///  <para lang="en">Reset Button Callback Method</para>
+    /// <para lang="zh">重置按钮回调方法</para>
+    /// <para lang="en">Reset Button Callback Method</para>
     /// </summary>
     /// <returns></returns>
     protected virtual async Task OnClearFilter()
@@ -112,8 +112,8 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    ///  <para lang="zh">过滤按钮回调方法</para>
-    ///  <para lang="en">Filter Button Callback Method</para>
+    /// <para lang="zh">过滤按钮回调方法</para>
+    /// <para lang="en">Filter Button Callback Method</para>
     /// </summary>
     /// <returns></returns>
     protected virtual async Task OnFilterAsync()
@@ -127,21 +127,21 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    ///  <para lang="zh">重置过滤条件方法</para>
-    ///  <para lang="en">Reset Filter Conditions Method</para>
+    /// <para lang="zh">重置过滤条件方法</para>
+    /// <para lang="en">Reset Filter Conditions Method</para>
     /// </summary>
     public abstract void Reset();
 
     /// <summary>
-    ///  <para lang="zh">获得过滤窗口的所有条件方法</para>
-    ///  <para lang="en">Get All Conditions Method</para>
+    /// <para lang="zh">获得过滤窗口的所有条件方法</para>
+    /// <para lang="en">Get All Conditions Method</para>
     /// </summary>
     /// <returns></returns>
     public abstract FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
-    ///  <para lang="zh">设置过滤集合方法</para>
-    ///  <para lang="en">Set Filter Collection Method</para>
+    /// <para lang="zh">设置过滤集合方法</para>
+    /// <para lang="en">Set Filter Collection Method</para>
     /// </summary>
     /// <param name="filter"></param>
     public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();

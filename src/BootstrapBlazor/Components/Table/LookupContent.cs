@@ -10,49 +10,49 @@ namespace BootstrapBlazor.Components;
 internal class LookupContent : ComponentBase, ILookup
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示值</para>
-    ///  <para lang="en">Gets or sets display值</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示值</para>
+    /// <para lang="en">Gets or sets display值</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Value { get; set; }
@@ -66,8 +66,8 @@ internal class LookupContent : ComponentBase, ILookup
     private IEnumerable<SelectedItem>? _items;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
@@ -80,8 +80,8 @@ internal class LookupContent : ComponentBase, ILookup
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

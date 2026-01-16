@@ -11,8 +11,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">内部使用 自定义异常组件</para>
-///  <para lang="en">Internal Use Custom Exception Component</para>
+/// <para lang="zh">内部使用 自定义异常组件</para>
+/// <para lang="en">Internal Use Custom Exception Component</para>
 /// </summary>
 class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
@@ -33,33 +33,33 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     private NavigationManager? NavigationManager { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 自定义错误处理回调方法</para>
-    ///  <para lang="en">Get/Set Custom Error Handler</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
+    /// <para lang="en">Get/Set Custom Error Handler</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
-    ///  <para lang="en">Get/Set Whether to Enable Logging Default true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
+    /// <para lang="en">Get/Set Whether to Enable Logging Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示弹窗 默认 true 显示</para>
-    ///  <para lang="en">Get/Set Whether to Show Toast Default true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示弹窗 默认 true 显示</para>
+    /// <para lang="en">Get/Set Whether to Show Toast Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Toast 弹窗标题</para>
-    ///  <para lang="en">Get/Set Toast Title</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Toast 弹窗标题</para>
+    /// <para lang="en">Get/Set Toast Title</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -69,8 +69,8 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     private IErrorLogger? ErrorLogger { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="exception"></param>
     protected override Task OnErrorAsync(Exception exception)
@@ -83,8 +83,8 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -173,8 +173,8 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     }
 
     /// <summary>
-    ///  <para lang="zh">BootstrapBlazor 组件导致异常渲染方法</para>
-    ///  <para lang="en">BootstrapBlazor Component Exception Render Method</para>
+    /// <para lang="zh">BootstrapBlazor 组件导致异常渲染方法</para>
+    /// <para lang="en">BootstrapBlazor Component Exception Render Method</para>
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="handler"></param>

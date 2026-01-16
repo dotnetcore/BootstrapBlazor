@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">内部默认字典服务实现类</para>
-///  <para lang="en">Internal Default Lookup Service Implementation</para>
+/// <para lang="zh">内部默认字典服务实现类</para>
+/// <para lang="en">Internal Default Lookup Service Implementation</para>
 /// </summary>
 class NullLookupService : LookupServiceBase
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
 }

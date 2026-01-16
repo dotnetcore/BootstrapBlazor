@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">BootstrapInputGroupLabel 组件</para>
-///  <para lang="en">BootstrapInputGroupLabel Component</para>
+/// <para lang="zh">BootstrapInputGroupLabel 组件</para>
+/// <para lang="en">BootstrapInputGroupLabel Component</para>
 /// </summary>
 public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 {
@@ -29,41 +29,41 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     private string TagName => IsInputGroupLabel ? "div" : "label";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 标签宽度 默认 null 未设置自动适应</para>
-    ///  <para lang="en">Get/Set Label Width. Default null (Auto Fit)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置自动适应</para>
+    /// <para lang="en">Get/Set Label Width. Default null (Auto Fit)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 标签对其方式 默认 null 未设置 star 对齐</para>
-    ///  <para lang="en">Get/Set Label Alignment. Default null (Start Alignment)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 标签对其方式 默认 null 未设置 star 对齐</para>
+    /// <para lang="en">Get/Set Label Alignment. Default null (Start Alignment)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment Alignment { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示必填项标识 默认 false</para>
-    ///  <para lang="en">Get/Set Whether to show required mark. Default false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示必填项标识 默认 false</para>
+    /// <para lang="en">Get/Set Whether to show required mark. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowRequiredMark { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the child 内容. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the child content. Default is null.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the child 内容. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the child content. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为 InputGroup 或 TableToolbar 内的标签 默认 null 未设置</para>
-    ///  <para lang="en">Get/Set Whether it is a label inside InputGroup or TableToolbar. Default null (Not set)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为 InputGroup 或 TableToolbar 内的标签 默认 null 未设置</para>
+    /// <para lang="en">Get/Set Whether it is a label inside InputGroup or TableToolbar. Default null (Not set)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? IsGroupLabel { get; set; }
@@ -76,8 +76,8 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     private bool IsInputGroupLabel => IsGroupLabel ?? InputGroup != null || ToolbarComponent != null;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -90,8 +90,8 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

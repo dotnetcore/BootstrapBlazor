@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">MessageService 消息弹窗服务</para>
-///  <para lang="en">MessageService Message Popup Service</para>
+/// <para lang="zh">MessageService 消息弹窗服务</para>
+/// <para lang="en">MessageService Message Popup Service</para>
 /// </summary>
 /// <param name="option"></param>
 public class MessageService(IOptionsMonitor<BootstrapBlazorOptions> option) : BootstrapServiceBase<MessageOption>
@@ -15,8 +15,8 @@ public class MessageService(IOptionsMonitor<BootstrapBlazorOptions> option) : Bo
     private BootstrapBlazorOptions Options { get; } = option.CurrentValue;
 
     /// <summary>
-    ///  <para lang="zh">Show 方法</para>
-    ///  <para lang="en">Show Method</para>
+    /// <para lang="zh">Show 方法</para>
+    /// <para lang="en">Show Method</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="message"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify popup component. Default null. Use <see cref="BootstrapBlazorRoot"/> component built-in popup component</para></param>

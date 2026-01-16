@@ -8,15 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">弹窗内关闭按钮组件</para>
-///  <para lang="en">Dialog Close Button Component</para>
+/// <para lang="zh">弹窗内关闭按钮组件</para>
+/// <para lang="en">Dialog Close Button Component</para>
 /// </summary>
 public partial class DialogCloseButton : Button
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮颜色</para>
-    ///  <para lang="en">Get/Set Button Color</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮颜色</para>
+    /// <para lang="en">Get/Set Button Color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.Secondary;
@@ -29,8 +29,8 @@ public partial class DialogCloseButton : Button
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -41,8 +41,8 @@ public partial class DialogCloseButton : Button
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task HandlerClick()

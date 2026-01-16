@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ShowLabel 接口</para>
-///  <para lang="en">IShowLabel Interface</para>
+/// <para lang="zh">ShowLabel 接口</para>
+/// <para lang="en">IShowLabel Interface</para>
 /// </summary>
 public interface IShowLabel
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示标签 默认 null</para>
-    ///  <para lang="en">Get/Set Whether to Show Label. Default is null</para>
+    /// <para lang="zh">获得/设置 是否显示标签 默认 null</para>
+    /// <para lang="en">Get/Set Whether to Show Label. Default is null</para>
     /// </summary>
     bool? ShowLabel { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
-    ///  <para lang="en">Get/Set Whether to Show Label Tooltip. Default is null</para>
+    /// <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
+    /// <para lang="en">Get/Set Whether to Show Label Tooltip. Default is null</para>
     /// </summary>
     bool? ShowLabelTooltip { get; set; }
 }

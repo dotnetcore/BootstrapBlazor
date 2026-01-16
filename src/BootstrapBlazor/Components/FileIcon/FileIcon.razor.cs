@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Icon 图标组件</para>
-///  <para lang="en">File Icon Component</para>
+/// <para lang="zh">Icon 图标组件</para>
+/// <para lang="en">File Icon Component</para>
 /// </summary>
 public partial class FileIcon
 {
@@ -21,34 +21,34 @@ public partial class FileIcon
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 文件类型扩展名</para>
-    ///  <para lang="en">Get/Set File Extension</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 文件类型扩展名</para>
+    /// <para lang="en">Get/Set File Extension</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [EditorRequired]
     public string? Extension { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 背景图模板 默认 null 使用内部内置的空文件 svg 图</para>
-    ///  <para lang="en">Get/Set Background Template Default null Use Internal Built-in Empty File SVG</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 背景图模板 默认 null 使用内部内置的空文件 svg 图</para>
+    /// <para lang="en">Get/Set Background Template Default null Use Internal Built-in Empty File SVG</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BackgroundTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 图标类型背景色 默认 Color.Primary</para>
-    ///  <para lang="en">Get/Set Icon Background Color Default Color.Primary</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 图标类型背景色 默认 Color.Primary</para>
+    /// <para lang="en">Get/Set Icon Background Color Default Color.Primary</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color IconColor { get; set; } = Color.Primary;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 图标大小 默认 Color.None</para>
-    ///  <para lang="en">Get/Set Icon Size Default Size.None</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 图标大小 默认 Color.None</para>
+    /// <para lang="en">Get/Set Icon Size Default Size.None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }

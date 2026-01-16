@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">DirectoryInfo 扩展方法</para>
-///  <para lang="en">DirectoryInfo 扩展方法</para>
+/// <para lang="zh">DirectoryInfo 扩展方法</para>
+/// <para lang="en">DirectoryInfo 扩展方法</para>
 /// </summary>
 public static class DirectoryInfoExtensions
 {
     /// <summary>
-    ///  <para lang="zh">Copies the 内容s of the current directory to a specified destination directory.</para>
-    ///  <para lang="en">Copies the contents of the current directory to a specified destination directory.</para>
+    /// <para lang="zh">Copies the 内容s of the current directory to a specified destination directory.</para>
+    /// <para lang="en">Copies the contents of the current directory to a specified destination directory.</para>
     /// </summary>
     /// <remarks>This method creates the destination directory if it does not already exist. Files in the
     /// source directory are copied to the destination directory, and if <paramref name="recursive"/> is <see

@@ -9,14 +9,14 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">QueryPageOptions json converter</para>
-///  <para lang="en">QueryPageOptions json converter</para>
+/// <para lang="zh">QueryPageOptions json converter</para>
+/// <para lang="en">QueryPageOptions json converter</para>
 /// </summary>
 public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -195,8 +195,8 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>

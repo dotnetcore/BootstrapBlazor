@@ -6,38 +6,38 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">语音识别配置类</para>
-///  <para lang="en">Speech Recognition Option Class</para>
+/// <para lang="zh">语音识别配置类</para>
+/// <para lang="en">Speech Recognition Option Class</para>
 /// </summary>
 public class RecognizerOption
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 语音识别指令名称 默认 null</para>
-    ///  <para lang="en">Get/Set Speech Recognition Command Name. Default null</para>
+    /// <para lang="zh">获得/设置 语音识别指令名称 默认 null</para>
+    /// <para lang="en">Get/Set Speech Recognition Command Name. Default null</para>
     /// </summary>
     public string? MethodName { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 回调方法 默认 null</para>
-    ///  <para lang="en">Get/Set Callback Method. Default null</para>
+    /// <para lang="zh">获得/设置 回调方法 默认 null</para>
+    /// <para lang="en">Get/Set Callback Method. Default null</para>
     /// </summary>
     public Func<RecognizerStatus, string?, Task>? Callback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 识别语音文化 默认 zh-CN</para>
-    ///  <para lang="en">Get/Set Speech Recognition Culture. Default zh-CN</para>
+    /// <para lang="zh">获得/设置 识别语音文化 默认 zh-CN</para>
+    /// <para lang="en">Get/Set Speech Recognition Culture. Default zh-CN</para>
     /// </summary>
     public string SpeechRecognitionLanguage { get; set; } = "zh-CN";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 结果文化 默认 zh-CN</para>
-    ///  <para lang="en">Get/Set Result Culture. Default zh-CN</para>
+    /// <para lang="zh">获得/设置 结果文化 默认 zh-CN</para>
+    /// <para lang="en">Get/Set Result Culture. Default zh-CN</para>
     /// </summary>
     public string TargetLanguage { get; set; } = "zh-CN";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 自动识别时间 默认 5000 设置 0 时禁用需要手动关闭</para>
-    ///  <para lang="en">Get/Set Auto Recognition Time. Default 5000. Set 0 to disable and need to close manually</para>
+    /// <para lang="zh">获得/设置 自动识别时间 默认 5000 设置 0 时禁用需要手动关闭</para>
+    /// <para lang="en">Get/Set Auto Recognition Time. Default 5000. Set 0 to disable and need to close manually</para>
     /// </summary>
     public int AutoRecoginzerElapsedMilliseconds { get; set; } = 5000;
 }

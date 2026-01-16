@@ -15,8 +15,8 @@ internal static class RouteTableFactory
     private static readonly HashSet<Assembly> _assemblies = new();
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     /// <param name="assemblies"></param>
     /// <param name="url"></param>

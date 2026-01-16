@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">MaskService 遮罩服务</para>
-///  <para lang="en">MaskService</para>
+/// <para lang="zh">MaskService 遮罩服务</para>
+/// <para lang="en">MaskService</para>
 /// </summary>
 public class MaskService : BootstrapServiceBase<MaskOption?>
 {
     /// <summary>
-    ///  <para lang="zh">显示 Mask 方法</para>
-    ///  <para lang="en">Show Mask Method</para>
+    /// <para lang="zh">显示 Mask 方法</para>
+    /// <para lang="en">Show Mask Method</para>
     /// </summary>
     /// <param name="option"><para lang="zh">遮罩配置信息实体类</para><para lang="en">Mask Configuration Information Entity Class</para></param>
     /// <param name="mask"><para lang="zh"><see cref="Mask"/> 组件实例</para><para lang="en"><see cref="Mask"/> Component Instance</para></param>
@@ -21,8 +21,8 @@ public class MaskService : BootstrapServiceBase<MaskOption?>
     public Task Show(MaskOption option, Mask? mask = null) => Invoke(option, mask);
 
     /// <summary>
-    ///  <para lang="zh">关闭 Mask 方法</para>
-    ///  <para lang="en">Close Mask Method</para>
+    /// <para lang="zh">关闭 Mask 方法</para>
+    /// <para lang="en">Close Mask Method</para>
     /// </summary>
     /// <param name="mask"><para lang="zh"><see cref="Mask"/> 组件实例</para><para lang="en"><see cref="Mask"/> Component Instance</para></param>
     /// <param name="all"><para lang="zh">是否关闭所有遮罩 默认 false 仅关闭当前或者指定遮罩</para><para lang="en">Whether to close all masks. Default false. Only close current or specified mask</para></param>

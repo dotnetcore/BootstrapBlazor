@@ -6,22 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Message 组件</para>
-///  <para lang="en">Message Component</para>
+/// <para lang="zh">Message 组件</para>
+/// <para lang="en">Message Component</para>
 /// </summary>
 public partial class Message
 {
     /// <summary>
-    ///  <para lang="zh">获得 组件样式</para>
-    ///  <para lang="en">Get Component Style</para>
+    /// <para lang="zh">获得 组件样式</para>
+    /// <para lang="en">Get Component Style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("message")
         .AddClass("is-bottom", Placement != Placement.Top)
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得 Toast 组件样式设置</para>
-    ///  <para lang="en">Get Toast Component Style Settings</para>
+    /// <para lang="zh">获得 Toast 组件样式设置</para>
+    /// <para lang="en">Get Toast Component Style Settings</para>
     /// </summary>
     private string? StyleName => CssBuilder.Default()
         .AddClass("top: 1rem;", Placement != Placement.Bottom)
@@ -35,24 +35,24 @@ public partial class Message
         : _messages;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示位置 默认为 Top</para>
-    ///  <para lang="en">Get/Set Display placement. Default Top</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示位置 默认为 Top</para>
+    /// <para lang="en">Get/Set Display placement. Default Top</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;
 
     /// <summary>
-    ///  <para lang="zh">ToastServices 服务实例</para>
-    ///  <para lang="en">MessageService Service Instance</para>
+    /// <para lang="zh">ToastServices 服务实例</para>
+    /// <para lang="en">MessageService Service Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
     public MessageService? MessageService { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -63,8 +63,8 @@ public partial class Message
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
@@ -87,8 +87,8 @@ public partial class Message
     private string? _msgId;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -103,8 +103,8 @@ public partial class Message
     }
 
     /// <summary>
-    ///  <para lang="zh">设置 容器位置方法</para>
-    ///  <para lang="en">Set Container Placement Method</para>
+    /// <para lang="zh">设置 容器位置方法</para>
+    /// <para lang="en">Set Container Placement Method</para>
     /// </summary>
     /// <param name="placement"></param>
     public void SetPlacement(Placement placement)
@@ -129,8 +129,8 @@ public partial class Message
     }
 
     /// <summary>
-    ///  <para lang="zh">清除 Message 方法 由 JSInvoke 触发</para>
-    ///  <para lang="en">Clear Message Method. Triggered by JSInvoke</para>
+    /// <para lang="zh">清除 Message 方法 由 JSInvoke 触发</para>
+    /// <para lang="en">Clear Message Method. Triggered by JSInvoke</para>
     /// </summary>
     [JSInvokable]
     public void Clear(string id)
@@ -145,8 +145,8 @@ public partial class Message
     }
 
     /// <summary>
-    ///  <para lang="zh">OnDismiss 回调方法 由 JSInvoke 触发</para>
-    ///  <para lang="en">OnDismiss Callback Method. Triggered by JSInvoke</para>
+    /// <para lang="zh">OnDismiss 回调方法 由 JSInvoke 触发</para>
+    /// <para lang="en">OnDismiss Callback Method. Triggered by JSInvoke</para>
     /// </summary>
     /// <param name="id"></param>
     [JSInvokable]
@@ -162,8 +162,8 @@ public partial class Message
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

@@ -6,39 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">蓝牙服务接口</para>
-///  <para lang="en">Bluetooth Service Interface</para>
+/// <para lang="zh">蓝牙服务接口</para>
+/// <para lang="en">Bluetooth Service Interface</para>
 /// </summary>
 public interface IBluetooth
 {
     /// <summary>
-    ///  <para lang="zh">获得 浏览器是否支持蓝牙</para>
-    ///  <para lang="en">Get if browser supports Bluetooth</para>
+    /// <para lang="zh">获得 浏览器是否支持蓝牙</para>
+    /// <para lang="en">Get if browser supports Bluetooth</para>
     /// </summary>
     bool IsSupport { get; }
 
     /// <summary>
-    ///  <para lang="zh">获得 是否有蓝牙模块</para>
-    ///  <para lang="en">Get if Bluetooth module is available</para>
+    /// <para lang="zh">获得 是否有蓝牙模块</para>
+    /// <para lang="en">Get if Bluetooth module is available</para>
     /// </summary>
     bool IsAvailable { get; }
 
     /// <summary>
-    ///  <para lang="zh">获得 上次运行错误描述信息</para>
-    ///  <para lang="en">Get Last Error Message</para>
+    /// <para lang="zh">获得 上次运行错误描述信息</para>
+    /// <para lang="en">Get Last Error Message</para>
     /// </summary>
     string? ErrorMessage { get; }
 
     /// <summary>
-    ///  <para lang="zh">获得所有可用串口</para>
-    ///  <para lang="en">Get all available serial ports</para>
+    /// <para lang="zh">获得所有可用串口</para>
+    /// <para lang="en">Get all available serial ports</para>
     /// </summary>
     /// <returns></returns>
     Task<bool> GetAvailability(CancellationToken token = default);
 
     /// <summary>
-    ///  <para lang="zh">请求蓝牙配对方法</para>
-    ///  <para lang="en">请求蓝牙配对方法</para>
+    /// <para lang="zh">请求蓝牙配对方法</para>
+    /// <para lang="en">请求蓝牙配对方法</para>
     /// </summary>
     /// <param name="options"><para lang="zh"><see cref="BluetoothRequestOptions"/> 实例</para><para lang="en"><see cref="BluetoothRequestOptions"/> instance</para></param>
     /// <param name="token"></param>
@@ -46,8 +46,8 @@ public interface IBluetooth
     Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default);
 
     /// <summary>
-    ///  <para lang="zh">请求蓝牙配对方法</para>
-    ///  <para lang="en">请求蓝牙配对方法</para>
+    /// <para lang="zh">请求蓝牙配对方法</para>
+    /// <para lang="en">请求蓝牙配对方法</para>
     /// </summary>
     /// <param name="optionalServices"></param>
     /// <param name="token"></param>

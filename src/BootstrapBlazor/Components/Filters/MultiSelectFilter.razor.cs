@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">多项选择下拉框过滤组件</para>
-///  <para lang="en">Multi-Select Dropdown Filter Component</para>
+/// <para lang="zh">多项选择下拉框过滤组件</para>
+/// <para lang="en">Multi-Select Dropdown Filter Component</para>
 /// </summary>
 public partial class MultiSelectFilter<TType>
 {
@@ -19,16 +19,16 @@ public partial class MultiSelectFilter<TType>
     private FilterAction _action1 = FilterAction.Equal;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the filter items.</para>
-    ///  <para lang="en">Gets or sets the filter items.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the filter items.</para>
+    /// <para lang="en">Gets or sets the filter items.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override void Reset()
     {
@@ -39,8 +39,8 @@ public partial class MultiSelectFilter<TType>
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
@@ -75,8 +75,8 @@ public partial class MultiSelectFilter<TType>
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {

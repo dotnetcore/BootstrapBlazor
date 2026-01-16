@@ -6,31 +6,31 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">TypedJs 组件类</para>
-///  <para lang="en">TypedJs component类</para>
+/// <para lang="zh">TypedJs 组件类</para>
+/// <para lang="en">TypedJs component类</para>
 /// </summary>
 public partial class Typed
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件显示文字 默认 null 未设置</para>
-    ///  <para lang="en">Gets or sets componentdisplay文字 Default is null 未Sets</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件显示文字 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets componentdisplay文字 Default is null 未Sets</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null</para>
-    ///  <para lang="en">Gets or sets component配置 <see cref="TypedOptions"/> instance Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null</para>
+    /// <para lang="en">Gets or sets component配置 <see cref="TypedOptions"/> instance Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TypedOptions? Options { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 打字结束回调方法 默认 null</para>
-    ///  <para lang="en">Gets or sets 打字结束callback method Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 打字结束回调方法 默认 null</para>
+    /// <para lang="en">Gets or sets 打字结束callback method Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCompleteAsync { get; set; }
@@ -40,8 +40,8 @@ public partial class Typed
     private TypedOptions? _options;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -61,8 +61,8 @@ public partial class Typed
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Text, Options, new
@@ -71,8 +71,8 @@ public partial class Typed
     });
 
     /// <summary>
-    ///  <para lang="zh">打字结束方法 由 Javascript 触发</para>
-    ///  <para lang="en">打字结束方法 由 Javascript 触发</para>
+    /// <para lang="zh">打字结束方法 由 Javascript 触发</para>
+    /// <para lang="en">打字结束方法 由 Javascript 触发</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ToolbarSeparator 组件用于在工具栏中添加分隔符</para>
-///  <para lang="en">ToolbarSeparator component用于在工具栏中添加分隔符</para>
+/// <para lang="zh">ToolbarSeparator 组件用于在工具栏中添加分隔符</para>
+/// <para lang="en">ToolbarSeparator component用于在工具栏中添加分隔符</para>
 /// </summary>
 public partial class ToolbarSeparator
 {

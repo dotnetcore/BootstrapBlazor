@@ -8,31 +8,31 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ContextMenu 组件</para>
-///  <para lang="en">ContextMenu component</para>
+/// <para lang="zh">ContextMenu 组件</para>
+/// <para lang="en">ContextMenu component</para>
 /// </summary>
 public partial class ContextMenu
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
-    ///  <para lang="en">Get/Set whether to show shadow, default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
+    /// <para lang="en">Get/Set whether to show shadow, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 弹出前回调方法 默认 null</para>
-    ///  <para lang="en">Get/Set callback method before showing, default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 弹出前回调方法 默认 null</para>
+    /// <para lang="en">Get/Set callback method before showing, default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnBeforeShowCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 子组件</para>
-    ///  <para lang="en">Get/Set child content</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set child content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -65,8 +65,8 @@ public partial class ContextMenu
     private object? _contextItem;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -76,8 +76,8 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -93,8 +93,8 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    ///  <para lang="zh">弹出 ContextMenu</para>
-    ///  <para lang="en">Show ContextMenu</para>
+    /// <para lang="zh">弹出 ContextMenu</para>
+    /// <para lang="en">Show ContextMenu</para>
     /// </summary>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
@@ -119,15 +119,15 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    ///  <para lang="zh">增加 ContextMenuItem 方法</para>
-    ///  <para lang="en">Add ContextMenuItem method</para>
+    /// <para lang="zh">增加 ContextMenuItem 方法</para>
+    /// <para lang="en">Add ContextMenuItem method</para>
     /// </summary>
     /// <param name="item"></param>
     internal void AddItem(IContextMenuItem item) => _contextMenuItems.Add(item);
 
     /// <summary>
-    ///  <para lang="zh">移除 ContextMenuItem 方法</para>
-    ///  <para lang="en">Remove ContextMenuItem method</para>
+    /// <para lang="zh">移除 ContextMenuItem 方法</para>
+    /// <para lang="en">Remove ContextMenuItem method</para>
     /// </summary>
     /// <param name="item"></param>
     internal void RemoveItem(IContextMenuItem item) => _contextMenuItems.Remove(item);

@@ -13,14 +13,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Utility 帮助类</para>
-///  <para lang="en">Utility helper class</para>
+/// <para lang="zh">Utility 帮助类</para>
+/// <para lang="en">Utility helper class</para>
 /// </summary>
 public static class Utility
 {
     /// <summary>
-    ///  <para lang="zh">获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法</para>
-    ///  <para lang="en">Get DisplayAttribute/DisplayNameAttribute name from resource file</para>
+    /// <para lang="zh">获取资源文件中 DisplayAttribute/DisplayNameAttribute 标签名称方法</para>
+    /// <para lang="en">Get DisplayAttribute/DisplayNameAttribute name from resource file</para>
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -28,8 +28,8 @@ public static class Utility
     public static string GetDisplayName(object model, string fieldName) => GetDisplayName(model.GetType(), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取显示名称方法</para>
-    ///  <para lang="en">Get display name method</para>
+    /// <para lang="zh">获取显示名称方法</para>
+    /// <para lang="en">Get display name method</para>
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -37,8 +37,8 @@ public static class Utility
     public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取显示名称方法</para>
-    ///  <para lang="en">Get display name method</para>
+    /// <para lang="zh">获取显示名称方法</para>
+    /// <para lang="en">Get display name method</para>
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型</para><para lang="en">Model</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -46,8 +46,8 @@ public static class Utility
     public static string GetDisplayName<TModel>(string fieldName) => GetDisplayName(typeof(TModel), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取 RangeAttribute 标签值</para>
-    ///  <para lang="en">Get RangeAttribute value</para>
+    /// <para lang="zh">获取 RangeAttribute 标签值</para>
+    /// <para lang="en">Get RangeAttribute value</para>
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -55,8 +55,8 @@ public static class Utility
     public static RangeAttribute? GetRange(object model, string fieldName) => GetRange(model.GetType(), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获得 RangeAttribute 标签值</para>
-    ///  <para lang="en">Get RangeAttribute value</para>
+    /// <para lang="zh">获得 RangeAttribute 标签值</para>
+    /// <para lang="en">Get RangeAttribute value</para>
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型</para><para lang="en">Model</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -64,8 +64,8 @@ public static class Utility
     public static RangeAttribute? GetRange<TModel>(string fieldName) => GetRange(typeof(TModel), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获得 RangeAttribute 标签值</para>
-    ///  <para lang="en">Get RangeAttribute value</para>
+    /// <para lang="zh">获得 RangeAttribute 标签值</para>
+    /// <para lang="en">Get RangeAttribute value</para>
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -83,8 +83,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">获取资源文件中 NullableBoolItemsAttribute 标签名称方法</para>
-    ///  <para lang="en">Get NullableBoolItemsAttribute name from resource file</para>
+    /// <para lang="zh">获取资源文件中 NullableBoolItemsAttribute 标签名称方法</para>
+    /// <para lang="en">Get NullableBoolItemsAttribute name from resource file</para>
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -92,8 +92,8 @@ public static class Utility
     public static List<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取资源文件中 NullableBoolItemsAttribute 标签名称方法</para>
-    ///  <para lang="en">Get NullableBoolItemsAttribute name from resource file</para>
+    /// <para lang="zh">获取资源文件中 NullableBoolItemsAttribute 标签名称方法</para>
+    /// <para lang="en">Get NullableBoolItemsAttribute name from resource file</para>
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -101,8 +101,8 @@ public static class Utility
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
-    ///  <para lang="en">Get property value of specified model marked with <see cref="KeyAttribute"/></para>
+    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Get property value of specified model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -112,8 +112,8 @@ public static class Utility
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
-    ///  <para lang="zh">获得 指定模型属性值</para>
-    ///  <para lang="en">Get specified model property value</para>
+    /// <para lang="zh">获得 指定模型属性值</para>
+    /// <para lang="en">Get specified model property value</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -123,8 +123,8 @@ public static class Utility
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取 指定对象的属性值</para>
-    ///  <para lang="en">Get property value of specified object</para>
+    /// <para lang="zh">获取 指定对象的属性值</para>
+    /// <para lang="en">Get property value of specified object</para>
     /// </summary>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
@@ -148,8 +148,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">设置指定模型属性值方法</para>
-    ///  <para lang="en">Set specified model property value method</para>
+    /// <para lang="zh">设置指定模型属性值方法</para>
+    /// <para lang="en">Set specified model property value method</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -160,22 +160,22 @@ public static class Utility
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
 
     /// <summary>
-    ///  <para lang="zh">获得 排序方法</para>
-    ///  <para lang="en">Get sort method</para>
+    /// <para lang="zh">获得 排序方法</para>
+    /// <para lang="en">Get sort method</para>
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
     /// <summary>
-    ///  <para lang="zh">获得 通过排序集合进行排序 Func 方法</para>
-    ///  <para lang="en">Get sort Func method by sort collection</para>
+    /// <para lang="zh">获得 通过排序集合进行排序 Func 方法</para>
+    /// <para lang="en">Get sort Func method by sort collection</para>
     /// </summary>
     /// <returns></returns>
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
 
     /// <summary>
-    ///  <para lang="zh">通过指定程序集获取所有本地化信息键值集合</para>
-    ///  <para lang="en">Get all localization key-value pairs by specified assembly</para>
+    /// <para lang="zh">通过指定程序集获取所有本地化信息键值集合</para>
+    /// <para lang="en">Get all localization key-value pairs by specified assembly</para>
     /// </summary>
     /// <param name="option"><para lang="zh">JsonLocalizationOptions 实例</para><para lang="en">JsonLocalizationOptions instance</para></param>
     /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly instance</para></param>
@@ -185,16 +185,16 @@ public static class Utility
     public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
 
     /// <summary>
-    ///  <para lang="zh">通过指定程序集与类型获得 IStringLocalizer 实例</para>
-    ///  <para lang="en">Get IStringLocalizer instance by specified assembly and type</para>
+    /// <para lang="zh">通过指定程序集与类型获得 IStringLocalizer 实例</para>
+    /// <para lang="en">Get IStringLocalizer instance by specified assembly and type</para>
     /// </summary>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => CacheManager.GetStringLocalizerFromService(assembly, typeName);
 
     /// <summary>
-    ///  <para lang="zh">获取 PlaceHolder 方法</para>
-    ///  <para lang="en">Get PlaceHolder method</para>
+    /// <para lang="zh">获取 PlaceHolder 方法</para>
+    /// <para lang="en">Get PlaceHolder method</para>
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型类型</para><para lang="en">Model type</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -202,8 +202,8 @@ public static class Utility
     public static string? GetPlaceHolder<TModel>(string fieldName) => GetPlaceHolder(typeof(TModel), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取 PlaceHolder 方法</para>
-    ///  <para lang="en">Get PlaceHolder method</para>
+    /// <para lang="zh">获取 PlaceHolder 方法</para>
+    /// <para lang="en">Get PlaceHolder method</para>
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -211,8 +211,8 @@ public static class Utility
     public static string? GetPlaceHolder(object model, string fieldName) => GetPlaceHolder(model.GetType(), fieldName);
 
     /// <summary>
-    ///  <para lang="zh">获取 PlaceHolder 方法</para>
-    ///  <para lang="en">Get PlaceHolder method</para>
+    /// <para lang="zh">获取 PlaceHolder 方法</para>
+    /// <para lang="en">Get PlaceHolder method</para>
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
@@ -222,8 +222,8 @@ public static class Utility
         : CacheManager.GetPlaceholder(modelType, fieldName);
 
     /// <summary>
-    ///  <para lang="zh">通过 数据类型与字段名称获取 PropertyInfo 实例方法</para>
-    ///  <para lang="en">Get PropertyInfo instance by data type and field name</para>
+    /// <para lang="zh">通过 数据类型与字段名称获取 PropertyInfo 实例方法</para>
+    /// <para lang="en">Get PropertyInfo instance by data type and field name</para>
     /// </summary>
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>
@@ -232,15 +232,15 @@ public static class Utility
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo) => CacheManager.TryGetProperty(modelType, fieldName, out propertyInfo);
 
     /// <summary>
-    ///  <para lang="zh">重置对象属性值到默认值方法</para>
-    ///  <para lang="en">Reset object property value to default value</para>
+    /// <para lang="zh">重置对象属性值到默认值方法</para>
+    /// <para lang="en">Reset object property value to default value</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public static void Reset<TModel>(TModel source) where TModel : class, new() => Reset(source, new TModel());
 
     /// <summary>
-    ///  <para lang="zh">重置对象属性值到默认值方法</para>
-    ///  <para lang="en">Reset object property value to default value</para>
+    /// <para lang="zh">重置对象属性值到默认值方法</para>
+    /// <para lang="en">Reset object property value to default value</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public static void Reset<TModel>(TModel source, TModel model) where TModel : class
@@ -257,10 +257,10 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">泛型 Clone 方法</para>
-    ///  <para lang="en">Generic Clone method</para>
-    ///  <para lang="zh">仅克隆类 公开 Field 与 Property</para>
-    ///  <para lang="en">Only clone public Field and Property of class</para>
+    /// <para lang="zh">泛型 Clone 方法</para>
+    /// <para lang="en">Generic Clone method</para>
+    /// <para lang="zh">仅克隆类 公开 Field 与 Property</para>
+    /// <para lang="en">Only clone public Field and Property of class</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="item"><para lang="zh">克隆对象</para><para lang="en">Clone object</para></param>
@@ -290,8 +290,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">泛型 Copy 方法</para>
-    ///  <para lang="en">Generic Copy method</para>
+    /// <para lang="zh">泛型 Copy 方法</para>
+    /// <para lang="en">Generic Copy method</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="source"></param>
@@ -321,8 +321,8 @@ public static class Utility
     #region GenerateColumns
 
     /// <summary>
-    ///  <para lang="zh">通过特定类型模型获取模型属性集合</para>
-    ///  <para lang="en">Get model property collection by specific type</para>
+    /// <para lang="zh">通过特定类型模型获取模型属性集合</para>
+    /// <para lang="en">Get model property collection by specific type</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="source"></param>
@@ -331,8 +331,8 @@ public static class Utility
     public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null) => GetTableColumns(typeof(TModel), source, defaultOrderCallback);
 
     /// <summary>
-    ///  <para lang="zh">通过特定类型模型获取模型属性集合</para>
-    ///  <para lang="en">Get model property collection by specific type</para>
+    /// <para lang="zh">通过特定类型模型获取模型属性集合</para>
+    /// <para lang="en">Get model property collection by specific type</para>
     /// </summary>
     /// <param name="type"><para lang="zh">绑定模型类型</para><para lang="en">Model type</para></param>
     /// <param name="source"><para lang="zh">Razor 文件中列集合</para><para lang="en">Column collection in Razor file</para></param>
@@ -410,16 +410,16 @@ public static class Utility
         .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
 
     /// <summary>
-    ///  <para lang="zh">通过指定 Model 获得 IEditorItem 集合方法</para>
-    ///  <para lang="en">Get IEditorItem collection by specified Model</para>
+    /// <para lang="zh">通过指定 Model 获得 IEditorItem 集合方法</para>
+    /// <para lang="en">Get IEditorItem collection by specified Model</para>
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => GetTableColumns<TModel>().Where(predicate);
 
     /// <summary>
-    ///  <para lang="zh">RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件</para>
-    ///  <para lang="en">RenderTreeBuilder extension method create Display component by IEditorItem and model</para>
+    /// <para lang="zh">RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件</para>
+    /// <para lang="en">RenderTreeBuilder extension method create Display component by IEditorItem and model</para>
     /// </summary>
     /// <param name="builder"><see cref="RenderTreeBuilder"/> <para lang="zh">实例</para><para lang="en">instance</para></param>
     /// <param name="item"><see cref="IEditorItem"/> <para lang="zh">实例</para><para lang="en">instance</para></param>
@@ -512,8 +512,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">RenderTreeBuilder 扩展方法 通过指定模型与属性生成编辑组件</para>
-    ///  <para lang="en">RenderTreeBuilder extension method generate editor component by specified model and property</para>
+    /// <para lang="zh">RenderTreeBuilder 扩展方法 通过指定模型与属性生成编辑组件</para>
+    /// <para lang="en">RenderTreeBuilder extension method generate editor component by specified model and property</para>
     /// </summary>
     /// <param name="builder"></param>
     /// <param name="model"></param>
@@ -642,8 +642,8 @@ public static class Utility
     private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
     /// <summary>
-    ///  <para lang="zh">通过指定类型实例获取属性 Lambda 表达式</para>
-    ///  <para lang="en">Get property Lambda expression by specified type instance</para>
+    /// <para lang="zh">通过指定类型实例获取属性 Lambda 表达式</para>
+    /// <para lang="en">Get property Lambda expression by specified type instance</para>
     /// </summary>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
@@ -685,8 +685,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">通过指定类型生成组件类型</para>
-    ///  <para lang="en">Generate component type by specified type</para>
+    /// <para lang="zh">通过指定类型生成组件类型</para>
+    /// <para lang="en">Generate component type by specified type</para>
     /// </summary>
     /// <param name="item"></param>
     private static Type GenerateComponentType(IEditorItem item)
@@ -726,8 +726,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">通过指定数据类型判断是否可使用 CheckboxList 进行渲染</para>
-    ///  <para lang="en">Judge whether to use CheckboxList to render by specified data type</para>
+    /// <para lang="zh">通过指定数据类型判断是否可使用 CheckboxList 进行渲染</para>
+    /// <para lang="en">Judge whether to use CheckboxList to render by specified data type</para>
     /// </summary>
     /// <param name="fieldType"></param>
     /// <param name="componentType"><para lang="zh">组件类型</para><para lang="en">Component type</para></param>
@@ -750,8 +750,8 @@ public static class Utility
     private static bool IsValidComponent(Type componentType) => Array.Find(componentType.GetProperties(), p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
 
     /// <summary>
-    ///  <para lang="zh">通过模型与指定数据类型生成组件参数集合</para>
-    ///  <para lang="en">Generate component parameter collection by model and specified data type</para>
+    /// <para lang="zh">通过模型与指定数据类型生成组件参数集合</para>
+    /// <para lang="en">Generate component parameter collection by model and specified data type</para>
     /// </summary>
     /// <param name="fieldType"><para lang="zh">待编辑数据类型</para><para lang="en">Data type to be edited</para></param>
     /// <param name="model"><para lang="zh">上下文模型</para><para lang="en">Context model</para></param>
@@ -786,8 +786,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">创建 <see cref="Func{T, TResult}"/> 委托方法</para>
-    ///  <para lang="en">Create <see cref="Func{T, TResult}"/> delegate method</para>
+    /// <para lang="zh">创建 <see cref="Func{T, TResult}"/> 委托方法</para>
+    /// <para lang="en">Create <see cref="Func{T, TResult}"/> delegate method</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TType"></typeparam>
@@ -798,8 +798,8 @@ public static class Utility
     public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => v => callback(model, col, v);
 
     /// <summary>
-    ///  <para lang="zh">创建 OnValueChanged 回调委托</para>
-    ///  <para lang="en">Create OnValueChanged callback delegate</para>
+    /// <para lang="zh">创建 OnValueChanged 回调委托</para>
+    /// <para lang="en">Create OnValueChanged callback delegate</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
@@ -816,8 +816,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">创建 OnValueChanged 回调委托</para>
-    ///  <para lang="en">Create OnValueChanged callback delegate</para>
+    /// <para lang="zh">创建 OnValueChanged 回调委托</para>
+    /// <para lang="en">Create OnValueChanged callback delegate</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
@@ -827,8 +827,8 @@ public static class Utility
 
     #region Format
     /// <summary>
-    ///  <para lang="zh">任意类型格式化方法</para>
-    ///  <para lang="en">Format method for any type</para>
+    /// <para lang="zh">任意类型格式化方法</para>
+    /// <para lang="en">Format method for any type</para>
     /// </summary>
     /// <param name="source"></param>
     /// <param name="format"></param>
@@ -846,8 +846,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">任意类型格式化方法</para>
-    ///  <para lang="en">Format method for any type</para>
+    /// <para lang="zh">任意类型格式化方法</para>
+    /// <para lang="en">Format method for any type</para>
     /// </summary>
     /// <param name="source"></param>
     /// <param name="provider"></param>
@@ -865,8 +865,8 @@ public static class Utility
     #endregion
 
     /// <summary>
-    ///  <para lang="zh">转换泛型类型为字符串方法</para>
-    ///  <para lang="en">Convert generic type to string method</para>
+    /// <para lang="zh">转换泛型类型为字符串方法</para>
+    /// <para lang="en">Convert generic type to string method</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
@@ -906,8 +906,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 ValueChanged 回调委托</para>
-    ///  <para lang="en">Get ValueChanged callback delegate</para>
+    /// <para lang="zh">获得 ValueChanged 回调委托</para>
+    /// <para lang="en">Get ValueChanged callback delegate</para>
     /// </summary>
     /// <param name="component"></param>
     /// <param name="model"></param>
@@ -932,8 +932,8 @@ public static class Utility
     }
 
     /// <summary>
-    ///  <para lang="zh">创建 <see cref="EventCallback{TValue}"/> 方法</para>
-    ///  <para lang="en">Create <see cref="EventCallback{TValue}"/> method</para>
+    /// <para lang="zh">创建 <see cref="EventCallback{TValue}"/> 方法</para>
+    /// <para lang="en">Create <see cref="EventCallback{TValue}"/> method</para>
     /// </summary>
     /// <typeparam name="TType"></typeparam>
     /// <param name="component"></param>
@@ -943,24 +943,24 @@ public static class Utility
     public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
-    ///  <para lang="zh">获得指定泛型的 IEditorItem 集合</para>
-    ///  <para lang="en">Get IEditorItem collection of specified generic type</para>
+    /// <para lang="zh">获得指定泛型的 IEditorItem 集合</para>
+    /// <para lang="en">Get IEditorItem collection of specified generic type</para>
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
     public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns<TModel>(source);
 
     /// <summary>
-    ///  <para lang="zh">通过指定类型创建 IStringLocalizer 实例</para>
-    ///  <para lang="en">Create IStringLocalizer instance by specified type</para>
+    /// <para lang="zh">通过指定类型创建 IStringLocalizer 实例</para>
+    /// <para lang="en">Create IStringLocalizer instance by specified type</para>
     /// </summary>
     /// <typeparam name="TType"></typeparam>
     /// <returns></returns>
     public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
 
     /// <summary>
-    ///  <para lang="zh">通过指定类型创建 IStringLocalizer 实例</para>
-    ///  <para lang="en">Create IStringLocalizer instance by specified type</para>
+    /// <para lang="zh">通过指定类型创建 IStringLocalizer 实例</para>
+    /// <para lang="en">Create IStringLocalizer instance by specified type</para>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>

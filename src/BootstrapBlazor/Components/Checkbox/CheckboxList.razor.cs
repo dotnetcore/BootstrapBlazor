@@ -8,14 +8,14 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">CheckboxList 组件基类</para>
-///  <para lang="en">CheckboxList component base class</para>
+/// <para lang="zh">CheckboxList 组件基类</para>
+/// <para lang="en">CheckboxList component base class</para>
 /// </summary>
 public partial class CheckboxList<TValue> : ValidateBase<TValue>
 {
     /// <summary>
-    ///  <para lang="zh">获得 组件样式</para>
-    ///  <para lang="en">Get component style</para>
+    /// <para lang="zh">获得 组件样式</para>
+    /// <para lang="en">Get component style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("checkbox-list form-control")
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
@@ -24,8 +24,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得 组件内部 Checkbox 项目样式</para>
-    ///  <para lang="en">Get the Checkbox item style inside the component</para>
+    /// <para lang="zh">获得 组件内部 Checkbox 项目样式</para>
+    /// <para lang="en">Get the Checkbox item style inside the component</para>
     /// </summary>
     protected string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
         .AddClass(CheckboxItemClass)
@@ -47,97 +47,97 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 数据源</para>
-    ///  <para lang="en">Gets or sets the data source</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 数据源</para>
+    /// <para lang="en">Gets or sets the data source</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为按钮样式 默认 false</para>
-    ///  <para lang="en">Gets or sets whether it is a button style. Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为按钮样式 默认 false</para>
+    /// <para lang="en">Gets or sets whether it is a button style. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsButton { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置  是否显示按钮边框颜色 默认为 false</para>
-    ///  <para lang="en">Gets or sets whether to show the button border color. Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置  是否显示按钮边框颜色 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the button border color. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowButtonBorderColor { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Checkbox 组件布局样式</para>
-    ///  <para lang="en">Gets or sets the Checkbox component layout style</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Checkbox 组件布局样式</para>
+    /// <para lang="en">Gets or sets the Checkbox component layout style</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CheckboxItemClass { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 非按钮模式下是否显示组件边框 默认为 true</para>
-    ///  <para lang="en">Gets or sets whether to show the component border in non-button mode. Default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 非按钮模式下是否显示组件边框 默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show the component border in non-button mode. Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowBorder { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
-    ///  <para lang="en">Gets or sets whether to arrange vertically. Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to arrange vertically. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
-    ///  <para lang="en">Gets or sets the button color. Default is None (not set)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
+    /// <para lang="en">Gets or sets the button color. Default is None (not set)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 SelectedItemChanged 方法</para>
-    ///  <para lang="en">Gets or sets the SelectedItemChanged method</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 SelectedItemChanged 方法</para>
+    /// <para lang="en">Gets or sets the SelectedItemChanged method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem>, TValue, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 最多选中数量</para>
-    ///  <para lang="en">Gets or sets the maximum number of selected items</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 最多选中数量</para>
+    /// <para lang="en">Gets or sets the maximum number of selected items</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxSelectedCount { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 超过最大选中数量时回调委托</para>
-    ///  <para lang="en">Gets or sets the callback delegate when the maximum number of selected items is exceeded</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 超过最大选中数量时回调委托</para>
+    /// <para lang="en">Gets or sets the callback delegate when the maximum number of selected items is exceeded</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnMaxSelectedCountExceed { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 项模板</para>
-    ///  <para lang="en">Gets or sets the item template</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 项模板</para>
+    /// <para lang="en">Gets or sets the item template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得 当前选项是否被禁用</para>
-    ///  <para lang="en">Get whether the current option is disabled</para>
+    /// <para lang="zh">获得 当前选项是否被禁用</para>
+    /// <para lang="en">Get whether the current option is disabled</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
@@ -146,8 +146,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     private Func<CheckboxState, Task<bool>>? _onBeforeStateChangedCallback;
 
     /// <summary>
-    ///  <para lang="zh">OnInitialized 方法</para>
-    ///  <para lang="en">OnInitialized method</para>
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized method</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -161,8 +161,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///  <para lang="zh">OnParametersSet 方法</para>
-    ///  <para lang="en">OnParametersSet method</para>
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet method</para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -205,8 +205,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -249,8 +249,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     /// <param name="typeValue"></param>
     /// <param name="list"></param>
@@ -282,8 +282,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///  <para lang="zh">Checkbox 组件选项状态改变时触发此方法</para>
-    ///  <para lang="en">Trigger this method when the Checkbox component option state changes</para>
+    /// <para lang="zh">Checkbox 组件选项状态改变时触发此方法</para>
+    /// <para lang="en">Trigger this method when the Checkbox component option state changes</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="v"></param>
@@ -318,14 +318,14 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///  <para lang="zh">点击选择框方法</para>
-    ///  <para lang="en">Click checkbox method</para>
+    /// <para lang="zh">点击选择框方法</para>
+    /// <para lang="en">Click checkbox method</para>
     /// </summary>
     private Task OnClick(SelectedItem item) => OnStateChanged(item, !item.Active);
 
     /// <summary>
-    ///  <para lang="zh">泛型参数约束检查</para>
-    ///  <para lang="en">Generic parameter constraint check</para>
+    /// <para lang="zh">泛型参数约束检查</para>
+    /// <para lang="en">Generic parameter constraint check</para>
     /// </summary>
     protected virtual void EnsureParameterValid()
     {

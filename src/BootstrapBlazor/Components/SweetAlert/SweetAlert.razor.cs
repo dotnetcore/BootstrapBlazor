@@ -6,21 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">SweetAlert component</para>
-///  <para lang="en">SweetAlert component</para>
+/// <para lang="zh">SweetAlert component</para>
+/// <para lang="en">SweetAlert component</para>
 /// </summary>
 public partial class SweetAlert : IAsyncDisposable
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 the Modal container component 实例</para>
-    ///  <para lang="en">Gets or sets the Modal container component instance</para>
+    /// <para lang="zh">获得/设置 the Modal container component 实例</para>
+    /// <para lang="en">Gets or sets the Modal container component instance</para>
     /// </summary>
     [NotNull]
     private Modal? ModalContainer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the DialogServices service 实例</para>
-    ///  <para lang="en">Gets or sets the DialogServices service instance</para>
+    /// <para lang="zh">获得/设置 the DialogServices service 实例</para>
+    /// <para lang="en">Gets or sets the DialogServices service instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -43,8 +43,8 @@ public partial class SweetAlert : IAsyncDisposable
     private SweetContext _context = default!;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -72,8 +72,8 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -156,8 +156,8 @@ public partial class SweetAlert : IAsyncDisposable
     private bool disposed;
 
     /// <summary>
-    ///  <para lang="zh">Dispose method</para>
-    ///  <para lang="en">Dispose method</para>
+    /// <para lang="zh">Dispose method</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)
@@ -183,8 +183,8 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

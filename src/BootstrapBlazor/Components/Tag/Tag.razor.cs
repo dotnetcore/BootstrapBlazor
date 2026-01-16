@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Tag 组件类</para>
-///  <para lang="en">Tag component类</para>
+/// <para lang="zh">Tag 组件类</para>
+/// <para lang="en">Tag component类</para>
 /// </summary>
 public partial class Tag
 {
     /// <summary>
-    ///  <para lang="zh">获得 样式集合</para>
-    ///  <para lang="en">Gets stylecollection</para>
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Gets stylecollection</para>
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("tag fade show")

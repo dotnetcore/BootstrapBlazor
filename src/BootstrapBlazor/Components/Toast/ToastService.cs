@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Toast 弹出窗服务类</para>
-///  <para lang="en">Toast 弹出窗服务类</para>
+/// <para lang="zh">Toast 弹出窗服务类</para>
+/// <para lang="en">Toast 弹出窗服务类</para>
 /// </summary>
 /// <param name="options"></param>
 public class ToastService(IOptionsMonitor<BootstrapBlazorOptions> options) : BootstrapServiceBase<ToastOption>
 {
     /// <summary>
-    ///  <para lang="zh">Show 方法</para>
-    ///  <para lang="en">Show 方法</para>
+    /// <para lang="zh">Show 方法</para>
+    /// <para lang="en">Show 方法</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="toastContainer"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">指定弹窗component default is为 null 使用 <see cref="BootstrapBlazorRoot"/> component内置弹窗component</para></param>

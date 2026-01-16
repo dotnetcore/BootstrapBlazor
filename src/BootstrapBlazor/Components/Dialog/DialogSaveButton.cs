@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">弹窗内保存按钮组件</para>
-///  <para lang="en">Dialog Save Button Component</para>
+/// <para lang="zh">弹窗内保存按钮组件</para>
+/// <para lang="en">Dialog Save Button Component</para>
 /// </summary>
 public partial class DialogSaveButton : Button
 {
@@ -18,9 +18,9 @@ public partial class DialogSaveButton : Button
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 保存回调方法 返回 true 时自动关闭弹窗</para>
-    ///  <para lang="en">Get/Set Save Callback Method. Close Dialog when return true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 保存回调方法 返回 true 时自动关闭弹窗</para>
+    /// <para lang="en">Get/Set Save Callback Method. Close Dialog when return true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
@@ -29,8 +29,8 @@ public partial class DialogSaveButton : Button
     private Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -42,8 +42,8 @@ public partial class DialogSaveButton : Button
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task HandlerClick()

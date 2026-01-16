@@ -6,44 +6,44 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh"><inheritdoc/></para>
-///  <para lang="en"><inheritdoc/></para>
+/// <para lang="zh"><inheritdoc/></para>
+/// <para lang="en"><inheritdoc/></para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
 {
     /// <summary>
-    ///  <para lang="zh">获得 Table 实例</para>
-    ///  <para lang="en">Gets Table instance</para>
+    /// <para lang="zh">获得 Table 实例</para>
+    /// <para lang="en">Gets Table instance</para>
     /// </summary>
     private ITable Table { get; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<ITableColumn> Columns => Table.Columns;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<ITableColumn> GetVisibleColumns() => Table.GetVisibleColumns();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<TItem> Rows { get; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Task ExportAsync() => ExportCallbackAsync();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public QueryPageOptions BuildQueryPageOptions() => OptionsBuilder();
@@ -53,8 +53,8 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     private Func<Task> ExportCallbackAsync { get; }
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">构造函数</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">构造函数</para>
     /// </summary>
     /// <param name="table"><para lang="zh">ITable 实例</para><para lang="en">ITable instance</para></param>
     /// <param name="rows"><para lang="zh">行数据集合</para><para lang="en">行datacollection</para></param>

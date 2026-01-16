@@ -9,14 +9,14 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Bluetooth 扩展方法</para>
-///  <para lang="en">Bluetooth Extensions</para>
+/// <para lang="zh">Bluetooth 扩展方法</para>
+/// <para lang="en">Bluetooth Extensions</para>
 /// </summary>
 public static class BluetoothExtensions
 {
     /// <summary>
-    ///  <para lang="zh">获得指定蓝牙服务字符串集合</para>
-    ///  <para lang="en">Get Bluetooth Service List</para>
+    /// <para lang="zh">获得指定蓝牙服务字符串集合</para>
+    /// <para lang="en">Get Bluetooth Service List</para>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>

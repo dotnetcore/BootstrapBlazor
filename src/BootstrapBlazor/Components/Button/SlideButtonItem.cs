@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">SlideButton 项组件</para>
-///  <para lang="en">SlideButtonItem component</para>
+/// <para lang="zh">SlideButton 项组件</para>
+/// <para lang="en">SlideButtonItem component</para>
 /// </summary>
 public class SlideButtonItem : ComponentBase, IDisposable
 {
     /// <summary>
-    ///  <para lang="zh">显示文本</para>
-    ///  <para lang="en">Display text</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">显示文本</para>
+    /// <para lang="en">Display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -24,9 +24,9 @@ public class SlideButtonItem : ComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">选项值</para>
-    ///  <para lang="en">Option value</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">选项值</para>
+    /// <para lang="en">Option value</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -39,8 +39,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     private List<SlideButtonItem>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -48,8 +48,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">资源销毁</para>
-    ///  <para lang="en">Dispose usage</para>
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -61,8 +61,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">资源销毁</para>
-    ///  <para lang="en">Dispose usage</para>
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     public void Dispose()

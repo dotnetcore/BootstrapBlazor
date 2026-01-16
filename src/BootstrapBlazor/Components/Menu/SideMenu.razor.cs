@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">SideMenu 组件</para>
-///  <para lang="en">SideMenu Component</para>
+/// <para lang="zh">SideMenu 组件</para>
+/// <para lang="en">SideMenu Component</para>
 /// </summary>
 public partial class SideMenu
 {
@@ -25,36 +25,36 @@ public partial class SideMenu
     private string GetTargetId(MenuItem item) => ComponentIdGenerator.Generate(item);
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 菜单数据集合</para>
-    ///  <para lang="en">Get/Set Menu Data Collection</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 菜单数据集合</para>
+    /// <para lang="en">Get/Set Menu Data Collection</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 DropdownIcon 图标</para>
-    ///  <para lang="en">Get/Set DropdownIcon Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
+    /// <para lang="en">Get/Set DropdownIcon Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 菜单箭头图标</para>
-    ///  <para lang="en">Get/Set Menu Arrow Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 菜单箭头图标</para>
+    /// <para lang="en">Get/Set Menu Arrow Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ArrowIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 菜单项点击回调委托</para>
-    ///  <para lang="en">Get/Set Menu item click callback delegate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
+    /// <para lang="en">Get/Set Menu item click callback delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -76,8 +76,8 @@ public partial class SideMenu
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -90,8 +90,8 @@ public partial class SideMenu
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

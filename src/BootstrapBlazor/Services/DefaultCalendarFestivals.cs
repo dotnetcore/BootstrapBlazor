@@ -33,8 +33,8 @@ class DefaultCalendarFestivals : ICalendarFestivals
     };
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public string? GetFestival(DateTime dt)

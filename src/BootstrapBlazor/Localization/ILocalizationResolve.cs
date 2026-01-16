@@ -8,22 +8,22 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ILocalizationResolve 服务</para>
-///  <para lang="en">ILocalizationResolve service</para>
+/// <para lang="zh">ILocalizationResolve 服务</para>
+/// <para lang="en">ILocalizationResolve service</para>
 /// </summary>
 public interface ILocalizationResolve
 {
     /// <summary>
-    ///  <para lang="zh">获得所有文化信息集合</para>
-    ///  <para lang="en">Get all culture info collection</para>
+    /// <para lang="zh">获得所有文化信息集合</para>
+    /// <para lang="en">Get all culture info collection</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures);
 
     /// <summary>
-    ///  <para lang="zh">获得所有文化信息集合</para>
-    ///  <para lang="en">Get all culture info collection</para>
+    /// <para lang="zh">获得所有文化信息集合</para>
+    /// <para lang="en">Get all culture info collection</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">Type name</para></param>

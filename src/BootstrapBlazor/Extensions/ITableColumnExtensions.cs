@@ -8,14 +8,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">IEditItem 扩展方法</para>
-///  <para lang="en">IEditItem extension methods</para>
+/// <para lang="zh">IEditItem 扩展方法</para>
+/// <para lang="en">IEditItem extension methods</para>
 /// </summary>
 public static class IEditItemExtensions
 {
     /// <summary>
-    ///  <para lang="zh">继承 class 标签中设置的参数值</para>
-    ///  <para lang="en">Inherit the parameter value set in the class tag</para>
+    /// <para lang="zh">继承 class 标签中设置的参数值</para>
+    /// <para lang="en">Inherit the parameter value set in the class tag</para>
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -35,8 +35,8 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">属性赋值方法</para>
-    ///  <para lang="en">Property assignment method</para>
+    /// <para lang="zh">属性赋值方法</para>
+    /// <para lang="en">Property assignment method</para>
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -118,8 +118,8 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">将 ITableColumn 集合转化为 IFilterAction 集合</para>
-    ///  <para lang="en">Convert attributes to IFilterAction collection</para>
+    /// <para lang="zh">将 ITableColumn 集合转化为 IFilterAction 集合</para>
+    /// <para lang="en">Convert attributes to IFilterAction collection</para>
     /// </summary>
     /// <param name="columns"></param>
     /// <param name="searchText"></param>
@@ -179,8 +179,8 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">当前单元格方法</para>
-    ///  <para lang="en">Render cell method</para>
+    /// <para lang="zh">当前单元格方法</para>
+    /// <para lang="en">Render cell method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="col"></param>

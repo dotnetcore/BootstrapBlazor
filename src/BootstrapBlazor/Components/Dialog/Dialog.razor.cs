@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Dialog component</para>
-///  <para lang="en">Dialog component</para>
+/// <para lang="zh">Dialog component</para>
+/// <para lang="en">Dialog component</para>
 /// </summary>
 public partial class Dialog : IDisposable
 {
@@ -36,8 +36,8 @@ public partial class Dialog : IDisposable
         .Build();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -48,8 +48,8 @@ public partial class Dialog : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -181,8 +181,8 @@ public partial class Dialog : IDisposable
     };
 
     /// <summary>
-    ///  <para lang="zh">Dispose method</para>
-    ///  <para lang="en">Dispose method</para>
+    /// <para lang="zh">Dispose method</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -194,8 +194,8 @@ public partial class Dialog : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

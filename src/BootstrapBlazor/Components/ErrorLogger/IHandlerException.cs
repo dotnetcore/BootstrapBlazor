@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">IHandlerException 接口</para>
-///  <para lang="en">IHandlerException Interface</para>
+/// <para lang="zh">IHandlerException 接口</para>
+/// <para lang="en">IHandlerException Interface</para>
 /// </summary>
 public interface IHandlerException
 {
     /// <summary>
-    ///  <para lang="zh">处理异常方法</para>
-    ///  <para lang="en">Handle Exception Method</para>
+    /// <para lang="zh">处理异常方法</para>
+    /// <para lang="en">Handle Exception Method</para>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>

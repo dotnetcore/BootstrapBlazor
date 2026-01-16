@@ -8,8 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">网络状态服务</para>
-///  <para lang="en">Network State Service</para>
+/// <para lang="zh">网络状态服务</para>
+/// <para lang="en">Network State Service</para>
 /// </summary>
 class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
 {
@@ -33,8 +33,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     private Task<JSModule> LoadModule() => _runtime.LoadUtility();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async Task<NetworkMonitorState?> GetNetworkMonitorState(CancellationToken token = default)
     {
@@ -43,8 +43,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="component"></param>
     /// <param name="callback"></param>
@@ -81,8 +81,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="component"></param>
     public void UnregisterStateChangedCallback(IComponent component)
@@ -91,8 +91,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">JSInvoke 回调方法</para>
-    ///  <para lang="en">JSInvoke Callback Method</para>
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke Callback Method</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -109,8 +109,8 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

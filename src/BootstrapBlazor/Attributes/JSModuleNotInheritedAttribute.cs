@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
-///  <para lang="en">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
+/// <para lang="zh">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
+/// <para lang="en">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class JSModuleNotInheritedAttribute : Attribute

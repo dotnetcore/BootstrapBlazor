@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">自定义验证类</para>
-///  <para lang="en">Custom validation class</para>
+/// <para lang="zh">自定义验证类</para>
+/// <para lang="en">Custom validation class</para>
 /// </summary>
 /// <param name="attribute"></param>
 public class FormItemValidator(ValidationAttribute attribute) : ValidatorBase
 {
     /// <summary>
-    ///  <para lang="zh">验证方法</para>
-    ///  <para lang="en">Validation method</para>
+    /// <para lang="zh">验证方法</para>
+    /// <para lang="en">Validation method</para>
     /// </summary>
     /// <param name="propertyValue"><para lang="zh">待校验值</para><para lang="en">Value to be validated</para></param>
     /// <param name="context"><para lang="zh">ValidateContext 实例</para><para lang="en">ValidateContext instance</para></param>
@@ -29,8 +29,8 @@ public class FormItemValidator(ValidationAttribute attribute) : ValidatorBase
     }
 
     /// <summary>
-    ///  <para lang="zh">是否为 RequiredAttribute 标签特性</para>
-    ///  <para lang="en">Whether it is RequiredAttribute tag attribute</para>
+    /// <para lang="zh">是否为 RequiredAttribute 标签特性</para>
+    /// <para lang="en">Whether it is RequiredAttribute tag attribute</para>
     /// </summary>
     public bool IsRequired => attribute is RequiredAttribute;
 }

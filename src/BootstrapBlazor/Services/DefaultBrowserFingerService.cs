@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">浏览器指纹服务</para>
-///  <para lang="en">Browser Fingerprint Service</para>
+/// <para lang="zh">浏览器指纹服务</para>
+/// <para lang="en">Browser Fingerprint Service</para>
 /// </summary>
 class DefaultBrowserFingerService(IJSRuntime jSRuntime) : IBrowserFingerService
 {

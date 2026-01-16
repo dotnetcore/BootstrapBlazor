@@ -6,31 +6,31 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Toggle Button 按钮组件</para>
-///  <para lang="en">Toggle Button component</para>
+/// <para lang="zh">Toggle Button 按钮组件</para>
+/// <para lang="en">Toggle Button component</para>
 /// </summary>
 public partial class ToggleButton
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 状态切换回调方法</para>
-    ///  <para lang="en">Gets or sets the state toggle callback method</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 状态切换回调方法</para>
+    /// <para lang="en">Gets or sets the state toggle callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnToggleAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 当前状态是否为激活状态 默认 false</para>
-    ///  <para lang="en">Gets or sets whether the current state is active. Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 当前状态是否为激活状态 默认 false</para>
+    /// <para lang="en">Gets or sets whether the current state is active. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 激活状态回调方法</para>
-    ///  <para lang="en">Gets or sets the active state callback method</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 激活状态回调方法</para>
+    /// <para lang="en">Gets or sets the active state callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<bool> IsActiveChanged { get; set; }
@@ -59,8 +59,8 @@ public partial class ToggleButton
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override async Task HandlerClick()
     {

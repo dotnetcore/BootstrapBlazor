@@ -8,14 +8,14 @@ namespace BootstrapBlazor.Components;
 class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Func<string, Task>? ThemeChangedAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="themeName"></param>
     public async ValueTask SetThemeAsync(string themeName)
@@ -25,8 +25,8 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async ValueTask<string?> GetThemeAsync()
     {
@@ -35,8 +35,8 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void TriggerThemeChanged(string themeName)
     {

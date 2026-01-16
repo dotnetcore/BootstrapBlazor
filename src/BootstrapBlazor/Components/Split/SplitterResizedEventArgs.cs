@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">SplitterResizedEventArgs 类</para>
-///  <para lang="en">SplitterResizedEventArgs Class</para>
+/// <para lang="zh">SplitterResizedEventArgs 类</para>
+/// <para lang="en">SplitterResizedEventArgs Class</para>
 /// </summary>
 public class SplitterResizedEventArgs(string left)
 {
     /// <summary>
-    ///  <para lang="zh">获得 the size of panel 1 (top/left) after a resize operation.</para>
-    ///  <para lang="en">Gets the size of panel 1 (top/left) after a resize operation.</para>
+    /// <para lang="zh">获得 the size of panel 1 (top/left) after a resize operation.</para>
+    /// <para lang="en">Gets the size of panel 1 (top/left) after a resize operation.</para>
     /// </summary>
     public string FirstPanelSize => left;
 
     /// <summary>
-    ///  <para lang="zh">获得 组件第一个面板是否折叠</para>
-    ///  <para lang="en">Get Whether the first panel of the component is collapsed</para>
+    /// <para lang="zh">获得 组件第一个面板是否折叠</para>
+    /// <para lang="en">Get Whether the first panel of the component is collapsed</para>
     /// </summary>
     public bool IsCollapsed => left == "0%";
 
     /// <summary>
-    ///  <para lang="zh">获得 组件第一个面板是否展开</para>
-    ///  <para lang="en">Get Whether the first panel of the component is expanded</para>
+    /// <para lang="zh">获得 组件第一个面板是否展开</para>
+    /// <para lang="en">Get Whether the first panel of the component is expanded</para>
     /// </summary>
     public bool IsExpanded => left == "100%";
 }

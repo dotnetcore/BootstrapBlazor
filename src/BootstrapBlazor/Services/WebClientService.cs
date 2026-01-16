@@ -9,8 +9,8 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">WebClient 服务类</para>
-///  <para lang="en">WebClient Service Class</para>
+/// <para lang="zh">WebClient 服务类</para>
+/// <para lang="en">WebClient Service Class</para>
 /// </summary>
 /// <param name="ipLocatorFactory"></param>
 /// <param name="options"></param>
@@ -30,8 +30,8 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     private IIpLocatorProvider? _provider;
 
     /// <summary>
-    ///  <para lang="zh">获得 ClientInfo 实例方法</para>
-    ///  <para lang="en">Get ClientInfo Instance Method</para>
+    /// <para lang="zh">获得 ClientInfo 实例方法</para>
+    /// <para lang="en">Get ClientInfo Instance Method</para>
     /// </summary>
     /// <returns></returns>
     public async Task<ClientInfo> GetClientInfo()
@@ -70,8 +70,8 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     }
 
     /// <summary>
-    ///  <para lang="zh">SetData 方法由 JS 调用</para>
-    ///  <para lang="en">SetData method called by JS</para>
+    /// <para lang="zh">SetData 方法由 JS 调用</para>
+    /// <para lang="en">SetData method called by JS</para>
     /// </summary>
     /// <param name="client"></param>
     [JSInvokable]
@@ -83,8 +83,8 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     }
 
     /// <summary>
-    ///  <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
-    ///  <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
@@ -107,8 +107,8 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()
@@ -119,69 +119,69 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
 }
 
 /// <summary>
-///  <para lang="zh">客户端请求信息实体类</para>
-///  <para lang="en">Client Request Information Entity Class</para>
+/// <para lang="zh">客户端请求信息实体类</para>
+/// <para lang="en">Client Request Information Entity Class</para>
 /// </summary>
 public class ClientInfo
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 链接 Id</para>
-    ///  <para lang="en">Get/Set Connection Id</para>
+    /// <para lang="zh">获得/设置 链接 Id</para>
+    /// <para lang="en">Get/Set Connection Id</para>
     /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端IP</para>
-    ///  <para lang="en">Get/Set Client IP</para>
+    /// <para lang="zh">获得/设置 客户端IP</para>
+    /// <para lang="en">Get/Set Client IP</para>
     /// </summary>
     public string? Ip { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端地点</para>
-    ///  <para lang="en">Get/Set Client City</para>
+    /// <para lang="zh">获得/设置 客户端地点</para>
+    /// <para lang="en">Get/Set Client City</para>
     /// </summary>
     public string? City { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端浏览器</para>
-    ///  <para lang="en">Get/Set Client Browser</para>
+    /// <para lang="zh">获得/设置 客户端浏览器</para>
+    /// <para lang="en">Get/Set Client Browser</para>
     /// </summary>
     public string? Browser { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端操作系统</para>
-    ///  <para lang="en">Get/Set Client OS</para>
+    /// <para lang="zh">获得/设置 客户端操作系统</para>
+    /// <para lang="en">Get/Set Client OS</para>
     /// </summary>
     public string? OS { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端设备类型</para>
-    ///  <para lang="en">Get/Set Client Device Type</para>
+    /// <para lang="zh">获得/设置 客户端设备类型</para>
+    /// <para lang="en">Get/Set Client Device Type</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public WebClientDeviceType Device { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端浏览器语言</para>
-    ///  <para lang="en">Get/Set Client Browser Language</para>
+    /// <para lang="zh">获得/设置 客户端浏览器语言</para>
+    /// <para lang="en">Get/Set Client Browser Language</para>
     /// </summary>
     public string? Language { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获取/设置 请求网址</para>
-    ///  <para lang="en">Get/Set Request URL</para>
+    /// <para lang="zh">获取/设置 请求网址</para>
+    /// <para lang="en">Get/Set Request URL</para>
     /// </summary>
     public string? RequestUrl { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 客户端 UserAgent</para>
-    ///  <para lang="en">Get/Set Client UserAgent</para>
+    /// <para lang="zh">获得/设置 客户端 UserAgent</para>
+    /// <para lang="en">Get/Set Client UserAgent</para>
     /// </summary>
     public string? UserAgent { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 浏览器引擎信息</para>
-    ///  <para lang="en">Get/Set Browser Engine Info</para>
+    /// <para lang="zh">获得/设置 浏览器引擎信息</para>
+    /// <para lang="en">Get/Set Browser Engine Info</para>
     /// </summary>
     public string? Engine { get; set; }
 }

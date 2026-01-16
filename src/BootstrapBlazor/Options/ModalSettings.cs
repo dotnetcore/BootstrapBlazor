@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Modal component settings</para>
-///  <para lang="en">Modal component settings</para>
+/// <para lang="zh">Modal component settings</para>
+/// <para lang="en">Modal component settings</para>
 /// </summary>
 public class ModalSettings
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 to enable fade animation, default is null</para>
-    ///  <para lang="en">Gets or sets whether to enable fade animation, default is null</para>
+    /// <para lang="zh">获得/设置 是否 to enable fade animation, default is null</para>
+    /// <para lang="en">Gets or sets whether to enable fade animation, default is null</para>
     /// </summary>
     public bool? IsFade { get; set; }
 }

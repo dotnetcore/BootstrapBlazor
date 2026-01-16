@@ -11,8 +11,8 @@ namespace BootstrapBlazor.Components;
 class DefaultZipArchiveService : IZipArchiveService
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(files.Select(f => new ArchiveEntry()
     {
@@ -21,8 +21,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }), options);
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(archiveFile, files.Select(f => new ArchiveEntry()
     {
@@ -31,8 +31,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }), options);
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async Task<Stream> ArchiveAsync(IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
@@ -45,8 +45,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async Task ArchiveAsync(string archiveFile, IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
@@ -91,8 +91,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async Task ArchiveDirectoryAsync(string archiveFile, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null, CancellationToken token = default)
     {
@@ -116,8 +116,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async Task<bool> ExtractToDirectoryAsync(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null, CancellationToken token = default)
     {
@@ -139,8 +139,8 @@ class DefaultZipArchiveService : IZipArchiveService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
     {

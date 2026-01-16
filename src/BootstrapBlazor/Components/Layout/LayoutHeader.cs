@@ -15,8 +15,8 @@ internal class LayoutHeader : IComponent
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -26,8 +26,8 @@ internal class LayoutHeader : IComponent
     }
 
     /// <summary>
-    ///  <para lang="zh">render tab header method.</para>
-    ///  <para lang="en">render tab header method.</para>
+    /// <para lang="zh">render tab header method.</para>
+    /// <para lang="en">render tab header method.</para>
     /// </summary>
     public void Render(RenderFragment renderFragment)
     {

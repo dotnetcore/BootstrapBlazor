@@ -9,14 +9,14 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh"><see cref="FilterKeyValueAction"/> 转换器</para>
-///  <para lang="en"><see cref="FilterKeyValueAction"/> 转换器</para>
+/// <para lang="zh"><see cref="FilterKeyValueAction"/> 转换器</para>
+/// <para lang="en"><see cref="FilterKeyValueAction"/> 转换器</para>
 /// </summary>
 public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyValueAction>
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -77,8 +77,8 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>

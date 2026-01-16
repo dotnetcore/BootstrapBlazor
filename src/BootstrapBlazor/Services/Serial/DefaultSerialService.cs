@@ -8,8 +8,8 @@ namespace BootstrapBlazor.Components;
 class DefaultSerialService : ISerialService, IAsyncDisposable
 {
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsSupport { get; set; }
 
@@ -36,8 +36,8 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">get the current position of the device</para>
-    ///  <para lang="en">get the current position of the device</para>
+    /// <para lang="zh">get the current position of the device</para>
+    /// <para lang="en">get the current position of the device</para>
     /// </summary>
     /// <returns></returns>
     public async Task<ISerialPort?> GetPort(CancellationToken token = default)
@@ -56,8 +56,8 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">DisposeAsync 方法</para>
-    ///  <para lang="en">DisposeAsync 方法</para>
+    /// <para lang="zh">DisposeAsync 方法</para>
+    /// <para lang="en">DisposeAsync 方法</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)
@@ -74,8 +74,8 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

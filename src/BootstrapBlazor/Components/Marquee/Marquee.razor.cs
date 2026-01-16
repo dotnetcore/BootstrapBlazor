@@ -6,61 +6,61 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Marquee 字幕滚动组件</para>
-///  <para lang="en">Marquee 字幕滚动component</para>
+/// <para lang="zh">Marquee 字幕滚动组件</para>
+/// <para lang="en">Marquee 字幕滚动component</para>
 /// </summary>
 public partial class Marquee
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 显示文本 默认 Empty</para>
-    ///  <para lang="en">Gets or sets component值 display文本 Default is Empty</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件值 显示文本 默认 Empty</para>
+    /// <para lang="en">Gets or sets component值 display文本 Default is Empty</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 文本颜色 默认 #000 <para>支持16进制和颜色名称</para>
+    /// <para lang="zh">获得/设置 组件值 文本颜色 默认 #000 <para>支持16进制和颜色名称</para>
     ///</para>
-    ///  <para lang="en">Gets or sets component值 文本color Default is #000 <para>支持16进制和color名称</para>
+    /// <para lang="en">Gets or sets component值 文本color Default is #000 <para>支持16进制和color名称</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string Color { get; set; } = "#000";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 背景颜色 默认 #fff <para>支持16进制和颜色名称</para>
+    /// <para lang="zh">获得/设置 组件值 背景颜色 默认 #fff <para>支持16进制和颜色名称</para>
     ///</para>
-    ///  <para lang="en">Gets or sets component值 背景color Default is #fff <para>支持16进制和color名称</para>
+    /// <para lang="en">Gets or sets component值 背景color Default is #fff <para>支持16进制和color名称</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string BackgroundColor { get; set; } = "#fff";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 文本大小 默认 72px</para>
-    ///  <para lang="en">Gets or sets component值 文本大小 Default is 72px</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件值 文本大小 默认 72px</para>
+    /// <para lang="en">Gets or sets component值 文本大小 Default is 72px</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int FontSize { get; set; } = 72;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 动画时间 默认 14s <para>值越小滚动越快</para>
+    /// <para lang="zh">获得/设置 组件值 动画时间 默认 14s <para>值越小滚动越快</para>
     ///</para>
-    ///  <para lang="en">Gets or sets component值 动画时间 Default is 14s <para>值越小滚动越快</para>
+    /// <para lang="en">Gets or sets component值 动画时间 Default is 14s <para>值越小滚动越快</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Duration { get; set; } = 14;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件值 滚动方向 默认 LeftToRight</para>
-    ///  <para lang="en">Gets or sets component值 滚动方向 Default is LeftToRight</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件值 滚动方向 默认 LeftToRight</para>
+    /// <para lang="en">Gets or sets component值 滚动方向 Default is LeftToRight</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public MarqueeDirection Direction { get; set; }

@@ -8,176 +8,176 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">TreeViewRow component</para>
-///  <para lang="en">TreeViewRow component</para>
+/// <para lang="zh">TreeViewRow component</para>
+/// <para lang="en">TreeViewRow component</para>
 /// </summary>
 public partial class TreeViewRow<TItem>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 the node is active. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether the node is active. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 the node is active. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether the node is active. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the node 索引. 默认为 0.</para>
-    ///  <para lang="en">Gets or sets the node index. Default is 0.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the node 索引. 默认为 0.</para>
+    /// <para lang="en">Gets or sets the node index. Default is 0.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Index { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the tree node item. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the tree node item. Default is null.</para>
+    /// <para lang="zh">获得/设置 the tree node item. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the tree node item. Default is null.</para>
     /// </summary>
     [Parameter, NotNull]
     public TreeViewItem<TItem>? Item { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the loading 图标 for tree nodes.</para>
-    ///  <para lang="en">Gets or sets the loading icon for tree nodes.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the loading 图标 for tree nodes.</para>
+    /// <para lang="en">Gets or sets the loading icon for tree nodes.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the 图标 for tree nodes.</para>
-    ///  <para lang="en">Gets or sets the icon for tree nodes.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the 图标 for tree nodes.</para>
+    /// <para lang="en">Gets or sets the icon for tree nodes.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NodeIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the 图标 for expanded tree nodes.</para>
-    ///  <para lang="en">Gets or sets the icon for expanded tree nodes.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the 图标 for expanded tree nodes.</para>
+    /// <para lang="en">Gets or sets the icon for expanded tree nodes.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExpandNodeIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 the entire component is disabled. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether the entire component is disabled. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 the entire component is disabled. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether the entire component is disabled. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 to show checkboxes. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether to show checkboxes. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 to show checkboxes. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether to show checkboxes. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 nodes can be expanded or collapsed when the component is disabled. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 nodes can be expanded or collapsed when the component is disabled. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool CanExpandWhenDisabled { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">Get or sets the node click event 回调.</para>
-    ///  <para lang="en">Get or sets the node click event callback.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">Get or sets the node click event 回调.</para>
+    /// <para lang="en">Get or sets the node click event callback.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task>? OnToggleNodeAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">Get or sets the node checkbox state change event 回调.</para>
-    ///  <para lang="en">Get or sets the node checkbox state change event callback.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">Get or sets the node checkbox state change event 回调.</para>
+    /// <para lang="en">Get or sets the node checkbox state change event callback.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, CheckboxState, Task>? OnCheckStateChanged { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the maximum number of selected items.</para>
-    ///  <para lang="en">Gets or sets the maximum number of selected items.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the maximum number of selected items.</para>
+    /// <para lang="en">Gets or sets the maximum number of selected items.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxSelectedCount { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the 回调 that is invoked before the node state changes.</para>
-    ///  <para lang="en">Gets or sets the callback that is invoked before the node state changes.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the 回调 that is invoked before the node state changes.</para>
+    /// <para lang="en">Gets or sets the callback that is invoked before the node state changes.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, CheckboxState, Task<bool>>? OnBeforeStateChangedCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 to show 图标s. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether to show icons. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 to show 图标s. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether to show icons. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the click event 回调. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the click event callback. Default is null.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the click event 回调. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the click event callback. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task>? OnClick { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否 show the toolbar of tree view item. 默认为 false.</para>
-    ///  <para lang="en">Gets or sets whether show the toolbar of tree view item. Default is false.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否 show the toolbar of tree view item. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether show the toolbar of tree view item. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">A 回调方法 that determines 是否 to show the toolbar of the tree view item.</para>
-    ///  <para lang="en">A callback method that determines whether to show the toolbar of the tree view item.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">A 回调方法 that determines 是否 to show the toolbar of the tree view item.</para>
+    /// <para lang="en">A callback method that determines whether to show the toolbar of the tree view item.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task<bool>>? ShowToolbarCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the title of the popup-window. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the title of the popup-window. Default is null.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the title of the popup-window. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the title of the popup-window. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ToolbarEditTitle { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the title of the popup-window. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the title of the popup-window. Default is null.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the title of the popup-window. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the title of the popup-window. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ToolbarEditLabelText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the toolbar 内容 模板. 默认为 null.</para>
-    ///  <para lang="en">Gets or sets the toolbar content template. Default is null.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the toolbar 内容 模板. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the toolbar content template. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ToolbarTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the update the tree text value 回调. 默认为 null. <para>If return true will update the tree text value, otherwise will not update.</para>
+    /// <para lang="zh">获得/设置 the update the tree text value 回调. 默认为 null. <para>If return true will update the tree text value, otherwise will not update.</para>
     ///</para>
-    ///  <para lang="en">Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para>
+    /// <para lang="en">Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
@@ -234,8 +234,8 @@ public partial class TreeViewRow<TItem>
     private bool _showToolbar = false;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()

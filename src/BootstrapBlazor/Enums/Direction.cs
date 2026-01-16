@@ -8,35 +8,35 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">下拉框枚举类</para>
-///  <para lang="en">Dropdown Direction Enum</para>
+/// <para lang="zh">下拉框枚举类</para>
+/// <para lang="en">Dropdown Direction Enum</para>
 /// </summary>
 public enum Direction
 {
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("dropdown")]
     Dropdown,
 
     /// <summary>
-    ///  <para lang="zh">Dropup</para>
-    ///  <para lang="en">Dropup</para>
+    /// <para lang="zh">Dropup</para>
+    /// <para lang="en">Dropup</para>
     /// </summary>
     [Description("dropup")]
     Dropup,
 
     /// <summary>
-    ///  <para lang="zh">Dropleft</para>
-    ///  <para lang="en">Dropleft</para>
+    /// <para lang="zh">Dropleft</para>
+    /// <para lang="en">Dropleft</para>
     /// </summary>
     [Description("dropstart")]
     Dropleft,
 
     /// <summary>
-    ///  <para lang="zh">Dropright</para>
-    ///  <para lang="en">Dropright</para>
+    /// <para lang="zh">Dropright</para>
+    /// <para lang="en">Dropright</para>
     /// </summary>
     [Description("dropend")]
     Dropright

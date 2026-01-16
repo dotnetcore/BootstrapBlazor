@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">客户端链接组件</para>
-///  <para lang="en">Client connection component</para>
+/// <para lang="zh">客户端链接组件</para>
+/// <para lang="en">Client connection component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true)]
 public class ConnectionHub : BootstrapModuleComponentBase
@@ -37,8 +37,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
     private ThrottleOptions? _throttleOptions;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
@@ -59,8 +59,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    ///  <para lang="zh">JSInvoke 回调方法</para>
-    ///  <para lang="en">JSInvoke callback method</para>
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke callback method</para>
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>

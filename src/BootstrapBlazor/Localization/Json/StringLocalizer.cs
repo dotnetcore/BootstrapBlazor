@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">IStringLocalizer 实现类</para>
-///  <para lang="en">IStringLocalizer implementation class</para>
+/// <para lang="zh">IStringLocalizer 实现类</para>
+/// <para lang="en">IStringLocalizer implementation class</para>
 /// </summary>
 internal class StringLocalizer : IStringLocalizer
 {

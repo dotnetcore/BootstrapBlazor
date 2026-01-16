@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">图片预览组件</para>
-///  <para lang="en">Image Previewer Component</para>
+/// <para lang="zh">图片预览组件</para>
+/// <para lang="en">Image Previewer Component</para>
 /// </summary>
 public partial class ImagePreviewer
 {
@@ -28,17 +28,17 @@ public partial class ImagePreviewer
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 原生 z-index 属性 默认 2050</para>
-    ///  <para lang="en">Get/Set z-index property Default 2050</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 原生 z-index 属性 默认 2050</para>
+    /// <para lang="en">Get/Set z-index property Default 2050</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ZIndex { get; set; } = 2050;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 预览大图链接集合 默认 null</para>
-    ///  <para lang="en">Get/Set Preview Image List Default null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 预览大图链接集合 默认 null</para>
+    /// <para lang="en">Get/Set Preview Image List Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -48,57 +48,57 @@ public partial class ImagePreviewer
     public List<string>? PreviewList { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上一张图片 Icon 图标</para>
-    ///  <para lang="en">Get/Set Previous Image Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上一张图片 Icon 图标</para>
+    /// <para lang="en">Get/Set Previous Image Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PreviousIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 下一张图片 Icon 图标</para>
-    ///  <para lang="en">Get/Set Next Image Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 下一张图片 Icon 图标</para>
+    /// <para lang="en">Get/Set Next Image Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NextIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 缩小 Icon 图标</para>
-    ///  <para lang="en">Get/Set Zoom Out Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 缩小 Icon 图标</para>
+    /// <para lang="en">Get/Set Zoom Out Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 放大 Icon 图标</para>
-    ///  <para lang="en">Get/Set Zoom In Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 放大 Icon 图标</para>
+    /// <para lang="en">Get/Set Zoom In Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 向左旋转 Icon 图标</para>
-    ///  <para lang="en">Get/Set Rotate Left Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 向左旋转 Icon 图标</para>
+    /// <para lang="en">Get/Set Rotate Left Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RotateLeftIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 向右旋转 Icon 图标</para>
-    ///  <para lang="en">Get/Set Rotate Right Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 向右旋转 Icon 图标</para>
+    /// <para lang="en">Get/Set Rotate Right Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RotateRightIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 预览缩放速度 默认 null 未设置取 0.015 值</para>
-    ///  <para lang="en">Get/Set Zoom Speed Default null 0.015 if not set</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 预览缩放速度 默认 null 未设置取 0.015 值</para>
+    /// <para lang="en">Get/Set Zoom Speed Default null 0.015 if not set</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public double? ZoomSpeed { get; set; }
@@ -121,15 +121,15 @@ public partial class ImagePreviewer
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">显示图片</para>
-    ///  <para lang="en">Show Image</para>
+    /// <para lang="zh">显示图片</para>
+    /// <para lang="en">Show Image</para>
     /// </summary>
     /// <param name="index"></param>
     public Task Show(int index = 0) => InvokeVoidAsync("show", Id, index);
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -144,8 +144,8 @@ public partial class ImagePreviewer
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -160,8 +160,8 @@ public partial class ImagePreviewer
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, PreviewList, new { ZoomSpeed });

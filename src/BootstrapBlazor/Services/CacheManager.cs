@@ -19,8 +19,8 @@ using System.Collections.Frozen;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">缓存操作类</para>
-///  <para lang="en">Cache Manager Class</para>
+/// <para lang="zh">缓存操作类</para>
+/// <para lang="en">Cache Manager Class</para>
 /// </summary>
 internal class CacheManager : ICacheManager
 {
@@ -37,8 +37,8 @@ internal class CacheManager : ICacheManager
     private const string CacheKeyPrefix = "BootstrapBlazor";
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">Constructor</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
@@ -51,8 +51,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">获得或者创建指定 Key 缓存项</para>
-    ///  <para lang="en">Get or create cache item by key</para>
+    /// <para lang="zh">获得或者创建指定 Key 缓存项</para>
+    /// <para lang="en">Get or create cache item by key</para>
     /// </summary>
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
@@ -63,8 +63,8 @@ internal class CacheManager : ICacheManager
     })!;
 
     /// <summary>
-    ///  <para lang="zh">获得或者创建指定 Key 缓存项 异步重载方法</para>
-    ///  <para lang="en">Get or create cache item by key (Async)</para>
+    /// <para lang="zh">获得或者创建指定 Key 缓存项 异步重载方法</para>
+    /// <para lang="en">Get or create cache item by key (Async)</para>
     /// </summary>
     public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
@@ -75,8 +75,8 @@ internal class CacheManager : ICacheManager
     })!;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
@@ -94,8 +94,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">清除指定 Key 缓存项</para>
-    ///  <para lang="en">Clear cache item by key</para>
+    /// <para lang="zh">清除指定 Key 缓存项</para>
+    /// <para lang="en">Clear cache item by key</para>
     /// </summary>
     /// <param name="key"></param>
     public void Clear(object? key)
@@ -115,14 +115,14 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">设置 App 开始时间</para>
-    ///  <para lang="en">Set App Start Time</para>
+    /// <para lang="zh">设置 App 开始时间</para>
+    /// <para lang="en">Set App Start Time</para>
     /// </summary>
     public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
 
     /// <summary>
-    ///  <para lang="zh">设置 App 开始时间</para>
-    ///  <para lang="en">Set App Start Time</para>
+    /// <para lang="zh">设置 App 开始时间</para>
+    /// <para lang="en">Set App Start Time</para>
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
@@ -134,8 +134,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">获取 App 开始时间</para>
-    ///  <para lang="en">Get App Start Time</para>
+    /// <para lang="zh">获取 App 开始时间</para>
+    /// <para lang="en">Get App Start Time</para>
     /// </summary>
     /// <returns></returns>
     public DateTimeOffset GetStartTime()
@@ -149,8 +149,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 缓存数量</para>
-    ///  <para lang="en">Get Cache Count</para>
+    /// <para lang="zh">获得 缓存数量</para>
+    /// <para lang="en">Get Cache Count</para>
     /// </summary>
     public long Count
     {
@@ -167,8 +167,8 @@ internal class CacheManager : ICacheManager
 
 #if NET9_0_OR_GREATER
     /// <summary>
-    ///  <para lang="zh">获得 缓存键集合</para>
-    ///  <para lang="en">Get Cache Keys</para>
+    /// <para lang="zh">获得 缓存键集合</para>
+    /// <para lang="en">Get Cache Keys</para>
     /// </summary>
     public IEnumerable<object> Keys
     {
@@ -192,8 +192,8 @@ internal class CacheManager : ICacheManager
     private static MethodInfo GetAllValuesMethodInfo(Type type) => type.GetMethod("GetAllValues", BindingFlags.Instance | BindingFlags.Public)!;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>
@@ -230,8 +230,8 @@ internal class CacheManager : ICacheManager
 
     #region Assembly
     /// <summary>
-    ///  <para lang="zh">获得唯一类型名称方法</para>
-    ///  <para lang="en">Get Unique Type Name Method</para>
+    /// <para lang="zh">获得唯一类型名称方法</para>
+    /// <para lang="en">Get Unique Type Name Method</para>
     /// </summary>
     /// <param name="assembly"></param>
     /// <returns></returns>
@@ -268,8 +268,8 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    ///  <para lang="zh">通过 Type 获得 <see cref="IStringLocalizer"/> 实例</para>
-    ///  <para lang="en">Get <see cref="IStringLocalizer"/> instance by Type</para>
+    /// <para lang="zh">通过 Type 获得 <see cref="IStringLocalizer"/> 实例</para>
+    /// <para lang="en">Get <see cref="IStringLocalizer"/> instance by Type</para>
     /// </summary>
     /// <param name="resourceSource"></param>
     /// <returns></returns>
@@ -278,8 +278,8 @@ internal class CacheManager : ICacheManager
         : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
     /// <summary>
-    ///  <para lang="zh">获得 <see cref="JsonLocalizationOptions"/> 值</para>
-    ///  <para lang="en">Get <see cref="JsonLocalizationOptions"/> Value</para>
+    /// <para lang="zh">获得 <see cref="JsonLocalizationOptions"/> 值</para>
+    /// <para lang="en">Get <see cref="JsonLocalizationOptions"/> Value</para>
     /// </summary>
     /// <returns></returns>
     private static JsonLocalizationOptions GetJsonLocalizationOption()
@@ -289,8 +289,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">通过 程序集与类型获得 IStringLocalizer 实例</para>
-    ///  <para lang="en">Get IStringLocalizer instance by Assembly and Type Name</para>
+    /// <para lang="zh">通过 程序集与类型获得 IStringLocalizer 实例</para>
+    /// <para lang="en">Get IStringLocalizer instance by Assembly and Type Name</para>
     /// </summary>
     /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
@@ -316,8 +316,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">获取指定文化本地化资源集合</para>
-    ///  <para lang="en">Get localized string collection for specified culture</para>
+    /// <para lang="zh">获取指定文化本地化资源集合</para>
+    /// <para lang="en">Get localized string collection for specified culture</para>
     /// </summary>
     /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
@@ -325,8 +325,8 @@ internal class CacheManager : ICacheManager
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
-    ///  <para lang="zh">通过指定程序集获取所有本地化信息键值集合</para>
-    ///  <para lang="en">Get all localized string key-value pairs by assembly</para>
+    /// <para lang="zh">通过指定程序集获取所有本地化信息键值集合</para>
+    /// <para lang="en">Get all localized string key-value pairs by assembly</para>
     /// </summary>
     /// <param name="option"><para lang="zh">JsonLocalizationOptions 实例</para><para lang="en">JsonLocalizationOptions instance</para></param>
     /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
@@ -375,8 +375,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">通过 ILocalizationResolve 接口实现类获得本地化键值集合</para>
-    ///  <para lang="en">Get localized string key-value pairs from ILocalizationResolve implementation</para>
+    /// <para lang="zh">通过 ILocalizationResolve 接口实现类获得本地化键值集合</para>
+    /// <para lang="en">Get localized string key-value pairs from ILocalizationResolve implementation</para>
     /// </summary>
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
@@ -386,8 +386,8 @@ internal class CacheManager : ICacheManager
 
     #region DisplayName
     /// <summary>
-    ///  <para lang="zh">获得类型属性的描述信息</para>
-    ///  <para lang="en">Get Description of Type Property</para>
+    /// <para lang="zh">获得类型属性的描述信息</para>
+    /// <para lang="en">Get Description of Type Property</para>
     /// </summary>
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>
@@ -485,8 +485,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">通过指定 Key 获取资源文件中的键值</para>
-    ///  <para lang="en">Get value from resource file by key</para>
+    /// <para lang="zh">通过指定 Key 获取资源文件中的键值</para>
+    /// <para lang="en">Get value from resource file by key</para>
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
@@ -623,8 +623,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
-    ///  <para lang="en">Get property value of specified model marked with <see cref="KeyAttribute"/></para>
+    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Get property value of specified model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -683,8 +683,8 @@ internal class CacheManager : ICacheManager
 
     #region OnValueChanged Lambda
     /// <summary>
-    ///  <para lang="zh">创建 OnValueChanged 回调委托</para>
-    ///  <para lang="en">Create OnValueChanged Callback Delegate</para>
+    /// <para lang="zh">创建 OnValueChanged 回调委托</para>
+    /// <para lang="en">Create OnValueChanged Callback Delegate</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>

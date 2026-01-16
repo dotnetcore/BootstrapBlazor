@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 internal class TableFormatContent : ComponentBase
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 格式化方法</para>
-    ///  <para lang="en">Gets or sets 格式化方法</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 格式化方法</para>
+    /// <para lang="en">Gets or sets 格式化方法</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -20,9 +20,9 @@ internal class TableFormatContent : ComponentBase
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 当前显示数据项</para>
-    ///  <para lang="en">Gets or sets 当前displaydata项</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 当前显示数据项</para>
+    /// <para lang="en">Gets or sets 当前displaydata项</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

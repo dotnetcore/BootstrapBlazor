@@ -10,14 +10,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">JsonLocalizationOptions 扩展方法</para>
-///  <para lang="en">JsonLocalizationOptions extension methods</para>
+/// <para lang="zh">JsonLocalizationOptions 扩展方法</para>
+/// <para lang="en">JsonLocalizationOptions extension methods</para>
 /// </summary>
 internal static class LocalizationOptionsExtensions
 {
     /// <summary>
-    ///  <para lang="zh">通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合</para>
-    ///  <para lang="en">Get the current Json format resource configuration collection through the system JsonLocalizationOptions</para>
+    /// <para lang="zh">通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合</para>
+    /// <para lang="en">Get the current Json format resource configuration collection through the system JsonLocalizationOptions</para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="assembly"></param>

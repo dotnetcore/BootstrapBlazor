@@ -9,14 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh"><see cref="ICacheEntry"/> 扩展方法</para>
-///  <para lang="en"><see cref="ICacheEntry"/> extension methods</para>
+/// <para lang="zh"><see cref="ICacheEntry"/> 扩展方法</para>
+/// <para lang="en"><see cref="ICacheEntry"/> extension methods</para>
 /// </summary>
 public static class ICacheEntryExtensions
 {
     /// <summary>
-    ///  <para lang="zh">获得缓存项 <see cref="ICacheEntry"/> 最后访问时间</para>
-    ///  <para lang="en">Get the last access time of the cache entry <see cref="ICacheEntry"/></para>
+    /// <para lang="zh">获得缓存项 <see cref="ICacheEntry"/> 最后访问时间</para>
+    /// <para lang="en">Get the last access time of the cache entry <see cref="ICacheEntry"/></para>
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="force"></param>
@@ -44,8 +44,8 @@ public static class ICacheEntryExtensions
     private static PropertyInfo? _lastAccessedProperty = null;
 
     /// <summary>
-    ///  <para lang="zh">设置 default sliding expiration if no expiration is configured</para>
-    ///  <para lang="en">Sets default sliding expiration if no expiration is configured</para>
+    /// <para lang="zh">设置 default sliding expiration if no expiration is configured</para>
+    /// <para lang="en">Sets default sliding expiration if no expiration is configured</para>
     /// </summary>
     internal static void SetDefaultSlidingExpiration(this ICacheEntry entry, TimeSpan offset)
     {

@@ -9,8 +9,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">MenuLink 组件内部封装 NavLink 组件</para>
-///  <para lang="en">MenuLink Component internally encapsulates NavLink Component</para>
+/// <para lang="zh">MenuLink 组件内部封装 NavLink 组件</para>
+/// <para lang="en">MenuLink Component internally encapsulates NavLink Component</para>
 /// </summary>
 public sealed partial class MenuLink
 {
@@ -34,18 +34,18 @@ public sealed partial class MenuLink
     private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
-    ///  <para lang="en">Get/Set MenuItem Instance. Cannot be null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
+    /// <para lang="en">Get/Set MenuItem Instance. Cannot be null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public MenuItem? Item { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 ArrowIcon 图标</para>
-    ///  <para lang="en">Get/Set ArrowIcon Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 ArrowIcon 图标</para>
+    /// <para lang="en">Get/Set ArrowIcon Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }
@@ -69,8 +69,8 @@ public sealed partial class MenuLink
         : null;
 
     /// <summary>
-    ///  <para lang="zh">SetParametersAsync 方法</para>
-    ///  <para lang="en">SetParametersAsync Method</para>
+    /// <para lang="zh">SetParametersAsync 方法</para>
+    /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>

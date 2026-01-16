@@ -9,8 +9,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">上传文件扩展名验证标签类</para>
-///  <para lang="en">Upload file extension validation attribute class</para>
+/// <para lang="zh">上传文件扩展名验证标签类</para>
+/// <para lang="en">Upload file extension validation attribute class</para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class FileValidationAttribute : ValidationAttribute
@@ -18,20 +18,20 @@ public class FileValidationAttribute : ValidationAttribute
     private IStringLocalizer? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 允许的扩展名</para>
-    ///  <para lang="en">Gets or sets allowed extensions</para>
+    /// <para lang="zh">获得/设置 允许的扩展名</para>
+    /// <para lang="en">Gets or sets allowed extensions</para>
     /// </summary>
     public string[] Extensions { get; set; } = [];
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 文件大小 默认为 0 未限制</para>
-    ///  <para lang="en">Gets or sets file size. Default is 0 (no limit)</para>
+    /// <para lang="zh">获得/设置 文件大小 默认为 0 未限制</para>
+    /// <para lang="en">Gets or sets file size. Default is 0 (no limit)</para>
     /// </summary>
     public long FileSize { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">是否合规判断方法</para>
-    ///  <para lang="en">Is valid method</para>
+    /// <para lang="zh">是否合规判断方法</para>
+    /// <para lang="en">Is valid method</para>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="validationContext"></param>

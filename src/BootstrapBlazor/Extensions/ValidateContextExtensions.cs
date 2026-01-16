@@ -9,14 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ValidationContext 扩展方法</para>
-///  <para lang="en">ValidationContext 扩展方法</para>
+/// <para lang="zh">ValidationContext 扩展方法</para>
+/// <para lang="en">ValidationContext 扩展方法</para>
 /// </summary>
 public static class ValidationContextExtensions
 {
     /// <summary>
-    ///  <para lang="zh">从 <see cref="MetadataTypeAttribute"/> 中获取指定类型实例</para>
-    ///  <para lang="en">从 <see cref="MetadataTypeAttribute"/> 中获取指定typeinstance</para>
+    /// <para lang="zh">从 <see cref="MetadataTypeAttribute"/> 中获取指定类型实例</para>
+    /// <para lang="en">从 <see cref="MetadataTypeAttribute"/> 中获取指定typeinstance</para>
     /// </summary>
     /// <typeparam name="T"><para lang="zh">验证接口类型</para><para lang="en">验证接口type</para></typeparam>
     /// <param name="context"></param>
@@ -34,8 +34,8 @@ public static class ValidationContextExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 <see cref="ValidationResult"/> 实例</para>
-    ///  <para lang="en">Gets <see cref="ValidationResult"/> instance</para>
+    /// <para lang="zh">获得 <see cref="ValidationResult"/> 实例</para>
+    /// <para lang="en">Gets <see cref="ValidationResult"/> instance</para>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="errorMessage"></param>

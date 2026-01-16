@@ -11,21 +11,21 @@ using System.Reflection;
 namespace System.Linq;
 
 /// <summary>
-///  <para lang="zh">Lambda 表达式扩展类</para>
-///  <para lang="en">Lambda expression extension class</para>
+/// <para lang="zh">Lambda 表达式扩展类</para>
+/// <para lang="en">Lambda expression extension class</para>
 /// </summary>
 public static class LambdaExtensions
 {
     /// <summary>
-    ///  <para lang="zh">Expression 统一 node 变量</para>
-    ///  <para lang="en">Expression unified node variable</para>
+    /// <para lang="zh">Expression 统一 node 变量</para>
+    /// <para lang="en">Expression unified node variable</para>
     /// </summary>
     /// <param name="parameter"></param>
     private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
         /// <summary>
-        ///  <para lang="zh"><inheritdoc/></para>
-        ///  <para lang="en"><inheritdoc/></para>
+        /// <para lang="zh"><inheritdoc/></para>
+        /// <para lang="en"><inheritdoc/></para>
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -33,8 +33,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">指定 FilterKeyValueAction 获取委托</para>
-    ///  <para lang="en">Specify FilterKeyValueAction to get delegate</para>
+    /// <para lang="zh">指定 FilterKeyValueAction 获取委托</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get delegate</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
@@ -42,8 +42,8 @@ public static class LambdaExtensions
     public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null) => filter.GetFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
-    ///  <para lang="zh">指定 FilterKeyValueAction 获取 Lambda 表达式</para>
-    ///  <para lang="en">Specify FilterKeyValueAction to get Lambda expression</para>
+    /// <para lang="zh">指定 FilterKeyValueAction 获取 Lambda 表达式</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get Lambda expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
@@ -65,8 +65,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">指定 IFilter 集合获取委托</para>
-    ///  <para lang="en">Specify IFilter collection to get delegate</para>
+    /// <para lang="zh">指定 IFilter 集合获取委托</para>
+    /// <para lang="en">Specify IFilter collection to get delegate</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -75,8 +75,8 @@ public static class LambdaExtensions
     public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
-    ///  <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
-    ///  <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
+    /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
+    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -85,8 +85,8 @@ public static class LambdaExtensions
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic);
 
     /// <summary>
-    ///  <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
-    ///  <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
+    /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
+    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -103,8 +103,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">表达式取 and 逻辑操作方法</para>
-    ///  <para lang="en">Expression get and logic operation method</para>
+    /// <para lang="zh">表达式取 and 逻辑操作方法</para>
+    /// <para lang="en">Expression get and logic operation method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="expressions"></param>
@@ -254,16 +254,16 @@ public static class LambdaExtensions
 
     #region Count
     /// <summary>
-    ///  <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
-    ///  <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
+    /// <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
+    /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     public static int ElementCount(object? value) => CacheManager.ElementCount(value);
 
     /// <summary>
-    ///  <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
-    ///  <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
+    /// <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
+    /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
@@ -288,8 +288,8 @@ public static class LambdaExtensions
 
     #region Sort
     /// <summary>
-    ///  <para lang="zh">获得排序 Expression 表达式</para>
-    ///  <para lang="en">Gets排序 Expression 表达式</para>
+    /// <para lang="zh">获得排序 Expression 表达式</para>
+    /// <para lang="en">Gets排序 Expression 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
@@ -304,8 +304,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">IEnumerable 排序扩展方法</para>
-    ///  <para lang="en">IEnumerable Sort extension method</para>
+    /// <para lang="zh">IEnumerable 排序扩展方法</para>
+    /// <para lang="en">IEnumerable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -336,8 +336,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">IQueryable 排序扩展方法</para>
-    ///  <para lang="en">IQueryable Sort extension method</para>
+    /// <para lang="zh">IQueryable 排序扩展方法</para>
+    /// <para lang="en">IQueryable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -365,8 +365,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得排序 Expression 表达式</para>
-    ///  <para lang="en">Get sort Expression expression</para>
+    /// <para lang="zh">获得排序 Expression 表达式</para>
+    /// <para lang="en">Get sort Expression expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
@@ -382,8 +382,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">IEnumerable 排序扩展方法</para>
-    ///  <para lang="en">IEnumerable Sort extension method</para>
+    /// <para lang="zh">IEnumerable 排序扩展方法</para>
+    /// <para lang="en">IEnumerable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -396,8 +396,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">IQueryable 排序扩展方法</para>
-    ///  <para lang="en">IQueryable Sort extension method</para>
+    /// <para lang="zh">IQueryable 排序扩展方法</para>
+    /// <para lang="en">IQueryable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -640,8 +640,8 @@ public static class LambdaExtensions
     #endregion
 
     /// <summary>
-    ///  <para lang="zh">获取属性方法 Lambda 表达式</para>
-    ///  <para lang="en">Get property method Lambda expression</para>
+    /// <para lang="zh">获取属性方法 Lambda 表达式</para>
+    /// <para lang="en">Get property method Lambda expression</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -717,8 +717,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">给指定模型属性赋值 Lambda 表达式</para>
-    ///  <para lang="en">Assign value to specified model property Lambda expression</para>
+    /// <para lang="zh">给指定模型属性赋值 Lambda 表达式</para>
+    /// <para lang="en">Assign value to specified model property Lambda expression</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -772,8 +772,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
-    ///  <para lang="en">Get the property value of the designated model marked with <see cref="KeyAttribute"/></para>
+    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Get the property value of the designated model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -815,8 +815,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">数组转成字符串表达式</para>
-    ///  <para lang="en">数组转成字符串表达式</para>
+    /// <para lang="zh">数组转成字符串表达式</para>
+    /// <para lang="en">数组转成字符串表达式</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
@@ -832,8 +832,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法</para>
-    ///  <para lang="en">Generic collection convert to <![CDATA[IEnumerable<string>]]> method</para>
+    /// <para lang="zh">泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法</para>
+    /// <para lang="en">Generic collection convert to <![CDATA[IEnumerable<string>]]> method</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <remarks><code><![CDATA[IEnumerable<T>]]> to <![CDATA[IEnumerable<string>]]></code></remarks>
@@ -853,8 +853,8 @@ public static class LambdaExtensions
     private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
 
     /// <summary>
-    ///  <para lang="zh">数组转成字符串表达式</para>
-    ///  <para lang="en">数组转成字符串表达式</para>
+    /// <para lang="zh">数组转成字符串表达式</para>
+    /// <para lang="en">数组转成字符串表达式</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="typeResolver"></param>

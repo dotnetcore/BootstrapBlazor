@@ -8,14 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">NavigationManager 扩展方法</para>
-///  <para lang="en">NavigationManager extension methods</para>
+/// <para lang="zh">NavigationManager 扩展方法</para>
+/// <para lang="en">NavigationManager extension methods</para>
 /// </summary>
 public static class NavigationManagerExtensions
 {
     /// <summary>
-    ///  <para lang="zh">导航并添加 TabItem 方法</para>
-    ///  <para lang="en">Navigate and add TabItem method</para>
+    /// <para lang="zh">导航并添加 TabItem 方法</para>
+    /// <para lang="en">Navigate and add TabItem method</para>
     /// </summary>
     /// <param name="navigation"></param>
     /// <param name="provider"></param>
@@ -33,8 +33,8 @@ public static class NavigationManagerExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得当前 Url 的相对路径，不包含 QueryString 和 Fragment（Hash）</para>
-    ///  <para lang="en">Get the relative path of the current Url, excluding QueryString and Fragment (Hash)</para>
+    /// <para lang="zh">获得当前 Url 的相对路径，不包含 QueryString 和 Fragment（Hash）</para>
+    /// <para lang="en">Get the relative path of the current Url, excluding QueryString and Fragment (Hash)</para>
     /// </summary>
     /// <param name="navigationManager"></param>
     /// <returns></returns>

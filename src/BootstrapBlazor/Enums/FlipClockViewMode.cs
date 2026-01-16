@@ -6,24 +6,24 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">显示模式</para>
-///  <para lang="en">display模式</para>
+/// <para lang="zh">显示模式</para>
+/// <para lang="en">display模式</para>
 /// </summary>
 public enum FlipClockViewMode
 {
     /// <summary>
-    ///  <para lang="zh">时间</para>
-    ///  <para lang="en">时间</para>
+    /// <para lang="zh">时间</para>
+    /// <para lang="en">时间</para>
     /// </summary>
     DateTime,
     /// <summary>
-    ///  <para lang="zh">计数</para>
-    ///  <para lang="en">计数</para>
+    /// <para lang="zh">计数</para>
+    /// <para lang="en">计数</para>
     /// </summary>
     Count,
     /// <summary>
-    ///  <para lang="zh">倒计时</para>
-    ///  <para lang="en">倒计时</para>
+    /// <para lang="zh">倒计时</para>
+    /// <para lang="en">倒计时</para>
     /// </summary>
     CountDown
 }

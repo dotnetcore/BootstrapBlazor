@@ -8,47 +8,47 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">TableToolbarPopConfirmButton 组件</para>
-///  <para lang="en">TableToolbarPopConfirmButton component</para>
+/// <para lang="zh">TableToolbarPopConfirmButton 组件</para>
+/// <para lang="en">TableToolbarPopConfirmButton component</para>
 /// </summary>
 [JSModuleNotInherited]
 public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮点击后回调委托</para>
-    ///  <para lang="en">Gets or sets button点击后回调delegate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
+    /// <para lang="en">Gets or sets button点击后回调delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task>? OnConfirmCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
-    ///  <para lang="en">Gets or sets whetherdisplay Default is true display</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
+    /// <para lang="en">Gets or sets whetherdisplay Default is true display</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 选中一行时启用按钮 默认 false 均可用</para>
-    ///  <para lang="en">Gets or sets 选中一行时启用button Default is false 均可用</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 选中一行时启用按钮 默认 false 均可用</para>
+    /// <para lang="en">Gets or sets 选中一行时启用button Default is false 均可用</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮是否被禁用回调方法</para>
-    ///  <para lang="en">Gets or sets buttonwhether被禁用callback method</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮是否被禁用回调方法</para>
+    /// <para lang="en">Gets or sets buttonwhether被禁用callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Table Toolbar 实例</para>
-    ///  <para lang="en">Gets or sets Table Toolbar instance</para>
+    /// <para lang="zh">获得/设置 Table Toolbar 实例</para>
+    /// <para lang="en">Gets or sets Table Toolbar instance</para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }
@@ -58,8 +58,8 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -69,8 +69,8 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -82,8 +82,8 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     }
 
     /// <summary>
-    ///  <para lang="zh">DisposeAsyncCore 方法</para>
-    ///  <para lang="en">DisposeAsyncCore 方法</para>
+    /// <para lang="zh">DisposeAsyncCore 方法</para>
+    /// <para lang="en">DisposeAsyncCore 方法</para>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>

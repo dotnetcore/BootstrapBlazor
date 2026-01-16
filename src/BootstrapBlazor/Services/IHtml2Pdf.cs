@@ -8,38 +8,38 @@ using System.Net;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Html export PDF service</para>
-///  <para lang="en">Html export PDF service</para>
+/// <para lang="zh">Html export PDF service</para>
+/// <para lang="en">Html export PDF service</para>
 /// </summary>
 public interface IHtml2Pdf
 {
     ///// <summary>
-    ///  <para lang="zh">获得/设置 WebProxy 对象用于网络请求代理 <para>Get or set the WebProxy object for network request proxy</para>
+    /// <para lang="zh">获得/设置 WebProxy 对象用于网络请求代理 <para>Get or set the WebProxy object for network request proxy</para>
     /////</para>
-    ///  <para lang="en">Gets or sets WebProxy 对象用于网络请求代理 <para>Get or set the WebProxy object for network request proxy</para>
+    /// <para lang="en">Gets or sets WebProxy 对象用于网络请求代理 <para>Get or set the WebProxy object for network request proxy</para>
     /////</para>
     /// </summary>
     //public IWebProxy? WebProxy { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">Export method</para>
-    ///  <para lang="en">Export method</para>
+    /// <para lang="zh">Export method</para>
+    /// <para lang="en">Export method</para>
     /// </summary>
     /// <param name="url">url</param>
     /// <param name="options"></param>
     Task<byte[]> PdfDataAsync(string url, PdfOptions? options = null);
 
     /// <summary>
-    ///  <para lang="zh">Export method</para>
-    ///  <para lang="en">Export method</para>
+    /// <para lang="zh">Export method</para>
+    /// <para lang="en">Export method</para>
     /// </summary>
     /// <param name="url">url</param>
     /// <param name="options"></param>
     Task<Stream> PdfStreamAsync(string url, PdfOptions? options = null);
 
     /// <summary>
-    ///  <para lang="zh">Export method</para>
-    ///  <para lang="en">Export method</para>
+    /// <para lang="zh">Export method</para>
+    /// <para lang="en">Export method</para>
     /// </summary>
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>
@@ -48,8 +48,8 @@ public interface IHtml2Pdf
     Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null, PdfOptions? options = null);
 
     /// <summary>
-    ///  <para lang="zh">Export method</para>
-    ///  <para lang="en">Export method</para>
+    /// <para lang="zh">Export method</para>
+    /// <para lang="en">Export method</para>
     /// </summary>
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>

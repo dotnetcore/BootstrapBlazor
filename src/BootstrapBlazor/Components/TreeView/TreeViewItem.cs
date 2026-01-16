@@ -6,46 +6,46 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">TreeItem 组件</para>
-///  <para lang="en">TreeItem component</para>
+/// <para lang="zh">TreeItem 组件</para>
+/// <para lang="en">TreeItem component</para>
 /// </summary>
 public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示正在加载动画 默认为 false</para>
-    ///  <para lang="en">Gets or sets whetherdisplay正在加载动画 Default is为 false</para>
+    /// <para lang="zh">获得/设置 是否显示正在加载动画 默认为 false</para>
+    /// <para lang="en">Gets or sets whetherdisplay正在加载动画 Default is为 false</para>
     /// </summary>
     [Obsolete("已弃用；Deprecated")]
     [ExcludeFromCodeCoverage]
     public bool ShowLoading { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否被选中</para>
-    ///  <para lang="en">Gets or sets whether被选中</para>
+    /// <para lang="zh">获得/设置 是否被选中</para>
+    /// <para lang="en">Gets or sets whether被选中</para>
     /// </summary>
     public CheckboxState CheckedState { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 子节点数据源</para>
-    ///  <para lang="en">Gets or sets 子节点data源</para>
+    /// <para lang="zh">获得/设置 子节点数据源</para>
+    /// <para lang="en">Gets or sets 子节点data源</para>
     /// </summary>
     public List<TreeViewItem<TItem>> Items { get; set; } = [];
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 子节点集合</para>
-    ///  <para lang="en">Gets or sets 子节点collection</para>
+    /// <para lang="zh">获得/设置 子节点集合</para>
+    /// <para lang="en">Gets or sets 子节点collection</para>
     /// </summary>
     IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = [.. value.OfType<TreeViewItem<TItem>>()]; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 父级节点</para>
-    ///  <para lang="en">Gets or sets 父级节点</para>
+    /// <para lang="zh">获得/设置 父级节点</para>
+    /// <para lang="en">Gets or sets 父级节点</para>
     /// </summary>
     public TreeViewItem<TItem>? Parent { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 父级节点</para>
-    ///  <para lang="en">Gets or sets 父级节点</para>
+    /// <para lang="zh">获得/设置 父级节点</para>
+    /// <para lang="en">Gets or sets 父级节点</para>
     /// </summary>
     IExpandableNode<TItem>? IExpandableNode<TItem>.Parent
     {
@@ -61,8 +61,8 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     }
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">构造函数</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">构造函数</para>
     /// </summary>
     public TreeViewItem([DisallowNull] TItem item)
     {
@@ -70,8 +70,8 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     }
 
     ///// <summary>
-    ///  <para lang="zh">级联设置展开状态方法</para>
-    ///  <para lang="en">级联Sets展开状态方法</para>
+    /// <para lang="zh">级联设置展开状态方法</para>
+    /// <para lang="en">级联Sets展开状态方法</para>
     /// </summary>
     //public void CollapseOtherNodes()
     //{

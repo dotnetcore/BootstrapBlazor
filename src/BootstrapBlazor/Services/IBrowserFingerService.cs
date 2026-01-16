@@ -6,21 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">浏览器指纹接口</para>
-///  <para lang="en">Browser Fingerprint Interface</para>
+/// <para lang="zh">浏览器指纹接口</para>
+/// <para lang="en">Browser Fingerprint Interface</para>
 /// </summary>
 public interface IBrowserFingerService
 {
     /// <summary>
-    ///  <para lang="zh">获得当前浏览器指纹方法</para>
-    ///  <para lang="en">Get current browser fingerprint method</para>
+    /// <para lang="zh">获得当前浏览器指纹方法</para>
+    /// <para lang="en">Get current browser fingerprint method</para>
     /// </summary>
     /// <returns></returns>
     Task<string?> GetFingerCodeAsync(CancellationToken token = default);
 
     /// <summary>
-    ///  <para lang="zh">获得当前连接的客户端 ID 由 BootstrapBlazor 组件框架提供</para>
-    ///  <para lang="en">Get current connected client ID provided by BootstrapBlazor component framework</para>
+    /// <para lang="zh">获得当前连接的客户端 ID 由 BootstrapBlazor 组件框架提供</para>
+    /// <para lang="en">Get current connected client ID provided by BootstrapBlazor component framework</para>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>

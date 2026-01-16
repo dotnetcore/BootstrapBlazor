@@ -10,14 +10,14 @@ using System.Globalization;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-///  <para lang="zh">BootstrapBlazor 服务扩展类</para>
-///  <para lang="en">BootstrapBlazor Service Extensions</para>
+/// <para lang="zh">BootstrapBlazor 服务扩展类</para>
+/// <para lang="en">BootstrapBlazor Service Extensions</para>
 /// </summary>
 public static class BootstrapBlazorServiceCollectionExtensions
 {
     /// <summary>
-    ///  <para lang="zh">增加 BootstrapBlazor 服务</para>
-    ///  <para lang="en">Add BootstrapBlazor Service</para>
+    /// <para lang="zh">增加 BootstrapBlazor 服务</para>
+    /// <para lang="en">Add BootstrapBlazor Service</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
@@ -135,8 +135,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">BootstrapBlazorOptions 扩展配置方法</para>
-    ///  <para lang="en">BootstrapBlazorOptions Configuration Extension</para>
+    /// <para lang="zh">BootstrapBlazorOptions 扩展配置方法</para>
+    /// <para lang="en">BootstrapBlazorOptions Configuration Extension</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
@@ -176,8 +176,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">IPLocatorOption 扩展配置方法</para>
-    ///  <para lang="en">IPLocatorOption Configuration Extension</para>
+    /// <para lang="zh">IPLocatorOption 扩展配置方法</para>
+    /// <para lang="en">IPLocatorOption Configuration Extension</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="locatorAction"></param>
@@ -195,8 +195,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">JsonLocalizationOptions 扩展配置方法</para>
-    ///  <para lang="en">JsonLocalizationOptions Configuration Extension</para>
+    /// <para lang="zh">JsonLocalizationOptions 扩展配置方法</para>
+    /// <para lang="en">JsonLocalizationOptions Configuration Extension</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="localizationConfigure"></param>
@@ -207,8 +207,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">增加支持热更新配置类</para>
-    ///  <para lang="en">Add Options Monitor Support</para>
+    /// <para lang="zh">增加支持热更新配置类</para>
+    /// <para lang="en">Add Options Monitor Support</para>
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="services"></param>
@@ -221,8 +221,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">增加 菜单与标签捆绑类配置项服务</para>
-    ///  <para lang="en">Add TabItem Bind Options Service</para>
+    /// <para lang="zh">增加 菜单与标签捆绑类配置项服务</para>
+    /// <para lang="en">Add TabItem Bind Options Service</para>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
@@ -233,8 +233,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">配置第三方菜单路由与 Tab 标签页捆绑字典扩展方法</para>
-    ///  <para lang="en">Configure TabItem Menu Bind Options Extension</para>
+    /// <para lang="zh">配置第三方菜单路由与 Tab 标签页捆绑字典扩展方法</para>
+    /// <para lang="en">Configure TabItem Menu Bind Options Extension</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
@@ -246,8 +246,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">增加 图标映射配置项服务</para>
-    ///  <para lang="en">Add Icon Theme Options Service</para>
+    /// <para lang="zh">增加 图标映射配置项服务</para>
+    /// <para lang="en">Add Icon Theme Options Service</para>
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
@@ -259,8 +259,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">配置 <see cref="IconThemeOptions"/> 扩展方法</para>
-    ///  <para lang="en">Configure IconThemeOptions Extension</para>
+    /// <para lang="zh">配置 <see cref="IconThemeOptions"/> 扩展方法</para>
+    /// <para lang="en">Configure IconThemeOptions Extension</para>
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>

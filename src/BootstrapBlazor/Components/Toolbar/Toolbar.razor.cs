@@ -6,23 +6,23 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Toolbar 组件用于显示工具栏内容</para>
-///  <para lang="en">Toolbar component用于display工具栏content</para>
+/// <para lang="zh">Toolbar 组件用于显示工具栏内容</para>
+/// <para lang="en">Toolbar component用于display工具栏content</para>
 /// </summary>
 public partial class Toolbar
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否允许换行显示工具栏内容 默认 false</para>
-    ///  <para lang="en">Gets or sets whether允许换行display工具栏content Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否允许换行显示工具栏内容 默认 false</para>
+    /// <para lang="en">Gets or sets whether允许换行display工具栏content Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 子组件模板</para>
-    ///  <para lang="en">Gets or sets 子componenttemplate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 子组件模板</para>
+    /// <para lang="en">Gets or sets 子componenttemplate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

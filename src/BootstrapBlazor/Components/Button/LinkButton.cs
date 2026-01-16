@@ -9,47 +9,47 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">LinkButton 组件</para>
-///  <para lang="en">LinkButton component</para>
+/// <para lang="zh">LinkButton 组件</para>
+/// <para lang="en">LinkButton component</para>
 /// </summary>
 public class LinkButton : ButtonBase
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 Url 默认为 #</para>
-    ///  <para lang="en">Gets or sets the URL. Default is #</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Url 默认为 #</para>
+    /// <para lang="en">Gets or sets the URL. Default is #</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
-    ///  <para lang="en">Gets or sets the anchor target parameter. Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
+    /// <para lang="en">Gets or sets the anchor target parameter. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示图片地址 默认为 null</para>
-    ///  <para lang="en">Gets or sets the image URL. Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示图片地址 默认为 null</para>
+    /// <para lang="en">Gets or sets the image URL. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">css class of img element default value null</para>
-    ///  <para lang="en">The css class of img element default value null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">css class of img element default value null</para>
+    /// <para lang="en">The css class of img element default value null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageCss { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为垂直布局 默认 false</para>
-    ///  <para lang="en">Gets or sets whether it is vertical layout. Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为垂直布局 默认 false</para>
+    /// <para lang="en">Gets or sets whether it is vertical layout. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
@@ -74,8 +74,8 @@ public class LinkButton : ButtonBase
     private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

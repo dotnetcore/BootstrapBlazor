@@ -9,14 +9,14 @@ using System.Reflection.Emit;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Emit 方法帮助类</para>
-///  <para lang="en">Emit helper class</para>
+/// <para lang="zh">Emit 方法帮助类</para>
+/// <para lang="en">Emit helper class</para>
 /// </summary>
 public static class EmitHelper
 {
     /// <summary>
-    ///  <para lang="zh">通过 ITableColumn 创建动态类</para>
-    ///  <para lang="en">Create dynamic class by ITableColumn</para>
+    /// <para lang="zh">通过 ITableColumn 创建动态类</para>
+    /// <para lang="en">Create dynamic class by ITableColumn</para>
     /// </summary>
     /// <param name="typeName"><para lang="zh">动态类名称</para><para lang="en">动态类name</para></param>
     /// <param name="cols"><para lang="zh">ITableColumn 集合</para><para lang="en">ITableColumn collection</para></param>

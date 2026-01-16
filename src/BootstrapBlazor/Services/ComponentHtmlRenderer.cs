@@ -15,8 +15,8 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="parameters"></param>
@@ -35,8 +35,8 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="componentType"></param>
     /// <param name="parameters"></param>

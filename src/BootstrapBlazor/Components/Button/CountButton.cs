@@ -6,38 +6,38 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">CountButton 组件</para>
-///  <para lang="en">CountButton component</para>
+/// <para lang="zh">CountButton 组件</para>
+/// <para lang="en">CountButton component</para>
 /// </summary>
 public class CountButton : Button
 {
     /// <summary>
-    ///  <para lang="zh">倒计时数量 默认 5 秒</para>
-    ///  <para lang="en">Countdown seconds. Default is 5</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">倒计时数量 默认 5 秒</para>
+    /// <para lang="en">Countdown seconds. Default is 5</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Count { get; set; } = 5;
 
     /// <summary>
-    ///  <para lang="zh">倒计时文本 默认 null 使用 <see cref="ButtonBase.Text"/> 参数</para>
-    ///  <para lang="en">Countdown text. Default is null (uses <see cref="ButtonBase.Text"/>)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">倒计时文本 默认 null 使用 <see cref="ButtonBase.Text"/> 参数</para>
+    /// <para lang="en">Countdown text. Default is null (uses <see cref="ButtonBase.Text"/>)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CountText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">倒计时格式化回调方法</para>
-    ///  <para lang="en">Countdown format callback method</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">倒计时格式化回调方法</para>
+    /// <para lang="en">Countdown format callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<int, string>? CountTextCallback { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override async Task OnClickButton()
     {
@@ -53,8 +53,8 @@ public class CountButton : Button
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override async Task HandlerClick()
     {

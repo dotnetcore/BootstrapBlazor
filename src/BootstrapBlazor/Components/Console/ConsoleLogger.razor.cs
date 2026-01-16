@@ -8,23 +8,23 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Logger 组件</para>
-///  <para lang="en">Logger component</para>
+/// <para lang="zh">Logger 组件</para>
+/// <para lang="en">Logger component</para>
 /// </summary>
 public partial class ConsoleLogger
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 最大行数 默认 3 行</para>
-    ///  <para lang="en">Get/Set max rows, default is 3</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 最大行数 默认 3 行</para>
+    /// <para lang="en">Get/Set max rows, default is 3</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 3;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
-    ///  <para lang="en">Get/Set whether it is Html code, default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
+    /// <para lang="en">Get/Set whether it is Html code, default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }
@@ -32,8 +32,8 @@ public partial class ConsoleLogger
     private ConcurrentQueue<string> Message { get; } = new();
 
     /// <summary>
-    ///  <para lang="zh">获得 按钮样式集合</para>
-    ///  <para lang="en">Get button style collection</para>
+    /// <para lang="zh">获得 按钮样式集合</para>
+    /// <para lang="en">Get button style collection</para>
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("console-logger")
@@ -44,8 +44,8 @@ public partial class ConsoleLogger
     private string Class { get; set; } = "collapse";
 
     /// <summary>
-    ///  <para lang="zh">输入日志方法</para>
-    ///  <para lang="en">Log method</para>
+    /// <para lang="zh">输入日志方法</para>
+    /// <para lang="en">Log method</para>
     /// </summary>
     /// <param name="message"></param>
     public void Log(string message)

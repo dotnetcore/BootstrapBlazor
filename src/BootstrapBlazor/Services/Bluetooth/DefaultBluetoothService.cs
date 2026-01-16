@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">DefaultBluetoothService 实现类</para>
-///  <para lang="en">DefaultBluetoothService Implementation Class</para>
+/// <para lang="zh">DefaultBluetoothService 实现类</para>
+/// <para lang="en">DefaultBluetoothService Implementation Class</para>
 /// </summary>
 sealed class DefaultBluetoothService : IBluetoothService
 {
@@ -16,32 +16,32 @@ sealed class DefaultBluetoothService : IBluetoothService
     private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string UUID { get; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string Id { get; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? ErrorMessage { get; private set; }
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">Constructor</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="module"></param>
     /// <param name="clientId"></param>
@@ -57,8 +57,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc /></para>
-    ///  <para lang="en"><inheritdoc /></para>
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -75,8 +75,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
@@ -94,8 +94,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    ///  <para lang="zh">JavaScript 报错回调方法</para>
-    ///  <para lang="en">JavaScript Error Callback Method</para>
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

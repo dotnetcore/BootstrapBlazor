@@ -10,8 +10,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">IStringLocalizerFactory 实现类</para>
-///  <para lang="en">IStringLocalizerFactory implementation class</para>
+/// <para lang="zh">IStringLocalizerFactory 实现类</para>
+/// <para lang="en">IStringLocalizerFactory implementation class</para>
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
@@ -21,8 +21,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     private string? _typeName;
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">Constructor</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="cacheManager"></param>
     /// <param name="localizationMissingItemHandler"></param>
@@ -64,8 +64,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     }
 
     /// <summary>
-    ///  <para lang="zh">GetResourcePrefix 方法</para>
-    ///  <para lang="en">GetResourcePrefix method</para>
+    /// <para lang="zh">GetResourcePrefix 方法</para>
+    /// <para lang="en">GetResourcePrefix method</para>
     /// </summary>
     /// <param name="typeInfo"></param>
     /// <returns></returns>
@@ -88,8 +88,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     }
 
     /// <summary>
-    ///  <para lang="zh">GetResourcePrefix 方法</para>
-    ///  <para lang="en">GetResourcePrefix method</para>
+    /// <para lang="zh">GetResourcePrefix 方法</para>
+    /// <para lang="en">GetResourcePrefix method</para>
     /// </summary>
     /// <param name="baseResourceName"></param>
     /// <param name="baseNamespace"></param>

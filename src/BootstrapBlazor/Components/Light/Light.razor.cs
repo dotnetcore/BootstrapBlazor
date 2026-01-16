@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">指示灯组件</para>
-///  <para lang="en">Indicator Light Component</para>
+/// <para lang="zh">指示灯组件</para>
+/// <para lang="en">Indicator Light Component</para>
 /// </summary>
 public partial class Light
 {
     /// <summary>
-    ///  <para lang="zh">获得 组件样式</para>
-    ///  <para lang="en">Get Component Style</para>
+    /// <para lang="zh">获得 组件样式</para>
+    /// <para lang="en">Get Component Style</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("bb-light")
         .AddClass("is-flat", IsFlat)
@@ -24,25 +24,25 @@ public partial class Light
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 组件是否闪烁 默认为 false 不闪烁</para>
-    ///  <para lang="en">Get/Set Whether the component is flashing. Default is false (No flash)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件是否闪烁 默认为 false 不闪烁</para>
+    /// <para lang="en">Get/Set Whether the component is flashing. Default is false (No flash)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlash { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为平面图形 默认 false</para>
-    ///  <para lang="en">Get/Set Whether it is a flat graphic. Default false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为平面图形 默认 false</para>
+    /// <para lang="en">Get/Set Whether it is a flat graphic. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlat { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 指示灯颜色 默认为 Success 绿色</para>
-    ///  <para lang="en">Get/Set Indicator Color. Default Success (Green)</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 指示灯颜色 默认为 Success 绿色</para>
+    /// <para lang="en">Get/Set Indicator Color. Default Success (Green)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;

@@ -13,8 +13,8 @@ using System.Resources;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">JsonStringLocalizer 实现类</para>
-///  <para lang="en">JsonStringLocalizer implementation class</para>
+/// <para lang="zh">JsonStringLocalizer 实现类</para>
+/// <para lang="en">JsonStringLocalizer implementation class</para>
 /// </summary>
 /// <param name="assembly"></param>
 /// <param name="typeName"></param>
@@ -30,8 +30,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private ILogger Logger { get; } = logger;
 
     /// <summary>
-    ///  <para lang="zh">通过指定键值获取多语言值信息索引</para>
-    ///  <para lang="en">Get multi-language value info index by specified key</para>
+    /// <para lang="zh">通过指定键值获取多语言值信息索引</para>
+    /// <para lang="en">Get multi-language value info index by specified key</para>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -45,8 +45,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     }
 
     /// <summary>
-    ///  <para lang="zh">带格式化参数的通过指定键值获取多语言值信息索引</para>
-    ///  <para lang="en">Get multi-language value info index by specified key with format arguments</para>
+    /// <para lang="zh">带格式化参数的通过指定键值获取多语言值信息索引</para>
+    /// <para lang="en">Get multi-language value info index by specified key with format arguments</para>
     /// </summary>
     /// <param name="name"></param>
     /// <param name="arguments"></param>
@@ -184,8 +184,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private List<LocalizedString>? _allLocalizedStrings;
 
     /// <summary>
-    ///  <para lang="zh">获取当前语言的所有资源信息</para>
-    ///  <para lang="en">Get all resource info of current culture</para>
+    /// <para lang="zh">获取当前语言的所有资源信息</para>
+    /// <para lang="en">Get all resource info of current culture</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>

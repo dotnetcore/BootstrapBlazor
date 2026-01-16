@@ -6,23 +6,23 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Popover Confirm 组件</para>
-///  <para lang="en">Popover Confirm component</para>
+/// <para lang="zh">Popover Confirm 组件</para>
+/// <para lang="en">Popover Confirm component</para>
 /// </summary>
 [BootstrapModuleAutoLoader("Button/PopConfirmButtonContent.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class PopConfirmButtonContent
 {
     /// <summary>
-    ///  <para lang="zh">获得 关闭按钮样式</para>
-    ///  <para lang="en">Gets the close button style</para>
+    /// <para lang="zh">获得 关闭按钮样式</para>
+    /// <para lang="en">Gets the close button style</para>
     /// </summary>
     private string? CloseButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{CloseButtonColor.ToDescriptionString()}")
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得 确认按钮样式</para>
-    ///  <para lang="en">Gets the confirm button style</para>
+    /// <para lang="zh">获得 确认按钮样式</para>
+    /// <para lang="en">Gets the confirm button style</para>
     /// </summary>
     private string? ConfirmButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{ConfirmButtonColor.ToDescriptionString()}")
@@ -33,113 +33,113 @@ public partial class PopConfirmButtonContent
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示确认按钮</para>
-    ///  <para lang="en">Gets or sets whether to show confirm button</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示确认按钮</para>
+    /// <para lang="en">Gets or sets whether to show confirm button</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowConfirmButton { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示关闭按钮</para>
-    ///  <para lang="en">Gets or sets whether to show close button</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示关闭按钮</para>
+    /// <para lang="en">Gets or sets whether to show close button</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示标题</para>
-    ///  <para lang="en">Gets or sets the title</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示标题</para>
+    /// <para lang="en">Gets or sets the title</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 显示文字</para>
-    ///  <para lang="en">Gets or sets the content</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示文字</para>
+    /// <para lang="en">Gets or sets the content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 自定义组件</para>
-    ///  <para lang="en">Gets or sets the child content</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 自定义组件</para>
+    /// <para lang="en">Gets or sets the child content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮显示图标</para>
-    ///  <para lang="en">Gets or sets the close button icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 关闭按钮显示图标</para>
+    /// <para lang="en">Gets or sets the close button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮显示文字</para>
-    ///  <para lang="en">Gets or sets the close button text</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 关闭按钮显示文字</para>
+    /// <para lang="en">Gets or sets the close button text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮颜色</para>
-    ///  <para lang="en">Gets or sets the close button color</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 关闭按钮颜色</para>
+    /// <para lang="en">Gets or sets the close button color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color CloseButtonColor { get; set; } = Color.Secondary;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮显示图标</para>
-    ///  <para lang="en">Gets or sets the confirm button icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 确认按钮显示图标</para>
+    /// <para lang="en">Gets or sets the confirm button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ConfirmButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮显示文字</para>
-    ///  <para lang="en">Gets or sets the confirm button text</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 确认按钮显示文字</para>
+    /// <para lang="en">Gets or sets the confirm button text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮颜色</para>
-    ///  <para lang="en">Gets or sets the confirm button color</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 确认按钮颜色</para>
+    /// <para lang="en">Gets or sets the confirm button color</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color ConfirmButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认框图标</para>
-    ///  <para lang="en">Gets or sets the confirm icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 确认框图标</para>
+    /// <para lang="en">Gets or sets the confirm icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮回调方法</para>
-    ///  <para lang="en">Gets or sets the confirm callback</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 确认按钮回调方法</para>
+    /// <para lang="en">Gets or sets the confirm callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮回调方法</para>
-    ///  <para lang="en">Gets or sets the close callback</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 关闭按钮回调方法</para>
+    /// <para lang="en">Gets or sets the close callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
@@ -149,8 +149,8 @@ public partial class PopConfirmButtonContent
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -162,8 +162,8 @@ public partial class PopConfirmButtonContent
     }
 
     /// <summary>
-    ///  <para lang="zh">点击关闭按钮调用此方法</para>
-    ///  <para lang="en">Method called when close button is clicked</para>
+    /// <para lang="zh">点击关闭按钮调用此方法</para>
+    /// <para lang="en">Method called when close button is clicked</para>
     /// </summary>
     public async Task OnCloseClick()
     {
@@ -175,8 +175,8 @@ public partial class PopConfirmButtonContent
     }
 
     /// <summary>
-    ///  <para lang="zh">点击确认按钮调用此方法</para>
-    ///  <para lang="en">Method called when confirm button is clicked</para>
+    /// <para lang="zh">点击确认按钮调用此方法</para>
+    /// <para lang="en">Method called when confirm button is clicked</para>
     /// </summary>
     public async Task OnConfirmClick()
     {

@@ -8,20 +8,20 @@ using System.Data;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">DataTable 动态类实例</para>
-///  <para lang="en">DataTable 动态类instance</para>
+/// <para lang="zh">DataTable 动态类实例</para>
+/// <para lang="en">DataTable 动态类instance</para>
 /// </summary>
 public class DataTableDynamicObject : DynamicObject
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 DataRow 实例</para>
-    ///  <para lang="en">Gets or sets DataRow instance</para>
+    /// <para lang="zh">获得/设置 DataRow 实例</para>
+    /// <para lang="en">Gets or sets DataRow instance</para>
     /// </summary>
     internal DataRow? Row { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -45,8 +45,8 @@ public class DataTableDynamicObject : DynamicObject
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>

@@ -6,39 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">语音识别波形图组件</para>
-///  <para lang="en">Speech Recognition Waveform Component</para>
+/// <para lang="zh">语音识别波形图组件</para>
+/// <para lang="en">Speech Recognition Waveform Component</para>
 /// </summary>
 public partial class SpeechWave : IDisposable
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示波形图 默认 false</para>
-    ///  <para lang="en">Get/Set Whether to show waveform. Default false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示波形图 默认 false</para>
+    /// <para lang="en">Get/Set Whether to show waveform. Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Show { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示已用时长 默认 true</para>
-    ///  <para lang="en">Get/Set Whether to show used time. Default true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示已用时长 默认 true</para>
+    /// <para lang="en">Get/Set Whether to show used time. Default true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowUsedTime { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 倒计时结束时回调委托</para>
-    ///  <para lang="en">Get/Set Callback delegate when countdown ends</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 倒计时结束时回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate when countdown ends</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTimeout { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 总时长 默认 60 000 毫秒</para>
-    ///  <para lang="en">Get/Set Total Time. Default 60000 ms</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 总时长 默认 60 000 毫秒</para>
+    /// <para lang="en">Get/Set Total Time. Default 60000 ms</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int TotalTime { get; set; } = 60 * 1000;
@@ -61,8 +61,8 @@ public partial class SpeechWave : IDisposable
     private CancellationTokenSource? _token;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
@@ -129,8 +129,8 @@ public partial class SpeechWave : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">Dispose 方法</para>
-    ///  <para lang="en">Dispose 方法</para>
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose 方法</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -142,8 +142,8 @@ public partial class SpeechWave : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh">Dispose 方法</para>
-    ///  <para lang="en">Dispose 方法</para>
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose 方法</para>
     /// </summary>
     /// <returns></returns>
     public void Dispose()

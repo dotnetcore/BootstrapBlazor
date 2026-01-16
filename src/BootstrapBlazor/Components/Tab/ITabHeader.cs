@@ -6,21 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ITabHeader interface</para>
-///  <para lang="en">ITabHeader interface</para>
+/// <para lang="zh">ITabHeader interface</para>
+/// <para lang="en">ITabHeader interface</para>
 /// </summary>
 public interface ITabHeader
 {
     /// <summary>
-    ///  <para lang="zh">Render method</para>
-    ///  <para lang="en">Render method</para>
+    /// <para lang="zh">Render method</para>
+    /// <para lang="en">Render method</para>
     /// </summary>
     /// <param name="renderFragment"></param>
     void Render(RenderFragment renderFragment);
 
     /// <summary>
-    ///  <para lang="zh">Get the id of the tab header</para>
-    ///  <para lang="en">Get the id of the tab header</para>
+    /// <para lang="zh">Get the id of the tab header</para>
+    /// <para lang="en">Get the id of the tab header</para>
     /// </summary>
     /// <returns></returns>
     string GetId();

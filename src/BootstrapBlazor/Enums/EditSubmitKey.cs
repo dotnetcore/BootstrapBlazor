@@ -8,21 +8,21 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">EditSubmitKeys 枚举</para>
-///  <para lang="en">EditSubmitKeys Enum</para>
+/// <para lang="zh">EditSubmitKeys 枚举</para>
+/// <para lang="en">EditSubmitKeys Enum</para>
 /// </summary>
 public enum EditSubmitKey
 {
     /// <summary>
-    ///  <para lang="zh">Enter 键</para>
-    ///  <para lang="en">Enter Key</para>
+    /// <para lang="zh">Enter 键</para>
+    /// <para lang="en">Enter Key</para>
     /// </summary>
     [Description("enter")]
     Enter,
 
     /// <summary>
-    ///  <para lang="zh">Space 键</para>
-    ///  <para lang="en">Space Key</para>
+    /// <para lang="zh">Space 键</para>
+    /// <para lang="en">Space Key</para>
     /// </summary>
     [Description("space")]
     Space

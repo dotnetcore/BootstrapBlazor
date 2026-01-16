@@ -6,123 +6,123 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">SweetAlert Option 配置类</para>
-///  <para lang="en">SweetAlert Option Configuration Class</para>
+/// <para lang="zh">SweetAlert Option 配置类</para>
+/// <para lang="en">SweetAlert Option Configuration Class</para>
 /// </summary>
 public class SwalOption : PopupOptionBase
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 相关弹窗实例</para>
-    ///  <para lang="en">Get/Set Modal Instance</para>
+    /// <para lang="zh">获得/设置 相关弹窗实例</para>
+    /// <para lang="en">Get/Set Modal Instance</para>
     /// </summary>
     internal Modal? Modal { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 模态弹窗任务上下文</para>
-    ///  <para lang="en">Get/Set Modal Task Context</para>
+    /// <para lang="zh">获得/设置 模态弹窗任务上下文</para>
+    /// <para lang="en">Get/Set Modal Task Context</para>
     /// </summary>
     [NotNull]
     internal SweetContext? ConfirmContext { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false</para>
-    ///  <para lang="en">Get/Set Whether is confirm dialog mode. Used for modal dialog. Default false</para>
+    /// <para lang="zh">获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false</para>
+    /// <para lang="en">Get/Set Whether is confirm dialog mode. Used for modal dialog. Default false</para>
     /// </summary>
     public bool IsConfirm { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 提示类型 默认为 Success</para>
-    ///  <para lang="en">Get/Set Category. Default Success</para>
+    /// <para lang="zh">获得/设置 提示类型 默认为 Success</para>
+    /// <para lang="en">Get/Set Category. Default Success</para>
     /// </summary>
     public SwalCategory Category { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 弹窗标题</para>
-    ///  <para lang="en">Get/Set Title</para>
+    /// <para lang="zh">获得/设置 弹窗标题</para>
+    /// <para lang="en">Get/Set Title</para>
     /// </summary>
     public string? Title { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 ModalBody 组件</para>
-    ///  <para lang="en">Get/Set ModalBody Component</para>
+    /// <para lang="zh">获得/设置 ModalBody 组件</para>
+    /// <para lang="en">Get/Set ModalBody Component</para>
     /// </summary>
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Footer 组件</para>
-    ///  <para lang="en">Get/Set Footer Component</para>
+    /// <para lang="zh">获得/设置 Footer 组件</para>
+    /// <para lang="en">Get/Set Footer Component</para>
     /// </summary>
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示关闭按钮 默认为 true 显示</para>
-    ///  <para lang="en">Get/Set Whether to show close button. Default true</para>
+    /// <para lang="zh">获得/设置 是否显示关闭按钮 默认为 true 显示</para>
+    /// <para lang="en">Get/Set Whether to show close button. Default true</para>
     /// </summary>
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示 Footer 默认 false 不显示</para>
-    ///  <para lang="en">Get/Set Whether to show footer. Default false</para>
+    /// <para lang="zh">获得/设置 是否显示 Footer 默认 false 不显示</para>
+    /// <para lang="en">Get/Set Whether to show footer. Default false</para>
     /// </summary>
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 按钮模板</para>
-    ///  <para lang="en">Get/Set Button Template</para>
+    /// <para lang="zh">获得/设置 按钮模板</para>
+    /// <para lang="en">Get/Set Button Template</para>
     /// </summary>
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮图标 默认 fa-solid fa-xmark</para>
-    ///  <para lang="en">Get/Set Close Button Icon. Default fa-solid fa-xmark</para>
+    /// <para lang="zh">获得/设置 关闭按钮图标 默认 fa-solid fa-xmark</para>
+    /// <para lang="en">Get/Set Close Button Icon. Default fa-solid fa-xmark</para>
     /// </summary>
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮图标 默认 fa-solid fa-check</para>
-    ///  <para lang="en">Get/Set Confirm Button Icon. Default fa-solid fa-check</para>
+    /// <para lang="zh">获得/设置 确认按钮图标 默认 fa-solid fa-check</para>
+    /// <para lang="en">Get/Set Confirm Button Icon. Default fa-solid fa-check</para>
     /// </summary>
     public string? ConfirmButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭按钮文字 默认为 关闭</para>
-    ///  <para lang="en">Get/Set Close Button Text. Default Close</para>
+    /// <para lang="zh">获得/设置 关闭按钮文字 默认为 关闭</para>
+    /// <para lang="en">Get/Set Close Button Text. Default Close</para>
     /// </summary>
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 确认按钮文字 默认为 确认</para>
-    ///  <para lang="en">Get/Set Confirm Button Text. Default Confirm</para>
+    /// <para lang="zh">获得/设置 确认按钮文字 默认为 确认</para>
+    /// <para lang="en">Get/Set Confirm Button Text. Default Confirm</para>
     /// </summary>
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 取消按钮文字 默认为 取消</para>
-    ///  <para lang="en">Get/Set Cancel Button Text. Default Cancel</para>
+    /// <para lang="zh">获得/设置 取消按钮文字 默认为 取消</para>
+    /// <para lang="en">Get/Set Cancel Button Text. Default Cancel</para>
     /// </summary>
     public string? CancelButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 弹窗自定义样式</para>
-    ///  <para lang="en">Get/Set Custom Class</para>
+    /// <para lang="zh">获得/设置 弹窗自定义样式</para>
+    /// <para lang="en">Get/Set Custom Class</para>
     /// </summary>
     public string? Class { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 关闭弹窗回调方法</para>
-    ///  <para lang="en">Get/Set Callback method when closing</para>
+    /// <para lang="zh">获得/设置 关闭弹窗回调方法</para>
+    /// <para lang="en">Get/Set Callback method when closing</para>
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 点击 Confirm 按钮回调方法 用于模态对话框</para>
-    ///  <para lang="en">Get/Set Callback method when clicking Confirm button. Used for modal dialog</para>
+    /// <para lang="zh">获得/设置 点击 Confirm 按钮回调方法 用于模态对话框</para>
+    /// <para lang="en">Get/Set Callback method when clicking Confirm button. Used for modal dialog</para>
     /// </summary>
     public Func<Task>? OnConfirmAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">构造函数</para>
-    ///  <para lang="en">Constructor</para>
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     public SwalOption()
     {
@@ -130,8 +130,8 @@ public class SwalOption : PopupOptionBase
     }
 
     /// <summary>
-    ///  <para lang="zh">将参数转换为组件属性方法</para>
-    ///  <para lang="en">Convert parameters to component attributes method</para>
+    /// <para lang="zh">将参数转换为组件属性方法</para>
+    /// <para lang="en">Convert parameters to component attributes method</para>
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, object> ToAttributes()
@@ -159,12 +159,12 @@ public class SwalOption : PopupOptionBase
     }
 
     /// <summary>
-    ///  <para lang="zh">关闭弹窗方法</para>
-    ///  <para lang="en">Close Dialog Method</para>
+    /// <para lang="zh">关闭弹窗方法</para>
+    /// <para lang="en">Close Dialog Method</para>
     /// </summary>
     /// <param name="returnValue">
-    ///  <para lang="zh">模态弹窗返回值 默认为 true</para>
-    ///  <para lang="en">Modal dialog return value. Default true</para>
+    /// <para lang="zh">模态弹窗返回值 默认为 true</para>
+    /// <para lang="en">Modal dialog return value. Default true</para>
     /// </param>
     public async Task CloseAsync(bool returnValue = true)
     {

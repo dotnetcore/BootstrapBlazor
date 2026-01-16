@@ -6,214 +6,214 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">UploadPreviewList component</para>
-///  <para lang="en">UploadPreviewList component</para>
+/// <para lang="zh">UploadPreviewList component</para>
+/// <para lang="en">UploadPreviewList component</para>
 /// </summary>
 public partial class UploadPreviewList
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 the 集合 of files to be uploaded.</para>
-    ///  <para lang="en">Gets or sets the collection of files to be uploaded.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the 集合 of files to be uploaded.</para>
+    /// <para lang="en">Gets or sets the collection of files to be uploaded.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public List<UploadFile>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the disable status of the upload list.</para>
-    ///  <para lang="en">Gets or sets the disable status of the upload list.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the disable status of the upload list.</para>
+    /// <para lang="en">Gets or sets the disable status of the upload list.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 a value indicating 是否 progress should be 显示ed during the operation.</para>
-    ///  <para lang="en">Gets or sets a value indicating whether progress should be displayed during the operation.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 a value indicating 是否 progress should be 显示ed during the operation.</para>
+    /// <para lang="en">Gets or sets a value indicating whether progress should be displayed during the operation.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 the upload file format 回调方法.</para>
-    ///  <para lang="en">Gets or sets the upload file format callback method.</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 the upload file format 回调方法.</para>
+    /// <para lang="en">Gets or sets the upload file format callback method.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, string>? OnGetFileFormat { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><para>Gets or sets the callback method for the cancel button click event. Default is null</para>
+    /// <para lang="zh"><para>Gets or sets the callback method for the cancel button click event. Default is null</para>
     /// <para>获得/设置 点击取消按钮回调此方法 默认 null</para>
     ///</para>
-    ///  <para lang="en"><para>Gets or sets the callback method for the cancel button click event. Default is null</para>
+    /// <para lang="en"><para>Gets or sets the callback method for the cancel button click event. Default is null</para>
     /// <para>Gets or sets 点击取消button回调此方法 Default is null</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnCancel { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 取消图标</para>
-    ///  <para lang="en">Gets or sets 取消icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 取消图标</para>
+    /// <para lang="en">Gets or sets 取消icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CancelIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><para>获得/设置 浏览按钮图标</para>
+    /// <para lang="zh"><para>获得/设置 浏览按钮图标</para>
     ///</para>
-    ///  <para lang="en"><para>Gets or sets 浏览buttonicon</para>
+    /// <para lang="en"><para>Gets or sets 浏览buttonicon</para>
     ///</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 下载按钮图标</para>
-    ///  <para lang="en">Gets or sets 下载buttonicon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 下载按钮图标</para>
+    /// <para lang="en">Gets or sets 下载buttonicon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DownloadIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上传失败状态图标</para>
-    ///  <para lang="en">Gets or sets 上传失败状态icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上传失败状态图标</para>
+    /// <para lang="en">Gets or sets 上传失败状态icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上传成功状态图标</para>
-    ///  <para lang="en">Gets or sets 上传成功状态icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上传成功状态图标</para>
+    /// <para lang="en">Gets or sets 上传成功状态icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 删除按钮图标</para>
-    ///  <para lang="en">Gets or sets 删除buttonicon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 删除按钮图标</para>
+    /// <para lang="en">Gets or sets 删除buttonicon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示下载按钮 默认 false</para>
-    ///  <para lang="en">Gets or sets whetherdisplay下载button Default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示下载按钮 默认 false</para>
+    /// <para lang="en">Gets or sets whetherdisplay下载button Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDownloadButton { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 点击下载按钮回调方法 默认 null</para>
-    ///  <para lang="en">Gets or sets 点击下载buttoncallback method Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 点击下载按钮回调方法 默认 null</para>
+    /// <para lang="en">Gets or sets 点击下载buttoncallback method Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnDownload { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 点击删除按钮时回调此方法 默认 null</para>
-    ///  <para lang="en">Gets or sets 点击删除button时回调此方法 Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 点击删除按钮时回调此方法 默认 null</para>
+    /// <para lang="en">Gets or sets 点击删除button时回调此方法 Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconExcel { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconDocx { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconPPT { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconAudio { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconVideo { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconCode { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconPdf { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconZip { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconArchive { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconImage { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Excel 类型文件图标</para>
-    ///  <para lang="en">Gets or sets Excel type文件icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
+    /// <para lang="en">Gets or sets Excel type文件icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconFile { get; set; }
@@ -256,8 +256,8 @@ public partial class UploadPreviewList
         .Build();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

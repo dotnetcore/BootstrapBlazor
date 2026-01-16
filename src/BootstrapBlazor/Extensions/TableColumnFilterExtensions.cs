@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">TableFilter extensions methods</para>
-///  <para lang="en">TableFilter extensions methods</para>
+/// <para lang="zh">TableFilter extensions methods</para>
+/// <para lang="en">TableFilter extensions methods</para>
 /// </summary>
 public static class TableColumnFilterExtensions
 {
     /// <summary>
-    ///  <para lang="zh">Whether has filter</para>
-    ///  <para lang="en">Whether has filter</para>
+    /// <para lang="zh">Whether has filter</para>
+    /// <para lang="en">Whether has filter</para>
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
@@ -27,8 +27,8 @@ public static class TableColumnFilterExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">Whether is header row</para>
-    ///  <para lang="en">Whether is header row</para>
+    /// <para lang="zh">Whether is header row</para>
+    /// <para lang="en">Whether is header row</para>
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
@@ -42,8 +42,8 @@ public static class TableColumnFilterExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 the field key for the filter.</para>
-    ///  <para lang="en">Gets the field key for the filter.</para>
+    /// <para lang="zh">获得 the field key for the filter.</para>
+    /// <para lang="en">Gets the field key for the filter.</para>
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
@@ -57,8 +57,8 @@ public static class TableColumnFilterExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">获得 the filter title.</para>
-    ///  <para lang="en">Gets the filter title.</para>
+    /// <para lang="zh">获得 the filter title.</para>
+    /// <para lang="en">Gets the filter title.</para>
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>

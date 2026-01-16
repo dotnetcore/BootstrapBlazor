@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">树状组件骨架屏组件</para>
-///  <para lang="en">SkeletonTree Component</para>
+/// <para lang="zh">树状组件骨架屏组件</para>
+/// <para lang="en">SkeletonTree Component</para>
 /// </summary>
 public partial class SkeletonTree
 {
@@ -17,9 +17,9 @@ public partial class SkeletonTree
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Loading 图标</para>
-    ///  <para lang="en">Get/Set Loading Icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Loading 图标</para>
+    /// <para lang="en">Get/Set Loading Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -29,8 +29,8 @@ public partial class SkeletonTree
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

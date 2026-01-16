@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">系统常量</para>
-///  <para lang="en">系统常量</para>
+/// <para lang="zh">系统常量</para>
+/// <para lang="en">系统常量</para>
 /// </summary>
 public static class Constants
 {
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     public const string DropdownToggleString = "bb.dropdown";
 }

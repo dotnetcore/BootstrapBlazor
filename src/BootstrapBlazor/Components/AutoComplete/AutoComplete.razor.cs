@@ -8,96 +8,96 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">AutoComplete 组件</para>
-///  <para lang="en">AutoComplete component</para>
+/// <para lang="zh">AutoComplete 组件</para>
+/// <para lang="en">AutoComplete component</para>
 /// </summary>
 public partial class AutoComplete
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 通过输入字符串获得的匹配数据集合</para>
-    ///  <para lang="en">Gets or sets the collection of matching data obtained by inputting a string</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 通过输入字符串获得的匹配数据集合</para>
+    /// <para lang="en">Gets or sets the collection of matching data obtained by inputting a string</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<string>? Items { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 自定义集合过滤规则 默认为 null</para>
-    ///  <para lang="en">Gets or sets custom collection filtering rules, default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 自定义集合过滤规则 默认为 null</para>
+    /// <para lang="en">Gets or sets custom collection filtering rules, default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 图标</para>
-    ///  <para lang="en">Gets or sets the icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 图标</para>
+    /// <para lang="en">Gets or sets the icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 加载图标</para>
-    ///  <para lang="en">Gets or sets the loading icon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 加载图标</para>
+    /// <para lang="en">Gets or sets the loading icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 匹配数据时显示的数量</para>
-    ///  <para lang="en">Gets or sets the number of items to display when matching data</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 匹配数据时显示的数量</para>
+    /// <para lang="en">Gets or sets the number of items to display when matching data</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public int? DisplayCount { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否开启模糊搜索 默认为 false</para>
-    ///  <para lang="en">Gets or sets whether to enable fuzzy search, default is false</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否开启模糊搜索 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to enable fuzzy search, default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLikeMatch { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 匹配时是否忽略大小写 默认为 true</para>
-    ///  <para lang="en">Gets or sets whether to ignore case when matching, default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 匹配时是否忽略大小写 默认为 true</para>
+    /// <para lang="en">Gets or sets whether to ignore case when matching, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 获得焦点时是否展开下拉候选菜单 默认为 true</para>
-    ///  <para lang="en">Gets or sets whether to expand the dropdown candidate menu when focused, default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 获得焦点时是否展开下拉候选菜单 默认为 true</para>
+    /// <para lang="en">Gets or sets whether to expand the dropdown candidate menu when focused, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示无匹配数据选项 默认为 true</para>
-    ///  <para lang="en">Gets or sets whether to show the no matching data option, default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示无匹配数据选项 默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show the no matching data option, default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">IStringLocalizer 服务实例</para>
-    ///  <para lang="en">IStringLocalizer service instance</para>
+    /// <para lang="zh">IStringLocalizer 服务实例</para>
+    /// <para lang="en">IStringLocalizer service instance</para>
     /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得 获得焦点时自动显示下拉框设置字符串</para>
-    ///  <para lang="en">Gets the string setting for automatically displaying the dropdown when focused</para>
+    /// <para lang="zh">获得 获得焦点时自动显示下拉框设置字符串</para>
+    /// <para lang="en">Gets the string setting for automatically displaying the dropdown when focused</para>
     /// </summary>
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
@@ -113,8 +113,8 @@ public partial class AutoComplete
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得 清除图标样式</para>
-    ///  <para lang="en">Gets the clear icon class string.</para>
+    /// <para lang="zh">获得 清除图标样式</para>
+    /// <para lang="en">Gets the clear icon class string.</para>
     /// </summary>
     private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
@@ -125,8 +125,8 @@ public partial class AutoComplete
     private string? TriggerBlurString => OnBlurAsync != null ? "true" : null;
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -147,8 +147,8 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -161,8 +161,8 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -181,8 +181,8 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, GetChangedEventCallbackName());
@@ -190,15 +190,15 @@ public partial class AutoComplete
     private string? GetChangedEventCallbackName() => (OnValueChanged != null || ValueChanged.HasDelegate) ? nameof(TriggerChange) : null;
 
     /// <summary>
-    ///  <para lang="zh">获得 是否显示清除按钮</para>
-    ///  <para lang="en">Gets whether show the clear button.</para>
+    /// <para lang="zh">获得 是否显示清除按钮</para>
+    /// <para lang="en">Gets whether show the clear button.</para>
     /// </summary>
     /// <returns></returns>
     private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
-    ///  <para lang="zh">点击候选项目时回调方法</para>
-    ///  <para lang="en">Callback method when a candidate item is clicked</para>
+    /// <para lang="zh">点击候选项目时回调方法</para>
+    /// <para lang="en">Callback method when a candidate item is clicked</para>
     /// </summary>
     private async Task OnClickItem(string val)
     {
@@ -223,8 +223,8 @@ public partial class AutoComplete
     private List<string> Rows => _filterItems ?? [.. Items];
 
     /// <summary>
-    ///  <para lang="zh">点击清空按钮时调用此方法 由 Javascript 触发</para>
-    ///  <para lang="en">Method called when the clear button is clicked. Triggered by Javascript</para>
+    /// <para lang="zh">点击清空按钮时调用此方法 由 Javascript 触发</para>
+    /// <para lang="en">Method called when the clear button is clicked. Triggered by Javascript</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -237,8 +237,8 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    ///  <para lang="zh">TriggerFilter 方法</para>
-    ///  <para lang="en">TriggerFilter method</para>
+    /// <para lang="zh">TriggerFilter 方法</para>
+    /// <para lang="en">TriggerFilter method</para>
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
@@ -268,8 +268,8 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    ///  <para lang="zh">支持双向绑定 由客户端 JavaScript 触发</para>
-    ///  <para lang="en">Supports two-way binding. Triggered by client-side JavaScript</para>
+    /// <para lang="zh">支持双向绑定 由客户端 JavaScript 触发</para>
+    /// <para lang="en">Supports two-way binding. Triggered by client-side JavaScript</para>
     /// </summary>
     /// <param name="v"></param>
     /// <returns></returns>

@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Swal 扩展类</para>
-///  <para lang="en">Swal 扩展类</para>
+/// <para lang="zh">Swal 扩展类</para>
+/// <para lang="en">Swal 扩展类</para>
 /// </summary>
 public static class SwalExtensions
 {
     /// <summary>
-    ///  <para lang="zh">异步回调方法</para>
-    ///  <para lang="en">异步callback method</para>
+    /// <para lang="zh">异步回调方法</para>
+    /// <para lang="en">异步callback method</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="option"></param>
@@ -27,8 +27,8 @@ public static class SwalExtensions
     }
 
     /// <summary>
-    ///  <para lang="zh">将配置信息转化为参数集合</para>
-    ///  <para lang="en">将配置信息转化为参数collection</para>
+    /// <para lang="zh">将配置信息转化为参数集合</para>
+    /// <para lang="en">将配置信息转化为参数collection</para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

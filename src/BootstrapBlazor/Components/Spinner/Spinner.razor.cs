@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Spinner 组件基类</para>
-///  <para lang="en">Spinner Component</para>
+/// <para lang="zh">Spinner 组件基类</para>
+/// <para lang="en">Spinner Component</para>
 /// </summary>
 public partial class Spinner
 {
     /// <summary>
-    ///  <para lang="zh">获取Spinner样式</para>
-    ///  <para lang="en">Get Spinner Class Name</para>
+    /// <para lang="zh">获取Spinner样式</para>
+    /// <para lang="en">Get Spinner Class Name</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("spinner")
         .AddClass($"spinner-{SpinnerType.ToDescriptionString()}")
@@ -23,25 +23,25 @@ public partial class Spinner
         .Build();
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Spinner 颜色 默认 None 无设置</para>
-    ///  <para lang="en">Get/Set Spinner Color. Default None</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Spinner 颜色 默认 None 无设置</para>
+    /// <para lang="en">Get/Set Spinner Color. Default None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得 / 设置 Spinner 大小 默认 None 无设置</para>
-    ///  <para lang="en">Get/Set Spinner Size. Default None</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得 / 设置 Spinner 大小 默认 None 无设置</para>
+    /// <para lang="en">Get/Set Spinner Size. Default None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Spinner 类型 默认为 Border</para>
-    ///  <para lang="en">Get/Set Spinner Type. Default Border</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Spinner 类型 默认为 Border</para>
+    /// <para lang="en">Get/Set Spinner Type. Default Border</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public SpinnerType SpinnerType { get; set; }

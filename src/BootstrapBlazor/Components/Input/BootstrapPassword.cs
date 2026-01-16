@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">BootstrapPassword 组件</para>
-///  <para lang="en">BootstrapPassword Component</para>
+/// <para lang="zh">BootstrapPassword 组件</para>
+/// <para lang="en">BootstrapPassword Component</para>
 /// </summary>
 public class BootstrapPassword : BootstrapInput<string>
 {
     /// <summary>
-    ///  <para lang="zh">OnInitialized 方法</para>
-    ///  <para lang="en">OnInitialized Method</para>
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {

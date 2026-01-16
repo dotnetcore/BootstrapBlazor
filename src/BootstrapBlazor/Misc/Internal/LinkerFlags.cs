@@ -10,14 +10,14 @@ namespace Microsoft.AspNetCore.Internal;
 internal static class LinkerFlags
 {
     /// <summary>
-    ///  <para lang="zh">Flags for a member that is JSON (de)serialized.</para>
-    ///  <para lang="en">Flags for a member that is JSON (de)serialized.</para>
+    /// <para lang="zh">Flags for a member that is JSON (de)serialized.</para>
+    /// <para lang="en">Flags for a member that is JSON (de)serialized.</para>
     /// </summary>
     public const DynamicallyAccessedMemberTypes JsonSerialized = DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties;
 
     /// <summary>
-    ///  <para lang="zh">Flags for a component</para>
-    ///  <para lang="en">Flags for a component</para>
+    /// <para lang="zh">Flags for a component</para>
+    /// <para lang="en">Flags for a component</para>
     /// </summary>
     public const DynamicallyAccessedMemberTypes Component = DynamicallyAccessedMemberTypes.All;
 }

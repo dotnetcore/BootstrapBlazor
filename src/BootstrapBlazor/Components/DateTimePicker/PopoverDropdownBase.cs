@@ -6,46 +6,46 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh"></para>
-///  <para lang="en"></para>
+/// <para lang="zh"></para>
+/// <para lang="en"></para>
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 弹窗位置 默认为 Bottom</para>
-    ///  <para lang="en">Get/Set Popover Placement. Default is Bottom</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 弹窗位置 默认为 Bottom</para>
+    /// <para lang="en">Get/Set Popover Placement. Default is Bottom</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Bottom;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 自定义样式 参数 默认 null</para>
-    ///  <para lang="en">Get/Set Custom Class. Default is null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 自定义样式 参数 默认 null</para>
+    /// <para lang="en">Get/Set Custom Class. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>由 data-bs-custom-class 实现</remarks>
     [Parameter]
     public string? CustomClass { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
-    ///  <para lang="en">Get/Set Whether to Show Shadow. Default is true</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
+    /// <para lang="en">Get/Set Whether to Show Shadow. Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">弹窗位置字符串</para>
-    ///  <para lang="en">Popover Placement String</para>
+    /// <para lang="zh">弹窗位置字符串</para>
+    /// <para lang="en">Popover Placement String</para>
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
 
     /// <summary>
-    ///  <para lang="zh">获得 CustomClass 字符串</para>
-    ///  <para lang="en">Get CustomClass String</para>
+    /// <para lang="zh">获得 CustomClass 字符串</para>
+    /// <para lang="en">Get CustomClass String</para>
     /// </summary>
     protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
         .AddClass("popover-region")

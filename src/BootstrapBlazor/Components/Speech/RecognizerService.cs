@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">语音识别服务</para>
-///  <para lang="en">Speech Recognition Service</para>
+/// <para lang="zh">语音识别服务</para>
+/// <para lang="en">Speech Recognition Service</para>
 /// </summary>
 public class RecognizerService(IRecognizerProvider provider)
 {
     /// <summary>
-    ///  <para lang="zh">语音识别回调方法</para>
-    ///  <para lang="en">Speech Recognition Callback Method</para>
+    /// <para lang="zh">语音识别回调方法</para>
+    /// <para lang="en">Speech Recognition Callback Method</para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

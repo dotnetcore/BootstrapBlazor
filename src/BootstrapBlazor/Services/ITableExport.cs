@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Table 组件 Excel 导出接口</para>
-///  <para lang="en">Table Component Excel Export Interface</para>
+/// <para lang="zh">Table 组件 Excel 导出接口</para>
+/// <para lang="en">Table Component Excel Export Interface</para>
 /// </summary>
 public interface ITableExport
 {
     /// <summary>
-    ///  <para lang="zh">导出 方法</para>
-    ///  <para lang="en">Export Method</para>
+    /// <para lang="zh">导出 方法</para>
+    /// <para lang="en">Export Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">Export Data Collection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">Current visible column data collection, default null to export all columns</para></param>
@@ -21,8 +21,8 @@ public interface ITableExport
     Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
-    ///  <para lang="zh">导出 方法</para>
-    ///  <para lang="en">Export Method</para>
+    /// <para lang="zh">导出 方法</para>
+    /// <para lang="en">Export Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -31,8 +31,8 @@ public interface ITableExport
     Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportAsync(items, cols, fileName);
 
     /// <summary>
-    ///  <para lang="zh">导出 Excel 方法</para>
-    ///  <para lang="en">Export Excel Method</para>
+    /// <para lang="zh">导出 Excel 方法</para>
+    /// <para lang="en">Export Excel Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -40,8 +40,8 @@ public interface ITableExport
     Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
-    ///  <para lang="zh">导出 Excel 方法</para>
-    ///  <para lang="en">Export Excel Method</para>
+    /// <para lang="zh">导出 Excel 方法</para>
+    /// <para lang="en">Export Excel Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">Export Data Collection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">Current visible column data collection, default null to export all columns</para></param>
@@ -50,8 +50,8 @@ public interface ITableExport
     Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportExcelAsync(items, cols, fileName);
 
     /// <summary>
-    ///  <para lang="zh">导出 Csv 方法</para>
-    ///  <para lang="en">Export CSV Method</para>
+    /// <para lang="zh">导出 Csv 方法</para>
+    /// <para lang="en">Export CSV Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -59,8 +59,8 @@ public interface ITableExport
     Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
-    ///  <para lang="zh">导出 Csv 方法</para>
-    ///  <para lang="en">Export CSV Method</para>
+    /// <para lang="zh">导出 Csv 方法</para>
+    /// <para lang="en">Export CSV Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -69,8 +69,8 @@ public interface ITableExport
     Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportCsvAsync(items, cols, fileName);
 
     /// <summary>
-    ///  <para lang="zh">导出 Pdf 方法</para>
-    ///  <para lang="en">Export PDF Method</para>
+    /// <para lang="zh">导出 Pdf 方法</para>
+    /// <para lang="en">Export PDF Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -78,8 +78,8 @@ public interface ITableExport
     Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
-    ///  <para lang="zh">导出 Pdf 方法</para>
-    ///  <para lang="en">Export PDF Method</para>
+    /// <para lang="zh">导出 Pdf 方法</para>
+    /// <para lang="en">Export PDF Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">导出datacollection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">当前可见列datacollection default is null 导出全部列</para></param>
@@ -88,8 +88,8 @@ public interface ITableExport
     Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportPdfAsync(items, cols, fileName);
 
     /// <summary>
-    ///  <para lang="zh">导出 Pdf 方法</para>
-    ///  <para lang="en">Export PDF Method</para>
+    /// <para lang="zh">导出 Pdf 方法</para>
+    /// <para lang="en">Export PDF Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">Export Data Collection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">Current visible column data collection, default null to export all columns</para></param>

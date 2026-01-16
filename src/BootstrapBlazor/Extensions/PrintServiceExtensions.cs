@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">PrintService 扩展方法</para>
-///  <para lang="en">PrintService 扩展方法</para>
+/// <para lang="zh">PrintService 扩展方法</para>
+/// <para lang="en">PrintService 扩展方法</para>
 /// </summary>
 public static class PrintServiceExtensions
 {
     /// <summary>
-    ///  <para lang="zh">打印方法</para>
-    ///  <para lang="en">打印方法</para>
+    /// <para lang="zh">打印方法</para>
+    /// <para lang="en">打印方法</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
