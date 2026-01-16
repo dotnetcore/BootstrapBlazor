@@ -3,11 +3,11 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Diagnostics;
 using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 namespace UnitTest.Components;
 
@@ -115,19 +115,19 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var foo = Foo.Generate(localizer);
 
-        var sut = Context.Render<ContextMenuZone>(x =>
+        var cut = Context.Render<ContextMenuZone>(x =>
         {
             x.AddChildContent<ContextMenuTrigger>(y =>
             {
                 y.Add(z => z.ContextItem, foo);
                 y.Add(z => z.OnTouchDelay, Delay);
                 y.AddChildContent(z =>
-                                   {
-                                       z.OpenElement(0, "div");
-                                       z.AddAttribute(1, "class", "context-trigger");
-                                       z.AddContent(2, foo.Name);
-                                       z.CloseElement();
-                                   });
+                {
+                    z.OpenElement(0, "div");
+                    z.AddAttribute(1, "class", "context-trigger");
+                    z.AddContent(2, foo.Name);
+                    z.CloseElement();
+                });
             });
             x.AddChildContent<ContextMenu>(y =>
             {
@@ -140,20 +140,23 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-
-        var element = sut.Find(".context-trigger");
+        var element = cut.Find(".context-trigger");
         var sw = Stopwatch.StartNew();
         await element.TouchStartAsync(new TouchEventArgs
         {
             Detail = 0,
             Touches = [new TouchPoint { ClientX = 10, ClientY = 10, ScreenX = 10, ScreenY = 10 }]
         });
-        Assert.True(sut.FindComponent<ContextMenuTrigger>().Instance.IsTouchStarted);
-        await element.TouchEndAsync();
+
+        var trigger = cut.FindComponent<ContextMenuTrigger>().Instance;
+        Assert.NotNull(trigger);
+
+        Assert.True(trigger.IsTouchStarted);
+        await cut.InvokeAsync(() => element.TouchEndAsync());
         sw.Stop();
 
         Assert.True(sw.ElapsedMilliseconds >= Delay * 2);
-        Assert.False(sut.FindComponent<ContextMenuTrigger>().Instance.IsTouchStarted);
+        Assert.False(trigger.IsTouchStarted);
     }
 
     [Theory]
