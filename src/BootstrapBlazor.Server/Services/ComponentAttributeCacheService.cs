@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
+using System.Globalization;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
@@ -22,9 +23,9 @@ public static class ComponentAttributeCacheService
     /// </summary>
     public static AttributeItem[] GetAttributes(Type componentType)
     {
-        var currentLanguage = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
         var key = $"{componentType.FullName}_{currentLanguage}";
-        return _cache.GetOrAdd(key, key =>
+        return _cache.GetOrAdd(key, _ =>
         {
             var attributes = new List<AttributeItem>();
             var properties = componentType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -38,7 +39,6 @@ public static class ComponentAttributeCacheService
                     Name = property.Name,
                     Type = GetFriendlyTypeName(property.PropertyType),
                     Description = GetSummary(xmlDoc, property) ?? "",
-                    ValueList = GetValueList(property) ?? "",
                     Version = GetVersion(xmlDoc, property) ?? ""
                 };
                 attributes.Add(item);
@@ -65,7 +65,7 @@ public static class ComponentAttributeCacheService
         if (summaryElement == null) return null;
 
         // 获取当前语言（zh-CN -> zh, en-US -> en）
-        var currentLanguage = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
         // 查找匹配当前语言的 para 元素
         var langPara = summaryElement.Elements("para")
@@ -113,20 +113,6 @@ public static class ComponentAttributeCacheService
             .Select(p => p.Element("version"))
             .FirstOrDefault(v => v != null)
             ?.Value.Trim();
-    }
-
-    /// <summary>
-    /// 获取可选值列表
-    /// </summary>
-    private static string? GetValueList(PropertyInfo property)
-    {
-        // 如果是枚举类型,返回枚举值
-        if (property.PropertyType.IsEnum)
-        {
-            return string.Join("/", Enum.GetNames(property.PropertyType));
-        }
-
-        return null;
     }
 
     /// <summary>
