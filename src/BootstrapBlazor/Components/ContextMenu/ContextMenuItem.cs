@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuItem 类</para>
-/// <para lang="en">ContextMenuItem class</para>
+/// <para lang="en">A type that represents a menu item in a <see cref="ContextMenu"/>.</para>
 /// </summary>
 public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
 {
@@ -20,28 +20,31 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
-    /// <para lang="en">The icon to display.</para>
+    ///  <para lang="en">The CSS class name that represents an icon (if any)</para>
     /// </summary>
+    /// <example>
+    /// Icon="fa-solid fa-bookmark"
+    /// </example>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/></para>
-    /// <para lang="en">Gets or sets whether the item is disabled. Default is false. Lower priority than <see cref="OnDisabledCallback"/>.</para>
+    /// <para lang="en">Flags whether the item is disabled. Default is <see langword="false"/>. It has a lower priority than <see cref="OnDisabledCallback"/>.</para>
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/></para>
-    /// <para lang="en">Gets or sets the callback to determine if the item is disabled. Default is null. Higher priority than <see cref="Disabled"/>.</para>
+    /// <para lang="en">Defines the callback to determine if the item is disabled. Default is <see langword="null" />. It has a higher priority than <see cref="Disabled"/>.</para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, bool>? OnDisabledCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets the click callback. Default is null.</para>
+    /// <para lang="en">Defines the click callback. Default is <see langword="null" />.</para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
@@ -50,9 +53,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -79,9 +80,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
         }
     }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     public void Dispose()
     {
         Dispose(disposing: true);

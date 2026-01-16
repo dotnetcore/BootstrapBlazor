@@ -9,14 +9,11 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuZone 组件</para>
-/// <para lang="en">ContextMenuZone component</para>
+/// <para lang="en">The ContextMenuZone defines the area in the DOM where the context menu can be displayed.</para>
 /// </summary>
 public partial class ContextMenuZone
 {
-    /// <summary>
-    /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Gets or sets the child content.</para>
-    /// </summary>
+    /// <inheritdoc cref="ContextMenu.ChildContent" />
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -44,8 +41,11 @@ public partial class ContextMenuZone
 
     /// <summary>
     /// <para lang="zh">ContextMenu 组件调用</para>
-    /// <para lang="en">Called by the ContextMenu component</para>
+    /// <para lang="en">Registers a <paramref name="contextMenu"/> with this zone.</para>
     /// </summary>
-    /// <param name="contextMenu"><para lang="zh">要注册的 ContextMenu 组件</para><para lang="en">The ContextMenu component to register</para></param>
+    /// <param name="contextMenu">
+    ///     <para lang="zh">要注册的 ContextMenu 组件</para>
+    ///     <para lang="en">The <see cref="ContextMenu"/> to register</para>
+    /// </param>
     internal void RegisterContextMenu(ContextMenu contextMenu) => _contextMenu = contextMenu;
 }

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuDivider 组件</para>
-/// <para lang="en">ContextMenuDivider component</para>
+/// <para lang="en">A component that defines a menu item as a divider in a context menu.</para>
 /// </summary>
 public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
@@ -17,9 +17,7 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -27,10 +25,7 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
         ContextMenu.AddItem(this);
     }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
-    /// <param name="builder"><para lang="zh">渲染树生成器</para><para lang="en">The render tree builder</para></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder) { }
 
     private bool disposedValue;
@@ -39,7 +34,10 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     /// <para lang="zh">释放资源方法</para>
     /// <para lang="en">Method to release resources.</para>
     /// </summary>
-    /// <param name="disposing"><para lang="zh">是否释放托管资源</para><para lang="en">Whether to release managed resources</para></param>
+    /// <param name="disposing">
+    ///     <para lang="zh">是否释放托管资源</para>
+    ///     <para lang="en">Flags whether to release managed resources</para>
+    /// </param>
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)
@@ -52,9 +50,7 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
         }
     }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     public void Dispose()
     {
         Dispose(disposing: true);

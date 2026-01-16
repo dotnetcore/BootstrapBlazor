@@ -10,20 +10,17 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuTrigger 组件</para>
-/// <para lang="en">ContextMenuTrigger component</para>
+/// <para lang="en">A component that defines a trigger that shows a <see cref="ContextMenu"/>.</para>
 /// </summary>
 public class ContextMenuTrigger : BootstrapComponentBase
 {
-    /// <summary>
-    /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Gets or sets the child content.</para>
-    /// </summary>
+    /// <inheritdoc cref="ContextMenu.ChildContent" />
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 包裹组件 TagName 默认为 div</para>
-    /// <para lang="en">Gets or sets the wrapper component tag name. Default is div.</para>
+    /// <para lang="en">The HTML tag name to use for the trigger. Default is &lt;div&gt;.</para>
     /// </summary>
     [Parameter]
     public string WrapperTag { get; set; } = "div";
@@ -53,9 +50,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
@@ -63,10 +58,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
         OnTouchDelay ??= Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
     }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
-    /// <param name="builder"><para lang="zh">渲染树生成器</para><para lang="en">The render tree builder</para></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, WrapperTag);
@@ -82,14 +74,14 @@ public class ContextMenuTrigger : BootstrapComponentBase
 
     /// <summary>
     /// <para lang="zh">点击 ContextMenu 菜单项时触发</para>
-    /// <para lang="en">Triggered when a ContextMenu menu item is clicked.</para>
+    /// <para lang="en">Triggered when a context menu item is clicked.</para>
     /// </summary>
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(MouseEventArgs))]
     public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(args, ContextItem);
 
     /// <summary>
     /// <para lang="zh">是否触摸</para>
-    /// <para lang="en">Indicates whether touch has started.</para>
+    /// <para lang="en">Indicates whether a touch event is started.</para>
     /// </summary>
     public bool IsTouchStarted { get; private set; }
 
