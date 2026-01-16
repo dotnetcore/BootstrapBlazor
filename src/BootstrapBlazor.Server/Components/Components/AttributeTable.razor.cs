@@ -15,6 +15,12 @@ public sealed partial class AttributeTable
     private IStringLocalizer<AttributeTable>? Localizer { get; set; }
 
     /// <summary>
+    /// Component name for auto-loading attributes
+    /// </summary>
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     [Parameter]
@@ -27,12 +33,18 @@ public sealed partial class AttributeTable
     [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// OnParametersSet 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
+        // 如果指定了 Name 但没有提供 Items，则自动从生成的元数据中获取
+        if (!string.IsNullOrEmpty(Name) && Items == null)
+        {
+            Items = ComponentAttributeProvider.GetAttributes(Name);
+        }
+        
         Title ??= Localizer[nameof(Title)];
     }
 }
