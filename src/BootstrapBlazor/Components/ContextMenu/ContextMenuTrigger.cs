@@ -35,9 +35,29 @@ public class ContextMenuTrigger : BootstrapComponentBase
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
+    /// <summary>
+    /// The timeout duration for touch events to trigger the context menu (in milliseconds).
+    /// Default is <see cref="ContextMenuOptions.OnTouchDelay"/> milliseconds. Must be greater than 0.
+    /// </summary>
+    [Parameter]
+    public int? OnTouchDelay { get; set; }
+
+    [Inject, NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     private string? ClassString => CssBuilder.Default()
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        OnTouchDelay ??= Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -65,7 +85,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// 是否触摸
     /// </summary>
-    private bool TouchStart { get; set; }
+    public bool IsTouchStarted { get; private set; }
 
     /// <summary>
     /// 触摸定时器工作指示
@@ -77,11 +97,15 @@ public class ContextMenuTrigger : BootstrapComponentBase
         if (!IsBusy)
         {
             IsBusy = true;
-            TouchStart = true;
+            IsTouchStarted = true;
 
             // 延时保持 TouchStart 状态
-            await Task.Delay(200);
-            if (TouchStart)
+            // Delay to maintain TouchStart state
+            if (OnTouchDelay.HasValue)
+            {
+                await Task.Delay(OnTouchDelay.Value);
+            }
+            if (IsTouchStarted)
             {
                 var args = new MouseEventArgs()
                 {
@@ -90,11 +114,15 @@ public class ContextMenuTrigger : BootstrapComponentBase
                     ScreenX = e.Touches[0].ScreenX,
                     ScreenY = e.Touches[0].ScreenY,
                 };
-                // 弹出关联菜单
+
                 await OnContextMenu(args);
 
-                //延时防止重复激活菜单功能
-                await Task.Delay(200);
+                // 延时防止重复激活菜单功能
+                // Delay to prevent repeated activation of menu functions
+                if (OnTouchDelay.HasValue)
+                {
+                    await Task.Delay(OnTouchDelay.Value);
+                }
             }
             IsBusy = false;
         }
@@ -102,6 +130,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
 
     private void OnTouchEnd()
     {
-        TouchStart = false;
+        IsTouchStarted = false;
     }
 }

@@ -7,6 +7,7 @@ using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 namespace UnitTest.Components;
 
@@ -104,6 +105,58 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         await Task.Delay(500);
         row.TouchEnd();
         Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task ContextMenu_TouchWithTimeout_Ok()
+    {
+        const int Delay = 300; // ms
+
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var foo = Foo.Generate(localizer);
+
+        var cut = Context.Render<ContextMenuZone>(x =>
+        {
+            x.AddChildContent<ContextMenuTrigger>(y =>
+            {
+                y.Add(z => z.ContextItem, foo);
+                y.Add(z => z.OnTouchDelay, Delay);
+                y.AddChildContent(z =>
+                {
+                    z.OpenElement(0, "div");
+                    z.AddAttribute(1, "class", "context-trigger");
+                    z.AddContent(2, foo.Name);
+                    z.CloseElement();
+                });
+            });
+            x.AddChildContent<ContextMenu>(y =>
+            {
+                y.AddChildContent<ContextMenuItem>(z =>
+                {
+                    z.Add(a => a.Icon, "fa fa-test");
+                    z.Add(a => a.Text, "Test");
+                    z.Add(a => a.OnClick, (_, _) => Task.CompletedTask);
+                });
+            });
+        });
+
+        var element = cut.Find(".context-trigger");
+        var sw = Stopwatch.StartNew();
+        await element.TouchStartAsync(new TouchEventArgs
+        {
+            Detail = 0,
+            Touches = [new TouchPoint { ClientX = 10, ClientY = 10, ScreenX = 10, ScreenY = 10 }]
+        });
+
+        var trigger = cut.FindComponent<ContextMenuTrigger>().Instance;
+        Assert.NotNull(trigger);
+
+        Assert.True(trigger.IsTouchStarted);
+        await cut.InvokeAsync(() => element.TouchEndAsync());
+        sw.Stop();
+
+        Assert.True(sw.ElapsedMilliseconds >= Delay * 2);
+        Assert.False(trigger.IsTouchStarted);
     }
 
     [Theory]
