@@ -41,4 +41,10 @@ public class AttributeItem
     /// </summary>
     [DisplayName("默认值")]
     public string DefaultValue { get; set; } = "";
+
+    /// <summary>
+    /// 获得/设置 版本
+    /// </summary>
+    [DisplayName("版本")]
+    public string Version { get; set; } = "";
 }

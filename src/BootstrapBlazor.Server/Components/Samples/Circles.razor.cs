@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using BootstrapBlazor.Server.Services;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -19,59 +21,13 @@ public sealed partial class Circles
     }
 
     /// <summary>
-    /// GetAttributes
+    /// GetAttributes - 使用反射和缓存自动获取 Circle 组件属性
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Width",
-            Description = Localizer["Width"],
-            Type = "int",
-            ValueList = "",
-            DefaultValue = "120"
-        },
-        new()
-        {
-            Name = "StrokeWidth",
-            Description = Localizer["StrokeWidth"],
-            Type = "int",
-            ValueList = "",
-            DefaultValue = "2"
-        },
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["Value"],
-            Type = "int",
-            ValueList = "0-100",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = "Color",
-            Description = Localizer["Color"],
-            Type = "Color",
-            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-            DefaultValue = "Primary"
-        },
-        new()
-        {
-            Name = "ShowProgress",
-            Description = Localizer["ShowProgress"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "ChildContent",
-            Description = Localizer["ChildContent"],
-            Type = "RenderFragment",
-            ValueList = "",
-            DefaultValue = ""
-        }
-    ];
+    private AttributeItem[] GetAttributes()
+    {
+        // 通过示例组件名称 Circles 确定组件类型为 Circle
+        return ComponentAttributeCacheService.GetAttributes(typeof(BootstrapBlazor.Components.Circle));
+    }
 }
 
