@@ -6,24 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DateTimeRangeRenderMode 组件视图显示模式</para>
-/// <para lang="en">DateTimeRangeRenderMode Enum</para>
+///  <para lang="zh">DateTimeRangeRenderMode 组件视图显示模式</para>
+///  <para lang="en">DateTimeRangeRenderMode Enum</para>
 /// </summary>
 public enum DateTimeRangeRenderMode
 {
     /// <summary>
-    /// <para lang="zh">Single Component Mode
-    ///</para>
-    /// <para lang="en">Single Component Mode
-    ///</para>
+    ///  <para lang="zh">Single Component Mode</para>
+    ///  <para lang="en">Single Component Mode</para>
     /// </summary>
     Single,
 
     /// <summary>
-    /// <para lang="zh">Double Panel Mode
-    ///</para>
-    /// <para lang="en">Double Panel Mode
-    ///</para>
+    ///  <para lang="zh">Double Panel Mode</para>
+    ///  <para lang="en">Double Panel Mode</para>
     /// </summary>
     Double
 }

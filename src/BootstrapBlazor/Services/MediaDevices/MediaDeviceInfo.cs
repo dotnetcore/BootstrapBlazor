@@ -6,27 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <inheritdoc/>
+///  <para lang="zh"><inheritdoc/></para>
+///  <para lang="en"><inheritdoc/></para>
 /// </summary>
 public class MediaDeviceInfo : IMediaDeviceInfo
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string DeviceId { get; set; } = "";
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string GroupId { get; set; } = "";
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string Kind { get; set; } = "";
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string Label { get; set; } = "";
 }

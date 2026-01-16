@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">单元格内按钮组件
-///</para>
-/// <para lang="en">单元格内buttoncomponent
-///</para>
+///  <para lang="zh">单元格内按钮组件</para>
+///  <para lang="en">单元格内buttoncomponent</para>
 /// </summary>
 public class TableCellButtonArgs : ITableCellButton
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool AutoRenderTableWhenClick { get; set; }
 }

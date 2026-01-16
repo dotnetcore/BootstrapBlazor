@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件 Pdf 导出接口</para>
-/// <para lang="en">Table Component PDF Export Interface</para>
+///  <para lang="zh">Table 组件 Pdf 导出接口</para>
+///  <para lang="en">Table Component PDF Export Interface</para>
 /// </summary>
 [Obsolete("已过期，统一使用 ITableExport 接口")]
 public interface ITablePdfExport
 {
     /// <summary>
-    /// <para lang="zh">导出 Pdf 方法</para>
-    /// <para lang="en">Export PDF Method</para>
+    ///  <para lang="zh">导出 Pdf 方法</para>
+    ///  <para lang="en">Export PDF Method</para>
     /// </summary>
     /// <param name="items"><para lang="zh">导出数据集合</para><para lang="en">Export Data Collection</para></param>
     /// <param name="cols"><para lang="zh">当前可见列数据集合 默认 null 导出全部列</para><para lang="en">Current visible column data collection, default null to export all columns</para></param>

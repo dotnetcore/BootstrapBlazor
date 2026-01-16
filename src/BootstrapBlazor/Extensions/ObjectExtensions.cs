@@ -9,14 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Object 扩展方法</para>
-/// <para lang="en">Object extension methods</para>
+///  <para lang="zh">Object 扩展方法</para>
+///  <para lang="en">Object extension methods</para>
 /// </summary>
 public static class ObjectExtensions
 {
     /// <summary>
-    /// <para lang="zh">转化为带单位的字符串 [% px] => [% px] [int] => [int]px</para>
-    /// <para lang="en">Convert to string with unit [% px] => [% px] [int] => [int]px</para>
+    ///  <para lang="zh">转化为带单位的字符串 [% px] => [% px] [int] => [int]px</para>
+    ///  <para lang="en">Convert to string with unit [% px] => [% px] [int] => [int]px</para>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
@@ -46,8 +46,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否为 Number 数据类型</para>
-    /// <para lang="en">Check if it is a Number data type</para>
+    ///  <para lang="zh">检查是否为 Number 数据类型</para>
+    ///  <para lang="en">Check if it is a Number data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -59,8 +59,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/></para>
-    /// <para lang="en">Check if it should be rendered as <see cref="BootstrapInputNumber{TValue}"/></para>
+    ///  <para lang="zh">检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/></para>
+    ///  <para lang="en">Check if it should be rendered as <see cref="BootstrapInputNumber{TValue}"/></para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -75,8 +75,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否为 Boolean 数据类型</para>
-    /// <para lang="en">Check if it is a Boolean data type</para>
+    ///  <para lang="zh">检查是否为 Boolean 数据类型</para>
+    ///  <para lang="en">Check if it is a Boolean data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -87,8 +87,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否为 DateTime 数据类型</para>
-    /// <para lang="en">Check if it is a DateTime data type</para>
+    ///  <para lang="zh">检查是否为 DateTime 数据类型</para>
+    ///  <para lang="en">Check if it is a DateTime data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -100,8 +100,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否为 TimeSpan 数据类型</para>
-    /// <para lang="en">Check if it is a TimeSpan data type</para>
+    ///  <para lang="zh">检查是否为 TimeSpan 数据类型</para>
+    ///  <para lang="en">Check if it is a TimeSpan data type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -113,8 +113,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">通过类型获取类型描述文字</para>
-    /// <para lang="en">Get type description text by type</para>
+    ///  <para lang="zh">通过类型获取类型描述文字</para>
+    ///  <para lang="en">Get type description text by type</para>
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
@@ -142,8 +142,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">字符串类型转换为其他数据类型</para>
-    /// <para lang="en">String type converted to other data types</para>
+    ///  <para lang="zh">字符串类型转换为其他数据类型</para>
+    ///  <para lang="en">String type converted to other data types</para>
     /// </summary>
     /// <returns></returns>
     public static bool TryConvertTo(this string? source, Type type, out object? val)
@@ -168,10 +168,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型.
-    ///</para>
-    /// <para lang="en">Tries to convert the string representation of a value to a specified type.
-    ///</para>
+    ///  <para lang="zh">Tries to convert the string representation of a value to a specified 类型.</para>
+    ///  <para lang="en">Tries to convert the string representation of a value to a specified type.</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="source"></param>
@@ -215,10 +213,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Formats the file size into a string with appropriate units
-    ///</para>
-    /// <para lang="en">Formats the file size into a string with appropriate units
-    ///</para>
+    ///  <para lang="zh">Formats the file size into a string with appropriate units</para>
+    ///  <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
     /// <param name="fileSize"></param>
     /// <returns></returns>
@@ -255,10 +251,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized.
-    ///</para>
-    /// <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized.
-    ///</para>
+    ///  <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized.</para>
+    ///  <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized.</para>
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
@@ -289,10 +283,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized.
-    ///</para>
-    /// <para lang="en">Ensures that all class-type properties of the instance are initialized.
-    ///</para>
+    ///  <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized.</para>
+    ///  <para lang="en">Ensures that all class-type properties of the instance are initialized.</para>
     /// </summary>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <param name="instance">The instance to initialize properties for.</param>

@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Segmented 组件</para>
-/// <para lang="en">Segmented Component</para>
+///  <para lang="zh">Segmented 组件</para>
+///  <para lang="en">Segmented Component</para>
 /// </summary>
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TValue))]
@@ -29,84 +29,84 @@ public partial class Segmented<TValue>
     private SegmentedOption<TValue>? CurrentItem { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选项集合 默认 null</para>
-    /// <para lang="en">Get/Set Items. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 选项集合 默认 null</para>
+    ///  <para lang="en">Get/Set Items. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SegmentedOption<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选中值 默认 null</para>
-    /// <para lang="en">Get/Set Value. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 选中值 默认 null</para>
+    ///  <para lang="en">Get/Set Value. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public TValue? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选中值回调委托 默认 null</para>
-    /// <para lang="en">Get/Set Value Changed Callback Delegate. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 选中值回调委托 默认 null</para>
+    ///  <para lang="en">Get/Set Value Changed Callback Delegate. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选中值改变后回调委托方法 默认 null</para>
-    /// <para lang="en">Get/Set Value Changed Callback Method. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 选中值改变后回调委托方法 默认 null</para>
+    ///  <para lang="en">Get/Set Value Changed Callback Method. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
-    /// <para lang="en">Get/Set Whether disabled. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否禁用 默认 false</para>
+    ///  <para lang="en">Get/Set Whether disabled. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否充满父元素 默认 false</para>
-    /// <para lang="en">Get/Set Whether is block. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否充满父元素 默认 false</para>
+    ///  <para lang="en">Get/Set Whether is block. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBlock { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动显示 Tooltip 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show tooltip. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否自动显示 Tooltip 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to show tooltip. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowTooltip { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件内容</para>
-    /// <para lang="en">Get/Set Child Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件内容</para>
+    ///  <para lang="en">Get/Set Child Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件大小 默认值 <see cref="Size.None"/></para>
-    /// <para lang="en">Get/Set Size. Default <see cref="Size.None"/></para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件大小 默认值 <see cref="Size.None"/></para>
+    ///  <para lang="en">Get/Set Size. Default <see cref="Size.None"/></para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Size Size { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 候选项模板 默认 null</para>
-    /// <para lang="en">Get/Set Item Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 候选项模板 默认 null</para>
+    ///  <para lang="en">Get/Set Item Template. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -119,7 +119,8 @@ public partial class Segmented<TValue>
     private bool GetDisabled(SegmentedOption<TValue> item) => IsDisabled || item.IsDisabled;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -129,7 +130,8 @@ public partial class Segmented<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
@@ -147,8 +149,8 @@ public partial class Segmented<TValue>
     private IEnumerable<SegmentedOption<TValue>> _options => _items.Concat(Items);
 
     /// <summary>
-    /// <para lang="zh">点击 SegmentItem 节点 JavaScript 回调触发</para>
-    /// <para lang="en">JavaScript Callback Triggered when SegmentItem Node Clicked</para>
+    ///  <para lang="zh">点击 SegmentItem 节点 JavaScript 回调触发</para>
+    ///  <para lang="en">JavaScript Callback Triggered when SegmentItem Node Clicked</para>
     /// </summary>
     /// <param name="index"></param>
     /// <returns></returns>

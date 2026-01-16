@@ -10,14 +10,14 @@ using System.Collections.Frozen;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Icon 主题服务</para>
-/// <para lang="en">Icon Theme Service</para>
+///  <para lang="zh">Icon 主题服务</para>
+///  <para lang="en">Icon Theme Service</para>
 /// </summary>
 public interface IIconTheme
 {
     /// <summary>
-    /// <para lang="zh">获得所有图标</para>
-    /// <para lang="en">Get All Icons</para>
+    ///  <para lang="zh">获得所有图标</para>
+    ///  <para lang="en">Get All Icons</para>
     /// </summary>
     /// <returns></returns>
 #if NET8_0_OR_GREATER

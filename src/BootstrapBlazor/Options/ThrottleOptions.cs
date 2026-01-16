@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">限流配置类</para>
-/// <para lang="en">Throttle configuration class</para>
+///  <para lang="zh">限流配置类</para>
+///  <para lang="en">Throttle configuration class</para>
 /// </summary>
 public class ThrottleOptions
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 限流时长 默认 500 单位毫秒</para>
-    /// <para lang="en">Get/Set throttle interval default 500 ms</para>
+    ///  <para lang="zh">获得/设置 限流时长 默认 500 单位毫秒</para>
+    ///  <para lang="en">Get/Set throttle interval default 500 ms</para>
     /// </summary>
     public TimeSpan Interval { get; set; } = TimeSpan.FromMilliseconds(500);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否执行结束后开始延时 默认 false</para>
-    /// <para lang="en">Get/Set whether to delay after execution default false</para>
+    ///  <para lang="zh">获得/设置 是否执行结束后开始延时 默认 false</para>
+    ///  <para lang="en">Get/Set whether to delay after execution default false</para>
     /// </summary>
     public bool DelayAfterExecution { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 发生错误时是否重置时长 默认 false</para>
-    /// <para lang="en">Get/Set whether to reset interval on exception default false</para>
+    ///  <para lang="zh">获得/设置 发生错误时是否重置时长 默认 false</para>
+    ///  <para lang="en">Get/Set whether to reset interval on exception default false</para>
     /// </summary>
     public bool ResetIntervalOnException { get; set; }
 }

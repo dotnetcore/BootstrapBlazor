@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">MenuItem 扩展操作类</para>
-/// <para lang="en">MenuItem extension operation class</para>
+///  <para lang="zh">MenuItem 扩展操作类</para>
+///  <para lang="en">MenuItem extension operation class</para>
 /// </summary>
 public static class MenuItemExtensions
 {
     /// <summary>
-    /// <para lang="zh">级联设置 <see cref="MenuItem"/> Active 状态</para>
-    /// <para lang="en">Cascade set <see cref="MenuItem"/> Active state</para>
+    ///  <para lang="zh">级联设置 <see cref="MenuItem"/> Active 状态</para>
+    ///  <para lang="en">Cascade set <see cref="MenuItem"/> Active state</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="active"></param>
@@ -30,16 +30,16 @@ public static class MenuItemExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获取全部节点</para>
-    /// <para lang="en">Get all items</para>
+    ///  <para lang="zh">获取全部节点</para>
+    ///  <para lang="en">Get all items</para>
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
     public static IEnumerable<MenuItem>? GetAllItems(this IEnumerable<MenuItem>? source) => source == null ? null : GetAllSubItems(source).Union(source);
 
     /// <summary>
-    /// <para lang="zh">获取全部子节点</para>
-    /// <para lang="en">Get all sub items</para>
+    ///  <para lang="zh">获取全部子节点</para>
+    ///  <para lang="en">Get all sub items</para>
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>

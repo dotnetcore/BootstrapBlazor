@@ -6,10 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Web Speech 服务
-///</para>
-/// <para lang="en">Web Speech 服务
-///</para>
+///  <para lang="zh">Web Speech 服务</para>
+///  <para lang="en">Web Speech 服务</para>
 /// </summary>
 public class WebSpeechService(IJSRuntime runtime, IComponentIdGenerator ComponentIdGenerator)
 {
@@ -18,10 +16,8 @@ public class WebSpeechService(IJSRuntime runtime, IComponentIdGenerator Componen
     private JSModule? RecognitionModule { get; set; }
 
     /// <summary>
-    /// <para lang="zh">语音合成方法
-    ///</para>
-    /// <para lang="en">语音合成方法
-    ///</para>
+    ///  <para lang="zh">语音合成方法</para>
+    ///  <para lang="en">语音合成方法</para>
     /// </summary>
     /// <returns></returns>
     public async Task<WebSpeechSynthesizer> CreateSynthesizerAsync()
@@ -34,10 +30,8 @@ public class WebSpeechService(IJSRuntime runtime, IComponentIdGenerator Componen
     }
 
     /// <summary>
-    /// <para lang="zh">语音识别方法
-    ///</para>
-    /// <para lang="en">语音识别方法
-    ///</para>
+    ///  <para lang="zh">语音识别方法</para>
+    ///  <para lang="en">语音识别方法</para>
     /// </summary>
     /// <returns></returns>
     public async Task<WebSpeechRecognition> CreateRecognitionAsync()

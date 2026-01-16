@@ -6,41 +6,37 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 工具栏自定义组件
-///</para>
-/// <para lang="en">Table 工具栏自定义component
-///</para>
+///  <para lang="zh">Table 工具栏自定义组件</para>
+///  <para lang="en">Table 工具栏自定义component</para>
 /// </summary>
 public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, IDisposable
 {
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件
-    ///</para>
-    /// <para lang="en">Gets or sets 子component
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件</para>
+    ///  <para lang="en">Gets or sets 子component</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Table Toolbar 实例
-    ///</para>
-    /// <para lang="en">Gets or sets Table Toolbar instance
-    ///</para>
+    ///  <para lang="zh">获得/设置 Table Toolbar 实例</para>
+    ///  <para lang="en">Gets or sets Table Toolbar instance</para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -50,10 +46,8 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     }
 
     /// <summary>
-    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
-    ///</para>
-    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
-    ///</para>
+    ///  <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    ///  <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -65,7 +59,8 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

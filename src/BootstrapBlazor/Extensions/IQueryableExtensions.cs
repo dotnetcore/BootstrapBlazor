@@ -8,14 +8,14 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IQueryable 扩展方法</para>
-/// <para lang="en">IQueryable extension methods</para>
+///  <para lang="zh">IQueryable 扩展方法</para>
+///  <para lang="en">IQueryable extension methods</para>
 /// </summary>
 public static class IQueryableExtensions
 {
     /// <summary>
-    /// <para lang="zh">BootstrapBlazor 扩展 Where 方法</para>
-    /// <para lang="en">BootstrapBlazor Where extension method</para>
+    ///  <para lang="zh">BootstrapBlazor 扩展 Where 方法</para>
+    ///  <para lang="en">BootstrapBlazor Where extension method</para>
     /// </summary>
     /// <typeparam name="T"><para lang="zh">泛型</para><para lang="en">Generic type</para></typeparam>
     /// <param name="queryable"><para lang="zh">数据源</para><para lang="en">Data source</para></param>
@@ -25,8 +25,8 @@ public static class IQueryableExtensions
     public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
 
     /// <summary>
-    /// <para lang="zh">BootstrapBlazor 扩展 Sort 方法</para>
-    /// <para lang="en">BootstrapBlazor Sort extension method</para>
+    ///  <para lang="zh">BootstrapBlazor 扩展 Sort 方法</para>
+    ///  <para lang="en">BootstrapBlazor Sort extension method</para>
     /// </summary>
     /// <typeparam name="T"><para lang="zh">泛型</para><para lang="en">Generic type</para></typeparam>
     /// <param name="queryable"><para lang="zh">数据源</para><para lang="en">Data source</para></param>
@@ -37,8 +37,8 @@ public static class IQueryableExtensions
     public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
 
     /// <summary>
-    /// <para lang="zh">BootstrapBlazor 扩展 Page 方法</para>
-    /// <para lang="en">BootstrapBlazor Page extension method</para>
+    ///  <para lang="zh">BootstrapBlazor 扩展 Page 方法</para>
+    ///  <para lang="en">BootstrapBlazor Page extension method</para>
     /// </summary>
     /// <typeparam name="T"><para lang="zh">泛型</para><para lang="en">Generic type</para></typeparam>
     /// <param name="queryable"><para lang="zh">数据源</para><para lang="en">Data source</para></param>
@@ -48,8 +48,8 @@ public static class IQueryableExtensions
     public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
 
     /// <summary>
-    /// <para lang="zh">BootstrapBlazor 扩展 Count 方法</para>
-    /// <para lang="en">BootstrapBlazor Count extension method</para>
+    ///  <para lang="zh">BootstrapBlazor 扩展 Count 方法</para>
+    ///  <para lang="en">BootstrapBlazor Count extension method</para>
     /// </summary>
     /// <typeparam name="T"><para lang="zh">泛型</para><para lang="en">Generic type</para></typeparam>
     /// <param name="queryable"><para lang="zh">数据源</para><para lang="en">Data source</para></param>

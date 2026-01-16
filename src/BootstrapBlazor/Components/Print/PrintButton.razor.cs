@@ -8,15 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">PrintButton 打印按钮</para>
-/// <para lang="en">PrintButton Component</para>
+///  <para lang="zh">PrintButton 打印按钮</para>
+///  <para lang="en">PrintButton Component</para>
 /// </summary>
 public partial class PrintButton
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 预览模板地址 默认为空</para>
-    /// <para lang="en">Get/Set Preview template URL. Default empty</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 预览模板地址 默认为空</para>
+    ///  <para lang="en">Get/Set Preview template URL. Default empty</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PreviewUrl { get; set; }
@@ -26,7 +26,8 @@ public partial class PrintButton
     private IStringLocalizer<PrintButton>? Localizer { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -36,7 +37,8 @@ public partial class PrintButton
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

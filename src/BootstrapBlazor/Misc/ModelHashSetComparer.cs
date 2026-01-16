@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">模型比较器</para>
-/// <para lang="en">Model comparer</para>
+///  <para lang="zh">模型比较器</para>
+///  <para lang="en">Model comparer</para>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public class ModelHashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer) : IEqualityComparer<TItem>
 {
     /// <summary>
-    /// <para lang="zh">Equals 方法</para>
-    /// <para lang="en">Equals method</para>
+    ///  <para lang="zh">Equals 方法</para>
+    ///  <para lang="en">Equals method</para>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -22,8 +22,8 @@ public class ModelHashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer)
     public bool Equals(TItem? x, TItem? y) => comparer.Equals(x, y);
 
     /// <summary>
-    /// <para lang="zh">GetHashCode 方法</para>
-    /// <para lang="en">GetHashCode method</para>
+    ///  <para lang="zh">GetHashCode 方法</para>
+    ///  <para lang="en">GetHashCode method</para>
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>

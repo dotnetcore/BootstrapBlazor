@@ -6,32 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">CountUp 组件</para>
-/// <para lang="en">CountUp component</para>
+///  <para lang="zh">CountUp 组件</para>
+///  <para lang="en">CountUp component</para>
 /// </summary>
 public partial class CountUp<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 Value 值</para>
-    /// <para lang="en">Get/Set Value</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 Value 值</para>
+    ///  <para lang="en">Get/Set Value</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public TValue? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 计数配置项 默认 null</para>
-    /// <para lang="en">Get/Set count configuration item, default is null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 计数配置项 默认 null</para>
+    ///  <para lang="en">Get/Set count configuration item, default is null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CountUpOption? Option { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 计数结束回调方法 默认 null</para>
-    /// <para lang="en">Get/Set callback method when counting ends, default is null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 计数结束回调方法 默认 null</para>
+    ///  <para lang="en">Get/Set callback method when counting ends, default is null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCompleted { get; set; }
@@ -44,7 +44,8 @@ public partial class CountUp<TValue>
         .Build();
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -57,7 +58,8 @@ public partial class CountUp<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -74,14 +76,15 @@ public partial class CountUp<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
 
     /// <summary>
-    /// <para lang="zh">OnCompleted 回调方法</para>
-    /// <para lang="en">OnCompleted callback method</para>
+    ///  <para lang="zh">OnCompleted 回调方法</para>
+    ///  <para lang="en">OnCompleted callback method</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

@@ -9,18 +9,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">An input component for editing numeric values.
-/// Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.
-///</para>
-/// <para lang="en">An input component for editing numeric values.
-/// Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.
-///</para>
+///  <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
+///  <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
 /// </summary>
 public partial class BootstrapInputNumber<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得 按钮样式</para>
-    /// <para lang="en">Get Button Style</para>
+    ///  <para lang="zh">获得 按钮样式</para>
+    ///  <para lang="en">Get Button Style</para>
     /// </summary>
     protected string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass("btn-outline-secondary", Color == Color.None)
@@ -28,8 +24,8 @@ public partial class BootstrapInputNumber<TValue>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 文本框样式</para>
-    /// <para lang="en">Get Text Box Style</para>
+    ///  <para lang="zh">获得 文本框样式</para>
+    ///  <para lang="en">Get Text Box Style</para>
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
@@ -42,65 +38,65 @@ public partial class BootstrapInputNumber<TValue>
     private string? StepString { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数值增加时回调委托</para>
-    /// <para lang="en">Get/Set Callback delegate when value increases</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 数值增加时回调委托</para>
+    ///  <para lang="en">Get/Set Callback delegate when value increases</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnIncrement { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数值减少时回调委托</para>
-    /// <para lang="en">Get/Set Callback delegate when value decreases</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 数值减少时回调委托</para>
+    ///  <para lang="en">Get/Set Callback delegate when value decreases</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnDecrement { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最小值</para>
-    /// <para lang="en">Get/Set Minimum Value</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最小值</para>
+    ///  <para lang="en">Get/Set Minimum Value</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Min { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大值</para>
-    /// <para lang="en">Get/Set Maximum Value</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最大值</para>
+    ///  <para lang="en">Get/Set Maximum Value</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Max { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 步长 默认为 null</para>
-    /// <para lang="en">Get/Set Step. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 步长 默认为 null</para>
+    ///  <para lang="en">Get/Set Step. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示加减按钮</para>
-    /// <para lang="en">Get/Set Whether to show increment/decrement buttons</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示加减按钮</para>
+    ///  <para lang="en">Get/Set Whether to show increment/decrement buttons</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowButton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 减小数值图标</para>
-    /// <para lang="en">Get/Set Decrement Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 减小数值图标</para>
+    ///  <para lang="en">Get/Set Decrement Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 增加数值图标</para>
-    /// <para lang="en">Get/Set Increment Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 增加数值图标</para>
+    ///  <para lang="en">Get/Set Increment Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -122,7 +118,8 @@ public partial class BootstrapInputNumber<TValue>
     private bool _manualInput;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -135,7 +132,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -159,7 +157,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
@@ -173,16 +172,15 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
-    /// <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.
-    ///</para>
-    /// <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.
-    ///</para>
+    ///  <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
+    ///  <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
@@ -195,8 +193,8 @@ public partial class BootstrapInputNumber<TValue>
             : InternalFormat(value));
 
     /// <summary>
-    /// <para lang="zh">InternalFormat 方法</para>
-    /// <para lang="en">InternalFormat Method</para>
+    ///  <para lang="zh">InternalFormat 方法</para>
+    ///  <para lang="en">InternalFormat Method</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -216,8 +214,8 @@ public partial class BootstrapInputNumber<TValue>
     private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
     /// <summary>
-    /// <para lang="zh">点击减少按钮式时回调此方法</para>
-    /// <para lang="en">Callback method when decrement button is clicked</para>
+    ///  <para lang="zh">点击减少按钮式时回调此方法</para>
+    ///  <para lang="en">Callback method when decrement button is clicked</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickDec()
@@ -253,8 +251,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh">点击增加按钮式时回调此方法</para>
-    /// <para lang="en">Callback method when increment button is clicked</para>
+    ///  <para lang="zh">点击增加按钮式时回调此方法</para>
+    ///  <para lang="en">Callback method when increment button is clicked</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickInc()
@@ -290,7 +288,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnBlur()
@@ -375,7 +374,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="result"></param>

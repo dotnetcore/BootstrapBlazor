@@ -8,20 +8,22 @@ namespace BootstrapBlazor.Components;
 internal class InternalSelectObjectContext<TItem> : ISelectObjectContext<TItem>
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     [NotNull]
     public SelectObject<TItem>? Component { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public Task CloseAsync() => Component.CloseAsync();
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="value"></param>
     public void SetValue(TItem value) => Component.SetValue(value);

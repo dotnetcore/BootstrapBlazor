@@ -6,10 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TableTemplateColumn component
-///</para>
-/// <para lang="en">TableTemplateColumn component
-///</para>
+///  <para lang="zh">TableTemplateColumn component</para>
+///  <para lang="en">TableTemplateColumn component</para>
 /// </summary>
 /// <remarks>No need to bind model properties</remarks>
 public class TableTemplateColumn<TItem> : TableColumn<TItem, object>

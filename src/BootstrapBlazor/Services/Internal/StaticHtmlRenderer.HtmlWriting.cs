@@ -23,10 +23,8 @@ partial class StaticHtmlRenderer
     private string? _closestSelectValueAsString;
 
     /// <summary>
-    /// <para lang="zh">Renders the specified component as HTML to the output.
-    ///</para>
-    /// <para lang="en">Renders the specified component as HTML to the output.
-    ///</para>
+    ///  <para lang="zh">Renders the specified component as HTML to the output.</para>
+    ///  <para lang="en">Renders the specified component as HTML to the output.</para>
     /// </summary>
     /// <param name="componentId">The ID of the component whose current HTML state is to be rendered.</param>
     /// <param name="output">The output destination.</param>

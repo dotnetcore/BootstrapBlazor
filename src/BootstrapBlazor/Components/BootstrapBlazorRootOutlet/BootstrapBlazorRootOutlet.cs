@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BootstrapBlazorRootOutlet 组件</para>
-/// <para lang="en">BootstrapBlazorRootOutlet Component</para>
+///  <para lang="zh">BootstrapBlazorRootOutlet 组件</para>
+///  <para lang="en">BootstrapBlazorRootOutlet Component</para>
 /// </summary>
 public class BootstrapBlazorRootOutlet : IComponent, IDisposable
 {
@@ -18,8 +18,8 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     private RenderHandle _renderHandle;
 
     /// <summary>
-    /// <para lang="zh">获得可用于订阅所有 <see cref="BootstrapBlazorRootContent"/> 实例的默认标识符</para>
-    /// <para lang="en">Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances.</para>
+    ///  <para lang="zh">获得可用于订阅所有 <see cref="BootstrapBlazorRootContent"/> 实例的默认标识符</para>
+    ///  <para lang="en">Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances.</para>
     /// </summary>
     public static readonly object DefaultIdentifier = new();
 
@@ -27,19 +27,17 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     private BootstrapBlazorRootRegisterService RootRegisterService { get; set; } = default!;
 
     /// <summary>
-    /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="string"/> ID</para>
-    /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide
-    /// content to this instance.</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="string"/> ID</para>
+    ///  <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RootName { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="object"/> ID</para>
-    /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide
-    /// content to this instance.</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="object"/> ID</para>
+    ///  <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? RootId { get; set; }
@@ -50,8 +48,8 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -101,8 +99,8 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     private void BuildRenderTree(RenderTreeBuilder builder)
@@ -120,8 +118,8 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

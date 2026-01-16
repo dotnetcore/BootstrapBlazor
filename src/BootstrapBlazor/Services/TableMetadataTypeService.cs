@@ -9,22 +9,16 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">service for storage meta数据 类型/数据 类型 pair for Table component
-/// more details: <see cref="TableMeta数据ForAttribute"/>
-///</para>
-/// <para lang="en">service for storage metadata type/data type pair for Table component
-/// more details: <see cref="TableMetadataForAttribute"/>
-///</para>
+///  <para lang="zh">service for storage meta数据 类型/数据 类型 pair for Table component more details: <see cref="TableMeta数据ForAttribute"/></para>
+///  <para lang="en">service for storage metadata type/data type pair for Table component more details: <see cref="TableMetadataForAttribute"/></para>
 /// </summary>
 public static class TableMetadataTypeService
 {
     private static ConcurrentDictionary<Type, Type> _metadataTypeCache { get; } = new();
 
     /// <summary>
-    /// <para lang="zh">register meta数据 类型 for target model/数据 类型
-    ///</para>
-    /// <para lang="en">register metadata type for target model/data type
-    ///</para>
+    ///  <para lang="zh">register meta数据 类型 for target model/数据 类型</para>
+    ///  <para lang="en">register metadata type for target model/data type</para>
     /// </summary>
     /// <param name="metadataType">Table ui metadata type</param>
     /// <param name="targetType">the target model/data type</param>
@@ -36,10 +30,8 @@ public static class TableMetadataTypeService
     }
 
     /// <summary>
-    /// <para lang="zh">register meta数据 类型 for target model/数据 类型
-    ///</para>
-    /// <para lang="en">register metadata type for target model/data type
-    ///</para>
+    ///  <para lang="zh">register meta数据 类型 for target model/数据 类型</para>
+    ///  <para lang="en">register metadata type for target model/data type</para>
     /// </summary>
     /// <param name="metadataType">Table ui metadata type</param>
     /// <param name="targetType">the target model/data type</param>
@@ -49,20 +41,16 @@ public static class TableMetadataTypeService
     }
 
     /// <summary>
-    /// <para lang="zh">get meta数据 类型 for target 数据 类型. return 数据 类型 itself if meta数据 类型 not registered.
-    ///</para>
-    /// <para lang="en">get metadata type for target data type. return data type itself if metadata type not registered.
-    ///</para>
+    ///  <para lang="zh">get meta数据 类型 for target 数据 类型. return 数据 类型 itself if meta数据 类型 not registered.</para>
+    ///  <para lang="en">get metadata type for target data type. return data type itself if metadata type not registered.</para>
     /// </summary>
     /// <param name="targetType">the target data type</param>
     /// <returns>metadata type</returns>
     public static Type GetMetadataType(Type targetType) => _metadataTypeCache.TryGetValue(targetType, out var type) ? type : targetType;
 
     /// <summary>
-    /// <para lang="zh">register meta数据 类型s from assemblies by using reflection
-    ///</para>
-    /// <para lang="en">register metadata types from assemblies by using reflection
-    ///</para>
+    ///  <para lang="zh">register meta数据 类型s from assemblies by using reflection</para>
+    ///  <para lang="en">register metadata types from assemblies by using reflection</para>
     /// </summary>
     /// <param name="assemblies">Assemblies contains metadata types</param>
     public static void RegisterMetadataTypes(params Assembly[] assemblies)

@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ContextMenuZone 组件</para>
-/// <para lang="en">ContextMenuZone component</para>
+///  <para lang="zh">ContextMenuZone 组件</para>
+///  <para lang="en">ContextMenuZone component</para>
 /// </summary>
 public partial class ContextMenuZone
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set child content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件</para>
+    ///  <para lang="en">Get/Set child content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -28,8 +28,8 @@ public partial class ContextMenuZone
         .Build();
 
     /// <summary>
-    /// <para lang="zh">Trigger 调用</para>
-    /// <para lang="en">Trigger call</para>
+    ///  <para lang="zh">Trigger 调用</para>
+    ///  <para lang="en">Trigger call</para>
     /// </summary>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
@@ -44,8 +44,8 @@ public partial class ContextMenuZone
     }
 
     /// <summary>
-    /// <para lang="zh">ContextMenu 组件调用</para>
-    /// <para lang="en">ContextMenu component call</para>
+    ///  <para lang="zh">ContextMenu 组件调用</para>
+    ///  <para lang="en">ContextMenu component call</para>
     /// </summary>
     /// <param name="contextMenu"></param>
     internal void RegisterContextMenu(ContextMenu contextMenu) => _contextMenu = contextMenu;

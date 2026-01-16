@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BootstrapInputNumber 基类</para>
-/// <para lang="en">BootstrapInputNumber Base Class</para>
+///  <para lang="zh">BootstrapInputNumber 基类</para>
+///  <para lang="en">BootstrapInputNumber Base Class</para>
 /// </summary>
 public class BootstrapInputNumberBase<TValue> : BootstrapInputEventBase<TValue>
 {
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    ///  <para lang="zh">SetParametersAsync 方法</para>
+    ///  <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>

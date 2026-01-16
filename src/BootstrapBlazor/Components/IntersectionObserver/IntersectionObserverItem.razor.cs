@@ -6,19 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">检测交叉组件子组件
-///</para>
-/// <para lang="en">检测交叉component子component
-///</para>
+///  <para lang="zh">检测交叉组件子组件</para>
+///  <para lang="en">检测交叉component子component</para>
 /// </summary>
 public partial class IntersectionObserverItem
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件
-    ///</para>
-    /// <para lang="en">Gets or sets 子component
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件</para>
+    ///  <para lang="en">Gets or sets 子component</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

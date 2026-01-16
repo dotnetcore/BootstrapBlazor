@@ -18,8 +18,8 @@ class DefaultGeoLocationService : IGeoLocationService
     private long WatchId { get; set; }
 
     /// <summary>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     public DefaultGeoLocationService(IJSRuntime jsRuntime)
@@ -32,10 +32,8 @@ class DefaultGeoLocationService : IGeoLocationService
     private Task<JSModule> LoadModule() => JSRuntime.LoadModuleByName("geo");
 
     /// <summary>
-    /// <para lang="zh">get the current position of the device
-    ///</para>
-    /// <para lang="en">get the current position of the device
-    ///</para>
+    ///  <para lang="zh">get the current position of the device</para>
+    ///  <para lang="en">get the current position of the device</para>
     /// </summary>
     /// <returns></returns>
     public async Task<GeolocationPosition?> GetPositionAsync()
@@ -47,10 +45,8 @@ class DefaultGeoLocationService : IGeoLocationService
     private Func<GeolocationPosition, Task>? WatchPositionCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">register a handler function that will be called automatically each time the position of the device changes
-    ///</para>
-    /// <para lang="en">register a handler function that will be called automatically each time the position of the device changes
-    ///</para>
+    ///  <para lang="zh">register a handler function that will be called automatically each time the position of the device changes</para>
+    ///  <para lang="en">register a handler function that will be called automatically each time the position of the device changes</para>
     /// </summary>
     /// <returns></returns>
     public async ValueTask<long> WatchPositionAsync(Func<GeolocationPosition, Task> callback)
@@ -66,10 +62,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// <para lang="zh">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/>
-    ///</para>
-    /// <para lang="en">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/>
-    ///</para>
+    ///  <para lang="zh">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/></para>
+    ///  <para lang="en">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/></para>
     /// </summary>
     /// <returns></returns>
     public async ValueTask<bool> ClearWatchPositionAsync(long id)
@@ -79,8 +73,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// <para lang="zh">获得 当前设备地理位置由 JS 调用</para>
-    /// <para lang="en">Get current device location (invoked by JS)</para>
+    ///  <para lang="zh">获得 当前设备地理位置由 JS 调用</para>
+    ///  <para lang="en">Get current device location (invoked by JS)</para>
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
@@ -96,8 +90,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// <para lang="zh">DisposeAsync 方法</para>
-    /// <para lang="en">DisposeAsync Method</para>
+    ///  <para lang="zh">DisposeAsync 方法</para>
+    ///  <para lang="en">DisposeAsync Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)
@@ -120,7 +114,8 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

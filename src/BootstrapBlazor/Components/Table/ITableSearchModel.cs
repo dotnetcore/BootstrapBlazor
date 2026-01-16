@@ -6,36 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件自定义搜索模型接口定义
-///</para>
-/// <para lang="en">Table component自定义搜索模型接口定义
-///</para>
+///  <para lang="zh">Table 组件自定义搜索模型接口定义</para>
+///  <para lang="en">Table component自定义搜索模型接口定义</para>
 /// </summary>
 public interface ITableSearchModel
 {
     /// <summary>
-    /// <para lang="zh">获得 搜索集合
-    ///</para>
-    /// <para lang="en">Gets 搜索collection
-    ///</para>
+    ///  <para lang="zh">获得 搜索集合</para>
+    ///  <para lang="en">Gets 搜索collection</para>
     /// </summary>
     [Obsolete("This method is obsolete. Use GetSearches instead. 已过期，请使用 GetSearches 方法")]
     [ExcludeFromCodeCoverage]
     IEnumerable<IFilterAction> GetSearchs() => GetSearches();
 
     /// <summary>
-    /// <para lang="zh">获得 搜索集合
-    ///</para>
-    /// <para lang="en">Gets 搜索collection
-    ///</para>
+    ///  <para lang="zh">获得 搜索集合</para>
+    ///  <para lang="en">Gets 搜索collection</para>
     /// </summary>
     IEnumerable<IFilterAction> GetSearches();
 
     /// <summary>
-    /// <para lang="zh">重置操作
-    ///</para>
-    /// <para lang="en">重置操作
-    ///</para>
+    ///  <para lang="zh">重置操作</para>
+    ///  <para lang="en">重置操作</para>
     /// </summary>
     void Reset();
 }

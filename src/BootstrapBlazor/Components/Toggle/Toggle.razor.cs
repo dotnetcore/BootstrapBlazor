@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">///</para>
-/// <para lang="en">///</para>
+///  <para lang="zh"></para>
+///  <para lang="en"></para>
 /// </summary>
 public partial class Toggle
 {
@@ -27,11 +27,9 @@ public partial class Toggle
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件颜色 默认为 Success 颜色
-    ///</para>
-    /// <para lang="en">Gets or sets componentcolor Default is为 Success color
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件颜色 默认为 Success 颜色</para>
+    ///  <para lang="en">Gets or sets componentcolor Default is为 Success color</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;
@@ -41,10 +39,8 @@ public partial class Toggle
     private IStringLocalizer<Toggle>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法
-    ///</para>
-    /// <para lang="en">OnInitialized 方法
-    ///</para>
+    ///  <para lang="zh">OnInitialized 方法</para>
+    ///  <para lang="en">OnInitialized 方法</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -55,10 +51,8 @@ public partial class Toggle
     }
 
     /// <summary>
-    /// <para lang="zh">点击控件时触发此方法
-    ///</para>
-    /// <para lang="en">点击控件时触发此方法
-    ///</para>
+    ///  <para lang="zh">点击控件时触发此方法</para>
+    ///  <para lang="en">点击控件时触发此方法</para>
     /// </summary>
     private async Task OnClick()
     {

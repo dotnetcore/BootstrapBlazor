@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">PopConfirmButton 组件</para>
-/// <para lang="en">PopConfirmButton component</para>
+///  <para lang="zh">PopConfirmButton 组件</para>
+///  <para lang="en">PopConfirmButton component</para>
 /// </summary>
 public partial class PopConfirmButton
 {
@@ -31,9 +31,9 @@ public partial class PopConfirmButton
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 按钮颜色</para>
-    /// <para lang="en">Gets or sets the button color</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 按钮颜色</para>
+    ///  <para lang="en">Gets or sets the button color</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.None;
@@ -45,8 +45,8 @@ public partial class PopConfirmButton
     private bool _renderTooltip;
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
+    ///  <para lang="zh">OnParametersSet 方法</para>
+    ///  <para lang="en">OnParametersSet method</para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -60,15 +60,15 @@ public partial class PopConfirmButton
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public override Task ShowTooltip() => Task.CompletedTask;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public override Task RemoveTooltip() => Task.CompletedTask;
@@ -78,8 +78,8 @@ public partial class PopConfirmButton
     private string? TriggerCloseString => OnClose != null ? "true" : null;
 
     /// <summary>
-    /// <para lang="zh">显示确认弹窗方法</para>
-    /// <para lang="en">Show confirm popup method</para>
+    ///  <para lang="zh">显示确认弹窗方法</para>
+    ///  <para lang="en">Show confirm popup method</para>
     /// </summary>
     private async Task Show()
     {
@@ -96,8 +96,8 @@ public partial class PopConfirmButton
     }
 
     /// <summary>
-    /// <para lang="zh">确认回调方法</para>
-    /// <para lang="en">Confirm callback method</para>
+    ///  <para lang="zh">确认回调方法</para>
+    ///  <para lang="en">Confirm callback method</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickConfirm()

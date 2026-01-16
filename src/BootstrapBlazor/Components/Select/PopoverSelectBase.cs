@@ -6,50 +6,51 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">PopoverSelectBase 基类</para>
-/// <para lang="en">PopoverSelectBase Base Class</para>
+///  <para lang="zh">PopoverSelectBase 基类</para>
+///  <para lang="en">PopoverSelectBase Base Class</para>
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否使用 Popover 渲染下拉框 默认 false</para>
-    /// <para lang="en">Get/Set Whether to use Popover to render dropdown. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否使用 Popover 渲染下拉框 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to use Popover to render dropdown. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 弹窗偏移量 默认 [0, 10]</para>
-    /// <para lang="en">Get/Set Popover Offset. Default [0, 10]</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 弹窗偏移量 默认 [0, 10]</para>
+    ///  <para lang="en">Get/Set Popover Offset. Default [0, 10]</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Offset { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><see cref="BootstrapBlazorOptions"/> 配置类实例</para>
-    /// <para lang="en"><see cref="BootstrapBlazorOptions"/> Config Instance</para>
+    ///  <para lang="zh"><see cref="BootstrapBlazorOptions"/> 配置类实例</para>
+    ///  <para lang="en"><see cref="BootstrapBlazorOptions"/> Config Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
     protected IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
     /// <summary>
-    /// <para lang="zh">data-bs-toggle 值</para>
-    /// <para lang="en">data-bs-toggle Value</para>
+    ///  <para lang="zh">data-bs-toggle 值</para>
+    ///  <para lang="en">data-bs-toggle Value</para>
     /// </summary>
     protected string? ToggleString => IsPopover ? Constants.DropdownToggleString : "dropdown";
 
     /// <summary>
-    /// <para lang="zh">偏移量字符串</para>
-    /// <para lang="en">Offset String</para>
+    ///  <para lang="zh">偏移量字符串</para>
+    ///  <para lang="en">Offset String</para>
     /// </summary>
     protected string? OffsetString => IsPopover ? null : Offset;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

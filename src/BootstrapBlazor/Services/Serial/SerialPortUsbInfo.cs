@@ -6,26 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Usb 串口设备信息类
-///</para>
-/// <para lang="en">Usb 串口设备信息类
-///</para>
+///  <para lang="zh">Usb 串口设备信息类</para>
+///  <para lang="en">Usb 串口设备信息类</para>
 /// </summary>
 public class SerialPortUsbInfo
 {
     /// <summary>
-    /// <para lang="zh">厂商 Id
-    ///</para>
-    /// <para lang="en">厂商 Id
-    ///</para>
+    ///  <para lang="zh">厂商 Id</para>
+    ///  <para lang="en">厂商 Id</para>
     /// </summary>
     public string? UsbVendorId { get; set; }
 
     /// <summary>
-    /// <para lang="zh">产品 Id
-    ///</para>
-    /// <para lang="en">产品 Id
-    ///</para>
+    ///  <para lang="zh">产品 Id</para>
+    ///  <para lang="en">产品 Id</para>
     /// </summary>
     public string? UsbProductId { get; set; }
 }

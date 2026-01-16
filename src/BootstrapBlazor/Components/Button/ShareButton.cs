@@ -6,22 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">分享按钮</para>
-/// <para lang="en">Share button</para>
+///  <para lang="zh">分享按钮</para>
+///  <para lang="en">Share button</para>
 /// </summary>
 public class ShareButton : Button
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 分享内容上下文 默认 null</para>
-    /// <para lang="en">Gets or sets the share context. Default is null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 分享内容上下文 默认 null</para>
+    ///  <para lang="en">Gets or sets the share context. Default is null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ShareButtonContext? ShareContext { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task HandlerClick() => InvokeVoidAsync("share", ShareContext);

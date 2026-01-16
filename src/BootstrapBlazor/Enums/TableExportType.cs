@@ -6,39 +6,29 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件导出类型枚举
-///</para>
-/// <para lang="en">Table component导出typeenum
-///</para>
+///  <para lang="zh">Table 组件导出类型枚举</para>
+///  <para lang="en">Table component导出typeenum</para>
 /// </summary>
 public enum TableExportType
 {
     /// <summary>
-    /// <para lang="zh">未知格式
-    ///</para>
-    /// <para lang="en">未知格式
-    ///</para>
+    ///  <para lang="zh">未知格式</para>
+    ///  <para lang="en">未知格式</para>
     /// </summary>
     Unknown,
     /// <summary>
-    /// <para lang="zh">Excel 格式
-    ///</para>
-    /// <para lang="en">Excel 格式
-    ///</para>
+    ///  <para lang="zh">Excel 格式</para>
+    ///  <para lang="en">Excel 格式</para>
     /// </summary>
     Excel,
     /// <summary>
-    /// <para lang="zh">Csv 格式
-    ///</para>
-    /// <para lang="en">Csv 格式
-    ///</para>
+    ///  <para lang="zh">Csv 格式</para>
+    ///  <para lang="en">Csv 格式</para>
     /// </summary>
     Csv,
     /// <summary>
-    /// <para lang="zh">Pdf 格式
-    ///</para>
-    /// <para lang="en">Pdf 格式
-    ///</para>
+    ///  <para lang="zh">Pdf 格式</para>
+    ///  <para lang="en">Pdf 格式</para>
     /// </summary>
     Pdf
 }

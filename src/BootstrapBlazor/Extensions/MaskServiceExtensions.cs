@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">MaskService 扩展方法</para>
-/// <para lang="en">MaskService extension methods</para>
+///  <para lang="zh">MaskService 扩展方法</para>
+///  <para lang="en">MaskService extension methods</para>
 /// </summary>
 public static class MaskServiceExtensions
 {
 
     /// <summary>
-    /// <para lang="zh">Show 扩展方法</para>
-    /// <para lang="en">Show extension method</para>
+    ///  <para lang="zh">Show 扩展方法</para>
+    ///  <para lang="en">Show extension method</para>
     /// </summary>
     /// <param name="maskService"></param>
     /// <param name="parameters"></param>
@@ -35,8 +35,8 @@ public static class MaskServiceExtensions
 
 
     /// <summary>
-    /// <para lang="zh">Show 扩展方法</para>
-    /// <para lang="en">Show extension method</para>
+    ///  <para lang="zh">Show 扩展方法</para>
+    ///  <para lang="en">Show extension method</para>
     /// </summary>
     /// <param name="maskService"></param>
     /// <param name="type"></param>

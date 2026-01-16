@@ -6,31 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">动态列类
-///</para>
-/// <para lang="en">动态列类
-///</para>
+///  <para lang="zh">动态列类</para>
+///  <para lang="en">动态列类</para>
 /// </summary>
 public class DynamicColumnsObject : IDynamicColumnsObject
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Dictionary<string, object?> Columns { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 行主键
-    ///</para>
-    /// <para lang="en">Gets or sets 行主键
-    ///</para>
+    ///  <para lang="zh">获得/设置 行主键</para>
+    ///  <para lang="en">Gets or sets 行主键</para>
     /// </summary>
     public Guid DynamicObjectPrimaryKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh">构造函数
-    ///</para>
-    /// <para lang="en">构造函数
-    ///</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">构造函数</para>
     /// </summary>
     /// <param name="columnsData"></param>
     public DynamicColumnsObject(Dictionary<string, object?> columnsData)
@@ -39,15 +34,14 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     }
 
     /// <summary>
-    /// <para lang="zh">构造函数
-    ///</para>
-    /// <para lang="en">构造函数
-    ///</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">构造函数</para>
     /// </summary>
     public DynamicColumnsObject() : this([]) { }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -57,7 +51,8 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>

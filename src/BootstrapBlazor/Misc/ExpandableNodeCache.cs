@@ -6,34 +6,34 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">节点缓存类</para>
-/// <para lang="en">Node cache class</para>
+///  <para lang="zh">节点缓存类</para>
+///  <para lang="en">Node cache class</para>
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
 public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TItem>
 {
     /// <summary>
-    /// <para lang="zh">所有已展开行集合 作为缓存使用</para>
-    /// <para lang="en">All expanded row collection used as cache</para>
+    ///  <para lang="zh">所有已展开行集合 作为缓存使用</para>
+    ///  <para lang="en">All expanded row collection used as cache</para>
     /// </summary>
     protected HashSet<TItem> ExpandedNodeCache { get; }
 
     /// <summary>
-    /// <para lang="zh">所有已收缩行集合 作为缓存使用</para>
-    /// <para lang="en">All collapsed row collection used as cache</para>
+    ///  <para lang="zh">所有已收缩行集合 作为缓存使用</para>
+    ///  <para lang="en">All collapsed row collection used as cache</para>
     /// </summary>
     protected HashSet<TItem> CollapsedNodeCache { get; }
 
     /// <summary>
-    /// <para lang="zh">对象比较器</para>
-    /// <para lang="en">Object comparer</para>
+    ///  <para lang="zh">对象比较器</para>
+    ///  <para lang="en">Object comparer</para>
     /// </summary>
     protected IEqualityComparer<TItem> EqualityComparer { get; }
 
     /// <remarks>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">Constructor</para>
     /// </remarks>
     public ExpandableNodeCache(IModelEqualityComparer<TItem> comparer)
     {
@@ -42,8 +42,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         CollapsedNodeCache = new(50, EqualityComparer);
     }
     /// <summary>
-    /// <para lang="zh">节点展开收缩状态切换方法</para>
-    /// <para lang="en">Node expand/collapse state toggle method</para>
+    ///  <para lang="zh">节点展开收缩状态切换方法</para>
+    ///  <para lang="en">Node expand/collapse state toggle method</para>
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
@@ -81,8 +81,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// <para lang="zh">检查当前节点是否展开</para>
-    /// <para lang="en">Check whether current node is expanded</para>
+    ///  <para lang="zh">检查当前节点是否展开</para>
+    ///  <para lang="en">Check whether current node is expanded</para>
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
@@ -130,8 +130,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// <para lang="zh">尝试在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
-    /// <para lang="en">Try to find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
+    ///  <para lang="zh">尝试在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
+    ///  <para lang="en">Try to find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="target"></param>
@@ -145,8 +145,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// <para lang="zh">在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
-    /// <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
+    ///  <para lang="zh">在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
+    ///  <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="target"></param>
@@ -155,8 +155,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     private TNode? Find(List<TNode> items, TItem target) => Find(items, target, out _);
 
     /// <summary>
-    /// <para lang="zh">在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/></para>
-    /// <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="source"/></para>
+    ///  <para lang="zh">在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/></para>
+    ///  <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="source"/></para>
     /// </summary>
     /// <param name="source"></param>
     /// <param name="target"></param>

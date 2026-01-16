@@ -8,26 +8,26 @@ using Microsoft.Extensions.Caching.Memory;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">默认 IP 地理位置定位器</para>
-/// <para lang="en">Default IP Geolocation Locator</para>
+///  <para lang="zh">默认 IP 地理位置定位器</para>
+///  <para lang="en">Default IP Geolocation Locator</para>
 /// </summary>
 public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
 {
     /// <summary>
-    /// <para lang="zh">获得 Ip 定位结果缓存</para>
-    /// <para lang="en">Get IP Location Cache</para>
+    ///  <para lang="zh">获得 Ip 定位结果缓存</para>
+    ///  <para lang="en">Get IP Location Cache</para>
     /// </summary>
     protected MemoryCache IpCache { get; } = new(new MemoryCacheOptions());
 
     /// <summary>
-    /// <para lang="zh">获得 IpLocator 配置信息</para>
-    /// <para lang="en">Get IpLocator Configuration Options</para>
+    ///  <para lang="zh">获得 IpLocator 配置信息</para>
+    ///  <para lang="en">Get IpLocator Configuration Options</para>
     /// </summary>
     protected IpLocatorOptions Options { get; }
 
     /// <summary>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">Constructor</para>
     /// </summary>
     protected DefaultIpLocatorProvider(IOptions<BootstrapBlazorOptions> options)
     {
@@ -36,18 +36,20 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     }
 
     /// <summary>
-    /// <para lang="zh">获得 本机地址列表</para>
-    /// <para lang="en">Get Localhost List</para>
+    ///  <para lang="zh">获得 本机地址列表</para>
+    ///  <para lang="en">Get Localhost List</para>
     /// </summary>
     private readonly List<string> _localhostList = [.. new[] { "::1", "127.0.0.1" }];
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? Key { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>
@@ -85,8 +87,8 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     }
 
     /// <summary>
-    /// <para lang="zh">内部定位方法</para>
-    /// <para lang="en">Internal Locate Method</para>
+    ///  <para lang="zh">内部定位方法</para>
+    ///  <para lang="en">Internal Locate Method</para>
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>

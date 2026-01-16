@@ -6,15 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">语音合成服务</para>
-/// <para lang="en">Speech Synthesis Service</para>
+///  <para lang="zh">语音合成服务</para>
+///  <para lang="en">Speech Synthesis Service</para>
 /// </summary>
 /// <param name="provider"></param>
 public class SynthesizerService(ISynthesizerProvider provider)
 {
     /// <summary>
-    /// <para lang="zh">语音合成回调方法</para>
-    /// <para lang="en">Speech Synthesis Callback Method</para>
+    ///  <para lang="zh">语音合成回调方法</para>
+    ///  <para lang="en">Speech Synthesis Callback Method</para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

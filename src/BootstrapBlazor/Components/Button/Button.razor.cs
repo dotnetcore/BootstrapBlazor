@@ -6,28 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Button 按钮组件</para>
-/// <para lang="en">Button component</para>
+///  <para lang="zh">Button 按钮组件</para>
+///  <para lang="en">Button component</para>
 /// </summary>
 public partial class Button : ButtonBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动获取焦点 默认 false 不自动获取焦点</para>
-    /// <para lang="en">Gets or sets whether to auto focus. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否自动获取焦点 默认 false 不自动获取焦点</para>
+    ///  <para lang="en">Gets or sets whether to auto focus. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoFocus { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 html button 实例</para>
-    /// <para lang="en">Gets or sets the html button instance</para>
+    ///  <para lang="zh">获得/设置 html button 实例</para>
+    ///  <para lang="en">Gets or sets the html button instance</para>
     /// </summary>
     protected ElementReference ButtonElement { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -43,8 +43,8 @@ public partial class Button : ButtonBase
     }
 
     /// <summary>
-    /// <para lang="zh">OnClickButton 方法</para>
-    /// <para lang="en">OnClickButton method</para>
+    ///  <para lang="zh">OnClickButton 方法</para>
+    ///  <para lang="en">OnClickButton method</para>
     /// </summary>
     protected virtual async Task OnClickButton()
     {
@@ -66,8 +66,8 @@ public partial class Button : ButtonBase
     }
 
     /// <summary>
-    /// <para lang="zh">自动获得焦点方法</para>
-    /// <para lang="en">Auto focus method</para>
+    ///  <para lang="zh">自动获得焦点方法</para>
+    ///  <para lang="en">Auto focus method</para>
     /// </summary>
     /// <returns></returns>
     public ValueTask FocusAsync() => ButtonElement.FocusAsync();

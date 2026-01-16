@@ -6,26 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">数据滚动模式枚举类型
-///</para>
-/// <para lang="en">data滚动模式enumtype
-///</para>
+///  <para lang="zh">数据滚动模式枚举类型</para>
+///  <para lang="en">data滚动模式enumtype</para>
 /// </summary>
 public enum ScrollMode
 {
     /// <summary>
-    /// <para lang="zh">未设置
-    ///</para>
-    /// <para lang="en">未Sets
-    ///</para>
+    ///  <para lang="zh">未设置</para>
+    ///  <para lang="en">未Sets</para>
     /// </summary>
     None,
 
     /// <summary>
-    /// <para lang="zh">虚拟滚动
-    ///</para>
-    /// <para lang="en">虚拟滚动
-    ///</para>
+    ///  <para lang="zh">虚拟滚动</para>
+    ///  <para lang="en">虚拟滚动</para>
     /// </summary>
     Virtual
 }

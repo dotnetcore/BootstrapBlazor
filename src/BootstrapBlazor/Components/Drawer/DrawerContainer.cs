@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Drawer 抽屉容器组件</para>
-/// <para lang="en">Drawer Container Component</para>
+///  <para lang="zh">Drawer 抽屉容器组件</para>
+///  <para lang="en">Drawer Container Component</para>
 /// </summary>
 public class DrawerContainer : ComponentBase, IDisposable
 {
@@ -20,8 +20,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     private DrawerOption? _option;
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
+    ///  <para lang="zh">OnInitialized 方法</para>
+    ///  <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -33,7 +33,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -117,8 +118,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    ///  <para lang="zh">Dispose 方法</para>
+    ///  <para lang="en">Dispose Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     private void Dispose(bool disposing)
@@ -130,8 +131,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    ///  <para lang="zh">Dispose 方法</para>
+    ///  <para lang="en">Dispose Method</para>
     /// </summary>
     public void Dispose()
     {

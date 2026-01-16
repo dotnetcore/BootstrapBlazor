@@ -8,18 +8,14 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法
-///</para>
-/// <para lang="en"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法
-///</para>
+///  <para lang="zh"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法</para>
+///  <para lang="en"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法</para>
 /// </summary>
 public static class TableEditDialogOptionExtensions
 {
     /// <summary>
-    /// <para lang="zh">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数集合扩展方法
-    ///</para>
-    /// <para lang="en">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数collection扩展方法
-    ///</para>
+    ///  <para lang="zh">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数集合扩展方法</para>
+    ///  <para lang="en">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数collection扩展方法</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="option"></param>

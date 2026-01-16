@@ -6,26 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">弹出框类型枚举
-///</para>
-/// <para lang="en">弹出框typeenum
-///</para>
+///  <para lang="zh">弹出框类型枚举</para>
+///  <para lang="en">弹出框typeenum</para>
 /// </summary>
 public enum PopoverType
 {
     /// <summary>
-    /// <para lang="zh">工具条
-    ///</para>
-    /// <para lang="en">工具条
-    ///</para>
+    ///  <para lang="zh">工具条</para>
+    ///  <para lang="en">工具条</para>
     /// </summary>
     Tooltip,
 
     /// <summary>
-    /// <para lang="zh">弹出层
-    ///</para>
-    /// <para lang="en">弹出层
-    ///</para>
+    ///  <para lang="zh">弹出层</para>
+    ///  <para lang="en">弹出层</para>
     /// </summary>
     Popover
 }

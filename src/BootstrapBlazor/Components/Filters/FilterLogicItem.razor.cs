@@ -8,23 +8,23 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">FilterLogicItem 组件用于选择过滤条件的逻辑运算符</para>
-/// <para lang="en">FilterLogicItem Component used to select logical operator for filter conditions</para>
+///  <para lang="zh">FilterLogicItem 组件用于选择过滤条件的逻辑运算符</para>
+///  <para lang="en">FilterLogicItem Component used to select logical operator for filter conditions</para>
 /// </summary>
 public partial class FilterLogicItem
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 逻辑运算符</para>
-    /// <para lang="en">Get/Set Logical Operator</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 逻辑运算符</para>
+    ///  <para lang="en">Get/Set Logical Operator</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 逻辑运算符改变回调方法</para>
-    /// <para lang="en">Get/Set Logical Operator Change Callback Method</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 逻辑运算符改变回调方法</para>
+    ///  <para lang="en">Get/Set Logical Operator Change Callback Method</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<FilterLogic> LogicChanged { get; set; }
@@ -36,7 +36,8 @@ public partial class FilterLogicItem
     private readonly List<SelectedItem> _items = [];
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {

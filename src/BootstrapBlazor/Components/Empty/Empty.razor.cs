@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Empty 组件</para>
-/// <para lang="en">Empty Component</para>
+///  <para lang="zh">Empty 组件</para>
+///  <para lang="en">Empty Component</para>
 /// </summary>
 public partial class Empty
 {
@@ -18,33 +18,33 @@ public partial class Empty
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图片路径 默认为 null</para>
-    /// <para lang="en">Get/Set Image Source. Default is null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 图片路径 默认为 null</para>
+    ///  <para lang="en">Get/Set Image Source. Default is null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Image { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 空状态描述 默认为 无数据</para>
-    /// <para lang="en">Get/Set Description. Default is No Data</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 空状态描述 默认为 无数据</para>
+    ///  <para lang="en">Get/Set Description. Default is No Data</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自定义模板</para>
-    /// <para lang="en">Get/Set Custom Template</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 自定义模板</para>
+    ///  <para lang="en">Get/Set Custom Template</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Template { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件</para>
+    ///  <para lang="en">Get/Set Child Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -54,7 +54,8 @@ public partial class Empty
     private IStringLocalizer<Empty>? Localizer { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

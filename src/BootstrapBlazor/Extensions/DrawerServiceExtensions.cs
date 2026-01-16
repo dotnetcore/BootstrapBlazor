@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">抽屉服务扩展方法</para>
-/// <para lang="en">Drawer Service Extensions</para>
+///  <para lang="zh">抽屉服务扩展方法</para>
+///  <para lang="en">Drawer Service Extensions</para>
 /// </summary>
 public static class DrawerServiceExtensions
 {
     /// <summary>
-    /// <para lang="zh">弹出搜索对话框</para>
-    /// <para lang="en">Show search dialog</para>
+    ///  <para lang="zh">弹出搜索对话框</para>
+    ///  <para lang="en">Show search dialog</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DrawerService 服务实例</para><para lang="en">DrawerService instance</para></param>
     /// <param name="parameters"></param>
@@ -26,8 +26,8 @@ public static class DrawerServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出搜索对话框</para>
-    /// <para lang="en">Show search dialog</para>
+    ///  <para lang="zh">弹出搜索对话框</para>
+    ///  <para lang="en">Show search dialog</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DrawerService 服务实例</para><para lang="en">DrawerService instance</para></param>
     /// <param name="type"></param>

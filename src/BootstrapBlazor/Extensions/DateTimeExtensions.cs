@@ -8,14 +8,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DateTime 扩展方法</para>
-/// <para lang="en">DateTime Extensions</para>
+///  <para lang="zh">DateTime 扩展方法</para>
+///  <para lang="en">DateTime Extensions</para>
 /// </summary>
 internal static class DateTimeExtensions
 {
     /// <summary>
-    /// <para lang="zh">获得安全的月份时间</para>
-    /// <para lang="en">Get Safe Month DateTime</para>
+    ///  <para lang="zh">获得安全的月份时间</para>
+    ///  <para lang="en">Get Safe Month DateTime</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="month"></param>
@@ -51,8 +51,8 @@ internal static class DateTimeExtensions
     private static readonly ChineseLunisolarCalendar calendar = new();
 
     /// <summary>
-    /// <para lang="zh">获得阴历时间方法</para>
-    /// <para lang="en">Get Lunar DateTime</para>
+    ///  <para lang="zh">获得阴历时间方法</para>
+    ///  <para lang="en">Get Lunar DateTime</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
@@ -72,8 +72,8 @@ internal static class DateTimeExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得阴历信息</para>
-    /// <para lang="en">Get Lunar Text</para>
+    ///  <para lang="zh">获得阴历信息</para>
+    ///  <para lang="en">Get Lunar Text</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="showSolarTerm"></param>

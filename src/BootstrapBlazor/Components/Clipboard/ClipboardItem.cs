@@ -6,18 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Represents an item on the clipboard with associated 数据 and meta数据.
-///</para>
-/// <para lang="en">Represents an item on the clipboard with associated data and metadata.
-///</para>
+///  <para lang="zh">Represents an item on the clipboard with associated 数据 and meta数据.</para>
+///  <para lang="en">Represents an item on the clipboard with associated data and metadata.</para>
 /// </summary>
 public class ClipboardItem
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the Internet Media Type (MIME 类型) of the 内容 stored in the clipboard item.
-    ///</para>
-    /// <para lang="en">Gets or sets the Internet Media Type (MIME type) of the content stored in the clipboard item.
-    ///</para>
+    ///  <para lang="zh">获得/设置 the Internet Media Type (MIME 类型) of the 内容 stored in the clipboard item.</para>
+    ///  <para lang="en">Gets or sets the Internet Media Type (MIME type) of the content stored in the clipboard item.</para>
     /// </summary>
     /// <remarks>
     /// The MIME type is used to specify the nature and format of the data stored in the clipboard.
@@ -26,10 +22,8 @@ public class ClipboardItem
     public string? MimeType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the raw 数据 of the clipboard item.
-    ///</para>
-    /// <para lang="en">Gets or sets the raw data of the clipboard item.
-    ///</para>
+    ///  <para lang="zh">获得/设置 the raw 数据 of the clipboard item.</para>
+    ///  <para lang="en">Gets or sets the raw data of the clipboard item.</para>
     /// </summary>
     /// <remarks>
     /// The data is stored as a byte array, allowing for any binary or text content
@@ -38,10 +32,8 @@ public class ClipboardItem
     public byte[]? Data { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Retrieves a text representation of the clipboard item if the MIME 类型 indicates text 内容.
-    ///</para>
-    /// <para lang="en">Retrieves a text representation of the clipboard item if the MIME type indicates text content.
-    ///</para>
+    ///  <para lang="zh">Retrieves a text representation of the clipboard item if the MIME 类型 indicates text 内容.</para>
+    ///  <para lang="en">Retrieves a text representation of the clipboard item if the MIME type indicates text content.</para>
     /// </summary>
     /// <value>
     /// A string containing the text representation of the data if the MIME type starts with "text/",

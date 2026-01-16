@@ -6,33 +6,33 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">LayoutSplitBar 组件</para>
-/// <para lang="en">LayoutSplitBar Component</para>
+///  <para lang="zh">LayoutSplitBar 组件</para>
+///  <para lang="en">LayoutSplitBar Component</para>
 /// </summary>
 public partial class LayoutSplitBar
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 容器选择器 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Container Selector. Default null</para>
-    /// <para lang="zh">组件拖动后设置容器 style="--bb-layout-sidebar-width: 200px;" 用于宽度调整</para>
-    /// <para lang="en">Set container style="--bb-layout-sidebar-width: 200px;" after dragging component for width adjustment</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 容器选择器 默认 null 未设置</para>
+    ///  <para lang="en">Get/Set Container Selector. Default null</para>
+    ///  <para lang="zh">组件拖动后设置容器 style="--bb-layout-sidebar-width: 200px;" 用于宽度调整</para>
+    ///  <para lang="en">Set container style="--bb-layout-sidebar-width: 200px;" after dragging component for width adjustment</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContainerSelector { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最小宽度 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Minimum Width. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最小宽度 默认 null 未设置</para>
+    ///  <para lang="en">Get/Set Minimum Width. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? Min { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大宽度 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Maximum Width. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最大宽度 默认 null 未设置</para>
+    ///  <para lang="en">Get/Set Maximum Width. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? Max { get; set; }

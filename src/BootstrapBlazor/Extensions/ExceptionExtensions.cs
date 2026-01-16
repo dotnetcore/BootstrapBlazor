@@ -9,16 +9,14 @@ using System.Text;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">///</para>
-/// <para lang="en">///</para>
+///  <para lang="zh"></para>
+///  <para lang="en"></para>
 /// </summary>
 public static class ExceptionExtensions
 {
     /// <summary>
-    /// <para lang="zh">格式化异常信息
-    ///</para>
-    /// <para lang="en">格式化exception信息
-    ///</para>
+    ///  <para lang="zh">格式化异常信息</para>
+    ///  <para lang="en">格式化exception信息</para>
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="collection"></param>
@@ -46,10 +44,8 @@ public static class ExceptionExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">格式化异常信息
-    ///</para>
-    /// <para lang="en">格式化exception信息
-    ///</para>
+    ///  <para lang="zh">格式化异常信息</para>
+    ///  <para lang="en">格式化exception信息</para>
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="collection"></param>

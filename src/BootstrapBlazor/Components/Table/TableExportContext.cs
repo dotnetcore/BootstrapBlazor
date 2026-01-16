@@ -6,40 +6,44 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <inheritdoc/>
+///  <para lang="zh"><inheritdoc/></para>
+///  <para lang="en"><inheritdoc/></para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得 Table 实例
-    ///</para>
-    /// <para lang="en">Gets Table instance
-    ///</para>
+    ///  <para lang="zh">获得 Table 实例</para>
+    ///  <para lang="en">Gets Table instance</para>
     /// </summary>
     private ITable Table { get; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<ITableColumn> Columns => Table.Columns;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<ITableColumn> GetVisibleColumns() => Table.GetVisibleColumns();
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<TItem> Rows { get; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Task ExportAsync() => ExportCallbackAsync();
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public QueryPageOptions BuildQueryPageOptions() => OptionsBuilder();
@@ -49,15 +53,13 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     private Func<Task> ExportCallbackAsync { get; }
 
     /// <summary>
-    /// <para lang="zh">构造函数
-    ///</para>
-    /// <para lang="en">构造函数
-    ///</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">构造函数</para>
     /// </summary>
-    /// <param name="table">ITable 实例</param>
-    /// <param name="rows">行数据集合</param>
-    /// <param name="optionsBuilder">ITable 实例当前条件生成方法</param>
-    /// <param name="exportAsync">ITable 实例内置 Export 方法</param>
+    /// <param name="table"><para lang="zh">ITable 实例</para><para lang="en">ITable instance</para></param>
+    /// <param name="rows"><para lang="zh">行数据集合</para><para lang="en">行datacollection</para></param>
+    /// <param name="optionsBuilder"><para lang="zh">ITable 实例当前条件生成方法</para><para lang="en">ITable instance当前条件生成method</para></param>
+    /// <param name="exportAsync"><para lang="zh">ITable 实例内置 Export 方法</para><para lang="en">ITable instance内置 Export method</para></param>
     public TableExportContext(ITable table, IEnumerable<TItem> rows, Func<QueryPageOptions> optionsBuilder, Func<Task> exportAsync)
     {
         Table = table;

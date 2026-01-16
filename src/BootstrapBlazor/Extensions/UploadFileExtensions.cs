@@ -8,18 +8,14 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">UploadFile 扩展方法类
-///</para>
-/// <para lang="en">UploadFile 扩展方法类
-///</para>
+///  <para lang="zh">UploadFile 扩展方法类</para>
+///  <para lang="en">UploadFile 扩展方法类</para>
 /// </summary>
 public static class UploadFileExtensions
 {
     /// <summary>
-    /// <para lang="zh">获取 base64 格式图片字符串
-    ///</para>
-    /// <para lang="en">获取 base64 格式图片字符串
-    ///</para>
+    ///  <para lang="zh">获取 base64 格式图片字符串</para>
+    ///  <para lang="en">获取 base64 格式图片字符串</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="format"></param>
@@ -58,10 +54,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">保存到文件方法
-    ///</para>
-    /// <para lang="en">保存到文件方法
-    ///</para>
+    ///  <para lang="zh">保存到文件方法</para>
+    ///  <para lang="en">保存到文件方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="fileName"></param>
@@ -136,10 +130,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得图片字节数组方法
-    ///</para>
-    /// <para lang="en">Gets图片字节数组方法
-    ///</para>
+    ///  <para lang="zh">获得图片字节数组方法</para>
+    ///  <para lang="en">Gets图片字节数组方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="format"></param>
@@ -173,10 +165,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得图片字节数组方法
-    ///</para>
-    /// <para lang="en">Gets图片字节数组方法
-    ///</para>
+    ///  <para lang="zh">获得图片字节数组方法</para>
+    ///  <para lang="en">Gets图片字节数组方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="maxAllowedSize"></param>
@@ -206,10 +196,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Check item 是否 is image extension method.
-    ///</para>
-    /// <para lang="en">Check item whether is image extension method.
-    ///</para>
+    ///  <para lang="zh">Check item 是否 is image extension method.</para>
+    ///  <para lang="en">Check item whether is image extension method.</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>
@@ -234,20 +222,16 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Check item 是否 is base64 format image extension method.
-    ///</para>
-    /// <para lang="en">Check item whether is base64 format image extension method.
-    ///</para>
+    ///  <para lang="zh">Check item 是否 is base64 format image extension method.</para>
+    ///  <para lang="en">Check item whether is base64 format image extension method.</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
     public static bool IsBase64Format(this UploadFile item) => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
-    /// <para lang="zh">Check the extension 是否 in the allowExtensions list.
-    ///</para>
-    /// <para lang="en">Check the extension whether in the allowExtensions list.
-    ///</para>
+    ///  <para lang="zh">Check the extension 是否 in the allowExtensions list.</para>
+    ///  <para lang="en">Check the extension whether in the allowExtensions list.</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>

@@ -9,15 +9,14 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ColumnVisibleItem 序列化转化器
-///</para>
-/// <para lang="en">ColumnVisibleItem 序列化转化器
-///</para>
+///  <para lang="zh">ColumnVisibleItem 序列化转化器</para>
+///  <para lang="en">ColumnVisibleItem 序列化转化器</para>
 /// </summary>
 public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -55,7 +54,8 @@ public class ColumnVisibleItemConverter : JsonConverter<ColumnVisibleItem>
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>

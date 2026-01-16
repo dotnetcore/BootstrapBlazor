@@ -8,33 +8,31 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TableFilter component
-///</para>
-/// <para lang="en">TableFilter component
-///</para>
+///  <para lang="zh">TableFilter component</para>
+///  <para lang="en">TableFilter component</para>
 /// </summary>
 public partial class TableColumnFilter : IFilter
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 active</para>
-    /// <para lang="en">Get/Set Whether is active</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否 active</para>
+    ///  <para lang="en">Get/Set Whether is active</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤图标</para>
-    /// <para lang="en">Get/Set Filter Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 过滤图标</para>
+    ///  <para lang="en">Get/Set Filter Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
+    ///  <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
@@ -42,58 +40,58 @@ public partial class TableColumnFilter : IFilter
     public string? NotSupportedMessage { get => NotSupportedColumnFilterMessage; set => NotSupportedColumnFilterMessage = value; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
+    ///  <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 相关联 ITableColumn 实例</para>
-    /// <para lang="en">Get Related ITableColumn Instance</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得 相关联 ITableColumn 实例</para>
+    ///  <para lang="en">Get Related ITableColumn Instance</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public ITableColumn? Column { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
-    /// <para lang="en">Get/Set Whether is HeaderRow Mode Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
+    ///  <para lang="en">Get/Set Whether is HeaderRow Mode Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHeaderRow { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 ITable 实例</para>
-    /// <para lang="en">Get/Set ITable Instance</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 ITable 实例</para>
+    ///  <para lang="en">Get/Set ITable Instance</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public ITable? Table { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 过滤小图标样式</para>
-    /// <para lang="en">Get Filter Small Icon Style</para>
+    ///  <para lang="zh">获得 过滤小图标样式</para>
+    ///  <para lang="en">Get Filter Small Icon Style</para>
     /// </summary>
     private string? FilterClassString => CssBuilder.Default(Icon)
         .AddClass("active", IsActive)
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 样式</para>
-    /// <para lang="en">Get Style</para>
+    ///  <para lang="zh">获得 样式</para>
+    ///  <para lang="en">Get Style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("filter-icon")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤条件 IFilterAction 接口</para>
-    /// <para lang="en">Get/Set Filter Condition IFilterAction Interface</para>
+    ///  <para lang="zh">获得/设置 过滤条件 IFilterAction 接口</para>
+    ///  <para lang="en">Get/Set Filter Condition IFilterAction Interface</para>
     /// </summary>
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
@@ -101,7 +99,8 @@ public partial class TableColumnFilter : IFilter
     private string _fieldKey = "";
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -112,7 +111,8 @@ public partial class TableColumnFilter : IFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
@@ -124,10 +124,8 @@ public partial class TableColumnFilter : IFilter
     }
 
     /// <summary>
-    /// <para lang="zh">Reset filter method
-    ///</para>
-    /// <para lang="en">Reset filter method
-    ///</para>
+    ///  <para lang="zh">Reset filter method</para>
+    ///  <para lang="en">Reset filter method</para>
     /// </summary>
     public async Task Reset()
     {
@@ -136,10 +134,8 @@ public partial class TableColumnFilter : IFilter
     }
 
     /// <summary>
-    /// <para lang="zh">Filter method
-    ///</para>
-    /// <para lang="en">Filter method
-    ///</para>
+    ///  <para lang="zh">Filter method</para>
+    ///  <para lang="en">Filter method</para>
     /// </summary>
     /// <returns></returns>
     public async Task OnFilterAsync()

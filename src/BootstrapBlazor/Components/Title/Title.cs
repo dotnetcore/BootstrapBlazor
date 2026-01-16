@@ -6,10 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Title 组件
-///</para>
-/// <para lang="en">Title component
-///</para>
+///  <para lang="zh">Title 组件</para>
+///  <para lang="en">Title component</para>
 /// </summary>
 public class Title : ComponentBase
 {
@@ -18,17 +16,16 @@ public class Title : ComponentBase
     private TitleService? TitleService { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 当前页标题文字
-    ///</para>
-    /// <para lang="en">Gets or sets 当前页标题文字
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 当前页标题文字</para>
+    ///  <para lang="en">Gets or sets 当前页标题文字</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>

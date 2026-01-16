@@ -14,7 +14,8 @@ class DefaultIconTheme(IOptions<IconThemeOptions> options) : IIconTheme
     private readonly IOptions<IconThemeOptions> _options = options;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
 #if NET8_0_OR_GREATER

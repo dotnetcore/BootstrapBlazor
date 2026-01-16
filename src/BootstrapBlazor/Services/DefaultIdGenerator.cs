@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">默认组件 ID 生成器</para>
-/// <para lang="en">Default Component ID Generator</para>
+///  <para lang="zh">默认组件 ID 生成器</para>
+///  <para lang="en">Default Component ID Generator</para>
 /// </summary>
 internal class DefaultIdGenerator : IComponentIdGenerator
 {
     /// <summary>
-    /// <para lang="zh">生成组件 Id 字符串</para>
-    /// <para lang="en">Generate Component ID String</para>
+    ///  <para lang="zh">生成组件 Id 字符串</para>
+    ///  <para lang="en">Generate Component ID String</para>
     /// </summary>
     /// <param name="component"></param>
     /// <returns></returns>

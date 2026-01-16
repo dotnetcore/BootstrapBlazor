@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IValidator 实现类基类</para>
-/// <para lang="en">IValidator implementation base class</para>
+///  <para lang="zh">IValidator 实现类基类</para>
+///  <para lang="en">IValidator implementation base class</para>
 /// </summary>
 public abstract class ValidatorBase : IValidator
 {
     /// <summary>
-    /// <para lang="zh">数据验证方法</para>
-    /// <para lang="en">Data validation method</para>
+    ///  <para lang="zh">数据验证方法</para>
+    ///  <para lang="en">Data validation method</para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>

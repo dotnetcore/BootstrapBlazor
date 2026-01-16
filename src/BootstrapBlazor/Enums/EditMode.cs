@@ -6,32 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件编辑模式枚举类型</para>
-/// <para lang="en">Table Edit Mode Enum</para>
+///  <para lang="zh">Table 组件编辑模式枚举类型</para>
+///  <para lang="en">Table Edit Mode Enum</para>
 /// </summary>
 public enum EditMode
 {
     /// <summary>
-    /// <para lang="zh">弹窗式编辑模式</para>
-    /// <para lang="en">Popup Edit Mode</para>
+    ///  <para lang="zh">弹窗式编辑模式</para>
+    ///  <para lang="en">Popup Edit Mode</para>
     /// </summary>
     Popup,
 
     /// <summary>
-    /// <para lang="zh">行内编辑模式</para>
-    /// <para lang="en">Edit Form Mode</para>
+    ///  <para lang="zh">行内编辑模式</para>
+    ///  <para lang="en">Edit Form Mode</para>
     /// </summary>
     EditForm,
 
     /// <summary>
-    /// <para lang="zh">单元格内编辑模式</para>
-    /// <para lang="en">In Cell Edit Mode</para>
+    ///  <para lang="zh">单元格内编辑模式</para>
+    ///  <para lang="en">In Cell Edit Mode</para>
     /// </summary>
     InCell,
 
     /// <summary>
-    /// <para lang="zh">抽屉编辑模式</para>
-    /// <para lang="en">Drawer Edit Mode</para>
+    ///  <para lang="zh">抽屉编辑模式</para>
+    ///  <para lang="en">Drawer Edit Mode</para>
     /// </summary>
     Drawer
 }

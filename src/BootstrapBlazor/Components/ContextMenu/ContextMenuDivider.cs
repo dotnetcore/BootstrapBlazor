@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ContextMenuDivider 组件</para>
-/// <para lang="en">ContextMenuDivider component</para>
+///  <para lang="zh">ContextMenuDivider 组件</para>
+///  <para lang="en">ContextMenuDivider component</para>
 /// </summary>
 public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
@@ -18,7 +18,8 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     private ContextMenu? ContextMenu { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -28,7 +29,8 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder) { }
@@ -36,8 +38,8 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     private bool disposedValue;
 
     /// <summary>
-    /// <para lang="zh">释放资源方法</para>
-    /// <para lang="en">Dispose resources method</para>
+    ///  <para lang="zh">释放资源方法</para>
+    ///  <para lang="en">Dispose resources method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -53,7 +55,8 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

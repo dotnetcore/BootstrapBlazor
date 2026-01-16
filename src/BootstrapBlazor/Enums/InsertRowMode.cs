@@ -6,26 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件 <see cref="EditMode"/> 为非弹窗模式时新建行模式
-///</para>
-/// <para lang="en">Table component <see cref="EditMode"/> 为非弹窗模式时新建行模式
-///</para>
+///  <para lang="zh">Table 组件 <see cref="EditMode"/> 为非弹窗模式时新建行模式</para>
+///  <para lang="en">Table component <see cref="EditMode"/> 为非弹窗模式时新建行模式</para>
 /// </summary>
 public enum InsertRowMode
 {
     /// <summary>
-    /// <para lang="zh">第一行
-    ///</para>
-    /// <para lang="en">第一行
-    ///</para>
+    ///  <para lang="zh">第一行</para>
+    ///  <para lang="en">第一行</para>
     /// </summary>
     First,
 
     /// <summary>
-    /// <para lang="zh">最后一行
-    ///</para>
-    /// <para lang="en">最后一行
-    ///</para>
+    ///  <para lang="zh">最后一行</para>
+    ///  <para lang="en">最后一行</para>
     /// </summary>
     Last
 }

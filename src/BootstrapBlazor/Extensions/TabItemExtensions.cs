@@ -8,10 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TabItem Extension
-///</para>
-/// <para lang="en">TabItem Extension
-///</para>
+///  <para lang="zh">TabItem Extension</para>
+///  <para lang="en">TabItem Extension</para>
 /// </summary>
 internal static class TabItemExtensions
 {

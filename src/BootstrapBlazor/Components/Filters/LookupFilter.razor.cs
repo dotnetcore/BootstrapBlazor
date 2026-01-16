@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Lookup 过滤器</para>
-/// <para lang="en">Lookup Filter</para>
+///  <para lang="zh">Lookup 过滤器</para>
+///  <para lang="en">Lookup Filter</para>
 /// </summary>
 public partial class LookupFilter
 {
@@ -17,7 +17,8 @@ public partial class LookupFilter
     private ILookup _lookup = null!;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -46,7 +47,8 @@ public partial class LookupFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override void Reset()
     {
@@ -55,7 +57,8 @@ public partial class LookupFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
@@ -76,7 +79,8 @@ public partial class LookupFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {

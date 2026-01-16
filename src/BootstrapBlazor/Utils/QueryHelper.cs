@@ -10,19 +10,15 @@ using System.Text.Encodings.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Provides methods for parsing and manipulating query strings.
-///</para>
-/// <para lang="en">Provides methods for parsing and manipulating query strings.
-///</para>
+///  <para lang="zh">Provides methods for parsing and manipulating query strings.</para>
+///  <para lang="en">Provides methods for parsing and manipulating query strings.</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public static class QueryHelper
 {
     /// <summary>
-    /// <para lang="zh">Append the given query key and value to the URI.
-    ///</para>
-    /// <para lang="en">Append the given query key and value to the URI.
-    ///</para>
+    ///  <para lang="zh">Append the given query key and value to the URI.</para>
+    ///  <para lang="en">Append the given query key and value to the URI.</para>
     /// </summary>
     /// <param name="uri">The base URI.</param>
     /// <param name="name">The name of the query key.</param>
@@ -35,10 +31,8 @@ public static class QueryHelper
             uri, new[] { new KeyValuePair<string, string?>(name, value) });
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI.
-    ///</para>
-    /// <para lang="en">Append the given query keys and values to the URI.
-    ///</para>
+    ///  <para lang="zh">Append the given query keys and values to the URI.</para>
+    ///  <para lang="en">Append the given query keys and values to the URI.</para>
     /// </summary>
     /// <param name="uri">The base URI.</param>
     /// <param name="queryString">A dictionary of query keys and values to append.</param>
@@ -48,10 +42,8 @@ public static class QueryHelper
     public static string AddQueryString(string uri, IDictionary<string, string?> queryString) => AddQueryString(uri, (IEnumerable<KeyValuePair<string, string?>>)queryString);
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI.
-    ///</para>
-    /// <para lang="en">Append the given query keys and values to the URI.
-    ///</para>
+    ///  <para lang="zh">Append the given query keys and values to the URI.</para>
+    ///  <para lang="en">Append the given query keys and values to the URI.</para>
     /// </summary>
     /// <param name="uri">The base URI.</param>
     /// <param name="queryString">A collection of query names and values to append.</param>
@@ -61,10 +53,8 @@ public static class QueryHelper
     public static string AddQueryString(string uri, IEnumerable<KeyValuePair<string, StringValues>> queryString) => AddQueryString(uri, queryString.SelectMany(kvp => kvp.Value, (kvp, v) => KeyValuePair.Create<string, string?>(kvp.Key, v)));
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI.
-    ///</para>
-    /// <para lang="en">Append the given query keys and values to the URI.
-    ///</para>
+    ///  <para lang="zh">Append the given query keys and values to the URI.</para>
+    ///  <para lang="en">Append the given query keys and values to the URI.</para>
     /// </summary>
     /// <param name="uri">The base URI.</param>
     /// <param name="queryString">A collection of name value query pairs to append.</param>
@@ -107,20 +97,16 @@ public static class QueryHelper
     }
 
     /// <summary>
-    /// <para lang="zh">Parse a query string into its component key and value parts.
-    ///</para>
-    /// <para lang="en">Parse a query string into its component key and value parts.
-    ///</para>
+    ///  <para lang="zh">Parse a query string into its component key and value parts.</para>
+    ///  <para lang="en">Parse a query string into its component key and value parts.</para>
     /// </summary>
     /// <param name="queryString">The raw query string value, with or without the leading '?'.</param>
     /// <returns>A collection of parsed keys and values.</returns>
     public static Dictionary<string, StringValues> ParseQuery(string? queryString) => ParseNullableQuery(queryString) ?? [];
 
     /// <summary>
-    /// <para lang="zh">Parse a query string into its component key and value parts.
-    ///</para>
-    /// <para lang="en">Parse a query string into its component key and value parts.
-    ///</para>
+    ///  <para lang="zh">Parse a query string into its component key and value parts.</para>
+    ///  <para lang="en">Parse a query string into its component key and value parts.</para>
     /// </summary>
     /// <param name="queryString">The raw query string value, with or without the leading '?'.</param>
     /// <returns>A collection of parsed keys and values, null if there are no entries.</returns>

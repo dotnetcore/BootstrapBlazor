@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BootstrapInputGroupIcon 组件</para>
-/// <para lang="en">BootstrapInputGroupIcon Component</para>
+///  <para lang="zh">BootstrapInputGroupIcon 组件</para>
+///  <para lang="en">BootstrapInputGroupIcon Component</para>
 /// </summary>
 public partial class BootstrapInputGroupIcon
 {
@@ -16,9 +16,9 @@ public partial class BootstrapInputGroupIcon
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Icon</para>
-    /// <para lang="en">Get/Set Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 Icon</para>
+    ///  <para lang="en">Get/Set Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
 #if NET6_0_OR_GREATER

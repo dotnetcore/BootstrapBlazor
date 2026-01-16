@@ -8,38 +8,38 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否为树形数据 默认为 false</para>
-    /// <para lang="en">Get/Set Whether it is tree data. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否为树形数据 默认为 false</para>
+    ///  <para lang="en">Get/Set Whether it is tree data. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTree { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 生成树状结构回调方法</para>
-    /// <para lang="en">Get/Set Callback for generating tree structure</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 生成树状结构回调方法</para>
+    ///  <para lang="en">Get/Set Callback for generating tree structure</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 树形数据节点展开式回调委托方法</para>
-    /// <para lang="en">Get/Set Callback delegate for expanding tree data node</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 树形数据节点展开式回调委托方法</para>
+    ///  <para lang="en">Get/Set Callback delegate for expanding tree data node</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task<IEnumerable<TableTreeNode<TItem>>>>? OnTreeExpand { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 树形数据集合</para>
-    /// <para lang="en">Get/Set Tree Data Collection</para>
+    ///  <para lang="zh">获得/设置 树形数据集合</para>
+    ///  <para lang="en">Get/Set Tree Data Collection</para>
     /// </summary>
     private List<TableTreeNode<TItem>> TreeRows { get; } = new(100);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否正在加载子项 默认为 false</para>
-    /// <para lang="en">Get/Set Whether loading children. Default false</para>
+    ///  <para lang="zh">获得/设置 是否正在加载子项 默认为 false</para>
+    ///  <para lang="en">Get/Set Whether loading children. Default false</para>
     /// </summary>
     private bool IsLoadChildren { get; set; }
 
@@ -47,40 +47,40 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构小箭头图标</para>
-    /// <para lang="en">Get/Set Tree Node Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 数型结构小箭头图标</para>
+    ///  <para lang="en">Get/Set Tree Node Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构展开小箭头图标</para>
-    /// <para lang="en">Get/Set Tree Node Expand Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 数型结构展开小箭头图标</para>
+    ///  <para lang="en">Get/Set Tree Node Expand Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeExpandIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构正在加载图标</para>
-    /// <para lang="en">Get/Set Tree Node Loading Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 数型结构正在加载图标</para>
+    ///  <para lang="en">Get/Set Tree Node Loading Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeNodeLoadingIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
-    /// <para lang="en">Get/Set Indent Size. Default 16 px</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
+    ///  <para lang="en">Get/Set Indent Size. Default 16 px</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int IndentSize { get; set; } = 16;
 
     /// <summary>
-    /// <para lang="zh">树形数据小箭头缩进</para>
-    /// <para lang="en">Tree Node Indent</para>
+    ///  <para lang="zh">树形数据小箭头缩进</para>
+    ///  <para lang="en">Tree Node Indent</para>
     /// </summary>
     /// <param name="degree"></param>
     /// <returns></returns>
@@ -89,8 +89,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">树形数据展开小箭头</para>
-    /// <para lang="en">Tree Node Expand Arrow</para>
+    ///  <para lang="zh">树形数据展开小箭头</para>
+    ///  <para lang="en">Tree Node Expand Arrow</para>
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
@@ -101,15 +101,15 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">节点缓存类实例</para>
-    /// <para lang="en">Node Cache Instance</para>
+    ///  <para lang="zh">节点缓存类实例</para>
+    ///  <para lang="en">Node Cache Instance</para>
     /// </summary>
     [NotNull]
     protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? TreeNodeCache { get; set; }
 
     /// <summary>
-    /// <para lang="zh">展开收缩树形数据节点方法</para>
-    /// <para lang="en">Toggle Tree Node Method</para>
+    ///  <para lang="zh">展开收缩树形数据节点方法</para>
+    ///  <para lang="en">Toggle Tree Node Method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>

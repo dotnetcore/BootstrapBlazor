@@ -8,31 +8,31 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">///</para>
-/// <para lang="en">///</para>
+///  <para lang="zh"></para>
+///  <para lang="en"></para>
 /// </summary>
 public partial class GotoNavigator
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 跳转页码 默认 null</para>
-    /// <para lang="en">Get/Set Navigation Index. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 跳转页码 默认 null</para>
+    ///  <para lang="en">Get/Set Navigation Index. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Index { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 跳转文本 默认 null</para>
-    /// <para lang="en">Get/Set Goto Text. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 跳转文本 默认 null</para>
+    ///  <para lang="en">Get/Set Goto Text. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GotoText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 导航回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Navigation Callback. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 导航回调方法 默认 null</para>
+    ///  <para lang="en">Get/Set Navigation Callback. Default null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<int, Task>? OnNavigation { get; set; }

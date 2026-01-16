@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">CheckBox 组件状态枚举值</para>
-/// <para lang="en">CheckBox State Enum</para>
+///  <para lang="zh">CheckBox 组件状态枚举值</para>
+///  <para lang="en">CheckBox State Enum</para>
 /// </summary>
 public enum CheckboxState
 {
     /// <summary>
-    /// <para lang="zh">未选中</para>
-    /// <para lang="en">UnChecked</para>
+    ///  <para lang="zh">未选中</para>
+    ///  <para lang="en">UnChecked</para>
     /// </summary>
     UnChecked,
 
     /// <summary>
-    /// <para lang="zh">选中</para>
-    /// <para lang="en">Checked</para>
+    ///  <para lang="zh">选中</para>
+    ///  <para lang="en">Checked</para>
     /// </summary>
     Checked,
 
     /// <summary>
-    /// <para lang="zh">不确定</para>
-    /// <para lang="en">Indeterminate</para>
+    ///  <para lang="zh">不确定</para>
+    ///  <para lang="en">Indeterminate</para>
     /// </summary>
     Indeterminate
 }

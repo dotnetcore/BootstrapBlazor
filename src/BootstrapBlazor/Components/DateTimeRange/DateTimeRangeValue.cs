@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DateTimeRangeValue 对象</para>
-/// <para lang="en">DateTimeRangeValue Object</para>
+///  <para lang="zh">DateTimeRangeValue 对象</para>
+///  <para lang="en">DateTimeRangeValue Object</para>
 /// </summary>
 public class DateTimeRangeValue
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 开始时间</para>
-    /// <para lang="en">Get/Set Start Time</para>
+    ///  <para lang="zh">获得/设置 开始时间</para>
+    ///  <para lang="en">Get/Set Start Time</para>
     /// </summary>
     public DateTime Start { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 结束时间</para>
-    /// <para lang="en">Get/Set End Time</para>
+    ///  <para lang="zh">获得/设置 结束时间</para>
+    ///  <para lang="en">Get/Set End Time</para>
     /// </summary>
     public DateTime End { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 可为空开始时间</para>
-    /// <para lang="en">Get/Set Nullable Start Time</para>
+    ///  <para lang="zh">获得/设置 可为空开始时间</para>
+    ///  <para lang="en">Get/Set Nullable Start Time</para>
     /// </summary>
     public DateTime? NullStart
     {
@@ -34,8 +34,8 @@ public class DateTimeRangeValue
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 可为空结束时间</para>
-    /// <para lang="en">Get/Set Nullable End Time</para>
+    ///  <para lang="zh">获得/设置 可为空结束时间</para>
+    ///  <para lang="en">Get/Set Nullable End Time</para>
     /// </summary>
     public DateTime? NullEnd
     {
@@ -44,8 +44,8 @@ public class DateTimeRangeValue
     }
 
     /// <summary>
-    /// <para lang="zh">ToString 方法</para>
-    /// <para lang="en">ToString Method</para>
+    ///  <para lang="zh">ToString 方法</para>
+    ///  <para lang="en">ToString Method</para>
     /// </summary>
     /// <returns></returns>
     public override string ToString()

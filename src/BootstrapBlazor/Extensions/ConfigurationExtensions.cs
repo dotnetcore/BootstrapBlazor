@@ -11,8 +11,8 @@ using System.Runtime.InteropServices;
 namespace Microsoft.Extensions.Configuration;
 
 /// <summary>
-/// <para lang="zh">IConfiguration 扩展类</para>
-/// <para lang="en">IConfiguration Extensions</para>
+///  <para lang="zh">IConfiguration 扩展类</para>
+///  <para lang="en">IConfiguration Extensions</para>
 /// </summary>
 internal static class ConfigurationExtensions
 {
@@ -78,8 +78,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 环境变量中的 OS 属性值</para>
-    /// <para lang="en">Get OS Property Value</para>
+    ///  <para lang="zh">获得 环境变量中的 OS 属性值</para>
+    ///  <para lang="en">Get OS Property Value</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     public static string GetOS()
@@ -108,8 +108,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 环境变量中的 UserName 属性值</para>
-    /// <para lang="en">Get UserName Property Value</para>
+    ///  <para lang="zh">获得 环境变量中的 UserName 属性值</para>
+    ///  <para lang="en">Get UserName Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -128,8 +128,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 环境变量中的 ASPNETCORE_ENVIRONMENT 属性值</para>
-    /// <para lang="en">Get ASPNETCORE_ENVIRONMENT Property Value</para>
+    ///  <para lang="zh">获得 环境变量中的 ASPNETCORE_ENVIRONMENT 属性值</para>
+    ///  <para lang="en">Get ASPNETCORE_ENVIRONMENT Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -140,8 +140,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 环境变量中的 ASPNETCORE_IIS_PHYSICAL_PATH 属性值</para>
-    /// <para lang="en">Get ASPNETCORE_IIS_PHYSICAL_PATH Property Value</para>
+    ///  <para lang="zh">获得 环境变量中的 ASPNETCORE_IIS_PHYSICAL_PATH 属性值</para>
+    ///  <para lang="en">Get ASPNETCORE_IIS_PHYSICAL_PATH Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -152,8 +152,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 环境变量中的 VisualStudioEdition 属性值</para>
-    /// <para lang="en">Get VisualStudioEdition Property Value</para>
+    ///  <para lang="zh">获得 环境变量中的 VisualStudioEdition 属性值</para>
+    ///  <para lang="en">Get VisualStudioEdition Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>

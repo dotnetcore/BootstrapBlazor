@@ -6,39 +6,31 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">NavbarDropdownItem 组件用于在导航栏下拉菜单中创建菜单项
-///</para>
-/// <para lang="en">NavbarDropdownItem component用于在导航栏下拉菜单中创建菜单项
-///</para>
+///  <para lang="zh">NavbarDropdownItem 组件用于在导航栏下拉菜单中创建菜单项</para>
+///  <para lang="en">NavbarDropdownItem component用于在导航栏下拉菜单中创建菜单项</para>
 /// </summary>
 public partial class NavbarDropdownItem
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件模板
-    ///</para>
-    /// <para lang="en">Gets or sets 子componenttemplate
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件模板</para>
+    ///  <para lang="en">Gets or sets 子componenttemplate</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 菜单项文本
-    ///</para>
-    /// <para lang="en">Gets or sets 菜单项文本
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 菜单项文本</para>
+    ///  <para lang="en">Gets or sets 菜单项文本</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 A 标签 target 参数 默认 null
-    ///</para>
-    /// <para lang="en">Gets or sets A 标签 target 参数 Default is null
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
+    ///  <para lang="en">Gets or sets A 标签 target 参数 Default is null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }

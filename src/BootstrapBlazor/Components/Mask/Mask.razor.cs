@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Mask 组件</para>
-/// <para lang="en">Mask Component</para>
+///  <para lang="zh">Mask 组件</para>
+///  <para lang="en">Mask Component</para>
 /// </summary>
 public partial class Mask
 {
@@ -24,7 +24,8 @@ public partial class Mask
     private MaskOption? _options;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -34,7 +35,8 @@ public partial class Mask
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>

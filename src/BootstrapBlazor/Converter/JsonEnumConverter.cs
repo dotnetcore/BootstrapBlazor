@@ -9,20 +9,16 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">JsonEnumConverter is an 枚举 converter that allows customization of 枚举 serialization.
-///</para>
-/// <para lang="en">JsonEnumConverter is an enum converter that allows customization of enum serialization.
-///</para>
+///  <para lang="zh">JsonEnumConverter is an 枚举 converter that allows customization of 枚举 serialization.</para>
+///  <para lang="en">JsonEnumConverter is an enum converter that allows customization of enum serialization.</para>
 /// </summary>
 /// <param name="camelCase">Optional naming policy for writing enum values.</param>
 /// <param name="allowIntegerValues">True to allow undefined enum values. When true, if an enum value isn't defined it will output as a number rather than a string.</param>
 public class JsonEnumConverter(bool camelCase = false, bool allowIntegerValues = true) : JsonConverterAttribute
 {
     /// <summary>
-    /// <para lang="zh">Creates a JsonConverter for the specified 类型.
-    ///</para>
-    /// <para lang="en">Creates a JsonConverter for the specified type.
-    ///</para>
+    ///  <para lang="zh">Creates a JsonConverter for the specified 类型.</para>
+    ///  <para lang="en">Creates a JsonConverter for the specified type.</para>
     /// </summary>
     /// <param name="typeToConvert">The type to convert.</param>
     /// <returns>A JsonConverter for the specified type.</returns>

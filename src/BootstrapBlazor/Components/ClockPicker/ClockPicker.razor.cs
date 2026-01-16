@@ -8,47 +8,47 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ClockPicker 组件</para>
-/// <para lang="en">ClockPicker component</para>
+///  <para lang="zh">ClockPicker 组件</para>
+///  <para lang="en">ClockPicker component</para>
 /// </summary>
 public partial class ClockPicker
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 样式</para>
-    /// <para lang="en">Get/Set style</para>
+    ///  <para lang="zh">获得/设置 样式</para>
+    ///  <para lang="en">Get/Set style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-clock-picker")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示表盘刻度 默认 false</para>
-    /// <para lang="en">Get/Set whether to show clock scale, default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示表盘刻度 默认 false</para>
+    ///  <para lang="en">Get/Set whether to show clock scale, default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClockScale { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示秒 默认 true</para>
-    /// <para lang="en">Get/Set whether to show second, default is true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示秒 默认 true</para>
+    ///  <para lang="en">Get/Set whether to show second, default is true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSecond { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示分钟 默认 true</para>
-    /// <para lang="en">Get/Set whether to show minute, default is true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示分钟 默认 true</para>
+    ///  <para lang="en">Get/Set whether to show minute, default is true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true</para>
-    /// <para lang="en">Get/Set whether to automatically switch hour/minute/second, default is true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true</para>
+    ///  <para lang="en">Get/Set whether to automatically switch hour/minute/second, default is true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
@@ -64,10 +64,8 @@ public partial class ClockPicker
     private string? CurrentDateString => DatePicker.Value.ToString(DatePicker.DateFormat);
 
     /// <summary>
-    /// <para lang="zh">is hour or min or sec mode
-    ///</para>
-    /// <para lang="en">is hour or min or sec mode
-    ///</para>
+    ///  <para lang="zh">is hour or min or sec mode</para>
+    ///  <para lang="en">is hour or min or sec mode</para>
     /// </summary>
     private TimeMode Mode { get; set; } = TimeMode.Hour;
 
@@ -102,7 +100,8 @@ public partial class ClockPicker
 #endif
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -117,7 +116,8 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Hour = Value.Hours, Minute = Value.Minutes, Second = Value.Seconds, Version = _version });
@@ -125,8 +125,8 @@ public partial class ClockPicker
     private void SetMode(TimeMode mode) => Mode = mode;
 
     /// <summary>
-    /// <para lang="zh">复位方法</para>
-    /// <para lang="en">Reset method</para>
+    ///  <para lang="zh">复位方法</para>
+    ///  <para lang="en">Reset method</para>
     /// </summary>
     internal void Reset()
     {
@@ -140,8 +140,8 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// <para lang="zh">JSInvoke 调用此方法</para>
-    /// <para lang="en">JSInvoke calls this method</para>
+    ///  <para lang="zh">JSInvoke 调用此方法</para>
+    ///  <para lang="en">JSInvoke calls this method</para>
     /// </summary>
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)

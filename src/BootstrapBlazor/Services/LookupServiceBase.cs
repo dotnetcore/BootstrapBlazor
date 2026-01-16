@@ -6,25 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">LookupService 基类</para>
-/// <para lang="en">LookupService Base Class</para>
+///  <para lang="zh">LookupService 基类</para>
+///  <para lang="en">LookupService Base Class</para>
 /// </summary>
 public abstract class LookupServiceBase : ILookupService
 {
     /// <summary>
-    ///<inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     [Obsolete("已弃用，请使用 data 参数重载方法；Deprecated, please use the data parameter method")]
     [ExcludeFromCodeCoverage]
     public virtual IEnumerable<SelectedItem>? GetItemsByKey(string? key) => GetItemsByKey(key, null);
 
     /// <summary>
-    ///<inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public abstract IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data);
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public virtual Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data) => Task.FromResult(GetItemsByKey(key, data));
 }

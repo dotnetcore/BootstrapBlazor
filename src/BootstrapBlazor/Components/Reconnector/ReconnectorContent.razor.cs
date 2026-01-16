@@ -6,47 +6,47 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ReconnectorContent 组件</para>
-/// <para lang="en">ReconnectorContent Component</para>
+///  <para lang="zh">ReconnectorContent 组件</para>
+///  <para lang="en">ReconnectorContent Component</para>
 /// </summary>
 public partial class ReconnectorContent
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 ReconnectingTemplate 模板</para>
-    /// <para lang="en">Get/Set ReconnectingTemplate</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 ReconnectingTemplate 模板</para>
+    ///  <para lang="en">Get/Set ReconnectingTemplate</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectingTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 ReconnectFailedTemplate 模板</para>
-    /// <para lang="en">Get/Set ReconnectFailedTemplate</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 ReconnectFailedTemplate 模板</para>
+    ///  <para lang="en">Get/Set ReconnectFailedTemplate</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectFailedTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 ReconnectRejectedTemplate 模板</para>
-    /// <para lang="en">Get/Set ReconnectRejectedTemplate</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 ReconnectRejectedTemplate 模板</para>
+    ///  <para lang="en">Get/Set ReconnectRejectedTemplate</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ReconnectRejectedTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动尝试重连 默认 true</para>
-    /// <para lang="en">Get/Set Whether to auto reconnect. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否自动尝试重连 默认 true</para>
+    ///  <para lang="en">Get/Set Whether to auto reconnect. Default true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoReconnect { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒</para>
-    /// <para lang="en">Get/Set Auto reconnect interval. Default 5000ms. Min 1000ms</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒</para>
+    ///  <para lang="en">Get/Set Auto reconnect interval. Default 5000ms. Min 1000ms</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ReconnectInterval { get; set; } = 5000;
@@ -56,8 +56,8 @@ public partial class ReconnectorContent
     private IReconnectorProvider? Provider { get; set; }
 
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    ///  <para lang="zh">SetParametersAsync 方法</para>
+    ///  <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -68,7 +68,8 @@ public partial class ReconnectorContent
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
@@ -80,8 +81,8 @@ public partial class ReconnectorContent
     }
 
     /// <summary>
-    /// <para lang="zh">ContentChanged 方法</para>
-    /// <para lang="en">ContentChanged Method</para>
+    ///  <para lang="zh">ContentChanged 方法</para>
+    ///  <para lang="en">ContentChanged Method</para>
     /// </summary>
     /// <param name="reconnectingTemplate"></param>
     /// <param name="reconnectFailedTemplate"></param>

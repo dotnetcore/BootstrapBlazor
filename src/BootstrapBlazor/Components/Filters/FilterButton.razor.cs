@@ -6,37 +6,38 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">FilterButton 组件</para>
-/// <para lang="en">FilterButton Component</para>
+///  <para lang="zh">FilterButton 组件</para>
+///  <para lang="en">FilterButton Component</para>
 /// </summary>
 public partial class FilterButton<TValue> : Dropdown<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 清除过滤条件时的回调方法</para>
-    /// <para lang="en">Get/Set Callback Method When Clearing Filter Conditions</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 清除过滤条件时的回调方法</para>
+    ///  <para lang="en">Get/Set Callback Method When Clearing Filter Conditions</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearFilter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤按钮图标</para>
-    /// <para lang="en">Get/Set Filter Button Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 过滤按钮图标</para>
+    ///  <para lang="en">Get/Set Filter Button Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FilterIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 重置按钮图标</para>
-    /// <para lang="en">Get/Set Reset Button Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 重置按钮图标</para>
+    ///  <para lang="en">Get/Set Reset Button Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

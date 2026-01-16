@@ -9,29 +9,30 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">默认定位实现类</para>
-/// <para lang="en">Default IP Locator Implementation Class</para>
+///  <para lang="zh">默认定位实现类</para>
+///  <para lang="en">Default IP Locator Implementation Class</para>
 /// </summary>
 [Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class DefaultIPLocator : IIPLocator
 {
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
     public virtual Task<string?> Locate(IPLocatorOption option) => Task.FromResult<string?>(null);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 IP定位器请求地址</para>
-    /// <para lang="en">Get/Set IP Locator Request URL</para>
+    ///  <para lang="zh">获得/设置 IP定位器请求地址</para>
+    ///  <para lang="en">Get/Set IP Locator Request URL</para>
     /// </summary>
     public string? Url { get; set; }
 
     /// <summary>
-    /// <para lang="zh">泛型定位方法</para>
-    /// <para lang="en">Generic Locate Method</para>
+    ///  <para lang="zh">泛型定位方法</para>
+    ///  <para lang="en">Generic Locate Method</para>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>

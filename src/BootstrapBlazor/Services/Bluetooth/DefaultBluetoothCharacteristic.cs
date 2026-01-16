@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DefaultBluetoothCharacteristic 实现类</para>
-/// <para lang="en">DefaultBluetoothCharacteristic Implementation Class</para>
+///  <para lang="zh">DefaultBluetoothCharacteristic 实现类</para>
+///  <para lang="en">DefaultBluetoothCharacteristic Implementation Class</para>
 /// </summary>
 sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
 {
@@ -16,35 +16,40 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     private readonly DotNetObjectReference<DefaultBluetoothCharacteristic> _interop;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string ServiceUUID { get; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string UUID { get; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string Id { get; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsNotify { get; set; }
 
     private Func<byte[], Task>? _notifyCallback;
 
     /// <summary>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="module"></param>
     /// <param name="clientId"></param>
@@ -61,7 +66,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public async Task<byte[]?> ReadValue(CancellationToken token = default)
@@ -73,7 +79,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
@@ -93,7 +100,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -119,8 +127,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <para lang="zh">JavaScript 报错回调方法</para>
-    /// <para lang="en">JavaScript Error Callback Method</para>
+    ///  <para lang="zh">JavaScript 报错回调方法</para>
+    ///  <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

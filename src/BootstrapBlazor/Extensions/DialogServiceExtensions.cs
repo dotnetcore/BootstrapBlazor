@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DialogService 扩展方法</para>
-/// <para lang="en">DialogService extensions method</para>
+///  <para lang="zh">DialogService 扩展方法</para>
+///  <para lang="en">DialogService extensions method</para>
 /// </summary>
 public static class DialogServiceExtensions
 {
     /// <summary>
-    /// <para lang="zh">Show 对话框泛型方法</para>
-    /// <para lang="en">Show dialog with generic type.</para>
+    ///  <para lang="zh">Show 对话框泛型方法</para>
+    ///  <para lang="en">Show dialog with generic type.</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="title"><para lang="zh">对话框标题，优先级高于 <see cref="DialogOption.Title"/></para><para lang="en">Dialog title, priority higher than <see cref="DialogOption.Title"/></para></param>
@@ -34,8 +34,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出搜索对话框</para>
-    /// <para lang="en">Show search dialog</para>
+    ///  <para lang="zh">弹出搜索对话框</para>
+    ///  <para lang="en">Show search dialog</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="option"><para lang="zh">SearchDialogOption 配置类实例</para><para lang="en">SearchDialogOption instance</para></param>
@@ -74,8 +74,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出编辑对话框</para>
-    /// <para lang="en">Show edit dialog</para>
+    ///  <para lang="zh">弹出编辑对话框</para>
+    ///  <para lang="en">Show edit dialog</para>
     /// </summary>
     /// <param name="service"><see cref="DialogService"/> <para lang="zh">服务实例</para><para lang="en">Instance</para></param>
     /// <param name="option"><see cref="ITableEditDialogOption{TModel}"/> <para lang="zh">配置类实例</para><para lang="en">Option Instance</para></param>
@@ -87,8 +87,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出带结果的对话框</para>
-    /// <para lang="en">Show dialog with result</para>
+    ///  <para lang="zh">弹出带结果的对话框</para>
+    ///  <para lang="en">Show dialog with result</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="option"><para lang="zh">对话框参数</para><para lang="en">Dialog option</para></param>
@@ -134,8 +134,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出带结果的对话框</para>
-    /// <para lang="en">Show dialog with result</para>
+    ///  <para lang="zh">弹出带结果的对话框</para>
+    ///  <para lang="en">Show dialog with result</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="title"><para lang="zh">对话框标题，优先级高于 <see cref="DialogOption.Title"/></para><para lang="en">Dialog title, priority higher than <see cref="DialogOption.Title"/></para></param>
@@ -181,8 +181,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出带保存按钮对话窗方法</para>
-    /// <para lang="en">Show dialog with save button</para>
+    ///  <para lang="zh">弹出带保存按钮对话窗方法</para>
+    ///  <para lang="en">Show dialog with save button</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
@@ -208,8 +208,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出带关闭按钮对话窗方法</para>
-    /// <para lang="en">Show dialog with close button</para>
+    ///  <para lang="zh">弹出带关闭按钮对话窗方法</para>
+    ///  <para lang="en">Show dialog with close button</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
@@ -232,8 +232,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">弹出表单对话窗方法</para>
-    /// <para lang="en">Show validate form dialog</para>
+    ///  <para lang="zh">弹出表单对话窗方法</para>
+    ///  <para lang="en">Show validate form dialog</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
@@ -256,8 +256,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">显示异常信息对话框扩展方法</para>
-    /// <para lang="en">Show error handler dialog</para>
+    ///  <para lang="zh">显示异常信息对话框扩展方法</para>
+    ///  <para lang="en">Show error handler dialog</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="fragment"></param>
@@ -275,8 +275,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">显示异常信息对话框扩展方法</para>
-    /// <para lang="en">Show exception dialog</para>
+    ///  <para lang="zh">显示异常信息对话框扩展方法</para>
+    ///  <para lang="en">Show exception dialog</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="exception"></param>

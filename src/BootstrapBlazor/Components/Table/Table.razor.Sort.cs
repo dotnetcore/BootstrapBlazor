@@ -8,84 +8,84 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">///</para>
-/// <para lang="en">///</para>
+///  <para lang="zh"></para>
+///  <para lang="en"></para>
 /// </summary>
 public partial class Table<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 排序字段名称</para>
-    /// <para lang="en">Get/Set Sort Column Name</para>
+    ///  <para lang="zh">获得/设置 排序字段名称</para>
+    ///  <para lang="en">Get/Set Sort Column Name</para>
     /// </summary>
     protected string? SortName { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 排序方式</para>
-    /// <para lang="en">Get/Set Sort Order</para>
+    ///  <para lang="zh">获得/设置 排序方式</para>
+    ///  <para lang="en">Get/Set Sort Order</para>
     /// </summary>
     protected SortOrder SortOrder { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 升序图标 fa-solid fa-sort-up</para>
-    /// <para lang="en">Get/Set Sort Ascending Icon fa-solid fa-sort-up</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 升序图标 fa-solid fa-sort-up</para>
+    ///  <para lang="en">Get/Set Sort Ascending Icon fa-solid fa-sort-up</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SortIconAsc { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 降序图标 fa-solid fa-sort-down</para>
-    /// <para lang="en">Get/Set Sort Descending Icon fa-solid fa-sort-down</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 降序图标 fa-solid fa-sort-down</para>
+    ///  <para lang="en">Get/Set Sort Descending Icon fa-solid fa-sort-down</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SortIconDesc { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 默认图标 fa-solid fa-sort</para>
-    /// <para lang="en">Get/Set Default Icon fa-solid fa-sort</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 默认图标 fa-solid fa-sort</para>
+    ///  <para lang="en">Get/Set Default Icon fa-solid fa-sort</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SortIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤图标 默认 fa-solid fa-filter</para>
-    /// <para lang="en">Get/Set Filter Icon Default fa-solid fa-filter</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 过滤图标 默认 fa-solid fa-filter</para>
+    ///  <para lang="en">Get/Set Filter Icon Default fa-solid fa-filter</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FilterIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"</para>
-    /// <para lang="en">Get/Set Multi-column sort order. Default empty. Separated by comma, e.g., "Name, Age desc"</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 多列排序顺序 默认为空 多列时使用逗号分割 如："Name, Age desc"</para>
+    ///  <para lang="en">Get/Set Multi-column sort order. Default empty. Separated by comma, e.g., "Name, Age desc"</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SortString { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 点击表头排序时回调方法</para>
-    /// <para lang="en">Get/Set Callback method when clicking header to sort</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 点击表头排序时回调方法</para>
+    ///  <para lang="en">Get/Set Callback method when clicking header to sort</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, SortOrder, string>? OnSort { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 内部表头排序时回调方法</para>
-    /// <para lang="en">Get/Set Callback method when internal header sort</para>
+    ///  <para lang="zh">获得/设置 内部表头排序时回调方法</para>
+    ///  <para lang="en">Get/Set Callback method when internal header sort</para>
     /// </summary>
     [NotNull]
     protected Func<string, SortOrder, Task>? InternalOnSortAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">点击列进行排序方法</para>
-    /// <para lang="en">Method to sort by clicking column</para>
+    ///  <para lang="zh">点击列进行排序方法</para>
+    ///  <para lang="en">Method to sort by clicking column</para>
     /// </summary>
     protected Func<Task> OnClickHeader(ITableColumn col) => async () =>
     {
@@ -116,8 +116,8 @@ public partial class Table<TItem>
     };
 
     /// <summary>
-    /// <para lang="zh">获取指定列头样式字符串</para>
-    /// <para lang="en">Get style string for specified column header</para>
+    ///  <para lang="zh">获取指定列头样式字符串</para>
+    ///  <para lang="en">Get style string for specified column header</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="isFilterHeader"></param>
@@ -130,8 +130,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得列头单元格样式</para>
-    /// <para lang="en">Get header cell style</para>
+    ///  <para lang="zh">获得列头单元格样式</para>
+    ///  <para lang="en">Get header cell style</para>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
@@ -202,8 +202,8 @@ public partial class Table<TItem>
             : CheckboxColumnCompactWidth;
 
     /// <summary>
-    /// <para lang="zh">获得指定列头固定列样式</para>
-    /// <para lang="en">Get fixed column style for specified column header</para>
+    ///  <para lang="zh">获得指定列头固定列样式</para>
+    ///  <para lang="en">Get fixed column style for specified column header</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="cellClass"></param>
@@ -216,8 +216,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得扩展按钮列固定列样式</para>
-    /// <para lang="en">Get fixed column style for extend button column</para>
+    ///  <para lang="zh">获得扩展按钮列固定列样式</para>
+    ///  <para lang="en">Get fixed column style for extend button column</para>
     /// </summary>
     /// <returns></returns>
     protected string? FixedExtendButtonsColumnClassString => CssBuilder.Default("table-column-button")
@@ -228,8 +228,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 按钮列样式表集合</para>
-    /// <para lang="en">Get button column class collection</para>
+    ///  <para lang="zh">获得 按钮列样式表集合</para>
+    ///  <para lang="en">Get button column class collection</para>
     /// </summary>
     /// <returns></returns>
     protected string? ExtendButtonsColumnClass => CssBuilder.Default()
@@ -240,10 +240,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得扩展按钮列固定列样式
-    ///</para>
-    /// <para lang="en">Gets扩展button列固定列style
-    ///</para>
+    ///  <para lang="zh">获得扩展按钮列固定列样式</para>
+    ///  <para lang="en">Gets扩展button列固定列style</para>
     /// </summary>
     /// <returns></returns>
     protected string? GetFixedExtendButtonsColumnStyleString(int margin = 0) => CssBuilder.Default()
@@ -341,8 +339,8 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获得列单元格 Style 用于设置文本超长溢出</para>
-    /// <para lang="en">Get cell style for setting text overflow</para>
+    ///  <para lang="zh">获得列单元格 Style 用于设置文本超长溢出</para>
+    ///  <para lang="en">Get cell style for setting text overflow</para>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
@@ -358,8 +356,8 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获得指定列头固定列样式</para>
-    /// <para lang="en">Get fixed column style for specified column header</para>
+    ///  <para lang="zh">获得指定列头固定列样式</para>
+    ///  <para lang="en">Get fixed column style for specified column header</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="margin"></param>
@@ -429,8 +427,8 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获取指定列头样式字符串</para>
-    /// <para lang="en">Get style string for specified column header</para>
+    ///  <para lang="zh">获取指定列头样式字符串</para>
+    ///  <para lang="en">Get style string for specified column header</para>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
@@ -442,8 +440,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 Cell 文字样式</para>
-    /// <para lang="en">Get Cell Text Style</para>
+    ///  <para lang="zh">获得 Cell 文字样式</para>
+    ///  <para lang="en">Get Cell Text Style</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="hasChildren"></param>
@@ -461,10 +459,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获取指定列头样式字符串
-    ///</para>
-    /// <para lang="en">获取指定列头style字符串
-    ///</para>
+    ///  <para lang="zh">获取指定列头样式字符串</para>
+    ///  <para lang="en">获取指定列头style字符串</para>
     /// </summary>
     /// <returns></returns>
     protected string? GetIconClassString(string fieldName) => CssBuilder.Default("sort-icon")
@@ -474,10 +470,8 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获取指定列头样式字符串
-    ///</para>
-    /// <para lang="en">获取指定列头style字符串
-    ///</para>
+    ///  <para lang="zh">获取指定列头样式字符串</para>
+    ///  <para lang="en">获取指定列头style字符串</para>
     /// </summary>
     /// <returns></returns>
     protected string? GetColumnToolboxIconClassString() => CssBuilder.Default(ColumnToolboxIcon)
@@ -485,64 +479,64 @@ public partial class Table<TItem>
 
     #region Advanced Sort
     /// <summary>
-    /// <para lang="zh">获得 高级排序样式</para>
-    /// <para lang="en">Get Advanced Sort Style</para>
+    ///  <para lang="zh">获得 高级排序样式</para>
+    ///  <para lang="en">Get Advanced Sort Style</para>
     /// </summary>
     protected string? AdvancedSortClass => CssBuilder.Default("btn btn-secondary")
         .AddClass("btn-info", AdvancedSortItems.Any())
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示高级排序按钮 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show advanced sort button. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示高级排序按钮 默认 false 不显示</para>
+    ///  <para lang="en">Get/Set Whether to show advanced sort button. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAdvancedSort { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 高级排序按钮图标</para>
-    /// <para lang="en">Get/Set Advanced Sort Button Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 高级排序按钮图标</para>
+    ///  <para lang="en">Get/Set Advanced Sort Button Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AdvancedSortButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 高级排序框的大小 默认 Medium</para>
-    /// <para lang="en">Get/Set Advanced Sort Dialog Size. Default Medium</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 高级排序框的大小 默认 Medium</para>
+    ///  <para lang="en">Get/Set Advanced Sort Dialog Size. Default Medium</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size AdvancedSortDialogSize { get; set; } = Size.Medium;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 高级排序框是否可以拖拽 默认 false 不可以拖拽</para>
-    /// <para lang="en">Get/Set Whether advanced sort dialog is draggable. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 高级排序框是否可以拖拽 默认 false 不可以拖拽</para>
+    ///  <para lang="en">Get/Set Whether advanced sort dialog is draggable. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AdvancedSortDialogIsDraggable { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 高级排序框是否显示最大化按钮 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show maximize button on advanced sort dialog. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 高级排序框是否显示最大化按钮 默认 false 不显示</para>
+    ///  <para lang="en">Get/Set Whether to show maximize button on advanced sort dialog. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AdvancedSortDialogShowMaximizeButton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 高级排序，默认为 Empty</para>
-    /// <para lang="en">Get/Set Advanced Sort Items. Default Empty</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 高级排序，默认为 Empty</para>
+    ///  <para lang="en">Get/Set Advanced Sort Items. Default Empty</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<TableSortItem> AdvancedSortItems { get; set; } = [];
 
     /// <summary>
-    /// <para lang="zh">高级排序按钮点击时调用此方法</para>
-    /// <para lang="en">Method called when advanced sort button is clicked</para>
+    ///  <para lang="zh">高级排序按钮点击时调用此方法</para>
+    ///  <para lang="en">Method called when advanced sort button is clicked</para>
     /// </summary>
     private async Task ShowSortDialog()
     {
@@ -566,8 +560,8 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">获得 <see cref="AdvancedSortItems"/> 中过滤条件</para>
-    /// <para lang="en">Get filter conditions from <see cref="AdvancedSortItems"/></para>
+    ///  <para lang="zh">获得 <see cref="AdvancedSortItems"/> 中过滤条件</para>
+    ///  <para lang="en">Get filter conditions from <see cref="AdvancedSortItems"/></para>
     /// </summary>
     /// <returns></returns>
     protected IEnumerable<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => p.ToString()) : Enumerable.Empty<string>();

@@ -6,24 +6,23 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">NotSupportFilter component
-///</para>
-/// <para lang="en">NotSupportFilter component
-///</para>
+///  <para lang="zh">NotSupportFilter component</para>
+///  <para lang="en">NotSupportFilter component</para>
 /// </summary>
 public partial class NotSupportFilter
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
+    ///  <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -33,7 +32,8 @@ public partial class NotSupportFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
@@ -42,7 +42,8 @@ public partial class NotSupportFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public override void Reset()
     {

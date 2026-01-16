@@ -8,15 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IconDialog Component</para>
-/// <para lang="en">IconDialog Component</para>
+///  <para lang="zh">IconDialog Component</para>
+///  <para lang="en">IconDialog Component</para>
 /// </summary>
 public partial class IconDialog
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 Icon 名称</para>
-    /// <para lang="en">Get/Set Icon Name</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 Icon 名称</para>
+    ///  <para lang="en">Get/Set Icon Name</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -26,33 +26,33 @@ public partial class IconDialog
     public string? IconName { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Label 显示文字</para>
-    /// <para lang="en">Get/Set Label Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 Label 显示文字</para>
+    ///  <para lang="en">Get/Set Label Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Label 显示文字</para>
-    /// <para lang="en">Get/Set Label Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 Label 显示文字</para>
+    ///  <para lang="en">Get/Set Label Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelFullText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 拷贝按钮显示文字</para>
-    /// <para lang="en">Get/Set Copy Button Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 拷贝按钮显示文字</para>
+    ///  <para lang="en">Get/Set Copy Button Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 拷贝成功提示文字</para>
-    /// <para lang="en">Get/Set Copied Tooltip Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 拷贝成功提示文字</para>
+    ///  <para lang="en">Get/Set Copied Tooltip Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CopiedTooltipText { get; set; }
@@ -72,8 +72,8 @@ public partial class IconDialog
     private string IconStyle { get; set; } = "solid";
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    ///  <para lang="zh">OnParametersSet 方法</para>
+    ///  <para lang="en">OnParametersSet Method</para>
     /// </summary>
     protected override void OnParametersSet()
     {

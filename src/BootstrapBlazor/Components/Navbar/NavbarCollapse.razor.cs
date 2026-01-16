@@ -6,19 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">NavbarCollapse 组件用于在导航栏中适配响应式布局
-///</para>
-/// <para lang="en">NavbarCollapse component用于在导航栏中适配响应式布局
-///</para>
+///  <para lang="zh">NavbarCollapse 组件用于在导航栏中适配响应式布局</para>
+///  <para lang="en">NavbarCollapse component用于在导航栏中适配响应式布局</para>
 /// </summary>
 public partial class NavbarCollapse
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 子组件模板
-    ///</para>
-    /// <para lang="en">Gets or sets 子componenttemplate
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 子组件模板</para>
+    ///  <para lang="en">Gets or sets 子componenttemplate</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

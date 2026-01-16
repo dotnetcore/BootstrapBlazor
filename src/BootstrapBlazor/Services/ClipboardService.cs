@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">粘贴板服务</para>
-/// <para lang="en">Clipboard Service</para>
+///  <para lang="zh">粘贴板服务</para>
+///  <para lang="en">Clipboard Service</para>
 /// </summary>
 public class ClipboardService(IJSRuntime jSRuntime)
 {
@@ -17,8 +17,8 @@ public class ClipboardService(IJSRuntime jSRuntime)
     private Task<JSModule> LoadModule() => jSRuntime.LoadUtility();
 
     /// <summary>
-    /// <para lang="zh">获取剪切板数据方法</para>
-    /// <para lang="en">Get Clipboard Data Method</para>
+    ///  <para lang="zh">获取剪切板数据方法</para>
+    ///  <para lang="en">Get Clipboard Data Method</para>
     /// </summary>
     public async Task<List<ClipboardItem>> Get(CancellationToken token = default)
     {
@@ -27,8 +27,8 @@ public class ClipboardService(IJSRuntime jSRuntime)
     }
 
     /// <summary>
-    /// <para lang="zh">获得剪切板拷贝文字方法</para>
-    /// <para lang="en">Get Clipboard Text Method</para>
+    ///  <para lang="zh">获得剪切板拷贝文字方法</para>
+    ///  <para lang="en">Get Clipboard Text Method</para>
     /// </summary>
     /// <returns></returns>
     public async Task<string?> GetText(CancellationToken token = default)
@@ -38,11 +38,11 @@ public class ClipboardService(IJSRuntime jSRuntime)
     }
 
     /// <summary>
-    /// <para lang="zh">将指定文本设置到剪切板方法</para>
-    /// <para lang="en">Set Copy Text to Clipboard Method</para>
+    ///  <para lang="zh">将指定文本设置到剪切板方法</para>
+    ///  <para lang="en">Set Copy Text to Clipboard Method</para>
     /// </summary>
-    /// <param name="text">要拷贝的文字</param>
-    /// <param name="callback">拷贝后回调方法</param>
+    /// <param name="text"><para lang="zh">要拷贝的文字</para><para lang="en">要拷贝的文字</para></param>
+    /// <param name="callback"><para lang="zh">拷贝后回调方法</para><para lang="en">拷贝后callback method</para></param>
     /// <param name="token"></param>
     /// <returns></returns>
     public async Task Copy(string? text, Func<Task>? callback = null, CancellationToken token = default)

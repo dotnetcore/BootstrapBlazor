@@ -9,14 +9,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DateTimeRange 时间范围组件</para>
-/// <para lang="en">DateTimeRange component</para>
+///  <para lang="zh">DateTimeRange 时间范围组件</para>
+///  <para lang="en">DateTimeRange component</para>
 /// </summary>
 public partial class DateTimeRange
 {
     /// <summary>
-    /// <para lang="zh">获得 组件样式名称</para>
-    /// <para lang="en">Get Component Class Name</para>
+    ///  <para lang="zh">获得 组件样式名称</para>
+    ///  <para lang="en">Get Component Class Name</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("select datetime-range form-control")
         .AddClass("disabled", IsDisabled)
@@ -26,8 +26,8 @@ public partial class DateTimeRange
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 组件小图标样式</para>
-    /// <para lang="en">Get Component Icon Class Name</para>
+    ///  <para lang="zh">获得 组件小图标样式</para>
+    ///  <para lang="en">Get Component Icon Class Name</para>
     /// </summary>
     private string? DateTimePickerIconClassString => CssBuilder.Default("range-bar")
         .AddClass(Icon)
@@ -35,8 +35,8 @@ public partial class DateTimeRange
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 用户选中的时间范围</para>
-    /// <para lang="en">Get User Selected Date Range</para>
+    ///  <para lang="zh">获得 用户选中的时间范围</para>
+    ///  <para lang="en">Get User Selected Date Range</para>
     /// </summary>
     internal DateTimeRangeValue SelectedValue { get; } = new DateTimeRangeValue();
 
@@ -94,111 +94,107 @@ public partial class DateTimeRange
     private string? SeparateText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否可以编辑内容 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Allow Edit. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否可以编辑内容 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Allow Edit. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Auto Close Popup When Sidebar Item Clicked. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Auto Close Popup When Sidebar Item Clicked. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false.
-    ///</para>
-    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false.
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false.</para>
+    ///  <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false.</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the selected value. 默认为 false.
-    ///</para>
-    /// <para lang="en">Gets or sets whether show the selected value. Default is false.
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否 show the selected value. 默认为 false.</para>
+    ///  <para lang="en">Gets or sets whether show the selected value. Default is false.</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSelectedValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 清空按钮文字</para>
-    /// <para lang="en">Get/Set Clear Button Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 清空按钮文字</para>
+    ///  <para lang="en">Get/Set Clear Button Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ClearButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 清空图标 默认 fa-solid fa-circle-xmark</para>
-    /// <para lang="en">Get/Set Clear Icon. Default is fa-solid fa-circle-xmark</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 清空图标 默认 fa-solid fa-circle-xmark</para>
+    ///  <para lang="en">Get/Set Clear Icon. Default is fa-solid fa-circle-xmark</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
-    /// <para lang="en">Get/Set Component Display Mode. Default is Date Mode</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
+    ///  <para lang="en">Get/Set Component Display Mode. Default is Date Mode</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
-    /// <para lang="en">Get/Set Component Display Mode. Default is Date Mode</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
+    ///  <para lang="en">Get/Set Component Display Mode. Default is Date Mode</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 今天按钮文字</para>
-    /// <para lang="en">Get/Set Today Button Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 今天按钮文字</para>
+    ///  <para lang="en">Get/Set Today Button Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? TodayButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 确定按钮文字</para>
-    /// <para lang="en">Get/Set Confirm Button Text</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 确定按钮文字</para>
+    ///  <para lang="en">Get/Set Confirm Button Text</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大值</para>
-    /// <para lang="en">Get/Set Max Value</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最大值</para>
+    ///  <para lang="en">Get/Set Max Value</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime MaxValue { get; set; } = DateTime.MaxValue;
     /// <summary>
-    /// <para lang="zh">获得/设置 最小值</para>
-    /// <para lang="en">Get/Set Min Value</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 最小值</para>
+    ///  <para lang="en">Get/Set Min Value</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime MinValue { get; set; } = DateTime.MinValue;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否允许为空 默认为 true</para>
-    /// <para lang="en">Get/Set Whether to Allow Null. Default is true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否允许为空 默认为 true</para>
+    ///  <para lang="en">Get/Set Whether to Allow Null. Default is true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已过期，请使用 ShowClearButton 代替")]
@@ -210,127 +206,125 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示清空按钮 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Clear Button. Default is true</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示清空按钮 默认 true</para>
+    ///  <para lang="en">Get/Set Whether to Show Clear Button. Default is true</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClearButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件图标</para>
-    /// <para lang="en">Get/Set Component Icon</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 组件图标</para>
+    ///  <para lang="en">Get/Set Component Icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示今天按钮 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to Show Today Button. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示今天按钮 默认为 false</para>
+    ///  <para lang="en">Get/Set Whether to Show Today Button. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToday { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
-    /// <para lang="en">Get/Set Whether to Show Sidebar. Default is not shown</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
+    ///  <para lang="en">Get/Set Whether to Show Sidebar. Default is not shown</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
-    /// <para lang="en">Get/Set Sidebar Items</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
+    ///  <para lang="en">Get/Set Sidebar Items</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
 
     /// <summary>
-    /// <para lang="zh">点击确认按钮回调委托方法</para>
-    /// <para lang="en">Callback Method When Confirm Button Clicked</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">点击确认按钮回调委托方法</para>
+    ///  <para lang="en">Callback Method When Confirm Button Clicked</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnConfirm { get; set; }
 
     /// <summary>
-    /// <para lang="zh">点击清空按钮回调委托方法</para>
-    /// <para lang="en">Callback Method When Clear Button Clicked</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">点击清空按钮回调委托方法</para>
+    ///  <para lang="en">Callback Method When Clear Button Clicked</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
-    /// <para lang="en">Get/Set Time Format String. Default is "HH:mm:ss"</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
+    ///  <para lang="en">Get/Set Time Format String. Default is "HH:mm:ss"</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? TimeFormat { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"</para>
-    /// <para lang="en">Get/Set Date Format String. Default is "yyyy-MM-dd"</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"</para>
+    ///  <para lang="en">Get/Set Date Format String. Default is "yyyy-MM-dd"</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DateFormat { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"</para>
-    /// <para lang="en">Get/Set Date Time Format String. Default is "yyyy-MM-dd HH:mm:ss"</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"</para>
+    ///  <para lang="en">Get/Set Date Time Format String. Default is "yyyy-MM-dd HH:mm:ss"</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DateTimeFormat { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Lunar Calendar. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Show Chinese Lunar Calendar. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLunar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Solar Term. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Show Chinese Solar Term. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSolarTerm { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示节日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Festivals. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示节日 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Show Festivals. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFestivals { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Holidays. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
+    ///  <para lang="en">Get/Set Whether to Show Holidays. Default is false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the date value changed event 回调.
-    ///</para>
-    /// <para lang="en">Gets or sets the date value changed event callback.
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 the date value changed event 回调.</para>
+    ///  <para lang="en">Gets or sets the date value changed event callback.</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnDateClick { get; set; }
@@ -353,7 +347,8 @@ public partial class DateTimeRange
     private bool _showLeftButtons = false;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -364,7 +359,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -409,7 +405,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
@@ -432,8 +429,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">点击 清除按钮调用此方法</para>
-    /// <para lang="en">Method Called When Clear Button Clicked</para>
+    ///  <para lang="zh">点击 清除按钮调用此方法</para>
+    ///  <para lang="en">Method Called When Clear Button Clicked</para>
     /// </summary>
     /// <returns></returns>
     private async Task ClickClearButton()
@@ -478,8 +475,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">点击 确认时调用此方法</para>
-    /// <para lang="en">Method Called When Confirm Button Clicked</para>
+    ///  <para lang="zh">点击 确认时调用此方法</para>
+    ///  <para lang="en">Method Called When Confirm Button Clicked</para>
     /// </summary>
     private async Task ClickTodayButton()
     {
@@ -492,8 +489,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">点击 确认时调用此方法</para>
-    /// <para lang="en">Method Called When Confirm Button Clicked</para>
+    ///  <para lang="zh">点击 确认时调用此方法</para>
+    ///  <para lang="en">Method Called When Confirm Button Clicked</para>
     /// </summary>
     private async Task ClickConfirmButton()
     {
@@ -532,8 +529,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">更新值方法</para>
-    /// <para lang="en">Update Value Method</para>
+    ///  <para lang="zh">更新值方法</para>
+    ///  <para lang="en">Update Value Method</para>
     /// </summary>
     /// <param name="d"></param>
     private async Task UpdateValue(DateTime d)
@@ -597,7 +594,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <returns></returns>
@@ -627,8 +625,8 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// <para lang="zh">客户端弹窗关闭后由 Javascript 调用此方法</para>
-    /// <para lang="en">Method Called by Javascript After Client Popup Closed</para>
+    ///  <para lang="zh">客户端弹窗关闭后由 Javascript 调用此方法</para>
+    ///  <para lang="en">Method Called by Javascript After Client Popup Closed</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

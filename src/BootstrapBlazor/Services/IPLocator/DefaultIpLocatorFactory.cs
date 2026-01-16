@@ -8,16 +8,16 @@ using Microsoft.Extensions.DependencyInjection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IIPLocatorFactory 接口实现类</para>
-/// <para lang="en">IIPLocatorFactory Implementation Class</para>
+///  <para lang="zh">IIPLocatorFactory 接口实现类</para>
+///  <para lang="en">IIPLocatorFactory Implementation Class</para>
 /// </summary>
 class DefaultIpLocatorFactory(IServiceProvider provider, IOptionsMonitor<BootstrapBlazorOptions> options) : IIpLocatorFactory
 {
     private Dictionary<string, IIpLocatorProvider>? _providers = null;
 
     /// <summary>
-    /// <para lang="zh">创建 <see cref="IIpLocatorProvider"/> 实例方法</para>
-    /// <para lang="en">Create <see cref="IIpLocatorProvider"/> Instance Method</para>
+    ///  <para lang="zh">创建 <see cref="IIpLocatorProvider"/> 实例方法</para>
+    ///  <para lang="en">Create <see cref="IIpLocatorProvider"/> Instance Method</para>
     /// </summary>
     /// <param name="key"></param>
     public IIpLocatorProvider Create(string? key = null)

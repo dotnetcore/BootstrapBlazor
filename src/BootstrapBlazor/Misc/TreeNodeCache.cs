@@ -6,34 +6,34 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Tree 组件节点缓存类</para>
-/// <para lang="en">Tree component node cache class</para>
+///  <para lang="zh">Tree 组件节点缓存类</para>
+///  <para lang="en">Tree component node cache class</para>
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
 public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> where TNode : ICheckableNode<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得 所有选中节点集合 作为缓存使用</para>
-    /// <para lang="en">Get all checked node collection used as cache</para>
+    ///  <para lang="zh">获得 所有选中节点集合 作为缓存使用</para>
+    ///  <para lang="en">Get all checked node collection used as cache</para>
     /// </summary>
     private readonly HashSet<TItem> _checkedNodeCache;
 
     /// <summary>
-    /// <para lang="zh">获得 所有未选中节点集合 作为缓存使用</para>
-    /// <para lang="en">Get all unchecked node collection used as cache</para>
+    ///  <para lang="zh">获得 所有未选中节点集合 作为缓存使用</para>
+    ///  <para lang="en">Get all unchecked node collection used as cache</para>
     /// </summary>
     private readonly HashSet<TItem> _uncheckedNodeCache;
 
     /// <summary>
-    /// <para lang="zh">获得 所有半选中节点集合 作为缓存使用</para>
-    /// <para lang="en">Get all indeterminate node collection used as cache</para>
+    ///  <para lang="zh">获得 所有半选中节点集合 作为缓存使用</para>
+    ///  <para lang="en">Get all indeterminate node collection used as cache</para>
     /// </summary>
     private readonly HashSet<TItem> _indeterminateNodeCache;
 
     /// <summary>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
+    ///  <para lang="zh">构造函数</para>
+    ///  <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="comparer"></param>
     public TreeNodeCache(IModelEqualityComparer<TItem> comparer) : base(comparer)
@@ -44,8 +44,8 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// <para lang="zh">切换选中状态方法</para>
-    /// <para lang="en">Toggle checked state method</para>
+    ///  <para lang="zh">切换选中状态方法</para>
+    ///  <para lang="en">Toggle checked state method</para>
     /// </summary>
     /// <param name="node"></param>
     /// <returns></returns>
@@ -75,8 +75,8 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// <para lang="zh">检查当前节点是否选中</para>
-    /// <para lang="en">Check whether current node is checked</para>
+    ///  <para lang="zh">检查当前节点是否选中</para>
+    ///  <para lang="en">Check whether current node is checked</para>
     /// </summary>
     /// <param name="node"></param>
     /// <returns></returns>
@@ -127,8 +127,8 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// <para lang="zh">重置是否选中状态</para>
-    /// <para lang="en">Reset checked state</para>
+    ///  <para lang="zh">重置是否选中状态</para>
+    ///  <para lang="en">Reset checked state</para>
     /// </summary>
     /// <param name="nodes"></param>
     public void IsChecked(List<TNode> nodes)
@@ -156,8 +156,8 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// <para lang="zh">通过指定节点查找父节点</para>
-    /// <para lang="en">Find parent node by specified node</para>
+    ///  <para lang="zh">通过指定节点查找父节点</para>
+    ///  <para lang="en">Find parent node by specified node</para>
     /// </summary>
     /// <param name="nodes"><para lang="zh">数据集合</para><para lang="en">Data collection</para></param>
     /// <param name="node"><para lang="zh">指定节点</para><para lang="en">Specified node</para></param>
@@ -182,8 +182,8 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     }
 
     /// <summary>
-    /// <para lang="zh">清除缓存方法</para>
-    /// <para lang="en">Clear cache method</para>
+    ///  <para lang="zh">清除缓存方法</para>
+    ///  <para lang="en">Clear cache method</para>
     /// </summary>
     public void Reset()
     {

@@ -8,104 +8,84 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">颜色枚举类型</para>
-/// <para lang="en">Color Enum</para>
+///  <para lang="zh">颜色枚举类型</para>
+///  <para lang="en">Color Enum</para>
 /// </summary>
 public enum Color
 {
     /// <summary>
-    /// <para lang="zh">无颜色</para>
-    /// <para lang="en">None</para>
+    ///  <para lang="zh">无颜色</para>
+    ///  <para lang="en">None</para>
     /// </summary>
     [Description("none")]
     None,
 
     /// <summary>
-    /// <para lang="zh">active
-    ///</para>
-    /// <para lang="en">active
-    ///</para>
+    ///  <para lang="zh">active</para>
+    ///  <para lang="en">active</para>
     /// </summary>
     [Description("active")]
     Active,
 
     /// <summary>
-    /// <para lang="zh">primary
-    ///</para>
-    /// <para lang="en">primary
-    ///</para>
+    ///  <para lang="zh">primary</para>
+    ///  <para lang="en">primary</para>
     /// </summary>
     [Description("primary")]
     Primary,
 
     /// <summary>
-    /// <para lang="zh">secondary
-    ///</para>
-    /// <para lang="en">secondary
-    ///</para>
+    ///  <para lang="zh">secondary</para>
+    ///  <para lang="en">secondary</para>
     /// </summary>
     [Description("secondary")]
     Secondary,
 
     /// <summary>
-    /// <para lang="zh">success
-    ///</para>
-    /// <para lang="en">success
-    ///</para>
+    ///  <para lang="zh">success</para>
+    ///  <para lang="en">success</para>
     /// </summary>
     [Description("success")]
     Success,
 
     /// <summary>
-    /// <para lang="zh">danger
-    ///</para>
-    /// <para lang="en">danger
-    ///</para>
+    ///  <para lang="zh">danger</para>
+    ///  <para lang="en">danger</para>
     /// </summary>
     [Description("danger")]
     Danger,
 
     /// <summary>
-    /// <para lang="zh">warning
-    ///</para>
-    /// <para lang="en">warning
-    ///</para>
+    ///  <para lang="zh">warning</para>
+    ///  <para lang="en">warning</para>
     /// </summary>
     [Description("warning")]
     Warning,
 
     /// <summary>
-    /// <para lang="zh">info
-    ///</para>
-    /// <para lang="en">info
-    ///</para>
+    ///  <para lang="zh">info</para>
+    ///  <para lang="en">info</para>
     /// </summary>
     [Description("info")]
     Info,
 
     /// <summary>
-    /// <para lang="zh">light
-    ///</para>
-    /// <para lang="en">light
-    ///</para>
+    ///  <para lang="zh">light</para>
+    ///  <para lang="en">light</para>
     /// </summary>
     [Description("light")]
     Light,
 
     /// <summary>
-    /// <para lang="zh">dark
-    ///</para>
-    /// <para lang="en">dark
-    ///</para>
+    ///  <para lang="zh">dark</para>
+    ///  <para lang="en">dark</para>
     /// </summary>
     [Description("dark")]
     Dark,
 
     /// <summary>
-    /// <para lang="zh">link
-    ///</para>
-    /// <para lang="en">link
-    ///</para>
+    ///  <para lang="zh">link</para>
+    ///  <para lang="en">link</para>
     /// </summary>
     [Description("link")]
     Link

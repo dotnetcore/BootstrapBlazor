@@ -6,32 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">DateTimePicker 组件视图显示模式</para>
-/// <para lang="en">DateTimePicker Components View Mode</para>
+///  <para lang="zh">DateTimePicker 组件视图显示模式</para>
+///  <para lang="en">DateTimePicker Components View Mode</para>
 /// </summary>
 public enum DatePickerViewMode
 {
     /// <summary>
-    /// <para lang="zh">年月日时分秒模式</para>
-    /// <para lang="en">DateTime Mode</para>
+    ///  <para lang="zh">年月日时分秒模式</para>
+    ///  <para lang="en">DateTime Mode</para>
     /// </summary>
     DateTime,
 
     /// <summary>
-    /// <para lang="zh">年月日模式</para>
-    /// <para lang="en">Date Mode</para>
+    ///  <para lang="zh">年月日模式</para>
+    ///  <para lang="en">Date Mode</para>
     /// </summary>
     Date,
 
     /// <summary>
-    /// <para lang="zh">月视图</para>
-    /// <para lang="en">Month Mode</para>
+    ///  <para lang="zh">月视图</para>
+    ///  <para lang="en">Month Mode</para>
     /// </summary>
     Month,
 
     /// <summary>
-    /// <para lang="zh">年视图</para>
-    /// <para lang="en">Year Mode</para>
+    ///  <para lang="zh">年视图</para>
+    ///  <para lang="en">Year Mode</para>
     /// </summary>
     Year
 }

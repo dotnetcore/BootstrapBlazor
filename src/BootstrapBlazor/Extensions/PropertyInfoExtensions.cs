@@ -8,18 +8,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">PropertyInfo 扩展方法
-///</para>
-/// <para lang="en">PropertyInfo 扩展方法
-///</para>
+///  <para lang="zh">PropertyInfo 扩展方法</para>
+///  <para lang="en">PropertyInfo 扩展方法</para>
 /// </summary>
 public static class PropertyInfoExtensions
 {
     /// <summary>
-    /// <para lang="zh">判断属性是否为静态属性
-    ///</para>
-    /// <para lang="en">判断propertywhether为静态property
-    ///</para>
+    ///  <para lang="zh">判断属性是否为静态属性</para>
+    ///  <para lang="en">判断propertywhether为静态property</para>
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>
@@ -30,20 +26,16 @@ public static class PropertyInfoExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">判断属性是否只读扩展方法
-    ///</para>
-    /// <para lang="en">判断propertywhether只读扩展方法
-    ///</para>
+    ///  <para lang="zh">判断属性是否只读扩展方法</para>
+    ///  <para lang="en">判断propertywhether只读扩展方法</para>
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>
     public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
 
     /// <summary>
-    /// <para lang="zh">判断是否为 Init 扩展方法
-    ///</para>
-    /// <para lang="en">判断whether为 Init 扩展方法
-    ///</para>
+    ///  <para lang="zh">判断是否为 Init 扩展方法</para>
+    ///  <para lang="en">判断whether为 Init 扩展方法</para>
     /// </summary>
     /// <param name="p"></param>
     /// <returns></returns>

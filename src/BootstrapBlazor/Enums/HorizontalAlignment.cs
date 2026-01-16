@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">///</para>
-/// <para lang="en">///</para>
+///  <para lang="zh"></para>
+///  <para lang="en"></para>
 /// </summary>
 public enum HorizontalAlignment
 {
     /// <summary>
-    /// <para lang="zh">///</para>
-    /// <para lang="en">///</para>
+    ///  <para lang="zh"></para>
+    ///  <para lang="en"></para>
     /// </summary>
     Left,
 
     /// <summary>
-    /// <para lang="zh">///</para>
-    /// <para lang="en">///</para>
+    ///  <para lang="zh"></para>
+    ///  <para lang="en"></para>
     /// </summary>
     Center,
 
     /// <summary>
-    /// <para lang="zh">///</para>
-    /// <para lang="en">///</para>
+    ///  <para lang="zh"></para>
+    ///  <para lang="en"></para>
     /// </summary>
     Right
 }

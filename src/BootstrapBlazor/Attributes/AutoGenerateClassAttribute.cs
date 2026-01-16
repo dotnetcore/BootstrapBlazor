@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">AutoGenerateColumn 属性类，用于在 <see cref="Table{TItem}"/> 中标记自动生成的列</para>
-/// <para lang="en">AutoGenerateColumn attribute class, used to mark auto-generated columns in <see cref="Table{TItem}"/></para>
+///  <para lang="zh">AutoGenerateColumn 属性类，用于在 <see cref="Table{TItem}"/> 中标记自动生成的列</para>
+///  <para lang="en">AutoGenerateColumn attribute class, used to mark auto-generated columns in <see cref="Table{TItem}"/></para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class AutoGenerateClassAttribute : AutoGenerateBaseAttribute

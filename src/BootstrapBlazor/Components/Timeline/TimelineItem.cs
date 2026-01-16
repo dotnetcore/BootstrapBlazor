@@ -6,66 +6,50 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">时间线选项
-///</para>
-/// <para lang="en">时间线选项
-///</para>
+///  <para lang="zh">时间线选项</para>
+///  <para lang="en">时间线选项</para>
 /// </summary>
 public class TimelineItem
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 时间线内容
-    ///</para>
-    /// <para lang="en">Gets or sets 时间线content
-    ///</para>
+    ///  <para lang="zh">获得/设置 时间线内容</para>
+    ///  <para lang="en">Gets or sets 时间线content</para>
     /// </summary>
     public string? Content { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间线描述
-    ///</para>
-    /// <para lang="en">Gets or sets 时间线描述
-    ///</para>
+    ///  <para lang="zh">获得/设置 时间线描述</para>
+    ///  <para lang="en">Gets or sets 时间线描述</para>
     /// </summary>
     public string? Description { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间线描述模板
-    ///</para>
-    /// <para lang="en">Gets or sets 时间线描述template
-    ///</para>
+    ///  <para lang="zh">获得/设置 时间线描述模板</para>
+    ///  <para lang="en">Gets or sets 时间线描述template</para>
     /// </summary>
     public RenderFragment? DescriptionTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间线颜色
-    ///</para>
-    /// <para lang="en">Gets or sets 时间线color
-    ///</para>
+    ///  <para lang="zh">获得/设置 时间线颜色</para>
+    ///  <para lang="en">Gets or sets 时间线color</para>
     /// </summary>
     public Color Color { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 时间线图标
-    ///</para>
-    /// <para lang="en">Gets or sets 时间线icon
-    ///</para>
+    ///  <para lang="zh">获得/设置 时间线图标</para>
+    ///  <para lang="en">Gets or sets 时间线icon</para>
     /// </summary>
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自定义组件
-    ///</para>
-    /// <para lang="en">Gets or sets 自定义component
-    ///</para>
+    ///  <para lang="zh">获得/设置 自定义组件</para>
+    ///  <para lang="en">Gets or sets 自定义component</para>
     /// </summary>
     public BootstrapDynamicComponent? Component { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 时间线节点样式
-    ///</para>
-    /// <para lang="en">Gets 时间线节点style
-    ///</para>
+    ///  <para lang="zh">获得 时间线节点样式</para>
+    ///  <para lang="en">Gets 时间线节点style</para>
     /// </summary>
     internal string? ToNodeClassString() => CssBuilder.Default("timeline-item-node-normal timeline-item-node")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && string.IsNullOrEmpty(Icon))
@@ -73,10 +57,8 @@ public class TimelineItem
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得 图标样式
-    ///</para>
-    /// <para lang="en">Gets iconstyle
-    ///</para>
+    ///  <para lang="zh">获得 图标样式</para>
+    ///  <para lang="en">Gets iconstyle</para>
     /// </summary>
     /// <returns></returns>
     internal string? ToIconClassString() => CssBuilder.Default("timeline-item-icon")

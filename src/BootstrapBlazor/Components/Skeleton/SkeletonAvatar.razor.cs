@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">SkeletonAvatar 组件</para>
-/// <para lang="en">SkeletonAvatar Component</para>
+///  <para lang="zh">SkeletonAvatar 组件</para>
+///  <para lang="en">SkeletonAvatar Component</para>
 /// </summary>
 public sealed partial class SkeletonAvatar
 {
@@ -16,9 +16,9 @@ public sealed partial class SkeletonAvatar
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否为圆形 默认为 false</para>
-    /// <para lang="en">Get/Set Whether circle. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否为圆形 默认为 false</para>
+    ///  <para lang="en">Get/Set Whether circle. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Circle { get; set; }

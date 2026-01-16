@@ -10,42 +10,38 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">FieldIdentifier 扩展操作类</para>
-/// <para lang="en">FieldIdentifier Extension Operation Class</para>
+///  <para lang="zh">FieldIdentifier 扩展操作类</para>
+///  <para lang="en">FieldIdentifier Extension Operation Class</para>
 /// </summary>
 public static class FieldIdentifierExtensions
 {
     /// <summary>
-    /// <para lang="zh">获取显示名称方法
-    ///</para>
-    /// <para lang="en">获取display名称方法
-    ///</para>
+    ///  <para lang="zh">获取显示名称方法</para>
+    ///  <para lang="en">获取display名称方法</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <returns></returns>
     public static string GetDisplayName(this FieldIdentifier fieldIdentifier) => Utility.GetDisplayName(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
-    /// <para lang="zh">获取 PlaceHolder 方法</para>
-    /// <para lang="en">Get PlaceHolder method</para>
+    ///  <para lang="zh">获取 PlaceHolder 方法</para>
+    ///  <para lang="en">Get PlaceHolder method</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <returns></returns>
     public static string? GetPlaceHolder(this FieldIdentifier fieldIdentifier) => Utility.GetPlaceHolder(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
-    /// <para lang="zh">获取显示名称方法
-    ///</para>
-    /// <para lang="en">获取display名称方法
-    ///</para>
+    ///  <para lang="zh">获取显示名称方法</para>
+    ///  <para lang="en">获取display名称方法</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <returns></returns>
     public static RangeAttribute? GetRange(this FieldIdentifier fieldIdentifier) => Utility.GetRange(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
-    /// <para lang="zh">获得 <see cref="RequiredValidator"/> 实例</para>
-    /// <para lang="en">Get <see cref="RequiredValidator"/> instance</para>
+    ///  <para lang="zh">获得 <see cref="RequiredValidator"/> 实例</para>
+    ///  <para lang="en">Get <see cref="RequiredValidator"/> instance</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="localizerFactory"></param>

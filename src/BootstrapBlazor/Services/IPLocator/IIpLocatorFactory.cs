@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IIpLocatorFactory 接口</para>
-/// <para lang="en">IIpLocatorFactory Interface</para>
+///  <para lang="zh">IIpLocatorFactory 接口</para>
+///  <para lang="en">IIpLocatorFactory Interface</para>
 /// </summary>
 public interface IIpLocatorFactory
 {
     /// <summary>
-    /// <para lang="zh">创建 IIPLocator 实例方法</para>
-    /// <para lang="en">Create IIPLocator Instance Method</para>
+    ///  <para lang="zh">创建 IIPLocator 实例方法</para>
+    ///  <para lang="en">Create IIPLocator Instance Method</para>
     /// </summary>
     /// <param name="key"><para lang="zh">注入时使用的 key 值</para><para lang="en">Key used when injecting</para></param>
     /// <returns></returns>

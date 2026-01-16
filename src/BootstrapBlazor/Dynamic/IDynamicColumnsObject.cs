@@ -6,18 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">动态对象接口
-///</para>
-/// <para lang="en">动态对象接口
-///</para>
+///  <para lang="zh">动态对象接口</para>
+///  <para lang="en">动态对象接口</para>
 /// </summary>
 public interface IDynamicColumnsObject : IDynamicObject
 {
     /// <summary>
-    /// <para lang="zh">获得设置 列与列数值集合
-    ///</para>
-    /// <para lang="en">GetsSets 列与列数值collection
-    ///</para>
+    ///  <para lang="zh">获得设置 列与列数值集合</para>
+    ///  <para lang="en">GetsSets 列与列数值collection</para>
     /// </summary>
     public Dictionary<string, object?> Columns { get; set; }
 }

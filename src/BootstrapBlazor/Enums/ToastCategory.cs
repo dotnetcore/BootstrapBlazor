@@ -8,45 +8,35 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Toast 组件类型
-///</para>
-/// <para lang="en">Toast componenttype
-///</para>
+///  <para lang="zh">Toast 组件类型</para>
+///  <para lang="en">Toast componenttype</para>
 /// </summary>
 public enum ToastCategory
 {
     /// <summary>
-    /// <para lang="zh">成功信息
-    ///</para>
-    /// <para lang="en">成功信息
-    ///</para>
+    ///  <para lang="zh">成功信息</para>
+    ///  <para lang="en">成功信息</para>
     /// </summary>
     [Description("success")]
     Success,
 
     /// <summary>
-    /// <para lang="zh">提示信息
-    ///</para>
-    /// <para lang="en">提示信息
-    ///</para>
+    ///  <para lang="zh">提示信息</para>
+    ///  <para lang="en">提示信息</para>
     /// </summary>
     [Description("info")]
     Information,
 
     /// <summary>
-    /// <para lang="zh">错误信息
-    ///</para>
-    /// <para lang="en">错误信息
-    ///</para>
+    ///  <para lang="zh">错误信息</para>
+    ///  <para lang="en">错误信息</para>
     /// </summary>
     [Description("danger")]
     Error,
 
     /// <summary>
-    /// <para lang="zh">警告信息
-    ///</para>
-    /// <para lang="en">警告信息
-    ///</para>
+    ///  <para lang="zh">警告信息</para>
+    ///  <para lang="en">警告信息</para>
     /// </summary>
     [Description("warning")]
     Warning

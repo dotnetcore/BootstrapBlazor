@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"><see cref="DrawerOption"/> 扩展方法</para>
-/// <para lang="en"><see cref="DrawerOption"/> Extensions</para>
+///  <para lang="zh"><see cref="DrawerOption"/> 扩展方法</para>
+///  <para lang="en"><see cref="DrawerOption"/> Extensions</para>
 /// </summary>
 public static class DrawerOptionExtensions
 {
     /// <summary>
-    /// <para lang="zh">获得 组件渲染块</para>
-    /// <para lang="en">Get component render fragment</para>
+    ///  <para lang="zh">获得 组件渲染块</para>
+    ///  <para lang="en">Get component render fragment</para>
     /// </summary>
     /// <param name="drawerOption"></param>
     /// <returns></returns>

@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IModelEqualComparer 扩展方法类</para>
-/// <para lang="en">IModelEqualComparer extension methods</para>
+///  <para lang="zh">IModelEqualComparer 扩展方法类</para>
+///  <para lang="en">IModelEqualComparer extension methods</para>
 /// </summary>
 public static class IModelEqualityComparerExtensions
 {
     /// <summary>
-    /// <para lang="zh">Equals 扩展方法</para>
-    /// <para lang="en">Equals extension method</para>
+    ///  <para lang="zh">Equals 扩展方法</para>
+    ///  <para lang="en">Equals extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="comparer"></param>

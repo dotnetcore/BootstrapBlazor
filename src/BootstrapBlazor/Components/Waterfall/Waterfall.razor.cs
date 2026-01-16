@@ -6,60 +6,48 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Waterfall 组件
-///</para>
-/// <para lang="en">Waterfall component
-///</para>
+///  <para lang="zh">Waterfall 组件</para>
+///  <para lang="en">Waterfall component</para>
 /// </summary>
 public partial class Waterfall
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 点击列表项回调方法
-    ///</para>
-    /// <para lang="en">Gets or sets 点击列表项callback method
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 点击列表项回调方法</para>
+    ///  <para lang="en">Gets or sets 点击列表项callback method</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<WaterfallItem, Task>? OnClickItemAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 请求数据回调方法
-    ///</para>
-    /// <para lang="en">Gets or sets 请求datacallback method
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 请求数据回调方法</para>
+    ///  <para lang="en">Gets or sets 请求datacallback method</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<WaterfallItem?, Task<IEnumerable<WaterfallItem>>>? OnRequestAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 模板 默认为 null
-    ///</para>
-    /// <para lang="en">Gets or sets template Default is为 null
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 模板 默认为 null</para>
+    ///  <para lang="en">Gets or sets template Default is为 null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<(WaterfallItem Item, RenderFragment Context)>? Template { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图片模板 默认为 null
-    ///</para>
-    /// <para lang="en">Gets or sets 图片template Default is为 null
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 图片模板 默认为 null</para>
+    ///  <para lang="en">Gets or sets 图片template Default is为 null</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<WaterfallItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 加载模板
-    ///</para>
-    /// <para lang="en">Gets or sets 加载template
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 加载模板</para>
+    ///  <para lang="en">Gets or sets 加载template</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadTemplate { get; set; }
@@ -67,21 +55,17 @@ public partial class Waterfall
     private readonly List<WaterfallItem> _items = [];
 
     /// <summary>
-    /// <para lang="zh">获得/设置 每一项宽度 默认 216
-    ///</para>
-    /// <para lang="en">Gets or sets 每一项width Default is 216
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 每一项宽度 默认 216</para>
+    ///  <para lang="en">Gets or sets 每一项width Default is 216</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ItemWidth { get; set; } = 216;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 每一项最小宽度 默认 316 用于显示 loading 图标
-    ///</para>
-    /// <para lang="en">Gets or sets 每一项最小width Default is 316 用于display loading icon
-    ///</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 每一项最小宽度 默认 316 用于显示 loading 图标</para>
+    ///  <para lang="en">Gets or sets 每一项最小width Default is 316 用于display loading icon</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ItemMinHeight { get; set; } = 316;
@@ -98,7 +82,8 @@ public partial class Waterfall
     private bool _rendered;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -114,16 +99,15 @@ public partial class Waterfall
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnloadAsync));
 
     /// <summary>
-    /// <para lang="zh">请求数据回调方法
-    ///</para>
-    /// <para lang="en">请求datacallback method
-    ///</para>
+    ///  <para lang="zh">请求数据回调方法</para>
+    ///  <para lang="en">请求datacallback method</para>
     /// </summary>
     [JSInvokable]
     public async Task OnloadAsync(WaterfallItem? item)
@@ -138,10 +122,8 @@ public partial class Waterfall
     }
 
     /// <summary>
-    /// <para lang="zh">点击图片回调方法
-    ///</para>
-    /// <para lang="en">点击图片callback method
-    ///</para>
+    ///  <para lang="zh">点击图片回调方法</para>
+    ///  <para lang="en">点击图片callback method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>

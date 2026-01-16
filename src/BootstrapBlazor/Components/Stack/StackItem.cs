@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Stack Item 组件</para>
-/// <para lang="en">Stack Item Component</para>
+///  <para lang="zh">Stack Item 组件</para>
+///  <para lang="en">Stack Item Component</para>
 /// </summary>
 public class StackItem : BootstrapComponentBase, IDisposable
 {
@@ -17,31 +17,32 @@ public class StackItem : BootstrapComponentBase, IDisposable
     private Stack? Stack { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 内容</para>
-    /// <para lang="en">Get/Set Content</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 内容</para>
+    ///  <para lang="en">Get/Set Content</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动充满 默认 false</para>
-    /// <para lang="en">Get/Set Is Fill. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 是否自动充满 默认 false</para>
+    ///  <para lang="en">Get/Set Is Fill. Default false</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFill { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
-    /// <para lang="en">Get/Set Align Self. Default StackAlignItems.Stretch</para>
-    /// <para><version>10.2.2</version></para>
+    ///  <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
+    ///  <para lang="en">Get/Set Align Self. Default StackAlignItems.Stretch</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StackAlignItems AlignSelf { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -51,7 +52,8 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -63,8 +65,8 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">销毁资源</para>
-    /// <para lang="en">Dispose</para>
+    ///  <para lang="zh">销毁资源</para>
+    ///  <para lang="en">Dispose</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -76,8 +78,8 @@ public class StackItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">销毁资源</para>
-    /// <para lang="en">Dispose</para>
+    ///  <para lang="zh">销毁资源</para>
+    ///  <para lang="en">Dispose</para>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     public void Dispose()

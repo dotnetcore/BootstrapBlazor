@@ -8,8 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">当前链接服务</para>
-/// <para lang="en">Current Connection Service</para>
+///  <para lang="zh">当前链接服务</para>
+///  <para lang="en">Current Connection Service</para>
 /// </summary>
 class DefaultConnectionService : IConnectionService, IDisposable
 {
@@ -43,12 +43,14 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now);
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="client"></param>
     public void AddOrUpdate(ClientInfo client)
@@ -75,7 +77,8 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
@@ -83,7 +86,8 @@ class DefaultConnectionService : IConnectionService, IDisposable
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public ICollection<ConnectionItem> Connections => _connectionCache.Values;
 
@@ -100,7 +104,8 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {
