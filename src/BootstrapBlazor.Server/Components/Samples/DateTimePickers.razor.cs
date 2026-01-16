@@ -166,9 +166,4 @@ public sealed partial class DateTimePickers
             Type ="Func<DateTime, DateTime, Task<List<DateTime>>>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

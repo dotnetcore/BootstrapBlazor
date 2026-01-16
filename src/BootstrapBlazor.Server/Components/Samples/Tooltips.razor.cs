@@ -29,11 +29,6 @@ public partial class Tooltips
             await _tooltip.Toggle();
         }
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
     protected AttributeItem[] GetAttributes() =>
     [
         new() {

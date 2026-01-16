@@ -17,9 +17,4 @@ public sealed partial class LinkButtons
     {
         Logger.Log($"{DateTimeOffset.Now}: Clicked!");
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

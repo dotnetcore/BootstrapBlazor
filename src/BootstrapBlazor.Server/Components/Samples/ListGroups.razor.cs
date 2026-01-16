@@ -31,9 +31,4 @@ public partial class ListGroups
     }
 
     private static string? GetItemDisplayText(Foo item) => item.Name;
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

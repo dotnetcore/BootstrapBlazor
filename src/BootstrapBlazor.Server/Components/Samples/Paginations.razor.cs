@@ -55,9 +55,4 @@ public sealed partial class Paginations
             new("20", "20条/页")
         ];
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

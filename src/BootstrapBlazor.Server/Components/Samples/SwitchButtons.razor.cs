@@ -19,9 +19,4 @@ public partial class SwitchButtons
     {
         Logger.Log("Clicked");
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

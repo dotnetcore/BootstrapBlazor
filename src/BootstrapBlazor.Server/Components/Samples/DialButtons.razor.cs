@@ -20,9 +20,4 @@ public partial class DialButtons
     }
 
     private CheckboxState CheckState(string state) => Mode.ToString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

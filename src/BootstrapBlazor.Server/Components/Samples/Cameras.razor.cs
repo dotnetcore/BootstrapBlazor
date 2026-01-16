@@ -159,9 +159,4 @@ public sealed partial class Cameras
         Logger.Log(TraceOnClose);
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

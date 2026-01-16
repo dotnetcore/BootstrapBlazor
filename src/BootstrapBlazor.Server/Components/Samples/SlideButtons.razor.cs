@@ -26,9 +26,4 @@ public partial class SlideButtons
     }
 
     private CheckboxState CheckState(string state) => Placement.ToDescriptionString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

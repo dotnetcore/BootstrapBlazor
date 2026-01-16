@@ -22,11 +22,6 @@ public partial class BarcodeGenerators
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
     protected AttributeItem[] GetAttributes() =>
     [
         new()

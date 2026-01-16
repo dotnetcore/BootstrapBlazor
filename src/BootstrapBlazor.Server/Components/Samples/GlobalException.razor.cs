@@ -47,9 +47,4 @@ public partial class GlobalException
         NavigationManager.NavigateTo("/error-page");
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

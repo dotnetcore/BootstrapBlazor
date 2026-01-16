@@ -72,12 +72,6 @@ public sealed partial class Buttons
             Type ="Func<Task>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     private MethodItem[] GetMethods() =>
     [
         new()

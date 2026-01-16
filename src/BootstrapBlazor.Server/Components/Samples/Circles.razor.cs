@@ -17,10 +17,5 @@ public sealed partial class Circles
         _circleValue += interval;
         _circleValue = Math.Min(100, Math.Max(0, _circleValue));
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }
 

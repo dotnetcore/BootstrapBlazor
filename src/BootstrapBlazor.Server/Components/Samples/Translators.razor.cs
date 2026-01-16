@@ -48,11 +48,6 @@ public partial class Translators
         var culture = new CultureInfo(translation.TargetLanguage);
         return $"{culture.NativeName}: {translation.Text}";
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
     protected MethodItem[] GetMethods() =>
     [
         new()

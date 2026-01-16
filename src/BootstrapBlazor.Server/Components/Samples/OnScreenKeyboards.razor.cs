@@ -36,12 +36,6 @@ public sealed partial class OnScreenKeyboards
     {
         autoScroll = true
     };
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     /// <summary>
     /// 获得KeyboardOption属性
     /// </summary>

@@ -24,9 +24,4 @@ public sealed partial class QRCodes
         Logger.Log(Localizer["ClearText"]);
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

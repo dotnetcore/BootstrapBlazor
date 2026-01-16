@@ -32,9 +32,4 @@ public sealed partial class Navigation
         ret.Add(link);
         return ret;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

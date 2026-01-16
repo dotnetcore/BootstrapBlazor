@@ -68,9 +68,4 @@ public partial class FileViewers
     {
         await fileViewer.Reload(CombineFilename(Url));
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

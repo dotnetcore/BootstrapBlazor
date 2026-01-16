@@ -43,9 +43,4 @@ public sealed partial class Toggles
             Type = "EventCallback<bool>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

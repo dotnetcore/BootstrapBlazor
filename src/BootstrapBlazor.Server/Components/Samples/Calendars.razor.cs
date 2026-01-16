@@ -47,9 +47,4 @@ public sealed partial class Calendars
             Type ="EventCallback<DateTime>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

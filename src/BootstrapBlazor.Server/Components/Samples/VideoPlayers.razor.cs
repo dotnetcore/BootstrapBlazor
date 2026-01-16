@@ -57,9 +57,4 @@ public partial class VideoPlayers
         await Player.SetPoster("//vjs.zencdn.net/v/oceans.png");
         await Player.Reload(Url, MineType);
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

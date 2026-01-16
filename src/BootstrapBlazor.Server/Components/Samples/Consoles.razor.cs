@@ -126,9 +126,4 @@ public sealed partial class Consoles
             DefaultValue = "None"
         }
     ];
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

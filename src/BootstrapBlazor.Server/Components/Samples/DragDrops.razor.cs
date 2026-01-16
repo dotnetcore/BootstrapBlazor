@@ -78,12 +78,6 @@ public partial class DragDrops
             "10"
         ];
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-
     /// <summary>
     /// GetMethods
     /// </summary>

@@ -80,9 +80,4 @@ public partial class Topologies
         // 数据订阅
         DataService.OnDataChange = data => TopologyElement.PushData(data);
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

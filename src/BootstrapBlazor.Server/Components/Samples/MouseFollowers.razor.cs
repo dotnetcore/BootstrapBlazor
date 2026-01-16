@@ -24,9 +24,4 @@ public partial class MouseFollowers
         ClassName = "mf-cursor bb-cursor",
         MediaClassName = "mf-cursor-media bb-cursor-media"
     };
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

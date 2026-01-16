@@ -303,9 +303,4 @@ public sealed partial class SelectGenerics
             Type = "Func<string, Task<TValue>>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

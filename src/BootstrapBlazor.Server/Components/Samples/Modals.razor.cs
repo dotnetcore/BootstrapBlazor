@@ -75,9 +75,4 @@ public sealed partial class Modals
         await Task.Delay(1000);
         return true;
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

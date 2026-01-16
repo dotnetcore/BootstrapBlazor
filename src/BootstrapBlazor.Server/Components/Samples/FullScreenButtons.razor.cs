@@ -10,8 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class FullScreenButtons
 {
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

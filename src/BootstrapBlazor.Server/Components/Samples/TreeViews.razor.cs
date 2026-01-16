@@ -307,12 +307,6 @@ public sealed partial class TreeViews
         foo.Text = text;
         return Task.FromResult(true);
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     private static AttributeItem[] GetTreeItemAttributes() =>
     [
         new()

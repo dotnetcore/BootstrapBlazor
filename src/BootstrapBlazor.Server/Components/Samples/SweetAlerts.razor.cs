@@ -118,9 +118,4 @@ public partial class SweetAlerts
         };
         await SwalService.Show(op);
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

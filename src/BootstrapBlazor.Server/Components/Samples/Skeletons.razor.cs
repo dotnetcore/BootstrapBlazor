@@ -10,8 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Skeletons
 {
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

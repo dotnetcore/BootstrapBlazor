@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Scrolls
 {
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     [NotNull]
     private Scroll? _scroll = null;
 

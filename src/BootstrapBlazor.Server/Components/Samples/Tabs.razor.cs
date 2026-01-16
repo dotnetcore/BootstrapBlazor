@@ -162,12 +162,6 @@ public sealed partial class Tabs
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     /// <summary>
     /// 获得方法
     /// </summary>

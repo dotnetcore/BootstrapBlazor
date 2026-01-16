@@ -18,9 +18,4 @@ public partial class SpeechWaves
     {
         IsShow = !IsShow;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

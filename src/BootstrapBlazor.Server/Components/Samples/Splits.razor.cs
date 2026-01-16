@@ -55,9 +55,4 @@ public sealed partial class Splits
     private Split Split1 = default!;
 
     private Task OnSetLeft(string leftWidth) => Split1.SetLeftWidth(leftWidth);
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

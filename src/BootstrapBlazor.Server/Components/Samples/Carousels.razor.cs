@@ -39,9 +39,4 @@ public sealed partial class Carousels
         OnClickLogger.Log($"Image Clicked: {imageUrl}");
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

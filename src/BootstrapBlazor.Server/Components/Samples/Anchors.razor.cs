@@ -13,9 +13,4 @@ public partial class Anchors
     [Inject]
     [NotNull]
     private IStringLocalizer<Anchors>? Localizer { get; set; }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

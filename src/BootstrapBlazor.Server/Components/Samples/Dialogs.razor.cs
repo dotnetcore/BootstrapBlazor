@@ -309,9 +309,4 @@ public sealed partial class Dialogs
             EmailInputValue = string.Join(";", Emails);
         }
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

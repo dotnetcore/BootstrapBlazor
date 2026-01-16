@@ -16,9 +16,4 @@ public sealed partial class Avatars
         await Task.Delay(500);
         return $"{WebsiteOption.Value.AssetRootPath}images/Argo-C.png";
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }

@@ -48,9 +48,4 @@ public partial class FlipClocks
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

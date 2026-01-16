@@ -68,12 +68,6 @@ public sealed partial class Captchas
             await NormalCaptcha.Reset();
         }
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     /// <summary>
     /// 获得事件方法
     /// </summary>

@@ -181,12 +181,6 @@ public sealed partial class Timelines
             new("2", Localizer["TimelinesSelectedItem2"])
         };
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-
     /// <summary>
     /// 获得属性方法
     /// </summary>

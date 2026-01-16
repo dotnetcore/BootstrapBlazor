@@ -92,9 +92,4 @@ public sealed partial class Cascaders
     {
         await ValidateForm1.ValidateAsync();
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
 }
