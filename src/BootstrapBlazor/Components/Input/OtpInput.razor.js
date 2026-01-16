@@ -24,10 +24,7 @@ export function init(id, invoke, method) {
         e.target.value = value;
 
         if (value.length === 1) {
-            const index = totalInputs.indexOf(e.target);
-            if (index < totalInputs.length - 1) {
-                setFocus(totalInputs[index + 1]);
-            }
+            setNextFocus(el, e.target);
         }
         setValue(el, invoke, method);
     });
