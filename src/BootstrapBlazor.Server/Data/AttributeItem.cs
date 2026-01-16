@@ -34,4 +34,9 @@ public class AttributeItem
     /// 获得/设置 版本
     /// </summary>
     public string Version { get; set; } = "";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string DefaultValue { get; set; } = "";
 }
