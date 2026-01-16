@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// CardUpload component
+/// <para lang="zh">CardUpload component</para>
+/// <para lang="en">CardUpload component</para>
 /// </summary>
 public partial class CardUpload<TValue>
 {
@@ -52,67 +53,89 @@ public partial class CardUpload<TValue>
     private string PreviewerId => $"prev_{Id}";
 
     /// <summary>
-    /// 获得/设置 是否允许预览回调方法 默认 null
+    /// <para lang="zh">获得/设置 是否允许预览回调方法 默认 null</para>
+    /// <para lang="en">Gets or sets whether允许预览callback method Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, bool>? CanPreviewCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标模板
+    /// <para lang="zh">获得/设置 图标模板</para>
+    /// <para lang="en">Gets or sets icontemplate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<UploadFile>? IconTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 操作按钮模板
+    /// <para lang="zh">获得/设置 操作按钮模板</para>
+    /// <para lang="en">Gets or sets 操作buttontemplate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<UploadFile>? BeforeActionButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 操作按钮模板
+    /// <para lang="zh">获得/设置 操作按钮模板</para>
+    /// <para lang="en">Gets or sets 操作buttontemplate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<UploadFile>? ActionButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示文件尺寸，默认为 true 显示
+    /// <para lang="zh">获得/设置 是否显示文件尺寸，默认为 true 显示</para>
+    /// <para lang="en">Gets or sets whetherdisplay文件尺寸，Default is为 true display</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFileSize { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 新建图标
+    /// <para lang="zh">获得/设置 新建图标</para>
+    /// <para lang="en">Gets or sets 新建icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AddIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 状态图标
+    /// <para lang="zh">获得/设置 状态图标</para>
+    /// <para lang="en">Gets or sets 状态icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? StatusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 移除图标
+    /// <para lang="zh">获得/设置 移除图标</para>
+    /// <para lang="en">Gets or sets 移除icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RemoveIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 放大图标
+    /// <para lang="zh">获得/设置 放大图标</para>
+    /// <para lang="en">Gets or sets 放大icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ZoomIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示放大按钮 默认 true
+    /// <para lang="zh">获得/设置 是否显示放大按钮 默认 true</para>
+    /// <para lang="en">Gets or sets whetherdisplay放大button Default is true</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowZoomButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示删除按钮 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示删除按钮 默认 true 显示</para>
+    /// <para lang="en">Gets or sets whetherdisplay删除button Default is true display</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ShowDeleteButton 参数。Deprecated, please use the ShowDeleteButton parameter")]
@@ -120,54 +143,72 @@ public partial class CardUpload<TValue>
     public bool ShowDeletedButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 继续上传按钮是否在列表前 默认 false
+    /// <para lang="zh">获得/设置 继续上传按钮是否在列表前 默认 false</para>
+    /// <para lang="en">Gets or sets 继续上传buttonwhether在列表前 Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击 Zoom 图标回调方法
+    /// <para lang="zh">获得/设置 点击 Zoom 图标回调方法</para>
+    /// <para lang="en">Gets or sets 点击 Zoom iconcallback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnZoomAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标文件扩展名集合 ".png"
+    /// <para lang="zh">获得/设置 图标文件扩展名集合 ".png"</para>
+    /// <para lang="en">Gets or sets icon文件扩展名collection ".png"</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<string>? AllowExtensions { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除前是否显示确认对话框，依赖 <see cref="FileListUploadBase{TValue}.ShowDeleteButton"/> 属性为 true 时有效
+    /// <para lang="zh">获得/设置 删除前是否显示确认对话框，依赖 <see cref="FileListUploadBase{TValue}.ShowDeleteButton"/> 属性为 true 时有效</para>
+    /// <para lang="en">Gets or sets 删除前whetherdisplay确认对话框，依赖 <see cref="FileListUploadBase{TValue}.ShowDeleteButton"/> property为 true 时有效</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteConfirmButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除确认弹窗中确认按钮颜色 默认 <see cref="Color.Danger"/>
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮颜色 默认 <see cref="Color.Danger"/></para>
+    /// <para lang="en">Gets or sets 删除确认弹窗中确认buttoncolor Default is <see cref="Color.Danger"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color DeleteConfirmButtonColor { get; set; } = Color.Danger;
 
     /// <summary>
-    /// 获得/设置 删除确认弹窗中确认按钮图标 默认 null 未设置
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮图标 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets 删除确认弹窗中确认buttonicon Default is null 未Sets</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除确认弹窗中确认文本内容 默认 null 未设置 使用资源文件中内置文字
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认文本内容 默认 null 未设置 使用资源文件中内置文字</para>
+    /// <para lang="en">Gets or sets 删除确认弹窗中确认文本content Default is null 未Sets 使用资源文件中内置文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmContent { get; set; }
     /// <summary>
-    /// 获得/设置 删除确认弹窗中确认按钮显示文字 默认 null 未设置
+    /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮显示文字 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets 删除确认弹窗中确认buttondisplay文字 Default is null 未Sets</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除确认弹窗中取消按钮显示文字 默认 null 未设置
+    /// <para lang="zh">获得/设置 删除确认弹窗中取消按钮显示文字 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets 删除确认弹窗中取消buttondisplay文字 Default is null 未Sets</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteCloseButtonText { get; set; }

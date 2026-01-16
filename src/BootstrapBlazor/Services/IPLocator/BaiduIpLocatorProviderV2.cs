@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,7 +9,8 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BaiduIPLocatorV2 第二个版本实现类
+/// <para lang="zh">BaiduIPLocatorV2 第二个版本实现类</para>
+/// <para lang="en">BaiduIPLocatorV2 Implementation Class</para>
 /// </summary>
 public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> options, ILogger<BaiduIpLocatorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, options, logger)
 {
@@ -66,87 +67,104 @@ public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOpt
     class LocationDataV2
     {
         /// <summary>
-        /// 获得/设置 州
+        /// <para lang="zh">获得/设置 州</para>
+        /// <para lang="en">Get/Set Continent</para>
         /// </summary>
         public string? Continent { get; set; }
 
         /// <summary>
-        /// 获得/设置 国家
+        /// <para lang="zh">获得/设置 国家</para>
+        /// <para lang="en">Get/Set Country</para>
         /// </summary>
         public string? Country { get; set; }
 
         /// <summary>
-        /// 获得/设置 邮编
+        /// <para lang="zh">获得/设置 邮编</para>
+        /// <para lang="en">Get/Set ZipCode</para>
         /// </summary>
         public string? ZipCode { get; set; }
 
         /// <summary>
-        /// 获得/设置 时区
+        /// <para lang="zh">获得/设置 时区</para>
+        /// <para lang="en">Get/Set TimeZone</para>
         /// </summary>
         public string? TimeZone { get; set; }
 
         /// <summary>
-        /// 获得/设置 精度
+        /// <para lang="zh">获得/设置 精度</para>
+        /// <para lang="en">Get/Set Accuracy</para>
         /// </summary>
         public string? Accuracy { get; set; }
 
         /// <summary>
-        /// 获得/设置 所属
+        /// <para lang="zh">获得/设置 所属</para>
+        /// <para lang="en">Get/Set Owner</para>
         /// </summary>
         public string? Owner { get; set; }
 
         /// <summary>
-        /// 获得/设置 运营商
+        /// <para lang="zh">获得/设置 运营商</para>
+        /// <para lang="en">Get/Set ISP</para>
         /// </summary>
         public string? Isp { get; set; }
 
         /// <summary>
-        /// 获得/设置 来源
+        /// <para lang="zh">获得/设置 来源</para>
+        /// <para lang="en">Get/Set Source</para>
         /// </summary>
         public string? Source { get; set; }
 
         /// <summary>
-        /// 获得/设置 区号
+        /// <para lang="zh">获得/设置 区号</para>
+        /// <para lang="en">Get/Set Area Code</para>
         /// </summary>
         public string? AreaCode { get; set; }
 
         /// <summary>
-        /// 获得/设置 行政区划代码
+        /// <para lang="zh">获得/设置 行政区划代码</para>
+        /// <para lang="en">Get/Set AdCode</para>
         /// </summary>
         public string? AdCode { get; set; }
 
         /// <summary>
-        /// 获得/设置 国家代码
+        /// <para lang="zh">获得/设置 国家代码</para>
+        /// <para lang="en">Get/Set Country Code</para>
         /// </summary>
         public string? AsNumber { get; set; }
 
         /// <summary>
-        /// 获得/设置 经度
+        /// <para lang="zh">获得/设置 经度</para>
+        /// <para lang="en">Get/Set Latitude</para>
         /// </summary>
         public string? Lat { get; set; }
 
         /// <summary>
-        /// 获得/设置 纬度
+        /// <para lang="zh">获得/设置 纬度</para>
+        /// <para lang="en">Get/Set Longitude</para>
         /// </summary>
         public string? Lng { get; set; }
 
         /// <summary>
-        /// 获得/设置 半径
+        /// <para lang="zh">获得/设置 半径</para>
+        /// <para lang="en">Get/Set Radius</para>
         /// </summary>
         public string? Radius { get; set; }
 
         /// <summary>
-        /// 获得/设置 省份
+        /// <para lang="zh">获得/设置 省份</para>
+        /// <para lang="en">Get/Set Province</para>
         /// </summary>
         public string? Prov { get; set; }
 
         /// <summary>
-        /// 获得/设置 城市
+        /// <para lang="zh">获得/设置 城市</para>
+        /// <para lang="en">Get/Set City</para>
         /// </summary>
         public string? City { get; set; }
 
         /// <summary>
-        /// 获得/设置 区县
+        /// <para lang="zh">获得/设置 区县</para>
+        /// <para lang="en">Get/Set District</para>
         /// </summary>
         public string? District { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,17 +9,19 @@ using System.Reflection.Emit;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Emit 方法帮助类
+/// <para lang="zh">Emit 方法帮助类</para>
+/// <para lang="en">Emit helper class</para>
 /// </summary>
 public static class EmitHelper
 {
     /// <summary>
-    /// 通过 ITableColumn 创建动态类
+    /// <para lang="zh">通过 ITableColumn 创建动态类</para>
+    /// <para lang="en">Create dynamic class by ITableColumn</para>
     /// </summary>
-    /// <param name="typeName">动态类名称</param>
-    /// <param name="cols">ITableColumn 集合</param>
-    /// <param name="parent">父类类型</param>
-    /// <param name="creatingCallback">回调委托</param>
+    /// <param name="typeName"><para lang="zh">动态类名称</para><para lang="en">动态类name</para></param>
+    /// <param name="cols"><para lang="zh">ITableColumn 集合</para><para lang="en">ITableColumn collection</para></param>
+    /// <param name="parent"><para lang="zh">父类类型</para><para lang="en">父类type</para></param>
+    /// <param name="creatingCallback"><para lang="zh">回调委托</para><para lang="en">回调delegate</para></param>
     /// <returns></returns>
     public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
     {

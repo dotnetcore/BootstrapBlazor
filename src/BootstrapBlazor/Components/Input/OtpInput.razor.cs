@@ -6,31 +6,40 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// OTP input component
+/// <para lang="zh">OTP input component</para>
+/// <para lang="en">OTP input component</para>
 /// </summary>
 [BootstrapModuleAutoLoader("Input/OtpInput.razor.js", JSObjectReference = true)]
 public partial class OtpInput
 {
     /// <summary>
-    /// Gets or sets the length of the OTP input. Default is 6.
+    /// <para lang="zh">获得/设置 the length of the OTP input. 默认为 6.</para>
+    /// <para lang="en">Gets or sets the length of the OTP input. Default is 6.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Digits { get; set; } = 6;
 
     /// <summary>
-    /// Gets or sets whether the OTP input is readonly. Default is false.
+    /// <para lang="zh">获得/设置 是否 the OTP input is readonly. 默认为 false.</para>
+    /// <para lang="en">Gets or sets whether the OTP input is readonly. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsReadonly { get; set; }
 
     /// <summary>
-    /// Gets or sets the value type of the OTP input. Default is <see cref="OtpInputType.Number"/>.
+    /// <para lang="zh">获得/设置 the value 类型 of the OTP input. 默认为 <see cref="OtpInputType.Number"/>.</para>
+    /// <para lang="en">Gets or sets the value type of the OTP input. Default is <see cref="OtpInputType.Number"/>.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public OtpInputType Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the placeholder of the OTP input. Default is null.
+    /// <para lang="zh">获得/设置 the placeholder of the OTP input. 默认为 null.</para>
+    /// <para lang="en">Gets or sets the placeholder of the OTP input. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -99,7 +108,8 @@ public partial class OtpInput
     }
 
     /// <summary>
-    /// Trigger value changed event callback. Trigger by JavaScript.
+    /// <para lang="zh">Trigger value changed event 回调. Trigger by JavaScript.</para>
+    /// <para lang="en">Trigger value changed event callback. Trigger by JavaScript.</para>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>

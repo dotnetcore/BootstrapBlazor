@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,12 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SlideButton 项组件
+/// <para lang="zh">SlideButton 项组件</para>
+/// <para lang="en">SlideButtonItem component</para>
 /// </summary>
 public class SlideButtonItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 显示文本
+    /// <para lang="zh">显示文本</para>
+    /// <para lang="en">Display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,7 +24,9 @@ public class SlideButtonItem : ComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
-    /// 选项值
+    /// <para lang="zh">选项值</para>
+    /// <para lang="en">Option value</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -42,7 +47,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 资源销毁
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -54,7 +60,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 资源销毁
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     public void Dispose()

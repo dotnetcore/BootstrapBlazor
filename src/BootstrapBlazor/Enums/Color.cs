@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,72 +8,84 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 颜色枚举类型
+/// <para lang="zh">颜色枚举类型</para>
+/// <para lang="en">Color Enum</para>
 /// </summary>
 public enum Color
 {
     /// <summary>
-    /// 无颜色
+    /// <para lang="zh">无颜色</para>
+    /// <para lang="en">None</para>
     /// </summary>
     [Description("none")]
     None,
 
     /// <summary>
-    /// active
+    /// <para lang="zh">active</para>
+    /// <para lang="en">active</para>
     /// </summary>
     [Description("active")]
     Active,
 
     /// <summary>
-    /// primary
+    /// <para lang="zh">primary</para>
+    /// <para lang="en">primary</para>
     /// </summary>
     [Description("primary")]
     Primary,
 
     /// <summary>
-    /// secondary
+    /// <para lang="zh">secondary</para>
+    /// <para lang="en">secondary</para>
     /// </summary>
     [Description("secondary")]
     Secondary,
 
     /// <summary>
-    /// success
+    /// <para lang="zh">success</para>
+    /// <para lang="en">success</para>
     /// </summary>
     [Description("success")]
     Success,
 
     /// <summary>
-    /// danger
+    /// <para lang="zh">danger</para>
+    /// <para lang="en">danger</para>
     /// </summary>
     [Description("danger")]
     Danger,
 
     /// <summary>
-    /// warning
+    /// <para lang="zh">warning</para>
+    /// <para lang="en">warning</para>
     /// </summary>
     [Description("warning")]
     Warning,
 
     /// <summary>
-    /// info
+    /// <para lang="zh">info</para>
+    /// <para lang="en">info</para>
     /// </summary>
     [Description("info")]
     Info,
 
     /// <summary>
-    /// light
+    /// <para lang="zh">light</para>
+    /// <para lang="en">light</para>
     /// </summary>
     [Description("light")]
     Light,
 
     /// <summary>
-    /// dark
+    /// <para lang="zh">dark</para>
+    /// <para lang="en">dark</para>
     /// </summary>
     [Description("dark")]
     Dark,
 
     /// <summary>
-    /// link
+    /// <para lang="zh">link</para>
+    /// <para lang="en">link</para>
     /// </summary>
     [Description("link")]
     Link

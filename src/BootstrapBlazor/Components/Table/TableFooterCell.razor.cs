@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,7 +9,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableFooterCell 组件
+/// <para lang="zh">TableFooterCell 组件</para>
+/// <para lang="en">TableFooterCell component</para>
 /// </summary>
 public partial class TableFooterCell
 {
@@ -21,55 +22,72 @@ public partial class TableFooterCell
         .Build();
 
     /// <summary>
-    /// 获得/设置 单元格内容
+    /// <para lang="zh">获得/设置 单元格内容</para>
+    /// <para lang="en">Gets or sets 单元格content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 文字对齐方式 默认为 Alignment.None
+    /// <para lang="zh">获得/设置 文字对齐方式 默认为 Alignment.None</para>
+    /// <para lang="en">Gets or sets 文字对齐方式 Default is为 Alignment.None</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment Align { get; set; }
 
     /// <summary>
-    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// <para lang="zh">获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd</para>
+    /// <para lang="en">Gets or sets 格式化字符串 如时间typeSets yyyy-MM-dd</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// <para lang="zh">获得/设置 列格式化回调委托</para>
+    /// <para lang="en">Gets or sets 列格式化回调delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    /// 获得/设置 聚合方法枚举 默认 Sum
+    /// <para lang="zh">获得/设置 聚合方法枚举 默认 Sum</para>
+    /// <para lang="en">Gets or sets 聚合方法enum Default is Sum</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public AggregateType Aggregate { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义统计列回调方法
+    /// <para lang="zh">获得/设置 自定义统计列回调方法</para>
+    /// <para lang="en">Gets or sets 自定义统计列callback method</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, string?, string>? CustomerAggregateCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 统计列名称 默认为 null 不参与统计仅作为显示单元格
+    /// <para lang="zh">获得/设置 统计列名称 默认为 null 不参与统计仅作为显示单元格</para>
+    /// <para lang="en">Gets or sets 统计列名称 Default is为 null 不参与统计仅作为display单元格</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Field { get; set; }
 
     /// <summary>
-    /// 获得/设置 colspan 值 默认 null 自己手动设置值
+    /// <para lang="zh">获得/设置 colspan 值 默认 null 自己手动设置值</para>
+    /// <para lang="en">Gets or sets colspan 值 Default is null 自己手动Sets值</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<BreakPoint, int>? ColspanCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为移动端模式
+    /// <para lang="zh">获得/设置 是否为移动端模式</para>
+    /// <para lang="en">Gets or sets whether为移动端模式</para>
     /// </summary>
     [CascadingParameter(Name = "IsMobileMode")]
     private bool IsMobileMode { get; set; }
@@ -78,13 +96,16 @@ public partial class TableFooterCell
     private BreakPoint BreakPoint { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为移动端模式
+    /// <para lang="zh">获得/设置 是否为移动端模式</para>
+    /// <para lang="en">Gets or sets whether为移动端模式</para>
     /// </summary>
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
+    /// <para lang="zh">获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置</para>
+    /// <para lang="en">Gets or sets display节点阈值 Default is值 BreakPoint.None 未Sets</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public BreakPoint ShownWithBreakPoint { get; set; }
@@ -101,13 +122,15 @@ public partial class TableFooterCell
     }
 
     /// <summary>
-    /// 检查当前列是否显示方法
+    /// <para lang="zh">检查当前列是否显示方法</para>
+    /// <para lang="en">检查当前列whetherdisplay方法</para>
     /// </summary>
     /// <returns></returns>
     protected bool CheckShownWithBreakpoint => BreakPoint >= ShownWithBreakPoint;
 
     /// <summary>
-    /// 解析 Count Aggregate
+    /// <para lang="zh">解析 Count Aggregate</para>
+    /// <para lang="en">解析 Count Aggregate</para>
     /// </summary>
     /// <returns></returns>
     private string? GetCountValue()
@@ -253,7 +276,8 @@ public partial class TableFooterCell
     }
 
     /// <summary>
-    /// 通过属性名称构建委托
+    /// <para lang="zh">通过属性名称构建委托</para>
+    /// <para lang="en">通过property名称构建delegate</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>

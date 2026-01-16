@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,36 +9,47 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// LinkButton 组件
+/// <para lang="zh">LinkButton 组件</para>
+/// <para lang="en">LinkButton component</para>
 /// </summary>
 public class LinkButton : ButtonBase
 {
     /// <summary>
-    /// 获得/设置 Url 默认为 #
+    /// <para lang="zh">获得/设置 Url 默认为 #</para>
+    /// <para lang="en">Gets or sets the URL. Default is #</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获得/设置 A 标签 target 参数 默认 null
+    /// <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
+    /// <para lang="en">Gets or sets the anchor target parameter. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示图片地址 默认为 null
+    /// <para lang="zh">获得/设置 显示图片地址 默认为 null</para>
+    /// <para lang="en">Gets or sets the image URL. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    /// The css class of img element default value null
+    /// <para lang="zh">css class of img element default value null</para>
+    /// <para lang="en">The css class of img element default value null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageCss { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为垂直布局 默认 false
+    /// <para lang="zh">获得/设置 是否为垂直布局 默认 false</para>
+    /// <para lang="en">Gets or sets whether it is vertical layout. Default is false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
@@ -63,7 +74,7 @@ public class LinkButton : ButtonBase
     private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -127,7 +138,8 @@ public class LinkButton : ButtonBase
 
         await HandlerClick();
 
-        // 恢复按钮
+        // <para lang="zh">恢复按钮</para>
+        // <para lang="en">Restore button</para>
         if (IsAsync)
         {
             IsDisabled = IsKeepDisabled;

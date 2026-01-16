@@ -8,19 +8,22 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorDataAnnotationsValidator 验证组件
+///  <para lang="zh">BootstrapBlazorDataAnnotationsValidator 验证组件</para>
+///  <para lang="en">BootstrapBlazorDataAnnotationsValidator 验证component</para>
 /// </summary>
 public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 获得/设置 当前编辑数据上下文
+    ///  <para lang="zh">获得/设置 当前编辑数据上下文</para>
+    ///  <para lang="en">Gets or sets 当前编辑data上下文</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
     private EditContext? CurrentEditContext { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑窗体上下文
+    ///  <para lang="zh">获得/设置 当前编辑窗体上下文</para>
+    ///  <para lang="en">Gets or sets 当前编辑窗体上下文</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
@@ -34,7 +37,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     private ValidationMessageStore? _message = null;
 
     /// <summary>
-    /// 初始化方法
+    ///  <para lang="zh">初始化方法</para>
+    ///  <para lang="en">初始化方法</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -49,7 +53,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     private TaskCompletionSource<bool>? _tcs;
     /// <summary>
-    /// 手动验证表单方法
+    ///  <para lang="zh">手动验证表单方法</para>
+    ///  <para lang="en">手动验证表单方法</para>
     /// </summary>
     /// <returns></returns>
     internal async Task<bool> ValidateAsync()
@@ -61,7 +66,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     }
 
     /// <summary>
-    /// 手动验证表单方法
+    ///  <para lang="zh">手动验证表单方法</para>
+    ///  <para lang="en">手动验证表单方法</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     internal bool Validate() => CurrentEditContext.Validate();
@@ -140,7 +146,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

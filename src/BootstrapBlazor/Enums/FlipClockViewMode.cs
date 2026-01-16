@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,20 +6,24 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 显示模式
+/// <para lang="zh">显示模式</para>
+/// <para lang="en">display模式</para>
 /// </summary>
 public enum FlipClockViewMode
 {
     /// <summary>
-    /// 时间
+    /// <para lang="zh">时间</para>
+    /// <para lang="en">时间</para>
     /// </summary>
     DateTime,
     /// <summary>
-    /// 计数
+    /// <para lang="zh">计数</para>
+    /// <para lang="en">计数</para>
     /// </summary>
     Count,
     /// <summary>
-    /// 倒计时
+    /// <para lang="zh">倒计时</para>
+    /// <para lang="en">倒计时</para>
     /// </summary>
     CountDown
 }

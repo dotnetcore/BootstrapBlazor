@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DefaultBluetoothService 实现类
+/// <para lang="zh">DefaultBluetoothService 实现类</para>
+/// <para lang="en">DefaultBluetoothService Implementation Class</para>
 /// </summary>
 sealed class DefaultBluetoothService : IBluetoothService
 {
@@ -35,7 +36,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     public string? ErrorMessage { get; private set; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="module"></param>
     /// <param name="clientId"></param>
@@ -51,7 +53,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -86,7 +89,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

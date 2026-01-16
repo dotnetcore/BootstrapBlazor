@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,12 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ListGroup 组件
+/// <para lang="zh">ListGroup 组件</para>
+/// <para lang="en">ListGroup Component</para>
 /// </summary>
 public partial class ListGroup<TItem>
 {
     /// <summary>
-    /// 获得/设置 数据源集合
+    /// <para lang="zh">获得/设置 数据源集合</para>
+    /// <para lang="en">Get/Set Data source collection</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,37 +24,49 @@ public partial class ListGroup<TItem>
     public List<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板 默认 null
+    /// <para lang="zh">获得/设置 Header 模板 默认 null</para>
+    /// <para lang="en">Get/Set Header Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 文字 默认 null
+    /// <para lang="zh">获得/设置 Header 文字 默认 null</para>
+    /// <para lang="en">Get/Set Header Text. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? HeaderText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板 默认 null
+    /// <para lang="zh">获得/设置 Item 模板 默认 null</para>
+    /// <para lang="en">Get/Set Item Template. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击 List 项目回调方法
+    /// <para lang="zh">获得/设置 点击 List 项目回调方法</para>
+    /// <para lang="en">Get/Set Callback method when List item is clicked</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnClickItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 双击 List 项目回调方法
+    /// <para lang="zh">获得/设置 双击 List 项目回调方法</para>
+    /// <para lang="en">Get/Set Callback method when List item is double-clicked</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnDoubleClickItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得条目显示文本内容回调方法
+    /// <para lang="zh">获得/设置 获得条目显示文本内容回调方法</para>
+    /// <para lang="en">Get/Set Callback method to get item display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, string>? GetItemDisplayText { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DropdownWidget 组件
+/// <para lang="zh">DropdownWidget 组件</para>
+/// <para lang="en">DropdownWidget Component</para>
 /// </summary>
 public sealed partial class DropdownWidget
 {
@@ -15,25 +16,33 @@ public sealed partial class DropdownWidget
         .Build();
 
     /// <summary>
-    /// 获得/设置 选项模板支持静态数据
+    /// <para lang="zh">获得/设置 选项模板支持静态数据</para>
+    /// <para lang="en">Get/Set Child Content (Static Data)</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 挂件数据集合
+    /// <para lang="zh">获得/设置 挂件数据集合</para>
+    /// <para lang="en">Get/Set Widget Items</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<DropdownWidgetItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉项关闭回调方法
+    /// <para lang="zh">获得/设置 下拉项关闭回调方法</para>
+    /// <para lang="en">Get/Set Item Close Callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DropdownWidgetItem, Task>? OnItemCloseAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉项关闭回调方法
+    /// <para lang="zh">获得/设置 下拉项显示回调方法</para>
+    /// <para lang="en">Get/Set Item Shown Callback</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DropdownWidgetItem, Task>? OnItemShownAsync { get; set; }
@@ -47,7 +56,8 @@ public sealed partial class DropdownWidget
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Method = nameof(TriggerStateChanged) });
 
     /// <summary>
-    /// 添加 DropdownWidgetItem 方法
+    /// <para lang="zh">添加 DropdownWidgetItem 方法</para>
+    /// <para lang="en">Add DropdownWidgetItem Method</para>
     /// </summary>
     /// <param name="item"></param>
     internal void Add(DropdownWidgetItem item)
@@ -58,7 +68,8 @@ public sealed partial class DropdownWidget
     private IEnumerable<DropdownWidgetItem> GetItems() => Items == null ? Childs : Childs.Concat(Items);
 
     /// <summary>
-    /// Widget 下拉项关闭回调方法 由 JavaScript 调用
+    /// <para lang="zh">Widget 下拉项关闭回调方法 由 JavaScript 调用</para>
+    /// <para lang="en">Widget Item State Changed Callback. Called by JavaScript</para>
     /// </summary>
     /// <param name="index"></param>
     /// <param name="shown"></param>

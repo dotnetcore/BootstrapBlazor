@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,24 +8,31 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenu 组件
+/// <para lang="zh">ContextMenu 组件</para>
+/// <para lang="en">A component that represents a context menu.</para>
 /// </summary>
 public partial class ContextMenu
 {
     /// <summary>
-    /// 获得/设置 是否显示阴影 默认 true
+    /// <para lang="zh">获得/设置 是否显示阴影 默认 <see langword="true" /></para>
+    /// <para lang="en">Flags whether to show a shadow around the context menu. Default is <see langword="true" />.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 弹出前回调方法 默认 null
+    /// <para lang="zh">获得/设置 弹出前回调方法 默认 null</para>
+    /// <para lang="en">Defines the callback that is executed before showing the context menu. Default is <see langword="null" />.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnBeforeShowCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">The <see cref="RenderFragment"/> that represents the child content.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -70,8 +77,6 @@ public partial class ContextMenu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -84,11 +89,21 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    /// 弹出 ContextMenu
+    /// <para lang="zh">弹出 ContextMenu</para>
+    /// <para lang="en">Shows the <see cref="ContextMenu"/>.</para>
     /// </summary>
-    /// <param name="args"></param>
-    /// <param name="contextItem"></param>
-    /// <returns></returns>
+    /// <param name="args">
+    ///     <para lang="zh">鼠标事件参数</para>
+    ///     <para lang="en">The <see cref="MouseEventArgs"/> that invoked this event.</para>
+    /// </param>
+    /// <param name="contextItem">
+    ///     <para lang="zh">上下文项</para>
+    ///     <para lang="en">Context that is associated with the clicked <see cref="ContextMenuItem"/>.</para>
+    /// </param>
+    /// <returns>
+    ///     <para lang="zh">异步任务</para>
+    ///     <para lang="en">An asynchronous instance of a <see cref="Task"/>.</para>
+    /// </returns>
     internal async Task Show(MouseEventArgs args, object? contextItem)
     {
         _contextItem = contextItem;
@@ -109,14 +124,22 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    /// 增加 ContextMenuItem 方法
+    /// <para lang="zh">增加 ContextMenuItem 方法</para>
+    /// <para lang="en">Adds an <paramref name="item"/> to the menu.</para>
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="item">
+    ///     <para lang="zh">要添加的项</para>
+    ///     <para lang="en">The <see cref="IContextMenuItem"/> to add</para>
+    /// </param>
     internal void AddItem(IContextMenuItem item) => _contextMenuItems.Add(item);
 
     /// <summary>
-    /// 移除 ContextMenuItem 方法
+    /// <para lang="zh">移除 ContextMenuItem 方法</para>
+    /// <para lang="en">Removes an <paramref name="item"/> from the menu.</para>
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="item">
+    ///     <para lang="zh">要移除的项</para>
+    ///     <para lang="en">The <see cref="IContextMenuItem"/> to remove</para>
+    /// </param>
     internal void RemoveItem(IContextMenuItem item) => _contextMenuItems.Remove(item);
 }

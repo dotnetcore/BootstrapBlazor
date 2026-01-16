@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Caching.Memory;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 浏览器通知服务
+/// <para lang="zh">浏览器通知服务</para>
+/// <para lang="en">Browser Notification Service</para>
 /// </summary>
 public class NotificationService : IAsyncDisposable
 {
@@ -21,7 +22,8 @@ public class NotificationService : IAsyncDisposable
     private ICacheManager Cache { get; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="runtime"></param>
     /// <param name="cache"></param>
@@ -35,9 +37,10 @@ public class NotificationService : IAsyncDisposable
     private Task<JSModule> LoadModule() => JSRuntime.LoadModuleByName("noti");
 
     /// <summary>
-    /// 检查浏览器通知权限状态
+    /// <para lang="zh">检查浏览器通知权限状态</para>
+    /// <para lang="en">Check Browser Notification Permission Status</para>
     /// </summary>
-    /// <param name="requestPermission">是否请求权限 默认 true</param>
+    /// <param name="requestPermission"><para lang="zh">是否请求权限 默认 true</para><para lang="en">Request permission, default true</para></param>
     /// <returns></returns>
     public async ValueTask<bool> CheckPermission(bool requestPermission = true)
     {
@@ -46,9 +49,10 @@ public class NotificationService : IAsyncDisposable
     }
 
     /// <summary>
-    /// 发送浏览器通知
+    /// <para lang="zh">发送浏览器通知</para>
+    /// <para lang="en">Dispatch Browser Notification</para>
     /// </summary>
-    /// <param name="item">NotificationItem 实例</param>
+    /// <param name="item"><para lang="zh">NotificationItem 实例</para><para lang="en">NotificationItem Instance</para></param>
     /// <returns></returns>
     public async Task<bool> Dispatch(NotificationItem item)
     {
@@ -63,7 +67,8 @@ public class NotificationService : IAsyncDisposable
     }
 
     /// <summary>
-    /// 消息通知回调方法由 JS 点击触发
+    /// <para lang="zh">消息通知回调方法由 JS 点击触发</para>
+    /// <para lang="en">Notification callback method triggered by JS click</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -81,7 +86,8 @@ public class NotificationService : IAsyncDisposable
     }
 
     /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
@@ -89,10 +95,12 @@ public class NotificationService : IAsyncDisposable
     {
         if (disposing)
         {
-            // 销毁 DotNetObjectReference 实例
+            // <para lang="zh">销毁 DotNetObjectReference 实例</para>
+            // <para lang="en">Dispose DotNetObjectReference instance</para>
             Interop.Dispose();
 
-            // 销毁 JSModule
+            // <para lang="zh">销毁 JSModule</para>
+            // <para lang="en">Dispose JSModule</para>
             if (Module != null)
             {
                 await Module.DisposeAsync();

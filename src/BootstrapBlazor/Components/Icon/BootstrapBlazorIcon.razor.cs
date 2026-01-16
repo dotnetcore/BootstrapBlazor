@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,32 +6,44 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Icon 组件
+/// <para lang="zh">Icon 组件</para>
+/// <para lang="en">Icon Component</para>
 /// </summary>
 public partial class BootstrapBlazorIcon
 {
     /// <summary>
-    /// 获得/设置 图标名称
+    /// <para lang="zh">获得/设置 图标名称</para>
+    /// <para lang="en">Get/Set Icon Name</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
-    /// <remarks>如果是字库图标应该是样式名称如 fa-solid fa-home 如果是 svg sprites 应该为 Id</remarks>
+    /// <remarks>
+    /// <para lang="zh">如果是字库图标应该是样式名称如 fa-solid fa-home 如果是 svg sprites 应该为 Id</para>
+    /// <para lang="en">If it is a font icon, it should be a style name such as fa-solid fa-home. If it is svg sprites, it should be the Id.</para>
+    /// </remarks>
     [Parameter]
     [NotNull]
     public string? Name { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为 svg sprites 默认 false
+    /// <para lang="zh">获得/设置 是否为 svg sprites 默认 false</para>
+    /// <para lang="en">Get/Set Whether is svg sprites Default false</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSvgSprites { get; set; }
 
     /// <summary>
-    /// 获得/设置 Svg Sprites 路径
+    /// <para lang="zh">获得/设置 Svg Sprites 路径</para>
+    /// <para lang="en">Get/Set Svg Sprites Path</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

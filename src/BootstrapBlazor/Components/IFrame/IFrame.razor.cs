@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,30 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Frame component encapsulates the Html iframe element
+/// <para lang="zh">Frame component encapsulates the Html iframe element</para>
+/// <para lang="en">Frame component encapsulates the Html iframe element</para>
 /// </summary>
 public partial class IFrame
 {
     /// <summary>
-    /// Gets or sets the URL of the webpage to be loaded in the Frame
+    /// <para lang="zh">获得/设置 the URL of the webpage to be loaded in the Frame</para>
+    /// <para lang="en">Gets or sets the URL of the webpage to be loaded in the Frame</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Src { get; set; }
 
     /// <summary>
-    /// Gets or sets the data to be passed
+    /// <para lang="zh">获得/设置 the 数据 to be passed</para>
+    /// <para lang="en">Gets or sets the data to be passed</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? Data { get; set; }
 
     /// <summary>
-    /// Gets or sets Frame loads the data passed by the page
+    /// <para lang="zh">获得/设置 Frame loads the 数据 passed by the page</para>
+    /// <para lang="en">Gets or sets Frame loads the data passed by the page</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnPostDataAsync { get; set; }
 
     /// <summary>
-    /// Gets or sets Callback method after the page is loaded.
+    /// <para lang="zh">获得/设置 Callback method after the page is loaded.</para>
+    /// <para lang="en">Gets or sets Callback method after the page is loaded.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnReadyAsync { get; set; }
@@ -77,14 +86,16 @@ public partial class IFrame
     });
 
     /// <summary>
-    /// Method to push data
+    /// <para lang="zh">Method to push 数据</para>
+    /// <para lang="en">Method to push data</para>
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
     public Task PushData(object? data) => InvokeVoidAsync("execute", Id, data);
 
     /// <summary>
-    /// Called by JavaScript
+    /// <para lang="zh">Called by JavaScript</para>
+    /// <para lang="en">Called by JavaScript</para>
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
@@ -98,7 +109,8 @@ public partial class IFrame
     }
 
     /// <summary>
-    /// Called by JavaScript
+    /// <para lang="zh">Called by JavaScript</para>
+    /// <para lang="en">Called by JavaScript</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

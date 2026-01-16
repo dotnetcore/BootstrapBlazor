@@ -6,45 +6,54 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IErrorLogger 接口
+/// <para lang="zh">IErrorLogger 接口</para>
+/// <para lang="en">IErrorLogger Interface</para>
 /// </summary>
 public interface IErrorLogger
 {
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// <para lang="zh">获得/设置 是否开启全局异常捕获 默认 true</para>
+    /// <para lang="en">Get/Set Whether to Enable Global Exception Capture Default true</para>
     /// </summary>
     bool EnableErrorLogger { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用日志记录功能 默认 true 启用
-    /// <para>设置 false 后关闭记录日志功能</para>
+    /// <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
+    /// <para lang="en">Get/Set Whether to Enable Logging Default true</para>
+    /// <para lang="zh">设置 false 后关闭记录日志功能</para>
+    /// <para lang="en">Set false to disable logging</para>
     /// </summary>
     bool EnableILogger { get; }
 
     /// <summary>
-    /// 获得 是否显示 Error 提示弹窗 默认 true
+    /// <para lang="zh">获得 是否显示 Error 提示弹窗 默认 true</para>
+    /// <para lang="en">Get Whether to Show Error Toast Default true</para>
     /// </summary>
     bool ShowToast { get; }
 
     /// <summary>
-    /// 获得 Error Toast 弹窗标题 默认读取资源文件内容
+    /// <para lang="zh">获得 Error Toast 弹窗标题 默认读取资源文件内容</para>
+    /// <para lang="en">Get Error Toast Title Default Read Resource File</para>
     /// </summary>
     string? ToastTitle { get; }
 
     /// <summary>
-    /// 获得/设置 自定义 Error 处理方法 默认 null
+    /// <para lang="zh">获得/设置 自定义 Error 处理方法 默认 null</para>
+    /// <para lang="en">Get/Set Custom Error Handler Default null</para>
     /// </summary>
     /// <param name="ex"></param>
     Task HandlerExceptionAsync(Exception ex);
 
     /// <summary>
-    /// 注册方法
+    /// <para lang="zh">注册方法</para>
+    /// <para lang="en">Register Method</para>
     /// </summary>
     /// <param name="component"></param>
     void Register(IHandlerException component);
 
     /// <summary>
-    /// 注销方法
+    /// <para lang="zh">注销方法</para>
+    /// <para lang="en">Unregister Method</para>
     /// </summary>
     /// <param name="component"></param>
     void UnRegister(IHandlerException component);

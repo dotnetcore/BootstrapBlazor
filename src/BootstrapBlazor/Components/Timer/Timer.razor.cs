@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,13 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Timer 组件
+/// <para lang="zh">Timer 组件</para>
+/// <para lang="en">Timer component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class Timer
 {
     /// <summary>
-    /// 获得 组件样式字符串
+    /// <para lang="zh">获得 组件样式字符串</para>
+    /// <para lang="en">Gets componentstyle字符串</para>
     /// </summary>
     protected override string? ClassString => CssBuilder.Default("timer")
         .AddClass(base.ClassString)
@@ -26,7 +28,8 @@ public partial class Timer
         .Build();
 
     /// <summary>
-    /// 获得/设置 当前进度值
+    /// <para lang="zh">获得/设置 当前进度值</para>
+    /// <para lang="en">Gets or sets 当前进度值</para>
     /// </summary>
     private string? ValueString => $"{Math.Round(((1 - CurrentTimespan.TotalSeconds * 1.0 / Value.TotalSeconds) * CircleLength), 2)}";
 
@@ -35,7 +38,8 @@ public partial class Timer
     private bool IsPause { get; set; }
 
     /// <summary>
-    /// 获得/设置 Title 字符串
+    /// <para lang="zh">获得/设置 Title 字符串</para>
+    /// <para lang="en">Gets or sets Title 字符串</para>
     /// </summary>
     private string ValueTitleString => CurrentTimespan.Hours == 0 ? $"{CurrentTimespan:mm\\:ss}" : $"{CurrentTimespan:hh\\:mm\\:ss}";
 
@@ -46,71 +50,93 @@ public partial class Timer
     private bool Vibrate { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前值
+    /// <para lang="zh">获得/设置 当前值</para>
+    /// <para lang="en">Gets or sets 当前值</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TimeSpan Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 文件预览框宽度
+    /// <para lang="zh">获得/设置 文件预览框宽度</para>
+    /// <para lang="en">Gets or sets 文件预览框width</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 300;
 
     /// <summary>
-    /// 获得/设置 倒计时结束时回调委托
+    /// <para lang="zh">获得/设置 倒计时结束时回调委托</para>
+    /// <para lang="en">Gets or sets 倒计时结束时回调delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTimeout { get; set; }
 
     /// <summary>
-    /// 获得/设置 取消时回调委托
+    /// <para lang="zh">获得/设置 取消时回调委托</para>
+    /// <para lang="en">Gets or sets 取消时回调delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCancel { get; set; }
 
     /// <summary>
-    /// 获得/设置 进度条宽度 默认为 2
+    /// <para lang="zh">获得/设置 进度条宽度 默认为 2</para>
+    /// <para lang="en">Gets or sets 进度条width Default is为 2</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int StrokeWidth { get; set; } = 6;
 
     /// <summary>
-    /// 获得/设置 倒计时结束时设备震动
+    /// <para lang="zh">获得/设置 倒计时结束时设备震动</para>
+    /// <para lang="en">Gets or sets 倒计时结束时设备震动</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVibrate { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 暂停按钮文字
+    /// <para lang="zh">获得/设置 暂停按钮文字</para>
+    /// <para lang="en">Gets or sets 暂停button文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? PauseText { get; set; }
 
     /// <summary>
-    /// 获得/设置 继续按钮文字
+    /// <para lang="zh">获得/设置 继续按钮文字</para>
+    /// <para lang="en">Gets or sets 继续button文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ResumeText { get; set; }
 
     /// <summary>
-    /// 获得/设置 取消按钮文字
+    /// <para lang="zh">获得/设置 取消按钮文字</para>
+    /// <para lang="en">Gets or sets 取消button文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? CancelText { get; set; }
 
     /// <summary>
-    /// 获得/设置 取消按钮文字
+    /// <para lang="zh">获得/设置 取消按钮文字</para>
+    /// <para lang="en">Gets or sets 取消button文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? StarText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Alert 图标
+    /// <para lang="zh">获得/设置 Alert 图标</para>
+    /// <para lang="en">Gets or sets Alert icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -236,7 +262,8 @@ public partial class Timer
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose 方法</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

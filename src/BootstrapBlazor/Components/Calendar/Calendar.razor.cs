@@ -9,7 +9,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 日历框组件
+/// <para lang="zh">日历框组件</para>
+/// <para lang="en">Calendar component</para>
 /// </summary>
 public partial class Calendar
 {
@@ -47,12 +48,14 @@ public partial class Calendar
     private List<string>? Months { get; set; }
 
     /// <summary>
-    /// 获得 当前日历框年月
+    /// <para lang="zh">获得 当前日历框年月</para>
+    /// <para lang="en">Get the current calendar year and month</para>
     /// </summary>
     private string? GetTitle() => Localizer["Title", Value.Year, Months.ElementAt(Value.Month - 1)];
 
     /// <summary>
-    /// 获得 当前日历周文字
+    /// <para lang="zh">获得 当前日历周文字</para>
+    /// <para lang="en">Get the current calendar week text</para>
     /// </summary>
     [NotNull]
     private string? WeekNumberText { get; set; }
@@ -62,14 +65,16 @@ public partial class Calendar
     private IStringLocalizer<Calendar>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得 周日期
+    /// <para lang="zh">获得 周日期</para>
+    /// <para lang="en">Get week day</para>
     /// </summary>
     /// <param name="offset"></param>
     /// <returns></returns>
     private string GetWeekDayString(int offset) => $"{Value.AddDays(offset - (int)Value.DayOfWeek).Day}";
 
     /// <summary>
-    /// 获得 周日期样式
+    /// <para lang="zh">获得 周日期样式</para>
+    /// <para lang="en">Get week day style</para>
     /// </summary>
     /// <param name="offset"></param>
     /// <returns></returns>
@@ -90,7 +95,8 @@ public partial class Calendar
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized method</para>
     /// </summary>
     /// <returns></returns>
     protected override void OnInitialized()
@@ -117,7 +123,8 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 获得/设置 日历框开始时间
+    /// <para lang="zh">获得/设置 日历框开始时间</para>
+    /// <para lang="en">Gets or sets the calendar start date</para>
     /// </summary>
     protected DateTime StartDate
     {
@@ -130,7 +137,8 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 获得 当前周数
+    /// <para lang="zh">获得 当前周数</para>
+    /// <para lang="en">Get the current week count</para>
     /// </summary>
     protected int GetWeekCount()
     {
@@ -139,72 +147,94 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 获得/设置 日历框结束时间
+    /// <para lang="zh">获得/设置 日历框结束时间</para>
+    /// <para lang="en">Gets or sets the calendar end date</para>
     /// </summary>
     protected DateTime EndDate => StartDate.AddDays(42);
 
     /// <summary>
-    /// 获得/设置 组件值
+    /// <para lang="zh">获得/设置 组件值</para>
+    /// <para lang="en">Gets or sets the component value</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 值改变时回调委托
+    /// <para lang="zh">获得/设置 值改变时回调委托</para>
+    /// <para lang="en">Gets or sets the value change callback delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<DateTime> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 值改变时回调委托
+    /// <para lang="zh">获得/设置 值改变时回调委托</para>
+    /// <para lang="en">Gets or sets the value change callback delegate</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示周视图 默认为 <see cref="CalendarViewMode.Month"/> 月视图
+    /// <para lang="zh">获得/设置 是否显示周视图 默认为 <see cref="CalendarViewMode.Month"/> 月视图</para>
+    /// <para lang="en">Gets or sets whether to display the week view. Default is <see cref="CalendarViewMode.Month"/> month view</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CalendarViewMode ViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 周内容 <see cref="CalendarViewMode.Week"/> 时有效
+    /// <para lang="zh">获得/设置 周内容 <see cref="CalendarViewMode.Week"/> 时有效</para>
+    /// <para lang="en">Gets or sets the week content. Valid when <see cref="CalendarViewMode.Week"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 列头模板
+    /// <para lang="zh">获得/设置 列头模板</para>
+    /// <para lang="en">Gets or sets the header template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Body 模板仅 <see cref="CalendarViewMode.Month"/> 有效
+    /// <para lang="zh">获得/设置 Body 模板仅 <see cref="CalendarViewMode.Month"/> 有效</para>
+    /// <para lang="en">Gets or sets the body template. Valid only when <see cref="CalendarViewMode.Month"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<BodyTemplateContext>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 单元格模板
+    /// <para lang="zh">获得/设置 单元格模板</para>
+    /// <para lang="en">Gets or sets the cell template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<CalendarCellValue>? CellTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示年按钮
+    /// <para lang="zh">获得/设置 是否显示年按钮</para>
+    /// <para lang="en">Gets or sets whether to show the year buttons</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowYearButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// <para lang="zh">获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/></para>
+    /// <para lang="en">Gets or sets the first day of the week. Default is <see cref="DayOfWeek.Sunday"/></para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
     /// <summary>
-    /// 选中日期时回调此方法
+    /// <para lang="zh">选中日期时回调此方法</para>
+    /// <para lang="en">Callback method when selecting a date</para>
     /// </summary>
     /// <param name="value"></param>
     protected async Task OnCellClickCallback(DateTime value)
@@ -221,7 +251,8 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 右侧快捷切换年按钮回调此方法
+    /// <para lang="zh">右侧快捷切换年按钮回调此方法</para>
+    /// <para lang="en">Callback method for the right shortcut switch year button</para>
     /// </summary>
     /// <param name="offset"></param>
     protected async Task OnChangeYear(int offset)
@@ -238,7 +269,8 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 右侧快捷切换月按钮回调此方法
+    /// <para lang="zh">右侧快捷切换月按钮回调此方法</para>
+    /// <para lang="en">Callback method for the right shortcut switch month button</para>
     /// </summary>
     /// <param name="offset"></param>
     protected async Task OnChangeMonth(int offset)
@@ -255,7 +287,8 @@ public partial class Calendar
     }
 
     /// <summary>
-    /// 右侧快捷切换周按钮回调此方法
+    /// <para lang="zh">右侧快捷切换周按钮回调此方法</para>
+    /// <para lang="en">Callback method for the right shortcut switch week button</para>
     /// </summary>
     /// <param name="offset"></param>
     protected async Task OnChangeWeek(int offset)
@@ -293,7 +326,8 @@ public partial class Calendar
     {
         var list = Localizer[nameof(WeekLists)].Value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-        // 调整顺序
+        // <para lang="zh">调整顺序</para>
+        // <para lang="en">Adjust order</para>
         var firstDayIndex = (int)FirstDayOfWeek;
         return [.. list.Skip(firstDayIndex), .. list.Take(firstDayIndex)];
     }

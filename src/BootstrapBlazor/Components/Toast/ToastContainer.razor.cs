@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toast 弹出窗组件
+/// <para lang="zh">Toast 弹出窗组件</para>
+/// <para lang="en">Toast 弹出窗component</para>
 /// </summary>
 public partial class ToastContainer : IDisposable
 {
@@ -24,12 +25,15 @@ public partial class ToastContainer : IDisposable
         .Build();
 
     /// <summary>
-    /// 获得 弹出窗集合
+    /// <para lang="zh">获得 弹出窗集合</para>
+    /// <para lang="en">Gets 弹出窗collection</para>
     /// </summary>
     private List<ToastOption> Toasts { get; } = [];
 
     /// <summary>
-    /// 获得/设置 显示文字
+    /// <para lang="zh">获得/设置 显示文字</para>
+    /// <para lang="en">Gets or sets display文字</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -44,7 +48,8 @@ public partial class ToastContainer : IDisposable
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized 方法</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -76,7 +81,8 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// 关闭弹窗
+    /// <para lang="zh">关闭弹窗</para>
+    /// <para lang="en">关闭弹窗</para>
     /// </summary>
     /// <param name="option"></param>
     public async Task Close(ToastOption option)
@@ -90,7 +96,8 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// 设置 Toast 容器位置方法
+    /// <para lang="zh">设置 Toast 容器位置方法</para>
+    /// <para lang="en">Sets Toast 容器位置方法</para>
     /// </summary>
     /// <param name="placement"></param>
     public void SetPlacement(Placement placement)
@@ -100,7 +107,8 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose 方法</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -112,7 +120,8 @@ public partial class ToastContainer : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose 方法</para>
     /// </summary>
     public void Dispose()
     {

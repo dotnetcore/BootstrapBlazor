@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorRootOutlet Component
+/// <para lang="zh">BootstrapBlazorRootOutlet 组件</para>
+/// <para lang="en">BootstrapBlazorRootOutlet Component</para>
 /// </summary>
 public class BootstrapBlazorRootOutlet : IComponent, IDisposable
 {
@@ -17,7 +18,8 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     private RenderHandle _renderHandle;
 
     /// <summary>
-    /// Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances.
+    /// <para lang="zh">获得可用于订阅所有 <see cref="BootstrapBlazorRootContent"/> 实例的默认标识符</para>
+    /// <para lang="en">Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances.</para>
     /// </summary>
     public static readonly object DefaultIdentifier = new();
 
@@ -25,15 +27,17 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     private BootstrapBlazorRootRegisterService RootRegisterService { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide
-    /// content to this instance.
+    /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="string"/> ID</para>
+    /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RootName { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide
-    /// content to this instance.
+    /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="object"/> ID</para>
+    /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? RootId { get; set; }

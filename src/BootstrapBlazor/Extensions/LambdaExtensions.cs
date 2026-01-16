@@ -11,18 +11,21 @@ using System.Reflection;
 namespace System.Linq;
 
 /// <summary>
-/// Lambda 表达式扩展类
+/// <para lang="zh">Lambda 表达式扩展类</para>
+/// <para lang="en">Lambda expression extension class</para>
 /// </summary>
 public static class LambdaExtensions
 {
     /// <summary>
-    /// Expression 统一 node 变量
+    /// <para lang="zh">Expression 统一 node 变量</para>
+    /// <para lang="en">Expression unified node variable</para>
     /// </summary>
     /// <param name="parameter"></param>
     private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
         /// <summary>
         /// <inheritdoc/>
+        /// <para lang="en"><inheritdoc/></para>
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -30,19 +33,21 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 指定 FilterKeyValueAction 获取委托
+    /// <para lang="zh">指定 FilterKeyValueAction 获取委托</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get delegate</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
+    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
     public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null) => filter.GetFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
-    /// 指定 FilterKeyValueAction 获取 Lambda 表达式
+    /// <para lang="zh">指定 FilterKeyValueAction 获取 Lambda 表达式</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get Lambda expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <param name="comparison"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</param>
+    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null)
     {
         var express = new List<Expression<Func<TItem, bool>>>();
@@ -60,7 +65,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 指定 IFilter 集合获取委托
+    /// <para lang="zh">指定 IFilter 集合获取委托</para>
+    /// <para lang="en">Specify IFilter collection to get delegate</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -69,7 +75,8 @@ public static class LambdaExtensions
     public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
-    /// 指定 IFilter 集合获取 Lambda 表达式
+    /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
+    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -78,12 +85,13 @@ public static class LambdaExtensions
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic);
 
     /// <summary>
-    /// 指定 IFilter 集合获取 Lambda 表达式
+    /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
+    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
     /// <param name="logic"></param>
-    /// <param name="comparison"><see cref="StringComparison"/> 实例</param>
+    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例</para><para lang="en"><see cref="StringComparison"/> instance</para></param>
     /// <returns></returns>
     private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic, StringComparison? comparison = null)
     {
@@ -95,7 +103,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 表达式取 and 逻辑操作方法
+    /// <para lang="zh">表达式取 and 逻辑操作方法</para>
+    /// <para lang="en">Expression get and logic operation method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="expressions"></param>
@@ -139,7 +148,8 @@ public static class LambdaExtensions
 
         Expression<Func<TItem, bool>> GetSimpleFilterExpression()
         {
-            // 根据 Filters 集合获取 Lambda 表达式
+            // <para lang="zh">根据 Filters 集合获取 Lambda 表达式</para>
+            // <para lang="en">Get Lambda expression based on Filters collection</para>
             var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
             var parameter = Expression.Parameter(type);
             var fieldExpression = Expression.Property(parameter, prop);
@@ -183,13 +193,15 @@ public static class LambdaExtensions
 
         if (prop != null)
         {
-            // 可为空类型转化为具体类型
+            // <para lang="zh">可为空类型转化为具体类型</para>
+            // <para lang="en">Nullable type converted to specific type</para>
             if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 isNullable = true;
                 eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
             }
-            // 处理类型不一致的情况
+            // <para lang="zh">处理类型不一致的情况</para>
+            // <para lang="en">Handle inconsistent types</para>
             if (filter.FilterAction != FilterAction.CustomPredicate && filter.FieldValue != null && prop.PropertyType != filter.FieldValue.GetType() && filter.FieldValue.ToString().TryConvertTo(prop.PropertyType, out var v))
             {
                 filter.FieldValue = v;
@@ -242,14 +254,16 @@ public static class LambdaExtensions
 
     #region Count
     /// <summary>
-    /// Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类
+    /// <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
+    /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     public static int ElementCount(object? value) => CacheManager.ElementCount(value);
 
     /// <summary>
-    /// Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类
+    /// <para lang="zh">Count 方法内部使用 Lambda 表达式做通用适配 可接受 IEnumerable 与 Array 子类</para>
+    /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
@@ -274,7 +288,8 @@ public static class LambdaExtensions
 
     #region Sort
     /// <summary>
-    /// 获得排序 Expression 表达式
+    /// <para lang="zh">获得排序 Expression 表达式</para>
+    /// <para lang="en">Gets排序 Expression 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
@@ -289,7 +304,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IEnumerable 排序扩展方法
+    /// <para lang="zh">IEnumerable 排序扩展方法</para>
+    /// <para lang="en">IEnumerable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -320,7 +336,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法
+    /// <para lang="zh">IQueryable 排序扩展方法</para>
+    /// <para lang="en">IQueryable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -348,7 +365,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 获得排序 Expression 表达式
+    /// <para lang="zh">获得排序 Expression 表达式</para>
+    /// <para lang="en">Get sort Expression expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <returns></returns>
@@ -364,7 +382,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IEnumerable 排序扩展方法
+    /// <para lang="zh">IEnumerable 排序扩展方法</para>
+    /// <para lang="en">IEnumerable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -377,7 +396,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法
+    /// <para lang="zh">IQueryable 排序扩展方法</para>
+    /// <para lang="en">IQueryable Sort extension method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -620,7 +640,8 @@ public static class LambdaExtensions
     #endregion
 
     /// <summary>
-    /// 获取属性方法 Lambda 表达式
+    /// <para lang="zh">获取属性方法 Lambda 表达式</para>
+    /// <para lang="en">Get property method Lambda expression</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -696,7 +717,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 给指定模型属性赋值 Lambda 表达式
+    /// <para lang="zh">给指定模型属性赋值 Lambda 表达式</para>
+    /// <para lang="en">Assign value to specified model property Lambda expression</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -750,7 +772,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
+    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Get the property value of the designated model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -768,13 +791,15 @@ public static class LambdaExtensions
             var valueType = typeof(TValue);
             if (properties.Count == 1)
             {
-                // 单主键
+                // <para lang="zh">单主键</para>
+                // <para lang="en">Single primary key</para>
                 var body = Expression.Property(Expression.Convert(param, type), properties.First());
                 ret = Expression.Lambda<Func<TModel, TValue>>(Expression.Convert(body, valueType), param);
             }
             else if (properties.Count < 9)
             {
-                // 联合主键
+                // <para lang="zh">联合主键</para>
+                // <para lang="en">Composite primary key</para>
                 var tupleType = Type.GetType($"System.Tuple`{properties.Count}")!;
                 var keyPropertyTypes = properties.Select(x => x.PropertyType).ToArray();
                 var tupleConstructor = tupleType.MakeGenericType(keyPropertyTypes).GetConstructor(keyPropertyTypes);
@@ -790,7 +815,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 数组转成字符串表达式
+    /// <para lang="zh">数组转成字符串表达式</para>
+    /// <para lang="en">数组转成字符串表达式</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <returns></returns>
@@ -806,7 +832,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法
+    /// <para lang="zh">泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法</para>
+    /// <para lang="en">Generic collection convert to <![CDATA[IEnumerable<string>]]> method</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <remarks><code><![CDATA[IEnumerable<T>]]> to <![CDATA[IEnumerable<string>]]></code></remarks>
@@ -826,7 +853,8 @@ public static class LambdaExtensions
     private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
 
     /// <summary>
-    /// 数组转成字符串表达式
+    /// <para lang="zh">数组转成字符串表达式</para>
+    /// <para lang="en">数组转成字符串表达式</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="typeResolver"></param>
@@ -839,7 +867,8 @@ public static class LambdaExtensions
         var methodType = ResolveArrayType(targetType, typeResolver);
         if (methodType != null)
         {
-            // 调用 string.Join<T>(",", IEnumerable<T>) 方法
+            // <para lang="zh">调用 string.Join&lt;T&gt;(",", IEnumerable&lt;T&gt;) 方法</para>
+            // <para lang="en">Call string.Join&lt;T&gt;(",", IEnumerable&lt;T&gt;) method</para>
             var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(methodType);
             var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param, targetType));
             ret = Expression.Lambda<Func<TValue, string>>(body, param);

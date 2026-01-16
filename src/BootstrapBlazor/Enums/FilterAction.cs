@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,60 +8,70 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 关系运算符
+/// <para lang="zh">关系运算符</para>
+/// <para lang="en">Relational Operator</para>
 /// </summary>
 public enum FilterAction
 {
     /// <summary>
-    /// 等于
+    /// <para lang="zh">等于</para>
+    /// <para lang="en">Equal to</para>
     /// </summary>
     [Description("等于")]
     Equal,
 
     /// <summary>
-    /// 不等于
+    /// <para lang="zh">不等于</para>
+    /// <para lang="en">Not equal to</para>
     /// </summary>
     [Description("不等于")]
     NotEqual,
 
     /// <summary>
-    /// 大于
+    /// <para lang="zh">大于</para>
+    /// <para lang="en">Greater than</para>
     /// </summary>
     [Description("大于")]
     GreaterThan,
 
     /// <summary>
-    /// 大于等于
+    /// <para lang="zh">大于等于</para>
+    /// <para lang="en">Greater than or equal to</para>
     /// </summary>
     [Description("大于等于")]
     GreaterThanOrEqual,
 
     /// <summary>
-    /// 小于
+    /// <para lang="zh">小于</para>
+    /// <para lang="en">Less than</para>
     /// </summary>
     [Description("小于")]
     LessThan,
 
     /// <summary>
-    /// 小于等于
+    /// <para lang="zh">小于等于</para>
+    /// <para lang="en">Less than or equal to</para>
     /// </summary>
     [Description("小于等于")]
     LessThanOrEqual,
 
     /// <summary>
-    /// 包含
+    /// <para lang="zh">包含</para>
+    /// <para lang="en">Contains</para>
     /// </summary>
     [Description("包含")]
     Contains,
 
     /// <summary>
-    /// 不包含
+    /// <para lang="zh">不包含</para>
+    /// <para lang="en">Not contains</para>
     /// </summary>
     [Description("不包含")]
     NotContains,
 
     /// <summary>
-    /// 自定义条件
+    /// <para lang="zh">自定义条件</para>
+    /// <para lang="en">Custom Predicate</para>
     /// </summary>
     [Description("自定义条件")]
     CustomPredicate
