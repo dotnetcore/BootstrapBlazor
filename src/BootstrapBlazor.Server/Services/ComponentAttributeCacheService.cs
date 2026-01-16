@@ -129,7 +129,11 @@ public static class ComponentAttributeCacheService
         if (type.IsGenericType)
         {
             var genericTypeName = type.GetGenericTypeDefinition().Name;
-            genericTypeName = genericTypeName.Substring(0, genericTypeName.IndexOf('`'));
+            var backtickIndex = genericTypeName.IndexOf('`');
+            if (backtickIndex > 0)
+            {
+                genericTypeName = genericTypeName.Substring(0, backtickIndex);
+            }
             var genericArgs = string.Join(", ", type.GetGenericArguments().Select(GetFriendlyTypeName));
             return $"{genericTypeName}<{genericArgs}>";
         }
