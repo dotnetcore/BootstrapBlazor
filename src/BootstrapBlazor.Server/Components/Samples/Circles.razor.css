@@ -1,4 +1,4 @@
-﻿.circle-demo {
+.circle-demo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,3 +14,9 @@
         font-style: normal;
         color: #3f414d;
     }
+
+.circle-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 120px);
+    gap: .5rem;
+}

@@ -1,4 +1,4 @@
-﻿@page "/circle"
+@page "/circle"
 @inject IStringLocalizer<Circles> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -12,22 +12,20 @@
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <Circle Value="@_circleValue" />
-    <div class="mt-3">
-        <div class="btn-group">
-            <button class="btn btn-primary" @onclick="e => Add(10)">
-                <i class="fa-solid fa-plus"></i>
-                <span>@Localizer["IncreaseSpan"] 10</span>
-            </button>
-            <button class="btn btn-info" @onclick="e => Add(-10)">
-                <i class="fa-solid fa-minus"></i>
-                <span>@Localizer["DecreaseSpan"] 10</span>
-            </button>
-        </div>
-    </div>
+    <section ignore class="btn-group mt-3 d-block">
+        <button class="btn btn-primary" @onclick="e => Add(10)">
+            <i class="fa-solid fa-plus"></i>
+            <span>@Localizer["IncreaseSpan"] 10</span>
+        </button>
+        <button class="btn btn-info" @onclick="e => Add(-10)">
+            <i class="fa-solid fa-minus"></i>
+            <span>@Localizer["DecreaseSpan"] 10</span>
+        </button>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ColorTitle"]" Introduction="@Localizer["ColorIntro"]" Name="Color">
-    <div class="d-flex justify-content-between">
+    <div class="circle-group">
         <Circle Value="10" Color="Color.Primary" />
         <Circle Value="20" Color="Color.Success" />
         <Circle Value="30" Color="Color.Info" />
@@ -39,9 +37,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["StrokeWidthTitle"]" Introduction="@Localizer["StrokeWidthIntro"]" Name="StrokeWidth">
-    <div class="d-flex justify-content-between">
-        <Circle Value="80" Color="Color.Info" StrokeWidth="5" />
-    </div>
+    <Circle Value="80" Color="Color.Info" StrokeWidth="5" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent">
