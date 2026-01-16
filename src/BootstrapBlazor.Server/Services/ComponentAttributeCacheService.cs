@@ -6,6 +6,7 @@
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;
+using System.Xml;
 using System.Xml.Linq;
 using BootstrapBlazor.Server.Data;
 using Microsoft.AspNetCore.Components;
@@ -117,7 +118,7 @@ public static class ComponentAttributeCacheService
             return string.Join(" / ", Enum.GetNames(property.PropertyType));
         }
 
-        return "";
+        return null;
     }
 
     /// <summary>
@@ -153,19 +154,41 @@ public static class ComponentAttributeCacheService
 
         try
         {
+            var assemblyLocation = assembly.Location;
+            if (string.IsNullOrEmpty(assemblyLocation))
+            {
+                return null;
+            }
+
             var xmlPath = Path.Combine(
-                Path.GetDirectoryName(assembly.Location) ?? "",
-                Path.GetFileNameWithoutExtension(assembly.Location) + ".xml"
+                Path.GetDirectoryName(assemblyLocation) ?? "",
+                Path.GetFileNameWithoutExtension(assemblyLocation) + ".xml"
             );
 
             if (File.Exists(xmlPath))
             {
-                return XDocument.Load(xmlPath);
+                // 使用安全的 XML 读取设置防止 XXE 攻击
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using var reader = XmlReader.Create(xmlPath, settings);
+                return XDocument.Load(reader);
             }
         }
-        catch
+        catch (FileNotFoundException)
         {
-            // Ignore errors
+            // XML 文档文件不存在,忽略
+        }
+        catch (XmlException)
+        {
+            // XML 文档格式错误,忽略
+        }
+        catch (UnauthorizedAccessException)
+        {
+            // 没有访问权限,忽略
         }
 
         return null;
