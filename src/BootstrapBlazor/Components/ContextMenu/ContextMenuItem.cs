@@ -23,7 +23,9 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     ///  <para lang="en">The CSS class name that represents an icon (if any)</para>
     /// </summary>
     /// <example>
+    /// <code>
     /// Icon="fa-solid fa-bookmark"
+    /// </code> 
     /// </example>
     [Parameter]
     public string? Icon { get; set; }
