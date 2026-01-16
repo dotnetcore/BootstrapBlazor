@@ -1,4 +1,4 @@
-﻿<div class="table-attr">
+<div class="table-attr">
     <h4>@Title</h4>
 
     <Table TItem="AttributeItem" Items="Items">
@@ -8,6 +8,7 @@
             <TableColumn @bind-Field="@context.Type" />
             <TableColumn @bind-Field="@context.ValueList" TextWrap="true" />
             <TableColumn @bind-Field="@context.DefaultValue" />
+            <TableColumn @bind-Field="@context.Version" />
         </TableColumns>
     </Table>
 </div>

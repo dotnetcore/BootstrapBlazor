@@ -8,8 +8,6 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
-using BootstrapBlazor.Server.Data;
-using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Server.Services;
 
@@ -115,7 +113,7 @@ public static class ComponentAttributeCacheService
         // 如果是枚举类型,返回枚举值
         if (property.PropertyType.IsEnum)
         {
-            return string.Join(" / ", Enum.GetNames(property.PropertyType));
+            return string.Join("/", Enum.GetNames(property.PropertyType));
         }
 
         return null;
