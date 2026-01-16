@@ -259,7 +259,8 @@
     "select-region": "SelectRegions",
     "select-city": "SelectCities",
     "select-province": "SelectProvinces",
-    "hik-vision": "HikVisions"
+    "hik-vision": "HikVisions",
+    "embed-pdf": "EmbedPDFs"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
