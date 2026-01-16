@@ -12,8 +12,5 @@ namespace BootstrapBlazor.Components;
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class JSModuleNotInheritedAttribute : Attribute
 {
-    // <para lang="zh">增加 sealed 关键字防止二开写派生类导致 type.GetCustomAttribute&lt;JSModuleNotInheritedAttribute&gt;() 报错</para>
-    // <para lang="zh">BootstrapModuleComponentBase 类 OnLoadJSModule 方法</para>
-    // <para lang="en">Add sealed keyword to prevent derived classes from causing type.GetCustomAttribute&lt;JSModuleNotInheritedAttribute&gt;() error</para>
-    // <para lang="en">BootstrapModuleComponentBase class OnLoadJSModule method</para>
+
 }
