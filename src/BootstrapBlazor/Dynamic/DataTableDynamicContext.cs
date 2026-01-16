@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,12 +10,14 @@ using System.Reflection.Emit;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DataTable 动态数据上下文实现类 <see cref="DynamicObjectContext" />
+/// <para lang="zh">DataTable 动态数据上下文实现类 <see cref="DynamicObjectContext" /></para>
+/// <para lang="en">DataTable 动态data上下文实现类 <see cref="DynamicObjectContext" /></para>
 /// </summary>
 public class DataTableDynamicContext : DynamicObjectContext
 {
     /// <summary>
-    /// 获得/设置 相关联的 DataTable 实例
+    /// <para lang="zh">获得/设置 相关联的 DataTable 实例</para>
+    /// <para lang="en">Gets or sets 相关联的 DataTable instance</para>
     /// </summary>
     [NotNull]
     public DataTable? DataTable { get; set; }
@@ -29,33 +31,38 @@ public class DataTableDynamicContext : DynamicObjectContext
     private Action<DataTableDynamicContext, ITableColumn>? AddAttributesCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用内部缓存 默认 true 启用
+    /// <para lang="zh">获得/设置 是否启用内部缓存 默认 true 启用</para>
+    /// <para lang="en">Gets or sets whether启用内部缓存 Default is true 启用</para>
     /// </summary>
     public bool UseCache { get; set; } = true;
 
     /// <summary>
-    /// 负责将 DataRow 与 Items 关联起来方便查找提高效率
+    /// <para lang="zh">负责将 DataRow 与 Items 关联起来方便查找提高效率</para>
+    /// <para lang="en">负责将 DataRow 与 Items 关联起来方便查找提高效率</para>
     /// </summary>
     private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> Caches { get; } = new();
 
     /// <summary>
-    /// 添加行回调委托
+    /// <para lang="zh">添加行回调委托</para>
+    /// <para lang="en">添加行回调delegate</para>
     /// </summary>
     public Func<IEnumerable<IDynamicObject>, Task>? OnAddAsync { get; set; }
 
     /// <summary>
-    /// 删除行回调委托
+    /// <para lang="zh">删除行回调委托</para>
+    /// <para lang="en">删除行回调delegate</para>
     /// </summary>
     public Func<IEnumerable<IDynamicObject>, Task<bool>>? OnDeleteAsync { get; set; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">构造函数</para>
     /// </summary>
     /// <param name="table"></param>
     /// <param name="addAttributesCallback"></param>
-    /// <param name="invisibleColumns">永远不显示的列集合 默认为 null 全部显示</param>
-    /// <param name="shownColumns">显示列集合 默认为 null 全部显示</param>
-    /// <param name="hiddenColumns">隐藏列集合 默认为 null 无隐藏列</param>
+    /// <param name="invisibleColumns"><para lang="zh">永远不显示的列集合 默认为 null 全部显示</para><para lang="en">永远不display的列collection default is为 null 全部display</para></param>
+    /// <param name="shownColumns"><para lang="zh">显示列集合 默认为 null 全部显示</para><para lang="en">display列collection default is为 null 全部display</para></param>
+    /// <param name="hiddenColumns"><para lang="zh">隐藏列集合 默认为 null 无隐藏列</para><para lang="en">隐藏列collection default is为 null 无隐藏列</para></param>
     public DataTableDynamicContext(DataTable table, Action<DataTableDynamicContext, ITableColumn>? addAttributesCallback = null, IEnumerable<string>? invisibleColumns = null, IEnumerable<string>? shownColumns = null, IEnumerable<string>? hiddenColumns = null)
     {
         DataTable = table;
@@ -104,7 +111,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     }
 
     /// <summary>
-    /// GetItems 方法
+    /// <para lang="zh">GetItems 方法</para>
+    /// <para lang="en">GetItems 方法</para>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<IDynamicObject> GetItems()
@@ -150,13 +158,15 @@ public class DataTableDynamicContext : DynamicObjectContext
     }
 
     /// <summary>
-    /// GetItems 方法
+    /// <para lang="zh">GetItems 方法</para>
+    /// <para lang="en">GetItems 方法</para>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<ITableColumn> GetColumns() => Columns;
 
     /// <summary>
-    /// 获得列信息方法
+    /// <para lang="zh">获得列信息方法</para>
+    /// <para lang="en">Gets列信息方法</para>
     /// </summary>
     /// <returns></returns>
     private List<ITableColumn> InternalGetColumns()
@@ -170,7 +180,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     }
 
     /// <summary>
-    /// 
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
@@ -182,9 +193,10 @@ public class DataTableDynamicContext : DynamicObjectContext
 
     #region Add Save Delete
     /// <summary>
-    /// 新建方法
+    /// <para lang="zh">新建方法</para>
+    /// <para lang="en">新建方法</para>
     /// </summary>
-    /// <param name="selectedItems">当前选中行</param>
+    /// <param name="selectedItems"><para lang="zh">当前选中行</para><para lang="en">当前选中行</para></param>
     /// <returns></returns>
     public override async Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
     {
@@ -232,7 +244,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     }
 
     /// <summary>
-    /// 删除方法
+    /// <para lang="zh">删除方法</para>
+    /// <para lang="en">删除方法</para>
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
@@ -277,7 +290,8 @@ public class DataTableDynamicContext : DynamicObjectContext
     }
 
     /// <summary>
-    /// 动态类型变更回调方法
+    /// <para lang="zh">动态类型变更回调方法</para>
+    /// <para lang="en">动态type变更callback method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="column"></param>

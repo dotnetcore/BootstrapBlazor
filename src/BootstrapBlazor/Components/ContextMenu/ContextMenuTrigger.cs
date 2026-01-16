@@ -14,13 +14,16 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ContextMenuTrigger : BootstrapComponentBase
 {
-    /// <inheritdoc cref="ContextMenu.ChildContent" />
+    /// <summary>
+	/// <inheritdoc cref="ContextMenu.ChildContent" />
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 包裹组件 TagName 默认为 div</para>
     /// <para lang="en">The HTML tag name to use for the trigger. Default is &lt;div&gt;.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string WrapperTag { get; set; } = "div";
@@ -28,6 +31,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 上下文数据</para>
     /// <para lang="en">Gets or sets the context data.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? ContextItem { get; set; }
@@ -50,7 +54,9 @@ public class ContextMenuTrigger : BootstrapComponentBase
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>	
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
@@ -58,7 +64,9 @@ public class ContextMenuTrigger : BootstrapComponentBase
         OnTouchDelay ??= Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
     }
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, WrapperTag);

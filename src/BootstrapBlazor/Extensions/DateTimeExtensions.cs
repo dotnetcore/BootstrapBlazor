@@ -8,12 +8,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTime 扩展方法
+/// <para lang="zh">DateTime 扩展方法</para>
+/// <para lang="en">DateTime Extensions</para>
 /// </summary>
 internal static class DateTimeExtensions
 {
     /// <summary>
-    /// 获得安全的月份时间
+    /// <para lang="zh">获得安全的月份时间</para>
+    /// <para lang="en">Get Safe Month DateTime</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="month"></param>
@@ -49,7 +51,8 @@ internal static class DateTimeExtensions
     private static readonly ChineseLunisolarCalendar calendar = new();
 
     /// <summary>
-    /// 获得阴历时间方法
+    /// <para lang="zh">获得阴历时间方法</para>
+    /// <para lang="en">Get Lunar DateTime</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
@@ -69,7 +72,8 @@ internal static class DateTimeExtensions
     }
 
     /// <summary>
-    /// 获得阴历信息
+    /// <para lang="zh">获得阴历信息</para>
+    /// <para lang="en">Get Lunar Text</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="showSolarTerm"></param>
@@ -129,7 +133,8 @@ internal static class DateTimeExtensions
 
         static int GetSolarTermDay(int year, int n)
         {
-            //1900年1月6日：小寒
+            //<para lang="zh">1900年1月6日：小寒</para>
+            //<para lang="en">January 6, 1900: Minor Cold</para>
             var minutes = 525948.766245 * (year - 1900) + SolarTermOffset[n - 1];
             var baseDate = new DateTime(1900, 1, 6, 2, 5, 0);
             var veryDate = baseDate.AddMinutes(minutes);

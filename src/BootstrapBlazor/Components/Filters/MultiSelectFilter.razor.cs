@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 多项选择下拉框过滤组件
+/// <para lang="zh">多项选择下拉框过滤组件</para>
+/// <para lang="en">Multi-Select Dropdown Filter Component</para>
 /// </summary>
 public partial class MultiSelectFilter<TType>
 {
@@ -18,7 +19,9 @@ public partial class MultiSelectFilter<TType>
     private FilterAction _action1 = FilterAction.Equal;
 
     /// <summary>
-    /// Gets or sets the filter items.
+    /// <para lang="zh">获得/设置 the filter items.</para>
+    /// <para lang="en">Gets or sets the filter items.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<SelectedItem>? Items { get; set; }

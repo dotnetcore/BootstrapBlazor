@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,36 +11,43 @@ internal class LookupContent : ComponentBase, ILookup
 {
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 显示值
+    /// <para lang="zh">获得/设置 显示值</para>
+    /// <para lang="en">Gets or sets display值</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Value { get; set; }

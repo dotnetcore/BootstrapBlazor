@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,8 @@ using System.Runtime.InteropServices;
 namespace Microsoft.Extensions.Configuration;
 
 /// <summary>
-/// IConfiguration 扩展类
+/// <para lang="zh">IConfiguration 扩展类</para>
+/// <para lang="en">IConfiguration Extensions</para>
 /// </summary>
 internal static class ConfigurationExtensions
 {
@@ -34,35 +35,40 @@ internal static class ConfigurationExtensions
             ["MachineName"] = Environment.MachineName,
             ["AppDomainName"] = AppDomain.CurrentDomain.FriendlyName,
 
-            // 收集环境变量信息
+            // <para lang="zh">收集环境变量信息</para>
+            // <para lang="en">Collect environment variables</para>
             ["OS"] = GetOS(),
             ["OSArchitecture"] = RuntimeInformation.OSArchitecture.ToString(),
             ["ProcessArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
             ["Framework"] = RuntimeInformation.FrameworkDescription
         };
 
-        // 当前用户
+        // <para lang="zh">当前用户</para>
+        // <para lang="en">Current User</para>
         var userName = configuration.GetUserName();
         if (!string.IsNullOrEmpty(userName))
         {
             nv["UserName"] = userName;
         }
 
-        // 当前环境
+        // <para lang="zh">当前环境</para>
+        // <para lang="en">Current Environment</para>
         var env = configuration.GetEnvironmentName();
         if (!string.IsNullOrEmpty(env))
         {
             nv["EnvironmentName"] = env;
         }
 
-        // IIS Root 路径
+        // <para lang="zh">IIS Root 路径</para>
+        // <para lang="en">IIS Root Path</para>
         var iis = configuration.GetIISPath();
         if (!string.IsNullOrEmpty(iis))
         {
             nv["IISRootPath"] = iis;
         }
 
-        // VisualStudio Version
+        // <para lang="zh">VisualStudio Version</para>
+        // <para lang="en">VisualStudio Version</para>
         var vs = configuration.GetVisualStudioVersion();
         if (!string.IsNullOrEmpty(vs))
         {
@@ -72,7 +78,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// 获得 环境变量中的 OS 属性值
+    /// <para lang="zh">获得 环境变量中的 OS 属性值</para>
+    /// <para lang="en">Get OS Property Value</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     public static string GetOS()
@@ -101,7 +108,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// 获得 环境变量中的 UserName 属性值
+    /// <para lang="zh">获得 环境变量中的 UserName 属性值</para>
+    /// <para lang="en">Get UserName Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -110,7 +118,8 @@ internal static class ConfigurationExtensions
     {
         var userName = config.GetValue<string?>("USERNAME");
 
-        // Mac CentOS 系统
+        // <para lang="zh">Mac CentOS 系统</para>
+        // <para lang="en">Mac CentOS System</para>
         if (string.IsNullOrEmpty(userName))
         {
             userName = config.GetValue<string?>("LOGNAME");
@@ -119,7 +128,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// 获得 环境变量中的 ASPNETCORE_ENVIRONMENT 属性值
+    /// <para lang="zh">获得 环境变量中的 ASPNETCORE_ENVIRONMENT 属性值</para>
+    /// <para lang="en">Get ASPNETCORE_ENVIRONMENT Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -130,7 +140,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// 获得 环境变量中的 ASPNETCORE_IIS_PHYSICAL_PATH 属性值
+    /// <para lang="zh">获得 环境变量中的 ASPNETCORE_IIS_PHYSICAL_PATH 属性值</para>
+    /// <para lang="en">Get ASPNETCORE_IIS_PHYSICAL_PATH Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
@@ -141,7 +152,8 @@ internal static class ConfigurationExtensions
     }
 
     /// <summary>
-    /// 获得 环境变量中的 VisualStudioEdition 属性值
+    /// <para lang="zh">获得 环境变量中的 VisualStudioEdition 属性值</para>
+    /// <para lang="en">Get VisualStudioEdition Property Value</para>
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>

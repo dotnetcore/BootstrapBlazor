@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -11,7 +11,8 @@ namespace Microsoft.AspNetCore.Components.Web.HtmlRendering;
 #pragma warning disable BL0006 // Do not use RenderTree types
 
 /// <summary>
-/// Represents the output of rendering a root component as HTML. The content can change if the component instance re-renders.
+/// <para lang="zh">Represents the output of rendering a root component as HTML. 内容 can change if the component 实例 re-renders.</para>
+/// <para lang="en">Represents the output of rendering a root component as HTML. The content can change if the component instance re-renders.</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 readonly struct HtmlRootComponent
@@ -26,17 +27,20 @@ readonly struct HtmlRootComponent
     }
 
     /// <summary>
-    /// Gets the component ID.
+    /// <para lang="zh">获得 the component ID.</para>
+    /// <para lang="en">Gets the component ID.</para>
     /// </summary>
     public int ComponentId { get; }
 
     /// <summary>
-    /// Gets a <see cref="Task"/> that completes when the component hierarchy has completed asynchronous tasks such as loading.
+    /// <para lang="zh">获得 a <see cref="Task"/> that completes when the component hierarchy has completed asynchronous tasks such as loading.</para>
+    /// <para lang="en">Gets a <see cref="Task"/> that completes when the component hierarchy has completed asynchronous tasks such as loading.</para>
     /// </summary>
     public Task QuiescenceTask { get; } = Task.CompletedTask;
 
     /// <summary>
-    /// Returns an HTML string representation of the component's latest output.
+    /// <para lang="zh">Returns an HTML string representation of the component's latest output.</para>
+    /// <para lang="en">Returns an HTML string representation of the component's latest output.</para>
     /// </summary>
     /// <returns>An HTML string representation of the component's latest output.</returns>
     public string ToHtmlString()
@@ -52,7 +56,8 @@ readonly struct HtmlRootComponent
     }
 
     /// <summary>
-    /// Writes the component's latest output as HTML to the specified writer.
+    /// <para lang="zh">Writes the component's latest output as HTML to the specified writer.</para>
+    /// <para lang="en">Writes the component's latest output as HTML to the specified writer.</para>
     /// </summary>
     /// <param name="output">The output destination.</param>
     public void WriteHtmlTo(TextWriter output)

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,12 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// NavigationManager 扩展方法
+/// <para lang="zh">NavigationManager 扩展方法</para>
+/// <para lang="en">NavigationManager extension methods</para>
 /// </summary>
 public static class NavigationManagerExtensions
 {
     /// <summary>
-    /// 导航并添加 TabItem 方法
+    /// <para lang="zh">导航并添加 TabItem 方法</para>
+    /// <para lang="en">Navigate and add TabItem method</para>
     /// </summary>
     /// <param name="navigation"></param>
     /// <param name="provider"></param>
@@ -31,7 +33,8 @@ public static class NavigationManagerExtensions
     }
 
     /// <summary>
-    /// 获得当前 Url 的相对路径，不包含 QueryString 和 Fragment（Hash）
+    /// <para lang="zh">获得当前 Url 的相对路径，不包含 QueryString 和 Fragment（Hash）</para>
+    /// <para lang="en">Get the relative path of the current Url, excluding QueryString and Fragment (Hash)</para>
     /// </summary>
     /// <param name="navigationManager"></param>
     /// <returns></returns>

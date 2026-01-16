@@ -17,7 +17,9 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -25,7 +27,9 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
         ContextMenu.AddItem(this);
     }
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
     protected override void BuildRenderTree(RenderTreeBuilder builder) { }
 
     private bool disposedValue;
@@ -50,7 +54,9 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
         }
     }
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
     public void Dispose()
     {
         Dispose(disposing: true);

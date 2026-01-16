@@ -28,168 +28,201 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool? TextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    ///  <para lang="zh">获得/设置 是否不进行验证 默认为 false</para>
+    ///  <para lang="en">Gets or sets whether不进行验证 Default is为 false</para>
     /// </summary>
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? Ignore { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? Readonly { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? Visible { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsVisibleWhenAdd { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? Required { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsRequiredWhenAdd { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IsRequiredWhenEdit { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? CssClass { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public RenderFragment<object>? Template { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public RenderFragment<object>? SearchTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public RenderFragment? FilterTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public RenderFragment<ITableColumn>? ToolboxTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IFilter? Filter { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Alignment? Align { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? ShowTips { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Type PropertyType { get; } = fieldType;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? Step { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int Rows { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int Cols { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     [NotNull]
     public string? Text { get; set; } = fieldText;
@@ -197,134 +230,160 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public RenderFragment<object>? EditTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Type? ComponentType { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int Order { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// <inheritdoc/>>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Action<TableCellArgs>? OnCellRender { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public List<IValidator>? ValidateRules { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? GroupName { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int GroupOrder { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? ShowCopyColumn { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool HeaderTextWrap { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool ShowHeaderTooltip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? HeaderTextTooltip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string GetDisplayName() => Text;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string GetFieldName() => FieldName;
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    ///  <para lang="zh"><inheritdoc/></para>
+    ///  <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool? IgnoreWhenExport { get; set; }
 }

@@ -13,7 +13,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ContextMenuZone
 {
+    /// <summary>
     /// <inheritdoc cref="ContextMenu.ChildContent" />
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
@@ -29,7 +31,6 @@ public partial class ContextMenuZone
     /// </summary>
     /// <param name="args"><para lang="zh">鼠标事件参数</para><para lang="en">Mouse event arguments</para></param>
     /// <param name="contextItem"><para lang="zh">上下文项</para><para lang="en">Context item</para></param>
-    /// <returns><para lang="zh">异步任务</para><para lang="en">An asynchronous task</para></returns>
     internal async Task OnContextMenu(MouseEventArgs args, object? contextItem)
     {
         // 弹出关联菜单

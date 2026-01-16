@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,7 +9,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MenuLink 组件内部封装 NavLink 组件
+/// <para lang="zh">MenuLink 组件内部封装 NavLink 组件</para>
+/// <para lang="en">MenuLink Component internally encapsulates NavLink Component</para>
 /// </summary>
 public sealed partial class MenuLink
 {
@@ -33,14 +34,18 @@ public sealed partial class MenuLink
     private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
     /// <summary>
-    /// 获得/设置 MenuItem 实例 不可为空
+    /// <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
+    /// <para lang="en">Get/Set MenuItem Instance. Cannot be null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public MenuItem? Item { get; set; }
 
     /// <summary>
-    /// 获得/设置 ArrowIcon 图标
+    /// <para lang="zh">获得/设置 ArrowIcon 图标</para>
+    /// <para lang="en">Get/Set ArrowIcon Icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }
@@ -64,7 +69,8 @@ public sealed partial class MenuLink
         : null;
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <para lang="zh">SetParametersAsync 方法</para>
+    /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>

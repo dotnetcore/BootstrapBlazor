@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,12 +9,14 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <see cref="ICacheEntry"/> 扩展方法
+/// <para lang="zh"><see cref="ICacheEntry"/> 扩展方法</para>
+/// <para lang="en"><see cref="ICacheEntry"/> extension methods</para>
 /// </summary>
 public static class ICacheEntryExtensions
 {
     /// <summary>
-    /// 获得缓存项 <see cref="ICacheEntry"/> 最后访问时间
+    /// <para lang="zh">获得缓存项 <see cref="ICacheEntry"/> 最后访问时间</para>
+    /// <para lang="en">Get the last access time of the cache entry <see cref="ICacheEntry"/></para>
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="force"></param>
@@ -42,7 +44,8 @@ public static class ICacheEntryExtensions
     private static PropertyInfo? _lastAccessedProperty = null;
 
     /// <summary>
-    /// Sets default sliding expiration if no expiration is configured
+    /// <para lang="zh">设置 default sliding expiration if no expiration is configured</para>
+    /// <para lang="en">Sets default sliding expiration if no expiration is configured</para>
     /// </summary>
     internal static void SetDefaultSlidingExpiration(this ICacheEntry entry, TimeSpan offset)
     {

@@ -8,42 +8,50 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Bootstrap blazor JavaScript isolation base class
+/// <para lang="zh">Bootstrap Blazor JavaScript 隔离基类</para>
+/// <para lang="en">Bootstrap blazor JavaScript isolation base class</para>
 /// </summary>
 public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisposable
 {
     /// <summary>
-    /// Instance of <see cref="JSModule"/>
+    /// <para lang="zh"><see cref="JSModule"/> 实例</para>
+    /// <para lang="en">Instance of <see cref="JSModule"/></para>
     /// </summary>
     protected JSModule? Module { get; set; }
 
     /// <summary>
-    /// 获得/设置 脚本路径
+    /// <para lang="zh">获得/设置 脚本路径</para>
+    /// <para lang="en">Gets or sets the module path</para>
     /// </summary>
     protected string? ModulePath { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动调用 init 默认 true
+    /// <para lang="zh">获得/设置 是否自动调用 init 默认 true</para>
+    /// <para lang="en">Gets or sets whether to auto invoke init. Default is true</para>
     /// </summary>
     protected bool AutoInvokeInit { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动调用 dispose 默认 true
+    /// <para lang="zh">获得/设置 是否自动调用 dispose 默认 true</para>
+    /// <para lang="en">Gets or sets whether to auto invoke dispose. Default is true</para>
     /// </summary>
     protected bool AutoInvokeDispose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 DotNetObjectReference 实例
+    /// <para lang="zh">获得/设置 DotNetObjectReference 实例</para>
+    /// <para lang="en">Gets or sets DotNetObjectReference instance</para>
     /// </summary>
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
 
     /// <summary>
-    /// 获得/设置 Module 是否加载完成
+    /// <para lang="zh">获得/设置 Module 是否加载完成</para>
+    /// <para lang="en">Gets or sets whether the module is loaded</para>
     /// </summary>
     protected TaskCompletionSource ModuleLoadTask { get; } = new();
 
     /// <summary>
-    /// 获得/设置 Module 是否初始化完成
+    /// <para lang="zh">获得/设置 Module 是否初始化完成</para>
+    /// <para lang="en">Gets or sets whether the module is initialized</para>
     /// </summary>
     protected TaskCompletionSource ModuleInitTask { get; } = new();
 
@@ -77,7 +85,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// 加载 JS Module 方法
+    /// <para lang="zh">加载 JS Module 方法</para>
+    /// <para lang="en">Load JS Module method</para>
     /// </summary>
     protected virtual void OnLoadJSModule()
     {
@@ -103,13 +112,15 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <returns></returns>
     protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -117,7 +128,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -132,7 +144,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -147,7 +160,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -155,7 +169,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -172,7 +187,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call JavaScript method
+    /// <para lang="zh">调用 JavaScript 方法</para>
+    /// <para lang="en">Call JavaScript method</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -189,7 +205,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>

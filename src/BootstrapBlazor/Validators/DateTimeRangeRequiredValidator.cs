@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,11 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTimeRange 验证
+/// <para lang="zh">DateTimeRange 验证</para>
+/// <para lang="en">DateTimeRange validation</para>
 /// </summary>
 public class DateTimeRangeRequiredValidator : RequiredValidator
 {
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
         if (propertyValue is DateTimeRangeValue d && (d.Start == DateTime.MinValue || d.End == DateTime.MinValue))

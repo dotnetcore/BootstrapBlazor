@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,33 +6,41 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Range 组件
+/// <para lang="zh">Range 组件</para>
+/// <para lang="en">Slider Component</para>
 /// </summary>
 public partial class Slider<TValue>
 {
     /// <summary>
-    /// 获得 样式集合
+    /// <para lang="zh">获得 样式集合</para>
+    /// <para lang="en">Get Class Name</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("form-range")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得/设置 最小值 默认为 null 未设置
+    /// <para lang="zh">获得/设置 最小值 默认为 null 未设置</para>
+    /// <para lang="en">Get/Set Min Value. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public TValue? Min { get; set; }
 
     /// <summary>
-    /// 获得/设置 最大值 默认为 null 未设置
+    /// <para lang="zh">获得/设置 最大值 默认为 null 未设置</para>
+    /// <para lang="en">Get/Set Max Value. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public TValue? Max { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null 未设置
+    /// <para lang="zh">获得/设置 步长 默认为 null 未设置</para>
+    /// <para lang="en">Get/Set Step. Default null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">Empty 组件</para>
+/// <para lang="en">Empty Component</para>
 /// </summary>
 public partial class Empty
 {
@@ -17,25 +18,33 @@ public partial class Empty
         .Build();
 
     /// <summary>
-    ///  获得/设置 图片路径 默认为 null
+    /// <para lang="zh">获得/设置 图片路径 默认为 null</para>
+    /// <para lang="en">Get/Set Image Source. Default is null</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Image { get; set; }
 
     /// <summary>
-    /// 获得/设置 空状态描述 默认为 无数据
+    /// <para lang="zh">获得/设置 空状态描述 默认为 无数据</para>
+    /// <para lang="en">Get/Set Description. Default is No Data</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义模板
+    /// <para lang="zh">获得/设置 自定义模板</para>
+    /// <para lang="en">Get/Set Custom Template</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Template { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

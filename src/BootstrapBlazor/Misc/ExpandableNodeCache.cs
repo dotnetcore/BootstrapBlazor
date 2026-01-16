@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,29 +6,34 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 节点缓存类
+/// <para lang="zh">节点缓存类</para>
+/// <para lang="en">Node cache class</para>
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
 public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TItem>
 {
     /// <summary>
-    /// 所有已展开行集合 作为缓存使用
+    /// <para lang="zh">所有已展开行集合 作为缓存使用</para>
+    /// <para lang="en">All expanded row collection used as cache</para>
     /// </summary>
     protected HashSet<TItem> ExpandedNodeCache { get; }
 
     /// <summary>
-    /// 所有已收缩行集合 作为缓存使用
+    /// <para lang="zh">所有已收缩行集合 作为缓存使用</para>
+    /// <para lang="en">All collapsed row collection used as cache</para>
     /// </summary>
     protected HashSet<TItem> CollapsedNodeCache { get; }
 
     /// <summary>
-    /// 对象比较器
+    /// <para lang="zh">对象比较器</para>
+    /// <para lang="en">Object comparer</para>
     /// </summary>
     protected IEqualityComparer<TItem> EqualityComparer { get; }
 
     /// <remarks>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </remarks>
     public ExpandableNodeCache(IModelEqualityComparer<TItem> comparer)
     {
@@ -37,7 +42,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
         CollapsedNodeCache = new(50, EqualityComparer);
     }
     /// <summary>
-    /// 节点展开收缩状态切换方法
+    /// <para lang="zh">节点展开收缩状态切换方法</para>
+    /// <para lang="en">Node expand/collapse state toggle method</para>
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
@@ -75,7 +81,8 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// 检查当前节点是否展开
+    /// <para lang="zh">检查当前节点是否展开</para>
+    /// <para lang="en">Check whether current node is expanded</para>
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
@@ -123,13 +130,14 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// 尝试在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/>
+    /// <para lang="zh">尝试在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
+    /// <para lang="en">Try to find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="target"></param>
-    /// <param name="ret">查询结果 查无资料时为 null</param>
-    /// <returns>是否存在 <paramref name="target"/></returns>
-    /// <remarks>采广度优先搜寻</remarks>
+    /// <param name="ret"><para lang="zh">查询结果 查无资料时为 null</para><para lang="en">Query result null when not found</para></param>
+    /// <returns><para lang="zh">是否存在 <paramref name="target"/></para><para lang="en">Whether <paramref name="target"/> exists</para></returns>
+    /// <remarks><para lang="zh">采广度优先搜寻</para><para lang="en">Uses breadth-first search</para></remarks>
     public bool TryFind(List<TNode> items, TItem target, [MaybeNullWhen(false)] out TNode ret)
     {
         ret = Find(items, target);
@@ -137,22 +145,24 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     }
 
     /// <summary>
-    /// 在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/>
+    /// <para lang="zh">在全部树状结构 <paramref name="items"/> 中寻找指定 <paramref name="target"/></para>
+    /// <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="items"/></para>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="target"></param>
-    /// <returns>查询结果 查无资料时为 null</returns>
-    /// <remarks>采广度优先搜寻</remarks>
+    /// <returns><para lang="zh">查询结果 查无资料时为 null</para><para lang="en">Query result null when not found</para></returns>
+    /// <remarks><para lang="zh">采广度优先搜寻</para><para lang="en">Uses breadth-first search</para></remarks>
     private TNode? Find(List<TNode> items, TItem target) => Find(items, target, out _);
 
     /// <summary>
-    /// 在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/>
+    /// <para lang="zh">在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/></para>
+    /// <para lang="en">Find specified <paramref name="target"/> in all tree structures <paramref name="source"/></para>
     /// </summary>
     /// <param name="source"></param>
     /// <param name="target"></param>
-    /// <param name="degree">树状阶层，起始为0</param>
-    /// <returns>查询结果 查无资料时为 null</returns>
-    /// <remarks>采广度优先搜寻</remarks>
+    /// <param name="degree"><para lang="zh">树状阶层，起始为0</para><para lang="en">Tree level, starting from 0</para></param>
+    /// <returns><para lang="zh">查询结果 查无资料时为 null</para><para lang="en">Query result null when not found</para></returns>
+    /// <remarks><para lang="zh">采广度优先搜寻</para><para lang="en">Uses breadth-first search</para></remarks>
     public TNode? Find(List<TNode> source, TItem target, out int degree)
     {
         degree = -1;
