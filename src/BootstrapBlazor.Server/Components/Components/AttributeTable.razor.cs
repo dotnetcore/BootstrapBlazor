@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// 
+/// 组件参数表格组件
 /// </summary>
 public sealed partial class AttributeTable
 {
@@ -15,25 +15,25 @@ public sealed partial class AttributeTable
     private IStringLocalizer<AttributeTable>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 表格标题
     /// </summary>
     [Parameter]
     [NotNull]
     public string? Title { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 表格数据
     /// </summary>
     [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 表格关联组件类型
     /// </summary>
     [Parameter]
     public Type? Type { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
