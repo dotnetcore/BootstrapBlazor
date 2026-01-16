@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections.Concurrent;
-using System.ComponentModel;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
@@ -16,29 +15,31 @@ namespace BootstrapBlazor.Server.Services;
 /// </summary>
 public static class ComponentAttributeCacheService
 {
-    private static readonly ConcurrentDictionary<Type, AttributeItem[]> _cache = new();
+    private static readonly ConcurrentDictionary<string, AttributeItem[]> _cache = new();
 
     /// <summary>
     /// 获取组件的 AttributeItem 列表(带缓存)
     /// </summary>
     public static AttributeItem[] GetAttributes(Type componentType)
     {
-        return _cache.GetOrAdd(componentType, type =>
+        var currentLanguage = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+        var key = $"{componentType.FullName}_{currentLanguage}";
+        return _cache.GetOrAdd(key, key =>
         {
             var attributes = new List<AttributeItem>();
-            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            var properties = componentType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null);
 
+            var xmlDoc = GetXmlDocumentation(componentType.Assembly);
             foreach (var property in properties)
             {
                 var item = new AttributeItem
                 {
                     Name = property.Name,
                     Type = GetFriendlyTypeName(property.PropertyType),
-                    Description = GetSummary(property) ?? "",
-                    DefaultValue = GetDefaultValue(property) ?? "",
+                    Description = GetSummary(xmlDoc, property) ?? "",
                     ValueList = GetValueList(property) ?? "",
-                    Version = GetVersion(property) ?? ""
+                    Version = GetVersion(xmlDoc, property) ?? ""
                 };
                 attributes.Add(item);
             }
@@ -48,61 +49,70 @@ public static class ComponentAttributeCacheService
     }
 
     /// <summary>
-    /// 从 XML 注释获取 summary
+    /// 从 XML 注释获取 summary（支持多语言）
     /// </summary>
-    private static string? GetSummary(PropertyInfo property)
+    private static string? GetSummary(XDocument? xmlDoc, PropertyInfo property)
     {
-        var xmlDoc = GetXmlDocumentation(property.DeclaringType?.Assembly);
         if (xmlDoc == null) return null;
 
         var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
-        var element = xmlDoc.Descendants("member")
+        var memberElement = xmlDoc.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
-        return element?.Element("summary")?.Value.Trim();
+        if (memberElement == null) return null;
+
+        var summaryElement = memberElement.Element("summary");
+        if (summaryElement == null) return null;
+
+        // 获取当前语言（zh-CN -> zh, en-US -> en）
+        var currentLanguage = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+        // 查找匹配当前语言的 para 元素
+        var langPara = summaryElement.Elements("para")
+            .FirstOrDefault(p => p.Attribute("lang")?.Value == currentLanguage);
+
+        if (langPara != null)
+        {
+            return langPara.Value.Trim();
+        }
+
+        // 如果找不到当前语言，回退到第一个有 lang 属性的 para（通常是 zh）
+        var firstLangPara = summaryElement.Elements("para")
+            .FirstOrDefault(p => p.Attribute("lang") != null);
+
+        if (firstLangPara != null)
+        {
+            return firstLangPara.Value.Trim();
+        }
+
+        // 如果都没有，返回整个 summary 的文本（向后兼容旧格式）
+        return summaryElement.Value.Trim();
     }
 
     /// <summary>
     /// 从 XML 注释的 para version 节点获取版本信息
     /// </summary>
-    private static string? GetVersion(PropertyInfo property)
+    private static string? GetVersion(XDocument? xmlDoc, PropertyInfo property)
     {
-        var xmlDoc = GetXmlDocumentation(property.DeclaringType?.Assembly);
         if (xmlDoc == null) return null;
 
         var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
-        var element = xmlDoc.Descendants("member")
+        var memberElement = xmlDoc.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
-        // 查找 <para><version>10.0.0</version></para>
-        var versionElement = element?.Descendants("para")
-            .SelectMany(p => p.Elements("version"))
-            .FirstOrDefault();
+        if (memberElement == null) return null;
 
-        return versionElement?.Value.Trim();
-    }
+        // 在 summary 节点下查找包含 version 的 para 节点
+        // XML 格式: <summary><para><version>10.2.2</version></para></summary>
+        var summaryElement = memberElement.Element("summary");
+        if (summaryElement == null) return null;
 
-    /// <summary>
-    /// 获取默认值
-    /// </summary>
-    private static string? GetDefaultValue(PropertyInfo property)
-    {
-        var defaultValueAttr = property.GetCustomAttribute<DefaultValueAttribute>();
-        if (defaultValueAttr != null)
-        {
-            return defaultValueAttr.Value?.ToString() ?? "";
-        }
-
-        // 从 XML 注释中提取 DefaultValue
-        var xmlDoc = GetXmlDocumentation(property.DeclaringType?.Assembly);
-        if (xmlDoc == null) return null;
-
-        var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
-        var element = xmlDoc.Descendants("member")
-            .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
-
-        var defaultElement = element?.Element("value");
-        return defaultElement?.Value.Trim();
+        // 查找第一个包含 version 元素的 para
+        // 直接在循环中返回，避免创建中间变量
+        return summaryElement.Elements("para")
+            .Select(p => p.Element("version"))
+            .FirstOrDefault(v => v != null)
+            ?.Value.Trim();
     }
 
     /// <summary>
