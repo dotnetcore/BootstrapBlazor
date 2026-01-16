@@ -757,8 +757,7 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool Equals(TItem? x, TItem? y) => DynamicContext?.EqualityComparer?.Invoke((IDynamicObject?)x, (IDynamicObject?)y) ?? this.Equals<TItem>(x, y);
 

@@ -16,32 +16,27 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     private readonly DotNetObjectReference<DefaultBluetoothCharacteristic> _interop;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string ServiceUUID { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string UUID { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string Id { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsNotify { get; set; }
 
@@ -66,8 +61,7 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<byte[]?> ReadValue(CancellationToken token = default)
@@ -79,8 +73,7 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
@@ -100,8 +93,7 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>

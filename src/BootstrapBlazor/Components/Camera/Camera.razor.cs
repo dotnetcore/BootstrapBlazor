@@ -108,8 +108,7 @@ public partial class Camera
         .Build();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -124,8 +123,7 @@ public partial class Camera
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);

@@ -16,26 +16,22 @@ sealed class DefaultBluetoothService : IBluetoothService
     private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string Name { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string UUID { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string Id { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string? ErrorMessage { get; private set; }
 
@@ -75,8 +71,7 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>

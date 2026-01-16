@@ -12,9 +12,7 @@ namespace BootstrapBlazor.Components;
 public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, IDisposable
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
@@ -35,8 +33,7 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     protected TableToolbar<TItem>? Toolbar { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -59,8 +56,7 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

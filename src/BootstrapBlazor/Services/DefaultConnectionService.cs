@@ -43,14 +43,12 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="client"></param>
     public void AddOrUpdate(ClientInfo client)
@@ -77,8 +75,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
@@ -86,8 +83,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public ICollection<ConnectionItem> Connections => _connectionCache.Values;
 
@@ -104,8 +100,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

@@ -114,8 +114,7 @@ class DefaultGeoLocationService : IGeoLocationService
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

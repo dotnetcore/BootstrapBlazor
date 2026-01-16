@@ -62,8 +62,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     private bool Authorized { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task OnInitializedAsync()
@@ -72,8 +71,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {

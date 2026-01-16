@@ -40,24 +40,21 @@ public partial class Tooltip : ITooltip
     protected string? FallbackPlacementsString => FallbackPlacements != null ? string.Join(",", FallbackPlacements) : null;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Delay { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Selector { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -72,24 +69,21 @@ public partial class Tooltip : ITooltip
     public Func<Task<string>>? GetTitleCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Sanitize { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -112,16 +106,14 @@ public partial class Tooltip : ITooltip
     public string? Offset { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CustomClass { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -136,8 +128,7 @@ public partial class Tooltip : ITooltip
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -147,8 +138,7 @@ public partial class Tooltip : ITooltip
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()

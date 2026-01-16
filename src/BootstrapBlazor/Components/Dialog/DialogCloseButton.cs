@@ -29,8 +29,7 @@ public partial class DialogCloseButton : Button
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -41,8 +40,7 @@ public partial class DialogCloseButton : Button
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task HandlerClick()

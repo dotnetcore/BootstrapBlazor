@@ -43,8 +43,7 @@ public partial class LazyLoad : ComponentBase
     private bool _show;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -61,8 +60,7 @@ public partial class LazyLoad : ComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

@@ -43,8 +43,7 @@ public partial class SweetAlert : IAsyncDisposable
     private SweetContext _context = default!;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -72,8 +71,7 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -183,8 +181,7 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

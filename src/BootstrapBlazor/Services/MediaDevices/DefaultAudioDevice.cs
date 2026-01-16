@@ -8,8 +8,7 @@ namespace BootstrapBlazor.Components;
 class DefaultAudioDevice(IMediaDevices deviceService) : IAudioDevice
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<List<IMediaDeviceInfo>?> GetDevices()

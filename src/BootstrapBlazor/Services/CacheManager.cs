@@ -75,8 +75,7 @@ internal class CacheManager : ICacheManager
     })!;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
@@ -192,8 +191,7 @@ internal class CacheManager : ICacheManager
     private static MethodInfo GetAllValuesMethodInfo(Type type) => type.GetMethod("GetAllValues", BindingFlags.Instance | BindingFlags.Public)!;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>

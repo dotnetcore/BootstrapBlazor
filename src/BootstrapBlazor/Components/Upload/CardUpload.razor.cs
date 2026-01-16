@@ -217,8 +217,7 @@ public partial class CardUpload<TValue>
     private IStringLocalizer<CardUpload<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -233,8 +232,7 @@ public partial class CardUpload<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
@@ -251,8 +249,7 @@ public partial class CardUpload<TValue>
     private IReadOnlyCollection<ValidationResult> _results = [];
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
     public override async Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
@@ -273,15 +270,13 @@ public partial class CardUpload<TValue>
     private bool IsInValidOnAddItem => Files.Count == 0 && _results.Count > 0;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override ValueTask ShowValidResult() => ValueTask.CompletedTask;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="validateId"></param>
     /// <returns></returns>

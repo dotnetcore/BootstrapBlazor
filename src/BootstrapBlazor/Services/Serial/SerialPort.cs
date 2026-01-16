@@ -12,20 +12,17 @@ namespace BootstrapBlazor.Components;
 class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsOpen { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public Func<byte[], Task>? DataReceive { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> Write(byte[] data, CancellationToken token = default)
@@ -39,8 +36,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> Open(SerialPortOptions options, CancellationToken token = default)
@@ -55,8 +51,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> Close(CancellationToken token = default)
@@ -85,24 +80,21 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
     public async Task<SerialPortUsbInfo?> GetUsbInfo(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortUsbInfo>("getInfo", token, serialPortId);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
     public async Task<SerialPortSignals?> GetSignals(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortSignals>("getSignals", token, serialPortId);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="options"></param>
     /// <param name="token"></param>
@@ -118,8 +110,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

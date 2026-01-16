@@ -29,8 +29,7 @@ public partial class DialogSaveButton : Button
     private Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -42,8 +41,7 @@ public partial class DialogSaveButton : Button
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task HandlerClick()

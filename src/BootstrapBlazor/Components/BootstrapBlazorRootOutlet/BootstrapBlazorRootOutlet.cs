@@ -48,8 +48,7 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -99,8 +98,7 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     private void BuildRenderTree(RenderTreeBuilder builder)
@@ -118,8 +116,7 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

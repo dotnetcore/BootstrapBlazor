@@ -52,8 +52,7 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     protected TableToolbar<TItem>? Toolbar { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

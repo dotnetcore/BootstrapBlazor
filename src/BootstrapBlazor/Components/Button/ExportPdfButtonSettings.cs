@@ -22,8 +22,7 @@ public class ExportPdfButtonSettings : ComponentBase
     private Button? Button { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

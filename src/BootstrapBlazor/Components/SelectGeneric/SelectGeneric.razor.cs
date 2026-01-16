@@ -309,8 +309,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -335,8 +334,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -395,8 +393,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
@@ -523,8 +520,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public void Add(SelectedItem<TValue> item) => _children.Add(item);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnClearValue()
@@ -586,8 +582,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>

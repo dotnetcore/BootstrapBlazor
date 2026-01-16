@@ -8,8 +8,7 @@ namespace BootstrapBlazor.Components;
 class NullLocalizationMissingItemHandler : ILocalizationMissingItemHandler
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="name"></param>
     /// <param name="typeName"></param>

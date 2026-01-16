@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"><inheritdoc/></para>
+/// <inheritdoc/>
 /// <para lang="en"><inheritdoc/></para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
@@ -18,32 +18,27 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     private ITable Table { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public IEnumerable<ITableColumn> Columns => Table.Columns;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public IEnumerable<ITableColumn> GetVisibleColumns() => Table.GetVisibleColumns();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public IEnumerable<TItem> Rows { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public Task ExportAsync() => ExportCallbackAsync();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public QueryPageOptions BuildQueryPageOptions() => OptionsBuilder();

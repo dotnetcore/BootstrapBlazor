@@ -20,32 +20,28 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EnableErrorLogger { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -92,8 +88,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -103,8 +98,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -118,8 +112,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -164,8 +157,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     public void Register(IHandlerException component)
@@ -174,8 +166,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     public void UnRegister(IHandlerException component)

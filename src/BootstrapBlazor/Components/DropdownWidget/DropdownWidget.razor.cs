@@ -50,8 +50,7 @@ public sealed partial class DropdownWidget
     private List<DropdownWidgetItem> Childs { get; } = new List<DropdownWidgetItem>(20);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Method = nameof(TriggerStateChanged) });

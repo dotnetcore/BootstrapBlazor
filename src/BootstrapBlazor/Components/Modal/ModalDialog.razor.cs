@@ -451,8 +451,7 @@ public partial class ModalDialog : IHandlerException
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
@@ -544,8 +543,7 @@ public partial class ModalDialog : IHandlerException
     protected RenderFragment? _errorContent;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>

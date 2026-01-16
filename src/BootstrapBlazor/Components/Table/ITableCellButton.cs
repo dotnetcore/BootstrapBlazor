@@ -7,13 +7,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 ///  <para lang="zh">ITableCellButton 接口</para>
-///  <para lang="en">ITableCellButton 接口</para>
+///  <para lang="en">ITableCellButton Interface</para>
 /// </summary>
 public interface ITableCellButton : ITableCellComponent
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 点击按钮是否选中正行 默认 true 选中</para>
-    ///  <para lang="en">Gets or sets 点击buttonwhether选中正行 Default is true 选中</para>
+    ///  <para lang="en">Gets or sets whether select current row. Default is true</para>
     /// </summary>
     bool AutoSelectedRowWhenClick { get; set; }
 

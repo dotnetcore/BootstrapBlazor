@@ -139,24 +139,21 @@ public partial class Select<TValue> : ISelect, ILookup
     public string? SwalFooter { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -191,8 +188,7 @@ public partial class Select<TValue> : ISelect, ILookup
     StringComparison ILookup.LookupStringComparison { get => StringComparison; set => StringComparison = value; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
@@ -237,8 +233,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -248,8 +243,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -262,8 +256,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -306,8 +299,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="result"></param>
@@ -339,8 +331,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
@@ -371,8 +362,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override List<SelectedItem> GetRowsByItems()
@@ -464,14 +454,12 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Add(SelectedItem item) => _children.Add(item);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnClearValue()

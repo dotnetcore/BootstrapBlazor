@@ -65,8 +65,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     private SegmentedOption<TValue>? _option;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

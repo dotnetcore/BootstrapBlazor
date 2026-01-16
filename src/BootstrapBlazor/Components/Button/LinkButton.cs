@@ -74,8 +74,7 @@ public class LinkButton : ButtonBase
     private bool TriggerClick => !IsDisabled || (string.IsNullOrEmpty(Url));
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

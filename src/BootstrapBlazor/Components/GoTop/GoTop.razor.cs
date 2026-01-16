@@ -57,8 +57,7 @@ public partial class GoTop
     private string? ScrollBehaviorString => ScrollBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollBehavior.ToString().ToLowerInvariant();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

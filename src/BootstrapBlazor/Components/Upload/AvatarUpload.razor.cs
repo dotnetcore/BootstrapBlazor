@@ -149,8 +149,7 @@ public partial class AvatarUpload<TValue>
     private List<string?> PreviewList => [.. Files.Select(i => i.PrevUrl)];
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -164,8 +163,7 @@ public partial class AvatarUpload<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
@@ -207,8 +205,7 @@ public partial class AvatarUpload<TValue>
     private IReadOnlyCollection<ValidationResult> _results = [];
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
     public override async Task ToggleMessage(IReadOnlyCollection<ValidationResult> results)
@@ -229,15 +226,13 @@ public partial class AvatarUpload<TValue>
     private bool IsInValidOnAddItem => Files.Count == 0 && _results.Count > 0;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override ValueTask ShowValidResult() => ValueTask.CompletedTask;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="validateId"></param>
     /// <returns></returns>
@@ -252,8 +247,7 @@ public partial class AvatarUpload<TValue>
     private string? AddId => $"{Id}_new";
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>

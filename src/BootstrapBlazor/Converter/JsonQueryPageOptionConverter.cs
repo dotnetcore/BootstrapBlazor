@@ -15,8 +15,7 @@ namespace BootstrapBlazor.Components;
 public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -195,8 +194,7 @@ public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptio
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>

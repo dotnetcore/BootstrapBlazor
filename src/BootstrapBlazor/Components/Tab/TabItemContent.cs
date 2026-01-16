@@ -96,8 +96,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     private bool _detailedErrorsLoaded;
     private bool _showDetailedErrors;
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>

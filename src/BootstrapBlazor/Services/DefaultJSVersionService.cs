@@ -14,8 +14,7 @@ class DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options) : IVersi
     private string? ConfigVersion => options.Value.JSModuleVersion;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public string GetVersion()

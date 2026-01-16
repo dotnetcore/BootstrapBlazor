@@ -67,8 +67,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     protected FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -81,8 +80,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

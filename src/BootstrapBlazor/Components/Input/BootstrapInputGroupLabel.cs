@@ -76,8 +76,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     private bool IsInputGroupLabel => IsGroupLabel ?? InputGroup != null || ToolbarComponent != null;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -90,8 +89,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

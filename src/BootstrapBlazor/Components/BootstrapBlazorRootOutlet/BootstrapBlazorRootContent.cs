@@ -39,8 +39,7 @@ public class BootstrapBlazorRootContent : IComponent, IDisposable
     private BootstrapBlazorRootRegisterService RootRegisterService { get; set; } = default!;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="renderHandle"></param>
     void IComponent.Attach(RenderHandle renderHandle)
@@ -49,8 +48,7 @@ public class BootstrapBlazorRootContent : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -90,8 +88,7 @@ public class BootstrapBlazorRootContent : IComponent, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

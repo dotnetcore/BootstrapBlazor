@@ -20,26 +20,22 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     private readonly DotNetObjectReference<DefaultBluetoothDevice> _interop;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string? Name { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string? Id { get; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public string? ErrorMessage { get; private set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool Connected { get; private set; }
 
@@ -57,8 +53,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> Connect(CancellationToken token = default)
@@ -72,8 +67,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> Disconnect(CancellationToken token = default)
@@ -113,8 +107,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="serviceUUID"></param>
     /// <param name="token"></param>
@@ -135,8 +128,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -195,8 +187,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
 
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default)
@@ -230,8 +221,7 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

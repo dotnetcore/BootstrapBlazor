@@ -24,7 +24,7 @@ public static class LambdaExtensions
     private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
         /// <summary>
-        /// <para lang="zh"><inheritdoc/></para>
+        /// <inheritdoc/>
         /// <para lang="en"><inheritdoc/></para>
         /// </summary>
         /// <param name="p"></param>

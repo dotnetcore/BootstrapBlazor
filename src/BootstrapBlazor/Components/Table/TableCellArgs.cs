@@ -13,7 +13,7 @@ public class TableCellArgs
 {
     /// <summary>
     /// <para lang="zh">获得 当前单元格行数据 请自行转化为绑定模型</para>
-    /// <para lang="en">Gets 当前单元格行data 请自行转化为绑定模型</para>
+    /// <para lang="en">Gets current row data</para>
     /// </summary>
     [NotNull]
     public object? Row { get; internal set; }
@@ -39,13 +39,13 @@ public class TableCellArgs
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前单元格显示内容</para>
-    /// <para lang="en">Gets or sets 当前单元格displaycontent</para>
+    /// <para lang="en">Gets or sets current cell content</para>
     /// </summary>
     public string? Value { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前单元格内容模板</para>
-    /// <para lang="en">Gets or sets 当前单元格contenttemplate</para>
+    /// <para lang="en">Gets or sets current cell content template</para>
     /// </summary>
     public RenderFragment? ValueTemplate { get; set; }
 }

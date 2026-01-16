@@ -12,8 +12,7 @@ namespace BootstrapBlazor.Components;
 public class DynamicObject : IDynamicObject
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     [AutoGenerateColumn(Ignore = true)]
     public Guid DynamicObjectPrimaryKey { get; set; }

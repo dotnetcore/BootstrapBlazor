@@ -33,15 +33,13 @@ sealed class HtmlRenderer : IDisposable, IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
         => _passiveHtmlRenderer.Dispose();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public ValueTask DisposeAsync()
         => _passiveHtmlRenderer.DisposeAsync();

@@ -8,15 +8,13 @@ namespace BootstrapBlazor.Components;
 class DefaultCalendarHolidays : ICalendarHolidays
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public bool IsHoliday(DateTime dt) => false;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>

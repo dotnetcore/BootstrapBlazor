@@ -57,8 +57,7 @@ public partial class Textarea
     private string? ShiftEnterString => UseShiftEnter ? "true" : null;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>

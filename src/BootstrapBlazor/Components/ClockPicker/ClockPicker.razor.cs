@@ -100,8 +100,7 @@ public partial class ClockPicker
 #endif
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -116,8 +115,7 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Hour = Value.Hours, Minute = Value.Minutes, Second = Value.Seconds, Version = _version });

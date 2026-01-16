@@ -54,8 +54,7 @@ public partial class Empty
     private IStringLocalizer<Empty>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

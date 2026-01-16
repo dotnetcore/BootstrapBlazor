@@ -12,8 +12,7 @@ namespace BootstrapBlazor.Components;
 public class DateTimeRangeRequiredValidator : RequiredValidator
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {

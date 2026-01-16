@@ -12,14 +12,12 @@ namespace BootstrapBlazor.Components;
 public class TableCellButtonArgs : ITableCellButton
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool AutoRenderTableWhenClick { get; set; }
 }

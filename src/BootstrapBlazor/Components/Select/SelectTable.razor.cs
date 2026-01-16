@@ -290,8 +290,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private Table<TItem> _table = default!;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

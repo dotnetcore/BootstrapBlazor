@@ -579,8 +579,7 @@ public partial class DatePickerBody
     private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = [];
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -625,8 +624,7 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -640,8 +638,7 @@ public partial class DatePickerBody
     private bool _render = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override bool ShouldRender() => _render;
 

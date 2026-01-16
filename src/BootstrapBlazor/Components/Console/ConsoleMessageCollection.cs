@@ -52,15 +52,13 @@ public class ConsoleMessageCollection(int maxCount = 2000) : IEnumerable<Console
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public IEnumerator<ConsoleMessageItem> GetEnumerator() => _messages.GetEnumerator();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

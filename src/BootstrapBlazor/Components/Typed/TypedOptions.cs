@@ -102,8 +102,7 @@ public class TypedOptions : IEquatable<TypedOptions>
     public string? ContentType { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -145,8 +144,7 @@ public class TypedOptions : IEquatable<TypedOptions>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -161,8 +159,7 @@ public class TypedOptions : IEquatable<TypedOptions>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override int GetHashCode() => base.GetHashCode();

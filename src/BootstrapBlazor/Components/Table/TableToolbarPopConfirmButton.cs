@@ -58,8 +58,7 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -69,8 +68,7 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

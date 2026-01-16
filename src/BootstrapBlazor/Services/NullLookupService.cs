@@ -12,8 +12,7 @@ namespace BootstrapBlazor.Components;
 class NullLookupService : LookupServiceBase
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
 }

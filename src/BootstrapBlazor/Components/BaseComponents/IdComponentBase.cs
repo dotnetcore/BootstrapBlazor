@@ -35,8 +35,7 @@ public abstract class IdComponentBase : BootstrapComponentBase
     protected virtual string? RetrieveId() => Id;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

@@ -20,8 +20,7 @@ public class ShareButton : Button
     public ShareButtonContext? ShareContext { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task HandlerClick() => InvokeVoidAsync("share", ShareContext);

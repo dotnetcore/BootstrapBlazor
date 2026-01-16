@@ -103,8 +103,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public Func<TreeViewItem<TValue>, Task<IEnumerable<TreeViewItem<TValue>>>>? OnExpandNodeAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -212,8 +211,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         .Build();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -225,8 +223,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -237,8 +234,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnParametersSetAsync()
     {
@@ -261,8 +257,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="result"></param>

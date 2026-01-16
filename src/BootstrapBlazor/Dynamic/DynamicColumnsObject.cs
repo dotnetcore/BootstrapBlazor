@@ -12,8 +12,7 @@ namespace BootstrapBlazor.Components;
 public class DynamicColumnsObject : IDynamicColumnsObject
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public Dictionary<string, object?> Columns { get; set; }
 
@@ -40,8 +39,7 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     public DynamicColumnsObject() : this([]) { }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -51,8 +49,7 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>

@@ -35,8 +35,7 @@ partial class StaticHtmlRenderer : Renderer
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override Dispatcher Dispatcher { get; } = Dispatcher.CreateDefault();
 
@@ -78,15 +77,13 @@ partial class StaticHtmlRenderer : Renderer
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void HandleException(Exception exception)
         => ExceptionDispatchInfo.Capture(exception).Throw();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override Task UpdateDisplayAsync(in RenderBatch renderBatch)
     {

@@ -245,8 +245,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
         : ItemTemplate(item);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

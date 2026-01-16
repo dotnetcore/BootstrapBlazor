@@ -56,8 +56,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     private ContextMenu? ContextMenu { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -86,8 +85,7 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

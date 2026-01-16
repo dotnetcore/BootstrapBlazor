@@ -49,8 +49,7 @@ public class QueryColumn<TType> : QueryGroup
     private FieldIdentifier? _fieldIdentifier;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -63,8 +62,7 @@ public class QueryColumn<TType> : QueryGroup
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

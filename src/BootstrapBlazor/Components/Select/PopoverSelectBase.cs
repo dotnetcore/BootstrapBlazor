@@ -49,8 +49,7 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     protected string? OffsetString => IsPopover ? null : Offset;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

@@ -182,8 +182,7 @@ public partial class Pagination
     private int InternalPageIndex => Math.Min(InternalPageCount, PageIndex);
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

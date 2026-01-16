@@ -74,8 +74,7 @@ public partial class IntersectionObserver
         .Build();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserveWhenIntersection, AutoUnobserveWhenNotIntersection, Callback = nameof(TriggerIntersecting) });

@@ -8,8 +8,7 @@ namespace BootstrapBlazor.Components;
 class DefaultSerialService : ISerialService, IAsyncDisposable
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsSupport { get; set; }
 
@@ -74,8 +73,7 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {

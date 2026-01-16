@@ -274,8 +274,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     private Virtualize<SelectedItem<TValue>>? _virtualizeElement = default;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -304,8 +303,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
@@ -316,8 +314,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
@@ -407,8 +404,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnClearValue()
@@ -422,8 +418,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     private bool _isToggle;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     private List<SelectedItem<TValue>> GetRowsByItems()
@@ -646,8 +641,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>

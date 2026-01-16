@@ -74,8 +74,7 @@ public class Download : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async ValueTask DisposeAsync(bool disposing)
     {

@@ -1508,8 +1508,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task InvokeInitAsync()

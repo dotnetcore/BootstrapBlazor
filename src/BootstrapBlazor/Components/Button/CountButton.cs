@@ -36,8 +36,7 @@ public class CountButton : Button
     public Func<int, string>? CountTextCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnClickButton()
     {
@@ -53,8 +52,7 @@ public class CountButton : Button
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task HandlerClick()
     {

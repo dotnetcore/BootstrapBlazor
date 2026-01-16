@@ -33,8 +33,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     private Task<JSModule> LoadModule() => _runtime.LoadUtility();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public async Task<NetworkMonitorState?> GetNetworkMonitorState(CancellationToken token = default)
     {
@@ -43,8 +42,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     /// <param name="callback"></param>
@@ -81,8 +79,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     public void UnregisterStateChangedCallback(IComponent component)
@@ -109,8 +106,7 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

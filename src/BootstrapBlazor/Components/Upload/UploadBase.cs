@@ -127,8 +127,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     protected List<UploadFile> Files => GetUploadFiles();
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -138,8 +137,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override string? FormatValueAsString(TValue? value)
     {

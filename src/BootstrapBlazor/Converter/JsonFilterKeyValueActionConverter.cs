@@ -15,8 +15,7 @@ namespace BootstrapBlazor.Components;
 public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyValueAction>
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -77,8 +76,7 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>

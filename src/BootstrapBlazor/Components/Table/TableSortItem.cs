@@ -12,22 +12,20 @@ namespace BootstrapBlazor.Components;
 public class TableSortItem
 {
     /// <summary>
-    /// <para lang="zh">排序字段名 默认 string.Empty</para>
-    /// <para lang="en">排序字段名 Default is string.Empty</para>
+    /// <para lang="zh">获得/设置 排序字段名称 默认 <see cref="string.Empty"/></para>
+    /// <para lang="en">Gets or sets the sort field name. Default value is <see cref="string.Empty"/></para>
     /// </summary>
     public string SortName { get; set; } = string.Empty;
 
     /// <summary>
-    /// <para lang="zh">排序顺序 默认 SortOrder.Unset</para>
-    /// <para lang="en">排序顺序 Default is SortOrder.Unset</para>
+    /// <para lang="zh">获得/设置 排序顺序 默认 <see cref="SortOrder.Unset"/></para>
+    /// <para lang="en">Gets or sets the sort order. Default value is SortOrder.Unset</para>
     /// </summary>
     public SortOrder SortOrder { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override string ToString()
     {
         var order = SortOrder == SortOrder.Unset ? "" : SortOrder.ToString();

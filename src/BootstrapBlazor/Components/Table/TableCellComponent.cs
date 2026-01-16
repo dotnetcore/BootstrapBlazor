@@ -36,8 +36,7 @@ public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposabl
     public bool IsShow { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -60,8 +59,7 @@ public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposabl
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

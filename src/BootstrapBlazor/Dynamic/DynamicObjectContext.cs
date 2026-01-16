@@ -105,8 +105,7 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     public Func<IDynamicObject?, IDynamicObject?, bool>? EqualityComparer { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public Func<QueryPageOptions, IEnumerable<IDynamicObject>, IEnumerable<IDynamicObject>>? OnFilterCallback { get; set; }
 }

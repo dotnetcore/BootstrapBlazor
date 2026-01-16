@@ -17,8 +17,7 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     private HttpClient? _client;
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
     protected override async Task<string?> LocateByIp(string ip)
@@ -88,7 +87,7 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
         public List<LocationData>? Data { get; set; }
 
         /// <summary>
-        /// <para lang="zh"><inheritdoc/></para>
+        /// <inheritdoc/>
         /// <para lang="en"><inheritdoc/></para>
         /// </summary>
         /// <returns></returns>

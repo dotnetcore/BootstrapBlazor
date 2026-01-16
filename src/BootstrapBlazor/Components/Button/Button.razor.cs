@@ -26,8 +26,7 @@ public partial class Button : ButtonBase
     protected ElementReference ButtonElement { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

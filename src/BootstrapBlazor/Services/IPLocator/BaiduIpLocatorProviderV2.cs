@@ -15,16 +15,14 @@ namespace BootstrapBlazor.Components;
 public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> options, ILogger<BaiduIpLocatorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, options, logger)
 {
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>
     protected override string GetUrl(string ip) => $"https://qifu-api.baidubce.com/ip/geo/v1/district?ip={ip}";
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="url"></param>
     /// <param name="client"></param>

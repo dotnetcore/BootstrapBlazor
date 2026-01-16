@@ -39,8 +39,7 @@ public class SlideButtonItem : ComponentBase, IDisposable
     private List<SlideButtonItem>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

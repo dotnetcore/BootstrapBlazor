@@ -28,8 +28,7 @@ public partial class RenderTemplate
     public Func<bool, Task>? OnRenderAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
