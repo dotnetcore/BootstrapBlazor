@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SubCascader 组件
+/// <para lang="zh">SubCascader 组件</para>
+/// <para lang="en">SubCascader component</para>
 /// </summary>
 public partial class SubCascader
 {
     /// <summary>
-    /// 获得/设置 组件数据源
+    /// <para lang="zh">获得/设置 组件数据源</para>
+    /// <para lang="en">Gets or sets the component data source</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,13 +23,15 @@ public partial class SubCascader
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 选择项点击回调委托
+    /// <para lang="zh">获得/设置 选择项点击回调委托</para>
+    /// <para lang="en">Gets or sets the selected item click callback delegate</para>
     /// </summary>
     [Parameter]
     public Func<CascaderItem, Task>? OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 子菜单指示图标
+    /// <para lang="zh">获得/设置 子菜单指示图标</para>
+    /// <para lang="en">Gets or sets the submenu indicator icon</para>
     /// </summary>
     [Parameter]
     public string? SubMenuIcon { get; set; }
@@ -41,7 +45,8 @@ public partial class SubCascader
         .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet method</para>
     /// </summary>
     protected override void OnParametersSet()
     {

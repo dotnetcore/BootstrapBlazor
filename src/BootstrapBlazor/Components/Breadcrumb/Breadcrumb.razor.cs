@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Breadcrumb 组件
+/// <para lang="zh">Breadcrumb 组件</para>
+/// <para lang="en">Breadcrumb component</para>
 /// </summary>
 public sealed partial class Breadcrumb
 {
     /// <summary>
-    /// 获得/设置 数据集
+    /// <para lang="zh">获得/设置 数据集</para>
+    /// <para lang="en">Gets or sets the data collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -22,7 +24,8 @@ public sealed partial class Breadcrumb
         .Build();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

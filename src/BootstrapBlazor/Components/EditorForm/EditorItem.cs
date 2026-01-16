@@ -14,13 +14,15 @@ namespace BootstrapBlazor.Components;
 public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 {
     /// <summary>
-    /// 获得/设置 绑定字段值
+    /// <para lang="zh">获得/设置 绑定字段值</para>
+    /// <para lang="en">Get/Set Field Value</para>
     /// </summary>
     [Parameter]
     public TValue? Field { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定字段值变化回调委托
+    /// <para lang="zh">获得/设置 绑定字段值变化回调委托</para>
+    /// <para lang="en">Get/Set Field Value Changed Callback</para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue> FieldChanged { get; set; }
@@ -32,7 +34,8 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public Type? PropertyType { get; set; }
 
     /// <summary>
-    /// 获得/设置 ValueExpression 表达式
+    /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
+    /// <para lang="en">Get/Set ValueExpression</para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue>>? FieldExpression { get; set; }
@@ -240,6 +243,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
         }
 
         // 获取模型属性定义类型
+        // Get model property definition type
         PropertyType = typeof(TValue);
     }
 

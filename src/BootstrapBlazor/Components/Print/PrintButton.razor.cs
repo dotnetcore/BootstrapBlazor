@@ -8,12 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// PrintButton 打印按钮
+/// <para lang="zh">PrintButton 打印按钮</para>
+/// <para lang="en">PrintButton Component</para>
 /// </summary>
 public partial class PrintButton
 {
     /// <summary>
-    /// 获得/设置 预览模板地址 默认为空
+    /// <para lang="zh">获得/设置 预览模板地址 默认为空</para>
+    /// <para lang="en">Get/Set Preview template URL. Default empty</para>
     /// </summary>
     [Parameter]
     public string? PreviewUrl { get; set; }

@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toast 弹出窗服务类
+/// <para lang="zh">Toast 弹出窗服务类</para>
+/// <para lang="en">Drawer Service Class</para>
 /// </summary>
 public class DrawerService : BootstrapServiceBase<DrawerOption>
 {
     /// <summary>
-    /// Show 方法
+    /// <para lang="zh">Show 方法</para>
+    /// <para lang="en">Show Method</para>
     /// </summary>
     /// <param name="option">DrawerOption 实例</param>
     public Task Show(DrawerOption option) => Invoke(option);

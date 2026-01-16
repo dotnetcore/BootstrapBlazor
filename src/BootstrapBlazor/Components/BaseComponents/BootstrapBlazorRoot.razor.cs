@@ -8,7 +8,8 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorRoot 组件
+/// <para lang="zh">BootstrapBlazorRoot 组件</para>
+/// <para lang="en">BootstrapBlazorRoot component</para>
 /// </summary>
 public partial class BootstrapBlazorRoot
 {
@@ -24,37 +25,43 @@ public partial class BootstrapBlazorRoot
     private IEnumerable<IRootComponentGenerator>? Generators { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Gets or sets child content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得 Message 组件实例
+    /// <para lang="zh">获得 Message 组件实例</para>
+    /// <para lang="en">Gets the Message component instance</para>
     /// </summary>
     [NotNull]
     public Message? MessageContainer { get; private set; }
 
     /// <summary>
-    /// 获得 ToastContainer 组件实例
+    /// <para lang="zh">获得 ToastContainer 组件实例</para>
+    /// <para lang="en">Gets the ToastContainer component instance</para>
     /// </summary>
     [NotNull]
     public ToastContainer? ToastContainer { get; private set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值
+    /// <para lang="zh">获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值</para>
+    /// <para lang="en">Gets or sets whether to enable global exception handling. Default is null (use <see cref="BootstrapBlazorOptions.EnableErrorLogger"/>)</para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值
+    /// <para lang="zh">获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值</para>
+    /// <para lang="en">Gets or sets whether to log exceptions to <see cref="ILogger"/>. Default is null (use <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/>)</para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLoggerILogger { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
+    /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值</para>
+    /// <para lang="en">Gets or sets whether to show Error toast. Default is null (use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/>)</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ShowErrorLoggerToast 参数. Deprecated, please use ShowErrorLoggerToast parameter")]
@@ -62,19 +69,22 @@ public partial class BootstrapBlazorRoot
     public bool? ShowToast { get => ShowErrorLoggerToast; set => ShowErrorLoggerToast = value; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值
+    /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值</para>
+    /// <para lang="en">Gets or sets whether to show Error toast. Default is null (use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/>)</para>
     /// </summary>
     [Parameter]
     public bool? ShowErrorLoggerToast { get; set; }
 
     /// <summary>
-    /// 获得/设置 Error Toast 弹窗标题
+    /// <para lang="zh">获得/设置 Error Toast 弹窗标题</para>
+    /// <para lang="en">Gets or sets Error Toast title</para>
     /// </summary>
     [Parameter]
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
+    /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
+    /// <para lang="en">Gets or sets custom error callback method</para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -86,7 +96,8 @@ public partial class BootstrapBlazorRoot
     private bool ShowToastValue => ShowErrorLoggerToast ?? Options.CurrentValue.ShowErrorLoggerToast;
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>

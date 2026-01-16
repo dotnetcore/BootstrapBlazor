@@ -9,7 +9,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Display 组件
+/// <para lang="zh">Display 组件</para>
+/// <para lang="en">Display Component</para>
 /// </summary>
 public partial class Display<TValue> : ILookup
 {
@@ -20,13 +21,15 @@ public partial class Display<TValue> : ILookup
     private string? _displayText;
 
     /// <summary>
-    /// 获得/设置 异步格式化字符串
+    /// <para lang="zh">获得/设置 异步格式化字符串</para>
+    /// <para lang="en">Get/Set Async Format String</para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task<string?>>? FormatterAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// <para lang="zh">获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd</para>
+    /// <para lang="en">Get/Set Format String. e.g. yyyy-MM-dd for DateTime</para>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
@@ -66,13 +69,15 @@ public partial class Display<TValue> : ILookup
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用
+    /// <para lang="zh">获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用</para>
+    /// <para lang="en">Get/Set Type Resolver Callback Method. Called internally when component generic type is Array</para>
     /// </summary>
     [Parameter]
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示</para>
+    /// <para lang="en">Get/Set Whether to Show Tooltip. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowTooltip { get; set; }
@@ -90,7 +95,8 @@ public partial class Display<TValue> : ILookup
     }
 
     /// <summary>
-    /// 数值格式化委托方法
+    /// <para lang="zh">数值格式化委托方法</para>
+    /// <para lang="en">Value Format Delegate Method</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -117,6 +123,7 @@ public partial class Display<TValue> : ILookup
         else if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))
         {
             // 泛型集合 IEnumerable<TValue>
+            // Generic collection IEnumerable<TValue>
             ret = await ConvertEnumerableToString(value);
         }
         else

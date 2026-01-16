@@ -8,30 +8,35 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// GoTop 组件
+/// <para lang="zh">GoTop 组件</para>
+/// <para lang="en">GoTop Component</para>
 /// </summary>
 public partial class GoTop
 {
     /// <summary>
-    /// 获得/设置 返回顶端 Icon 属性
+    /// <para lang="zh">获得/设置 返回顶端 Icon 属性</para>
+    /// <para lang="en">Get/Set Back to Top Icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条所在组件
+    /// <para lang="zh">获得/设置 滚动条所在组件</para>
+    /// <para lang="en">Get/Set Scroll Container Component</para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动行为 默认 ScrollIntoViewBehavior.Smooth
+    /// <para lang="zh">获得/设置 滚动行为 默认 ScrollIntoViewBehavior.Smooth</para>
+    /// <para lang="en">Get/Set Scroll Behavior Default ScrollIntoViewBehavior.Smooth</para>
     /// </summary>
     [Parameter]
     public ScrollIntoViewBehavior ScrollBehavior { get; set; }
 
     /// <summary>
-    /// 获得/设置 鼠标悬停提示文字信息
+    /// <para lang="zh">获得/设置 鼠标悬停提示文字信息</para>
+    /// <para lang="en">Get/Set Tooltip Text</para>
     /// </summary>
     [Parameter]
     [NotNull]

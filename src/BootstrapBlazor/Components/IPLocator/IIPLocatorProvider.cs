@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IP 地址定位服务
+/// <para lang="zh">IP 地址定位服务</para>
+/// <para lang="en">IP Address Locator Service</para>
 /// </summary>
 [Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 public interface IIPLocatorProvider

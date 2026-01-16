@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 过滤器接口
+/// <para lang="zh">过滤器接口</para>
+/// <para lang="en">Filter Interface</para>
 /// </summary>
 public interface IFilter
 {
     /// <summary>
-    /// 获得/设置 本过滤器相关 IFilterAction 实例
+    /// <para lang="zh">获得/设置 本过滤器相关 IFilterAction 实例</para>
+    /// <para lang="en">Get/Set Related IFilterAction Instance of this Filter</para>
     /// </summary>
     [NotNull]
     IFilterAction? FilterAction { get; set; }

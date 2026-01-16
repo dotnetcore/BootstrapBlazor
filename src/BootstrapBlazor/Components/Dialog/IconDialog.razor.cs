@@ -8,12 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IconDialog Component
+/// <para lang="zh">IconDialog Component</para>
+/// <para lang="en">IconDialog Component</para>
 /// </summary>
 public partial class IconDialog
 {
     /// <summary>
-    /// 获得/设置 Icon 名称
+    /// <para lang="zh">获得/设置 Icon 名称</para>
+    /// <para lang="en">Get/Set Icon Name</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,25 +25,29 @@ public partial class IconDialog
     public string? IconName { get; set; }
 
     /// <summary>
-    /// 获得/设置 Label 显示文字
+    /// <para lang="zh">获得/设置 Label 显示文字</para>
+    /// <para lang="en">Get/Set Label Text</para>
     /// </summary>
     [Parameter]
     public string? LabelText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Label 显示文字
+    /// <para lang="zh">获得/设置 Label 显示文字</para>
+    /// <para lang="en">Get/Set Label Text</para>
     /// </summary>
     [Parameter]
     public string? LabelFullText { get; set; }
 
     /// <summary>
-    /// 获得/设置 拷贝按钮显示文字
+    /// <para lang="zh">获得/设置 拷贝按钮显示文字</para>
+    /// <para lang="en">Get/Set Copy Button Text</para>
     /// </summary>
     [Parameter]
     public string? ButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 拷贝成功提示文字
+    /// <para lang="zh">获得/设置 拷贝成功提示文字</para>
+    /// <para lang="en">Get/Set Copied Tooltip Text</para>
     /// </summary>
     [Parameter]
     public string? CopiedTooltipText { get; set; }
@@ -61,7 +67,8 @@ public partial class IconDialog
     private string IconStyle { get; set; } = "solid";
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet Method</para>
     /// </summary>
     protected override void OnParametersSet()
     {

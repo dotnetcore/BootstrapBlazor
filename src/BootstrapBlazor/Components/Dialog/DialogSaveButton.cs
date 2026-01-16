@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 弹窗内保存按钮组件
+/// <para lang="zh">弹窗内保存按钮组件</para>
+/// <para lang="en">Dialog Save Button Component</para>
 /// </summary>
 public partial class DialogSaveButton : Button
 {
@@ -17,7 +18,8 @@ public partial class DialogSaveButton : Button
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存回调方法 返回 true 时自动关闭弹窗
+    /// <para lang="zh">获得/设置 保存回调方法 返回 true 时自动关闭弹窗</para>
+    /// <para lang="en">Get/Set Save Callback Method. Close Dialog when return true</para>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }

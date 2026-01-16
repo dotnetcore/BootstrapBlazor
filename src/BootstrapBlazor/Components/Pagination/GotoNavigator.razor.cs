@@ -13,19 +13,22 @@ namespace BootstrapBlazor.Components;
 public partial class GotoNavigator
 {
     /// <summary>
-    /// 获得/设置 跳转页码 默认 null
+    /// <para lang="zh">获得/设置 跳转页码 默认 null</para>
+    /// <para lang="en">Get/Set Navigation Index. Default null</para>
     /// </summary>
     [Parameter]
     public int Index { get; set; }
 
     /// <summary>
-    /// 获得/设置 跳转文本 默认 null
+    /// <para lang="zh">获得/设置 跳转文本 默认 null</para>
+    /// <para lang="en">Get/Set Goto Text. Default null</para>
     /// </summary>
     [Parameter]
     public string? GotoText { get; set; }
 
     /// <summary>
-    /// 获得/设置 导航回调方法 默认 null
+    /// <para lang="zh">获得/设置 导航回调方法 默认 null</para>
+    /// <para lang="en">Get/Set Navigation Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<int, Task>? OnNavigation { get; set; }

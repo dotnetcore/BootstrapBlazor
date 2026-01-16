@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Mask 组件
+/// <para lang="zh">Mask 组件</para>
+/// <para lang="en">Mask Component</para>
 /// </summary>
 public partial class Mask
 {

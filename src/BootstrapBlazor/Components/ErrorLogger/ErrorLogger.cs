@@ -10,7 +10,8 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ErrorLogger 全局异常组件
+/// <para lang="zh">ErrorLogger 全局异常组件</para>
+/// <para lang="en">ErrorLogger Global Exception Component</para>
 /// </summary>
 public class ErrorLogger : ComponentBase, IErrorLogger
 {
@@ -44,21 +45,27 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
+    /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
+    /// <para lang="en">Get/Set Custom Error Handler</para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 异常显示模板 默认 null
+    /// <para lang="zh">获得/设置 异常显示模板 默认 null</para>
+    /// <para lang="en">Get/Set Exception Display Template Default null</para>
     /// </summary>
-    /// <remarks>用于自定义异常显示 UI</remarks>
+    /// <remarks>
+    /// <para lang="zh">用于自定义异常显示 UI</para>
+    /// <para lang="en">Used to customize exception display UI</para>
+    /// </remarks>
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
@@ -129,7 +136,8 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     };
 
     /// <summary>
-    /// 由实现 <see cref="BootstrapComponentBase"/> 组件实现类调用
+    /// <para lang="zh">由实现 <see cref="BootstrapComponentBase"/> 组件实现类调用</para>
+    /// <para lang="en">Called by implementing <see cref="BootstrapComponentBase"/> component implementation class</para>
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>

@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IContextMenuItem 接口
+/// <para lang="zh">IContextMenuItem 接口</para>
+/// <para lang="en">IContextMenuItem interface</para>
 /// </summary>
 public interface IContextMenuItem
 {

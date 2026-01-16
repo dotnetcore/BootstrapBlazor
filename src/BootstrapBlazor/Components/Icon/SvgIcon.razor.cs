@@ -6,25 +6,29 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SvgIcon 组件
+/// <para lang="zh">SvgIcon 组件</para>
+/// <para lang="en">SvgIcon Component</para>
 /// </summary>
 public partial class SvgIcon
 {
     /// <summary>
-    /// 获得/设置 图标名称
+    /// <para lang="zh">获得/设置 图标名称</para>
+    /// <para lang="en">Get/Set Icon Name</para>
     /// </summary>
     [Parameter, NotNull]
     [EditorRequired]
     public string? Name { get; set; }
 
     /// <summary>
-    /// 获得 图标地址
+    /// <para lang="zh">获得 图标地址</para>
+    /// <para lang="en">Get Icon URL</para>
     /// </summary>
     [Parameter, NotNull]
     public string? Href { get; set; }
 
     /// <summary>
-    /// 获得 样式字符串
+    /// <para lang="zh">获得 样式字符串</para>
+    /// <para lang="en">Get Style String</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-svg-icon")
         .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))

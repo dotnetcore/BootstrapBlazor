@@ -6,42 +6,49 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 多选过滤器组件
+/// <para lang="zh">多选过滤器组件</para>
+/// <para lang="en">Multi-Select Filter Component</para>
 /// </summary>
 public partial class MultiFilter
 {
     /// <summary>
-    /// 获得/设置 搜索栏占位符 默认 nul 使用资源文件中值
+    /// <para lang="zh">获得/设置 搜索栏占位符 默认 nul 使用资源文件中值</para>
+    /// <para lang="en">Get/Set Search Placeholder Default null Use Resource File Value</para>
     /// </summary>
     [Parameter]
     public string? SearchPlaceHolderText { get; set; }
 
     /// <summary>
-    /// 获得/设置 全选按钮文本 默认 nul 使用资源文件中值
+    /// <para lang="zh">获得/设置 全选按钮文本 默认 nul 使用资源文件中值</para>
+    /// <para lang="en">Get/Set Select All Button Text Default null Use Resource File Value</para>
     /// </summary>
     [Parameter]
     public string? SelectAllText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索栏 默认 true
+    /// <para lang="zh">获得/设置 是否显示搜索栏 默认 true</para>
+    /// <para lang="en">Get/Set Whether to Show Search Bar Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; } = true;
 
     /// <summary>
-    /// 获得 过滤项集合回调方法 适合动态给定数据源
+    /// <para lang="zh">获得 过滤项集合回调方法 适合动态给定数据源</para>
+    /// <para lang="en">Get Filter Items Callback Method Suitable for Dynamic Data Source</para>
     /// </summary>
     [Parameter]
     public Func<Task<List<SelectedItem>>>? OnGetItemsAsync { get; set; }
 
     /// <summary>
-    /// 获得 是否每次弹窗时均调用 <see cref="OnGetItemsAsync"/> 回调方法，多用于动态填装过滤条件
+    /// <para lang="zh">获得 是否每次弹窗时均调用 <see cref="OnGetItemsAsync"/> 回调方法，多用于动态填装过滤条件</para>
+    /// <para lang="en">Get Whether to Call <see cref="OnGetItemsAsync"/> Callback Method Every Time Popup, Mostly Used for Dynamic Filling Filter Conditions</para>
     /// </summary>
     [Parameter]
     public bool AlwaysTriggerGetItems { get; set; }
 
     /// <summary>
-    /// 获得/设置 Loading 模板
+    /// <para lang="zh">获得/设置 Loading 模板</para>
+    /// <para lang="en">Get/Set Loading Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
@@ -118,7 +125,8 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// JavaScript 回调方法
+    /// <para lang="zh">JavaScript 回调方法</para>
+    /// <para lang="en">JavaScript Callback Method</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -180,7 +188,8 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// 过滤内容搜索
+    /// <para lang="zh">过滤内容搜索</para>
+    /// <para lang="en">Filter Content Search</para>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
@@ -205,7 +214,8 @@ public partial class MultiFilter
     private List<SelectedItem> GetItems() => _items ?? _source ?? [];
 
     /// <summary>
-    /// 重置过滤条件方法
+    /// <para lang="zh">重置过滤条件方法</para>
+    /// <para lang="en">Reset Filter Conditions Method</para>
     /// </summary>
     public override void Reset()
     {
@@ -222,7 +232,8 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// 生成过滤条件方法
+    /// <para lang="zh">生成过滤条件方法</para>
+    /// <para lang="en">Generate Filter Conditions Method</para>
     /// </summary>
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()

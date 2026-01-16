@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 客户端链接组件
+/// <para lang="zh">客户端链接组件</para>
+/// <para lang="en">Client connection component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true)]
 public class ConnectionHub : BootstrapModuleComponentBase
@@ -57,7 +58,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke callback method</para>
     /// </summary>
     /// <param name="client"></param>
     /// <returns></returns>

@@ -6,36 +6,42 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 文件下载服务类
+/// <para lang="zh">文件下载服务类</para>
+/// <para lang="en">Download Service Class</para>
 /// </summary>
 public class DownloadService
 {
     /// <summary>
-    /// 获得 回调委托缓存集合
+    /// <para lang="zh">获得 回调委托缓存集合</para>
+    /// <para lang="en">Get Callback Delegate Cache Collection</para>
     /// </summary>
     protected List<(IComponent Key, Func<DownloadOption, Task> Callback)> StreamCache { get; } = [];
 
     /// <summary>
-    /// 获得 获取地址的回调委托缓存集合
+    /// <para lang="zh">获得 获取地址的回调委托缓存集合</para>
+    /// <para lang="en">Get Url Callback Delegate Cache Collection</para>
     /// </summary>
     protected List<(IComponent Key, Func<DownloadOption, Task> Callback)> UrlCache { get; } = [];
 
     /// <summary>
-    /// 注册服务
+    /// <para lang="zh">注册服务</para>
+    /// <para lang="en">Register Service</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
     protected internal virtual void RegisterStream(IComponent key, Func<DownloadOption, Task> callback) => StreamCache.Add((key, callback));
 
     /// <summary>
-    /// 注册获取Url服务
+    /// <para lang="zh">注册获取Url服务</para>
+    /// <para lang="en">Register Url Service</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
     protected internal virtual void RegisterUrl(IComponent key, Func<DownloadOption, Task> callback) => UrlCache.Add((key, callback));
 
     /// <summary>
-    /// 注销事件
+    /// <para lang="zh">注销事件</para>
+    /// <para lang="en">Unregister Event</para>
     /// </summary>
     protected internal virtual void UnRegisterStream(IComponent key)
     {
@@ -47,7 +53,8 @@ public class DownloadService
     }
 
     /// <summary>
-    /// 注销获取Url事件
+    /// <para lang="zh">注销获取Url事件</para>
+    /// <para lang="en">Unregister Url Event</para>
     /// </summary>
     protected internal virtual void UnRegisterUrl(IComponent key)
     {
@@ -59,7 +66,8 @@ public class DownloadService
     }
 
     /// <summary>
-    /// 下载文件方法
+    /// <para lang="zh">下载文件方法</para>
+    /// <para lang="en">Download File Method</para>
     /// </summary>
     /// <param name="option">文件下载选项</param>
     public virtual async Task DownloadFromStreamAsync(DownloadOption option)
@@ -72,7 +80,8 @@ public class DownloadService
     }
 
     /// <summary>
-    /// 获取文件连接方法
+    /// <para lang="zh">获取文件连接方法</para>
+    /// <para lang="en">Get File Url Method</para>
     /// </summary>
     /// <param name="option">文件下载选项</param>
     public virtual async Task DownloadFromUrlAsync(DownloadOption option)

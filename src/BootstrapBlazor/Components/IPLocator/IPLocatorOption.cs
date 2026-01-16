@@ -8,39 +8,46 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IP定位器配置项
+/// <para lang="zh">IP定位器配置项</para>
+/// <para lang="en">IP Locator Options</para>
 /// </summary>
 [Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class IPLocatorOption
 {
     /// <summary>
-    /// 获得/设置 定位器创建方法未设置使用内部定位器
+    /// <para lang="zh">获得/设置 定位器创建方法未设置使用内部定位器</para>
+    /// <para lang="en">Get/Set Locator Factory Method. Use internal locator if not set</para>
     /// </summary>
     public Func<IServiceProvider, IIPLocator>? LocatorFactory { get; set; }
 
     /// <summary>
-    /// 获得/设置 IP地址请求超时时间 默认为 3000 毫秒
+    /// <para lang="zh">获得/设置 IP地址请求超时时间 默认为 3000 毫秒</para>
+    /// <para lang="en">Get/Set IP Address Request Timeout. Default 3000 ms</para>
     /// </summary>
     public int RequestTimeout { get; set; } = 3000;
 
     /// <summary>
-    /// 获得 本机地址列表
+    /// <para lang="zh">获得 本机地址列表</para>
+    /// <para lang="en">Get Localhost Address List</para>
     /// </summary>
     public List<string> Localhosts { get; } = new List<string>(new string[] { "::1", "127.0.0.1" });
 
     /// <summary>
-    /// 获得/设置 IP地址
+    /// <para lang="zh">获得/设置 IP地址</para>
+    /// <para lang="en">Get/Set IP Address</para>
     /// </summary>
     protected internal string? IP { get; set; }
 
     /// <summary>
-    /// 获得/设置 HttpClient 实体类
+    /// <para lang="zh">获得/设置 HttpClient 实体类</para>
+    /// <para lang="en">Get/Set HttpClient Instance</para>
     /// </summary>
     protected internal HttpClient? HttpClient { get; set; }
 
     /// <summary>
-    /// 获得/设置 ILogger 实体类
+    /// <para lang="zh">获得/设置 ILogger 实体类</para>
+    /// <para lang="en">Get/Set ILogger Instance</para>
     /// </summary>
     protected internal ILogger<IIPLocatorProvider>? Logger { get; set; }
 }

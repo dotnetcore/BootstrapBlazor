@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SlideButton 项组件
+/// <para lang="zh">SlideButton 项组件</para>
+/// <para lang="en">SlideButtonItem component</para>
 /// </summary>
 public class SlideButtonItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 显示文本
+    /// <para lang="zh">显示文本</para>
+    /// <para lang="en">Display text</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,7 +23,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
-    /// 选项值
+    /// <para lang="zh">选项值</para>
+    /// <para lang="en">Option value</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -34,7 +37,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     private List<SlideButtonItem>? Items { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -42,7 +46,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 资源销毁
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -54,7 +59,8 @@ public class SlideButtonItem : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 资源销毁
+    /// <para lang="zh">资源销毁</para>
+    /// <para lang="en">Dispose usage</para>
     /// </summary>
     /// <exception cref="NotImplementedException"></exception>
     public void Dispose()

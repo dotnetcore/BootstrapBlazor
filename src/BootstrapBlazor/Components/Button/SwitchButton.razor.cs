@@ -14,33 +14,38 @@ namespace BootstrapBlazor.Components;
 public partial class SwitchButton
 {
     /// <summary>
-    /// 获得/设置 On 状态显示文字
+    /// <para lang="zh">获得/设置 On 状态显示文字</para>
+    /// <para lang="en">Gets or sets the On state display text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OnText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Off 状态显示文字
+    /// <para lang="zh">获得/设置 Off 状态显示文字</para>
+    /// <para lang="en">Gets or sets the Off state display text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OffText { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前状态
+    /// <para lang="zh">获得/设置 当前状态</para>
+    /// <para lang="en">Gets or sets the current state</para>
     /// </summary>
     [Parameter]
     public bool ToggleState { get; set; }
 
     /// <summary>
-    /// 状态切换回调方法
+    /// <para lang="zh">状态切换回调方法</para>
+    /// <para lang="en">State toggle callback method</para>
     /// </summary>
     [Parameter]
     public EventCallback<bool> ToggleStateChanged { get; set; }
 
     /// <summary>
-    /// 点击回调方法
+    /// <para lang="zh">点击回调方法</para>
+    /// <para lang="en">Click callback method</para>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -50,7 +55,8 @@ public partial class SwitchButton
     private IStringLocalizer<SwitchButton>? Localizer { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet method</para>
     /// </summary>
     protected override void OnParametersSet()
     {

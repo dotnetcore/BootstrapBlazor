@@ -9,24 +9,28 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenuTrigger 组件
+/// <para lang="zh">ContextMenuTrigger 组件</para>
+/// <para lang="en">ContextMenuTrigger component</para>
 /// </summary>
 public class ContextMenuTrigger : BootstrapComponentBase
 {
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set child content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 包裹组件 TagName 默认为 div
+    /// <para lang="zh">获得/设置 包裹组件 TagName 默认为 div</para>
+    /// <para lang="en">Get/Set wrapper component TagName, default is div</para>
     /// </summary>
     [Parameter]
     public string WrapperTag { get; set; } = "div";
 
     /// <summary>
-    /// 获得/设置 上下文数据
+    /// <para lang="zh">获得/设置 上下文数据</para>
+    /// <para lang="en">Get/Set context data</para>
     /// </summary>
     [Parameter]
     public object? ContextItem { get; set; }
@@ -57,18 +61,21 @@ public class ContextMenuTrigger : BootstrapComponentBase
     }
 
     /// <summary>
-    /// 点击 ContextMenu 菜单项时触发
+    /// <para lang="zh">点击 ContextMenu 菜单项时触发</para>
+    /// <para lang="en">Triggered when clicking ContextMenu item</para>
     /// </summary>
     [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(MouseEventArgs))]
     public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(args, ContextItem);
 
     /// <summary>
-    /// 是否触摸
+    /// <para lang="zh">是否触摸</para>
+    /// <para lang="en">Whether it is touch</para>
     /// </summary>
     private bool TouchStart { get; set; }
 
     /// <summary>
-    /// 触摸定时器工作指示
+    /// <para lang="zh">触摸定时器工作指示</para>
+    /// <para lang="en">Touch timer work indicator</para>
     /// </summary>
     private bool IsBusy { get; set; }
 

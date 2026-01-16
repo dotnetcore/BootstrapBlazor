@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AnchorLink 组件
+/// <para lang="zh">AnchorLink 组件</para>
+/// <para lang="en">AnchorLink component</para>
 /// </summary>
 public partial class AnchorLink
 {
     /// <summary>
-    /// 获得/设置 组件 Text 显示文字
+    /// <para lang="zh">获得/设置 组件 Text 显示文字</para>
+    /// <para lang="en">Gets or sets the component text display</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件 拷贝成功后 显示文字
+    /// <para lang="zh">获得/设置 组件 拷贝成功后 显示文字</para>
+    /// <para lang="en">Gets or sets the display text after successful copy</para>
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 锚点图标 默认 fa-solid fa-link
+    /// <para lang="zh">获得/设置 锚点图标 默认 fa-solid fa-link</para>
+    /// <para lang="en">Gets or sets the anchor icon. Default is fa-solid fa-link</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -41,7 +45,8 @@ public partial class AnchorLink
         .Build();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnParametersSet()
     {

@@ -6,49 +6,58 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 级联选项类
+/// <para lang="zh">级联选项类</para>
+/// <para lang="en">Cascader Item class</para>
 /// </summary>
 public class CascaderItem
 {
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     public CascaderItem() { }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     public CascaderItem(string value, string text) => (Value, Text) = (value, text);
 
     /// <summary>
-    /// 获得 父级节点
+    /// <para lang="zh">获得 父级节点</para>
+    /// <para lang="en">Get Parent node</para>
     /// </summary>
     public CascaderItem? Parent { get; private set; }
 
     /// <summary>
-    /// 获得/设置 子节点数据源
+    /// <para lang="zh">获得/设置 子节点数据源</para>
+    /// <para lang="en">Gets or sets the child node data source</para>
     /// </summary>
     public IEnumerable<CascaderItem> Items => _items;
 
     private readonly List<CascaderItem> _items = new(20);
 
     /// <summary>
-    /// 获得/设置 显示名称
+    /// <para lang="zh">获得/设置 显示名称</para>
+    /// <para lang="en">Gets or sets the display text</para>
     /// </summary>
     public string Text { get; set; } = "";
 
     /// <summary>
-    /// 获得/设置 选项值
+    /// <para lang="zh">获得/设置 选项值</para>
+    /// <para lang="en">Gets or sets the option value</para>
     /// </summary>
     public string Value { get; set; } = "";
 
     /// <summary>
-    /// 获得 是否存在子节点
+    /// <para lang="zh">获得 是否存在子节点</para>
+    /// <para lang="en">Get whether there are child nodes</para>
     /// </summary>
     public bool HasChildren => _items.Count > 0;
 
     /// <summary>
-    /// 添加 CascaderItem 方法 由 CascaderItem 方法加载时调用
+    /// <para lang="zh">添加 CascaderItem 方法 由 CascaderItem 方法加载时调用</para>
+    /// <para lang="en">Add CascaderItem method called when CascaderItem method loads</para>
     /// </summary>
     /// <param name="item">CascaderItem 实例</param>
     public void AddItem(CascaderItem item)

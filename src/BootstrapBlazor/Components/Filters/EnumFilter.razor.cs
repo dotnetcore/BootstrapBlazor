@@ -11,13 +11,15 @@ namespace BootstrapBlazor.Components;
 public partial class EnumFilter
 {
     /// <summary>
-    /// 内部使用
+    /// <para lang="zh">内部使用</para>
+    /// <para lang="en">Internal use</para>
     /// </summary>
     [NotNull]
     private Type? EnumType { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关枚举类型
+    /// <para lang="zh">获得/设置 相关枚举类型</para>
+    /// <para lang="en">Get/Set Related Enum Type</para>
     /// </summary>
     [Parameter]
     [NotNull]

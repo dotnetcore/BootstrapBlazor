@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FullScreenButton 组件
+/// <para lang="zh">FullScreenButton 组件</para>
+/// <para lang="en">FullScreenButton Component</para>
 /// </summary>
 public partial class FullScreenButton
 {
     /// <summary>
-    /// 获得/设置 全屏图标 默认 fa-solid fa-maximize
+    /// <para lang="zh">获得/设置 全屏图标 默认 fa-solid fa-maximize</para>
+    /// <para lang="en">Get/Set Full Screen Icon Default fa-solid fa-maximize</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 Icon 参数；Deprecated. Please use Icon parameter")]
@@ -19,13 +21,15 @@ public partial class FullScreenButton
     public string? FullScreenIcon { get => FullScreenExitIcon; set => FullScreenExitIcon = value; }
 
     /// <summary>
-    /// 获得/设置 退出全屏图标 默认 fa-solid fa-compress
+    /// <para lang="zh">获得/设置 退出全屏图标 默认 fa-solid fa-compress</para>
+    /// <para lang="en">Get/Set Exit Full Screen Icon Default fa-solid fa-compress</para>
     /// </summary>
     [Parameter]
     public string? FullScreenExitIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 全屏元素 Id 默认为 null
+    /// <para lang="zh">获得/设置 全屏元素 Id 默认为 null</para>
+    /// <para lang="en">Get/Set Full Screen Element Id Default null</para>
     /// </summary>
     [Parameter]
     public string? TargetId { get; set; }

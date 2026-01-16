@@ -6,36 +6,42 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenuItem 类
+/// <para lang="zh">ContextMenuItem 类</para>
+/// <para lang="en">ContextMenuItem class</para>
 /// </summary>
 public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
 {
     /// <summary>
-    /// 获得/设置 显示文本
+    /// <para lang="zh">获得/设置 显示文本</para>
+    /// <para lang="en">Get/Set display text</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标
+    /// <para lang="zh">获得/设置 图标</para>
+    /// <para lang="en">Get/Set icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/>
+    /// <para lang="zh">获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/></para>
+    /// <para lang="en">Get/Set whether it is disabled, default is false, priority lower than <see cref="OnDisabledCallback"/></para>
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/>
+    /// <para lang="zh">获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/></para>
+    /// <para lang="en">Get/Set callback method for disabled state, default is null, priority higher than <see cref="Disabled"/></para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, bool>? OnDisabledCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击回调方法 默认 null
+    /// <para lang="zh">获得/设置 点击回调方法 默认 null</para>
+    /// <para lang="en">Get/Set click callback method, default is null</para>
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
@@ -57,7 +63,8 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     private bool disposedValue;
 
     /// <summary>
-    /// 释放资源方法
+    /// <para lang="zh">释放资源方法</para>
+    /// <para lang="en">Dispose resources method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 多项选择下拉框过滤组件
+/// <para lang="zh">多项选择下拉框过滤组件</para>
+/// <para lang="en">Multi-Select Dropdown Filter Component</para>
 /// </summary>
 public partial class MultiSelectFilter<TType>
 {

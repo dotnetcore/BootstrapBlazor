@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FilterButton 组件
+/// <para lang="zh">FilterButton 组件</para>
+/// <para lang="en">FilterButton Component</para>
 /// </summary>
 public partial class FilterButton<TValue> : Dropdown<TValue>
 {
     /// <summary>
-    /// 获得/设置 清除过滤条件时的回调方法
+    /// <para lang="zh">获得/设置 清除过滤条件时的回调方法</para>
+    /// <para lang="en">Get/Set Callback Method When Clearing Filter Conditions</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearFilter { get; set; }
 
     /// <summary>
-    /// 获得/设置 过滤按钮图标
+    /// <para lang="zh">获得/设置 过滤按钮图标</para>
+    /// <para lang="en">Get/Set Filter Button Icon</para>
     /// </summary>
     [Parameter]
     public string? FilterIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 重置按钮图标
+    /// <para lang="zh">获得/设置 重置按钮图标</para>
+    /// <para lang="en">Get/Set Reset Button Icon</para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }

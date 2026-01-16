@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Lookup 过滤器
+/// <para lang="zh">Lookup 过滤器</para>
+/// <para lang="en">Lookup Filter</para>
 /// </summary>
 public partial class LookupFilter
 {
@@ -35,7 +36,7 @@ public partial class LookupFilter
                 if (service != null)
                 {
                     var items = await _lookup.GetItemsAsync(service, _lookup.LookupServiceKey, _lookup.LookupServiceData);
-                    if(items != null)
+                    if (items != null)
                     {
                         _value = items.FirstOrDefault()?.Value;
                     }

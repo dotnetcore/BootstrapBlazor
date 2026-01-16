@@ -11,7 +11,8 @@ namespace BootstrapBlazor.Components;
 public partial class NotSupportFilter
 {
     /// <summary>
-    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
+    /// <para lang="en">Get/Set Not Supported Filter Type Message Default null Read Resource File Content</para>
     /// </summary>
     [Parameter]
     [NotNull]

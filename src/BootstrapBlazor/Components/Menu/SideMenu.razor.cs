@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SideMenu 组件
+/// <para lang="zh">SideMenu 组件</para>
+/// <para lang="en">SideMenu Component</para>
 /// </summary>
 public partial class SideMenu
 {
@@ -24,28 +25,32 @@ public partial class SideMenu
     private string GetTargetId(MenuItem item) => ComponentIdGenerator.Generate(item);
 
     /// <summary>
-    /// 获得/设置 菜单数据集合
+    /// <para lang="zh">获得/设置 菜单数据集合</para>
+    /// <para lang="en">Get/Set Menu Data Collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件数据源
+    /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
+    /// <para lang="en">Get/Set DropdownIcon Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 菜单箭头图标
+    /// <para lang="zh">获得/设置 菜单箭头图标</para>
+    /// <para lang="en">Get/Set Menu Arrow Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ArrowIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 菜单项点击回调委托
+    /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
+    /// <para lang="en">Get/Set Menu item click callback delegate</para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -15,7 +15,8 @@ namespace BootstrapBlazor.Components;
 public partial class BootstrapInputNumber<TValue>
 {
     /// <summary>
-    /// 获得 按钮样式
+    /// <para lang="zh">获得 按钮样式</para>
+    /// <para lang="en">Get Button Style</para>
     /// </summary>
     protected string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass("btn-outline-secondary", Color == Color.None)
@@ -23,7 +24,8 @@ public partial class BootstrapInputNumber<TValue>
         .Build();
 
     /// <summary>
-    /// 获得 文本框样式
+    /// <para lang="zh">获得 文本框样式</para>
+    /// <para lang="en">Get Text Box Style</para>
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
@@ -36,49 +38,57 @@ public partial class BootstrapInputNumber<TValue>
     private string? StepString { get; set; }
 
     /// <summary>
-    /// 获得/设置 数值增加时回调委托
+    /// <para lang="zh">获得/设置 数值增加时回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate when value increases</para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnIncrement { get; set; }
 
     /// <summary>
-    /// 获得/设置 数值减少时回调委托
+    /// <para lang="zh">获得/设置 数值减少时回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate when value decreases</para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnDecrement { get; set; }
 
     /// <summary>
-    /// 获得/设置 最小值
+    /// <para lang="zh">获得/设置 最小值</para>
+    /// <para lang="en">Get/Set Minimum Value</para>
     /// </summary>
     [Parameter]
     public string? Min { get; set; }
 
     /// <summary>
-    /// 获得/设置 最大值
+    /// <para lang="zh">获得/设置 最大值</para>
+    /// <para lang="en">Get/Set Maximum Value</para>
     /// </summary>
     [Parameter]
     public string? Max { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// <para lang="zh">获得/设置 步长 默认为 null</para>
+    /// <para lang="en">Get/Set Step. Default null</para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示加减按钮
+    /// <para lang="zh">获得/设置 是否显示加减按钮</para>
+    /// <para lang="en">Get/Set Whether to show increment/decrement buttons</para>
     /// </summary>
     [Parameter]
     public bool ShowButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 减小数值图标
+    /// <para lang="zh">获得/设置 减小数值图标</para>
+    /// <para lang="en">Get/Set Decrement Icon</para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加数值图标
+    /// <para lang="zh">获得/设置 增加数值图标</para>
+    /// <para lang="en">Get/Set Increment Icon</para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -170,7 +180,8 @@ public partial class BootstrapInputNumber<TValue>
             : InternalFormat(value));
 
     /// <summary>
-    /// InternalFormat 方法
+    /// <para lang="zh">InternalFormat 方法</para>
+    /// <para lang="en">InternalFormat Method</para>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -190,7 +201,8 @@ public partial class BootstrapInputNumber<TValue>
     private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
     /// <summary>
-    /// 点击减少按钮式时回调此方法
+    /// <para lang="zh">点击减少按钮式时回调此方法</para>
+    /// <para lang="en">Callback method when decrement button is clicked</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickDec()
@@ -226,7 +238,8 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// 点击增加按钮式时回调此方法
+    /// <para lang="zh">点击增加按钮式时回调此方法</para>
+    /// <para lang="en">Callback method when increment button is clicked</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickInc()

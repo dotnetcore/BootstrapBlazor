@@ -8,7 +8,8 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 默认 IP 地理位置定位器
+/// <para lang="zh">默认 IP 地理位置定位器</para>
+/// <para lang="en">Default IP Geolocation Provider</para>
 /// </summary>
 [Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
@@ -19,7 +20,8 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
     private readonly IServiceProvider _provider;
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="factory"></param>
@@ -34,7 +36,8 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
     }
 
     /// <summary>
-    /// 定位方法
+    /// <para lang="zh">定位方法</para>
+    /// <para lang="en">Locate Method</para>
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>

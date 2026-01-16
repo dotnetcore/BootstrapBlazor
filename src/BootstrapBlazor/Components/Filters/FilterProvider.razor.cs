@@ -13,27 +13,31 @@ namespace BootstrapBlazor.Components;
 public partial class FilterProvider
 {
     /// <summary>
-    /// 获得/设置 重置按钮文本
+    /// <para lang="zh">获得/设置 重置按钮文本</para>
+    /// <para lang="en">Get/Set Reset Button Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ClearButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 过滤按钮文本
+    /// <para lang="zh">获得/设置 过滤按钮文本</para>
+    /// <para lang="en">Get/Set Filter Button Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? FilterButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加过滤条件图标
+    /// <para lang="zh">获得/设置 增加过滤条件图标</para>
+    /// <para lang="en">Get/Set Add Filter Condition Icon</para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 减少过滤条件图标
+    /// <para lang="zh">获得/设置 减少过滤条件图标</para>
+    /// <para lang="en">Get/Set Remove Filter Condition Icon</para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
@@ -104,7 +108,8 @@ public partial class FilterProvider
     }
 
     /// <summary>
-    /// 点击重置按钮时回调此方法
+    /// <para lang="zh">点击重置按钮时回调此方法</para>
+    /// <para lang="en">Callback this method when clicking reset button</para>
     /// </summary>
     /// <returns></returns>
     private async Task OnClickReset()
@@ -118,7 +123,8 @@ public partial class FilterProvider
     }
 
     /// <summary>
-    /// 点击确认时回调此方法
+    /// <para lang="zh">点击确认时回调此方法</para>
+    /// <para lang="en">Callback this method when clicking confirm</para>
     /// </summary>
     /// <returns></returns>
     protected async Task OnClickConfirm()
@@ -130,7 +136,8 @@ public partial class FilterProvider
     }
 
     /// <summary>
-    /// 点击增加按钮时回调此方法
+    /// <para lang="zh">点击增加按钮时回调此方法</para>
+    /// <para lang="en">Callback this method when clicking add button</para>
     /// </summary>
     /// <returns></returns>
     private void OnClickPlus()
@@ -142,7 +149,8 @@ public partial class FilterProvider
     }
 
     /// <summary>
-    /// 点击减少按钮时回调此方法
+    /// <para lang="zh">点击减少按钮时回调此方法</para>
+    /// <para lang="en">Callback this method when clicking remove button</para>
     /// </summary>
     /// <returns></returns>
     private void OnClickMinus()

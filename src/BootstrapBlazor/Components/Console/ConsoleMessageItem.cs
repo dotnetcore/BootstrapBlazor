@@ -6,28 +6,33 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 控制台消息实体类
+/// <para lang="zh">控制台消息实体类</para>
+/// <para lang="en">Console message entity class</para>
 /// </summary>
 public class ConsoleMessageItem
 {
     /// <summary>
-    /// 获得/设置 控制台输出消息
+    /// <para lang="zh">获得/设置 控制台输出消息</para>
+    /// <para lang="en">Get/Set console output message</para>
     /// </summary>
     [NotNull]
     public string? Message { get; set; }
 
     /// <summary>
-    /// 获得/设置 控制台消息颜色 默认为 White 白色
+    /// <para lang="zh">获得/设置 控制台消息颜色 默认为 White 白色</para>
+    /// <para lang="en">Get/Set console message color, default is White</para>
     /// </summary>
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义样式名称 默认 null
+    /// <para lang="zh">获得/设置 自定义样式名称 默认 null</para>
+    /// <para lang="en">Get/Set custom style name, default is null</para>
     /// </summary>
     public string? CssClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为 Html 原生字符串 默认 false
+    /// <para lang="zh">获得/设置 是否为 Html 原生字符串 默认 false</para>
+    /// <para lang="en">Get/Set whether it is Html raw string, default is false</para>
     /// </summary>
     public bool IsHtml { get; set; }
 }

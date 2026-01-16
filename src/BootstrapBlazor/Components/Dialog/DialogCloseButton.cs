@@ -8,12 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 弹窗内关闭按钮组件
+/// <para lang="zh">弹窗内关闭按钮组件</para>
+/// <para lang="en">Dialog Close Button Component</para>
 /// </summary>
 public partial class DialogCloseButton : Button
 {
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// <para lang="zh">获得/设置 按钮颜色</para>
+    /// <para lang="en">Get/Set Button Color</para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.Secondary;

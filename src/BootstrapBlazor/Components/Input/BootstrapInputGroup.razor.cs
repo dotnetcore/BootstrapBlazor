@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapInputGroup 组件
+/// <para lang="zh">BootstrapInputGroup 组件</para>
+/// <para lang="en">BootstrapInputGroup Component</para>
 /// </summary>
 public partial class BootstrapInputGroup
 {
@@ -15,7 +16,8 @@ public partial class BootstrapInputGroup
         .Build();
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

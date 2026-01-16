@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FloatingLabel 组件
+/// <para lang="zh">FloatingLabel 组件</para>
+/// <para lang="en">FloatingLabel Component</para>
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class FloatingLabel<TValue>
@@ -16,7 +17,8 @@ public partial class FloatingLabel<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 是否为 GroupBox 样式 默认 false
+    /// <para lang="zh">获得/设置 是否为 GroupBox 样式 默认 false</para>
+    /// <para lang="en">Get/Set Whether it is GroupBox style. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsGroupBox { get; set; }

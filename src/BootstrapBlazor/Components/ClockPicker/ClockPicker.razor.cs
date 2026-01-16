@@ -8,37 +8,43 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ClockPicker 组件
+/// <para lang="zh">ClockPicker 组件</para>
+/// <para lang="en">ClockPicker component</para>
 /// </summary>
 public partial class ClockPicker
 {
     /// <summary>
-    /// 获得/设置 样式
+    /// <para lang="zh">获得/设置 样式</para>
+    /// <para lang="en">Get/Set style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-clock-picker")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得/设置 是否显示表盘刻度 默认 false
+    /// <para lang="zh">获得/设置 是否显示表盘刻度 默认 false</para>
+    /// <para lang="en">Get/Set whether to show clock scale, default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowClockScale { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示秒 默认 true
+    /// <para lang="zh">获得/设置 是否显示秒 默认 true</para>
+    /// <para lang="en">Get/Set whether to show second, default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowSecond { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示分钟 默认 true
+    /// <para lang="zh">获得/设置 是否显示分钟 默认 true</para>
+    /// <para lang="en">Get/Set whether to show minute, default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true
+    /// <para lang="zh">获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true</para>
+    /// <para lang="en">Get/Set whether to automatically switch hour/minute/second, default is true</para>
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
@@ -112,7 +118,8 @@ public partial class ClockPicker
     private void SetMode(TimeMode mode) => Mode = mode;
 
     /// <summary>
-    /// 复位方法
+    /// <para lang="zh">复位方法</para>
+    /// <para lang="en">Reset method</para>
     /// </summary>
     internal void Reset()
     {
@@ -126,7 +133,8 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// JSInvoke 调用此方法
+    /// <para lang="zh">JSInvoke 调用此方法</para>
+    /// <para lang="en">JSInvoke calls this method</para>
     /// </summary>
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)

@@ -6,23 +6,27 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TabItem configuration attribute class
+/// <para lang="zh">TabItem 配置属性类</para>
+/// <para lang="en">TabItem configuration attribute class</para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class TabItemOptionAttribute : Attribute
 {
     /// <summary>
-    /// Gets or sets the text of the tab item.
+    /// <para lang="zh">获得/设置 TabItem 文本</para>
+    /// <para lang="en">Gets or sets the text of the tab item.</para>
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the current TabItem is closable. Default is true.
+    /// <para lang="zh">获得/设置 当前 TabItem 是否可关闭。默认值为 true。</para>
+    /// <para lang="en">Gets or sets whether the current TabItem is closable. Default is true.</para>
     /// </summary>
     public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the icon string.
+    /// <para lang="zh">获得/设置 图标字符串</para>
+    /// <para lang="en">Gets or sets the icon string.</para>
     /// </summary>
     public string? Icon { get; set; }
 }

@@ -8,18 +8,21 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Logger 组件
+/// <para lang="zh">Logger 组件</para>
+/// <para lang="en">Logger component</para>
 /// </summary>
 public partial class ConsoleLogger
 {
     /// <summary>
-    /// 获得/设置 最大行数 默认 3 行
+    /// <para lang="zh">获得/设置 最大行数 默认 3 行</para>
+    /// <para lang="en">Get/Set max rows, default is 3</para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 3;
 
     /// <summary>
-    /// 获得/设置 是否为 Html 代码 默认 false
+    /// <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
+    /// <para lang="en">Get/Set whether it is Html code, default is false</para>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }
@@ -27,7 +30,8 @@ public partial class ConsoleLogger
     private ConcurrentQueue<string> Message { get; } = new();
 
     /// <summary>
-    /// 获得 按钮样式集合
+    /// <para lang="zh">获得 按钮样式集合</para>
+    /// <para lang="en">Get button style collection</para>
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("console-logger")
@@ -38,7 +42,8 @@ public partial class ConsoleLogger
     private string Class { get; set; } = "collapse";
 
     /// <summary>
-    /// 输入日志方法
+    /// <para lang="zh">输入日志方法</para>
+    /// <para lang="en">Log method</para>
     /// </summary>
     /// <param name="message"></param>
     public void Log(string message)

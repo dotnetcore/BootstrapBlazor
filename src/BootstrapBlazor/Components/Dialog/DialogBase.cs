@@ -6,61 +6,71 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Dialog 组件基类
+/// <para lang="zh">Dialog 组件基类</para>
+/// <para lang="en">Dialog Base Component</para>
 /// </summary>
 public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
 {
     /// <summary>
-    /// 获得/设置 EditModel 实例
+    /// <para lang="zh">获得/设置 EditModel 实例</para>
+    /// <para lang="en">Get/Set EditModel Instance</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public TModel? Model { get; set; }
 
     /// <summary>
-    /// 获得/设置 BodyTemplate 实例
+    /// <para lang="zh">获得/设置 BodyTemplate 实例</para>
+    /// <para lang="en">Get/Set BodyTemplate Instance</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得 数据项集合
+    /// <para lang="zh">获得 数据项集合</para>
+    /// <para lang="en">Get Items</para>
     /// </summary>
     [Parameter]
     public IEnumerable<IEditorItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签
+    /// <para lang="zh">获得/设置 是否显示标签</para>
+    /// <para lang="en">Get/Set Whether to Show Label</para>
     /// </summary>
     [Parameter]
     public bool ShowLabel { get; set; }
 
     /// <summary>
-    /// 获得/设置 每行显示组件数量 默认为 null
+    /// <para lang="zh">获得/设置 每行显示组件数量 默认为 null</para>
+    /// <para lang="en">Get/Set Items Per Row. Default is null</para>
     /// </summary>
     [Parameter]
     public int? ItemsPerRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置行格式 默认 Row 布局
+    /// <para lang="zh">获得/设置 设置行格式 默认 Row 布局</para>
+    /// <para lang="en">Get/Set Row Layout. Default is Row</para>
     /// </summary>
     [Parameter]
     public RowType RowType { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+    /// <para lang="zh">获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
+    /// <para lang="en">Get/Set Label Alignment in <see cref="RowType" /> Inline Mode. Default is None, equivalent to Left</para>
     /// </summary>
     [Parameter]
     public Alignment LabelAlign { get; set; }
 
     /// <summary>
-    /// 获得/设置 未分组编辑项布局位置 默认 false 在尾部
+    /// <para lang="zh">获得/设置 未分组编辑项布局位置 默认 false 在尾部</para>
+    /// <para lang="en">Get/Set Unset Group Items Position. Default is false (at the end)</para>
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {

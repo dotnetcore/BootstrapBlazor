@@ -6,19 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Script 组件
+/// <para lang="zh">Script 组件</para>
+/// <para lang="en">Script Component</para>
 /// </summary>
 public partial class Script
 {
     /// <summary>
-    /// 获得/设置 src 属性值
+    /// <para lang="zh">获得/设置 src 属性值</para>
+    /// <para lang="en">Get/Set src Property Value</para>
     /// </summary>
     [Parameter]
     [EditorRequired]
     public string? Src { get; set; }
 
     /// <summary>
-    /// 获得/设置 版本号 默认 null 自动生成
+    /// <para lang="zh">获得/设置 版本号 默认 null 自动生成</para>
+    /// <para lang="en">Get/Set Version Number Default null Auto Generated</para>
     /// </summary>
     [Parameter]
     public string? Version { get; set; }

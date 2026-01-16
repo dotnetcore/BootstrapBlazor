@@ -6,22 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 文件下载配置类
+/// <para lang="zh">文件下载配置类</para>
+/// <para lang="en">Download Option Class</para>
 /// </summary>
 public class DownloadOption
 {
     /// <summary>
-    /// 获取/设置 要下载的文件数据字节数组
+    /// <para lang="zh">获取/设置 要下载的文件数据字节数组</para>
+    /// <para lang="en">Get/Set File Content Byte Array</para>
     /// </summary>
     public Stream? FileStream { get; set; }
 
     /// <summary>
-    /// 获得/设置 下载地址
+    /// <para lang="zh">获得/设置 下载地址</para>
+    /// <para lang="en">Get/Set Download Url</para>
     /// </summary>
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获取/设置 下载文件另存为文件名
+    /// <para lang="zh">获取/设置 下载文件另存为文件名</para>
+    /// <para lang="en">Get/Set Save as Filename</para>
     /// </summary>
     public string? FileName { get; set; }
 }

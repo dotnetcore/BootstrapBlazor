@@ -6,11 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/>
+/// <para lang="zh">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
+/// <para lang="en">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class JSModuleNotInheritedAttribute : Attribute
 {
-    // 增加 sealed 关键字防止二开写派生类导致 type.GetCustomAttribute<JSModuleNotInheritedAttribute>() 报错
-    // BootstrapModuleComponentBase 类 OnLoadJSModule 方法
+    // <para lang="zh">增加 sealed 关键字防止二开写派生类导致 type.GetCustomAttribute&lt;JSModuleNotInheritedAttribute&gt;() 报错</para>
+    // <para lang="zh">BootstrapModuleComponentBase 类 OnLoadJSModule 方法</para>
+    // <para lang="en">Add sealed keyword to prevent derived classes from causing type.GetCustomAttribute&lt;JSModuleNotInheritedAttribute&gt;() error</para>
+    // <para lang="en">BootstrapModuleComponentBase class OnLoadJSModule method</para>
 }

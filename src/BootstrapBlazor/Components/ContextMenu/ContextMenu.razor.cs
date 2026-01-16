@@ -8,24 +8,28 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenu 组件
+/// <para lang="zh">ContextMenu 组件</para>
+/// <para lang="en">ContextMenu component</para>
 /// </summary>
 public partial class ContextMenu
 {
     /// <summary>
-    /// 获得/设置 是否显示阴影 默认 true
+    /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
+    /// <para lang="en">Get/Set whether to show shadow, default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 弹出前回调方法 默认 null
+    /// <para lang="zh">获得/设置 弹出前回调方法 默认 null</para>
+    /// <para lang="en">Get/Set callback method before showing, default is null</para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnBeforeShowCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set child content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -84,7 +88,8 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    /// 弹出 ContextMenu
+    /// <para lang="zh">弹出 ContextMenu</para>
+    /// <para lang="en">Show ContextMenu</para>
     /// </summary>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
@@ -109,13 +114,15 @@ public partial class ContextMenu
     }
 
     /// <summary>
-    /// 增加 ContextMenuItem 方法
+    /// <para lang="zh">增加 ContextMenuItem 方法</para>
+    /// <para lang="en">Add ContextMenuItem method</para>
     /// </summary>
     /// <param name="item"></param>
     internal void AddItem(IContextMenuItem item) => _contextMenuItems.Add(item);
 
     /// <summary>
-    /// 移除 ContextMenuItem 方法
+    /// <para lang="zh">移除 ContextMenuItem 方法</para>
+    /// <para lang="en">Remove ContextMenuItem method</para>
     /// </summary>
     /// <param name="item"></param>
     internal void RemoveItem(IContextMenuItem item) => _contextMenuItems.Remove(item);

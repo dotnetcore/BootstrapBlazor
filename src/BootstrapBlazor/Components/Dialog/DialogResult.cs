@@ -6,27 +6,32 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 对话框返回类型
+/// <para lang="zh">对话框返回类型</para>
+/// <para lang="en">Dialog Result Type</para>
 /// </summary>
 public enum DialogResult
 {
     /// <summary>
-    /// 未设置
+    /// <para lang="zh">未设置</para>
+    /// <para lang="en">Unset</para>
     /// </summary>
     Unset,
 
     /// <summary>
-    /// 是
+    /// <para lang="zh">是</para>
+    /// <para lang="en">Yes</para>
     /// </summary>
     Yes,
 
     /// <summary>
-    /// 否
+    /// <para lang="zh">否</para>
+    /// <para lang="en">No</para>
     /// </summary>
     No,
 
     /// <summary>
-    /// 关闭
+    /// <para lang="zh">关闭</para>
+    /// <para lang="en">Close</para>
     /// </summary>
     Close
 }

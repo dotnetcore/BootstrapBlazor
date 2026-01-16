@@ -6,34 +6,39 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoGenerateColumn attribute class, used to mark auto-generated columns in <see cref="Table{TItem}"/>
+/// <para lang="zh">AutoGenerateColumn 属性类，用于在 <see cref="Table{TItem}"/> 中标记自动生成的列</para>
+/// <para lang="en">AutoGenerateColumn attribute class, used to mark auto-generated columns in <see cref="Table{TItem}"/></para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColumn
 {
     /// <summary>
-    /// Gets or sets the display order. The rules are as follows:
-    /// <para></para>
-    /// &gt;0 for the front, 1,2,3...
-    /// <para></para>
-    /// =0 for the middle (default)
-    /// <para></para>
-    /// &lt;0 for the back, ...-3,-2,-1
+    /// <para lang="zh">获得/设置 显示顺序。规则如下：</para>
+    /// <para lang="en">Gets or sets the display order. The rules are as follows:</para>
+    /// <para lang="zh">&gt;0 正序排列，1,2,3...</para>
+    /// <para lang="en">&gt;0 for the front, 1,2,3...</para>
+    /// <para lang="zh">=0 保持默认</para>
+    /// <para lang="en">=0 for the middle (default)</para>
+    /// <para lang="zh">&lt;0 倒序排列，...-3,-2,-1</para>
+    /// <para lang="en">&lt;0 for the back, ...-3,-2,-1</para>
     /// </summary>
     public int Order { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool DefaultSort { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the column is read-only when adding a new item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.
+    /// <para lang="zh">获得/设置 新建时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值。</para>
+    /// <para lang="en">Gets or sets whether the column is read-only when adding a new item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.</para>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
@@ -44,7 +49,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets whether the column is read-only when editing an item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.
+    /// <para lang="zh">获得/设置 编辑时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值。</para>
+    /// <para lang="en">Gets or sets whether the column is read-only when editing an item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.</para>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
 
@@ -55,7 +61,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.
+    /// <para lang="zh">获得/设置 新建时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值。</para>
+    /// <para lang="en">Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.</para>
     /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
@@ -66,7 +73,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.
+    /// <para lang="zh">获得/设置 编辑时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值。</para>
+    /// <para lang="en">Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.</para>
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
 
@@ -85,12 +93,14 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     bool? ITableColumn.IsRequiredWhenEdit { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets or sets whether to show label tooltip. Mostly used when the label text is too long and gets truncated. Default is false.
+    /// <para lang="zh">获得/设置 是否显示标签工具提示。通常用于标签文本过长被截断时。默认为 false。</para>
+    /// <para lang="en">Gets or sets whether to show label tooltip. Mostly used when the label text is too long and gets truncated. Default is false.</para>
     /// </summary>
     public bool ShowLabelTooltip { get; set; }
 
@@ -101,14 +111,16 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets the default sort order. Default is SortOrder.Unset.
+    /// <para lang="zh">获得/设置 默认排序顺序。默认为 SortOrder.Unset。</para>
+    /// <para lang="en">Gets or sets the default sort order. Default is SortOrder.Unset.</para>
     /// </summary>
     public SortOrder DefaultSortOrder { get; set; }
 
     IEnumerable<SelectedItem>? IEditorItem.Items { get; set; }
 
     /// <summary>
-    /// Gets or sets the column width.
+    /// <para lang="zh">获得/设置 列宽。</para>
+    /// <para lang="en">Gets or sets the column width.</para>
     /// </summary>
     public int Width { get; set; }
 
@@ -119,32 +131,38 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool Fixed { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? CssClass { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
@@ -155,7 +173,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     RenderFragment<ITableColumn>? ITableColumn.ToolboxTemplate { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public Type? ComponentType { get; set; }
 
@@ -192,78 +211,96 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     Alignment? ITableColumn.Align { get => Align; set => Align = value ?? Alignment.None; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? Step { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int Rows { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int Cols { get; set; }
 
     IFilter? ITableColumn.Filter { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     [NotNull]
     public Type? PropertyType { get; internal set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     [NotNull]
     internal string? FieldName { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
+    /// </summary>
+    /// <summary>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     [Obsolete("已弃用，请删除；Deprecated, please delete")]
     [ExcludeFromCodeCoverage]
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     ILookupService? ILookup.LookupService { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
@@ -272,52 +309,62 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     List<IValidator>? IEditorItem.ValidateRules { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public virtual string GetDisplayName() => Text ?? "";
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string GetFieldName() => FieldName;
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? GroupName { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public int GroupOrder { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool HeaderTextWrap { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool ShowHeaderTooltip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public string? HeaderTextTooltip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public bool IgnoreWhenExport { get; set; }
 

@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ExportPdfButtonSettings 配置类
+/// <para lang="zh">ExportPdfButtonSettings 配置类</para>
+/// <para lang="en">ExportPdfButtonSettings configuration class</para>
 /// </summary>
 public class ExportPdfButtonSettings : ComponentBase
 {
     /// <summary>
-    /// 获得/设置 ExportPdfButtonOptions 参数配置类实例
+    /// <para lang="zh">获得/设置 ExportPdfButtonOptions 参数配置类实例</para>
+    /// <para lang="en">Gets or sets the ExportPdfButtonOptions parameter configuration class instance</para>
     /// </summary>
     [Parameter, NotNull, EditorRequired]
     public ExportPdfButtonOptions? Options { get; set; }
@@ -20,7 +22,8 @@ public class ExportPdfButtonSettings : ComponentBase
     private Button? Button { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     protected override void OnInitialized()
     {

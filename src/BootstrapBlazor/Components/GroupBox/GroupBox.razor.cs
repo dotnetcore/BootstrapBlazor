@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">GroupBox 组件</para>
+/// <para lang="en">GroupBox Component</para>
 /// </summary>
 public sealed partial class GroupBox
 {
@@ -15,13 +16,15 @@ public sealed partial class GroupBox
         .Build();
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// <para lang="zh">获得/设置 子组件</para>
+    /// <para lang="en">Get/Set Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 Title 属性 默认为 null
+    /// <para lang="zh">获得/设置 Title 属性 默认为 null</para>
+    /// <para lang="en">Get/Set Title Property Default null</para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }

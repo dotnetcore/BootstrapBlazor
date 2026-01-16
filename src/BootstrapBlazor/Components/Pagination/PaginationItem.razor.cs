@@ -11,31 +11,36 @@ namespace BootstrapBlazor.Components;
 public partial class PaginationItem
 {
     /// <summary>
-    /// 点击页码时回调方法 参数是当前页码
+    /// <para lang="zh">点击页码时回调方法 参数是当前页码</para>
+    /// <para lang="en">Callback method when page link is clicked. Parameter is current page index</para>
     /// </summary>
     [Parameter]
     public EventCallback<int> OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前页码
+    /// <para lang="zh">获得/设置 当前页码</para>
+    /// <para lang="en">Get/Set Current Page Index</para>
     /// </summary>
     [Parameter]
     public int Index { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否激活 默认 false
+    /// <para lang="zh">获得/设置 是否激活 默认 false</para>
+    /// <para lang="en">Get/Set Whether active. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用 默认 false
+    /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
+    /// <para lang="en">Get/Set Whether disabled. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 子组件
+    /// <para lang="zh">子组件</para>
+    /// <para lang="en">Child Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

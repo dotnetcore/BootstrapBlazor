@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BreadcrumbItem Class
+/// <para lang="zh">BreadcrumbItem 类</para>
+/// <para lang="en">BreadcrumbItem Class</para>
 /// </summary>
 /// <param name="text"></param>
 /// <param name="url"></param>
@@ -14,17 +15,20 @@ namespace BootstrapBlazor.Components;
 public class BreadcrumbItem(string text, string? url = null, string? cssClass = null)
 {
     /// <summary>
-    /// 获得/设置 显示文字
+    /// <para lang="zh">获得/设置 显示文字</para>
+    /// <para lang="en">Gets or sets the display text</para>
     /// </summary>
     public string Text { get; } = text;
 
     /// <summary>
-    /// 获得/设置 导航地址
+    /// <para lang="zh">获得/设置 导航地址</para>
+    /// <para lang="en">Gets or sets the navigation URL</para>
     /// </summary>
     public string? Url { get; } = url;
 
     /// <summary>
-    /// 获得/设置 样式名称
+    /// <para lang="zh">获得/设置 样式名称</para>
+    /// <para lang="en">Gets or sets the style name</para>
     /// </summary>
     public string? CssClass { get; } = cssClass;
 }

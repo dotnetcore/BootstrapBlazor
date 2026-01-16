@@ -6,38 +6,45 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 拖拽服务
+/// <para lang="zh">拖拽服务</para>
+/// <para lang="en">Drag Drop Service</para>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 internal class DragDropService<T>
 {
     /// <summary>
-    /// 活动的Item
+    /// <para lang="zh">活动的Item</para>
+    /// <para lang="en">Active Item</para>
     /// </summary>
     public T? ActiveItem { get; set; }
 
     /// <summary>
-    /// 悬停的项目
+    /// <para lang="zh">悬停的项目</para>
+    /// <para lang="en">Drag Target Item</para>
     /// </summary>
     public T? DragTargetItem { get; set; }
 
     /// <summary>
-    /// 被拖拽的Items
+    /// <para lang="zh">被拖拽的Items</para>
+    /// <para lang="en">Dragged Items</para>
     /// </summary>
     public List<T>? Items { get; set; }
 
     /// <summary>
-    /// 活动的Id
+    /// <para lang="zh">活动的Id</para>
+    /// <para lang="en">Active Id</para>
     /// </summary>
     public int? ActiveSpacerId { get; set; }
 
     /// <summary>
-    /// 之前的位置
+    /// <para lang="zh">之前的位置</para>
+    /// <para lang="en">Previous Index</para>
     /// </summary>
     public int? OldIndex { get; set; }
 
     /// <summary>
-    /// 通知刷新
+    /// <para lang="zh">通知刷新</para>
+    /// <para lang="en">Notify StateChanged</para>
     /// </summary>
     public EventHandler? StateHasChanged { get; set; }
 

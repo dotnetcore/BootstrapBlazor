@@ -11,7 +11,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 内部使用 自定义异常组件
+/// <para lang="zh">内部使用 自定义异常组件</para>
+/// <para lang="en">Internal Use Custom Exception Component</para>
 /// </summary>
 class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
@@ -32,25 +33,29 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     private NavigationManager? NavigationManager { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
+    /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
+    /// <para lang="en">Get/Set Custom Error Handler</para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用日志记录功能 默认 true 启用
+    /// <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
+    /// <para lang="en">Get/Set Whether to Enable Logging Default true</para>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示弹窗 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示弹窗 默认 true 显示</para>
+    /// <para lang="en">Get/Set Whether to Show Toast Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 Toast 弹窗标题
+    /// <para lang="zh">获得/设置 Toast 弹窗标题</para>
+    /// <para lang="en">Get/Set Toast Title</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -79,6 +84,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // 页面生命周期内异常直接调用这里
+        // Exceptions in page lifecycle call here directly
         var pageException = false;
         var ex = CurrentException ?? _exception;
         if (ex != null)
@@ -86,17 +92,21 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             pageException = IsPageException(ex);
 
             // 重置 CurrentException
+            // Reset CurrentException
             ResetException();
 
             // 渲染异常
+            // Render Exception
             var handler = GetLastOrDefaultHandler();
             _ = RenderException(ex, handler);
         }
 
         // 判断是否为组件周期内异常
+        // Determine if it is a component lifecycle exception
         if (!pageException)
         {
             // 渲染正常内容
+            // Render Normal Content
             builder.AddContent(1, ChildContent);
         }
     }
@@ -157,16 +167,19 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     }
 
     /// <summary>
-    /// BootstrapBlazor 组件导致异常渲染方法
+    /// <para lang="zh">BootstrapBlazor 组件导致异常渲染方法</para>
+    /// <para lang="en">BootstrapBlazor Component Exception Render Method</para>
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="handler"></param>
     public async Task RenderException(Exception exception, IHandlerException? handler)
     {
         // 记录日志
+        // Log Error
         await OnErrorAsync(exception);
 
         // 外部调用
+        // External Call
         if (OnErrorHandleAsync != null)
         {
             await OnErrorHandleAsync(Logger, exception);
@@ -175,11 +188,13 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         if (handler != null)
         {
             // IHandlerException 处理异常逻辑
+            // IHandlerException Handle Exception Logic
             await handler.HandlerExceptionAsync(exception, ExceptionContent);
         }
         else
         {
             // 显示异常信息
+            // Show Exception Info
             await ShowErrorToast(exception);
         }
     }

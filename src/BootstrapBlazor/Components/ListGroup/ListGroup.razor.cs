@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ListGroup 组件
+/// <para lang="zh">ListGroup 组件</para>
+/// <para lang="en">ListGroup Component</para>
 /// </summary>
 public partial class ListGroup<TItem>
 {
     /// <summary>
-    /// 获得/设置 数据源集合
+    /// <para lang="zh">获得/设置 数据源集合</para>
+    /// <para lang="en">Get/Set Data source collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,37 +23,43 @@ public partial class ListGroup<TItem>
     public List<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板 默认 null
+    /// <para lang="zh">获得/设置 Header 模板 默认 null</para>
+    /// <para lang="en">Get/Set Header Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 文字 默认 null
+    /// <para lang="zh">获得/设置 Header 文字 默认 null</para>
+    /// <para lang="en">Get/Set Header Text. Default null</para>
     /// </summary>
     [Parameter]
     public string? HeaderText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板 默认 null
+    /// <para lang="zh">获得/设置 Item 模板 默认 null</para>
+    /// <para lang="en">Get/Set Item Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击 List 项目回调方法
+    /// <para lang="zh">获得/设置 点击 List 项目回调方法</para>
+    /// <para lang="en">Get/Set Callback method when List item is clicked</para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnClickItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 双击 List 项目回调方法
+    /// <para lang="zh">获得/设置 双击 List 项目回调方法</para>
+    /// <para lang="en">Get/Set Callback method when List item is double-clicked</para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnDoubleClickItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得条目显示文本内容回调方法
+    /// <para lang="zh">获得/设置 获得条目显示文本内容回调方法</para>
+    /// <para lang="en">Get/Set Callback method to get item display text</para>
     /// </summary>
     [Parameter]
     public Func<TItem, string>? GetItemDisplayText { get; set; }

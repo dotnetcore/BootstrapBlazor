@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ListView 组件基类
+/// <para lang="zh">ListView 组件基类</para>
+/// <para lang="en">ListView Component Base</para>
 /// </summary>
 public partial class ListView<TItem> : BootstrapComponentBase
 {
@@ -20,50 +21,58 @@ public partial class ListView<TItem> : BootstrapComponentBase
         .Build();
 
     /// <summary>
-    /// 获得/设置 CardHeard
+    /// <para lang="zh">获得/设置 CardHeader</para>
+    /// <para lang="en">Get/Set Card Header</para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得 <see cref="CollapseItem.Text"/> 值 默认 null 使用分组 Key.ToString() 方法获取
+    /// <para lang="zh">获得/设置 获得 <see cref="CollapseItem.Text"/> 值 默认 null 使用分组 Key.ToString() 方法获取</para>
+    /// <para lang="en">Get/Set Get <see cref="CollapseItem.Text"/> value. Default null. Use Group Key.ToString() method to get</para>
     /// </summary>
     [Parameter]
     public Func<object?, string?>? GroupHeaderTextCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 组排序回调方法 默认 null 使用内置
+    /// <para lang="zh">获得/设置 组排序回调方法 默认 null 使用内置</para>
+    /// <para lang="en">Get/Set Group sort callback method. Default null. Use built-in</para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>? GroupOrderCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 组内项目排序回调方法 默认 null
+    /// <para lang="zh">获得/设置 组内项目排序回调方法 默认 null</para>
+    /// <para lang="en">Get/Set Group item sort callback method. Default null</para>
     /// </summary>
     [Parameter]
     public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupItemOrderCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 BodyTemplate
+    /// <para lang="zh">获得/设置 BodyTemplate</para>
+    /// <para lang="en">Get/Set Body Template</para>
     /// </summary>
     [Parameter]
     [EditorRequired]
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="IsPagination"/> 参数不起作用，请自行实现分页功能
+    /// <para lang="zh">获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="IsPagination"/> 参数不起作用，请自行实现分页功能</para>
+    /// <para lang="en">Get/Set Footer Template. Default null. If set, <see cref="IsPagination"/> parameter will not work, please implement pagination manually</para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据源
+    /// <para lang="zh">获得/设置 数据源</para>
+    /// <para lang="en">Get/Set Data Source</para>
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
+    /// <para lang="zh">获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用</para>
+    /// <para lang="en">Get/Set Whether to page. Default false. Paging is automatically disabled when <see cref="FooterTemplate"/> is set</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsPagination 代替。Deprecated, use IsPagination instead")]
@@ -71,95 +80,111 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public bool Pageable { get => IsPagination; set => IsPagination = value; }
 
     /// <summary>
-    /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
+    /// <para lang="zh">获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用</para>
+    /// <para lang="en">Get/Set Whether to page. Default false. Paging is automatically disabled when <see cref="FooterTemplate"/> is set</para>
     /// </summary>
     [Parameter]
     public bool IsPagination { get; set; }
 
     /// <summary>
-    /// 获得/设置 分组 Lambda 表达式 默认 null
+    /// <para lang="zh">获得/设置 分组 Lambda 表达式 默认 null</para>
+    /// <para lang="en">Get/Set Grouping Lambda Expression. Default null</para>
     /// </summary>
     [Parameter]
     public Func<TItem, object?>? GroupName { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可折叠 默认 false 需要开启分组设置 <see cref="GroupName"/>
+    /// <para lang="zh">获得/设置 是否可折叠 默认 false 需要开启分组设置 <see cref="GroupName"/></para>
+    /// <para lang="en">Get/Set Whether it is collapsible. Default false. Need to enable grouping setting <see cref="GroupName"/></para>
     /// </summary>
     [Parameter]
     public bool Collapsible { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsible"/>
+    /// <para lang="zh">获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsible"/></para>
+    /// <para lang="en">Get/Set Accordion effect. Default false. Need to enable collapsible setting <see cref="Collapsible"/></para>
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
 
     /// <summary>
-    /// 获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsible"/>
+    /// <para lang="zh">获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsible"/></para>
+    /// <para lang="en">Get/Set Callback method when CollapseItem is expanded/collapsed. Default false. Need to enable collapsible setting <see cref="Collapsible"/></para>
     /// </summary>
     [Parameter]
     public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 首次渲染是否收缩回调委托
+    /// <para lang="zh">获得/设置 首次渲染是否收缩回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate for whether to collapse on first render</para>
     /// </summary>
     [Parameter]
     public Func<object?, bool>? CollapsedGroupCallback { get; set; }
 
     /// <summary>
-    /// 异步查询回调方法
+    /// <para lang="zh">异步查询回调方法</para>
+    /// <para lang="en">Async query callback method</para>
     /// </summary>
     [Parameter]
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 ListView组件元素点击时回调委托
+    /// <para lang="zh">获得/设置 ListView组件元素点击时回调委托</para>
+    /// <para lang="en">Get/Set Callback delegate when ListView component element is clicked</para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnListViewItemClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为竖向排列 默认为 false
+    /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
+    /// <para lang="en">Get/Set Whether to arrange vertically. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }
 
     /// <summary>
-    /// 获得/设置 每页数据数量 默认 20
+    /// <para lang="zh">获得/设置 每页数据数量 默认 20</para>
+    /// <para lang="en">Get/Set Number of items per page. Default 20</para>
     /// </summary>
     [Parameter]
     public int PageItems { get; set; } = 20;
 
     /// <summary>
-    /// 获得/设置 组件高度 默认 null 未设置高度 如：50% 100px 10rem 10vh 等
+    /// <para lang="zh">获得/设置 组件高度 默认 null 未设置高度 如：50% 100px 10rem 10vh 等</para>
+    /// <para lang="en">Get/Set Component height. Default null. Not set. e.g. 50% 100px 10rem 10vh etc.</para>
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时模板 默认 null 未设置
+    /// <para lang="zh">获得/设置 无数据时模板 默认 null 未设置</para>
+    /// <para lang="en">Get/Set Template when no data. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时显示文字 默认 null 未设置使用资源文件设置文字
+    /// <para lang="zh">获得/设置 无数据时显示文字 默认 null 未设置使用资源文件设置文字</para>
+    /// <para lang="en">Get/Set Text to display when no data. Default null. Use resource file to set text if not set</para>
     /// </summary>
     [Parameter]
     public string? EmptyText { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前页码
+    /// <para lang="zh">获得/设置 当前页码</para>
+    /// <para lang="en">Get/Set Current Page Index</para>
     /// </summary>
     private int _pageIndex = 1;
 
     /// <summary>
-    /// 获得/设置 数据总条目
+    /// <para lang="zh">获得/设置 数据总条目</para>
+    /// <para lang="en">Get/Set Total items</para>
     /// </summary>
     private int _totalCount;
 
     /// <summary>
-    /// 数据集合内部使用
+    /// <para lang="zh">数据集合内部使用</para>
+    /// <para lang="en">Data collection internal use</para>
     /// </summary>
     private List<TItem> Rows => Items?.ToList() ?? [];
 
@@ -182,13 +207,15 @@ public partial class ListView<TItem> : BootstrapComponentBase
     private bool IsCollapsed(int index, object? groupKey) => CollapsedGroupCallback?.Invoke(groupKey) ?? index > 0;
 
     /// <summary>
-    /// 点击页码调用此方法
+    /// <para lang="zh">点击页码调用此方法</para>
+    /// <para lang="en">Call this method when page link is clicked</para>
     /// </summary>
     /// <param name="pageIndex"></param>
     protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex, true);
 
     /// <summary>
-    /// 查询按钮调用此方法
+    /// <para lang="zh">查询按钮调用此方法</para>
+    /// <para lang="en">Call this method when query button is clicked</para>
     /// </summary>
     /// <returns></returns>
     public async Task QueryAsync(int pageIndex = 1, bool triggerByPagination = false)
@@ -199,7 +226,8 @@ public partial class ListView<TItem> : BootstrapComponentBase
     }
 
     /// <summary>
-    /// 调用 OnQuery 回调方法获得数据源
+    /// <para lang="zh">调用 OnQuery 回调方法获得数据源</para>
+    /// <para lang="en">Call OnQuery callback method to get data source</para>
     /// </summary>
     protected async Task QueryData(bool triggerByPagination = false)
     {
@@ -224,7 +252,8 @@ public partial class ListView<TItem> : BootstrapComponentBase
     private int PageCount => (int)Math.Ceiling(_totalCount * 1.0 / PageItems);
 
     /// <summary>
-    /// 点击元素事件
+    /// <para lang="zh">点击元素事件</para>
+    /// <para lang="en">Click Element Event</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>

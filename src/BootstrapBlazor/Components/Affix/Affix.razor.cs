@@ -8,30 +8,35 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Affix 固钉组件
+/// <para lang="zh">Affix 固钉组件</para>
+/// <para lang="en">Affix component</para>
 /// </summary>
 public partial class Affix
 {
     /// <summary>
-    /// 获得/设置 指定偏移量后触发
+    /// <para lang="zh">获得/设置 指定偏移量后触发</para>
+    /// <para lang="en">Gets or sets the offset value to trigger</para>
     /// </summary>
     [Parameter]
     public float Offset { get; set; }
 
     /// <summary>
-    /// 获得/设置 固定位置枚举 默认 <see cref="AffixPosition.Top"/>
+    /// <para lang="zh">获得/设置 固定位置枚举 默认 <see cref="AffixPosition.Top"/></para>
+    /// <para lang="en">Gets or sets the affix position. Default is <see cref="AffixPosition.Top"/></para>
     /// </summary>
     [Parameter]
     public AffixPosition Position { get; set; }
 
     /// <summary>
-    /// 获得/设置 z-index 值 默认 100
+    /// <para lang="zh">获得/设置 z-index 值 默认 100</para>
+    /// <para lang="en">Gets or sets the z-index value. Default is 100</para>
     /// </summary>
     [Parameter]
     public int? ZIndex { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件内容
+    /// <para lang="zh">获得/设置 组件内容</para>
+    /// <para lang="en">Gets or sets the child content</para>
     /// </summary>
     [Parameter]
     [EditorRequired]
