@@ -25,31 +25,4 @@ public partial class DialButtons
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(DialButton.Placement),
-            Description = "the dial button placement",
-            Type = "Placement",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(DialButton.DialMode),
-            Description = "the dial button placement",
-            Type = "DialMode",
-            ValueList = "Linear/Radial",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(DialButton.Radius),
-            Description = "the dial popup radius",
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

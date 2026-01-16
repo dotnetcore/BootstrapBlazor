@@ -11,48 +11,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class Splittings
 {
     private int _columns = 30;
-
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Text",
-            Description = "display text",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "Loading ..."
-        },
-        new()
-        {
-            Name = "Columns",
-            Description = "Progress bar segmentation granularity",
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "10"
-        },
-        new()
-        {
-            Name = "Color",
-            Description = "the color of progress",
-            Type = "Enum",
-            ValueList = " — ",
-            DefaultValue = "Primary"
-        },
-        new()
-        {
-            Name = "ShowLoadingText",
-            Description = "Whether show the text of loading",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "Repeat",
-            Description = "Is repeat the animation",
-            Type = "int",
-            ValueList = ">= -1",
-            DefaultValue = "-1"
-        }
-    ];
 }

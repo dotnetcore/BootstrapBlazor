@@ -159,42 +159,6 @@ public partial class Mermaids
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "DiagramString",
-            Description = Localizer["DiagramString"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-
-        new()
-        {
-            Name = "Title",
-            Description = Localizer["Title"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Direction",
-            Description = Localizer["Direction"],
-            Type = "MermaidDirection",
-            ValueList = "TB / BT / LR / RL",
-            DefaultValue = "TB"
-        },
-        new()
-        {
-            Name = "Type",
-            Description = Localizer["Type"],
-            Type = "MermaidType",
-            ValueList = "None / Flowchart / SequenceDiagram / ClassDiagram / StateDiagram / ErDiagram / Journey / Gantt / Pie",
-            DefaultValue = "None"
-        }
-    ];
 
     /// <summary>
     /// Methods

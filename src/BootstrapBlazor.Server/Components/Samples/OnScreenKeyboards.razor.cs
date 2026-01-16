@@ -41,65 +41,6 @@ public sealed partial class OnScreenKeyboards
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "ClassName",
-            Description = "获得/设置 组件 class 名称",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "virtualkeyboard"
-        },
-        new()
-        {
-            Name = "KeyboardKeys",
-            Description = "获得/设置 键盘语言布局",
-            Type = "KeyboardKeysType?",
-            ValueList = "arabic|english|french|german|hungarian|persian|russian|spanish|turkish",
-            DefaultValue = "english"
-        },
-        new()
-        {
-            Name = "Keyboard",
-            Description = "获得/设置 键盘类型",
-            Type = "KeyboardType",
-            ValueList = "全键盘 all | 字母 keyboard || 小数字键盘 numpad",
-            DefaultValue = "all"
-        },
-        new()
-        {
-            Name = "Placement",
-            Description = "获得/设置 对齐",
-            Type = "KeyboardPlacement",
-            ValueList = "顶端 top | 底部 bottom",
-            DefaultValue = "bottom"
-        },
-        new()
-        {
-            Name = "Placeholder",
-            Description = "获得/设置 占位符",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " - "
-        },
-        new()
-        {
-            Name = "Specialcharacters",
-            Description = "获得/设置 显示特殊字符切换按钮",
-            Type = "bool",
-            ValueList = " - ",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "Option",
-            Description = "获得/设置 键盘配置",
-            Type = "KeyboardOption?",
-            ValueList = " - ",
-            DefaultValue = " - "
-        }
-    ];
 
     /// <summary>
     /// 获得KeyboardOption属性

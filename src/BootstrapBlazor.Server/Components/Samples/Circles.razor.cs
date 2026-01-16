@@ -22,56 +22,5 @@ public sealed partial class Circles
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Width",
-            Description = Localizer["Width"],
-            Type = "int",
-            ValueList = "",
-            DefaultValue = "120"
-        },
-        new()
-        {
-            Name = "StrokeWidth",
-            Description = Localizer["StrokeWidth"],
-            Type = "int",
-            ValueList = "",
-            DefaultValue = "2"
-        },
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["Value"],
-            Type = "int",
-            ValueList = "0-100",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = "Color",
-            Description = Localizer["Color"],
-            Type = "Color",
-            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-            DefaultValue = "Primary"
-        },
-        new()
-        {
-            Name = "ShowProgress",
-            Description = Localizer["ShowProgress"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "ChildContent",
-            Description = Localizer["ChildContent"],
-            Type = "RenderFragment",
-            ValueList = "",
-            DefaultValue = ""
-        }
-    ];
 }
 

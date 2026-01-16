@@ -31,15 +31,4 @@ public partial class SlideButtons
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(FileViewer.Filename),
-            Description = "Excel/Word 文件路径或者URL",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

@@ -203,7 +203,6 @@ public sealed partial class TreeViews
             new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
 
-
         ];
         return _dragItems;
     }
@@ -313,121 +312,6 @@ public sealed partial class TreeViews
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Items",
-            Description = "menu data set",
-            Type = "IEnumerable<TreeViewItem<TItem>>",
-            ValueList = " — ",
-            DefaultValue = "new List<TreeViewItem<TItem>>(20)"
-        },
-        new()
-        {
-            Name = "ClickToggleNode",
-            Description = "Whether to expand or contract children when a node is clicked",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowCheckbox",
-            Description = "Whether to display CheckBox",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowIcon",
-            Description = "Whether to display Icon",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowSkeleton",
-            Description = "Whether to display the loading skeleton screen",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.OnTreeItemClick),
-            Description = "Callback delegate when tree control node is clicked",
-            Type = "Func<TreeViewItem<TItem>, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.OnBeforeTreeItemClick),
-            Description = "点击节点前回调方法",
-            Type = "Func<TreeViewItem<TItem>, Task<bool>>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.OnTreeItemChecked),
-            Description = "Callback delegate when tree control node is selected",
-            Type = "Func<TreeViewItem<TItem>, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.OnExpandNodeAsync),
-            Description = "Tree control node expand callback delegate",
-            Type = "Func<TreeViewItem<TItem>, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.IsDisabled),
-            Description = "Disable tree view",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.IsVirtualize),
-            Description = "Virtualize",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.CanExpandWhenDisabled),
-            Description = "Whether to expand when the control node is disabled",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.MaxSelectedCount),
-            Description = "The maximum count of selected node",
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = nameof(TreeView<string>.OnMaxSelectedCountExceed),
-            Description = "Select the callback method when the maximum number of nodes is reached",
-            Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 
     private static AttributeItem[] GetTreeItemAttributes() =>
     [

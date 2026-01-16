@@ -58,34 +58,6 @@ public partial class CountUps
         return Task.CompletedTask;
     }
 
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["Value"],
-            Type = "TValue",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Option",
-            Description = Localizer["CountOption"],
-            Type = "CountOption",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnCompleted",
-            Description = Localizer["OnCompleted"],
-            Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
-
     private AttributeItem[] GetOptionAttributes() =>
     [
         new()

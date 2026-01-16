@@ -23,39 +23,4 @@ public partial class SpeechWaves
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(SpeechWave.Show),
-            Description = Localizer["ShowAttr"],
-            Type = "bool",
-            ValueList = "true/false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(SpeechWave.ShowUsedTime),
-            Description = Localizer["ShowUsedTimeAttr"],
-            Type = "bool",
-            ValueList = "true/false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = nameof(SpeechWave.OnTimeout),
-            Description = Localizer["OnTimeoutAttr"],
-            Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(SpeechWave.TotalTime),
-            Description = Localizer["TotalTimeSecondAttr"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "60000"
-        }
-    ];
 }

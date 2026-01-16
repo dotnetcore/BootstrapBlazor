@@ -23,40 +23,4 @@ public partial class ClockPickers
     private TimeSpan ScaleValue { get; set; } = TimeSpan.FromHours(12.5);
 
     private bool _autoSwitch = false;
-
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(ClockPicker.IsAutoSwitch),
-            Description = Localizer["IsAutoSwitchAttr"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = nameof(ClockPicker.ShowClockScale),
-            Description = Localizer["ShowClockScaleAttr"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(ClockPicker.ShowMinute),
-            Description = Localizer["ShowMinuteAttr"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = nameof(ClockPicker.ShowSecond),
-            Description = Localizer["ShowSecondAttr"],
-            Type = "bool",
-            ValueList = "true / false",
-            DefaultValue = "true"
-        }
-    ];
 }

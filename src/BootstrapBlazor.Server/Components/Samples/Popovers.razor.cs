@@ -42,39 +42,4 @@ public sealed partial class Popovers
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Content",
-            Description = "Popover content",
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "Popover"
-        },
-        new()
-        {
-            Name = "IsHtml",
-            Description = "Whether the content contains Html code",
-            Type = "boolean",
-            ValueList = "",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "Placement",
-            Description = "Location",
-            Type = "Placement",
-            ValueList = "Auto / Top / Left / Bottom / Right",
-            DefaultValue = "Auto"
-        },
-        new()
-        {
-            Name = "Title",
-            Description = "Popover title",
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "Popover"
-        }
-    ];
 }

@@ -85,39 +85,4 @@ public partial class Topologies
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(Topology.Content),
-            Description = "Load Graphical Json Content",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Topology.Interval),
-            Description = "Polling interval in polling mode",
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "2000"
-        },
-        new()
-        {
-            Name = nameof(Topology.OnQueryAsync),
-            Description = "Get push data callback delegate method",
-            Type = "Func<CancellationToken, Task<IEnumerable<TopologyItem>>>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Topology.OnBeforePushData),
-            Description = "Callback method before starting to push data",
-            Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }
