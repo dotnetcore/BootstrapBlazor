@@ -1,13 +1,16 @@
-﻿<div class="table-attr">
+<div class="table-attr">
     <h4>@Title</h4>
 
-    <Table TItem="AttributeItem" Items="Items">
+    <Table TItem="AttributeItem" Items="Items" ShowFooter="@ShowFooter">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />
             <TableColumn @bind-Field="@context.Type" />
-            <TableColumn @bind-Field="@context.ValueList" TextWrap="true" />
-            <TableColumn @bind-Field="@context.DefaultValue" />
+            <TableColumn @bind-Field="@context.Version" />
         </TableColumns>
+        <TableFooter>
+            <TableFooterCell Text="合计：" colspan="3" Align="Alignment.Left" />
+            <TableFooterCell Aggregate="AggregateType.Count" Field="@nameof(AttributeItem.Name)" />
+        </TableFooter>
     </Table>
 </div>
