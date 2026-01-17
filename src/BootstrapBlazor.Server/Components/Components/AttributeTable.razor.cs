@@ -24,13 +24,20 @@ public sealed partial class AttributeTable
     /// <summary>
     /// 获得/设置 表格数据
     /// </summary>
-    [Parameter] public IEnumerable<AttributeItem>? Items { get; set; }
+    [Parameter]
+    public IEnumerable<AttributeItem> Items { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 表格关联组件类型
     /// </summary>
     [Parameter]
     public Type? Type { get; set; }
+
+    /// <summary>
+    /// 是否显示合计信息 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFooter { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -41,7 +48,7 @@ public sealed partial class AttributeTable
 
         Title ??= Localizer[nameof(Title)];
 
-        if (Items == null && Type != null)
+        if (Type != null)
         {
             Items = ComponentAttributeCacheService.GetAttributes(Type);
         }

@@ -19,33 +19,38 @@ public static class ComponentAttributeCacheService
     private static readonly ConcurrentDictionary<string, List<AttributeItem>> _cache = new();
 
     /// <summary>
-    /// 获取组件的 AttributeItem 列表(带缓存)
+    /// 通过组件类型获取组件的 AttributeItem 列表
     /// </summary>
     public static List<AttributeItem> GetAttributes(Type componentType)
     {
+#if DEBUG
+        return GetAttributeCore(componentType);
+#else
         var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
         var key = $"{componentType.FullName}_{currentLanguage}";
-        return _cache.GetOrAdd(key, _ =>
+        return _cache.GetOrAdd(key, _ => GetAttributeCore(componentType));
+#endif
+    }
+
+    private static List<AttributeItem> GetAttributeCore(Type type)
+    {
+        var attributes = new List<AttributeItem>();
+        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null);
+
+        var xmlDoc = GetXmlDocumentation(type.Assembly);
+        foreach (var property in properties)
         {
-            var attributes = new List<AttributeItem>();
-            var properties = componentType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null);
-
-            var xmlDoc = GetXmlDocumentation(componentType.Assembly);
-            foreach (var property in properties)
+            var item = new AttributeItem
             {
-                var item = new AttributeItem
-                {
-                    Name = property.Name,
-                    Type = GetFriendlyTypeName(property.PropertyType),
-                    Description = GetSummary(xmlDoc, property) ?? "",
-                    Version = GetVersion(xmlDoc, property) ?? ""
-                };
-                attributes.Add(item);
-            }
-
-            return attributes;
-        });
+                Name = property.Name,
+                Type = GetFriendlyTypeName(property.PropertyType),
+                Description = GetSummary(xmlDoc, property) ?? "",
+                Version = GetVersion(xmlDoc, property) ?? "10.0.0"
+            };
+            attributes.Add(item);
+        }
+        return attributes.OrderBy(i => i.Name).ToList();
     }
 
     /// <summary>
