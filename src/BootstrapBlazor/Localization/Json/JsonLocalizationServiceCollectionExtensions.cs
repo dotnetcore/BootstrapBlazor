@@ -18,13 +18,16 @@ internal static class JsonLocalizationServiceCollectionExtensions
     /// <para lang="zh">注入 Json 格式多语言服务</para>
     /// <para lang="en">Inject Json format multi-language service</para>
     /// </summary>
-    /// <param name="services"><para lang="zh">IServiceCollection 实例</para><para lang="en">IServiceCollection instance</para></param>
-    /// <param name="localizationConfigure"><para lang="zh">JsonLocalizationOptions 配置回调方法</para><para lang="en">JsonLocalizationOptions configuration callback method</para></param>
+    /// <param name="services">
+    /// <para lang="zh">IServiceCollection 实例</para>
+    /// <para lang="en">IServiceCollection instance</para></param>
+    /// <param name="localizationConfigure">
+    /// <para lang="zh">JsonLocalizationOptions 配置回调方法</para>
+    /// <para lang="en">JsonLocalizationOptions configuration callback method</para>
+    /// </param>
     /// <returns></returns>
     public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
-        // <para lang="zh">防止被 AddLocalization 覆盖掉</para>
-        // <para lang="en">Prevent being overwritten by AddLocalization</para>
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
         services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         services.TryAddTransient<IStringLocalizer, StringLocalizer>();

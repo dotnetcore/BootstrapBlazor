@@ -816,11 +816,9 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">数组转成字符串表达式</para>
-    /// <para lang="en">数组转成字符串表达式</para>
+    /// <para lang="en">Array to string expression</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    /// <returns></returns>
-    /// <remarks><code><![CDATA[string.Join<T>(",", IEnumerable<T>)]]></code></remarks>
     public static Expression<Func<TValue, string>> EnumerableConvertToStringLambda<TValue>()
     {
         var typeArguments = typeof(TValue).GenericTypeArguments;
@@ -832,12 +830,10 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法</para>
-    /// <para lang="en">Generic collection convert to <![CDATA[IEnumerable<string>]]> method</para>
+    /// <para lang="zh">泛型集合转换成 <see cref="IEnumerable{T}"/> 方法</para>
+    /// <para lang="en">Generic collection convert to <see cref="IEnumerable{T}"/> method</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    /// <remarks><code><![CDATA[IEnumerable<T>]]> to <![CDATA[IEnumerable<string>]]></code></remarks>
-    /// <returns></returns>
     public static Expression<Func<TValue, IEnumerable<string>>> ConvertToStringEnumerableLambda<TValue>()
     {
         var typeArguments = typeof(TValue).GenericTypeArguments;
