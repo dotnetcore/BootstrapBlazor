@@ -194,6 +194,7 @@ public partial class Layout : IHandlerException, ITabHeader
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示分割栏 默认 false 不显示 仅在 左右布局时有效</para>
     /// <para lang="en">Get/Set Whether to show split bar. Default false Effective only in Left-Right Layout</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
