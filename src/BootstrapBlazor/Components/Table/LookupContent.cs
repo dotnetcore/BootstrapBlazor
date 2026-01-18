@@ -11,35 +11,30 @@ internal class LookupContent : ComponentBase, ILookup
 {
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -63,7 +58,6 @@ internal class LookupContent : ComponentBase, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();

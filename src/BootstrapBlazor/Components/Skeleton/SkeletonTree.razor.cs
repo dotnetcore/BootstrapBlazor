@@ -18,7 +18,7 @@ public partial class SkeletonTree
 
     /// <summary>
     /// <para lang="zh">获得/设置 Loading 图标</para>
-    /// <para lang="en">Get/Set Loading Icon</para>
+    /// <para lang="en">Gets or sets Loading Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

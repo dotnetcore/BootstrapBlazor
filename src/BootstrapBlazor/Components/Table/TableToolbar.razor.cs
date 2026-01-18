@@ -16,17 +16,13 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class TableToolbar<TItem> : ComponentBase
 {
-    /// <summary>
-    /// <para lang="zh">获得 Toolbar 按钮集合</para>
-    /// <para lang="en">Gets Toolbar buttoncollection</para>
-    /// </summary>
     private readonly List<IToolbarComponent> _buttons = [];
 
     private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new(ReferenceEqualityComparer.Instance);
 
     /// <summary>
-    /// <para lang="zh">Specifies the 内容 to be rendered inside this</para>
-    /// <para lang="en">Specifies the content to be rendered inside this</para>
+    /// <para lang="zh">获得/设置 子组件内容</para>
+    /// <para lang="en">Gets or sets the content to be rendered inside this</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -34,7 +30,7 @@ public partial class TableToolbar<TItem> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
-    /// <para lang="en">Gets or sets button点击后回调delegate</para>
+    /// <para lang="en">Gets or sets button click callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -42,16 +38,16 @@ public partial class TableToolbar<TItem> : ComponentBase
     public Func<IEnumerable<TItem>>? OnGetSelectedRows { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮 默认 true</para>
-    /// <para lang="en">Gets or sets whether自动收缩工具栏button Default is true</para>
+    /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮，默认 true</para>
+    /// <para lang="en">Gets or sets whether to auto collapse toolbar buttons. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式 默认 false</para>
-    /// <para lang="en">Gets or sets 工具栏button收缩后whether继承原先button的colorstyle Default is false</para>
+    /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式，默认 false</para>
+    /// <para lang="en">Gets or sets whether to inherit button color style when toolbar buttons collapsed. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -59,7 +55,7 @@ public partial class TableToolbar<TItem> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 移动端按钮图标</para>
-    /// <para lang="en">Gets or sets 移动端buttonicon</para>
+    /// <para lang="en">Gets or sets mobile button icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -144,13 +140,13 @@ public partial class TableToolbar<TItem> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">添加按钮到工具栏方法</para>
-    /// <para lang="en">添加button到工具栏方法</para>
+    /// <para lang="en">Add button to toolbar method</para>
     /// </summary>
     public void AddButton(IToolbarComponent button) => _buttons.Add(button);
 
     /// <summary>
-    /// <para lang="zh">移除按钮到工具栏方法</para>
-    /// <para lang="en">移除button到工具栏方法</para>
+    /// <para lang="zh">移除按钮从工具栏方法</para>
+    /// <para lang="en">Remove button from toolbar method</para>
     /// </summary>
     public void RemoveButton(IToolbarComponent button) => _buttons.Remove(button);
 }

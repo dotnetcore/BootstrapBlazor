@@ -14,7 +14,7 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗位置 默认为 Bottom</para>
-    /// <para lang="en">Get/Set Popover Placement. Default is Bottom</para>
+    /// <para lang="en">Gets or sets Popover Placement. Default is Bottom</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -22,7 +22,7 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义样式 参数 默认 null</para>
-    /// <para lang="en">Get/Set Custom Class. Default is null</para>
+    /// <para lang="en">Gets or sets Custom Class. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>由 data-bs-custom-class 实现</remarks>
@@ -31,7 +31,7 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Shadow. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Show Shadow. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

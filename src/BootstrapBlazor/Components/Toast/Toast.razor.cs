@@ -6,38 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ToastBox 组件</para>
-/// <para lang="en">ToastBox component</para>
+/// <para lang="zh">Toast 组件</para>
+/// <para lang="en">Toast Component</para>
 /// </summary>
 public partial class Toast
 {
-    /// <summary>
-    /// <para lang="zh">获得/设置 弹出框类型</para>
-    /// <para lang="en">Gets or sets 弹出框type</para>
-    /// </summary>
     private string? AutoHide => Options.IsAutoHide ? null : "false";
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 弹出框类型</para>
-    /// <para lang="en">Gets or sets 弹出框type</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("toast")
         .AddClass(Options.ClassString)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 进度条样式</para>
-    /// <para lang="en">Gets or sets 进度条style</para>
-    /// </summary>
     private string? ProgressClass => CssBuilder.Default("toast-progress")
         .AddClass($"bg-{Options.Category.ToDescriptionString()}")
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 图标样式</para>
-    /// <para lang="en">Gets or sets iconstyle</para>
-    /// </summary>
     private string? IconString => CssBuilder.Default()
         .AddClass(Options.SuccessIcon, Options.Category == ToastCategory.Success)
         .AddClass(Options.InformationIcon, Options.Category == ToastCategory.Information)
@@ -55,21 +39,13 @@ public partial class Toast
     private string? StyleString => CssBuilder.Default(Options.StyleString)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 弹出框自动关闭时长</para>
-    /// <para lang="en">Gets or sets 弹出框自动关闭时长</para>
-    /// </summary>
     private string? DelayString => Options.IsAutoHide ? Options.Delay.ToString() : null;
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 是否开启动画效果</para>
-    /// <para lang="en">Gets or sets whether开启动画效果</para>
-    /// </summary>
     private string? AnimationString => Options.Animation ? null : "false";
 
     /// <summary>
     /// <para lang="zh">获得/设置 ToastOption 实例</para>
-    /// <para lang="en">Gets or sets ToastOption instance</para>
+    /// <para lang="en">Gets or sets the ToastOption instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -77,11 +53,6 @@ public partial class Toast
     [EditorRequired]
     public ToastOption? Options { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 Toast 实例</para>
-    /// <para lang="en">Gets or sets Toast instance</para>
-    /// </summary>
-    /// <value></value>
     [CascadingParameter]
     private ToastContainer? ToastContainer { get; set; }
 
@@ -128,12 +99,11 @@ public partial class Toast
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
-    /// <para lang="zh">清除 ToastBox 方法</para>
-    /// <para lang="en">清除 ToastBox 方法</para>
+    /// <para lang="zh">关闭 Toast 方法</para>
+    /// <para lang="en">Closes the Toast</para>
     /// </summary>
     [JSInvokable]
     public async Task Close()

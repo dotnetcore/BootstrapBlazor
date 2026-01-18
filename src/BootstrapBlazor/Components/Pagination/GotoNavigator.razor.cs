@@ -15,7 +15,7 @@ public partial class GotoNavigator
 {
     /// <summary>
     /// <para lang="zh">获得/设置 跳转页码 默认 null</para>
-    /// <para lang="en">Get/Set Navigation Index. Default null</para>
+    /// <para lang="en">Gets or sets Navigation Index. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class GotoNavigator
 
     /// <summary>
     /// <para lang="zh">获得/设置 跳转文本 默认 null</para>
-    /// <para lang="en">Get/Set Goto Text. Default null</para>
+    /// <para lang="en">Gets or sets Goto Text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class GotoNavigator
 
     /// <summary>
     /// <para lang="zh">获得/设置 导航回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Navigation Callback. Default null</para>
+    /// <para lang="en">Gets or sets Navigation Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

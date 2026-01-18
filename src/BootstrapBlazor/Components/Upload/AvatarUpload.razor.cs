@@ -6,16 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">头像上传组件 <para>AvatarUpload Component</para>
-///</para>
-/// <para lang="en">头像上传component <para>AvatarUpload Component</para>
-///</para>
+/// <para lang="zh">头像上传组件</para>
+/// <para lang="en">Avatar Upload Component</para>
 /// </summary>
 public partial class AvatarUpload<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 文件预览框宽度</para>
-    /// <para lang="en">Gets or sets 文件预览框width</para>
+    /// <para lang="en">Gets or sets the width of the file preview box</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,22 +21,22 @@ public partial class AvatarUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 文件预览框高度</para>
-    /// <para lang="en">Gets or sets 文件预览框height</para>
+    /// <para lang="en">Gets or sets the height of the file preview box</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 100;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否圆形图片框 Avatar 模式时生效 默认为 false</para>
-    /// <para lang="en">Gets or sets whether圆形图片框 Avatar 模式时生效 Default is为 false</para>
+    /// <para lang="zh">获得/设置 是否圆形图片框，Avatar 模式时生效，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to use circular image frame. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCircle { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the border radius. 默认为 null.</para>
+    /// <para lang="zh">获得/设置 边框圆角，默认为 null</para>
     /// <para lang="en">Gets or sets the border radius. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -46,8 +44,8 @@ public partial class AvatarUpload<TValue>
     public string? BorderRadius { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图标文件扩展名集合 ".png"</para>
-    /// <para lang="en">Gets or sets icon文件扩展名collection ".png"</para>
+    /// <para lang="zh">获得/设置 允许的文件扩展名集合，".png"</para>
+    /// <para lang="en">Gets or sets the allowed file extensions collection. ".png"</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -55,55 +53,55 @@ public partial class AvatarUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除图标</para>
-    /// <para lang="en">Gets or sets 删除icon</para>
+    /// <para lang="en">Gets or sets the delete icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 加载图标</para>
-    /// <para lang="en">Gets or sets 加载icon</para>
+    /// <para lang="zh">获得/设置 加载中图标</para>
+    /// <para lang="en">Gets or sets the loading icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 新建图标</para>
-    /// <para lang="en">Gets or sets 新建icon</para>
+    /// <para lang="zh">获得/设置 新增图标</para>
+    /// <para lang="en">Gets or sets the add icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AddIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 状态正常图标</para>
-    /// <para lang="en">Gets or sets 状态正常icon</para>
+    /// <para lang="zh">获得/设置 上传成功状态图标</para>
+    /// <para lang="en">Gets or sets the valid status icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 状态正常图标</para>
-    /// <para lang="en">Gets or sets 状态正常icon</para>
+    /// <para lang="zh">获得/设置 上传失败状态图标</para>
+    /// <para lang="en">Gets or sets the invalid status icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 继续上传按钮是否在列表前 默认 false</para>
-    /// <para lang="en">Gets or sets 继续上传buttonwhether在列表前 Default is false</para>
+    /// <para lang="zh">获得/设置 继续上传按钮是否在列表前，默认 false</para>
+    /// <para lang="en">Gets or sets whether the upload button is displayed before the list. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否允许预览回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets whether允许预览callback method Default is null</para>
+    /// <para lang="zh">获得/设置 是否允许预览的回调方法，默认 null</para>
+    /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -124,8 +122,8 @@ public partial class AvatarUpload<TValue>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 预览框 Style 属性</para>
-    /// <para lang="en">Gets or sets 预览框 Style property</para>
+    /// <para lang="zh">获得 预览框样式字符串</para>
+    /// <para lang="en">Gets the preview item style string</para>
     /// </summary>
     private string? ItemStyleString => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)

@@ -13,7 +13,7 @@ public class WebClientOptions
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 是否开启 IP 定位功能 默认 false 未开启</para>
-    ///  <para lang="en">Get/Set whether to enable IP locator feature default false</para>
+    ///  <para lang="en">Gets or sets whether to enable IP locator feature default false</para>
     /// </summary>
     public bool EnableIpLocator { get; set; }
 }

@@ -8,73 +8,73 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">InputUpload 组件</para>
-///  <para lang="en">InputUpload component</para>
+/// <para lang="zh">InputUpload 组件</para>
+/// <para lang="en">Input Upload Component</para>
 /// </summary>
 public partial class InputUpload<TValue>
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 浏览按钮图标</para>
-    ///  <para lang="en">Gets or sets 浏览buttonicon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 浏览按钮图标</para>
+    /// <para lang="en">Gets or sets the browse button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 上传按钮样式 默认 btn-primary</para>
-    ///  <para lang="en">Gets or sets 上传buttonstyle Default is btn-primary</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 上传按钮样式，默认 btn-primary</para>
+    /// <para lang="en">Gets or sets the upload button style. Default is btn-primary.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string BrowserButtonClass { get; set; } = "btn-primary";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 浏览按钮显示文字</para>
-    ///  <para lang="en">Gets or sets 浏览buttondisplay文字</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 浏览按钮显示文字</para>
+    /// <para lang="en">Gets or sets the browse button display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? BrowserButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 删除按钮样式 默认 btn-danger</para>
-    ///  <para lang="en">Gets or sets 删除buttonstyle Default is btn-danger</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 删除按钮样式，默认 btn-danger</para>
+    /// <para lang="en">Gets or sets the delete button style. Default is btn-danger.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string DeleteButtonClass { get; set; } = "btn-danger";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 删除按钮图标</para>
-    ///  <para lang="en">Gets or sets 删除buttonicon</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 删除按钮图标</para>
+    /// <para lang="en">Gets or sets the delete button icon</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteButtonIcon { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 重置按钮显示文字</para>
-    ///  <para lang="en">Gets or sets 重置buttondisplay文字</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 删除按钮显示文字</para>
+    /// <para lang="en">Gets or sets the delete button display text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DeleteButtonText { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示删除按钮 默认为 false 不显示</para>
-    ///  <para lang="en">Gets or sets whetherdisplay删除button Default is为 false 不display</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示删除按钮，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is false.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 PlaceHolder 占位符文本</para>
-    ///  <para lang="en">Gets or sets PlaceHolder 占位符文本</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 PlaceHolder 占位符文本</para>
+    /// <para lang="en">Gets or sets the placeholder text</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -106,8 +106,7 @@ public partial class InputUpload<TValue>
         .Build();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

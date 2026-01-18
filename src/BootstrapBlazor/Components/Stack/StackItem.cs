@@ -18,7 +18,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 内容</para>
-    /// <para lang="en">Get/Set Content</para>
+    /// <para lang="en">Gets or sets Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -26,7 +26,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动充满 默认 false</para>
-    /// <para lang="en">Get/Set Is Fill. Default false</para>
+    /// <para lang="en">Gets or sets Is Fill. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -34,7 +34,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
-    /// <para lang="en">Get/Set Align Self. Default StackAlignItems.Stretch</para>
+    /// <para lang="en">Gets or sets Align Self. Default StackAlignItems.Stretch</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

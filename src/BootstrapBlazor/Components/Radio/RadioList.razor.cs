@@ -15,7 +15,7 @@ public partial class RadioList<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
-    /// <para lang="en">Get/Set Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
+    /// <para lang="en">Gets or sets Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class RadioList<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
-    /// <para lang="en">Get/Set Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
+    /// <para lang="en">Gets or sets Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,7 +32,7 @@ public partial class RadioList<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 未设置选中项时是否自动选择第一项 默认 true</para>
-    /// <para lang="en">Get/Set Whether to auto select first item when no item is selected. Default true</para>
+    /// <para lang="en">Gets or sets Whether to auto select first item when no item is selected. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

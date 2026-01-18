@@ -63,7 +63,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 开颜色</para>
-    /// <para lang="en">Get/Set On Color</para>
+    /// <para lang="en">Gets or sets On Color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -71,7 +71,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 关颜色</para>
-    /// <para lang="en">Get/Set Off Color</para>
+    /// <para lang="en">Gets or sets Off Color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -79,7 +79,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件宽度 默认 40</para>
-    /// <para lang="en">Get/Set Component Width. Default 40</para>
+    /// <para lang="en">Gets or sets Component Width. Default 40</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -87,7 +87,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 控件高度默认 20px</para>
-    /// <para lang="en">Get/Set Component Height. Default 20px</para>
+    /// <para lang="en">Gets or sets Component Height. Default 20px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件 On 时内置显示文本</para>
-    /// <para lang="en">Get/Set On Inner Text</para>
+    /// <para lang="en">Gets or sets On Inner Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -104,7 +104,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件 Off 时内置显示文本</para>
-    /// <para lang="en">Get/Set Off Inner Text</para>
+    /// <para lang="en">Gets or sets Off Inner Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -113,7 +113,7 @@ public partial class Switch
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示内置文字 默认 false 显示</para>
-    /// <para lang="en">Get/Set Whether to show inner text. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show inner text. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

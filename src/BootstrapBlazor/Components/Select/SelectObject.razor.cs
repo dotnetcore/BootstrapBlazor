@@ -16,7 +16,7 @@ public partial class SelectObject<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
-    /// <para lang="en">Get/Set Color. Default Color.None</para>
+    /// <para lang="en">Gets or sets Color. Default Color.None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示组件右侧扩展箭头 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show the component right extension arrow. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show the component right extension arrow. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,7 +32,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值</para>
-    /// <para lang="en">Get/Set Dropdown Min Width. Default null (use style default)</para>
+    /// <para lang="en">Gets or sets Dropdown Min Width. Default null (use style default)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -50,7 +50,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up</para>
-    /// <para lang="en">Get/Set Dropdown Icon. Default fa-solid fa-angle-up</para>
+    /// <para lang="en">Gets or sets Dropdown Icon. Default fa-solid fa-angle-up</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -59,7 +59,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
-    /// <para lang="en">Get/Set Whether clearable. Default false</para>
+    /// <para lang="en">Gets or sets Whether clearable. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -67,7 +67,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
-    /// <para lang="en">Get/Set Clear Icon. Default fa-solid fa-angle-up</para>
+    /// <para lang="en">Gets or sets Clear Icon. Default fa-solid fa-angle-up</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -76,7 +76,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉列表内容模板</para>
-    /// <para lang="en">Get/Set Dropdown Content Template</para>
+    /// <para lang="en">Gets or sets Dropdown Content Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -86,7 +86,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
-    /// <para lang="en">Get/Set IIconTheme Service Instance</para>
+    /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -140,7 +140,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗高度 默认 486px;</para>
-    /// <para lang="en">Get/Set Dropdown Height. Default 486px</para>
+    /// <para lang="en">Gets or sets Dropdown Height. Default 486px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Value 显示模板 默认 null</para>
-    /// <para lang="en">Get/Set Value Display Template. Default null</para>
+    /// <para lang="en">Gets or sets Value Display Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -156,7 +156,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
-    /// <para lang="en">Get/Set OnClear Callback Method. Default null</para>
+    /// <para lang="en">Gets or sets OnClear Callback Method. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -175,7 +175,7 @@ public partial class SelectObject<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 内部 Input 组件 Id</para>
-    /// <para lang="en">Get/Set Internal Input Component Id</para>
+    /// <para lang="en">Gets or sets Internal Input Component Id</para>
     /// </summary>
     private string InputId => $"{Id}_input";
 

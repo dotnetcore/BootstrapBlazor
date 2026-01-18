@@ -16,7 +16,7 @@ public class ConsoleMessageCollection(int maxCount = 2000) : IEnumerable<Console
 {
     /// <summary>
     /// <para lang="zh">获得/设置 最大记录数 默认 2000</para>
-    /// <para lang="en">Get/Set max record count, default is 2000</para>
+    /// <para lang="en">Gets or sets max record count, default is 2000</para>
     /// </summary>
     public int MaxCount { get; set; } = maxCount;
 

@@ -20,7 +20,7 @@ public partial class EnumFilter
 
     /// <summary>
     /// <para lang="zh">获得/设置 相关枚举类型</para>
-    /// <para lang="en">Get/Set Related Enum Type</para>
+    /// <para lang="en">Gets or sets Related Enum Type</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

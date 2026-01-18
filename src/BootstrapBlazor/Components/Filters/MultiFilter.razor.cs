@@ -13,7 +13,7 @@ public partial class MultiFilter
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索栏占位符 默认 nul 使用资源文件中值</para>
-    /// <para lang="en">Get/Set Search Placeholder Default null Use Resource File Value</para>
+    /// <para lang="en">Gets or sets Search Placeholder Default null Use Resource File Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class MultiFilter
 
     /// <summary>
     /// <para lang="zh">获得/设置 全选按钮文本 默认 nul 使用资源文件中值</para>
-    /// <para lang="en">Get/Set Select All Button Text Default null Use Resource File Value</para>
+    /// <para lang="en">Gets or sets Select All Button Text Default null Use Resource File Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class MultiFilter
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示搜索栏 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Search Bar Default true</para>
+    /// <para lang="en">Gets or sets Whether to Show Search Bar Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public partial class MultiFilter
 
     /// <summary>
     /// <para lang="zh">获得/设置 Loading 模板</para>
-    /// <para lang="en">Get/Set Loading Template</para>
+    /// <para lang="en">Gets or sets Loading Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

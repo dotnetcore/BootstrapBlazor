@@ -26,7 +26,7 @@ public partial class SideMenu
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单数据集合</para>
-    /// <para lang="en">Get/Set Menu Data Collection</para>
+    /// <para lang="en">Gets or sets Menu Data Collection</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -35,7 +35,7 @@ public partial class SideMenu
 
     /// <summary>
     /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
-    /// <para lang="en">Get/Set DropdownIcon Icon</para>
+    /// <para lang="en">Gets or sets DropdownIcon Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -44,7 +44,7 @@ public partial class SideMenu
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单箭头图标</para>
-    /// <para lang="en">Get/Set Menu Arrow Icon</para>
+    /// <para lang="en">Gets or sets Menu Arrow Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public partial class SideMenu
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
-    /// <para lang="en">Get/Set Menu item click callback delegate</para>
+    /// <para lang="en">Gets or sets Menu item click callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

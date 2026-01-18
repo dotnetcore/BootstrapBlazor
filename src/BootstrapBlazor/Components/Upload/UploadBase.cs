@@ -9,42 +9,42 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Upload 组件基类</para>
-/// <para lang="en">Upload component基类</para>
+/// <para lang="en">Upload Component Base Class</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否仅上传一次 默认 false</para>
-    /// <para lang="en">Gets or sets whether仅上传一次 Default is false</para>
+    /// <para lang="zh">获得/设置 是否仅上传一次，默认 false</para>
+    /// <para lang="en">Gets or sets whether to upload only once. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用 通过 IsMultiple 参数实现此功能; Deprecated. please use IsMultiple parameter.")]
+    [Obsolete("已弃用。请使用 IsMultiple 参数。(Deprecated. Please use IsMultiple parameter.)")]
     [ExcludeFromCodeCoverage]
     public bool IsSingle { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大上传个数 默认为最大值 <see cref="int.MaxValue"/></para>
-    /// <para lang="en">Gets or sets 最大上传个数 Default is为最大值 <see cref="int.MaxValue"/></para>
+    /// <para lang="zh">获得/设置 最大上传个数，默认为最大值 int.MaxValue</para>
+    /// <para lang="en">Gets or sets the maximum number of files to upload. Default is int.MaxValue.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用 通过 MaxFileCount 参数实现此功能; Deprecated. please use MaxFileCount parameter.")]
+    [Obsolete("已弃用。请使用 MaxFileCount 参数。(Deprecated. Please use MaxFileCount parameter.)")]
     [ExcludeFromCodeCoverage]
     public int Max { get; set; } = int.MaxValue;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大上传个数 默认为 null</para>
-    /// <para lang="en">Gets or sets 最大上传个数 Default is为 null</para>
+    /// <para lang="zh">获得/设置 最大上传个数，默认为 null</para>
+    /// <para lang="en">Gets or sets the maximum number of files to upload. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? MaxFileCount { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 所有文件上传完毕回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets 所有文件上传完毕callback method Default is null</para>
+    /// <para lang="zh">获得/设置 所有文件上传完毕回调方法，默认 null</para>
+    /// <para lang="en">Gets or sets the callback method when all files have been uploaded. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -52,23 +52,23 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">获得/设置 已上传文件集合，可用于组件初始化</para>
-    /// <para lang="en">Gets or sets 已上传文件collection，可用于component初始化</para>
+    /// <para lang="en">Gets or sets the uploaded file collection for component initialization</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<UploadFile>? DefaultFileList { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示上传进度 默认为 false</para>
-    /// <para lang="en">Gets or sets whetherdisplay上传进度 Default is为 false</para>
+    /// <para lang="zh">获得/设置 是否显示上传进度，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to display the upload progress. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 上传接收的文件格式 默认为 null 接收任意格式</para>
-    /// <para lang="en">Gets or sets 上传接收的文件格式 Default is为 null 接收任意格式</para>
+    /// <para lang="zh">获得/设置 上传接收的文件格式，默认为 null 接收任意格式</para>
+    /// <para lang="en">Gets or sets the accepted file format. Default is null (accepts all formats).</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -76,39 +76,39 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">获得/设置 媒体捕获机制的首选面向模式，默认为 null</para>
-    /// <para lang="en">Gets or sets 媒体捕获机制的首选面向模式，Default is为 null</para>
+    /// <para lang="en">Gets or sets the preferred facing mode for media capture. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Capture { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否上传整个目录 默认为 false</para>
-    /// <para lang="en">Gets or sets whether上传整个目录 Default is为 false</para>
+    /// <para lang="zh">获得/设置 是否上传整个目录，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to upload the entire directory. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDirectory { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否允许多文件上传 默认 false 不允许</para>
-    /// <para lang="en">Gets or sets whether允许多文件上传 Default is false 不允许</para>
+    /// <para lang="zh">获得/设置 是否允许多文件上传，默认 false</para>
+    /// <para lang="en">Gets or sets whether to allow multiple file uploads. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsMultiple { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 点击删除按钮时回调此方法 默认 null</para>
-    /// <para lang="en">Gets or sets 点击删除button时回调此方法 Default is null</para>
+    /// <para lang="zh">获得/设置 点击删除按钮时回调此方法，默认 null</para>
+    /// <para lang="en">Gets or sets the callback method when the delete button is clicked. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 点击浏览按钮时回调此方法，如果多文件上传此回调会触发多次 默认 null</para>
-    /// <para lang="en">Gets or sets 点击浏览button时回调此方法，如果多文件上传此回调会触发多次 Default is null</para>
+    /// <para lang="zh">获得/设置 点击浏览按钮时回调此方法，如果多文件上传此回调会触发多次，默认 null</para>
+    /// <para lang="en">Gets or sets the callback method when the browse button is clicked. This may be called multiple times for multiple file uploads. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -116,7 +116,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">获得/设置 已上传文件集合，此集合中数据是用户上传文件集合</para>
-    /// <para lang="en">Gets or sets 已上传文件collection，此collection中data是用户上传文件collection</para>
+    /// <para lang="en">Gets or sets the uploaded file collection. This collection contains the files uploaded by the user.</para>
     /// </summary>
     public List<UploadFile> UploadFiles { get; } = [];
 
@@ -164,7 +164,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">User selects files 回调方法</para>
+    /// <para lang="zh">用户选择文件回调方法</para>
     /// <para lang="en">User selects files callback method</para>
     /// </summary>
     /// <param name="args"></param>
@@ -247,7 +247,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">触发 OnChanged 事件回调方法</para>
-    /// <para lang="en">触发 OnChanged 事件callback method</para>
+    /// <para lang="en">Trigger OnChanged event callback method</para>
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
@@ -260,7 +260,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">Delete file method.</para>
+    /// <para lang="zh">删除文件方法。</para>
     /// <para lang="en">Delete file method.</para>
     /// </summary>
     /// <param name="item"></param>
@@ -292,7 +292,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">是否显示进度条方法</para>
-    /// <para lang="en">whetherdisplay进度条方法</para>
+    /// <para lang="en">Whether to display progress bar method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
@@ -300,7 +300,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">更新上传进度方法</para>
-    /// <para lang="en">更新上传进度方法</para>
+    /// <para lang="en">Update upload progress method</para>
     /// </summary>
     /// <param name="file"></param>
     protected void Update(UploadFile file)

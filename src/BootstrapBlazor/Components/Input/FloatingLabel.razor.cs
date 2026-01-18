@@ -18,7 +18,7 @@ public partial class FloatingLabel<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 GroupBox 样式 默认 false</para>
-    /// <para lang="en">Get/Set Whether it is GroupBox style. Default false</para>
+    /// <para lang="en">Gets or sets Whether it is GroupBox style. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

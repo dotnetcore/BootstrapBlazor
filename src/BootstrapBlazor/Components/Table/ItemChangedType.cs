@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">数据变化类型</para>
-///  <para lang="en">data变化type</para>
+/// <para lang="zh">数据变化类型</para>
+/// <para lang="en">Data change type</para>
 /// </summary>
 public enum ItemChangedType
 {
     /// <summary>
-    ///  <para lang="zh">新建</para>
-    ///  <para lang="en">新建</para>
+    /// <para lang="zh">新建</para>
+    /// <para lang="en">Add</para>
     /// </summary>
     Add,
 
     /// <summary>
-    ///  <para lang="zh">更新</para>
-    ///  <para lang="en">更新</para>
+    /// <para lang="zh">更新</para>
+    /// <para lang="en">Update</para>
     /// </summary>
     Update,
 }

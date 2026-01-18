@@ -16,33 +16,33 @@ public class FilterKeyValueAction
 {
     /// <summary>
     /// <para lang="zh">获得/设置 Filter 项字段名称</para>
-    /// <para lang="en">Get/Set Filter Item Field Name</para>
+    /// <para lang="en">Gets or sets Filter Item Field Name</para>
     /// </summary>
     public string? FieldKey { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Filter 项字段值</para>
-    /// <para lang="en">Get/Set Filter Item Field Value</para>
+    /// <para lang="en">Gets or sets Filter Item Field Value</para>
     /// </summary>
     public object? FieldValue { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Filter 项与其他 Filter 逻辑关系</para>
-    /// <para lang="en">Get/Set Logical Relationship between Filter Item and other Filters</para>
+    /// <para lang="en">Gets or sets Logical Relationship between Filter Item and other Filters</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterLogic FilterLogic { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Filter 条件行为</para>
-    /// <para lang="en">Get/Set Filter Condition Behavior</para>
+    /// <para lang="en">Gets or sets Filter Condition Behavior</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterAction FilterAction { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 子过滤条件集合</para>
-    /// <para lang="en">Get/Set Child Filter Condition Collection</para>
+    /// <para lang="en">Gets or sets Child Filter Condition Collection</para>
     /// </summary>
     public List<FilterKeyValueAction> Filters { get; set; } = [];
 }

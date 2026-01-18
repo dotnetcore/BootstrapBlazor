@@ -16,7 +16,7 @@ public class QueryPageOptions
 {
     /// <summary>
     /// <para lang="zh">获得/设置 模糊查询关键字</para>
-    /// <para lang="en">Get/Set search text</para>
+    /// <para lang="en">Gets or sets search text</para>
     /// </summary>
     public string? SearchText { get; set; }
 
@@ -34,13 +34,13 @@ public class QueryPageOptions
 
     /// <summary>
     /// <para lang="zh">获得/设置 多列排序集合 默认为 Empty 内部为 "Name" "Age desc" 由 <see cref="Table{TItem}.SortString"/> 设置</para>
-    /// <para lang="en">Get/Set multi-column sort list default Empty internal "Name" "Age desc" set by <see cref="Table{TItem}.SortString"/></para>
+    /// <para lang="en">Gets or sets multi-column sort list default Empty internal "Name" "Age desc" set by <see cref="Table{TItem}.SortString"/></para>
     /// </summary>
     public List<string> SortList { get; } = new(10);
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义多列排序集合 默认为 Empty 内部为 "Name" "Age desc" 由 <see cref="Table{TItem}.AdvancedSortItems"/> 设置</para>
-    /// <para lang="en">Get/Set custom multi-column sort list default Empty internal "Name" "Age desc" set by <see cref="Table{TItem}.AdvancedSortItems"/></para>
+    /// <para lang="en">Gets or sets custom multi-column sort list default Empty internal "Name" "Age desc" set by <see cref="Table{TItem}.AdvancedSortItems"/></para>
     /// </summary>
     public List<string> AdvancedSortList { get; } = new(10);
 

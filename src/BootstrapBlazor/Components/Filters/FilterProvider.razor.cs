@@ -15,7 +15,7 @@ public partial class FilterProvider
 {
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮文本</para>
-    /// <para lang="en">Get/Set Reset Button Text</para>
+    /// <para lang="en">Gets or sets Reset Button Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤按钮文本</para>
-    /// <para lang="en">Get/Set Filter Button Text</para>
+    /// <para lang="en">Gets or sets Filter Button Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +33,7 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 增加过滤条件图标</para>
-    /// <para lang="en">Get/Set Add Filter Condition Icon</para>
+    /// <para lang="en">Gets or sets Add Filter Condition Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 减少过滤条件图标</para>
-    /// <para lang="en">Get/Set Remove Filter Condition Icon</para>
+    /// <para lang="en">Gets or sets Remove Filter Condition Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

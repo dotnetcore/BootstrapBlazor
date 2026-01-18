@@ -46,13 +46,13 @@ public partial class Collapse
 
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItem 集合</para>
-    /// <para lang="en">Get/Set CollapseItem collection</para>
+    /// <para lang="en">Gets or sets CollapseItem collection</para>
     /// </summary>
     protected List<CollapseItem> Items { get; } = new(10);
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为手风琴效果 默认为 false</para>
-    /// <para lang="en">Get/Set whether to use accordion effect, default is false</para>
+    /// <para lang="en">Gets or sets whether to use accordion effect, default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -60,7 +60,7 @@ public partial class Collapse
 
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItems 模板</para>
-    /// <para lang="en">Get/Set CollapseItems template</para>
+    /// <para lang="en">Gets or sets CollapseItems template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -68,7 +68,7 @@ public partial class Collapse
 
     /// <summary>
     /// <para lang="zh">获得/设置 CollapseItem 展开收缩时回调方法</para>
-    /// <para lang="en">Get/Set callback when CollapseItem expands or collapses</para>
+    /// <para lang="en">Gets or sets callback when CollapseItem expands or collapses</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

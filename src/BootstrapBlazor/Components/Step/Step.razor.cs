@@ -13,7 +13,7 @@ public partial class Step
 {
     /// <summary>
     /// <para lang="zh">获得/设置 步骤集合</para>
-    /// <para lang="en">Get/Set Items</para>
+    /// <para lang="en">Gets or sets Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -22,7 +22,7 @@ public partial class Step
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否垂直渲染 默认 false 水平渲染</para>
-    /// <para lang="en">Get/Set Is Vertical. Default false (Horizontal)</para>
+    /// <para lang="en">Gets or sets Is Vertical. Default false (Horizontal)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -30,7 +30,7 @@ public partial class Step
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前步骤索引 默认 0</para>
-    /// <para lang="en">Get/Set Current Step Index. Default 0</para>
+    /// <para lang="en">Gets or sets Current Step Index. Default 0</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public partial class Step
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容实例</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -46,7 +46,7 @@ public partial class Step
 
     /// <summary>
     /// <para lang="zh">获得/设置 步骤全部完成时模板 默认 null</para>
-    /// <para lang="en">Get/Set Finished Template. Default null</para>
+    /// <para lang="en">Gets or sets Finished Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -54,7 +54,7 @@ public partial class Step
 
     /// <summary>
     /// <para lang="zh">获得/设置 步骤全部完成时回调方法</para>
-    /// <para lang="en">Get/Set Callback method when all steps are finished</para>
+    /// <para lang="en">Gets or sets Callback method when all steps are finished</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

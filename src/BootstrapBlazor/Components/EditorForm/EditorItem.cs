@@ -16,7 +16,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 {
     /// <summary>
     /// <para lang="zh">获得/设置 绑定字段值</para>
-    /// <para lang="en">Get/Set Field Value</para>
+    /// <para lang="en">Gets or sets Field Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 绑定字段值变化回调委托</para>
-    /// <para lang="en">Get/Set Field Value Changed Callback</para>
+    /// <para lang="en">Gets or sets Field Value Changed Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
-    /// <para lang="en">Get/Set ValueExpression</para>
+    /// <para lang="en">Gets or sets ValueExpression</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

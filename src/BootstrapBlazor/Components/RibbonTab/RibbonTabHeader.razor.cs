@@ -15,7 +15,7 @@ public partial class RibbonTabHeader
 {
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
-    /// <para lang="en">Get/Set Items</para>
+    /// <para lang="en">Gets or sets Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +25,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示悬浮小箭头 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show float button. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show float button. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +33,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启 Url 锚点</para>
-    /// <para lang="en">Get/Set Whether to enable Url Anchor</para>
+    /// <para lang="en">Gets or sets Whether to enable Url Anchor</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击命令按钮回调方法</para>
-    /// <para lang="en">Get/Set Click Command Button Callback Method</para>
+    /// <para lang="en">Gets or sets Click Command Button Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -49,7 +49,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击标签 Menu 回调方法</para>
-    /// <para lang="en">Get/Set Click Tab Menu Callback Method</para>
+    /// <para lang="en">Gets or sets Click Tab Menu Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -73,7 +73,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否悬浮状态改变时回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Callback method when float state changes. Default null</para>
+    /// <para lang="en">Gets or sets Callback method when float state changes. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -81,7 +81,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡向上箭头图标</para>
-    /// <para lang="en">Get/Set Tab Arrow Up Icon</para>
+    /// <para lang="en">Gets or sets Tab Arrow Up Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -89,7 +89,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡向下箭头图标</para>
-    /// <para lang="en">Get/Set Tab Arrow Down Icon</para>
+    /// <para lang="en">Gets or sets Tab Arrow Down Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -97,7 +97,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡可固定图标</para>
-    /// <para lang="en">Get/Set Tab Pin Icon</para>
+    /// <para lang="en">Gets or sets Tab Pin Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -105,7 +105,7 @@ public partial class RibbonTabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧按钮模板</para>
-    /// <para lang="en">Get/Set Right Buttons Template</para>
+    /// <para lang="en">Gets or sets Right Buttons Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

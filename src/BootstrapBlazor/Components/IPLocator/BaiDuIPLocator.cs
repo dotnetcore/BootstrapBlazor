@@ -24,13 +24,13 @@ public class BaiDuIPLocator : DefaultIPLocator
 
     /// <summary>
     /// <para lang="zh">获得/设置 详细地址信息</para>
-    /// <para lang="en">Get/Set Detailed Address Information</para>
+    /// <para lang="en">Gets or sets Detailed Address Information</para>
     /// </summary>
     public IEnumerable<LocationInfo>? Data { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 结果状态返回码 为 0 时通讯正常</para>
-    /// <para lang="en">Get/Set Result Status Return Code. 0 means communication is normal</para>
+    /// <para lang="en">Gets or sets Result Status Return Code. 0 means communication is normal</para>
     /// </summary>
     public string? Status { get; set; }
 
@@ -63,7 +63,7 @@ public struct LocationInfo
 {
     /// <summary>
     /// <para lang="zh">获得/设置 定位信息</para>
-    /// <para lang="en">Get/Set Location Information</para>
+    /// <para lang="en">Gets or sets Location Information</para>
     /// </summary>
     public string? Location { get; set; }
 }

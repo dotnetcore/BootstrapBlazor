@@ -7,13 +7,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table 组件单元格自定义组件</para>
-/// <para lang="en">Table component单元格自定义component</para>
+/// <para lang="en">Table component custom cell component</para>
 /// </summary>
 public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Gets or sets 子component</para>
+    /// <para lang="en">Gets or sets child component</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,14 +21,15 @@ public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposabl
 
     /// <summary>
     /// <para lang="zh">获得/设置 Table 扩展按钮集合实例</para>
-    /// <para lang="en">Gets or sets Table 扩展buttoncollectioninstance</para>
+    /// <para lang="en">Gets or sets Table extension buttons collection instance</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [CascadingParameter]
     protected TableExtensionButton? Buttons { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
-    /// <para lang="en">Gets or sets whetherdisplay Default is true display</para>
+    /// <para lang="zh">获得/设置 是否显示，默认为 true 显示</para>
+    /// <para lang="en">Gets or sets whether to display. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>一般是通过 context 进行业务判断是否需要显示功能按钮</remarks>
@@ -46,8 +47,7 @@ public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposabl
     }
 
     /// <summary>
-    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
-    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

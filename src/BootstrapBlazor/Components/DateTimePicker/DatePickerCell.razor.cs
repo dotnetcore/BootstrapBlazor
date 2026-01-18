@@ -19,7 +19,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 日期</para>
-    /// <para lang="en">Get/Set Date</para>
+    /// <para lang="en">Gets or sets Date</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -27,7 +27,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 日期</para>
-    /// <para lang="en">Get/Set Date</para>
+    /// <para lang="en">Gets or sets Date</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -36,7 +36,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Button Click Callback Method. Default is null</para>
+    /// <para lang="en">Gets or sets Button Click Callback Method. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 单元格模板 默认 null</para>
-    /// <para lang="en">Get/Set Cell Template. Default is null</para>
+    /// <para lang="en">Gets or sets Cell Template. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Lunar Calendar. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Lunar Calendar. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -61,7 +61,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Solar Term. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Solar Term. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否节日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Festivals. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Festivals. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -77,7 +77,7 @@ public sealed partial class DatePickerCell
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Holidays. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Holidays. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

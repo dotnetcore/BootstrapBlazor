@@ -15,19 +15,19 @@ public class MaxValidator : ValidatorBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 错误描述信息</para>
-    /// <para lang="en">Get/Set error message</para>
+    /// <para lang="en">Gets or sets error message</para>
     /// </summary>
     public string? ErrorMessage { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 值</para>
-    /// <para lang="en">Get/Set value</para>
+    /// <para lang="en">Gets or sets value</para>
     /// </summary>
     public int Value { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 分割回调方法 默认 使用 ',' 分割</para>
-    /// <para lang="en">Get/Set split callback method default use ',' split</para>
+    /// <para lang="en">Gets or sets split callback method default use ',' split</para>
     /// </summary>
     public Func<string, int> SplitCallback { get; set; } = value => value.Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
 

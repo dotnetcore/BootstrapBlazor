@@ -39,19 +39,19 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 Dash 字符串</para>
-    /// <para lang="en">Get/Set Dash string</para>
+    /// <para lang="en">Gets or sets Dash string</para>
     /// </summary>
     protected string DashString => $"{CircleLength}, {CircleLength}";
 
     /// <summary>
     /// <para lang="zh">获得/设置 圆形进度半径</para>
-    /// <para lang="en">Get/Set circular progress radius</para>
+    /// <para lang="en">Gets or sets circular progress radius</para>
     /// </summary>
     protected string CircleDiameter => $"{Width / 2}";
 
     /// <summary>
     /// <para lang="zh">获得/设置 半径</para>
-    /// <para lang="en">Get/Set radius</para>
+    /// <para lang="en">Gets or sets radius</para>
     /// </summary>
     protected string CircleR => $"{Width / 2 - StrokeWidth}";
 
@@ -63,7 +63,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 文件预览框宽度</para>
-    /// <para lang="en">Get/Set file preview box width</para>
+    /// <para lang="en">Gets or sets file preview box width</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -71,7 +71,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 进度条宽度 默认为 2</para>
-    /// <para lang="en">Get/Set progress bar width, default is 2</para>
+    /// <para lang="en">Gets or sets progress bar width, default is 2</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -79,7 +79,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件进度条颜色</para>
-    /// <para lang="en">Get/Set component progress bar color</para>
+    /// <para lang="en">Gets or sets component progress bar color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -87,7 +87,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示进度百分比 默认显示</para>
-    /// <para lang="en">Get/Set whether to show progress percentage, default is true</para>
+    /// <para lang="en">Gets or sets whether to show progress percentage, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public abstract class CircleBase : BootstrapModuleComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set child content</para>
+    /// <para lang="en">Gets or sets child content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

@@ -16,7 +16,7 @@ public partial class Timer
 {
     /// <summary>
     /// <para lang="zh">获得 组件样式字符串</para>
-    /// <para lang="en">Gets componentstyle字符串</para>
+    /// <para lang="en">Gets the component style string</para>
     /// </summary>
     protected override string? ClassString => CssBuilder.Default("timer")
         .AddClass(base.ClassString)
@@ -27,20 +27,12 @@ public partial class Timer
         .AddClass("btn-success", IsPause)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 当前进度值</para>
-    /// <para lang="en">Gets or sets 当前进度值</para>
-    /// </summary>
     private string? ValueString => $"{Math.Round(((1 - CurrentTimespan.TotalSeconds * 1.0 / Value.TotalSeconds) * CircleLength), 2)}";
 
     private TimeSpan CurrentTimespan { get; set; }
 
     private bool IsPause { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 Title 字符串</para>
-    /// <para lang="en">Gets or sets Title 字符串</para>
-    /// </summary>
     private string ValueTitleString => CurrentTimespan.Hours == 0 ? $"{CurrentTimespan:mm\\:ss}" : $"{CurrentTimespan:hh\\:mm\\:ss}";
 
     private string? AlertTime { get; set; }
@@ -51,55 +43,55 @@ public partial class Timer
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前值</para>
-    /// <para lang="en">Gets or sets 当前值</para>
+    /// <para lang="en">Gets or sets the current value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TimeSpan Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 文件预览框宽度</para>
-    /// <para lang="en">Gets or sets 文件预览框width</para>
+    /// <para lang="zh">获得/设置 组件宽度</para>
+    /// <para lang="en">Gets or sets the component width</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 300;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 倒计时结束时回调委托</para>
-    /// <para lang="en">Gets or sets 倒计时结束时回调delegate</para>
+    /// <para lang="zh">获得/设置 倒计时结束时的回调委托</para>
+    /// <para lang="en">Gets or sets the callback delegate when the countdown ends</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTimeout { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 取消时回调委托</para>
-    /// <para lang="en">Gets or sets 取消时回调delegate</para>
+    /// <para lang="zh">获得/设置 取消时的回调委托</para>
+    /// <para lang="en">Gets or sets the callback delegate when cancelled</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCancel { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 进度条宽度 默认为 2</para>
-    /// <para lang="en">Gets or sets 进度条width Default is为 2</para>
+    /// <para lang="zh">获得/设置 进度条宽度，默认为 6</para>
+    /// <para lang="en">Gets or sets the progress bar width. Default is 6.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int StrokeWidth { get; set; } = 6;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 倒计时结束时设备震动</para>
-    /// <para lang="en">Gets or sets 倒计时结束时设备震动</para>
+    /// <para lang="zh">获得/设置 倒计时结束时是否设备震动</para>
+    /// <para lang="en">Gets or sets whether the device vibrates when the countdown ends</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVibrate { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 暂停按钮文字</para>
-    /// <para lang="en">Gets or sets 暂停button文字</para>
+    /// <para lang="zh">获得/设置 暂停按钮显示文字</para>
+    /// <para lang="en">Gets or sets the pause button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -107,8 +99,8 @@ public partial class Timer
     public string? PauseText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 继续按钮文字</para>
-    /// <para lang="en">Gets or sets 继续button文字</para>
+    /// <para lang="zh">获得/设置 继续按钮显示文字</para>
+    /// <para lang="en">Gets or sets the resume button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -116,8 +108,8 @@ public partial class Timer
     public string? ResumeText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 取消按钮文字</para>
-    /// <para lang="en">Gets or sets 取消button文字</para>
+    /// <para lang="zh">获得/设置 取消按钮显示文字</para>
+    /// <para lang="en">Gets or sets the cancel button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -125,8 +117,8 @@ public partial class Timer
     public string? CancelText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 取消按钮文字</para>
-    /// <para lang="en">Gets or sets 取消button文字</para>
+    /// <para lang="zh">获得/设置 开始按钮显示文字</para>
+    /// <para lang="en">Gets or sets the start button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -135,7 +127,7 @@ public partial class Timer
 
     /// <summary>
     /// <para lang="zh">获得/设置 Alert 图标</para>
-    /// <para lang="en">Gets or sets Alert icon</para>
+    /// <para lang="en">Gets or sets the alert icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -168,7 +160,6 @@ public partial class Timer
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -179,10 +170,6 @@ public partial class Timer
         }
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
     private async Task Timeout()
     {
         if (Vibrate)
@@ -262,8 +249,7 @@ public partial class Timer
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose 方法</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

@@ -49,7 +49,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件绑定数据源</para>
-    /// <para lang="en">Get/Set component data source</para>
+    /// <para lang="en">Gets or sets component data source</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -62,7 +62,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 显示文字 默认值为 系统监控</para>
-    /// <para lang="en">Get/Set Header display text, default is System Monitor</para>
+    /// <para lang="en">Gets or sets Header display text, default is System Monitor</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -70,7 +70,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 指示灯 Title 显示文字</para>
-    /// <para lang="en">Get/Set indicator Title display text</para>
+    /// <para lang="en">Gets or sets indicator Title display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -78,7 +78,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 指示灯 是否闪烁 默认 true 闪烁</para>
-    /// <para lang="en">Get/Set whether indicator flashes, default is true(flashing)</para>
+    /// <para lang="en">Gets or sets whether indicator flashes, default is true(flashing)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -86,7 +86,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 指示灯颜色</para>
-    /// <para lang="en">Get/Set indicator color</para>
+    /// <para lang="en">Gets or sets indicator color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -94,7 +94,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示指示灯 默认 true 显示</para>
-    /// <para lang="en">Get/Set whether to show indicator, default is true</para>
+    /// <para lang="en">Gets or sets whether to show indicator, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -102,7 +102,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动滚屏显示文字</para>
-    /// <para lang="en">Get/Set auto scroll display text</para>
+    /// <para lang="en">Gets or sets auto scroll display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -110,7 +110,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示自动滚屏选项 默认 false</para>
-    /// <para lang="en">Get/Set whether to show auto scroll option, default is false</para>
+    /// <para lang="en">Gets or sets whether to show auto scroll option, default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -118,7 +118,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动滚屏 默认 true</para>
-    /// <para lang="en">Get/Set whether to auto scroll, default is true</para>
+    /// <para lang="en">Gets or sets whether to auto scroll, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -126,7 +126,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮 显示文字 默认值为 清屏</para>
-    /// <para lang="en">Get/Set button display text, default is Clear</para>
+    /// <para lang="en">Gets or sets button display text, default is Clear</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -134,7 +134,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮 显示图标 默认值为 fa-solid fa-xmark</para>
-    /// <para lang="en">Get/Set button display icon, default is fa-solid fa-xmark</para>
+    /// <para lang="en">Gets or sets button display icon, default is fa-solid fa-xmark</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -143,7 +143,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 清除按钮颜色 默认值为 Color.Secondary</para>
-    /// <para lang="en">Get/Set clear button color, default is Color.Secondary</para>
+    /// <para lang="en">Gets or sets clear button color, default is Color.Secondary</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -151,7 +151,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空委托方法</para>
-    /// <para lang="en">Get/Set clear delegate method</para>
+    /// <para lang="en">Gets or sets clear delegate method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -159,7 +159,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度 默认为 126px;</para>
-    /// <para lang="en">Get/Set component height, default is 126px</para>
+    /// <para lang="en">Gets or sets component height, default is 126px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -167,7 +167,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 模板</para>
-    /// <para lang="en">Get/Set Footer template</para>
+    /// <para lang="en">Gets or sets Footer template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -175,7 +175,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
-    /// <para lang="en">Get/Set Header template</para>
+    /// <para lang="en">Gets or sets Header template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -183,7 +183,7 @@ public partial class Console
 
     /// <summary>
     /// <para lang="zh">获得/设置 Item 模板</para>
-    /// <para lang="en">Get/Set Item template</para>
+    /// <para lang="en">Gets or sets Item template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

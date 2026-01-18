@@ -13,7 +13,7 @@ public partial class SvgIcon
 {
     /// <summary>
     /// <para lang="zh">获得/设置 图标名称</para>
-    /// <para lang="en">Get/Set Icon Name</para>
+    /// <para lang="en">Gets or sets Icon Name</para>
     /// </summary>
     [Parameter, NotNull]
     [EditorRequired]

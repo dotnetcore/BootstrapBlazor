@@ -14,7 +14,7 @@ public interface ICheckableNode<TItem> : IExpandableNode<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否被选中</para>
-    /// <para lang="en">Get/Set whether checked</para>
+    /// <para lang="en">Gets or sets whether checked</para>
     /// </summary>
     CheckboxState CheckedState { get; set; }
 }

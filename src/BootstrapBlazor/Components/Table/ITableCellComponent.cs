@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">ITableCellComponent 单元格组件接口</para>
-///  <para lang="en">ITableCellComponent 单元格component接口</para>
+/// <para lang="zh">ITableCellComponent 单元格组件接口</para>
+/// <para lang="en">ITableCellComponent table cell component interface</para>
 /// </summary>
 public interface ITableCellComponent
 {

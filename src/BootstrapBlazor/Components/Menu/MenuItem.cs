@@ -21,25 +21,25 @@ public class MenuItem : NodeItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件数据源</para>
-    /// <para lang="en">Get/Set Component Data Source</para>
+    /// <para lang="en">Gets or sets Component Data Source</para>
     /// </summary>
     public IEnumerable<MenuItem> Items { get; set; } = Enumerable.Empty<MenuItem>();
 
     /// <summary>
     /// <para lang="zh">获得/设置 导航菜单链接地址</para>
-    /// <para lang="en">Get/Set Navigation Menu Link Address</para>
+    /// <para lang="en">Gets or sets Navigation Menu Link Address</para>
     /// </summary>
     public string? Url { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
-    /// <para lang="en">Get/Set Anchor target parameter. Default null</para>
+    /// <para lang="en">Gets or sets Anchor target parameter. Default null</para>
     /// </summary>
     public string? Target { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 匹配方式 默认 NavLinkMatch.Prefix</para>
-    /// <para lang="en">Get/Set Match mode. Default NavLinkMatch.Prefix</para>
+    /// <para lang="en">Gets or sets Match mode. Default NavLinkMatch.Prefix</para>
     /// </summary>
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 

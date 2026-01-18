@@ -13,26 +13,26 @@ public class ConnectionItem
 {
     /// <summary>
     /// <para lang="zh">获得/设置 连接 Id</para>
-    /// <para lang="en">Get/Set Connection Id</para>
+    /// <para lang="en">Gets or sets Connection Id</para>
     /// </summary>
     [NotNull]
     public string? Id { get; internal set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 连接 Ip 地址</para>
-    /// <para lang="en">Get/Set Connection IP address</para>
+    /// <para lang="en">Gets or sets Connection IP address</para>
     /// </summary>
     public ClientInfo? ClientInfo { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 开始连接时间</para>
-    /// <para lang="en">Get/Set Connection start time</para>
+    /// <para lang="en">Gets or sets Connection start time</para>
     /// </summary>
     public DateTimeOffset ConnectionTime { get; internal set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 上次心跳时间</para>
-    /// <para lang="en">Get/Set Last beat time</para>
+    /// <para lang="en">Gets or sets Last beat time</para>
     /// </summary>
     public DateTimeOffset LastBeatTime { get; internal set; }
 }

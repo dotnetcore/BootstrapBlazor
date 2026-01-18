@@ -11,7 +11,7 @@ public partial class Table<TItem>
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 新建按钮文本</para>
-    ///  <para lang="en">Get/Set Add Button Text</para>
+    ///  <para lang="en">Gets or sets Add Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -20,7 +20,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 新建按钮图标</para>
-    ///  <para lang="en">Get/Set Add Button Icon</para>
+    ///  <para lang="en">Gets or sets Add Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -28,7 +28,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮文本</para>
-    ///  <para lang="en">Get/Set Edit Button Text</para>
+    ///  <para lang="en">Gets or sets Edit Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮图标</para>
-    ///  <para lang="en">Get/Set Edit Button Icon</para>
+    ///  <para lang="en">Gets or sets Edit Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 更多按钮图标</para>
-    ///  <para lang="en">Get/Set More Button Icon</para>
+    ///  <para lang="en">Gets or sets More Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 更新按钮文本</para>
-    ///  <para lang="en">Get/Set Update Button Text</para>
+    ///  <para lang="en">Gets or sets Update Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -62,7 +62,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 取消按钮文本</para>
-    ///  <para lang="en">Get/Set Cancel Button Text</para>
+    ///  <para lang="en">Gets or sets Cancel Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -71,7 +71,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 取消按钮图标</para>
-    ///  <para lang="en">Get/Set Cancel Button Icon</para>
+    ///  <para lang="en">Gets or sets Cancel Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -79,7 +79,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮文本</para>
-    ///  <para lang="en">Get/Set Delete Button Text</para>
+    ///  <para lang="en">Gets or sets Delete Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -88,7 +88,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮图标</para>
-    ///  <para lang="en">Get/Set Delete Button Icon</para>
+    ///  <para lang="en">Gets or sets Delete Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -96,7 +96,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 取消删除按钮文本</para>
-    ///  <para lang="en">Get/Set Cancel Delete Button Text</para>
+    ///  <para lang="en">Gets or sets Cancel Delete Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -105,7 +105,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存按钮文本</para>
-    ///  <para lang="en">Get/Set Save Button Text</para>
+    ///  <para lang="en">Gets or sets Save Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -114,7 +114,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存按钮图标</para>
-    ///  <para lang="en">Get/Set Save Button Icon</para>
+    ///  <para lang="en">Gets or sets Save Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -122,7 +122,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 关闭按钮文本</para>
-    ///  <para lang="en">Get/Set Close Button Text</para>
+    ///  <para lang="en">Gets or sets Close Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -131,7 +131,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 关闭按钮图标</para>
-    ///  <para lang="en">Get/Set Close Button Icon</para>
+    ///  <para lang="en">Gets or sets Close Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -139,7 +139,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 确认删除按钮文本</para>
-    ///  <para lang="en">Get/Set Confirm Delete Button Text</para>
+    ///  <para lang="en">Gets or sets Confirm Delete Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 确认删除弹窗文本</para>
-    ///  <para lang="en">Get/Set Confirm Delete Dialog Text</para>
+    ///  <para lang="en">Gets or sets Confirm Delete Dialog Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -157,7 +157,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 刷新按钮文本</para>
-    ///  <para lang="en">Get/Set Refresh Button Text</para>
+    ///  <para lang="en">Gets or sets Refresh Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -166,7 +166,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 刷新按钮图标</para>
-    ///  <para lang="en">Get/Set Refresh Button Icon</para>
+    ///  <para lang="en">Gets or sets Refresh Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -174,7 +174,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 视图按钮文本</para>
-    ///  <para lang="en">Get/Set Card View Button Text</para>
+    ///  <para lang="en">Gets or sets Card View Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -183,7 +183,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 视图按钮图标</para>
-    ///  <para lang="en">Get/Set Card View Button Icon</para>
+    ///  <para lang="en">Gets or sets Card View Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -191,7 +191,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 列显示隐藏按钮提示信息文本</para>
-    ///  <para lang="en">Get/Set Column Button Title Text</para>
+    ///  <para lang="en">Gets or sets Column Button Title Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -200,7 +200,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 列按钮文本</para>
-    ///  <para lang="en">Get/Set Column Button Text</para>
+    ///  <para lang="en">Gets or sets Column Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -209,7 +209,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 列拷贝按钮图标</para>
-    ///  <para lang="en">Get/Set Copy Column Button Icon</para>
+    ///  <para lang="en">Gets or sets Copy Column Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -217,7 +217,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 导出按钮文本</para>
-    ///  <para lang="en">Get/Set Export Button Text</para>
+    ///  <para lang="en">Gets or sets Export Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -226,7 +226,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索栏 Placeholder 文本</para>
-    ///  <para lang="en">Get/Set Search Placeholder Text</para>
+    ///  <para lang="en">Gets or sets Search Placeholder Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -235,7 +235,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索按钮文本</para>
-    ///  <para lang="en">Get/Set Search Button Text</para>
+    ///  <para lang="en">Gets or sets Search Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -244,7 +244,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索按钮图标</para>
-    ///  <para lang="en">Get/Set Search Button Icon</para>
+    ///  <para lang="en">Gets or sets Search Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -252,7 +252,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索弹窗文本</para>
-    ///  <para lang="en">Get/Set Search Dialog Text</para>
+    ///  <para lang="en">Gets or sets Search Dialog Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -261,7 +261,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索框提示文字</para>
-    ///  <para lang="en">Get/Set Search Tooltip</para>
+    ///  <para lang="en">Gets or sets Search Tooltip</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -270,7 +270,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 重置按钮文本</para>
-    ///  <para lang="en">Get/Set Reset Search Button Text</para>
+    ///  <para lang="en">Gets or sets Reset Search Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -279,7 +279,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 重置按钮图标</para>
-    ///  <para lang="en">Get/Set Reset Search Button Icon</para>
+    ///  <para lang="en">Gets or sets Reset Search Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -287,7 +287,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 高级搜索按钮文本</para>
-    ///  <para lang="en">Get/Set Advance Search Button Text</para>
+    ///  <para lang="en">Gets or sets Advance Search Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -296,7 +296,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 高级搜索按钮图标</para>
-    ///  <para lang="en">Get/Set Advance Search Button Icon</para>
+    ///  <para lang="en">Gets or sets Advance Search Button Icon</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -304,7 +304,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 新增按钮 Toast 提示 Title 文字</para>
-    ///  <para lang="en">Get/Set Add Button Toast Title</para>
+    ///  <para lang="en">Gets or sets Add Button Toast Title</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -313,7 +313,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 新增按钮 Toast 提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Add Button Toast Content</para>
+    ///  <para lang="en">Gets or sets Add Button Toast Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -322,7 +322,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮 Toast 提示 Title 文字</para>
-    ///  <para lang="en">Get/Set Edit Button Toast Title</para>
+    ///  <para lang="en">Gets or sets Edit Button Toast Title</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -331,7 +331,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮 Toast 未选择时提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Edit Button Toast Not Selected Content</para>
+    ///  <para lang="en">Gets or sets Edit Button Toast Not Selected Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -340,7 +340,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮 Toast 选择项设置不可编辑时提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Edit Button Toast Read Only Content</para>
+    ///  <para lang="en">Gets or sets Edit Button Toast Read Only Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -349,7 +349,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮 Toast 多项选择时提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Edit Button Toast Multiple Selected Content</para>
+    ///  <para lang="en">Gets or sets Edit Button Toast Multiple Selected Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -358,7 +358,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 编辑按钮 Toast 未提供 Save 方法时提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Edit Button Toast No Save Method Content</para>
+    ///  <para lang="en">Gets or sets Edit Button Toast No Save Method Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -367,7 +367,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存按钮 Toast 提示 Title 文字</para>
-    ///  <para lang="en">Get/Set Save Button Toast Title</para>
+    ///  <para lang="en">Gets or sets Save Button Toast Title</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -376,7 +376,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存按钮 Toast 提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Save Button Toast Content</para>
+    ///  <para lang="en">Gets or sets Save Button Toast Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -385,7 +385,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存按钮结果 Toast 提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Save Button Toast Result Content</para>
+    ///  <para lang="en">Gets or sets Save Button Toast Result Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -394,7 +394,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存成功文字</para>
-    ///  <para lang="en">Get/Set Success Text</para>
+    ///  <para lang="en">Gets or sets Success Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -403,7 +403,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 保存失败</para>
-    ///  <para lang="en">Get/Set Fail Text</para>
+    ///  <para lang="en">Gets or sets Fail Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -412,7 +412,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮 Toast 提示 Title 文字</para>
-    ///  <para lang="en">Get/Set Delete Button Toast Title</para>
+    ///  <para lang="en">Gets or sets Delete Button Toast Title</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -421,7 +421,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮选项中有无法删除项时 Toast 提示文字</para>
-    ///  <para lang="en">Get/Set Delete Button Toast Can Not Delete Content</para>
+    ///  <para lang="en">Gets or sets Delete Button Toast Can Not Delete Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -430,7 +430,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮 Toast 提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Delete Button Toast Content</para>
+    ///  <para lang="en">Gets or sets Delete Button Toast Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -439,7 +439,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 删除按钮结果 Toast 提示 Content 文字</para>
-    ///  <para lang="en">Get/Set Delete Button Toast Result Content</para>
+    ///  <para lang="en">Gets or sets Delete Button Toast Result Content</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -448,7 +448,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 高级排序按钮文本</para>
-    ///  <para lang="en">Get/Set Advanced Sort Button Text</para>
+    ///  <para lang="en">Gets or sets Advanced Sort Button Text</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -457,7 +457,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 高级排序弹窗文本</para>
-    ///  <para lang="en">Get/Set Advanced Sort Modal Title</para>
+    ///  <para lang="en">Gets or sets Advanced Sort Modal Title</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

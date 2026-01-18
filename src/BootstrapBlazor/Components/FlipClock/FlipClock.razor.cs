@@ -14,7 +14,7 @@ public partial class FlipClock
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Year 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Year Default false</para>
+    /// <para lang="en">Gets or sets Whether to Show Year Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -22,7 +22,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Month 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Month Default false</para>
+    /// <para lang="en">Gets or sets Whether to Show Month Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -30,7 +30,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Day 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Day Default false</para>
+    /// <para lang="en">Gets or sets Whether to Show Day Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Hour 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Hour Default true</para>
+    /// <para lang="en">Gets or sets Whether to Show Hour Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -46,7 +46,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Minute 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Minute Default true</para>
+    /// <para lang="en">Gets or sets Whether to Show Minute Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -54,7 +54,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Second 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Show Second Default true</para>
+    /// <para lang="en">Gets or sets Whether to Show Second Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -62,7 +62,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 计时结束回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Timer Completed Callback Method Default null</para>
+    /// <para lang="en">Gets or sets Timer Completed Callback Method Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -70,7 +70,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示模式 默认 <see cref="FlipClockViewMode.DateTime"/></para>
-    /// <para lang="en">Get/Set View Mode Default <see cref="FlipClockViewMode.DateTime"/></para>
+    /// <para lang="en">Gets or sets View Mode Default <see cref="FlipClockViewMode.DateTime"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -78,7 +78,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度 默认 null 未设置使用样式默认值 200px;</para>
-    /// <para lang="en">Get/Set Component Height Default null Use Style Default Value if not set 200px;</para>
+    /// <para lang="en">Gets or sets Component Height Default null Use Style Default Value if not set 200px;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>支持多种单位 200px 200em 200pt 100% 等</remarks>
@@ -87,7 +87,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件背景色 默认 null 未设置使用样式默认值 radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);</para>
-    /// <para lang="en">Get/Set Component Background Color Default null Use Style Default Value if not set radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);</para>
+    /// <para lang="en">Gets or sets Component Background Color Default null Use Style Default Value if not set radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件字体大小 默认 null 未设置使用样式默认值 80px;</para>
-    /// <para lang="en">Get/Set Component Font Size Default null Use Style Default Value if not set 80px;</para>
+    /// <para lang="en">Gets or sets Component Font Size Default null Use Style Default Value if not set 80px;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -103,7 +103,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片宽度 默认 null 未设置使用样式默认值 60px;</para>
-    /// <para lang="en">Get/Set Component Card Width Default null Use Style Default Value if not set 60px;</para>
+    /// <para lang="en">Gets or sets Component Card Width Default null Use Style Default Value if not set 60px;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -111,7 +111,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片高度 默认 null 未设置使用样式默认值 90px;</para>
-    /// <para lang="en">Get/Set Component Card Height Default null Use Style Default Value if not set 90px;</para>
+    /// <para lang="en">Gets or sets Component Card Height Default null Use Style Default Value if not set 90px;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -119,7 +119,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片字体颜色 默认 null 未设置使用样式默认值 #ccc;</para>
-    /// <para lang="en">Get/Set Component Card Font Color Default null Use Style Default Value if not set #ccc;</para>
+    /// <para lang="en">Gets or sets Component Card Font Color Default null Use Style Default Value if not set #ccc;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -127,7 +127,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片背景颜色 默认 null 未设置使用样式默认值 #333;</para>
-    /// <para lang="en">Get/Set Component Card Background Color Default null Use Style Default Value if not set #333;</para>
+    /// <para lang="en">Gets or sets Component Card Background Color Default null Use Style Default Value if not set #333;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -135,7 +135,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片分割线高度 默认 null 未设置使用样式默认值 1px;</para>
-    /// <para lang="en">Get/Set Component Card Divider Height Default null Use Style Default Value if not set 1px;</para>
+    /// <para lang="en">Gets or sets Component Card Divider Height Default null Use Style Default Value if not set 1px;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -143,7 +143,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片分割线颜色 默认 null 未设置使用样式默认值 rgba(0, 0, 0, .4);</para>
-    /// <para lang="en">Get/Set Component Card Divider Color Default null Use Style Default Value if not set rgba(0, 0, 0, .4);</para>
+    /// <para lang="en">Gets or sets Component Card Divider Color Default null Use Style Default Value if not set rgba(0, 0, 0, .4);</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -151,7 +151,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片间隔 默认 null 未设置使用样式默认值 5;</para>
-    /// <para lang="en">Get/Set Component Card Margin Default null Use Style Default Value if not set 5;</para>
+    /// <para lang="en">Gets or sets Component Card Margin Default null Use Style Default Value if not set 5;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -159,7 +159,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件卡片组间隔 默认 null 未设置使用样式默认值 20;</para>
-    /// <para lang="en">Get/Set Component Card Group Margin Default null Use Style Default Value if not set 20;</para>
+    /// <para lang="en">Gets or sets Component Card Group Margin Default null Use Style Default Value if not set 20;</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -167,7 +167,7 @@ public partial class FlipClock
 
     /// <summary>
     /// <para lang="zh">获得/设置 倒计时或者计时的开始时间 <see cref="FlipClockViewMode.Count"/> 默认 <see cref="FlipClockViewMode.CountDown" /> 模式下生效</para>
-    /// <para lang="en">Get/Set Start Time for Countdown or Count <see cref="FlipClockViewMode.Count"/> Default Effective in <see cref="FlipClockViewMode.CountDown" /> Mode</para>
+    /// <para lang="en">Gets or sets Start Time for Countdown or Count <see cref="FlipClockViewMode.Count"/> Default Effective in <see cref="FlipClockViewMode.CountDown" /> Mode</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

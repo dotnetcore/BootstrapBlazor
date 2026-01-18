@@ -8,16 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">按钮上传组件 <para>ButtonUpload Component</para>
-///</para>
-/// <para lang="en">button上传component <para>ButtonUpload Component</para>
-///</para>
+/// <para lang="zh">按钮上传组件</para>
+/// <para lang="en">Button Upload Component</para>
 /// </summary>
 public partial class ButtonUpload<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 浏览按钮加载中图标</para>
-    /// <para lang="en">Gets or sets 浏览button加载中icon</para>
+    /// <para lang="en">Gets or sets the loading icon for the browse button</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +23,7 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 上传失败状态图标</para>
-    /// <para lang="en">Gets or sets 上传失败状态icon</para>
+    /// <para lang="en">Gets or sets the upload failed status icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +31,7 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 上传成功状态图标</para>
-    /// <para lang="en">Gets or sets 上传成功状态icon</para>
+    /// <para lang="en">Gets or sets the upload success status icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,23 +39,23 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 浏览按钮图标</para>
-    /// <para lang="en">Gets or sets 浏览buttonicon</para>
+    /// <para lang="en">Gets or sets the browse button icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 上传按钮样式 默认 null 使用 Button 默认 Color Primary</para>
-    /// <para lang="en">Gets or sets 上传buttonstyle Default is null 使用 Button Default is Color Primary</para>
+    /// <para lang="zh">获得/设置 上传按钮样式，默认 null 使用 Button 默认 Primary 颜色</para>
+    /// <para lang="en">Gets or sets the upload button style. Default is null, uses Button Primary color.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonClass { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示上传列表 默认 true</para>
-    /// <para lang="en">Gets or sets whetherdisplay上传列表 Default is true</para>
+    /// <para lang="zh">获得/设置 是否显示上传列表，默认 true</para>
+    /// <para lang="en">Gets or sets whether to display the upload file list. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -65,7 +63,7 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 浏览按钮显示文字</para>
-    /// <para lang="en">Gets or sets 浏览buttondisplay文字</para>
+    /// <para lang="en">Gets or sets the browse button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -74,15 +72,15 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 浏览按钮颜色</para>
-    /// <para lang="en">Gets or sets 浏览buttoncolor</para>
+    /// <para lang="en">Gets or sets the browse button color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color BrowserButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Size 大小</para>
-    /// <para lang="en">Gets or sets Size 大小</para>
+    /// <para lang="zh">获得/设置 按钮大小</para>
+    /// <para lang="en">Gets or sets the button size</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -90,7 +88,7 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件内容</para>
-    /// <para lang="en">Gets or sets 子componentcontent</para>
+    /// <para lang="en">Gets or sets the child content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -98,7 +96,7 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置文件格式图标回调委托</para>
-    /// <para lang="en">Gets or sets Sets文件格式icon回调delegate</para>
+    /// <para lang="en">Gets or sets the callback delegate for setting file format icons</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

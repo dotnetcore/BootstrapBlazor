@@ -14,7 +14,7 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否使用 Popover 渲染下拉框 默认 false</para>
-    /// <para lang="en">Get/Set Whether to use Popover to render dropdown. Default false</para>
+    /// <para lang="en">Gets or sets Whether to use Popover to render dropdown. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -22,7 +22,7 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗偏移量 默认 [0, 10]</para>
-    /// <para lang="en">Get/Set Popover Offset. Default [0, 10]</para>
+    /// <para lang="en">Gets or sets Popover Offset. Default [0, 10]</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

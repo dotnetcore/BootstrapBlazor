@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">单元格内按钮组件</para>
-/// <para lang="en">单元格内buttoncomponent</para>
+/// <para lang="zh">单元格内按钮参数</para>
+/// <para lang="en">Table cell button arguments</para>
 /// </summary>
 public class TableCellButtonArgs : ITableCellButton
 {

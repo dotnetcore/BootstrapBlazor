@@ -13,19 +13,19 @@ public class DownloadOption
 {
     /// <summary>
     /// <para lang="zh">获取/设置 要下载的文件数据字节数组</para>
-    /// <para lang="en">Get/Set File Content Byte Array</para>
+    /// <para lang="en">Gets or sets File Content Byte Array</para>
     /// </summary>
     public Stream? FileStream { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 下载地址</para>
-    /// <para lang="en">Get/Set Download Url</para>
+    /// <para lang="en">Gets or sets Download Url</para>
     /// </summary>
     public string? Url { get; set; }
 
     /// <summary>
     /// <para lang="zh">获取/设置 下载文件另存为文件名</para>
-    /// <para lang="en">Get/Set Save as Filename</para>
+    /// <para lang="en">Gets or sets Save as Filename</para>
     /// </summary>
     public string? FileName { get; set; }
 }

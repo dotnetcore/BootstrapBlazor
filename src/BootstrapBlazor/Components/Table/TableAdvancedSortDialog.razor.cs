@@ -9,13 +9,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table 高级排序弹窗的内容组件</para>
-/// <para lang="en">Table 高级排序弹窗的contentcomponent</para>
+/// <para lang="en">Table advanced sort dialog content component</para>
 /// </summary>
 public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 排序列列表 实例值</para>
-    /// <para lang="en">Gets or sets 排序列列表 instance值</para>
+    /// <para lang="zh">获得/设置 排序列列表实例值</para>
+    /// <para lang="en">Gets or sets sort column list instance value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -26,8 +26,8 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     public List<TableSortItem>? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 排序列列表 回调方法 支持双向绑定</para>
-    /// <para lang="en">Gets or sets 排序列列表 callback method 支持双向绑定</para>
+    /// <para lang="zh">获得/设置 排序列列表回调方法，支持双向绑定</para>
+    /// <para lang="en">Gets or sets sort column list callback method, supports two-way binding</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -35,7 +35,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     /// <summary>
     /// <para lang="zh">获得/设置 可排序列的列表</para>
-    /// <para lang="en">Gets or sets 可排序列的列表</para>
+    /// <para lang="en">Gets or sets the list of sortable columns</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -43,7 +43,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     /// <summary>
     /// <para lang="zh">获得/设置 增加排序条件图标</para>
-    /// <para lang="en">Gets or sets 增加排序条件icon</para>
+    /// <para lang="en">Gets or sets add sort condition icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -51,7 +51,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     /// <summary>
     /// <para lang="zh">获得/设置 移除排序条件图标</para>
-    /// <para lang="en">Gets or sets 移除排序条件icon</para>
+    /// <para lang="en">Gets or sets remove sort condition icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -59,7 +59,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     /// <summary>
     /// <para lang="zh">获得/设置 减少排序条件图标</para>
-    /// <para lang="en">Gets or sets 减少排序条件icon</para>
+    /// <para lang="en">Gets or sets decrease sort condition icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -67,7 +67,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     /// <summary>
     /// <para lang="zh">排序规则列表</para>
-    /// <para lang="en">排序规则列表</para>
+    /// <para lang="en">Sort rule list</para>
     /// </summary>
     private List<SelectedItem>? SortOrders { get; set; }
 
@@ -115,8 +115,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     }
 
     /// <summary>
-    /// <para lang="zh"></para>
-    /// <para lang="en"></para>
+    /// <inheritdoc/>
     /// </summary>
     public async Task OnClose(DialogResult result)
     {

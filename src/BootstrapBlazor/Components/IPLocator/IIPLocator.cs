@@ -22,7 +22,7 @@ public interface IIPLocator
 
     /// <summary>
     /// <para lang="zh">获得/设置 接口地址</para>
-    /// <para lang="en">Get/Set Interface URL</para>
+    /// <para lang="en">Gets or sets Interface URL</para>
     /// </summary>
     public string? Url { get; set; }
 }

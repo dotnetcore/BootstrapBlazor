@@ -29,7 +29,7 @@ public partial class Scroll
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public partial class Scroll
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度</para>
-    /// <para lang="en">Get/Set Height</para>
+    /// <para lang="en">Gets or sets Height</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public partial class Scroll
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件宽度</para>
-    /// <para lang="en">Get/Set Width</para>
+    /// <para lang="en">Gets or sets Width</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public partial class Scroll
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
-    /// <para lang="en">Get/Set Scroll Width. Default null. Use <see cref="ScrollOptions.ScrollWidth"/> in <see cref="ScrollOptions"/> config class if not set</para>
+    /// <para lang="en">Gets or sets Scroll Width. Default null. Use <see cref="ScrollOptions.ScrollWidth"/> in <see cref="ScrollOptions"/> config class if not set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -61,7 +61,7 @@ public partial class Scroll
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/></para>
-    /// <para lang="en">Get/Set Scroll Hover Width. Default null. Use <see cref="ScrollOptions.ScrollHoverWidth"/> in <see cref="ScrollOptions"/> config class if not set</para>
+    /// <para lang="en">Gets or sets Scroll Hover Width. Default null. Use <see cref="ScrollOptions.ScrollHoverWidth"/> in <see cref="ScrollOptions"/> config class if not set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

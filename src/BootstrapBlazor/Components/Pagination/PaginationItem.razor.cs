@@ -21,7 +21,7 @@ public partial class PaginationItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前页码</para>
-    /// <para lang="en">Get/Set Current Page Index</para>
+    /// <para lang="en">Gets or sets Current Page Index</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class PaginationItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否激活 默认 false</para>
-    /// <para lang="en">Get/Set Whether active. Default false</para>
+    /// <para lang="en">Gets or sets Whether active. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public partial class PaginationItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
-    /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para lang="en">Gets or sets Whether disabled. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

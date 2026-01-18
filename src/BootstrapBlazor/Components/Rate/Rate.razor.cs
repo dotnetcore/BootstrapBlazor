@@ -40,7 +40,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 选中图标</para>
-    /// <para lang="en">Get/Set Checked Icon</para>
+    /// <para lang="en">Gets or sets Checked Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -49,7 +49,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 未选中图标</para>
-    /// <para lang="en">Get/Set Unchecked Icon</para>
+    /// <para lang="en">Gets or sets Unchecked Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -58,7 +58,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
-    /// <para lang="en">Get/Set Value</para>
+    /// <para lang="en">Gets or sets Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -66,7 +66,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
-    /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para lang="en">Gets or sets Whether disabled. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>禁用模式下图标颜色为灰色，不可点击</remarks>
@@ -75,7 +75,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否只读 默认为 false</para>
-    /// <para lang="en">Get/Set Whether readonly. Default false</para>
+    /// <para lang="en">Gets or sets Whether readonly. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>只读情况下图标为彩色，仅不可点击</remarks>
@@ -84,7 +84,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁止换行 默认为 true</para>
-    /// <para lang="en">Get/Set Whether to disable wrap. Default true</para>
+    /// <para lang="en">Gets or sets Whether to disable wrap. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -92,7 +92,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Value 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to show Value. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show Value. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -100,7 +100,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 子项模板</para>
-    /// <para lang="en">Get/Set Item Template</para>
+    /// <para lang="en">Gets or sets Item Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -108,7 +108,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
-    /// <para lang="en">Get/Set Value Changed Callback Delegate</para>
+    /// <para lang="en">Gets or sets Value Changed Callback Delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -116,7 +116,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
-    /// <para lang="en">Get/Set Value Changed Callback Delegate</para>
+    /// <para lang="en">Gets or sets Value Changed Callback Delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -124,7 +124,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 最大值 默认 5</para>
-    /// <para lang="en">Get/Set Max Value. Default 5</para>
+    /// <para lang="en">Gets or sets Max Value. Default 5</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

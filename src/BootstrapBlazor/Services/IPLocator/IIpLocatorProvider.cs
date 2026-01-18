@@ -13,7 +13,7 @@ public interface IIpLocatorProvider
 {
     /// <summary>
     /// <para lang="zh">获得/设置 定位器 Key 默认 null 使用已注册的最后一个 Provider</para>
-    /// <para lang="en">Get/Set Locator Key, default null, use the last registered Provider</para>
+    /// <para lang="en">Gets or sets Locator Key, default null, use the last registered Provider</para>
     /// </summary>
     string? Key { get; set; }
 

@@ -13,7 +13,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
-    /// <para lang="en">Get/Set Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
+    /// <para lang="en">Gets or sets Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
-    /// <para lang="en">Get/Set Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
+    /// <para lang="en">Gets or sets Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -30,7 +30,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 项模板</para>
-    /// <para lang="en">Get/Set Item Template</para>
+    /// <para lang="en">Gets or sets Item Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为按钮样式 默认 false</para>
-    /// <para lang="en">Get/Set Whether to be button style. Default false</para>
+    /// <para lang="en">Gets or sets Whether to be button style. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -46,7 +46,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示边框 默认为 true</para>
-    /// <para lang="en">Get/Set Whether to show border. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show border. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -54,7 +54,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为竖向排列 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to be vertical layout. Default false</para>
+    /// <para lang="en">Gets or sets Whether to be vertical layout. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -62,7 +62,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
-    /// <para lang="en">Get/Set Button Color. Default None</para>
+    /// <para lang="en">Gets or sets Button Color. Default None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -70,7 +70,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
-    /// <para lang="en">Get/Set Items</para>
+    /// <para lang="en">Gets or sets Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -79,7 +79,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 SelectedItemChanged 方法</para>
-    /// <para lang="en">Get/Set OnSelectedChanged Method</para>
+    /// <para lang="en">Gets or sets OnSelectedChanged Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -87,7 +87,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</para>
-    /// <para lang="en">Get/Set Data primary key identification attribute. Default <see cref="KeyAttribute"/><code><br /></code>Used to identify data primary key attribute, if model does not set primary key, you can use <see cref="ModelEqualityComparer"/> parameter to customize judgment <code><br /></code>Data model supports composite primary keys</para>
+    /// <para lang="en">Gets or sets Data primary key identification attribute. Default <see cref="KeyAttribute"/><code><br /></code>Used to identify data primary key attribute, if model does not set primary key, you can use <see cref="ModelEqualityComparer"/> parameter to customize judgment <code><br /></code>Data model supports composite primary keys</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -96,7 +96,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
-    /// <para lang="en">Get/Set Callback method for comparing whether data is the same. Default null</para>
+    /// <para lang="en">Gets or sets Callback method for comparing whether data is the same. Default null</para>
     /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> property when providing this callback method</para>
     /// <para><version>10.2.2</version></para>

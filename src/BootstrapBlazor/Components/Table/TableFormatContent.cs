@@ -7,11 +7,15 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// <para lang="zh">TableFormatContent 组件</para>
+/// <para lang="en">TableFormatContent component</para>
+/// </summary>
 internal class TableFormatContent : ComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 格式化方法</para>
-    /// <para lang="en">Gets or sets 格式化方法</para>
+    /// <para lang="en">Gets or sets formatter method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +25,7 @@ internal class TableFormatContent : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前显示数据项</para>
-    /// <para lang="en">Gets or sets 当前displaydata项</para>
+    /// <para lang="en">Gets or sets current display data item</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,6 +35,9 @@ internal class TableFormatContent : ComponentBase
 
     private string? _content;
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
@@ -38,6 +45,10 @@ internal class TableFormatContent : ComponentBase
         _content = await Formatter(Item);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         if (!string.IsNullOrEmpty(_content))

@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Transition 动画组件</para>
-/// <para lang="en">Transition 动画component</para>
+/// <para lang="en">Transition Animation Component</para>
 /// </summary>
 public partial class Transition
 {
@@ -22,24 +22,24 @@ public partial class Transition
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示动画 默认 true</para>
-    /// <para lang="en">Gets or sets whetherdisplay动画 Default is true</para>
+    /// <para lang="zh">获得/设置 是否显示动画，默认 true</para>
+    /// <para lang="en">Gets or sets whether to display the animation. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Show { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 动画名称 默认 FadeIn</para>
-    /// <para lang="en">Gets or sets 动画名称 Default is FadeIn</para>
+    /// <para lang="zh">获得/设置 动画名称，默认 FadeIn</para>
+    /// <para lang="en">Gets or sets the animation name. Default is FadeIn.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TransitionType TransitionType { get; set; } = TransitionType.FadeIn;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 动画执行时长 单位毫秒 默认为 0 未生效</para>
-    /// <para lang="en">Gets or sets 动画执行时长 单位毫秒 Default is为 0 未生效</para>
+    /// <para lang="zh">获得/设置 动画执行时长，单位毫秒，默认为 0</para>
+    /// <para lang="en">Gets or sets the animation execution duration in milliseconds. Default is 0.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -47,7 +47,7 @@ public partial class Transition
 
     /// <summary>
     /// <para lang="zh">获得/设置 子内容</para>
-    /// <para lang="en">Gets or sets 子content</para>
+    /// <para lang="en">Gets or sets the child content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -55,15 +55,15 @@ public partial class Transition
 
     /// <summary>
     /// <para lang="zh">获得/设置 动画执行完成回调委托</para>
-    /// <para lang="en">Gets or sets 动画执行完成回调delegate</para>
+    /// <para lang="en">Gets or sets the animation completion callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTransitionEnd { get; set; }
 
     /// <summary>
-    /// <para lang="zh">动画执行完毕结束异步方法 JSInvoke 调用</para>
-    /// <para lang="en">动画执行完毕结束异步方法 JSInvoke 调用</para>
+    /// <para lang="zh">动画执行完毕结束的异步方法，由 JSInvoke 调用</para>
+    /// <para lang="en">Called when animation ends, triggered by JSInvoke</para>
     /// </summary>
     [JSInvokable]
     public async Task TransitionEndAsync()

@@ -14,7 +14,7 @@ public class Responsive : BootstrapModuleComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 浏览器断点阈值改变时触发 默认 null</para>
-    /// <para lang="en">Get/Set Trigger when browser breakpoint threshold changes. Default null</para>
+    /// <para lang="en">Gets or sets Trigger when browser breakpoint threshold changes. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

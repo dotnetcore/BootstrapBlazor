@@ -15,7 +15,7 @@ public partial class Pagination
 {
     /// <summary>
     /// <para lang="zh">获得/设置 页码总数</para>
-    /// <para lang="en">Get/Set Total Page Count</para>
+    /// <para lang="en">Gets or sets Total Page Count</para>
     /// </summary>
     protected int InternalPageCount => Math.Max(1, PageCount);
 
@@ -37,19 +37,19 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 开始页码</para>
-    /// <para lang="en">Get/Set Start Page Index</para>
+    /// <para lang="en">Gets or sets Start Page Index</para>
     /// </summary>
     protected int StartPageIndex => Math.Max(2, Math.Min(InternalPageCount - MaxPageLinkCount, InternalPageIndex - MaxPageLinkCount / 2));
 
     /// <summary>
     /// <para lang="zh">获得/设置 结束页码</para>
-    /// <para lang="en">Get/Set End Page Index</para>
+    /// <para lang="en">Gets or sets End Page Index</para>
     /// </summary>
     protected int EndPageIndex => Math.Min(InternalPageCount - 1, StartPageIndex + MaxPageLinkCount - 1);
 
     /// <summary>
     /// <para lang="zh">获得/设置 对齐方式 默认 Alignment.Right</para>
-    /// <para lang="en">Get/Set Alignment. Default Alignment.Right</para>
+    /// <para lang="en">Gets or sets Alignment. Default Alignment.Right</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -57,7 +57,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 上一页图标</para>
-    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para lang="en">Gets or sets Previous Page Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -65,7 +65,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 上一页图标</para>
-    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para lang="en">Gets or sets Previous Page Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -73,7 +73,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 下一页图标</para>
-    /// <para lang="en">Get/Set Next Page Icon</para>
+    /// <para lang="en">Gets or sets Next Page Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -81,7 +81,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 上一页图标</para>
-    /// <para lang="en">Get/Set Previous Page Icon</para>
+    /// <para lang="en">Gets or sets Previous Page Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -89,7 +89,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前页码</para>
-    /// <para lang="en">Get/Set Current Page Index</para>
+    /// <para lang="en">Gets or sets Current Page Index</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -97,7 +97,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 页码总数</para>
-    /// <para lang="en">Get/Set Total Page Count</para>
+    /// <para lang="en">Gets or sets Total Page Count</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -108,7 +108,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 Page up/down 页码数量 默认 5</para>
-    /// <para lang="en">Get/Set Page up/down link count. Default 5</para>
+    /// <para lang="en">Gets or sets Page up/down link count. Default 5</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -128,7 +128,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示分页信息文字 默认为 null</para>
-    /// <para lang="en">Get/Set Pagination Info Text. Default null</para>
+    /// <para lang="en">Gets or sets Pagination Info Text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -137,7 +137,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 Goto 导航模板 默认 null</para>
-    /// <para lang="en">Get/Set Goto Navigation Template. Default null</para>
+    /// <para lang="en">Gets or sets Goto Navigation Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -145,7 +145,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航器 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show Goto Navigator. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show Goto Navigator. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -153,7 +153,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 Goto 导航标签显示文字 默认 导航到/Goto</para>
-    /// <para lang="en">Get/Set Goto Navigator Label Text. Default Goto</para>
+    /// <para lang="en">Gets or sets Goto Navigator Label Text. Default Goto</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -161,7 +161,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 分页信息 默认 true</para>
-    /// <para lang="en">Get/Set Whether to show Page Info. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show Page Info. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -169,7 +169,7 @@ public partial class Pagination
 
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息模板 默认 null</para>
-    /// <para lang="en">Get/Set Page Info Template. Default null</para>
+    /// <para lang="en">Gets or sets Page Info Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

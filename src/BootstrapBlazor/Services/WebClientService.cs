@@ -125,62 +125,62 @@ public class ClientInfo
 {
     /// <summary>
     /// <para lang="zh">获得/设置 链接 Id</para>
-    /// <para lang="en">Get/Set Connection Id</para>
+    /// <para lang="en">Gets or sets Connection Id</para>
     /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端IP</para>
-    /// <para lang="en">Get/Set Client IP</para>
+    /// <para lang="en">Gets or sets Client IP</para>
     /// </summary>
     public string? Ip { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端地点</para>
-    /// <para lang="en">Get/Set Client City</para>
+    /// <para lang="en">Gets or sets Client City</para>
     /// </summary>
     public string? City { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端浏览器</para>
-    /// <para lang="en">Get/Set Client Browser</para>
+    /// <para lang="en">Gets or sets Client Browser</para>
     /// </summary>
     public string? Browser { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端操作系统</para>
-    /// <para lang="en">Get/Set Client OS</para>
+    /// <para lang="en">Gets or sets Client OS</para>
     /// </summary>
     public string? OS { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端设备类型</para>
-    /// <para lang="en">Get/Set Client Device Type</para>
+    /// <para lang="en">Gets or sets Client Device Type</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public WebClientDeviceType Device { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端浏览器语言</para>
-    /// <para lang="en">Get/Set Client Browser Language</para>
+    /// <para lang="en">Gets or sets Client Browser Language</para>
     /// </summary>
     public string? Language { get; set; }
 
     /// <summary>
     /// <para lang="zh">获取/设置 请求网址</para>
-    /// <para lang="en">Get/Set Request URL</para>
+    /// <para lang="en">Gets or sets Request URL</para>
     /// </summary>
     public string? RequestUrl { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端 UserAgent</para>
-    /// <para lang="en">Get/Set Client UserAgent</para>
+    /// <para lang="en">Gets or sets Client UserAgent</para>
     /// </summary>
     public string? UserAgent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 浏览器引擎信息</para>
-    /// <para lang="en">Get/Set Browser Engine Info</para>
+    /// <para lang="en">Gets or sets Browser Engine Info</para>
     /// </summary>
     public string? Engine { get; set; }
 }

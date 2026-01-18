@@ -13,7 +13,7 @@ public partial class FullScreenButton
 {
     /// <summary>
     /// <para lang="zh">获得/设置 全屏图标 默认 fa-solid fa-maximize</para>
-    /// <para lang="en">Get/Set Full Screen Icon Default fa-solid fa-maximize</para>
+    /// <para lang="en">Gets or sets Full Screen Icon Default fa-solid fa-maximize</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class FullScreenButton
 
     /// <summary>
     /// <para lang="zh">获得/设置 退出全屏图标 默认 fa-solid fa-compress</para>
-    /// <para lang="en">Get/Set Exit Full Screen Icon Default fa-solid fa-compress</para>
+    /// <para lang="en">Gets or sets Exit Full Screen Icon Default fa-solid fa-compress</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class FullScreenButton
 
     /// <summary>
     /// <para lang="zh">获得/设置 全屏元素 Id 默认为 null</para>
-    /// <para lang="en">Get/Set Full Screen Element Id Default null</para>
+    /// <para lang="en">Gets or sets Full Screen Element Id Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

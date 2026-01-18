@@ -9,13 +9,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TimePicker 组件</para>
-/// <para lang="en">TimePicker component</para>
+/// <para lang="en">TimePicker Component</para>
 /// </summary>
 public partial class TimePicker
 {
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮显示文字</para>
-    /// <para lang="en">Gets or sets 取消buttondisplay文字</para>
+    /// <para lang="en">Gets or sets the cancel button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public partial class TimePicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 确定按钮显示文字</para>
-    /// <para lang="en">Gets or sets 确定buttondisplay文字</para>
+    /// <para lang="en">Gets or sets the confirm button display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,8 +32,8 @@ public partial class TimePicker
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示秒 默认为 true</para>
-    /// <para lang="en">Gets or sets whetherdisplay秒 Default is为 true</para>
+    /// <para lang="zh">获得/设置 是否显示秒，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to display seconds. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -42,7 +42,7 @@ public partial class TimePicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮回调委托</para>
-    /// <para lang="en">Gets or sets 取消button回调delegate</para>
+    /// <para lang="en">Gets or sets the cancel button callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -50,7 +50,7 @@ public partial class TimePicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 确认按钮回调委托</para>
-    /// <para lang="en">Gets or sets 确认button回调delegate</para>
+    /// <para lang="en">Gets or sets the confirm button callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -60,16 +60,8 @@ public partial class TimePicker
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 当前时间</para>
-    /// <para lang="en">Gets or sets 当前时间</para>
-    /// </summary>
     private TimeSpan CurrentTime { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 样式</para>
-    /// <para lang="en">Gets or sets style</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("bb-time-picker")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -86,10 +78,6 @@ public partial class TimePicker
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
     }
 
-    /// <summary>
-    /// <para lang="zh">点击取消按钮回调此方法</para>
-    /// <para lang="en">点击取消button回调此方法</para>
-    /// </summary>
     private async Task OnClickClose()
     {
         CurrentTime = Value;
@@ -99,10 +87,6 @@ public partial class TimePicker
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">点击确认按钮时回调此方法</para>
-    /// <para lang="en">点击确认button时回调此方法</para>
-    /// </summary>
     private async Task OnClickConfirm()
     {
         Value = CurrentTime;

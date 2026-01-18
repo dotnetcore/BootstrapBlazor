@@ -15,7 +15,7 @@ public partial class ConsoleLogger
 {
     /// <summary>
     /// <para lang="zh">获得/设置 最大行数 默认 3 行</para>
-    /// <para lang="en">Get/Set max rows, default is 3</para>
+    /// <para lang="en">Gets or sets max rows, default is 3</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class ConsoleLogger
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
-    /// <para lang="en">Get/Set whether it is Html code, default is false</para>
+    /// <para lang="en">Gets or sets whether it is Html code, default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

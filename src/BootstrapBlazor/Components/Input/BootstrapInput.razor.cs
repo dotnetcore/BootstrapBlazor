@@ -13,7 +13,7 @@ public partial class BootstrapInput<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否为只读 默认 false</para>
-    /// <para lang="en">Get/Set Readonly. Default false</para>
+    /// <para lang="en">Gets or sets Readonly. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 用户删除后是否自动更改为默认值 0 默认 false</para>
-    /// <para lang="en">Get/Set Whether to automatically set default value when user deletes. Default false</para>
+    /// <para lang="en">Gets or sets Whether to automatically set default value when user deletes. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空小按钮 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show clear button. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show clear button. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -39,7 +39,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空小按钮 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show clear button. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show clear button. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -47,7 +47,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空文本框时回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Callback when clearing text box. Default null</para>
+    /// <para lang="en">Gets or sets Callback when clearing text box. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -55,7 +55,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空小按钮图标 默认 null</para>
-    /// <para lang="en">Get/Set Clear button icon. Default null</para>
+    /// <para lang="en">Gets or sets Clear button icon. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -65,7 +65,7 @@ public partial class BootstrapInput<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空小按钮图标 默认 null</para>
-    /// <para lang="en">Get/Set Clear button icon. Default null</para>
+    /// <para lang="en">Gets or sets Clear button icon. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

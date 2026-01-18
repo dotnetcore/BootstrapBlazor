@@ -13,7 +13,7 @@ public class StepItem : ComponentBase, IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示文字</para>
-    /// <para lang="en">Get/Set Text</para>
+    /// <para lang="en">Gets or sets Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示文字</para>
-    /// <para lang="en">Get/Set Title</para>
+    /// <para lang="en">Gets or sets Title</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示图标</para>
-    /// <para lang="en">Get/Set Icon</para>
+    /// <para lang="en">Gets or sets Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 步骤完成显示图标</para>
-    /// <para lang="en">Get/Set Finished Icon</para>
+    /// <para lang="en">Gets or sets Finished Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 描述信息</para>
-    /// <para lang="en">Get/Set Description</para>
+    /// <para lang="en">Gets or sets Description</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
-    /// <para lang="en">Get/Set Header Template</para>
+    /// <para lang="en">Gets or sets Header Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -61,7 +61,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 Title 模板</para>
-    /// <para lang="en">Get/Set Title Template</para>
+    /// <para lang="en">Gets or sets Title Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容实例</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -77,7 +77,7 @@ public class StepItem : ComponentBase, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 父级组件 Step 实例</para>
-    /// <para lang="en">Get/Set Parent Step Component Instance</para>
+    /// <para lang="en">Gets or sets Parent Step Component Instance</para>
     /// </summary>
     [CascadingParameter]
     private Step? Step { get; set; }

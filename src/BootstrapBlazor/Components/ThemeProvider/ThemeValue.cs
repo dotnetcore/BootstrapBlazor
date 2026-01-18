@@ -8,36 +8,36 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">主题选项</para>
-/// <para lang="en">主题选项</para>
+/// <para lang="zh">主题值枚举</para>
+/// <para lang="en">Theme Value Enumeration</para>
 /// </summary>
 [JsonEnumConverter(true)]
 public enum ThemeValue
 {
     /// <summary>
-    /// <para lang="zh">自动</para>
-    /// <para lang="en">自动</para>
+    /// <para lang="zh">自动模式</para>
+    /// <para lang="en">Auto Mode</para>
     /// </summary>
     [Description("auto")]
     Auto,
 
     /// <summary>
     /// <para lang="zh">明亮主题</para>
-    /// <para lang="en">明亮主题</para>
+    /// <para lang="en">Light Theme</para>
     /// </summary>
     [Description("light")]
     Light,
 
     /// <summary>
     /// <para lang="zh">暗黑主题</para>
-    /// <para lang="en">暗黑主题</para>
+    /// <para lang="en">Dark Theme</para>
     /// </summary>
     [Description("dark")]
     Dark,
 
     /// <summary>
     /// <para lang="zh">使用本地保存选项</para>
-    /// <para lang="en">使用本地保存选项</para>
+    /// <para lang="en">Use Local Storage</para>
     /// </summary>
     [Description("useLocalStorage")]
     UseLocalStorage,

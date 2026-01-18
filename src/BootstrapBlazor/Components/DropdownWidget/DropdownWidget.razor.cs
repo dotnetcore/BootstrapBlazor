@@ -17,7 +17,7 @@ public sealed partial class DropdownWidget
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板支持静态数据</para>
-    /// <para lang="en">Get/Set Child Content (Static Data)</para>
+    /// <para lang="en">Gets or sets Child Content (Static Data)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +25,7 @@ public sealed partial class DropdownWidget
 
     /// <summary>
     /// <para lang="zh">获得/设置 挂件数据集合</para>
-    /// <para lang="en">Get/Set Widget Items</para>
+    /// <para lang="en">Gets or sets Widget Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +33,7 @@ public sealed partial class DropdownWidget
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉项关闭回调方法</para>
-    /// <para lang="en">Get/Set Item Close Callback</para>
+    /// <para lang="en">Gets or sets Item Close Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public sealed partial class DropdownWidget
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉项显示回调方法</para>
-    /// <para lang="en">Get/Set Item Shown Callback</para>
+    /// <para lang="en">Gets or sets Item Shown Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

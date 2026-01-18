@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">IUpload 接口</para>
-///  <para lang="en">IUpload 接口</para>
+/// <para lang="zh">IUpload 接口</para>
+/// <para lang="en">IUpload Interface</para>
 /// </summary>
 public interface IUpload
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 上传文件实例集合</para>
-    ///  <para lang="en">Gets or sets 上传文件instancecollection</para>
+    /// <para lang="zh">获得/设置 上传文件实例集合</para>
+    /// <para lang="en">Gets or sets the upload file collection</para>
     /// </summary>
     List<UploadFile> UploadFiles { get; }
 }

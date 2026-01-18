@@ -13,7 +13,7 @@ public partial class SpeechWave : IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示波形图 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show waveform. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show waveform. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class SpeechWave : IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示已用时长 默认 true</para>
-    /// <para lang="en">Get/Set Whether to show used time. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show used time. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class SpeechWave : IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 倒计时结束时回调委托</para>
-    /// <para lang="en">Get/Set Callback delegate when countdown ends</para>
+    /// <para lang="en">Gets or sets Callback delegate when countdown ends</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public partial class SpeechWave : IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 总时长 默认 60 000 毫秒</para>
-    /// <para lang="en">Get/Set Total Time. Default 60000 ms</para>
+    /// <para lang="en">Gets or sets Total Time. Default 60000 ms</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

@@ -60,13 +60,13 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许为空</para>
-    /// <para lang="en">Get/Set Whether to Allow Null</para>
+    /// <para lang="en">Gets or sets Whether to Allow Null</para>
     /// </summary>
     private bool AllowNull { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示为按钮样式 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show as Button. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show as Button. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -74,7 +74,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 选择按钮文本 默认 null 读取资源文件</para>
-    /// <para lang="en">Get/Set Picker Button Text. Default is null. Read from resource file</para>
+    /// <para lang="en">Gets or sets Picker Button Text. Default is null. Read from resource file</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -82,7 +82,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 选择按钮颜色 默认 <see cref="Color.Primary"/></para>
-    /// <para lang="en">Get/Set Button Color. Default is <see cref="Color.Primary"/></para>
+    /// <para lang="en">Gets or sets Button Color. Default is <see cref="Color.Primary"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -90,7 +90,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 null</para>
-    /// <para lang="en">Get/Set Date Time Format String. Default is null</para>
+    /// <para lang="en">Gets or sets Date Time Format String. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -104,7 +104,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"</para>
-    /// <para lang="en">Get/Set Date Time Format String. Default is "yyyy-MM-dd HH:mm:ss"</para>
+    /// <para lang="en">Gets or sets Date Time Format String. Default is "yyyy-MM-dd HH:mm:ss"</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -113,7 +113,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"</para>
-    /// <para lang="en">Get/Set Date Format String. Default is "yyyy-MM-dd"</para>
+    /// <para lang="en">Gets or sets Date Format String. Default is "yyyy-MM-dd"</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -122,7 +122,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
-    /// <para lang="en">Get/Set Time Format String. Default is "HH:mm:ss"</para>
+    /// <para lang="en">Gets or sets Time Format String. Default is "HH:mm:ss"</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -131,7 +131,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/></para>
-    /// <para lang="en">Get/Set First Day of Week. Default is <see cref="DayOfWeek.Sunday"/></para>
+    /// <para lang="en">Gets or sets First Day of Week. Default is <see cref="DayOfWeek.Sunday"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -139,7 +139,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件图标 默认 fa-regular fa-calendar-days</para>
-    /// <para lang="en">Get/Set Component Icon. Default is fa-regular fa-calendar-days</para>
+    /// <para lang="en">Gets or sets Component Icon. Default is fa-regular fa-calendar-days</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示组件图标 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to Show Component Icon. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Show Component Icon. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -156,7 +156,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置  控件边框颜色样式 默认为 None 显示</para>
-    /// <para lang="en">Get/Set Component Border Color Style. Default is None</para>
+    /// <para lang="en">Gets or sets Component Border Color Style. Default is None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -164,7 +164,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
-    /// <para lang="en">Get/Set Component Display Mode. Default is Date Mode</para>
+    /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -172,7 +172,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/></para>
-    /// <para lang="en">Get/Set Pick Time Mode. Default is <see cref="PickTimeMode.Dropdown"/></para>
+    /// <para lang="en">Gets or sets Pick Time Mode. Default is <see cref="PickTimeMode.Dropdown"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -180,7 +180,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
-    /// <para lang="en">Get/Set Whether to Show Sidebar. Default is not shown</para>
+    /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is not shown</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -188,7 +188,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
-    /// <para lang="en">Get/Set Sidebar Template. Default is null</para>
+    /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -197,7 +197,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前日期最大值</para>
-    /// <para lang="en">Get/Set Max Date</para>
+    /// <para lang="en">Gets or sets Max Date</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -205,7 +205,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前日期最小值</para>
-    /// <para lang="en">Get/Set Min Date</para>
+    /// <para lang="en">Gets or sets Min Date</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -213,7 +213,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否点击日期后自动关闭弹窗 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Auto Close Popup When Date Clicked. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Auto Close Popup When Date Clicked. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -221,7 +221,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可以编辑内容 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Allow Edit. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Allow Edit. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -229,7 +229,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动设置值为当前时间 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Auto Set Value to Current Time. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Auto Set Value to Current Time. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>当 Value 值为 <see cref="DateTime.MinValue"/> 时自动设置时间为 <see cref="DateTime.Today"/> 不为空类型时此参数生效</remarks>
@@ -238,7 +238,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否将 <see cref="DateTime.MinValue"/> 显示为空字符串 默认 true</para>
-    /// <para lang="en">Get/Set Whether to Display <see cref="DateTime.MinValue"/> as Empty String. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Display <see cref="DateTime.MinValue"/> as Empty String. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>可为空类型时此参数生效</remarks>
@@ -247,7 +247,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件模板</para>
-    /// <para lang="en">Get/Set Child Content Template</para>
+    /// <para lang="en">Gets or sets Child Content Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -255,7 +255,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 日期占位符文本 默认 null 读取资源文件</para>
-    /// <para lang="en">Get/Set Date Placeholder Text. Default is null. Read from resource file</para>
+    /// <para lang="en">Gets or sets Date Placeholder Text. Default is null. Read from resource file</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -263,7 +263,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 日期时间占位符文本 默认 null 读取资源文件</para>
-    /// <para lang="en">Get/Set Date Time Placeholder Text. Default is null. Read from resource file</para>
+    /// <para lang="en">Gets or sets Date Time Placeholder Text. Default is null. Read from resource file</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -271,7 +271,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 日单元格模板</para>
-    /// <para lang="en">Get/Set Day Cell Template</para>
+    /// <para lang="en">Gets or sets Day Cell Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -279,7 +279,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 禁用日单元格模板</para>
-    /// <para lang="en">Get/Set Disabled Day Cell Template</para>
+    /// <para lang="en">Gets or sets Disabled Day Cell Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -287,7 +287,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Lunar Calendar. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Lunar Calendar. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -295,7 +295,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Chinese Solar Term. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Solar Term. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -303,7 +303,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示节日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Festivals. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Festivals. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -311,7 +311,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Show Holidays. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Holidays. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -319,7 +319,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获取/设置 获得自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭</para>
-    /// <para lang="en">Get/Set Callback Method to Get Custom Disabled Days. Default is null. Internal Default Enable Data Cache. Can be Closed via <see cref="EnableDisabledDaysCache"/> Parameter</para>
+    /// <para lang="en">Gets or sets Callback Method to Get Custom Disabled Days. Default is null. Internal Default Enable Data Cache. Can be Closed via <see cref="EnableDisabledDaysCache"/> Parameter</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -327,7 +327,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用获得年自定义禁用日期缓存</para>
-    /// <para lang="en">Get/Set Whether to Enable Custom Disabled Days Cache of Year</para>
+    /// <para lang="en">Gets or sets Whether to Enable Custom Disabled Days Cache of Year</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -335,7 +335,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否将禁用日期显示为空字符串 默认 false 开启后组件会频繁调用 <see cref="OnGetDisabledDaysCallback"/> 方法，建议外部使用缓存提高性能</para>
-    /// <para lang="en">Get/Set Whether to Display Disabled Day as Empty. Default is false. When enabled, component will frequently call <see cref="OnGetDisabledDaysCallback"/> method, suggesting external cache usage for performance</para>
+    /// <para lang="en">Gets or sets Whether to Display Disabled Day as Empty. Default is false. When enabled, component will frequently call <see cref="OnGetDisabledDaysCallback"/> method, suggesting external cache usage for performance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -343,7 +343,7 @@ public partial class DateTimePicker<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 失去焦点回调方法 默认 null</para>
-    /// <para lang="en">Get/Set OnBlur Callback Method. Default is null</para>
+    /// <para lang="en">Gets or sets OnBlur Callback Method. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

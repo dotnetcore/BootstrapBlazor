@@ -29,31 +29,31 @@ public class SelectedItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
-    /// <para lang="en">Get/Set display text</para>
+    /// <para lang="en">Gets or sets display text</para>
     /// </summary>
     public string Text { get; set; } = "";
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项值</para>
-    /// <para lang="en">Get/Set item value</para>
+    /// <para lang="en">Gets or sets item value</para>
     /// </summary>
     public string Value { get; set; } = "";
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否选中</para>
-    /// <para lang="en">Get/Set whether active</para>
+    /// <para lang="en">Gets or sets whether active</para>
     /// </summary>
     public bool Active { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用</para>
-    /// <para lang="en">Get/Set whether disabled</para>
+    /// <para lang="en">Gets or sets whether disabled</para>
     /// </summary>
     public bool IsDisabled { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 分组名称</para>
-    /// <para lang="en">Get/Set group name</para>
+    /// <para lang="en">Gets or sets group name</para>
     /// </summary>
     public string GroupName { get; set; } = "";
 }

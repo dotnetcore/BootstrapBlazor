@@ -7,19 +7,19 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table 大小枚举类型</para>
-/// <para lang="en">Table 大小enumtype</para>
+/// <para lang="en">Table size enumeration type</para>
 /// </summary>
 public enum TableSize
 {
     /// <summary>
     /// <para lang="zh">正常模式</para>
-    /// <para lang="en">正常模式</para>
+    /// <para lang="en">Normal mode</para>
     /// </summary>
     Normal,
 
     /// <summary>
     /// <para lang="zh">紧凑模式</para>
-    /// <para lang="en">紧凑模式</para>
+    /// <para lang="en">Compact mode</para>
     /// </summary>
     Compact
 }

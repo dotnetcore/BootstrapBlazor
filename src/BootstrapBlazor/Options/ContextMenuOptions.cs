@@ -13,7 +13,7 @@ public class ContextMenuOptions
 {
     /// <summary>
     /// <para lang="zh">获得/设置 移动端触屏右键菜单延时时长 默认 500 毫秒</para>
-    /// <para lang="en">Get/Set mobile touch context menu delay duration default 500 ms</para>
+    /// <para lang="en">Gets or sets mobile touch context menu delay duration default 500 ms</para>
     /// </summary>
     public int OnTouchDelay { get; set; } = 500;
 }

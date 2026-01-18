@@ -9,13 +9,13 @@ internal class SweetContext
 {
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗返回值</para>
-    /// <para lang="en">Get/Set Dialog Return Value</para>
+    /// <para lang="en">Gets or sets Dialog Return Value</para>
     /// </summary>
     public bool Value { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗任务上下文</para>
-    /// <para lang="en">Get/Set Dialog Task Context</para>
+    /// <para lang="en">Gets or sets Dialog Task Context</para>
     /// </summary>
     [NotNull]
     public TaskCompletionSource<bool>? ConfirmTask { get; init; }

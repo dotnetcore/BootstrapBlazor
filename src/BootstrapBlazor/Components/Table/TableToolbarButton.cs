@@ -14,32 +14,26 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
-    /// <para lang="en">Gets or sets button点击后回调delegate</para>
+    /// <para lang="en">Gets or sets button click callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选中一行时启用按钮 默认 false 均可用</para>
-    /// <para lang="en">Gets or sets 选中一行时启用button Default is false 均可用</para>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 按钮是否被禁用回调方法</para>
-    /// <para lang="en">Gets or sets button whether disable callback method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
-    /// <para lang="en">Gets or sets whether display this button Default is true display</para>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
@@ -47,6 +41,7 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 Table Toolbar 实例</para>
     /// <para lang="en">Gets or sets Table Toolbar instance</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }
@@ -62,11 +57,8 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">DisposeAsyncCore 方法</para>
-    /// <para lang="en">DisposeAsyncCore 方法</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
     protected override ValueTask DisposeAsync(bool disposing)
     {
         Toolbar?.RemoveButton(this);

@@ -9,7 +9,7 @@ public partial class Table<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否为树形数据 默认为 false</para>
-    /// <para lang="en">Get/Set Whether it is tree data. Default false</para>
+    /// <para lang="en">Gets or sets Whether it is tree data. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -17,7 +17,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 生成树状结构回调方法</para>
-    /// <para lang="en">Get/Set Callback for generating tree structure</para>
+    /// <para lang="en">Gets or sets Callback for generating tree structure</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +25,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 树形数据节点展开式回调委托方法</para>
-    /// <para lang="en">Get/Set Callback delegate for expanding tree data node</para>
+    /// <para lang="en">Gets or sets Callback delegate for expanding tree data node</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,13 +33,13 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 树形数据集合</para>
-    /// <para lang="en">Get/Set Tree Data Collection</para>
+    /// <para lang="en">Gets or sets Tree Data Collection</para>
     /// </summary>
     private List<TableTreeNode<TItem>> TreeRows { get; } = new(100);
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否正在加载子项 默认为 false</para>
-    /// <para lang="en">Get/Set Whether loading children. Default false</para>
+    /// <para lang="en">Gets or sets Whether loading children. Default false</para>
     /// </summary>
     private bool IsLoadChildren { get; set; }
 
@@ -47,24 +47,24 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构小箭头图标</para>
-    /// <para lang="en">Get/Set Tree Node Icon</para>
+    /// <para lang="zh">获得/设置 树形结构小箭头图标</para>
+    /// <para lang="en">Gets or sets Tree Node Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构展开小箭头图标</para>
-    /// <para lang="en">Get/Set Tree Node Expand Icon</para>
+    /// <para lang="zh">获得/设置 树形结构展开小箭头图标</para>
+    /// <para lang="en">Gets or sets Tree Node Expand Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeExpandIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数型结构正在加载图标</para>
-    /// <para lang="en">Get/Set Tree Node Loading Icon</para>
+    /// <para lang="zh">获得/设置 树形结构正在加载图标</para>
+    /// <para lang="en">Gets or sets Tree Node Loading Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -72,7 +72,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
-    /// <para lang="en">Get/Set Indent Size. Default 16 px</para>
+    /// <para lang="en">Gets or sets Indent Size. Default 16 px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -112,26 +112,19 @@ public partial class Table<TItem>
     /// <para lang="en">Toggle Tree Node Method</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     protected Func<Task> ToggleTreeRow(TItem item) => async () =>
     {
         if (!IsLoadChildren)
         {
             if (TreeNodeCache.TryFind(TreeRows, item, out var node))
             {
-                // <para lang="zh">重建当前节点缓存</para>
-                // <para lang="en">Rebuild current node cache</para>
                 IsLoadChildren = true;
                 node.IsExpand = !node.IsExpand;
                 await TreeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
                 IsLoadChildren = false;
 
-                // <para lang="zh">清除缓存</para>
-                // <para lang="en">Clear cache</para>
                 _rowsCache = null;
 
-                // <para lang="zh">更新 UI</para>
-                // <para lang="en">Update UI</para>
                 StateHasChanged();
             }
         }

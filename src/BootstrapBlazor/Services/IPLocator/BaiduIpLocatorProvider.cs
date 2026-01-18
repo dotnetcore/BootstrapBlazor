@@ -76,13 +76,13 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     {
         /// <summary>
         /// <para lang="zh">获得/设置 结果状态返回码 为 0 时通讯正常</para>
-        /// <para lang="en">Get/Set Result Status Code, 0 is Normal</para>
+        /// <para lang="en">Gets or sets Result Status Code, 0 is Normal</para>
         /// </summary>
         public string? Status { get; set; }
 
         /// <summary>
         /// <para lang="zh">获得/设置 定位信息</para>
-        /// <para lang="en">Get/Set Location Info</para>
+        /// <para lang="en">Gets or sets Location Info</para>
         /// </summary>
         public List<LocationData>? Data { get; set; }
 

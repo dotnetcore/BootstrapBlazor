@@ -63,7 +63,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
-    /// <para lang="en">Get/Set Whether editable. Default false</para>
+    /// <para lang="en">Gets or sets Whether editable. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -91,7 +91,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板支持静态数据</para>
-    /// <para lang="en">Get/Set Option template supports static data</para>
+    /// <para lang="en">Gets or sets Option template supports static data</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -99,7 +99,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示部分模板 默认 null</para>
-    /// <para lang="en">Get/Set Display Template. Default null</para>
+    /// <para lang="en">Gets or sets Display Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -107,7 +107,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false</para>
-    /// <para lang="en">Get/Set Disable triggering OnSelectedItemChanged callback on first load. Default false</para>
+    /// <para lang="en">Gets or sets Disable triggering OnSelectedItemChanged callback on first load. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -115,7 +115,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
-    /// <para lang="en">Get/Set Value Equality Comparer. Default null</para>
+    /// <para lang="en">Gets or sets Value Equality Comparer. Default null</para>
     /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
     /// <para><version>10.2.2</version></para>
@@ -131,7 +131,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键</para>
-    /// <para lang="en">Get/Set Identifier tag for data primary key. Default is <see cref="KeyAttribute"/>. Used to determine date primary key tag. If the model does not set a primary key, you can use the <see cref="ValueEqualityComparer"/> parameter to customize the judgment of the data model supporting joint primary keys</para>
+    /// <para lang="en">Gets or sets Identifier tag for data primary key. Default is <see cref="KeyAttribute"/>. Used to determine date primary key tag. If the model does not set a primary key, you can use the <see cref="ValueEqualityComparer"/> parameter to customize the judgment of the data model supporting joint primary keys</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -143,7 +143,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
-    /// <para lang="en">Get/Set Bound Dataset</para>
+    /// <para lang="en">Gets or sets Bound Dataset</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -152,7 +152,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板</para>
-    /// <para lang="en">Get/Set Item Template</para>
+    /// <para lang="en">Gets or sets Item Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -160,7 +160,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变</para>
-    /// <para lang="en">Get/Set Callback delegate before dropdown item changes. Return true to change option value, otherwise value remains unchanged</para>
+    /// <para lang="en">Gets or sets Callback delegate before dropdown item changes. Return true to change option value, otherwise value remains unchanged</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -176,7 +176,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 图标 默认 Question</para>
-    /// <para lang="en">Get/Set Swal Icon. Default Question</para>
+    /// <para lang="en">Gets or sets Swal Icon. Default Question</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -184,7 +184,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 标题 默认 null</para>
-    /// <para lang="en">Get/Set Swal Title. Default null</para>
+    /// <para lang="en">Gets or sets Swal Title. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -192,7 +192,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 内容 默认 null</para>
-    /// <para lang="en">Get/Set Swal Content. Default null</para>
+    /// <para lang="en">Gets or sets Swal Content. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -200,7 +200,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 默认 null</para>
-    /// <para lang="en">Get/Set Footer. Default null</para>
+    /// <para lang="en">Gets or sets Footer. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -219,7 +219,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 Select 内部 Input 组件 Id</para>
-    /// <para lang="en">Get/Set Select Internal Input Component Id</para>
+    /// <para lang="en">Gets or sets Select Internal Input Component Id</para>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
@@ -350,7 +350,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据总条目</para>
-    /// <para lang="en">Get/Set Total Count</para>
+    /// <para lang="en">Gets or sets Total Count</para>
     /// </summary>
     private int TotalCount { get; set; }
 

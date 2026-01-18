@@ -13,7 +13,7 @@ public sealed class SerializeFilterAction : IFilterAction
 {
     /// <summary>
     /// <para lang="zh">获得/设置 过滤条件集合</para>
-    /// <para lang="en">Get/Set Filter Condition Collection</para>
+    /// <para lang="en">Gets or sets Filter Condition Collection</para>
     /// </summary>
     public FilterKeyValueAction? Filter { get; set; }
 

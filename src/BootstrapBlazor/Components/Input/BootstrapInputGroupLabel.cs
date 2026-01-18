@@ -30,7 +30,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 
     /// <summary>
     /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置自动适应</para>
-    /// <para lang="en">Get/Set Label Width. Default null (Auto Fit)</para>
+    /// <para lang="en">Gets or sets Label Width. Default null (Auto Fit)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -38,7 +38,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 
     /// <summary>
     /// <para lang="zh">获得/设置 标签对其方式 默认 null 未设置 star 对齐</para>
-    /// <para lang="en">Get/Set Label Alignment. Default null (Start Alignment)</para>
+    /// <para lang="en">Gets or sets Label Alignment. Default null (Start Alignment)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -46,7 +46,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示必填项标识 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show required mark. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show required mark. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -62,7 +62,7 @@ public sealed class BootstrapInputGroupLabel : DisplayBase<string>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 InputGroup 或 TableToolbar 内的标签 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Whether it is a label inside InputGroup or TableToolbar. Default null (Not set)</para>
+    /// <para lang="en">Gets or sets Whether it is a label inside InputGroup or TableToolbar. Default null (Not set)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

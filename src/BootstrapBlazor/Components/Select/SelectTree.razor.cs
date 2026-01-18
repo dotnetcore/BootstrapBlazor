@@ -45,7 +45,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
-    /// <para lang="en">Get/Set Color. Default Color.None</para>
+    /// <para lang="en">Gets or sets Color. Default Color.None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感</para>
-    /// <para lang="en">Get/Set String Comparison. Default StringComparison.OrdinalIgnoreCase</para>
+    /// <para lang="en">Gets or sets String Comparison. Default StringComparison.OrdinalIgnoreCase</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -77,7 +77,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 带层次数据集合</para>
-    /// <para lang="en">Get/Set Hierarchical Data Collection</para>
+    /// <para lang="en">Gets or sets Hierarchical Data Collection</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击节点获取子数据集合回调方法</para>
-    /// <para lang="en">Get/Set OnExpandNodeAsync Callback Method</para>
+    /// <para lang="en">Gets or sets OnExpandNodeAsync Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -111,7 +111,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
-    /// <para lang="en">Get/Set Model Equality Comparer. Default null</para>
+    /// <para lang="en">Gets or sets Model Equality Comparer. Default null</para>
     /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
     /// <para><version>10.2.2</version></para>
@@ -122,7 +122,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Icon 图标 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show Icon. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show Icon. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -130,7 +130,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉箭头 Icon 图标</para>
-    /// <para lang="en">Get/Set Dropdown Icon</para>
+    /// <para lang="en">Gets or sets Dropdown Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -138,7 +138,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
-    /// <para lang="en">Get/Set Whether editable. Default false</para>
+    /// <para lang="en">Gets or sets Whether editable. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
-    /// <para lang="en">Get/Set Whether editable. Default false</para>
+    /// <para lang="en">Gets or sets Whether editable. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -156,7 +156,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示搜索栏 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show search box. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show search box. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -164,7 +164,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定搜索栏 默认 false 不固定</para>
-    /// <para lang="en">Get/Set Whether fixed search box. Default false</para>
+    /// <para lang="en">Gets or sets Whether fixed search box. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -174,7 +174,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示重置搜索栏按钮 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show reset search button. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show reset search button. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -197,7 +197,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Select 内部 Input 组件 Id</para>
-    /// <para lang="en">Get/Set Select Internal Input Component Id</para>
+    /// <para lang="en">Gets or sets Select Internal Input Component Id</para>
     /// </summary>
     private string? InputId => $"{Id}_input";
 

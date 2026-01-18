@@ -13,19 +13,19 @@ public class SearchContext<TValue>(Search<TValue> search, Func<Task> onSearchAsy
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索组件实例</para>
-    /// <para lang="en">Get/Set Search Component Instance</para>
+    /// <para lang="en">Gets or sets Search Component Instance</para>
     /// </summary>
     public Search<TValue> Search { get; } = search;
 
     /// <summary>
     /// <para lang="zh">获得/设置 清空按钮回调方法</para>
-    /// <para lang="en">Get/Set Clear Button Callback Method</para>
+    /// <para lang="en">Gets or sets Clear Button Callback Method</para>
     /// </summary>
     public Func<Task> OnClearAsync { get; } = onClearAsync;
 
     /// <summary>
     /// <para lang="zh">获得/设置 搜索按钮回调方法</para>
-    /// <para lang="en">Get/Set Search Button Callback Method</para>
+    /// <para lang="en">Gets or sets Search Button Callback Method</para>
     /// </summary>
     public Func<Task> OnSearchAsync { get; } = onSearchAsync;
 }

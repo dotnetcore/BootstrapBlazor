@@ -6,16 +6,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Tag 组件类</para>
-/// <para lang="en">Tag component类</para>
+/// <para lang="zh">Tag 组件</para>
+/// <para lang="en">Tag Component</para>
 /// </summary>
 public partial class Tag
 {
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Gets stylecollection</para>
-    /// </summary>
-    /// <returns></returns>
     private string? ClassName => CssBuilder.Default("tag fade show")
         .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
