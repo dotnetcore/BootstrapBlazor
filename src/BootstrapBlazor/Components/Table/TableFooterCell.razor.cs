@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TableFooterCell 组件</para>
-/// <para lang="en">TableFooterCell component</para>
+/// <para lang="en">TableFooterCell Component</para>
 /// </summary>
 public partial class TableFooterCell
 {

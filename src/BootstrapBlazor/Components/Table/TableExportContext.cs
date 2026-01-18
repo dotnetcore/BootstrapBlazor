@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TableExportContext 组件</para>
-/// <para lang="en">TableExportContext component</para>
+/// <para lang="en">TableExportContext Component</para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
 {

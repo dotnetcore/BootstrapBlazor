@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TableFormatContent 组件</para>
-/// <para lang="en">TableFormatContent component</para>
+/// <para lang="en">TableFormatContent Component</para>
 /// </summary>
 internal class TableFormatContent : ComponentBase
 {

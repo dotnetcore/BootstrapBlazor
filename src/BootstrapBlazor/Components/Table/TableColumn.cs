@@ -9,8 +9,8 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">表头组件</para>
-/// <para lang="en">Table column header component</para>
+/// <para lang="zh">表格 Column 列组件</para>
+/// <para lang="en">Table column header Component</para>
 /// </summary>
 /// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">model generic type</para></typeparam>
 /// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">binding field value type</para></typeparam>

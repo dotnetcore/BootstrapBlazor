@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Timer 组件</para>
-/// <para lang="en">Timer component</para>
+/// <para lang="en">Timer Component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class Timer

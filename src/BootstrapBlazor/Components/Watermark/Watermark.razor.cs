@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Watermark 组件</para>
-/// <para lang="en">Watermark component</para>
+/// <para lang="en">Watermark Component</para>
 /// </summary>
 public partial class Watermark
 {

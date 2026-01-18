@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TableToolbarPopConfirmButton 组件</para>
-/// <para lang="en">TableToolbarPopConfirmButton component</para>
+/// <para lang="en">TableToolbarPopConfirmButton Component</para>
 /// </summary>
 [JSModuleNotInherited]
 public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableToolbarButton<TItem>

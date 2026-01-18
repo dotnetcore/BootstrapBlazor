@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Table 组件单元格自定义组件</para>
-/// <para lang="en">Table component custom cell component</para>
+/// <para lang="zh">Table 组件自定义单元格组件</para>
+/// <para lang="en">Table Component custom cell Component</para>
 /// </summary>
 public class TableCellComponent : ComponentBase, ITableCellComponent, IDisposable
 {

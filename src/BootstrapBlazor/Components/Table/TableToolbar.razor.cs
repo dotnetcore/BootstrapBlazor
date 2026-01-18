@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table Toolbar 组件</para>
-/// <para lang="en">Table Toolbar component</para>
+/// <para lang="en">Table Toolbar Component</para>
 /// </summary>
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]

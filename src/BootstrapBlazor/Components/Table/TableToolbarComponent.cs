@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table 工具栏自定义组件</para>
-/// <para lang="en">Table toolbar custom component</para>
+/// <para lang="en">Table toolbar custom Component</para>
 /// </summary>
 public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, IDisposable
 {

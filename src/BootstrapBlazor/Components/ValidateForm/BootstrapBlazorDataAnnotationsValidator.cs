@@ -9,13 +9,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 ///  <para lang="zh">BootstrapBlazorDataAnnotationsValidator 验证组件</para>
-///  <para lang="en">BootstrapBlazorDataAnnotationsValidator 验证component</para>
+///  <para lang="en">BootstrapBlazorDataAnnotationsValidator Validation Component</para>
 /// </summary>
 public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposable
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 当前编辑数据上下文</para>
-    ///  <para lang="en">Gets or sets 当前编辑data上下文</para>
+    ///  <para lang="en">Gets or sets Current Edit Data Context</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]

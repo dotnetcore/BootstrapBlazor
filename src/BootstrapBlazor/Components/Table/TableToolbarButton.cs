@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">表格 Toolbar 按钮组件</para>
-/// <para lang="en">Table toolbar button component</para>
+/// <para lang="en">Table toolbar button Component</para>
 /// </summary>
 [JSModuleNotInherited]
 public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
