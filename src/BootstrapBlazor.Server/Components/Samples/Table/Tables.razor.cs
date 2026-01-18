@@ -349,29 +349,4 @@ public partial class Tables
             DefaultValue = "false"
         }
     ];
-
-    private MethodItem[] GetMethods() =>
-    [
-        new()
-        {
-            Name = nameof(Table<MethodItem>.AddAsync),
-            Description = Localizer["AddAsyncMethod"],
-            Parameters = " — ",
-            ReturnValue = "Task"
-        },
-        new()
-        {
-            Name = nameof(Table<MethodItem>.EditAsync),
-            Description = Localizer["EditAsyncMethod"],
-            Parameters = " — ",
-            ReturnValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Table<MethodItem>.QueryAsync),
-            Description = Localizer["QueryAsyncMethod"],
-            Parameters = " — ",
-            ReturnValue = "Task"
-        }
-    ];
 }
