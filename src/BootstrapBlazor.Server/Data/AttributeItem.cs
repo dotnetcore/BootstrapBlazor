@@ -33,7 +33,7 @@ public class AttributeItem
     /// <summary>
     /// 获得/设置 版本
     /// </summary>
-    public string Version { get; set; } = "";
+    public string Version { get; set; } = "10.2.2";
 
     /// <summary>
     /// 

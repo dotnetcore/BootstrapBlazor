@@ -43,6 +43,7 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">触摸事件触发菜单的超时时间（毫秒）。默认值为 <see cref="ContextMenuOptions.OnTouchDelay"/> 毫秒。必须大于 0。</para>
     /// <para lang="en">The timeout duration for touch events to trigger the context menu (in milliseconds). Default is <see cref="ContextMenuOptions.OnTouchDelay"/> milliseconds. Must be greater than 0.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? OnTouchDelay { get; set; }
