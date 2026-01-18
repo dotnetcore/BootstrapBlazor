@@ -1,7 +1,13 @@
 <div class="table-attr">
-    <h4>@Title</h4>
+    <p class="table-attr-desc">
+        <span class="code-label">@Title</span>
+        @if (Type != null)
+        {
+            <span class="table-attr-mark">Automatically generated</span>
+        }
+    </p>
 
-    <Table TItem="AttributeItem" Items="Items" ShowFooter="@ShowFooter">
+    <Table TItem="AttributeItem" Items="Items" IsBordered="true" IsStriped="true" ShowFooter="@ShowFooter">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />
