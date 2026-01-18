@@ -19,24 +19,24 @@ namespace BootstrapBlazor.Components;
 public partial class ValidateForm
 {
     /// <summary>
-    /// <para lang="zh">A 回调 that will be invoked when the form is submitted and the <see cref="EditContext"/> is determined to be valid.</para>
-    /// <para lang="en">A callback that will be invoked when the form is submitted and the <see cref="EditContext"/> is determined to be valid.</para>
+    /// <para lang="zh">获得/设置 表单提交后验证合规时回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when form submission is validated.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<EditContext, Task>? OnValidSubmit { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A 回调 that will be invoked when the form is submitted and the <see cref="EditContext"/> is determined to be invalid.</para>
-    /// <para lang="en">A callback that will be invoked when the form is submitted and the <see cref="EditContext"/> is determined to be invalid.</para>
+    /// <para lang="zh">获得/设置 表单提交后验证不合规时回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when form submission is invalid.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A 回调 that will be invoked when the field's value has been changed</para>
-    /// <para lang="en">A callback that will be invoked when the field's value has been changed</para>
+    /// <para lang="zh">获得/设置 表单内绑定字段值变化时回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when a bound field's value has changed within the form.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示所有验证失败字段的提示信息 默认 false 仅显示第一个验证失败字段的提示信息</para>
-    /// <para lang="en">Gets or sets whetherdisplay所有验证失败字段的提示信息 Default is false 仅display第一个验证失败字段的提示信息</para>
+    /// <para lang="en">Gets or sets whether to display all validation failure messages. The default is false, which only displays the first validation failure message.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,15 +53,15 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否验证所有字段 默认 false</para>
-    /// <para lang="en">Gets or sets whether验证所有字段 Default is false</para>
+    /// <para lang="en">Gets or sets whether to validate all properties. The default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ValidateAllProperties { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Specifies the top-level model object for the form. An edit context will be constructed for this model. If using this parameter, do not also supply a value for <see cref="EditContext"/>.</para>
-    /// <para lang="en">Specifies the top-level model object for the form. An edit context will be constructed for this model. If using this parameter, do not also supply a value for <see cref="EditContext"/>.</para>
+    /// <para lang="zh">获得/设置 表单绑定模型对象</para>
+    /// <para lang="en">Gets or sets the top-level model object for the form.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,8 +69,8 @@ public partial class ValidateForm
     public object? Model { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Specifies the 内容 to be rendered inside this</para>
-    /// <para lang="en">Specifies the content to be rendered inside this</para>
+    /// <para lang="zh">获得/设置 组件子内容</para>
+    /// <para lang="en">Gets or sets the content to be rendered inside this component.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -78,7 +78,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否获取必填项标记 默认为 true 显示</para>
-    /// <para lang="en">Gets or sets whether获取必填项标记 Default is为 true display</para>
+    /// <para lang="en">Gets or sets whether to display the required mark. The default is true, which means the required mark is displayed.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -86,7 +86,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示验证表单内的 Label 默认为 null</para>
-    /// <para lang="en">Gets or sets whetherdisplay验证表单内的 Label Default is为 null</para>
+    /// <para lang="en">Gets or sets whether to display labels within the validation form. The default value is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -94,7 +94,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
-    /// <para lang="en">Gets or sets whetherdisplay标签 Tooltip 多用于标签文字过长导致裁减时使用 Default is null</para>
+    /// <para lang="en">Gets or sets whether to display a tooltip for the label, often used when the label text is too long and gets truncated. The default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -102,7 +102,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为无表单模式 默认 false</para>
-    /// <para lang="en">Gets or sets whether为无表单模式 Default is false</para>
+    /// <para lang="en">Gets or sets whether to use a formless mode. The default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>设置为 true 时不渲染 form 元素，仅级联 EditContext 用于 Table InCell 编辑模式</remarks>
@@ -118,8 +118,8 @@ public partial class ValidateForm
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值</para>
-    /// <para lang="en">Gets or sets 标签width Default is null 未Sets使用全局Sets <code>--bb-row-label-width</code> 值</para>
+    /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置 使用全局设置 <code>--bb-row-label-width</code> 值</para>
+    /// <para lang="en">Gets or sets the label width. The default is null, which means the global setting <code>--bb-row-label-width</code> is used.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -143,23 +143,19 @@ public partial class ValidateForm
     /// </summary>
     private readonly ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
 
-    /// <summary>
-    /// <para lang="zh">验证组件验证结果缓存</para>
-    /// <para lang="en">验证component验证结果缓存</para>
-    /// </summary>
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
 
     private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
 
     /// <summary>
-    /// <para lang="zh">验证合法成员集合</para>
-    /// <para lang="en">验证合法成员collection</para>
+    /// <para lang="zh">获得验证合法成员集合</para>
+    /// <para lang="en">Gets the collection of valid member names.</para>
     /// </summary>
     internal List<string> ValidMemberNames { get; } = [];
 
     /// <summary>
-    /// <para lang="zh">验证非法成员集合</para>
-    /// <para lang="en">验证非法成员collection</para>
+    /// <para lang="zh">获得验证非法成员集合</para>
+    /// <para lang="en">Gets the collection of invalid member names.</para>
     /// </summary>
     internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
@@ -170,8 +166,7 @@ public partial class ValidateForm
         .Build();
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet 方法</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -191,7 +186,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">添加数据验证组件到 EditForm 中</para>
-    /// <para lang="en">添加data验证component到 EditForm 中</para>
+    /// <para lang="en">Adds a data validation component to the EditForm.</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
@@ -202,7 +197,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">移除数据验证组件到 EditForm 中</para>
-    /// <para lang="en">移除data验证component到 EditForm 中</para>
+    /// <para lang="en">Removes a data validation component from the EditForm.</para>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
@@ -210,7 +205,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">设置指定字段错误信息</para>
-    /// <para lang="en">Sets指定字段错误信息</para>
+    /// <para lang="en">Sets the error message for the specified field.</para>
     /// </summary>
     /// <param name="expression"></param>
     /// <param name="errorMessage"><para lang="zh">错误描述信息，可为空，为空时查找资源文件</para><para lang="en">错误描述info，可为空，为空时查找资源文件</para></param>
@@ -249,10 +244,10 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">设置指定字段错误信息</para>
-    /// <para lang="en">Sets指定字段错误信息</para>
+    /// <para lang="en">Sets the error message for the specified field.</para>
     /// </summary>
-    /// <param name="propertyName"><para lang="zh">字段名，可以使用多层，如 a.b.c</para><para lang="en">字段名，可以使用多层，如 a.b.c</para></param>
-    /// <param name="errorMessage"><para lang="zh">错误描述信息，可为空，为空时查找资源文件</para><para lang="en">错误描述info，可为空，为空时查找资源文件</para></param>
+    /// <param name="propertyName"><para lang="zh">字段名，可以使用多层，如 a.b.c</para><para lang="en">Field name, can be multi-level, such as a.b.c</para></param>
+    /// <param name="errorMessage"><para lang="zh">错误描述信息，可为空，为空时查找资源文件</para><para lang="en">Error description info, can be empty, if empty, resource file is searched</para></param>
     public async Task SetError(string propertyName, string errorMessage)
     {
         if (TryGetModelField(propertyName, out var modelType, out var fieldName) && TryGetValidator(modelType, fieldName, out var validator))
@@ -297,7 +292,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">EditModel 数据模型验证方法</para>
-    /// <para lang="en">EditModel data模型验证方法</para>
+    /// <para lang="en">EditModel data model validation method</para>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
@@ -384,7 +379,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">通过表单内绑定的字段验证方法</para>
-    /// <para lang="en">通过表单内绑定的字段验证方法</para>
+    /// <para lang="en">Validates a field bound within the form.</para>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
@@ -410,7 +405,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">通过属性设置的 DataAnnotation 进行数据验证</para>
-    /// <para lang="en">通过propertySets的 DataAnnotation 进行data验证</para>
+    /// <para lang="en">Validates data using DataAnnotations set on properties.</para>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="context"></param>
@@ -494,7 +489,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">验证整个模型时验证属性方法</para>
-    /// <para lang="en">验证整个模型时验证property方法</para>
+    /// <para lang="en">Validates properties when validating the entire model.</para>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="results"></param>
@@ -607,7 +602,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">注册提交按钮</para>
-    /// <para lang="en">注册提交button</para>
+    /// <para lang="en">Registers a submit button.</para>
     /// </summary>
     /// <param name="button"></param>
     internal void RegisterAsyncSubmitButton(ButtonBase button)
@@ -680,15 +675,11 @@ public partial class ValidateForm
     [NotNull]
     private BootstrapBlazorDataAnnotationsValidator? Validator { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 无表单模式下的 EditContext 实例</para>
-    /// <para lang="en">Gets or sets 无表单模式下的 EditContext instance</para>
-    /// </summary>
     private EditContext? _formlessEditContext;
 
     /// <summary>
     /// <para lang="zh">同步验证方法 用于代码调用触发表单验证（不支持某些组件的异步验证）</para>
-    /// <para lang="en">同步验证方法 用于代码调用触发表单验证（不支持某些component的异步验证）</para>
+    /// <para lang="en">Synchronous validation method used to trigger form validation via code (does not support asynchronous validation for some components).</para>
     /// </summary>
     [Obsolete("已弃用，请使用 ValidateAsync 方法。Deprecated. Please use the ValidateAsync method.")]
     [ExcludeFromCodeCoverage]
@@ -696,14 +687,13 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">异步验证方法 用于代码调用触发表单验证（支持异步验证）</para>
-    /// <para lang="en">异步验证方法 用于代码调用触发表单验证（支持异步验证）</para>
+    /// <para lang="en">Asynchronous validation method used to trigger form validation via code (supports asynchronous validation).</para>
     /// </summary>
-    /// <returns></returns>
     public Task<bool> ValidateAsync() => Validator.ValidateAsync();
 
     /// <summary>
     /// <para lang="zh">通知属性改变方法</para>
-    /// <para lang="en">通知property改变方法</para>
+    /// <para lang="en">Notifies that a property has changed.</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="value"></param>
@@ -715,14 +705,14 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获取 当前表单值改变的属性集合</para>
-    /// <para lang="en">获取 当前表单值改变的propertycollection</para>
+    /// <para lang="en">Get the set of attributes whose current form values ​​have changed.</para>
     /// </summary>
     /// <returns></returns>
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChangedFields { get; } = new();
 
     /// <summary>
     /// <para lang="zh">获取 当前表单值改变的属性集合</para>
-    /// <para lang="en">获取 当前表单值改变的propertycollection</para>
+    /// <para lang="en">Get the set of attributes whose current form values ​​have changed.</para>
     /// </summary>
     /// <returns></returns>
     [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated Please use ValueChangedFields instead. wrong typo")]
