@@ -1,4 +1,4 @@
-﻿@page "/editor-form"
+@page "/editor-form"
 @inject IStringLocalizer<EditorForms> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -138,6 +138,6 @@
     </EditorForm>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(EditorForm<>)" />
 
-<AttributeTable Title="@Localizer["EditorFormAttributeTitle"]" Items="@GetEditorItemAttributes()"></AttributeTable>
+<AttributeTable Title="@Localizer["EditorFormAttributeTitle"]" Type="typeof(EditorItem<,>)"></AttributeTable>

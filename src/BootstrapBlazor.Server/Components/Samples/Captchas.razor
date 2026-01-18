@@ -1,4 +1,4 @@
-﻿@page "/captcha"
+@page "/captcha"
 @inject IStringLocalizer<Captchas> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -17,7 +17,7 @@
     <Captcha GetImageName="@GetImageName" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Captcha)" />
 
 <EventTable Items="@GetEvents()" />
 

@@ -1,4 +1,4 @@
-﻿@page "/spinner"
+@page "/spinner"
 @inject IStringLocalizer<Spinners> Localizer
 
 <h3>@Localizer["SpinnersTitle"]</h3>
@@ -90,4 +90,4 @@
     <Spinner Class="float-end"></Spinner>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Spinner)"></AttributeTable>

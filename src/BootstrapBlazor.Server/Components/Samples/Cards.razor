@@ -1,4 +1,4 @@
-﻿@page "/card"
+@page "/card"
 @inject IStringLocalizer<Cards> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -230,4 +230,4 @@
     </Card>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()" />
+<AttributeTable Type="typeof(Card)" />

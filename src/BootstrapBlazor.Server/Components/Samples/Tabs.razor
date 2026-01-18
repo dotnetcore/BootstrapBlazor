@@ -1,4 +1,4 @@
-﻿@page "/tab"
+@page "/tab"
 @inject IStringLocalizer<Tabs> Localizer
 @inject ToastService ToastService
 
@@ -522,6 +522,6 @@ private void Navigation()
     </Tab>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
+<AttributeTable Type="@typeof(Tab)" />
 
 <MethodTable Items="@GetMethods()" Title="@Localizer["MethodTitle"]" />

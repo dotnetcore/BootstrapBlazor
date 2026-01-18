@@ -1,4 +1,4 @@
-﻿@page "/svg-editors"
+@page "/svg-editors"
 @inject IStringLocalizer<SvgEditors> Localizer
 
 <h3>@Localizer["SvgEditorTitle"]</h3>
@@ -9,3 +9,5 @@
     <SvgEditor OnSaveChanged="@OnSaveChanged"></SvgEditor>
     <ConsoleLogger @ref="Console" class="mt-3"></ConsoleLogger>
 </DemoBlock>
+
+<AttributeTable Type="typeof(SvgEditor)" />

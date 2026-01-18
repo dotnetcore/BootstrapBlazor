@@ -1,4 +1,4 @@
-﻿@page "/markdown"
+@page "/markdown"
 @inject IStringLocalizer<Markdowns> Localizer
 
 <h3>@Localizer["MarkdownsTitle"]</h3>
@@ -101,4 +101,4 @@
     </ValidateForm>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()"></AttributeTable>
+<AttributeTable Type="typeof(Markdown)"></AttributeTable>

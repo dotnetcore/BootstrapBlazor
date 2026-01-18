@@ -1,4 +1,4 @@
-﻿@page "/cascader"
+@page "/cascader"
 @inject IStringLocalizer<Cascaders> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -126,6 +126,6 @@
     <Cascader Color="Color.Primary" Items="@_items" @bind-Value="@Model.Address" DisplayText="@Localizer["CascaderText"]" ShowLabel="true" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Cascader<>)" />
 
 <EventTable Items="@GetEvents()" />

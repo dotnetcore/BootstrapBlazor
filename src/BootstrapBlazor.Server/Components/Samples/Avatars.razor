@@ -1,4 +1,4 @@
-﻿@page "/avatar"
+@page "/avatar"
 @inject IStringLocalizer<Avatars> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -57,4 +57,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Avatar)" />

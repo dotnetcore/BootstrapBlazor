@@ -1,4 +1,4 @@
-﻿@page "/dropdown-widget"
+@page "/dropdown-widget"
 @inject IStringLocalizer<DropdownWidgets> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -86,4 +86,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" Title="@Localizer["AttributeTitle"]" />
+<AttributeTable Type="typeof(DropdownWidget)" Title="@Localizer["AttributeTitle"]" />

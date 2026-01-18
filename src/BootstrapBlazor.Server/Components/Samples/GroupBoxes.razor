@@ -1,4 +1,4 @@
-﻿@page "/group-box"
+@page "/group-box"
 @inject IStringLocalizer<GroupBoxes> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -12,4 +12,4 @@
     </GroupBox>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(GroupBox)" />

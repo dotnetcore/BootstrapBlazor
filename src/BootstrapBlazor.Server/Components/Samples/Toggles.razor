@@ -1,4 +1,4 @@
-﻿@page "/toggle"
+@page "/toggle"
 @inject IStringLocalizer<Toggles> Localizer
 
 <h3>@Localizer["TogglesTitle"]</h3>
@@ -104,6 +104,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Toggle)" />
 
 <EventTable Items="@GetEvents()" />

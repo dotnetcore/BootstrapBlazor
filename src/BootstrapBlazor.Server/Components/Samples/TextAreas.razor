@@ -1,4 +1,4 @@
-﻿@page "/textarea"
+@page "/textarea"
 @inject IStringLocalizer<TextAreas> Localizer
 @implements IDisposable
 
@@ -73,4 +73,4 @@
     <ConsoleLogger @ref="ConsoleLogger"></ConsoleLogger>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Textarea)" />

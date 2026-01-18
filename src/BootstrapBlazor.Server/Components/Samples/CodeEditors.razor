@@ -1,4 +1,4 @@
-﻿@page "/code-editors"
+@page "/code-editors"
 @inject IStringLocalizer<CodeEditors> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -37,4 +37,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributeItems()" />
+<AttributeTable Type="typeof(CodeEditor)" />

@@ -1,4 +1,4 @@
-﻿@page "/collapse"
+@page "/collapse"
 @inject IStringLocalizer<Collapses> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -175,6 +175,6 @@
     </Collapse>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Collapse)" />
 
-<AttributeTable Items="@GetCollapseItemAttributes()" Title="@nameof(CollapseItem)" />
+<AttributeTable Type="typeof(CollapseItem)" Title="@nameof(CollapseItem)" />

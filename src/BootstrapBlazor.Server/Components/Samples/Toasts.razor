@@ -1,4 +1,4 @@
-﻿@page "/toast"
+@page "/toast"
 @inject IStringLocalizer<Toasts> Localizer
 @inject ToastService ToastService
 
@@ -164,7 +164,7 @@ private ToastService? ToastService { get; set; }
     });
 }</Pre>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Toast)" />
 
 @code {
     RenderFragment RenderHeader =>

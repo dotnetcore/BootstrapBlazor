@@ -1,4 +1,4 @@
-﻿@page "/export-pdf-button"
+@page "/export-pdf-button"
 @inject IStringLocalizer<ExportPdfButtons> Localizer
 
 <h3>@Localizer["ExportPdfButtonsTitle"]</h3>
@@ -44,4 +44,4 @@
     <ExportPdfButton Selector=".table-9527-02" IsAsync="true" OnBeforeExport="OnBeforeExport" OnAfterDownload="OnAfterDownload" AutoDownload="true" FileName="@PdfFileName"></ExportPdfButton>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(ExportPdfButton)" />

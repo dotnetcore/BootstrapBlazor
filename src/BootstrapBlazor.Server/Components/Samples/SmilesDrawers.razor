@@ -1,4 +1,4 @@
-﻿@page "/smiles-drawer"
+@page "/smiles-drawer"
 @inject IStringLocalizer<SmilesDrawers> Localizer
 
 <h3>@Localizer["SmilesDrawerTitle"]</h3>
@@ -21,3 +21,5 @@
     </section>
     <SmilesDrawer Smiles="CC(=O)Oc1ccccc1C(=O)O" Options="_options"></SmilesDrawer>
 </DemoBlock>
+
+<AttributeTable Type="typeof(SmilesDrawer)"></AttributeTable>

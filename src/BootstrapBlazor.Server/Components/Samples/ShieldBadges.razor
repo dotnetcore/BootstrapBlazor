@@ -1,4 +1,4 @@
-﻿@page "/shield-badge"
+@page "/shield-badge"
 @inject IStringLocalizer<ShieldBadges> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -72,3 +72,5 @@
                  Text="12M" TextColor="@_textColor" TextBackgroundColor="@_textBackgroundColor"
                  Radius="@_radius"></ShieldBadge>
 </DemoBlock>
+
+<AttributeTable Type="typeof(ShieldBadge)" />

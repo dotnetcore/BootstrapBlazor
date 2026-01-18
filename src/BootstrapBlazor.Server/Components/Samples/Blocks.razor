@@ -1,4 +1,4 @@
-﻿@page "/block"
+@page "/block"
 @inject IStringLocalizer<Blocks> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -68,4 +68,4 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Block)" />

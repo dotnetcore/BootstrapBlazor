@@ -1,4 +1,4 @@
-﻿@page "/mask"
+@page "/mask"
 @inject IStringLocalizer<Masks> Localizer
 
 <h3>@Localizer["MaskTitle"]</h3>
@@ -34,3 +34,5 @@
 <DemoBlock Title="@Localizer["MaskCloseTitle"]" Introduction="@Localizer["MaskCloseIntro"]">
     <Button Text="Show" OnClick="ShowCloseMask"></Button>
 </DemoBlock>
+
+<AttributeTable Type="typeof(Mask)"></AttributeTable>

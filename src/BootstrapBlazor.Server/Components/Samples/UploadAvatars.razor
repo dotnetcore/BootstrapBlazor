@@ -1,4 +1,4 @@
-﻿@page "/upload-avatar"
+@page "/upload-avatar"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<UploadAvatars> Localizer
 @inject ToastService ToastService
@@ -76,4 +76,4 @@
     </ValidateForm>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()"></AttributeTable>
+<AttributeTable Type="typeof(AvatarUpload<>)"></AttributeTable>

@@ -1,4 +1,4 @@
-﻿@page "/mind-map"
+@page "/mind-map"
 @inject IStringLocalizer<MindMaps> Localizer
 
 <HeadContent>
@@ -60,4 +60,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()"></AttributeTable>
+<AttributeTable Type="typeof(MindMap)"></AttributeTable>

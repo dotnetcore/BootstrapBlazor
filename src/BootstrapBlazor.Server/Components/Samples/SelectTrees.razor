@@ -1,4 +1,4 @@
-﻿@page "/select-tree"
+@page "/select-tree"
 @inject IStringLocalizer<SelectTrees> Localizer
 
 <h3>@Localizer["SelectTreesTitle"]</h3>
@@ -73,3 +73,5 @@
         </div>
     </div>
 </DemoBlock>
+
+<AttributeTable Type="typeof(SelectTree<>)" />

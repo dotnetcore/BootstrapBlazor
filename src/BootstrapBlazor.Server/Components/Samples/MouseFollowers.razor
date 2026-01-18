@@ -1,4 +1,4 @@
-﻿@page "/mouse-follower"
+@page "/mouse-follower"
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <HeadContent>
@@ -85,4 +85,4 @@
     </MouseFollower>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(MouseFollower)" />

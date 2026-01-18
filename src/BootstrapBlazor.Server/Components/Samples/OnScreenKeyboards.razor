@@ -1,4 +1,4 @@
-﻿@page "/onscreen-keyboard"
+@page "/onscreen-keyboard"
 @inject IStringLocalizer<OnScreenKeyboards> Localizer
 
 <h3>@Localizer["OnScreenKeyboardsTitle"]</h3>
@@ -84,8 +84,6 @@
     <p>@((MarkupString)Localizer["OnScreenKeyboardsCss"].Value)</p>
 </Tips>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(OnScreenKeyboard)" />
 
-<AttributeTable Items="@GetKeyboardOptionAttributes()" Title="KeyboardOption" />
-
-<AttributeTable Items="@GetKeyboardEnumAttributes()" Title="KeyboardEnum" />
+<AttributeTable Type="typeof(KeyboardOption)" />

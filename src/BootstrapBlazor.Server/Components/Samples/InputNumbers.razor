@@ -1,4 +1,4 @@
-﻿@page "/input-number"
+@page "/input-number"
 @inject IStringLocalizer<InputNumbers> Localizer
 
 <h3>@Localizer["InputNumbersTitle"]</h3>
@@ -245,4 +245,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(BootstrapInputNumber<>)" />
