@@ -14,13 +14,13 @@ public class DispatchEntry<TEntry>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 Entry 名称 默认 null</para>
-    /// <para lang="en">Get/Set Entry name default null</para>
+    /// <para lang="en">Gets or sets Entry name default null</para>
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Entry 实例 不为空</para>
-    /// <para lang="en">Get/Set Entry instance not null</para>
+    /// <para lang="en">Gets or sets Entry instance not null</para>
     /// </summary>
     public TEntry? Entry { get; set; }
 }

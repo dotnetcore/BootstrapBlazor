@@ -25,7 +25,7 @@ public class DefaultIPLocator : IIPLocator
 
     /// <summary>
     /// <para lang="zh">获得/设置 IP定位器请求地址</para>
-    /// <para lang="en">Get/Set IP Locator Request URL</para>
+    /// <para lang="en">Gets or sets IP Locator Request URL</para>
     /// </summary>
     public string? Url { get; set; }
 

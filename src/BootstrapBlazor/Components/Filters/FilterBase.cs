@@ -15,7 +15,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
     /// <para lang="zh">获得/设置 <see cref="IStringLocalizer{TableFilter}"/> 实例</para>
-    /// <para lang="en">Get/Set <see cref="IStringLocalizer{TableFilter}"/> Instance</para>
+    /// <para lang="en">Gets or sets <see cref="IStringLocalizer{TableFilter}"/> Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -23,7 +23,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 
     /// <summary>
     /// <para lang="zh">获得/设置 相关 Field 字段名称</para>
-    /// <para lang="en">Get/Set Related Field Name</para>
+    /// <para lang="en">Gets or sets Related Field Name</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,7 +32,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
-    /// <para lang="en">Get/Set Whether is HeaderRow Mode Default false</para>
+    /// <para lang="en">Gets or sets Whether is HeaderRow Mode Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -40,7 +40,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 
     /// <summary>
     /// <para lang="zh">获得/设置 条件数量</para>
-    /// <para lang="en">Get/Set Condition Count</para>
+    /// <para lang="en">Gets or sets Condition Count</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -48,7 +48,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 
     /// <summary>
     /// <para lang="zh">获得/设置 所属 TableFilter 实例</para>
-    /// <para lang="en">Get/Set Belonging TableFilter Instance</para>
+    /// <para lang="en">Gets or sets Belonging TableFilter Instance</para>
     /// </summary>
     [CascadingParameter, NotNull]
     protected TableColumnFilter? TableColumnFilter { get; set; }
@@ -62,7 +62,7 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 
     /// <summary>
     /// <para lang="zh">获得/设置 多个条件逻辑关系符号</para>
-    /// <para lang="en">Get/Set Logical Operator for Multiple Conditions</para>
+    /// <para lang="en">Gets or sets Logical Operator for Multiple Conditions</para>
     /// </summary>
     protected FilterLogic Logic { get; set; }
 

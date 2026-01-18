@@ -50,7 +50,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
-    /// <para lang="en">Get/Set Custom Error Handler</para>
+    /// <para lang="en">Gets or sets Custom Error Handler</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -58,7 +58,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -66,7 +66,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
 
     /// <summary>
     /// <para lang="zh">获得/设置 异常显示模板 默认 null</para>
-    /// <para lang="en">Get/Set Exception Display Template Default null</para>
+    /// <para lang="en">Gets or sets Exception Display Template Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>

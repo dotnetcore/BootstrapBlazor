@@ -8,24 +8,24 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否分页 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to allow pagination. Default false</para>
+    /// <para lang="zh">获得/设置 是否分页，默认值为 false</para>
+    /// <para lang="en">Gets or sets Whether to allow pagination. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPagination { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Page up/down 页码数量 默认 5</para>
-    /// <para lang="en">Get/Set Page up/down page link count. Default 5</para>
+    /// <para lang="zh">获得/设置 分页上下翻页的页码数量，默认为 5</para>
+    /// <para lang="en">Gets or sets Page up/down page link count. Default 5</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxPageLinkCount { get; set; } = 5;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否在顶端显示分页 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to show pagination at top. Default false</para>
+    /// <para lang="zh">获得/设置 是否在顶端显示分页，默认值为 false</para>
+    /// <para lang="en">Gets or sets Whether to show pagination at top. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +33,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行号列 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to show line number column. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show line number column. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 行号列标题文字 默认为 行号</para>
-    /// <para lang="en">Get/Set Line Number Column Header Text. Default "Line No"</para>
+    /// <para lang="en">Gets or sets Line Number Column Header Text. Default "Line No"</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -50,7 +50,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 每页显示数据数量的外部数据源</para>
-    /// <para lang="en">Get/Set External data source for items per page</para>
+    /// <para lang="en">Gets or sets External data source for items per page</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -67,25 +67,25 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据总条目</para>
-    /// <para lang="en">Get/Set Total items count</para>
+    /// <para lang="en">Gets or sets Total items count</para>
     /// </summary>
     protected int TotalCount { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 分页页码总数 内置规则 PageCount > 1 时显示分页组件</para>
-    /// <para lang="en">Get/Set Total page count. Internal rule: show pagination when PageCount > 1</para>
+    /// <para lang="en">Gets or sets Total page count. Internal rule: show pagination when PageCount > 1</para>
     /// </summary>
     protected int PageCount { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前页码 默认 1</para>
-    /// <para lang="en">Get/Set Current page index. Default 1</para>
+    /// <para lang="en">Gets or sets Current page index. Default 1</para>
     /// </summary>
     protected int PageIndex { get; set; } = 1;
 
     /// <summary>
     /// <para lang="zh">获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值</para>
-    /// <para lang="en">Get/Set Default items per page. Default null (Use first value of <see cref="PageItemsSource"/>)</para>
+    /// <para lang="en">Gets or sets Default items per page. Default null (Use first value of <see cref="PageItemsSource"/>)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -93,7 +93,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航</para>
-    /// <para lang="en">Get/Set Whether to show Goto navigator</para>
+    /// <para lang="en">Gets or sets Whether to show Goto navigator</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -101,7 +101,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航文本信息 默认 null</para>
-    /// <para lang="en">Get/Set Whether to show Goto navigator label text. Default null</para>
+    /// <para lang="en">Gets or sets Whether to show Goto navigator label text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -109,7 +109,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Goto 导航模板</para>
-    /// <para lang="en">Get/Set Goto navigator template</para>
+    /// <para lang="en">Gets or sets Goto navigator template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -117,7 +117,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 PageInfo 内容 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show PageInfo. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show PageInfo. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -125,7 +125,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息文字 默认 null</para>
-    /// <para lang="en">Get/Set Page Info Text. Default null</para>
+    /// <para lang="en">Gets or sets Page Info Text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -133,7 +133,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息模板</para>
-    /// <para lang="en">Get/Set Page Info Template</para>
+    /// <para lang="en">Gets or sets Page Info Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -141,7 +141,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息内容模板 默认 null</para>
-    /// <para lang="en">Get/Set Page Info Body Template. Default null</para>
+    /// <para lang="en">Gets or sets Page Info Body Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -149,12 +149,12 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前行</para>
-    /// <para lang="en">Get/Set Start Index</para>
+    /// <para lang="en">Gets or sets Start Index</para>
     /// </summary>
     protected int StartIndex { get; set; }
 
     /// <summary>
-    /// <para lang="zh">当前每页项目数量设置 默认 null 内部使用</para>
+    /// <para lang="zh">当前每页项目数量设置，默认值为 null，内部使用</para>
     /// <para lang="en">Current items per page setting. Default null (Internal Use)</para>
     /// </summary>
     private int _pageItems;
@@ -198,21 +198,12 @@ public partial class Table<TItem>
 
             if (!IsKeepSelectedRows)
             {
-                // <para lang="zh">清空选中行</para>
-                // <para lang="en">Clear selected rows</para>
                 SelectedRows.Clear();
             }
 
-            // <para lang="zh">无刷新查询数据</para>
-            // <para lang="en">Query data without refresh</para>
             await QueryAsync(false, triggerByPagination: true);
-
-            // <para lang="zh">通知 SelectedRow 双向绑定集合改变</para>
-            // <para lang="en">Notify SelectedRow two-way binding collection changed</para>
             await OnSelectedRowsChanged();
 
-            // <para lang="zh">通知 UI 滚动到顶端</para>
-            // <para lang="en">Notify UI scroll to top</para>
             if (IsAutoScrollTopWhenClickPage)
             {
                 _shouldScrollTop = true;
@@ -221,7 +212,7 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">每页记录条数变化是调用此方法</para>
+    /// <para lang="zh">每页记录条数变化时调用此方法</para>
     /// <para lang="en">Page Items Value Changed Callback</para>
     /// </summary>
     protected async Task OnPageItemsValueChanged(int pageItems)

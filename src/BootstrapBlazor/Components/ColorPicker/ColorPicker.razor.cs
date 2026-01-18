@@ -23,7 +23,7 @@ public partial class ColorPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示模板</para>
-    /// <para lang="en">Get/Set display template</para>
+    /// <para lang="en">Gets or sets display template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class ColorPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示颜色值格式化回调方法</para>
-    /// <para lang="en">Get/Set display color value formatting callback method</para>
+    /// <para lang="en">Gets or sets display color value formatting callback method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -39,7 +39,7 @@ public partial class ColorPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否支持透明度 默认 false 不支持</para>
-    /// <para lang="en">Get/Set whether to support opacity, default is false(not supported)</para>
+    /// <para lang="en">Gets or sets whether to support opacity, default is false(not supported)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -47,7 +47,7 @@ public partial class ColorPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 预设候选颜色 <see cref="IsSupportOpacity"/> 开启时生效 默认 null</para>
-    /// <para lang="en">Get/Set preset candidate colors, effective when <see cref="IsSupportOpacity"/> is enabled, default is null</para>
+    /// <para lang="en">Gets or sets preset candidate colors, effective when <see cref="IsSupportOpacity"/> is enabled, default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>

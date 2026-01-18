@@ -13,7 +13,7 @@ public interface ISelectObjectContext<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 SelectObject 组件实例对象引用</para>
-    /// <para lang="en">Get/Set SelectObject Component Instance</para>
+    /// <para lang="en">Gets or sets SelectObject Component Instance</para>
     /// </summary>
     [NotNull]
     SelectObject<TItem>? Component { get; set; }

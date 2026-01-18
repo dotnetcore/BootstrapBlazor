@@ -17,7 +17,7 @@ public sealed partial class GroupBox
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +25,7 @@ public sealed partial class GroupBox
 
     /// <summary>
     /// <para lang="zh">获得/设置 Title 属性 默认为 null</para>
-    /// <para lang="en">Get/Set Title Property Default null</para>
+    /// <para lang="en">Gets or sets Title Property Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

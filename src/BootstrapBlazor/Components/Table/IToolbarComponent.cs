@@ -12,8 +12,9 @@ namespace BootstrapBlazor.Components;
 public interface IToolbarComponent
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 默认 true 显示</para>
-    /// <para lang="en">Gets or sets whether display Default is true display</para>
+    /// <para lang="zh">获得/设置 是否显示，默认为 true 显示</para>
+    /// <para lang="en">Gets or sets whether to display. Default is true.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     bool IsShow { get; set; }
 }

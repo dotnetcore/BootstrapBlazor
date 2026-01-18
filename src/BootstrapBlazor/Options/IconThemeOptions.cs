@@ -17,7 +17,7 @@ public class IconThemeOptions
 {
     /// <summary>
     /// <para lang="zh">获得/设置 主题 Icons 集合</para>
-    /// <para lang="en">Get/Set theme Icons collection</para>
+    /// <para lang="en">Gets or sets theme Icons collection</para>
     /// </summary>
 #if NET8_0_OR_GREATER
     public FrozenDictionary<string, FrozenDictionary<ComponentIcons, string>> Icons { get; private set; }
@@ -27,7 +27,7 @@ public class IconThemeOptions
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前主题键值 默认 fa 使用 font-awesome 图标集</para>
-    /// <para lang="en">Get/Set current theme key default fa using font-awesome icon set</para>
+    /// <para lang="en">Gets or sets current theme key default fa using font-awesome icon set</para>
     /// </summary>
     public string ThemeKey { get; set; }
 

@@ -29,7 +29,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 原生 z-index 属性 默认 2050</para>
-    /// <para lang="en">Get/Set z-index property Default 2050</para>
+    /// <para lang="en">Gets or sets z-index property Default 2050</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 预览大图链接集合 默认 null</para>
-    /// <para lang="en">Get/Set Preview Image List Default null</para>
+    /// <para lang="en">Gets or sets Preview Image List Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -49,7 +49,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 上一张图片 Icon 图标</para>
-    /// <para lang="en">Get/Set Previous Image Icon</para>
+    /// <para lang="en">Gets or sets Previous Image Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -57,7 +57,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 下一张图片 Icon 图标</para>
-    /// <para lang="en">Get/Set Next Image Icon</para>
+    /// <para lang="en">Gets or sets Next Image Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -65,7 +65,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 缩小 Icon 图标</para>
-    /// <para lang="en">Get/Set Zoom Out Icon</para>
+    /// <para lang="en">Gets or sets Zoom Out Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -73,7 +73,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 放大 Icon 图标</para>
-    /// <para lang="en">Get/Set Zoom In Icon</para>
+    /// <para lang="en">Gets or sets Zoom In Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -81,7 +81,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 向左旋转 Icon 图标</para>
-    /// <para lang="en">Get/Set Rotate Left Icon</para>
+    /// <para lang="en">Gets or sets Rotate Left Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -89,7 +89,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 向右旋转 Icon 图标</para>
-    /// <para lang="en">Get/Set Rotate Right Icon</para>
+    /// <para lang="en">Gets or sets Rotate Right Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -97,7 +97,7 @@ public partial class ImagePreviewer
 
     /// <summary>
     /// <para lang="zh">获得/设置 预览缩放速度 默认 null 未设置取 0.015 值</para>
-    /// <para lang="en">Get/Set Zoom Speed Default null 0.015 if not set</para>
+    /// <para lang="en">Gets or sets Zoom Speed Default null 0.015 if not set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

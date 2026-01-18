@@ -13,7 +13,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
-    /// <para lang="en">Get/Set Display Name</para>
+    /// <para lang="en">Gets or sets Display Name</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项值</para>
-    /// <para lang="en">Get/Set Option Value</para>
+    /// <para lang="en">Gets or sets Option Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否选中 默认 false</para>
-    /// <para lang="en">Get/Set Whether selected. Default false</para>
+    /// <para lang="en">Gets or sets Whether selected. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
-    /// <para lang="en">Get/Set Whether disabled. Default false</para>
+    /// <para lang="en">Gets or sets Whether disabled. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 分组名称</para>
-    /// <para lang="en">Get/Set Group Name</para>
+    /// <para lang="en">Gets or sets Group Name</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

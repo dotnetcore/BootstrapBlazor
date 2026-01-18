@@ -24,7 +24,7 @@ public partial class Spinner
 
     /// <summary>
     /// <para lang="zh">获得/设置 Spinner 颜色 默认 None 无设置</para>
-    /// <para lang="en">Get/Set Spinner Color. Default None</para>
+    /// <para lang="en">Gets or sets Spinner Color. Default None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,7 +32,7 @@ public partial class Spinner
 
     /// <summary>
     /// <para lang="zh">获得 / 设置 Spinner 大小 默认 None 无设置</para>
-    /// <para lang="en">Get/Set Spinner Size. Default None</para>
+    /// <para lang="en">Gets or sets Spinner Size. Default None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -40,7 +40,7 @@ public partial class Spinner
 
     /// <summary>
     /// <para lang="zh">获得/设置 Spinner 类型 默认为 Border</para>
-    /// <para lang="en">Get/Set Spinner Type. Default Border</para>
+    /// <para lang="en">Gets or sets Spinner Type. Default Border</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

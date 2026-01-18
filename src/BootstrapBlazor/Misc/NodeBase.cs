@@ -13,13 +13,13 @@ public abstract class NodeBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否展开 默认 false</para>
-    /// <para lang="en">Get/Set whether expand default false</para>
+    /// <para lang="en">Gets or sets whether expand default false</para>
     /// </summary>
     public bool IsExpand { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否有子节点 默认 false 用于判断是否有子节点</para>
-    /// <para lang="en">Get/Set whether has children default false used to determine whether there are children</para>
+    /// <para lang="en">Gets or sets whether has children default false used to determine whether there are children</para>
     /// </summary>
     public bool HasChildren { get; set; }
 }
@@ -33,7 +33,7 @@ public abstract class NodeBase<TItem> : NodeBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 当前节点值</para>
-    /// <para lang="en">Get/Set current node value</para>
+    /// <para lang="en">Gets or sets current node value</para>
     /// </summary>
     [NotNull]
     public TItem? Value { get; set; }

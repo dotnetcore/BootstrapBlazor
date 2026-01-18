@@ -7,26 +7,26 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">IValidateComponent 接口</para>
-/// <para lang="en">IValidateComponent 接口</para>
+/// <para lang="en">IValidateComponent Interface</para>
 /// </summary>
 public interface IValidateComponent
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否不进行验证 默认为 false</para>
-    /// <para lang="en">Gets or sets whether不进行验证 Default is为 false</para>
+    /// <para lang="zh">获得/设置 是否进行验证 默认为 false</para>
+    /// <para lang="en">Gets or sets whether validation is needed. Default is false.</para>
     /// </summary>
     bool IsNeedValidate { get; }
 
     /// <summary>
     /// <para lang="zh">判断是否需要进行复杂类验证</para>
-    /// <para lang="en">判断whether需要进行复杂类验证</para>
+    /// <para lang="en">Determines whether complex type validation is needed</para>
     /// </summary>
     /// <returns></returns>
     bool IsComplexValue(object? value);
 
     /// <summary>
     /// <para lang="zh">数据验证方法</para>
-    /// <para lang="en">data验证方法</para>
+    /// <para lang="en">Validates the property asynchronously</para>
     /// </summary>
     /// <param name="propertyValue"></param>
     /// <param name="context"></param>
@@ -35,7 +35,7 @@ public interface IValidateComponent
 
     /// <summary>
     /// <para lang="zh">显示或者隐藏提示信息方法</para>
-    /// <para lang="en">display或者隐藏提示信息方法</para>
+    /// <para lang="en">Shows or hides the validation message</para>
     /// </summary>
     /// <param name="results"></param>
     Task ToggleMessage(IReadOnlyCollection<ValidationResult> results);

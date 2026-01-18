@@ -13,13 +13,13 @@ public interface IModelEqualityComparer<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 模型比对回调方法</para>
-    /// <para lang="en">Get/Set model comparison callback method</para>
+    /// <para lang="en">Gets or sets model comparison callback method</para>
     /// </summary>
     Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 模型键值标签</para>
-    /// <para lang="en">Get/Set model key attribute</para>
+    /// <para lang="en">Gets or sets model key attribute</para>
     /// </summary>
     Type CustomKeyAttribute { get; set; }
 

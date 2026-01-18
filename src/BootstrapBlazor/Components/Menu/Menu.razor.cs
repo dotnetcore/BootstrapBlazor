@@ -37,7 +37,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单数据集合</para>
-    /// <para lang="en">Get/Set Menu Data Collection</para>
+    /// <para lang="en">Gets or sets Menu Data Collection</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -46,7 +46,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为手风琴效果 默认为 false</para>
-    /// <para lang="en">Get/Set Whether it is accordion effect. Default false</para>
+    /// <para lang="en">Gets or sets Whether it is accordion effect. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -58,7 +58,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否全部展开 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to expand all. Default false</para>
+    /// <para lang="en">Gets or sets Whether to expand all. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -70,7 +70,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧栏是否收起 默认 false 未收起</para>
-    /// <para lang="en">Get/Set Whether sidebar is collapsed. Default false (Not collapsed)</para>
+    /// <para lang="en">Gets or sets Whether sidebar is collapsed. Default false (Not collapsed)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -78,7 +78,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧栏垂直模式 默认 false</para>
-    /// <para lang="en">Get/Set Sidebar vertical mode. Default false</para>
+    /// <para lang="en">Gets or sets Sidebar vertical mode. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
@@ -87,7 +87,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效</para>
-    /// <para lang="en">Get/Set Automatically scroll to visible area. Default true. Effective when <see cref="IsVertical"/> is enabled</para>
+    /// <para lang="en">Gets or sets Automatically scroll to visible area. Default true. Effective when <see cref="IsVertical"/> is enabled</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
@@ -96,7 +96,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏垂直模式在底部 默认 false</para>
-    /// <para lang="en">Get/Set Sidebar vertical mode at bottom. Default false</para>
+    /// <para lang="en">Gets or sets Sidebar vertical mode at bottom. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -104,7 +104,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
-    /// <para lang="en">Get/Set Indent size. Default 16px</para>
+    /// <para lang="en">Gets or sets Indent size. Default 16px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -112,7 +112,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁止导航 默认为 false 允许导航</para>
-    /// <para lang="en">Get/Set Whether to disable navigation. Default false (Allow navigation)</para>
+    /// <para lang="en">Gets or sets Whether to disable navigation. Default false (Allow navigation)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -120,7 +120,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
-    /// <para lang="en">Get/Set Menu item click callback delegate</para>
+    /// <para lang="en">Gets or sets Menu item click callback delegate</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -128,7 +128,7 @@ public partial class Menu
 
     /// <summary>
     /// <para lang="zh">获得/设置 NavigationManager 实例</para>
-    /// <para lang="en">Get/Set NavigationManager Instance</para>
+    /// <para lang="en">Gets or sets NavigationManager Instance</para>
     /// </summary>
     [Inject]
     [NotNull]

@@ -20,13 +20,13 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 是否已经处理高级搜索 默认 false</para>
-    ///  <para lang="en">Get/Set Whether processed advanced search. Default false</para>
+    ///  <para lang="en">Gets or sets Whether processed advanced search. Default false</para>
     /// </summary>
     protected bool IsAdvanceSearch { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 SearchTemplate 实例</para>
-    ///  <para lang="en">Get/Set SearchTemplate Instance</para>
+    ///  <para lang="en">Gets or sets SearchTemplate Instance</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -34,14 +34,15 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 SearchModel 实例</para>
-    ///  <para lang="en">Get/Set SearchModel Instance</para>
+    ///  <para lang="en">Gets or sets SearchModel Instance</para>
+    ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter, NotNull]
     public TItem? SearchModel { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/></para>
-    ///  <para lang="en">Get/Set Customer Search Model <see cref="CustomerSearchTemplate"/></para>
+    ///  <para lang="en">Gets or sets Customer Search Model <see cref="CustomerSearchTemplate"/></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -49,7 +50,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/></para>
-    ///  <para lang="en">Get/Set Customer Search Model Template <see cref="CustomerSearchModel"/></para>
+    ///  <para lang="en">Gets or sets Customer Search Model Template <see cref="CustomerSearchModel"/></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -57,23 +58,23 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 是否显示搜索框 默认为 false 不显示搜索框</para>
-    ///  <para lang="en">Get/Set Whether to show search box. Default false</para>
+    ///  <para lang="en">Gets or sets Whether to show search box. Default false</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否收缩顶部搜索框 默认为 false 不收缩搜索框 是否显示搜索框请设置 <see cref="SearchMode"/> 值 Top</para>
-    ///  <para lang="en">Get/Set Whether to collapse top search box. Default false. Set <see cref="SearchMode"/> to Top if needed</para>
+    ///  <para lang="zh">获得/设置 是否收缩顶部搜索框，默认值为 false，是否显示搜索框请设置 <see cref="SearchMode"/> 值为 Top</para>
+    ///  <para lang="en">Gets or sets Whether to collapse top search box. Default false. Set <see cref="SearchMode"/> to Top if needed</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool CollapsedTopSearch { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示搜索文本框 默认为 true 显示搜索文本框  <see cref="ShowSearch" /></para>
-    ///  <para lang="en">Get/Set Whether to show search text box. Default true. <see cref="ShowSearch" /></para>
+    ///  <para lang="zh">获得/设置 是否显示搜索文本框，默认值为 true</para>
+    ///  <para lang="en">Gets or sets Whether to show search text box. Default true. <see cref="ShowSearch" /></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -81,7 +82,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 是否显示搜索框提示文本 默认 true</para>
-    ///  <para lang="en">Get/Set Whether to show search text tooltip. Default true</para>
+    ///  <para lang="en">Gets or sets Whether to show search text tooltip. Default true</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -89,23 +90,23 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 是否显示清空搜索按钮 默认 true 显示 <see cref="ShowSearch" /></para>
-    ///  <para lang="en">Get/Set Whether to show reset search button. Default true. <see cref="ShowSearch" /></para>
+    ///  <para lang="en">Gets or sets Whether to show reset search button. Default true. <see cref="ShowSearch" /></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowResetButton { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示搜索按钮 默认 true 显示 <see cref="ShowSearch" /></para>
-    ///  <para lang="en">Get/Set Whether to show search button. Default true. <see cref="ShowSearch" /></para>
+    ///  <para lang="zh">获得/设置 是否显示搜索按钮，默认值为 true</para>
+    ///  <para lang="en">Gets or sets Whether to show search button. Default true. <see cref="ShowSearch" /></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 是否显示高级搜索按钮 默认 true 显示 <see cref="ShowSearch" /></para>
-    ///  <para lang="en">Get/Set Whether to show advanced search button. Default true. <see cref="ShowSearch" /></para>
+    ///  <para lang="zh">获得/设置 是否显示高级搜索按钮，默认值为 true</para>
+    ///  <para lang="en">Gets or sets Whether to show advanced search button. Default true. <see cref="ShowSearch" /></para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -113,7 +114,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索关键字 通过列设置的 Searchable 自动生成搜索拉姆达表达式</para>
-    ///  <para lang="en">Get/Set Search Keyword. Automatically generate search lambda expression based on Searchable set on columns</para>
+    ///  <para lang="en">Gets or sets Search Keyword. Automatically generate search lambda expression based on Searchable set on columns</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -121,7 +122,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索栏渲染方式 默认 Popup 弹窗模式</para>
-    ///  <para lang="en">Get/Set Search Mode. Default Popup</para>
+    ///  <para lang="en">Gets or sets Search Mode. Default Popup</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -129,7 +130,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
-    ///  <para lang="en">Get/Set Items per row. Default 2</para>
+    ///  <para lang="en">Gets or sets Items per row. Default 2</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -137,7 +138,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 设置行内组件布局格式 默认 Inline 布局</para>
-    ///  <para lang="en">Get/Set Row Layout Type. Default Inline</para>
+    ///  <para lang="en">Gets or sets Row Layout Type. Default Inline</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -145,7 +146,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 设置 <see cref="SearchDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
-    ///  <para lang="en">Get/Set Label Alignment in Inline mode of <see cref="SearchDialogRowType" />. Default None (Left)</para>
+    ///  <para lang="en">Gets or sets Label Alignment in Inline mode of <see cref="SearchDialogRowType" />. Default None (Left)</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -196,7 +197,7 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索框的大小</para>
-    ///  <para lang="en">Get/Set Search Dialog Size</para>
+    ///  <para lang="en">Gets or sets Search Dialog Size</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -204,15 +205,15 @@ public partial class Table<TItem>
 
     /// <summary>
     ///  <para lang="zh">获得/设置 搜索框是否可以拖拽 默认 false 不可以拖拽</para>
-    ///  <para lang="en">Get/Set Whether search dialog is draggable. Default false</para>
+    ///  <para lang="en">Gets or sets Whether search dialog is draggable. Default false</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SearchDialogIsDraggable { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 搜索框是否显示最大化按钮 默认 true 不显示</para>
-    ///  <para lang="en">Get/Set Whether to show maximize button on search dialog. Default true (Note: Comment says true but default is true. Text says 'Default true No Show'? No, usually true means show. Code says true. Adjusted English to match code logic)</para>
+    ///  <para lang="zh">获得/设置 搜索框是否显示最大化按钮，默认值为 true</para>
+    ///  <para lang="en">Gets or sets Whether to show maximize button on search dialog. Default true</para>
     ///  <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -277,8 +278,7 @@ public partial class Table<TItem>
     protected IEnumerable<IFilterAction> GetCustomerSearches()
     {
         var searches = new List<IFilterAction>();
-        // <para lang="zh">处理自定义 SearchModel 条件</para>
-        // <para lang="en">Process custom SearchModel conditions</para>
+        // Process custom SearchModel conditions
         if (CustomerSearchModel != null)
         {
             searches.AddRange(CustomerSearchModel.GetSearches());
@@ -356,10 +356,5 @@ public partial class Table<TItem>
         await ResetSearchClick();
     }
 
-    /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
-    /// </summary>
-    /// <returns></returns>
     private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.GetSearchable());
 }

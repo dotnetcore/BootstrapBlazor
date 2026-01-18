@@ -6,34 +6,34 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Textarea component</para>
-/// <para lang="en">Textarea component</para>
+/// <para lang="zh">Textarea 文本域组件</para>
+/// <para lang="en">Textarea Component</para>
 /// </summary>
 public partial class Textarea
 {
     /// <summary>
-    /// <para lang="zh">Scroll to the top</para>
-    /// <para lang="en">Scroll to the top</para>
+    /// <para lang="zh">滚动到顶部方法</para>
+    /// <para lang="en">Scrolls to the top</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollToTop() => InvokeVoidAsync("execute", Id, "toTop");
 
     /// <summary>
-    /// <para lang="zh">Scroll to a specific value</para>
-    /// <para lang="en">Scroll to a specific value</para>
+    /// <para lang="zh">滚动到指定位置方法</para>
+    /// <para lang="en">Scrolls to a specific value</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollTo(int value) => InvokeVoidAsync("execute", Id, "to", value);
 
     /// <summary>
-    /// <para lang="zh">Scroll to the bottom</para>
-    /// <para lang="en">Scroll to the bottom</para>
+    /// <para lang="zh">滚动到底部方法</para>
+    /// <para lang="en">Scrolls to the bottom</para>
     /// </summary>
     /// <returns></returns>
     public Task ScrollToBottom() => InvokeVoidAsync("execute", Id, "toBottom");
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 auto-scroll is enabled. 默认为 false.</para>
+    /// <para lang="zh">获得/设置 是否自动滚动，默认为 false</para>
     /// <para lang="en">Gets or sets whether auto-scroll is enabled. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -41,17 +41,13 @@ public partial class Textarea
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 Shift + Enter replaces the default Enter key behavior. 默认为 false.</para>
+    /// <para lang="zh">获得/设置 是否 Shift + Enter 替代默认 Enter 键行为，默认为 false</para>
     /// <para lang="en">Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool UseShiftEnter { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得 the client-side auto-scroll identifier.</para>
-    /// <para lang="en">Gets the client-side auto-scroll identifier.</para>
-    /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
 
     private string? ShiftEnterString => UseShiftEnter ? "true" : null;
@@ -60,7 +56,6 @@ public partial class Textarea
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

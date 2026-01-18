@@ -38,10 +38,7 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     /// <para lang="zh">释放资源方法</para>
     /// <para lang="en">Method to release resources.</para>
     /// </summary>
-    /// <param name="disposing">
-    ///     <para lang="zh">是否释放托管资源</para>
-    ///     <para lang="en">Flags whether to release managed resources</para>
-    /// </param>
+    /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)

@@ -50,7 +50,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉宽度 左右布局时生效</para>
-    /// <para lang="en">Get/Set Drawer Width. Effective when layout is Left/Right</para>
+    /// <para lang="en">Gets or sets Drawer Width. Effective when layout is Left/Right</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -58,7 +58,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉高度 上下布局时生效</para>
-    /// <para lang="en">Get/Set Drawer Height. Effective when layout is Top/Bottom</para>
+    /// <para lang="en">Gets or sets Drawer Height. Effective when layout is Top/Bottom</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -66,7 +66,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉是否打开 默认 false 未打开</para>
-    /// <para lang="en">Get/Set Whether Drawer is Open. Default is false</para>
+    /// <para lang="en">Gets or sets Whether Drawer is Open. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -74,7 +74,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 IsOpen 属性改变时回调委托方法</para>
-    /// <para lang="en">Get/Set Callback for IsOpen Property Change</para>
+    /// <para lang="en">Gets or sets Callback for IsOpen Property Change</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -82,7 +82,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击背景遮罩时回调委托方法 默认为 null</para>
-    /// <para lang="en">Get/Set Callback for Backdrop Click. Default is null</para>
+    /// <para lang="en">Gets or sets Callback for Backdrop Click. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -90,7 +90,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击遮罩是否关闭抽屉 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to Close Drawer on Backdrop Click. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Close Drawer on Backdrop Click. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -98,7 +98,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示遮罩 默认为 true 显示遮罩</para>
-    /// <para lang="en">Get/Set Whether to Show Backdrop. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Show Backdrop. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -106,7 +106,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件出现位置 默认显示在 Left 位置</para>
-    /// <para lang="en">Get/Set Component Placement. Default is Left</para>
+    /// <para lang="en">Gets or sets Component Placement. Default is Left</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -114,7 +114,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件定位位置 默认 null 未设置 使用样式内置定位 fixed 可更改为 absolute</para>
-    /// <para lang="en">Get/Set Component Position. Default is null (Fixed). Can be set to absolute</para>
+    /// <para lang="en">Gets or sets Component Position. Default is null (Fixed). Can be set to absolute</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -122,7 +122,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -130,7 +130,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许调整大小 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Allow Resize. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Allow Resize. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -138,7 +138,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 z-index 参数值 默认 null 未设置</para>
-    /// <para lang="en">Get/Set z-index parameter. Default is null</para>
+    /// <para lang="en">Gets or sets z-index parameter. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -146,7 +146,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭抽屉回调委托 默认 null</para>
-    /// <para lang="en">Get/Set Close Drawer Callback Delegate. Default is null</para>
+    /// <para lang="en">Gets or sets Close Drawer Callback Delegate. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -154,7 +154,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉内容相关数据 多用于传值</para>
-    /// <para lang="en">Get/Set Drawer Context Data. Used for passing values</para>
+    /// <para lang="en">Gets or sets Drawer Context Data. Used for passing values</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -162,7 +162,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false</para>
-    /// <para lang="en">Get/Set Whether to support ESC key to close. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to support ESC key to close. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -170,7 +170,7 @@ public partial class Drawer
 
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动</para>
-    /// <para lang="en">Get/Set Whether to allow body scrolling when drawer is shown. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to allow body scrolling when drawer is shown. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

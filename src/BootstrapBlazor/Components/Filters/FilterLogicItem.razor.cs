@@ -15,7 +15,7 @@ public partial class FilterLogicItem
 {
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符</para>
-    /// <para lang="en">Get/Set Logical Operator</para>
+    /// <para lang="en">Gets or sets Logical Operator</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class FilterLogicItem
 
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符改变回调方法</para>
-    /// <para lang="en">Get/Set Logical Operator Change Callback Method</para>
+    /// <para lang="en">Gets or sets Logical Operator Change Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

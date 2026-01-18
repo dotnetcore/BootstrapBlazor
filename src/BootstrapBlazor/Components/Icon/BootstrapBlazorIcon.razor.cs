@@ -13,7 +13,7 @@ public partial class BootstrapBlazorIcon
 {
     /// <summary>
     /// <para lang="zh">获得/设置 图标名称</para>
-    /// <para lang="en">Get/Set Icon Name</para>
+    /// <para lang="en">Gets or sets Icon Name</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -26,7 +26,7 @@ public partial class BootstrapBlazorIcon
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 svg sprites 默认 false</para>
-    /// <para lang="en">Get/Set Whether is svg sprites Default false</para>
+    /// <para lang="en">Gets or sets Whether is svg sprites Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -34,7 +34,7 @@ public partial class BootstrapBlazorIcon
 
     /// <summary>
     /// <para lang="zh">获得/设置 Svg Sprites 路径</para>
-    /// <para lang="en">Get/Set Svg Sprites Path</para>
+    /// <para lang="en">Gets or sets Svg Sprites Path</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -42,7 +42,7 @@ public partial class BootstrapBlazorIcon
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

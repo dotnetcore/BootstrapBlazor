@@ -14,4 +14,12 @@
     <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" Condition="Exists('%(RootDir)%(Directory)%(Filename)%(Extension)')" />
   </Target>
 
+  <Target Name="CopyXmlDocs2" BeforeTargets="Build">
+    <ItemGroup>
+      <XmlDocsToCopy Include="%(Reference.RelativeDir)BootstrapBlazor*.xml" />
+    </ItemGroup>
+    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
+    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" Condition="Exists('%(RootDir)%(Directory)%(Filename)%(Extension)')" />
+  </Target>
+  
 </Project>

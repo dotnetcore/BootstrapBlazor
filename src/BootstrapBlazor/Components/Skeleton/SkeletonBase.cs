@@ -13,7 +13,7 @@ public abstract class SkeletonBase : BootstrapComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否圆角 默认为 true</para>
-    /// <para lang="en">Get/Set Whether round. Default true</para>
+    /// <para lang="en">Gets or sets Whether round. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public abstract class SkeletonBase : BootstrapComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示动画 默认为 true</para>
-    /// <para lang="en">Get/Set Whether active. Default true</para>
+    /// <para lang="en">Gets or sets Whether active. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

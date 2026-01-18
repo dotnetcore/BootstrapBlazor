@@ -13,7 +13,7 @@ public class Reconnector : ComponentBase, IReconnector
 {
     /// <summary>
     /// <para lang="zh">获得/设置 正在尝试重试连接对话框的模板</para>
-    /// <para lang="en">Get/Set Reconnecting Template</para>
+    /// <para lang="en">Gets or sets Reconnecting Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public class Reconnector : ComponentBase, IReconnector
 
     /// <summary>
     /// <para lang="zh">获得/设置 连接失败对话框的模板</para>
-    /// <para lang="en">Get/Set Reconnect Failed Template</para>
+    /// <para lang="en">Gets or sets Reconnect Failed Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public class Reconnector : ComponentBase, IReconnector
 
     /// <summary>
     /// <para lang="zh">获得/设置 连接被拒绝对话框的模板</para>
-    /// <para lang="en">Get/Set Reconnect Rejected Template</para>
+    /// <para lang="en">Gets or sets Reconnect Rejected Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

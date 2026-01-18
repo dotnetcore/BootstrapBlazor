@@ -20,7 +20,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
-    /// <para lang="en">Get/Set Items</para>
+    /// <para lang="en">Gets or sets Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -28,7 +28,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示正在加载信息 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show loading info. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show loading info. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -36,7 +36,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载模板</para>
-    /// <para lang="en">Get/Set Loading Template</para>
+    /// <para lang="en">Gets or sets Loading Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -44,7 +44,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示无数据信息 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show empty info. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show empty info. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -52,7 +52,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时提示信息 默认 null</para>
-    /// <para lang="en">Get/Set Empty Text. Default null</para>
+    /// <para lang="en">Gets or sets Empty Text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -60,7 +60,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载模板</para>
-    /// <para lang="en">Get/Set Empty Template</para>
+    /// <para lang="en">Gets or sets Empty Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -68,7 +68,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 容器模板</para>
-    /// <para lang="en">Get/Set Container Template</para>
+    /// <para lang="en">Gets or sets Container Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -76,7 +76,7 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 模板</para>
-    /// <para lang="en">Get/Set Item Template</para>
+    /// <para lang="en">Gets or sets Item Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

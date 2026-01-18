@@ -13,7 +13,7 @@ public partial class SkeletonTable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 行数 默认 7 行</para>
-    /// <para lang="en">Get/Set Rows. Default 7</para>
+    /// <para lang="en">Gets or sets Rows. Default 7</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class SkeletonTable
 
     /// <summary>
     /// <para lang="zh">获得/设置 行数 默认 3 列</para>
-    /// <para lang="en">Get/Set Columns. Default 3</para>
+    /// <para lang="en">Gets or sets Columns. Default 3</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public partial class SkeletonTable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示工具栏</para>
-    /// <para lang="en">Get/Set Whether to show toolbar</para>
+    /// <para lang="en">Gets or sets Whether to show toolbar</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

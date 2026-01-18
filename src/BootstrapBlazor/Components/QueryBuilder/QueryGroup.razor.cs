@@ -13,7 +13,7 @@ public partial class QueryGroup : IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Get/Set Child Content</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public partial class QueryGroup : IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符</para>
-    /// <para lang="en">Get/Set Logic Operator</para>
+    /// <para lang="en">Gets or sets Logic Operator</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

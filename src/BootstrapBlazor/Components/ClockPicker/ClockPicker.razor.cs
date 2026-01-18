@@ -15,7 +15,7 @@ public partial class ClockPicker
 {
     /// <summary>
     /// <para lang="zh">获得/设置 样式</para>
-    /// <para lang="en">Get/Set style</para>
+    /// <para lang="en">Gets or sets style</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-clock-picker")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -23,7 +23,7 @@ public partial class ClockPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示表盘刻度 默认 false</para>
-    /// <para lang="en">Get/Set whether to show clock scale, default is false</para>
+    /// <para lang="en">Gets or sets whether to show clock scale, default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class ClockPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示秒 默认 true</para>
-    /// <para lang="en">Get/Set whether to show second, default is true</para>
+    /// <para lang="en">Gets or sets whether to show second, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -39,7 +39,7 @@ public partial class ClockPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示分钟 默认 true</para>
-    /// <para lang="en">Get/Set whether to show minute, default is true</para>
+    /// <para lang="en">Gets or sets whether to show minute, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -47,7 +47,7 @@ public partial class ClockPicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true</para>
-    /// <para lang="en">Get/Set whether to automatically switch hour/minute/second, default is true</para>
+    /// <para lang="en">Gets or sets whether to automatically switch hour/minute/second, default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

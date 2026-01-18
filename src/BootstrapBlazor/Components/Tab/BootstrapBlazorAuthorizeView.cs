@@ -11,14 +11,14 @@ using System.Collections.ObjectModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BootstrapBlazorAuthorizeView component</para>
-/// <para lang="en">BootstrapBlazorAuthorizeView component</para>
+/// <para lang="zh">BootstrapBlazorAuthorizeView 组件</para>
+/// <para lang="en">BootstrapBlazorAuthorizeView Component</para>
 /// </summary>
 public class BootstrapBlazorAuthorizeView : ComponentBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the 类型 associated with the route. default is null</para>
-    /// <para lang="en">Gets or sets the type associated with the route. default is null</para>
+    /// <para lang="zh">获得/设置 与路由关联的类型，默认为 null</para>
+    /// <para lang="en">Gets or sets the type associated with the route. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -26,24 +26,24 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     public Type? Type { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the parameters associated with the route. default is null</para>
-    /// <para lang="en">Gets or sets the parameters associated with the route. default is null</para>
+    /// <para lang="zh">获得/设置 与路由关联的参数，默认为 null</para>
+    /// <para lang="en">Gets or sets the parameters associated with the route. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IReadOnlyDictionary<string, object>? Parameters { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 to 显示 when the user is not authorized. default is null</para>
-    /// <para lang="en">Gets or sets the template to display when the user is not authorized. default is null</para>
+    /// <para lang="zh">获得/设置 用户未授权时显示的模板，默认为 null</para>
+    /// <para lang="en">Gets or sets the template to display when the user is not authorized. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the resource to which access is being controlled. default is null</para>
-    /// <para lang="en">Gets or sets the resource to which access is being controlled. default is null</para>
+    /// <para lang="zh">获得/设置 访问控制的资源，默认为 null</para>
+    /// <para lang="en">Gets or sets the resource to which access is being controlled. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -64,7 +64,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task OnInitializedAsync()
     {
         Authorized = Type == null || await Type.IsAuthorizedAsync(ServiceProvider, AuthenticationState, Resource);

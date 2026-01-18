@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 ///  <para lang="zh">列集合接口</para>
-///  <para lang="en">列collection接口</para>
+///  <para lang="en">Column collection interface</para>
 /// </summary>
 public interface IColumnCollection
 {

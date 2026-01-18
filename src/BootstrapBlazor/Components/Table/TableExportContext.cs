@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <inheritdoc/>
-/// <para lang="en"><inheritdoc/></para>
+/// <para lang="zh">TableExportContext 组件</para>
+/// <para lang="en">TableExportContext Component</para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
 {
@@ -49,12 +49,12 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
 
     /// <summary>
     /// <para lang="zh">构造函数</para>
-    /// <para lang="en">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="table"><para lang="zh">ITable 实例</para><para lang="en">ITable instance</para></param>
-    /// <param name="rows"><para lang="zh">行数据集合</para><para lang="en">行datacollection</para></param>
-    /// <param name="optionsBuilder"><para lang="zh">ITable 实例当前条件生成方法</para><para lang="en">ITable instance当前条件生成method</para></param>
-    /// <param name="exportAsync"><para lang="zh">ITable 实例内置 Export 方法</para><para lang="en">ITable instance内置 Export method</para></param>
+    /// <param name="rows"><para lang="zh">行数据集合</para><para lang="en">Row data collection</para></param>
+    /// <param name="optionsBuilder"><para lang="zh">ITable 实例当前条件生成方法</para><para lang="en">ITable instance current condition builder method</para></param>
+    /// <param name="exportAsync"><para lang="zh">ITable 实例内置 Export 方法</para><para lang="en">ITable instance built-in Export method</para></param>
     public TableExportContext(ITable table, IEnumerable<TItem> rows, Func<QueryPageOptions> optionsBuilder, Func<Task> exportAsync)
     {
         Table = table;

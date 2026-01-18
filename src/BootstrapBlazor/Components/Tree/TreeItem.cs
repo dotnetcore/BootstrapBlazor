@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">TreeItem 组件</para>
-/// <para lang="en">TreeItem component</para>
+/// <para lang="en">TreeItem Component</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class TreeItem : NodeItem

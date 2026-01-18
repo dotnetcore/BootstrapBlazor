@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">Table 工具栏自定义组件</para>
-/// <para lang="en">Table 工具栏自定义component</para>
+/// <para lang="en">Table toolbar custom Component</para>
 /// </summary>
 public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, IDisposable
 {
@@ -19,7 +19,7 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
 
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Gets or sets 子component</para>
+    /// <para lang="en">Gets or sets child component</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -28,6 +28,7 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     /// <summary>
     /// <para lang="zh">获得/设置 Table Toolbar 实例</para>
     /// <para lang="en">Gets or sets Table Toolbar instance</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }
@@ -43,8 +44,8 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     }
 
     /// <summary>
-    /// <para lang="zh">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
-    /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
+    /// <para lang="zh">释放资源方法</para>
+    /// <para lang="en">Method to release resources.</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

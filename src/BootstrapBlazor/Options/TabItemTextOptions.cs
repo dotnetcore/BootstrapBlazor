@@ -13,26 +13,26 @@ internal class TabItemTextOptions
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 Tab 标签文本</para>
-    ///  <para lang="en">Get/Set Tab label text</para>
+    ///  <para lang="en">Gets or sets Tab label text</para>
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 图标字符串</para>
-    ///  <para lang="en">Get/Set icon string</para>
+    ///  <para lang="en">Gets or sets icon string</para>
     /// </summary>
     public string? Icon { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 是否激活 默认为 true</para>
-    ///  <para lang="en">Get/Set whether active default true</para>
+    ///  <para lang="en">Gets or sets whether active default true</para>
     /// </summary>
     /// <value></value>
     public bool IsActive { get; set; } = true;
 
     /// <summary>
     ///  <para lang="zh">获得/设置 当前 TabItem 是否可关闭 默认为 true</para>
-    ///  <para lang="en">Get/Set whether current TabItem is closable default true</para>
+    ///  <para lang="en">Gets or sets whether current TabItem is closable default true</para>
     /// </summary>
     public bool Closable { get; set; } = true;
 

@@ -32,7 +32,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 内容</para>
-    /// <para lang="en">Get/Set Content</para>
+    /// <para lang="en">Gets or sets Content</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -40,7 +40,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为行布局 默认 false</para>
-    /// <para lang="en">Get/Set Is Row Layout. Default false</para>
+    /// <para lang="en">Gets or sets Is Row Layout. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -48,7 +48,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否反向布局 默认 false</para>
-    /// <para lang="en">Get/Set Is Reverse Layout. Default false</para>
+    /// <para lang="en">Gets or sets Is Reverse Layout. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -56,7 +56,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许折行 默认 false</para>
-    /// <para lang="en">Get/Set Is Wrap. Default false</para>
+    /// <para lang="en">Gets or sets Is Wrap. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -64,7 +64,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
-    /// <para lang="en">Get/Set Align Items. Default StackAlignItems.Stretch</para>
+    /// <para lang="en">Gets or sets Align Items. Default StackAlignItems.Stretch</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -72,7 +72,7 @@ public partial class Stack
 
     /// <summary>
     /// <para lang="zh">获得/设置 水平布局调整 默认 StackJustifyContent.Start</para>
-    /// <para lang="en">Get/Set Justify Content. Default StackJustifyContent.Start</para>
+    /// <para lang="en">Gets or sets Justify Content. Default StackJustifyContent.Start</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

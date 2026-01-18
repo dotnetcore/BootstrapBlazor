@@ -13,49 +13,49 @@ public class BluetoothDeviceInfo
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 ManufacturerName</para>
-    ///  <para lang="en">Get/Set ManufacturerName</para>
+    ///  <para lang="en">Gets or sets ManufacturerName</para>
     /// </summary>
     public string? ManufacturerName { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 ModelNumber</para>
-    ///  <para lang="en">Get/Set ModelNumber</para>
+    ///  <para lang="en">Gets or sets ModelNumber</para>
     /// </summary>
     public string? ModelNumber { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 HardwareRevision</para>
-    ///  <para lang="en">Get/Set HardwareRevision</para>
+    ///  <para lang="en">Gets or sets HardwareRevision</para>
     /// </summary>
     public string? HardwareRevision { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 FirmwareRevision</para>
-    ///  <para lang="en">Get/Set FirmwareRevision</para>
+    ///  <para lang="en">Gets or sets FirmwareRevision</para>
     /// </summary>
     public string? FirmwareRevision { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 SoftwareRevision</para>
-    ///  <para lang="en">Get/Set SoftwareRevision</para>
+    ///  <para lang="en">Gets or sets SoftwareRevision</para>
     /// </summary>
     public string? SoftwareRevision { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 SystemId</para>
-    ///  <para lang="en">Get/Set SystemId</para>
+    ///  <para lang="en">Gets or sets SystemId</para>
     /// </summary>
     public SystemId? SystemId { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 IEEERegulatoryCertificationDataList</para>
-    ///  <para lang="en">Get/Set IEEERegulatoryCertificationDataList</para>
+    ///  <para lang="en">Gets or sets IEEERegulatoryCertificationDataList</para>
     /// </summary>
     public string? IEEERegulatoryCertificationDataList { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 PnPID</para>
-    ///  <para lang="en">Get/Set PnPID</para>
+    ///  <para lang="en">Gets or sets PnPID</para>
     /// </summary>
     public PnPID? PnPID { get; set; }
 }
@@ -68,13 +68,13 @@ public class SystemId
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 ManufacturerIdentifier</para>
-    ///  <para lang="en">Get/Set ManufacturerIdentifier</para>
+    ///  <para lang="en">Gets or sets ManufacturerIdentifier</para>
     /// </summary>
     public string? ManufacturerIdentifier { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 OrganizationallyUniqueIdentifier</para>
-    ///  <para lang="en">Get/Set OrganizationallyUniqueIdentifier</para>
+    ///  <para lang="en">Gets or sets OrganizationallyUniqueIdentifier</para>
     /// </summary>
     public string? OrganizationallyUniqueIdentifier { get; set; }
 }
@@ -87,19 +87,19 @@ public class PnPID
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 VendorIdSource</para>
-    ///  <para lang="en">Get/Set VendorIdSource</para>
+    ///  <para lang="en">Gets or sets VendorIdSource</para>
     /// </summary>
     public string? VendorIdSource { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 ProductId</para>
-    ///  <para lang="en">Get/Set ProductId</para>
+    ///  <para lang="en">Gets or sets ProductId</para>
     /// </summary>
     public string? ProductId { get; set; }
 
     /// <summary>
     ///  <para lang="zh">获得/设置 ProductVersion</para>
-    ///  <para lang="en">Get/Set ProductVersion</para>
+    ///  <para lang="en">Gets or sets ProductVersion</para>
     /// </summary>
     public string? ProductVersion { get; set; }
 }

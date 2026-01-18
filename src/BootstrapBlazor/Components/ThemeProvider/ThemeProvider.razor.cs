@@ -8,78 +8,78 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ThemeProvider 组件</para>
-/// <para lang="en">ThemeProvider component</para>
+/// <para lang="zh">ThemeProvider 主题提供者组件</para>
+/// <para lang="en">ThemeProvider Component</para>
 /// </summary>
 public partial class ThemeProvider
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 自动模式图标 默认 null</para>
-    /// <para lang="en">Gets or sets 自动模式icon Default is null</para>
+    /// <para lang="zh">获得/设置 自动模式图标，默认 null</para>
+    /// <para lang="en">Gets or sets the auto mode icon. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AutoModeIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自动模式文本 默认 null 未设置使用本地化资源</para>
-    /// <para lang="en">Gets or sets 自动模式文本 Default is null 未Sets使用本地化资源</para>
+    /// <para lang="zh">获得/设置 自动模式文本，默认 null 未设置使用本地化资源</para>
+    /// <para lang="en">Gets or sets the auto mode text. Default is null (uses localized resource).</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AutoModeText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 暗黑模式图标 默认 null</para>
-    /// <para lang="en">Gets or sets 暗黑模式icon Default is null</para>
+    /// <para lang="zh">获得/设置 暗黑模式图标，默认 null</para>
+    /// <para lang="en">Gets or sets the dark mode icon. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DarkModeIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 暗黑模式文本 默认 null 未设置使用本地化资源</para>
-    /// <para lang="en">Gets or sets 暗黑模式文本 Default is null 未Sets使用本地化资源</para>
+    /// <para lang="zh">获得/设置 暗黑模式文本，默认 null 未设置使用本地化资源</para>
+    /// <para lang="en">Gets or sets the dark mode text. Default is null (uses localized resource).</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DarkModeText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 明亮模式图标 默认 null</para>
-    /// <para lang="en">Gets or sets 明亮模式icon Default is null</para>
+    /// <para lang="zh">获得/设置 明亮模式图标，默认 null</para>
+    /// <para lang="en">Gets or sets the light mode icon. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LightModeIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 明亮模式文本 默认 null 未设置使用本地化资源</para>
-    /// <para lang="en">Gets or sets 明亮模式文本 Default is null 未Sets使用本地化资源</para>
+    /// <para lang="zh">获得/设置 明亮模式文本，默认 null 未设置使用本地化资源</para>
+    /// <para lang="en">Gets or sets the light mode text. Default is null (uses localized resource).</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LightModeText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 当前选中模式图标 默认 null</para>
-    /// <para lang="en">Gets or sets 当前选中模式icon Default is null</para>
+    /// <para lang="zh">获得/设置 当前选中模式图标，默认 null</para>
+    /// <para lang="en">Gets or sets the active mode icon. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ActiveIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 下拉框是否显示阴影效果 默认 true</para>
-    /// <para lang="en">Gets or sets 下拉框whetherdisplay阴影效果 Default is true</para>
+    /// <para lang="zh">获得/设置 下拉框是否显示阴影效果，默认 true</para>
+    /// <para lang="en">Gets or sets whether the dropdown shows shadow. Default is true.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 下拉框对其方式 默认 Right</para>
-    /// <para lang="en">Gets or sets 下拉框对其方式 Default is Right</para>
+    /// <para lang="zh">获得/设置 下拉框对齐方式，默认 Right</para>
+    /// <para lang="en">Gets or sets the dropdown alignment. Default is Right.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -87,23 +87,23 @@ public partial class ThemeProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 主题切换回调方法</para>
-    /// <para lang="en">Gets or sets 主题切换callback method</para>
+    /// <para lang="en">Gets or sets the theme changed callback method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ThemeValue, Task>? OnThemeChangedAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">主题类型</para>
-    /// <para lang="en">主题type</para>
+    /// <para lang="zh">获得/设置 主题类型</para>
+    /// <para lang="en">Gets or sets the theme type</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ThemeValue ThemeValue { get; set; } = ThemeValue.UseLocalStorage;
 
     /// <summary>
-    /// <para lang="zh">主题类型改变回调方法</para>
-    /// <para lang="en">主题type改变callback method</para>
+    /// <para lang="zh">获得/设置 主题类型改变回调方法</para>
+    /// <para lang="en">Gets or sets the theme type changed callback method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, ThemeValue, nameof(OnThemeChanged));
 
     /// <summary>
@@ -156,7 +155,6 @@ public partial class ThemeProvider
     /// <para lang="en">JavaScript callback method</para>
     /// </summary>
     /// <param name="name"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task OnThemeChanged(ThemeValue name)
     {

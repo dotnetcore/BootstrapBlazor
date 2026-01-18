@@ -13,7 +13,7 @@ public sealed partial class Split
 {
     /// <summary>
     /// <para lang="zh">获取 是否开启折叠功能 默认 false</para>
-    /// <para lang="en">Get/Set Whether to enable collapsible function. Default false</para>
+    /// <para lang="en">Gets or sets Whether to enable collapsible function. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -21,7 +21,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获取 是否显示拖动条 默认 true</para>
-    /// <para lang="en">Get/Set Whether to show drag bar. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show drag bar. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -29,7 +29,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 开启 <see cref="IsCollapsible"/> 后，恢复时是否保持原始大小 默认 true</para>
-    /// <para lang="en">Get/Set Whether to keep original size when restoring after enabling <see cref="IsCollapsible"/>. Default true</para>
+    /// <para lang="en">Gets or sets Whether to keep original size when restoring after enabling <see cref="IsCollapsible"/>. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -37,7 +37,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否垂直分割</para>
-    /// <para lang="en">Get/Set Whether vertical split</para>
+    /// <para lang="en">Gets or sets Whether vertical split</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -45,7 +45,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 第一个窗格初始化位置占比 默认为 50%</para>
-    /// <para lang="en">Get/Set First panel initial position ratio. Default 50%</para>
+    /// <para lang="en">Gets or sets First panel initial position ratio. Default 50%</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -53,7 +53,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 第一个窗格模板</para>
-    /// <para lang="en">Get/Set First Panel Template</para>
+    /// <para lang="en">Gets or sets First Panel Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -61,7 +61,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 第一个窗格最小宽度 支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px</para>
-    /// <para lang="en">Get/Set First Panel Minimum Size. Supports any unit e.g. 10px 20% 5em 1rem. Default unit is px</para>
+    /// <para lang="en">Gets or sets First Panel Minimum Size. Supports any unit e.g. 10px 20% 5em 1rem. Default unit is px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 第二个窗格模板</para>
-    /// <para lang="en">Get/Set Second Panel Template</para>
+    /// <para lang="en">Gets or sets Second Panel Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -77,7 +77,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 第二个窗格最小宽度</para>
-    /// <para lang="en">Get/Set Second Panel Minimum Size</para>
+    /// <para lang="en">Gets or sets Second Panel Minimum Size</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -85,7 +85,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠</para>
-    /// <para lang="en">Get/Set Callback method when panel is collapsed. parameter bool value true means collapsed, false means second panel collapsed</para>
+    /// <para lang="en">Gets or sets Callback method when panel is collapsed. parameter bool value true means collapsed, false means second panel collapsed</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public sealed partial class Split
 
     /// <summary>
     /// <para lang="zh">获得/设置 窗格尺寸改变时回调方法 可参阅 <see cref="SplitterResizedEventArgs"/></para>
-    /// <para lang="en">Get/Set Callback method when panel size changes. Refer to <see cref="SplitterResizedEventArgs"/></para>
+    /// <para lang="en">Gets or sets Callback method when panel size changes. Refer to <see cref="SplitterResizedEventArgs"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

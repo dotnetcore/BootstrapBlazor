@@ -13,19 +13,19 @@ public class DateTimeRangeValue
 {
     /// <summary>
     /// <para lang="zh">获得/设置 开始时间</para>
-    /// <para lang="en">Get/Set Start Time</para>
+    /// <para lang="en">Gets or sets Start Time</para>
     /// </summary>
     public DateTime Start { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 结束时间</para>
-    /// <para lang="en">Get/Set End Time</para>
+    /// <para lang="en">Gets or sets End Time</para>
     /// </summary>
     public DateTime End { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 可为空开始时间</para>
-    /// <para lang="en">Get/Set Nullable Start Time</para>
+    /// <para lang="en">Gets or sets Nullable Start Time</para>
     /// </summary>
     public DateTime? NullStart
     {
@@ -35,7 +35,7 @@ public class DateTimeRangeValue
 
     /// <summary>
     /// <para lang="zh">获得/设置 可为空结束时间</para>
-    /// <para lang="en">Get/Set Nullable End Time</para>
+    /// <para lang="en">Gets or sets Nullable End Time</para>
     /// </summary>
     public DateTime? NullEnd
     {

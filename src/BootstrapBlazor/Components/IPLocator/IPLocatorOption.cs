@@ -17,13 +17,13 @@ public class IPLocatorOption
 {
     /// <summary>
     /// <para lang="zh">获得/设置 定位器创建方法未设置使用内部定位器</para>
-    /// <para lang="en">Get/Set Locator Factory Method. Use internal locator if not set</para>
+    /// <para lang="en">Gets or sets Locator Factory Method. Use internal locator if not set</para>
     /// </summary>
     public Func<IServiceProvider, IIPLocator>? LocatorFactory { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 IP地址请求超时时间 默认为 3000 毫秒</para>
-    /// <para lang="en">Get/Set IP Address Request Timeout. Default 3000 ms</para>
+    /// <para lang="en">Gets or sets IP Address Request Timeout. Default 3000 ms</para>
     /// </summary>
     public int RequestTimeout { get; set; } = 3000;
 
@@ -35,19 +35,19 @@ public class IPLocatorOption
 
     /// <summary>
     /// <para lang="zh">获得/设置 IP地址</para>
-    /// <para lang="en">Get/Set IP Address</para>
+    /// <para lang="en">Gets or sets IP Address</para>
     /// </summary>
     protected internal string? IP { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 HttpClient 实体类</para>
-    /// <para lang="en">Get/Set HttpClient Instance</para>
+    /// <para lang="en">Gets or sets HttpClient Instance</para>
     /// </summary>
     protected internal HttpClient? HttpClient { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 ILogger 实体类</para>
-    /// <para lang="en">Get/Set ILogger Instance</para>
+    /// <para lang="en">Gets or sets ILogger Instance</para>
     /// </summary>
     protected internal ILogger<IIPLocatorProvider>? Logger { get; set; }
 }

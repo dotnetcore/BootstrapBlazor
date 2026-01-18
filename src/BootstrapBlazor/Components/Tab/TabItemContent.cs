@@ -11,8 +11,9 @@ namespace BootstrapBlazor.Components;
 class TabItemContent : IComponent, IHandlerException, IDisposable
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the component 内容. 默认为 null</para>
-    /// <para lang="en">Gets or sets the component content. Default is null</para>
+    /// <para lang="zh">获得/设置 标签项，默认为 null</para>
+    /// <para lang="en">Gets or sets the component content. Default is null.</para>
+    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
@@ -84,7 +85,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Render method</para>
+    /// <para lang="zh">重新呈现内容方法</para>
     /// <para lang="en">Render method</para>
     /// </summary>
     public void Render()
@@ -95,6 +96,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
 
     private bool _detailedErrorsLoaded;
     private bool _showDetailedErrors;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -120,7 +122,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">IDispose 方法用于释放资源</para>
+    /// <para lang="zh">Dispose 方法用于释放资源</para>
     /// <para lang="en">Dispose method</para>
     /// </summary>
     public void Dispose()

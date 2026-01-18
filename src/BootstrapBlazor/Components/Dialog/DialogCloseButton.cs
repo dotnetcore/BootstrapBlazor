@@ -15,7 +15,7 @@ public partial class DialogCloseButton : Button
 {
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
-    /// <para lang="en">Get/Set Button Color</para>
+    /// <para lang="en">Gets or sets Button Color</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

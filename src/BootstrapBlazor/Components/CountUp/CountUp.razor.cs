@@ -13,7 +13,7 @@ public partial class CountUp<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 Value 值</para>
-    /// <para lang="en">Get/Set Value</para>
+    /// <para lang="en">Gets or sets Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -22,7 +22,7 @@ public partial class CountUp<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 计数配置项 默认 null</para>
-    /// <para lang="en">Get/Set count configuration item, default is null</para>
+    /// <para lang="en">Gets or sets count configuration item, default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -30,7 +30,7 @@ public partial class CountUp<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 计数结束回调方法 默认 null</para>
-    /// <para lang="en">Get/Set callback method when counting ends, default is null</para>
+    /// <para lang="en">Gets or sets callback method when counting ends, default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

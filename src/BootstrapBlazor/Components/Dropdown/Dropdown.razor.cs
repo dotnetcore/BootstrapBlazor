@@ -63,7 +63,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置当前项是否 Active 方法</para>
-    /// <para lang="en">Get/Set Set Item Active Method</para>
+    /// <para lang="en">Gets or sets Set Item Active Method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
@@ -74,7 +74,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.Primary 无设置</para>
-    /// <para lang="en">Get/Set Color. Default is Color.Primary</para>
+    /// <para lang="en">Gets or sets Color. Default is Color.Primary</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -82,7 +82,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
-    /// <para lang="en">Get/Set Data Items</para>
+    /// <para lang="en">Gets or sets Data Items</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -91,7 +91,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板</para>
-    /// <para lang="en">Get/Set Item Template</para>
+    /// <para lang="en">Gets or sets Item Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -99,7 +99,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮内容模板</para>
-    /// <para lang="en">Get/Set Button Content Template</para>
+    /// <para lang="en">Gets or sets Button Content Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -107,7 +107,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启分裂式 默认 false</para>
-    /// <para lang="en">Get/Set Is Split Button. Default is false</para>
+    /// <para lang="en">Gets or sets Is Split Button. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -116,7 +116,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件</para>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
-    /// <para lang="en">Get/Set OnClick Event</para>
+    /// <para lang="en">Gets or sets OnClick Event</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -126,7 +126,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件不刷新父组件</para>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
-    /// <para lang="en">Get/Set OnClick Event without render parent</para>
+    /// <para lang="en">Gets or sets OnClick Event without render parent</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -136,7 +136,7 @@ public partial class Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画</para>
     /// <para lang="zh"><see cref="ShowSplit"/> 为 true 时生效</para>
-    /// <para lang="en">Get/Set Is Async Button. Default is false. If true, button is disabled and shows loading animation on click</para>
+    /// <para lang="en">Gets or sets Is Async Button. Default is false. If true, button is disabled and shows loading animation on click</para>
     /// <para lang="en">Effective when <see cref="ShowSplit"/> is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -145,7 +145,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否异步结束后是否保持禁用状态，默认为 false</para>
-    /// <para lang="en">Get/Set Keep Disabled after async completion. Default is false</para>
+    /// <para lang="en">Gets or sets Keep Disabled after async completion. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks><see cref="IsAsync"/> 开启时有效</remarks>
@@ -154,7 +154,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示图标</para>
-    /// <para lang="en">Get/Set Icon</para>
+    /// <para lang="en">Gets or sets Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -162,7 +162,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner</para>
-    /// <para lang="en">Get/Set Loading Icon. Default is fa-solid fa-spin fa-spinner</para>
+    /// <para lang="en">Gets or sets Loading Icon. Default is fa-solid fa-spin fa-spinner</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -171,7 +171,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 获取菜单对齐方式 默认 none 未设置</para>
-    /// <para lang="en">Get/Set Menu Alignment. Default is none</para>
+    /// <para lang="en">Gets or sets Menu Alignment. Default is none</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -179,7 +179,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉选项方向 默认 Dropdown 向下</para>
-    /// <para lang="en">Get/Set Dropdown Direction. Default is Dropdown (down)</para>
+    /// <para lang="en">Gets or sets Dropdown Direction. Default is Dropdown (down)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -187,7 +187,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件尺寸 默认 none 未设置</para>
-    /// <para lang="en">Get/Set Size. Default is none</para>
+    /// <para lang="en">Gets or sets Size. Default is none</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -195,7 +195,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定按钮文字 更改下拉框选项时按钮文字保持不变 默认 false 不固定</para>
-    /// <para lang="en">Get/Set Whether Fixed Button Text. Default is false</para>
+    /// <para lang="en">Gets or sets Whether Fixed Button Text. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -203,7 +203,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉菜单中是否显示固定文字 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether Show Fixed Button Text in Dropdown. Default is false</para>
+    /// <para lang="en">Gets or sets Whether Show Fixed Button Text in Dropdown. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -211,7 +211,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 固定按钮显示文字 默认 null</para>
-    /// <para lang="en">Get/Set Fixed Button Text. Default is null</para>
+    /// <para lang="en">Gets or sets Fixed Button Text. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -219,7 +219,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Items 模板 默认 null</para>
-    /// <para lang="en">Get/Set Items Template. Default is null</para>
+    /// <para lang="en">Gets or sets Items Template. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -252,7 +252,7 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否当前正在异步执行操作</para>
-    /// <para lang="en">Get/Set Is Async Loading</para>
+    /// <para lang="en">Gets or sets Is Async Loading</para>
     /// </summary>
     private bool _isAsyncLoading;
 

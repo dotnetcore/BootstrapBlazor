@@ -13,7 +13,7 @@ public class TableTreeNode<TItem> : NodeBase<TItem>, IExpandableNode<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 子节点集合</para>
-    /// <para lang="en">Get/Set child node collection</para>
+    /// <para lang="en">Gets or sets child node collection</para>
     /// </summary>
     [DisallowNull]
     [NotNull]
@@ -21,19 +21,19 @@ public class TableTreeNode<TItem> : NodeBase<TItem>, IExpandableNode<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 子节点集合</para>
-    /// <para lang="en">Get/Set child node collection</para>
+    /// <para lang="en">Gets or sets child node collection</para>
     /// </summary>
     IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TableTreeNode<TItem>>(); }
 
     /// <summary>
     /// <para lang="zh">获得/设置 父级节点</para>
-    /// <para lang="en">Get/Set parent node</para>
+    /// <para lang="en">Gets or sets parent node</para>
     /// </summary>
     public TableTreeNode<TItem>? Parent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 父级节点</para>
-    /// <para lang="en">Get/Set parent node</para>
+    /// <para lang="en">Gets or sets parent node</para>
     /// </summary>
     IExpandableNode<TItem>? IExpandableNode<TItem>.Parent
     {

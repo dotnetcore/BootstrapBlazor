@@ -51,7 +51,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 null</para>
-    /// <para lang="en">Get/Set Items Per Row. Default is null</para>
+    /// <para lang="en">Gets or sets Items Per Row. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -59,7 +59,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 实体类编辑模式 Add 还是 Update</para>
-    /// <para lang="en">Get/Set Item Changed Type. Add or Update</para>
+    /// <para lang="en">Gets or sets Item Changed Type. Add or Update</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -67,7 +67,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置行格式 默认 Row 布局</para>
-    /// <para lang="en">Get/Set Row Type. Default is Row</para>
+    /// <para lang="en">Gets or sets Row Type. Default is Row</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -75,7 +75,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
-    /// <para lang="en">Get/Set Label Alignment in <see cref="RowType" /> Inline mode. Default is None, equivalent to Left</para>
+    /// <para lang="en">Gets or sets Label Alignment in <see cref="RowType" /> Inline mode. Default is None, equivalent to Left</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -83,7 +83,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值</para>
-    /// <para lang="en">Get/Set Label Width. Default is null, use global setting <code>--bb-row-label-width</code> if not set</para>
+    /// <para lang="en">Gets or sets Label Width. Default is null, use global setting <code>--bb-row-label-width</code> if not set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -91,7 +91,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 列模板 设置 <see cref="Items"/> 时本参数不生效</para>
-    /// <para lang="en">Get/Set Field Items Template. Not effective when <see cref="Items"/> is set</para>
+    /// <para lang="en">Gets or sets Field Items Template. Not effective when <see cref="Items"/> is set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -99,7 +99,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮模板</para>
-    /// <para lang="en">Get/Set Buttons Template</para>
+    /// <para lang="en">Gets or sets Buttons Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -107,7 +107,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 绑定模型</para>
-    /// <para lang="en">Get/Set Model</para>
+    /// <para lang="en">Gets or sets Model</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -116,7 +116,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示前置标签 默认为 null 未设置时默认显示标签</para>
-    /// <para lang="en">Get/Set Whether to Show Label. Default is null, show label if not set</para>
+    /// <para lang="en">Gets or sets Whether to Show Label. Default is null, show label if not set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -124,7 +124,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
-    /// <para lang="en">Get/Set Whether to Show Label Tooltip. Default is null</para>
+    /// <para lang="en">Gets or sets Whether to Show Label Tooltip. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -132,7 +132,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示为 Display 组件 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to Show as Display Component. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show as Display Component. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -140,7 +140,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Display 组件的 Tooltip 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to Show Display Component Tooltip. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Show Display Component Tooltip. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -148,7 +148,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否使用 SearchTemplate 默认 false 使用 EditTemplate 模板</para>
-    /// <para lang="en">Get/Set Whether to use SearchTemplate. Default is false, use EditTemplate</para>
+    /// <para lang="en">Gets or sets Whether to use SearchTemplate. Default is false, use EditTemplate</para>
     /// </summary>
     /// <remarks>多用于表格组件传递 <see cref="ITableColumn"/> 集合给参数 <see cref="Items"/> 时; Mostly used when passing <see cref="ITableColumn"/> collection to <see cref="Items"/> parameter in Table component</remarks>
     [CascadingParameter(Name = "IsSearch")]
@@ -157,7 +157,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动生成模型的所有属性 默认为 true 生成所有属性</para>
-    /// <para lang="en">Get/Set Whether to Auto Generate All Items. Default is true</para>
+    /// <para lang="en">Gets or sets Whether to Auto Generate All Items. Default is true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -165,7 +165,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 级联上下文绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板不生效</para>
-    /// <para lang="en">Get/Set Context Field Items Collection. <see cref="FieldItems"/> template will not be effective if set</para>
+    /// <para lang="en">Gets or sets Context Field Items Collection. <see cref="FieldItems"/> template will not be effective if set</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -173,7 +173,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序</para>
-    /// <para lang="en">Get/Set Custom Column Sort Rule. Default is null, use internal sort mechanism</para>
+    /// <para lang="en">Gets or sets Custom Column Sort Rule. Default is null, use internal sort mechanism</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -181,7 +181,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 未设置 GroupName 编辑项是否放置在顶部 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show unset GroupName items on top. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to show unset GroupName items on top. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -189,7 +189,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 默认占位符文本 默认 null</para>
-    /// <para lang="en">Get/Set Default Placeholder Text. Default is null</para>
+    /// <para lang="en">Gets or sets Default Placeholder Text. Default is null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -198,7 +198,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 当值变化时是否重新渲染组件 默认 false</para>
-    /// <para lang="en">Get/Set Whether to Re-render Component when Value Changed. Default is false</para>
+    /// <para lang="en">Gets or sets Whether to Re-render Component when Value Changed. Default is false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -206,7 +206,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值</para>
-    /// <para lang="en">Get/Set Cascading EditContext Instance. Available when inside EditForm or ValidateForm</para>
+    /// <para lang="en">Gets or sets Cascading EditContext Instance. Available when inside EditForm or ValidateForm</para>
     /// </summary>
     [CascadingParameter]
     private EditContext? CascadedEditContext { get; set; }
@@ -228,7 +228,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置 配置编辑项目集合</para>
-    /// <para lang="en">Get/Set Editor Items Cache</para>
+    /// <para lang="en">Gets or sets Editor Items Cache</para>
     /// </summary>
     private readonly List<IEditorItem> _editorItems = [];
 

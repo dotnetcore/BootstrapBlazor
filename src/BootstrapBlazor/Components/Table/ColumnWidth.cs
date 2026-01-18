@@ -5,21 +5,22 @@
 
 namespace BootstrapBlazor.Components;
 
+
 /// <summary>
-///  <para lang="zh">列宽设置类</para>
-///  <para lang="en">列宽Sets类</para>
+/// <para lang="zh">列宽设置类</para>
+/// <para lang="en">Column width setting class</para>
 /// </summary>
 struct ColumnWidth
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 列名称</para>
-    ///  <para lang="en">Gets or sets 列名称</para>
+    /// <para lang="zh">获得/设置 列名称</para>
+    /// <para lang="en">Gets or sets column name</para>
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 列宽</para>
-    ///  <para lang="en">Gets or sets 列宽</para>
+    /// <para lang="zh">获得/设置 列宽</para>
+    /// <para lang="en">Gets or sets column width</para>
     /// </summary>
     public int Width { get; set; }
 }

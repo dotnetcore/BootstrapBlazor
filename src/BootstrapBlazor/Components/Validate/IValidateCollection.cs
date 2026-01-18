@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">IValidateCollection 多个验证结果接口 支持组件间联动验证</para>
-/// <para lang="en">IValidateCollection 多个验证结果接口 支持component间联动验证</para>
+/// <para lang="zh">IValidateCollection 接口，支持多个验证结果和组件间联动验证</para>
+/// <para lang="en">IValidateCollection Interface - Supports multiple validation results and cross-component validation linkage</para>
 /// </summary>
 public interface IValidateCollection
 {
     /// <summary>
     /// <para lang="zh">验证方法</para>
-    /// <para lang="en">验证方法</para>
+    /// <para lang="en">Validates the specified validation context</para>
     /// </summary>
     /// <param name="validationContext"></param>
     /// <returns></returns>
@@ -21,14 +21,14 @@ public interface IValidateCollection
 
     /// <summary>
     /// <para lang="zh">返回合法成员集合</para>
-    /// <para lang="en">返回合法成员collection</para>
+    /// <para lang="en">Gets the valid member names collection</para>
     /// </summary>
     /// <returns></returns>
     List<string> GetValidMemberNames();
 
     /// <summary>
     /// <para lang="zh">返回非法成员集合</para>
-    /// <para lang="en">返回非法成员collection</para>
+    /// <para lang="en">Gets the invalid member names collection</para>
     /// </summary>
     /// <returns></returns>
     List<ValidationResult> GetInvalidMemberNames();

@@ -13,7 +13,7 @@ public class TabItemBindOptions
 {
     /// <summary>
     ///  <para lang="zh">获得/设置 集合</para>
-    ///  <para lang="en">Get/Set collection</para>
+    ///  <para lang="en">Gets or sets collection</para>
     /// </summary>
     public Dictionary<string, TabItemOptionAttribute> Binders { get; set; } = [];
 }

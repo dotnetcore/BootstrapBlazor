@@ -123,7 +123,7 @@ public partial class ResultDialogFooter
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击关闭按钮回调方法</para>
-    /// <para lang="en">Get/Set Click Close Button Callback Method</para>
+    /// <para lang="en">Gets or sets Click Close Button Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -133,7 +133,7 @@ public partial class ResultDialogFooter
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击确认按钮回调方法</para>
-    /// <para lang="en">Get/Set Click Yes Button Callback Method</para>
+    /// <para lang="en">Gets or sets Click Yes Button Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -143,7 +143,7 @@ public partial class ResultDialogFooter
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击取消按钮回调方法</para>
-    /// <para lang="en">Get/Set Click No Button Callback Method</para>
+    /// <para lang="en">Gets or sets Click No Button Callback Method</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

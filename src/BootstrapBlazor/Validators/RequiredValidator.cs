@@ -19,25 +19,25 @@ public class RequiredValidator : ValidatorBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 错误描述信息 默认为 null 需要赋值</para>
-    /// <para lang="en">Get/Set error message default null need to be assigned</para>
+    /// <para lang="en">Gets or sets error message default null need to be assigned</para>
     /// </summary>
     public string? ErrorMessage { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许空字符串 默认 false 不允许</para>
-    /// <para lang="en">Get/Set whether to allow empty string default false not allowed</para>
+    /// <para lang="en">Gets or sets whether to allow empty string default false not allowed</para>
     /// </summary>
     public bool AllowEmptyString { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null</para>
-    /// <para lang="en">Get/Set IStringLocalizerFactory injection service instance default null</para>
+    /// <para lang="en">Gets or sets IStringLocalizerFactory injection service instance default null</para>
     /// </summary>
     public IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Json 资源文件配置 默认为 null</para>
-    /// <para lang="en">Get/Set Json resource file configuration default null</para>
+    /// <para lang="en">Gets or sets Json resource file configuration default null</para>
     /// </summary>
     public JsonLocalizationOptions? Options { get; set; }
 

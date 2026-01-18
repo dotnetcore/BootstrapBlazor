@@ -13,7 +13,7 @@ public interface IFilter
 {
     /// <summary>
     /// <para lang="zh">获得/设置 本过滤器相关 IFilterAction 实例</para>
-    /// <para lang="en">Get/Set Related IFilterAction Instance of this Filter</para>
+    /// <para lang="en">Gets or sets Related IFilterAction Instance of this Filter</para>
     /// </summary>
     [NotNull]
     IFilterAction? FilterAction { get; set; }

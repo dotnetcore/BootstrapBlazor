@@ -6,30 +6,30 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TypedJs 组件类</para>
-/// <para lang="en">TypedJs component类</para>
+/// <para lang="zh">Typed 组件类</para>
+/// <para lang="en">Typed Component Class</para>
 /// </summary>
 public partial class Typed
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 组件显示文字 默认 null 未设置</para>
-    /// <para lang="en">Gets or sets componentdisplay文字 Default is null 未Sets</para>
+    /// <para lang="zh">获得/设置 组件显示文字，默认 null</para>
+    /// <para lang="en">Gets or sets the component display text. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null</para>
-    /// <para lang="en">Gets or sets component配置 <see cref="TypedOptions"/> instance Default is null</para>
+    /// <para lang="zh">获得/设置 组件配置实例，默认 null</para>
+    /// <para lang="en">Gets or sets the component configuration instance. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TypedOptions? Options { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 打字结束回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets 打字结束callback method Default is null</para>
+    /// <para lang="zh">获得/设置 打字结束回调方法，默认 null</para>
+    /// <para lang="en">Gets or sets the callback method when typing is complete. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,8 +69,8 @@ public partial class Typed
     });
 
     /// <summary>
-    /// <para lang="zh">打字结束方法 由 Javascript 触发</para>
-    /// <para lang="en">打字结束方法 由 Javascript 触发</para>
+    /// <para lang="zh">打字结束方法，由 JavaScript 触发</para>
+    /// <para lang="en">Called when typing is complete, triggered by JavaScript</para>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]

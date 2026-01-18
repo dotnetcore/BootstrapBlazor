@@ -21,7 +21,7 @@ public partial class Slider<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 最小值 默认为 null 未设置</para>
-    /// <para lang="en">Get/Set Min Value. Default null</para>
+    /// <para lang="en">Gets or sets Min Value. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -30,7 +30,7 @@ public partial class Slider<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 最大值 默认为 null 未设置</para>
-    /// <para lang="en">Get/Set Max Value. Default null</para>
+    /// <para lang="en">Gets or sets Max Value. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -39,7 +39,7 @@ public partial class Slider<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 步长 默认为 null 未设置</para>
-    /// <para lang="en">Get/Set Step. Default null</para>
+    /// <para lang="en">Gets or sets Step. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

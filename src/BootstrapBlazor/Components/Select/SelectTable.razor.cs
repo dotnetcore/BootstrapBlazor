@@ -17,7 +17,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 {
     /// <summary>
     /// <para lang="zh">获得/设置 TableHeader 实例</para>
-    /// <para lang="en">Get/Set TableHeader Instance</para>
+    /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -35,7 +35,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
-    /// <para lang="en">Get/Set Color. Default Color.None</para>
+    /// <para lang="en">Gets or sets Color. Default Color.None</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -43,7 +43,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示组件右侧扩展箭头 默认 true 显示</para>
-    /// <para lang="en">Get/Set Whether to show the component right extension arrow. Default true</para>
+    /// <para lang="en">Gets or sets Whether to show the component right extension arrow. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -51,7 +51,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值</para>
-    /// <para lang="en">Get/Set Dropdown Table Min Width. Default null (use style default)</para>
+    /// <para lang="en">Gets or sets Dropdown Table Min Width. Default null (use style default)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -69,7 +69,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up</para>
-    /// <para lang="en">Get/Set Dropdown Icon. Default fa-solid fa-angle-up</para>
+    /// <para lang="en">Gets or sets Dropdown Icon. Default fa-solid fa-angle-up</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -78,7 +78,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
-    /// <para lang="en">Get/Set Whether clearable. Default false</para>
+    /// <para lang="en">Gets or sets Whether clearable. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -86,7 +86,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示无数据空记录 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show empty record when no data. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show empty record when no data. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -94,7 +94,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时显示模板 默认 null</para>
-    /// <para lang="en">Get/Set Empty Template. Default null</para>
+    /// <para lang="en">Gets or sets Empty Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -102,7 +102,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
-    /// <para lang="en">Get/Set IIconTheme Service Instance</para>
+    /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -150,7 +150,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
-    /// <para lang="en">Get/Set Clear Icon. Default fa-solid fa-angle-up</para>
+    /// <para lang="en">Gets or sets Clear Icon. Default fa-solid fa-angle-up</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -167,7 +167,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 表格高度 默认 486px</para>
-    /// <para lang="en">Get/Set Table Height. Default 486px</para>
+    /// <para lang="en">Gets or sets Table Height. Default 486px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -175,7 +175,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 Value 显示模板 默认 null</para>
-    /// <para lang="en">Get/Set Value Display Template. Default null</para>
+    /// <para lang="en">Gets or sets Value Display Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -183,7 +183,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示搜索框 默认为 false 不显示搜索框</para>
-    /// <para lang="en">Get/Set Whether to show search box. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show search box. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -191,7 +191,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 SearchTemplate 实例</para>
-    /// <para lang="en">Get/Set SearchTemplate Instance</para>
+    /// <para lang="en">Gets or sets SearchTemplate Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -199,7 +199,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否收缩顶部搜索框 默认为 false 不收缩搜索框 是否显示搜索框请设置 <see cref="SearchMode"/> 值 Top</para>
-    /// <para lang="en">Get/Set Whether to collapse top search box. Default false. Please set <see cref="SearchMode"/> to Top if show search box</para>
+    /// <para lang="en">Gets or sets Whether to collapse top search box. Default false. Please set <see cref="SearchMode"/> to Top if show search box</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -207,7 +207,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 SearchModel 实例</para>
-    /// <para lang="en">Get/Set SearchModel Instance</para>
+    /// <para lang="en">Gets or sets SearchModel Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -215,7 +215,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/></para>
-    /// <para lang="en">Get/Set Custom Search Model <see cref="CustomerSearchTemplate"/></para>
+    /// <para lang="en">Gets or sets Custom Search Model <see cref="CustomerSearchTemplate"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -223,7 +223,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/></para>
-    /// <para lang="en">Get/Set Custom Search Model Template <see cref="CustomerSearchModel"/></para>
+    /// <para lang="en">Gets or sets Custom Search Model Template <see cref="CustomerSearchModel"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -231,7 +231,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否分页 默认为 false</para>
-    /// <para lang="en">Get/Set Whether pagination. Default false</para>
+    /// <para lang="en">Gets or sets Whether pagination. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -239,7 +239,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 每页显示数据数量的外部数据源</para>
-    /// <para lang="en">Get/Set PageItems Source</para>
+    /// <para lang="en">Gets or sets PageItems Source</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -248,7 +248,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动生成列信息 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to auto generate columns. Default false</para>
+    /// <para lang="en">Gets or sets Whether to auto generate columns. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -256,7 +256,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
-    /// <para lang="en">Get/Set OnClear Callback Method. Default null</para>
+    /// <para lang="en">Gets or sets OnClear Callback Method. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -275,7 +275,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">获得/设置 内部 Input 组件 Id</para>
-    /// <para lang="en">Get/Set Internal Input Component Id</para>
+    /// <para lang="en">Gets or sets Internal Input Component Id</para>
     /// </summary>
     private string InputId => $"{Id}_input";
 

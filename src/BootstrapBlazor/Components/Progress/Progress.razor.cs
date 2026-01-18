@@ -15,7 +15,7 @@ public partial class Progress
 {
     /// <summary>
     /// <para lang="zh">获得/设置 控件高度 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Control Height. Default null</para>
+    /// <para lang="en">Gets or sets Control Height. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认为 Color.Primary</para>
-    /// <para lang="en">Get/Set Color. Default Color.Primary</para>
+    /// <para lang="en">Gets or sets Color. Default Color.Primary</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示进度条值 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show progress value. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show progress value. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
@@ -40,7 +40,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示为条纹 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show striped. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show striped. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
@@ -49,7 +49,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否动画 默认 false</para>
-    /// <para lang="en">Get/Set Whether to show animated. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show animated. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
@@ -58,7 +58,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件进度值</para>
-    /// <para lang="en">Get/Set Progress Value</para>
+    /// <para lang="en">Gets or sets Progress Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -66,7 +66,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 进度值修约小数位数, 默认 0 (即保留为整数)</para>
-    /// <para lang="en">Get/Set Rounding decimal places. Default 0 (Keep integer)</para>
+    /// <para lang="en">Gets or sets Rounding decimal places. Default 0 (Keep integer)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -74,7 +74,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 保留小数点模式 默认为 AwayFromZero</para>
-    /// <para lang="en">Get/Set Rounding mode. Default AwayFromZero</para>
+    /// <para lang="en">Gets or sets Rounding mode. Default AwayFromZero</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -82,7 +82,7 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 进度标签文本</para>
-    /// <para lang="en">Get/Set Progress Label Text</para>
+    /// <para lang="en">Gets or sets Progress Label Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

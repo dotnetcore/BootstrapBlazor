@@ -16,19 +16,19 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
 {
     /// <summary>
     /// <para lang="zh">获得/设置 过滤条件名称</para>
-    /// <para lang="en">Get/Set Filter Condition Name</para>
+    /// <para lang="en">Gets or sets Filter Condition Name</para>
     /// </summary>
     public string Name { get; set; } = name;
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤条件值</para>
-    /// <para lang="en">Get/Set Filter Condition Value</para>
+    /// <para lang="en">Gets or sets Filter Condition Value</para>
     /// </summary>
     public object? Value { get; set; } = value;
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤条件关系运算符</para>
-    /// <para lang="en">Get/Set Filter Condition Relation Operator</para>
+    /// <para lang="en">Gets or sets Filter Condition Relation Operator</para>
     /// </summary>
     public FilterAction Action { get; set; } = action;
 

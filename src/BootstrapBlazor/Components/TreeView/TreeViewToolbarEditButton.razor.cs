@@ -6,21 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TreeViewToolbarEditButton component</para>
-/// <para lang="en">TreeViewToolbarEditButton component</para>
+/// <para lang="zh">TreeViewToolbarEditButton 组件</para>
+/// <para lang="en">TreeViewToolbarEditButton Component</para>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class TreeViewToolbarEditButton<TItem> : ComponentBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the tree view item. 默认为 null.</para>
+    /// <para lang="zh">获得/设置 树视图项，默认为 null</para>
     /// <para lang="en">Gets or sets the tree view item. Default is null.</para>
     /// </summary>
     [Parameter, NotNull]
     public TreeViewItem<TItem>? Item { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the item changed event 回调.</para>
+    /// <para lang="zh">获得/设置 项更改事件回调</para>
     /// <para lang="en">Gets or sets the item changed event callback.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
@@ -28,33 +28,31 @@ public partial class TreeViewToolbarEditButton<TItem> : ComponentBase
     public EventCallback<TreeViewItem<TItem>> ItemChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the update the tree text value 回调. 默认为 null. <para>If return true will update the tree text value, otherwise will not update.</para>
-    ///</para>
-    /// <para lang="en">Gets or sets the update the tree text value callback. Default is null. <para>If return true will update the tree text value, otherwise will not update.</para>
-    ///</para>
+    /// <para lang="zh">获得/设置 更新树文本值的回调方法，默认为 null。如果返回 true 将更新树文本值，否则不更新。</para>
+    /// <para lang="en">Gets or sets the callback method to update the tree text value. Default is null. If it returns true, the tree text value will be updated; otherwise, it will not be updated.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the title of the popup-window. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the title of the popup-window. Default is null.</para>
+    /// <para lang="zh">获得/设置 弹出窗口的标题，默认为 null</para>
+    /// <para lang="en">Gets or sets the title of the popup window. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the text of the popup-window label. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the text of the popup-window label. Default is null.</para>
+    /// <para lang="zh">获得/设置 弹出窗口标签的文本，默认为 null</para>
+    /// <para lang="en">Gets or sets the text of the popup window label. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 图标 of the edit 按钮. 默认为 null.</para>
+    /// <para lang="zh">获得/设置 编辑按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of the edit button. Default is null.</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>

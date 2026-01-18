@@ -27,7 +27,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Get/Set Not Supported Column Filter Message. Default null (Read from resource file)</para>
+    /// <para lang="en">Gets or sets Not Supported Column Filter Message. Default null (Read from resource file)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -35,7 +35,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 Loading 模板</para>
-    /// <para lang="en">Get/Set Loading Template</para>
+    /// <para lang="en">Gets or sets Loading Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -43,7 +43,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列工具栏图标 fa-solid fa-gear</para>
-    /// <para lang="en">Get/Set Column Toolbox Icon fa-solid fa-gear</para>
+    /// <para lang="en">Gets or sets Column Toolbox Icon fa-solid fa-gear</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -52,7 +52,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 默认固定列宽度 默认 200 单位 px</para>
-    /// <para lang="en">Get/Set Default Fixed Column Width. Default 200 px</para>
+    /// <para lang="en">Gets or sets Default Fixed Column Width. Default 200 px</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -60,7 +60,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否使用按钮组显示行内扩展按钮 默认 true</para>
-    /// <para lang="en">Get/Set Whether to use button group for extend buttons. Default true</para>
+    /// <para lang="en">Gets or sets Whether to use button group for extend buttons. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -68,7 +68,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 内置虚拟化组件实例</para>
-    /// <para lang="en">Get/Set Internal Virtualize Component Instance</para>
+    /// <para lang="en">Gets or sets Internal Virtualize Component Instance</para>
     /// </summary>
     [NotNull]
     private Virtualize<TItem>? _virtualizeElement = null;
@@ -208,7 +208,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
-    /// <para lang="en">Get/Set Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
+    /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -216,7 +216,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/></para>
-    /// <para lang="en">Get/Set Scroll Hover Width. Default null (Use <see cref="ScrollOptions.ScrollHoverWidth"/>)</para>
+    /// <para lang="en">Gets or sets Scroll Hover Width. Default null (Use <see cref="ScrollOptions.ScrollHoverWidth"/>)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -224,7 +224,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字</para>
-    /// <para lang="en">Get/Set Column Resize Tooltip Prefix. Default null (Read from resource file)</para>
+    /// <para lang="en">Gets or sets Column Resize Tooltip Prefix. Default null (Read from resource file)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -232,7 +232,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示列宽提示信息，默认 false 显示</para>
-    /// <para lang="en">Get/Set Whether to show column width tooltip. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show column width tooltip. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -258,7 +258,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 Table 高度 默认为 null</para>
-    /// <para lang="en">Get/Set Table Height. Default null</para>
+    /// <para lang="en">Gets or sets Table Height. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -270,7 +270,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 固定表头 默认 false</para>
-    /// <para lang="en">Get/Set Fixed Header. Default false</para>
+    /// <para lang="en">Gets or sets Fixed Header. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -278,7 +278,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 固定 Footer 默认 false</para>
-    /// <para lang="en">Get/Set Fixed Footer. Default false</para>
+    /// <para lang="en">Gets or sets Fixed Footer. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -286,7 +286,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 多表头模板</para>
-    /// <para lang="en">Get/Set Multi Header Template</para>
+    /// <para lang="en">Gets or sets Multi Header Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -294,7 +294,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列拷贝 Tooltip 文字</para>
-    /// <para lang="en">Get/Set Copy Column Tooltip Text</para>
+    /// <para lang="en">Gets or sets Copy Column Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -302,7 +302,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列拷贝完毕后 Tooltip 文字</para>
-    /// <para lang="en">Get/Set Copy Column Copied Tooltip Text</para>
+    /// <para lang="en">Gets or sets Copy Column Copied Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -310,7 +310,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 CopyColumn Tooltip 默认 true</para>
-    /// <para lang="en">Get/Set CopyColumn Tooltip. Default true</para>
+    /// <para lang="en">Gets or sets CopyColumn Tooltip. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -324,7 +324,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件工作模式为 Excel 模式 默认 false</para>
-    /// <para lang="en">Get/Set Excel Mode. Default false</para>
+    /// <para lang="en">Gets or sets Excel Mode. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -332,7 +332,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用 Excel 模式下的键盘导航功能 默认 true</para>
-    /// <para lang="en">Get/Set Enable Keyboard Navigation in Excel Mode. Default true</para>
+    /// <para lang="en">Gets or sets Enable Keyboard Navigation in Excel Mode. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -340,7 +340,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断</para>
-    /// <para lang="en">Get/Set Whether to show detail row. Default null (Check <see cref="DetailRowTemplate" />)</para>
+    /// <para lang="en">Gets or sets Whether to show detail row. Default null (Check <see cref="DetailRowTemplate" />)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -348,7 +348,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏</para>
-    /// <para lang="en">Get/Set Whether to hide footer when no data. Default false</para>
+    /// <para lang="en">Gets or sets Whether to hide footer when no data. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -356,7 +356,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
-    /// <para lang="en">Get/Set Items per row in Edit Dialog. Default 2</para>
+    /// <para lang="en">Gets or sets Items per row in Edit Dialog. Default 2</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -364,7 +364,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置行内组件布局格式 默认 Inline 布局</para>
-    /// <para lang="en">Get/Set Row Layout Format. Default Inline</para>
+    /// <para lang="en">Gets or sets Row Layout Format. Default Inline</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -372,7 +372,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置 <see cref="EditDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
-    /// <para lang="en">Get/Set Label Alignment in Inline Mode. Default None (Left)</para>
+    /// <para lang="en">Gets or sets Label Alignment in Inline Mode. Default None (Left)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -380,7 +380,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Whether to disable auto submit form by enter. Default null</para>
+    /// <para lang="en">Gets or sets Whether to disable auto submit form by enter. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -388,7 +388,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 明细行 Row Header 宽度 默认 24</para>
-    /// <para lang="en">Get/Set Detail Row Header Width. Default 24</para>
+    /// <para lang="en">Gets or sets Detail Row Header Width. Default 24</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -396,7 +396,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 显示文字的复选框列宽度 默认 80</para>
-    /// <para lang="en">Get/Set Show Checkbox Text Column Width. Default 80</para>
+    /// <para lang="en">Gets or sets Show Checkbox Text Column Width. Default 80</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -404,7 +404,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 复选框宽度 默认 36</para>
-    /// <para lang="en">Get/Set Checkbox Column Width. Default 36</para>
+    /// <para lang="en">Gets or sets Checkbox Column Width. Default 36</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -412,7 +412,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 紧凑模式下复选框宽度 默认 28</para>
-    /// <para lang="en">Get/Set Compact Checkbox Column Width. Default 28</para>
+    /// <para lang="en">Gets or sets Compact Checkbox Column Width. Default 28</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -420,7 +420,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 行号列宽度 默认 60</para>
-    /// <para lang="en">Get/Set Line No Column Width. Default 60</para>
+    /// <para lang="en">Gets or sets Line No Column Width. Default 60</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -428,7 +428,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 行号内容位置</para>
-    /// <para lang="en">Get/Set Line No Column Alignment</para>
+    /// <para lang="en">Gets or sets Line No Column Alignment</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -436,7 +436,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 呈现每行之前的回调</para>
-    /// <para lang="en">Get/Set Callback before render row</para>
+    /// <para lang="en">Gets or sets Callback before render row</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -444,7 +444,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 Table 组件渲染完毕回调</para>
-    /// <para lang="en">Get/Set Callback after Table rendered</para>
+    /// <para lang="en">Gets or sets Callback after Table rendered</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -452,7 +452,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动将选中行滚动到可视区域 默认 false</para>
-    /// <para lang="en">Get/Set Whether to auto scroll last selected row to view. Default false</para>
+    /// <para lang="en">Gets or sets Whether to auto scroll last selected row to view. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -460,7 +460,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center</para>
-    /// <para lang="en">Get/Set Alignment for auto scroll selected row. Default ScrollToViewAlign.Center</para>
+    /// <para lang="en">Gets or sets Alignment for auto scroll selected row. Default ScrollToViewAlign.Center</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -468,7 +468,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 双击单元格回调委托</para>
-    /// <para lang="en">Get/Set Double Click Cell Callback</para>
+    /// <para lang="en">Gets or sets Double Click Cell Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -476,7 +476,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 展开收起明细行回调方法 第二个参数 true 时表示展开 false 时表示收起</para>
-    /// <para lang="en">Get/Set Callback for toggle detail row. Second param true for expand, false for collapse</para>
+    /// <para lang="en">Gets or sets Callback for toggle detail row. Second param true for expand, false for collapse</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -484,7 +484,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false</para>
-    /// <para lang="en">Get/Set Whether toolbar dropdown button is Popover. Default false</para>
+    /// <para lang="en">Gets or sets Whether toolbar dropdown button is Popover. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -492,7 +492,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据滚动模式</para>
-    /// <para lang="en">Get/Set Scroll Mode</para>
+    /// <para lang="en">Gets or sets Scroll Mode</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -500,7 +500,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 虚拟滚动行高 默认为 38</para>
-    /// <para lang="en">Get/Set Virtual Scroll Row Height. Default 38</para>
+    /// <para lang="en">Gets or sets Virtual Scroll Row Height. Default 38</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -525,7 +525,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false</para>
-    /// <para lang="en">Get/Set Whether to use Tracking mode. Default false</para>
+    /// <para lang="en">Gets or sets Whether to use Tracking mode. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -559,7 +559,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 明细行手风琴效果 默认 false</para>
-    /// <para lang="en">Get/Set Accordion for detail rows. Default false</para>
+    /// <para lang="en">Gets or sets Accordion for detail rows. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -567,7 +567,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列最小宽度 默认 null 未设置 可通过 <see cref="TableSettings.ColumnMinWidth"/> 统一设置</para>
-    /// <para lang="en">Get/Set Column Min Width. Default null</para>
+    /// <para lang="en">Gets or sets Column Min Width. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -607,14 +607,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     protected List<TItem> DetailRows { get; } = [];
 
     /// <summary>
-    /// <para lang="zh">获得 表头集合</para>
-    /// <para lang="en">Get Columns Collection</para>
+    /// <inheritdoc/>
     /// </summary>
     public List<ITableColumn> Columns { get; } = new(50);
 
     /// <summary>
     /// <para lang="zh">获得/设置 明细行模板 <see cref="IsDetails" /></para>
-    /// <para lang="en">Get/Set Detail Row Template <see cref="IsDetails" /></para>
+    /// <para lang="en">Gets or sets Detail Row Template <see cref="IsDetails" /></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -622,7 +621,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 行模板</para>
-    /// <para lang="en">Get/Set Row Template</para>
+    /// <para lang="en">Gets or sets Row Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -630,7 +629,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 行内容模板</para>
-    /// <para lang="en">Get/Set Row Content Template</para>
+    /// <para lang="en">Gets or sets Row Content Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -638,7 +637,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 TableHeader 实例</para>
-    /// <para lang="en">Get/Set TableHeader Instance</para>
+    /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -646,7 +645,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 TableFooter 实例</para>
-    /// <para lang="en">Get/Set TableFooter Instance</para>
+    /// <para lang="en">Gets or sets TableFooter Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -654,7 +653,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 Table Footer 模板</para>
-    /// <para lang="en">Get/Set Table Footer Template</para>
+    /// <para lang="en">Gets or sets Table Footer Template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -662,7 +661,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据集合，适用于无功能仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托</para>
-    /// <para lang="en">Get/Set Items. Use <see cref="OnQueryAsync"/> for advanced features</para>
+    /// <para lang="en">Gets or sets Items. Use <see cref="OnQueryAsync"/> for advanced features</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -670,7 +669,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据集合回调方法</para>
-    /// <para lang="en">Get/Set Items Changed Callback</para>
+    /// <para lang="en">Gets or sets Items Changed Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -678,7 +677,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 表格组件大小 默认为 Normal 正常模式</para>
-    /// <para lang="en">Get/Set Table Size. Default Normal</para>
+    /// <para lang="en">Gets or sets Table Size. Default Normal</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -686,7 +685,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时显示模板 默认 null</para>
-    /// <para lang="en">Get/Set Empty Template. Default null</para>
+    /// <para lang="en">Gets or sets Empty Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -694,7 +693,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时显示文本 默认取资源文件 英文 NoData 中文 无数据</para>
-    /// <para lang="en">Get/Set Empty Text. Default null (Read from resource file)</para>
+    /// <para lang="en">Gets or sets Empty Text. Default null (Read from resource file)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -702,7 +701,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 无数据时显示图片路径 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Empty Image Path. Default null</para>
+    /// <para lang="en">Gets or sets Empty Image Path. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -710,7 +709,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示无数据空记录 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show empty record. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show empty record. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -718,7 +717,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示过滤表头 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show filter header. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show filter header. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -726,7 +725,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示过滤表头 默认 false 不显示</para>
-    /// <para lang="en">Get/Set Whether to show multi filter header. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show multi filter header. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -734,7 +733,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示表脚 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to show footer. Default false</para>
+    /// <para lang="en">Gets or sets Whether to show footer. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -742,7 +741,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效</para>
-    /// <para lang="en">Get/Set Whether to allow resizing column width. Default false (Effective when fixed header)</para>
+    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when fixed header)</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -750,7 +749,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否表头允许折行 默认 false 不折行 此设置为 true 时覆盖 <see cref="ITableColumn.HeaderTextWrap"/> 参数值</para>
-    /// <para lang="en">Get/Set Whether header text wrap. Default false</para>
+    /// <para lang="en">Gets or sets Whether header text wrap. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -758,7 +757,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否斑马线样式 默认为 false</para>
-    /// <para lang="en">Get/Set Striped Style. Default false</para>
+    /// <para lang="en">Gets or sets Striped Style. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -770,7 +769,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用</para>
-    /// <para lang="en">Get/Set Whether to auto query on first render. Default true</para>
+    /// <para lang="en">Gets or sets Whether to auto query on first render. Default true</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -778,7 +777,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否带边框样式 默认为 false</para>
-    /// <para lang="en">Get/Set Bordered Style. Default false</para>
+    /// <para lang="en">Gets or sets Bordered Style. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -786,7 +785,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动刷新表格 默认为 false</para>
-    /// <para lang="en">Get/Set Whether to auto refresh. Default false</para>
+    /// <para lang="en">Gets or sets Whether to auto refresh. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -798,7 +797,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动刷新时间间隔 默认 2000 毫秒</para>
-    /// <para lang="en">Get/Set Auto Refresh Interval. Default 2000 ms</para>
+    /// <para lang="en">Gets or sets Auto Refresh Interval. Default 2000 ms</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -806,7 +805,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获取/设置 表格 thead 样式 <see cref="TableHeaderStyle"/>，默认为浅色<see cref="TableHeaderStyle.None"/></para>
-    /// <para lang="en">Get/Set Table Header Style. Default <see cref="TableHeaderStyle.None"/></para>
+    /// <para lang="en">Gets or sets Table Header Style. Default <see cref="TableHeaderStyle.None"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -814,7 +813,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 单击行回调委托方法</para>
-    /// <para lang="en">Get/Set On Click Row Callback</para>
+    /// <para lang="en">Gets or sets On Click Row Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -822,7 +821,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 双击行回调委托方法</para>
-    /// <para lang="en">Get/Set On Double Click Row Callback</para>
+    /// <para lang="en">Gets or sets On Double Click Row Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -830,7 +829,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示每行的明细行展开图标</para>
-    /// <para lang="en">Get/Set Whether to show detail row expand icon</para>
+    /// <para lang="en">Gets or sets Whether to show detail row expand icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -842,7 +841,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 动态数据上下文实例</para>
-    /// <para lang="en">Get/Set Dynamic Data Context Instance</para>
+    /// <para lang="en">Gets or sets Dynamic Data Context Instance</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -850,7 +849,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 未设置排序时 tooltip 显示文字 默认点击升序</para>
-    /// <para lang="en">Get/Set Unset Sort Tooltip Text. Default Click to Asc</para>
+    /// <para lang="en">Gets or sets Unset Sort Tooltip Text. Default Click to Asc</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -859,7 +858,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 升序排序时 tooltip 显示文字 默认点击降序</para>
-    /// <para lang="en">Get/Set Asc Sort Tooltip Text. Default Click to Desc</para>
+    /// <para lang="en">Gets or sets Asc Sort Tooltip Text. Default Click to Desc</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -868,7 +867,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 降序排序时 tooltip 显示文字 默认取消排序</para>
-    /// <para lang="en">Get/Set Desc Sort Tooltip Text. Default Cancel Sort</para>
+    /// <para lang="en">Gets or sets Desc Sort Tooltip Text. Default Cancel Sort</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -877,7 +876,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列创建时回调委托方法</para>
-    /// <para lang="en">Get/Set On Column Creating Callback</para>
+    /// <para lang="en">Gets or sets On Column Creating Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -885,7 +884,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序</para>
-    /// <para lang="en">Get/Set Custom Column Order Callback. Default null</para>
+    /// <para lang="en">Gets or sets Custom Column Order Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
@@ -897,7 +896,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</para>
-    /// <para lang="en">Get/Set Data Primary Key Attribute. Default <see cref="KeyAttribute"/></para>
+    /// <para lang="en">Gets or sets Data Primary Key Attribute. Default <see cref="KeyAttribute"/></para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -905,10 +904,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
-    /// <para lang="en">Get/Set Model Equality Comparer. Default null</para>
-    /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
-    /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> if this callback is provided</para>
+    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null 提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="en">Gets or sets Model Equality Comparer. Default null Ignore <see cref="CustomKeyAttribute"/> if this callback is provided</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -916,7 +913,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 获得高级搜索条件回调方法 默认 null</para>
-    /// <para lang="en">Get/Set Get Advanced Search Filter Callback. Default null</para>
+    /// <para lang="en">Gets or sets Get Advanced Search Filter Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -924,7 +921,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能</para>
-    /// <para lang="en">Get/Set Client Table Name. Default null</para>
+    /// <para lang="en">Gets or sets Client Table Name. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -932,7 +929,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 左对齐显示文本</para>
-    /// <para lang="en">Get/Set Align Left Text</para>
+    /// <para lang="en">Gets or sets Align Left Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -941,7 +938,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置左对齐提示信息文本</para>
-    /// <para lang="en">Get/Set Align Left Tooltip Text</para>
+    /// <para lang="en">Gets or sets Align Left Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -950,7 +947,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 居中对齐显示文本</para>
-    /// <para lang="en">Get/Set Align Center Text</para>
+    /// <para lang="en">Gets or sets Align Center Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -959,7 +956,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 居中对齐提示信息文本</para>
-    /// <para lang="en">Get/Set Align Center Tooltip Text</para>
+    /// <para lang="en">Gets or sets Align Center Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -968,7 +965,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 右对齐显示文本</para>
-    /// <para lang="en">Get/Set Align Right Text</para>
+    /// <para lang="en">Gets or sets Align Right Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -977,7 +974,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 右对齐提示信息文本</para>
-    /// <para lang="en">Get/Set Align Right Tooltip Text</para>
+    /// <para lang="en">Gets or sets Align Right Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -986,7 +983,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 新建按钮是否禁用回调方法 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Disable Add Button Callback. Default null</para>
+    /// <para lang="en">Gets or sets Disable Add Button Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -994,7 +991,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮是否禁用回调方法 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Disable Delete Button Callback. Default null</para>
+    /// <para lang="en">Gets or sets Disable Delete Button Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1002,7 +999,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 编辑按钮是否禁用回调方法 默认 null 未设置</para>
-    /// <para lang="en">Get/Set Disable Edit Button Callback. Default null</para>
+    /// <para lang="en">Gets or sets Disable Edit Button Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1010,7 +1007,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 翻页时是否自动滚动到顶部 默认 false</para>
-    /// <para lang="en">Get/Set Whether to scroll to top when paging. Default false</para>
+    /// <para lang="en">Gets or sets Whether to scroll to top when paging. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1035,8 +1032,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -1073,10 +1069,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// <para lang="zh">OnInitializedAsync 方法</para>
-    /// <para lang="en">OnInitializedAsync method</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         if (IsTree && Items != null && TreeNodeConverter != null)
@@ -1178,21 +1172,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否为第一次 Render</para>
-    /// <para lang="en">Get/Set Whether it is the first Render</para>
+    /// <para lang="en">Gets or sets Whether it is the first Render</para>
     /// </summary>
     protected bool FirstRender { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
-    /// <para lang="en">Get/Set Auto Refresh CancellationTokenSource Instance</para>
+    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
     private bool _bindResizeColumn;
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -1237,8 +1230,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// <para lang="zh">OnAfterRenderAsync 方法</para>
-    /// <para lang="en">OnAfterRenderAsync method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -1593,10 +1585,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _firstQuery;
     private bool _autoQuery;
 
-    /// <summary>
-    /// <para lang="zh">OnQueryAsync 查询结果数据集合</para>
-    /// <para lang="en">OnQueryAsync Query Result Data Collection</para>
-    /// </summary>
     private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
@@ -1788,7 +1776,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     #region Filter
     /// <summary>
     /// <para lang="zh">获得/设置 表头过滤时回调方法</para>
-    /// <para lang="en">Get/Set Filter Callback</para>
+    /// <para lang="en">Gets or sets Filter Callback</para>
     /// </summary>
     public Func<Task>? OnFilterAsync { get; private set; }
 
@@ -1857,7 +1845,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private int GetLineNo(TItem item) => Rows.IndexOf(item) + 1 + ((ScrollMode == ScrollMode.Virtual && Items == null) ? StartIndex : (PageIndex - 1) * _pageItems);
 
     /// <summary>
-    /// <para lang="zh">Reset all Columns Filter</para>
+    /// <para lang="zh">重置所有列过滤条件方法</para>
     /// <para lang="en">Reset all Columns Filter</para>
     /// </summary>
     public async Task ResetFilters()
@@ -1875,7 +1863,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// <para lang="zh">Reset all Columns Sort</para>
+    /// <para lang="zh">重置所有列排序方法</para>
     /// <para lang="en">Reset all Columns Sort</para>
     /// </summary>
     public async Task ResetSortAsync()
@@ -1888,18 +1876,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool GetAddButtonStatus() => DisableAddButtonCallback?.Invoke(SelectedRows) ?? false;
 
-    /// <summary>
-    /// <para lang="zh">返回 true 时按钮禁用</para>
-    /// <para lang="en">Return true when button is disabled</para>
-    /// </summary>
-    /// <returns></returns>
     private bool GetEditButtonStatus() => ShowAddForm || AddInCell || (DisableEditButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count != 1);
 
-    /// <summary>
-    /// <para lang="zh">返回 true 时按钮禁用</para>
-    /// <para lang="en">Return true when button is disabled</para>
-    /// </summary>
-    /// <returns></returns>
     private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || (DisableDeleteButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count == 0);
 
     private async Task InvokeItemsChanged()
@@ -1920,7 +1898,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false</para>
-    /// <para lang="en">Get/Set Whether to allow dragging column header to change column order. Default false</para>
+    /// <para lang="en">Gets or sets Whether to allow dragging column header to change column order. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1930,7 +1908,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序</para>
-    /// <para lang="en">Get/Set Drag Column End Callback. Default null</para>
+    /// <para lang="en">Gets or sets Drag Column End Callback. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1938,7 +1916,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置列宽回调方法</para>
-    /// <para lang="en">Get/Set Resize Column Callback</para>
+    /// <para lang="en">Gets or sets Resize Column Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1946,7 +1924,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
-    /// <para lang="en">Get/Set Auto Fit Column Width Callback</para>
+    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1956,7 +1934,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
-    /// <para lang="en">Get/Set Auto Fit Column Width Callback</para>
+    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -1964,7 +1942,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
-    /// <para lang="en">Get/Set Whether to include header when auto fit column width. Default false</para>
+    /// <para lang="en">Gets or sets Whether to include header when auto fit column width. Default false</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -2124,8 +2102,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     };
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

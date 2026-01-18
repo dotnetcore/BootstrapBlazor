@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ToolbarGroup 组件用于在工具栏中添加一组按钮</para>
-/// <para lang="en">ToolbarGroup component用于在工具栏中添加一组button</para>
+/// <para lang="zh">ToolbarButtonGroup 组件用于在工具栏中添加一组按钮</para>
+/// <para lang="en">ToolbarButtonGroup Component for adding a group of buttons in the toolbar</para>
 /// </summary>
 public partial class ToolbarButtonGroup
 {
     /// <summary>
     /// <para lang="zh">获得/设置 子组件模板</para>
-    /// <para lang="en">Gets or sets 子componenttemplate</para>
+    /// <para lang="en">Gets or sets the child component template</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

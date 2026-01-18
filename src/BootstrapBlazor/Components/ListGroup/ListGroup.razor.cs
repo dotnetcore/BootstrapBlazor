@@ -13,7 +13,7 @@ public partial class ListGroup<TItem>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 数据源集合</para>
-    /// <para lang="en">Get/Set Data source collection</para>
+    /// <para lang="en">Gets or sets Data source collection</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -25,7 +25,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板 默认 null</para>
-    /// <para lang="en">Get/Set Header Template. Default null</para>
+    /// <para lang="en">Gets or sets Header Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -33,7 +33,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 文字 默认 null</para>
-    /// <para lang="en">Get/Set Header Text. Default null</para>
+    /// <para lang="en">Gets or sets Header Text. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -41,7 +41,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 Item 模板 默认 null</para>
-    /// <para lang="en">Get/Set Item Template. Default null</para>
+    /// <para lang="en">Gets or sets Item Template. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -49,7 +49,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击 List 项目回调方法</para>
-    /// <para lang="en">Get/Set Callback method when List item is clicked</para>
+    /// <para lang="en">Gets or sets Callback method when List item is clicked</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -57,7 +57,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 双击 List 项目回调方法</para>
-    /// <para lang="en">Get/Set Callback method when List item is double-clicked</para>
+    /// <para lang="en">Gets or sets Callback method when List item is double-clicked</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -65,7 +65,7 @@ public partial class ListGroup<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 获得条目显示文本内容回调方法</para>
-    /// <para lang="en">Get/Set Callback method to get item display text</para>
+    /// <para lang="en">Gets or sets Callback method to get item display text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

@@ -39,7 +39,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数值增加时回调委托</para>
-    /// <para lang="en">Get/Set Callback delegate when value increases</para>
+    /// <para lang="en">Gets or sets Callback delegate when value increases</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -47,7 +47,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数值减少时回调委托</para>
-    /// <para lang="en">Get/Set Callback delegate when value decreases</para>
+    /// <para lang="en">Gets or sets Callback delegate when value decreases</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -55,7 +55,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 最小值</para>
-    /// <para lang="en">Get/Set Minimum Value</para>
+    /// <para lang="en">Gets or sets Minimum Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -63,7 +63,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 最大值</para>
-    /// <para lang="en">Get/Set Maximum Value</para>
+    /// <para lang="en">Gets or sets Maximum Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -71,7 +71,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 步长 默认为 null</para>
-    /// <para lang="en">Get/Set Step. Default null</para>
+    /// <para lang="en">Gets or sets Step. Default null</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -79,7 +79,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示加减按钮</para>
-    /// <para lang="en">Get/Set Whether to show increment/decrement buttons</para>
+    /// <para lang="en">Gets or sets Whether to show increment/decrement buttons</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -87,7 +87,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 减小数值图标</para>
-    /// <para lang="en">Get/Set Decrement Icon</para>
+    /// <para lang="en">Gets or sets Decrement Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -95,7 +95,7 @@ public partial class BootstrapInputNumber<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 增加数值图标</para>
-    /// <para lang="en">Get/Set Increment Icon</para>
+    /// <para lang="en">Gets or sets Increment Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

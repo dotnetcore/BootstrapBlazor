@@ -15,7 +15,7 @@ public partial class GoTop
 {
     /// <summary>
     /// <para lang="zh">获得/设置 返回顶端 Icon 属性</para>
-    /// <para lang="en">Get/Set Back to Top Icon</para>
+    /// <para lang="en">Gets or sets Back to Top Icon</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -23,7 +23,7 @@ public partial class GoTop
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动条所在组件</para>
-    /// <para lang="en">Get/Set Scroll Container Component</para>
+    /// <para lang="en">Gets or sets Scroll Container Component</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -31,7 +31,7 @@ public partial class GoTop
 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动行为 默认 ScrollIntoViewBehavior.Smooth</para>
-    /// <para lang="en">Get/Set Scroll Behavior Default ScrollIntoViewBehavior.Smooth</para>
+    /// <para lang="en">Gets or sets Scroll Behavior Default ScrollIntoViewBehavior.Smooth</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -39,7 +39,7 @@ public partial class GoTop
 
     /// <summary>
     /// <para lang="zh">获得/设置 鼠标悬停提示文字信息</para>
-    /// <para lang="en">Get/Set Tooltip Text</para>
+    /// <para lang="en">Gets or sets Tooltip Text</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

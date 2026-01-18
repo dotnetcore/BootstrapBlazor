@@ -16,7 +16,7 @@ public class QueryColumn<TType> : QueryGroup
 {
     /// <summary>
     /// <para lang="zh">获得/设置 条件字段名称</para>
-    /// <para lang="en">Get/Set Condition Field Name</para>
+    /// <para lang="en">Gets or sets Condition Field Name</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -24,7 +24,7 @@ public class QueryColumn<TType> : QueryGroup
 
     /// <summary>
     /// <para lang="zh">获得/设置 FieldExpression 表达式</para>
-    /// <para lang="en">Get/Set FieldExpression</para>
+    /// <para lang="en">Gets or sets FieldExpression</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -32,7 +32,7 @@ public class QueryColumn<TType> : QueryGroup
 
     /// <summary>
     /// <para lang="zh">获得/设置 条件操作符号</para>
-    /// <para lang="en">Get/Set Condition Operator</para>
+    /// <para lang="en">Gets or sets Condition Operator</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
@@ -40,7 +40,7 @@ public class QueryColumn<TType> : QueryGroup
 
     /// <summary>
     /// <para lang="zh">获得/设置 条件值</para>
-    /// <para lang="en">Get/Set Condition Value</para>
+    /// <para lang="en">Gets or sets Condition Value</para>
     /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]

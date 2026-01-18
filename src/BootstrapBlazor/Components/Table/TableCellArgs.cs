@@ -7,39 +7,39 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">单元格数据类</para>
-/// <para lang="en">单元格data类</para>
+/// <para lang="en">Table cell data class</para>
 /// </summary>
 public class TableCellArgs
 {
     /// <summary>
-    /// <para lang="zh">获得 当前单元格行数据 请自行转化为绑定模型</para>
-    /// <para lang="en">Gets current row data</para>
+    /// <para lang="zh">获得 当前单元格行数据，请自行转化为绑定模型</para>
+    /// <para lang="en">Gets current row data (please convert to bound model by yourself)</para>
     /// </summary>
     [NotNull]
     public object? Row { get; internal set; }
 
     /// <summary>
     /// <para lang="zh">获得 当前单元格绑定列名称</para>
-    /// <para lang="en">Gets 当前单元格绑定列名称</para>
+    /// <para lang="en">Gets current cell bound column name</para>
     /// </summary>
     [NotNull]
     public string? ColumnName { get; internal set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 合并单元格数量 默认 0</para>
-    /// <para lang="en">Gets or sets 合并单元格数量 Default is 0</para>
+    /// <para lang="zh">获得/设置 合并单元格数量，默认为 0</para>
+    /// <para lang="en">Gets or sets colspan count. Default is 0.</para>
     /// </summary>
     public int Colspan { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 当前单元格样式 默认 null</para>
-    /// <para lang="en">Gets or sets 当前单元格style Default is null</para>
+    /// <para lang="zh">获得/设置 当前单元格样式，默认 null</para>
+    /// <para lang="en">Gets or sets current cell CSS class. Default is null.</para>
     /// </summary>
     public string? Class { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前单元格显示内容</para>
-    /// <para lang="en">Gets or sets current cell content</para>
+    /// <para lang="en">Gets or sets current cell display content</para>
     /// </summary>
     public string? Value { get; set; }
 
