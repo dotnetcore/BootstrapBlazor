@@ -1,4 +1,4 @@
-﻿@page "/dock-view/index"
+@page "/dock-view/index"
 @layout MainLayout
 @inject IStringLocalizer<Index> Localizer
 
@@ -119,8 +119,8 @@
 &lt;/DockView&gt;</Pre>
 </div>
 
-<AttributeTable Title="DockView" Items="@GetAttributes()" />
+<AttributeTable Title="DockView" Type="typeof(DockView)" />
 
-<AttributeTable Title="DockContent" Items="@GetDockContentAttributes()" />
+<AttributeTable Title="DockContent" Type="typeof(DockContent)" />
 
-<AttributeTable Title="DockComponent" Items="@GetDockComponentAttributes()" />
+<AttributeTable Title="DockComponent" Type="typeof(DockComponent)" />
