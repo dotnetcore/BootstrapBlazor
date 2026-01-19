@@ -1,4 +1,4 @@
-﻿@page "/switch"
+@page "/switch"
 @inject IStringLocalizer<Switches> Localizer
 
 <h3>@Localizer["SwitchesTitle"]</h3>
@@ -92,6 +92,6 @@
     <NullSwitch @bind-Value="@NullValue" OnColor="Color.Dark" OnText="@Localizer["SwitchesOnText"]" OffText="@Localizer["SwitchesOffText"]" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Switch)" />
 
 <EventTable Items="@GetEvents()" />

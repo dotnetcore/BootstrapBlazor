@@ -1,4 +1,4 @@
-﻿@page "/navigation"
+@page "/navigation"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Navigation> Localizer
 
@@ -86,4 +86,4 @@
     </Nav>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Nav)" />

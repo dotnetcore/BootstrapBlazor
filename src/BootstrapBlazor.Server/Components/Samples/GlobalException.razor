@@ -1,4 +1,4 @@
-﻿@page "/global-exception"
+@page "/global-exception"
 @layout ComponentLayout
 @inject IStringLocalizer<GlobalException> Localizer
 
@@ -76,4 +76,4 @@
     <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnGotoPage" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(ErrorLogger)" />

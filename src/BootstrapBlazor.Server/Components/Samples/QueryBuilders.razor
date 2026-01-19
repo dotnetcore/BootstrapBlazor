@@ -1,4 +1,4 @@
-﻿@page "/query-builder"
+@page "/query-builder"
 @inject IStringLocalizer<QueryBuilders> Localizer
 
 <h3>@Localizer["QueryBuilderTitle"]</h3>
@@ -54,3 +54,5 @@
         </QueryGroup>
     </QueryBuilder>
 </DemoBlock>
+
+<AttributeTable Type="typeof(QueryBuilder<>)" />

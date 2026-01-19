@@ -1,4 +1,4 @@
-﻿@page "/gantt"
+@page "/gantt"
 @inject IStringLocalizer<Gantts> Localizer
 
 <h3>@Localizer["Gantts"]</h3>
@@ -13,6 +13,4 @@
     <Gantt Items="@Items" @ref="Gantt"></Gantt>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributeItems()"></AttributeTable>
-
-<AttributeTable Items="@GetMethodItems()"></AttributeTable>
+<AttributeTable Type="typeof(Gantt)"></AttributeTable>

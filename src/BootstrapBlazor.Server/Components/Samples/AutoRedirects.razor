@@ -1,4 +1,4 @@
-﻿@page "/auto-redirect"
+@page "/auto-redirect"
 @inject IStringLocalizer<AutoRedirects> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -9,4 +9,4 @@
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(AutoRedirect)" />

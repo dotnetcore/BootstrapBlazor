@@ -1,4 +1,4 @@
-﻿@page "/timer"
+@page "/timer"
 @inject IStringLocalizer<Timers> Localizer
 
 <h3>@Localizer["TimersTitle"]</h3>
@@ -17,4 +17,4 @@
     <Timer Color="Color.Warning" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Timer)" />

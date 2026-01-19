@@ -1,4 +1,4 @@
-﻿@page "/repeater"
+@page "/repeater"
 @inject IStringLocalizer<Repeaters> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
@@ -66,4 +66,4 @@
     </Repeater>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Repeater<>)" />

@@ -1,4 +1,4 @@
-﻿@page "/ribbon-tab"
+@page "/ribbon-tab"
 @inject IStringLocalizer<RibbonTabs> Localizer
 
 <h3>@Localizer["RibbonTabsTitle"]</h3>
@@ -51,4 +51,4 @@
     <RibbonTab Items="@AnchorItems" IsSupportAnchor="true" EncodeAnchorCallback="EncodeAnchorCallback" DecodeAnchorCallback="DecodeAnchorCallback"></RibbonTab>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(RibbonTab)" />

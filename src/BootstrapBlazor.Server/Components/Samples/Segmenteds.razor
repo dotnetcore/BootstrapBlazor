@@ -1,4 +1,4 @@
-﻿@page "/segmented"
+@page "/segmented"
 @inject IStringLocalizer<Segmenteds> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -70,4 +70,4 @@
     </Segmented>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Segmented<>)" />

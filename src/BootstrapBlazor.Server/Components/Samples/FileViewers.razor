@@ -1,4 +1,4 @@
-﻿@page "/file-viewer"
+@page "/file-viewer"
 @inject IStringLocalizer<FileViewers> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -37,4 +37,4 @@
     <FileViewer @ref="fileViewer" Filename="@CombineFilename(Url)" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(FileViewer)" />

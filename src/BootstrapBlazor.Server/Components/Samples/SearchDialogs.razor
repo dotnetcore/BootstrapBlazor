@@ -1,4 +1,4 @@
-﻿@page "/search-dialog"
+@page "/search-dialog"
 @inject IStringLocalizer<SearchDialogs> Localizer
 @inject DialogService DialogService
 
@@ -32,4 +32,4 @@
     <Button Text="@Localizer["SearchDialogsLayoutButtonText2"]" OnClickWithoutRender="@ShowInlineAlignDialog" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" Title="@Localizer["SearchDialogOptionAttr"]" />
+<AttributeTable Type="typeof(SearchDialogOption<>)" Title="@Localizer["SearchDialogOptionAttr"]" />

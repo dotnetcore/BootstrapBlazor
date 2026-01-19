@@ -1,4 +1,4 @@
-﻿@page "/rdkit"
+@page "/rdkit"
 @inject IStringLocalizer<RDKits> Localizer
 
 <h3>@Localizer["RDKitTitle"]</h3>
@@ -34,3 +34,5 @@
     </section>
     <RDKit Smiles="CC(=O)Oc1ccccc1C(=O)O" Smarts="@Smarts"></RDKit>
 </DemoBlock>
+
+<AttributeTable Type="typeof(RDKit)" />

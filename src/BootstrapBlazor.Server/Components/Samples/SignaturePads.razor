@@ -1,4 +1,4 @@
-﻿@page "/signature-pad"
+@page "/signature-pad"
 @inject IStringLocalizer<SignaturePads> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -43,4 +43,4 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(SignaturePad)" />

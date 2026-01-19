@@ -1,4 +1,4 @@
-﻿@page "/speech/wave"
+@page "/speech/wave"
 @inject IStringLocalizer<SpeechWaves> Localizer
 
 <h3>@Localizer["SpeechWaveTitle"]</h3>
@@ -30,4 +30,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(SpeechWave)" />

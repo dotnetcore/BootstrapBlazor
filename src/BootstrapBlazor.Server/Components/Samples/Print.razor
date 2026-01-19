@@ -1,4 +1,4 @@
-﻿@page "/print"
+@page "/print"
 @inject IStringLocalizer<Print> Localizer
 @inject DialogService DialogService
 @inject PrintService PrintService
@@ -29,5 +29,3 @@
 <DemoBlock Title="@Localizer["PrintServiceTitle"]" Introduction="@Localizer["PrintServiceIntro"]" Name="PrintService">
     <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrintService" />
 </DemoBlock>
-
-

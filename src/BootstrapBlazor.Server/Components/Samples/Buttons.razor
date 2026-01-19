@@ -1,4 +1,4 @@
-﻿@page "/button"
+@page "/button"
 @inject IStringLocalizer<Buttons> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -156,7 +156,7 @@
     <ToggleButton Text="Toggle" Color="Color.Danger"></ToggleButton>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Button)" />
 
 <EventTable Items="@GetEvents()" />
 

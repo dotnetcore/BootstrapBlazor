@@ -1,4 +1,4 @@
-﻿@page "/player"
+@page "/player"
 @inject IStringLocalizer<Players> Localizer
 
 <h3>@Localizer["PlayersTitle"]</h3>
@@ -49,5 +49,4 @@
     <Player Mode="PlayerMode.Audio" Options="_audioOptions"></Player>
 </DemoBlock>
 
-@* <AttributeTable Items="@GetAttributes()" /> *@
-
+<AttributeTable Type="typeof(Player)" />

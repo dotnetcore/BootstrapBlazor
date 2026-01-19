@@ -1,4 +1,4 @@
-﻿@page "/select-province"
+@page "/select-province"
 @inject IStringLocalizer<SelectProvinces> Localizer
 
 <h3>@Localizer["ProvinceTitle"]</h3>
@@ -18,3 +18,5 @@
            Name="IsMultiple">
     <SelectProvince IsMultiple="true" Value="@_multipleValues"></SelectProvince>
 </DemoBlock>
+
+<AttributeTable Type="typeof(SelectProvince)" />

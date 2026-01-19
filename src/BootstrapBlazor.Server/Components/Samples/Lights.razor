@@ -1,4 +1,4 @@
-﻿@page "/light"
+@page "/light"
 @inject IStringLocalizer<Lights> Localizer
 @implements IDisposable
 
@@ -151,4 +151,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()"></AttributeTable>
+<AttributeTable Type="typeof(Light)"></AttributeTable>

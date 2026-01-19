@@ -1,4 +1,4 @@
-﻿@page "/go-top"
+@page "/go-top"
 @inject IStringLocalizer<GoTops> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -20,4 +20,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(GoTop)" />

@@ -1,4 +1,4 @@
-﻿@page "/iframe"
+@page "/iframe"
 @inject IStringLocalizer<IFrames> Localizer
 
 <h3>@Localizer["IFrameTitle"]</h3>
@@ -11,4 +11,4 @@
     <IFrame Src="https://pro.blazor.zone"></IFrame>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(IFrame)" />

@@ -1,4 +1,4 @@
-﻿@page "/empty"
+@page "/empty"
 @inject NavigationManager NavigationManager
 @inject IStringLocalizer<Empties> Localizer
 
@@ -27,5 +27,5 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(Empty)" />
 

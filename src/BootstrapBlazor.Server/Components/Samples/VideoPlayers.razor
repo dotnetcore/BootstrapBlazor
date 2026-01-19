@@ -1,4 +1,4 @@
-﻿@page "/video-player"
+@page "/video-player"
 @inject IStringLocalizer<VideoPlayers> Localizer
 
 <h3>@Localizer["VideoPlayersTitle"]</h3>
@@ -43,7 +43,8 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(VideoPlayer)"></AttributeTable>
+
 <br />
 <h5>@Localizer["MineType"]</h5>
 <ol>

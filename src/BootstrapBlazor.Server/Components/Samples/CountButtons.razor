@@ -1,4 +1,4 @@
-﻿@page "/count-button"
+@page "/count-button"
 @inject IStringLocalizer<CountButtons> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -13,4 +13,4 @@
     <CountButton Icon="fa-solid fa-home" Count="5" Text="@Localizer["Text"]" CountTextCallback="CountTextCallback" OnClick="OnClick"></CountButton>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(CountButton)" />

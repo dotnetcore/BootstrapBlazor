@@ -1,4 +1,4 @@
-﻿@page "/task-board"
+@page "/task-board"
 @using BootstrapBlazor.Components.Tasks
 
 @inject IStringLocalizer<TaskBoard> Localizer
@@ -14,3 +14,5 @@
            Name="Normal">
     <TaskDashboard></TaskDashboard>
 </DemoBlock>
+
+<AttributeTable Type="typeof(TaskDashboard)" />

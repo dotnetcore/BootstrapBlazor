@@ -1,4 +1,4 @@
-﻿@page "/image-cropper"
+@page "/image-cropper"
 @inject IStringLocalizer<ImageCroppers> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -107,4 +107,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(ImageCropper)" />
