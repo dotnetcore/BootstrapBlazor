@@ -62,6 +62,101 @@ public sealed partial class ListViews
         public string Category { get; set; } = "";
     }
 
+    private AttributeItem[] GetAttributes() =>
+    [
+        new(){
+            Name = "Items",
+            Description = Localizer["Items"],
+            Type = "IEnumerable<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new(){
+            Name = "Pageable",
+            Description = Localizer["Pageable"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new(){
+            Name = "HeaderTemplate",
+            Description = Localizer["HeaderTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new(){
+            Name = "BodyTemplate",
+            Description = Localizer["BodyTemplate"],
+            Type = "RenderFragment<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new(){
+            Name = "FooterTemplate",
+            Description = Localizer["FooterTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new(){
+            Name = nameof(ListView<Foo>.Collapsible),
+            Description = Localizer["Collapsible"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new(){
+            Name = nameof(ListView<Foo>.IsAccordion),
+            Description = Localizer["IsAccordion"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "OnQueryAsync",
+            Description = Localizer["OnQueryAsync"],
+            Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
+            ValueList = "—",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "OnListViewItemClick",
+            Description = Localizer["OnListViewItemClick"],
+            Type = "Func<TItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.CollapsedGroupCallback),
+            Description = Localizer["CollapsedGroupCallback"],
+            Type = "Func<object?, bool>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupOrderCallback),
+            Description = Localizer["GroupOrderCallback"],
+            Type = "Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupItemOrderCallback),
+            Description = Localizer["GroupItemOrderCallback"],
+            Type = "Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupHeaderTextCallback),
+            Description = Localizer["GroupHeaderTextCallback"],
+            Type = "Func<object?, string?>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
+
     private MethodItem[] GetMethods() =>
     [
         new()

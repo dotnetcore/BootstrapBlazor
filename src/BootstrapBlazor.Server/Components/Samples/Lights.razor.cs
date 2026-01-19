@@ -82,4 +82,40 @@ public partial class Lights
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(Light.Color),
+            Description = "Color",
+            Type = "Color",
+            ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
+            DefaultValue = "Success"
+        },
+        new()
+        {
+            Name = nameof(Light.IsFlash),
+            Description = "Is it flashing",
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Light.TooltipText),
+            Description = "Indicator tooltip Display text",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Light.TooltipTrigger),
+            Description = "Indicator tooltip trigger type",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

@@ -37,4 +37,72 @@ public partial class Repeaters
     {
         Items.Remove(foo);
     }
+
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(Repeater<Foo>.Items),
+            Description = "数据集合",
+            Type = "IEnumerable<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.ShowLoading),
+            Description = "是否显示正在加载信息",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.ShowEmpty),
+            Description = "是否显示空数据提示信息",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.LoadingTemplate),
+            Description = "正在加载模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.EmptyTemplate),
+            Description = "空数据模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.ItemTemplate),
+            Description = "重复项模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.ContainerTemplate),
+            Description = "容器模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Repeater<Foo>.EmptyText),
+            Description = "空数据提示信息",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

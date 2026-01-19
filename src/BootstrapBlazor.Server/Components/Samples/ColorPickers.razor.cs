@@ -58,4 +58,48 @@ public partial class ColorPickers
         }
         return ret;
     }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(ColorPicker.Template),
+            Description = Localizer["AttributeTemplate"],
+            Type = "RenderFragment<string>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.Formatter),
+            Description = Localizer["AttributeFormatter"],
+            Type = "Func<string, Task<string>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.IsSupportOpacity),
+            Description = Localizer["AttributeIsSupportOpacity"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.Swatches),
+            Description = Localizer["AttributeSwatches"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.OnValueChanged),
+            Description = Localizer["EventOnValueChanged"],
+            Type = "Func<string, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

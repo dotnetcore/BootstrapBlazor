@@ -10,6 +10,29 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Scrolls
 {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["Desc1"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Height",
+            Description = Localizer["Desc2"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 
     [NotNull]
     private Scroll? _scroll = null;

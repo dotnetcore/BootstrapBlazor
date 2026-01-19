@@ -128,4 +128,64 @@ public sealed partial class Editors
     {
         _editorCode = await Editor.GetCode();
     }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Placeholder",
+            Description = Localizer["Att1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["Att1DefaultValue"]!
+        },
+        new()
+        {
+            Name = "IsEditor",
+            Description = Localizer["Att2"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowSubmit",
+            Description = Localizer["AttrShowSubmit"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "Height",
+            Description = Localizer["Att3"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ToolbarItems",
+            Description = Localizer["Att4"],
+            Type = "IEnumerable<object>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "CustomerToolbarButtons",
+            Description = Localizer["Att5"],
+            Type = "IEnumerable<EditorToolbarButton>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnFileUpload",
+            Description = Localizer["OnFileUploadAttribute"],
+            Type = "Func<EditorUploadFile, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

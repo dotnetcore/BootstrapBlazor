@@ -70,4 +70,40 @@ public partial class Blocks
     private Task<bool> OnQueryCondition2(string name) => Task.FromResult(IsShow2);
 
     private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(Block.OnQueryCondition),
+            Description = Localizer["OnQueryCondition"],
+            Type = "Func<Task<bool>>",
+            ValueList = " — ",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Block.ChildContent),
+            Description = Localizer["ChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Block.Authorized),
+            Description = Localizer["Authorized"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Block.NotAuthorized),
+            Description = Localizer["NotAuthorized"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

@@ -44,6 +44,30 @@ public partial class Sliders
     }
 
     /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["SlidersIsDisabled"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "Value",
+            Description = Localizer["SlidersValue"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+    ];
+
+    /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>

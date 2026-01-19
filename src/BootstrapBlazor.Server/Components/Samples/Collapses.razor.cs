@@ -34,6 +34,34 @@ public sealed partial class Collapses
         new SelectedItem ("Shanghai", "上海") { Active = true },
     };
 
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "CollapseItems",
+            Description = Localizer["CollapseItems"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsAccordion",
+            Description = Localizer["IsAccordion"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "OnCollapseChanged",
+            Description = Localizer["OnCollapseChanged"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
+
     private AttributeItem[] GetCollapseItemAttributes() =>
     [
         new()

@@ -282,6 +282,81 @@ public partial class ValidateForms
     }
 
     #region 参数说明
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Model",
+            Description = Localizer["Model"],
+            Type = "object",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ValidateAllProperties",
+            Description = Localizer["ValidateAllProperties"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(ValidateForm.DisableAutoSubmitFormByEnter),
+            Description = Localizer[nameof(ValidateForm.DisableAutoSubmitFormByEnter)],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowRequiredMark",
+            Description = Localizer["ShowRequiredMark"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowLabelTooltip",
+            Description = Localizer["ShowLabelTooltip"],
+            Type = "bool?",
+            ValueList = "true/false/null",
+            DefaultValue = "null"
+        },
+        new()
+        {
+            Name = "LabelWidth",
+            Description = Localizer["LabelWidth"],
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["ChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnValidSubmit",
+            Description = Localizer["OnValidSubmit"],
+            Type = "EventCallback<EditContext>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnInvalidSubmit",
+            Description = Localizer["OnInvalidSubmit"],
+            Type = "EventCallback<EditContext>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 
     /// <summary>
     /// 获得事件方法

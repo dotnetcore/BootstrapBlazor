@@ -61,4 +61,88 @@ public partial class Segmenteds
     }
 
     private string Value { get; set; } = "Daily";
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(Segmented<string>.Items),
+            Description = Localizer["ItemsAttr"],
+            Type = "IEnumerable<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.Value),
+            Description = Localizer["ValueChangedAttr"],
+            Type = "TValue",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.ValueChanged),
+            Description = Localizer["ValueChangedAttr"],
+            Type = "EventCallBack<SegmentedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.OnValueChanged),
+            Description = Localizer["ValueChangedAttr"],
+            Type = "Func<string, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.IsDisabled),
+            Description = Localizer["IsDisabledAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.IsBlock),
+            Description = Localizer["IsBlockAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.ShowTooltip),
+            Description = Localizer["ShowTooltipAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.Size),
+            Description = Localizer["SizeAttr"],
+            Type = "Size",
+            ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
+            DefaultValue = "None"
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.ItemTemplate),
+            Description = Localizer["ItemTemplateAttr"],
+            Type = "RenderFragment<SegmentedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.ChildContent),
+            Description = Localizer["ChildContentAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

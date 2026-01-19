@@ -127,5 +127,73 @@ public partial class TextAreas
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "ShowLabel",
+            Description = Localizer["TextAreaShowLabel"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "DisplayText",
+            Description = Localizer["TextAreaDisplayText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["TextAreaIsDisabled"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ScrollToTop",
+            Description = Localizer["TextAreaScrollToTop"],
+            Type = "Task",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new()
+        {
+            Name = "ScrollTo",
+            Description = Localizer["TextAreaScrollTo"],
+            Type = "Task",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new()
+        {
+            Name = "ScrollToBottom",
+            Description = Localizer["TextAreaScrollToBottom"],
+            Type = "Task",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new()
+        {
+            Name = nameof(Textarea.IsAutoScroll),
+            Description = Localizer["TextAreaAutoScroll"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Textarea.UseShiftEnter),
+            Description = Localizer["TextAreaUseShiftEnter"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
+    ];
 }
 

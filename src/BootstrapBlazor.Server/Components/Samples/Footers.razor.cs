@@ -10,4 +10,39 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Footers
 {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Text",
+            Description = Localizer["Desc1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Target",
+            Description = Localizer["Desc2"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Footer.ShowGoto),
+            Description = Localizer["ShowGotoDesc"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Footer.ChildContent),
+            Description = Localizer["ChildContentDesc"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

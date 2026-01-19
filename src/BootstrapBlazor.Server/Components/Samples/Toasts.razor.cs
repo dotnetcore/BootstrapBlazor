@@ -185,4 +185,56 @@ public sealed partial class Toasts
             Content = $"<b>Toast</b> The component has changed position, it will automatically shut down after {DelayTs} seconds"
         });
     }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Category",
+            Description = Localizer["ToastsAttrCategory"],
+            Type = "ToastCategory",
+            ValueList = "Success/Information/Error/Warning",
+            DefaultValue = "Success"
+        },
+        new()
+        {
+            Name = "Title",
+            Description = Localizer["ToastsAttrTitle"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = ""
+        },
+        new()
+        {
+            Name = "Content",
+            Description = Localizer["ToastsAttrContent"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = ""
+        },
+        new()
+        {
+            Name = "Delay",
+            Description = Localizer["ToastsAttrDelay"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "4000"
+        },
+        new()
+        {
+            Name = "IsAutoHide",
+            Description = Localizer["ToastsAttrIsAutoHide"],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "Placement",
+            Description = Localizer["ToastsAttrPlacement"],
+            Type = "Placement",
+            ValueList = "Auto / Top / Left / Bottom / Right",
+            DefaultValue = "Auto"
+        }
+    ];
 }

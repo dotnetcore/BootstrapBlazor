@@ -74,4 +74,40 @@ public sealed partial class Rows
         [AutoGenerateColumn(Order = 60)]
         public List<EnumEducation>? Educations { get; set; }
     }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "ItemsPerRow",
+            Description = Localizer["RowsItemsPerRow"],
+            Type = "enum",
+            ValueList = " One,Two,Three,Four,Six,Twelve ",
+            DefaultValue = " One "
+        },
+        new()
+        {
+            Name = "RowType",
+            Description = Localizer["RowsRowType"],
+            Type = "enum?",
+            ValueList = "Normal, Inline",
+            DefaultValue = "null"
+        },
+        new()
+        {
+            Name = "ColSpan",
+            Description = Localizer["RowsColSpan"],
+            Type = "int?",
+            ValueList = "-",
+            DefaultValue = "null"
+        },
+        new()
+        {
+            Name = "MaxCount",
+            Description = Localizer["RowsMaxCount"],
+            Type = "int?",
+            ValueList = "-",
+            DefaultValue = "null"
+        }
+    ];
 }

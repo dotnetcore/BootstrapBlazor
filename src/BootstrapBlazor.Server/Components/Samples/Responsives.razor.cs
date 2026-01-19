@@ -18,4 +18,16 @@ public partial class Responsives
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(Responsive.OnBreakPointChanged),
+            Description = "Callback method when breakpoint threshold changes",
+            Type = "Func<BreakPoint, Task<bool>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }
