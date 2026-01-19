@@ -26,20 +26,4 @@ public partial class SlideButtons
     }
 
     private CheckboxState CheckState(string state) => Placement.ToDescriptionString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
-
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(FileViewer.Filename),
-            Description = "Excel/Word 文件路径或者URL",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

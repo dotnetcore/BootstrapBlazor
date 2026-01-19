@@ -52,48 +52,4 @@ public partial class TablesCell
             Content = $"{Localizer["TableCellOnDoubleClickCellCurrentCellName"]}{displayName} {Localizer["TableCellOnDoubleClickCellCurrentValue"]}{value}"
         });
     }
-
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Row",
-            Description = Localizer["RowAttr"],
-            Type = "object",
-            ValueList = " — ",
-            DefaultValue = "<TModel>"
-        },
-        new()
-        {
-            Name = "ColumnName",
-            Description = Localizer["ColumnNameAttr"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Colspan",
-            Description = Localizer["ColspanAttr"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = "Class",
-            Description = Localizer["ClassAttr"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["ValueAttr"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

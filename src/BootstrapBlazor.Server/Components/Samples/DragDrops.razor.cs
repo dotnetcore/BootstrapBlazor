@@ -80,30 +80,6 @@ public partial class DragDrops
     }
 
     /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "MaxItems",
-            Description = Localizer["A1"],
-            Type = "int?",
-            ValueList = " — ",
-            DefaultValue = "null"
-        },
-        new()
-        {
-            Name = "ChildContent",
-            Description = Localizer["A1"],
-            Type = "RenderFragment<TItem>?",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
-
-    /// <summary>
     /// GetMethods
     /// </summary>
     /// <returns></returns>

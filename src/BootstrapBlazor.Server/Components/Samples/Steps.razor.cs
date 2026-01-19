@@ -65,34 +65,6 @@ public sealed partial class Steps
         step?.Reset();
     }
 
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Items",
-            Description = Localizer["StepsItems"],
-            Type = "List<StepOption>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "StepIndex",
-            Description = Localizer["StepsAttrStepIndex"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = "IsVertical",
-            Description = Localizer["StepsIsVertical"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        }
-    ];
-
     private AttributeItem[] GetStepItemAttributes() =>
     [
         new()
