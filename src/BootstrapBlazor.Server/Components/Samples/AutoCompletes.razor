@@ -1,4 +1,4 @@
-﻿@page "/auto-complete"
+@page "/auto-complete"
 @inject IStringLocalizer<AutoCompletes> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -101,4 +101,4 @@
     <AutoComplete Items="@StaticItems" IsPopover="true"></AutoComplete>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Type="typeof(AutoComplete)" />
