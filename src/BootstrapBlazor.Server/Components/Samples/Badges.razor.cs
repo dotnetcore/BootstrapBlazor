@@ -10,43 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Badges
 {
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "ChildContent",
-            Description = Localizer["ChildContent"],
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Class",
-            Description = Localizer["Class"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Color",
-            Description = Localizer["Color"],
-            Type = "Color",
-            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-            DefaultValue = "Primary"
-        },
-        new()
-        {
-            Name = "IsPill",
-            Description = Localizer["IsPill"],
-            Type = "boolean",
-            ValueList = " — ",
-            DefaultValue = "false"
-        }
-    ];
 }

@@ -10,43 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class FullScreenButtons
 {
-    /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(FullScreenButton.Icon),
-            Description = "全屏图标",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(FullScreenButton.FullScreenExitIcon),
-            Description = "退出全屏图标",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(FullScreenButton.TargetId),
-            Description = "全屏元素 Id",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(FullScreenButton.Text),
-            Description = "显示文字",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

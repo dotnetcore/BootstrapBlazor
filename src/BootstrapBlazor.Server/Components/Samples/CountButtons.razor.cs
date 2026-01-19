@@ -13,32 +13,4 @@ public partial class CountButtons
     private static Task OnClick() => Task.Delay(2000);
 
     private string CountTextCallback(int count) => Localizer["CountButtonText", count];
-
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(CountButton.Count),
-            Description = Localizer["Count"],
-            Type = "TValue",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(CountButton.CountText),
-            Description = Localizer["CountText"],
-            Type = "CountOption",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(CountButton.CountTextCallback),
-            Description = Localizer["CountTextCallback"],
-            Type = "Func<int, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

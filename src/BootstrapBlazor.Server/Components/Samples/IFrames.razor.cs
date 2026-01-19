@@ -10,31 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class IFrames
 {
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Src",
-            Description = Localizer["AttributeSrc"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Data",
-            Description = Localizer["AttributeData"],
-            Type = "object",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnPostDataAsync",
-            Description = Localizer["AttributeOnPostDataAsync"],
-            Type = "Func<object?, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

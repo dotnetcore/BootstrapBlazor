@@ -66,54 +66,6 @@ public sealed partial class Checkboxs
     });
 
     /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "ShowLabel",
-            Description = Localizer["Att1"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "ShowAfterLabel",
-            Description = Localizer["Att2"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "DisplayText",
-            Description = Localizer["Att3"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsDisabled",
-            Description = Localizer["Att4"],
-            Type = "boolean",
-            ValueList = "true / false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "State",
-            Description = Localizer["Att5"],
-            Type = "CheckboxState",
-            ValueList = "Mixed / Checked / UnChecked",
-            DefaultValue = "UnChecked"
-        }
-    ];
-
-    /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
