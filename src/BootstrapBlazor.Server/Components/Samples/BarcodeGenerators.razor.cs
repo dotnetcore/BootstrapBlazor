@@ -24,38 +24,6 @@ public partial class BarcodeGenerators
     }
 
     /// <summary>
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
-    protected AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(BarcodeGenerator.Value),
-            Description = Localizer[nameof(BarcodeGenerator.Value)],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(BarcodeGenerator.Options),
-            Description = Localizer[nameof(BarcodeGenerator.Options)],
-            Type = nameof(BarcodeGeneratorOption),
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(BarcodeGenerator.OnCompletedAsync),
-            Description = Localizer[nameof(BarcodeGenerator.OnCompletedAsync)],
-            Type = "Func<string?, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
-
-    /// <summary>
     /// GetOptionsAttributes
     /// </summary>
     /// <returns></returns>

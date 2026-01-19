@@ -10,15 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class GroupBoxes
 {
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Title",
-            Description = Localizer["AttTitle"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

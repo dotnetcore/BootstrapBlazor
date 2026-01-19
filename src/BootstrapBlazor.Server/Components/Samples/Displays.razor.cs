@@ -57,48 +57,4 @@ public partial class Displays
         Model.Hobby = Foo.GenerateHobbies(FooLocalizer).Take(3).Select(i => i.Text);
         Hobbies = Foo.GenerateHobbies(FooLocalizer);
     }
-
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "ShowLabel",
-            Description = Localizer["ShowLabel"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "DisplayText",
-            Description = Localizer["DisplayText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "FormatString",
-            Description = Localizer["FormatString"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Formatter",
-            Description = Localizer["Formatter"],
-            Type = "RenderFragment<TItem>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Display<string>.TypeResolver),
-            Description = Localizer["TypeResolver"],
-            Type = "Func<Assembly?, string, bool, Type?>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }
