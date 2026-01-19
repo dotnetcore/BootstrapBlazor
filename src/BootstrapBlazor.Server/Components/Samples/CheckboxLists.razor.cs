@@ -171,6 +171,50 @@ public partial class CheckboxLists
         public string? Icon { get; init; }
     }
 
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Items",
+            Description = Localizer["Att1"],
+            Type = "IEnumerable<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["Att1"],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "Value",
+            Description = Localizer["Att1"],
+            Type = "TValue",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsVertical",
+            Description = Localizer["Att1"],
+            Type = "boolean",
+            ValueList = " true / false ",
+            DefaultValue = " false "
+        },
+        new()
+        {
+            Name = nameof(CheckboxList<string>.MaxSelectedCount),
+            Description = Localizer["AttributeMaxSelectedCount"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        }
+    ];
+
     /// <summary>
     /// Get event method
     /// </summary>

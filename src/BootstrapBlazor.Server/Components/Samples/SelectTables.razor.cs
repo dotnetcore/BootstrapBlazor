@@ -92,4 +92,84 @@ public partial class SelectTables
         [Required]
         public Foo? Foo { get; set; }
     }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "TableColumns",
+            Description = Localizer["AttributeTableColumns"],
+            Type = "RenderFragment<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Color",
+            Description = Localizer["AttributeColor"],
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = "TableMinWidth",
+            Description = Localizer["AttributeTableMinWidth"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "300"
+        },
+        new()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["AttributeIsDisabled"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowAppendArrow",
+            Description = Localizer["AttributeShowAppendArrow"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "GetTextCallback",
+            Description = Localizer["AttributeGetTextCallback"],
+            Type = "Func<TItem, string>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "PlaceHolder",
+            Description = Localizer["AttributePlaceHolder"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Height",
+            Description = Localizer["AttributeHeight"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "486"
+        },
+        new()
+        {
+            Name = "Template",
+            Description = Localizer["AttributeTemplate"],
+            Type = "RenderFragment<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

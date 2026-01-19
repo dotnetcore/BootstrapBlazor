@@ -55,4 +55,84 @@ public partial class Live2DDisplays
             new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haruto/haruto.model.json", "haruto"),
         ]);
     }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Source",
+            Description = Localizer["Live2DDisplaysSource"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "empty"
+        },
+        new()
+        {
+            Name = "Scale",
+            Description = Localizer["Live2DDisplaysScale"],
+            Type = "double",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "XOffset",
+            Description = Localizer["Live2DDisplaysXOffset"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "YOffset",
+            Description = Localizer["Live2DDisplaysYOffset"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsDraggable(not yet implemented)",
+            Description = Localizer["Live2DDisplaysIsDraggable"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "AddHitAreaFrames",
+            Description = Localizer["Live2DDisplaysAddHitAreaFrames"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "Position",
+            Description = Localizer["Live2DDisplaysPosition"],
+            Type = "enum",
+            ValueList = "Default|BottomLeft|BottomRight|TopLeft|TopRight",
+            DefaultValue = "Default"
+        },
+        new()
+        {
+            Name = "BackgroundColor",
+            Description = Localizer["Live2DDisplaysBackgroundColor"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "#000000"
+        },
+        new()
+        {
+            Name = "BackgroundAlpha",
+            Description = Localizer["Live2DDisplaysBackgroundAlpha"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        }
+    ];
 }

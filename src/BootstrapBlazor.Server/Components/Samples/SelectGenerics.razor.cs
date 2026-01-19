@@ -303,4 +303,124 @@ public sealed partial class SelectGenerics
             Type = "Func<string, Task<TValue>>"
         }
     ];
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "ShowLabel",
+            Description = Localizer["SelectsShowLabel"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowSearch",
+            Description = Localizer["SelectsShowSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "DisplayText",
+            Description = Localizer["SelectsDisplayText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Class",
+            Description = Localizer["SelectsClass"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Color",
+            Description = Localizer["SelectsColor"],
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = "IsEditable",
+            Description = Localizer["SelectsIsEditable"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsDisabled",
+            Description = Localizer["SelectsIsDisabled"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "Items",
+            Description = Localizer["SelectsItems"],
+            Type = "IEnumerable<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "SelectItems",
+            Description = Localizer["SelectItems"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ItemTemplate",
+            Description = Localizer["SelectsItemTemplate"],
+            Type = "RenderFragment<SelectedItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["SelectsChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Category",
+            Description = Localizer["SelectsCategory"],
+            Type = "SwalCategory",
+            ValueList = " — ",
+            DefaultValue = " SwalCategory.Information "
+        },
+        new()
+        {
+            Name = "Content",
+            Description = Localizer["SelectsContent"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = Localizer["SelectsContentDefaultValue"]!
+        },
+        new()
+        {
+            Name = "DisableItemChangedWhenFirstRender",
+            Description = Localizer["SelectsDisableItemChangedWhenFirstRender"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
+    ];
 }

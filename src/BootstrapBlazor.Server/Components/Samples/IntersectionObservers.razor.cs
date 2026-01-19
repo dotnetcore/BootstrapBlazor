@@ -89,4 +89,64 @@ public partial class IntersectionObservers
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "UseElementViewport",
+            Description = Localizer["AttributeUseElementViewport"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "RootMargin",
+            Description = Localizer["AttributeRootMargin"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Threshold",
+            Description = Localizer["AttributeThreshold"],
+            Type = "string?",
+            ValueList = "0.0 — 1.0|[]",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenIntersection"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenNotIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenNotIntersection"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "OnIntersecting",
+            Description = Localizer["AttributeOnIntersectingAsync"],
+            Type = "Func<IntersectionObserverEntry, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["AttributeChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

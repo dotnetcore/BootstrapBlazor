@@ -10,4 +10,15 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class GoTops
 {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Target",
+            Description = Localizer["Desc1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

@@ -13,4 +13,32 @@ public partial class FileIcons
     [Inject]
     [NotNull]
     private IStringLocalizer<FileIcons>? Localizer { get; set; }
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = nameof(FileIcon.Extension),
+            Description = Localizer["ExtensionAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FileIcon.IconColor),
+            Description = Localizer["IconColorAttr"].Value,
+            Type = "Color",
+            ValueList = " — ",
+            DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = nameof(FileIcon.BackgroundTemplate),
+            Description = Localizer["BackgroundTemplateAttr"].Value,
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }

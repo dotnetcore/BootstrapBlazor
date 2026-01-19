@@ -125,6 +125,26 @@ public sealed partial class Messages
         Content = $"This is a reminder message - {_count++}"
     });
 
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "Placement",
+            Description = "message popup location",
+            Type = "Placement",
+            ValueList = "Top|Bottom",
+            DefaultValue = "Top"
+        },
+        new()
+        {
+            Name = "ShowMode",
+            Description = "Display mode",
+            Type = "MessageShowMode",
+            ValueList = "Single|Multiple",
+            DefaultValue = "Multiple"
+        }
+    ];
+
     /// <summary>
     /// get property method
     /// </summary>

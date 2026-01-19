@@ -55,4 +55,117 @@ public sealed partial class Paginations
             new("20", "20条/页")
         ];
     }
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new() {
+            Name = "PageIndex",
+            Description = Localizer["PaginationsPageIndexAttr"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "1"
+        },
+        new() {
+            Name = "PageCount",
+            Description = Localizer["PaginationsPageCountAttr"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "MaxPageLinkCount",
+            Description = Localizer["PaginationsMaxPageLinkCountAttr"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "5"
+        },
+        new() {
+            Name = "OnPageLinkClick",
+            Description = Localizer["PaginationsOnPageLinkClickAttr"],
+            Type = "Func<int, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "Alignment",
+            Description = Localizer["PaginationsAlignmentAttr"],
+            Type = "Alignment",
+            ValueList = " — ",
+            DefaultValue = "Alignment.Right"
+        },
+        new() {
+            Name = "ShowPageInfo",
+            Description = Localizer["PaginationsShowPageInfoAttr"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "true"
+        },
+        new() {
+            Name = "PageInfoText",
+            Description = Localizer["PaginationsPageInfoTextAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "PageInfoTemplate",
+            Description = Localizer["PaginationsPageInfoTemplateAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "ShowGotoNavigator",
+            Description = Localizer["PaginationsShowGotoNavigatorAttr"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "GotoNavigatorLabelText",
+            Description = Localizer["PaginationsGotoNavigatorLabelTextAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "GotoTemplate",
+            Description = Localizer["PaginationsGotoTemplateAttr"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = "PrevPageIcon",
+            Description = Localizer["PaginationsPrevPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-angle-left"
+        },
+        new() {
+            Name = "PrevEllipsisPageIcon",
+            Description = Localizer["PaginationsPrevEllipsisPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-ellipsis"
+        },
+        new() {
+            Name = "NextPageIcon",
+            Description = Localizer["PaginationsNextPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-angle-right"
+        },
+        new() {
+            Name = "NextEllipsisPageIcon",
+            Description = Localizer["PaginationsNextEllipsisPageIconAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "fa-solid fa-ellipsis"
+        }
+    ];
 }
