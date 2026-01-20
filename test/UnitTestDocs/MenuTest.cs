@@ -255,6 +255,7 @@ public partial class MenuTest
         // 循环 Configuration 更新 Json 文件
         using var outputStream2 = File.Create(localizerFile);
         WriteToJsonStream(configuration, outputStream2);
+        outputStream2.Write(new byte[] { 0x0D, 0x0A });
     }
 
     private static void WriteToJsonStream(IConfiguration configuration, Stream outputStream)
