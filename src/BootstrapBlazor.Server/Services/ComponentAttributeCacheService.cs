@@ -34,30 +34,23 @@ public static class ComponentAttributeCacheService
 
     private static List<AttributeItem> GetAttributeCore(Type type)
     {
-        var attributes = new List<AttributeItem>();
         var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
         // 检查是否为 IComponent 实现类
         if (typeof(IComponent).IsAssignableFrom(type))
         {
-            properties = properties
-                .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null)
+            properties = properties.Where(p => p.GetCustomAttribute<ParameterAttribute>() != null)
                 .ToArray();
         }
 
         var xmlDoc = GetXmlDocumentation(type.Assembly);
-        foreach (var property in properties)
+        return properties.Select(property => new AttributeItem
         {
-            var item = new AttributeItem
-            {
-                Name = property.Name,
-                Type = GetFriendlyTypeName(property.PropertyType),
-                Description = GetSummary(xmlDoc, property) ?? "",
-                Version = GetVersion(xmlDoc, property) ?? "10.0.0"
-            };
-            attributes.Add(item);
-        }
-        return attributes.OrderBy(i => i.Name).ToList();
+            Name = property.Name,
+            Type = GetFriendlyTypeName(property.PropertyType),
+            Description = GetSummary(xmlDoc, property) ?? "",
+            Version = GetVersion(xmlDoc, property) ?? "10.0.0"
+        }).OrderBy(i => i.Name).ToList();
     }
 
     /// <summary>
@@ -68,34 +61,34 @@ public static class ComponentAttributeCacheService
         if (xmlDoc == null) return null;
 
         var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
+        var summaryElement = FindSummaryElement(xmlDoc, memberName);
+        return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
+    }
+
+    private static XElement? FindSummaryElement(XDocument xmlDoc, string memberName)
+    {
         var memberElement = xmlDoc.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
-        if (memberElement == null) return null;
-
-        var summaryElement = memberElement.Element("summary");
-        if (summaryElement == null) return null;
-
-        // Handle <inheritdoc cref="Type.Member"> to fetch summary from referenced member
-        var inheritDoc = summaryElement.Element("inheritdoc");
-        var cref = inheritDoc?.Attribute("cref")?.Value;
-        if (!string.IsNullOrEmpty(cref))
+        var summaryElement = memberElement?.Element("summary");
+        if (summaryElement == null)
         {
-            memberElement = xmlDoc.Descendants("member").FirstOrDefault(x => x.Attribute("name")?.Value == cref);
-            summaryElement = memberElement?.Element("summary");
+            return null;
         }
 
-        // Fallback to current member's summary localization
-        return GetLocalizedSummary(summaryElement);
+        var inheritDoc = summaryElement.Element("inheritdoc");
+        var cref = inheritDoc?.Attribute("cref")?.Value;
+        return cref != null ? FindSummaryElement(xmlDoc, cref) : summaryElement;
     }
 
-    // Extract localized summary text from xml doc for a property
-    private static string? GetLocalizedSummary(XmlElement? summaryElement)
+    private static string? GetLocalizedSummary(XElement? summaryElement)
     {
-        if (summaryElement == null) return null;
+        if (summaryElement == null)
+        {
+            return null;
+        }
 
         var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-
         var langPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang")?.Value == currentLanguage);
         if (langPara != null)
@@ -105,12 +98,7 @@ public static class ComponentAttributeCacheService
 
         var firstLangPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang") != null);
-        if (firstLangPara != null)
-        {
-            return firstLangPara.Value.Trim();
-        }
-
-        return summaryElement.Value.Trim();
+        return firstLangPara != null ? firstLangPara.Value.Trim() : summaryElement.Value.Trim();
     }
 
     /// <summary>
@@ -124,16 +112,13 @@ public static class ComponentAttributeCacheService
         var memberElement = xmlDoc.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
-        if (memberElement == null) return null;
-
         // 在 summary 节点下查找包含 version 的 para 节点
         // XML 格式: <summary><para><version>10.2.2</version></para></summary>
-        var summaryElement = memberElement.Element("summary");
-        if (summaryElement == null) return null;
+        var summaryElement = memberElement?.Element("summary");
 
         // 查找第一个包含 version 元素的 para
         // 直接在循环中返回，避免创建中间变量
-        return summaryElement.Elements("para")
+        return summaryElement?.Elements("para")
             .Select(p => p.Element("version"))
             .FirstOrDefault(v => v != null)
             ?.Value.Trim();
@@ -152,6 +137,7 @@ public static class ComponentAttributeCacheService
             {
                 genericTypeName = genericTypeName.Substring(0, backtickIndex);
             }
+
             var genericArgs = string.Join(", ", type.GetGenericArguments().Select(GetFriendlyTypeName));
             return $"{genericTypeName}<{genericArgs}>";
         }
