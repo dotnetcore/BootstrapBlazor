@@ -1575,24 +1575,8 @@
   "BootstrapBlazor.Server.Components.Samples.CountUps": {
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值",
     "CountUpsNormalTitle": "基础用法",
-    "Decimal": "小数点符号",
-    "DecimalPlaces": "小数位数",
     "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
-    "Duration": "动画时长",
-    "EnableScrollSpy": "是否启用滚动监听",
-    "Numerals": "数字符号集合",
-    "Prefix": "前缀文本",
-    "ScrollSpyDelay": "滚动延时",
-    "ScrollSpyOnce": "滚动监听一次",
-    "Separator": "分隔符",
-    "SmartEasingAmount": "动画总量",
-    "SmartEasingThreshold": "动画阈值",
-    "StartValue": "开始计数值",
-    "Suffix": "后缀文本",
-    "Title": "计数器 CountUp",
-    "UseEasing": "是否使用过渡动画",
-    "UseGrouping": "是否分组",
-    "UseIndianSeparators": "是否使用分隔符"
+    "Title": "计数器 CountUp"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "BindValueIntro": "日期组件时间改变时文本框内的数值也跟着改变，通过设置 <code>IsEditable=\"true\"</code> 开启手工录入功能",

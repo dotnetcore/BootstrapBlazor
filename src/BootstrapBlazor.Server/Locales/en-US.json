@@ -30,6 +30,7 @@
     "CustomPopConfirmContentText": "Custom content"
   },
   "BootstrapBlazor.Server.Components.Components.DemoBlock": {
+    "Title": "Not set",
     "TooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
@@ -1574,24 +1575,8 @@
   "BootstrapBlazor.Server.Components.Samples.CountUps": {
     "CountUpsNormalIntro": "Set <code>Value</code>",
     "CountUpsNormalTitle": "Normal",
-    "Decimal": "decimal",
-    "DecimalPlaces": "number of decimal places",
     "Description": "Animates a numerical value by counting to it",
-    "Duration": "animation duration in seconds",
-    "EnableScrollSpy": "start animation when target is in view",
-    "Numerals": "numeral glyph substitution",
-    "Prefix": "text prepended to result",
-    "ScrollSpyDelay": "delay (ms) after target comes into view",
-    "ScrollSpyOnce": "run only once",
-    "Separator": "grouping separator",
-    "SmartEasingAmount": "amount to be eased for numbers above threshold",
-    "SmartEasingThreshold": "smooth easing for large numbers above this if useEasing",
-    "StartValue": "number to start at",
-    "Suffix": "text appended to result",
-    "Title": "CountUp",
-    "UseEasing": "ease animation",
-    "UseGrouping": "example: 1,000 vs 1000",
-    "UseIndianSeparators": "example: 1,00,000 vs 100,000"
+    "Title": "CountUp"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "BindValueIntro": "The values in the text box change as the date component time changes",
