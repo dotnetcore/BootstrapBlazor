@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Reflection;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace UnitTestDocs;
@@ -28,13 +27,7 @@ public partial class MenuTest
         _serviceProvider = serviceCollection.BuildServiceProvider();
         _serviceProvider.GetRequiredService<ICacheManager>();
         _routerTable = assembly.GetExportedTypes()
-            .Where(t => t.IsDefined(typeof(RouteAttribute)) && IsComponentLayout(t) && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
-
-        bool IsComponentLayout(Type t)
-        {
-            return t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(ComponentLayout)
-                || t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(DockLayout);
-        }
+            .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.IsComponentLayout() && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
     }
 
     [Fact]
@@ -173,111 +166,6 @@ public partial class MenuTest
                 _logger.WriteLine(file);
             }
         }
-    }
-
-    [Theory]
-    [InlineData("zh-CN.json")]
-    [InlineData("en-US.json")]
-    public void Update_Localizer_Ok(string localeFileName)
-    {
-        var localizerFile = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Locales/", localeFileName);
-
-        if (!File.Exists(localizerFile))
-        {
-            return;
-        }
-
-        var builder = new ConfigurationBuilder();
-        builder.AddJsonFile(localizerFile, false, false);
-        var configuration = builder.Build();
-
-        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Components/Samples/");
-        foreach (var router in _routerTable)
-        {
-            var sectionName = router.FullName!;
-            var section = configuration.GetSection(sectionName);
-            if (section != null)
-            {
-                var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.Samples.", "").Replace(".", "/");
-                if (!string.IsNullOrEmpty(typeName))
-                {
-                    var file = Path.Combine(rootPath, typeName);
-
-                    // razor file
-                    var razorFile = $"{file}.razor";
-                    var srcFile = $"{file}.razor.cs";
-
-                    var children = section.GetChildren();
-                    foreach (var c in children)
-                    {
-                        var key = c.Key;
-                        if (!string.IsNullOrEmpty(key))
-                        {
-                            // 从 razor 或者 cs 文件中查找，如果没有就删除
-                            var found = false;
-                            if (File.Exists(razorFile))
-                            {
-                                var content = File.ReadAllText(razorFile);
-                                if (content.Contains($"Localizer[\"{key}\"]"))
-                                {
-                                    found = true;
-                                }
-
-                                if (!found && content.Contains($"Localizer[nameof({key})]"))
-                                {
-                                    found = true;
-                                }
-                            }
-                            if (!found && File.Exists(srcFile))
-                            {
-                                var content = File.ReadAllText(srcFile);
-                                if (content.Contains($"Localizer[\"{key}\"]"))
-                                {
-                                    found = true;
-                                }
-
-                                if (!found && content.Contains($"Localizer[nameof({key})]"))
-                                {
-                                    found = true;
-                                }
-                            }
-                            if (!found)
-                            {
-                                _logger.WriteLine($"Remove {sectionName} - {key}");
-                                c.Value = "";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // 循环 Configuration 更新 Json 文件
-        using var outputStream2 = File.Create(localizerFile);
-        WriteToJsonStream(configuration, outputStream2);
-        outputStream2.Write(new byte[] { 0x0D, 0x0A });
-    }
-
-    private static void WriteToJsonStream(IConfiguration configuration, Stream outputStream)
-    {
-        using var writer = new Utf8JsonWriter(outputStream, new JsonWriterOptions { Indented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
-        writer.WriteStartObject();
-        foreach (var section in configuration.GetChildren())
-        {
-            writer.WritePropertyName(section.Key);
-            writer.WriteStartObject();
-            foreach (var child in section.GetChildren())
-            {
-                if (!string.IsNullOrEmpty(child.Value))
-                {
-                    writer.WritePropertyName(child.Key);
-                    writer.WriteStringValue(child.Value);
-                }
-            }
-            writer.WriteEndObject();
-        }
-        writer.WriteEndObject();
-        writer.Flush();
     }
 
     [GeneratedRegex("@Localizer\\[\"(\\w+)\"\\]")]
