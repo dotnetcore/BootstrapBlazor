@@ -35,8 +35,15 @@ public static class ComponentAttributeCacheService
     private static List<AttributeItem> GetAttributeCore(Type type)
     {
         var attributes = new List<AttributeItem>();
-        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null);
+        var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        // 检查是否为 IComponent 实现类
+        if (typeof(IComponent).IsAssignableFrom(type))
+        {
+            properties = properties
+                .Where(p => p.GetCustomAttribute<ParameterAttribute>() != null)
+                .ToArray();
+        }
 
         var xmlDoc = GetXmlDocumentation(type.Assembly);
         foreach (var property in properties)
