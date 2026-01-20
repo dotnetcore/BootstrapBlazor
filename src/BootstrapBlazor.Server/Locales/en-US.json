@@ -426,6 +426,7 @@
     "Tag": "Tag",
     "TaskDashBoard": "TaskDashBoard",
     "TcpSocketFactory": "ITcpSocketFactory",
+    "Terms": "Terminal",
     "Textarea": "Textarea",
     "Theme": "Theme",
     "ThemeProvider": "IThemeProvider",
@@ -5301,6 +5302,17 @@
     "TaskBoardNormalIntro": "This component provides detailed information about background task schedule trigger.",
     "TaskBoardNormalTitle": "Basic usage",
     "TaskBoardTitle": "Task DashBoard"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Terms": {
+    "Title": "Terminal",
+    "SubTitle": "Terminal Component",
+    "Tips": "This component depends on the <code>BootstrapBlazor.Term</code> extension package. You need to reference it as follows",
+    "BasicUsageTitle": "Basic Usage",
+    "BasicUsageIntro": "Output text by calling the <code>Write</code> method",
+    "Send": "Send",
+    "Clean": "Clean",
+    "StreamUsageTitle": "Stream Usage",
+    "StreamUsageIntro": "Connect various streams by calling the <code>Open</code> method, this example simulates <b>Shell</b> and verifies input characters"
   },
   "BootstrapBlazor.Server.Components.Samples.TextAreas": {
     "TextAreaAutoScroll": "Automatic scrolling",

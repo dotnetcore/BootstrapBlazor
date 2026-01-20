@@ -1407,6 +1407,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Terms"],
+                    Url = "terms"
+                },
+                new()
+                {
                     Text = Localizer["Timer"],
                     Url = "timer"
                 },

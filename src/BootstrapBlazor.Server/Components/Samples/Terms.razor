@@ -1,0 +1,26 @@
+@page "/terms"
+@inject IStringLocalizer<Terms> Localizer
+
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["SubTitle"]</h4>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <Term @ref="Term" OnData="OnData" Options="Options" Height="400px" />
+    <div class="row g-3 mt-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInput @bind-Value="InputString" />
+                <Button OnClick="OnSend">@Localizer["Send"]</Button>
+                <Button OnClick="OnClean">@Localizer["Clean"]</Button>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StreamUsageTitle"]" Introduction="@Localizer["StreamUsageIntro"]" Name="Stream">
+    <Term OnData="OnDataAsync" Options="Options" Height="400px" @ref="TermStream" />
+</DemoBlock>

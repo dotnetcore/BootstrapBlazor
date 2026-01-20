@@ -426,6 +426,7 @@
     "Tag": "标签 Tag",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "TcpSocketFactory": "套接字服务 ITcpSocketFactory",
+    "Terms": "终端 Term",
     "Textarea": "多行文本框 Textarea",
     "Theme": "组件主题",
     "ThemeProvider": "主题服务 IThemeProvider",
@@ -5301,6 +5302,17 @@
     "TaskBoardNormalIntro": "本组件提供后台任务调度触发器详细信息",
     "TaskBoardNormalTitle": "基本用法",
     "TaskBoardTitle": "Task DashBoard 任务管理器"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Terms": {
+    "Title": "命令行",
+    "SubTitle": "命令行终端组件",
+    "Tips": "本组件依赖 <code>BootstrapBlazor.Term</code> 扩展包，需要依照下面步骤进行引用",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageIntro": "通过调用 <code>Write</code> 方法输出文本",
+    "Send": "发送",
+    "Clean": "清空",
+    "StreamUsageTitle": "流式处理",
+    "StreamUsageIntro": "通过调用 <code>Open</code> 方法连接各种流，本例模拟 <b>Shell</b> 并回显输入字符"
   },
   "BootstrapBlazor.Server.Components.Samples.TextAreas": {
     "TextAreaAutoScroll": "自动滚屏",
