@@ -47,36 +47,4 @@ public partial class GlobalException
         NavigationManager.NavigateTo("/error-page");
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(ErrorLogger.ChildContent),
-            Description = "子组件模板",
-            Type = nameof(RenderTemplate),
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(ErrorLogger.ErrorContent),
-            Description = "异常显示模板",
-            Type = nameof(RenderTemplate),
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(ErrorLogger.ShowToast),
-            Description = "是否显示错误消息弹窗",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
-        }
-    ];
 }

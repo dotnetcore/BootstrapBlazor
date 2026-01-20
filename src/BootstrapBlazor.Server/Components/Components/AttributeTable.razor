@@ -7,15 +7,15 @@
         }
     </p>
 
-    <Table TItem="AttributeItem" Items="Items" IsBordered="true" IsStriped="true" ShowFooter="@ShowFooter">
+    <Table TItem="AttributeItem" Items="_items" IsBordered="true" IsStriped="true" ShowFooter="@ShowFooter">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />
-            <TableColumn @bind-Field="@context.Type" />
+            <TableColumn @bind-Field="@context.Type" TextWrap="true" Width="180"></TableColumn>
             <TableColumn @bind-Field="@context.Version" />
         </TableColumns>
         <TableFooter>
-            <TableFooterCell Text="合计：" colspan="3" Align="Alignment.Left" />
+            <TableFooterCell Text="@Localizer["Total"]" colspan="3" Align="Alignment.Left" />
             <TableFooterCell Aggregate="AggregateType.Count" Field="@nameof(AttributeItem.Name)" />
         </TableFooter>
     </Table>

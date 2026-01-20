@@ -47,44 +47,4 @@ public sealed partial class Calendars
             Type ="EventCallback<DateTime>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["Value"],
-            Type = "DateTime",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "ChildContent",
-            Description = Localizer["ChildContent"],
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "CellTemplate",
-            Description = Localizer["CellTemplate"],
-            Type = "RenderFragment<CalendarCellValue>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Calendar.FirstDayOfWeek),
-            Description = Localizer["FirstDayOfWeek"],
-            Type = "DayOfWeek",
-            ValueList = " — ",
-            DefaultValue = "Sunday"
-        }
-    ];
 }

@@ -55,36 +55,4 @@ public partial class Transitions
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    private static AttributeItem[] GetAttributes() =>
-    [
-        new() {
-            Name = "TransitionType",
-            Description = "Animation effect name",
-            Type = "TransitionType",
-            ValueList = " — ",
-            DefaultValue = "FadeIn"
-        },
-        new() {
-            Name = "Show",
-            Description = "Control animation execution",
-            Type = "Boolean",
-            ValueList = "true|false",
-            DefaultValue = "true"
-        },
-        new() {
-            Name = "Duration",
-            Description = "Control animation duration",
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new() {
-            Name = "OnTransitionEnd",
-            Description = "Animation execution complete callback",
-            Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

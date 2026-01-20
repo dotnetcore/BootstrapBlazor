@@ -14,40 +14,4 @@ public sealed partial class Handwrittens
     /// 签名Base64
     /// </summary>
     public string? DrawBase64 { get; set; }
-
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "SaveButtonText",
-            Description = Localizer["SaveButtonText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = Localizer["SaveButtonTextDefaultValue"]
-        },
-        new()
-        {
-            Name = "ClearButtonText",
-            Description = Localizer["ClearButtonText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = Localizer["ClearButtonTextDefaultValue"]
-        },
-        new()
-        {
-            Name = "Result",
-            Description = Localizer["Result"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "HandwrittenBase64",
-            Description = Localizer["HandwrittenBase64"],
-            Type = "EventCallback<string>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

@@ -20,29 +20,25 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IErrorLogger.EnableErrorLogger"/>
     /// </summary>
     [Parameter]
     public bool EnableErrorLogger { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IErrorLogger.EnableILogger"/>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IErrorLogger.ShowToast"/>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IErrorLogger.ToastTitle"/>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -145,11 +141,8 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     };
 
     /// <summary>
-    /// <para lang="zh">由实现 <see cref="BootstrapComponentBase"/> 组件实现类调用</para>
-    /// <para lang="en">Called by implementing <see cref="BootstrapComponentBase"/> component implementation class</para>
+    /// <inheritdoc cref="IErrorLogger.HandlerExceptionAsync(Exception)"/>
     /// </summary>
-    /// <param name="exception"></param>
-    /// <returns></returns>
     public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, GetLastOrDefaultHandler());
 
     private readonly List<IHandlerException> _cache = [];
@@ -157,18 +150,16 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IErrorLogger.Register(IHandlerException)"/>
     /// </summary>
-    /// <param name="component"></param>
     public void Register(IHandlerException component)
     {
         _cache.Add(component);
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IErrorLogger.UnRegister(IHandlerException)"/>
     /// </summary>
-    /// <param name="component"></param>
     public void UnRegister(IHandlerException component)
     {
         _cache.Remove(component);

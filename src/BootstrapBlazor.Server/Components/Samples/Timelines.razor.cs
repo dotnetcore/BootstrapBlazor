@@ -186,46 +186,6 @@ public sealed partial class Timelines
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Items",
-            Description = Localizer["TimelinesItems"],
-            Type = "IEnumerable<TimelineItem>",
-            ValueList = "—",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsReverse",
-            Description = Localizer["TimelinesIsReverse"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsLeft",
-            Description = Localizer["TimelinesIsLeft"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsAlternate",
-            Description = Localizer["TimelinesIsAlternate"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        }
-    ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
     private AttributeItem[] GetTimelineItemAttributes() =>
     [
         new()
