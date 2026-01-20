@@ -76,28 +76,40 @@ public static class ComponentAttributeCacheService
         var summaryElement = memberElement.Element("summary");
         if (summaryElement == null) return null;
 
-        // 获取当前语言（zh-CN -> zh, en-US -> en）
+        // Handle <inheritdoc cref="Type.Member"> to fetch summary from referenced member
+        var inheritDoc = summaryElement.Element("inheritdoc");
+        var cref = inheritDoc?.Attribute("cref")?.Value;
+        if (!string.IsNullOrEmpty(cref))
+        {
+            memberElement = xmlDoc.Descendants("member").FirstOrDefault(x => x.Attribute("name")?.Value == cref);
+            summaryElement = memberElement?.Element("summary");
+        }
+
+        // Fallback to current member's summary localization
+        return GetLocalizedSummary(summaryElement);
+    }
+
+    // Extract localized summary text from xml doc for a property
+    private static string? GetLocalizedSummary(XmlElement? summaryElement)
+    {
+        if (summaryElement == null) return null;
+
         var currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
-        // 查找匹配当前语言的 para 元素
         var langPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang")?.Value == currentLanguage);
-
         if (langPara != null)
         {
             return langPara.Value.Trim();
         }
 
-        // 如果找不到当前语言，回退到第一个有 lang 属性的 para（通常是 zh）
         var firstLangPara = summaryElement.Elements("para")
             .FirstOrDefault(p => p.Attribute("lang") != null);
-
         if (firstLangPara != null)
         {
             return firstLangPara.Value.Trim();
         }
 
-        // 如果都没有，返回整个 summary 的文本（向后兼容旧格式）
         return summaryElement.Value.Trim();
     }
 
