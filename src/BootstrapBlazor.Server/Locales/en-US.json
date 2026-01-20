@@ -20,7 +20,8 @@
     "Type": "Type"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "Title": "Attributes"
+    "AutoGenerateColumns": "Automatically generated",
+    "Total": "Total"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："

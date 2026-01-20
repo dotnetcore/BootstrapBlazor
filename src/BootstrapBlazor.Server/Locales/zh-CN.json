@@ -20,7 +20,8 @@
     "Type": "类型"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "Title": "Attributes 属性"
+    "AutoGenerateColumns": "自动生成",
+    "Total": "合计"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "语言："

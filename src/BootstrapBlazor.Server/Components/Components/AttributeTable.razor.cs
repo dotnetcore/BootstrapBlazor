@@ -22,12 +22,6 @@ public sealed partial class AttributeTable
     public string? Title { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格数据
-    /// </summary>
-    [Parameter]
-    public IEnumerable<AttributeItem> Items { get; set; } = [];
-
-    /// <summary>
     /// 获得/设置 表格关联组件类型
     /// </summary>
     [Parameter]
@@ -39,18 +33,33 @@ public sealed partial class AttributeTable
     [Parameter]
     public bool ShowFooter { get; set; }
 
+    private List<AttributeItem> _items = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
-
-        Title ??= Localizer[nameof(Title)];
+        base.OnParametersSet();
 
         if (Type != null)
         {
-            Items = ComponentAttributeCacheService.GetAttributes(Type);
+            _items = ComponentAttributeCacheService.GetAttributes(Type);
+
+            Title ??= FormatTypeName(Type);
         }
+    }
+
+    private static string FormatTypeName(Type type)
+    {
+        if (!type.IsGenericType)
+        {
+            return type.Name;
+        }
+
+        var index = type.Name.IndexOf('`');
+        var typeName = type.Name.Substring(0, index);
+        var genericArgs = string.Join(", ", type.GetGenericArguments().Select(i => i.Name));
+        return $"{typeName}<{genericArgs}>";
     }
 }
