@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
@@ -16,9 +17,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
-    [Inject]
-    [NotNull]
-    private ILogger<BootstrapBlazorErrorBoundary>? Logger { get; set; }
+    [Inject, NotNull]
+    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
 
     [Inject]
     [NotNull]
@@ -68,13 +68,9 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <inheritdoc/>
     /// </summary>
     /// <param name="exception"></param>
-    protected override Task OnErrorAsync(Exception exception)
+    protected override async Task OnErrorAsync(Exception exception)
     {
-        if (EnableILogger && Logger.IsEnabled(LogLevel.Error))
-        {
-            Logger.LogError(exception, "BootstrapBlazorErrorBoundary OnErrorAsync log this error occurred at {Page}", NavigationManager.Uri);
-        }
-        return Task.CompletedTask;
+        await ErrorBoundaryLogger.LogErrorAsync(exception);
     }
 
     /// <summary>
