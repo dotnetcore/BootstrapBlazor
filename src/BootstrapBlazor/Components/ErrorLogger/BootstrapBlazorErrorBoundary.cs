@@ -5,7 +5,6 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -17,12 +16,12 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
-    [Inject, NotNull]
-    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
-
     [Inject]
     [NotNull]
-    private IConfiguration? Configuration { get; set; }
+    private ILogger<BootstrapBlazorErrorBoundary>? Logger { get; set; }
+
+    [Inject, NotNull]
+    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
 
     [Inject]
     [NotNull]
@@ -61,9 +60,6 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     public string? ToastTitle { get; set; }
 
-    [CascadingParameter, NotNull]
-    private IErrorLogger? ErrorLogger { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -79,31 +75,40 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        // 页面生命周期内异常直接调用这里
-        // Exceptions in page lifecycle call here directly
-        var pageException = false;
-        var ex = CurrentException ?? _exception;
-        if (ex != null)
+        if (CurrentException is null)
         {
-            pageException = IsPageException(ex);
-
-            // 重置 CurrentException
-            // Reset CurrentException
-            ResetException();
-
-            // 渲染异常
-            // Render Exception
-            var handler = GetLastOrDefaultHandler();
-            _ = RenderException(ex, handler);
+            builder.AddContent(0, ChildContent);
         }
-
-        // 判断是否为组件周期内异常
-        // Determine if it is a component lifecycle exception
-        if (!pageException)
+        else if (ErrorContent is not null)
         {
-            // 渲染正常内容
-            // Render Normal Content
-            builder.AddContent(1, ChildContent);
+            builder.AddContent(1, ErrorContent(CurrentException));
+        }
+        else
+        {
+            var pageException = IsPageException(CurrentException);
+            if (pageException)
+            {
+                RenderException(builder, CurrentException);
+            }
+            else
+            {
+                builder.AddContent(0, ChildContent);
+            }
+            ResetException();
+        }
+    }
+
+    private void RenderException(RenderTreeBuilder builder, Exception ex)
+    {
+        if (OnErrorHandleAsync is not null)
+        {
+            var renderTask = OnErrorHandleAsync(Logger, ex);
+        }
+        else
+        {
+            builder.OpenComponent<ErrorRender>(0);
+            builder.AddAttribute(1, "Exception", ex);
+            builder.CloseElement();
         }
     }
 
@@ -115,99 +120,11 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         return PageMethods.Any(i => errorMessage.Contains(i, StringComparison.OrdinalIgnoreCase));
     }
 
-    private IHandlerException? GetLastOrDefaultHandler()
-    {
-        IHandlerException? handler = null;
-        if (ErrorLogger is Components.ErrorLogger logger)
-        {
-            handler = logger.GetLastOrDefaultHandler();
-        }
-        return handler;
-    }
-
     private PropertyInfo? _currentExceptionPropertyInfo;
 
     private void ResetException()
     {
-        _exception = null;
-
         _currentExceptionPropertyInfo ??= GetType().BaseType!.GetProperty(nameof(CurrentException), BindingFlags.NonPublic | BindingFlags.Instance)!;
         _currentExceptionPropertyInfo.SetValue(this, null);
-    }
-
-    private Exception? _exception = null;
-
-    private RenderFragment<Exception> ExceptionContent => ex => builder =>
-    {
-        if (ErrorContent != null)
-        {
-            builder.AddContent(0, ErrorContent(ex));
-        }
-        else
-        {
-            builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "class", "error-stack");
-            builder.AddContent(2, GetErrorContentMarkupString(ex));
-            builder.CloseElement();
-        }
-    };
-
-    private bool? _errorDetails;
-
-    private MarkupString GetErrorContentMarkupString(Exception ex)
-    {
-        _errorDetails ??= Configuration.GetValue("DetailedErrors", false);
-        return _errorDetails is true
-            ? ex.FormatMarkupString(Configuration.GetEnvironmentInformation())
-            : new MarkupString(ex.Message);
-    }
-
-    /// <summary>
-    /// <para lang="zh">BootstrapBlazor 组件导致异常渲染方法</para>
-    /// <para lang="en">BootstrapBlazor Component Exception Render Method</para>
-    /// </summary>
-    /// <param name="exception"></param>
-    /// <param name="handler"></param>
-    public async Task RenderException(Exception exception, IHandlerException? handler)
-    {
-        // 记录日志
-        // Log Error
-        await OnErrorAsync(exception);
-
-        // 外部调用
-        // External Call
-        if (OnErrorHandleAsync != null)
-        {
-            await OnErrorHandleAsync(Logger, exception);
-        }
-
-        if (handler != null)
-        {
-            // IHandlerException 处理异常逻辑
-            // IHandlerException Handle Exception Logic
-            await handler.HandlerExceptionAsync(exception, ExceptionContent);
-        }
-        else
-        {
-            // 显示异常信息
-            // Show Exception Info
-            await ShowErrorToast(exception);
-        }
-    }
-
-    private async Task ShowErrorToast(Exception exception)
-    {
-        if (ShowToast)
-        {
-            var option = new ToastOption()
-            {
-                Category = ToastCategory.Error,
-                Title = ToastTitle,
-                ChildContent = ErrorContent == null
-                    ? ExceptionContent(exception)
-                    : ErrorContent(exception)
-            };
-            await ToastService.Show(option);
-        }
     }
 }

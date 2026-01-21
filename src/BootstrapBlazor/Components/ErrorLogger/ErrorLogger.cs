@@ -76,9 +76,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
 
-    [NotNull]
-    private BootstrapBlazorErrorBoundary? _errorBoundary = default;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -131,18 +128,31 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
         builder.AddAttribute(6, nameof(BootstrapBlazorErrorBoundary.EnableILogger), EnableILogger);
-        builder.AddComponentReferenceCapture(7, obj => _errorBoundary = (BootstrapBlazorErrorBoundary)obj);
         builder.CloseComponent();
     };
 
     /// <summary>
     /// <inheritdoc cref="IErrorLogger.HandlerExceptionAsync(Exception)"/>
     /// </summary>
-    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, GetLastOrDefaultHandler());
+    public async Task HandlerExceptionAsync(Exception exception)
+    {
+        var handler = _cache.LastOrDefault();
+        if (handler is not null)
+        {
+            await handler.HandlerExceptionAsync(exception, ex => builder =>
+            {
+                builder.OpenComponent<ErrorRender>(0);
+                builder.AddAttribute(1, "Exception", ex);
+                builder.CloseElement();
+            });
+        }
+        if (OnErrorHandleAsync is not null)
+        {
+            await OnErrorHandleAsync(exception);
+        }
+    }
 
     private readonly List<IHandlerException> _cache = [];
-
-    internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
 
     /// <summary>
     /// <inheritdoc cref="IErrorLogger.Register(IHandlerException)"/>

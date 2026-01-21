@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
 
@@ -79,7 +80,7 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
             _logger.Register(this);
             return Task.CompletedTask;
         }));
-        builder.AddAttribute(7, nameof(ErrorLogger.OnErrorHandleAsync), TabSet.OnErrorHandleAsync);
+        builder.AddAttribute(7, nameof(ErrorLogger.OnErrorHandleAsync), TabSet.OnErrorHandleAsync ?? HandlerErrorCoreAsync);
         builder.CloseComponent();
     }
 
@@ -95,6 +96,13 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
 
     private bool _detailedErrorsLoaded;
     private bool _showDetailedErrors;
+
+    private Task HandlerErrorCoreAsync(ILogger logger, Exception ex) => HandlerExceptionAsync(ex, ex => builder =>
+    {
+        builder.OpenComponent<ErrorRender>(0);
+        builder.AddAttribute(1, "Exception", ex);
+        builder.CloseComponent();
+    });
 
     /// <summary>
     /// <inheritdoc/>
