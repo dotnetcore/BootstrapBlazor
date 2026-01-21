@@ -72,7 +72,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var tcs = new TaskCompletionSource<bool>();
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
-            pb.Add(e => e.OnErrorHandleAsync, exception =>
+            pb.Add(e => e.OnErrorHandleAsync, (logger, exception) =>
             {
                 tcs.SetResult(true);
                 return Task.CompletedTask;
@@ -138,7 +138,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.Add(a => a.EnableErrorLoggerILogger, true);
             pb.Add(a => a.ShowErrorLoggerToast, false);
             pb.Add(a => a.ToastTitle, "Test");
-            pb.Add(a => a.OnErrorHandleAsync, ex =>
+            pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
             {
                 exception = ex;
                 return Task.CompletedTask;
