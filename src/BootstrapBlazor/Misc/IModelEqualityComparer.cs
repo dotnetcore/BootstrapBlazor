@@ -29,6 +29,5 @@ public interface IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    /// <returns></returns>
     bool Equals(TItem? x, TItem? y);
 }

@@ -20,7 +20,6 @@ public static class ICacheEntryExtensions
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="force"></param>
-    /// <returns></returns>
     public static DateTime? GetLastAccessed(this ICacheEntry entry, bool force = false)
     {
         if (force)

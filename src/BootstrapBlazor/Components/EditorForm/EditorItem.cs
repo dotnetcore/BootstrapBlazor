@@ -17,7 +17,6 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <summary>
     /// <para lang="zh">获得/设置 绑定字段值</para>
     /// <para lang="en">Gets or sets Field Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TValue? Field { get; set; }
@@ -25,7 +24,6 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <summary>
     /// <para lang="zh">获得/设置 绑定字段值变化回调委托</para>
     /// <para lang="en">Gets or sets Field Value Changed Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue> FieldChanged { get; set; }
@@ -39,14 +37,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <summary>
     /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
     /// <para lang="en">Gets or sets ValueExpression</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue>>? FieldExpression { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，是否可编辑改用 Readonly 参数，是否可见改用 Ignore 参数; Deprecated If it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
@@ -55,77 +51,66 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? Ignore { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? Readonly { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? Required { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Rows { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Cols { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? EditTemplate { get; set; }
@@ -146,56 +131,48 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Type? ComponentType { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Order { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除；Deprecated, please delete")]
@@ -204,42 +181,36 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }
@@ -249,14 +220,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int GroupOrder { get; set; }

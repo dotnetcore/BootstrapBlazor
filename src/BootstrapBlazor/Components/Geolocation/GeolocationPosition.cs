@@ -15,14 +15,12 @@ public class GeolocationPosition
     /// <para lang="zh">获得/设置 纬度</para>
     /// <para lang="en">Gets or sets Latitude</para>
     /// </summary>
-    /// <returns></returns>
     public decimal Latitude { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 经度</para>
     /// <para lang="en">Gets or sets Longitude</para>
     /// </summary>
-    /// <returns></returns>
     public decimal Longitude { get; set; }
 
     /// <summary>

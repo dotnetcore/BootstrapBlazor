@@ -18,7 +18,6 @@ public sealed partial class SkeletonAvatar
     /// <summary>
     /// <para lang="zh">获得/设置 是否为圆形 默认为 false</para>
     /// <para lang="en">Gets or sets Whether circle. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Circle { get; set; }

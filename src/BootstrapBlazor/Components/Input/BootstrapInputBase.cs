@@ -24,7 +24,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the placeholder attribute value</para>
     /// <para lang="en">Gets or sets the placeholder attribute value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -32,7 +31,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 for Enter key press, default is null</para>
     /// <para lang="en">Gets or sets the callback method for Enter key press, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnEnterAsync { get; set; }
@@ -40,7 +38,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 for Esc key press, default is null</para>
     /// <para lang="en">Gets or sets the callback method for Esc key press, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnEscAsync { get; set; }
@@ -48,7 +45,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 按钮 颜色</para>
     /// <para lang="en">Gets or sets the button color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.None;
@@ -56,7 +52,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the formatter function</para>
     /// <para lang="en">Gets or sets the formatter function</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, string>? Formatter { get; set; }
@@ -64,7 +59,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the format string, e.g., "yyyy-MM-dd" for date 类型s</para>
     /// <para lang="en">Gets or sets the format string, e.g., "yyyy-MM-dd" for date types</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
@@ -72,7 +66,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically focus, default is false</para>
     /// <para lang="en">Gets or sets whether to automatically focus, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoFocus { get; set; }
@@ -80,7 +73,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically select all text on focus, default is false</para>
     /// <para lang="en">Gets or sets whether to automatically select all text on focus, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSelectAllTextOnFocus { get; set; }
@@ -88,7 +80,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically select all text on Enter key press, default is false</para>
     /// <para lang="en">Gets or sets whether to automatically select all text on Enter key press, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSelectAllTextOnEnter { get; set; }
@@ -96,7 +87,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically trim whitespace, default is false</para>
     /// <para lang="en">Gets or sets whether to automatically trim whitespace, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTrim { get; set; }
@@ -104,7 +94,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 for blur event, default is null</para>
     /// <para lang="en">Gets or sets the callback method for blur event, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
@@ -122,14 +111,12 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="zh">Method to focus the element</para>
     /// <para lang="en">Method to focus the element</para>
     /// </summary>
-    /// <returns></returns>
     public async Task FocusAsync() => await InvokeVoidAsync("focus", GetInputId());
 
     /// <summary>
     /// <para lang="zh">Method to select all text</para>
     /// <para lang="en">Method to select all text</para>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
 
     /// <summary>
@@ -169,7 +156,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -206,7 +192,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="en">Value formatting delegate method</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     protected override string? FormatValueAsString(TValue? value) => Formatter != null
         ? Formatter.Invoke(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
@@ -220,7 +205,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
     /// <summary>
@@ -239,7 +223,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="zh">Client-side EnterCallback method</para>
     /// <para lang="en">Client-side EnterCallback method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task EnterCallback()
     {
@@ -253,7 +236,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="zh">Client-side EscCallback method</para>
     /// <para lang="en">Client-side EscCallback method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task EscCallback()
     {
@@ -268,7 +250,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
         await base.DisposeAsync(disposing);

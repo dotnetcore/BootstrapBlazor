@@ -16,7 +16,6 @@ internal class CarouselImage : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 图片路径</para>
     /// <para lang="en">Gets or sets the image URL</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
@@ -24,7 +23,6 @@ internal class CarouselImage : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击回调委托</para>
     /// <para lang="en">Gets or sets the click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnClick { get; set; }

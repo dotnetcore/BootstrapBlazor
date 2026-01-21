@@ -14,7 +14,6 @@ public partial class RenderTemplate
     /// <summary>
     /// <para lang="zh">获得/设置 the child component</para>
     /// <para lang="en">Gets or sets the child component</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -22,7 +21,6 @@ public partial class RenderTemplate
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调 委托 for the first load</para>
     /// <para lang="en">Gets or sets the callback delegate for the first load</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnRenderAsync { get; set; }
@@ -31,7 +29,6 @@ public partial class RenderTemplate
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

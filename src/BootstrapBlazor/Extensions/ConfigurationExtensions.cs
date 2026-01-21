@@ -113,7 +113,6 @@ internal static class ConfigurationExtensions
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
-    /// <returns></returns>
     public static string? GetUserName(this IConfiguration config, string? defaultValue = null)
     {
         var userName = config.GetValue<string?>("USERNAME");
@@ -133,7 +132,6 @@ internal static class ConfigurationExtensions
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
-    /// <returns></returns>
     public static string? GetEnvironmentName(this IConfiguration config, string? defaultValue = null)
     {
         return config.GetValue<string?>("ASPNETCORE_ENVIRONMENT") ?? defaultValue;
@@ -145,7 +143,6 @@ internal static class ConfigurationExtensions
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
-    /// <returns></returns>
     public static string? GetIISPath(this IConfiguration config, string? defaultValue = null)
     {
         return config.GetValue<string?>("ASPNETCORE_IIS_PHYSICAL_PATH") ?? defaultValue;
@@ -157,7 +154,6 @@ internal static class ConfigurationExtensions
     /// </summary>
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
-    /// <returns></returns>
     public static string? GetVisualStudioVersion(this IConfiguration config, string? defaultValue = null)
     {
         var edition = config.GetValue<string?>("VisualStudioEdition");

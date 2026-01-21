@@ -23,7 +23,6 @@ public abstract class BootstrapServiceBase<TOption>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="component"></param>
-    /// <returns></returns>
     protected async Task Invoke(TOption option, ComponentBase? component = null)
     {
         var (_, callback) = component != null

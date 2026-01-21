@@ -24,7 +24,6 @@ public interface IConnectionService
     /// </summary>
     /// <param name="key"><para lang="zh">键值</para><para lang="en">键value</para></param>
     /// <param name="value"><para lang="zh">连接信息</para><para lang="en">连接info</para></param>
-    /// <returns></returns>
     bool TryGetValue(string key, out ConnectionItem? value);
 
     /// <summary>

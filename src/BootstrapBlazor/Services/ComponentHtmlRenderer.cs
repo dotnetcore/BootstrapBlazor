@@ -19,7 +19,6 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public async Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);
@@ -38,7 +37,6 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// </summary>
     /// <param name="componentType"></param>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public async Task<string> RenderAsync(Type componentType, IDictionary<string, object?>? parameters = null)
     {
         using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);

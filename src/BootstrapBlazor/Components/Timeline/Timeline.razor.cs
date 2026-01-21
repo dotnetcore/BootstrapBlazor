@@ -24,7 +24,6 @@ public partial class Timeline
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集合</para>
     /// <para lang="en">Gets or sets the bound data collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -33,7 +32,6 @@ public partial class Timeline
     /// <summary>
     /// <para lang="zh">获得/设置 是否反转</para>
     /// <para lang="en">Gets or sets whether to reverse</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsReverse { get; set; }
@@ -41,7 +39,6 @@ public partial class Timeline
     /// <summary>
     /// <para lang="zh">获得/设置 是否左右交替出现，默认 false</para>
     /// <para lang="en">Gets or sets whether items alternate left and right. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAlternate { get; set; }
@@ -49,7 +46,6 @@ public partial class Timeline
     /// <summary>
     /// <para lang="zh">获得/设置 内容是否出现在时间线左侧，默认为 false</para>
     /// <para lang="en">Gets or sets whether content appears on the left side of the timeline. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLeft { get; set; }

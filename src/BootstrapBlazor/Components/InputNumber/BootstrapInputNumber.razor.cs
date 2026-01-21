@@ -40,7 +40,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 数值增加时回调委托</para>
     /// <para lang="en">Gets or sets Callback delegate when value increases</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnIncrement { get; set; }
@@ -48,7 +47,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 数值减少时回调委托</para>
     /// <para lang="en">Gets or sets Callback delegate when value decreases</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnDecrement { get; set; }
@@ -56,7 +54,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 最小值</para>
     /// <para lang="en">Gets or sets Minimum Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Min { get; set; }
@@ -64,7 +61,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 最大值</para>
     /// <para lang="en">Gets or sets Maximum Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Max { get; set; }
@@ -72,7 +68,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 步长 默认为 null</para>
     /// <para lang="en">Gets or sets Step. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
@@ -80,7 +75,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示加减按钮</para>
     /// <para lang="en">Gets or sets Whether to show increment/decrement buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowButton { get; set; }
@@ -88,7 +82,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 减小数值图标</para>
     /// <para lang="en">Gets or sets Decrement Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
@@ -96,7 +89,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 增加数值图标</para>
     /// <para lang="en">Gets or sets Increment Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -171,7 +163,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
@@ -193,7 +184,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <para lang="en">InternalFormat Method</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
     protected virtual string? InternalFormat(TValue? value) => value switch
     {
@@ -213,7 +203,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <para lang="zh">点击减少按钮式时回调此方法</para>
     /// <para lang="en">Callback method when decrement button is clicked</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
@@ -250,7 +239,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <para lang="zh">点击增加按钮式时回调此方法</para>
     /// <para lang="en">Callback method when increment button is clicked</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
@@ -286,7 +274,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnBlur()
     {
         if (!PreviousParsingAttemptFailed)
@@ -374,7 +361,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         bool ret;

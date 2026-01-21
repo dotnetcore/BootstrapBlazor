@@ -13,19 +13,19 @@ public interface IReconnector
 {
     /// <summary>
     /// <para lang="zh">获得/设置 正在尝试重试连接对话框的模板</para>
-    /// <para lang="en">Gets or sets Reconnecting Template</para>
+    /// <para lang="en">Gets or sets the reconnecting template</para>
     /// </summary>
     RenderFragment? ReconnectingTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 连接失败对话框的模板</para>
-    /// <para lang="en">Gets or sets Reconnect Failed Template</para>
+    /// <para lang="en">Gets or sets the reconnect failed template</para>
     /// </summary>
     RenderFragment? ReconnectFailedTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 连接被拒绝对话框的模板</para>
-    /// <para lang="en">Gets or sets Reconnect Rejected Template</para>
+    /// <para lang="en">Gets or sets the reconnect rejected template</para>
     /// </summary>
     RenderFragment? ReconnectRejectedTemplate { get; set; }
 }

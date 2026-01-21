@@ -21,7 +21,6 @@ public partial class MultiSelectFilter<TType>
     /// <summary>
     /// <para lang="zh">获得/设置 the filter items.</para>
     /// <para lang="en">Gets or sets the filter items.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<SelectedItem>? Items { get; set; }
@@ -40,7 +39,6 @@ public partial class MultiSelectFilter<TType>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction() { FilterLogic = FilterLogic.Or };

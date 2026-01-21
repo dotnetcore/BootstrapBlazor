@@ -40,7 +40,6 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public QueryPageOptions BuildQueryPageOptions() => OptionsBuilder();
 
     private Func<QueryPageOptions> OptionsBuilder { get; }

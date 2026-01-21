@@ -15,7 +15,6 @@ public interface IVideoDevice
     /// <para lang="zh">获得 the list of video devices.</para>
     /// <para lang="en">Gets the list of video devices.</para>
     /// </summary>
-    /// <returns></returns>
     Task<List<IMediaDeviceInfo>?> GetDevices();
 
     /// <summary>
@@ -23,7 +22,6 @@ public interface IVideoDevice
     /// <para lang="en">Opens the video device with the specified constraints.</para>
     /// </summary>
     /// <param name="constraints"></param>
-    /// <returns></returns>
     Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
@@ -31,28 +29,24 @@ public interface IVideoDevice
     /// <para lang="en">Close the video device with the specified selector.</para>
     /// </summary>
     /// <param name="selector"></param>
-    /// <returns></returns>
     Task<bool> Close(string? selector);
 
     /// <summary>
     /// <para lang="zh">Capture a still image from the video stream.</para>
     /// <para lang="en">Capture a still image from the video stream.</para>
     /// </summary>
-    /// <returns></returns>
     Task Capture();
 
     /// <summary>
     /// <para lang="zh">获得 the preview URL of the captured image.</para>
     /// <para lang="en">Gets the preview URL of the captured image.</para>
     /// </summary>
-    /// <returns></returns>
     Task<string?> GetPreviewUrl();
 
     /// <summary>
     /// <para lang="zh">获得 the stream of the captured image.</para>
     /// <para lang="en">Gets the stream of the captured image.</para>
     /// </summary>
-    /// <returns></returns>
     Task<Stream?> GetPreviewData();
 
     /// <summary>
@@ -60,6 +54,5 @@ public interface IVideoDevice
     /// <para lang="en">Apply the media track constraints.</para>
     /// </summary>
     /// <param name="constraints"></param>
-    /// <returns></returns>
     Task<bool> Apply(MediaTrackConstraints constraints);
 }

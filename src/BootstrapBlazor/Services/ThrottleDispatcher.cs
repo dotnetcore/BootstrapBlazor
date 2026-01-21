@@ -17,7 +17,6 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// <para lang="zh">判断是否等待方法</para>
     /// <para lang="en">Check if Should Wait Method</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value) < options.Interval;
 
     /// <summary>

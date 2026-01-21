@@ -14,7 +14,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容</para>
     /// <para lang="en">Gets or sets componentcontent</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [EditorRequired]
@@ -23,7 +22,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 水印文本 默认 BootstrapBlazor</para>
     /// <para lang="en">Gets or sets 水印文本 Default is BootstrapBlazor</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -31,7 +29,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 字体大小 默认 null 未设置 默认使用 16px 字体大小 单位 px</para>
     /// <para lang="en">Gets or sets 字体大小 Default is null 未Sets Default is使用 16px 字体大小 单位 px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? FontSize { get; set; }
@@ -39,7 +36,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 null 未设置</para>
     /// <para lang="en">Gets or sets color Default is null 未Sets</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Color { get; set; }
@@ -47,7 +43,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 水印的旋转角度 默认 null 45°</para>
     /// <para lang="en">Gets or sets 水印的旋转角度 Default is null 45°</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? Rotate { get; set; }
@@ -55,7 +50,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 水印元素的 z-index 值 默认 null</para>
     /// <para lang="en">Gets or sets 水印元素的 z-index 值 Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? ZIndex { get; set; }
@@ -63,7 +57,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 水印之间的间距 值 默认 null</para>
     /// <para lang="en">Gets or sets 水印之间的间距 值 Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? Gap { get; set; }
@@ -71,7 +64,6 @@ public partial class Watermark
     /// <summary>
     /// <para lang="zh">获得/设置 是否为整页面水印 默认 false</para>
     /// <para lang="en">Gets or sets whether为整页面水印 Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPage { get; set; }
@@ -100,7 +92,6 @@ public partial class Watermark
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -114,7 +105,6 @@ public partial class Watermark
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, GetOptions());
 
     private object GetOptions() => new

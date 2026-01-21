@@ -16,7 +16,6 @@ public interface IDataService<TModel> where TModel : class
     /// <para lang="en">Add Data Method</para>
     /// </summary>
     /// <param name="model"></param>
-    /// <returns></returns>
     Task<bool> AddAsync(TModel model);
 
     /// <summary>
@@ -25,7 +24,6 @@ public interface IDataService<TModel> where TModel : class
     /// </summary>
     /// <param name="model"><para lang="zh">保存实体类实例</para><para lang="en">保存实体类instance</para></param>
     /// <param name="changedType"></param>
-    /// <returns></returns>
     Task<bool> SaveAsync(TModel model, ItemChangedType changedType);
 
     /// <summary>
@@ -41,7 +39,6 @@ public interface IDataService<TModel> where TModel : class
     /// <para lang="en">Query Data Method</para>
     /// </summary>
     /// <param name="option"><para lang="zh">查询条件参数集合</para><para lang="en">查询条件参数collection</para></param>
-    /// <returns></returns>
     Task<QueryData<TModel>> QueryAsync(QueryPageOptions option);
 }
 
@@ -56,7 +53,6 @@ internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : 
     /// <para lang="en">Query Method</para>
     /// </summary>
     /// <param name="options"></param>
-    /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options) => Task.FromResult(new QueryData<TModel>()
     {
         Items = new List<TModel>(),
@@ -69,7 +65,6 @@ internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : 
     /// </summary>
     /// <param name="model"></param>
     /// <param name="changedType"></param>
-    /// <returns></returns>
     public override Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(false);
 
     /// <summary>
@@ -77,6 +72,5 @@ internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : 
     /// <para lang="en"></para>
     /// </summary>
     /// <param name="models"></param>
-    /// <returns></returns>
     public override Task<bool> DeleteAsync(IEnumerable<TModel> models) => Task.FromResult(false);
 }

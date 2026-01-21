@@ -34,7 +34,6 @@ public interface IBluetoothService
     /// <para lang="en">Get All Supported Characteristics</para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<List<IBluetoothCharacteristic>> GetCharacteristics(CancellationToken token = default);
 
     /// <summary>
@@ -43,6 +42,5 @@ public interface IBluetoothService
     /// </summary>
     /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicUUID, CancellationToken token = default);
 }

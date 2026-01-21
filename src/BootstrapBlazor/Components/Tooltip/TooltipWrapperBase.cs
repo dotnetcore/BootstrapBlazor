@@ -33,7 +33,6 @@ public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Tooltip 显示文字，默认为 null</para>
     /// <para lang="en">Gets or sets the Tooltip display text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
@@ -41,7 +40,6 @@ public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Tooltip 显示位置，默认为 Top</para>
     /// <para lang="en">Gets or sets the Tooltip display position. Default is Top.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement TooltipPlacement { get; set; } = Placement.Top;
@@ -49,7 +47,6 @@ public abstract class TooltipWrapperBase : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Tooltip 触发方式，默认为 hover focus</para>
     /// <para lang="en">Gets or sets the Tooltip trigger method. Default is hover focus.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

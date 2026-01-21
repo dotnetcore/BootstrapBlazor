@@ -15,6 +15,5 @@ public interface IRecognizerProvider
     /// <para lang="zh">识别语音回调方法</para>
     /// <para lang="en">Recognize Speech Callback Method</para>
     /// </summary>
-    /// <returns></returns>
     Task InvokeAsync(RecognizerOption option);
 }

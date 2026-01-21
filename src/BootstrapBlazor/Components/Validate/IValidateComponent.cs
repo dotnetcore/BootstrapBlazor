@@ -21,7 +21,6 @@ public interface IValidateComponent
     /// <para lang="zh">判断是否需要进行复杂类验证</para>
     /// <para lang="en">Determines whether complex type validation is needed</para>
     /// </summary>
-    /// <returns></returns>
     bool IsComplexValue(object? value);
 
     /// <summary>

@@ -30,7 +30,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the items.</para>
     /// <para lang="en">Gets or sets the items.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -39,7 +38,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 for loading virtualized items.</para>
     /// <para lang="en">Gets or sets the callback method for loading virtualized items.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -48,7 +46,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 when the search text changes.</para>
     /// <para lang="en">Gets or sets the callback method when the search text changes.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
@@ -56,7 +53,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 the select component is editable. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether the select component is editable. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
@@ -64,7 +60,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the item 模板.</para>
     /// <para lang="en">Gets or sets the item template.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
@@ -92,7 +87,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <para lang="zh">获得 the rows by Items.</para>
     /// <para lang="en">Gets the rows by Items.</para>
     /// </summary>
-    /// <returns></returns>
     protected abstract List<SelectedItem> GetRowsByItems();
 
     private List<SelectedItem> GetRowsBySearch()
@@ -106,7 +100,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <para lang="en">Filter the items by search text.</para>
     /// </summary>
     /// <param name="source"></param>
-    /// <returns></returns>
     protected IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
         ? source
         : source.Where(i => i.Text.Contains(SearchText, StringComparison));
@@ -130,7 +123,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <para lang="zh">Refreshes the virtualize component.</para>
     /// <para lang="en">Refreshes the virtualize component.</para>
     /// </summary>
-    /// <returns></returns>
     protected async Task RefreshVirtualizeElement()
     {
         if (IsVirtualize && OnQueryAsync != null)
@@ -145,7 +137,6 @@ public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// <para lang="zh">Clears the selected value.</para>
     /// <para lang="en">Clears the selected value.</para>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnClearValue()
     {
         if (ShowSearch)

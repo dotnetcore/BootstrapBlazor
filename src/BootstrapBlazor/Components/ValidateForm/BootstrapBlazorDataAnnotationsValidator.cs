@@ -8,22 +8,22 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">BootstrapBlazorDataAnnotationsValidator 验证组件</para>
-///  <para lang="en">BootstrapBlazorDataAnnotationsValidator Validation Component</para>
+/// <para lang="zh">BootstrapBlazorDataAnnotationsValidator 验证组件</para>
+/// <para lang="en">BootstrapBlazorDataAnnotationsValidator Validation Component</para>
 /// </summary>
 public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposable
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 当前编辑数据上下文</para>
-    ///  <para lang="en">Gets or sets Current Edit Data Context</para>
+    /// <para lang="zh">获得/设置 当前编辑数据上下文</para>
+    /// <para lang="en">Gets or sets Current Edit Data Context</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
     private EditContext? CurrentEditContext { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 当前编辑窗体上下文</para>
-    ///  <para lang="en">Gets or sets 当前编辑窗体上下文</para>
+    /// <para lang="zh">获得/设置 当前编辑窗体上下文</para>
+    /// <para lang="en">Gets or sets 当前编辑窗体上下文</para>
     /// </summary>
     [CascadingParameter]
     [NotNull]
@@ -37,8 +37,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     private ValidationMessageStore? _message = null;
 
     /// <summary>
-    ///  <para lang="zh">初始化方法</para>
-    ///  <para lang="en">初始化方法</para>
+    /// <para lang="zh">初始化方法</para>
+    /// <para lang="en">初始化方法</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -53,10 +53,9 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
 
     private TaskCompletionSource<bool>? _tcs;
     /// <summary>
-    ///  <para lang="zh">手动验证表单方法</para>
-    ///  <para lang="en">手动验证表单方法</para>
+    /// <para lang="zh">手动验证表单方法</para>
+    /// <para lang="en">手动验证表单方法</para>
     /// </summary>
-    /// <returns></returns>
     internal async Task<bool> ValidateAsync()
     {
         _tcs = new(false);
@@ -66,8 +65,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     }
 
     /// <summary>
-    ///  <para lang="zh">手动验证表单方法</para>
-    ///  <para lang="en">手动验证表单方法</para>
+    /// <para lang="zh">手动验证表单方法</para>
+    /// <para lang="en">手动验证表单方法</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     internal bool Validate() => CurrentEditContext.Validate();
@@ -146,8 +145,8 @@ public class BootstrapBlazorDataAnnotationsValidator : ComponentBase, IDisposabl
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <para lang="zh"><inheritdoc/></para>
+    /// <para lang="en"><inheritdoc/></para>
     /// </summary>
     public void Dispose()
     {

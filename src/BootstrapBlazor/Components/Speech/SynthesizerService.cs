@@ -17,6 +17,5 @@ public class SynthesizerService(ISynthesizerProvider provider)
     /// <para lang="en">Speech Synthesis Callback Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public Task InvokeAsync(SynthesizerOption option) => provider.InvokeAsync(option);
 }

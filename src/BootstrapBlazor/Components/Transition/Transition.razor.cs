@@ -24,7 +24,6 @@ public partial class Transition
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示动画，默认 true</para>
     /// <para lang="en">Gets or sets whether to display the animation. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Show { get; set; } = true;
@@ -32,7 +31,6 @@ public partial class Transition
     /// <summary>
     /// <para lang="zh">获得/设置 动画名称，默认 FadeIn</para>
     /// <para lang="en">Gets or sets the animation name. Default is FadeIn.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TransitionType TransitionType { get; set; } = TransitionType.FadeIn;
@@ -40,7 +38,6 @@ public partial class Transition
     /// <summary>
     /// <para lang="zh">获得/设置 动画执行时长，单位毫秒，默认为 0</para>
     /// <para lang="en">Gets or sets the animation execution duration in milliseconds. Default is 0.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Duration { get; set; }
@@ -48,7 +45,6 @@ public partial class Transition
     /// <summary>
     /// <para lang="zh">获得/设置 子内容</para>
     /// <para lang="en">Gets or sets the child content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -56,7 +52,6 @@ public partial class Transition
     /// <summary>
     /// <para lang="zh">获得/设置 动画执行完成回调委托</para>
     /// <para lang="en">Gets or sets the animation completion callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTransitionEnd { get; set; }
@@ -77,6 +72,5 @@ public partial class Transition
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TransitionEndAsync));
 }

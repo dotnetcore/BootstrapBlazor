@@ -52,7 +52,6 @@ public class StepSettings
     /// <para lang="en">Get step string</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public string? GetStep(Type type)
     {
         string? ret = null;

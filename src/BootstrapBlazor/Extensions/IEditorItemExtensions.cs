@@ -20,7 +20,6 @@ public static class IEditorItemExtensions
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <param name="search"></param>
-    /// <returns></returns>
     public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || !item.IsReadonly(changedType);
 
     private static bool IsReadonly(this IEditorItem item, ItemChangedType changedType)
@@ -44,7 +43,6 @@ public static class IEditorItemExtensions
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <param name="search"></param>
-    /// <returns></returns>
     public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.IsVisible(changedType);
 
     private static bool IsVisible(this IEditorItem item, ItemChangedType changedType)
@@ -71,7 +69,6 @@ public static class IEditorItemExtensions
     /// <param name="modelType"></param>
     /// <param name="changedType"></param>
     /// <param name="search"></param>
-    /// <returns></returns>
     public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
 
     /// <summary>
@@ -80,7 +77,6 @@ public static class IEditorItemExtensions
     /// </summary>
     /// <param name="item"></param>
     /// <param name="modelType"></param>
-    /// <returns></returns>
     public static bool CanWrite(this IEditorItem item, Type modelType)
     {
         return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();

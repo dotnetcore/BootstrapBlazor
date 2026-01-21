@@ -14,43 +14,38 @@ namespace BootstrapBlazor.Components;
 public partial class Progress
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 控件高度 默认 null 未设置</para>
-    /// <para lang="en">Gets or sets Control Height. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 控件高度，默认为 null 未设置</para>
+    /// <para lang="en">Gets or sets the control height. Default is null</para>
     /// </summary>
     [Parameter]
     public int? Height { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 颜色 默认为 Color.Primary</para>
-    /// <para lang="en">Gets or sets Color. Default Color.Primary</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 颜色，默认为 Color.Primary</para>
+    /// <para lang="en">Gets or sets the color. Default is Color.Primary</para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示进度条值 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to show progress value. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示进度条值，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show progress value. Default is false</para>
     /// </summary>
     /// <value></value>
     [Parameter]
     public bool IsShowValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示为条纹 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to show striped. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示为条纹，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show striped. Default is false</para>
     /// </summary>
     /// <value></value>
     [Parameter]
     public bool IsStriped { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否动画 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to show animated. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否动画，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show animated. Default is false</para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -58,32 +53,28 @@ public partial class Progress
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件进度值</para>
-    /// <para lang="en">Gets or sets Progress Value</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the progress value</para>
     /// </summary>
     [Parameter]
     public double Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 进度值修约小数位数, 默认 0 (即保留为整数)</para>
-    /// <para lang="en">Gets or sets Rounding decimal places. Default 0 (Keep integer)</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 进度值修约小数位数，默认为 0（即保留为整数）</para>
+    /// <para lang="en">Gets or sets the rounding decimal places. Default is 0 (Keep as integer)</para>
     /// </summary>
     [Parameter]
     public int Round { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 保留小数点模式 默认为 AwayFromZero</para>
-    /// <para lang="en">Gets or sets Rounding mode. Default AwayFromZero</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 保留小数点模式，默认为 AwayFromZero</para>
+    /// <para lang="en">Gets or sets the rounding mode. Default is AwayFromZero</para>
     /// </summary>
     [Parameter]
     public MidpointRounding MidpointRounding { get; set; } = MidpointRounding.AwayFromZero;
 
     /// <summary>
     /// <para lang="zh">获得/设置 进度标签文本</para>
-    /// <para lang="en">Gets or sets Progress Label Text</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the progress label text</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -92,44 +83,26 @@ public partial class Progress
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Style Collection</para>
-    /// </summary>
-    /// <returns></returns>
     private string? ClassName => CssBuilder.Default("progress-bar")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("progress-bar-striped", IsStriped)
         .AddClass("progress-bar-animated", IsAnimated)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 Style 集合</para>
-    /// <para lang="en">Get Style Collection</para>
-    /// </summary>
     private string? StyleName => CssBuilder.Default()
         .AddClass($"width: {InternalValue.ToString(CultureInfo.InvariantCulture)}%;")
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 ProgressStyle 集合</para>
-    /// <para lang="en">Get ProgressStyle Collection</para>
-    /// </summary>
     private string? ProgressStyle => CssBuilder.Default()
         .AddClass($"height: {Height}px;", Height.HasValue)
         .Build();
 
     private double InternalValue => Round == 0 ? Value : Math.Round(Value, Round, MidpointRounding);
 
-    /// <summary>
-    /// <para lang="zh">获得 当前值百分比标签文字</para>
-    /// <para lang="en">Get Current Value Percentage Label Text</para>
-    /// </summary>
     private string? ValueLabelString => IsShowValue ? string.IsNullOrEmpty(Text) ? $"{InternalValue}%" : Text : null;
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

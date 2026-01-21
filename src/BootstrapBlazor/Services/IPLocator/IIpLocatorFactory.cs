@@ -16,6 +16,5 @@ public interface IIpLocatorFactory
     /// <para lang="en">Create IIPLocator Instance Method</para>
     /// </summary>
     /// <param name="key"><para lang="zh">注入时使用的 key 值</para><para lang="en">Key used when injecting</para></param>
-    /// <returns></returns>
     IIpLocatorProvider Create(string? key = null);
 }

@@ -14,7 +14,6 @@ public class ShareButton : Button
     /// <summary>
     /// <para lang="zh">获得/设置 分享内容上下文 默认 null</para>
     /// <para lang="en">Gets or sets the share context. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ShareButtonContext? ShareContext { get; set; }
@@ -22,6 +21,5 @@ public class ShareButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task HandlerClick() => InvokeVoidAsync("share", ShareContext);
 }

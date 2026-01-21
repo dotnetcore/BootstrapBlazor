@@ -18,7 +18,6 @@ public class Title : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 当前页标题文字</para>
     /// <para lang="en">Gets or sets the current page title text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }

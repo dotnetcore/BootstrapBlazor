@@ -33,7 +33,6 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 组件数据源</para>
     /// <para lang="en">Gets or sets Component Data Source</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -42,7 +41,6 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
     /// <para lang="en">Gets or sets DropdownIcon Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
@@ -50,7 +48,6 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单箭头图标</para>
     /// <para lang="en">Gets or sets Menu Arrow Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }
@@ -58,7 +55,6 @@ public sealed partial class SubMenu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
     /// <para lang="en">Gets or sets Menu item click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<MenuItem, Task>? OnClick { get; set; }
@@ -76,7 +72,6 @@ public sealed partial class SubMenu
     /// <para lang="en">Get Style String</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     private static string? GetClassString(MenuItem item) => CssBuilder.Default()
         .AddClass("active", !item.IsDisabled && item.IsActive)
         .AddClass("disabled", item.IsDisabled)
@@ -87,7 +82,6 @@ public sealed partial class SubMenu
     /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);

@@ -14,26 +14,23 @@ namespace BootstrapBlazor.Components;
 public partial class RadioList<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/></para>
-    /// <para lang="en">Gets or sets Whether to auto add null value when value is nullable enum. Default false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 值为可为空枚举类型时是否自动添加空值，默认为 false。自定义空值显示文本请参考 <see cref="NullItemText"/></para>
+    /// <para lang="en">Gets or sets whether to auto add null value when value is nullable enum. Default is false. Custom null value display text, please refer to <see cref="NullItemText"/></para>
     /// </summary>
     [Parameter]
     public bool IsAutoAddNullItem { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 空值项显示文字 默认为 "" 是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
-    /// <para lang="en">Gets or sets Null item display text. Default "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 空值项显示文字，默认为 ""。是否自动添加空值请参考 <see cref="IsAutoAddNullItem"/></para>
+    /// <para lang="en">Gets or sets the null item display text. Default is "". Whether to auto add null value, please refer to <see cref="IsAutoAddNullItem"/></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NullItemText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 未设置选中项时是否自动选择第一项 默认 true</para>
-    /// <para lang="en">Gets or sets Whether to auto select first item when no item is selected. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 未设置选中项时是否自动选择第一项，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to auto select first item when no item is selected. Default is true</para>
     /// </summary>
     [Parameter]
     public bool AutoSelectFirstWhenValueIsNull { get; set; } = true;
@@ -83,7 +80,6 @@ public partial class RadioList<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     protected override string? FormatValueAsString(TValue? value) => value is SelectedItem v ? v.Value : value?.ToString();
 
     /// <summary>
@@ -92,7 +88,6 @@ public partial class RadioList<TValue>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         var ret = false;
@@ -112,23 +107,17 @@ public partial class RadioList<TValue>
     }
 
     /// <summary>
-    /// <para lang="zh"></para>
-    /// <para lang="en"></para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="typeValue"></param>
     /// <param name="list"></param>
     protected override void ProcessGenericItems(Type typeValue, IEnumerable? list) { }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc /></para>
-    /// <para lang="en"><inheritdoc /></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void EnsureParameterValid() { }
 
-    /// <summary>
-    /// <para lang="zh">点击选择框方法</para>
-    /// <para lang="en">Click Checkbox Method</para>
-    /// </summary>
     private async Task OnClick(SelectedItem item)
     {
         if (!IsDisabled)

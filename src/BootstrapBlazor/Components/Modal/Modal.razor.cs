@@ -37,7 +37,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 是否在后台关闭弹出窗口，默认为 false</para>
     /// <para lang="en">Gets or sets whether to close the popup in the background, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBackdrop { get; set; }
@@ -45,7 +44,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用键盘支持，默认为 true 响应 ESC 键</para>
     /// <para lang="en">Gets or sets whether to enable keyboard support, default is true to respond to the ESC key</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeyboard { get; set; } = true;
@@ -53,7 +51,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用淡入淡出动画，默认为 null</para>
     /// <para lang="en">Gets or sets whether to enable fade in and out animation, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? IsFade { get; set; }
@@ -61,7 +58,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets the child component</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -69,7 +65,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 组件完成渲染时的回调方法</para>
     /// <para lang="en">Gets or sets the callback method when the component has finished rendering</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Modal, Task>? FirstAfterRenderCallbackAsync { get; set; }
@@ -77,7 +72,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 弹出窗口显示时的回调方法</para>
     /// <para lang="en">Gets or sets the callback method when the popup is shown</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnShownAsync { get; set; }
@@ -85,7 +79,6 @@ public partial class Modal
     /// <summary>
     /// <para lang="zh">获得/设置 弹出窗口关闭时的回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate when the popup is closed</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
@@ -102,7 +95,6 @@ public partial class Modal
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -116,7 +108,6 @@ public partial class Modal
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ShownCallback), nameof(CloseCallback));
 
     /// <summary>
@@ -159,7 +150,6 @@ public partial class Modal
     /// <para lang="zh">弹出窗口显示时的回调方法，由 JSInvoke 调用</para>
     /// <para lang="en">Callback method when the popup has been shown, called by JSInvoke</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task ShownCallback()
     {
@@ -178,7 +168,6 @@ public partial class Modal
     /// <para lang="zh">弹出窗口关闭时的回调方法，由 JSInvoke 调用</para>
     /// <para lang="en">Callback method when the popup has been closed, called by JSInvoke</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task CloseCallback()
     {
@@ -215,7 +204,6 @@ public partial class Modal
     /// <para lang="zh">显示弹出窗口的方法</para>
     /// <para lang="en">Method to show the popup</para>
     /// </summary>
-    /// <returns></returns>
     public async Task Show()
     {
         await ModuleInitTask.Task;
@@ -226,7 +214,6 @@ public partial class Modal
     /// <para lang="zh">关闭当前弹出窗口的方法</para>
     /// <para lang="en">Method to close the current popup</para>
     /// </summary>
-    /// <returns></returns>
     public Task Close() => InvokeVoidAsync("execute", Id, "hide");
 
     /// <summary>

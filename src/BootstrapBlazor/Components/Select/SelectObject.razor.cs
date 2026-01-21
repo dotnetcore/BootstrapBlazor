@@ -17,7 +17,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
     /// <para lang="en">Gets or sets Color. Default Color.None</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -25,7 +24,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示组件右侧扩展箭头 默认 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show the component right extension arrow. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAppendArrow { get; set; } = true;
@@ -33,7 +31,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值</para>
     /// <para lang="en">Gets or sets Dropdown Min Width. Default null (use style default)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? DropdownMinWidth { get; set; }
@@ -41,7 +38,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得 显示文字回调方法 默认 null</para>
     /// <para lang="en">Get Display Text Callback Method. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -51,7 +47,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up</para>
     /// <para lang="en">Gets or sets Dropdown Icon. Default fa-solid fa-angle-up</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -60,7 +55,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
     /// <para lang="en">Gets or sets Whether clearable. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
@@ -68,7 +62,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
     /// <para lang="en">Gets or sets Clear Icon. Default fa-solid fa-angle-up</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -77,7 +70,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 下拉列表内容模板</para>
     /// <para lang="en">Gets or sets Dropdown Content Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -133,7 +125,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得 PlaceHolder 属性</para>
     /// <para lang="en">Get PlaceHolder Attribute</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -141,7 +132,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗高度 默认 486px;</para>
     /// <para lang="en">Gets or sets Dropdown Height. Default 486px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;
@@ -149,7 +139,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 Value 显示模板 默认 null</para>
     /// <para lang="en">Gets or sets Value Display Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
@@ -157,7 +146,6 @@ public partial class SelectObject<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
     /// <para lang="en">Gets or sets OnClear Callback Method. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
@@ -170,7 +158,6 @@ public partial class SelectObject<TItem>
     /// <para lang="zh">获得 input 组件 Id 方法</para>
     /// <para lang="en">Get input Component Id Method</para>
     /// </summary>
-    /// <returns></returns>
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
@@ -218,14 +205,12 @@ public partial class SelectObject<TItem>
     /// <para lang="zh">获得 Text 显示文字</para>
     /// <para lang="en">Get Display Text</para>
     /// </summary>
-    /// <returns></returns>
     private string? GetText() => GetTextCallback(Value);
 
     /// <summary>
     /// <para lang="zh">关闭当前弹窗方法</para>
     /// <para lang="en">Close Current Dropdown Method</para>
     /// </summary>
-    /// <returns></returns>
     public Task CloseAsync() => InvokeVoidAsync("close", Id);
 
     private async Task OnClearValue()

@@ -77,7 +77,6 @@ public abstract class TotpInstanceBase
     /// <para lang="en">Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp.</para>
     /// </summary>
     /// <param name="timestamp"></param>
-    /// <returns></returns>
     public abstract int GetRemainingSeconds(DateTime? timestamp = null);
 
     /// <summary>
@@ -86,7 +85,6 @@ public abstract class TotpInstanceBase
     /// </summary>
     /// <param name="code"></param>
     /// <param name="timestamp"></param>
-    /// <returns></returns>
     public abstract bool Verify(string code, DateTime? timestamp = null);
 }
 
@@ -102,7 +100,6 @@ public abstract class HotpInstanceBase
     /// </summary>
     /// <param name="code"></param>
     /// <param name="counter"></param>
-    /// <returns></returns>
     public abstract bool Verify(string code, long counter);
 }
 

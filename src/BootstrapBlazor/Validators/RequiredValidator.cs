@@ -95,7 +95,6 @@ public class RequiredValidator : ValidatorBase
     /// <para lang="zh">获得当前验证规则资源文件中 Key 格式</para>
     /// <para lang="en">Get Key format in current validation rule resource file</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual string GetRuleKey() => GetType().Name.Split(".").Last().Replace("Validator", "");
 
     /// <summary>
@@ -105,7 +104,6 @@ public class RequiredValidator : ValidatorBase
     /// <param name="context"></param>
     /// <param name="localizerFactory"></param>
     /// <param name="options"></param>
-    /// <returns></returns>
     protected virtual string? GetLocalizerErrorMessage(ValidationContext context, IStringLocalizerFactory? localizerFactory = null, JsonLocalizationOptions? options = null)
     {
         var errorMessage = ErrorMessage;

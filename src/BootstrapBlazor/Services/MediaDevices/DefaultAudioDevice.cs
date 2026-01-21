@@ -10,7 +10,6 @@ class DefaultAudioDevice(IMediaDevices deviceService) : IAudioDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<List<IMediaDeviceInfo>?> GetDevices()
     {
         var ret = new List<IMediaDeviceInfo>();

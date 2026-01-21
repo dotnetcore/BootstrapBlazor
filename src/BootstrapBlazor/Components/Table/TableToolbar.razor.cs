@@ -23,7 +23,6 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 子组件内容</para>
     /// <para lang="en">Gets or sets the content to be rendered inside this</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -31,7 +30,6 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
     /// <para lang="en">Gets or sets button click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -40,7 +38,6 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮，默认 true</para>
     /// <para lang="en">Gets or sets whether to auto collapse toolbar buttons. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
@@ -48,7 +45,6 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式，默认 false</para>
     /// <para lang="en">Gets or sets whether to inherit button color style when toolbar buttons collapsed. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
@@ -56,7 +52,6 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 移动端按钮图标</para>
     /// <para lang="en">Gets or sets mobile button icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GearIcon { get; set; }

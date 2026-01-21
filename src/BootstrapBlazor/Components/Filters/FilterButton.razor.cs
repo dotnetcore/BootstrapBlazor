@@ -14,7 +14,6 @@ public partial class FilterButton<TValue> : Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 清除过滤条件时的回调方法</para>
     /// <para lang="en">Gets or sets Callback Method When Clearing Filter Conditions</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearFilter { get; set; }
@@ -22,7 +21,6 @@ public partial class FilterButton<TValue> : Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 过滤按钮图标</para>
     /// <para lang="en">Gets or sets Filter Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FilterIcon { get; set; }
@@ -30,7 +28,6 @@ public partial class FilterButton<TValue> : Dropdown<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮图标</para>
     /// <para lang="en">Gets or sets Reset Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }

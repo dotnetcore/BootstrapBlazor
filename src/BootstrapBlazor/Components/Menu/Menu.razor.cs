@@ -38,7 +38,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单数据集合</para>
     /// <para lang="en">Gets or sets Menu Data Collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -47,7 +46,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 是否为手风琴效果 默认为 false</para>
     /// <para lang="en">Gets or sets Whether it is accordion effect. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">启用此功能时 <see cref="IsExpandAll" /> 参数不生效</para>
@@ -59,7 +57,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 是否全部展开 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to expand all. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</para>
@@ -71,7 +68,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 侧栏是否收起 默认 false 未收起</para>
     /// <para lang="en">Gets or sets Whether sidebar is collapsed. Default false (Not collapsed)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCollapsed { get; set; }
@@ -79,7 +75,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 侧栏垂直模式 默认 false</para>
     /// <para lang="en">Gets or sets Sidebar vertical mode. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -88,7 +83,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效</para>
     /// <para lang="en">Gets or sets Automatically scroll to visible area. Default true. Effective when <see cref="IsVertical"/> is enabled</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -97,7 +91,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏垂直模式在底部 默认 false</para>
     /// <para lang="en">Gets or sets Sidebar vertical mode at bottom. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBottom { get; set; }
@@ -105,7 +98,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
     /// <para lang="en">Gets or sets Indent size. Default 16px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int IndentSize { get; set; } = 16;
@@ -113,7 +105,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁止导航 默认为 false 允许导航</para>
     /// <para lang="en">Gets or sets Whether to disable navigation. Default false (Allow navigation)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DisableNavigation { get; set; }
@@ -121,7 +112,6 @@ public partial class Menu
     /// <summary>
     /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
     /// <para lang="en">Gets or sets Menu item click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<MenuItem, Task>? OnClick { get; set; }
@@ -187,7 +177,6 @@ public partial class Menu
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -201,7 +190,6 @@ public partial class Menu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     private async Task InvokeUpdateAsync()
     {
         if (ShouldInvoke())

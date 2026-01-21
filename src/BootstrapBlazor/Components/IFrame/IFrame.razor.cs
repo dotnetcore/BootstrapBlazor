@@ -14,7 +14,6 @@ public partial class IFrame
     /// <summary>
     /// <para lang="zh">获得/设置 the URL of the webpage to be loaded in the Frame</para>
     /// <para lang="en">Gets or sets the URL of the webpage to be loaded in the Frame</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Src { get; set; }
@@ -22,7 +21,6 @@ public partial class IFrame
     /// <summary>
     /// <para lang="zh">获得/设置 the 数据 to be passed</para>
     /// <para lang="en">Gets or sets the data to be passed</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? Data { get; set; }
@@ -30,7 +28,6 @@ public partial class IFrame
     /// <summary>
     /// <para lang="zh">获得/设置 Frame loads the 数据 passed by the page</para>
     /// <para lang="en">Gets or sets Frame loads the data passed by the page</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnPostDataAsync { get; set; }
@@ -38,7 +35,6 @@ public partial class IFrame
     /// <summary>
     /// <para lang="zh">获得/设置 Callback method after the page is loaded.</para>
     /// <para lang="en">Gets or sets Callback method after the page is loaded.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnReadyAsync { get; set; }
@@ -77,7 +73,6 @@ public partial class IFrame
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
         Data,
@@ -90,7 +85,6 @@ public partial class IFrame
     /// <para lang="en">Method to push data</para>
     /// </summary>
     /// <param name="data"></param>
-    /// <returns></returns>
     public Task PushData(object? data) => InvokeVoidAsync("execute", Id, data);
 
     /// <summary>
@@ -98,7 +92,6 @@ public partial class IFrame
     /// <para lang="en">Called by JavaScript</para>
     /// </summary>
     /// <param name="data"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerPostData(object? data)
     {
@@ -112,7 +105,6 @@ public partial class IFrame
     /// <para lang="zh">Called by JavaScript</para>
     /// <para lang="en">Called by JavaScript</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerLoaded()
     {

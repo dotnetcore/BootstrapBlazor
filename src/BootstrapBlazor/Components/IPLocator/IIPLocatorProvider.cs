@@ -17,6 +17,5 @@ public interface IIPLocatorProvider
     /// <para lang="en"></para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     Task<string?> Locate(string ip);
 }

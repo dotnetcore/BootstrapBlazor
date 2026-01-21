@@ -13,7 +13,7 @@ public partial class Rate
 {
     /// <summary>
     /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Style Collection</para>
+    /// <para lang="en">Gets the style collection</para>
     /// </summary>
     private string? ClassString => CssBuilder.Default("rate")
         .AddClass("text-nowrap", !IsWrap)
@@ -28,10 +28,9 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">判断是否显示部分星级</para>
-    /// <para lang="en">Determine whether to show partial stars</para>
+    /// <para lang="en">Determines whether to show partial stars</para>
     /// </summary>
     /// <param name="i"></param>
-    /// <returns></returns>
     private bool IsPartialStar(int i) => (Value + 1 - i) is > 0 and < 1;
 
     private string GetIcon(int i) => Value >= i ? StarIcon : UnStarIcon;
@@ -40,8 +39,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 选中图标</para>
-    /// <para lang="en">Gets or sets Checked Icon</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the checked icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -49,8 +47,7 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 未选中图标</para>
-    /// <para lang="en">Gets or sets Unchecked Icon</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the unchecked icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -58,74 +55,65 @@ public partial class Rate
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
-    /// <para lang="en">Gets or sets Value</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the value</para>
     /// </summary>
     [Parameter]
     public double Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
-    /// <para lang="en">Gets or sets Whether disabled. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否禁用，默认为 false</para>
+    /// <para lang="en">Gets or sets whether disabled. Default is false</para>
     /// </summary>
     /// <remarks>禁用模式下图标颜色为灰色，不可点击</remarks>
     [Parameter]
     public bool IsDisable { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否只读 默认为 false</para>
-    /// <para lang="en">Gets or sets Whether readonly. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否只读，默认为 false</para>
+    /// <para lang="en">Gets or sets whether readonly. Default is false</para>
     /// </summary>
     /// <remarks>只读情况下图标为彩色，仅不可点击</remarks>
     [Parameter]
     public bool IsReadonly { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否禁止换行 默认为 true</para>
-    /// <para lang="en">Gets or sets Whether to disable wrap. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否禁止换行，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to disable wrap. Default is true</para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 Value 默认为 false</para>
-    /// <para lang="en">Gets or sets Whether to show Value. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示 Value，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show Value. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowValue { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 子项模板</para>
-    /// <para lang="en">Gets or sets Item Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<double>? ItemTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
-    /// <para lang="en">Gets or sets Value Changed Callback Delegate</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the value changed callback delegate</para>
     /// </summary>
     [Parameter]
     public EventCallback<double> ValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件值变化时回调委托</para>
-    /// <para lang="en">Gets or sets Value Changed Callback Delegate</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件值变化时回调方法</para>
+    /// <para lang="en">Gets or sets the value changed callback method</para>
     /// </summary>
     [Parameter]
     public Func<double, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 最大值 默认 5</para>
-    /// <para lang="en">Gets or sets Max Value. Default 5</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 最大值，默认为 5</para>
+    /// <para lang="en">Gets or sets the max value. Default is 5</para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 5;

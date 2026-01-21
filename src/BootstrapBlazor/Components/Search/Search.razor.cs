@@ -16,7 +16,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 图标 模板. 默认为 null if not set.</para>
     /// <para lang="en">Gets or sets the icon template. Default is null if not set.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? IconTemplate { get; set; }
@@ -24,7 +23,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to show the clear 按钮. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether to show the clear button. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClearButton { get; set; }
@@ -32,7 +30,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 图标 of clear 按钮. 默认为 null.</para>
     /// <para lang="en">Gets or sets the icon of clear button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearButtonIcon { get; set; }
@@ -40,7 +37,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the text of clear 按钮. 默认为 null.</para>
     /// <para lang="en">Gets or sets the text of clear button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearButtonText { get; set; }
@@ -48,7 +44,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 颜色 of clear 按钮. 默认为 <see cref="Color.Primary"/>.</para>
     /// <para lang="en">Gets or sets the color of clear button. Default is <see cref="Color.Primary"/>.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Primary;
@@ -56,7 +51,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to show the search 按钮. 默认为 true.</para>
     /// <para lang="en">Gets or sets whether to show the search button. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearchButton { get; set; } = true;
@@ -64,7 +58,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the search 按钮 颜色. 默认为 <see cref="Color.Primary"/>.</para>
     /// <para lang="en">Gets or sets the search button color. Default is <see cref="Color.Primary"/>.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color SearchButtonColor { get; set; } = Color.Primary;
@@ -72,7 +65,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the search 按钮 图标. 默认为 null.</para>
     /// <para lang="en">Gets or sets the search button icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchButtonIcon { get; set; }
@@ -80,7 +72,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the loading 图标 for the search 按钮. 默认为 null.</para>
     /// <para lang="en">Gets or sets the loading icon for the search button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchButtonLoadingIcon { get; set; }
@@ -88,7 +79,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the search 按钮 text. 默认为 null.</para>
     /// <para lang="en">Gets or sets the search button text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -97,7 +87,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 按钮 模板. 默认为 null.</para>
     /// <para lang="en">Gets or sets the button template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? ButtonTemplate { get; set; }
@@ -105,7 +94,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the prefix 按钮 模板. 默认为 null.</para>
     /// <para lang="en">Gets or sets the prefix button template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? PrefixButtonTemplate { get; set; }
@@ -113,7 +101,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to show the prefix 图标. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether to show the prefix icon. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPrefixIcon { get; set; }
@@ -121,7 +108,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the prefix 图标. 默认为 null.</para>
     /// <para lang="en">Gets or sets the prefix icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrefixIcon { get; set; }
@@ -129,7 +115,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the prefix 图标 模板. 默认为 null.</para>
     /// <para lang="en">Gets or sets the prefix icon template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SearchContext<TValue>>? PrefixIconTemplate { get; set; }
@@ -137,7 +122,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically clear the search box after searching. Deprecated.</para>
     /// <para lang="en">Gets or sets whether to automatically clear the search box after searching. Deprecated.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("Deprecated. Just delete it.")]
@@ -147,7 +131,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否 the search is triggered by input. 默认为 true. If false, the search 按钮 must be clicked to trigger.</para>
     /// <para lang="en">Gets or sets whether the search is triggered by input. Default is true. If false, the search button must be clicked to trigger.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTriggerSearchByInput { get; set; } = true;
@@ -155,7 +138,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调 委托 when the search 按钮 is clicked.</para>
     /// <para lang="en">Gets or sets the callback delegate when the search button is clicked.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, Task<IEnumerable<TValue>>>? OnSearch { get; set; }
@@ -163,7 +145,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调方法 to get 显示 text. 默认为 null, using ToString() method.</para>
     /// <para lang="en">Gets or sets the callback method to get display text. Default is null, using ToString() method.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -172,7 +153,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 the event 回调 when the clear 按钮 is clicked. 默认为 null.</para>
     /// <para lang="en">Gets or sets the event callback when the clear button is clicked. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已取消 合并到 OnSearch 方法中; Deprecated. Merged into the OnSearch method")]
@@ -245,7 +225,6 @@ public partial class Search<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText);
 
     private string? _displayText;

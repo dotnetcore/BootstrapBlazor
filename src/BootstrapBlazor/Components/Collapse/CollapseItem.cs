@@ -14,7 +14,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 文本文字</para>
     /// <para lang="en">Gets or sets text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -22,7 +21,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 当前状态是否收缩 默认 true</para>
     /// <para lang="en">Gets or sets whether current status is collapsed, default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCollapsed { get; set; } = true;
@@ -30,7 +28,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 图标字符串 默认为 null</para>
     /// <para lang="en">Gets or sets icon string, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -38,7 +35,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 标题颜色 默认无颜色 Color.None</para>
     /// <para lang="en">Gets or sets title color, default is Color.None</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color TitleColor { get; set; }
@@ -46,7 +42,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 CSS 样式名称 默认 null</para>
     /// <para lang="en">Gets or sets CSS style name, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Class { get; set; }
@@ -54,7 +49,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容</para>
     /// <para lang="en">Gets or sets component content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -62,7 +56,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Header CSS 样式名称 默认 null</para>
     /// <para lang="en">Gets or sets Header CSS style name, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? HeaderClass { get; set; }
@@ -70,7 +63,6 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 组件 Header 模板</para>
     /// <para lang="en">Gets or sets component Header template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }

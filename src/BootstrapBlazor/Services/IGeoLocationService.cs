@@ -15,7 +15,6 @@ public interface IGeoLocationService : IAsyncDisposable
     /// <para lang="zh">获得设备地理位置方法</para>
     /// <para lang="en">Get Device Geo-Location Method</para>
     /// </summary>
-    /// <returns></returns>
     Task<GeolocationPosition?> GetPositionAsync();
 
     /// <summary>
@@ -23,7 +22,6 @@ public interface IGeoLocationService : IAsyncDisposable
     /// <para lang="en">Register WatchPositionAsync to monitor location changes</para>
     /// </summary>
     /// <param name="callback"></param>
-    /// <returns></returns>
     ValueTask<long> WatchPositionAsync(Func<GeolocationPosition, Task> callback);
 
     /// <summary>
@@ -31,6 +29,5 @@ public interface IGeoLocationService : IAsyncDisposable
     /// <para lang="en">Clear WatchPositionAsync Method</para>
     /// </summary>
     /// <param name="id"><para lang="zh"><see cref="WatchPositionAsync"/> 方法返回值</para><para lang="en"><see cref="WatchPositionAsync"/> method返回value</para></param>
-    /// <returns></returns>
     ValueTask<bool> ClearWatchPositionAsync(long id);
 }

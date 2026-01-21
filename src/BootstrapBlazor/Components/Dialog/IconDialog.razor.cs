@@ -16,7 +16,6 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Icon 名称</para>
     /// <para lang="en">Gets or sets Icon Name</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -28,7 +27,6 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Label 显示文字</para>
     /// <para lang="en">Gets or sets Label Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelText { get; set; }
@@ -36,7 +34,6 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 Label 显示文字</para>
     /// <para lang="en">Gets or sets Label Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LabelFullText { get; set; }
@@ -44,7 +41,6 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 拷贝按钮显示文字</para>
     /// <para lang="en">Gets or sets Copy Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ButtonText { get; set; }
@@ -52,7 +48,6 @@ public partial class IconDialog
     /// <summary>
     /// <para lang="zh">获得/设置 拷贝成功提示文字</para>
     /// <para lang="en">Gets or sets Copied Tooltip Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CopiedTooltipText { get; set; }

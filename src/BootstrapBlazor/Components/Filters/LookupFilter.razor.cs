@@ -57,7 +57,6 @@ public partial class LookupFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();

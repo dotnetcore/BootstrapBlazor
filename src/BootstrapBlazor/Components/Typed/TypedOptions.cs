@@ -105,7 +105,6 @@ public class TypedOptions : IEquatable<TypedOptions>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public bool Equals(TypedOptions? option)
     {
         if (option == null)
@@ -147,7 +146,6 @@ public class TypedOptions : IEquatable<TypedOptions>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="obj"></param>
-    /// <returns></returns>
     public override bool Equals(object? obj)
     {
         if (obj is TypedOptions option)
@@ -161,6 +159,5 @@ public class TypedOptions : IEquatable<TypedOptions>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override int GetHashCode() => base.GetHashCode();
 }

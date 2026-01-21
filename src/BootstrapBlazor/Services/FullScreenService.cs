@@ -20,7 +20,6 @@ public class FullScreenService(IJSRuntime jSRuntime)
     /// </summary>
     /// <param name="option"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task Toggle(FullScreenOption? option = null, CancellationToken token = default)
     {
         _module ??= await jSRuntime.LoadModuleByName("fullscreen");

@@ -185,7 +185,6 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// <para lang="zh">获得 the 集合 of supported languages</para>
     /// <para lang="en">Gets the collection of supported languages</para>
     /// </summary>
-    /// <returns></returns>
     public IList<CultureInfo> GetSupportedCultures() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
         ?? [new("en"), new("zh")];
 }

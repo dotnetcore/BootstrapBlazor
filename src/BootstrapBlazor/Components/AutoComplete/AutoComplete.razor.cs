@@ -16,7 +16,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 通过输入字符串获得的匹配数据集合</para>
     /// <para lang="en">Gets or sets the collection of matching data obtained by inputting a string</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -25,7 +24,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 自定义集合过滤规则 默认为 null</para>
     /// <para lang="en">Gets or sets custom collection filtering rules, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
@@ -33,7 +31,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
     /// <para lang="en">Gets or sets the icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -41,7 +38,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 加载图标</para>
     /// <para lang="en">Gets or sets the loading icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -49,7 +45,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 匹配数据时显示的数量</para>
     /// <para lang="en">Gets or sets the number of items to display when matching data</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -58,7 +53,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启模糊搜索 默认为 false</para>
     /// <para lang="en">Gets or sets whether to enable fuzzy search, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLikeMatch { get; set; }
@@ -66,7 +60,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 匹配时是否忽略大小写 默认为 true</para>
     /// <para lang="en">Gets or sets whether to ignore case when matching, default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IgnoreCase { get; set; } = true;
@@ -74,7 +67,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 获得焦点时是否展开下拉候选菜单 默认为 true</para>
     /// <para lang="en">Gets or sets whether to expand the dropdown candidate menu when focused, default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDropdownListOnFocus { get; set; } = true;
@@ -82,7 +74,6 @@ public partial class AutoComplete
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示无匹配数据选项 默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the no matching data option, default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
@@ -162,7 +153,6 @@ public partial class AutoComplete
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -180,7 +170,6 @@ public partial class AutoComplete
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, GetChangedEventCallbackName());
 
     private string? GetChangedEventCallbackName() => (OnValueChanged != null || ValueChanged.HasDelegate) ? nameof(TriggerChange) : null;
@@ -189,7 +178,6 @@ public partial class AutoComplete
     /// <para lang="zh">获得 是否显示清除按钮</para>
     /// <para lang="en">Gets whether show the clear button.</para>
     /// </summary>
-    /// <returns></returns>
     private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
@@ -222,7 +210,6 @@ public partial class AutoComplete
     /// <para lang="zh">点击清空按钮时调用此方法 由 Javascript 触发</para>
     /// <para lang="en">Method called when the clear button is clicked. Triggered by Javascript</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerClear()
     {
@@ -268,7 +255,6 @@ public partial class AutoComplete
     /// <para lang="en">Supports two-way binding. Triggered by client-side JavaScript</para>
     /// </summary>
     /// <param name="v"></param>
-    /// <returns></returns>
     [JSInvokable]
     public void TriggerChange(string v)
     {

@@ -38,7 +38,6 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     /// <para lang="zh">get the current position of the device</para>
     /// <para lang="en">get the current position of the device</para>
     /// </summary>
-    /// <returns></returns>
     public async Task<ISerialPort?> GetPort(CancellationToken token = default)
     {
         _module ??= await LoadModule();

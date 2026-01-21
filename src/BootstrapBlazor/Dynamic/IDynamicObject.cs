@@ -16,7 +16,6 @@ public interface IDynamicObject
     /// <para lang="en">通过指定property名获取property值方法</para>
     /// </summary>
     /// <param name="propertyName"><para lang="zh">属性名称</para><para lang="en">propertyname</para></param>
-    /// <returns></returns>
     object? GetValue(string propertyName);
 
     /// <summary>

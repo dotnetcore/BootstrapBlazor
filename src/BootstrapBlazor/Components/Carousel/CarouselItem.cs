@@ -14,7 +14,6 @@ public class CarouselItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 子组件 默认 null</para>
     /// <para lang="en">Gets or sets the child content. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -22,7 +21,6 @@ public class CarouselItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Caption 文字 默认 null 可设置 <see cref="CaptionTemplate"/> 自定义</para>
     /// <para lang="en">Gets or sets the Caption text. Default is null. Can be customized by setting <see cref="CaptionTemplate"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Caption { get; set; }
@@ -30,7 +28,6 @@ public class CarouselItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Caption 样式 默认 null</para>
     /// <para lang="en">Gets or sets the Caption style. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CaptionClass { get; set; }
@@ -38,7 +35,6 @@ public class CarouselItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Caption 模板 默认 null</para>
     /// <para lang="en">Gets or sets the Caption template. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? CaptionTemplate { get; set; }
@@ -46,7 +42,6 @@ public class CarouselItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Slider 切换时间间隔 默认 5000</para>
     /// <para lang="en">Gets or sets the Slider interval. Default is 5000</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Interval { get; set; } = 5000;

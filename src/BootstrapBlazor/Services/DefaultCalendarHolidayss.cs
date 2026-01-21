@@ -10,13 +10,11 @@ class DefaultCalendarHolidays : ICalendarHolidays
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public bool IsHoliday(DateTime dt) => false;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="dt"></param>
-    /// <returns></returns>
     public bool IsWorkday(DateTime dt) => false;
 }

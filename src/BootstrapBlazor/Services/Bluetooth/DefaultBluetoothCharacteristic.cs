@@ -63,7 +63,6 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<byte[]?> ReadValue(CancellationToken token = default)
     {
         byte[]? ret = null;
@@ -77,7 +76,6 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// </summary>
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default)
     {
         if (IsNotify)
@@ -96,7 +94,6 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<bool> StopNotifications(CancellationToken token = default)
     {
         ErrorMessage = null;

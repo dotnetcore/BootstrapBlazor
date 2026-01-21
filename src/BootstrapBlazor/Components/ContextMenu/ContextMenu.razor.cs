@@ -16,7 +16,6 @@ public partial class ContextMenu
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示阴影 默认 <see langword="true" /></para>
     /// <para lang="en">Flags whether to show a shadow around the context menu. Default is <see langword="true" />.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
@@ -24,7 +23,6 @@ public partial class ContextMenu
     /// <summary>
     /// <para lang="zh">获得/设置 弹出前回调方法 默认 null</para>
     /// <para lang="en">Defines the callback that is executed before showing the context menu. Default is <see langword="null" />.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnBeforeShowCallback { get; set; }
@@ -32,7 +30,6 @@ public partial class ContextMenu
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">The <see cref="RenderFragment"/> that represents the child content.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

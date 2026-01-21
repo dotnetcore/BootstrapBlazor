@@ -17,6 +17,5 @@ public class DialogService : BootstrapServiceBase<DialogOption>
     /// </summary>
     /// <param name="option"><para lang="zh">弹窗配置信息实体类</para><para lang="en">Dialog Option</para></param>
     /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specific Dialog Component. Default is null, use <see cref="BootstrapBlazorRoot"/> component built-in dialog component</para></param>
-    /// <returns></returns>
     public Task Show(DialogOption option, Dialog? dialog = null) => Invoke(option, dialog);
 }

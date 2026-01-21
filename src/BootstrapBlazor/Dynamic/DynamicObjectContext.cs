@@ -19,14 +19,12 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// <para lang="zh">获取动态类型各列信息</para>
     /// <para lang="en">获取动态type各列信息</para>
     /// </summary>
-    /// <returns></returns>
     public abstract IEnumerable<ITableColumn> GetColumns();
 
     /// <summary>
     /// <para lang="zh">获得动态类数据方法</para>
     /// <para lang="en">Gets动态类data方法</para>
     /// </summary>
-    /// <returns></returns>
     public abstract IEnumerable<IDynamicObject> GetItems();
 
     /// <summary>
@@ -73,7 +71,6 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// <para lang="en">动态type新建回调delegate</para>
     /// </summary>
     /// <param name="selectedItems"><para lang="zh">当前选中行</para><para lang="en">当前选中行</para></param>
-    /// <returns></returns>
     public abstract Task AddAsync(IEnumerable<IDynamicObject> selectedItems);
 
     /// <summary>
@@ -81,21 +78,18 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// <para lang="en">动态type删除回调delegate</para>
     /// </summary>
     /// <param name="items"></param>
-    /// <returns></returns>
     public abstract Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
 
     /// <summary>
     /// <para lang="zh">动态类型集合变化时回调方法</para>
     /// <para lang="en">动态typecollection变化时callback method</para>
     /// </summary>
-    /// <returns></returns>
     public Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">动态类型属性值变化时回调方法</para>
     /// <para lang="en">动态typeproperty值变化时callback method</para>
     /// </summary>
-    /// <returns></returns>
     public Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }
 
     /// <summary>

@@ -14,6 +14,5 @@ static class AssemblyExtensions
     /// <para lang="en">Get Unique Type Name</para>
     /// </summary>
     /// <param name="assembly"></param>
-    /// <returns></returns>
     public static string GetUniqueName(this Assembly assembly) => CacheManager.GetUniqueName(assembly);
 }

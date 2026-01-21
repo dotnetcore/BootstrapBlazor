@@ -16,32 +16,28 @@ public class QueryColumn<TType> : QueryGroup
 {
     /// <summary>
     /// <para lang="zh">获得/设置 条件字段名称</para>
-    /// <para lang="en">Gets or sets Condition Field Name</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the condition field name</para>
     /// </summary>
     [Parameter]
     public TType? Field { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 FieldExpression 表达式</para>
-    /// <para lang="en">Gets or sets FieldExpression</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the FieldExpression</para>
     /// </summary>
     [Parameter]
     public Expression<Func<TType>>? FieldExpression { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 条件操作符号</para>
-    /// <para lang="en">Gets or sets Condition Operator</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the condition operator</para>
     /// </summary>
     [Parameter]
     public FilterAction Operator { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 条件值</para>
-    /// <para lang="en">Gets or sets Condition Value</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the condition value</para>
     /// </summary>
     [Parameter]
     public object? Value { get; set; }

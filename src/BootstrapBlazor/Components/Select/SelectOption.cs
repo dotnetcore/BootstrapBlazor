@@ -14,7 +14,6 @@ public class SelectOption : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 the 显示 name.</para>
     /// <para lang="en">Gets or sets the display name.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -22,7 +21,6 @@ public class SelectOption : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 the option value.</para>
     /// <para lang="en">Gets or sets the option value.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Value { get; set; }
@@ -30,7 +28,6 @@ public class SelectOption : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 a value indicating 是否 the option is selected. 默认为 <c>false</c>.</para>
     /// <para lang="en">Gets or sets a value indicating whether the option is selected. Default is <c>false</c>.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Active { get; set; }
@@ -38,7 +35,6 @@ public class SelectOption : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 a value indicating 是否 the option is disabled. 默认为 <c>false</c>.</para>
     /// <para lang="en">Gets or sets a value indicating whether the option is disabled. Default is <c>false</c>.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -46,7 +42,6 @@ public class SelectOption : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 the group name.</para>
     /// <para lang="en">Gets or sets the group name.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }

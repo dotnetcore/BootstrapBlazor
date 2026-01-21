@@ -47,7 +47,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
     /// <para lang="en">Gets or sets Custom Error Handler</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -55,7 +54,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -63,7 +61,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <summary>
     /// <para lang="zh">获得/设置 异常显示模板 默认 null</para>
     /// <para lang="en">Gets or sets Exception Display Template Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">用于自定义异常显示 UI</para>
@@ -75,7 +72,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <summary>
     /// <para lang="zh">获得/设置 the 回调 function to be invoked during initialization.</para>
     /// <para lang="en">Gets or sets the callback function to be invoked during initialization.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
@@ -96,7 +92,6 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();

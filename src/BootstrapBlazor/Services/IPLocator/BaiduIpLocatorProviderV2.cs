@@ -18,7 +18,6 @@ public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOpt
     /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     protected override string GetUrl(string ip) => $"https://qifu-api.baidubce.com/ip/geo/v1/district?ip={ip}";
 
     /// <summary>
@@ -27,7 +26,6 @@ public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOpt
     /// <param name="url"></param>
     /// <param name="client"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     protected override async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
         var result = await client.GetFromJsonAsync<LocationResultV2>(url, token);

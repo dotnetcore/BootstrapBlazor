@@ -21,7 +21,6 @@ public interface IFilterAction
     /// <para lang="zh">获得 IFilter 实例中的过滤条件集合</para>
     /// <para lang="en">Get Filter Condition Collection in IFilter Instance</para>
     /// </summary>
-    /// <returns></returns>
     FilterKeyValueAction GetFilterConditions();
 
     /// <summary>

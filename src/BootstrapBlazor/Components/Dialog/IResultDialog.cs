@@ -14,14 +14,12 @@ public interface IResultDialog
     /// <summary>
     /// <para lang="zh">关闭之前回调方法 返回 true 时关闭弹窗 返回 false 时阻止关闭弹窗</para>
     /// <para lang="en">Callback Method Before Closing. Return true to close, false to prevent closing</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     Task<bool> OnClosing(DialogResult result) => Task.FromResult(true);
 
     /// <summary>
     /// <para lang="zh">关闭后回调方法</para>
     /// <para lang="en">Callback Method After Closing</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     Task OnClose(DialogResult result);
 }

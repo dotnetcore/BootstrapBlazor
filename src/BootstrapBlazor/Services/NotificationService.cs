@@ -41,7 +41,6 @@ public class NotificationService : IAsyncDisposable
     /// <para lang="en">Check Browser Notification Permission Status</para>
     /// </summary>
     /// <param name="requestPermission"><para lang="zh">是否请求权限 默认 true</para><para lang="en">Request permission, default true</para></param>
-    /// <returns></returns>
     public async ValueTask<bool> CheckPermission(bool requestPermission = true)
     {
         Module ??= await LoadModule();
@@ -53,7 +52,6 @@ public class NotificationService : IAsyncDisposable
     /// <para lang="en">Dispatch Browser Notification</para>
     /// </summary>
     /// <param name="item"><para lang="zh">NotificationItem 实例</para><para lang="en">NotificationItem Instance</para></param>
-    /// <returns></returns>
     public async Task<bool> Dispatch(NotificationItem item)
     {
         Module ??= await LoadModule();
@@ -70,7 +68,6 @@ public class NotificationService : IAsyncDisposable
     /// <para lang="zh">消息通知回调方法由 JS 点击触发</para>
     /// <para lang="en">Notification callback method triggered by JS click</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task DispatchCallback(string id)
     {
@@ -90,7 +87,6 @@ public class NotificationService : IAsyncDisposable
     /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
@@ -112,7 +108,6 @@ public class NotificationService : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

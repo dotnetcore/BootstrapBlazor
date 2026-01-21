@@ -15,7 +15,6 @@ public interface IMediaDevices
     /// <para lang="zh">An array of MediaDeviceInfo objects. Each object in the array describes one of the available media input and output devices.</para>
     /// <para lang="en">An array of MediaDeviceInfo objects. Each object in the array describes one of the available media input and output devices.</para>
     /// </summary>
-    /// <returns></returns>
     Task<IEnumerable<IMediaDeviceInfo>?> EnumerateDevices();
 
     /// <summary>
@@ -24,7 +23,6 @@ public interface IMediaDevices
     /// </summary>
     /// <param name="type">video or audio</param>
     /// <param name="constraints"></param>
-    /// <returns></returns>
     Task<bool> Open(string type, MediaTrackConstraints constraints);
 
     /// <summary>
@@ -32,28 +30,24 @@ public interface IMediaDevices
     /// <para lang="en">The close() method of the MediaDevices interface stops capturing media from the specified device and closes the MediaStream object.</para>
     /// </summary>
     /// <param name="selector"></param>
-    /// <returns></returns>
     Task<bool> Close(string? selector);
 
     /// <summary>
     /// <para lang="zh">capture() method of the MediaDevices interface captures a still image from the specified video stream and saves it to the specified location.</para>
     /// <para lang="en">The capture() method of the MediaDevices interface captures a still image from the specified video stream and saves it to the specified location.</para>
     /// </summary>
-    /// <returns></returns>
     Task Capture();
 
     /// <summary>
     /// <para lang="zh">获得 the preview URL of the captured image.</para>
     /// <para lang="en">Gets the preview URL of the captured image.</para>
     /// </summary>
-    /// <returns></returns>
     Task<string?> GetPreviewUrl();
 
     /// <summary>
     /// <para lang="zh">获得 the stream of the captured image.</para>
     /// <para lang="en">Gets the stream of the captured image.</para>
     /// </summary>
-    /// <returns></returns>
     Task<Stream?> GetPreviewData();
 
     /// <summary>
@@ -61,13 +55,11 @@ public interface IMediaDevices
     /// <para lang="en">Apply the media track constraints.</para>
     /// </summary>
     /// <param name="constraints"></param>
-    /// <returns></returns>
     Task<bool> Apply(MediaTrackConstraints constraints);
 
     /// <summary>
     /// <para lang="zh">获得 the stream of the audio.</para>
     /// <para lang="en">Gets the stream of the audio.</para>
     /// </summary>
-    /// <returns></returns>
     Task<Stream?> GetAudioData();
 }

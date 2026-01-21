@@ -14,7 +14,6 @@ public partial class Button : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动获取焦点 默认 false 不自动获取焦点</para>
     /// <para lang="en">Gets or sets whether to auto focus. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoFocus { get; set; }
@@ -68,6 +67,5 @@ public partial class Button : ButtonBase
     /// <para lang="zh">自动获得焦点方法</para>
     /// <para lang="en">Auto focus method</para>
     /// </summary>
-    /// <returns></returns>
     public ValueTask FocusAsync() => ButtonElement.FocusAsync();
 }

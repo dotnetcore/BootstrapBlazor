@@ -16,7 +16,6 @@ public static class ILooupExtensions
     /// <para lang="en">Determine whether the current <see cref="ILookup"/> instance is configured with Lookup data</para>
     /// </summary>
     /// <param name="lookup"></param>
-    /// <returns></returns>
     public static bool IsLookup(this ILookup lookup) => lookup.Lookup != null || !string.IsNullOrEmpty(lookup.LookupServiceKey);
 
     /// <summary>
@@ -25,7 +24,6 @@ public static class ILooupExtensions
     /// </summary>
     /// <param name="lookup"></param>
     /// <param name="service"></param>
-    /// <returns></returns>
     public static ILookupService GetLookupService(this ILookup lookup, ILookupService service) => lookup.LookupService ?? service;
 
     /// <summary>
@@ -36,7 +34,6 @@ public static class ILooupExtensions
     /// <param name="service"></param>
     /// <param name="key"></param>
     /// <param name="data"></param>
-    /// <returns></returns>
     public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookup lookup, ILookupService service, string? key, object? data) => lookup.Lookup ?? await lookup.GetLookupService(service).GetItemsAsync(key, data);
 
     /// <summary>
@@ -46,7 +43,6 @@ public static class ILooupExtensions
     /// <param name="service"></param>
     /// <param name="key"></param>
     /// <param name="data"></param>
-    /// <returns></returns>
     public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookupService service, string? key, object? data) => string.IsNullOrEmpty(key)
         ? null
         : service.GetItemsByKey(key, data) ?? await service.GetItemsByKeyAsync(key, data);

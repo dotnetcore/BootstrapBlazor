@@ -31,7 +31,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选项集合 默认 null</para>
     /// <para lang="en">Gets or sets Items. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -40,7 +39,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值 默认 null</para>
     /// <para lang="en">Gets or sets Value. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -49,7 +47,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值回调委托 默认 null</para>
     /// <para lang="en">Gets or sets Value Changed Callback Delegate. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
@@ -57,7 +54,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选中值改变后回调委托方法 默认 null</para>
     /// <para lang="en">Gets or sets Value Changed Callback Method. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnValueChanged { get; set; }
@@ -65,7 +61,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
     /// <para lang="en">Gets or sets Whether disabled. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -73,7 +68,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否充满父元素 默认 false</para>
     /// <para lang="en">Gets or sets Whether is block. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBlock { get; set; }
@@ -81,7 +75,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动显示 Tooltip 默认 false</para>
     /// <para lang="en">Gets or sets Whether to show tooltip. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowTooltip { get; set; }
@@ -89,7 +82,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -97,7 +89,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件大小 默认值 <see cref="Size.None"/></para>
     /// <para lang="en">Gets or sets Size. Default <see cref="Size.None"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -106,7 +97,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 候选项模板 默认 null</para>
     /// <para lang="en">Gets or sets Item Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -131,7 +121,6 @@ public partial class Segmented<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     private IEnumerable<SegmentedOption<TValue>> GetItems()
@@ -151,7 +140,6 @@ public partial class Segmented<TValue>
     /// <para lang="en">JavaScript Callback Triggered when SegmentItem Node Clicked</para>
     /// </summary>
     /// <param name="index"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerClick(int index)
     {

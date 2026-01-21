@@ -20,7 +20,6 @@ public static class FieldIdentifierExtensions
     /// <para lang="en">获取display名称方法</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
-    /// <returns></returns>
     public static string GetDisplayName(this FieldIdentifier fieldIdentifier) => Utility.GetDisplayName(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
@@ -28,7 +27,6 @@ public static class FieldIdentifierExtensions
     /// <para lang="en">Get PlaceHolder method</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
-    /// <returns></returns>
     public static string? GetPlaceHolder(this FieldIdentifier fieldIdentifier) => Utility.GetPlaceHolder(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
@@ -36,7 +34,6 @@ public static class FieldIdentifierExtensions
     /// <para lang="en">获取display名称方法</para>
     /// </summary>
     /// <param name="fieldIdentifier"></param>
-    /// <returns></returns>
     public static RangeAttribute? GetRange(this FieldIdentifier fieldIdentifier) => Utility.GetRange(fieldIdentifier.Model, fieldIdentifier.FieldName);
 
     /// <summary>
@@ -45,7 +42,6 @@ public static class FieldIdentifierExtensions
     /// </summary>
     /// <param name="fieldIdentifier"></param>
     /// <param name="localizerFactory"></param>
-    /// <returns></returns>
     public static RequiredValidator? GetRequiredValidator(this FieldIdentifier fieldIdentifier, IStringLocalizerFactory localizerFactory)
     {
         RequiredValidator? validator = null;

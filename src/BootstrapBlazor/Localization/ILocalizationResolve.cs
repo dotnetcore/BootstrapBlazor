@@ -18,7 +18,6 @@ public interface ILocalizationResolve
     /// <para lang="en">Get all culture info collection</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures);
 
     /// <summary>
@@ -27,6 +26,5 @@ public interface ILocalizationResolve
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">Type name</para></param>
-    /// <returns></returns>
     IEnumerable<LocalizedString> GetAllStringsByType(string typeName, bool includeParentCultures);
 }

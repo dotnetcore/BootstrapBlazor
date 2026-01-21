@@ -17,7 +17,6 @@ public static class FullScreenServiceExtensions
     /// </summary>
     /// <param name="element"></param>
     /// <param name="service"></param>
-    /// <returns></returns>
     public static Task ToggleByElement(this FullScreenService service, ElementReference element) => service.Toggle(new() { Element = element });
 
     /// <summary>
@@ -26,6 +25,5 @@ public static class FullScreenServiceExtensions
     /// </summary>
     /// <param name="id"></param>
     /// <param name="service"></param>
-    /// <returns></returns>
     public static Task ToggleById(this FullScreenService service, string? id = null) => service.Toggle(new() { Id = id });
 }

@@ -19,7 +19,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 被选中数据集合</para>
     /// <para lang="en">Gets or sets Selected Rows Collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<TItem> SelectedRows { get; set; } = [];
@@ -27,7 +26,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 选中行变化回调方法</para>
     /// <para lang="en">Gets or sets Selected Rows Changed Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<List<TItem>> SelectedRowsChanged { get; set; }
@@ -35,7 +33,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建行位置枚举，默认为最后插入</para>
     /// <para lang="en">Gets or sets Insert Row Mode. Default Last</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public InsertRowMode InsertRowMode { get; set; } = InsertRowMode.Last;
@@ -65,7 +62,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm</para>
     /// <para lang="en">Gets or sets Edit Mode. Default PopupEditForm</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EditMode EditMode { get; set; }
@@ -73,7 +69,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 组件布局方式 默认为 Auto</para>
     /// <para lang="en">Gets or sets Render Mode. Default Auto</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TableRenderMode RenderMode { get; set; }
@@ -81,7 +76,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 组件布局自适应切换阈值 默认为 768</para>
     /// <para lang="en">Gets or sets Render Mode Responsive Width. Default 768</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public BreakPoint RenderModeResponsiveWidth { get; set; } = BreakPoint.Medium;
@@ -89,7 +83,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑弹框是否 Body 出现滚动条 默认 false</para>
     /// <para lang="en">Gets or sets Whether to show scrollbar in Edit Dialog Body. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ScrollingDialogContent { get; set; }
@@ -97,7 +90,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持</para>
     /// <para lang="en">Gets or sets Whether to support ESC key to close current dialog. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeyboard { get; set; } = true;
@@ -105,7 +97,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行样式格式回调委托</para>
     /// <para lang="en">Gets or sets Row Class Formatter Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, string?>? SetRowClassFormatter { get; set; }
@@ -113,7 +104,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 取消保存后回调委托方法</para>
     /// <para lang="en">Gets or sets After Cancel Save Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnAfterCancelSaveAsync { get; set; }
@@ -121,7 +111,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存后回调委托方法</para>
     /// <para lang="en">Gets or sets After Save Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnAfterSaveAsync { get; set; }
@@ -129,7 +118,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 删除后回调委托方法</para>
     /// <para lang="en">Gets or sets After Delete Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<List<TItem>, Task>? OnAfterDeleteAsync { get; set; }
@@ -137,7 +125,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存删除后回调委托方法</para>
     /// <para lang="en">Gets or sets After Modify Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnAfterModifyAsync { get; set; }
@@ -145,7 +132,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑数据弹窗 Title</para>
     /// <para lang="en">Gets or sets Edit Dialog Title</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -154,7 +140,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建数据弹窗 Title</para>
     /// <para lang="en">Gets or sets Add Dialog Title</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -163,7 +148,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 EditModel 实例</para>
     /// <para lang="en">Gets or sets EditModel Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -172,7 +156,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 EditTemplate 实例</para>
     /// <para lang="en">Gets or sets EditTemplate Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? EditTemplate { get; set; }
@@ -180,7 +163,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 BeforeRowButtonTemplate 实例，此模板生成的按钮默认放置到按钮前面，如需放置后面请查看 <see cref="RowButtonTemplate" /></para>
     /// <para lang="en">Gets or sets BeforeRowButtonTemplate Instance. The buttons generated by this template are placed before the button by default. If you need to place them in front, please check <see cref="RowButtonTemplate" /></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? BeforeRowButtonTemplate { get; set; }
@@ -188,7 +170,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 RowButtonTemplate 实例，此模板生成的按钮默认放置到按钮后面，如需放置前面请查看 <see cref="BeforeRowButtonTemplate" /></para>
     /// <para lang="en">Gets or sets RowButtonTemplate Instance. The buttons generated by this template are placed after the button by default. If you need to place them in front, please check <see cref="BeforeRowButtonTemplate" /></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? RowButtonTemplate { get; set; }
@@ -196,7 +177,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 行内更多按钮 默认 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to show inline more button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowMoreButton { get; set; }
@@ -204,7 +184,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 更多按钮颜色 默认 <see cref="Color.Secondary"/></para>
     /// <para lang="en">Gets or sets More Button Color. Default <see cref="Color.Secondary"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color MoreButtonColor { get; set; } = Color.Secondary;
@@ -212,7 +191,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 更多按钮文本 默认 null 读取资源文件设置文本</para>
     /// <para lang="en">Gets or sets More Button Text. Default null (Read from resource file)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MoreButtonText { get; set; }
@@ -220,7 +198,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行内更多按钮下拉框模板 默认 null</para>
     /// <para lang="en">Gets or sets Inline More Button Dropdown Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? MoreButtonDropdownTemplate { get; set; }
@@ -228,7 +205,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行内功能按钮列头文本 默认为 操作</para>
     /// <para lang="en">Gets or sets Column Button Header Text. Default "Operation"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -237,7 +213,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 点击行即选中本行 默认为 false</para>
     /// <para lang="en">Gets or sets Click Row to Select. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ClickToSelect { get; set; }
@@ -245,7 +220,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 单选模式下双击即编辑本行 默认为 false</para>
     /// <para lang="en">Gets or sets Double Click Row to Edit in Single Select Mode. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DoubleClickToEdit { get; set; }
@@ -253,7 +227,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动生成列信息 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to auto generate columns. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoGenerateColumns { get; set; }
@@ -261,7 +234,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 查询时是否显示正在加载中动画 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to show loading animation when querying. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLoading { get; set; }
@@ -272,7 +244,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 数据服务参数 组件采用就近原则 如果提供了 Items > OnQueryAsync > DataService > 全局注入的数据服务 IDataService</para>
     /// <para lang="en">Gets or sets Data Service. Use nearby principle. Items > OnQueryAsync > DataService > Global Data Service</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IDataService<TItem>? DataService { get; set; }
@@ -378,7 +349,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建模型回调方法 默认 null 未设置时使用默认无参构造函数创建</para>
     /// <para lang="en">Gets or sets Create Item Callback. Default null. Use default parameterless constructor if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem>? CreateItemCallback { get; set; }
@@ -386,7 +356,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动初始化模型属性 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to automatically initialize model properties. Default value is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoInitializeModelProperty { get; set; }
@@ -412,7 +381,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建搜索模型回调方法 默认 null 未设置时先 尝试使用 <see cref="CreateItemCallback"/> 回调，再使用默认无参构造函数创建</para>
     /// <para lang="en">Gets or sets Create Search Model Callback. Default null. Try to use <see cref="CreateItemCallback"/> callback first, then use default parameterless constructor</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem>? CreateSearchModelCallback { get; set; }
@@ -468,21 +436,18 @@ public partial class Table<TItem>
     /// <para lang="en">Check if current row is selected</para>
     /// </summary>
     /// <param name="val"></param>
-    /// <returns></returns>
     protected virtual bool CheckActive(TItem val) => SelectedRows.Any(row => Equals(val, row));
 
     /// <summary>
     /// <para lang="zh">刷新按钮回调方法</para>
     /// <para lang="en">Refresh Button Callback</para>
     /// </summary>
-    /// <returns></returns>
     protected Task OnClickRefreshAsync() => QueryAsync();
 
     /// <summary>
     /// <para lang="zh">点击 CardView 按钮回调方法</para>
     /// <para lang="en">Click CardView Button Callback</para>
     /// </summary>
-    /// <returns></returns>
     protected void OnClickCardView()
     {
         var model = RenderMode;
@@ -526,7 +491,6 @@ public partial class Table<TItem>
     /// <para lang="zh">查询按钮调用此方法 参数 pageIndex 默认值 null 保持上次页码 第一页页码为 1</para>
     /// <para lang="en">Query Button calls this method. Parameter pageIndex default null, keep last page number. First page number is 1</para>
     /// </summary>
-    /// <returns></returns>
     public Task QueryAsync(int? pageIndex = null) => QueryAsync(true, pageIndex);
 
     /// <summary>
@@ -534,7 +498,6 @@ public partial class Table<TItem>
     /// <para lang="en">Show/Hide Loading Mask</para>
     /// </summary>
     /// <param name="state"><para lang="zh">true 时显示，false 时隐藏</para><para lang="en">true to display, false to hide</para></param>
-    /// <returns></returns>
     public async ValueTask ToggleLoading(bool state)
     {
         if (ShowLoading)
@@ -549,7 +512,6 @@ public partial class Table<TItem>
     /// <para lang="en">Show/Hide Loading Mask</para>
     /// </summary>
     /// <param name="state"><para lang="zh">true 时显示，false 时隐藏</para><para lang="en">true to display, false to hide</para></param>
-    /// <returns></returns>
     protected async ValueTask InternalToggleLoading(bool state)
     {
         if (ShowLoading && !IsLoading)

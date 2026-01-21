@@ -35,7 +35,6 @@ class DefaultCalendarFestivals : ICalendarFestivals
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public string? GetFestival(DateTime dt)
     {
         string? ret = null;

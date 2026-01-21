@@ -18,7 +18,6 @@ public static class SwalExtensions
     /// <param name="service"></param>
     /// <param name="option"></param>
     /// <param name="swal"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">指定弹窗component default is为 null 使用 <see cref="BootstrapBlazorRoot"/> component内置弹窗component</para></param>
-    /// <returns></returns>
     public static async Task<bool> ShowModal(this SwalService service, SwalOption option, SweetAlert? swal = null)
     {
         option.IsConfirm = true;
@@ -31,7 +30,6 @@ public static class SwalExtensions
     /// <para lang="en">将配置信息转化为参数collection</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public static IDictionary<string, object?> Parse(this SwalOption option) => new Dictionary<string, object?>()
     {
         [nameof(SweetAlertBody.Category)] = option.Category,

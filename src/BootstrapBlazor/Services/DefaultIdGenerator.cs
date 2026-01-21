@@ -16,6 +16,5 @@ internal class DefaultIdGenerator : IComponentIdGenerator
     /// <para lang="en">Generate Component ID String</para>
     /// </summary>
     /// <param name="component"></param>
-    /// <returns></returns>
     public string Generate(object component) => $"bb_{component.GetHashCode()}";
 }

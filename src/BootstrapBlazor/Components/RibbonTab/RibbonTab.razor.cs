@@ -12,73 +12,64 @@ namespace BootstrapBlazor.Components;
 public partial class RibbonTab
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示悬浮小箭头 默认 false 不显示</para>
-    /// <para lang="en">Gets or sets Whether to show float button. Default false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示悬浮小箭头，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show float button. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowFloatButton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件是否悬浮状态改变时回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets Callback method when float state changes. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 组件悬浮状态改变时的回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method when float state changes. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnFloatChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡向上箭头图标</para>
-    /// <para lang="en">Gets or sets Tab Arrow Up Icon</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the tab arrow up icon</para>
     /// </summary>
     [Parameter]
     public string? RibbonArrowUpIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡向下箭头图标</para>
-    /// <para lang="en">Gets or sets Tab Arrow Down Icon</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the tab arrow down icon</para>
     /// </summary>
     [Parameter]
     public string? RibbonArrowDownIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 选项卡可固定图标</para>
-    /// <para lang="en">Gets or sets Tab Pin Icon</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the tab pin icon</para>
     /// </summary>
     [Parameter]
     public string? RibbonArrowPinIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启 Url 锚点</para>
-    /// <para lang="en">Gets or sets Whether to enable Url Anchor</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets whether to enable URL anchor</para>
     /// </summary>
     [Parameter]
     public bool IsSupportAnchor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径</para>
-    /// <para lang="en">Encode Anchor Callback Method. First param is current Url, second param is current item Text property. Return value is full path</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 编码锚点回调方法。第一参数是当前地址 Url，第二个参数是当前选项 Text 属性，返回值为地址全路径</para>
+    /// <para lang="en">Gets or sets the encode anchor callback method. First parameter is current URL, second parameter is current item Text property. Return value is full path</para>
     /// </summary>
     [Parameter]
     public Func<string, string?, string?>? EncodeAnchorCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">解码锚点回调方法</para>
-    /// <para lang="en">Decode Anchor Callback Method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 解码锚点回调方法</para>
+    /// <para lang="en">Gets or sets the decode anchor callback method</para>
     /// </summary>
     [Parameter]
     public Func<string, string?>? DecodeAnchorCallback { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
-    /// <para lang="en">Gets or sets Items</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the items</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -89,40 +80,35 @@ public partial class RibbonTab
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击命令按钮回调方法</para>
-    /// <para lang="en">Gets or sets Click Command Button Callback Method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the click command button callback method</para>
     /// </summary>
     [Parameter]
     public Func<RibbonTabItem, Task>? OnItemClickAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击标签 Menu 回调方法</para>
-    /// <para lang="en">Gets or sets Click Tab Menu Callback Method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the click tab menu callback method</para>
     /// </summary>
     [Parameter]
     public Func<RibbonTabItem, Task>? OnMenuClickAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧按钮模板</para>
-    /// <para lang="en">Gets or sets Right Buttons Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the right buttons template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? RightButtonsTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 内容模板</para>
-    /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the child content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否为带边框卡片样式 默认 true</para>
-    /// <para lang="en">Gets or sets Whether to have border. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否为带边框卡片样式，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to have border. Default is true</para>
     /// </summary>
     [Parameter]
     public bool IsBorder { get; set; } = true;
@@ -137,19 +123,18 @@ public partial class RibbonTab
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(SetExpand));
 
     /// <summary>
     /// <para lang="zh">SetExpand 方法</para>
-    /// <para lang="en">SetExpand Method</para>
+    /// <para lang="en">SetExpand method</para>
     /// </summary>
     [JSInvokable]
     public void SetExpand() => _header.SetExpand();
 
     /// <summary>
     /// <para lang="zh">重新渲染组件</para>
-    /// <para lang="en">Render Component</para>
+    /// <para lang="en">Renders the component</para>
     /// </summary>
     public void Render() => _header.Render();
 }

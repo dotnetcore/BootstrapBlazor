@@ -20,7 +20,6 @@ public interface ICacheManager
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="factory"></param>
-    /// <returns></returns>
     TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory);
 
     /// <summary>
@@ -30,7 +29,6 @@ public interface ICacheManager
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="factory"></param>
-    /// <returns></returns>
     Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
 
     /// <summary>
@@ -40,7 +38,6 @@ public interface ICacheManager
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     bool TryGetValue<TItem>(object key, [NotNullWhen(true)] out TItem? value);
 
     /// <summary>
@@ -53,7 +50,6 @@ public interface ICacheManager
     /// <para lang="zh">获取 App 开始时间</para>
     /// <para lang="en">Get App Start Time</para>
     /// </summary>
-    /// <returns></returns>
     DateTimeOffset GetStartTime();
 
     /// <summary>
@@ -82,7 +78,6 @@ public interface ICacheManager
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>
-    /// <returns></returns>
     bool TryGetCacheEntry(object? key, [NotNullWhen(true)] out ICacheEntry? entry);
 #endif
 }

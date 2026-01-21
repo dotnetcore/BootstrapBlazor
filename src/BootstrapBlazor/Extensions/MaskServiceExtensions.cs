@@ -23,7 +23,6 @@ public static class MaskServiceExtensions
     /// <param name="opacity"></param>
     /// <param name="zIndex"></param>
     /// <param name="mask"></param>
-    /// <returns></returns>
     public static Task Show<TComponent>(this MaskService maskService, IDictionary<string, object?>? parameters = null, string? containerId = null, string? backgroundColor = null, float opacity = 0.5f, int zIndex = 1050, Mask? mask = null) where TComponent : ComponentBase => maskService.Show(new MaskOption()
     {
         BackgroundColor = backgroundColor,
@@ -46,7 +45,6 @@ public static class MaskServiceExtensions
     /// <param name="opacity"></param>
     /// <param name="zIndex"></param>
     /// <param name="mask"></param>
-    /// <returns></returns>
     public static Task Show(this MaskService maskService, Type type, IDictionary<string, object?>? parameters = null, string? containerId = null, string? backgroundColor = null, float opacity = 0.5f, int zIndex = 1050, Mask? mask = null) => maskService.Show(new MaskOption()
     {
         BackgroundColor = backgroundColor,

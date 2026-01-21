@@ -29,7 +29,6 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="string"/> ID</para>
     /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RootName { get; set; }
@@ -37,7 +36,6 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="object"/> ID</para>
     /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? RootId { get; set; }
@@ -51,7 +49,6 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     Task IComponent.SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);

@@ -96,7 +96,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否可以编辑内容 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Allow Edit. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
@@ -104,7 +103,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Auto Close Popup When Sidebar Item Clicked. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoCloseClickSideBar { get; set; }
@@ -112,7 +110,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
@@ -120,7 +117,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否 show the selected value. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether show the selected value. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSelectedValue { get; set; }
@@ -128,7 +124,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 清空按钮文字</para>
     /// <para lang="en">Gets or sets Clear Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -137,7 +132,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 清空图标 默认 fa-solid fa-circle-xmark</para>
     /// <para lang="en">Gets or sets Clear Icon. Default is fa-solid fa-circle-xmark</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
@@ -145,7 +139,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
     /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
@@ -153,7 +146,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
     /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
@@ -161,7 +153,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 今天按钮文字</para>
     /// <para lang="en">Gets or sets Today Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -170,7 +161,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 确定按钮文字</para>
     /// <para lang="en">Gets or sets Confirm Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -179,14 +169,12 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 最大值</para>
     /// <para lang="en">Gets or sets Max Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime MaxValue { get; set; } = DateTime.MaxValue;
     /// <summary>
     /// <para lang="zh">获得/设置 最小值</para>
     /// <para lang="en">Gets or sets Min Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime MinValue { get; set; } = DateTime.MinValue;
@@ -194,7 +182,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许为空 默认为 true</para>
     /// <para lang="en">Gets or sets Whether to Allow Null. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已过期，请使用 ShowClearButton 代替")]
@@ -208,7 +195,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示清空按钮 默认 true</para>
     /// <para lang="en">Gets or sets Whether to Show Clear Button. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClearButton { get; set; } = true;
@@ -216,7 +202,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 组件图标</para>
     /// <para lang="en">Gets or sets Component Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -224,7 +209,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示今天按钮 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to Show Today Button. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToday { get; set; }
@@ -232,7 +216,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认不显示</para>
     /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is not shown</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
@@ -240,7 +223,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 侧边栏快捷选项集合</para>
     /// <para lang="en">Gets or sets Sidebar Items</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -249,7 +231,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">点击确认按钮回调委托方法</para>
     /// <para lang="en">Callback Method When Confirm Button Clicked</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnConfirm { get; set; }
@@ -257,7 +238,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">点击清空按钮回调委托方法</para>
     /// <para lang="en">Callback Method When Clear Button Clicked</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
@@ -265,7 +245,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"</para>
     /// <para lang="en">Gets or sets Time Format String. Default is "HH:mm:ss"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -274,7 +253,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"</para>
     /// <para lang="en">Gets or sets Date Format String. Default is "yyyy-MM-dd"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -283,7 +261,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"</para>
     /// <para lang="en">Gets or sets Date Time Format String. Default is "yyyy-MM-dd HH:mm:ss"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -292,7 +269,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Chinese Lunar Calendar. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLunar { get; set; }
@@ -300,7 +276,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Chinese Solar Term. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSolarTerm { get; set; }
@@ -308,7 +283,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示节日 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Festivals. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFestivals { get; set; }
@@ -316,7 +290,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Show Holidays. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowHolidays { get; set; }
@@ -324,7 +297,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <para lang="zh">获得/设置 the date value changed event 回调.</para>
     /// <para lang="en">Gets or sets the date value changed event callback.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnDateClick { get; set; }
@@ -405,7 +377,6 @@ public partial class DateTimeRange
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
     {
         TriggerHideCallback = nameof(TriggerHideCallback)
@@ -429,7 +400,6 @@ public partial class DateTimeRange
     /// <para lang="zh">点击 清除按钮调用此方法</para>
     /// <para lang="en">Method Called When Clear Button Clicked</para>
     /// </summary>
-    /// <returns></returns>
     private async Task ClickClearButton()
     {
         Value = new DateTimeRangeValue();
@@ -594,7 +564,6 @@ public partial class DateTimeRange
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyValue"></param>
-    /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
 
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
@@ -624,7 +593,6 @@ public partial class DateTimeRange
     /// <para lang="zh">客户端弹窗关闭后由 Javascript 调用此方法</para>
     /// <para lang="en">Method Called by Javascript After Client Popup Closed</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public Task TriggerHideCallback()
     {

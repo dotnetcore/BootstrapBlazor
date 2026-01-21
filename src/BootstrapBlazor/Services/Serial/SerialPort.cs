@@ -24,7 +24,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Write(byte[] data, CancellationToken token = default)
     {
         var ret = false;
@@ -38,7 +37,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Open(SerialPortOptions options, CancellationToken token = default)
     {
         DotNetObjectReference<SerialPort>? interop = null;
@@ -53,7 +51,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Close(CancellationToken token = default)
     {
         var ret = await jsModule.InvokeAsync<bool>("close", token, serialPortId);
@@ -69,7 +66,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <para lang="en">接收datacallback method 由 Javascript 调用</para>
     /// </summary>
     /// <param name="data"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task DataReceiveCallback(byte[] data)
     {
@@ -83,14 +79,12 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<SerialPortUsbInfo?> GetUsbInfo(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortUsbInfo>("getInfo", token, serialPortId);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<SerialPortSignals?> GetSignals(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortSignals>("getSignals", token, serialPortId);
 
     /// <summary>
@@ -98,7 +92,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// </summary>
     /// <param name="options"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<bool> SetSignals(SerialPortSignalsOptions options, CancellationToken token = default) => await jsModule.InvokeAsync<bool>("setSignals", token, serialPortId, options);
 
     private async ValueTask DisposeAsync(bool disposing)
@@ -112,7 +105,6 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

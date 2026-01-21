@@ -16,7 +16,6 @@ public partial class LazyLoad : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets 子component</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -24,7 +23,6 @@ public partial class LazyLoad : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组件加载条件回调方法 默认 null 未设置 一旦返回 true 后此回调将不再调用</para>
     /// <para lang="en">Gets or sets component加载条件callback method Default is null 未Sets 一旦返回 true 后此回调将不再调用</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -33,7 +31,6 @@ public partial class LazyLoad : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 首次显示时回调方法 可用于组件初始化数据 仅触发一次</para>
     /// <para lang="en">Gets or sets 首次display时callback method 可用于component初始化data 仅触发一次</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnFirstLoadCallbackAsync { get; set; }

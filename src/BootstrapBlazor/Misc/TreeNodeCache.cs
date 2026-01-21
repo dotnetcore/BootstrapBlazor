@@ -48,7 +48,6 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <para lang="en">Toggle checked state method</para>
     /// </summary>
     /// <param name="node"></param>
-    /// <returns></returns>
     public void ToggleCheck(TNode node)
     {
         if (node.CheckedState == CheckboxState.Checked)
@@ -79,7 +78,6 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <para lang="en">Check whether current node is checked</para>
     /// </summary>
     /// <param name="node"></param>
-    /// <returns></returns>
     private void IsChecked(TNode node)
     {
         var nodes = node.Items.OfType<ICheckableNode<TItem>>().ToList();
@@ -161,7 +159,6 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// </summary>
     /// <param name="nodes"><para lang="zh">数据集合</para><para lang="en">Data collection</para></param>
     /// <param name="node"><para lang="zh">指定节点</para><para lang="en">Specified node</para></param>
-    /// <returns></returns>
     public TNode? FindParentNode(List<TNode> nodes, TNode node)
     {
         TNode? ret = default;

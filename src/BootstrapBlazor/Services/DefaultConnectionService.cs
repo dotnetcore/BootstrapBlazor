@@ -79,7 +79,6 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out ConnectionItem? value) => _connectionCache.TryGetValue(key, out value);
 
     /// <summary>

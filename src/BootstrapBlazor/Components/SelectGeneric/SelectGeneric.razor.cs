@@ -45,7 +45,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="en">Set Current Item Active Method</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     private string? ActiveItem(SelectedItem<TValue> item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", Equals(item.Value, Value))
         .AddClass("disabled", item.IsDisabled)
@@ -56,7 +55,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 搜索文本发生变化时回调此方法</para>
     /// <para lang="en">Callback method when search text changes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
@@ -64,7 +62,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
     /// <para lang="en">Gets or sets Whether editable. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
@@ -72,7 +69,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 选项输入更新后回调方法 默认 null</para>
     /// <para lang="en">Callback method after option input update. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
@@ -83,7 +79,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="en">Callback method to convert option input update to Value. Default null</para>
     /// <para lang="zh">返回值为 null 时放弃操作</para>
     /// <para lang="en">Discard operation when return value is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
@@ -92,7 +87,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板支持静态数据</para>
     /// <para lang="en">Gets or sets Option template supports static data</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Options { get; set; }
@@ -100,7 +94,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 显示部分模板 默认 null</para>
     /// <para lang="en">Gets or sets Display Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>?>? DisplayTemplate { get; set; }
@@ -108,7 +101,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false</para>
     /// <para lang="en">Gets or sets Disable triggering OnSelectedItemChanged callback on first load. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
@@ -118,7 +110,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="en">Gets or sets Value Equality Comparer. Default null</para>
     /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
     /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
@@ -132,7 +123,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键</para>
     /// <para lang="en">Gets or sets Identifier tag for data primary key. Default is <see cref="KeyAttribute"/>. Used to determine date primary key tag. If the model does not set a primary key, you can use the <see cref="ValueEqualityComparer"/> parameter to customize the judgment of the data model supporting joint primary keys</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -144,7 +134,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
     /// <para lang="en">Gets or sets Bound Dataset</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -153,7 +142,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板</para>
     /// <para lang="en">Gets or sets Item Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
@@ -161,7 +149,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变</para>
     /// <para lang="en">Gets or sets Callback delegate before dropdown item changes. Return true to change option value, otherwise value remains unchanged</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem<TValue>, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
@@ -169,7 +156,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">SelectedItemChanged 回调方法</para>
     /// <para lang="en">SelectedItemChanged Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem<TValue>, Task>? OnSelectedItemChanged { get; set; }
@@ -177,7 +163,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 图标 默认 Question</para>
     /// <para lang="en">Gets or sets Swal Icon. Default Question</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
@@ -185,7 +170,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 标题 默认 null</para>
     /// <para lang="en">Gets or sets Swal Title. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalTitle { get; set; }
@@ -193,7 +177,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 Swal 内容 默认 null</para>
     /// <para lang="en">Gets or sets Swal Content. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalContent { get; set; }
@@ -201,7 +184,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 默认 null</para>
     /// <para lang="en">Gets or sets Footer. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SwalFooter { get; set; }
@@ -214,7 +196,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="zh">获得 input 组件 Id 方法</para>
     /// <para lang="en">Get input Component Id Method</para>
     /// </summary>
-    /// <returns></returns>
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
@@ -336,7 +317,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -359,7 +339,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <para lang="zh">虚拟滚动数据加载回调方法</para>
     /// <para lang="en">Virtual Scroll Data Load Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -395,7 +374,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
 
     /// <summary>
@@ -403,7 +381,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="en">Client Enter Callback Method</para>
     /// </summary>
     /// <param name="index"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task ConfirmSelectedItem(int index)
     {
@@ -419,7 +396,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <para lang="en">Client Search Bar Callback Method</para>
     /// </summary>
     /// <param name="searchText"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
@@ -522,7 +498,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnClearValue()
     {
         await base.OnClearValue();
@@ -586,6 +561,5 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    /// <returns></returns>
     public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

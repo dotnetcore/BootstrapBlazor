@@ -14,7 +14,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 待上传文件集合</para>
     /// <para lang="en">Gets or sets the collection of files to be uploaded.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,7 +22,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 上传列表禁用状态</para>
     /// <para lang="en">Gets or sets the disable status of the upload list.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -31,7 +29,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 是否在操作期间显示进度</para>
     /// <para lang="en">Gets or sets a value indicating whether progress should be displayed during the operation.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; }
@@ -39,7 +36,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 上传文件格式回调方法</para>
     /// <para lang="en">Gets or sets the upload file format callback method.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, string>? OnGetFileFormat { get; set; }
@@ -47,7 +43,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 点击取消按钮回调方法，默认 null</para>
     /// <para lang="en">Gets or sets the callback method for the cancel button click event. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnCancel { get; set; }
@@ -55,7 +50,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮图标</para>
     /// <para lang="en">Gets or sets the cancel button icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CancelIcon { get; set; }
@@ -63,7 +57,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 加载状态图标</para>
     /// <para lang="en">Gets or sets the loading state icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -71,7 +64,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 下载按钮图标</para>
     /// <para lang="en">Gets or sets the download button icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DownloadIcon { get; set; }
@@ -79,7 +71,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 上传失败状态图标</para>
     /// <para lang="en">Gets or sets the upload failed status icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
@@ -87,7 +78,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 上传成功状态图标</para>
     /// <para lang="en">Gets or sets the upload success status icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }
@@ -95,7 +85,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮图标</para>
     /// <para lang="en">Gets or sets the delete button icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DeleteIcon { get; set; }
@@ -103,7 +92,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示下载按钮，默认 false</para>
     /// <para lang="en">Gets or sets whether to display the download button. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDownloadButton { get; set; }
@@ -111,7 +99,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 点击下载按钮回调方法，默认 null</para>
     /// <para lang="en">Gets or sets the callback method for the download button click event. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnDownload { get; set; }
@@ -119,7 +106,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 点击删除按钮回调方法，默认 null</para>
     /// <para lang="en">Gets or sets the callback method for the delete button click event. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
@@ -127,7 +113,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 Excel 类型文件图标</para>
     /// <para lang="en">Gets or sets the Excel file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconExcel { get; set; }
@@ -135,7 +120,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 Word 文档文件图标</para>
     /// <para lang="en">Gets or sets the Word document file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconDocx { get; set; }
@@ -143,7 +127,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 PowerPoint 文件图标</para>
     /// <para lang="en">Gets or sets the PowerPoint file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconPPT { get; set; }
@@ -151,7 +134,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 音频文件图标</para>
     /// <para lang="en">Gets or sets the audio file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconAudio { get; set; }
@@ -159,7 +141,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 视频文件图标</para>
     /// <para lang="en">Gets or sets the video file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconVideo { get; set; }
@@ -167,7 +148,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 代码文件图标</para>
     /// <para lang="en">Gets or sets the code file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconCode { get; set; }
@@ -175,7 +155,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 PDF 文件图标</para>
     /// <para lang="en">Gets or sets the PDF file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconPdf { get; set; }
@@ -183,7 +162,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 压缩文件图标</para>
     /// <para lang="en">Gets or sets the compressed file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconZip { get; set; }
@@ -191,7 +169,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 档案文件图标</para>
     /// <para lang="en">Gets or sets the archive file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconArchive { get; set; }
@@ -199,7 +176,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 图像文件图标</para>
     /// <para lang="en">Gets or sets the image file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconImage { get; set; }
@@ -207,7 +183,6 @@ public partial class UploadPreviewList
     /// <summary>
     /// <para lang="zh">获得/设置 通用文件图标</para>
     /// <para lang="en">Gets or sets the generic file type icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FileIconFile { get; set; }

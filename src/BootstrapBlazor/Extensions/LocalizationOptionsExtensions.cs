@@ -22,7 +22,6 @@ internal static class LocalizationOptionsExtensions
     /// <param name="option"></param>
     /// <param name="assembly"></param>
     /// <param name="cultureName"></param>
-    /// <returns></returns>
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
         // <para lang="zh">创建配置 ConfigurationBuilder</para>

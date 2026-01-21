@@ -15,6 +15,5 @@ public interface ICalendarFestivals
     /// <para lang="zh">获得 节日键值对</para>
     /// <para lang="en">Get Festival Key-Value Pair</para>
     /// </summary>
-    /// <returns></returns>
     string? GetFestival(DateTime dt);
 }

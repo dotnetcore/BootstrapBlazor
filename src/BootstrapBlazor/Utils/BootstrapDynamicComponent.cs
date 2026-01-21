@@ -19,7 +19,6 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     /// </summary>
     /// <typeparam name="TCom"></typeparam>
     /// <param name="parameters"><para lang="zh">TCom 组件所需要的参数集合</para><para lang="en">TCom component所需要的参数collection</para></param>
-    /// <returns></returns>
     public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?>? parameters = null) where TCom : IComponent => CreateComponent(typeof(TCom), parameters);
 
     /// <summary>
@@ -27,7 +26,6 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     /// <para lang="en">Create custom component method</para>
     /// </summary>
     /// <typeparam name="TCom"></typeparam>
-    /// <returns></returns>
     public static BootstrapDynamicComponent CreateComponent<TCom>() where TCom : IComponent => CreateComponent<TCom>(new Dictionary<string, object?>());
 
     /// <summary>
@@ -36,14 +34,12 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     /// </summary>
     /// <param name="type"></param>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public static BootstrapDynamicComponent CreateComponent(Type type, IDictionary<string, object?>? parameters = null) => new(type, parameters);
 
     /// <summary>
     /// <para lang="zh">创建组件实例并渲染</para>
     /// <para lang="en">Create component instance and render</para>
     /// </summary>
-    /// <returns></returns>
     public RenderFragment Render() => builder =>
     {
         var index = 0;

@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">摄像头信息类</para>
-///  <para lang="en">摄像头信息类</para>
+/// <para lang="zh">摄像头信息类</para>
+/// <para lang="en">摄像头信息类</para>
 /// </summary>
 public class DeviceItem
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 设备 ID</para>
-    ///  <para lang="en">Gets or sets 设备 ID</para>
+    /// <para lang="zh">获得/设置 设备 ID</para>
+    /// <para lang="en">Gets or sets 设备 ID</para>
     /// </summary>
     public string DeviceId { get; set; } = "";
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 设备标签</para>
-    ///  <para lang="en">Gets or sets 设备标签</para>
+    /// <para lang="zh">获得/设置 设备标签</para>
+    /// <para lang="en">Gets or sets 设备标签</para>
     /// </summary>
     public string Label { get; set; } = "";
 }

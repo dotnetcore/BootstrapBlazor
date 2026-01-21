@@ -65,7 +65,6 @@ public class BootstrapBlazorRootRegisterService
     /// <para lang="en">Get all providers by identifier</para>
     /// </summary>
     /// <param name="identifier"></param>
-    /// <returns></returns>
     public List<BootstrapBlazorRootContent> GetProviders(object identifier)
     {
         _providersByIdentifier.TryGetValue(identifier, out var providers);

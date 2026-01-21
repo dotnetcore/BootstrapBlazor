@@ -20,7 +20,6 @@ public static class DownloadServiceExtensions
     /// <param name="download"></param>
     /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
     /// <param name="stream"><para lang="zh">文件流</para><para lang="en">File stream</para></param>
-    /// <returns></returns>
     public static Task DownloadFromStreamAsync(this DownloadService download, string downloadFileName, Stream stream) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = stream });
 
     /// <summary>
@@ -30,7 +29,6 @@ public static class DownloadServiceExtensions
     /// <param name="download"></param>
     /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
     /// <param name="data"><para lang="zh">Byte[] 数组</para><para lang="en">Byte array</para></param>
-    /// <returns></returns>
     public static Task DownloadFromByteArrayAsync(this DownloadService download, string downloadFileName, byte[] data) => download.DownloadFromStreamAsync(new DownloadOption() { FileName = downloadFileName, FileStream = new MemoryStream(data) });
 
     /// <summary>
@@ -40,7 +38,6 @@ public static class DownloadServiceExtensions
     /// <param name="download"></param>
     /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
     /// <param name="folder"><para lang="zh">文件夹路径</para><para lang="en">Folder path</para></param>
-    /// <returns></returns>
     public static async Task DownloadFolderAsync(this DownloadService download, string downloadFileName, string folder)
     {
         if (!Directory.Exists(folder))
@@ -65,7 +62,6 @@ public static class DownloadServiceExtensions
     /// <param name="download"></param>
     /// <param name="downloadFileName"><para lang="zh">文件名</para><para lang="en">File name</para></param>
     /// <param name="url"><para lang="zh">文件地址</para><para lang="en">File url</para></param>
-    /// <returns></returns>
     public static Task DownloadFromUrlAsync(this DownloadService download, string downloadFileName, string url) => download.DownloadFromUrlAsync(new DownloadOption() { FileName = downloadFileName, Url = url });
 
     /// <summary>
@@ -75,7 +71,6 @@ public static class DownloadServiceExtensions
     /// <param name="download"></param>
     /// <param name="fileName"></param>
     /// <param name="physicalFilePath"></param>
-    /// <returns></returns>
     public static async Task DownloadFromFileAsync(this DownloadService download, string fileName, string physicalFilePath)
     {
         if (File.Exists(physicalFilePath))

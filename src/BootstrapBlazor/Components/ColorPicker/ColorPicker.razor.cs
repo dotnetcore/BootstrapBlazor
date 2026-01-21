@@ -24,7 +24,6 @@ public partial class ColorPicker
     /// <summary>
     /// <para lang="zh">获得/设置 显示模板</para>
     /// <para lang="en">Gets or sets display template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<string>? Template { get; set; }
@@ -32,7 +31,6 @@ public partial class ColorPicker
     /// <summary>
     /// <para lang="zh">获得/设置 显示颜色值格式化回调方法</para>
     /// <para lang="en">Gets or sets display color value formatting callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task<string>>? Formatter { get; set; }
@@ -40,7 +38,6 @@ public partial class ColorPicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否支持透明度 默认 false 不支持</para>
     /// <para lang="en">Gets or sets whether to support opacity, default is false(not supported)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsSupportOpacity { get; set; }
@@ -48,7 +45,6 @@ public partial class ColorPicker
     /// <summary>
     /// <para lang="zh">获得/设置 预设候选颜色 <see cref="IsSupportOpacity"/> 开启时生效 默认 null</para>
     /// <para lang="en">Gets or sets preset candidate colors, effective when <see cref="IsSupportOpacity"/> is enabled, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">字符串集合格式为 ["rgba(244, 67, 54, 1)", "rgba(233, 30, 99, 0.95)"]</para>
@@ -77,7 +73,6 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -99,7 +94,6 @@ public partial class ColorPicker
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
 
     private async Task Setter(string v)
@@ -123,7 +117,6 @@ public partial class ColorPicker
     /// <para lang="en">Callback method when selected color value changes, called by JavaScript</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     [JSInvokable]
     public Task OnColorChanged(string value)
     {

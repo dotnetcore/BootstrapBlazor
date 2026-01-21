@@ -59,7 +59,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">获得/设置 时间选择框视图模式</para>
     /// <para lang="en">Gets or sets the time picker view mode</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TimePickerCellViewMode ViewMode { get; set; }
@@ -67,7 +66,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
     /// <para lang="en">Gets or sets the component value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TimeSpan Value { get; set; }
@@ -75,7 +73,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">获得/设置 组件值变化时的委托方法</para>
     /// <para lang="en">Gets or sets the delegate method when the component value changes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TimeSpan> ValueChanged { get; set; }
@@ -83,7 +80,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">获得/设置 向上箭头图标</para>
     /// <para lang="en">Gets or sets the up arrow icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? UpIcon { get; set; }
@@ -91,7 +87,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">获得/设置 向下箭头图标</para>
     /// <para lang="en">Gets or sets the down arrow icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DownIcon { get; set; }
@@ -119,7 +114,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">处理向上翻页按钮的单击事件</para>
     /// <para lang="en">Handles the up button click event</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [JSInvokable]
     public async Task OnClickUp()
@@ -144,7 +138,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">处理单元格高度回调方法</para>
     /// <para lang="en">Handles the cell height callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [JSInvokable]
     public void OnHeightCallback(double height) => _height = height;
@@ -152,7 +145,6 @@ public partial class TimePickerCell
     /// <summary>
     /// <para lang="zh">处理向下翻页按钮的单击事件</para>
     /// <para lang="en">Handles the down button click event</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [JSInvokable]
     public async Task OnClickDown()

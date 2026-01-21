@@ -15,6 +15,5 @@ public interface ISynthesizerProvider
     /// <para lang="zh">语音合成回调方法</para>
     /// <para lang="en">Speech Synthesis Callback Method</para>
     /// </summary>
-    /// <returns></returns>
     Task InvokeAsync(SynthesizerOption option);
 }

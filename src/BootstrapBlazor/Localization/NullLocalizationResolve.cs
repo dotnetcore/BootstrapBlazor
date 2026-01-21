@@ -14,7 +14,6 @@ internal class NullLocalizationResolve : ILocalizationResolve
     /// <para lang="en">Get all culture info collection</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     public IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures) => [];
 
     /// <summary>
@@ -23,6 +22,5 @@ internal class NullLocalizationResolve : ILocalizationResolve
     /// </summary>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">Type name</para></param>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     public IEnumerable<LocalizedString> GetAllStringsByType(string typeName, bool includeParentCultures) => [];
 }

@@ -20,7 +20,6 @@ public partial class Empty
     /// <summary>
     /// <para lang="zh">获得/设置 图片路径 默认为 null</para>
     /// <para lang="en">Gets or sets Image Source. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Image { get; set; }
@@ -28,7 +27,6 @@ public partial class Empty
     /// <summary>
     /// <para lang="zh">获得/设置 空状态描述 默认为 无数据</para>
     /// <para lang="en">Gets or sets Description. Default is No Data</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -36,7 +34,6 @@ public partial class Empty
     /// <summary>
     /// <para lang="zh">获得/设置 自定义模板</para>
     /// <para lang="en">Gets or sets Custom Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Template { get; set; }
@@ -44,7 +41,6 @@ public partial class Empty
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

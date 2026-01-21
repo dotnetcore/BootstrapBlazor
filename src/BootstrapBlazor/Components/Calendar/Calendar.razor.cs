@@ -69,7 +69,6 @@ public partial class Calendar
     /// <para lang="en">Get week day</para>
     /// </summary>
     /// <param name="offset"></param>
-    /// <returns></returns>
     private string GetWeekDayString(int offset) => $"{Value.AddDays(offset - (int)Value.DayOfWeek).Day}";
 
     /// <summary>
@@ -77,7 +76,6 @@ public partial class Calendar
     /// <para lang="en">Get week day style</para>
     /// </summary>
     /// <param name="offset"></param>
-    /// <returns></returns>
     private string? GetWeekDayClassString(int offset) => CssBuilder.Default("week-header")
             .AddClass("is-today", Value.AddDays(offset - (int)Value.DayOfWeek) == DateTime.Today)
             .Build();
@@ -98,7 +96,6 @@ public partial class Calendar
     /// <para lang="zh">OnInitialized 方法</para>
     /// <para lang="en">OnInitialized method</para>
     /// </summary>
-    /// <returns></returns>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -155,7 +152,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 组件值</para>
     /// <para lang="en">Gets or sets the component value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DateTime Value { get; set; }
@@ -163,7 +159,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 值改变时回调委托</para>
     /// <para lang="en">Gets or sets the value change callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<DateTime> ValueChanged { get; set; }
@@ -171,7 +166,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 值改变时回调委托</para>
     /// <para lang="en">Gets or sets the value change callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnValueChanged { get; set; }
@@ -179,7 +173,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示周视图 默认为 <see cref="CalendarViewMode.Month"/> 月视图</para>
     /// <para lang="en">Gets or sets whether to display the week view. Default is <see cref="CalendarViewMode.Month"/> month view</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CalendarViewMode ViewMode { get; set; }
@@ -187,7 +180,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 周内容 <see cref="CalendarViewMode.Week"/> 时有效</para>
     /// <para lang="en">Gets or sets the week content. Valid when <see cref="CalendarViewMode.Week"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -195,7 +187,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 列头模板</para>
     /// <para lang="en">Gets or sets the header template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -203,7 +194,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 Body 模板仅 <see cref="CalendarViewMode.Month"/> 有效</para>
     /// <para lang="en">Gets or sets the body template. Valid only when <see cref="CalendarViewMode.Month"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<BodyTemplateContext>? BodyTemplate { get; set; }
@@ -211,7 +201,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 单元格模板</para>
     /// <para lang="en">Gets or sets the cell template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<CalendarCellValue>? CellTemplate { get; set; }
@@ -219,7 +208,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示年按钮</para>
     /// <para lang="en">Gets or sets whether to show the year buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowYearButtons { get; set; } = true;
@@ -227,7 +215,6 @@ public partial class Calendar
     /// <summary>
     /// <para lang="zh">获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/></para>
     /// <para lang="en">Gets or sets the first day of the week. Default is <see cref="DayOfWeek.Sunday"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;

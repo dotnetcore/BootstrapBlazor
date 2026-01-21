@@ -42,7 +42,6 @@ internal class LookupContent : ComponentBase, ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 显示值</para>
     /// <para lang="en">Gets or sets display值</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Value { get; set; }

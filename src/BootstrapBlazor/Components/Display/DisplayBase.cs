@@ -42,7 +42,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 the value of the input. This should be used with two-way binding.</para>
     /// <para lang="en">Gets or sets the value of the input. This should be used with two-way binding.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <example>
     /// @bind-Value="model.PropertyName"
@@ -54,7 +53,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 a 回调 that updates the bound value.</para>
     /// <para lang="en">Gets or sets a callback that updates the bound value.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue?> ValueChanged { get; set; }
@@ -62,7 +60,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 an expression that identifies the bound value.</para>
     /// <para lang="en">Gets or sets an expression that identifies the bound value.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue?>>? ValueExpression { get; set; }
@@ -70,7 +67,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示前置标签 默认值为 null 为空时默认不显示标签</para>
     /// <para lang="en">Gets or sets Whether to Show Label. Default is null, not show label when null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabel { get; set; }
@@ -78,7 +74,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于文字过长导致裁减时使用 默认 null</para>
     /// <para lang="en">Gets or sets Whether to Show Tooltip. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
@@ -86,7 +81,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
     /// <para lang="en">Gets or sets Display Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DisplayText { get; set; }
@@ -124,7 +118,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
