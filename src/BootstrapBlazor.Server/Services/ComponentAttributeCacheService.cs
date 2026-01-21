@@ -60,7 +60,9 @@ public static class ComponentAttributeCacheService
     {
         if (xmlDoc == null) return null;
 
-        var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
+        var type = property.DeclaringType ?? property.PropertyType;
+        var typeName = type.FullName ?? $"BootstrapBlazor.Components.{type.Name}";
+        var memberName = $"P:{typeName}.{property.Name}";
         var summaryElement = FindSummaryElement(xmlDoc, memberName);
         return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
     }
