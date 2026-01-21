@@ -12,73 +12,64 @@ namespace BootstrapBlazor.Components;
 public partial class ShieldBadge
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 图标 默认为 null</para>
-    /// <para lang="en">Gets or sets the icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 图标，默认为 null</para>
+    /// <para lang="en">Gets or sets the icon. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图标颜色 默认为 null</para>
-    /// <para lang="en">Gets or sets the icon color. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 图标颜色，默认为 null</para>
+    /// <para lang="en">Gets or sets the icon color. Default is null</para>
     /// </summary>
     [Parameter]
     public string? IconColor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 徽章文本 默认为 null</para>
-    /// <para lang="en">Gets or sets the text of badge. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 徽章文本，默认为 null</para>
+    /// <para lang="en">Gets or sets the badge text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 文本颜色 默认为 null</para>
-    /// <para lang="en">Gets or sets the text color. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 文本颜色，默认为 null</para>
+    /// <para lang="en">Gets or sets the text color. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TextColor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 文本背景颜色 默认为 null</para>
-    /// <para lang="en">Gets or sets the text background color. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 文本背景颜色，默认为 null</para>
+    /// <para lang="en">Gets or sets the text background color. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TextBackgroundColor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 徽章标签 默认为 null</para>
-    /// <para lang="en">Gets or sets the label of badge. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 徽章标签，默认为 null</para>
+    /// <para lang="en">Gets or sets the label of badge. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Label { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 标签颜色 默认为 null</para>
-    /// <para lang="en">Gets or sets the label color of badge. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 标签颜色，默认为 null</para>
+    /// <para lang="en">Gets or sets the label color of badge. Default is null</para>
     /// </summary>
     [Parameter]
     public string? LabelColor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 标签背景颜色 默认为 null</para>
-    /// <para lang="en">Gets or sets the label background color. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 标签背景颜色，默认为 null</para>
+    /// <para lang="en">Gets or sets the label background color. Default is null</para>
     /// </summary>
     [Parameter]
     public string? LabelBackgroundColor { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 徽章圆角半径 默认为 3</para>
-    /// <para lang="en">Gets or sets the badge radius. Default is 3.</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the badge radius. Default is 3</para>
     /// </summary>
     [Parameter]
     public int Radius { get; set; } = 3;

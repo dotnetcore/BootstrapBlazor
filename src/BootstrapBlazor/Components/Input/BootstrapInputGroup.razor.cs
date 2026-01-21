@@ -18,7 +18,6 @@ public partial class BootstrapInputGroup
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

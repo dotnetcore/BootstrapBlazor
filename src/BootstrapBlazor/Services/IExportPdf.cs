@@ -16,13 +16,11 @@ public interface IExportPdf
     /// <para lang="zh">导出 Pdf 数据</para>
     /// <para lang="en">Export Pdf Data</para>
     /// </summary>
-    /// <returns></returns>
     Task<byte[]> PdfDataAsync(string content);
 
     /// <summary>
     /// <para lang="zh">导出 Pdf 流</para>
     /// <para lang="en">Export Pdf Stream</para>
     /// </summary>
-    /// <returns></returns>
     Task<Stream> PdfStreamAsync(string content);
 }

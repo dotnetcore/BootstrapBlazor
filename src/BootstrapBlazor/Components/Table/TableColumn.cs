@@ -42,7 +42,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// <para lang="zh">获得/设置 数据绑定字段值</para>
     /// <para lang="en">Gets or sets data binding field value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [MaybeNull]
@@ -51,7 +50,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
     /// <para lang="en">Gets or sets ValueExpression expression</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TType>>? FieldExpression { get; set; }

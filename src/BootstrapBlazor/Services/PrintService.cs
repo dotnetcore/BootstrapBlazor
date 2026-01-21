@@ -16,6 +16,5 @@ public class PrintService(DialogService dialogService)
     /// <para lang="en">Print Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public Task PrintAsync(DialogOption option) => dialogService.Show(option);
 }

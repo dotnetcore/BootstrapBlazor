@@ -16,7 +16,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 排序列列表实例值</para>
     /// <para lang="en">Gets or sets sort column list instance value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -28,7 +27,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 排序列列表回调方法，支持双向绑定</para>
     /// <para lang="en">Gets or sets sort column list callback method, supports two-way binding</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<List<TableSortItem>> ValueChanged { get; set; }
@@ -36,7 +34,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 可排序列的列表</para>
     /// <para lang="en">Gets or sets the list of sortable columns</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
@@ -44,7 +41,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 增加排序条件图标</para>
     /// <para lang="en">Gets or sets add sort condition icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -52,7 +48,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 移除排序条件图标</para>
     /// <para lang="en">Gets or sets remove sort condition icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RemoveIcon { get; set; }
@@ -60,7 +55,6 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     /// <summary>
     /// <para lang="zh">获得/设置 减少排序条件图标</para>
     /// <para lang="en">Gets or sets decrease sort condition icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }

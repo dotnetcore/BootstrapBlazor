@@ -14,7 +14,6 @@ public partial class AnchorLink
     /// <summary>
     /// <para lang="zh">获得/设置 组件 Text 显示文字</para>
     /// <para lang="en">Gets or sets the component text display</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -22,7 +21,6 @@ public partial class AnchorLink
     /// <summary>
     /// <para lang="zh">获得/设置 组件 拷贝成功后 显示文字</para>
     /// <para lang="en">Gets or sets the display text after successful copy</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }
@@ -30,7 +28,6 @@ public partial class AnchorLink
     /// <summary>
     /// <para lang="zh">获得/设置 锚点图标 默认 fa-solid fa-link</para>
     /// <para lang="en">Gets or sets the anchor icon. Default is fa-solid fa-link</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

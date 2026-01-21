@@ -13,30 +13,28 @@ public partial class QueryGroup : IDisposable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
-    /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the child component</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符</para>
-    /// <para lang="en">Gets or sets Logic Operator</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the logic operator</para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// <para lang="zh">过滤条件集合</para>
-    /// <para lang="en">Filter collection</para>
+    /// <para lang="zh">获得 过滤条件集合</para>
+    /// <para lang="en">Gets the filter collection</para>
     /// </summary>
     [CascadingParameter]
     protected List<FilterKeyValueAction>? Filters { get; set; }
 
     /// <summary>
-    /// <para lang="zh">过滤条件集合</para>
-    /// <para lang="en">Filter collection</para>
+    /// <para lang="zh">获得 过滤条件集合</para>
+    /// <para lang="en">Gets the filter collection</para>
     /// </summary>
     protected FilterKeyValueAction _filter = new();
 
@@ -74,8 +72,7 @@ public partial class QueryGroup : IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">释放资源</para>
-    /// <para lang="en">Dispose</para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

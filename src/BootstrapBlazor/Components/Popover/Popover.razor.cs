@@ -12,25 +12,22 @@ namespace BootstrapBlazor.Components;
 public partial class Popover
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 显示文字，复杂内容可通过 <see cref="Template"/> 自定义</para>
-    /// <para lang="en">Gets or sets Display text. Complex content can be customized via <see cref="Template"/></para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 显示文字。复杂内容可通过 <see cref="Template"/> 自定义</para>
+    /// <para lang="en">Gets or sets the display text. Complex content can be customized via <see cref="Template"/></para>
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示阴影 默认 true</para>
-    /// <para lang="en">Gets or sets Whether to show shadow. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示阴影，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show shadow. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 内容模板 默认 null 设置值后 <see cref="Content"/> 参数失效</para>
-    /// <para lang="en">Gets or sets Content Template. Default null. <see cref="Content"/> parameter is invalid if set</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 内容模板，默认为 null。设置值后 <see cref="Content"/> 参数失效</para>
+    /// <para lang="en">Gets or sets the content template. Default is null. <see cref="Content"/> parameter is invalid if set</para>
     /// </summary>
     [Parameter]
     public RenderFragment? Template { get; set; }
@@ -48,14 +45,12 @@ public partial class Popover
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Content, Template = Template != null });
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

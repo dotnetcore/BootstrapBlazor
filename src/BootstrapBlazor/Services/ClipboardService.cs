@@ -30,7 +30,6 @@ public class ClipboardService(IJSRuntime jSRuntime)
     /// <para lang="zh">获得剪切板拷贝文字方法</para>
     /// <para lang="en">Get Clipboard Text Method</para>
     /// </summary>
-    /// <returns></returns>
     public async Task<string?> GetText(CancellationToken token = default)
     {
         _module ??= await LoadModule();
@@ -44,7 +43,6 @@ public class ClipboardService(IJSRuntime jSRuntime)
     /// <param name="text"><para lang="zh">要拷贝的文字</para><para lang="en">要拷贝的文字</para></param>
     /// <param name="callback"><para lang="zh">拷贝后回调方法</para><para lang="en">拷贝后callback method</para></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task Copy(string? text, Func<Task>? callback = null, CancellationToken token = default)
     {
         _module ??= await LoadModule();

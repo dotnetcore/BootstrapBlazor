@@ -12,7 +12,6 @@ static class ConsoleMessageItemExtensions
     /// <para lang="en">Render Message</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     public static RenderFragment RenderMessage(this ConsoleMessageItem item) => builder =>
     {
         if (item.IsHtml)

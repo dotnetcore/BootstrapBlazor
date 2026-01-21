@@ -18,7 +18,6 @@ public class EyeDropperService(IJSRuntime jSRuntime)
     /// <para lang="zh">全屏方法，已经全屏时再次调用后退出全屏</para>
     /// <para lang="en">Fullscreen method, exit fullscreen if called again when already in fullscreen</para>
     /// </summary>
-    /// <returns></returns>
     public async Task<string?> PickAsync(CancellationToken token = default)
     {
         _module ??= await jSRuntime.LoadModuleByName("eye-dropper");

@@ -14,7 +14,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 EditModel 实例</para>
     /// <para lang="en">Gets or sets EditModel Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,7 +22,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 BodyTemplate 实例</para>
     /// <para lang="en">Gets or sets BodyTemplate Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? BodyTemplate { get; set; }
@@ -31,7 +29,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得 数据项集合</para>
     /// <para lang="en">Get Items</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<IEditorItem>? Items { get; set; }
@@ -39,7 +36,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签</para>
     /// <para lang="en">Gets or sets Whether to Show Label</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLabel { get; set; }
@@ -47,7 +43,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 null</para>
     /// <para lang="en">Gets or sets Items Per Row. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? ItemsPerRow { get; set; }
@@ -55,7 +50,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 设置行格式 默认 Row 布局</para>
     /// <para lang="en">Gets or sets Row Layout. Default is Row</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RowType RowType { get; set; }
@@ -63,7 +57,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 设置 <see cref="RowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
     /// <para lang="en">Gets or sets Label Alignment in <see cref="RowType" /> Inline Mode. Default is None, equivalent to Left</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment LabelAlign { get; set; }
@@ -71,7 +64,6 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 未分组编辑项布局位置 默认 false 在尾部</para>
     /// <para lang="en">Gets or sets Unset Group Items Position. Default is false (at the end)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }

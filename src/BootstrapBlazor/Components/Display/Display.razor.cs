@@ -23,7 +23,6 @@ public partial class Display<TValue> : ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 异步格式化字符串</para>
     /// <para lang="en">Gets or sets Async Format String</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task<string?>>? FormatterAsync { get; set; }
@@ -31,42 +30,36 @@ public partial class Display<TValue> : ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd</para>
     /// <para lang="en">Gets or sets Format String. e.g. yyyy-MM-dd for DateTime</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -78,7 +71,6 @@ public partial class Display<TValue> : ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用</para>
     /// <para lang="en">Gets or sets Type Resolver Callback Method. Called internally when component generic type is Array</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
@@ -86,7 +78,6 @@ public partial class Display<TValue> : ILookup
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to Show Tooltip. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowTooltip { get; set; }
@@ -94,7 +85,6 @@ public partial class Display<TValue> : ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
@@ -108,7 +98,6 @@ public partial class Display<TValue> : ILookup
     /// <para lang="en">Value Format Delegate Method</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     private async Task<string?> FormatDisplayText(TValue value) => FormatterAsync != null
         ? await FormatterAsync(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null

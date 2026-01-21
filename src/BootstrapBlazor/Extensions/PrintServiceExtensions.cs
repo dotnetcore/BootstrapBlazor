@@ -18,7 +18,6 @@ public static class PrintServiceExtensions
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
     /// <param name="parametersFactory"></param>
-    /// <returns></returns>
     public static async Task PrintAsync<TComponent>(this PrintService service, Func<DialogOption, IDictionary<string, object?>> parametersFactory) where TComponent : ComponentBase
     {
         var option = new DialogOption();

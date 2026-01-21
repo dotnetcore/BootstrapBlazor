@@ -14,7 +14,6 @@ public partial class NotSupportFilter
     /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
     /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -33,7 +32,6 @@ public partial class NotSupportFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         return new();

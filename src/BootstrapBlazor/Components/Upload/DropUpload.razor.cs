@@ -16,7 +16,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 Body 模板，默认 null。设置 BodyTemplate 后 IconTemplate 和 TextTemplate 不生效。</para>
     /// <para lang="en">Gets or sets the body template. Default is null. When BodyTemplate is set, IconTemplate and TextTemplate are not effective.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -24,7 +23,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 图标模板，默认 null</para>
     /// <para lang="en">Gets or sets the icon template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? IconTemplate { get; set; }
@@ -32,7 +30,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 图标，默认 null</para>
     /// <para lang="en">Gets or sets the icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? UploadIcon { get; set; }
@@ -40,7 +37,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 文字模板，默认 null</para>
     /// <para lang="en">Gets or sets the text template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? TextTemplate { get; set; }
@@ -48,7 +44,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 上传文字，默认 null</para>
     /// <para lang="en">Gets or sets the upload text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -57,7 +52,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Footer，默认 false</para>
     /// <para lang="en">Gets or sets whether to display the footer. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; }
@@ -65,7 +59,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 字符串模板，默认 null</para>
     /// <para lang="en">Gets or sets the footer template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -73,7 +66,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 字符串信息，默认 null</para>
     /// <para lang="en">Gets or sets the footer text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -82,7 +74,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示上传列表，默认 true</para>
     /// <para lang="en">Gets or sets whether to display the upload file list. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowUploadFileList { get; set; } = true;
@@ -90,7 +81,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 设置文件格式图标回调委托</para>
     /// <para lang="en">Gets or sets the file format icon callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, string>? OnGetFileFormat { get; set; }
@@ -98,7 +88,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 加载中图标</para>
     /// <para lang="en">Gets or sets the loading icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -106,7 +95,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 上传失败状态图标</para>
     /// <para lang="en">Gets or sets the upload failed status icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? InvalidStatusIcon { get; set; }
@@ -114,7 +102,6 @@ public partial class DropUpload
     /// <summary>
     /// <para lang="zh">获得/设置 上传成功状态图标</para>
     /// <para lang="en">Gets or sets the upload success status icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ValidStatusIcon { get; set; }

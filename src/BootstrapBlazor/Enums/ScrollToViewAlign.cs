@@ -8,35 +8,35 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">垂直滚动对齐方式</para>
-///  <para lang="en">垂直滚动对齐方式</para>
+/// <para lang="zh">垂直滚动对齐方式</para>
+/// <para lang="en">垂直滚动对齐方式</para>
 /// </summary>
 public enum ScrollToViewAlign
 {
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("start")]
     Start,
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("center")]
     Center,
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("end")]
     End,
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("nearest")]
     Nearest

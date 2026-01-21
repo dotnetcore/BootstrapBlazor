@@ -29,7 +29,6 @@ public partial class Toggle
     /// <summary>
     /// <para lang="zh">获得/设置 组件颜色，默认为 Success</para>
     /// <para lang="en">Gets or sets the component color. Default is Success.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;

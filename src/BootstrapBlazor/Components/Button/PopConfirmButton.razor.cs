@@ -33,7 +33,6 @@ public partial class PopConfirmButton
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets the button color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.None;
@@ -62,13 +61,11 @@ public partial class PopConfirmButton
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override Task ShowTooltip() => Task.CompletedTask;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override Task RemoveTooltip() => Task.CompletedTask;
 
     private string? ConfirmString => OnBeforeClick != null ? "true" : null;
@@ -97,7 +94,6 @@ public partial class PopConfirmButton
     /// <para lang="zh">确认回调方法</para>
     /// <para lang="en">Confirm callback method</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickConfirm()
     {
         if (IsAsync)

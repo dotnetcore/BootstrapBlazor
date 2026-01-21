@@ -18,7 +18,6 @@ public class TitleService(IJSRuntime jSRuntime)
     /// <para lang="zh">设置当前网页 Title 方法</para>
     /// <para lang="en">Set Current Page Title Method</para>
     /// </summary>
-    /// <returns></returns>
     public async Task SetTitle(string title, CancellationToken token = default)
     {
         _module ??= await jSRuntime.LoadUtility();

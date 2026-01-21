@@ -14,7 +14,6 @@ public class SlideButtonItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">显示文本</para>
     /// <para lang="en">Display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -26,7 +25,6 @@ public class SlideButtonItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">选项值</para>
     /// <para lang="en">Option value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -22,7 +22,6 @@ public class ToggleBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件宽度</para>
     /// <para lang="en">Gets or sets the component width</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public virtual int Width { get; set; } = 120;
@@ -30,7 +29,6 @@ public class ToggleBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件 On 时显示的文本</para>
     /// <para lang="en">Gets or sets the text to display when the component is On</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -39,7 +37,6 @@ public class ToggleBase<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件 Off 时显示的文本</para>
     /// <para lang="en">Gets or sets the text to display when the component is Off</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

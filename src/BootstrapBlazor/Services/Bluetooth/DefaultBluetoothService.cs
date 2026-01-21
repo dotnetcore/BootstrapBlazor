@@ -57,7 +57,6 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<List<IBluetoothCharacteristic>> GetCharacteristics(CancellationToken token = default)
     {
         var ret = new List<IBluetoothCharacteristic>();
@@ -75,7 +74,6 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// </summary>
     /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicUUID, CancellationToken token = default)
     {
         IBluetoothCharacteristic? characteristic = null;

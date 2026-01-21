@@ -31,7 +31,6 @@ public sealed class SerializeFilterAction : IFilterAction
     /// <para lang="en">Set Filter Conditions Method</para>
     /// </summary>
     /// <param name="filter"></param>
-    /// <returns></returns>
     public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         Filter = filter;
@@ -42,6 +41,5 @@ public sealed class SerializeFilterAction : IFilterAction
     /// <para lang="zh">获取所有过滤条件集合</para>
     /// <para lang="en">Get All Filter Conditions Collection</para>
     /// </summary>
-    /// <returns></returns>
     public FilterKeyValueAction GetFilterConditions() => Filter ?? new();
 }

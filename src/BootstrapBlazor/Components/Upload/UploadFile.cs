@@ -89,13 +89,11 @@ public class UploadFile
     /// <para lang="zh">获得 UploadFile 的文件名</para>
     /// <para lang="en">Gets the file name of the UploadFile</para>
     /// </summary>
-    /// <returns></returns>
     public string? GetFileName() => FileName ?? OriginFileName ?? File?.Name;
 
     /// <summary>
     /// <para lang="zh">获得 UploadFile 的文件扩展名</para>
     /// <para lang="en">Gets the file extension of the UploadFile</para>
     /// </summary>
-    /// <returns></returns>
     public string? GetExtension() => Path.GetExtension(GetFileName());
 }

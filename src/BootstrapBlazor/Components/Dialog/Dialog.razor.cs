@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Dialog component</para>
+/// <para lang="zh">Dialog 组件</para>
 /// <para lang="en">Dialog component</para>
 /// </summary>
 public partial class Dialog : IDisposable
@@ -50,7 +50,6 @@ public partial class Dialog : IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

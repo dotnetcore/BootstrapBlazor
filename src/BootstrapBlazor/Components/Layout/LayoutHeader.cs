@@ -18,7 +18,6 @@ internal class LayoutHeader : IComponent
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     Task IComponent.SetParametersAsync(ParameterView parameters)
     {
         return Task.CompletedTask;

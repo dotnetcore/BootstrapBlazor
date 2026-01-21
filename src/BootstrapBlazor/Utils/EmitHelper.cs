@@ -22,7 +22,6 @@ public static class EmitHelper
     /// <param name="cols"><para lang="zh">ITableColumn 集合</para><para lang="en">ITableColumn collection</para></param>
     /// <param name="parent"><para lang="zh">父类类型</para><para lang="en">父类type</para></param>
     /// <param name="creatingCallback"><para lang="zh">回调委托</para><para lang="en">回调delegate</para></param>
-    /// <returns></returns>
     public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
     {
         var typeBuilder = CreateTypeBuilderByName(typeName, parent);

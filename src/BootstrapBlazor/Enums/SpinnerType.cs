@@ -8,21 +8,21 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh"></para>
-///  <para lang="en"></para>
+/// <para lang="zh"></para>
+/// <para lang="en"></para>
 /// </summary>
 public enum SpinnerType
 {
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("border")]
     Border,
 
     /// <summary>
-    ///  <para lang="zh"></para>
-    ///  <para lang="en"></para>
+    /// <para lang="zh"></para>
+    /// <para lang="en"></para>
     /// </summary>
     [Description("grow")]
     Grow,

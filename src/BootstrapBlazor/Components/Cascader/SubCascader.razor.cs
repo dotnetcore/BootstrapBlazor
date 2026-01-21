@@ -14,7 +14,6 @@ public partial class SubCascader
     /// <summary>
     /// <para lang="zh">获得/设置 组件数据源</para>
     /// <para lang="en">Gets or sets the component data source</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -26,7 +25,6 @@ public partial class SubCascader
     /// <summary>
     /// <para lang="zh">获得/设置 选择项点击回调委托</para>
     /// <para lang="en">Gets or sets the selected item click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CascaderItem, Task>? OnClick { get; set; }
@@ -34,7 +32,6 @@ public partial class SubCascader
     /// <summary>
     /// <para lang="zh">获得/设置 子菜单指示图标</para>
     /// <para lang="en">Gets or sets the submenu indicator icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SubMenuIcon { get; set; }

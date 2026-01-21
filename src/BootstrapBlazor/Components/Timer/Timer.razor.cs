@@ -44,7 +44,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 当前值</para>
     /// <para lang="en">Gets or sets the current value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TimeSpan Value { get; set; }
@@ -52,7 +51,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 组件宽度</para>
     /// <para lang="en">Gets or sets the component width</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 300;
@@ -60,7 +58,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 倒计时结束时的回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate when the countdown ends</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnTimeout { get; set; }
@@ -68,7 +65,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 取消时的回调委托</para>
     /// <para lang="en">Gets or sets the callback delegate when cancelled</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCancel { get; set; }
@@ -76,7 +72,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 进度条宽度，默认为 6</para>
     /// <para lang="en">Gets or sets the progress bar width. Default is 6.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int StrokeWidth { get; set; } = 6;
@@ -84,7 +79,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 倒计时结束时是否设备震动</para>
     /// <para lang="en">Gets or sets whether the device vibrates when the countdown ends</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVibrate { get; set; } = true;
@@ -92,7 +86,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 暂停按钮显示文字</para>
     /// <para lang="en">Gets or sets the pause button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -101,7 +94,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 继续按钮显示文字</para>
     /// <para lang="en">Gets or sets the resume button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -110,7 +102,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮显示文字</para>
     /// <para lang="en">Gets or sets the cancel button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -119,7 +110,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 开始按钮显示文字</para>
     /// <para lang="en">Gets or sets the start button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -128,7 +118,6 @@ public partial class Timer
     /// <summary>
     /// <para lang="zh">获得/设置 Alert 图标</para>
     /// <para lang="en">Gets or sets the alert icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

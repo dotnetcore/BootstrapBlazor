@@ -34,7 +34,6 @@ public static class MenuItemExtensions
     /// <para lang="en">Get all items</para>
     /// </summary>
     /// <param name="source"></param>
-    /// <returns></returns>
     public static IEnumerable<MenuItem>? GetAllItems(this IEnumerable<MenuItem>? source) => source == null ? null : GetAllSubItems(source).Union(source);
 
     /// <summary>
@@ -42,6 +41,5 @@ public static class MenuItemExtensions
     /// <para lang="en">Get all sub items</para>
     /// </summary>
     /// <param name="source"></param>
-    /// <returns></returns>
     public static IEnumerable<MenuItem> GetAllSubItems(this IEnumerable<MenuItem>? source) => source?.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items) ?? [];
 }

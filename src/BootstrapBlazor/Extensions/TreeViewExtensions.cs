@@ -36,7 +36,6 @@ public static class TreeViewExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
-    /// <returns></returns>
     public static IEnumerable<TreeViewItem<TItem>> GetAllItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => GetAllSubItems(source).Union(source);
 
     /// <summary>
@@ -45,7 +44,6 @@ public static class TreeViewExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
-    /// <returns></returns>
     public static IEnumerable<TreeViewItem<TItem>> GetAllSubItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => source.SelectMany(i => i.Items.Count > 0 ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items);
 
     /// <summary>
@@ -55,7 +53,6 @@ public static class TreeViewExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
     /// <param name="parent"></param>
-    /// <returns></returns>
     public static List<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source, TreeViewItem<TItem>? parent = null)
     {
         var rows = new List<TreeViewItem<TItem>>();

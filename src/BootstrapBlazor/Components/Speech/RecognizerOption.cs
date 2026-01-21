@@ -39,5 +39,13 @@ public class RecognizerOption
     /// <para lang="zh">获得/设置 自动识别时间 默认 5000 设置 0 时禁用需要手动关闭</para>
     /// <para lang="en">Gets or sets Auto Recognition Time. Default 5000. Set 0 to disable and need to close manually</para>
     /// </summary>
-    public int AutoRecoginzerElapsedMilliseconds { get; set; } = 5000;
+    [Obsolete("已弃用，请使用 AutoRecognizerElapsedMilliseconds 属性单词拼写错误。 Deprecated. Please use the AutoRecognizerElapsedMilliseconds method. (The word is misspelled.)")]
+    [ExcludeFromCodeCoverage]
+    public int AutoRecoginzerElapsedMilliseconds { get => AutoRecognizerElapsedMilliseconds; set => AutoRecognizerElapsedMilliseconds = value; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 自动识别时间 默认 5000 设置 0 时禁用需要手动关闭</para>
+    /// <para lang="en">Gets or sets Auto Recognition Time. Default 5000. Set 0 to disable and need to close manually</para>
+    /// </summary>
+    public int AutoRecognizerElapsedMilliseconds { get; set; } = 5000;
 }

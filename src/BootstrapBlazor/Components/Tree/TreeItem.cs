@@ -52,7 +52,6 @@ public class TreeItem : NodeItem
     /// <para lang="zh">获得 所有子项集合</para>
     /// <para lang="en">Gets 所有子项collection</para>
     /// </summary>
-    /// <returns></returns>
     public IEnumerable<TreeItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
 
     private static IEnumerable<TreeItem> GetSubItems(List<TreeItem> items) => items.SelectMany(i => i.Items.Count > 0 ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);

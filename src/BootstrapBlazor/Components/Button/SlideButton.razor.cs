@@ -14,7 +14,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 数据项模板</para>
     /// <para lang="en">Gets or sets the data item template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? SlideButtonItems { get; set; }
@@ -22,7 +21,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 按钮模板</para>
     /// <para lang="en">Gets or sets the button template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
@@ -30,7 +28,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 展开按钮项模板</para>
     /// <para lang="en">Gets or sets the expanded button item template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ButtonItemTemplate { get; set; }
@@ -38,7 +35,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 展开部分模板</para>
     /// <para lang="en">Gets or sets the expanded body template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -46,7 +42,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 展开项集合</para>
     /// <para lang="en">Gets or sets the expanded items collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -55,7 +50,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 展开项 Header 文本</para>
     /// <para lang="en">Gets or sets the header text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -64,7 +58,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets the button color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
@@ -72,7 +65,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 展开项显示位置</para>
     /// <para lang="en">Gets or sets the placement</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }
@@ -80,7 +72,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗偏移量 默认 8px</para>
     /// <para lang="en">Gets or sets the offset. Default is 8px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public float Offset { get; set; } = 8;
@@ -88,7 +79,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 Size 大小</para>
     /// <para lang="en">Gets or sets the Size</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
@@ -96,7 +86,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 显示图标</para>
     /// <para lang="en">Gets or sets the icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -104,7 +93,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 显示文本</para>
     /// <para lang="en">Gets or sets the text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -112,7 +100,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
     /// <para lang="en">Gets or sets whether it is disabled. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -120,7 +107,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动关闭弹窗 默认为 true</para>
     /// <para lang="en">Gets or sets whether to auto close. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoClose { get; set; } = true;
@@ -128,7 +114,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件</para>
     /// <para lang="en">Gets or sets the OnClick event</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<SelectedItem> OnClick { get; set; }
@@ -136,7 +121,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标题 默认 false 不显示</para>
     /// <para lang="en">Gets or sets whether to show header. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowHeader { get; set; }
@@ -144,7 +128,6 @@ public partial class SlideButton
     /// <summary>
     /// <para lang="zh">获得/设置 Header 部分模板</para>
     /// <para lang="en">Gets or sets the header template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -153,7 +136,6 @@ public partial class SlideButton
     /// <para lang="zh">获得 按钮样式集合</para>
     /// <para lang="en">Gets the button style collection</para>
     /// </summary>
-    /// <returns></returns>
     private string? ClassString => CssBuilder.Default("slide-button")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -162,7 +144,6 @@ public partial class SlideButton
     /// <para lang="zh">获得 按钮样式集合</para>
     /// <para lang="en">Gets the button style collection</para>
     /// </summary>
-    /// <returns></returns>
     private string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
@@ -204,7 +185,6 @@ public partial class SlideButton
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

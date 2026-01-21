@@ -27,7 +27,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets child content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -49,7 +48,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值</para>
     /// <para lang="en">Gets or sets whether to enable global exception handling. Default is null (use <see cref="BootstrapBlazorOptions.EnableErrorLogger"/>)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
@@ -57,7 +55,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值</para>
     /// <para lang="en">Gets or sets whether to log exceptions to <see cref="ILogger"/>. Default is null (use <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/>)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLoggerILogger { get; set; }
@@ -65,7 +62,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值</para>
     /// <para lang="en">Gets or sets whether to show Error toast. Default is null (use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/>)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ShowErrorLoggerToast 参数. Deprecated, please use ShowErrorLoggerToast parameter")]
@@ -75,7 +71,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值</para>
     /// <para lang="en">Gets or sets whether to show Error toast. Default is null (use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/>)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowErrorLoggerToast { get; set; }
@@ -83,7 +78,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 Error Toast 弹窗标题</para>
     /// <para lang="en">Gets or sets Error Toast title</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ToastTitle { get; set; }
@@ -91,7 +85,6 @@ public partial class BootstrapBlazorRoot
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
     /// <para lang="en">Gets or sets custom error callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -106,7 +99,6 @@ public partial class BootstrapBlazorRoot
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         Cache.SetStartTime();

@@ -14,24 +14,22 @@ namespace Microsoft.AspNetCore.Components.Web;
 public class ReconnectorOutlet : ComponentBase
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动尝试重连 默认 true</para>
-    /// <para lang="en">Gets or sets Whether to auto reconnect. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否自动尝试重连，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to auto reconnect. Default is true</para>
     /// </summary>
     [Parameter]
     public bool AutoReconnect { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒</para>
-    /// <para lang="en">Gets or sets Auto reconnect interval. Default 5000ms. Min 1000ms</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 自动重连间隔，默认为 5000 毫秒。最小值为 1000 毫秒</para>
+    /// <para lang="en">Gets or sets the auto reconnect interval. Default is 5000ms. Minimum is 1000ms</para>
     /// </summary>
     [Parameter]
     public int ReconnectInterval { get; set; } = 5000;
 
     /// <summary>
     /// <para lang="zh">BuildRenderTree 方法</para>
-    /// <para lang="en">BuildRenderTree Method</para>
+    /// <para lang="en">BuildRenderTree method</para>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

@@ -16,7 +16,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">显示确认按钮</para>
     /// <para lang="en">Show Yes Button</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -25,7 +24,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">确认按钮文本</para>
     /// <para lang="en">Yes Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -34,7 +32,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">确认按钮图标</para>
     /// <para lang="en">Yes Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ButtonYesIcon { get; set; }
@@ -42,14 +39,12 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">确认按钮颜色</para>
     /// <para lang="en">Yes Button Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter] public Color ButtonYesColor { get; set; } = Color.Primary;
 
     /// <summary>
     /// <para lang="zh">显示取消按钮</para>
     /// <para lang="en">Show No Button</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -58,7 +53,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">取消按钮文本</para>
     /// <para lang="en">No Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -67,7 +61,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">取消按钮图标</para>
     /// <para lang="en">No Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -76,7 +69,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">取消按钮颜色</para>
     /// <para lang="en">No Button Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color ButtonNoColor { get; set; } = Color.Danger;
@@ -84,7 +76,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">显示关闭按钮</para>
     /// <para lang="en">Show Close Button</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
@@ -94,7 +85,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">关闭按钮文本</para>
     /// <para lang="en">Close Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
@@ -104,7 +94,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">关闭按钮图标</para>
     /// <para lang="en">Close Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
@@ -114,7 +103,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">关闭按钮颜色</para>
     /// <para lang="en">Close Button Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
@@ -124,7 +112,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">获得/设置 点击关闭按钮回调方法</para>
     /// <para lang="en">Gets or sets Click Close Button Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
@@ -134,7 +121,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">获得/设置 点击确认按钮回调方法</para>
     /// <para lang="en">Gets or sets Click Yes Button Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
@@ -144,7 +130,6 @@ public partial class ResultDialogFooter
     /// <summary>
     /// <para lang="zh">获得/设置 点击取消按钮回调方法</para>
     /// <para lang="en">Gets or sets Click No Button Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]

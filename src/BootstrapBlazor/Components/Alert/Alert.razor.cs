@@ -15,7 +15,6 @@ public partial class Alert
     /// <para lang="zh">获得 样式集合</para>
     /// <para lang="en">Gets the class name</para>
     /// </summary>
-    /// <returns></returns>
     private string? ClassName => CssBuilder.Default("alert fade show")
         .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder)
@@ -31,7 +30,6 @@ public partial class Alert
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示阴影 默认 false 不显示</para>
     /// <para lang="en">Gets or sets whether to show shadow. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; }
@@ -39,7 +37,6 @@ public partial class Alert
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示边框 默认 false 不显示</para>
     /// <para lang="en">Gets or sets whether to show border. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowBorder { get; set; }

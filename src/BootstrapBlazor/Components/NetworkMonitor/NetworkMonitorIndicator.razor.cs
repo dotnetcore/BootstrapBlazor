@@ -8,34 +8,28 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Represents a network monitor indicator with customizable tooltip settings.</para>
-///  <para lang="en">Represents a network monitor indicator with customizable tooltip settings.</para>
+/// <para lang="zh">NetworkMonitorIndicator 组件用于显示网络监控指示器，支持自定义弹出窗口设置</para>
+/// <para lang="en">Represents a network monitor indicator with customizable tooltip settings</para>
 /// </summary>
-/// <remarks>This component allows you to configure the text, placement, and trigger behavior of a tooltip that
-/// appears when interacting with the network monitor indicator. The tooltip can be customized to provide additional
-/// information to users.</remarks>
 public partial class NetworkMonitorIndicator : IDisposable
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 Popover 弹窗标题 默认为 null</para>
-    ///  <para lang="en">Gets or sets Popover 弹窗标题 Default is为 null</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Popover 弹窗标题，默认为 null</para>
+    /// <para lang="en">Gets or sets the Popover popup title. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Popover 显示位置 默认为 Top</para>
-    ///  <para lang="en">Gets or sets Popover display位置 Default is为 Top</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Popover 显示位置，默认为 Top</para>
+    /// <para lang="en">Gets or sets the Popover display position. Default is Top</para>
     /// </summary>
     [Parameter]
     public Placement PopoverPlacement { get; set; } = Placement.Top;
 
     /// <summary>
-    ///  <para lang="zh">获得/设置 Popover 触发方式 默认为 hover focus</para>
-    ///  <para lang="en">Gets or sets Popover 触发方式 Default is为 hover focus</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Popover 触发方式，默认为 hover focus</para>
+    /// <para lang="en">Gets or sets the Popover trigger mode. Default is hover focus</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -60,8 +54,7 @@ public partial class NetworkMonitorIndicator : IDisposable
         .Build();
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
@@ -71,8 +64,7 @@ public partial class NetworkMonitorIndicator : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -101,8 +93,7 @@ public partial class NetworkMonitorIndicator : IDisposable
     }
 
     /// <summary>
-    ///  <para lang="zh"><inheritdoc/></para>
-    ///  <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

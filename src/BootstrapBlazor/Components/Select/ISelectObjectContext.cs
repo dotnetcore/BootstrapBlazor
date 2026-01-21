@@ -29,6 +29,5 @@ public interface ISelectObjectContext<TItem>
     /// <para lang="zh">关闭当前弹窗方法</para>
     /// <para lang="en">Close Current Popover Method</para>
     /// </summary>
-    /// <returns></returns>
     Task CloseAsync();
 }

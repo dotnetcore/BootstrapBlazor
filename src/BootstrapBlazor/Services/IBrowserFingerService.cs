@@ -15,7 +15,6 @@ public interface IBrowserFingerService
     /// <para lang="zh">获得当前浏览器指纹方法</para>
     /// <para lang="en">Get current browser fingerprint method</para>
     /// </summary>
-    /// <returns></returns>
     Task<string?> GetFingerCodeAsync(CancellationToken token = default);
 
     /// <summary>
@@ -23,6 +22,5 @@ public interface IBrowserFingerService
     /// <para lang="en">Get current connected client ID provided by BootstrapBlazor component framework</para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<string?> GetClientHubIdAsync(CancellationToken token = default);
 }

@@ -17,7 +17,6 @@ public static class ExpandableNodeExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
-    /// <returns></returns>
     public static List<TItem> GetAllItems<TItem>(this IEnumerable<IExpandableNode<TItem>> items) => items.GetAllItems([]);
 
     /// <summary>
@@ -27,7 +26,6 @@ public static class ExpandableNodeExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <param name="results"></param>
-    /// <returns></returns>
     private static List<TItem> GetAllItems<TItem>(this IEnumerable<IExpandableNode<TItem>> items, List<TItem> results)
     {
         foreach (var item in items)
@@ -51,7 +49,6 @@ public static class ExpandableNodeExtensions
     /// <para lang="zh">获得 所有子项集合</para>
     /// <para lang="en">Get all sub items collection</para>
     /// </summary>
-    /// <returns></returns>
     public static IEnumerable<IExpandableNode<TItem>> GetAllSubItems<TItem>(this IExpandableNode<TItem> item) => item.Items.Concat(GetSubItems(item.Items));
 
     private static IEnumerable<IExpandableNode<TItem>> GetSubItems<TItem>(IEnumerable<IExpandableNode<TItem>> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);
@@ -62,7 +59,6 @@ public static class ExpandableNodeExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="item"></param>
-    /// <returns></returns>
     public static IEnumerable<TreeViewItem<TItem>> GetAllTreeSubItems<TItem>(this IExpandableNode<TItem> item) => item.GetAllSubItems().OfType<TreeViewItem<TItem>>();
 
     /// <summary>

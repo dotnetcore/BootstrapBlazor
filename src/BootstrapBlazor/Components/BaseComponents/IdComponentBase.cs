@@ -14,7 +14,6 @@ public abstract class IdComponentBase : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 组件 id 属性</para>
     /// <para lang="en">Gets or sets the component id</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -15,14 +15,12 @@ public interface IThrottleDispatcherFactory
     /// <para lang="zh">获得或创建限流器</para>
     /// <para lang="en">Gets或创建限流器</para>
     /// </summary>
-    /// <returns></returns>
     ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null);
 
     /// <summary>
     /// <para lang="zh">获得或创建限流器</para>
     /// <para lang="en">Get or Create Throttle Dispatcher</para>
     /// </summary>
-    /// <returns></returns>
     ThrottleDispatcher GetOrCreate(string key, int interval) => GetOrCreate(key, new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(interval) });
 
     /// <summary>

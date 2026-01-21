@@ -21,6 +21,5 @@ public class MinValidator : MaxValidator
     /// <para lang="zh">获得 ErrorMessage 方法</para>
     /// <para lang="en">Get ErrorMessage method</para>
     /// </summary>
-    /// <returns></returns>
     protected override string GetErrorMessage() => ErrorMessage ?? "Select at least {0} items";
 }

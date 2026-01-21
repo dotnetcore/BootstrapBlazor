@@ -20,7 +20,6 @@ public partial class DialogSaveButton : Button
     /// <summary>
     /// <para lang="zh">获得/设置 保存回调方法 返回 true 时自动关闭弹窗</para>
     /// <para lang="en">Gets or sets Save Callback Method. Close Dialog when return true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
@@ -43,7 +42,6 @@ public partial class DialogSaveButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task HandlerClick()
     {
         await base.HandlerClick();

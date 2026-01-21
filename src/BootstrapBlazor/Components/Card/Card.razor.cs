@@ -60,7 +60,6 @@ public partial class Card
     /// <para lang="en">Gets or sets the Card Header height padding Y-axis value. Default is null</para>
     /// <para lang="zh">单位需自行给定 如 0.25rem</para>
     /// <para lang="en">Units need to be given by yourself, such as 0.25rem</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? HeaderPaddingY { get; set; }
@@ -68,7 +67,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 收缩展开箭头图标 默认 fa-solid fa-circle-chevron-right</para>
     /// <para lang="en">Gets or sets the collapse/expand arrow icon. Default is fa-solid fa-circle-chevron-right</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CollapseIcon { get; set; }
@@ -76,7 +74,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 HeaderTemplate 显示文本</para>
     /// <para lang="en">Gets or sets the HeaderTemplate display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? HeaderText { get; set; }
@@ -84,7 +81,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 CardHeard 模板</para>
     /// <para lang="en">Gets or sets the CardHeader template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -92,7 +88,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 BodyTemplate 模板</para>
     /// <para lang="en">Gets or sets the BodyTemplate template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -100,7 +95,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 FooterTemplate 模板</para>
     /// <para lang="en">Gets or sets the FooterTemplate template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -108,7 +102,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 Card 颜色</para>
     /// <para lang="en">Gets or sets the Card color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -116,7 +109,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 是否居中 默认 false</para>
     /// <para lang="en">Gets or sets whether to center. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCenter { get; set; }
@@ -124,7 +116,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 是否可收缩 默认 false</para>
     /// <para lang="en">Gets or sets whether it is collapsible. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCollapsible { get; set; }
@@ -132,7 +123,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 是否收缩 默认 false 展开</para>
     /// <para lang="en">Gets or sets whether it is collapsed. Default is false (expanded)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Collapsed { get; set; }
@@ -140,7 +130,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 是否收缩 默认 false 展开</para>
     /// <para lang="en">Gets or sets whether it is collapsed. Default is false (expanded)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<bool> CollapsedChanged { get; set; }
@@ -148,7 +137,6 @@ public partial class Card
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示阴影 默认 false</para>
     /// <para lang="en">Gets or sets whether to show shadow. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsShadow { get; set; }
@@ -175,7 +163,6 @@ public partial class Card
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleCollapse));
 
     private string? BodyId => $"{Id}_body";
@@ -184,7 +171,6 @@ public partial class Card
     /// <para lang="zh">The callback click collapse button</para>
     /// <para lang="en">The callback click collapse button</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task ToggleCollapse(bool collapsed)
     {

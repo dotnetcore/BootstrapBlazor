@@ -76,9 +76,8 @@ public static class ComponentAttributeCacheService
             return null;
         }
 
-        var inheritDoc = summaryElement.Element("inheritdoc");
-        var cref = inheritDoc?.Attribute("cref")?.Value;
-        return cref != null ? FindSummaryElement(xmlDoc, cref) : summaryElement;
+        var doc = summaryElement.Element("inheritdoc")?.Attribute("cref")?.Value;
+        return doc != null ? FindSummaryElement(xmlDoc, doc) : summaryElement;
     }
 
     private static string? GetLocalizedSummary(XElement? summaryElement)

@@ -14,9 +14,8 @@ namespace BootstrapBlazor.Components;
 public partial class PrintButton
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 预览模板地址 默认为空</para>
-    /// <para lang="en">Gets or sets Preview template URL. Default empty</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 预览模板地址，默认为 null</para>
+    /// <para lang="en">Gets or sets the preview template URL. Default is null</para>
     /// </summary>
     [Parameter]
     public string? PreviewUrl { get; set; }

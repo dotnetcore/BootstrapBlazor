@@ -16,6 +16,5 @@ public static class DrawerOptionExtensions
     /// <para lang="en">Get component render fragment</para>
     /// </summary>
     /// <param name="drawerOption"></param>
-    /// <returns></returns>
     public static RenderFragment? GetContent(this DrawerOption drawerOption) => drawerOption.ChildContent ?? drawerOption.Component?.Render();
 }

@@ -41,7 +41,6 @@ public interface IBluetoothCharacteristic
     /// </summary>
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default);
 
     /// <summary>
@@ -49,7 +48,6 @@ public interface IBluetoothCharacteristic
     /// <para lang="en">Stop Notifications Method</para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<bool> StopNotifications(CancellationToken token = default);
 
     /// <summary>
@@ -57,6 +55,5 @@ public interface IBluetoothCharacteristic
     /// <para lang="en">Read Value Method</para>
     /// </summary>
     /// <remarks><para lang="zh">比如获得电量方法为 ReadValue("battery_service", "battery_level")</para><para lang="en">For example, get battery level method is ReadValue("battery_service", "battery_level")</para></remarks>
-    /// <returns></returns>
     Task<byte[]?> ReadValue(CancellationToken token = default);
 }

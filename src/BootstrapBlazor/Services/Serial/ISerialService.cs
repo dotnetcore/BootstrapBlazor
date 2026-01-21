@@ -21,6 +21,5 @@ public interface ISerialService
     /// <para lang="zh">获得所有可用串口</para>
     /// <para lang="en">Gets所有可用串口</para>
     /// </summary>
-    /// <returns></returns>
     Task<ISerialPort?> GetPort(CancellationToken token = default);
 }

@@ -10,7 +10,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否为树形数据 默认为 false</para>
     /// <para lang="en">Gets or sets Whether it is tree data. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsTree { get; set; }
@@ -18,7 +17,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 生成树状结构回调方法</para>
     /// <para lang="en">Gets or sets Callback for generating tree structure</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
@@ -26,7 +24,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 树形数据节点展开式回调委托方法</para>
     /// <para lang="en">Gets or sets Callback delegate for expanding tree data node</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task<IEnumerable<TableTreeNode<TItem>>>>? OnTreeExpand { get; set; }
@@ -49,7 +46,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 树形结构小箭头图标</para>
     /// <para lang="en">Gets or sets Tree Node Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeIcon { get; set; }
@@ -57,7 +53,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 树形结构展开小箭头图标</para>
     /// <para lang="en">Gets or sets Tree Node Expand Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeExpandIcon { get; set; }
@@ -65,7 +60,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 树形结构正在加载图标</para>
     /// <para lang="en">Gets or sets Tree Node Loading Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? TreeNodeLoadingIcon { get; set; }
@@ -73,7 +67,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 缩进大小 默认为 16 单位 px</para>
     /// <para lang="en">Gets or sets Indent Size. Default 16 px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int IndentSize { get; set; } = 16;
@@ -83,7 +76,6 @@ public partial class Table<TItem>
     /// <para lang="en">Tree Node Indent</para>
     /// </summary>
     /// <param name="degree"></param>
-    /// <returns></returns>
     protected string? GetTreeStyleString(int degree) => CssBuilder.Default()
         .AddClass($"margin-left: {degree * IndentSize}px;")
         .Build();
@@ -93,7 +85,6 @@ public partial class Table<TItem>
     /// <para lang="en">Tree Node Expand Arrow</para>
     /// </summary>
     /// <param name="isExpand"></param>
-    /// <returns></returns>
     protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree")
         .AddClass(TreeIcon, !IsLoadChildren && !isExpand)
         .AddClass(TreeExpandIcon, !IsLoadChildren && isExpand)

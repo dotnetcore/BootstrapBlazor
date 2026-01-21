@@ -14,7 +14,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示文字</para>
     /// <para lang="en">Gets or sets Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -22,7 +21,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示文字</para>
     /// <para lang="en">Gets or sets Title</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -30,7 +28,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 步骤显示图标</para>
     /// <para lang="en">Gets or sets Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -38,7 +35,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 步骤完成显示图标</para>
     /// <para lang="en">Gets or sets Finished Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FinishedIcon { get; set; }
@@ -46,7 +42,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 描述信息</para>
     /// <para lang="en">Gets or sets Description</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Description { get; set; }
@@ -54,7 +49,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
     /// <para lang="en">Gets or sets Header Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<StepOption>? HeaderTemplate { get; set; }
@@ -62,7 +56,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 Title 模板</para>
     /// <para lang="en">Gets or sets Title Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<StepOption>? TitleTemplate { get; set; }
@@ -70,7 +63,6 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 组件内容实例</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

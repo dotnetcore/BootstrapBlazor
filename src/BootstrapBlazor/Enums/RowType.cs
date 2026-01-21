@@ -8,21 +8,21 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">行内格式枚举</para>
-///  <para lang="en">行内格式enum</para>
+/// <para lang="zh">行内格式枚举</para>
+/// <para lang="en">行内格式enum</para>
 /// </summary>
 public enum RowType
 {
     /// <summary>
-    ///  <para lang="zh">默认格式</para>
-    ///  <para lang="en">Default is格式</para>
+    /// <para lang="zh">默认格式</para>
+    /// <para lang="en">Default is格式</para>
     /// </summary>
     [Description("row")]
     Normal,
 
     /// <summary>
-    ///  <para lang="zh">表单中使用 label 在左，控件不充满</para>
-    ///  <para lang="en">表单中使用 label 在左，控件不充满</para>
+    /// <para lang="zh">表单中使用 label 在左，控件不充满</para>
+    /// <para lang="en">表单中使用 label 在左，控件不充满</para>
     /// </summary>
     [Description("inline")]
     Inline

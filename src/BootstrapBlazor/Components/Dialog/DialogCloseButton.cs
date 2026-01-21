@@ -16,7 +16,6 @@ public partial class DialogCloseButton : Button
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets Button Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.Secondary;
@@ -42,7 +41,6 @@ public partial class DialogCloseButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task HandlerClick()
     {
         await base.HandlerClick();

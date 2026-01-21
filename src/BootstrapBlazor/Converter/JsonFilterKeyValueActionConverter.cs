@@ -20,7 +20,6 @@ public sealed class JsonFilterKeyValueActionConverter : JsonConverter<FilterKeyV
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
     /// <param name="options"></param>
-    /// <returns></returns>
     public override FilterKeyValueAction? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var action = new FilterKeyValueAction();

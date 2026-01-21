@@ -16,6 +16,5 @@ public class RecognizerService(IRecognizerProvider provider)
     /// <para lang="en">Speech Recognition Callback Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public Task InvokeAsync(RecognizerOption option) => provider.InvokeAsync(option);
 }

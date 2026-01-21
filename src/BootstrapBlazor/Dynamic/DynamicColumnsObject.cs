@@ -42,7 +42,6 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
     public virtual object? GetValue(string propertyName)
     {
         return Columns.TryGetValue(propertyName, out object? v) ? v : null;

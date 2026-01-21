@@ -19,7 +19,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件数据集合</para>
     /// <para lang="en">Gets or sets the collection of items for the component.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -28,7 +27,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 匹配数据时显示的数量 默认为 null</para>
     /// <para lang="en">Gets or sets the number of items to display when matching data. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -37,7 +35,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启模糊搜索 默认为 false</para>
     /// <para lang="en">Gets or sets whether to enable fuzzy search. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLikeMatch { get; set; }
@@ -45,7 +42,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 匹配时是否忽略大小写 默认为 true</para>
     /// <para lang="en">Gets or sets whether to ignore case when matching. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IgnoreCase { get; set; } = true;
@@ -53,7 +49,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 获得焦点时是否展开下拉候选菜单 默认为 true</para>
     /// <para lang="en">Gets or sets whether to expand the dropdown candidate menu when focused. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDropdownListOnFocus { get; set; } = true;
@@ -61,7 +56,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 获取显示文本方法 默认为使用 ToString 方法</para>
     /// <para lang="en">Gets or sets the method to get the display text from the model. Default is to use the ToString override method.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -70,7 +64,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
     /// <para lang="en">Gets or sets the icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -78,7 +71,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 加载图标</para>
     /// <para lang="en">Gets or sets the loading icon.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
@@ -86,7 +78,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 自定义集合过滤规则</para>
     /// <para lang="en">Gets or sets the custom collection filtering rules.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
@@ -94,7 +85,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示无匹配数据选项 默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the no matching data option. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
@@ -102,7 +92,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 候选项模板 默认为 null</para>
     /// <para lang="en">Gets or sets the candidate item template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
@@ -112,7 +101,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启虚拟滚动 默认为 false</para>
     /// <para lang="en">Gets or sets whether virtual scrolling is enabled. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }
@@ -120,7 +108,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 虚拟滚动行高 默认为 50f</para>
     /// <para lang="en">Gets or sets the row height for virtual scrolling. Default is 50f.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">当 <see cref="IsVirtualize"/> 为 true 时生效</para>
@@ -132,7 +119,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 虚拟滚动预加载行数 默认为 3</para>
     /// <para lang="en">Gets or sets the overscan count for virtual scrolling. Default is 3.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">当 <see cref="IsVirtualize"/> 为 true 时生效</para>
@@ -144,7 +130,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 虚拟滚动加载回调方法</para>
     /// <para lang="en">Gets or sets the callback method for loading virtualized items.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -153,7 +138,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 点击清除按钮回调方法 默认为 null</para>
     /// <para lang="en">Gets or sets the callback method when the clear button is clicked. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
@@ -161,7 +145,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 输入框内容无效时是否自动清空内容 默认 false</para>
     /// <para lang="en">Gets or sets whether to clear the content automatically when the input is invalid. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoClearWhenInvalid { get; set; }
@@ -229,7 +212,6 @@ public partial class AutoFill<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -252,7 +234,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, _displayText, nameof(TriggerChange));
 
     private string? _clientValue;
@@ -262,7 +243,6 @@ public partial class AutoFill<TValue>
     /// <para lang="en">Triggered by client-side JavaScript</para>
     /// </summary>
     /// <param name="v"></param>
-    /// <returns></returns>
     [JSInvokable]
     public void TriggerChange(string v)
     {
@@ -275,7 +255,6 @@ public partial class AutoFill<TValue>
     /// <para lang="zh">获得 是否显示清除按钮</para>
     /// <para lang="en">Gets whether show the clear button.</para>
     /// </summary>
-    /// <returns></returns>
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
     /// <summary>
@@ -375,7 +354,6 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnBeforeBlurAsync()
     {
         if (IsAutoClearWhenInvalid && GetDisplayText(Value) != _clientValue)

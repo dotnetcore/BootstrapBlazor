@@ -34,7 +34,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     /// <para lang="en">Get multi-language value info index by specified key</para>
     /// </summary>
     /// <param name="name"></param>
-    /// <returns></returns>
     public override LocalizedString this[string name]
     {
         get
@@ -50,7 +49,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     /// </summary>
     /// <param name="name"></param>
     /// <param name="arguments"></param>
-    /// <returns></returns>
     public override LocalizedString this[string name, params object[] arguments]
     {
         get
@@ -188,7 +186,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     /// <para lang="en">Get all resource info of current culture</para>
     /// </summary>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     public override IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
     {
         if (_allLocalizedStrings == null)

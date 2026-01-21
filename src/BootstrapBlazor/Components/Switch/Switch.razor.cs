@@ -64,7 +64,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 开颜色</para>
     /// <para lang="en">Gets or sets On Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color OnColor { get; set; } = Color.Success;
@@ -72,7 +71,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 关颜色</para>
     /// <para lang="en">Gets or sets Off Color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color OffColor { get; set; }
@@ -80,7 +78,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 组件宽度 默认 40</para>
     /// <para lang="en">Gets or sets Component Width. Default 40</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 40;
@@ -88,7 +85,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 控件高度默认 20px</para>
     /// <para lang="en">Gets or sets Component Height. Default 20px</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 20;
@@ -96,7 +92,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 组件 On 时内置显示文本</para>
     /// <para lang="en">Gets or sets On Inner Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -105,7 +100,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 组件 Off 时内置显示文本</para>
     /// <para lang="en">Gets or sets Off Inner Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -114,7 +108,6 @@ public partial class Switch
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示内置文字 默认 false 显示</para>
     /// <para lang="en">Gets or sets Whether to show inner text. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowInnerText { get; set; }

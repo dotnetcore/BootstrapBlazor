@@ -16,7 +16,6 @@ public partial class TimePicker
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮显示文字</para>
     /// <para lang="en">Gets or sets the cancel button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -25,7 +24,6 @@ public partial class TimePicker
     /// <summary>
     /// <para lang="zh">获得/设置 确定按钮显示文字</para>
     /// <para lang="en">Gets or sets the confirm button display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -34,7 +32,6 @@ public partial class TimePicker
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示秒，默认为 true</para>
     /// <para lang="en">Gets or sets whether to display seconds. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -43,7 +40,6 @@ public partial class TimePicker
     /// <summary>
     /// <para lang="zh">获得/设置 取消按钮回调委托</para>
     /// <para lang="en">Gets or sets the cancel button callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
@@ -51,7 +47,6 @@ public partial class TimePicker
     /// <summary>
     /// <para lang="zh">获得/设置 确认按钮回调委托</para>
     /// <para lang="en">Gets or sets the confirm button callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TimeSpan, Task>? OnConfirm { get; set; }

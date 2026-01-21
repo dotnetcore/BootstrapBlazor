@@ -123,7 +123,6 @@ public static class IEditItemExtensions
     /// </summary>
     /// <param name="columns"></param>
     /// <param name="searchText"></param>
-    /// <returns></returns>
     public static List<IFilterAction> ToSearches(this IEnumerable<ITableColumn> columns, string? searchText)
     {
         var searches = new List<IFilterAction>();
@@ -185,7 +184,6 @@ public static class IEditItemExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="col"></param>
     /// <param name="item"></param>
-    /// <returns></returns>
     public static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);

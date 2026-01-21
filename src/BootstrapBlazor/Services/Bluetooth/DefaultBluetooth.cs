@@ -59,7 +59,6 @@ sealed class DefaultBluetooth : IBluetooth
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<bool> GetAvailability(CancellationToken token = default)
     {
         _module ??= await LoadModule();
@@ -100,7 +99,6 @@ sealed class DefaultBluetooth : IBluetooth
     /// </summary>
     /// <param name="optionalServices"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default)
     {
         var options = new BluetoothRequestOptions() { AcceptAllDevices = true, OptionalServices = optionalServices };

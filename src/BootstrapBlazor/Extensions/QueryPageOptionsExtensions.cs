@@ -18,7 +18,6 @@ public static class QueryPageOptionsExtensions
     /// <para lang="en">将 QueryPageOptions 过滤条件转换为 <see cref="FilterKeyValueAction"/></para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public static FilterKeyValueAction ToFilter(this QueryPageOptions option)
     {
         var filter = new FilterKeyValueAction();
@@ -60,7 +59,6 @@ public static class QueryPageOptionsExtensions
     /// </summary>
     /// <param name="option"></param>
     /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
-    /// <returns></returns>
     public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
@@ -69,7 +67,6 @@ public static class QueryPageOptionsExtensions
     /// </summary>
     /// <param name="option"></param>
     /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
-    /// <returns></returns>
     public static Expression<Func<TItem, bool>> ToFilterLambda<TItem>(this QueryPageOptions option, StringComparison? comparison = null) => option.ToFilter().GetFilterLambda<TItem>(comparison);
 
     /// <summary>
@@ -77,6 +74,5 @@ public static class QueryPageOptionsExtensions
     /// <para lang="en">whether包含过滤条件</para>
     /// </summary>
     /// <param name="filterKeyValueAction"></param>
-    /// <returns></returns>
     public static bool HasFilters(this FilterKeyValueAction filterKeyValueAction) => filterKeyValueAction.Filters.Count != 0;
 }

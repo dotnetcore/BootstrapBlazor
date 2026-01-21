@@ -20,7 +20,6 @@ internal static class RouteTableFactory
     /// </summary>
     /// <param name="assemblies"></param>
     /// <param name="url"></param>
-    /// <returns></returns>
     public static RouteContext Create(IEnumerable<Assembly> assemblies, string url)
     {
         RefreshRouteTable(assemblies);

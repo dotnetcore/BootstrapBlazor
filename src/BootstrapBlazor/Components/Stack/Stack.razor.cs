@@ -33,7 +33,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 内容</para>
     /// <para lang="en">Gets or sets Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -41,7 +40,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 是否为行布局 默认 false</para>
     /// <para lang="en">Gets or sets Is Row Layout. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsRow { get; set; }
@@ -49,7 +47,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 是否反向布局 默认 false</para>
     /// <para lang="en">Gets or sets Is Reverse Layout. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsReverse { get; set; }
@@ -57,7 +54,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许折行 默认 false</para>
     /// <para lang="en">Gets or sets Is Wrap. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }
@@ -65,7 +61,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
     /// <para lang="en">Gets or sets Align Items. Default StackAlignItems.Stretch</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StackAlignItems AlignItems { get; set; }
@@ -73,7 +68,6 @@ public partial class Stack
     /// <summary>
     /// <para lang="zh">获得/设置 水平布局调整 默认 StackJustifyContent.Start</para>
     /// <para lang="en">Gets or sets Justify Content. Default StackJustifyContent.Start</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public StackJustifyContent Justify { get; set; }

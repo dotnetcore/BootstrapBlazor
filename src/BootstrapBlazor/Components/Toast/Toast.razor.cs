@@ -46,7 +46,6 @@ public partial class Toast
     /// <summary>
     /// <para lang="zh">获得/设置 ToastOption 实例</para>
     /// <para lang="en">Gets or sets the ToastOption instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -99,7 +99,6 @@ public class MenuItem : NodeItem
     /// <para lang="zh">获得 所有子项集合</para>
     /// <para lang="en">Get All sub-items collection</para>
     /// </summary>
-    /// <returns></returns>
     public IEnumerable<MenuItem> GetAllSubItems() => Items.Concat(GetSubItems(Items));
 
     private static IEnumerable<MenuItem> GetSubItems(IEnumerable<MenuItem> items) => items.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetSubItems(i.Items)) : i.Items);

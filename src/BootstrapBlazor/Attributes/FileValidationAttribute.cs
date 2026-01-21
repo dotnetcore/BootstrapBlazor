@@ -35,7 +35,6 @@ public class FileValidationAttribute : ValidationAttribute
     /// </summary>
     /// <param name="value"></param>
     /// <param name="validationContext"></param>
-    /// <returns></returns>
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         ValidationResult? ret = null;

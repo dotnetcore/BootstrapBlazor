@@ -16,7 +16,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮文本</para>
     /// <para lang="en">Gets or sets Reset Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -25,7 +24,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 过滤按钮文本</para>
     /// <para lang="en">Gets or sets Filter Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -34,7 +32,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 增加过滤条件图标</para>
     /// <para lang="en">Gets or sets Add Filter Condition Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -42,7 +39,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 减少过滤条件图标</para>
     /// <para lang="en">Gets or sets Remove Filter Condition Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
@@ -50,7 +46,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 是否 show the more 按钮. 默认为 false.</para>
     /// <para lang="en">Gets or sets whether show the more button. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowMoreButton { get; set; }
@@ -58,7 +53,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 the filter title. 默认为 null.</para>
     /// <para lang="en">Gets or sets the filter title. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -66,7 +60,6 @@ public partial class FilterProvider
     /// <summary>
     /// <para lang="zh">获得/设置 the child 内容. 默认为 null.</para>
     /// <para lang="en">Gets or sets the child content. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -126,7 +119,6 @@ public partial class FilterProvider
     /// <para lang="zh">点击重置按钮时回调此方法</para>
     /// <para lang="en">Callback this method when clicking reset button</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickReset()
     {
         Count = 0;
@@ -141,7 +133,6 @@ public partial class FilterProvider
     /// <para lang="zh">点击确认时回调此方法</para>
     /// <para lang="en">Callback this method when clicking confirm</para>
     /// </summary>
-    /// <returns></returns>
     protected async Task OnClickConfirm()
     {
         if (TableColumnFilter != null)
@@ -154,7 +145,6 @@ public partial class FilterProvider
     /// <para lang="zh">点击增加按钮时回调此方法</para>
     /// <para lang="en">Callback this method when clicking add button</para>
     /// </summary>
-    /// <returns></returns>
     private void OnClickPlus()
     {
         if (Count == 0)
@@ -167,7 +157,6 @@ public partial class FilterProvider
     /// <para lang="zh">点击减少按钮时回调此方法</para>
     /// <para lang="en">Callback this method when clicking remove button</para>
     /// </summary>
-    /// <returns></returns>
     private void OnClickMinus()
     {
         if (Count == 1)

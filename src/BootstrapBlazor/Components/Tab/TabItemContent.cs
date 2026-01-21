@@ -13,7 +13,6 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 标签项，默认为 null</para>
     /// <para lang="en">Gets or sets the component content. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter, NotNull]
     public TabItem? Item { get; set; }

@@ -16,7 +16,6 @@ class DefaultIconTheme(IOptions<IconThemeOptions> options) : IIconTheme
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
 #if NET8_0_OR_GREATER
     public FrozenDictionary<ComponentIcons, string> GetIcons()
     {

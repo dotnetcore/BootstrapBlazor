@@ -16,9 +16,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 重置回调委托</para>
     /// <para lang="en">Gets or sets Reset Callback Delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
-    /// <returns></returns>
     [Parameter]
     [NotNull]
     public Func<Task>? OnResetSearchClick { get; set; }
@@ -26,9 +24,7 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索回调委托</para>
     /// <para lang="en">Gets or sets Search Callback Delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
-    /// <returns></returns>
     [Parameter]
     [NotNull]
     public Func<Task>? OnSearchClick { get; set; }
@@ -36,7 +32,6 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮文本</para>
     /// <para lang="en">Gets or sets Reset Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -45,7 +40,6 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 查询按钮文本</para>
     /// <para lang="en">Gets or sets Query Button Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -54,7 +48,6 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 清空按钮图标</para>
     /// <para lang="en">Gets or sets Clear Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
@@ -62,7 +55,6 @@ public partial class SearchDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 搜索按钮图标</para>
     /// <para lang="en">Gets or sets Search Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }

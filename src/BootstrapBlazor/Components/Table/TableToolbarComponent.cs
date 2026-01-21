@@ -20,7 +20,6 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets child component</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -28,7 +27,6 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
     /// <summary>
     /// <para lang="zh">获得/设置 Table Toolbar 实例</para>
     /// <para lang="en">Gets or sets Table Toolbar instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }

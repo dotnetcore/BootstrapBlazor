@@ -19,7 +19,6 @@ internal static class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="month"></param>
-    /// <returns></returns>
     public static DateTime GetSafeMonthDateTime(this DateTime dt, int month)
     {
         var @base = dt;
@@ -55,7 +54,6 @@ internal static class DateTimeExtensions
     /// <para lang="en">Get Lunar DateTime</para>
     /// </summary>
     /// <param name="dt"></param>
-    /// <returns></returns>
     public static (int Year, int Month, int Day) ToLunarDateTime(this DateTime dt)
     {
         var year = calendar.GetYear(dt);
@@ -78,7 +76,6 @@ internal static class DateTimeExtensions
     /// <param name="dt"></param>
     /// <param name="showSolarTerm"></param>
     /// <param name="calendarFestivals"></param>
-    /// <returns></returns>
     public static string ToLunarText(this DateTime dt, bool showSolarTerm = false, ICalendarFestivals? calendarFestivals = null) => calendarFestivals?.GetFestival(dt)
         ?? (showSolarTerm
             ? dt.GetSolarTermName() ?? dt.GetLunarMonthName()

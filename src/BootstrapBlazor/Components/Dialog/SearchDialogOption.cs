@@ -85,13 +85,11 @@ public class SearchDialogOption<TModel> : DialogOption
     /// <para lang="zh">获得/设置 重置回调委托</para>
     /// <para lang="en">Gets or sets Reset Callback Delegate</para>
     /// </summary>
-    /// <returns></returns>
     public Func<Task>? OnResetSearchClick { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 搜索回调委托</para>
     /// <para lang="en">Gets or sets Search Callback Delegate</para>
     /// </summary>
-    /// <returns></returns>
     public Func<Task>? OnSearchClick { get; set; }
 }

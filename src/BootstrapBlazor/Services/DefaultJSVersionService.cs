@@ -16,7 +16,6 @@ class DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options) : IVersi
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public string GetVersion()
     {
         Version ??= ConfigVersion ?? GetVersionFromAssembly();

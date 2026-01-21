@@ -18,7 +18,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual ValueTask InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
@@ -28,7 +27,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual ValueTask InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
         using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
@@ -43,7 +41,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual async ValueTask InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
         var paras = new List<object?>();
@@ -76,7 +73,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual ValueTask<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
@@ -86,7 +82,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual ValueTask<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
         using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
@@ -101,7 +96,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     public virtual async ValueTask<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
         var paras = new List<object?>();

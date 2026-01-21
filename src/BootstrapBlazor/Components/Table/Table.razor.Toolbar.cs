@@ -12,7 +12,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示工具栏 默认 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to show toolbar. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
@@ -20,7 +19,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 the 模板 of table toolbar. 默认为 null.</para>
     /// <para lang="en">Gets or sets the template of table toolbar. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ToolbarTemplate { get; set; }
@@ -28,7 +26,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值</para>
     /// <para lang="en">Gets or sets Whether to show skeleton when first loading. Default false. Use <see cref="ShowLoadingInFirstRender" /> parameter value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSkeleton { get; set; }
@@ -36,7 +33,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值覆盖此参数</para>
     /// <para lang="en">Gets or sets Whether to show loading animation when first loading. Default true. Setting <see cref="ShowSkeleton"/> value covers this parameter</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLoadingInFirstRender { get; set; } = true;
@@ -44,7 +40,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示按钮列 默认为 true</para>
     /// <para lang="en">Gets or sets Whether to show Button Column. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>本属性设置为 true 新建编辑删除按钮设置为 false 可单独控制每个按钮是否显示</remarks>
     [Parameter]
@@ -53,7 +48,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示新建按钮 默认为 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show Add Button. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAddButton { get; set; } = true;
@@ -61,7 +55,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowExtendEditButtonCallback" /></para>
     /// <para lang="en">Gets or sets Whether to show Edit Button. Default true. Use <see cref="ShowExtendEditButton"/> and <see cref="ShowExtendEditButtonCallback" /> for in-row display</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowEditButton { get; set; } = true;
@@ -69,7 +62,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendDeleteButton"/> 与 <see cref="ShowExtendDeleteButtonCallback" /></para>
     /// <para lang="en">Gets or sets Whether to show Delete Button. Default true. Use <see cref="ShowExtendDeleteButton"/> and <see cref="ShowExtendDeleteButtonCallback" /> for in-row display</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; } = true;
@@ -77,7 +69,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示导出按钮 默认为 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to show Export Button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportButton { get; set; }
@@ -85,7 +76,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Excel 导出按钮 默认为 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show Export Excel Button. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportExcelButton { get; set; } = true;
@@ -93,7 +83,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Csv 导出按钮 默认为 false 显示</para>
     /// <para lang="en">Gets or sets Whether to show Export Csv Button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportCsvButton { get; set; }
@@ -101,7 +90,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示</para>
     /// <para lang="en">Gets or sets Whether to show Export Pdf Button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExportPdfButton { get; set; }
@@ -109,7 +97,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出按钮图标</para>
     /// <para lang="en">Gets or sets Export Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExportButtonIcon { get; set; }
@@ -117,7 +104,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出 Csv 按钮图标</para>
     /// <para lang="en">Gets or sets Default Export Csv Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CsvExportIcon { get; set; }
@@ -125,7 +111,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出 Excel 按钮图标</para>
     /// <para lang="en">Gets or sets Default Export Excel Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExcelExportIcon { get; set; }
@@ -133,7 +118,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出 Pdf 按钮图标</para>
     /// <para lang="en">Gets or sets Default Export Pdf Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PdfExportIcon { get; set; }
@@ -141,7 +125,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据前是否弹出 Toast 提示框 默认 true</para>
     /// <para lang="en">Gets or sets Whether to show Toast before export. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToastBeforeExport { get; set; } = true;
@@ -149,7 +132,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据后是否弹出 Toast 提示框 默认 true</para>
     /// <para lang="en">Gets or sets Whether to show Toast after export. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToastAfterExport { get; set; } = true;
@@ -157,7 +139,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据前回调方法 默认 null</para>
     /// <para lang="en">Gets or sets Before Export Callback. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? BeforeExportCallback { get; set; }
@@ -165,7 +146,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据后回调方法 默认 null</para>
     /// <para lang="en">Gets or sets After Export Callback. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? AfterExportCallback { get; set; }
@@ -173,7 +153,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出按钮下拉菜单模板 默认 null</para>
     /// <para lang="en">Gets or sets Export Button Dropdown Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
@@ -181,7 +160,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出微软 Csv 按钮文本 默认 null 读取资源文件</para>
     /// <para lang="en">Gets or sets Export Microsoft Csv Button Text. Default null (Read from resource file)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExportCsvDropdownItemText { get; set; }
@@ -189,7 +167,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件</para>
     /// <para lang="en">Gets or sets Export Microsoft Excel Button Text. Default null (Read from resource file)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExportExcelDropdownItemText { get; set; }
@@ -197,7 +174,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 内置导出 Pdf 按钮文本 默认 null 读取资源文件</para>
     /// <para lang="en">Gets or sets Export Pdf Button Text. Default null (Read from resource file)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ExportPdfDropdownItemText { get; set; }
@@ -205,7 +181,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示扩展按钮 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to show Extension Button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExtendButtons { get; set; }
@@ -213,7 +188,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮 默认 true</para>
     /// <para lang="en">Gets or sets Whether to auto collapse toolbar buttons. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
@@ -221,7 +195,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式和中空化 默认 false</para>
     /// <para lang="en">Gets or sets Whether to inherit button style when toolbar buttons collapsed. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }
@@ -229,7 +202,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏移动端按钮图标</para>
     /// <para lang="en">Gets or sets Toolbar Mobile Button Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GearIcon { get; set; }
@@ -237,7 +209,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 扩展按钮是否在前面 默认 false 在行尾</para>
     /// <para lang="en">Gets or sets Whether extension buttons are in front. Default false (At the end)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsExtendButtonsInRowHeader { get; set; }
@@ -245,7 +216,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行内操作列宽度 默认为 130</para>
     /// <para lang="en">Gets or sets Extension Column Width. Default 130</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int ExtendButtonColumnWidth { get; set; } = 130;
@@ -253,7 +223,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行内操作列对齐方式 默认 center</para>
     /// <para lang="en">Gets or sets Extension Column Alignment. Default center</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment ExtendButtonColumnAlignment { get; set; }
@@ -261,7 +230,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展编辑按钮 默认 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show inline extension edit button. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExtendEditButton { get; set; } = true;
@@ -269,7 +237,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to show inline extension edit button. Default null. use <see cref="ShowExtendEditButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
@@ -277,7 +244,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用行内扩展编辑按钮 默认 false 不禁用</para>
     /// <para lang="en">Gets or sets Whether to disable inline extension edit button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DisableExtendEditButton { get; set; }
@@ -285,7 +251,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="DisableExtendEditButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to disable inline extension edit button. Default null. use <see cref="DisableExtendEditButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? DisableExtendEditButtonCallback { get; set; }
@@ -293,7 +258,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用行内扩展删除按钮 默认 false 不禁用</para>
     /// <para lang="en">Gets or sets Whether to disable inline extension delete button. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool DisableExtendDeleteButton { get; set; }
@@ -301,7 +265,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用行内扩展删除按钮 默认为 null 未设置时使用 <see cref="DisableExtendDeleteButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to disable inline extension delete button. Default null. use <see cref="DisableExtendDeleteButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? DisableExtendDeleteButtonCallback { get; set; }
@@ -309,7 +272,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to show inline extension edit button. Default null. use <see cref="ShowExtendEditButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ShowExtendEditButtonCallback 参数. Deprecated Use ShowExtendEditButtonCallback instead.")]
@@ -323,7 +285,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展删除按钮 默认 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show inline extension delete button. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExtendDeleteButton { get; set; } = true;
@@ -331,7 +292,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to show inline extension delete button. Default null. use <see cref="ShowExtendDeleteButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowExtendDeleteButtonCallback { get; set; }
@@ -339,7 +299,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值</para>
     /// <para lang="en">Gets or sets Whether to show inline extension delete button. Default null. use <see cref="ShowExtendDeleteButton"/> value if not set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [Obsolete(" 已过期，请使用 ShowExtendDeleteButtonCallback 参数. Deprecated Use ShowExtendDeleteButtonCallback instead.")]
@@ -353,7 +312,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定扩展按钮列 默认为 false 不固定</para>
     /// <para lang="en">Gets or sets Whether to fix Extension Button Column. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool FixedExtendButtonsColumn { get; set; }
@@ -361,7 +319,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定多选列 默认为 false 不固定</para>
     /// <para lang="en">Gets or sets Whether to fix Multiple Select Column. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool FixedMultipleColumn { get; set; }
@@ -369,7 +326,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定明细行 Header 列 默认为 false 不固定</para>
     /// <para lang="en">Gets or sets Whether to fix Detail Row Header Column. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool FixedDetailRowHeaderColumn { get; set; }
@@ -377,7 +333,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否固定 LineNo 列 默认为 false 不固定</para>
     /// <para lang="en">Gets or sets Whether to fix LineNo Column. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool FixedLineNoColumn { get; set; }
@@ -385,7 +340,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示刷新按钮 默认为 true</para>
     /// <para lang="en">Gets or sets Whether to show Refresh Button. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowRefresh { get; set; } = true;
@@ -393,7 +347,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示视图按钮 默认为 false <see cref="IsExcel"/> 模式下此设置无效</para>
     /// <para lang="en">Gets or sets Whether to show Card View Button. Default false. Not effective in <see cref="IsExcel"/> mode</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowCardView { get; set; }
@@ -401,7 +354,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示列选择下拉框 默认为 false 不显示 点击下拉框内列控制是否显示后触发 <see cref="OnColumnVisibleChanged"/> 回调方法</para>
     /// <para lang="en">Gets or sets Whether to show Column List Dropdown. Default false. Trigger <see cref="OnColumnVisibleChanged"/> when column visible changed</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowColumnList { get; set; }
@@ -409,7 +361,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 列选择下拉框中是否显示控制功能按钮默认为 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to show control buttons in Column List Dropdown. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowColumnListControls { get; set; }
@@ -417,7 +368,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 列选择下拉框图标</para>
     /// <para lang="en">Gets or sets Column List Dropdown Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ColumnListButtonIcon { get; set; }
@@ -425,7 +375,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show Toast when save or delete failed. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToastAfterSaveOrDeleteModel { get; set; } = true;
@@ -435,7 +384,6 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
     /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
     /// <para lang="en">Table toolbar left button template, content appears before default buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableToolbarBeforeTemplate { get; set; }
@@ -445,7 +393,6 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
     /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// <para lang="en">Table toolbar left button template, content appears after default buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableToolbarTemplate { get; set; }
@@ -455,7 +402,6 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
     /// <para lang="zh">表格工具栏右侧按钮模板，模板中内容出现在默认按钮前面</para>
     /// <para lang="en">Table toolbar right button template, content appears before default buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableExtensionToolbarBeforeTemplate { get; set; }
@@ -465,7 +411,6 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
     /// <para lang="zh">表格工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// <para lang="en">Table toolbar right button template, content appears after default buttons</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableExtensionToolbarTemplate { get; set; }
@@ -473,7 +418,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 新建按钮回调方法 用于补充模型字段值</para>
     /// <para lang="en">Gets or sets Add Button Callback. Used to populate model field values</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">有些场景下新建模型有些属性字段默认值需要更改为默认业务值，或者该属性数据库中设置不可为空，新建模型默认值为空时，可通过此回调进行属性值补充更新</para>
@@ -485,7 +429,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑按钮回调方法</para>
     /// <para lang="en">Gets or sets Edit Button Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnEditAsync { get; set; }
@@ -493,7 +436,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮异步回调方法</para>
     /// <para lang="en">Gets or sets Save Button Async Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, ItemChangedType, Task<bool>>? OnSaveAsync { get; set; }
@@ -501,7 +443,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮异步回调方法</para>
     /// <para lang="en">Gets or sets Delete Button Async Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
@@ -509,7 +450,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出按钮异步回调方法</para>
     /// <para lang="en">Gets or sets Export Button Async Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ITableExportDataContext<TItem>, Task<bool>>? OnExportAsync { get; set; }
@@ -517,7 +457,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存弹窗中的保存按钮显示文本 默认为资源文件中的 保存</para>
     /// <para lang="en">Gets or sets Save Button Text in Edit Dialog. Default "Save" in resource file</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? EditDialogSaveButtonText { get; set; }
@@ -525,7 +464,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存弹窗中的保存按钮图标 默认 null 使用当前主题图标</para>
     /// <para lang="en">Gets or sets Save Button Icon in Edit Dialog. Default null (Use current theme icon)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? EditDialogSaveButtonIcon { get; set; }
@@ -533,7 +471,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存弹窗中的关闭按钮显示文本 默认为资源文件中的 关闭</para>
     /// <para lang="en">Gets or sets Close Button Text in Edit Dialog. Default "Close" in resource file</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? EditDialogCloseButtonText { get; set; }
@@ -541,7 +478,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 保存弹窗中的关闭按钮图标 默认 null 使用当前主题图标</para>
     /// <para lang="en">Gets or sets Close Button Icon in Edit Dialog. Default null (Use current theme icon)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? EditDialogCloseButtonIcon { get; set; }
@@ -549,7 +485,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据弹窗 Title 默认为资源文件 导出数据</para>
     /// <para lang="en">Gets or sets Export Dialog Title. Default "Export Data" in resource file</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -558,7 +493,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 导出数据提示内容 默认为资源文件</para>
     /// <para lang="en">Gets or sets Export Toast Content. Default in resource file</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -567,7 +501,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 正在导出数据提示内容 默认为资源文件</para>
     /// <para lang="en">Gets or sets Export In Progress Toast Content. Default in resource file</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -576,7 +509,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑弹窗配置类扩展回调方法 新建/编辑弹窗弹出前回调此方法用于设置弹窗配置信息</para>
     /// <para lang="en">Gets or sets Edit Dialog Option Callback. Called before showing Add/Edit Dialog to configure options</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Action<ITableEditDialogOption<TItem>>? BeforeShowEditDialogCallback { get; set; }
@@ -608,7 +540,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉打开之前回调方法 用于设置 <see cref="DrawerOption"/> 抽屉配置信息</para>
     /// <para lang="en">Gets or sets Before Show Drawer Callback. Used to configure <see cref="DrawerOption"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DrawerOption, Task>? OnBeforeShowDrawer { get; set; }
@@ -627,7 +558,6 @@ public partial class Table<TItem>
     /// <para lang="zh">获得当前可见列集合</para>
     /// <para lang="en">Get Visible Columns Collection</para>
     /// </summary>
-    /// <returns></returns>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // <para lang="zh">不可见列</para>
@@ -796,7 +726,6 @@ public partial class Table<TItem>
     /// <para lang="zh">取消保存方法</para>
     /// <para lang="en">Cancel Save Method</para>
     /// </summary>
-    /// <returns></returns>
     protected async Task CancelSave()
     {
         if (EditMode == EditMode.EditForm)
@@ -823,7 +752,6 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="context"></param>
     /// <param name="changedType"></param>
-    /// <returns></returns>
     protected async Task<bool> SaveModelAsync(EditContext context, ItemChangedType changedType)
     {
         bool valid;
@@ -924,7 +852,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑框的大小 默认值 <see cref="Size.ExtraExtraLarge"/></para>
     /// <para lang="en">Gets or sets the Edit Dialog Size. Default is <see cref="Size.ExtraExtraLarge"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size EditDialogSize { get; set; } = Size.ExtraExtraLarge;
@@ -932,7 +859,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑框是否可以拖拽 默认 false 不可以拖拽，参数 <see cref="EditDialogShowMaximizeButton"/> 值为 false 时此参数才生效</para>
     /// <para lang="en">Gets or sets Whether to drag the edit dialog. Default false. This parameter takes effect only when <see cref="EditDialogShowMaximizeButton"/> is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EditDialogIsDraggable { get; set; }
@@ -940,7 +866,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑框 FullScreenSize 参数 默认 none</para>
     /// <para lang="en">Gets or sets Edit Dialog FullScreenSize Parameter. Default none</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public FullScreenSize EditDialogFullScreenSize { get; set; }
@@ -948,7 +873,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑框是否显示最大化按钮 默认 true 显示，此时 <see cref="EditDialogIsDraggable"/> 参数无效</para>
     /// <para lang="en">Gets or sets Whether to show maximize button on edit dialog. Default true. When true, <see cref="EditDialogIsDraggable"/> parameter is invalid</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;
@@ -956,7 +880,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 未分组编辑项布局位置 默认 false 在尾部</para>
     /// <para lang="en">Gets or sets Layout position of ungrouped edit items. Default false (At the end)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
@@ -964,7 +887,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 弹窗 Footer</para>
     /// <para lang="en">Gets or sets Dialog Footer</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? EditFooterTemplate { get; set; }
@@ -972,7 +894,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑弹窗关闭前回调方法</para>
     /// <para lang="en">Gets or sets Before Close Edit Dialog Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
@@ -980,7 +901,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 编辑弹窗 Dialog, 可避免弹窗中 Table 再次弹窗时隐藏原表格问题</para>
     /// <para lang="en">Gets or sets Edit Dialog. To avoid hiding the original table when the table popup again in the popup window</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Dialog? EditDialog { get; set; }

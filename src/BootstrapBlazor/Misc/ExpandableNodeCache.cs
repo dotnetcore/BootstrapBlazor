@@ -47,7 +47,6 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
     public virtual async Task ToggleNodeAsync(TNode node, Func<TNode, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
     {
@@ -86,7 +85,6 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// </summary>
     /// <param name="node"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
     public async Task CheckExpandAsync(TNode node, Func<TNode, Task<IEnumerable<IExpandableNode<TItem>>>> callback)
     {
         if (node.IsExpand)

@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Waterfall 组件数据类</para>
-///  <para lang="en">Waterfall componentdata类</para>
+/// <para lang="zh">Waterfall 组件数据类</para>
+/// <para lang="en">Waterfall componentdata类</para>
 /// </summary>
 public class WaterfallItem
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 id</para>
-    ///  <para lang="en">Gets or sets id</para>
+    /// <para lang="zh">获得/设置 id</para>
+    /// <para lang="en">Gets or sets id</para>
     /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">the url of image element</para>
-    ///  <para lang="en">the url of image element</para>
+    /// <para lang="zh">the url of image element</para>
+    /// <para lang="en">the url of image element</para>
     /// </summary>
     public string? Url { get; set; }
 }

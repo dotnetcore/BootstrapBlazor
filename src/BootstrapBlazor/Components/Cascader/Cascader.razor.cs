@@ -35,7 +35,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色</para>
     /// <para lang="en">Gets or sets the button color</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.None;
@@ -43,7 +42,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 组件 PlaceHolder 文字 默认为 请选择 ...</para>
     /// <para lang="en">Gets or sets the component PlaceHolder text. Default is Please select ...</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
@@ -51,7 +49,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 绑定数据集</para>
     /// <para lang="en">Gets or sets the bound data set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -60,7 +57,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 ValueChanged 方法</para>
     /// <para lang="en">Gets or sets the ValueChanged method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CascaderItem[], Task>? OnSelectedItemChanged { get; set; }
@@ -68,7 +64,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 父节点是否可选择 默认 true</para>
     /// <para lang="en">Gets or sets whether the parent node is selectable. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ParentSelectable { get; set; } = true;
@@ -76,7 +71,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示全路径 默认 true</para>
     /// <para lang="en">Gets or sets whether to show the full path. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFullLevels { get; set; } = true;
@@ -84,7 +78,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 菜单指示图标</para>
     /// <para lang="en">Gets or sets the menu indicator icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -92,7 +85,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 子菜单指示图标</para>
     /// <para lang="en">Gets or sets the submenu indicator icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SubMenuIcon { get; set; }
@@ -100,7 +92,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否可清除 默认 false</para>
     /// <para lang="en">Gets or sets whether it is clearable. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
@@ -108,7 +99,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
     /// <para lang="en">Gets or sets the clear icon on the right. Default is fa-solid fa-angle-up</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -117,7 +107,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 清除文本内容 OnClear 回调方法 默认 null</para>
     /// <para lang="en">Gets or sets the OnClear callback method when clearing text content. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
@@ -125,7 +114,6 @@ public partial class Cascader<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 失去焦点回调方法 默认 null</para>
     /// <para lang="en">Gets or sets the callback method when losing focus. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
@@ -217,7 +205,6 @@ public partial class Cascader<TValue>
     /// </summary>
     /// <param name="items"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     private static CascaderItem? GetNodeByValue(IEnumerable<CascaderItem> items, string value)
     {
         foreach (var item in items)
@@ -270,7 +257,6 @@ public partial class Cascader<TValue>
     /// </summary>
     /// <param name="className"></param>
     /// <param name="item"></param>
-    /// <returns></returns>
     private string? ActiveItem(string className, CascaderItem item) => CssBuilder.Default(className)
         .AddClass("active", () => SelectedItems.Contains(item))
         .Build();

@@ -17,7 +17,6 @@ public interface IPinyinService
     /// </summary>
     /// <param name="text"></param>
     /// <param name="caseCategory"></param>
-    /// <returns></returns>
     HashSet<string> GetFirstLetters(string text, PinyinLetterCaseCategory caseCategory = PinyinLetterCaseCategory.UppercaseLetter);
 
     /// <summary>
@@ -26,7 +25,6 @@ public interface IPinyinService
     /// </summary>
     /// <param name="text"></param>
     /// <param name="caseCategory"></param>
-    /// <returns></returns>
     HashSet<string> GetPinyin(string text, PinyinLetterCaseCategory caseCategory = PinyinLetterCaseCategory.UppercaseLetter);
 
     /// <summary>
@@ -34,7 +32,6 @@ public interface IPinyinService
     /// <para lang="en">判断whether为中文字符</para>
     /// </summary>
     /// <param name="c"></param>
-    /// <returns></returns>
     bool IsChinese(char c);
 
     /// <summary>
@@ -42,6 +39,5 @@ public interface IPinyinService
     /// <para lang="en">判断字符串whether包含中文字符</para>
     /// </summary>
     /// <param name="text"></param>
-    /// <returns></returns>
     bool ContainsChinese(string text);
 }

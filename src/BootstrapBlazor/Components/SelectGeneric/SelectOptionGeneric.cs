@@ -14,7 +14,6 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
     /// <para lang="en">Gets or sets Display Name</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -22,7 +21,6 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 选项值</para>
     /// <para lang="en">Gets or sets Option Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TValue? Value { get; set; }
@@ -30,7 +28,6 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否选中 默认 false</para>
     /// <para lang="en">Gets or sets Whether selected. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Active { get; set; }
@@ -38,7 +35,6 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认 false</para>
     /// <para lang="en">Gets or sets Whether disabled. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -46,15 +42,10 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 分组名称</para>
     /// <para lang="en">Gets or sets Group Name</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">父组件通过级联参数获得</para>
-    /// <para lang="en">Parent component obtained through cascading parameter</para>
-    /// </summary>
     [CascadingParameter]
     private ISelectGeneric<TValue>? Container { get; set; }
 

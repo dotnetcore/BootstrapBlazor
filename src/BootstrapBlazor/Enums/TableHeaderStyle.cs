@@ -8,26 +8,26 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">表格 thead 样式枚举</para>
-///  <para lang="en">表格 thead styleenum</para>
+/// <para lang="zh">表格 thead 样式枚举</para>
+/// <para lang="en">表格 thead styleenum</para>
 /// </summary>
 public enum TableHeaderStyle
 {
     /// <summary>
-    ///  <para lang="zh">未设置</para>
-    ///  <para lang="en">未Sets</para>
+    /// <para lang="zh">未设置</para>
+    /// <para lang="en">未Sets</para>
     /// </summary>
     None,
     /// <summary>
-    ///  <para lang="zh">浅色</para>
-    ///  <para lang="en">浅色</para>
+    /// <para lang="zh">浅色</para>
+    /// <para lang="en">浅色</para>
     /// </summary>
     [Description("table-light")]
     Light,
 
     /// <summary>
-    ///  <para lang="zh">深色</para>
-    ///  <para lang="en">深色</para>
+    /// <para lang="zh">深色</para>
+    /// <para lang="en">深色</para>
     /// </summary>
     [Description("table-dark")]
     Dark

@@ -14,16 +14,14 @@ public partial class Radio<TValue> : Checkbox<TValue>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 点击回调方法</para>
-    /// <para lang="en">Gets or sets Click Callback Method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the click callback method</para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnClick { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Radio 组名称一般来讲需要设置 默认为 null 未设置</para>
-    /// <para lang="en">Gets or sets Radio Group Name. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Radio 组名称。一般来讲需要设置，默认为 null 未设置</para>
+    /// <para lang="en">Gets or sets the Radio group name. Default is null</para>
     /// </summary>
     [Parameter]
     [EditorRequired]

@@ -23,7 +23,6 @@ public class DataTableDynamicObject : DynamicObject
     /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
     public override object? GetValue(string propertyName)
     {
         object? ret = null;

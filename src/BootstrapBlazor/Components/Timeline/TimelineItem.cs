@@ -60,7 +60,6 @@ public class TimelineItem
     /// <para lang="zh">获得 图标样式</para>
     /// <para lang="en">Gets the icon style</para>
     /// </summary>
-    /// <returns></returns>
     internal string? ToIconClassString() => CssBuilder.Default("timeline-item-icon")
         .AddClass(Icon, !string.IsNullOrEmpty(Icon))
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)

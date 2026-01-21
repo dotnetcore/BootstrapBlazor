@@ -42,8 +42,8 @@ public class SegmentedOption<TValue>
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">组件内容</para>
-    /// <para lang="en">Child Content</para>
+    /// <para lang="zh">获得/设置 组件内容</para>
+    /// <para lang="en">Gets or sets Child Content</para>
     /// </summary>
     public RenderFragment? ChildContent { get; set; }
 }

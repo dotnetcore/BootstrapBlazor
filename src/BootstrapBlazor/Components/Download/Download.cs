@@ -35,7 +35,6 @@ public class Download : BootstrapModuleComponentBase
     /// <para lang="en">Call download Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     protected virtual async Task DownloadFromStream(DownloadOption option)
     {
         if (option.FileStream == null)
@@ -57,7 +56,6 @@ public class Download : BootstrapModuleComponentBase
     /// <para lang="en">Call CreateUrl Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     protected virtual async Task DownloadFromUrl(DownloadOption option)
     {
         if (string.IsNullOrEmpty(option.Url))

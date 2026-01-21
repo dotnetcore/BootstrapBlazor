@@ -15,13 +15,11 @@ public interface ICalendarHolidays
     /// <para lang="zh">是否为假日</para>
     /// <para lang="en">Is Holiday</para>
     /// </summary>
-    /// <returns></returns>
     bool IsHoliday(DateTime dt);
 
     /// <summary>
     /// <para lang="zh">是否为工作日</para>
     /// <para lang="en">Is Workday</para>
     /// </summary>
-    /// <returns></returns>
     bool IsWorkday(DateTime dt);
 }

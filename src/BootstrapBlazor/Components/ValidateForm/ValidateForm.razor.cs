@@ -21,7 +21,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 表单提交后验证合规时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when form submission is validated.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<EditContext, Task>? OnValidSubmit { get; set; }
@@ -29,7 +28,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 表单提交后验证不合规时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when form submission is invalid.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<EditContext, Task>? OnInvalidSubmit { get; set; }
@@ -37,7 +35,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 表单内绑定字段值变化时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when a bound field's value has changed within the form.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -46,7 +43,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示所有验证失败字段的提示信息 默认 false 仅显示第一个验证失败字段的提示信息</para>
     /// <para lang="en">Gets or sets whether to display all validation failure messages. The default is false, which only displays the first validation failure message.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowAllInvalidResult { get; set; }
@@ -54,7 +50,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否验证所有字段 默认 false</para>
     /// <para lang="en">Gets or sets whether to validate all properties. The default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ValidateAllProperties { get; set; }
@@ -62,7 +57,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 表单绑定模型对象</para>
     /// <para lang="en">Gets or sets the top-level model object for the form.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -71,7 +65,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 组件子内容</para>
     /// <para lang="en">Gets or sets the content to be rendered inside this component.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -79,7 +72,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否获取必填项标记 默认为 true 显示</para>
     /// <para lang="en">Gets or sets whether to display the required mark. The default is true, which means the required mark is displayed.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowRequiredMark { get; set; } = true;
@@ -87,7 +79,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示验证表单内的 Label 默认为 null</para>
     /// <para lang="en">Gets or sets whether to display labels within the validation form. The default value is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabel { get; set; }
@@ -95,7 +86,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null</para>
     /// <para lang="en">Gets or sets whether to display a tooltip for the label, often used when the label text is too long and gets truncated. The default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
@@ -103,7 +93,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否为无表单模式 默认 false</para>
     /// <para lang="en">Gets or sets whether to use a formless mode. The default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>设置为 true 时不渲染 form 元素，仅级联 EditContext 用于 Table InCell 编辑模式</remarks>
     [Parameter]
@@ -112,7 +101,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
     /// <para lang="en">Gets or sets whether禁用表单内回车自动提交功能 Default is null 未Sets</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
@@ -120,7 +108,6 @@ public partial class ValidateForm
     /// <summary>
     /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置 使用全局设置 <code>--bb-row-label-width</code> 值</para>
     /// <para lang="en">Gets or sets the label width. The default is null, which means the global setting <code>--bb-row-label-width</code> is used.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? LabelWidth { get; set; }
@@ -707,14 +694,12 @@ public partial class ValidateForm
     /// <para lang="zh">获取 当前表单值改变的属性集合</para>
     /// <para lang="en">Get the set of attributes whose current form values ​​have changed.</para>
     /// </summary>
-    /// <returns></returns>
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChangedFields { get; } = new();
 
     /// <summary>
     /// <para lang="zh">获取 当前表单值改变的属性集合</para>
     /// <para lang="en">Get the set of attributes whose current form values ​​have changed.</para>
     /// </summary>
-    /// <returns></returns>
     [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated Please use ValueChangedFields instead. wrong typo")]
     [ExcludeFromCodeCoverage]
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();

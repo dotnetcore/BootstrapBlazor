@@ -68,7 +68,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <para lang="en">GetResourcePrefix method</para>
     /// </summary>
     /// <param name="typeInfo"></param>
-    /// <returns></returns>
     protected override string GetResourcePrefix(TypeInfo typeInfo)
     {
         var typeName = typeInfo.FullName;
@@ -93,7 +92,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     /// <param name="baseResourceName"></param>
     /// <param name="baseNamespace"></param>
-    /// <returns></returns>
     protected override string GetResourcePrefix(string baseResourceName, string baseNamespace)
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
@@ -110,6 +108,5 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     /// <param name="assembly"><para lang="zh">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para><para lang="en">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para></param>
     /// <param name="baseName"><para lang="zh">The base name of the resource to search for</para><para lang="en">The base name of the resource to search for</para></param>
-    /// <returns></returns>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, _typeName!, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
 }

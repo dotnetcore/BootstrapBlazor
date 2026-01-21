@@ -42,7 +42,6 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     /// <para lang="zh">获得 HttpClient 实例方法</para>
     /// <para lang="en">Get HttpClient Instance Method</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual HttpClient GetHttpClient() => httpClientFactory.CreateClient();
 
     /// <summary>
@@ -50,7 +49,6 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     /// <para lang="en">Get URL Address</para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     protected virtual string GetUrl(string ip) => $"https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={ip}";
 
     /// <summary>
@@ -60,7 +58,6 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     /// <param name="url"></param>
     /// <param name="client"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
         var result = await client.GetFromJsonAsync<LocationResult>(url, token);

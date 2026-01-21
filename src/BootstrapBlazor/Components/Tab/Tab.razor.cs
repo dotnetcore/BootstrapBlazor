@@ -73,7 +73,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否为卡片样式，默认为 false</para>
     /// <para lang="en">Gets or sets whether card style. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsCard { get; set; }
@@ -81,7 +80,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否为边框卡片样式，默认为 false</para>
     /// <para lang="en">Gets or sets whether border card style. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBorderCard { get; set; }
@@ -89,7 +87,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否仅渲染活动标签，默认为 false</para>
     /// <para lang="en">Gets or sets whether to render only active tab. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsOnlyRenderActiveTab { get; set; }
@@ -97,7 +94,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否懒加载 TabItem，首次不渲染，默认为 false</para>
     /// <para lang="en">Gets or sets lazy load TabItem. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLazyLoadTabItem { get; set; }
@@ -105,7 +101,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 Tab 标签头文本本地化回调方法</para>
     /// <para lang="en">Gets or sets Tab header text localizer callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<string?, string?>? OnTabHeaderTextLocalizer { get; set; }
@@ -113,7 +108,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度，默认值为 0 自动高度</para>
     /// <para lang="en">Gets or sets component height. Default is 0 (auto).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Height { get; set; }
@@ -121,7 +115,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 组件标签显示位置，默认显示在 Top</para>
     /// <para lang="en">Gets or sets placement. Default is Top.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;
@@ -129,7 +122,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮，默认为 false</para>
     /// <para lang="en">Gets or sets whether to show close button. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowClose { get; set; }
@@ -137,7 +129,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示全屏按钮，默认为 false</para>
     /// <para lang="en">Gets or sets whether to show full screen button. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFullScreen { get; set; }
@@ -145,7 +136,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否在右键菜单上显示全屏按钮，默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the full screen button on context menu. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowContextMenuFullScreen { get; set; } = true;
@@ -153,7 +143,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭标签页回调方法</para>
     /// <para lang="en">Gets or sets close tab item callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">返回 false 时不关闭 TabItem 标签页</para>
@@ -165,7 +154,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示扩展功能按钮，默认为 false</para>
     /// <para lang="en">Gets or sets whether to show extend buttons. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowExtendButtons { get; set; }
@@ -173,7 +161,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示前后导航按钮，默认为 true</para>
     /// <para lang="en">Gets or sets whether to show navigation buttons. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowNavigatorButtons { get; set; } = true;
@@ -181,7 +168,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动重置标签项索引，默认为 true</para>
     /// <para lang="en">Gets or sets whether to auto reset tab item index. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsLoopSwitchTabItem { get; set; } = true;
@@ -189,7 +175,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示活动标签栏，默认为 true</para>
     /// <para lang="en">Gets or sets whether to show active bar. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowActiveBar { get; set; } = true;
@@ -197,7 +182,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 点击 TabItem 时是否自动导航，默认为 false</para>
     /// <para lang="en">Gets or sets whether to navigate when clicking TabItem. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ClickTabToNavigation { get; set; }
@@ -205,7 +189,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 TabItems 模板</para>
     /// <para lang="en">Gets or sets TabItems template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -213,7 +196,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 未授权模板，默认 null (NET6.0/7.0 有效)</para>
     /// <para lang="en">Gets or sets NotAuthorized template. Default is null (Valid for NET6.0/7.0).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
@@ -221,7 +203,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 未找到模板，默认 null (NET6.0/7.0 有效)</para>
     /// <para lang="en">Gets or sets NotFound template. Default is null (Valid for NET6.0/7.0).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NotFound { get; set; }
@@ -229,7 +210,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 未找到标签文本，默认 null (NET6.0/7.0 有效)</para>
     /// <para lang="en">Gets or sets NotFound tab text. Default is null (Valid for NET6.0/7.0).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NotFoundTabText { get; set; }
@@ -237,7 +217,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 TabItems 主体模板</para>
     /// <para lang="en">Gets or sets TabItems body template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? Body { get; set; }
@@ -245,7 +224,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 应搜索的其他程序集的集合</para>
     /// <para lang="en">Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
@@ -253,7 +231,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 排除地址，支持通配符</para>
     /// <para lang="en">Gets or sets exclude URLs. Support wildcard.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<string>? ExcludeUrls { get; set; }
@@ -261,7 +238,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 默认标签页，关闭所有标签页时自动打开此地址，默认 null</para>
     /// <para lang="en">Gets or sets default URL. Open this url when all tabs closed. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DefaultUrl { get; set; }
@@ -269,7 +245,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 点击 TabItem 时的回调方法</para>
     /// <para lang="en">Gets or sets callback method when clicking TabItem</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TabItem, Task>? OnClickTabItemAsync { get; set; }
@@ -277,7 +252,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭当前 TabItem 菜单文本</para>
     /// <para lang="en">Gets or sets close current tab menu text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseCurrentTabText { get; set; }
@@ -285,7 +259,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭所有 TabItem 菜单文本</para>
     /// <para lang="en">Gets or sets close all tabs menu text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseAllTabsText { get; set; }
@@ -293,7 +266,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭其他 TabItem 菜单文本</para>
     /// <para lang="en">Gets or sets close other tabs menu text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseOtherTabsText { get; set; }
@@ -301,7 +273,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 按钮模板，默认 null</para>
     /// <para lang="en">Gets or sets button template. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? ButtonTemplate { get; set; }
@@ -309,7 +280,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏按钮的模板，默认为 null</para>
     /// <para lang="en">Gets or sets the template of the toolbar button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? ToolbarTemplate { get; set; }
@@ -317,7 +287,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 导航器前置模板，默认 null (在向前移动标签页按钮前)</para>
     /// <para lang="en">Gets or sets before navigator template. Default is null (before previous button).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? BeforeNavigatorTemplate { get; set; }
@@ -325,7 +294,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 导航器后置模板，默认 null (在向后移动标签页按钮前)</para>
     /// <para lang="en">Gets or sets after navigator template. Default is null (before next button).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? AfterNavigatorTemplate { get; set; }
@@ -333,7 +301,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 上一个标签图标</para>
     /// <para lang="en">Gets or sets previous icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PreviousIcon { get; set; }
@@ -341,7 +308,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 下一个标签图标</para>
     /// <para lang="en">Gets or sets next icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NextIcon { get; set; }
@@ -349,7 +315,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 下拉菜单图标</para>
     /// <para lang="en">Gets or sets dropdown icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
@@ -357,7 +322,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭标签图标</para>
     /// <para lang="en">Gets or sets close icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseIcon { get; set; }
@@ -365,7 +329,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 导航菜单集合，默认 null</para>
     /// <para lang="en">Gets or sets menus. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">使用自定义布局时，需要 Tab 导航标签显示为菜单项时设置，已内置 Layout.Menus 默认 null</para>
@@ -377,7 +340,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false</para>
     /// <para lang="en">Gets or sets whether to allow drag tab header to change order. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AllowDrag { get; set; }
@@ -385,7 +347,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 拖动标签页结束的回调方法</para>
     /// <para lang="en">Gets or sets callback method when drag item ends</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
@@ -393,7 +354,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签页样式，默认为 TabStyle.Default</para>
     /// <para lang="en">Gets or sets the tab style. Default is TabStyle.Default.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public TabStyle TabStyle { get; set; }
@@ -401,7 +361,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示工具栏，默认为 false</para>
     /// <para lang="en">Gets or sets whether to show the toolbar. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
@@ -409,7 +368,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示全屏按钮，默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the full screen button. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowFullscreenToolbarButton { get; set; } = true;
@@ -417,7 +375,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 全屏工具栏按钮图标字符串，默认为 null</para>
     /// <para lang="en">Gets or sets the full screen toolbar button icon string. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FullscreenToolbarButtonIcon { get; set; }
@@ -425,7 +382,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 全屏工具栏按钮提示字符串，默认为 null</para>
     /// <para lang="en">Gets or sets the full screen toolbar button tooltip string. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FullscreenToolbarTooltipText { get; set; }
@@ -433,7 +389,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示刷新按钮，默认为 true</para>
     /// <para lang="en">Gets or sets whether to show the refresh button. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowRefreshToolbarButton { get; set; } = true;
@@ -441,7 +396,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 刷新工具栏按钮图标字符串，默认为 null</para>
     /// <para lang="en">Gets or sets the refresh toolbar button icon string. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RefreshToolbarButtonIcon { get; set; }
@@ -449,7 +403,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 刷新工具栏按钮提示字符串，默认为 null</para>
     /// <para lang="en">Gets or sets the refresh toolbar button tooltip string. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RefreshToolbarTooltipText { get; set; }
@@ -457,7 +410,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 刷新工具栏按钮单击事件回调，默认为 null</para>
     /// <para lang="en">Gets or sets the refresh toolbar button click event callback. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnToolbarRefreshCallback { get; set; }
@@ -465,7 +417,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 上一个标签导航链接提示文本，默认为 null</para>
     /// <para lang="en">Gets or sets the previous tab navigation link tooltip text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PrevTabNavLinkTooltipText { get; set; }
@@ -473,7 +424,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 下一个标签导航链接提示文本，默认为 null</para>
     /// <para lang="en">Gets or sets the next tab navigation link tooltip text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NextTabNavLinkTooltipText { get; set; }
@@ -481,7 +431,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 关闭标签导航链接提示文本，默认为 null</para>
     /// <para lang="en">Gets or sets the close tab navigation link tooltip text. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? CloseTabNavLinkTooltipText { get; set; }
@@ -489,7 +438,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用标签页右键菜单，默认为 false</para>
     /// <para lang="en">Gets or sets whether to enable tab context menu. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowContextMenu { get; set; }
@@ -497,7 +445,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 右键菜单前置模板，默认为 null</para>
     /// <para lang="en">Gets or sets the template of before context menu. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? BeforeContextMenuTemplate { get; set; }
@@ -505,7 +452,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 右键菜单模板，默认为 null</para>
     /// <para lang="en">Gets or sets the template of context menu. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? ContextMenuTemplate { get; set; }
@@ -513,7 +459,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签项右键菜单刷新按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of tab item context menu refresh button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContextMenuRefreshIcon { get; set; }
@@ -521,7 +466,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签项右键菜单关闭按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of tab item context menu close button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseIcon { get; set; }
@@ -529,7 +473,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签项右键菜单关闭其他按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of tab item context menu close other button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseOtherIcon { get; set; }
@@ -537,7 +480,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签项右键菜单关闭全部按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of tab item context menu close all button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContextMenuCloseAllIcon { get; set; }
@@ -545,7 +487,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 标签项右键菜单全屏按钮的图标，默认为 null</para>
     /// <para lang="en">Gets or sets the icon of tab item context menu full screen button. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ContextMenuFullScreenIcon { get; set; }
@@ -553,7 +494,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 显示右键菜单前回调，默认为 null</para>
     /// <para lang="en">Gets or sets before popup context menu callback. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
@@ -561,7 +501,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 ITabHeader 实例，默认为 null</para>
     /// <para lang="en">Gets or sets the ITabHeader instance. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ITabHeader? TabHeader { get; set; }
@@ -569,7 +508,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启全局异常捕获，默认 null 读取配置文件 BootstrapBlazorOptions.EnableErrorLogger 值</para>
     /// <para lang="en">Gets or sets whether to enable global error logger. Default is null (Read from BootstrapBlazorOptions.EnableErrorLogger).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
@@ -577,7 +515,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否记录异常到 ILogger，默认 null 使用 BootstrapBlazorOptions.EnableErrorLoggerILogger 设置值</para>
     /// <para lang="en">Gets or sets whether to log error to ILogger. Default is null (Use BootstrapBlazorOptions.EnableErrorLoggerILogger).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLoggerILogger { get; set; }
@@ -585,7 +522,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗，默认 null 使用 BootstrapBlazorOptions.ShowErrorLoggerToast 设置值</para>
     /// <para lang="en">Gets or sets whether to show error toast. Default is null (Use BootstrapBlazorOptions.ShowErrorLoggerToast).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowErrorLoggerToast { get; set; }
@@ -593,7 +529,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 错误日志 Toast 弹窗标题，默认 null</para>
     /// <para lang="en">Gets or sets error logger Toast title. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ErrorLoggerToastTitle { get; set; }
@@ -601,7 +536,6 @@ public partial class Tab
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
     /// <para lang="en">Gets or sets custom error handle callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -656,7 +590,6 @@ public partial class Tab
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override void OnParametersSet()
     {
         if (ShowExtendButtons)
@@ -1139,7 +1072,6 @@ public partial class Tab
     /// <para lang="zh">获得当前活动 Tab</para>
     /// <para lang="en">Get current active Tab</para>
     /// </summary>
-    /// <returns></returns>
     public TabItem? GetActiveTab() => TabItems.Find(s => s.IsActive);
 
     private void ActiveTabItem(TabItem item)
@@ -1204,7 +1136,6 @@ public partial class Tab
     /// </summary>
     /// <param name="originIndex"></param>
     /// <param name="currentIndex"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task DragItemCallback(int originIndex, int currentIndex)
     {

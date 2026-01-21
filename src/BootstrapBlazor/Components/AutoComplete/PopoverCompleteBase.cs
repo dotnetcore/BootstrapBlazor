@@ -21,22 +21,19 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IPopoverBaseComponent.Placement" />
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Bottom;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IPopoverBaseComponent.CustomClass"/>
     /// </summary>
     [Parameter]
     public string? CustomClass { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IPopoverBaseComponent.ShowShadow"/>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
@@ -44,22 +41,19 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"</para>
     /// <para lang="en">Gets or sets the tip info when no matching data. Default is "No matched data"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NoDataTip { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IPopoverBaseComponent.IsPopover"/>
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// <para><version>10.2.2</version></para>
+    /// <inheritdoc cref="IPopoverBaseComponent.Offset"/>
     /// </summary>
     [Parameter]
     public string? Offset { get; set; }
@@ -67,7 +61,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 防抖时间 默认为 0 即不开启</para>
     /// <para lang="en">Gets or sets the debounce time. Default is 0 (disabled)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Debounce { get; set; }
@@ -75,7 +68,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 下拉菜单选择回调方法 默认 null</para>
     /// <para lang="en">Gets or sets the callback method for dropdown item selection. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
@@ -83,7 +75,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 是否跳过 Enter 按键处理 默认 false</para>
     /// <para lang="en">Gets or sets whether to skip Enter key processing. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SkipEnter { get; set; }
@@ -91,7 +82,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 是否跳过 Esc 按键处理 默认 false</para>
     /// <para lang="en">Gets or sets whether to skip Esc key processing. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SkipEsc { get; set; }
@@ -99,7 +89,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/></para>
     /// <para lang="en">Gets or sets the scroll behavior. Default is <see cref="ScrollIntoViewBehavior.Smooth"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
@@ -107,7 +96,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 候选项模板 默认 null</para>
     /// <para lang="en">Gets or sets the item template. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TValue>? ItemTemplate { get; set; }
@@ -115,7 +103,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 选择组件是否可清除 默认为 false</para>
     /// <para lang="en">Gets or sets whether the select component is clearable. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
@@ -123,7 +110,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认为 fa-solid fa-angle-up</para>
     /// <para lang="en">Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -216,7 +202,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <para lang="zh">触发 OnBlurAsync 回调前回调方法</para>
     /// <para lang="en">Callback method before triggering OnBlurAsync</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual Task OnBeforeBlurAsync() => Task.CompletedTask;
 
     /// <summary>
