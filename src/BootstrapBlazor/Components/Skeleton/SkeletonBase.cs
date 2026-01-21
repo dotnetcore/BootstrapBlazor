@@ -27,7 +27,7 @@ public abstract class SkeletonBase : BootstrapComponentBase
 
     /// <summary>
     /// <para lang="zh">获得 样式</para>
-    /// <para lang="en">Get Class Name</para>
+    /// <para lang="en">Gets Class Name</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("skeleton-content")
         .AddClass("active", Active)

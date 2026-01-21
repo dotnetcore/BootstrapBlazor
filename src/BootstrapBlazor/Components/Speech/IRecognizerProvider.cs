@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">ISpeechService 服务接口定义</para>
-/// <para lang="en">ISpeechService Interface Definition</para>
+/// <para lang="zh">IRecognizerProvider 服务接口定义</para>
+/// <para lang="en">IRecognizerProvider Interface Definition</para>
 /// </summary>
 public interface IRecognizerProvider
 {

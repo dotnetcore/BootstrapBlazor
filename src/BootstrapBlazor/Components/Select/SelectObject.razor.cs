@@ -84,20 +84,12 @@ public partial class SelectObject<TItem>
     [NotNull]
     protected IIconTheme? IconTheme { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassName => CssBuilder.Default("select select-object dropdown")
         .AddClass("disabled", IsDisabled)
         .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Input Class Name</para>
-    /// </summary>
     private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -106,10 +98,6 @@ public partial class SelectObject<TItem>
         .AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Append Class Name</para>
-    /// </summary>
     private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -155,15 +143,10 @@ public partial class SelectObject<TItem>
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 input 组件 Id 方法</para>
-    /// <para lang="en">Get input Component Id Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 内部 Input 组件 Id</para>
-    /// <para lang="en">Gets or sets Internal Input Component Id</para>
-    /// </summary>
     private string InputId => $"{Id}_input";
 
     private string GetStyleString => $"height: {Height}px;";
@@ -182,8 +165,7 @@ public partial class SelectObject<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -201,10 +183,6 @@ public partial class SelectObject<TItem>
 
     private bool GetClearable() => IsClearable && !IsDisabled;
 
-    /// <summary>
-    /// <para lang="zh">获得 Text 显示文字</para>
-    /// <para lang="en">Get Display Text</para>
-    /// </summary>
     private string? GetText() => GetTextCallback(Value);
 
     /// <summary>

@@ -123,8 +123,8 @@ public partial class SpeechWave : IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose 方法</para>
+    /// <para lang="zh">释放方法</para>
+    /// <para lang="en">Dispose Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -136,8 +136,7 @@ public partial class SpeechWave : IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">Dispose 方法</para>
-    /// <para lang="en">Dispose 方法</para>
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

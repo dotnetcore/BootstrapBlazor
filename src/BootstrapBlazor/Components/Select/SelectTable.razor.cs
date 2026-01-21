@@ -32,8 +32,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
-    /// <para lang="en">Gets or sets Color. Default Color.None</para>
+    /// <para lang="zh">获得/设置 颜色 默认 <see cref="Color.None"/> 无设置</para>
+    /// <para lang="en">Gets or sets Color. Default <see cref="Color.None"/></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
@@ -104,20 +104,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     public List<ITableColumn> Columns { get; } = [];
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)
         .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Input Class Name</para>
-    /// </summary>
     private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -126,10 +118,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Append Class Name</para>
-    /// </summary>
     private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -139,8 +127,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 右侧清除图标 默认 fa-solid fa-angle-up</para>
-    /// <para lang="en">Gets or sets Clear Icon. Default fa-solid fa-angle-up</para>
+    /// <para lang="zh">获得/设置 右侧清除图标 默认 null</para>
+    /// <para lang="en">Gets or sets Clear Icon. Default null</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -243,15 +231,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 input 组件 Id 方法</para>
-    /// <para lang="en">Get input Component Id Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 内部 Input 组件 Id</para>
-    /// <para lang="en">Gets or sets Internal Input Component Id</para>
-    /// </summary>
     private string InputId => $"{Id}_input";
 
     private string GetStyleString => $"height: {Height}px;";
@@ -275,8 +258,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -297,10 +279,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
     }
 
-    /// <summary>
-    /// <para lang="zh">获得 Text 显示文字</para>
-    /// <para lang="en">Get Display Text</para>
-    /// </summary>
     private string? GetText() => Value == default ? null : GetTextCallback(Value);
 
     private async Task OnClickRowCallback(TItem item)

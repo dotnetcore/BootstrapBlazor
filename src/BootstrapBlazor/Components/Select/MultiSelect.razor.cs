@@ -10,7 +10,7 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">MultiSelect component</para>
+/// <para lang="zh">多选组件</para>
 /// <para lang="en">MultiSelect component</para>
 /// </summary>
 public partial class MultiSelect<TValue>
@@ -95,12 +95,9 @@ public partial class MultiSelect<TValue>
     public bool IsSingleLine { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑模式下输入选项更新后回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets Callback method after input option updated in edit mode. Default null</para>
-    /// <para lang="zh">返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
-    /// <para lang="en">Return <see cref="SelectedItem"/> instance to take effect, return null to discard, recommend prompt in callback method</para>
+    /// <para lang="zh">获得/设置 编辑模式下输入选项更新后回调方法 默认 null 返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
+    /// <para lang="en">Gets or sets Callback method after input option updated in edit mode. Default null. Return <see cref="SelectedItem"/> instance to take effect, return null to discard, recommend prompt in callback method</para>
     /// </summary>
-    /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task<SelectedItem>>? OnEditCallback { get; set; }
 
@@ -218,8 +215,6 @@ public partial class MultiSelect<TValue>
 
         _itemsCache = null;
 
-        // <para lang="zh">通过 Value 对集合进行赋值</para>
-        // <para lang="en">Assign collection by Value</para>
         var _currentValue = CurrentValueAsString;
         if (_lastSelectedValueString != _currentValue)
         {
@@ -289,10 +284,6 @@ public partial class MultiSelect<TValue>
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
-        // <para lang="zh">有搜索条件时使用原生请求数量</para>
-        // <para lang="en">Use original request count when there is search condition</para>
-        // <para lang="zh">有总数时请求剩余数量</para>
-        // <para lang="en">Request remaining count when there is total count</para>
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
@@ -383,8 +374,6 @@ public partial class MultiSelect<TValue>
             }
 
             _isToggle = true;
-            // <para lang="zh">更新选中值</para>
-            // <para lang="en">Update selected value</para>
             await SetValue();
         }
     }
@@ -413,8 +402,6 @@ public partial class MultiSelect<TValue>
             {
                 SelectedItems.Add(ret);
             }
-            // <para lang="zh">更新选中值</para>
-            // <para lang="en">Update selected value</para>
             _isToggle = true;
             await SetValue();
         }
@@ -586,10 +573,6 @@ public partial class MultiSelect<TValue>
     {
         if (Items == null)
         {
-            // <para lang="zh">判断 IEnumerable&lt;T&gt; 泛型 T 是否为 Enum</para>
-            // <para lang="en">Determine if generic T of IEnumerable&lt;T&gt; is Enum</para>
-            // <para lang="zh">特别注意 string 是 IEnumerable 的实例</para>
-            // <para lang="en">Note that string is an instance of IEnumerable</para>
             var type = typeof(TValue);
             Type? innerType;
             if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))

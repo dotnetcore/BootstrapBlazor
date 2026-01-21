@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">SkeletonAvatar 组件</para>
+/// <para lang="zh">骨架屏头像组件</para>
 /// <para lang="en">SkeletonAvatar Component</para>
 /// </summary>
 public sealed partial class SkeletonAvatar

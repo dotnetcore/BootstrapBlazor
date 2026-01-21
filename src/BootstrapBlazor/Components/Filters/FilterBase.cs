@@ -126,14 +126,14 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     public abstract void Reset();
 
     /// <summary>
-    /// <para lang="zh">获得过滤窗口的所有条件方法</para>
-    /// <para lang="en">Get All Conditions Method</para>
+    /// <para lang="zh">获得过滤窗口的所有条件的方法</para>
+    /// <para lang="en">Gets all filter conditions</para>
     /// </summary>
     public abstract FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
-    /// <para lang="zh">设置过滤集合方法</para>
-    /// <para lang="en">Set Filter Collection Method</para>
+    /// <para lang="zh">设置过滤集合的方法</para>
+    /// <para lang="en">Sets the filter collection</para>
     /// </summary>
     /// <param name="filter"></param>
     public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();

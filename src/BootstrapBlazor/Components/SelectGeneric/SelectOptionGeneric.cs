@@ -46,10 +46,6 @@ public class SelectOptionGeneric<TValue> : ComponentBase
     [Parameter]
     public string? GroupName { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">父组件通过级联参数获得</para>
-    /// <para lang="en">Parent component obtained through cascading parameter</para>
-    /// </summary>
     [CascadingParameter]
     private ISelectGeneric<TValue>? Container { get; set; }
 

@@ -9,9 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Segmented 组件</para>
 /// <para lang="en">Segmented Component</para>
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TValue))]
-#endif
 public partial class Segmented<TValue>
 {
     private string? ClassString => CssBuilder.Default("segmented")

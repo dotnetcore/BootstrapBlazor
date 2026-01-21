@@ -6,15 +6,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Range 组件</para>
+/// <para lang="zh">滑块组件</para>
 /// <para lang="en">Slider Component</para>
 /// </summary>
 public partial class Slider<TValue>
 {
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("form-range")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

@@ -91,10 +91,8 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">资源销毁方法</para>
-    /// <para lang="en">Dispose Method</para>
+    /// <inheritdoc/>
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

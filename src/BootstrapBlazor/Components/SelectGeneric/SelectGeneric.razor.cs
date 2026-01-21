@@ -20,19 +20,11 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     [NotNull]
     private SwalService? SwalService { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("select dropdown")
         .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Input Class Name</para>
-    /// </summary>
     private string? InputClassString => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -40,11 +32,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">设置当前项是否 Active 方法</para>
-    /// <para lang="en">Set Current Item Active Method</para>
-    /// </summary>
-    /// <param name="item"></param>
     private string? ActiveItem(SelectedItem<TValue> item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", Equals(item.Value, Value))
         .AddClass("disabled", item.IsDisabled)
@@ -54,7 +41,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     /// <summary>
     /// <para lang="zh">获得/设置 搜索文本发生变化时回调此方法</para>
-    /// <para lang="en">Callback method when search text changes</para>
+    /// <para lang="en">Gets or sets Callback method when search text changes</para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
@@ -67,20 +54,16 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public bool IsEditable { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选项输入更新后回调方法 默认 null</para>
-    /// <para lang="en">Callback method after option input update. Default null</para>
+    /// <para lang="zh">获得/设置 选项输入更新后回调方法 默认 null 设置 <see cref="IsEditable"/> 后生效</para>
+    /// <para lang="en">Gets or sets Callback method after option input update. Default null. Effective when <see cref="IsEditable"/> is set</para>
     /// </summary>
-    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选项输入更新后转换为 Value 回调方法 默认 null</para>
-    /// <para lang="en">Callback method to convert option input update to Value. Default null</para>
-    /// <para lang="zh">返回值为 null 时放弃操作</para>
-    /// <para lang="en">Discard operation when return value is null</para>
+    /// <para lang="zh">获得/设置 选项输入更新后转换为 Value 回调方法 默认 null 返回值为 null 时放弃操作 设置 <see cref="IsEditable"/> 后生效</para>
+    /// <para lang="en">Gets or sets Callback method to convert option input update to Value. Default null. Discard operation when return value is null. Effective when <see cref="IsEditable"/> is set</para>
     /// </summary>
-    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
     public Func<string, Task<TValue?>>? TextConvertToValueCallback { get; set; }
 
@@ -198,10 +181,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 Select 内部 Input 组件 Id</para>
-    /// <para lang="en">Gets or sets Select Internal Input Component Id</para>
-    /// </summary>
     private string? InputId => $"{Id}_input";
 
     private TValue? _lastSelectedValue;
@@ -214,10 +193,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
-    /// <summary>
-    /// <para lang="zh">当前选择项实例</para>
-    /// <para lang="en">Current Selected Item Instance</para>
-    /// </summary>
     private SelectedItem<TValue>? SelectedItem { get; set; }
 
     private List<SelectedItem<TValue>> Rows
@@ -302,8 +277,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
-        // <para lang="zh">内置对枚举类型的支持</para>
-        // <para lang="en">Built-in support for enum types</para>
         if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
@@ -328,10 +301,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 数据总条目</para>
-    /// <para lang="en">Gets or sets Total Count</para>
-    /// </summary>
     private int TotalCount { get; set; }
 
     private List<SelectedItem<TValue>> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
@@ -346,10 +315,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     private async ValueTask<ItemsProviderResult<SelectedItem<TValue>>> LoadItems(ItemsProviderRequest request)
     {
-        // <para lang="zh">有搜索条件时使用原生请求数量</para>
-        // <para lang="en">Use original request count when there is search condition</para>
-        // <para lang="zh">有总数时请求剩余数量</para>
-        // <para lang="en">Request remaining count when there is total count</para>
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
@@ -365,8 +330,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     {
         if (IsVirtualize && OnQueryAsync != null)
         {
-            // <para lang="zh">通过 ItemProvider 提供数据</para>
-            // <para lang="en">Data provided by ItemProvider</para>
             await VirtualizeElement.RefreshDataAsync();
         }
     }
@@ -405,10 +368,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         StateHasChanged();
     }
 
-    /// <summary>
-    /// <para lang="zh">下拉框选项点击时调用此方法</para>
-    /// <para lang="en">Called when dropdown option is clicked</para>
-    /// </summary>
     private async Task OnClickItem(SelectedItem<TValue> item)
     {
         var ret = true;
@@ -417,8 +376,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
             ret = await OnBeforeSelectedItemChange(item);
             if (ret)
             {
-                // <para lang="zh">返回 True 弹窗提示</para>
-                // <para lang="en">Return True to show popup</para>
                 var option = new SwalOption()
                 {
                     Category = SwalCategory,
@@ -434,8 +391,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
             }
             else
             {
-                // <para lang="zh">返回 False 直接运行</para>
-                // <para lang="en">Return False to run directly</para>
                 ret = true;
             }
         }
@@ -454,8 +409,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
             CurrentValue = item.Value;
 
-            // <para lang="zh">触发 SelectedItemChanged 事件</para>
-            // <para lang="en">Trigger SelectedItemChanged Event</para>
             if (OnSelectedItemChanged != null)
             {
                 await OnSelectedItemChanged(SelectedItem);
@@ -476,11 +429,8 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
             item.Active = true;
             SelectedItem = item;
 
-            // <para lang="zh">触发 StateHasChanged</para>
-            // <para lang="en">Trigger StateHasChanged</para>
             CurrentValue = item.Value;
-            // <para lang="zh">触发 SelectedItemChanged 事件</para>
-            // <para lang="en">Trigger SelectedItemChanged Event</para>
+
             if (OnSelectedItemChanged != null)
             {
                 await OnSelectedItemChanged(SelectedItem);
@@ -519,8 +469,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     {
         if (args.Value is string v)
         {
-            // <para lang="zh">Items 中没有时插入一个 SelectedItem</para>
-            // <para lang="en">Insert a SelectedItem when it is not in Items</para>
             var item = Items.FirstOrDefault(i => i.Text == v);
 
             if (item == null)
@@ -533,14 +481,10 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
                 if (val is not null)
                 {
-                    // <para lang="zh">返回值时，由外部更新 Items 参数</para>
-                    // <para lang="en">Return value, update Items parameter externally</para>
                     CurrentValue = val;
                 }
                 else
                 {
-                    // <para lang="zh">返回空值时恢复上次选中值</para>
-                    // <para lang="en">Return empty value, restore last selected value</para>
                     await InvokeVoidAsync("resetValue", InputId, SelectedRow?.Text);
                 }
             }

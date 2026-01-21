@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">MultiSelectGeneric component</para>
+/// <para lang="zh">多选泛型组件</para>
 /// <para lang="en">MultiSelectGeneric component</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
@@ -93,12 +93,9 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     public bool IsSingleLine { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑模式下输入选项更新后回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets Callback method when input option is updated in edit mode. Default null</para>
-    /// <para lang="zh">返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
-    /// <para lang="en">Return <see cref="SelectedItem"/> instance to take effect, return null to discard, it is recommended to prompt in the callback method</para>
+    /// <para lang="zh">获得/设置 编辑模式下输入选项更新后回调方法 默认 null 返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
+    /// <para lang="en">Gets or sets Callback method when input option is updated in edit mode. Default null. Return <see cref="SelectedItem"/> instance to take effect, return null to discard, it is recommended to prompt in the callback method</para>
     /// </summary>
-    /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task<SelectedItem>>? OnEditCallback { get; set; }
 
@@ -118,14 +115,14 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 选中项集合发生改变时回调委托方法</para>
-    /// <para lang="en">Callback method when selected items collection changes</para>
+    /// <para lang="en">Gets or sets Callback method when selected items collection changes</para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem<TValue>>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the default virtualize items text.</para>
-    /// <para lang="en">Gets or sets the default virtualize items text.</para>
+    /// <para lang="zh">获得/设置 默认虚拟化项文本</para>
+    /// <para lang="en">Gets or sets the default virtualize items text</para>
     /// </summary>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
@@ -139,7 +136,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     public string? SelectAllText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 全选按钮显示文本</para>
+    /// <para lang="zh">获得/设置 反选按钮显示文本</para>
     /// <para lang="en">Gets or sets Reverse Select Text</para>
     /// </summary>
     [Parameter]
@@ -147,7 +144,7 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     public string? ReverseSelectText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 全选按钮显示文本</para>
+    /// <para lang="zh">获得/设置 清空按钮显示文本</para>
     /// <para lang="en">Gets or sets Clear Text</para>
     /// </summary>
     [Parameter]
@@ -185,31 +182,31 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     public string? MinErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the items.</para>
-    /// <para lang="en">Gets or sets the items.</para>
+    /// <para lang="zh">获得/设置 选项集合</para>
+    /// <para lang="en">Gets or sets the items</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 回调方法 for loading virtualized items.</para>
-    /// <para lang="en">Gets or sets the callback method for loading virtualized items.</para>
+    /// <para lang="zh">获得/设置 加载虚拟化项的回调方法</para>
+    /// <para lang="en">Gets or sets the callback method for loading virtualized items</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue>>>>? OnQueryAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 回调方法 when the search text changes.</para>
-    /// <para lang="en">Gets or sets the callback method when the search text changes.</para>
+    /// <para lang="zh">获得/设置 搜索文本改变时的回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when the search text changes</para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the item 模板.</para>
-    /// <para lang="en">Gets or sets the item template.</para>
+    /// <para lang="zh">获得/设置 选项模板</para>
+    /// <para lang="en">Gets or sets the item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
@@ -299,11 +296,10 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
     });
 
     /// <summary>
-    /// <para lang="zh">Triggers the search 回调方法.</para>
-    /// <para lang="en">Triggers the search callback method.</para>
+    /// <para lang="zh">触发搜索回调方法</para>
+    /// <para lang="en">Triggers the search callback method</para>
     /// </summary>
-    /// <param name="searchText">The search text.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <param name="searchText"></param>
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
@@ -313,27 +309,16 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
         StateHasChanged();
     }
 
-    /// <summary>
-    /// <para lang="zh">Refreshes the virtualize component.</para>
-    /// <para lang="en">Refreshes the virtualize component.</para>
-    /// </summary>
     private async Task RefreshVirtualizeElement()
     {
         if (IsVirtualize && OnQueryAsync != null)
         {
-            // <para lang="zh">通过 ItemProvider 提供数据</para>
-            // <para lang="en">Data provided by ItemProvider</para>
             await _virtualizeElement.RefreshDataAsync();
         }
     }
 
     private List<SelectedItem<TValue>>? _itemsCache;
-    /// <summary>
-    /// <para lang="zh"><para lang="zh">获得 the dropdown menu rows.</para>
-    ///</para>
-    /// <para lang="en"><para lang="zh">Gets the dropdown menu rows.</para>
-    ///</para>
-    /// </summary>
+
     private List<SelectedItem<TValue>> Rows
     {
         get
@@ -360,10 +345,6 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
     private async ValueTask<ItemsProviderResult<SelectedItem<TValue>>> LoadItems(ItemsProviderRequest request)
     {
-        // <para lang="zh">有搜索条件时使用原生请求数量</para>
-        // <para lang="en">Use original request count when there is search condition</para>
-        // <para lang="zh">有总数时请求剩余数量</para>
-        // <para lang="en">Request remaining count when there is total count</para>
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
@@ -389,9 +370,6 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
 
     private bool _isToggle;
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     private List<SelectedItem<TValue>> GetRowsByItems()
     {
         var items = new List<SelectedItem<TValue>>();
@@ -441,8 +419,6 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
         SelectedItems.Remove(item);
 
         _isToggle = true;
-        // <para lang="zh">更新选中值</para>
-        // <para lang="en">Update selected value</para>
         await SetValue();
     }
 
@@ -465,8 +441,6 @@ public partial class MultiSelectGeneric<TValue> : IModelEqualityComparer<TValue>
         }
 
         _isToggle = true;
-        // <para lang="zh">更新选中值</para>
-        // <para lang="en">Update selected value</para>
         await SetValue();
     }
 

@@ -14,18 +14,10 @@ namespace BootstrapBlazor.Components;
 /// <typeparam name="TValue"></typeparam>
 public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassName => CssBuilder.Default("select dropdown select-tree")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Input Class Name</para>
-    /// </summary>
     private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -33,10 +25,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Append Class Name</para>
-    /// </summary>
     private string? AppendClassName => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -58,21 +46,21 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 nodes can be expanded or collapsed when the component is disabled. 默认为 false.</para>
+    /// <para lang="zh">获得/设置 禁用时是否可以展开或折叠节点，默认为 false</para>
     /// <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.</para>
     /// </summary>
     [Parameter]
     public bool CanExpandWhenDisabled { get; set; } = false;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感</para>
-    /// <para lang="en">Gets or sets String Comparison. Default StringComparison.OrdinalIgnoreCase</para>
+    /// <para lang="zh">获得/设置 字符串比较规则，默认 <see cref="StringComparison.OrdinalIgnoreCase"/>（不区分大小写）</para>
+    /// <para lang="en">Gets or sets String Comparison. Default <see cref="StringComparison.OrdinalIgnoreCase"/></para>
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 带层次数据集合</para>
+    /// <para lang="zh">获得/设置 分层数据集合</para>
     /// <para lang="en">Gets or sets Hierarchical Data Collection</para>
     /// </summary>
     [Parameter]
@@ -102,10 +90,8 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null</para>
-    /// <para lang="en">Gets or sets Model Equality Comparer. Default null</para>
-    /// <para lang="zh">提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
-    /// <para lang="en">Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
+    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null 提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="en">Gets or sets Model Equality Comparer. Default null. Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -200,8 +186,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     {
         base.OnInitialized();
 
-        // <para lang="zh">处理 Required 标签</para>
-        // <para lang="en">Process Required Tag</para>
         AddRequiredValidator();
     }
 
@@ -227,14 +211,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
         if (Value == null)
         {
-            // <para lang="zh">组件未赋值 Value 通过 IsActive 设置默认值</para>
-            // <para lang="en">Value is not set, set default value by IsActive</para>
             await TriggerItemChanged(s => s.IsActive);
         }
         else
         {
-            // <para lang="zh">组件已赋值 Value 通过 Value 设置默认值</para>
-            // <para lang="en">Value is set, set default value by Value</para>
             await TriggerItemChanged(s => Equals(s.Value, Value));
         }
     }
@@ -258,8 +238,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         {
             CurrentValueAsString = v;
 
-            // <para lang="zh">选中节点更改为当前值</para>
-            // <para lang="en">Selected node changed to current value</para>
             _tv.SetActiveItem(Value);
         }
     }
@@ -288,10 +266,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         return _expandedItemsCache!;
     }
 
-    /// <summary>
-    /// <para lang="zh">下拉框选项点击时调用此方法</para>
-    /// <para lang="en">Called when dropdown option is clicked</para>
-    /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
         if (!Equals(item.Value, CurrentValue))
@@ -301,17 +275,11 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">选中项更改处理方法</para>
-    /// <para lang="en">Selected Item Changed Method</para>
-    /// </summary>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
         _selectedItem = item;
         CurrentValue = item.Value;
 
-        // <para lang="zh">触发 SelectedItemChanged 事件</para>
-        // <para lang="en">Trigger SelectedItemChanged Event</para>
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(CurrentValue);

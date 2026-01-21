@@ -73,9 +73,7 @@ public partial class RibbonTab
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public IEnumerable<RibbonTabItem>? Items { get; set; }
 
     /// <summary>
