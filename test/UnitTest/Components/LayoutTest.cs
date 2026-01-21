@@ -610,7 +610,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.AddChildContent<Layout>(pb =>
             {
                 pb.Add(a => a.UseTabSet, false);
-                pb.Add(a => a.OnErrorHandleAsync, ex =>
+                pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
                 {
                     ex1 = ex;
                     return Task.CompletedTask;
@@ -636,7 +636,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.EnableErrorLogger, true);
             pb.AddChildContent<Layout>(pb =>
             {
-                pb.Add(a => a.OnErrorHandleAsync, ex =>
+                pb.Add(a => a.OnErrorHandleAsync, (logger, ex) =>
                 {
                     ex1 = ex;
                     return Task.CompletedTask;

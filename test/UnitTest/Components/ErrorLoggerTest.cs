@@ -293,7 +293,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockInitializedError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -304,7 +304,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockInitializedAsyncError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -315,7 +315,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockOnParametersSetError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -326,7 +326,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockOnParameterSetAsyncError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -337,7 +337,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockOnAfterRenderError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -348,7 +348,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             pb.AddChildContent<MockOnAfterRenderAsyncError>();
         });
 
-        Assert.Equal("", cut.Markup);
+        cut.Contains("Attempted to divide by zero.");
     }
 
     private RenderFragment RenderButton() => builder =>
