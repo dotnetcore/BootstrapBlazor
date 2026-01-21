@@ -42,8 +42,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数据合规样式</para>
-    /// <para lang="en">Gets or sets the validation CSS class</para>
+    /// <para lang="zh">获得 数据合规样式</para>
+    /// <para lang="en">Gets the validation CSS class</para>
     /// </summary>
     protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
 
@@ -62,7 +62,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? Disabled => IsDisabled ? "disabled" : null;
 
     /// <summary>
-    /// <para lang="zh">是否显示 必填项标记</para>
+    /// <para lang="zh">获得/设置 是否显示 必填项标记</para>
     /// <para lang="en">Gets or sets whether to display the required field marker</para>
     /// </summary>
     protected string? Required { get; set; }
