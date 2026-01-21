@@ -8,5 +8,6 @@
 }
 
 .table-attr-mark {
-    font-size: 90%;
+    font-size: 85%;
+    color: var(--bs-success);
 }
