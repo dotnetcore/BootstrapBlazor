@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
@@ -15,6 +16,16 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ErrorLogger : ComponentBase, IErrorLogger
 {
+    [Inject, NotNull]
+    private ILogger<ErrorLogger>? Logger { get; set; }
+
+    [Inject, NotNull]
+    private IErrorBoundaryLogger? ErrorBoundaryLogger { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
@@ -136,21 +147,50 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// </summary>
     public async Task HandlerExceptionAsync(Exception exception)
     {
+        if (EnableILogger)
+        {
+            await ErrorBoundaryLogger.LogErrorAsync(exception);
+        }
+
         var handler = _cache.LastOrDefault();
         if (handler is not null)
         {
             await handler.HandlerExceptionAsync(exception, ex => builder =>
             {
-                builder.OpenComponent<ErrorRender>(0);
-                builder.AddAttribute(1, "Exception", ex);
-                builder.CloseElement();
+                if (ErrorContent is null)
+                {
+                    builder.AddContent(0, RenderErrorContent(exception));
+                }
+                else
+                {
+                    builder.AddContent(10, ErrorContent(exception));
+                }
             });
         }
         if (OnErrorHandleAsync is not null)
         {
-            await OnErrorHandleAsync(exception);
+            await OnErrorHandleAsync(Logger, exception);
+        }
+        if (ShowToast)
+        {
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                Title = ToastTitle,
+                ChildContent = ErrorContent == null
+                    ? RenderErrorContent(exception)
+                    : ErrorContent(exception)
+            };
+            await ToastService.Show(option);
         }
     }
+
+    private static RenderFragment RenderErrorContent(Exception ex) => builder =>
+    {
+        builder.OpenComponent<ErrorRender>(0);
+        builder.AddAttribute(1, "Exception", ex);
+        builder.CloseElement();
+    };
 
     private readonly List<IHandlerException> _cache = [];
 
