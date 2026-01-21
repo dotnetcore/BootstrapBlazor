@@ -19,7 +19,7 @@
       <XmlDocsToCopy Include="%(Reference.RelativeDir)BootstrapBlazor*.xml" />
     </ItemGroup>
     <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
-    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" Condition="Exists('%(RootDir)%(Directory)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
   </Target>
   
 </Project>
