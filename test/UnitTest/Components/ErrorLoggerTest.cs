@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -93,6 +94,32 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
 
         // 由于自定义 OnErrorHandleAsync 组件对异常未处理
         cut.DoesNotContain("Attempted to divide by zero.");
+    }
+
+    [Fact]
+    public async Task ResetException_Ok()
+    {
+        var cut = Context.Render<ErrorLogger>(pb =>
+        {
+            pb.AddChildContent("test");
+        });
+
+        var boundaryField = cut.Instance.GetType().GetField("_errorBoundary", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(boundaryField);
+
+        var boundary = boundaryField.GetValue(cut.Instance);
+        Assert.NotNull(boundary);
+
+        var methodInfo = boundary.GetType().GetMethod("ResetException", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(boundary, new object[] { new Exception("mock exception") });
+
+        cut.Render();
+        // 原生组件点击报错
+        // 保持 UI 使用 Toast 弹出异常
+
+        cut.Contains("test");
     }
 
     [Fact]
