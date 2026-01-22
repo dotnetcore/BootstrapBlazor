@@ -40,10 +40,6 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     private DialogService? DialogService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
     /// <summary>
     /// <para lang="zh">获得/设置 自定义错误处理回调方法</para>
     /// <para lang="en">Gets or sets Custom Error Handler</para>
@@ -113,35 +109,33 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         {
             builder.AddContent(0, RenderErrorContent(_exception));
             _exception = null;
+            return;
         }
-        else if (CurrentException is null)
+
+        if (CurrentException is null)
         {
             builder.AddContent(0, ChildContent);
+            return;
         }
-        else if (ErrorContent is not null)
+
+        var pageException = IsPageException(CurrentException);
+        if (pageException)
         {
-            builder.AddContent(1, ErrorContent(CurrentException));
+            RenderPageException(builder, CurrentException);
         }
         else
         {
-            var pageException = IsPageException(CurrentException);
-            if (pageException)
-            {
-                RenderException(builder, CurrentException);
-            }
-            else
-            {
-                builder.AddContent(0, ChildContent);
-            }
-            ResetException();
+            // 保持 UI 使用 Toast 通知
+            builder.AddContent(0, ChildContent);
         }
+        ResetException();
     }
 
-    private void RenderException(RenderTreeBuilder builder, Exception ex)
+    private void RenderPageException(RenderTreeBuilder builder, Exception ex)
     {
         if (OnErrorHandleAsync is not null)
         {
-            var renderTask = OnErrorHandleAsync(Logger, ex);
+            _ = OnErrorHandleAsync(Logger, ex);
         }
         else
         {
@@ -228,9 +222,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             {
                 Category = ToastCategory.Error,
                 Title = ToastTitle,
-                ChildContent = ErrorContent == null
-                    ? RenderErrorContent(exception)
-                    : ErrorContent(exception)
+                ChildContent = RenderErrorContent(exception)
             };
             await ToastService.Show(option);
         }
