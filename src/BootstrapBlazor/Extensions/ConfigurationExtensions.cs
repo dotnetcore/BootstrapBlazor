@@ -35,40 +35,33 @@ internal static class ConfigurationExtensions
             ["MachineName"] = Environment.MachineName,
             ["AppDomainName"] = AppDomain.CurrentDomain.FriendlyName,
 
-            // <para lang="zh">收集环境变量信息</para>
-            // <para lang="en">Collect environment variables</para>
             ["OS"] = GetOS(),
             ["OSArchitecture"] = RuntimeInformation.OSArchitecture.ToString(),
             ["ProcessArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
             ["Framework"] = RuntimeInformation.FrameworkDescription
         };
 
-        // <para lang="zh">当前用户</para>
-        // <para lang="en">Current User</para>
         var userName = configuration.GetUserName();
         if (!string.IsNullOrEmpty(userName))
         {
             nv["UserName"] = userName;
         }
 
-        // <para lang="zh">当前环境</para>
-        // <para lang="en">Current Environment</para>
+        // Current Environment
         var env = configuration.GetEnvironmentName();
         if (!string.IsNullOrEmpty(env))
         {
             nv["EnvironmentName"] = env;
         }
 
-        // <para lang="zh">IIS Root 路径</para>
-        // <para lang="en">IIS Root Path</para>
+        // IIS Root Path
         var iis = configuration.GetIISPath();
         if (!string.IsNullOrEmpty(iis))
         {
             nv["IISRootPath"] = iis;
         }
 
-        // <para lang="zh">VisualStudio Version</para>
-        // <para lang="en">VisualStudio Version</para>
+        // VisualStudio Version
         var vs = configuration.GetVisualStudioVersion();
         if (!string.IsNullOrEmpty(vs))
         {
@@ -117,8 +110,7 @@ internal static class ConfigurationExtensions
     {
         var userName = config.GetValue<string?>("USERNAME");
 
-        // <para lang="zh">Mac CentOS 系统</para>
-        // <para lang="en">Mac CentOS System</para>
+        // Mac CentOS System
         if (string.IsNullOrEmpty(userName))
         {
             userName = config.GetValue<string?>("LOGNAME");
@@ -160,7 +152,7 @@ internal static class ConfigurationExtensions
         var version = config.GetValue<string?>("VisualStudioVersion");
 
         var ret = $"{edition} {version}";
-        if (ret == " ")
+        if (string.IsNullOrWhiteSpace(ret))
         {
             ret = defaultValue;
         }
