@@ -36,7 +36,12 @@ public class AttributeItem
     public string Version { get; set; } = "10.2.2";
 
     /// <summary>
-    /// 
+    /// 获得/设置 默认值
     /// </summary>
     public string DefaultValue { get; set; } = "";
+
+    /// <summary>
+    /// 获得/设置 是否已弃用
+    /// </summary>
+    public bool IsObsolete { get; set; }
 }

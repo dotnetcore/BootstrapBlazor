@@ -58,7 +58,7 @@ public sealed partial class AttributeTable
         }
 
         var index = type.Name.IndexOf('`');
-        var typeName = type.Name.Substring(0, index);
+        var typeName = type.Name[..index];
         var genericArgs = string.Join(", ", type.GetGenericArguments().Select(i => i.Name));
         return $"{typeName}<{genericArgs}>";
     }
