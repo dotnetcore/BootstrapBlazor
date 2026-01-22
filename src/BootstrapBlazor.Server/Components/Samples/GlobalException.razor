@@ -57,9 +57,13 @@
     "DetailedErrors": true
 }</Pre>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <section ignore>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</section>
     <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
+    <button class="btn btn-primary" @onclick="OnClick">
+        <i class="fa-solid fa-font-awesome"></i>
+        <span>@Localizer["ButtonText"]</span>
+    </button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnErrorHandleTitle"]" Introduction="@Localizer["OnErrorHandleIntro"]" Name="Swal">

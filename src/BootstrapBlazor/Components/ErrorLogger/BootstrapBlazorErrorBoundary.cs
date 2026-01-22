@@ -127,6 +127,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         {
             // 保持 UI 使用 Toast 通知
             builder.AddContent(0, ChildContent);
+            _ = HandlerErrorContent(CurrentException);
         }
         ResetException();
     }
