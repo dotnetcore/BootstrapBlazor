@@ -2407,10 +2407,10 @@
     "WatchPositionResultSuccess": "调用 WatchPosition 成功"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
-    "Block1Intro": "本功能是通过代码产生异常信息，由全局捕获组件统一处理",
-    "Block1Title": "测试",
-    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
-    "Block2Title": "自定义错误处理",
+    "NormalTitle": "测试",
+    "NormalIntro": "本功能是通过代码产生异常信息，由全局捕获组件统一处理",
+    "OnErrorHandleTitle": "自定义错误处理",
+    "OnErrorHandleIntro": "通过设置 <code>ErrorLogger</code> 参数 <code>OnErrorHandleAsync</code> 自定义使用 <code>Swal</code> 弹窗显示异常信息",
     "ButtonText": "测试",
     "DialogIntro": "点击按钮弹出弹窗，弹窗内按钮触发异常，错误显示在弹窗内",
     "DialogText": "弹窗",

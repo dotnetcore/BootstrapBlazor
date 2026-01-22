@@ -2407,10 +2407,10 @@
     "WatchPositionResultSuccess": "Call WatchPosition success"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
-    "Block1Intro": "This function is to obtain the component instance through the cascade parameter and use its function",
-    "Block1Title": "Test",
-    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method",
-    "Block2Title": "OnErrorHandleAsync",
+    "NormalTitle": "Test",
+    "NormalIntro": "This function is to obtain the component instance through the cascade parameter and use its function",
+    "OnErrorHandleTitle": "OnErrorHandleAsync",
+    "OnErrorHandleIntro": "By setting the <code>OnErrorHandleAsync</code> parameter of <code>ErrorLogger</code>, you can customize the use of the <code>Swal</code> pop-up to display exception information.",
     "ButtonText": "test",
     "DialogIntro": "Click the button to pop up a pop-up window. The button in the pop-up window triggers an exception and the error is displayed in the pop-up window",
     "DialogText": "Popup",
