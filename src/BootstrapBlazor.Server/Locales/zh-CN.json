@@ -20,6 +20,7 @@
     "Type": "类型"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
+    "Obsolete": "已弃用",
     "AutoGenerateColumns": "自动生成",
     "Total": "合计"
   },

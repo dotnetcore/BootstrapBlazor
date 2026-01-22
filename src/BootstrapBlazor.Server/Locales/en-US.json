@@ -20,6 +20,7 @@
     "Type": "Type"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
+    "Obsolete": "Obsolete",
     "AutoGenerateColumns": "Automatically generated",
     "Total": "Total"
   },
