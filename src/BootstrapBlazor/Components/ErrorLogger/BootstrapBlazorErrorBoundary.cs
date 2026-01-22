@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -16,6 +17,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
+
     [Inject]
     [NotNull]
     private ILogger<BootstrapBlazorErrorBoundary>? Logger { get; set; }
@@ -59,6 +64,16 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [Parameter]
     [NotNull]
     public string? ToastTitle { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ToastTitle ??= Localizer[nameof(ToastTitle)];
+    }
 
     /// <summary>
     /// <inheritdoc/>
