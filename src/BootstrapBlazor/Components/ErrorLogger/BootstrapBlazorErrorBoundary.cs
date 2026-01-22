@@ -81,7 +81,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="exception"></param>
     protected override async Task OnErrorAsync(Exception exception)
     {
-        await ErrorBoundaryLogger.LogErrorAsync(exception);
+        if (EnableILogger)
+        {
+            await ErrorBoundaryLogger.LogErrorAsync(exception);
+        }
     }
 
     /// <summary>
