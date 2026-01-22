@@ -2412,6 +2412,8 @@
     "OnErrorHandleTitle": "自定义错误处理",
     "OnErrorHandleIntro": "通过设置 <code>ErrorLogger</code> 参数 <code>OnErrorHandleAsync</code> 自定义使用 <code>Swal</code> 弹窗显示异常信息",
     "ButtonText": "测试",
+    "Button1Text": "测试(组件)",
+    "Button2Text": "测试(原生)",
     "DialogIntro": "点击按钮弹出弹窗，弹窗内按钮触发异常，错误显示在弹窗内",
     "DialogText": "弹窗",
     "DialogTitle": "弹窗中异常捕获",
