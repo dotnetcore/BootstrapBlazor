@@ -11,11 +11,8 @@ export function init(id) {
     const inputFile = el.querySelector('[type="file"]');
     const upload = { el, body, preventHandler, inputFile };
     Data.set(id, upload)
-        
+
     EventHandler.on(el, 'click', '.btn-browser', () => {
-        //上传按钮禁用时不触发文件选择框
-        if (el.querySelector('.btn-browser').classList.contains('disabled'))
-            return;
         inputFile.click()
     })
     EventHandler.on(inputFile, 'change', e => {
