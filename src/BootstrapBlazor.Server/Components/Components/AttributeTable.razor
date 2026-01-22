@@ -9,7 +9,18 @@
 
     <Table TItem="AttributeItem" Items="_items" IsBordered="true" IsStriped="true" ShowFooter="@ShowFooter">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Name">
+                <Template Context="v">
+                    @if (v.Row.IsObsolete)
+                    {
+                        <span class="text-decoration-line-through text-danger">@v.Value</span>
+                    }
+                    else
+                    {
+                        @v.Value
+                    }
+                </Template>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />
             <TableColumn @bind-Field="@context.Type" TextWrap="true" Width="180"></TableColumn>
             <TableColumn @bind-Field="@context.Version" />
