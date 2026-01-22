@@ -194,7 +194,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ErrorContent_Ok()
+    public async Task Tab_ErrorContent_Ok()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
@@ -280,8 +280,19 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockInitializedError>();
         });
-
         cut.Contains("Attempted to divide by zero.");
+
+        var errorLogger = cut.FindComponent<ErrorLogger>();
+        Assert.NotNull(errorLogger);
+
+        errorLogger.Render(pb =>
+        {
+            pb.Add(a => a.ErrorContent, ex => builder =>
+            {
+                builder.AddContent(0, $"{ex.Message}_error_content_template");
+            });
+        });
+        cut.Contains("Attempted to divide by zero._error_content_template");
     }
 
     [Fact]
