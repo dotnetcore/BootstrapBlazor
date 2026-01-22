@@ -385,6 +385,10 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             { "hidden", "hidden" }
         };
+        if (IsDisabled)
+        {
+            ret.Add("disabled", "disabled");
+        }
         if (!string.IsNullOrEmpty(Accept))
         {
             ret.Add("accept", Accept);
