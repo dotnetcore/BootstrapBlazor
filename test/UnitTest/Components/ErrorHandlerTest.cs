@@ -25,7 +25,7 @@ public class ErrorHandlerTest : BootstrapBlazorTestBase
         }));
         var errorButton = cut.Find(".btn-error");
         await cut.InvokeAsync(() => errorButton.Click());
-        Assert.Contains("<div class=\"modal-body\"><div class=\"error-stack\">", cut.Markup);
+        cut.Contains("test error logger");
 
         // 关闭弹窗
         var btn = cut.Find(".modal-header .btn-close");

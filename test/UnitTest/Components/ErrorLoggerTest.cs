@@ -90,42 +90,39 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
         var result = await tcs.Task;
         Assert.True(result);
+
+        // 由于自定义 OnErrorHandleAsync 组件对异常未处理
+        cut.DoesNotContain("Attempted to divide by zero.");
     }
 
     [Fact]
-    public void OnErrorHandleAsync_Tab()
+    public async Task Tab_Error()
     {
         var cut = Context.Render<BootstrapBlazorRoot>(pb =>
         {
-            pb.Add(a => a.ChildContent, new RenderFragment(builder =>
+            pb.AddChildContent<Tab>(pb =>
             {
-                builder.OpenComponent<Tab>(0);
-                builder.AddAttribute(1, nameof(Tab.ChildContent), new RenderFragment(builder =>
+                pb.AddChildContent<TabItem>(pb =>
                 {
-                    builder.OpenComponent<TabItem>(0);
-                    builder.AddAttribute(1, nameof(TabItem.ChildContent), new RenderFragment(builder =>
+                    pb.AddChildContent<Button>(pb =>
                     {
-                        builder.OpenComponent<Button>(0);
-                        builder.AddAttribute(1, nameof(Button.Text), "errorLogger-click");
-                        builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                        pb.Add(a => a.Text, "errorLogger-click");
+                        pb.Add(a => a.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                         {
                             var a = 0;
                             _ = 1 / a;
                         }));
-                        builder.CloseComponent();
-                    }));
-                    builder.CloseComponent();
-                }));
-                builder.CloseComponent();
-            }));
+                    });
+                });
+            });
         });
 
         cut.Contains("errorLogger-click");
         var button = cut.Find("button");
-        button.TriggerEvent("onclick", EventArgs.Empty);
+        await cut.InvokeAsync(() => button.Click());
 
         // TabItem 内显示异常信息
-        cut.Contains("error-stack");
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
@@ -250,16 +247,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
 
         // 页面不崩溃，由弹窗显示异常信息
-        cut.Contains("<div class=\"error-stack\">TimeStamp:");
-
-        // 单元测试覆盖 TabItemContent Dispose 方法 覆盖内部 _logger 变量为空情况
-        var handler = Activator.CreateInstance("BootstrapBlazor", "BootstrapBlazor.Components.TabItemContent");
-        Assert.NotNull(handler);
-        var content = handler.Unwrap();
-        Assert.NotNull(content);
-
-        Assert.IsType<IDisposable>(content, exactMatch: false);
-        ((IDisposable)content).Dispose();
+        cut.Contains("Attempted to divide by zero.");
     }
 
     [Fact]
