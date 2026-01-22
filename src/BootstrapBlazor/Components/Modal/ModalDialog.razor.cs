@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">ModalDialog 组件</para>
 /// <para lang="en">ModalDialog Component</para>
 /// </summary>
-public partial class ModalDialog : IHandlerException
+public partial class ModalDialog
 {
     private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
 
@@ -353,26 +353,21 @@ public partial class ModalDialog : IHandlerException
     private IIconTheme? IconTheme { get; set; }
 
     private string? MaximizeIconString { get; set; }
-
     private DialogResult _result = DialogResult.Close;
-
     private bool _firstRender = true;
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        ErrorLogger?.Register(this);
         Modal.AddDialog(this);
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -492,27 +487,8 @@ public partial class ModalDialog : IHandlerException
 
     private RenderFragment RenderBodyTemplate() => builder =>
     {
-        builder.AddContent(0, _errorContent ?? BodyTemplate);
-        _errorContent = null;
+        builder.AddContent(0, BodyTemplate);
     };
-
-    /// <summary>
-    /// <para lang="zh">上次渲染错误内容</para>
-    /// <para lang="en">Last rendered error content</para>
-    /// </summary>
-    protected RenderFragment? _errorContent;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="errorContent"></param>
-    public virtual Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
-    {
-        _errorContent = errorContent(ex);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
 
     /// <summary>
     /// <para lang="zh">Dispose 方法</para>
@@ -525,7 +501,6 @@ public partial class ModalDialog : IHandlerException
 
         if (disposing)
         {
-            ErrorLogger?.UnRegister(this);
             Modal.RemoveDialog(this);
         }
     }

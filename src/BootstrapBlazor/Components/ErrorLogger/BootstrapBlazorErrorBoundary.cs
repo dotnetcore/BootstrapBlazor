@@ -9,6 +9,10 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
+#if NET8_0_OR_GREATER
+using System.Runtime.CompilerServices;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -31,6 +35,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [Inject]
     [NotNull]
     private ToastService? ToastService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private DialogService? DialogService { get; set; }
 
     [Inject]
     [NotNull]
@@ -65,6 +73,14 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     public string? ToastTitle { get; set; }
 
+    [CascadingParameter]
+    private Tab? TabSet { get; set; }
+
+    [CascadingParameter]
+    private Modal? Modal { get; set; }
+
+    private Exception? _exception;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -93,7 +109,12 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (CurrentException is null)
+        if (_exception is not null)
+        {
+            builder.AddContent(0, RenderErrorContent(_exception));
+            _exception = null;
+        }
+        else if (CurrentException is null)
         {
             builder.AddContent(0, ChildContent);
         }
@@ -124,11 +145,23 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         }
         else
         {
+            builder.AddContent(0, RenderErrorContent(ex));
+        }
+    }
+
+    private RenderFragment RenderErrorContent(Exception ex) => builder =>
+    {
+        if (ErrorContent is null)
+        {
             builder.OpenComponent<ErrorRender>(0);
             builder.AddAttribute(1, "Exception", ex);
             builder.CloseElement();
         }
-    }
+        else
+        {
+            builder.AddContent(10, ErrorContent(ex));
+        }
+    };
 
     private static readonly string[] PageMethods = new string[] { "SetParametersAsync", "RunInitAndSetParametersAsync", "OnAfterRenderAsync" };
 
@@ -138,11 +171,73 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         return PageMethods.Any(i => errorMessage.Contains(i, StringComparison.OrdinalIgnoreCase));
     }
 
+#if NET8_0_OR_GREATER
+    private void ResetException(Exception? exception = null)
+    {
+        ResetExceptionCore(this, exception);
+    }
+#else
     private PropertyInfo? _currentExceptionPropertyInfo;
 
-    private void ResetException()
+    private void ResetException(Exception? exception = null)
     {
         _currentExceptionPropertyInfo ??= GetType().BaseType!.GetProperty(nameof(CurrentException), BindingFlags.NonPublic | BindingFlags.Instance)!;
-        _currentExceptionPropertyInfo.SetValue(this, null);
+        _currentExceptionPropertyInfo.SetValue(this, exception);
     }
+#endif
+
+    /// <summary>
+    /// <para lang="zh">处理指定异常 由 <see cref="BootstrapComponentBase"/> 处理 <see cref="IHandleEvent"/> 接口调用</para>
+    /// <para lang="en">Handle exception/></para>
+    /// </summary>
+    /// <param name="exception"></param>
+    /// <returns></returns>
+    public async Task HandlerExceptionAsync(Exception exception)
+    {
+        // 记录日志
+        await OnErrorAsync(exception);
+
+        // 自定义处理后调用其处理逻辑
+        if (OnErrorHandleAsync is not null)
+        {
+            await OnErrorHandleAsync(Logger, exception);
+            return;
+        }
+
+        if (TabSet != null)
+        {
+            await DialogService.ShowExceptionDialog(ToastTitle, RenderErrorContent(exception));
+            return;
+        }
+
+        if (Modal != null)
+        {
+            _exception = exception;
+            StateHasChanged();
+            return;
+        }
+
+        await HandlerErrorContent(exception);
+    }
+
+    private async Task HandlerErrorContent(Exception exception)
+    {
+        if (ShowToast)
+        {
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                Title = ToastTitle,
+                ChildContent = ErrorContent == null
+                    ? RenderErrorContent(exception)
+                    : ErrorContent(exception)
+            };
+            await ToastService.Show(option);
+        }
+    }
+
+#if NET8_0_OR_GREATER
+    [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "set_CurrentException")]
+    static extern void ResetExceptionCore(ErrorBoundaryBase @this, Exception? exception);
+#endif
 }

@@ -258,11 +258,25 @@ public static class DialogServiceExtensions
     /// <param name="service"></param>
     /// <param name="fragment"></param>
     /// <param name="dialog"></param>
-    public static async Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    [Obsolete("已弃用，请使用 ShowExceptionDialog 方法。Deprecated, please use ShowExceptionDialog method")]
+    public static Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    {
+        return ShowExceptionDialog(service, null, fragment, dialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">显示异常信息对话框扩展方法</para>
+    /// <para lang="en">Show error handler dialog</para>
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="title"></param>
+    /// <param name="fragment"></param>
+    /// <param name="dialog"></param>
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, RenderFragment fragment, Dialog? dialog = null)
     {
         var option = new DialogOption
         {
-            Title = "Error",
+            Title = title ?? "Error",
             IsScrolling = true,
             BodyTemplate = fragment
         };
@@ -274,9 +288,10 @@ public static class DialogServiceExtensions
     /// <para lang="en">Show exception dialog</para>
     /// </summary>
     /// <param name="service"></param>
+    /// <param name="title"></param>
     /// <param name="exception"></param>
     /// <param name="dialog"></param>
-    public static async Task ShowExceptionDialog(this DialogService service, Exception exception, Dialog? dialog = null)
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, Exception exception, Dialog? dialog = null)
     {
         RenderFragment fragment = builder =>
         {
@@ -285,6 +300,6 @@ public static class DialogServiceExtensions
             builder.AddContent(20, new MarkupString(exception.Message));
             builder.CloseElement();
         };
-        await ShowErrorHandlerDialog(service, fragment, dialog);
+        await ShowExceptionDialog(service, title, fragment, dialog);
     }
 }

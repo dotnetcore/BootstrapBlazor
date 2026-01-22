@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Modal/ModalDialog.razor.js", JSObjectReference = true)]
 
@@ -45,7 +45,17 @@
             <CascadingValue Value="CloseAsync" IsFixed="true">
                 <CascadingValue Name="ResultDialogContext" Value="SetResultAsync" IsFixed="true">
                     <div class="modal-body">
-                        @RenderBodyTemplate()
+                        @if (ErrorLogger is null)
+                        {
+                            @BodyTemplate
+                        }
+                        else
+                        {
+                            <ErrorLogger EnableErrorLogger="ErrorLogger.EnableErrorLogger" EnableILogger="ErrorLogger.EnableILogger"
+                                         ShowToast="ErrorLogger.ShowToast" ToastTitle="@ErrorLogger.ToastTitle">
+                                @BodyTemplate
+                            </ErrorLogger>
+                        }
                     </div>
                     @if (ShowFooter)
                     {
