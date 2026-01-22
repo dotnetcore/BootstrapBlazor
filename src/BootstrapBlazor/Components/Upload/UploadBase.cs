@@ -15,11 +15,11 @@ namespace BootstrapBlazor.Components;
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否仅上传一次，默认 false（已弃用。请使用 IsMultiple 参数。）</para>
-    /// <para lang="en">Gets or sets whether to upload only once. Default is false.(Deprecated. Please use IsMultiple parameter.)</para>
+    /// <para lang="zh">获得/设置 是否仅上传一次，默认 false（已弃用 请使用 IsMultiple 参数）</para>
+    /// <para lang="en">Gets or sets whether to upload only once. Default is false. (Deprecated. Please use IsMultiple parameter)</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用。请使用 IsMultiple 参数。(Deprecated. Please use IsMultiple parameter.)")]
+    [Obsolete("已弃用。请使用 IsMultiple 参数 (Deprecated. Please use IsMultiple parameter)")]
     [ExcludeFromCodeCoverage]
     public bool IsSingle { get; set; }
 
@@ -28,7 +28,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <para lang="en">Gets or sets the maximum number of files to upload. Default is int.MaxValue.(Deprecated. Please use MaxFileCount parameter.)</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用。请使用 MaxFileCount 参数。(Deprecated. Please use MaxFileCount parameter.)")]
+    [Obsolete("已弃用。请使用 MaxFileCount 参数。(Deprecated. Please use MaxFileCount parameter)")]
     [ExcludeFromCodeCoverage]
     public int Max { get; set; } = int.MaxValue;
 
