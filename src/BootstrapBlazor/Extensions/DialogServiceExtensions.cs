@@ -259,6 +259,7 @@ public static class DialogServiceExtensions
     /// <param name="fragment"></param>
     /// <param name="dialog"></param>
     [Obsolete("已弃用，请使用 ShowExceptionDialog 方法。Deprecated, please use ShowExceptionDialog method")]
+    [ExcludeFromCodeCoverage]
     public static Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
     {
         return ShowExceptionDialog(service, null, fragment, dialog);
