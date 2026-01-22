@@ -308,7 +308,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.UseTabSet, false);
             pb.Add(a => a.Main, CreateMain());
-            pb.Add(a => a.ExcludeUrls, new string[] { "/Index" });
+            pb.Add(a => a.ExcludeUrls, new List<string>() { "/Index" });
             pb.Add(a => a.TabDefaultUrl, "/Index");
             pb.Add(a => a.IsOnlyRenderActiveTab, true);
             pb.Add(a => a.AllowDragTab, true);
@@ -627,7 +627,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ErrorLogger_OnErrorHandleAsync_Button()
+    public async Task ErrorLogger_OnErrorHandleAsync_Button()
     {
         // 页面生命周期内报错调用自定义处理方法
         Exception? ex1 = null;
@@ -657,7 +657,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
         });
         var button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
         Assert.NotNull(ex1);
 
         // 移除自定义逻辑使用内部异常处理逻辑
@@ -669,7 +669,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         button = cut.Find("button");
 
         ex1 = null;
-        cut.InvokeAsync(() => button.Click());
+        await cut.InvokeAsync(() => button.Click());
         Assert.Null(ex1);
     }
 
@@ -688,8 +688,12 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("CollapseBarTemplate-Content", cut.Markup);
-    }
 
+        var methodInfo = cut.Instance.GetType().GetMethod("DisposeAsync", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(methodInfo);
+
+        methodInfo.Invoke(cut.Instance, new object[] { false });
+    }
 
     [Fact]
     public void SkipAuthenticate_Ok()

@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
@@ -15,10 +14,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ErrorLogger : ComponentBase, IErrorLogger
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
-
     /// <summary>
     /// <inheritdoc cref="IErrorLogger.EnableErrorLogger"/>
     /// </summary>
@@ -69,38 +64,8 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得/设置 the 回调 function to be invoked during initialization.</para>
-    /// <para lang="en">Gets or sets the callback function to be invoked during initialization.</para>
-    /// </summary>
-    [Parameter]
-    public Func<IErrorLogger, Task>? OnInitializedCallback { get; set; }
-
     [NotNull]
     private BootstrapBlazorErrorBoundary? _errorBoundary = default;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ToastTitle ??= Localizer[nameof(ToastTitle)];
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (OnInitializedCallback is not null)
-        {
-            await OnInitializedCallback(this);
-        }
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -131,32 +96,18 @@ public class ErrorLogger : ComponentBase, IErrorLogger
         builder.AddAttribute(4, nameof(BootstrapBlazorErrorBoundary.ErrorContent), ErrorContent);
         builder.AddAttribute(5, nameof(BootstrapBlazorErrorBoundary.ChildContent), ChildContent);
         builder.AddAttribute(6, nameof(BootstrapBlazorErrorBoundary.EnableILogger), EnableILogger);
-        builder.AddComponentReferenceCapture(7, obj => _errorBoundary = (BootstrapBlazorErrorBoundary)obj);
+        builder.AddComponentReferenceCapture(7, obj => _errorBoundary = obj as BootstrapBlazorErrorBoundary);
         builder.CloseComponent();
     };
 
     /// <summary>
     /// <inheritdoc cref="IErrorLogger.HandlerExceptionAsync(Exception)"/>
     /// </summary>
-    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, GetLastOrDefaultHandler());
-
-    private readonly List<IHandlerException> _cache = [];
-
-    internal IHandlerException? GetLastOrDefaultHandler() => _cache.LastOrDefault();
-
-    /// <summary>
-    /// <inheritdoc cref="IErrorLogger.Register(IHandlerException)"/>
-    /// </summary>
-    public void Register(IHandlerException component)
+    public async Task HandlerExceptionAsync(Exception exception)
     {
-        _cache.Add(component);
-    }
-
-    /// <summary>
-    /// <inheritdoc cref="IErrorLogger.UnRegister(IHandlerException)"/>
-    /// </summary>
-    public void UnRegister(IHandlerException component)
-    {
-        _cache.Remove(component);
+        if (_errorBoundary != null)
+        {
+            await _errorBoundary.HandlerExceptionAsync(exception);
+        }
     }
 }

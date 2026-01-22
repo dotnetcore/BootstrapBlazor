@@ -20,8 +20,8 @@
     "Type": "类型"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "Obsolete": "已弃用",
     "AutoGenerateColumns": "自动生成",
+    "Obsolete": "已弃用",
     "Total": "合计"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
@@ -2407,10 +2407,8 @@
     "WatchPositionResultSuccess": "调用 WatchPosition 成功"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
-    "Block1Intro": "本功能是通过代码产生异常信息，由全局捕获组件统一处理",
-    "Block1Title": "测试",
-    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
-    "Block2Title": "自定义错误处理",
+    "Button1Text": "测试(组件)",
+    "Button2Text": "测试(原生)",
     "ButtonText": "测试",
     "DialogIntro": "点击按钮弹出弹窗，弹窗内按钮触发异常，错误显示在弹窗内",
     "DialogText": "弹窗",
@@ -2418,6 +2416,10 @@
     "ExceptionTestIntroduce": "本例代码中写了一个除以零的错误代码，并且未使用 <code>try/catch</code> 对异常进行捕获，系统并不会崩溃导致不可用，<ul class='ul-demo'><li><code>Debug</code> 模式下会显示错误的 <b>描述信息</b> 与 <b>堆栈信息</b></li><li><code>Release</code> 模式下默认使用 <code>Toast</code> 进行弹窗提示</li></ul>",
     "H1": "使用方法",
     "Introduce": "<p>增加组件 <code>ErrorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案；通过使用 <code>ErrorLogger</code> 组件 <b>无需任何额外代码</b> 即可进行全局异常捕获与处理</p>",
+    "NormalIntro": "本功能是通过代码产生异常信息，由全局捕获组件统一处理",
+    "NormalTitle": "测试",
+    "OnErrorHandleIntro": "通过设置 <code>ErrorLogger</code> 参数 <code>OnErrorHandleAsync</code> 自定义使用 <code>Swal</code> 弹窗显示异常信息",
+    "OnErrorHandleTitle": "自定义错误处理",
     "PageErrorIntro": "点击按钮导航到页面生命周期内出错的页面，错误显示在当前页面，不影响菜单以及整体页面布局",
     "PageErrorTitle": "页面异常捕获",
     "Step1": "1. <code>Startup</code> 文件中增加 <code>AddLogging</code> 开启 <code>net core</code> 系统日志功能，支持其他第三方 <code>Logger</code> 组件",

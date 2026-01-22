@@ -41,18 +41,4 @@ public interface IErrorLogger
     /// </summary>
     /// <param name="ex"></param>
     Task HandlerExceptionAsync(Exception ex);
-
-    /// <summary>
-    /// <para lang="zh">注册方法</para>
-    /// <para lang="en">Register Method</para>
-    /// </summary>
-    /// <param name="component"></param>
-    void Register(IHandlerException component);
-
-    /// <summary>
-    /// <para lang="zh">注销方法</para>
-    /// <para lang="en">Unregister Method</para>
-    /// </summary>
-    /// <param name="component"></param>
-    void UnRegister(IHandlerException component);
 }

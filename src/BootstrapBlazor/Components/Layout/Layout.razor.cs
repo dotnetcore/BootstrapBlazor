@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Layout 组件</para>
 /// <para lang="en">Layout Component</para>
 /// </summary>
-public partial class Layout : IHandlerException, ITabHeader
+public partial class Layout : ITabHeader
 {
     private bool IsSmallScreen { get; set; }
 
@@ -623,8 +623,6 @@ public partial class Layout : IHandlerException, ITabHeader
             SubscribedLocationChangedEvent = true;
             Navigation.LocationChanged += Navigation_LocationChanged;
         }
-
-        ErrorLogger?.Register(this);
     }
 
     /// <summary>
@@ -762,32 +760,11 @@ public partial class Layout : IHandlerException, ITabHeader
         await TriggerCollapseChanged();
     }
 
-    private IErrorLogger? _errorLogger;
-
-    private Task OnErrorLoggerInitialized(IErrorLogger logger)
-    {
-        _errorLogger = logger;
-        _errorLogger.Register(this);
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// <para lang="zh">上次渲染错误内容</para>
     /// <para lang="en">Last rendered error content</para>
     /// </summary>
     private RenderFragment? _errorContent;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="errorContent"></param>
-    public virtual Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
-    {
-        _errorContent = errorContent(ex);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
 
     private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
 
@@ -820,14 +797,9 @@ public partial class Layout : IHandlerException, ITabHeader
     {
         await base.DisposeAsync(disposing);
 
-        if (disposing)
+        if (disposing && SubscribedLocationChangedEvent)
         {
-            _errorLogger?.UnRegister(this);
-            ErrorLogger?.UnRegister(this);
-            if (SubscribedLocationChangedEvent)
-            {
-                Navigation.LocationChanged -= Navigation_LocationChanged;
-            }
+            Navigation.LocationChanged -= Navigation_LocationChanged;
         }
     }
 }
