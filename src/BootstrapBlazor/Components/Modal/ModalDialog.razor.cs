@@ -487,7 +487,20 @@ public partial class ModalDialog
 
     private RenderFragment RenderBodyTemplate() => builder =>
     {
-        builder.AddContent(0, BodyTemplate);
+        if (ErrorLogger is not null)
+        {
+            builder.OpenComponent<ErrorLogger>(0);
+            builder.AddAttribute(10, nameof(IErrorLogger.EnableErrorLogger), ErrorLogger.EnableErrorLogger);
+            builder.AddAttribute(20, nameof(IErrorLogger.EnableILogger), ErrorLogger.EnableILogger);
+            builder.AddAttribute(30, nameof(IErrorLogger.ShowToast), ErrorLogger.ShowToast);
+            builder.AddAttribute(40, nameof(IErrorLogger.ToastTitle), ErrorLogger.ToastTitle);
+            builder.AddAttribute(40, nameof(BootstrapBlazorErrorBoundary.ChildContent), BodyTemplate);
+            builder.CloseComponent();
+        }
+        else
+        {
+            builder.AddContent(0, BodyTemplate);
+        }
     };
 
     /// <summary>

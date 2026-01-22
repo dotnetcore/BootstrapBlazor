@@ -45,17 +45,7 @@
             <CascadingValue Value="CloseAsync" IsFixed="true">
                 <CascadingValue Name="ResultDialogContext" Value="SetResultAsync" IsFixed="true">
                     <div class="modal-body">
-                        @if (ErrorLogger is null)
-                        {
-                            @BodyTemplate
-                        }
-                        else
-                        {
-                            <ErrorLogger EnableErrorLogger="ErrorLogger.EnableErrorLogger" EnableILogger="ErrorLogger.EnableILogger"
-                                         ShowToast="ErrorLogger.ShowToast" ToastTitle="@ErrorLogger.ToastTitle">
-                                @BodyTemplate
-                            </ErrorLogger>
-                        }
+                        @RenderBodyTemplate()
                     </div>
                     @if (ShowFooter)
                     {
