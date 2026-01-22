@@ -150,7 +150,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         {
             builder.OpenComponent<ErrorRender>(0);
             builder.AddAttribute(1, "Exception", ex);
-            builder.CloseElement();
+            builder.CloseComponent();
         }
         else
         {
