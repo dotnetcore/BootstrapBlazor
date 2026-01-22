@@ -45,14 +45,14 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否启用日志记录功能 默认 true 启用</para>
-    /// <para lang="en">Gets or sets Whether to Enable Logging Default true</para>
+    /// <para lang="en">Gets or sets Whether to Enable Logging. Default true</para>
     /// </summary>
     [Parameter]
     public bool EnableILogger { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示弹窗 默认 true 显示</para>
-    /// <para lang="en">Gets or sets Whether to Show Toast Default true</para>
+    /// <para lang="en">Gets or sets Whether to Show Toast. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
