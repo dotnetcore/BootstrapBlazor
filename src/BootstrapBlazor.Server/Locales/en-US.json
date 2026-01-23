@@ -5308,15 +5308,17 @@
     "TaskBoardTitle": "Task DashBoard"
   },
   "BootstrapBlazor.Server.Components.Samples.Terms": {
-    "Title": "Terminal",
-    "SubTitle": "Terminal Component",
-    "Tips": "This component depends on the <code>BootstrapBlazor.Term</code> extension package. You need to reference it as follows",
-    "BasicUsageTitle": "Basic Usage",
     "BasicUsageIntro": "Output text by calling the <code>Write</code> method",
-    "Send": "Send",
-    "Clean": "Clean",
+    "BasicUsageTitle": "Basic Usage",
+    "CheckText": "Check",
+    "CleanText": "Clean",
+    "StreamUsageIntro": "Connect various streams by calling the <code>Open</code> method, this example simulates <b>Shell</b> and verifies input characters",
     "StreamUsageTitle": "Stream Usage",
-    "StreamUsageIntro": "Connect various streams by calling the <code>Open</code> method, this example simulates <b>Shell</b> and verifies input characters"
+    "SubTitle": "Terminal Component",
+    "TermDesc": "The <code>Term</code> component is a terminal component that establishes a connection with the stream via <code>C#</code> code. The <code>Term</code> component is then responsible for displaying interactive content. In this example, after establishing a connection with a simulated <code>Stream</code> instance in the backend, data is automatically displayed within the component when it is written. When the user enters a command within the component and presses Enter, the backend processes it and displays the result in the component.",
+    "TestText": "Test",
+    "Tips": "This component depends on the <code>BootstrapBlazor.Term</code> extension package. You need to reference it as follows",
+    "Title": "Terminal"
   },
   "BootstrapBlazor.Server.Components.Samples.TextAreas": {
     "TextAreaAutoScroll": "Automatic scrolling",

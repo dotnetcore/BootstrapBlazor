@@ -12,28 +12,20 @@ public partial class Terms : IDisposable
     private MemoryStream _ms = new MemoryStream();
     private CancellationTokenSource? _cancellationTokenSource;
 
-    private TermOptions Options { get; set; } = new()
-    {
-        FontSize = 14,
-        CursorBlink = true
-    };
-
-    private string? InputString { get; set; }
-
     private async Task OnReceivedAsync(byte[] data)
     {
-        //var str = System.Text.Encoding.UTF8.GetString(data);
-        //str = str.Replace("\r", "\r\n");
-        //await _term.Write(str);
+        var str = System.Text.Encoding.UTF8.GetString(data);
+        await _term.Write(str.Replace("\r", "\r\n"));
     }
 
-    private async Task OnSend()
+    private async Task OnCheck()
     {
-        if (!string.IsNullOrEmpty(InputString))
-        {
-            await _term.WriteLine(InputString);
-            InputString = "";
-        }
+        await _term.WriteLine($"Check\r\n{DateTime.Now}");
+    }
+
+    private async Task OnTest()
+    {
+        await _term.WriteLine($"Test\r\n{DateTime.Now}");
     }
 
     private async Task OnClean()
@@ -60,7 +52,7 @@ public partial class Terms : IDisposable
                     {
                         // 模拟流内数据变化
                         _ms.SetLength(0);
-                        await _ms.WriteAsync(Encoding.UTF8.GetBytes($"{DateTime.Now.ToString()}\r\n"), _cancellationTokenSource.Token);
+                        await _ms.WriteAsync(Encoding.UTF8.GetBytes($"{DateTime.Now}\r\n"), _cancellationTokenSource.Token);
                         _ms.Seek(0, SeekOrigin.Begin);
                         await Task.Delay(2000);
                     }
