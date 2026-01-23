@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class Terms : IDisposable
 {
     private Term _term = default!;
+    private Term _termStream = default!;
     private MemoryStream _ms = new MemoryStream();
     private CancellationTokenSource? _cancellationTokenSource;
 
@@ -21,9 +22,9 @@ public partial class Terms : IDisposable
 
     private async Task OnReceivedAsync(byte[] data)
     {
-        var str = System.Text.Encoding.UTF8.GetString(data);
-        str = str.Replace("\r", "\r\n");
-        await _term.Write(str);
+        //var str = System.Text.Encoding.UTF8.GetString(data);
+        //str = str.Replace("\r", "\r\n");
+        //await _term.Write(str);
     }
 
     private async Task OnSend()
@@ -48,7 +49,7 @@ public partial class Terms : IDisposable
     {
         if (firstRender)
         {
-            await _term.Open(_ms);
+            await _termStream.Open(_ms);
 
             _ = Task.Run(async () =>
             {
@@ -57,8 +58,9 @@ public partial class Terms : IDisposable
                 {
                     try
                     {
-                        await _ms.WriteAsync(Encoding.UTF8.GetBytes(DateTime.Now.ToString()), _cancellationTokenSource.Token);
-                        _ms.WriteByte(0x0d);
+                        // 模拟流内数据变化
+                        _ms.SetLength(0);
+                        await _ms.WriteAsync(Encoding.UTF8.GetBytes($"{DateTime.Now.ToString()}\r\n"), _cancellationTokenSource.Token);
                         _ms.Seek(0, SeekOrigin.Begin);
                         await Task.Delay(2000);
                     }
@@ -78,6 +80,9 @@ public partial class Terms : IDisposable
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
             }
+
+            _ms.Close();
+            _ms.Dispose();
         }
     }
 

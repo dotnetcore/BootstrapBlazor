@@ -14,7 +14,7 @@
         <div>@((MarkupString)Localizer["TermDesc"].Value)</div>
         <div><code>Term</code> 组件是一个终端组件，设计原理如下：通过 <code>C#</code> 代码与流建立联系，然后组件 <code>Term</code> 负责显示交互内容；本例中，与后台一个 <code>Stream</code> 实例建立联系后，当有数据时，自动显示在组件内</div>
     </section>
-    <Term @ref="_term" OnReceivedAsync="OnReceivedAsync" Options="Options" Height="400px" />
+    <Term OnReceivedAsync="OnReceivedAsync" Options="Options" Height="400px" />
     <section ignore class="row g-3 mt-3">
         <div class="col-12">
             <BootstrapInputGroup>
@@ -24,6 +24,10 @@
             </BootstrapInputGroup>
         </div>
     </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StreamUsageTitle"]" Introduction="@Localizer["StreamUsageIntro"]" Name="Stream">
+    <Term Options="Options" Height="400px" @ref="_termStream" />
 </DemoBlock>
 
 <AttributeTable Type="typeof(Term)"></AttributeTable>
