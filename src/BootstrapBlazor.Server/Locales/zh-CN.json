@@ -428,6 +428,7 @@
     "Tag": "标签 Tag",
     "TaskDashBoard": "任务管理器 TaskDashBoard",
     "TcpSocketFactory": "套接字服务 ITcpSocketFactory",
+    "Terms": "终端 Terminal",
     "Textarea": "多行文本框 Textarea",
     "Theme": "组件主题",
     "ThemeProvider": "主题服务 IThemeProvider",
@@ -5305,6 +5306,19 @@
     "TaskBoardNormalIntro": "本组件提供后台任务调度触发器详细信息",
     "TaskBoardNormalTitle": "基本用法",
     "TaskBoardTitle": "Task DashBoard 任务管理器"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Terms": {
+    "BasicUsageIntro": "通过调用 <code>Write</code> 方法输出文本",
+    "BasicUsageTitle": "基础用法",
+    "CheckText": "查询命令（Check）",
+    "CleanText": "清空",
+    "StreamUsageIntro": "通过调用 <code>Open</code> 方法连接各种流，本例模拟 <b>Shell</b> 并回显输入字符",
+    "StreamUsageTitle": "流式处理",
+    "SubTitle": "命令行终端显示组件",
+    "TermDesc": "<code>Term</code> 组件是一个终端组件，通过 <code>C#</code> 代码与流建立联系，然后组件 <code>Term</code> 负责显示交互内容；本例中，与后台一个模拟 <code>Stream</code> 实例建立联系后，当有数据写入时自动显示在组件内，用户在组件内录入命令回车后，由后端处理回显在组件中",
+    "TestText": "测试命令 (Test)",
+    "Tips": "本组件依赖 <code>BootstrapBlazor.Term</code> 扩展包，需要依照下面步骤进行引用",
+    "Title": "Term 命令行"
   },
   "BootstrapBlazor.Server.Components.Samples.TextAreas": {
     "TextAreaAutoScroll": "自动滚屏",
