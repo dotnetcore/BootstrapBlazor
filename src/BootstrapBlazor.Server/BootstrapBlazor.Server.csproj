@@ -77,6 +77,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="10.0.2" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.Term" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverSheet" Version="10.0.8" />
@@ -91,7 +92,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.Term\BootstrapBlazor.Term.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
