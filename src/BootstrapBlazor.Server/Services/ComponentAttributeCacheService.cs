@@ -146,6 +146,7 @@ public static class ComponentAttributeCacheService
 
         return type.Name switch
         {
+            "UInt32" => "uint",
             "Int32" => "int",
             "String" => "string",
             "Boolean" => "bool",
