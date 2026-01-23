@@ -38,7 +38,18 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterFunc<TItem>(null);
+
+    /// <summary>
+    /// <para lang="zh">指定 FilterKeyValueAction 获取委托</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get delegate</para>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filter"></param>
+    /// <param name="comparison">
+    /// <para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para>
+    /// <para lang="en"><see cref="StringComparison"/> instance, this method does not support EFCore Where query</para>
+    /// </param>
     public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null) => filter.GetFilterLambda<TItem>(comparison).Compile();
 
     /// <summary>
@@ -47,7 +58,15 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
-    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance，此method不支持 EFCore Where 查询</para></param>
+    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>(null);
+
+    /// <summary>
+    /// <para lang="zh">指定 FilterKeyValueAction 获取 Lambda 表达式</para>
+    /// <para lang="en">Specify FilterKeyValueAction to get Lambda expression</para>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filter"></param>
+    /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例，此方法不支持 EFCore Where 查询</para><para lang="en"><see cref="StringComparison"/> instance, this method does not support EFCore Where query</para></param>
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter, StringComparison? comparison = null)
     {
         var express = new List<Expression<Func<TItem, bool>>>();
@@ -75,7 +94,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
-    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
+    /// <para lang="en">Specify IFilter collection to get Lambda expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -84,7 +103,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">指定 IFilter 集合获取 Lambda 表达式</para>
-    /// <para lang="en">指定 IFilter collection获取 Lambda 表达式</para>
+    /// <para lang="en">Specify IFilter collection to get Lambda expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
@@ -283,7 +302,7 @@ public static class LambdaExtensions
     #region Sort
     /// <summary>
     /// <para lang="zh">获得排序 Expression 表达式</para>
-    /// <para lang="en">Gets排序 Expression 表达式</para>
+    /// <para lang="en">Gets sort Expression expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     public static Expression<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>> GetSortListLambda<TItem>()
@@ -357,7 +376,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">获得排序 Expression 表达式</para>
-    /// <para lang="en">Get sort Expression expression</para>
+    /// <para lang="en">Gets sort Expression expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
@@ -629,7 +648,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">获取属性方法 Lambda 表达式</para>
-    /// <para lang="en">Get property method Lambda expression</para>
+    /// <para lang="en">Gets property method Lambda expression</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -758,8 +777,8 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
-    /// <para lang="en">Get the property value of the designated model marked with <see cref="KeyAttribute"/></para>
+    /// <para lang="zh">获得指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Gets the property value of the designated model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -801,7 +820,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">数组转成字符串表达式</para>
-    /// <para lang="en">Array to string expression</para>
+    /// <para lang="en">Gets array to string expression</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     public static Expression<Func<TValue, string>> EnumerableConvertToStringLambda<TValue>()
@@ -816,7 +835,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">泛型集合转换成 <see cref="IEnumerable{T}"/> 方法</para>
-    /// <para lang="en">Generic collection convert to <see cref="IEnumerable{T}"/> method</para>
+    /// <para lang="en">Gets generic collection convert to <see cref="IEnumerable{T}"/> method</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     public static Expression<Func<TValue, IEnumerable<string>>> ConvertToStringEnumerableLambda<TValue>()
@@ -835,7 +854,7 @@ public static class LambdaExtensions
 
     /// <summary>
     /// <para lang="zh">数组转成字符串表达式</para>
-    /// <para lang="en">数组转成字符串表达式</para>
+    /// <para lang="en">Gets array to string expression</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="typeResolver"></param>
