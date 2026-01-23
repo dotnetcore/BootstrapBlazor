@@ -1,11 +1,15 @@
+using System.Text;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// Term 示例
 /// </summary>
-public partial class Terms
+public partial class Terms : IDisposable
 {
-    private Term? Term { get; set; }
+    private Term _term = default!;
+    private MemoryStream _ms = new MemoryStream();
+    private CancellationTokenSource? _cancellationTokenSource;
 
     private TermOptions Options { get; set; } = new()
     {
@@ -15,133 +19,74 @@ public partial class Terms
 
     private string? InputString { get; set; }
 
-    private async Task OnData(byte[] data)
+    private async Task OnReceivedAsync(byte[] data)
     {
-        if (Term != null)
-        {
-            var str = System.Text.Encoding.UTF8.GetString(data);
-            str = str.Replace("\r", "\r\n");
-            await Term.Write(str);
-        }
+        var str = System.Text.Encoding.UTF8.GetString(data);
+        str = str.Replace("\r", "\r\n");
+        await _term.Write(str);
     }
 
     private async Task OnSend()
     {
-        if (Term != null && !string.IsNullOrEmpty(InputString))
+        if (!string.IsNullOrEmpty(InputString))
         {
-            await Term.WriteLine(InputString);
+            await _term.WriteLine(InputString);
             InputString = "";
         }
     }
 
     private async Task OnClean()
     {
-        if (Term != null)
-        {
-            await Term.Clear();
-        }
+        await _term.Clear();
     }
 
-    private Term? TermStream { get; set; }
-
     /// <summary>
-    /// OnAfterRenderAsync
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            if (TermStream != null)
+            await _term.Open(_ms);
+
+            _ = Task.Run(async () =>
             {
-                await TermStream.Open(new MockShellStream());
-            }
-        }
-    }
-
-    private Task OnDataAsync(byte[] data)
-    {
-        return Task.CompletedTask;
-    }
-
-    class MockShellStream : Stream
-    {
-        private readonly List<byte> _buffer = [];
-
-        private readonly AutoResetEvent _autoResetEvent = new(false);
-
-        public override bool CanRead => true;
-
-        public override bool CanSeek => false;
-
-        public override bool CanWrite => true;
-
-        public override long Length => throw new NotSupportedException();
-
-        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
-
-        public override void Flush()
-        {
-
-        }
-
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override long Seek(long offset, SeekOrigin origin)
-        {
-            throw new NotSupportedException();
-        }
-
-        public override void SetLength(long value)
-        {
-            throw new NotSupportedException();
-        }
-
-        public override void Write(byte[] buffer, int offset, int count)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override async Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
-        {
-            var data = new byte[count];
-            Array.Copy(buffer, offset, data, 0, count);
-            var str = System.Text.Encoding.UTF8.GetString(data);
-            str = str.Replace("\r", "\r\n");
-            _buffer.AddRange(System.Text.Encoding.UTF8.GetBytes(str));
-
-            var command = System.Text.Encoding.UTF8.GetString(data);
-            if (command == "\r")
-            {
-                _buffer.AddRange(System.Text.Encoding.UTF8.GetBytes("Using Stream implementing a mock shell demo\r\n"));
-                _buffer.AddRange(System.Text.Encoding.UTF8.GetBytes("> "));
-            }
-            _autoResetEvent.Set();
-            await Task.CompletedTask;
-        }
-
-        public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
-        {
-            await Task.Run(() =>
-            {
-                if (_buffer.Count == 0)
+                _cancellationTokenSource ??= new();
+                while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
-                    _autoResetEvent.WaitOne();
+                    try
+                    {
+                        await _ms.WriteAsync(Encoding.UTF8.GetBytes(DateTime.Now.ToString()), _cancellationTokenSource.Token);
+                        _ms.WriteByte(0x0d);
+                        _ms.Seek(0, SeekOrigin.Begin);
+                        await Task.Delay(2000);
+                    }
+                    catch { }
                 }
-            }, cancellationToken);
-
-            var readCount = Math.Min(count, _buffer.Count);
-            if (readCount > 0)
-            {
-                var data = _buffer.Take(readCount).ToArray();
-                Array.Copy(data, 0, buffer, offset, readCount);
-                _buffer.RemoveRange(0, readCount);
-            }
-            return readCount;
+            });
         }
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_cancellationTokenSource is { IsCancellationRequested: false })
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
