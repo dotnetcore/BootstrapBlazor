@@ -23,12 +23,6 @@
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel>TabBarMode</BootstrapInputGroupLabel>
-                    <Select @bind-Value="_tabBarMode"></Select>
-                </BootstrapInputGroup>
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel>Theme</BootstrapInputGroupLabel>
                     <Select @bind-Value="_theme"></Select>
                 </BootstrapInputGroup>
@@ -39,8 +33,14 @@
                     <Select @bind-Value="_strategy"></Select>
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12">
+                <Button OnClick="@(() => OnSetUrl("sample.pdf"))" Text="Sample.Pdf"></Button>
+                <Button OnClick="@(() => OnSetUrl("ebook.pdf"))" Text="EBook.Pdf" class="ms-3"></Button>
+            </div>
         </div>
     </section>
     <EmbedPDF Url="@_url" ViewHeight="600px" Language="@_language"
-              TabBarMode="_tabBarMode" Theme="_theme" ScrollStrategy="_strategy"></EmbedPDF>
+              Theme="_theme" ScrollStrategy="_strategy"></EmbedPDF>
 </DemoBlock>
+
+<AttributeTable Type="typeof(EmbedPDF)"></AttributeTable>
