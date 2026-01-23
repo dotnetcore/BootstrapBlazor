@@ -217,7 +217,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => RenderItems
         .Where(i => !string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value))
-        .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
+        .GroupBy(i => i.GroupName).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
 
     private List<IEditorItem>? _itemsCache;
