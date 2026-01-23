@@ -18,7 +18,6 @@ public static class IIconThemeExtensions
     /// <param name="iconTheme"></param>
     /// <param name="key"></param>
     /// <param name="defaultIcon"></param>
-    /// <returns></returns>
     public static string? GetIconByKey(this IIconTheme iconTheme, ComponentIcons key, string? defaultIcon = null)
     {
         string? icon = null;

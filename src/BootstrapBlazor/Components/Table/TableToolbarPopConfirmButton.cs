@@ -17,7 +17,6 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
     /// <para lang="en">Gets or sets button click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task>? OnConfirmCallback { get; set; }
@@ -25,7 +24,6 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示，默认为 true 显示</para>
     /// <para lang="en">Gets or sets whether to display. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
@@ -33,7 +31,6 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     /// <summary>
     /// <para lang="zh">获得/设置 选中一行时启用按钮，默认为 false</para>
     /// <para lang="en">Gets or sets whether to enable button when one row is selected. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
@@ -41,7 +38,6 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     /// <summary>
     /// <para lang="zh">获得/设置 按钮是否被禁用的回调方法</para>
     /// <para lang="en">Gets or sets the callback method for button disabled state</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }

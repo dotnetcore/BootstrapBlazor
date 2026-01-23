@@ -31,7 +31,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">获得 语音包方法</para>
     /// <para lang="en">Gets 语音包方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task<WebSpeechSynthesisVoice[]?> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]?>("getVoices");
 
     /// <summary>
@@ -74,7 +73,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">暂停朗读方法</para>
     /// <para lang="en">暂停朗读方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task PauseAsync()
     {
         await module.InvokeVoidAsync("pause", _id);
@@ -84,7 +82,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">恢复朗读方法</para>
     /// <para lang="en">恢复朗读方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task ResumeAsync()
     {
         await module.InvokeVoidAsync("resume", _id);
@@ -94,7 +91,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">取消朗读方法</para>
     /// <para lang="en">取消朗读方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task CancelAsync()
     {
         await module.InvokeVoidAsync("cancel", _id);
@@ -104,7 +100,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">朗读异常回调方法由 Javascript 调用</para>
     /// <para lang="en">朗读exceptioncallback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerErrorCallback(WebSpeechSynthesisError error)
     {
@@ -118,7 +113,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">朗读结束回调方法由 Javascript 调用</para>
     /// <para lang="en">朗读结束callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerEndCallback()
     {
@@ -132,7 +126,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <para lang="zh">正在朗读回调方法由 Javascript 调用</para>
     /// <para lang="en">正在朗读callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public Task TriggerSpeakingCallback() => TriggerErrorCallback(new WebSpeechSynthesisError()
     {

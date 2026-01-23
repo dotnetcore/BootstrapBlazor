@@ -16,7 +16,6 @@ public interface ITotpService
     /// <para lang="en">Generates a one-time password (OTP) URI for the specified parameters.</para>
     /// </summary>
     /// <param name="options">the instance of <see cref="OtpOptions"/></param>
-    /// <returns></returns>
     string GenerateOtpUri(OtpOptions? options = null);
 
     /// <summary>
@@ -28,7 +27,6 @@ public interface ITotpService
     /// <param name="mode"></param>
     /// <param name="digits"></param>
     /// <param name="timestamp"></param>
-    /// <returns></returns>
     string Compute(string secretKey, int period = 30, OtpHashMode mode = OtpHashMode.Sha1, int digits = 6, DateTime? timestamp = null);
 
     /// <summary>
@@ -36,21 +34,18 @@ public interface ITotpService
     /// <para lang="en">Computes the remaining seconds until the next TOTP expiration for the given secret key and timestamp.</para>
     /// </summary>
     /// <param name="timestamp"></param>
-    /// <returns></returns>
     int GetRemainingSeconds(DateTime? timestamp = null);
 
     /// <summary>
     /// <para lang="zh">Generates a random secret key for OTP authentication.</para>
     /// <para lang="en">Generates a random secret key for OTP authentication.</para>
     /// </summary>
-    /// <returns></returns>
     string GenerateSecretKey(int length = 20);
 
     /// <summary>
     /// <para lang="zh">获得 the secret key bytes from the given input string.</para>
     /// <para lang="en">Gets the secret key bytes from the given input string.</para>
     /// </summary>
-    /// <returns></returns>
     byte[] GetSecretKeyBytes(string input);
 
     /// <summary>
@@ -59,7 +54,6 @@ public interface ITotpService
     /// </summary>
     /// <param name="code"></param>
     /// <param name="timestamp"></param>
-    /// <returns></returns>
     bool Verify(string code, DateTime? timestamp = null);
 
     /// <summary>

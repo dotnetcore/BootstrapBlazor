@@ -39,7 +39,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
         var options = BootstrapBlazorOptions.Value.ConnectionHubOptions;
@@ -62,7 +61,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <para lang="en">JSInvoke callback method</para>
     /// </summary>
     /// <param name="client"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task Callback(ClientInfo client)
     {

@@ -17,7 +17,6 @@ public class LinkButton : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 Url 默认为 #</para>
     /// <para lang="en">Gets or sets the URL. Default is #</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
@@ -25,7 +24,6 @@ public class LinkButton : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 A 标签 target 参数 默认 null</para>
     /// <para lang="en">Gets or sets the anchor target parameter. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }
@@ -33,7 +31,6 @@ public class LinkButton : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示图片地址 默认为 null</para>
     /// <para lang="en">Gets or sets the image URL. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
@@ -41,7 +38,6 @@ public class LinkButton : ButtonBase
     /// <summary>
     /// <para lang="zh">css class of img element default value null</para>
     /// <para lang="en">The css class of img element default value null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ImageCss { get; set; }
@@ -49,7 +45,6 @@ public class LinkButton : ButtonBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否为垂直布局 默认 false</para>
     /// <para lang="en">Gets or sets whether it is vertical layout. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsVertical { get; set; }

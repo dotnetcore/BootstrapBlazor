@@ -14,7 +14,6 @@ public partial class Script
     /// <summary>
     /// <para lang="zh">获得/设置 src 属性值</para>
     /// <para lang="en">Gets or sets src Property Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [EditorRequired]
@@ -23,7 +22,6 @@ public partial class Script
     /// <summary>
     /// <para lang="zh">获得/设置 版本号 默认 null 自动生成</para>
     /// <para lang="en">Gets or sets Version Number Default null Auto Generated</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Version { get; set; }

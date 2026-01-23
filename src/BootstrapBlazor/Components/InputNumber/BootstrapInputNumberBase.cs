@@ -16,7 +16,6 @@ public class BootstrapInputNumberBase<TValue> : BootstrapInputEventBase<TValue>
     /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect

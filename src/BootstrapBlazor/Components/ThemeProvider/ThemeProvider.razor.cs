@@ -16,7 +16,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 自动模式图标，默认 null</para>
     /// <para lang="en">Gets or sets the auto mode icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AutoModeIcon { get; set; }
@@ -24,7 +23,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 自动模式文本，默认 null 未设置使用本地化资源</para>
     /// <para lang="en">Gets or sets the auto mode text. Default is null (uses localized resource).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? AutoModeText { get; set; }
@@ -32,7 +30,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 暗黑模式图标，默认 null</para>
     /// <para lang="en">Gets or sets the dark mode icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DarkModeIcon { get; set; }
@@ -40,7 +37,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 暗黑模式文本，默认 null 未设置使用本地化资源</para>
     /// <para lang="en">Gets or sets the dark mode text. Default is null (uses localized resource).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DarkModeText { get; set; }
@@ -48,7 +44,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 明亮模式图标，默认 null</para>
     /// <para lang="en">Gets or sets the light mode icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LightModeIcon { get; set; }
@@ -56,7 +51,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 明亮模式文本，默认 null 未设置使用本地化资源</para>
     /// <para lang="en">Gets or sets the light mode text. Default is null (uses localized resource).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? LightModeText { get; set; }
@@ -64,7 +58,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 当前选中模式图标，默认 null</para>
     /// <para lang="en">Gets or sets the active mode icon. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ActiveIcon { get; set; }
@@ -72,7 +65,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 下拉框是否显示阴影效果，默认 true</para>
     /// <para lang="en">Gets or sets whether the dropdown shows shadow. Default is true.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
@@ -80,7 +72,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 下拉框对齐方式，默认 Right</para>
     /// <para lang="en">Gets or sets the dropdown alignment. Default is Right.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment Alignment { get; set; } = Alignment.Right;
@@ -88,7 +79,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 主题切换回调方法</para>
     /// <para lang="en">Gets or sets the theme changed callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<ThemeValue, Task>? OnThemeChangedAsync { get; set; }
@@ -96,7 +86,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 主题类型</para>
     /// <para lang="en">Gets or sets the theme type</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ThemeValue ThemeValue { get; set; } = ThemeValue.UseLocalStorage;
@@ -104,7 +93,6 @@ public partial class ThemeProvider
     /// <summary>
     /// <para lang="zh">获得/设置 主题类型改变回调方法</para>
     /// <para lang="en">Gets or sets the theme type changed callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<ThemeValue> ThemeValueChanged { get; set; }

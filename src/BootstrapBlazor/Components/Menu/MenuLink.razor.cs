@@ -36,7 +36,6 @@ public sealed partial class MenuLink
     /// <summary>
     /// <para lang="zh">获得/设置 MenuItem 实例 不可为空</para>
     /// <para lang="en">Gets or sets MenuItem Instance. Cannot be null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -45,7 +44,6 @@ public sealed partial class MenuLink
     /// <summary>
     /// <para lang="zh">获得/设置 ArrowIcon 图标</para>
     /// <para lang="en">Gets or sets ArrowIcon Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? ArrowIcon { get; set; }
@@ -73,7 +71,6 @@ public sealed partial class MenuLink
     /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);

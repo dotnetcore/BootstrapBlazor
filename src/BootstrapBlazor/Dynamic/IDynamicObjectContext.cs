@@ -15,14 +15,12 @@ public interface IDynamicObjectContext
     /// <para lang="zh">获取动态类型各列信息</para>
     /// <para lang="en">获取动态type各列信息</para>
     /// </summary>
-    /// <returns></returns>
     IEnumerable<ITableColumn> GetColumns();
 
     /// <summary>
     /// <para lang="zh">获得动态数据方法</para>
     /// <para lang="en">Gets动态data方法</para>
     /// </summary>
-    /// <returns></returns>
     IEnumerable<IDynamicObject> GetItems();
 
     /// <summary>
@@ -30,7 +28,6 @@ public interface IDynamicObjectContext
     /// <para lang="en">新建方法</para>
     /// </summary>
     /// <param name="selectedItems"><para lang="zh">当前选中行</para><para lang="en">当前选中行</para></param>
-    /// <returns></returns>
     Task AddAsync(IEnumerable<IDynamicObject> selectedItems);
 
     /// <summary>
@@ -38,14 +35,12 @@ public interface IDynamicObjectContext
     /// <para lang="en">删除方法</para>
     /// </summary>
     /// <param name="items"></param>
-    /// <returns></returns>
     Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items);
 
     /// <summary>
     /// <para lang="zh">获得/设置 动态类型属性值变化时回调方法 默认为 null</para>
     /// <para lang="en">Gets or sets 动态typeproperty值变化时callback method Default is为 null</para>
     /// </summary>
-    /// <returns></returns>
     Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
 
     /// <summary>

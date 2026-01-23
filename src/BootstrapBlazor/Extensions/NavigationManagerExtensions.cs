@@ -37,7 +37,6 @@ public static class NavigationManagerExtensions
     /// <para lang="en">Get the relative path of the current Url, excluding QueryString and Fragment (Hash)</para>
     /// </summary>
     /// <param name="navigationManager"></param>
-    /// <returns></returns>
     public static string ToBaseRelativePathWithoutQueryAndFragment(this NavigationManager navigationManager)
     {
         var url = navigationManager.ToBaseRelativePath(navigationManager.Uri);

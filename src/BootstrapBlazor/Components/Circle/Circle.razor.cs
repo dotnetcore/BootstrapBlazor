@@ -14,7 +14,6 @@ public sealed partial class Circle
     /// <summary>
     /// <para lang="zh">获得/设置 当前值</para>
     /// <para lang="en">Gets or sets current value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Value { get; set; }

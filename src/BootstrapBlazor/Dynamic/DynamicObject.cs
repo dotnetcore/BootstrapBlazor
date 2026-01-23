@@ -22,7 +22,6 @@ public class DynamicObject : IDynamicObject
     /// <para lang="en">Gets指定property值方法</para>
     /// </summary>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
     public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>

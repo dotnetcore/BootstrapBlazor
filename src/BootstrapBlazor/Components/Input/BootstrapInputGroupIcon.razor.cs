@@ -18,7 +18,6 @@ public partial class BootstrapInputGroupIcon
     /// <summary>
     /// <para lang="zh">获得/设置 Icon</para>
     /// <para lang="en">Gets or sets Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
 #if NET6_0_OR_GREATER

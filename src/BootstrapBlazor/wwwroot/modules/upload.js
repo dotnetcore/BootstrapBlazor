@@ -1,4 +1,4 @@
-﻿import Data from "./data.js"
+import Data from "./data.js"
 import EventHandler from "./event-handler.js"
 
 export function init(id) {

@@ -6,15 +6,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Range 组件</para>
+/// <para lang="zh">滑块组件</para>
 /// <para lang="en">Slider Component</para>
 /// </summary>
 public partial class Slider<TValue>
 {
-    /// <summary>
-    /// <para lang="zh">获得 样式集合</para>
-    /// <para lang="en">Get Class Name</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("form-range")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -22,7 +18,6 @@ public partial class Slider<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 最小值 默认为 null 未设置</para>
     /// <para lang="en">Gets or sets Min Value. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -31,7 +26,6 @@ public partial class Slider<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 最大值 默认为 null 未设置</para>
     /// <para lang="en">Gets or sets Max Value. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -40,7 +34,6 @@ public partial class Slider<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 步长 默认为 null 未设置</para>
     /// <para lang="en">Gets or sets Step. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

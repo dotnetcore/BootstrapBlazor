@@ -18,7 +18,6 @@ public static class PropertyInfoExtensions
     /// <para lang="en">判断propertywhether为静态property</para>
     /// </summary>
     /// <param name="p"></param>
-    /// <returns></returns>
     public static bool IsStatic(this PropertyInfo p)
     {
         var mi = p.GetMethod ?? p.SetMethod;
@@ -30,7 +29,6 @@ public static class PropertyInfoExtensions
     /// <para lang="en">判断propertywhether只读扩展方法</para>
     /// </summary>
     /// <param name="p"></param>
-    /// <returns></returns>
     public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
 
     /// <summary>
@@ -38,7 +36,6 @@ public static class PropertyInfoExtensions
     /// <para lang="en">判断whether为 Init 扩展方法</para>
     /// </summary>
     /// <param name="p"></param>
-    /// <returns></returns>
     private static bool IsInit(this PropertyInfo p)
     {
         var isInit = false;

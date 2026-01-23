@@ -19,7 +19,6 @@ public static class EnumExtensions
     /// <para lang="en">Get DescriptionAttribute method</para>
     /// </summary>
     /// <param name="val"></param>
-    /// <returns></returns>
     public static string ToDescriptionString<TEnum>(this TEnum val) where TEnum : Enum => typeof(TEnum).ToDescriptionString(val.ToString());
 
     /// <summary>
@@ -28,7 +27,6 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static string ToDescriptionString(this Type? type, string? fieldName)
     {
         var ret = string.Empty;
@@ -47,7 +45,6 @@ public static class EnumExtensions
     /// </summary>
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="enum"></param>
-    /// <returns></returns>
     public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName<TEnum>(@enum.ToString());
 
     /// <summary>
@@ -56,7 +53,6 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>
-    /// <returns></returns>
     public static List<SelectedItem> ToSelectList(this Type type, SelectedItem? additionalItem = null)
     {
         var ret = new List<SelectedItem>();
@@ -79,7 +75,6 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>
-    /// <returns></returns>
     public static List<SelectedItem<TValue>> ToSelectList<TValue>(this Type type, SelectedItem<TValue>? additionalItem = null)
     {
         var ret = new List<SelectedItem<TValue>>();
@@ -106,7 +101,6 @@ public static class EnumExtensions
     /// <para lang="en">Determine whether the type is an enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public static bool IsEnum(this Type? type)
     {
         var ret = false;
@@ -123,7 +117,6 @@ public static class EnumExtensions
     /// <para lang="en">Determine whether the type is a Flag enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public static bool IsFlagEnum(this Type? type) => type != null && IsEnum(type) && type.GetCustomAttribute<FlagsAttribute>() != null;
 
     /// <summary>
@@ -132,7 +125,6 @@ public static class EnumExtensions
     /// </summary>
     /// <param name="items"></param>
     /// <param name="type"></param>
-    /// <returns></returns>
     internal static object? ParseFlagEnum<TValue>(this IEnumerable<SelectedItem> items, Type type)
     {
         TValue? v = default;

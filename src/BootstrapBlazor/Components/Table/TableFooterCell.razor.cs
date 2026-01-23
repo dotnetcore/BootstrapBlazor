@@ -24,7 +24,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 单元格内容</para>
     /// <para lang="en">Gets or sets cell content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -32,7 +31,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 文字对齐方式，默认为 Alignment.None</para>
     /// <para lang="en">Gets or sets text alignment. Default is Alignment.None.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Alignment Align { get; set; }
@@ -40,7 +38,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 格式化字符串，如时间类型设置 yyyy-MM-dd</para>
     /// <para lang="en">Gets or sets format string, such as yyyy-MM-dd for date type</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
@@ -48,7 +45,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 列格式化回调委托</para>
     /// <para lang="en">Gets or sets column format callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, Task<string?>>? Formatter { get; set; }
@@ -56,7 +52,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 聚合方法枚举，默认 Sum</para>
     /// <para lang="en">Gets or sets aggregate method enumeration. Default is Sum.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public AggregateType Aggregate { get; set; }
@@ -64,7 +59,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 自定义统计列回调方法</para>
     /// <para lang="en">Gets or sets custom aggregate column callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<object?, string?, string>? CustomerAggregateCallback { get; set; }
@@ -72,7 +66,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 统计列名称，默认为 null 不参与统计仅作为显示单元格</para>
     /// <para lang="en">Gets or sets aggregate column field name. Default is null (not included in statistics, just for display).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Field { get; set; }
@@ -80,7 +73,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 colspan 值，默认 null 自己手动设置值</para>
     /// <para lang="en">Gets or sets colspan value. Default is null (set manually).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<BreakPoint, int>? ColspanCallback { get; set; }
@@ -97,7 +89,6 @@ public partial class TableFooterCell
     /// <summary>
     /// <para lang="zh">获得/设置 显示节点阈值，默认值 BreakPoint.None 未设置</para>
     /// <para lang="en">Gets or sets display breakpoint threshold. Default is BreakPoint.None (not set).</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public BreakPoint ShownWithBreakPoint { get; set; }

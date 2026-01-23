@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">WebSpeechRecognition 类</para>
-///  <para lang="en">WebSpeechRecognition 类</para>
+/// <para lang="zh">WebSpeechRecognition 类</para>
+/// <para lang="en">WebSpeechRecognition 类</para>
 /// </summary>
 public class WebSpeechRecognition(JSModule module, IComponentIdGenerator componentIdGenerator)
 {
@@ -16,56 +16,56 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
-    ///  <para lang="zh">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
-    ///  <para lang="en">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
+    /// <para lang="zh">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
+    /// <para lang="en">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
     /// </summary>
     public Func<Task>? OnStartAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when the speech recognition service has disconnected.</para>
-    ///  <para lang="en">fired when the speech recognition service has disconnected.</para>
+    /// <para lang="zh">fired when the speech recognition service has disconnected.</para>
+    /// <para lang="en">fired when the speech recognition service has disconnected.</para>
     /// </summary>
     public Func<Task>? OnEndAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when sound recognized by the speech recognition service as speech has been detected.</para>
-    ///  <para lang="en">fired when sound recognized by the speech recognition service as speech has been detected.</para>
+    /// <para lang="zh">fired when sound recognized by the speech recognition service as speech has been detected.</para>
+    /// <para lang="en">fired when sound recognized by the speech recognition service as speech has been detected.</para>
     /// </summary>
     public Func<Task>? OnSpeechStartAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when speech recognized by the speech recognition service has stopped being detected.</para>
-    ///  <para lang="en">fired when speech recognized by the speech recognition service has stopped being detected.</para>
+    /// <para lang="zh">fired when speech recognized by the speech recognition service has stopped being detected.</para>
+    /// <para lang="en">fired when speech recognized by the speech recognition service has stopped being detected.</para>
     /// </summary>
     public Func<Task>? OnSpeechEndAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app</para>
-    ///  <para lang="en">fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app</para>
+    /// <para lang="zh">fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app</para>
+    /// <para lang="en">fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app</para>
     /// </summary>
     public Func<WebSpeechRecognitionEvent, Task>? OnResultAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when a speech recognition error occurs.</para>
-    ///  <para lang="en">fired when a speech recognition error occurs.</para>
+    /// <para lang="zh">fired when a speech recognition error occurs.</para>
+    /// <para lang="en">fired when a speech recognition error occurs.</para>
     /// </summary>
     public Func<WebSpeechRecognitionError, Task>? OnErrorAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">fired when the speech recognition service returns a final result with no significant recognition.</para>
-    ///  <para lang="en">fired when the speech recognition service returns a final result with no significant recognition.</para>
+    /// <para lang="zh">fired when the speech recognition service returns a final result with no significant recognition.</para>
+    /// <para lang="en">fired when the speech recognition service returns a final result with no significant recognition.</para>
     /// </summary>
     public Func<WebSpeechRecognitionError, Task>? OnNoMatchAsync { get; set; }
 
     /// <summary>
-    ///  <para lang="zh">开始识别方法</para>
-    ///  <para lang="en">开始识别方法</para>
+    /// <para lang="zh">开始识别方法</para>
+    /// <para lang="en">开始识别方法</para>
     /// </summary>
     public Task StartAsync(string lang) => StartAsync(new WebSpeechRecognitionOption() { Lang = lang });
 
     /// <summary>
-    ///  <para lang="zh">开始识别方法</para>
-    ///  <para lang="en">开始识别方法</para>
+    /// <para lang="zh">开始识别方法</para>
+    /// <para lang="en">开始识别方法</para>
     /// </summary>
     public async Task StartAsync(WebSpeechRecognitionOption option)
     {
@@ -83,30 +83,27 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">结束识别方法</para>
-    ///  <para lang="en">结束识别方法</para>
+    /// <para lang="zh">结束识别方法</para>
+    /// <para lang="en">结束识别方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task StopAsync()
     {
         await module.InvokeVoidAsync("stop", _id);
     }
 
     /// <summary>
-    ///  <para lang="zh">中断识别方法</para>
-    ///  <para lang="en">中断识别方法</para>
+    /// <para lang="zh">中断识别方法</para>
+    /// <para lang="en">中断识别方法</para>
     /// </summary>
-    /// <returns></returns>
     public async Task AbortAsync()
     {
         await module.InvokeVoidAsync("abort", _id);
     }
 
     /// <summary>
-    ///  <para lang="zh">开始识别回调方法由 Javascript 调用</para>
-    ///  <para lang="en">开始识别callback method由 Javascript 调用</para>
+    /// <para lang="zh">开始识别回调方法由 Javascript 调用</para>
+    /// <para lang="en">开始识别callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerStartCallback()
     {
@@ -117,10 +114,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">语音开始回调方法由 Javascript 调用</para>
-    ///  <para lang="en">语音开始callback method由 Javascript 调用</para>
+    /// <para lang="zh">语音开始回调方法由 Javascript 调用</para>
+    /// <para lang="en">语音开始callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerSpeechStartCallback()
     {
@@ -131,10 +127,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">语音结束回调方法由 Javascript 调用</para>
-    ///  <para lang="en">语音结束callback method由 Javascript 调用</para>
+    /// <para lang="zh">语音结束回调方法由 Javascript 调用</para>
+    /// <para lang="en">语音结束callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerSpeechEndCallback()
     {
@@ -145,10 +140,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">异常回调方法由 Javascript 调用</para>
-    ///  <para lang="en">exceptioncallback method由 Javascript 调用</para>
+    /// <para lang="zh">异常回调方法由 Javascript 调用</para>
+    /// <para lang="en">exceptioncallback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerErrorCallback(WebSpeechRecognitionError error)
     {
@@ -159,10 +153,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">识别结果回调方法由 Javascript 调用</para>
-    ///  <para lang="en">识别结果callback method由 Javascript 调用</para>
+    /// <para lang="zh">识别结果回调方法由 Javascript 调用</para>
+    /// <para lang="en">识别结果callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerResultCallback(WebSpeechRecognitionEvent @event)
     {
@@ -173,10 +166,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">无识别结果回调方法由 Javascript 调用</para>
-    ///  <para lang="en">无识别结果callback method由 Javascript 调用</para>
+    /// <para lang="zh">无识别结果回调方法由 Javascript 调用</para>
+    /// <para lang="en">无识别结果callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerNoMatchCallback(WebSpeechRecognitionError error)
     {
@@ -187,10 +179,9 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    ///  <para lang="zh">朗读结束回调方法由 Javascript 调用</para>
-    ///  <para lang="en">朗读结束callback method由 Javascript 调用</para>
+    /// <para lang="zh">朗读结束回调方法由 Javascript 调用</para>
+    /// <para lang="en">朗读结束callback method由 Javascript 调用</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerEndCallback()
     {

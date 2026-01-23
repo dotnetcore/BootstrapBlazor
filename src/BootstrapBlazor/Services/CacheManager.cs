@@ -80,7 +80,6 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     public bool TryGetValue<TItem>(object key, [NotNullWhen(true)] out TItem? value)
     {
         var ret = Cache.TryGetValue(key, out var v);
@@ -136,7 +135,6 @@ internal class CacheManager : ICacheManager
     /// <para lang="zh">获取 App 开始时间</para>
     /// <para lang="en">Get App Start Time</para>
     /// </summary>
-    /// <returns></returns>
     public DateTimeOffset GetStartTime()
     {
         var ret = DateTimeOffset.MinValue;
@@ -195,7 +193,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>
-    /// <returns></returns>
     public bool TryGetCacheEntry(object? key, [NotNullWhen(true)] out ICacheEntry? entry)
     {
         entry = null;
@@ -232,7 +229,6 @@ internal class CacheManager : ICacheManager
     /// <para lang="en">Get Unique Type Name Method</para>
     /// </summary>
     /// <param name="assembly"></param>
-    /// <returns></returns>
     public static string GetUniqueName(Assembly assembly)
     {
         //key不拼接，作为当前静态实例唯一标识，因为GetUniqueName方法会被频繁调用
@@ -270,7 +266,6 @@ internal class CacheManager : ICacheManager
     /// <para lang="en">Get <see cref="IStringLocalizer"/> instance by Type</para>
     /// </summary>
     /// <param name="resourceSource"></param>
-    /// <returns></returns>
     public static IStringLocalizer? CreateLocalizerByType(Type resourceSource) => resourceSource.Assembly.IsDynamic
         ? null
         : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
@@ -279,7 +274,6 @@ internal class CacheManager : ICacheManager
     /// <para lang="zh">获得 <see cref="JsonLocalizationOptions"/> 值</para>
     /// <para lang="en">Get <see cref="JsonLocalizationOptions"/> Value</para>
     /// </summary>
-    /// <returns></returns>
     private static JsonLocalizationOptions GetJsonLocalizationOption()
     {
         var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
@@ -292,7 +286,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
-    /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName)
     {
         if (assembly.IsDynamic)
@@ -331,7 +324,6 @@ internal class CacheManager : ICacheManager
     /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
     /// <param name="cultureName"><para lang="zh">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</para><para lang="en">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</para></param>
     /// <param name="forceLoad"><para lang="zh">默认 false 使用缓存值 设置 true 时内部强制重新加载</para><para lang="en">default is false 使用缓存value Sets true 时内部强制重新加载</para></param>
-    /// <returns></returns>
     public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
         if (assembly.IsDynamic)
@@ -378,7 +370,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
     #endregion
 
@@ -389,7 +380,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
         string? dn = null;
@@ -487,7 +477,6 @@ internal class CacheManager : ICacheManager
     /// <para lang="en">Get value from resource file by key</para>
     /// </summary>
     /// <param name="key"></param>
-    /// <returns></returns>
     private static string? GetLocalizerValueFromResourceManager(string key)
     {
         string? dn = null;
@@ -628,7 +617,6 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="customAttribute"></param>
-    /// <returns></returns>
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
         var ret = default(TValue);
@@ -686,7 +674,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
         var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";

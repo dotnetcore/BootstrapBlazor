@@ -51,7 +51,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉宽度 左右布局时生效</para>
     /// <para lang="en">Gets or sets Drawer Width. Effective when layout is Left/Right</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string Width { get; set; } = "360px";
@@ -59,7 +58,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉高度 上下布局时生效</para>
     /// <para lang="en">Gets or sets Drawer Height. Effective when layout is Top/Bottom</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string Height { get; set; } = "290px";
@@ -67,7 +65,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉是否打开 默认 false 未打开</para>
     /// <para lang="en">Gets or sets Whether Drawer is Open. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsOpen { get; set; }
@@ -75,7 +72,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 IsOpen 属性改变时回调委托方法</para>
     /// <para lang="en">Gets or sets Callback for IsOpen Property Change</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<bool> IsOpenChanged { get; set; }
@@ -83,7 +79,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 点击背景遮罩时回调委托方法 默认为 null</para>
     /// <para lang="en">Gets or sets Callback for Backdrop Click. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickBackdrop { get; set; }
@@ -91,7 +86,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 点击遮罩是否关闭抽屉 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to Close Drawer on Backdrop Click. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBackdrop { get; set; }
@@ -99,7 +93,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示遮罩 默认为 true 显示遮罩</para>
     /// <para lang="en">Gets or sets Whether to Show Backdrop. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowBackdrop { get; set; } = true;
@@ -107,7 +100,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 组件出现位置 默认显示在 Left 位置</para>
     /// <para lang="en">Gets or sets Component Placement. Default is Left</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Left;
@@ -115,7 +107,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 组件定位位置 默认 null 未设置 使用样式内置定位 fixed 可更改为 absolute</para>
     /// <para lang="en">Gets or sets Component Position. Default is null (Fixed). Can be set to absolute</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Position { get; set; }
@@ -123,7 +114,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets Child Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -131,7 +121,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许调整大小 默认 false</para>
     /// <para lang="en">Gets or sets Whether to Allow Resize. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool AllowResize { get; set; }
@@ -139,7 +128,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 z-index 参数值 默认 null 未设置</para>
     /// <para lang="en">Gets or sets z-index parameter. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? ZIndex { get; set; }
@@ -147,7 +135,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 关闭抽屉回调委托 默认 null</para>
     /// <para lang="en">Gets or sets Close Drawer Callback Delegate. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
@@ -155,7 +142,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉内容相关数据 多用于传值</para>
     /// <para lang="en">Gets or sets Drawer Context Data. Used for passing values</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? BodyContext { get; set; }
@@ -163,7 +149,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false</para>
     /// <para lang="en">Gets or sets Whether to support ESC key to close. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsKeyboard { get; set; }
@@ -171,7 +156,6 @@ public partial class Drawer
     /// <summary>
     /// <para lang="zh">获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动</para>
     /// <para lang="en">Gets or sets Whether to allow body scrolling when drawer is shown. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool BodyScroll { get; set; }
@@ -185,14 +169,12 @@ public partial class Drawer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -206,7 +188,6 @@ public partial class Drawer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     private RenderFragment RenderBackdrop() => builder =>
@@ -239,7 +220,6 @@ public partial class Drawer
     /// <para lang="zh">关闭抽屉方法</para>
     /// <para lang="en">Close Drawer Method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task Close()
     {

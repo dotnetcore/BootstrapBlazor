@@ -16,20 +16,17 @@ public interface IValidateCollection
     /// <para lang="en">Validates the specified validation context</para>
     /// </summary>
     /// <param name="validationContext"></param>
-    /// <returns></returns>
     IEnumerable<ValidationResult> Validate(ValidationContext validationContext);
 
     /// <summary>
     /// <para lang="zh">返回合法成员集合</para>
     /// <para lang="en">Gets the valid member names collection</para>
     /// </summary>
-    /// <returns></returns>
     List<string> GetValidMemberNames();
 
     /// <summary>
     /// <para lang="zh">返回非法成员集合</para>
     /// <para lang="en">Gets the invalid member names collection</para>
     /// </summary>
-    /// <returns></returns>
     List<ValidationResult> GetInvalidMemberNames();
 }

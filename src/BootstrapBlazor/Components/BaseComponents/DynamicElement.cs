@@ -17,7 +17,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 TagName 属性 默认为 div</para>
     /// <para lang="en">Gets or sets TagName property Default is为 div</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -26,7 +25,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 Click 事件 默认 true</para>
     /// <para lang="en">Gets or sets whether触发 Click 事件 Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool TriggerClick { get; set; } = true;
@@ -34,7 +32,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否阻止默认行为 默认 false</para>
     /// <para lang="en">Gets or sets whether阻止Default is行为 Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool PreventDefault { get; set; }
@@ -42,7 +39,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否事件冒泡 默认为 false</para>
     /// <para lang="en">Gets or sets whether事件冒泡 Default is为 false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }
@@ -50,7 +46,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Click 回调委托</para>
     /// <para lang="en">Gets or sets Click 回调delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClick { get; set; }
@@ -58,7 +53,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 DoubleClick 事件 默认 true</para>
     /// <para lang="en">Gets or sets whether触发 DoubleClick 事件 Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool TriggerDoubleClick { get; set; } = true;
@@ -66,7 +60,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 DoubleClick 回调委托</para>
     /// <para lang="en">Gets or sets DoubleClick 回调delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnDoubleClick { get; set; }
@@ -74,7 +67,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 OnContextMenu 回调委托</para>
     /// <para lang="en">Gets or sets OnContextMenu 回调delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<MouseEventArgs, Task>? OnContextMenu { get; set; }
@@ -82,7 +74,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 OnContextMenu 事件 默认 false</para>
     /// <para lang="en">Gets or sets whether触发 OnContextMenu 事件 Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool TriggerContextMenu { get; set; }
@@ -90,7 +81,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 内容组件</para>
     /// <para lang="en">Gets or sets contentcomponent</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -98,7 +88,6 @@ public class DynamicElement : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否生成指定 Tag 元素 默认 true 生成</para>
     /// <para lang="en">Gets or sets whether生成指定 Tag 元素 Default is true 生成</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool GenerateElement { get; set; } = true;

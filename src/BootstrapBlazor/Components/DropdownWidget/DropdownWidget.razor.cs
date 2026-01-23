@@ -18,7 +18,6 @@ public sealed partial class DropdownWidget
     /// <summary>
     /// <para lang="zh">获得/设置 选项模板支持静态数据</para>
     /// <para lang="en">Gets or sets Child Content (Static Data)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -26,7 +25,6 @@ public sealed partial class DropdownWidget
     /// <summary>
     /// <para lang="zh">获得/设置 挂件数据集合</para>
     /// <para lang="en">Gets or sets Widget Items</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<DropdownWidgetItem>? Items { get; set; }
@@ -34,7 +32,6 @@ public sealed partial class DropdownWidget
     /// <summary>
     /// <para lang="zh">获得/设置 下拉项关闭回调方法</para>
     /// <para lang="en">Gets or sets Item Close Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DropdownWidgetItem, Task>? OnItemCloseAsync { get; set; }
@@ -42,7 +39,6 @@ public sealed partial class DropdownWidget
     /// <summary>
     /// <para lang="zh">获得/设置 下拉项显示回调方法</para>
     /// <para lang="en">Gets or sets Item Shown Callback</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<DropdownWidgetItem, Task>? OnItemShownAsync { get; set; }
@@ -52,7 +48,6 @@ public sealed partial class DropdownWidget
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Method = nameof(TriggerStateChanged) });
 
     /// <summary>
@@ -73,7 +68,6 @@ public sealed partial class DropdownWidget
     /// </summary>
     /// <param name="index"></param>
     /// <param name="shown"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerStateChanged(int index, bool shown)
     {

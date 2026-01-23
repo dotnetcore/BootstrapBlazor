@@ -54,13 +54,11 @@ public class ConsoleMessageCollection(int maxCount = 2000) : IEnumerable<Console
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public IEnumerator<ConsoleMessageItem> GetEnumerator() => _messages.GetEnumerator();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     private void Dispose(bool disposing)

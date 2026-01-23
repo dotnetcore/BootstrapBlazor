@@ -14,7 +14,6 @@ public partial class BootstrapLabelSetting
     /// <summary>
     /// <para lang="zh">获得/设置 子组件</para>
     /// <para lang="en">Gets or sets 子component</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -22,7 +21,6 @@ public partial class BootstrapLabelSetting
     /// <summary>
     /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值</para>
     /// <para lang="en">Gets or sets 标签width Default is null 未Sets使用全局Sets <code>--bb-row-label-width</code> 值</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? LabelWidth { get; set; }

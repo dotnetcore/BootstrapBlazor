@@ -91,7 +91,6 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     /// <para lang="zh">JSInvoke 回调方法</para>
     /// <para lang="en">JSInvoke Callback Method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerNetworkStateChanged(NetworkMonitorState state)
     {
@@ -108,7 +107,6 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         if (_module != null)

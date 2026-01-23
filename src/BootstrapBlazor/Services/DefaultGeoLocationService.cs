@@ -35,7 +35,6 @@ class DefaultGeoLocationService : IGeoLocationService
     /// <para lang="zh">get the current position of the device</para>
     /// <para lang="en">get the current position of the device</para>
     /// </summary>
-    /// <returns></returns>
     public async Task<GeolocationPosition?> GetPositionAsync()
     {
         Module ??= await LoadModule();
@@ -48,7 +47,6 @@ class DefaultGeoLocationService : IGeoLocationService
     /// <para lang="zh">register a handler function that will be called automatically each time the position of the device changes</para>
     /// <para lang="en">register a handler function that will be called automatically each time the position of the device changes</para>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask<long> WatchPositionAsync(Func<GeolocationPosition, Task> callback)
     {
         Module ??= await LoadModule();
@@ -65,7 +63,6 @@ class DefaultGeoLocationService : IGeoLocationService
     /// <para lang="zh">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/></para>
     /// <para lang="en">unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/></para>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask<bool> ClearWatchPositionAsync(long id)
     {
         Module ??= await LoadModule();
@@ -77,7 +74,6 @@ class DefaultGeoLocationService : IGeoLocationService
     /// <para lang="en">Get current device location (invoked by JS)</para>
     /// </summary>
     /// <param name="position"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task WatchCallback(GeolocationPosition position)
     {

@@ -14,7 +14,6 @@ public sealed partial class Breadcrumb
     /// <summary>
     /// <para lang="zh">获得/设置 数据集</para>
     /// <para lang="en">Gets or sets the data collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

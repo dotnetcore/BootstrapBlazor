@@ -6,15 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">NavBrand 组件</para>
-///  <para lang="en">NavBrand component</para>
+/// <para lang="zh">NavBrand 组件</para>
+/// <para lang="en">NavBrand component</para>
 /// </summary>
 public partial class NavbarBrand
 {
     /// <summary>
-    ///  <para lang="zh">获得/设置 子组件模板</para>
-    ///  <para lang="en">Gets or sets 子componenttemplate</para>
-    ///  <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 子组件模板</para>
+    /// <para lang="en">Gets or sets the child component template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

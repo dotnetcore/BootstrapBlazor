@@ -14,7 +14,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 挂件图标</para>
     /// <para lang="en">Gets or sets Widget Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -22,7 +21,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 DropdownWidgetItem 组件项目的悬浮提示信息</para>
     /// <para lang="en">Gets or sets Tooltip Title</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -30,7 +28,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 徽章颜色 默认为 Color.Success</para>
     /// <para lang="en">Gets or sets Badge Color. Default is Color.Success</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color BadgeColor { get; set; } = Color.Success;
@@ -38,7 +35,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Header 颜色 默认为 Color.Primary</para>
     /// <para lang="en">Gets or sets Header Color. Default is Color.Primary</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color HeaderColor { get; set; } = Color.Primary;
@@ -46,7 +42,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 徽章显示数量</para>
     /// <para lang="en">Gets or sets Badge Number</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? BadgeNumber { get; set; }
@@ -54,7 +49,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示小箭头 默认为 true 显示</para>
     /// <para lang="en">Gets or sets Whether to Show Arrow. Default is true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowArrow { get; set; } = true;
@@ -62,7 +56,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
     /// <para lang="en">Gets or sets Header Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
@@ -70,7 +63,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Body 模板</para>
     /// <para lang="en">Gets or sets Body Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -78,7 +70,6 @@ public class DropdownWidgetItem : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 Footer 模板</para>
     /// <para lang="en">Gets or sets Footer Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }

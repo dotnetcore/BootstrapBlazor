@@ -19,7 +19,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 与路由关联的类型，默认为 null</para>
     /// <para lang="en">Gets or sets the type associated with the route. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -28,7 +27,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 与路由关联的参数，默认为 null</para>
     /// <para lang="en">Gets or sets the parameters associated with the route. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IReadOnlyDictionary<string, object>? Parameters { get; set; }
@@ -36,7 +34,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 用户未授权时显示的模板，默认为 null</para>
     /// <para lang="en">Gets or sets the template to display when the user is not authorized. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
@@ -44,7 +41,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 访问控制的资源，默认为 null</para>
     /// <para lang="en">Gets or sets the resource to which access is being controlled. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? Resource { get; set; }

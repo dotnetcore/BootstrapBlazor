@@ -14,10 +14,6 @@ namespace BootstrapBlazor.Components;
 [BootstrapModuleAutoLoader(JSObjectReference = true)]
 public partial class Checkbox<TValue> : ValidateBase<TValue>
 {
-    /// <summary>
-    /// <para lang="zh">获得 class 样式集合</para>
-    /// <para lang="en">Get the class style collection</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
@@ -31,7 +27,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
 
     /// <summary>
     /// <para lang="zh">Input 元素样式</para>
-    /// <para lang="en">Input element style</para>
+    /// <para lang="en">Input element CSS class</para>
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-check-input")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
@@ -48,32 +44,25 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         _ => null
     };
 
-    /// <summary>
-    /// <para lang="zh">判断双向绑定类型是否为 boolean 类型</para>
-    /// <para lang="en">Determine whether the two-way binding type is boolean</para>
-    /// </summary>
     private bool IsBoolean { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 按钮颜色 默认为 None 未设置</para>
-    /// <para lang="en">Gets or sets the button color. Default is None (not set)</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 按钮颜色，默认为 <see cref="Color.None"/></para>
+    /// <para lang="en">Gets or sets the button color. Default is <see cref="Color.None"/></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Size 大小 默认为 None</para>
-    /// <para lang="en">Gets or sets the Size. Default is None</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 Size 大小，默认为 <see cref="Size.None"/></para>
+    /// <para lang="en">Gets or sets the size. Default is <see cref="Size.None"/></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 Checkbox 后置 label 文字 默认为 false</para>
-    /// <para lang="en">Gets or sets whether to show the Checkbox post label text. Default is false</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示 Checkbox 后置 label 文字，默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the checkbox post label text. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowAfterLabel { get; set; }
@@ -81,24 +70,21 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选择框状态</para>
     /// <para lang="en">Gets or sets the checkbox state</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CheckboxState State { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 State 状态改变回调方法</para>
-    /// <para lang="en">Gets or sets the State change callback method</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 State 状态改变的回调方法</para>
+    /// <para lang="en">Gets or sets the state change callback method</para>
     /// </summary>
     /// <value></value>
     [Parameter]
     public EventCallback<CheckboxState> StateChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选中状态改变前回调此方法 返回 false 可以阻止状态改变</para>
+    /// <para lang="zh">获得/设置 选中状态改变前的回调方法。返回 false 可以阻止状态改变</para>
     /// <para lang="en">Gets or sets the callback method before the selected state changes. Returning false can prevent the state change</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CheckboxState, Task<bool>>? OnBeforeStateChanged { get; set; }
@@ -106,7 +92,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 选择框状态改变时回调此方法</para>
     /// <para lang="en">Gets or sets the callback method when the checkbox state changes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<CheckboxState, TValue, Task>? OnStateChanged { get; set; }
@@ -114,7 +99,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 是否事件冒泡 默认为 false</para>
     /// <para lang="en">Gets or sets whether event bubbling. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }
@@ -122,7 +106,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 子组件 RenderFragment 实例</para>
     /// <para lang="en">Gets or sets the child component RenderFragment instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -170,7 +153,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -181,14 +163,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnStateChangedAsync));
 
     /// <summary>
     /// <para lang="zh">点击组件触发方法 内部调用 <see cref="OnBeforeStateChanged"/> 回调方法</para>
     /// <para lang="en">Click component trigger method. Internally calls <see cref="OnBeforeStateChanged"/> callback method</para>
     /// </summary>
-    /// <returns></returns>
     public async Task OnToggleClick()
     {
         var valid = true;
@@ -217,7 +197,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <para lang="zh">触发 Click 方法 由 JavaScript 调用</para>
     /// <para lang="en">Trigger Click method. Called by JavaScript</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public ValueTask OnStateChangedAsync(CheckboxState state)
     {

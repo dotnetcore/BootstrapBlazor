@@ -14,7 +14,6 @@ public abstract class SkeletonBase : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否圆角 默认为 true</para>
     /// <para lang="en">Gets or sets Whether round. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Round { get; set; } = true;
@@ -22,14 +21,13 @@ public abstract class SkeletonBase : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示动画 默认为 true</para>
     /// <para lang="en">Gets or sets Whether active. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool Active { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得 样式</para>
-    /// <para lang="en">Get Class Name</para>
+    /// <para lang="en">Gets Class Name</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("skeleton-content")
         .AddClass("active", Active)

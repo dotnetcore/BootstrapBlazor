@@ -17,7 +17,6 @@ public partial class TableExtensionButton
     /// <summary>
     /// <para lang="zh">获得/设置 子组件内容</para>
     /// <para lang="en">Gets or sets the content to be rendered inside this</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -25,7 +24,6 @@ public partial class TableExtensionButton
     /// <summary>
     /// <para lang="zh">获得/设置 扩展按钮点击回调方法</para>
     /// <para lang="en">Gets or sets extension button click callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TableCellButtonArgs, Task>? OnClickButton { get; set; }

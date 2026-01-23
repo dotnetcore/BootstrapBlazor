@@ -16,7 +16,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 是否 active</para>
     /// <para lang="en">Gets or sets Whether is active</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
@@ -24,7 +23,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 过滤图标</para>
     /// <para lang="en">Gets or sets Filter Icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -32,7 +30,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
     /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
@@ -42,7 +39,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
     /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NotSupportedColumnFilterMessage { get; set; }
@@ -50,7 +46,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得 相关联 ITableColumn 实例</para>
     /// <para lang="en">Get Related ITableColumn Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -59,7 +54,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
     /// <para lang="en">Gets or sets Whether is HeaderRow Mode Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHeaderRow { get; set; }
@@ -67,7 +61,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <para lang="zh">获得/设置 ITable 实例</para>
     /// <para lang="en">Gets or sets ITable Instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -112,7 +105,6 @@ public partial class TableColumnFilter : IFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
         if (!IsHeaderRow)
@@ -135,7 +127,6 @@ public partial class TableColumnFilter : IFilter
     /// <para lang="zh">Filter method</para>
     /// <para lang="en">Filter method</para>
     /// </summary>
-    /// <returns></returns>
     public async Task OnFilterAsync()
     {
         if (Table.OnFilterAsync == null)

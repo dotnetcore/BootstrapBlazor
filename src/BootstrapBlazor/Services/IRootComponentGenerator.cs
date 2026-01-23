@@ -15,6 +15,5 @@ public interface IRootComponentGenerator
     /// <para lang="zh">生成组件方法</para>
     /// <para lang="en">Generate Component Method</para>
     /// </summary>
-    /// <returns></returns>
     RenderFragment Generator();
 }

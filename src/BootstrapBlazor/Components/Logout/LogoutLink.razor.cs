@@ -20,7 +20,6 @@ public partial class LogoutLink
     /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
     /// <para lang="en">Gets or sets icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -28,7 +27,6 @@ public partial class LogoutLink
     /// <summary>
     /// <para lang="zh">获得/设置 按钮文字</para>
     /// <para lang="en">Gets or sets button文字</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -37,7 +35,6 @@ public partial class LogoutLink
     /// <summary>
     /// <para lang="zh">获得/设置 按钮文字</para>
     /// <para lang="en">Gets or sets button文字</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -71,7 +71,6 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
     /// <param name="logic"></param>
-    /// <returns></returns>
     public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
@@ -81,7 +80,6 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
     /// <param name="logic"></param>
-    /// <returns></returns>
     public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic);
 
     /// <summary>
@@ -92,7 +90,6 @@ public static class LambdaExtensions
     /// <param name="filters"></param>
     /// <param name="logic"></param>
     /// <param name="comparison"><para lang="zh"><see cref="StringComparison"/> 实例</para><para lang="en"><see cref="StringComparison"/> instance</para></param>
-    /// <returns></returns>
     private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic, StringComparison? comparison = null)
     {
         var express = filters.Select(filter => filter.Filters.Count > 0
@@ -109,7 +106,6 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="expressions"></param>
     /// <param name="logic"></param>
-    /// <returns></returns>
     private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic)
     {
         Expression<Func<TItem, bool>>? ret = null;
@@ -258,7 +254,6 @@ public static class LambdaExtensions
     /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     public static int ElementCount(object? value) => CacheManager.ElementCount(value);
 
     /// <summary>
@@ -266,7 +261,6 @@ public static class LambdaExtensions
     /// <para lang="en">Count method uses Lambda expression internally for universal adaptation, accepts IEnumerable and Array subclasses</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public static Expression<Func<object, int>> CountLambda(Type type)
     {
         Expression<Func<object, int>> invoker = _ => 0;
@@ -292,7 +286,6 @@ public static class LambdaExtensions
     /// <para lang="en">Gets排序 Expression 表达式</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>> GetSortListLambda<TItem>()
     {
         var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
@@ -310,7 +303,6 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <param name="sortList"></param>
-    /// <returns></returns>
     public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, List<string> sortList)
     {
         for (var index = 0; index < sortList.Count; index++)
@@ -342,7 +334,6 @@ public static class LambdaExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <param name="sortList"></param>
-    /// <returns></returns>
     public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> items, List<string> sortList)
     {
         for (var index = 0; index < sortList.Count; index++)
@@ -369,7 +360,6 @@ public static class LambdaExtensions
     /// <para lang="en">Get sort Expression expression</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
-    /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
     {
         var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
@@ -389,7 +379,6 @@ public static class LambdaExtensions
     /// <param name="items"></param>
     /// <param name="sortName"></param>
     /// <param name="sortOrder"></param>
-    /// <returns></returns>
     public static IEnumerable<TItem> Sort<TItem>(this IEnumerable<TItem> items, string sortName, SortOrder sortOrder)
     {
         return sortOrder == SortOrder.Unset ? items : EnumerableOrderBy(items, sortName, sortOrder);
@@ -403,7 +392,6 @@ public static class LambdaExtensions
     /// <param name="items"></param>
     /// <param name="sortName"></param>
     /// <param name="sortOrder"></param>
-    /// <returns></returns>
     public static IQueryable<TItem> Sort<TItem>(this IQueryable<TItem> items, string sortName, SortOrder sortOrder)
     {
         return sortOrder == SortOrder.Unset ? items : QueryableOrderBy(items, sortName, sortOrder);
@@ -647,7 +635,6 @@ public static class LambdaExtensions
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
     public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName)
     {
         if (model == null)
@@ -724,7 +711,6 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
     public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName)
     {
         if (model == null)
@@ -777,7 +763,6 @@ public static class LambdaExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    /// <returns></returns>
     public static Expression<Func<TModel, TValue>> GetKeyValue<TModel, TValue>(Type? customAttribute = null)
     {
         var type = typeof(TModel);

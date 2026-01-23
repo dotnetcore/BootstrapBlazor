@@ -16,20 +16,18 @@ public class Redirect : ComponentBase
     private NavigationManager? Navigation { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 登录地址 默认 Account/Login</para>
-    /// <para lang="en">Gets or sets Login URL. Default Account/Login</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 登录地址，默认为 Account/Login</para>
+    /// <para lang="en">Gets or sets the login URL. Default is Account/Login</para>
     /// </summary>
     [Parameter]
     public string Url { get; set; } = "Account/Login";
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否强制导航 默认 true</para>
-    /// <para lang="en">Gets or sets Whether to force load. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否强制导航，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to force load. Default is true</para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">设置 false 时适用 SPA 程序不会强制页面重新加载</para>
+    /// <para lang="zh">设置为 false 时适用于 SPA 程序，不会强制页面重新加载</para>
     /// <para lang="en">Applicable to SPA programs when set to false, will not force page reload</para>
     /// </remarks>
     [Parameter]
@@ -37,7 +35,7 @@ public class Redirect : ComponentBase
 
     /// <summary>
     /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
+    /// <para lang="en">OnInitialized method</para>
     /// </summary>
     protected override void OnInitialized()
     {

@@ -93,7 +93,6 @@ public static class DialogServiceExtensions
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="option"><para lang="zh">对话框参数</para><para lang="en">Dialog option</para></param>
     /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para></param>
-    /// <returns></returns>
     public static async Task<DialogResult> ShowModal<TDialog>(this DialogService service, ResultDialogOption option, Dialog? dialog = null)
         where TDialog : IComponent, IResultDialog
     {
@@ -191,7 +190,6 @@ public static class DialogServiceExtensions
     /// <param name="parametersFactory"><para lang="zh">TComponent 组件所需参数</para><para lang="en">TComponent parameters</para></param>
     /// <param name="configureOption"><para lang="zh"><see cref="DialogOption"/> 实例配置回调方法</para><para lang="en"><see cref="DialogOption"/> configuration callback</para></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowSaveDialog<TComponent>(this DialogService service, string title, Func<Task<bool>>? saveCallback = null, Action<Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -217,7 +215,6 @@ public static class DialogServiceExtensions
     /// <param name="parametersFactory"></param>
     /// <param name="configureOption"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowCloseDialog<TComponent>(this DialogService service, string title, Action<Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -241,7 +238,6 @@ public static class DialogServiceExtensions
     /// <param name="parametersFactory"><para lang="zh">TComponent 组件所需参数</para><para lang="en">TComponent parameters</para></param>
     /// <param name="configureOption"><para lang="zh"><see cref="DialogOption"/> 实例配置回调方法</para><para lang="en"><see cref="DialogOption"/> configuration callback</para></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowValidateFormDialog<TComponent>(this DialogService service, string title, Func<DialogOption, Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -262,12 +258,26 @@ public static class DialogServiceExtensions
     /// <param name="service"></param>
     /// <param name="fragment"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
-    public static async Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    [Obsolete("已弃用，请使用 ShowExceptionDialog 方法。Deprecated, please use ShowExceptionDialog method")]
+    [ExcludeFromCodeCoverage]
+    public static Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    {
+        return ShowExceptionDialog(service, null, fragment, dialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">显示异常信息对话框扩展方法</para>
+    /// <para lang="en">Show error handler dialog</para>
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="title"></param>
+    /// <param name="fragment"></param>
+    /// <param name="dialog"></param>
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, RenderFragment fragment, Dialog? dialog = null)
     {
         var option = new DialogOption
         {
-            Title = "Error",
+            Title = title ?? "Error",
             IsScrolling = true,
             BodyTemplate = fragment
         };
@@ -279,10 +289,10 @@ public static class DialogServiceExtensions
     /// <para lang="en">Show exception dialog</para>
     /// </summary>
     /// <param name="service"></param>
+    /// <param name="title"></param>
     /// <param name="exception"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
-    public static async Task ShowExceptionDialog(this DialogService service, Exception exception, Dialog? dialog = null)
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, Exception exception, Dialog? dialog = null)
     {
         RenderFragment fragment = builder =>
         {
@@ -291,6 +301,6 @@ public static class DialogServiceExtensions
             builder.AddContent(20, new MarkupString(exception.Message));
             builder.CloseElement();
         };
-        await ShowErrorHandlerDialog(service, fragment, dialog);
+        await ShowExceptionDialog(service, title, fragment, dialog);
     }
 }

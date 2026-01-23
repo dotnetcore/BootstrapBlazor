@@ -22,14 +22,12 @@ public interface ITableSearchModel
     /// <summary>
     /// <para lang="zh">获得 搜索集合</para>
     /// <para lang="en">Gets search collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     IEnumerable<IFilterAction> GetSearches();
 
     /// <summary>
     /// <para lang="zh">重置操作</para>
     /// <para lang="en">Reset operation</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     void Reset();
 }

@@ -18,7 +18,6 @@ public class ModelHashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer)
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    /// <returns></returns>
     public bool Equals(TItem? x, TItem? y) => comparer.Equals(x, y);
 
     /// <summary>
@@ -26,7 +25,6 @@ public class ModelHashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer)
     /// <para lang="en">GetHashCode method</para>
     /// </summary>
     /// <param name="obj"></param>
-    /// <returns></returns>
     public int GetHashCode([DisallowNull] TItem obj)
     {
         var keyValue = Utility.GetKeyValue<TItem, object>(obj, comparer.CustomKeyAttribute);

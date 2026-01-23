@@ -133,7 +133,6 @@ public class SwalOption : PopupOptionBase
     /// <para lang="zh">将参数转换为组件属性方法</para>
     /// <para lang="en">Convert parameters to component attributes method</para>
     /// </summary>
-    /// <returns></returns>
     public Dictionary<string, object> ToAttributes()
     {
         var parameters = new Dictionary<string, object>

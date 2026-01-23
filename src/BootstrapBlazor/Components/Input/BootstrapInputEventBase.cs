@@ -14,7 +14,6 @@ public abstract class BootstrapInputEventBase<TValue> : BootstrapInputBase<TValu
     /// <summary>
     /// <para lang="zh">获得/设置 是否在文本框输入值时触发 bind-value:event="oninput" 默认 false</para>
     /// <para lang="en">Gets or sets Whether to trigger bind-value:event="oninput" when entering value in text box. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks>
     /// <para lang="zh">设置 <see cref="UseInputEvent"/> 参数后，Formatter 与 FormatString 均失效</para>

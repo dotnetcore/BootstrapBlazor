@@ -26,7 +26,6 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否闪烁 默认为 false 不闪烁</para>
     /// <para lang="en">Gets or sets Whether the component is flashing. Default is false (No flash)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlash { get; set; }
@@ -34,7 +33,6 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 是否为平面图形 默认 false</para>
     /// <para lang="en">Gets or sets Whether it is a flat graphic. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsFlat { get; set; }
@@ -42,7 +40,6 @@ public partial class Light
     /// <summary>
     /// <para lang="zh">获得/设置 指示灯颜色 默认为 Success 绿色</para>
     /// <para lang="en">Gets or sets Indicator Color. Default Success (Green)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Success;

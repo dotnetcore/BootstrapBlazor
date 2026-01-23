@@ -40,7 +40,6 @@ internal class DefaultIPLocatorProvider : IIPLocatorProvider
     /// <para lang="en">Locate Method</para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     public async Task<string?> Locate(string ip)
     {
         string? ret = null;

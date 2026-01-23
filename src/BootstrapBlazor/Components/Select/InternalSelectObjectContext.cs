@@ -16,7 +16,6 @@ internal class InternalSelectObjectContext<TItem> : ISelectObjectContext<TItem>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public Task CloseAsync() => Component.CloseAsync();
 
     /// <summary>

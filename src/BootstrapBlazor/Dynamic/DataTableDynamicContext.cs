@@ -114,7 +114,6 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="zh">GetItems 方法</para>
     /// <para lang="en">GetItems 方法</para>
     /// </summary>
-    /// <returns></returns>
     public override IEnumerable<IDynamicObject> GetItems()
     {
         if (UseCache)
@@ -161,14 +160,12 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="zh">GetItems 方法</para>
     /// <para lang="en">GetItems 方法</para>
     /// </summary>
-    /// <returns></returns>
     public override IEnumerable<ITableColumn> GetColumns() => Columns;
 
     /// <summary>
     /// <para lang="zh">获得列信息方法</para>
     /// <para lang="en">Gets列信息方法</para>
     /// </summary>
-    /// <returns></returns>
     private List<ITableColumn> InternalGetColumns()
     {
         var ret = new List<ITableColumn>();
@@ -184,7 +181,6 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="en"></para>
     /// </summary>
     /// <param name="col"></param>
-    /// <returns></returns>
     protected internal override IEnumerable<CustomAttributeBuilder> OnColumnCreating(ITableColumn col)
     {
         AddAttributesCallback?.Invoke(this, col);
@@ -197,7 +193,6 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="en">新建方法</para>
     /// </summary>
     /// <param name="selectedItems"><para lang="zh">当前选中行</para><para lang="en">当前选中行</para></param>
-    /// <returns></returns>
     public override async Task AddAsync(IEnumerable<IDynamicObject> selectedItems)
     {
         if (OnAddAsync != null)
@@ -248,7 +243,6 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <para lang="en">删除方法</para>
     /// </summary>
     /// <param name="items"></param>
-    /// <returns></returns>
     public override async Task<bool> DeleteAsync(IEnumerable<IDynamicObject> items)
     {
         var ret = false;
@@ -296,7 +290,6 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <param name="item"></param>
     /// <param name="column"></param>
     /// <param name="val"></param>
-    /// <returns></returns>
     private Task OnCellValueChanged(IDynamicObject item, ITableColumn column, object? val)
     {
         // 更新内部 DataRow

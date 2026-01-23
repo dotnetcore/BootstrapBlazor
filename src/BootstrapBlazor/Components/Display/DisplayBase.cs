@@ -15,13 +15,13 @@ namespace BootstrapBlazor.Components;
 public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
 {
     /// <summary>
-    /// <para lang="zh">是否显示 标签</para>
+    /// <para lang="zh">是否显示标签</para>
     /// <para lang="en">Whether to Show Label</para>
     /// </summary>
     protected bool IsShowLabel { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 the <see cref="FieldIdentifier"/> for the bound value.</para>
+    /// <para lang="zh">获得绑定值的 <see cref="FieldIdentifier"/>。</para>
     /// <para lang="en">Gets the <see cref="FieldIdentifier"/> for the bound value.</para>
     /// </summary>
     protected FieldIdentifier? FieldIdentifier { get; set; }
@@ -40,9 +40,8 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected Type? ValueType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the value of the input. This should be used with two-way binding.</para>
+    /// <para lang="zh">获得/设置 输入组件的值，支持双向绑定。</para>
     /// <para lang="en">Gets or sets the value of the input. This should be used with two-way binding.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <example>
     /// @bind-Value="model.PropertyName"
@@ -52,33 +51,29 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public TValue? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 a 回调 that updates the bound value.</para>
+    /// <para lang="zh">获得/设置 用于更新绑定值的回调。</para>
     /// <para lang="en">Gets or sets a callback that updates the bound value.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue?> ValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 an expression that identifies the bound value.</para>
+    /// <para lang="zh">获得/设置 标识绑定值的表达式。</para>
     /// <para lang="en">Gets or sets an expression that identifies the bound value.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue?>>? ValueExpression { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示前置标签 默认值为 null 为空时默认不显示标签</para>
+    /// <para lang="zh">获得/设置 是否显示前置标签，默认值为 null，为空时不显示标签</para>
     /// <para lang="en">Gets or sets Whether to Show Label. Default is null, not show label when null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabel { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于文字过长导致裁减时使用 默认 null</para>
+    /// <para lang="zh">获得/设置 是否显示 Tooltip，多用于文字过长导致裁剪时使用，默认 null</para>
     /// <para lang="en">Gets or sets Whether to Show Tooltip. Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
@@ -86,7 +81,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示名称</para>
     /// <para lang="en">Gets or sets Display Text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? DisplayText { get; set; }
@@ -99,32 +93,30 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected ValidateForm? ValidateForm { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 IShowLabel 实例</para>
-    /// <para lang="en">Get IShowLabel Instance</para>
+    /// <para lang="zh">获得 <see cref="IShowLabel"/> 实例</para>
+    /// <para lang="en">Get <see cref="IShowLabel"/> Instance</para>
     /// </summary>
     [CascadingParameter(Name = "EditorForm")]
     protected IShowLabel? EditorForm { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 InputGroup 实例</para>
-    /// <para lang="en">Get InputGroup Instance</para>
+    /// <para lang="zh">获得 <see cref="BootstrapInputGroup"/> 实例</para>
+    /// <para lang="en">Get <see cref="BootstrapInputGroup"/> Instance</para>
     /// </summary>
     [CascadingParameter]
     protected BootstrapInputGroup? InputGroup { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 IFilter 实例</para>
-    /// <para lang="en">Get IFilter Instance</para>
+    /// <para lang="zh">获得 <see cref="IFilter"/> 实例</para>
+    /// <para lang="en">Get <see cref="IFilter"/> Instance</para>
     /// </summary>
     [CascadingParameter]
     protected IFilter? Filter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
@@ -142,8 +134,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -192,7 +183,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <para lang="en">Format Value to String Method</para>
     /// </summary>
     /// <param name="value">The value to format.</param>
-    /// <returns>A string representation of the value.</returns>
     protected virtual string? FormatValueAsString(TValue? value)
     {
         string? ret;

@@ -19,7 +19,6 @@ public static class BluetoothExtensions
     /// <para lang="en">Get Bluetooth Service List</para>
     /// </summary>
     /// <param name="services"></param>
-    /// <returns></returns>
     public static List<string> GetServicesList(this IEnumerable<BluetoothServicesEnum> services) => services.Select(i =>
     {
         var v = i.ToString();

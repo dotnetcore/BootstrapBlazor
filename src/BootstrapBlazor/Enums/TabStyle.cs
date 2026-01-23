@@ -6,26 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///  <para lang="zh">Tab 样式 emnu</para>
-///  <para lang="en">Tab style emnu</para>
+/// <para lang="zh">Tab 样式 emnu</para>
+/// <para lang="en">Tab style emnu</para>
 /// </summary>
 public enum TabStyle
 {
     /// <summary>
-    ///  <para lang="zh">default 样式</para>
-    ///  <para lang="en">The default style</para>
+    /// <para lang="zh">default 样式</para>
+    /// <para lang="en">The default style</para>
     /// </summary>
     Default,
 
     /// <summary>
-    ///  <para lang="zh">Chrome 样式</para>
-    ///  <para lang="en">The Chrome style</para>
+    /// <para lang="zh">Chrome 样式</para>
+    /// <para lang="en">The Chrome style</para>
     /// </summary>
     Chrome,
 
     /// <summary>
-    ///  <para lang="zh">Capsule 样式</para>
-    ///  <para lang="en">The Capsule style</para>
+    /// <para lang="zh">Capsule 样式</para>
+    /// <para lang="en">The Capsule style</para>
     /// </summary>
     Capsule
 }

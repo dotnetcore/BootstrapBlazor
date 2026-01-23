@@ -20,7 +20,6 @@ public class DefaultIPLocator : IIPLocator
     /// <inheritdoc/>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     public virtual Task<string?> Locate(IPLocatorOption option) => Task.FromResult<string?>(null);
 
     /// <summary>
@@ -34,7 +33,6 @@ public class DefaultIPLocator : IIPLocator
     /// <para lang="en">Generic Locate Method</para>
     /// </summary>
     /// <param name="option"></param>
-    /// <returns></returns>
     protected virtual async Task<string?> Locate<T>(IPLocatorOption option)
     {
         string? ret = null;

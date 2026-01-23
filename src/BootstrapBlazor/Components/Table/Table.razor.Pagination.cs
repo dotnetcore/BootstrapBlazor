@@ -10,7 +10,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否分页，默认值为 false</para>
     /// <para lang="en">Gets or sets Whether to allow pagination. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsPagination { get; set; }
@@ -18,7 +17,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 分页上下翻页的页码数量，默认为 5</para>
     /// <para lang="en">Gets or sets Page up/down page link count. Default 5</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int MaxPageLinkCount { get; set; } = 5;
@@ -26,7 +24,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否在顶端显示分页，默认值为 false</para>
     /// <para lang="en">Gets or sets Whether to show pagination at top. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowTopPagination { get; set; }
@@ -34,7 +31,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示行号列 默认为 false</para>
     /// <para lang="en">Gets or sets Whether to show line number column. Default false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowLineNo { get; set; }
@@ -42,7 +38,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 行号列标题文字 默认为 行号</para>
     /// <para lang="en">Gets or sets Line Number Column Header Text. Default "Line No"</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -51,7 +46,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 每页显示数据数量的外部数据源</para>
     /// <para lang="en">Gets or sets External data source for items per page</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -60,7 +54,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">异步查询回调方法，设置 <see cref="Items"/> 后无法触发此回调方法</para>
     /// <para lang="en">Async query callback method. Cannot trigger this when <see cref="Items"/> is set</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
@@ -86,7 +79,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值</para>
     /// <para lang="en">Gets or sets Default items per page. Default null (Use first value of <see cref="PageItemsSource"/>)</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? PageItems { get; set; }
@@ -94,7 +86,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航</para>
     /// <para lang="en">Gets or sets Whether to show Goto navigator</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowGotoNavigator { get; set; } = true;
@@ -102,7 +93,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航文本信息 默认 null</para>
     /// <para lang="en">Gets or sets Whether to show Goto navigator label text. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? GotoNavigatorLabelText { get; set; }
@@ -110,7 +100,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 Goto 导航模板</para>
     /// <para lang="en">Gets or sets Goto navigator template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? GotoTemplate { get; set; }
@@ -118,7 +107,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 PageInfo 内容 默认 true 显示</para>
     /// <para lang="en">Gets or sets Whether to show PageInfo. Default true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowPageInfo { get; set; } = true;
@@ -126,7 +114,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息文字 默认 null</para>
     /// <para lang="en">Gets or sets Page Info Text. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? PageInfoText { get; set; }
@@ -134,7 +121,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息模板</para>
     /// <para lang="en">Gets or sets Page Info Template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? PageInfoTemplate { get; set; }
@@ -142,7 +128,6 @@ public partial class Table<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 分页信息内容模板 默认 null</para>
     /// <para lang="en">Gets or sets Page Info Body Template. Default null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? PageInfoBodyTemplate { get; set; }
@@ -231,7 +216,6 @@ public partial class Table<TItem>
     /// <para lang="zh">获得 分页数据源</para>
     /// <para lang="en">Get Page Items Source</para>
     /// </summary>
-    /// <returns></returns>
     protected List<SelectedItem> GetPageItemsSource()
     {
         _pageItemsSource ??= PageItemsSource.Select(i => new SelectedItem($"{i}", Localizer["PageItemsText", i].Value)).ToList();

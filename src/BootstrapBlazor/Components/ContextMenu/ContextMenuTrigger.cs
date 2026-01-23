@@ -23,7 +23,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 包裹组件 TagName 默认为 div</para>
     /// <para lang="en">The HTML tag name to use for the trigger. Default is &lt;div&gt;.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string WrapperTag { get; set; } = "div";
@@ -31,7 +30,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 上下文数据</para>
     /// <para lang="en">Gets or sets the context data.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public object? ContextItem { get; set; }
@@ -43,7 +41,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// <summary>
     /// <para lang="zh">触摸事件触发菜单的超时时间（毫秒）。默认值为 <see cref="ContextMenuOptions.OnTouchDelay"/> 毫秒。必须大于 0。</para>
     /// <para lang="en">The timeout duration for touch events to trigger the context menu (in milliseconds). Default is <see cref="ContextMenuOptions.OnTouchDelay"/> milliseconds. Must be greater than 0.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int? OnTouchDelay { get; set; }

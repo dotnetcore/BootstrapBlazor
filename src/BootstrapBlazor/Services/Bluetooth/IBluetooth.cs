@@ -33,7 +33,6 @@ public interface IBluetooth
     /// <para lang="zh">获得所有可用串口</para>
     /// <para lang="en">Get all available serial ports</para>
     /// </summary>
-    /// <returns></returns>
     Task<bool> GetAvailability(CancellationToken token = default);
 
     /// <summary>
@@ -42,7 +41,6 @@ public interface IBluetooth
     /// </summary>
     /// <param name="options"><para lang="zh"><see cref="BluetoothRequestOptions"/> 实例</para><para lang="en"><see cref="BluetoothRequestOptions"/> instance</para></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default);
 
     /// <summary>
@@ -51,6 +49,5 @@ public interface IBluetooth
     /// </summary>
     /// <param name="optionalServices"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default);
 }

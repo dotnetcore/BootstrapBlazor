@@ -55,7 +55,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 数据集合</para>
     /// <para lang="en">Gets or sets the data collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -67,7 +66,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 数据样式回调方法，默认为 null</para>
     /// <para lang="en">Gets or sets the data style callback method. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
@@ -75,7 +73,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 面板显示文字</para>
     /// <para lang="en">Gets or sets the panel display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -84,7 +81,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示搜索框</para>
     /// <para lang="en">Gets or sets whether to display the search box</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
@@ -92,7 +88,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 搜索框图标</para>
     /// <para lang="en">Gets or sets the search box icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }
@@ -100,7 +95,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 选项状态变化时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when selected items change</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnSelectedItemsChanged { get; set; }
@@ -108,7 +102,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 搜索框的 placeholder 字符串</para>
     /// <para lang="en">Gets or sets the search box placeholder string</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -117,7 +110,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用，默认为 false</para>
     /// <para lang="en">Gets or sets whether to disable. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -125,7 +117,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板</para>
     /// <para lang="en">Gets or sets the header template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? HeaderTemplate { get; set; }
@@ -133,7 +124,6 @@ public partial class TransferPanel
     /// <summary>
     /// <para lang="zh">获得/设置 Item 模板</para>
     /// <para lang="en">Gets or sets the item template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }

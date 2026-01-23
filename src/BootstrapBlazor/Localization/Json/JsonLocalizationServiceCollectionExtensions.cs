@@ -25,7 +25,6 @@ internal static class JsonLocalizationServiceCollectionExtensions
     /// <para lang="zh">JsonLocalizationOptions 配置回调方法</para>
     /// <para lang="en">JsonLocalizationOptions configuration callback method</para>
     /// </param>
-    /// <returns></returns>
     public static IServiceCollection AddJsonLocalization(this IServiceCollection services, Action<JsonLocalizationOptions>? localizationConfigure = null)
     {
         services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();

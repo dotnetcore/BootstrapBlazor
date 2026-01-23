@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Application Error"
   },
   "BootstrapBlazor.Components.GoTop": {

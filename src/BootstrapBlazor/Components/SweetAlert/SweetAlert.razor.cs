@@ -74,7 +74,6 @@ public partial class SweetAlert : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

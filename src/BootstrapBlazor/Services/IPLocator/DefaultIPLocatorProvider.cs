@@ -50,7 +50,6 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     public async Task<string?> Locate(string? ip)
     {
         string? ret = null;
@@ -89,6 +88,5 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <para lang="en">Internal Locate Method</para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     protected abstract Task<string?> LocateByIp(string ip);
 }

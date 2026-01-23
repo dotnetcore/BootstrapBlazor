@@ -13,14 +13,14 @@ internal interface IReconnectorProvider
 {
     /// <summary>
     /// <para lang="zh">注册回调方法</para>
-    /// <para lang="en">Register Callback Method</para>
+    /// <para lang="en">Registers the callback method</para>
     /// </summary>
     /// <param name="action"></param>
     void Register(Action<RenderFragment?, RenderFragment?, RenderFragment?> action);
 
     /// <summary>
     /// <para lang="zh">内容变化通知方法</para>
-    /// <para lang="en">Notify Content Changed Method</para>
+    /// <para lang="en">Notifies when content has changed</para>
     /// </summary>
     /// <param name="content"></param>
     void NotifyContentChanged(IReconnector content);

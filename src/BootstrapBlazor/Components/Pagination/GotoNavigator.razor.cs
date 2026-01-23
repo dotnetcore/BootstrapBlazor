@@ -8,31 +8,28 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"></para>
-/// <para lang="en"></para>
+/// <para lang="zh">GotoNavigator 组件用于分页跳转导航</para>
+/// <para lang="en">GotoNavigator component for pagination navigation</para>
 /// </summary>
 public partial class GotoNavigator
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 跳转页码 默认 null</para>
-    /// <para lang="en">Gets or sets Navigation Index. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 跳转页码，默认为 null</para>
+    /// <para lang="en">Gets or sets the navigation index. Default is null</para>
     /// </summary>
     [Parameter]
     public int Index { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 跳转文本 默认 null</para>
-    /// <para lang="en">Gets or sets Goto Text. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 跳转文本，默认为 null</para>
+    /// <para lang="en">Gets or sets the goto text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? GotoText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 导航回调方法 默认 null</para>
-    /// <para lang="en">Gets or sets Navigation Callback. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 导航回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the navigation callback. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<int, Task>? OnNavigation { get; set; }
@@ -46,7 +43,7 @@ public partial class GotoNavigator
         }
     }
 
-    private async Task OnKeyup(KeyboardEventArgs args)
+    private async Task OnKeyUp(KeyboardEventArgs args)
     {
         if (args.Key == "Enter")
         {

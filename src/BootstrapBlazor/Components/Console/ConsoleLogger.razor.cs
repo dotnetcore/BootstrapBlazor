@@ -16,7 +16,6 @@ public partial class ConsoleLogger
     /// <summary>
     /// <para lang="zh">获得/设置 最大行数 默认 3 行</para>
     /// <para lang="en">Gets or sets max rows, default is 3</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public int Max { get; set; } = 3;
@@ -24,7 +23,6 @@ public partial class ConsoleLogger
     /// <summary>
     /// <para lang="zh">获得/设置 是否为 Html 代码 默认 false</para>
     /// <para lang="en">Gets or sets whether it is Html code, default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsHtml { get; set; }
@@ -35,7 +33,6 @@ public partial class ConsoleLogger
     /// <para lang="zh">获得 按钮样式集合</para>
     /// <para lang="en">Get button style collection</para>
     /// </summary>
-    /// <returns></returns>
     private string? ClassName => CssBuilder.Default("console-logger")
         .AddClass(Class)
         .AddClassFromAttributes(AdditionalAttributes)

@@ -16,7 +16,6 @@ public abstract class BootstrapComponentBase : ComponentBase, IHandleEvent
     /// <summary>
     /// <para lang="zh">获得/设置 用户自定义属性</para>
     /// <para lang="en">Gets or sets user defined attributes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
     [JsonIgnore]

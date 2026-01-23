@@ -20,64 +20,56 @@ public partial class Repeater<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据源</para>
-    /// <para lang="en">Gets or sets Items</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the items</para>
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示正在加载信息 默认 true 显示</para>
-    /// <para lang="en">Gets or sets Whether to show loading info. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示正在加载信息，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show loading info. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowLoading { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载模板</para>
-    /// <para lang="en">Gets or sets Loading Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the loading template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示无数据信息 默认 true 显示</para>
-    /// <para lang="en">Gets or sets Whether to show empty info. Default true</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 是否显示无数据信息，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show empty info. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 无数据时提示信息 默认 null</para>
-    /// <para lang="en">Gets or sets Empty Text. Default null</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 无数据时提示信息，默认为 null</para>
+    /// <para lang="en">Gets or sets the empty text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? EmptyText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 正在加载模板</para>
-    /// <para lang="en">Gets or sets Empty Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 无数据时的模板</para>
+    /// <para lang="en">Gets or sets the empty template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 容器模板</para>
-    /// <para lang="en">Gets or sets Container Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="en">Gets or sets the container template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<RenderFragment>? ContainerTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 模板</para>
-    /// <para lang="en">Gets or sets Item Template</para>
-    /// <para><version>10.2.2</version></para>
+    /// <para lang="zh">获得/设置 项模板</para>
+    /// <para lang="en">Gets or sets the item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ItemTemplate { get; set; }

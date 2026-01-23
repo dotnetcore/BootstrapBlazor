@@ -16,6 +16,5 @@ public interface IComponentIdGenerator
     /// <para lang="en">Generate Component ID Method</para>
     /// </summary>
     /// <param name="component"></param>
-    /// <returns></returns>
     string Generate(object component);
 }

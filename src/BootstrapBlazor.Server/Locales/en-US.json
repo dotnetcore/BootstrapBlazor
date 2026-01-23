@@ -21,6 +21,7 @@
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
     "AutoGenerateColumns": "Automatically generated",
+    "Obsolete": "Obsolete",
     "Total": "Total"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
@@ -2407,17 +2408,19 @@
     "WatchPositionResultSuccess": "Call WatchPosition success"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
-    "Block1Intro": "This function is to obtain the component instance through the cascade parameter and use its function",
-    "Block1Title": "Test",
-    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method",
-    "Block2Title": "OnErrorHandleAsync",
-    "ButtonText": "test",
+    "Button1Text": "Test(Component)",
+    "Button2Text": "Test(HtmlElement)",
+    "ButtonText": "Test",
     "DialogIntro": "Click the button to pop up a pop-up window. The button in the pop-up window triggers an exception and the error is displayed in the pop-up window",
     "DialogText": "Popup",
     "DialogTitle": "In Dialog",
     "ExceptionTestIntroduce": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
     "H1": "Instructions",
     "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution",
+    "NormalIntro": "This function is to obtain the component instance through the cascade parameter and use its function",
+    "NormalTitle": "Test",
+    "OnErrorHandleIntro": "By setting the <code>OnErrorHandleAsync</code> parameter of <code>ErrorLogger</code>, you can customize the use of the <code>Swal</code> pop-up to display exception information.",
+    "OnErrorHandleTitle": "OnErrorHandleAsync",
     "PageErrorIntro": "Click the button to navigate to the page where the error occurred during the page life cycle. The error is displayed on the current page and does not affect the menu and the overall page layout.",
     "PageErrorTitle": "Page",
     "Step1": "1. Add <code>AddLogging</code> to the <code>Startup</code> file to enable the <code>net core</code> system log function",

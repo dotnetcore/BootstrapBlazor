@@ -61,7 +61,6 @@ internal static class TypeExtensions
     /// <para lang="en">Gets唯一type名称方法</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public static string GetUniqueTypeName(this Type type) => type.IsCollectible
         ? $"{type.FullName}-{type.TypeHandle.Value}"
         : $"{type.FullName}";
@@ -72,7 +71,6 @@ internal static class TypeExtensions
     /// <para lang="en">通过 typeName 参数安全获取 Type instance</para>
     /// </summary>
     /// <param name="typeName"></param>
-    /// <returns></returns>
     public static Type? GetSafeType(string? typeName)
     {
         Type? type = null;

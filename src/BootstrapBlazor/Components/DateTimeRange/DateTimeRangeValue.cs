@@ -47,7 +47,6 @@ public class DateTimeRangeValue
     /// <para lang="zh">ToString 方法</para>
     /// <para lang="en">ToString Method</para>
     /// </summary>
-    /// <returns></returns>
     public override string ToString()
     {
         var ret = "";

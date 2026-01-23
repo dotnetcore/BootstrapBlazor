@@ -21,7 +21,6 @@ public partial class EnumFilter
     /// <summary>
     /// <para lang="zh">获得/设置 相关枚举类型</para>
     /// <para lang="en">Gets or sets Related Enum Type</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -30,7 +29,6 @@ public partial class EnumFilter
     /// <summary>
     /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
     /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
@@ -66,7 +64,6 @@ public partial class EnumFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();

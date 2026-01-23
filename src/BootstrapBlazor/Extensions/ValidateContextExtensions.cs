@@ -39,7 +39,6 @@ public static class ValidationContextExtensions
     /// </summary>
     /// <param name="context"></param>
     /// <param name="errorMessage"></param>
-    /// <returns></returns>
     public static ValidationResult GetValidationResult(this ValidationContext context, string? errorMessage)
     {
         var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };

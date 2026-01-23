@@ -14,7 +14,6 @@ public partial class CountUp<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 Value 值</para>
     /// <para lang="en">Gets or sets Value</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,7 +22,6 @@ public partial class CountUp<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 计数配置项 默认 null</para>
     /// <para lang="en">Gets or sets count configuration item, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public CountUpOption? Option { get; set; }
@@ -31,7 +29,6 @@ public partial class CountUp<TValue>
     /// <summary>
     /// <para lang="zh">获得/设置 计数结束回调方法 默认 null</para>
     /// <para lang="en">Gets or sets callback method when counting ends, default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCompleted { get; set; }
@@ -60,7 +57,6 @@ public partial class CountUp<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -76,14 +72,12 @@ public partial class CountUp<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
 
     /// <summary>
     /// <para lang="zh">OnCompleted 回调方法</para>
     /// <para lang="en">OnCompleted callback method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task OnCompleteCallback()
     {

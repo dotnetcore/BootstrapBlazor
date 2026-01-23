@@ -15,7 +15,6 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 按钮点击后回调委托</para>
     /// <para lang="en">Gets or sets button click callback delegate</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
@@ -41,7 +40,6 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     /// <summary>
     /// <para lang="zh">获得/设置 Table Toolbar 实例</para>
     /// <para lang="en">Gets or sets Table Toolbar instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [CascadingParameter]
     protected TableToolbar<TItem>? Toolbar { get; set; }

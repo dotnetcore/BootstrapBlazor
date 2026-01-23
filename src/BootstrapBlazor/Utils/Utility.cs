@@ -24,7 +24,6 @@ public static class Utility
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string GetDisplayName(object model, string fieldName) => GetDisplayName(model.GetType(), fieldName);
 
     /// <summary>
@@ -33,7 +32,6 @@ public static class Utility
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
 
     /// <summary>
@@ -42,7 +40,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型</para><para lang="en">Model</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string GetDisplayName<TModel>(string fieldName) => GetDisplayName(typeof(TModel), fieldName);
 
     /// <summary>
@@ -51,7 +48,6 @@ public static class Utility
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static RangeAttribute? GetRange(object model, string fieldName) => GetRange(model.GetType(), fieldName);
 
     /// <summary>
@@ -60,7 +56,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型</para><para lang="en">Model</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static RangeAttribute? GetRange<TModel>(string fieldName) => GetRange(typeof(TModel), fieldName);
 
     /// <summary>
@@ -69,7 +64,6 @@ public static class Utility
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static RangeAttribute? GetRange(Type modelType, string fieldName)
     {
         var type = Nullable.GetUnderlyingType(modelType) ?? modelType;
@@ -88,7 +82,6 @@ public static class Utility
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static List<SelectedItem> GetNullableBoolItems(object model, string fieldName) => GetNullableBoolItems(model.GetType(), fieldName);
 
     /// <summary>
@@ -97,7 +90,6 @@ public static class Utility
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName) => CacheManager.GetNullableBoolItems(modelType, fieldName);
 
     /// <summary>
@@ -108,7 +100,6 @@ public static class Utility
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="customAttribute"></param>
-    /// <returns></returns>
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
@@ -119,7 +110,6 @@ public static class Utility
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName);
 
     /// <summary>
@@ -128,7 +118,6 @@ public static class Utility
     /// </summary>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static object? GetPropertyValue(object model, string fieldName)
     {
         return model.GetType().Assembly.IsDynamic
@@ -156,21 +145,18 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
 
     /// <summary>
     /// <para lang="zh">获得 排序方法</para>
     /// <para lang="en">Get sort method</para>
     /// </summary>
-    /// <returns></returns>
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>() => CacheManager.GetSortFunc<T>();
 
     /// <summary>
     /// <para lang="zh">获得 通过排序集合进行排序 Func 方法</para>
     /// <para lang="en">Get sort Func method by sort collection</para>
     /// </summary>
-    /// <returns></returns>
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>() => CacheManager.GetSortListFunc<T>();
 
     /// <summary>
@@ -198,7 +184,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"><para lang="zh">模型类型</para><para lang="en">Model type</para></typeparam>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string? GetPlaceHolder<TModel>(string fieldName) => GetPlaceHolder(typeof(TModel), fieldName);
 
     /// <summary>
@@ -207,7 +192,6 @@ public static class Utility
     /// </summary>
     /// <param name="model"><para lang="zh">模型实例</para><para lang="en">Model instance</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string? GetPlaceHolder(object model, string fieldName) => GetPlaceHolder(model.GetType(), fieldName);
 
     /// <summary>
@@ -216,7 +200,6 @@ public static class Utility
     /// </summary>
     /// <param name="modelType"><para lang="zh">模型类型</para><para lang="en">Model type</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
-    /// <returns></returns>
     public static string? GetPlaceHolder(Type modelType, string fieldName) => modelType.Assembly.IsDynamic
         ? null
         : CacheManager.GetPlaceholder(modelType, fieldName);
@@ -228,7 +211,6 @@ public static class Utility
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>
     /// <param name="propertyInfo"></param>
-    /// <returns></returns>
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo) => CacheManager.TryGetProperty(modelType, fieldName, out propertyInfo);
 
     /// <summary>
@@ -265,7 +247,6 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     /// <param name="item"><para lang="zh">克隆对象</para><para lang="en">Clone object</para></param>
     /// <remarks><para lang="zh">简单的深克隆方法，内部未使用序列化技术</para><para lang="en">Simple deep clone method, internal not use serialization</para></remarks>
-    /// <returns></returns>
     public static TModel Clone<TModel>(TModel item)
     {
         var ret = item;
@@ -296,7 +277,6 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     /// <param name="source"></param>
     /// <param name="destination"></param>
-    /// <returns></returns>
     public static void Copy<TModel>(TModel source, TModel destination) where TModel : class
     {
         var type = source.GetType();
@@ -327,7 +307,6 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     /// <param name="source"></param>
     /// <param name="defaultOrderCallback"><para lang="zh">默认排序回调方法</para><para lang="en">Default order callback</para></param>
-    /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null) => GetTableColumns(typeof(TModel), source, defaultOrderCallback);
 
     /// <summary>
@@ -337,7 +316,6 @@ public static class Utility
     /// <param name="type"><para lang="zh">绑定模型类型</para><para lang="en">Model type</para></param>
     /// <param name="source"><para lang="zh">Razor 文件中列集合</para><para lang="en">Column collection in Razor file</para></param>
     /// <param name="defaultOrderCallback"><para lang="zh">默认排序回调方法</para><para lang="en">Default order callback</para></param>
-    /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
         var columns = new List<ITableColumn>();
@@ -414,7 +392,6 @@ public static class Utility
     /// <para lang="en">Get IEditorItem collection by specified Model</para>
     /// </summary>
     /// <param name="predicate"></param>
-    /// <returns></returns>
     public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => GetTableColumns<TModel>().Where(predicate);
 
     /// <summary>
@@ -648,7 +625,6 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static object GenerateValueExpression(object model, string fieldName, Type fieldType)
     {
         var type = model.GetType();
@@ -731,7 +707,6 @@ public static class Utility
     /// </summary>
     /// <param name="fieldType"></param>
     /// <param name="componentType"><para lang="zh">组件类型</para><para lang="en">Component type</para></param>
-    /// <returns></returns>
     public static bool IsCheckboxList(Type fieldType, Type? componentType = null)
     {
         var ret = false;
@@ -757,7 +732,6 @@ public static class Utility
     /// <param name="model"><para lang="zh">上下文模型</para><para lang="en">Context model</para></param>
     /// <param name="fieldName"><para lang="zh">字段名称</para><para lang="en">Field name</para></param>
     /// <param name="item"><para lang="zh">IEditorItem 实例</para><para lang="en">IEditorItem instance</para></param>
-    /// <returns></returns>
     private static Dictionary<string, object> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
     {
         var ret = new Dictionary<string, object>();
@@ -794,7 +768,6 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="col"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
     public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => v => callback(model, col, v);
 
     /// <summary>
@@ -803,7 +776,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static Expression<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>> CreateOnValueChanged<TModel>(Type fieldType)
     {
         var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(typeof(TModel), fieldType);
@@ -821,7 +793,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType) => CacheManager.GetOnValueChangedInvoke<TModel>(fieldType);
     #endregion
 
@@ -833,7 +804,6 @@ public static class Utility
     /// <param name="source"></param>
     /// <param name="format"></param>
     /// <param name="provider"></param>
-    /// <returns></returns>
     public static string Format(object? source, string format, IFormatProvider? provider = null)
     {
         var ret = string.Empty;
@@ -851,7 +821,6 @@ public static class Utility
     /// </summary>
     /// <param name="source"></param>
     /// <param name="provider"></param>
-    /// <returns></returns>
     public static string Format(object? source, IFormatProvider provider)
     {
         var ret = string.Empty;
@@ -870,7 +839,6 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
-    /// <returns></returns>
     public static string? ConvertValueToString<TValue>(TValue value)
     {
         var ret = "";
@@ -913,7 +881,6 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static object GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
     {
         var valueChangedInvoker = CreateLambda(fieldType).Compile();
@@ -939,7 +906,6 @@ public static class Utility
     /// <param name="component"></param>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
@@ -947,7 +913,6 @@ public static class Utility
     /// <para lang="en">Get IEditorItem collection of specified generic type</para>
     /// </summary>
     /// <param name="source"></param>
-    /// <returns></returns>
     public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns<TModel>(source);
 
     /// <summary>
@@ -955,7 +920,6 @@ public static class Utility
     /// <para lang="en">Create IStringLocalizer instance by specified type</para>
     /// </summary>
     /// <typeparam name="TType"></typeparam>
-    /// <returns></returns>
     public static IStringLocalizer? CreateLocalizer<TType>() => CreateLocalizer(typeof(TType));
 
     /// <summary>
@@ -963,6 +927,5 @@ public static class Utility
     /// <para lang="en">Create IStringLocalizer instance by specified type</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
     public static IStringLocalizer? CreateLocalizer(Type type) => CacheManager.CreateLocalizerByType(type);
 }

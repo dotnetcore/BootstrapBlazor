@@ -16,7 +16,6 @@ public partial class FilterLogicItem
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符</para>
     /// <para lang="en">Gets or sets Logical Operator</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
@@ -24,7 +23,6 @@ public partial class FilterLogicItem
     /// <summary>
     /// <para lang="zh">获得/设置 逻辑运算符改变回调方法</para>
     /// <para lang="en">Gets or sets Logical Operator Change Callback Method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<FilterLogic> LogicChanged { get; set; }

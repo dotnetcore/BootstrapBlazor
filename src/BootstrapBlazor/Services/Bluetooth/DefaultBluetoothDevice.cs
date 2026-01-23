@@ -55,7 +55,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Connect(CancellationToken token = default)
     {
         if (Connected == false)
@@ -69,7 +68,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Disconnect(CancellationToken token = default)
     {
         var ret = false;
@@ -90,7 +88,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<List<IBluetoothService>> GetPrimaryServices(CancellationToken token = default)
     {
         var ret = new List<IBluetoothService>();
@@ -111,7 +108,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// </summary>
     /// <param name="serviceUUID"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<IBluetoothService?> GetPrimaryService(string serviceUUID, CancellationToken token = default)
     {
         IBluetoothService? ret = null;
@@ -131,7 +127,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default)
     {
         BluetoothDeviceInfo? ret = null;
@@ -148,7 +143,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default)
     {
         DateTimeOffset? ret = null;
@@ -169,7 +163,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<byte?> GetBatteryValue(CancellationToken token = default)
     {
         byte? ret = null;
@@ -189,7 +182,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default)
     {
         byte[]? ret = null;
@@ -223,7 +215,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

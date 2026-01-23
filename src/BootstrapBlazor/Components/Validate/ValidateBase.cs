@@ -42,8 +42,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? ErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 数据合规样式</para>
-    /// <para lang="en">Gets or sets the validation CSS class</para>
+    /// <para lang="zh">获得 数据合规样式</para>
+    /// <para lang="en">Gets the validation CSS class</para>
     /// </summary>
     protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
 
@@ -62,7 +62,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? Disabled => IsDisabled ? "disabled" : null;
 
     /// <summary>
-    /// <para lang="zh">是否显示 必填项标记</para>
+    /// <para lang="zh">获得/设置 是否显示 必填项标记</para>
     /// <para lang="en">Gets or sets whether to display the required field marker</para>
     /// </summary>
     protected string? Required { get; set; }
@@ -165,7 +165,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 Value 改变时回调方法</para>
     /// <para lang="en">Gets or sets the callback method when value changes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnValueChanged { get; set; }
@@ -173,7 +172,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 类型转化失败格式化字符串 默认为 null</para>
     /// <para lang="en">Gets or sets the parsing error message format string. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -182,7 +180,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 是否不进行验证 默认为 false</para>
     /// <para lang="en">Gets or sets whether to skip validation. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
@@ -190,7 +187,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
     /// <para lang="en">Gets or sets whether the component is disabled. Default is false.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -198,7 +194,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示必填项标记 默认为 null 未设置</para>
     /// <para lang="en">Gets or sets whether to display the required field marker. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowRequired { get; set; }
@@ -206,7 +201,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 必填项错误文本 默认为 null 未设置</para>
     /// <para lang="en">Gets or sets the required field error message. Default is null.</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? RequiredErrorMessage { get; set; }
@@ -253,14 +247,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <para lang="zh">格式化解析错误信息</para>
     /// <para lang="en">Formats the parsing error message</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
     /// <summary>
     /// <para lang="zh">判断是否为必填字段</para>
     /// <para lang="en">Determines whether the field is required</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
         || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.IsRequired).Any() ?? false)
@@ -285,7 +277,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);
@@ -360,7 +351,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override bool ShouldRender()
     {
         if (ValidateForm == null)
@@ -422,7 +412,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <para lang="zh">获得/设置 自定义验证集合</para>
     /// <para lang="en">Gets or sets the custom validation collection</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }
@@ -436,7 +425,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public virtual bool IsComplexValue(object? value) => value != null
         && value is not string
         && !value.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
@@ -559,14 +547,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <para lang="zh">加载 validate 模块方法</para>
     /// <para lang="en">Loads the validate module</para>
     /// </summary>
-    /// <returns></returns>
     protected Task<JSModule> LoadValidateModule() => JSRuntime.LoadModuleByName("validate");
 
     /// <summary>
     /// <para lang="zh">增加客户端 Tooltip 方法</para>
     /// <para lang="en">Shows the client-side validation tooltip</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual async ValueTask ShowValidResult()
     {
         var id = RetrieveId();
@@ -581,7 +567,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <para lang="zh">移除客户端 Tooltip 方法</para>
     /// <para lang="en">Removes the client-side validation tooltip</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual async ValueTask RemoveValidResult(string? validateId = null)
     {
         var id = validateId ?? RetrieveId();
@@ -606,7 +591,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)

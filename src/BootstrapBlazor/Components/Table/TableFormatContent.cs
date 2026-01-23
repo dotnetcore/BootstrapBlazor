@@ -16,7 +16,6 @@ internal class TableFormatContent : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 格式化方法</para>
     /// <para lang="en">Gets or sets formatter method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -26,7 +25,6 @@ internal class TableFormatContent : ComponentBase
     /// <summary>
     /// <para lang="zh">获得/设置 当前显示数据项</para>
     /// <para lang="en">Gets or sets current display data item</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

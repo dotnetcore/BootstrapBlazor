@@ -16,7 +16,6 @@ public partial class LoadMore
     /// <summary>
     /// <para lang="zh">获得/设置 触底元素触发 <see cref="OnLoadMoreAsync"/> 阈值 默认为 1</para>
     /// <para lang="en">Gets or sets 触底元素触发 <see cref="OnLoadMoreAsync"/> 阈值 Default is为 1</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string Threshold { get; set; } = "1";
@@ -24,14 +23,12 @@ public partial class LoadMore
     /// <summary>
     /// <para lang="zh">获得/设置 触底回调方法 <see cref="CanLoading"/> 为 true 时才触发此回调方法</para>
     /// <para lang="en">Gets or sets 触底callback method <see cref="CanLoading"/> 为 true 时才触发此callback method</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter] public Func<Task>? OnLoadMoreAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否可以加载更多数据 默认为 true</para>
     /// <para lang="en">Gets or sets whether可以加载更多data Default is为 true</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool CanLoading { get; set; } = true;
@@ -39,7 +36,6 @@ public partial class LoadMore
     /// <summary>
     /// <para lang="zh">获得/设置 加载更多模板 默认 null</para>
     /// <para lang="en">Gets or sets 加载更多template Default is null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
@@ -47,7 +43,6 @@ public partial class LoadMore
     /// <summary>
     /// <para lang="zh">获得/设置 没有更多数据提示信息 默认为 null 读取资源文件中的预设值</para>
     /// <para lang="en">Gets or sets 没有更多data提示信息 Default is为 null 读取资源文件中的预设值</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? NoMoreText { get; set; }
@@ -55,7 +50,6 @@ public partial class LoadMore
     /// <summary>
     /// <para lang="zh">获得/设置 没有更多数据时显示的模板 默认为 null</para>
     /// <para lang="en">Gets or sets 没有更多data时display的template Default is为 null</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? NoMoreTemplate { get; set; }

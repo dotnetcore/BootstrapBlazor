@@ -14,7 +14,6 @@ public partial class ToolbarItem
     /// <summary>
     /// <para lang="zh">获得/设置 子组件模板</para>
     /// <para lang="en">Gets or sets the child component template</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

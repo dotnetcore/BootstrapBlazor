@@ -19,7 +19,6 @@ public interface IIconTheme
     /// <para lang="zh">获得所有图标</para>
     /// <para lang="en">Get All Icons</para>
     /// </summary>
-    /// <returns></returns>
 #if NET8_0_OR_GREATER
     FrozenDictionary<ComponentIcons, string> GetIcons();
 #else

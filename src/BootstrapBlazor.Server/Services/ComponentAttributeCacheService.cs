@@ -49,7 +49,8 @@ public static class ComponentAttributeCacheService
             Name = property.Name,
             Type = GetFriendlyTypeName(property.PropertyType),
             Description = GetSummary(xmlDoc, property) ?? "",
-            Version = GetVersion(xmlDoc, property) ?? "10.0.0"
+            Version = GetVersion(xmlDoc, property) ?? "10.0.0",
+            IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
         }).OrderBy(i => i.Name).ToList();
     }
 
@@ -60,7 +61,9 @@ public static class ComponentAttributeCacheService
     {
         if (xmlDoc == null) return null;
 
-        var memberName = $"P:{property.DeclaringType?.FullName}.{property.Name}";
+        var type = property.DeclaringType ?? property.PropertyType;
+        var typeName = type.FullName ?? $"BootstrapBlazor.Components.{type.Name}";
+        var memberName = $"P:{typeName}.{property.Name}";
         var summaryElement = FindSummaryElement(xmlDoc, memberName);
         return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
     }
@@ -76,9 +79,8 @@ public static class ComponentAttributeCacheService
             return null;
         }
 
-        var inheritDoc = summaryElement.Element("inheritdoc");
-        var cref = inheritDoc?.Attribute("cref")?.Value;
-        return cref != null ? FindSummaryElement(xmlDoc, cref) : summaryElement;
+        var doc = summaryElement.Element("inheritdoc")?.Attribute("cref")?.Value;
+        return doc != null ? FindSummaryElement(xmlDoc, doc) : summaryElement;
     }
 
     private static string? GetLocalizedSummary(XElement? summaryElement)

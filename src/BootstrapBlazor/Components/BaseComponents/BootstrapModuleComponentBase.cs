@@ -115,7 +115,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <para lang="zh">调用 JavaScript 方法</para>
     /// <para lang="en">Call JavaScript method</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
@@ -124,7 +123,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
@@ -134,7 +132,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected async Task InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
         if (Module != null)
@@ -150,7 +147,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected async Task InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
         if (Module != null)
@@ -165,7 +161,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
@@ -175,7 +170,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected async Task<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
         TValue? ret = default;
@@ -193,7 +187,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
     protected async Task<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
         TValue? ret = default;
@@ -209,7 +202,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <para lang="en">Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.</para>
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
@@ -234,7 +226,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

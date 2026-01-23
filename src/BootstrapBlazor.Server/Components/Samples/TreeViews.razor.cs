@@ -182,7 +182,7 @@ public sealed partial class TreeViews
 
     private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
     {
-        Logger2.Log($"当前共选中{items.Count}项");
+        Logger2.Log($"当前共选中 {items.Count} 项");
         return Task.CompletedTask;
     }
 
@@ -201,9 +201,7 @@ public sealed partial class TreeViews
 
             new() { Text = "Item C", Id = "3", Icon = "fa-solid fa-font-awesome" },
             new() { Text = "Item H", Id = "7", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
-            new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" },
-
-
+            new() { Text = "Item I", Id = "8", ParentId = "3", Icon = "fa-solid fa-font-awesome" }
         ];
         return _dragItems;
     }

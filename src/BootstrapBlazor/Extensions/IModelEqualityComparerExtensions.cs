@@ -19,7 +19,6 @@ public static class IModelEqualityComparerExtensions
     /// <param name="comparer"></param>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    /// <returns></returns>
     public static bool Equals<TItem>(this IModelEqualityComparer<TItem> comparer, TItem? x, TItem? y)
     {
         bool ret;

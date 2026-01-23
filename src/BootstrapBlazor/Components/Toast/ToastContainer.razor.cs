@@ -29,7 +29,6 @@ public partial class ToastContainer : IDisposable
     /// <summary>
     /// <para lang="zh">获得/设置 弹出窗位置</para>
     /// <para lang="en">Gets or sets the popup window placement</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]

@@ -18,7 +18,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="zh">获得 按钮样式集合</para>
     /// <para lang="en">Gets the button style collection</para>
     /// </summary>
-    /// <returns></returns>
     protected string? ClassName => CssBuilder.Default("btn")
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
         .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
@@ -50,7 +49,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 按钮风格枚举</para>
     /// <para lang="en">Gets or sets the button style enum</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ButtonStyle ButtonStyle { get; set; }
@@ -58,7 +56,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 按钮类型 Submit 为表单提交按钮 Reset 为表单重置按钮 默认为 Button</para>
     /// <para lang="en">Gets or sets the button type. Submit for form submission, Reset for form reset. Default is Button</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public ButtonType ButtonType { get; set; } = ButtonType.Button;
@@ -66,7 +63,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件</para>
     /// <para lang="en">Gets or sets the OnClick event</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -74,7 +70,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 OnClick 事件不刷新父组件</para>
     /// <para lang="en">Gets or sets the OnClickWithoutRender event</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickWithoutRender { get; set; }
@@ -82,7 +77,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 按钮颜色 默认 <see cref="Color.Primary"/></para>
     /// <para lang="en">Gets or sets the button color. Default is <see cref="Color.Primary"/></para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public virtual Color Color { get; set; } = Color.Primary;
@@ -90,7 +84,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示图标</para>
     /// <para lang="en">Gets or sets the icon</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -98,7 +91,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner</para>
     /// <para lang="en">Gets or sets the loading icon. Default is fa-solid fa-spin fa-spinner</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -107,7 +99,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画</para>
     /// <para lang="en">Gets or sets whether it is an async button. Default is false. If true, it disables itself after click and shows loading animation until async operation completes</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsAsync { get; set; }
@@ -115,7 +106,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否异步结束后是否保持禁用状态，默认为 false</para>
     /// <para lang="en">Gets or sets whether to keep disabled state after async operation. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     /// <remarks><para lang="zh"><see cref="IsAsync"/> 开启时有效</para><para lang="en">Effective when <see cref="IsAsync"/> is true</para></remarks>
     [Parameter]
@@ -124,7 +114,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 显示文字</para>
     /// <para lang="en">Gets or sets the display text</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -132,7 +121,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 Outline 样式 默认 false</para>
     /// <para lang="en">Gets or sets the Outline style. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsOutline { get; set; }
@@ -140,7 +128,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 Size 大小</para>
     /// <para lang="en">Gets or sets the Size</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
@@ -148,7 +135,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 Block 模式</para>
     /// <para lang="en">Gets or sets the Block mode</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsBlock { get; set; }
@@ -156,7 +142,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
     /// <para lang="en">Gets or sets whether it is disabled. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
@@ -164,7 +149,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 点击事件是否向上传播 默认 false</para>
     /// <para lang="en">Gets or sets whether to propagate click event. Default is false</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }
@@ -172,7 +156,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <summary>
     /// <para lang="zh">获得/设置 RenderFragment 实例</para>
     /// <para lang="en">Gets or sets the RenderFragment instance</para>
-    /// <para><version>10.2.2</version></para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -244,7 +227,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="en">OnAfterRenderAsync method</para>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -284,7 +266,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="zh">处理点击方法</para>
     /// <para lang="en">Handle click method</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual async Task HandlerClick()
     {
         if (OnClickWithoutRender != null)
@@ -327,7 +308,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="zh">显示 Tooltip 方法</para>
     /// <para lang="en">Show Tooltip method</para>
     /// </summary>
-    /// <returns></returns>
     public virtual async Task ShowTooltip()
     {
         if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
@@ -340,7 +320,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="zh">销毁 Tooltip 方法</para>
     /// <para lang="en">Remove Tooltip method</para>
     /// </summary>
-    /// <returns></returns>
     public virtual async Task RemoveTooltip()
     {
         if (Tooltip == null)
@@ -354,7 +333,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// <para lang="en">DisposeAsyncCore method</para>
     /// </summary>
     /// <param name="disposing"></param>
-    /// <returns></returns>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)

@@ -20,7 +20,6 @@ public static class ExceptionExtensions
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="collection"></param>
-    /// <returns></returns>
     public static string Format(this Exception exception, NameValueCollection? collection = null)
     {
         var logger = new StringBuilder();
@@ -49,7 +48,6 @@ public static class ExceptionExtensions
     /// </summary>
     /// <param name="exception"></param>
     /// <param name="collection"></param>
-    /// <returns></returns>
     public static MarkupString FormatMarkupString(this Exception exception, NameValueCollection? collection = null)
     {
         var message = Format(exception, collection);
