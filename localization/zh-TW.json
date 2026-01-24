@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "無匹配資料",
     "PlaceHolder": "請輸入"
@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "您的輸入不相同"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "應用程式錯誤"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -254,7 +254,10 @@
     "AlignCenterText": "置中",
     "AlignCenterTooltipText": "點擊後本欄文字置中對齊",
     "AlignRightText": "右對齊",
-    "AlignRightTooltipText": "點擊後本欄文字右對齊"
+    "AlignRightTooltipText": "點擊後本欄文字右對齊",
+    "ColumnListSelectAllText": "全選",
+    "ColumnListSelectInvertText": "反選",
+    "MoreButtonText": "更多"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "關閉",
@@ -399,5 +402,8 @@
   },
   "BootstrapBlazor.Components.LoadMore": {
     "NoMoreText": "沒有更多資料了"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "您確定要刪除當前資料嗎？"
   }
 }
