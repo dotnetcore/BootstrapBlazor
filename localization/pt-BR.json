@@ -44,7 +44,7 @@
     "DateTimeFormat": "dd/MM/yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "Ano anterior",
     "AiraNextYearLabel": "Próximo ano",
-    "AiraPrevMonthLabel": "Prev Month",
+    "AiraPrevMonthLabel": "Mês anterior",
     "AiraNextMonthLabel": "Próximo mês",
     "ClearButtonText": "Limpar",
     "NowButtonText": "Agora",
@@ -53,10 +53,10 @@
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
-    "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
+    "Months": "Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez",
+    "MonthLists": "Jan,Fev,Mar,Abr,Mai,Jun,Jul,Ago,Set,Out,Nov,Dez",
     "WeekLists": "Dom,Seg,Ter,Qua,Qui,Sex,Sáb",
-    "GenericTypeErrorMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
+    "GenericTypeErrorMessage": "DateTimePicker só suporta DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "Hoje",
     "Yesterday": "Ontem",
     "Week": "Há uma semana"
@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Digite o mesmo valor novamente"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Erro da aplicação"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -183,7 +183,7 @@
     "ContextRefresh": "Atualizar",
     "ContextClose": "Fechar",
     "ContextCloseOther": "Fechar outras abas",
-    "ContextCloseAll": "Close All Tabs",
+    "ContextCloseAll": "Fechar todas as abas",
     "ContextFullScreen": "Tela cheia"
   },
   "BootstrapBlazor.Components.Table": {
@@ -298,7 +298,7 @@
     "PauseText": "Pausar",
     "ResumeText": "Retomar",
     "CancelText": "Cancelar",
-    "StarText": "Favoritar"
+    "StarText": "Iniciar"
   },
   "BootstrapBlazor.Components.Toggle": {
     "OnText": "Expandir",
@@ -307,7 +307,7 @@
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "Todos",
     "RightPanelText": "Selecionados",
-    "MinErrorMessage": "Please select at least {0} items",
+    "MinErrorMessage": "Selecione pelo menos {0} itens",
     "MaxErrorMessage": "Até {0} itens podem ser selecionados"
   },
   "BootstrapBlazor.Components.TransferPanel": {

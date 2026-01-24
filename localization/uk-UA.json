@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Немає даних",
     "PlaceHolder": "Введіть текст"
@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Будь ласка, введіть те саме значення ще раз"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Помилка застосунку"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -254,7 +254,10 @@
     "AlignCenterText": "По центру",
     "AlignCenterTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці по центру",
     "AlignRightText": "Праворуч",
-    "AlignRightTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці праворуч"
+    "AlignRightTooltipText": "Клікніть, щоб вирівняти текст у цьому стовпці праворуч",
+    "ColumnListSelectAllText": "Усі",
+    "ColumnListSelectInvertText": "Інвертувати",
+    "MoreButtonText": "Ще"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Закрити",
@@ -399,5 +402,8 @@
   },
   "BootstrapBlazor.Components.LoadMore": {
     "NoMoreText": "Більше даних немає"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "Ви впевнені, що хочете видалити поточні дані?"
   }
 }
