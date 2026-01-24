@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Keine Daten",
     "PlaceHolder": "Bitte eingeben"
@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Bitte geben Sie denselben Wert nochmals ein"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Anwendungsfehler"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -254,7 +254,10 @@
     "AlignCenterText": "Zentriert",
     "AlignCenterTooltipText": "Klicken zum zentrierten Ausrichten des Textes in dieser Spalte",
     "AlignRightText": "Rechts",
-    "AlignRightTooltipText": "Klicken zum rechtsbündigen Ausrichten des Textes in dieser Spalte"
+    "AlignRightTooltipText": "Klicken zum rechtsbündigen Ausrichten des Textes in dieser Spalte",
+    "ColumnListSelectAllText": "Alle",
+    "ColumnListSelectInvertText": "Invert",
+    "MoreButtonText": "Weitere"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Abbrechen",
@@ -399,5 +402,8 @@
   },
   "BootstrapBlazor.Components.LoadMore": {
     "NoMoreText": "Keine weiteren Daten"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "Sind Sie sicher, dass Sie die aktuellen Daten löschen möchten?"
   }
 }

@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "ไม่มีข้อมูล",
     "PlaceHolder": "กรุณากรอกข้อมูล"
@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "กรุณากรอกค่าเดิมอีกครั้ง"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "ข้อผิดพลาดของแอปพลิเคชัน"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -254,7 +254,10 @@
     "AlignCenterText": "กึ่งกลาง",
     "AlignCenterTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ให้อยู่ตรงกลาง",
     "AlignRightText": "ชิดขวา",
-    "AlignRightTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ไปทางขวา"
+    "AlignRightTooltipText": "คลิกเพื่อจัดข้อความในคอลัมน์นี้ไปทางขวา",
+    "ColumnListSelectAllText": "ทั้งหมด",
+    "ColumnListSelectInvertText": "กลับด้าน",
+    "MoreButtonText": "เพิ่มเติม"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "ปิด",
@@ -399,5 +402,8 @@
   },
   "BootstrapBlazor.Components.LoadMore": {
     "NoMoreText": "ไม่มีข้อมูลเพิ่มเติม"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลปัจจุบัน?"
   }
 }
