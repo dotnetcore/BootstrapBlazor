@@ -13,7 +13,6 @@ public partial class EmbedPdfs
     private EmbedPDFTheme _theme = EmbedPDFTheme.System;
     private EmbedPDFScrollStrategy _strategy = EmbedPDFScrollStrategy.Vertical;
     private string _url = "./samples/sample.pdf";
-    private string _streamFileName = "";
     private string _language = "";
 
     private List<SelectedItem> _languages = new List<SelectedItem>() {
