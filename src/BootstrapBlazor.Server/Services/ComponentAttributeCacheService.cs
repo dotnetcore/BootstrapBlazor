@@ -53,7 +53,7 @@ public static class ComponentAttributeCacheService
             Name = property.Name,
             Type = GetFriendlyTypeName(property.PropertyType),
             Description = GetSummary(xmlDoc, property) ?? "",
-            Version = GetVersion(xmlDoc, property) ?? "10.0.0",
+            Version = GetVersion(xmlDoc, property),
             IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
         }).OrderBy(i => i.Name).ToList();
     }
