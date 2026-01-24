@@ -18,6 +18,8 @@ public static class ComponentAttributeCacheService
 {
     private static readonly ConcurrentDictionary<string, List<AttributeItem>> _cache = new();
 
+    private static XDocument? _xmlDoc;
+
     /// <summary>
     /// 通过组件类型获取组件的 AttributeItem 列表
     /// </summary>
@@ -43,7 +45,9 @@ public static class ComponentAttributeCacheService
                 .ToArray();
         }
 
-        var xmlDoc = GetXmlDocumentation(type.Assembly);
+        // 获得 BootstrapBlazor 程序集 xml 文档
+        _xmlDoc ??= GetXmlDocumentation(type.Assembly);
+
         return properties.Select(property => new AttributeItem
         {
             Name = property.Name,
