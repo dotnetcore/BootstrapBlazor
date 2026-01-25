@@ -36,15 +36,15 @@ public partial class FileIcon
     public RenderFragment? BackgroundTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图标类型背景色 默认 Color.Primary</para>
-    /// <para lang="en">Gets or sets Icon Background Color Default Color.Primary</para>
+    /// <para lang="zh">获得/设置 图标类型背景色 默认 <see cref="Color.Primary"/></para>
+    /// <para lang="en">Gets or sets Icon Background Color Default <see cref="Color.Primary"/></para>
     /// </summary>
     [Parameter]
     public Color IconColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 图标大小 默认 Color.None</para>
-    /// <para lang="en">Gets or sets Icon Size Default Size.None</para>
+    /// <para lang="zh">获得/设置 图标大小 默认 <see cref="Size.None"/></para>
+    /// <para lang="en">Gets or sets Icon Size Default <see cref="Size.None"/></para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
