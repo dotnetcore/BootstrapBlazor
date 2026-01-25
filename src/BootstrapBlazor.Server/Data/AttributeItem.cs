@@ -13,32 +13,32 @@ public class AttributeItem
     /// <summary>
     /// 获得/设置 参数
     /// </summary>
-    public string Name { get; set; } = "";
+    public string? Name { get; set; }
 
     /// <summary>
     /// 获得/设置 说明
     /// </summary>
-    public string Description { get; set; } = "";
+    public string? Description { get; set; }
 
     /// <summary>
     /// 获得/设置 类型
     /// </summary>
-    public string Type { get; set; } = "";
+    public string? Type { get; set; }
 
     /// <summary>
     /// 获得/设置 可选值
     /// </summary>
-    public string ValueList { get; set; } = "";
+    public string? ValueList { get; set; }
 
     /// <summary>
     /// 获得/设置 版本
     /// </summary>
-    public string Version { get; set; } = "10.2.2";
+    public string? Version { get; set; }
 
     /// <summary>
     /// 获得/设置 默认值
     /// </summary>
-    public string DefaultValue { get; set; } = "";
+    public string? DefaultValue { get; set; }
 
     /// <summary>
     /// 获得/设置 是否已弃用

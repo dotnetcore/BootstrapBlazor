@@ -18,6 +18,8 @@ public static class ComponentAttributeCacheService
 {
     private static readonly ConcurrentDictionary<string, List<AttributeItem>> _cache = new();
 
+    private static XDocument? _xmlDoc;
+
     /// <summary>
     /// 通过组件类型获取组件的 AttributeItem 列表
     /// </summary>
@@ -43,13 +45,21 @@ public static class ComponentAttributeCacheService
                 .ToArray();
         }
 
-        var xmlDoc = GetXmlDocumentation(type.Assembly);
+        // 获得 BootstrapBlazor 程序集 xml 文档
+        _xmlDoc ??= GetXmlDocumentation(typeof(BootstrapBlazorRoot).Assembly);
+        XDocument? xmlDoc = null;
+        if (type.Assembly.GetName().Name != "BootstrapBlazor")
+        {
+            // 扩展组件包
+            xmlDoc = GetXmlDocumentation(type.Assembly);
+        }
+
         return properties.Select(property => new AttributeItem
         {
             Name = property.Name,
             Type = GetFriendlyTypeName(property.PropertyType),
             Description = GetSummary(xmlDoc, property) ?? "",
-            Version = GetVersion(xmlDoc, property) ?? "10.0.0",
+            Version = GetVersion(xmlDoc, property),
             IsObsolete = property.GetCustomAttribute<ObsoleteAttribute>() != null
         }).OrderBy(i => i.Name).ToList();
     }
@@ -59,18 +69,19 @@ public static class ComponentAttributeCacheService
     /// </summary>
     private static string? GetSummary(XDocument? xmlDoc, PropertyInfo property)
     {
-        if (xmlDoc == null) return null;
-
         var type = property.DeclaringType ?? property.PropertyType;
-        var typeName = type.FullName ?? $"BootstrapBlazor.Components.{type.Name}";
+        var typeName = $"BootstrapBlazor.Components.{type.Name}";
         var memberName = $"P:{typeName}.{property.Name}";
         var summaryElement = FindSummaryElement(xmlDoc, memberName);
         return summaryElement == null ? null : GetLocalizedSummary(summaryElement);
     }
 
-    private static XElement? FindSummaryElement(XDocument xmlDoc, string memberName)
+    private static XElement? FindSummaryElement(XDocument? xmlDoc, string memberName)
     {
-        var memberElement = xmlDoc.Descendants("member")
+        // 如果 xmlDoc 为空表示为 BootstrapBlazor 组件
+        var memberElement = xmlDoc?.Descendants("member")
+            .FirstOrDefault(x => x.Attribute("name")?.Value == memberName)
+            ?? _xmlDoc?.Descendants("member")
             .FirstOrDefault(x => x.Attribute("name")?.Value == memberName);
 
         var summaryElement = memberElement?.Element("summary");
@@ -79,8 +90,8 @@ public static class ComponentAttributeCacheService
             return null;
         }
 
-        var doc = summaryElement.Element("inheritdoc")?.Attribute("cref")?.Value;
-        return doc != null ? FindSummaryElement(xmlDoc, doc) : summaryElement;
+        var v = summaryElement.Element("inheritdoc")?.Attribute("cref")?.Value;
+        return v != null ? FindSummaryElement(xmlDoc, v) : summaryElement;
     }
 
     private static string? GetLocalizedSummary(XElement? summaryElement)

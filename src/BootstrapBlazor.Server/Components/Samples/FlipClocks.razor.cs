@@ -34,7 +34,6 @@ public partial class FlipClocks
 
     private string CardGroupMarginValueString => $"{CardGroupMarginValue}px";
 
-
     private bool _isCompleted;
     private bool _showYear = false;
     private bool _showMonth = false;

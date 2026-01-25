@@ -18,7 +18,6 @@ public partial class CheckboxLists
         EnumEducation.Middle, EnumEducation.Primary
     };
 
-
     [NotNull]
     private IEnumerable<SelectedItem>? Items1 { get; set; }
 
