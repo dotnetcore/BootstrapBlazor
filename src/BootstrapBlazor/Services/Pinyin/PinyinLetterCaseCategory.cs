@@ -12,14 +12,14 @@ namespace BootstrapBlazor.Components;
 public enum PinyinLetterCaseCategory
 {
     /// <summary>
-    /// <para lang="zh">Indicates that the character is an uppercase letter.</para>
-    /// <para lang="en">Indicates that the character is an uppercase letter.</para>
+    /// <para lang="zh">Indicates that the character is an uppercase letter</para>
+    /// <para lang="en">Indicates that the character is an uppercase letter</para>
     /// </summary>
     UppercaseLetter = 0,
 
     /// <summary>
-    /// <para lang="zh">Represents a Unicode character that is classified as a lowercase letter.</para>
-    /// <para lang="en">Represents a Unicode character that is classified as a lowercase letter.</para>
+    /// <para lang="zh">Represents a Unicode character that is classified as a lowercase letter</para>
+    /// <para lang="en">Represents a Unicode character that is classified as a lowercase letter</para>
     /// </summary>
     LowercaseLetter = 1,
 }

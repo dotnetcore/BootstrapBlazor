@@ -15,7 +15,7 @@ public class UploadFile
 {
     /// <summary>
     /// <para lang="zh">获得/设置 文件名，由用户指定，上传时此参数未设置默认为 null</para>
-    /// <para lang="en">Gets or sets the file name specified by the user. Default is null if not set during upload.</para>
+    /// <para lang="en">Gets or sets the file name specified by the user. Default is null if not set during upload</para>
     /// </summary>
     public string? FileName { get; set; }
 
@@ -33,7 +33,7 @@ public class UploadFile
 
     /// <summary>
     /// <para lang="zh">获得/设置 文件上传结果，0 表示成功，非零表示失败</para>
-    /// <para lang="en">Gets or sets the upload result. 0 indicates success, non-zero indicates failure.</para>
+    /// <para lang="en">Gets or sets the upload result. 0 indicates success, non-zero indicates failure</para>
     /// </summary>
     public int Code { get; set; }
 

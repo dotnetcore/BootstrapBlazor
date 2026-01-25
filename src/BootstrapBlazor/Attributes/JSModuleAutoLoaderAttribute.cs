@@ -20,20 +20,20 @@ public class JSModuleAutoLoaderAttribute(string? path = null) : Attribute
     public string? Path { get; } = path;
 
     /// <summary>
-    /// <para lang="zh">表示对 JavaScript 对象的引用。默认值为 false。</para>
-    /// <para lang="en">Represents a reference to a JavaScript object. Default value is false.</para>
+    /// <para lang="zh">表示对 JavaScript 对象的引用。默认值为 false</para>
+    /// <para lang="en">Represents a reference to a JavaScript object. Default value is false</para>
     /// </summary>
     public bool JSObjectReference { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动调用 init。默认值为 true。</para>
-    /// <para lang="en">Gets or sets whether to automatically invoke init. Default is true.</para>
+    /// <para lang="zh">获得/设置 是否自动调用 init。默认值为 true</para>
+    /// <para lang="en">Gets or sets whether to automatically invoke init. Default is true</para>
     /// </summary>
     public bool AutoInvokeInit { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否自动调用 dispose。默认值为 true。</para>
-    /// <para lang="en">Gets or sets whether to automatically invoke dispose. Default is true.</para>
+    /// <para lang="zh">获得/设置 是否自动调用 dispose。默认值为 true</para>
+    /// <para lang="en">Gets or sets whether to automatically invoke dispose. Default is true</para>
     /// </summary>
     public bool AutoInvokeDispose { get; set; } = true;
 }

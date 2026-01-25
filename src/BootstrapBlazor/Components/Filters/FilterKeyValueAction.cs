@@ -15,34 +15,34 @@ namespace BootstrapBlazor.Components;
 public class FilterKeyValueAction
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 Filter 项字段名称</para>
-    /// <para lang="en">Gets or sets Filter Item Field Name</para>
+    /// <para lang="zh">获得/设置 过滤项字段名称</para>
+    /// <para lang="en">Gets or sets Filter item field name</para>
     /// </summary>
     public string? FieldKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Filter 项字段值</para>
-    /// <para lang="en">Gets or sets Filter Item Field Value</para>
+    /// <para lang="zh">获得/设置 过滤项字段值</para>
+    /// <para lang="en">Gets or sets Filter item field value</para>
     /// </summary>
     public object? FieldValue { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Filter 项与其他 Filter 逻辑关系</para>
-    /// <para lang="en">Gets or sets Logical Relationship between Filter Item and other Filters</para>
+    /// <para lang="zh">获得/设置 过滤项与其他过滤条件逻辑关系</para>
+    /// <para lang="en">Gets or sets logical relationship between filter item and other filters</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterLogic FilterLogic { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Filter 条件行为</para>
-    /// <para lang="en">Gets or sets Filter Condition Behavior</para>
+    /// <para lang="zh">获得/设置 过滤条件行为</para>
+    /// <para lang="en">Gets or sets Filter condition behavior</para>
     /// </summary>
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public FilterAction FilterAction { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 子过滤条件集合</para>
-    /// <para lang="en">Gets or sets Child Filter Condition Collection</para>
+    /// <para lang="en">Gets or sets child filter condition collection</para>
     /// </summary>
     public List<FilterKeyValueAction> Filters { get; set; } = [];
 }

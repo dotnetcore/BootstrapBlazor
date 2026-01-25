@@ -12,8 +12,8 @@ namespace BootstrapBlazor.Components;
 public class SplitterResizedEventArgs(string left)
 {
     /// <summary>
-    /// <para lang="zh">获得 the size of panel 1 (top/left) after a resize operation.</para>
-    /// <para lang="en">Gets the size of panel 1 (top/left) after a resize operation.</para>
+    /// <para lang="zh">获得 the size of panel 1 (top/left) after a resize operation</para>
+    /// <para lang="en">Gets the size of panel 1 (top/left) after a resize operation</para>
     /// </summary>
     public string FirstPanelSize => left;
 

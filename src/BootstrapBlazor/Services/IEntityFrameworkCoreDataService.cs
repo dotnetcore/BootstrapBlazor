@@ -13,7 +13,7 @@ public interface IEntityFrameworkCoreDataService
 {
     /// <summary>
     /// <para lang="zh">取消方法，由于编辑时使用的是克隆数据，常见取消用法不需要写任何代码，可用于保存数据下次编辑时恢复</para>
-    /// <para lang="en">Cancel method. Since cloned data is used during editing, no code is required for common cancellation usage. It can be used to restore data for the next edit save.</para>
+    /// <para lang="en">Cancel method. Since cloned data is used during editing, no code is required for common cancellation usage. It can be used to restore data for the next edit save</para>
     /// </summary>
     Task CancelAsync();
 

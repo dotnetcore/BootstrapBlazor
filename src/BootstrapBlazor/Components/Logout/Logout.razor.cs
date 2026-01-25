@@ -81,8 +81,8 @@ public partial class Logout
     public RenderFragment? LinkTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the avatar border radius. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the avatar border radius. Default is null.</para>
+    /// <para lang="zh">获得/设置 the avatar border radius. 默认为 null</para>
+    /// <para lang="en">Gets or sets the avatar border radius. Default is null</para>
     /// </summary>
     [Parameter]
     public string? AvatarRadius { get; set; }

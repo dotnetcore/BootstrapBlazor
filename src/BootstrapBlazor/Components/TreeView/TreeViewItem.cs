@@ -22,7 +22,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示正在加载动画，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to display the loading animation. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to display the loading animation. Default is false</para>
     /// </summary>
     [Obsolete("已弃用(Deprecated)")]
     [ExcludeFromCodeCoverage]

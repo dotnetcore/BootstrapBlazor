@@ -19,7 +19,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 上一次转化是否失败 为 true 时表示上一次转化失败</para>
-    /// <para lang="en">Gets or sets whether the previous parsing attempt failed. True indicates the last parsing failed.</para>
+    /// <para lang="en">Gets or sets whether the previous parsing attempt failed. True indicates the last parsing failed</para>
     /// </summary>
     protected bool PreviousParsingAttemptFailed { get; set; }
 
@@ -51,7 +51,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否合规 默认为 null 未检查</para>
-    /// <para lang="en">Gets or sets whether the component is valid. Default is null (unchecked).</para>
+    /// <para lang="en">Gets or sets whether the component is valid. Default is null (unchecked)</para>
     /// </summary>
     protected bool? IsValid { get; set; }
 
@@ -69,7 +69,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 输入框的当前值</para>
-    /// <para lang="en">Gets or sets the current value of the input.</para>
+    /// <para lang="en">Gets or sets the current value of the input</para>
     /// </summary>
     protected TValue? CurrentValue
     {
@@ -103,7 +103,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 输入框的当前值，以字符串形式表示</para>
-    /// <para lang="en">Gets or sets the current value of the input, represented as a string.</para>
+    /// <para lang="en">Gets or sets the current value of the input, represented as a string</para>
     /// </summary>
     protected string CurrentValueAsString
     {
@@ -171,7 +171,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 类型转化失败格式化字符串 默认为 null</para>
-    /// <para lang="en">Gets or sets the parsing error message format string. Default is null.</para>
+    /// <para lang="en">Gets or sets the parsing error message format string. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -179,28 +179,28 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否不进行验证 默认为 false</para>
-    /// <para lang="en">Gets or sets whether to skip validation. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to skip validation. Default is false</para>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
-    /// <para lang="en">Gets or sets whether the component is disabled. Default is false.</para>
+    /// <para lang="en">Gets or sets whether the component is disabled. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示必填项标记 默认为 null 未设置</para>
-    /// <para lang="en">Gets or sets whether to display the required field marker. Default is null.</para>
+    /// <para lang="en">Gets or sets whether to display the required field marker. Default is null</para>
     /// </summary>
     [Parameter]
     public bool? ShowRequired { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 必填项错误文本 默认为 null 未设置</para>
-    /// <para lang="en">Gets or sets the required field error message. Default is null.</para>
+    /// <para lang="en">Gets or sets the required field error message. Default is null</para>
     /// </summary>
     [Parameter]
     public string? RequiredErrorMessage { get; set; }
@@ -220,8 +220,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
-    /// <para lang="zh">将字符串解析为 TValue 的实例。派生类可以重写此方法来改变 CurrentValueAsString 如何解释传入的值。</para>
-    /// <para lang="en">Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how <see cref="CurrentValueAsString"/> interprets incoming values.</para>
+    /// <para lang="zh">将字符串解析为 TValue 的实例。派生类可以重写此方法来改变 CurrentValueAsString 如何解释传入的值</para>
+    /// <para lang="en">Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how <see cref="CurrentValueAsString"/> interprets incoming values</para>
     /// </summary>
     /// <param name="value">The string value to be parsed.</param>
     /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
@@ -259,14 +259,14 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         || (ValidateRules?.OfType<RequiredValidator>().Any() ?? false);
 
     /// <summary>
-    /// <para lang="zh">获得表示被编辑字段状态的字符串。这将包括"modified"、"valid"或"invalid"的某种组合，具体取决于该字段的状态。</para>
-    /// <para lang="en">Gets a string that indicates the status of the field being edited. This will include some combination of "modified", "valid", or "invalid", depending on the status of the field.</para>
+    /// <para lang="zh">获得表示被编辑字段状态的字符串。这将包括"modified"、"valid"或"invalid"的某种组合，具体取决于该字段的状态</para>
+    /// <para lang="en">Gets a string that indicates the status of the field being edited. This will include some combination of "modified", "valid", or "invalid", depending on the status of the field</para>
     /// </summary>
     protected string FieldClass => (EditContext != null && FieldIdentifier != null) ? EditContext.FieldCssClass(FieldIdentifier.Value) : "";
 
     /// <summary>
-    /// <para lang="zh">获得组合了 class 属性和 FieldClass 属性的 CSS 类字符串。派生组件通常应将此值用于主 HTML 元素的 class 属性。</para>
-    /// <para lang="en">Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/> properties. Derived components should typically use this value for the primary HTML element's class attribute.</para>
+    /// <para lang="zh">获得组合了 class 属性和 FieldClass 属性的 CSS 类字符串。派生组件通常应将此值用于主 HTML 元素的 class 属性</para>
+    /// <para lang="en">Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/> properties. Derived components should typically use this value for the primary HTML element's class attribute</para>
     /// </summary>
     protected string? CssClass => CssBuilder.Default()
         .AddClass(FieldClass, IsNeedValidate)
@@ -418,7 +418,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否不进行验证 默认为 false</para>
-    /// <para lang="en">Gets or sets whether validation is needed. Default is false.</para>
+    /// <para lang="en">Gets or sets whether validation is needed. Default is false</para>
     /// </summary>
     public bool IsNeedValidate => !IsDisabled && !SkipValidate;
 

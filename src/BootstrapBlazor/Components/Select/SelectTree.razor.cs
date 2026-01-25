@@ -47,7 +47,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 禁用时是否可以展开或折叠节点，默认为 false</para>
-    /// <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.</para>
+    /// <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false</para>
     /// </summary>
     [Parameter]
     public bool CanExpandWhenDisabled { get; set; } = false;

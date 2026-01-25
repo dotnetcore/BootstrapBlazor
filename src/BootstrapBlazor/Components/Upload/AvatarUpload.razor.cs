@@ -27,14 +27,14 @@ public partial class AvatarUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否圆形图片框，Avatar 模式时生效，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to use circular image frame. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to use circular image frame. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsCircle { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 边框圆角，默认为 null</para>
-    /// <para lang="en">Gets or sets the border radius. Default is null.</para>
+    /// <para lang="en">Gets or sets the border radius. Default is null</para>
     /// </summary>
     [Parameter]
     public string? BorderRadius { get; set; }
@@ -83,14 +83,14 @@ public partial class AvatarUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 继续上传按钮是否在列表前，默认 false</para>
-    /// <para lang="en">Gets or sets whether the upload button is displayed before the list. Default is false.</para>
+    /// <para lang="en">Gets or sets whether the upload button is displayed before the list. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许预览的回调方法，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, bool>? CanPreviewCallback { get; set; }

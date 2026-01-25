@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuZone 组件</para>
-/// <para lang="en">The ContextMenuZone defines the area in the DOM where the context menu can be displayed.</para>
+/// <para lang="en">The ContextMenuZone defines the area in the DOM where the context menu can be displayed</para>
 /// </summary>
 public partial class ContextMenuZone
 {
@@ -42,7 +42,7 @@ public partial class ContextMenuZone
 
     /// <summary>
     /// <para lang="zh">ContextMenu 组件调用</para>
-    /// <para lang="en">Registers a <paramref name="contextMenu"/> with this zone.</para>
+    /// <para lang="en">Registers a <paramref name="contextMenu"/> with this zone</para>
     /// </summary>
     /// <param name="contextMenu">
     ///     <para lang="zh">要注册的 ContextMenu 组件</para>

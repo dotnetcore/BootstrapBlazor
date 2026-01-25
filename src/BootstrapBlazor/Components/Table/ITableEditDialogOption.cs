@@ -15,13 +15,13 @@ public interface ITableEditDialogOption<TModel>
 {
     /// <summary>
     /// <para lang="zh">获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to use Tracking mode to directly update edited items. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to use Tracking mode to directly update edited items. Default is false</para>
     /// </summary>
     bool IsTracking { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示标签，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to display label. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display label. Default is true</para>
     /// </summary>
     bool ShowLabel { get; set; }
 
@@ -33,31 +33,31 @@ public interface ITableEditDialogOption<TModel>
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量，默认为 null</para>
-    /// <para lang="en">Gets or sets the number of components displayed per row. Default is null.</para>
+    /// <para lang="en">Gets or sets the number of components displayed per row. Default is null</para>
     /// </summary>
     int? ItemsPerRow { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 设置行内组件布局格式，默认为 Row 布局</para>
-    /// <para lang="en">Gets or sets the layout format of inline components. Default is Row layout.</para>
+    /// <para lang="en">Gets or sets the layout format of inline components. Default is Row layout</para>
     /// </summary>
     RowType RowType { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 在 RowType Inline 模式下标签对齐方式，默认为 None（等效于 Left 左对齐）</para>
-    /// <para lang="en">Gets or sets the label alignment in RowType Inline mode. Default is None (equivalent to Left).</para>
+    /// <para lang="en">Gets or sets the label alignment in RowType Inline mode. Default is None (equivalent to Left)</para>
     /// </summary>
     Alignment LabelAlign { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 查询时是否显示正在加载中动画，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to display loading animation when querying. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to display loading animation when querying. Default is false</para>
     /// </summary>
     bool ShowLoading { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 未分组编辑项布局位置，默认为 false 在尾部</para>
-    /// <para lang="en">Gets or sets the layout position of ungrouped edit items. Default is false (at the end).</para>
+    /// <para lang="en">Gets or sets the layout position of ungrouped edit items. Default is false (at the end)</para>
     /// </summary>
     bool ShowUnsetGroupItemsOnTop { get; set; }
 
@@ -69,7 +69,7 @@ public interface ITableEditDialogOption<TModel>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能，默认为 null 未设置</para>
-    /// <para lang="en">Gets or sets whether to disable auto submit form by Enter key. Default is null.</para>
+    /// <para lang="en">Gets or sets whether to disable auto submit form by Enter key. Default is null</para>
     /// </summary>
     bool? DisableAutoSubmitFormByEnter { get; set; }
 
@@ -81,7 +81,7 @@ public interface ITableEditDialogOption<TModel>
 
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮图标 默认 null 使用当前主题图标</para>
-    /// <para lang="en">Gets or sets save button icon. Default is null, using the current theme icon.</para>
+    /// <para lang="en">Gets or sets save button icon. Default is null, using the current theme icon</para>
     /// </summary>
     string? SaveButtonIcon { get; set; }
 
@@ -93,7 +93,7 @@ public interface ITableEditDialogOption<TModel>
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标 默认 null 使用当前主题图标</para>
-    /// <para lang="en">Gets or sets close button icon. Default is null, using the current theme icon.</para>
+    /// <para lang="en">Gets or sets close button icon. Default is null, using the current theme icon</para>
     /// </summary>
     string? CloseButtonIcon { get; set; }
 

@@ -22,7 +22,7 @@ public partial class InputUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 上传按钮样式，默认 btn-primary</para>
-    /// <para lang="en">Gets or sets the upload button style. Default is btn-primary.</para>
+    /// <para lang="en">Gets or sets the upload button style. Default is btn-primary</para>
     /// </summary>
     [Parameter]
     public string BrowserButtonClass { get; set; } = "btn-primary";
@@ -37,7 +37,7 @@ public partial class InputUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除按钮样式，默认 btn-danger</para>
-    /// <para lang="en">Gets or sets the delete button style. Default is btn-danger.</para>
+    /// <para lang="en">Gets or sets the delete button style. Default is btn-danger</para>
     /// </summary>
     [Parameter]
     public string DeleteButtonClass { get; set; } = "btn-danger";
@@ -59,7 +59,7 @@ public partial class InputUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示删除按钮，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to display the delete button. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; }

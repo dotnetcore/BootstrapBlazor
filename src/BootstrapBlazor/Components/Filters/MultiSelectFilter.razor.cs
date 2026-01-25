@@ -19,8 +19,8 @@ public partial class MultiSelectFilter<TType>
     private FilterAction _action1 = FilterAction.Equal;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter items.</para>
-    /// <para lang="en">Gets or sets the filter items.</para>
+    /// <para lang="zh">获得/设置 the filter items</para>
+    /// <para lang="en">Gets or sets the filter items</para>
     /// </summary>
     [Parameter]
     public List<SelectedItem>? Items { get; set; }

@@ -33,8 +33,8 @@ public partial class IFrame
     public Func<object?, Task>? OnPostDataAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Callback method after the page is loaded.</para>
-    /// <para lang="en">Gets or sets Callback method after the page is loaded.</para>
+    /// <para lang="zh">获得/设置 Callback method after the page is loaded</para>
+    /// <para lang="en">Gets or sets Callback method after the page is loaded</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnReadyAsync { get; set; }

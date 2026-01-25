@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">FilterLogicItem 组件用于选择过滤条件的逻辑运算符</para>
-/// <para lang="en">FilterLogicItem Component used to select logical operator for filter conditions</para>
+/// <para lang="en">FilterLogicItem component used to select logical operator for filter conditions</para>
 /// </summary>
 public partial class FilterLogicItem
 {

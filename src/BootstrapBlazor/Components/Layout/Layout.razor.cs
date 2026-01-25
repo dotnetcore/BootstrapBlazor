@@ -27,71 +27,71 @@ public partial class Layout : ITabHeader
     public Func<string?, string?>? OnTabHeaderTextLocalizer { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.Default"/>.</para>
-    /// <para lang="en">Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.</para>
+    /// <para lang="zh">获得/设置 the tab 样式. 默认为 <see cref="TabStyle.Default"/></para>
+    /// <para lang="en">Gets or sets the tab style. Default is <see cref="TabStyle.Default"/></para>
     /// </summary>
     [Parameter]
     public TabStyle TabStyle { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the toolbar. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether show the toolbar. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否 show the toolbar. 默认为 false</para>
+    /// <para lang="en">Gets or sets whether show the toolbar. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 of the toolbar 按钮. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the template of the toolbar button. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 模板 of the toolbar 按钮. 默认为 null</para>
+    /// <para lang="en">Gets or sets the template of the toolbar button. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? ToolbarTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the full screen 按钮. 默认为 true.</para>
-    /// <para lang="en">Gets or sets whether show the full screen button. Default is true.</para>
+    /// <para lang="zh">获得/设置 是否 show the full screen 按钮. 默认为 true</para>
+    /// <para lang="en">Gets or sets whether show the full screen button. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowFullscreenToolbarButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the full screen toolbar 按钮 图标 string. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the full screen toolbar button icon string. Default is null.</para>
+    /// <para lang="zh">获得/设置 the full screen toolbar 按钮 图标 string. 默认为 null</para>
+    /// <para lang="en">Gets or sets the full screen toolbar button icon string. Default is null</para>
     /// </summary>
     [Parameter]
     public string? FullscreenToolbarButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the full screen toolbar 按钮 tooltip string. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the full screen toolbar button tooltip string. Default is null.</para>
+    /// <para lang="zh">获得/设置 the full screen toolbar 按钮 tooltip string. 默认为 null</para>
+    /// <para lang="en">Gets or sets the full screen toolbar button tooltip string. Default is null</para>
     /// </summary>
     [Parameter]
     public string? FullscreenToolbarTooltipText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the full screen 按钮. 默认为 true.</para>
-    /// <para lang="en">Gets or sets whether show the full screen button. Default is true.</para>
+    /// <para lang="zh">获得/设置 是否 show the full screen 按钮. 默认为 true</para>
+    /// <para lang="en">Gets or sets whether show the full screen button. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowRefreshToolbarButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 图标 string. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the refresh toolbar button icon string. Default is null.</para>
+    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 图标 string. 默认为 null</para>
+    /// <para lang="en">Gets or sets the refresh toolbar button icon string. Default is null</para>
     /// </summary>
     [Parameter]
     public string? RefreshToolbarButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 tooltip string. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the refresh toolbar button tooltip string. Default is null.</para>
+    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 tooltip string. 默认为 null</para>
+    /// <para lang="en">Gets or sets the refresh toolbar button tooltip string. Default is null</para>
     /// </summary>
     [Parameter]
     public string? RefreshToolbarTooltipText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 click event 回调. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the refresh toolbar button click event callback. Default is null.</para>
+    /// <para lang="zh">获得/设置 the refresh toolbar 按钮 click event 回调. 默认为 null</para>
+    /// <para lang="en">Gets or sets the refresh toolbar button click event callback. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnToolbarRefreshCallback { get; set; }
@@ -375,64 +375,64 @@ public partial class Layout : ITabHeader
     public string NotAuthorizeUrl { get; set; } = "/Account/Login";
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 enable tab context menu. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether enable tab context menu. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否 enable tab context menu. 默认为 false</para>
+    /// <para lang="en">Gets or sets whether enable tab context menu. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowTabContextMenu { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 of before tab context menu. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the template of before tab context menu. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 模板 of before tab context menu. 默认为 null</para>
+    /// <para lang="en">Gets or sets the template of before tab context menu. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? BeforeTabContextMenuTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 of tab context menu. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the template of tab context menu. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 模板 of tab context menu. 默认为 null</para>
+    /// <para lang="en">Gets or sets the template of tab context menu. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<Tab>? TabContextMenuTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 图标 of tab item context menu refresh 按钮. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the icon of tab item context menu refresh button. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 图标 of tab item context menu refresh 按钮. 默认为 null</para>
+    /// <para lang="en">Gets or sets the icon of tab item context menu refresh button. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TabContextMenuRefreshIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close 按钮. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the icon of tab item context menu close button. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close 按钮. 默认为 null</para>
+    /// <para lang="en">Gets or sets the icon of tab item context menu close button. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TabContextMenuCloseIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close other 按钮. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the icon of tab item context menu close other button. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close other 按钮. 默认为 null</para>
+    /// <para lang="en">Gets or sets the icon of tab item context menu close other button. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TabContextMenuCloseOtherIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close all 按钮. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the icon of tab item context menu close all button. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 图标 of tab item context menu close all 按钮. 默认为 null</para>
+    /// <para lang="en">Gets or sets the icon of tab item context menu close all button. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TabContextMenuCloseAllIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 before popup context menu 回调. 默认为 null.</para>
-    /// <para lang="en">Gets or sets before popup context menu callback. Default is null.</para>
+    /// <para lang="zh">获得/设置 before popup context menu 回调. 默认为 null</para>
+    /// <para lang="en">Gets or sets before popup context menu callback. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<TabItem, Task<bool>>? OnBeforeShowContextMenu { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the tab in header. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether show the tab in header. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否 show the tab in header. 默认为 false</para>
+    /// <para lang="en">Gets or sets whether show the tab in header. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowTabInHeader { get; set; }
@@ -520,8 +520,8 @@ public partial class Layout : ITabHeader
     public IEnumerable<string>? ExcludeUrls { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.</para>
-    /// <para lang="en">Gets or sets Gets or sets a collection of additional assemblies that should be searched for components that can match URIs.</para>
+    /// <para lang="zh">获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
+    /// <para lang="en">Gets or sets Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
     /// </summary>
     [Parameter]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
@@ -549,28 +549,28 @@ public partial class Layout : ITabHeader
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启全局异常捕获 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> 设置值</para>
-    /// <para lang="en">Gets or sets Whether to enable global exception capture. Default null. Use <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> value.</para>
+    /// <para lang="en">Gets or sets Whether to enable global exception capture. Default null. Use <see cref="BootstrapBlazorOptions.EnableErrorLogger"/> value</para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLogger { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否记录异常到 <see cref="ILogger"/> 默认 null 使用 <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> 设置值</para>
-    /// <para lang="en">Gets or sets Whether to log exceptions to <see cref="ILogger"/>. Default null. Use <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> value.</para>
+    /// <para lang="en">Gets or sets Whether to log exceptions to <see cref="ILogger"/>. Default null. Use <see cref="BootstrapBlazorOptions.EnableErrorLoggerILogger"/> value</para>
     /// </summary>
     [Parameter]
     public bool? EnableErrorLoggerILogger { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Error 提示弹窗 默认 null 使用 <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> 设置值</para>
-    /// <para lang="en">Gets or sets Whether to show Error Toast. Default null. Use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> value.</para>
+    /// <para lang="en">Gets or sets Whether to show Error Toast. Default null. Use <see cref="BootstrapBlazorOptions.ShowErrorLoggerToast"/> value</para>
     /// </summary>
     [Parameter]
     public bool? ShowErrorLoggerToast { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 错误日志 <see cref="Toast"/> 弹窗标题 默认 null</para>
-    /// <para lang="en">Gets or sets Error Logger <see cref="Toast"/> Title. Default null.</para>
+    /// <para lang="en">Gets or sets Error Logger <see cref="Toast"/> Title. Default null</para>
     /// </summary>
     [Parameter]
     public string? ErrorLoggerToastTitle { get; set; }

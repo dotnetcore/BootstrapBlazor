@@ -131,7 +131,7 @@ public partial class ImageViewer
     /// </summary>
     /// <remarks>
     /// <para lang="zh">不可见时不加载图片，当图片即将可见时才开始加载图片</para>
-    /// <para lang="en">Images are not loaded when not visible, and start loading when they are about to become visible.</para>
+    /// <para lang="en">Images are not loaded when not visible, and start loading when they are about to become visible</para>
     /// </remarks>
     [Parameter]
     public bool IsIntersectionObserver { get; set; }

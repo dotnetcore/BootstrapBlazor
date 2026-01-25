@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ContextMenuDivider 组件</para>
-/// <para lang="en">A component that defines a menu item as a divider in a context menu.</para>
+/// <para lang="en">A component that defines a menu item as a divider in a context menu</para>
 /// </summary>
 public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
@@ -36,7 +36,7 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 
     /// <summary>
     /// <para lang="zh">释放资源方法</para>
-    /// <para lang="en">Method to release resources.</para>
+    /// <para lang="en">Method to release resources</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

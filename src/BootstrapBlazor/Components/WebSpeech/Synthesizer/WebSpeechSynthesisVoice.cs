@@ -18,14 +18,14 @@ public class WebSpeechSynthesisVoice
     public bool Default { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 indicating the language of the voice.</para>
-    /// <para lang="en">Gets or sets indicating the language of the voice.</para>
+    /// <para lang="zh">获得/设置 indicating the language of the voice</para>
+    /// <para lang="en">Gets or sets indicating the language of the voice</para>
     /// </summary>
     public string? Lang { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 human-readable name that represents the voice.</para>
-    /// <para lang="en">Gets or sets human-readable name that represents the voice.</para>
+    /// <para lang="zh">获得/设置 human-readable name that represents the voice</para>
+    /// <para lang="en">Gets or sets human-readable name that represents the voice</para>
     /// </summary>
     public string? Name { get; set; }
 
@@ -36,8 +36,8 @@ public class WebSpeechSynthesisVoice
     public bool LocalService { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the type of URI and location of the speech synthesis service for this voice.</para>
-    /// <para lang="en">Gets or sets the type of URI and location of the speech synthesis service for this voice.</para>
+    /// <para lang="zh">获得/设置 the type of URI and location of the speech synthesis service for this voice</para>
+    /// <para lang="en">Gets or sets the type of URI and location of the speech synthesis service for this voice</para>
     /// </summary>
     public string? VoiceURI { get; set; }
 }

@@ -194,8 +194,8 @@ public abstract class PopConfirmButtonBase : ButtonBase
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerCloseCallback));
 
     /// <summary>
-    /// <para lang="zh">Trigger OnClose event 回调.</para>
-    /// <para lang="en">Trigger OnClose event callback.</para>
+    /// <para lang="zh">Trigger OnClose event 回调</para>
+    /// <para lang="en">Trigger OnClose event callback</para>
     /// </summary>
     [JSInvokable]
     public async Task TriggerCloseCallback()

@@ -23,7 +23,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 打字速度，默认 null 未设置，单位毫秒</para>
-    /// <para lang="en">Gets or sets the typing speed. Default is null, in milliseconds.</para>
+    /// <para lang="en">Gets or sets the typing speed. Default is null, in milliseconds</para>
     /// </summary>
     [JsonPropertyName("typeSpeed")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -31,7 +31,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 退格速度，默认 null 未设置，单位毫秒</para>
-    /// <para lang="en">Gets or sets the backspace speed. Default is null, in milliseconds.</para>
+    /// <para lang="en">Gets or sets the backspace speed. Default is null, in milliseconds</para>
     /// </summary>
     [JsonPropertyName("backSpeed")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -39,7 +39,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 smartBackspace，仅退格与前一个字符串不匹配的内容，默认 true</para>
-    /// <para lang="en">Gets or sets smartBackspace. Only backspace what doesn't match the previous string. Default is true.</para>
+    /// <para lang="en">Gets or sets smartBackspace. Only backspace what doesn't match the previous string. Default is true</para>
     /// </summary>
     [JsonPropertyName("smartBackspace")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -47,7 +47,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否打乱字符串顺序，默认 false</para>
-    /// <para lang="en">Gets or sets whether to shuffle the strings. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to shuffle the strings. Default is false</para>
     /// </summary>
     [JsonPropertyName("shuffle")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -55,7 +55,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 退格前的延迟时间，默认 700 毫秒</para>
-    /// <para lang="en">Gets or sets the delay time before backspacing in milliseconds. Default is 700.</para>
+    /// <para lang="en">Gets or sets the delay time before backspacing in milliseconds. Default is 700</para>
     /// </summary>
     [JsonPropertyName("backDelay")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -63,7 +63,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否循环打字，默认 false</para>
-    /// <para lang="en">Gets or sets whether to loop typing. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to loop typing. Default is false</para>
     /// </summary>
     [JsonPropertyName("loop")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -71,7 +71,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 循环次数，默认无限</para>
-    /// <para lang="en">Gets or sets the amount of loops. Default is Infinity.</para>
+    /// <para lang="en">Gets or sets the amount of loops. Default is Infinity</para>
     /// </summary>
     [JsonPropertyName("loopCount")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -79,7 +79,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示光标，默认 true</para>
-    /// <para lang="en">Gets or sets whether to show the cursor. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to show the cursor. Default is true</para>
     /// </summary>
     [JsonPropertyName("showCursor")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -87,7 +87,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 光标字符，默认 |</para>
-    /// <para lang="en">Gets or sets the cursor character. Default is |.</para>
+    /// <para lang="en">Gets or sets the cursor character. Default is |</para>
     /// </summary>
     [JsonPropertyName("cursorChar")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -95,7 +95,7 @@ public class TypedOptions : IEquatable<TypedOptions>
 
     /// <summary>
     /// <para lang="zh">获得/设置 内容类型，'html' 或 'null' 表示纯文本，默认 html</para>
-    /// <para lang="en">Gets or sets the content type. 'html' or 'null' for plaintext. Default is html.</para>
+    /// <para lang="en">Gets or sets the content type. 'html' or 'null' for plaintext. Default is html</para>
     /// </summary>
     [JsonPropertyName("contentType")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

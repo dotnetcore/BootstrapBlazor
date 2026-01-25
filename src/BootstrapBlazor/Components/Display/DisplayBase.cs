@@ -21,8 +21,8 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected bool IsShowLabel { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得绑定值的 <see cref="FieldIdentifier"/>。</para>
-    /// <para lang="en">Gets the <see cref="FieldIdentifier"/> for the bound value.</para>
+    /// <para lang="zh">获得绑定值的 <see cref="FieldIdentifier"/></para>
+    /// <para lang="en">Gets the <see cref="FieldIdentifier"/> for the bound value</para>
     /// </summary>
     protected FieldIdentifier? FieldIdentifier { get; set; }
 
@@ -40,8 +40,8 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected Type? ValueType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 输入组件的值，支持双向绑定。</para>
-    /// <para lang="en">Gets or sets the value of the input. This should be used with two-way binding.</para>
+    /// <para lang="zh">获得/设置 输入组件的值，支持双向绑定</para>
+    /// <para lang="en">Gets or sets the value of the input. This should be used with two-way binding</para>
     /// </summary>
     /// <example>
     /// @bind-Value="model.PropertyName"
@@ -51,15 +51,15 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public TValue? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 用于更新绑定值的回调。</para>
-    /// <para lang="en">Gets or sets a callback that updates the bound value.</para>
+    /// <para lang="zh">获得/设置 用于更新绑定值的回调</para>
+    /// <para lang="en">Gets or sets a callback that updates the bound value</para>
     /// </summary>
     [Parameter]
     public EventCallback<TValue?> ValueChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 标识绑定值的表达式。</para>
-    /// <para lang="en">Gets or sets an expression that identifies the bound value.</para>
+    /// <para lang="zh">获得/设置 标识绑定值的表达式</para>
+    /// <para lang="en">Gets or sets an expression that identifies the bound value</para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue?>>? ValueExpression { get; set; }

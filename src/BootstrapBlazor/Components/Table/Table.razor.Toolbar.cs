@@ -17,8 +17,8 @@ public partial class Table<TItem>
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 of table toolbar. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the template of table toolbar. Default is null.</para>
+    /// <para lang="zh">获得/设置 the 模板 of table toolbar. 默认为 null</para>
+    /// <para lang="en">Gets or sets the template of table toolbar. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ToolbarTemplate { get; set; }
@@ -1306,8 +1306,8 @@ public partial class Table<TItem>
         : TableExport.ExportExcelAsync(Rows, GetExportColumns()));
 
     /// <summary>
-    /// <para lang="zh">获得 the export column 集合.</para>
-    /// <para lang="en">Gets the export column collection.</para>
+    /// <para lang="zh">获得 the export column 集合</para>
+    /// <para lang="en">Gets the export column collection</para>
     /// </summary>
     public List<ITableColumn> GetExportColumns() => [.. GetVisibleColumns().Where(i => i.IgnoreWhenExport is not true)];
 

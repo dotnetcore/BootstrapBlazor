@@ -37,14 +37,14 @@ public partial class TableToolbar<TItem> : ComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动收缩工具栏按钮，默认 true</para>
-    /// <para lang="en">Gets or sets whether to auto collapse toolbar buttons. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to auto collapse toolbar buttons. Default is true</para>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 工具栏按钮收缩后是否继承原先按钮的颜色样式，默认 false</para>
-    /// <para lang="en">Gets or sets whether to inherit button color style when toolbar buttons collapsed. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to inherit button color style when toolbar buttons collapsed. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowColorWhenToolbarButtonsCollapsed { get; set; }

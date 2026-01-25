@@ -237,8 +237,8 @@ public partial class ModalDialog
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the footer 内容 模板. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the footer content template. Default is null.</para>
+    /// <para lang="zh">获得/设置 the footer 内容 模板. 默认为 null</para>
+    /// <para lang="en">Gets or sets the footer content template. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? FooterContentTemplate { get; set; }

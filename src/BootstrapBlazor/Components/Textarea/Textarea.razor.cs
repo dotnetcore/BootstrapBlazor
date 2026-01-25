@@ -31,14 +31,14 @@ public partial class Textarea
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动滚动，默认为 false</para>
-    /// <para lang="en">Gets or sets whether auto-scroll is enabled. Default is false.</para>
+    /// <para lang="en">Gets or sets whether auto-scroll is enabled. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否 Shift + Enter 替代默认 Enter 键行为，默认为 false</para>
-    /// <para lang="en">Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false.</para>
+    /// <para lang="en">Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false</para>
     /// </summary>
     [Parameter]
     public bool UseShiftEnter { get; set; }

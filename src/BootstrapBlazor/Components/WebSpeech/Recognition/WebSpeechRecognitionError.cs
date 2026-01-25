@@ -12,14 +12,14 @@ namespace BootstrapBlazor.Components;
 public class WebSpeechRecognitionError
 {
     /// <summary>
-    /// <para lang="zh">A string naming the 类型 of error. no-speech aborted audio-capture network not-allowed service-not-allowed bad-grammar language-not-supported.</para>
-    /// <para lang="en">A string naming the type of error. no-speech aborted audio-capture network not-allowed service-not-allowed bad-grammar language-not-supported.</para>
+    /// <para lang="zh">A string naming the 类型 of error. no-speech aborted audio-capture network not-allowed service-not-allowed bad-grammar language-not-supported</para>
+    /// <para lang="en">A string naming the type of error. no-speech aborted audio-capture network not-allowed service-not-allowed bad-grammar language-not-supported</para>
     /// </summary>
     public string? Error { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A string containing more details about the error that was raised. Note that the spec does not define the exact wording of these messages — this is up to the implementors to decide upon.</para>
-    /// <para lang="en">A string containing more details about the error that was raised. Note that the spec does not define the exact wording of these messages — this is up to the implementors to decide upon.</para>
+    /// <para lang="zh">A string containing more details about the error that was raised. Note that the spec does not define the exact wording of these messages — this is up to the implementors to decide upon</para>
+    /// <para lang="en">A string containing more details about the error that was raised. Note that the spec does not define the exact wording of these messages — this is up to the implementors to decide upon</para>
     /// </summary>
     public string? Message { get; set; }
 }

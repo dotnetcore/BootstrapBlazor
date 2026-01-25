@@ -18,8 +18,8 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 a value indicating 是否 automatic search functionality is enabled. 默认 value is false.</para>
-    /// <para lang="en">Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false.</para>
+    /// <para lang="zh">获得/设置 a value indicating 是否 automatic search functionality is enabled. 默认 value is false</para>
+    /// <para lang="en">Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false</para>
     /// </summary>
     [Parameter]
     public bool AutoSearchOnInput { get; set; }
@@ -467,8 +467,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public float RowHeight { get; set; } = 38f;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the overscan count for virtual scrolling. 默认为 10.</para>
-    /// <para lang="en">Gets or sets the overscan count for virtual scrolling. Default is 10.</para>
+    /// <para lang="zh">获得/设置 the overscan count for virtual scrolling. 默认为 10</para>
+    /// <para lang="en">Gets or sets the overscan count for virtual scrolling. Default is 10</para>
     /// </summary>
     /// <remarks>Effective when <see cref="ScrollMode"/> is set to <see cref="ScrollMode.Virtual"/>.</remarks>
     [Parameter]

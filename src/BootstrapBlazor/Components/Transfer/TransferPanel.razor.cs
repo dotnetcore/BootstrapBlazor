@@ -65,7 +65,7 @@ public partial class TransferPanel
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据样式回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the data style callback method. Default is null.</para>
+    /// <para lang="en">Gets or sets the data style callback method. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
@@ -109,7 +109,7 @@ public partial class TransferPanel
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to disable. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to disable. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }

@@ -23,21 +23,21 @@ public partial class Transition
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示动画，默认 true</para>
-    /// <para lang="en">Gets or sets whether to display the animation. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display the animation. Default is true</para>
     /// </summary>
     [Parameter]
     public bool Show { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 动画名称，默认 FadeIn</para>
-    /// <para lang="en">Gets or sets the animation name. Default is FadeIn.</para>
+    /// <para lang="en">Gets or sets the animation name. Default is FadeIn</para>
     /// </summary>
     [Parameter]
     public TransitionType TransitionType { get; set; } = TransitionType.FadeIn;
 
     /// <summary>
     /// <para lang="zh">获得/设置 动画执行时长，单位毫秒，默认为 0</para>
-    /// <para lang="en">Gets or sets the animation execution duration in milliseconds. Default is 0.</para>
+    /// <para lang="en">Gets or sets the animation execution duration in milliseconds. Default is 0</para>
     /// </summary>
     [Parameter]
     public int Duration { get; set; }

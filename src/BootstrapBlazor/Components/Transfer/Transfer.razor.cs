@@ -149,7 +149,7 @@ public partial class Transfer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧面板包含的最大数量，默认为 0 不限制</para>
-    /// <para lang="en">Gets or sets the maximum number of items in the right panel. Default is 0 (no limit).</para>
+    /// <para lang="en">Gets or sets the maximum number of items in the right panel. Default is 0 (no limit)</para>
     /// </summary>
     [Parameter]
     public int Max { get; set; }
@@ -164,7 +164,7 @@ public partial class Transfer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧面板包含的最小数量，默认为 0 不限制</para>
-    /// <para lang="en">Gets or sets the minimum number of items in the right panel. Default is 0 (no limit).</para>
+    /// <para lang="en">Gets or sets the minimum number of items in the right panel. Default is 0 (no limit)</para>
     /// </summary>
     [Parameter]
     public int Min { get; set; }
@@ -179,7 +179,7 @@ public partial class Transfer<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 数据样式回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the data style callback method. Default is null.</para>
+    /// <para lang="en">Gets or sets the data style callback method. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]

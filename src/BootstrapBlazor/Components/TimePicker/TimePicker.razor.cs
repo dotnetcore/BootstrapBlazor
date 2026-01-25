@@ -31,7 +31,7 @@ public partial class TimePicker
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示秒，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to display seconds. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display seconds. Default is true</para>
     /// </summary>
     [Parameter]
     [NotNull]

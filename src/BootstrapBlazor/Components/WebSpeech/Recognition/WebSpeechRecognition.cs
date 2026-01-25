@@ -16,26 +16,26 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
-    /// <para lang="zh">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
-    /// <para lang="en">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.</para>
+    /// <para lang="zh">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition</para>
+    /// <para lang="en">fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition</para>
     /// </summary>
     public Func<Task>? OnStartAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">fired when the speech recognition service has disconnected.</para>
-    /// <para lang="en">fired when the speech recognition service has disconnected.</para>
+    /// <para lang="zh">fired when the speech recognition service has disconnected</para>
+    /// <para lang="en">fired when the speech recognition service has disconnected</para>
     /// </summary>
     public Func<Task>? OnEndAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">fired when sound recognized by the speech recognition service as speech has been detected.</para>
-    /// <para lang="en">fired when sound recognized by the speech recognition service as speech has been detected.</para>
+    /// <para lang="zh">fired when sound recognized by the speech recognition service as speech has been detected</para>
+    /// <para lang="en">fired when sound recognized by the speech recognition service as speech has been detected</para>
     /// </summary>
     public Func<Task>? OnSpeechStartAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">fired when speech recognized by the speech recognition service has stopped being detected.</para>
-    /// <para lang="en">fired when speech recognized by the speech recognition service has stopped being detected.</para>
+    /// <para lang="zh">fired when speech recognized by the speech recognition service has stopped being detected</para>
+    /// <para lang="en">fired when speech recognized by the speech recognition service has stopped being detected</para>
     /// </summary>
     public Func<Task>? OnSpeechEndAsync { get; set; }
 
@@ -46,14 +46,14 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     public Func<WebSpeechRecognitionEvent, Task>? OnResultAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">fired when a speech recognition error occurs.</para>
-    /// <para lang="en">fired when a speech recognition error occurs.</para>
+    /// <para lang="zh">fired when a speech recognition error occurs</para>
+    /// <para lang="en">fired when a speech recognition error occurs</para>
     /// </summary>
     public Func<WebSpeechRecognitionError, Task>? OnErrorAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">fired when the speech recognition service returns a final result with no significant recognition.</para>
-    /// <para lang="en">fired when the speech recognition service returns a final result with no significant recognition.</para>
+    /// <para lang="zh">fired when the speech recognition service returns a final result with no significant recognition</para>
+    /// <para lang="en">fired when the speech recognition service returns a final result with no significant recognition</para>
     /// </summary>
     public Func<WebSpeechRecognitionError, Task>? OnNoMatchAsync { get; set; }
 

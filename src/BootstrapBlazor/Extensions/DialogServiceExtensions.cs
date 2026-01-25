@@ -15,7 +15,7 @@ public static class DialogServiceExtensions
 {
     /// <summary>
     /// <para lang="zh">Show 对话框泛型方法</para>
-    /// <para lang="en">Show dialog with generic type.</para>
+    /// <para lang="en">Show dialog with generic type</para>
     /// </summary>
     /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
     /// <param name="title"><para lang="zh">对话框标题，优先级高于 <see cref="DialogOption.Title"/></para><para lang="en">Dialog title, priority higher than <see cref="DialogOption.Title"/></para></param>

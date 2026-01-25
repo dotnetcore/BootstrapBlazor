@@ -42,7 +42,7 @@ public static class TableMetadataTypeService
 
     /// <summary>
     /// <para lang="zh">通过指定数据类型获得其 Metadata 数据</para>
-    /// <para lang="en">get metadata type for target data type. return data type itself if metadata type not registered.</para>
+    /// <para lang="en">get metadata type for target data type. return data type itself if metadata type not registered</para>
     /// </summary>
     /// <param name="targetType">the target data type</param>
     /// <returns>metadata type</returns>

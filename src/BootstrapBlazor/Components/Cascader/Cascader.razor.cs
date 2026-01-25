@@ -40,8 +40,8 @@ public partial class Cascader<TValue>
     public Color Color { get; set; } = Color.None;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件 PlaceHolder 文字 默认为 请选择 ...</para>
-    /// <para lang="en">Gets or sets the component PlaceHolder text. Default is Please select ...</para>
+    /// <para lang="zh">获得/设置 组件 PlaceHolder 文字 默认为 请选择 ..</para>
+    /// <para lang="en">Gets or sets the component PlaceHolder text. Default is Please select ..</para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
