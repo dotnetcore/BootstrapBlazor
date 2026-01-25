@@ -5992,5 +5992,21 @@
     "NullItemText": "未设置",
     "ReadonlyColumn": "只读列",
     "True": "通过"
+  },
+  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
+    "Title": "Reconnector 组件",
+    "ReconnectingTitle": "正在尝试重新连接服务器",
+    "ReconnectingDescription": "服务器正在更新新版本，稍等一会儿即可提供服务，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReconnectButton": "重新连接",
+    "ReconnectFailedTitle": "与服务器连接失败",
+    "ReconnectFailedDescription": "请确认网络是否正常，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReloadButton": "重新加载",
+    "ReconnectRejectedTitle": "服务器拒绝连接",
+    "ReconnectRejectedDescription": "所有的连接尝试都被拒绝了，这很有可能是由于网络问题或者服务器问题引起的，请扫描左侧二维码加群与管理员联系",
+    "UILibraryTitle": "Bootstrap Blazor UI 组件库",
+    "UILibraryDescription1": "一套基于 <b>Bootstrap</b> 样式的企业级 <b>Blazor UI</b> 组件库，支持 Server 与 WebAssembly",
+    "UILibraryDescription2": "适配移动端支持各种主流浏览器以及移动端，适配 <b>ABP</b>，同时支持 <b>{0}</b>",
+    "TemplateLink": "项目模板",
+    "TemplateText": "已提供项目模板方便快速上手"
   }
 }
