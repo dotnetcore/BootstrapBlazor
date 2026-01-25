@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -111,12 +111,6 @@ public sealed partial class Tabs
         return Task.CompletedTask;
     }
 
-    private async Task<bool> OnBeforeShowContextMenu(TabItem item)
-    {
-        await Task.Yield();
-        return item.IsDisabled == false;
-    }
-
     private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
     {
         [nameof(TabItem.Text)] = text,
@@ -162,75 +156,4 @@ public sealed partial class Tabs
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得方法
-    /// </summary>
-    /// <returns></returns>
-    private MethodItem[] GetMethods() =>
-    [
-        new MethodItem()
-        {
-            Name = "AddTab",
-            Description = Localizer["TabMethod1AddTab"].Value,
-            Parameters = "TabItem, int? Index = null",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = "RemoveTab",
-            Description = Localizer["TabMethod2RemoveTab"].Value,
-            Parameters = "TabItem",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = "ActiveTab",
-            Description = Localizer["TabMethod3ActiveTab"].Value,
-            Parameters = "TabItem",
-            ReturnValue = " — "
-        },
-        new MethodItem()
-        {
-            Name = "ClickPrevTab",
-            Description = Localizer["TabMethod4ClickPrevTab"].Value,
-            Parameters = "",
-            ReturnValue = "Task"
-        },
-        new MethodItem()
-        {
-            Name = "ClickNextTab",
-            Description = Localizer["TabMethod5ClickNextTab"].Value,
-            Parameters = "",
-            ReturnValue = "Task"
-        },
-        new MethodItem()
-        {
-            Name = "CloseCurrentTab",
-            Description = Localizer["TabMethod6CloseCurrentTab"].Value,
-            Parameters = "",
-            ReturnValue = "Task"
-        },
-        new MethodItem()
-        {
-            Name = "CloseOtherTabs",
-            Description = Localizer["TabMethod7CloseOtherTabs"].Value,
-            Parameters = "",
-            ReturnValue = "Task"
-        },
-        new MethodItem()
-        {
-            Name = "CloseAllTabs",
-            Description = Localizer["TabMethod8CloseAllTabs"].Value,
-            Parameters = "",
-            ReturnValue = "Task"
-        },
-        new MethodItem()
-        {
-            Name = nameof(Tab.GetActiveTab),
-            Description = Localizer["TabMethod9GetActiveTab"].Value,
-            Parameters = "",
-            ReturnValue = "TabItem"
-        }
-    ];
 }

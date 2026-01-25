@@ -1,4 +1,4 @@
-﻿@page "/js-extensions"
+@page "/js-extensions"
 @inject IStringLocalizer<JSRuntimeExtensions> Localizer
 
 <Tips>
@@ -58,5 +58,3 @@ await Module.OpenUrl("url", "_self");</Pre>
     <Button class="mb-3" Text="Run" OnClick="@RunFunction"></Button>
     <Textarea @bind-Value="@functionResult" rows="1" readonly="readonly" />
 </DemoBlock>
-
-<MethodTable Items="GetMethods()" />

@@ -103,7 +103,7 @@ public partial class ValidateForms
 
     private Task OnValidSetError(EditContext context)
     {
-        FooForm.SetError<Foo>(f => f.Name, Localizer["DatabaseExistLog"]);
+        FooForm?.SetError<Foo>(f => f.Name, Localizer["DatabaseExistLog"]);
         return Task.CompletedTask;
     }
 
@@ -199,7 +199,7 @@ public partial class ValidateForms
     private Task OnValidComplexModel(EditContext context)
     {
         Logger5.Log(Localizer["OnValidSubmitCallBackLog"]);
-        ComplexForm.SetError("Dummy.Dummy2.Name", Localizer["DatabaseExistLog"]);
+        ComplexForm?.SetError("Dummy.Dummy2.Name", Localizer["DatabaseExistLog"]);
         return Task.CompletedTask;
     }
 
@@ -280,29 +280,4 @@ public partial class ValidateForms
         Logger8.Log(Localizer["OnInvalidSubmitCallBackLog"]);
         return Task.CompletedTask;
     }
-
-    #region 参数说明
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private MethodItem[] GetMethods() =>
-    [
-        new()
-        {
-            Name = "SetError",
-            Description = Localizer["SetError"],
-            Parameters = "PropertyName, ErrorMessage",
-            ReturnValue = " — "
-        },
-        new()
-        {
-            Name = "Validate",
-            Description = Localizer["Validate"],
-            Parameters = " — ",
-            ReturnValue = "boolean"
-        }
-    ];
-    #endregion
 }

@@ -154,19 +154,4 @@ public partial class Mermaids
     };
 
     private Task OnDownloadPDFAsync() => _mermaid.DownloadPdfAsync($"mermaid-pdf-{DateTime.Now:HHmmss}.pdf");
-
-    /// <summary>
-    /// Methods
-    /// </summary>
-    /// <returns></returns>
-    private MethodItem[] GetMethods() =>
-    [
-        new()
-        {
-            Name = "ExportBase64MermaidAsync",
-            Description = Localizer["ExportBase64Mermaid"],
-            Parameters = " — ",
-            ReturnValue = "string"
-        }
-    ];
 }

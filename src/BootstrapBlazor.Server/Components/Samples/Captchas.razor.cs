@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -18,10 +18,6 @@ public sealed partial class Captchas
 
     private static Random ImageRandomer { get; set; } = new Random();
 
-    /// <summary>
-    /// GetImageName
-    /// </summary>
-    /// <returns></returns>
     private string GetImageName()
     {
         var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
@@ -31,14 +27,8 @@ public sealed partial class Captchas
         return Path.Combine(ImagesPath, fileName);
     }
 
-    /// <summary>
-    /// 获得/设置 图床路径 默认值为 Pic.jpg 通过设置 Max 取 Pic0.jpg ... Pic8.jpg
-    /// </summary>
     private string ImagesName { get; set; } = "Pic.jpg";
 
-    /// <summary>
-    /// 获得/设置 图床路径 默认值为 images
-    /// </summary>
     [NotNull]
     private string? ImagesPath { get; set; }
 
@@ -68,33 +58,4 @@ public sealed partial class Captchas
             await NormalCaptcha.Reset();
         }
     }
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private EventItem[] GetEvents() =>
-    [
-        new()
-        {
-            Name = "OnValid",
-            Description = Localizer["OnValid"],
-            Type ="Action<bool>"
-        }
-    ];
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private MethodItem[] GetMethods() =>
-    [
-        new()
-        {
-            Name = "GetImageName",
-            Description = Localizer["GetImageName"],
-            Parameters =" — ",
-            ReturnValue = "string"
-        }
-    ];
 }

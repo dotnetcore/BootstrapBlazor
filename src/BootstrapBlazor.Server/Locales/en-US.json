@@ -60,9 +60,6 @@
     "IntroductionText": "Documents",
     "TutorialsText": "Tutorials"
   },
-  "BootstrapBlazor.Server.Components.Components.MethodTable": {
-    "Title": "Methods"
-  },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
     "Tips": "<p class=\"code-label\">Precautions</p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p class=\"code-label\">Nuget Install</p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
   },

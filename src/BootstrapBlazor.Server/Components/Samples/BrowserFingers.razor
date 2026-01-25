@@ -1,4 +1,4 @@
-﻿@page "/browser-finger"
+@page "/browser-finger"
 @inject IStringLocalizer<BrowserFingers> Localizer
 
 <DemoBlock Title="@Localizer["BrowserFingerTitle"]" Introduction="@Localizer["BrowserFingerIntro"]" ShowCode="false" Name="BrowserFinger">
@@ -10,6 +10,7 @@ private async Task GetFingerCodeAsync()
 {
     await BrowserFingerService.GetFingerCodeAsync();
 }</Pre>
+
     <BootstrapInputGroup>
         <BootstrapInputGroupLabel DisplayText="Browser-Finger"></BootstrapInputGroupLabel>
         <BootstrapInput Value="@_code" Readonly="true" />
@@ -20,5 +21,3 @@ private async Task GetFingerCodeAsync()
         <BootstrapInput Value="@_clientHubId" Readonly="true" />
     </BootstrapInputGroup>
 </DemoBlock>
-
-<MethodTable Items="GetMethods()" />
