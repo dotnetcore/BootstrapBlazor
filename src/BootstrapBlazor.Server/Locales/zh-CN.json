@@ -60,9 +60,6 @@
     "IntroductionText": "文档",
     "TutorialsText": "实战"
   },
-  "BootstrapBlazor.Server.Components.Components.MethodTable": {
-    "Title": "Methods 方法"
-  },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
     "Tips": "<p class=\"code-label\">注意事项 ：</p><p>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</p><p class=\"code-label\">Nuget 包安装</p><p>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</p>"
   },

@@ -1,4 +1,4 @@
-﻿@page "/clipboard-service"
+@page "/clipboard-service"
 @inject IStringLocalizer<Clipboards> Localizer
 
 <DemoBlock Title="@Localizer["ClipboardTitle"]" Introduction="@Localizer["ClipboardIntro"]" ShowCode="false" Name="Clipboard">
@@ -20,11 +20,10 @@ private async Task GetText()
 {
     var text = await ClipboardService.GetText();
 }</Pre>
+
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@content" />
         <Button Text="Copy" OnClick="@Copy" />
         <Button Color="Color.Warning" Text="Get" OnClick="@Get" />
     </BootstrapInputGroup>
 </DemoBlock>
-
-<MethodTable Items="GetMethods()" />

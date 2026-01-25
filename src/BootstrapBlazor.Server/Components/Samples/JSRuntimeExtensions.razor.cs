@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -63,38 +63,6 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
     private string? functionResult { get; set; }
 
     private async Task RunFunction() => functionResult = await Module.Function<string?>(functionContent);
-
-    private MethodItem[] GetMethods() =>
-    [
-        new()
-        {
-            Name = "OpenUrl",
-            Description = Localizer["OpenUrlAttr"].Value,
-            Parameters = " — ",
-            ReturnValue = "ValueTask<bool>"
-        },
-        new()
-        {
-            Name = "IsMobile",
-            Description = Localizer["IsMobileAttr"].Value,
-            Parameters = " — ",
-            ReturnValue = "ValueTask<bool>"
-        },
-        new()
-        {
-            Name = "Eval",
-            Description = Localizer["EvalAttr"].Value,
-            Parameters = " — ",
-            ReturnValue = "ValueTask<T>"
-        },
-        new()
-        {
-            Name = "Function",
-            Description = Localizer["FunctionAttr"].Value,
-            Parameters = " — ",
-            ReturnValue = "ValueTask<T>"
-        }
-    ];
 
     private async ValueTask DisposeAsync(bool disposing)
     {
