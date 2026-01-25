@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">多项选择下拉框过滤组件</para>
-/// <para lang="en">Multi-Select Dropdown Filter Component</para>
+/// <para lang="en">Multi-select dropdown filter component</para>
 /// </summary>
 public partial class MultiSelectFilter<TType>
 {
@@ -19,7 +19,7 @@ public partial class MultiSelectFilter<TType>
     private FilterAction _action1 = FilterAction.Equal;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter items</para>
+    /// <para lang="zh">获得/设置 过滤项集合</para>
     /// <para lang="en">Gets or sets the filter items</para>
     /// </summary>
     [Parameter]
