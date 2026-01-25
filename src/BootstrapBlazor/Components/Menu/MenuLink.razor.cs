@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -67,8 +66,7 @@ public sealed partial class MenuLink
         : null;
 
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     public override Task SetParametersAsync(ParameterView parameters)
