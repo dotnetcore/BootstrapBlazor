@@ -154,6 +154,7 @@ public partial class Mermaids
     };
 
     private Task OnDownloadPDFAsync() => _mermaid.DownloadPdfAsync($"mermaid-pdf-{DateTime.Now:HHmmss}.pdf");
+
     /// <summary>
     /// Methods
     /// </summary>

@@ -72,6 +72,7 @@ public sealed partial class Buttons
             Type ="Func<Task>"
         }
     ];
+
     private MethodItem[] GetMethods() =>
     [
         new()

@@ -1,4 +1,4 @@
-﻿@page "/table/cell"
+@page "/table/cell"
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesCell> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
@@ -52,4 +52,4 @@
     </Table>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()" Title="TableCell" />
+<AttributeTable Type="typeof(TableCellArgs)" Title="TableCell" />

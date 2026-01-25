@@ -1,4 +1,4 @@
-﻿@page "/qr-code"
+@page "/qr-code"
 @inject IStringLocalizer<QRCodes> Localizer
 
 <h3>@Localizer["QRCodesTitle"]</h3>
@@ -32,4 +32,4 @@
     <QRCode Content="https://www.blazor.zone" DarkColor="#50cd89"></QRCode>
 </DemoBlock>
 
-<AttributeTable Name="QRCode" />
+<AttributeTable Type="typeof(QRCode)" />

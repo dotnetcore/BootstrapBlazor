@@ -1,4 +1,4 @@
-﻿@page "/pop-confirm"
+@page "/pop-confirm"
 @inject IStringLocalizer<PopoverConfirms> Localizer
 
 <h3>@Localizer["PopoverConfirmsTitle"]</h3>
@@ -183,6 +183,6 @@ private Func&lt;Task&gt;? OnConfirmAsync { get; set; }</Pre>
     </PopConfirmButton>
 </DemoBlock>
 
-<AttributeTable Name="PopoverConfirm" />
+<AttributeTable Type="typeof(PopConfirmButton)" />
 
 <EventTable Items="@GetEvents()" />

@@ -6,20 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Message 组件
+/// <para lang="zh">Message 组件</para>
+/// <para lang="en">Message Component</para>
 /// </summary>
 public partial class Message
 {
-    /// <summary>
-    /// 获得 组件样式
-    /// </summary>
     private string? ClassString => CssBuilder.Default("message")
         .AddClass("is-bottom", Placement != Placement.Top)
         .Build();
 
-    /// <summary>
-    /// 获得 Toast 组件样式设置
-    /// </summary>
     private string? StyleName => CssBuilder.Default()
         .AddClass("top: 1rem;", Placement != Placement.Bottom)
         .AddClass("bottom: 1rem;", Placement == Placement.Bottom)
@@ -32,13 +27,15 @@ public partial class Message
         : _messages;
 
     /// <summary>
-    /// 获得/设置 显示位置 默认为 Top
+    /// <para lang="zh">获得/设置 显示位置 默认为 Top</para>
+    /// <para lang="en">Gets or sets Display placement. Default Top</para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;
 
     /// <summary>
-    /// ToastServices 服务实例
+    /// <para lang="zh">ToastServices 服务实例</para>
+    /// <para lang="en">MessageService Service Instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -58,7 +55,6 @@ public partial class Message
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     private static string? GetAutoHideString(MessageOption option) => option.IsAutoHide ? "true" : null;
@@ -82,7 +78,6 @@ public partial class Message
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -94,7 +89,8 @@ public partial class Message
     }
 
     /// <summary>
-    /// 设置 容器位置方法
+    /// <para lang="zh">设置 容器位置方法</para>
+    /// <para lang="en">Set Container Placement Method</para>
     /// </summary>
     /// <param name="placement"></param>
     public void SetPlacement(Placement placement)
@@ -119,7 +115,8 @@ public partial class Message
     }
 
     /// <summary>
-    /// 清除 Message 方法 由 JSInvoke 触发
+    /// <para lang="zh">清除 Message 方法 由 JSInvoke 触发</para>
+    /// <para lang="en">Clear Message Method. Triggered by JSInvoke</para>
     /// </summary>
     [JSInvokable]
     public void Clear(string id)
@@ -134,7 +131,8 @@ public partial class Message
     }
 
     /// <summary>
-    /// OnDismiss 回调方法 由 JSInvoke 触发
+    /// <para lang="zh">OnDismiss 回调方法 由 JSInvoke 触发</para>
+    /// <para lang="en">OnDismiss Callback Method. Triggered by JSInvoke</para>
     /// </summary>
     /// <param name="id"></param>
     [JSInvokable]

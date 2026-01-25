@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,21 +8,16 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件实现类
+/// <para lang="zh">Select 组件实现类</para>
+/// <para lang="en">Select Component Implementation Class</para>
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
     private string? ClassName => CssBuilder.Default("select dropdown select-tree")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
     private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -30,9 +25,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
     private string? AppendClassName => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -40,31 +32,36 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// <para lang="zh">获得/设置 颜色 默认 Color.None 无设置</para>
+    /// <para lang="en">Gets or sets Color. Default Color.None</para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得 PlaceHolder 属性
+    /// <para lang="zh">获得 PlaceHolder 属性</para>
+    /// <para lang="en">Get PlaceHolder Attribute</para>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.
+    /// <para lang="zh">获得/设置 禁用时是否可以展开或折叠节点，默认为 false</para>
+    /// <para lang="en">Gets or sets whether nodes can be expanded or collapsed when the component is disabled. Default is false.</para>
     /// </summary>
     [Parameter]
     public bool CanExpandWhenDisabled { get; set; } = false;
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <para lang="zh">获得/设置 字符串比较规则，默认 <see cref="StringComparison.OrdinalIgnoreCase"/>（不区分大小写）</para>
+    /// <para lang="en">Gets or sets String Comparison. Default <see cref="StringComparison.OrdinalIgnoreCase"/></para>
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 带层次数据集合
+    /// <para lang="zh">获得/设置 分层数据集合</para>
+    /// <para lang="en">Gets or sets Hierarchical Data Collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -72,13 +69,15 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// SelectedItemChanged 回调方法
+    /// <para lang="zh">SelectedItemChanged 回调方法</para>
+    /// <para lang="en">SelectedItemChanged Callback Method</para>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击节点获取子数据集合回调方法
+    /// <para lang="zh">获得/设置 点击节点获取子数据集合回调方法</para>
+    /// <para lang="en">Gets or sets OnExpandNodeAsync Callback Method</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -91,27 +90,30 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null 提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="en">Gets or sets Model Equality Comparer. Default null. Ignore <see cref="CustomKeyAttribute"/> when providing this callback</para>
     /// </summary>
-    /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
     [Parameter]
     [NotNull]
     public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示 Icon 图标 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show Icon. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉箭头 Icon 图标
+    /// <para lang="zh">获得/设置 下拉箭头 Icon 图标</para>
+    /// <para lang="en">Gets or sets Dropdown Icon</para>
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可编辑 默认 false
+    /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
+    /// <para lang="en">Gets or sets Whether editable. Default false</para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
@@ -119,19 +121,22 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public bool IsEdit { get => IsEditable; set => IsEditable = value; }
 
     /// <summary>
-    /// 获得/设置 是否可编辑 默认 false
+    /// <para lang="zh">获得/设置 是否可编辑 默认 false</para>
+    /// <para lang="en">Gets or sets Whether editable. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索栏 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示搜索栏 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show search box. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否固定搜索栏 默认 false 不固定
+    /// <para lang="zh">获得/设置 是否固定搜索栏 默认 false 不固定</para>
+    /// <para lang="en">Gets or sets Whether fixed search box. Default false</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除；Deprecated, please delete")]
@@ -139,7 +144,8 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示重置搜索栏按钮 默认 true 显示</para>
+    /// <para lang="en">Gets or sets Whether to show reset search button. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowResetSearchButton { get; set; } = true;
@@ -153,13 +159,14 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得 input 组件 Id 方法
+    /// <para lang="zh">获得 input 组件 Id 方法</para>
+    /// <para lang="en">Get input Component Id Method</para>
     /// </summary>
-    /// <returns></returns>
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
-    /// 获得/设置 Select 内部 Input 组件 Id
+    /// <para lang="zh">获得/设置 Select 内部 Input 组件 Id</para>
+    /// <para lang="en">Gets or sets Select Internal Input Component Id</para>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
@@ -179,7 +186,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     {
         base.OnInitialized();
 
-        // 处理 Required 标签
         AddRequiredValidator();
     }
 
@@ -205,12 +211,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 
         if (Value == null)
         {
-            // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
         }
         else
         {
-            // 组件已赋值 Value 通过 Value 设置默认值
             await TriggerItemChanged(s => Equals(s.Value, Value));
         }
     }
@@ -221,7 +225,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         result = (TValue)(object)value;
@@ -235,7 +238,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         {
             CurrentValueAsString = v;
 
-            // 选中节点更改为当前值
             _tv.SetActiveItem(Value);
         }
     }
@@ -264,9 +266,6 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         return _expandedItemsCache!;
     }
 
-    /// <summary>
-    /// 下拉框选项点击时调用此方法
-    /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
         if (!Equals(item.Value, CurrentValue))
@@ -276,16 +275,11 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         }
     }
 
-    /// <summary>
-    /// 选中项更改处理方法
-    /// </summary>
-    /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
         _selectedItem = item;
         CurrentValue = item.Value;
 
-        // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged.Invoke(CurrentValue);
@@ -293,10 +287,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     }
 
     /// <summary>
-    /// 比较数据是否相同
+    /// <para lang="zh">比较数据是否相同</para>
+    /// <para lang="en">Compare Data Equality</para>
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
-    /// <returns></returns>
     public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

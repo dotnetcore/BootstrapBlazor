@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <see cref="ITableEditDialogOption{TModel}"/> 扩展类方法
+/// <para lang="zh"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法</para>
+/// <para lang="en"><see cref="ITableEditDialogOption{TModel}"/> 扩展类方法</para>
 /// </summary>
 public static class TableEditDialogOptionExtensions
 {
     /// <summary>
-    /// 将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数集合扩展方法
+    /// <para lang="zh">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数集合扩展方法</para>
+    /// <para lang="en">将 <see cref="ITableEditDialogOption{TModel}"/> 配置类转化为参数collection扩展方法</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="option"></param>

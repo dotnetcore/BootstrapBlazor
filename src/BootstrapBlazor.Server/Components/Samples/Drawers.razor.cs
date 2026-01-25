@@ -69,9 +69,4 @@ public sealed partial class Drawers
         AllowResize = true,
         IsBackdrop = true
     });
-
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

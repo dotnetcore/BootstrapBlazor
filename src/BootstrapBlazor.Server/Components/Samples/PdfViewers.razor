@@ -1,4 +1,4 @@
-﻿@page "/pdf-viewer"
+@page "/pdf-viewer"
 @inject IStringLocalizer<PdfViewers> Localizer
 
 <h3>@Localizer["PdfViewerTitle"]</h3>
@@ -35,3 +35,5 @@
                NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"
                UseGoogleDocs="@_useGoogleDocs"></PdfViewer>
 </DemoBlock>
+
+<AttributeTable Type="typeof(PdfViewer)" />

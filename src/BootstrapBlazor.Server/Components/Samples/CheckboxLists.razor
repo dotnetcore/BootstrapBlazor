@@ -1,4 +1,4 @@
-﻿@page "/checkbox-list"
+@page "/checkbox-list"
 
 <h3>@Localizer["Title"]</h3>
 
@@ -147,6 +147,6 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Name="CheckboxList" />
+<AttributeTable Type="typeof(CheckboxList<>)" />
 
 <EventTable Items="@GetEvents()" />

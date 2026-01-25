@@ -1,4 +1,4 @@
-﻿@page "/list-view"
+@page "/list-view"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<ListViews> Localizer
 
@@ -104,6 +104,6 @@
     </ListView>
 </DemoBlock>
 
-<AttributeTable Name="ListView" />
+<AttributeTable Type="typeof(ListView<>)"></AttributeTable>
 
 <MethodTable Items="GetMethods()"></MethodTable>

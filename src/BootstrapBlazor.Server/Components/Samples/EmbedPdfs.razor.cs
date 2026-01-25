@@ -10,17 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class EmbedPdfs
 {
-    [Inject, NotNull]
-    private IWebHostEnvironment? WebHostEnvironment { get; set; }
-
-    [Inject, NotNull]
-    private DownloadService? DownloadService { get; set; }
-
-    private EmbedPDFTabBarMode _tabBarMode = EmbedPDFTabBarMode.Always;
     private EmbedPDFTheme _theme = EmbedPDFTheme.System;
     private EmbedPDFScrollStrategy _strategy = EmbedPDFScrollStrategy.Vertical;
     private string _url = "./samples/sample.pdf";
-    private string _streamFileName = "";
     private string _language = "";
 
     private List<SelectedItem> _languages = new List<SelectedItem>() {
@@ -29,27 +21,8 @@ public partial class EmbedPdfs
         new SelectedItem("zh-CN", "zh-CN")
     };
 
-    private async Task<Stream> OnGetStreamAsync()
+    private async Task OnSetUrl(string fileName)
     {
-        await Task.Yield();
-        if (string.IsNullOrEmpty(_streamFileName))
-        {
-            return Stream.Null;
-        }
-
-        var stream = File.OpenRead(Path.Combine(WebHostEnvironment.WebRootPath, "samples", _streamFileName));
-        return stream;
-    }
-
-    private void GetTestStream()
-    {
-        _url = "";
-        _streamFileName = "ebook.pdf";
-    }
-
-    private void GetSampleStream()
-    {
-        _url = "";
-        _streamFileName = "sample.pdf";
+        _url = $"./samples/{fileName}";
     }
 }

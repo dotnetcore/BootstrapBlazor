@@ -45,42 +45,6 @@ public partial class UploadAvatars
         return ToastService.Error(Localizer["UploadsValidateFormTitle"], Localizer["UploadsValidateFormInValidContent"]);
     }
 
-    private List<AttributeItem> GetAttributes() =>
-    [
-        new()
-        {
-            Name = "Width",
-            Description = Localizer["UploadsWidth"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new()
-        {
-            Name = "Height",
-            Description = Localizer["UploadsHeight"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsCircle",
-            Description = Localizer["UploadsIsCircle"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "BorderRadius",
-            Description = Localizer["UploadsBorderRadius"],
-            Type = "string?",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
-
     class Person
     {
         [Required]

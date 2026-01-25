@@ -1,4 +1,4 @@
-﻿@page "/pulse-button"
+@page "/pulse-button"
 @inject IStringLocalizer<PulseButtons> Localizer
 
 <h3>@Localizer["PulseButtonHeader"]</h3>
@@ -22,3 +22,5 @@
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><PulseButton Icon="fa-solid fa-user" Color="Color.None"></PulseButton></div>
     </div>
 </DemoBlock>
+
+<AttributeTable Type="typeof(PulseButton)" />

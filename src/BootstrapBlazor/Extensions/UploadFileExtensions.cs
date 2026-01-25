@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// UploadFile 扩展方法类
+/// <para lang="zh">UploadFile 扩展方法类</para>
+/// <para lang="en">UploadFile 扩展方法类</para>
 /// </summary>
 public static class UploadFileExtensions
 {
     /// <summary>
-    /// 获取 base64 格式图片字符串
+    /// <para lang="zh">获取 base64 格式图片字符串</para>
+    /// <para lang="en">获取 base64 格式图片字符串</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="format"></param>
@@ -52,14 +54,14 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// 保存到文件方法
+    /// <para lang="zh">保存到文件方法</para>
+    /// <para lang="en">保存到文件方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="fileName"></param>
     /// <param name="maxAllowedSize"></param>
     /// <param name="bufferSize"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     [ExcludeFromCodeCoverage]
     public static async Task<bool> SaveToFileAsync(this UploadFile upload, string fileName, long maxAllowedSize = 512000, int bufferSize = 64 * 1024, CancellationToken token = default)
     {
@@ -127,7 +129,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// 获得图片字节数组方法
+    /// <para lang="zh">获得图片字节数组方法</para>
+    /// <para lang="en">Gets图片字节数组方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="format"></param>
@@ -135,7 +138,6 @@ public static class UploadFileExtensions
     /// <param name="maxHeight"></param>
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     [ExcludeFromCodeCoverage]
     public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
     {
@@ -161,12 +163,12 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// 获得图片字节数组方法
+    /// <para lang="zh">获得图片字节数组方法</para>
+    /// <para lang="en">Gets图片字节数组方法</para>
     /// </summary>
     /// <param name="upload"></param>
     /// <param name="maxAllowedSize"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     [ExcludeFromCodeCoverage]
     public static async Task<byte[]?> GetBytesAsync(this UploadFile upload, long maxAllowedSize = 512000, CancellationToken token = default)
     {
@@ -191,12 +193,12 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// Check item whether is image extension method.
+    /// <para lang="zh">Check item 是否 is image extension method.</para>
+    /// <para lang="en">Check item whether is image extension method.</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>
     /// <param name="callback"></param>
-    /// <returns></returns>
     public static bool IsImage(this UploadFile item, List<string>? allowExtensions = null, Func<UploadFile, bool>? callback = null)
     {
         bool ret;
@@ -216,18 +218,18 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// Check item whether is base64 format image extension method.
+    /// <para lang="zh">Check item 是否 is base64 format image extension method.</para>
+    /// <para lang="en">Check item whether is base64 format image extension method.</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     public static bool IsBase64Format(this UploadFile item) => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
-    /// Check the extension whether in the allowExtensions list.
+    /// <para lang="zh">Check the extension 是否 in the allowExtensions list.</para>
+    /// <para lang="en">Check the extension whether in the allowExtensions list.</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>
-    /// <returns></returns>
     public static bool IsAllowExtensions(this UploadFile item, List<string>? allowExtensions = null)
     {
         var ret = false;

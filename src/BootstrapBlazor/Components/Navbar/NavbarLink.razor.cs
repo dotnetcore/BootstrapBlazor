@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,30 +6,35 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// NavbarLink 组件用于在导航栏中添加链接
+/// <para lang="zh">NavbarLink 组件用于在导航栏中添加链接</para>
+/// <para lang="en">NavbarLink component for adding links in navigation bar</para>
 /// </summary>
 public partial class NavbarLink
 {
     /// <summary>
-    /// 获得/设置 Url 默认为 #
+    /// <para lang="zh">获得/设置 Url，默认为 #</para>
+    /// <para lang="en">Gets or sets the URL. Default is #</para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获得/设置 A 标签 target 参数 默认 null
+    /// <para lang="zh">获得/设置 A 标签 target 参数，默认为 null</para>
+    /// <para lang="en">Gets or sets the A tag target parameter. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示图片地址 默认为 null
+    /// <para lang="zh">获得/设置 显示图片地址，默认为 null</para>
+    /// <para lang="en">Gets or sets the display image URL. Default is null</para>
     /// </summary>
     [Parameter]
     public string? ImageUrl { get; set; }
 
     /// <summary>
-    /// The css class of img element default value null
+    /// <para lang="zh">获得/设置 img 元素的 CSS class，默认为 null</para>
+    /// <para lang="en">Gets or sets the CSS class of img element. Default is null</para>
     /// </summary>
     [Parameter]
     public string? ImageCss { get; set; }

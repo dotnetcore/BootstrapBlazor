@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// CountButton 组件
+/// <para lang="zh">CountButton 组件</para>
+/// <para lang="en">CountButton component</para>
 /// </summary>
 public class CountButton : Button
 {
     /// <summary>
-    /// 倒计时数量 默认 5 秒
+    /// <para lang="zh">倒计时数量 默认 5 秒</para>
+    /// <para lang="en">Countdown seconds. Default is 5</para>
     /// </summary>
     [Parameter]
     public int Count { get; set; } = 5;
 
     /// <summary>
-    /// 倒计时文本 默认 null 使用 <see cref="ButtonBase.Text"/> 参数
+    /// <para lang="zh">倒计时文本 默认 null 使用 <see cref="ButtonBase.Text"/> 参数</para>
+    /// <para lang="en">Countdown text. Default is null (uses <see cref="ButtonBase.Text"/>)</para>
     /// </summary>
     [Parameter]
     public string? CountText { get; set; }
 
     /// <summary>
-    /// 倒计时格式化回调方法
+    /// <para lang="zh">倒计时格式化回调方法</para>
+    /// <para lang="en">Countdown format callback method</para>
     /// </summary>
     [Parameter]
     public Func<int, string>? CountTextCallback { get; set; }
@@ -47,7 +51,6 @@ public class CountButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task HandlerClick()
     {
         if (OnClickWithoutRender != null)

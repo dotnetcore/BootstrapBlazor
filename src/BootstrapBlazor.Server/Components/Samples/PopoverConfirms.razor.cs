@@ -66,11 +66,6 @@ public sealed partial class PopoverConfirms
     }
 
     /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
-
-    /// <summary>
     /// Get event method
     /// </summary>
     /// <returns></returns>

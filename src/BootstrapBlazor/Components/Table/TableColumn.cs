@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,44 +9,47 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 表头组件
+/// <para lang="zh">表格 Column 列组件</para>
+/// <para lang="en">Table column header Component</para>
 /// </summary>
-/// <typeparam name="TItem">模型泛型</typeparam>
-/// <typeparam name="TType">绑定字段值类型</typeparam>
+/// <typeparam name="TItem"><para lang="zh">模型泛型</para><para lang="en">model generic type</para></typeparam>
+/// <typeparam name="TType"><para lang="zh">绑定字段值类型</para><para lang="en">binding field value type</para></typeparam>
 public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 {
     /// <summary>
-    /// 获得/设置 相关过滤器
+    /// <inheritdoc/>
     /// </summary>
     public IFilter? Filter { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件类型 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Type? ComponentType { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件自定义类型参数集合 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定列类型
+    /// <inheritdoc/>
     /// </summary>
     [NotNull]
     public Type? PropertyType { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据绑定字段值
+    /// <para lang="zh">获得/设置 数据绑定字段值</para>
+    /// <para lang="en">Gets or sets data binding field value</para>
     /// </summary>
     [Parameter]
     [MaybeNull]
     public TType Field { get; set; }
 
     /// <summary>
-    /// 获得/设置 ValueExpression 表达式
+    /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
+    /// <para lang="en">Gets or sets ValueExpression expression</para>
     /// </summary>
     [Parameter]
     public Expression<Func<TType>>? FieldExpression { get; set; }
@@ -64,7 +67,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? Sortable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为默认排序列 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool DefaultSort { get; set; }
@@ -82,31 +85,31 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? TextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool HeaderTextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头显示 Tooltip 默认 false 不显示 可配合 <see cref="HeaderTextEllipsis"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool ShowHeaderTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头 Tooltip 内容
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? HeaderTextTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头溢出时截断 默认 false 不截断 可配合 <see cref="HeaderTextTooltip"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool HeaderTextEllipsis { get; set; }
@@ -228,31 +231,31 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 表头显示文字
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 placeholder 文本 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 列宽 默认为 auto
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否固定本列 默认 false 不固定
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool Fixed { get; set; }
@@ -264,7 +267,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? ShowCopyColumn { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段鼠标悬停提示
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool? ShowTips { get; set; }
@@ -276,7 +279,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 列 td 自定义样式 默认为 null 未设置
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? CssClass { get; set; }
@@ -288,7 +291,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public Alignment? Align { get; set; }
 
     /// <summary>
-    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
@@ -353,7 +356,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <value></value>
     [Parameter]
     public RenderFragment<TItem>? SearchTemplate { get; set; }
 
@@ -402,8 +404,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
+    /// <inheritdoc/>    /// </summary>
     [Parameter]
     public int Order { get; set; }
 
@@ -434,7 +435,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -446,13 +447,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
@@ -470,7 +471,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义验证集合
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }

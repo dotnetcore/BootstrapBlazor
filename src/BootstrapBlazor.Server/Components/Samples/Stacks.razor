@@ -1,4 +1,4 @@
-﻿@page "/stack"
+@page "/stack"
 @inject IStringLocalizer<Stacks> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -73,4 +73,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributeItems()" />
+<AttributeTable Type="typeof(Stack)"></AttributeTable>

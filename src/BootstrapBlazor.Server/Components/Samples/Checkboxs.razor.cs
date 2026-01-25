@@ -64,6 +64,7 @@ public sealed partial class Checkboxs
         Title = Localizer["OnBeforeStateChangedSwalTitle"],
         Content = Localizer["OnBeforeStateChangedSwalContent"]
     });
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

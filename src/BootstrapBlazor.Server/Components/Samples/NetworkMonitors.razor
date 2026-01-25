@@ -1,4 +1,4 @@
-﻿@page "/network-monitor"
+@page "/network-monitor"
 @inject IStringLocalizer<NetworkMonitors> Localizer
 
 <h3>@Localizer["NetworkMonitorTitle"]</h3>
@@ -21,3 +21,5 @@
         <ConsoleLogger @ref="_logger"></ConsoleLogger>
     </section>
 </DemoBlock>
+
+<AttributeTable Type="typeof(NetworkMonitorIndicator)" />

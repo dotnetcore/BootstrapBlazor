@@ -32,6 +32,7 @@ public sealed partial class Switches
     }
 
     private Foo Model { get; set; } = new Foo();
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

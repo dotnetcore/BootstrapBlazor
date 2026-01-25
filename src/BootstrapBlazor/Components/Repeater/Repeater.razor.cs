@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Repeat 组件
+/// <para lang="zh">Repeat 组件</para>
+/// <para lang="en">Repeater Component</para>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class Repeater<TItem>
@@ -18,49 +19,57 @@ public partial class Repeater<TItem>
         .Build();
 
     /// <summary>
-    /// 获得/设置 数据源
+    /// <para lang="zh">获得/设置 数据源</para>
+    /// <para lang="en">Gets or sets the items</para>
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示正在加载信息 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示正在加载信息，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show loading info. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowLoading { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 正在加载模板
+    /// <para lang="zh">获得/设置 正在加载模板</para>
+    /// <para lang="en">Gets or sets the loading template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示无数据信息 默认 true 显示
+    /// <para lang="zh">获得/设置 是否显示无数据信息，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show empty info. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 无数据时提示信息 默认 null
+    /// <para lang="zh">获得/设置 无数据时提示信息，默认为 null</para>
+    /// <para lang="en">Gets or sets the empty text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? EmptyText { get; set; }
 
     /// <summary>
-    /// 获得/设置 正在加载模板
+    /// <para lang="zh">获得/设置 无数据时的模板</para>
+    /// <para lang="en">Gets or sets the empty template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 容器模板
+    /// <para lang="zh">获得/设置 容器模板</para>
+    /// <para lang="en">Gets or sets the container template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<RenderFragment>? ContainerTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 模板
+    /// <para lang="zh">获得/设置 项模板</para>
+    /// <para lang="en">Gets or sets the item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ItemTemplate { get; set; }

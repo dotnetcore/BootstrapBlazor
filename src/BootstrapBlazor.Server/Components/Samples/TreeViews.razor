@@ -216,6 +216,6 @@
     </TreeView>
 </DemoBlock>
 
-<AttributeTable Name="TreeView" />
+<AttributeTable Type="typeof(TreeView<>)"></AttributeTable>
 
-<AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>
+<AttributeTable Type="typeof(TreeViewItem<TreeFoo>)" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>

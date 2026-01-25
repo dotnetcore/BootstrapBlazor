@@ -1,4 +1,4 @@
-﻿@page "/drag-drop"
+@page "/drag-drop"
 @inject IStringLocalizer<DragDrops> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -90,6 +90,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="DragDrop" />
+<AttributeTable Type="typeof(Dropzone<>)" />
 
 <MethodTable Items="GetMethods()" />

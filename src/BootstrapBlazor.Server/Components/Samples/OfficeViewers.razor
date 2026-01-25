@@ -1,4 +1,4 @@
-﻿@page "/office-viewer"
+@page "/office-viewer"
 @inject IStringLocalizer<OfficeViewers> Localizer
 
 <h3>@Localizer["OfficeViewerTitle"]</h3>
@@ -13,3 +13,5 @@
     </section>
     <OfficeViewer Url="@_doc" Height="620px" OnLoaded="OnLoaded"></OfficeViewer>
 </DemoBlock>
+
+<AttributeTable Type="typeof(OfficeViewer)" />

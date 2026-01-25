@@ -1,4 +1,4 @@
-﻿{
+{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "Nessun dato",
     "PlaceHolder": "Per favore inserisci"
@@ -7,18 +7,7 @@
     "HeaderText": "Captcha",
     "BarText": "Scorri verso destra e riempi il puzzle",
     "FailedText": "Caricamento non riuscito",
-    "LoadText": "Caricamento ...",
-    "TryText": "Riprova"
-  },
-  "BootstrapBlazor.Components.Camera": {
-    "DeviceLabel": "Camera",
-    "InitDevicesString": "Inizializzare ...",
-    "PlayText": "Riproduci",
-    "StopText": "Ferma",
-    "PhotoText": "Foto",
-    "FrontText": "Anteriore",
-    "BackText": "Posteriore",
-    "NotFoundDevicesString": "Nessun dispositivo video trovato"
+    "LoadText": "Caricamento ..."
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Anno precedente",
@@ -67,7 +56,7 @@
     "Months": "Gennaio,Febbraio,Marzo,Aprile,Maggio,Giugno,Luglio,Agosto,Settembre,Ottobre,Novembre,Dicembre",
     "MonthLists": "Gen,Feb,Mar,Apr,Mag,Giu,Lug,Ago,Set,Ott,Nov,Dic",
     "WeekLists": "Dom,Lun,Mar,Mer,Gio,Ven,Sab",
-    "GenericTypeErroMessage": "DateTimePicker supporta solo DateTime o Nullable<DateTime>",
+    "GenericTypeErrorMessage": "DateTimePicker supporta solo DateTime o Nullable<DateTime>",
     "Today": "Oggi",
     "Yesterday": "Ieri",
     "Week": "Una settimana fa"
@@ -102,7 +91,7 @@
   },
   "BootstrapBlazor.Components.EditorForm": {
     "ModelInvalidOperationExceptionMessage": "Il modello di convalida non corrisponde al modello {0}",
-    "PlaceHolderText": "Per favore seleziona ..."
+    "PlaceHolderText": "Per favore inserisci ..."
   },
   "BootstrapBlazor.Components.Empty": {
     "Text": "Nessun dato"
@@ -110,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Per favore inserisci lo stesso valore di nuovo"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Errore dell'applicazione"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -169,11 +158,8 @@
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Clicca per selezionare ..."
   },
-  "BootstrapBlazor.Components.SelectTreeView": {
-    "PlaceHolder": "Clicca per selezionare ..."
-  },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "Per favore inserisci un valore minore o uguale a {0}"
+    "ErrorMessage": "Per favore inserisci un valore minore o uguale a {{0}}"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Chiudi",
@@ -268,14 +254,16 @@
     "AlignCenterText": "Centrato",
     "AlignCenterTooltipText": "Clicca per allineare il testo al centro in questa colonna",
     "AlignRightText": "Destra",
-    "AlignRightTooltipText": "Clicca per allineare il testo a destra in questa colonna"
+    "AlignRightTooltipText": "Clicca per allineare il testo a destra in questa colonna",
+    "ColumnListSelectAllText": "Tutti",
+    "ColumnListSelectInvertText": "Inverti",
+    "MoreButtonText": "Altro"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Chiudi",
     "SaveButtonText": "Salva"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
-    "Title": "Filtra",
     "ClearButtonText": "Pulisci",
     "FilterButtonText": "Filtra",
     "BoolFilter.AllText": "Tutti",
@@ -290,7 +278,7 @@
     "Contains": "Contiene",
     "NotContains": "Non contiene",
     "EnumFilter.AllText": "Tutti",
-    "NotSupportedMessage": "Tipo di filtro non supportato. Si prega di adattare il filtro con FilterTemplate",
+    "NotSupportedColumnFilterMessage": "<p>Tipo di filtro non supportato. Si prega di adattare il filtro con FilterTemplate</p><div>Dettagli <a href=\"https://www.blazor.zone/table/filter#CustomFilter\" target=\"_blank\">CustomFilter</a></div>",
     "MultiFilterSearchPlaceHolderText": "Si prega di inserire ...",
     "MultiFilterSelectAllText": "Seleziona tutto"
   },
@@ -405,5 +393,17 @@
   },
   "BootstrapBlazor.Components.ValidateBase": {
     "DefaultRequiredErrorMessage": "{0} è obbligatorio."
+  },
+  "BootstrapBlazor.Components.NetworkMonitorIndicator": {
+    "NTitle": "Rete",
+    "NetworkType": "Tipo di rete",
+    "Downlink": "Download",
+    "RTT": "RTT"
+  },
+  "BootstrapBlazor.Components.LoadMore": {
+    "NoMoreText": "Nessun altro dato"
+  },
+  "BootstrapBlazor.Components.CardUpload": {
+    "DeleteConfirmContent": "Sei sicuro di voler eliminare i dati correnti?"
   }
 }

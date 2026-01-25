@@ -83,9 +83,4 @@ public sealed partial class SearchDialogs
         };
         await DialogService.ShowSearchDialog(option);
     }
-
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

@@ -86,9 +86,9 @@ private MessageService? MessageService { get; set; }
     <button class="btn btn-primary" @onclick="@ShowLastOnlyMessage">@Localizer["MessagesShowModePrompt"]</button>
 </DemoBlock>
 
-<AttributeTable Name="Message" />
+<AttributeTable Type="typeof(Message)" />
 
-<AttributeTable Title="@Localizer["MessagesItem"]" Items="@GetMessageItemAttributes()" />
+<AttributeTable Type="typeof(MessageItem)" Title="@Localizer["MessagesItem"]" />
 
 @code {
     private RenderFragment RenderContent =>

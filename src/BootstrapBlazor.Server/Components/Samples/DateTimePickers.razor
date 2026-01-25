@@ -1,4 +1,4 @@
-﻿@page "/datetime-picker"
+@page "/datetime-picker"
 
 <h3>@Localizer["Title"]</h3>
 
@@ -242,6 +242,6 @@
 	</div>
 </DemoBlock>
 
-<AttributeTable Name="DateTimePicker" />
+<AttributeTable Type="typeof(DateTimePicker<>)" />
 
 <EventTable Items="@GetEvents()" />

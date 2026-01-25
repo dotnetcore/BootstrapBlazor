@@ -1,4 +1,4 @@
-﻿@page "/typed"
+@page "/typed"
 @inject IStringLocalizer<Typeds> Localizer
 
 <h3>@Localizer["TypedTitle"]</h3>
@@ -28,4 +28,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@TypedAttributes" Title="@Localizer["TypedAttribute"]"></AttributeTable>
+<AttributeTable Type="typeof(Typed)" Title="@Localizer["TypedAttribute"]"></AttributeTable>

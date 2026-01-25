@@ -106,6 +106,7 @@ public sealed partial class Transfers : ComponentBase
         "8" => "bg-warning text-white",
         _ => null
     };
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

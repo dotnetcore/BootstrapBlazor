@@ -8,12 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 日期选择组件
+/// <para lang="zh">日期选择组件</para>
+/// <para lang="en">Date Picker component</para>
 /// </summary>
 public partial class DatePickerBody
 {
     /// <summary>
-    /// 获得/设置 日历框开始时间
+    /// <para lang="zh">获得/设置 日历框开始时间</para>
+    /// <para lang="en">Gets or sets Calendar start time</para>
     /// </summary>
     private DateTime StartDate
     {
@@ -26,22 +28,26 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 获得/设置 日历框结束时间
+    /// <para lang="zh">获得/设置 日历框结束时间</para>
+    /// <para lang="en">Gets or sets Calendar end time</para>
     /// </summary>
     private DateTime EndDate => GetSafeDayDateTime(StartDate, 42);
 
     /// <summary>
-    /// 获得/设置 当前日历框月份
+    /// <para lang="zh">获得/设置 当前日历框月份</para>
+    /// <para lang="en">Gets or sets Current Calendar Month</para>
     /// </summary>
     private DateTime CurrentDate { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前日历框时刻值
+    /// <para lang="zh">获得/设置 当前日历框时刻值</para>
+    /// <para lang="en">Gets or sets Current Calendar Time</para>
     /// </summary>
     private TimeSpan CurrentTime { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前选中时间 未点击确认时 与 Value 可能不一致
+    /// <para lang="zh">获得/设置 当前选中时间 未点击确认时 与 Value 可能不一致</para>
+    /// <para lang="en">Gets or sets Current Selected Time. It may check with Value when not confirmed</para>
     /// </summary>
     private DateTime SelectValue { get; set; }
 
@@ -54,7 +60,8 @@ public partial class DatePickerBody
         .Build();
 
     /// <summary>
-    /// 获得/设置 日期样式
+    /// <para lang="zh">获得/设置 日期样式</para>
+    /// <para lang="en">Gets or sets Date Style</para>
     /// </summary>
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default()
         .AddClass("prev-month", IsPrevMonth(day))
@@ -84,42 +91,48 @@ public partial class DatePickerBody
     private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
 
     /// <summary>
-    /// 获得 上一月按钮样式
+    /// <para lang="zh">获得 上一月按钮样式</para>
+    /// <para lang="en">Get Previous Month Button Style</para>
     /// </summary>
     private string? PrevMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-left")
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
-    /// 获得 下一月按钮样式
+    /// <para lang="zh">获得 下一月按钮样式</para>
+    /// <para lang="en">Get Next Month Button Style</para>
     /// </summary>
     private string? NextMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-right")
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
-    /// 获得 年月日显示表格样式
+    /// <para lang="zh">获得 年月日显示表格样式</para>
+    /// <para lang="en">Get Date Table Style</para>
     /// </summary>
     private string? DateViewClassName => CssBuilder.Default("date-table")
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
-    /// 获得 年月日显示表格样式
+    /// <para lang="zh">获得 年显示表格样式</para>
+    /// <para lang="en">Get Year Table Style</para>
     /// </summary>
     private string? YearViewClassName => CssBuilder.Default("year-table")
         .AddClass("d-none", CurrentViewMode != DatePickerViewMode.Year)
         .Build();
 
     /// <summary>
-    /// 获得 年月日显示表格样式
+    /// <para lang="zh">获得 月显示表格样式</para>
+    /// <para lang="en">Get Month Table Style</para>
     /// </summary>
     private string? MonthViewClassName => CssBuilder.Default("month-table")
         .AddClass("d-none", CurrentViewMode != DatePickerViewMode.Month)
         .Build();
 
     /// <summary>
-    /// 获得 年月日显示表格样式
+    /// <para lang="zh">获得 当前月显示表格样式</para>
+    /// <para lang="en">Get Current Month Table Style</para>
     /// </summary>
     private string? CurrentMonthViewClassName => CssBuilder.Default("picker-panel-header-label")
         .AddClass("d-none", CurrentViewMode is DatePickerViewMode.Year or DatePickerViewMode.Month)
@@ -131,7 +144,8 @@ public partial class DatePickerBody
     private string? YearText { get; set; }
 
     /// <summary>
-    /// 获得 年显示文字
+    /// <para lang="zh">获得 年显示文字</para>
+    /// <para lang="en">Get Year Display Text</para>
     /// </summary>
     private string? YearString => CurrentViewMode switch
     {
@@ -148,83 +162,96 @@ public partial class DatePickerBody
     private string? YearPeriodText { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
+    /// <para lang="en">Gets or sets Component Display Mode. Default is Date Mode</para>
     /// </summary>
     private DatePickerViewMode CurrentViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// <para lang="zh">获得/设置 组件显示模式 默认为显示年月日模式</para>
+    /// <para lang="en">Gets or sets componentdisplay模式 Default is为display年月日模式</para>
     /// </summary>
     [Parameter]
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
-    /// 获得/设置 日期时间格式字符串 默认为 null
+    /// <para lang="zh">获得/设置 日期时间格式字符串 默认为 null</para>
+    /// <para lang="en">Gets or sets Date Time Format String. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DateTimeFormat { get; set; }
 
     /// <summary>
-    /// 获得/设置 日期格式字符串 默认为 null
+    /// <para lang="zh">获得/设置 日期格式字符串 默认为 null</para>
+    /// <para lang="en">Gets or sets Date Format String. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DateFormat { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间格式字符串 默认为 null
+    /// <para lang="zh">获得/设置 时间格式字符串 默认为 null</para>
+    /// <para lang="en">Gets or sets Time Format String. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? TimeFormat { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示快捷侧边栏 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示快捷侧边栏 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Sidebar. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
 
     /// <summary>
-    /// 获得/设置 侧边栏模板 默认 null
+    /// <para lang="zh">获得/设置 侧边栏模板 默认 null</para>
+    /// <para lang="en">Gets or sets Sidebar Template. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示左侧控制按钮 默认显示
+    /// <para lang="zh">获得/设置 是否显示左侧控制按钮 默认显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Left Control Buttons. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowLeftButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示右侧控制按钮 默认显示
+    /// <para lang="zh">获得/设置 是否显示右侧控制按钮 默认显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Right Control Buttons. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowRightButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示 Footer 区域 默认为 false 不显示
+    /// <para lang="zh">获得/设置 是否显示 Footer 区域 默认为 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Footer Area. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间 PlaceHolder 字符串
+    /// <para lang="zh">获得/设置 时间 PlaceHolder 字符串</para>
+    /// <para lang="en">Gets or sets Time Placeholder String</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? TimePlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 日期 PlaceHolder 字符串
+    /// <para lang="zh">获得/设置 日期 PlaceHolder 字符串</para>
+    /// <para lang="en">Gets or sets Date Placeholder String</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DatePlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许为空 默认 false 不允许为空
+    /// <para lang="zh">获得/设置 是否允许为空 默认 false 不允许为空</para>
+    /// <para lang="en">Gets or sets Whether to Allow Null. Default is false</para>
     /// </summary>
     [Parameter]
     [Obsolete("已过期，请使用 ShowClearButton 代替 Please use ShowClearButton")]
@@ -236,173 +263,201 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 获得/设置 是否显示 Clear 按钮 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示 Clear 按钮 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to Show Clear Button. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowClearButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击日期时是否自动关闭弹窗 默认 false
+    /// <para lang="zh">获得/设置 点击日期时是否自动关闭弹窗 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Auto Close Popup When Date Clicked. Default is false</para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
 
     /// <summary>
-    /// 获得/设置 确认按钮回调委托
+    /// <para lang="zh">获得/设置 确认按钮回调委托</para>
+    /// <para lang="en">Gets or sets Confirm Button Callback Delegate</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
-    /// 获得/设置 清空按钮回调委托
+    /// <para lang="zh">获得/设置 清空按钮回调委托</para>
+    /// <para lang="en">Gets or sets Clear Button Callback Delegate</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClear { get; set; }
 
     /// <summary>
-    /// 获得/设置 清空按钮文字
+    /// <para lang="zh">获得/设置 清空按钮文字</para>
+    /// <para lang="en">Gets or sets Clear Button Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ClearButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 此刻按钮文字
+    /// <para lang="zh">获得/设置 此刻按钮文字</para>
+    /// <para lang="en">Gets or sets Now Button Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? NowButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 确定按钮文字
+    /// <para lang="zh">获得/设置 确定按钮文字</para>
+    /// <para lang="en">Gets or sets Confirm Button Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值
+    /// <para lang="zh">获得/设置 组件值</para>
+    /// <para lang="en">Gets or sets Component Value</para>
     /// </summary>
     [Parameter]
     public DateTime Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值改变时回调委托供双向绑定使用
+    /// <para lang="zh">获得/设置 组件值改变时回调委托供双向绑定使用</para>
+    /// <para lang="en">Gets or sets Value Changed Callback Delegate for Two-Way Binding</para>
     /// </summary>
     [Parameter]
     public EventCallback<DateTime> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前日期最大值
+    /// <para lang="zh">获得/设置 当前日期最大值</para>
+    /// <para lang="en">Gets or sets Max Date</para>
     /// </summary>
     [Parameter]
     public DateTime? MaxValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前日期最小值
+    /// <para lang="zh">获得/设置 当前日期最小值</para>
+    /// <para lang="en">Gets or sets Min Date</para>
     /// </summary>
     [Parameter]
     public DateTime? MinValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一年图标
+    /// <para lang="zh">获得/设置 上一年图标</para>
+    /// <para lang="en">Gets or sets Previous Year Icon</para>
     /// </summary>
     [Parameter]
     public string? PreviousYearIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一年图标
+    /// <para lang="zh">获得/设置 下一年图标</para>
+    /// <para lang="en">Gets or sets Next Year Icon</para>
     /// </summary>
     [Parameter]
     public string? NextYearIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一年图标
+    /// <para lang="zh">获得/设置 上一月图标</para>
+    /// <para lang="en">Gets or sets Previous Month Icon</para>
     /// </summary>
     [Parameter]
     public string? PreviousMonthIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一年图标
+    /// <para lang="zh">获得/设置 下一月图标</para>
+    /// <para lang="en">Gets or sets Next Month Icon</para>
     /// </summary>
     [Parameter]
     public string? NextMonthIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件模板
+    /// <para lang="zh">获得/设置 子组件模板</para>
+    /// <para lang="en">Gets or sets Child Content Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 年月改变时回调方法
+    /// <para lang="zh">获得/设置 年月改变时回调方法</para>
+    /// <para lang="en">Gets or sets Callback Method When Year/Month Changed</para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnDateChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 日单元格模板
+    /// <para lang="zh">获得/设置 日单元格模板</para>
+    /// <para lang="en">Gets or sets Day Cell Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<DateTime>? DayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 禁用日单元格模板
+    /// <para lang="zh">获得/设置 禁用日单元格模板</para>
+    /// <para lang="en">Gets or sets Disabled Day Cell Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<DateTime>? DayDisabledTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示中国阴历历法 默认 false
+    /// <para lang="zh">获得/设置 是否显示中国阴历历法 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Lunar Calendar. Default is false</para>
     /// </summary>
     /// <remarks>日期范围 1901 年 2 月 19 日 - 2101 年 1 月 28 日</remarks>
     [Parameter]
     public bool ShowLunar { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示中国 24 节气 默认 false
+    /// <para lang="zh">获得/设置 是否显示中国 24 节气 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Show Chinese Solar Term. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowSolarTerm { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示节日 默认 false
+    /// <para lang="zh">获得/设置 是否显示节日 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Show Festivals. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowFestivals { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示休假日 默认 false
+    /// <para lang="zh">获得/设置 是否显示休假日 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to Show Holidays. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为 Range 内使用 默认为 false
+    /// <para lang="zh">获得/设置 是否为 Range 内使用 默认为 false</para>
+    /// <para lang="en">Gets or sets Whether to Use in Range. Default is false</para>
     /// </summary>
     [CascadingParameter]
     private DateTimeRange? Ranger { get; set; }
 
     /// <summary>
-    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
+    /// <para lang="zh">获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭</para>
+    /// <para lang="en">Gets or sets Callback Method to Get Custom Disabled Days of Month. Default is null. Internal Default Enable Data Cache. Can be Closed via <see cref="EnableDisabledDaysCache"/> Parameter</para>
     /// </summary>
     [Parameter]
     public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用获得自定义禁用日期缓存
+    /// <para lang="zh">获得/设置 是否启用获得自定义禁用日期缓存</para>
+    /// <para lang="en">Gets or sets Whether to Enable Custom Disabled Days Cache</para>
     /// </summary>
     [Parameter]
     public bool EnableDisabledDaysCache { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// <para lang="zh">获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/></para>
+    /// <para lang="en">Gets or sets First Day of Week. Default is <see cref="DayOfWeek.Sunday"/></para>
     /// </summary>
     [Parameter]
     public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
 
     /// <summary>
-    /// 获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/>
+    /// <para lang="zh">获得/设置 选择时间方式 默认使用 <see cref="PickTimeMode.Dropdown"/></para>
+    /// <para lang="en">Gets or sets Pick Time Mode. Default is <see cref="PickTimeMode.Dropdown"/></para>
     /// </summary>
     [Parameter]
     public PickTimeMode PickTimeMode { get; set; } = PickTimeMode.Dropdown;
@@ -575,10 +630,10 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 判定当前日期是否为禁用日期
+    /// <para lang="zh">判定当前日期是否为禁用日期</para>
+    /// <para lang="en">Determine Whether Current Date is Disabled</para>
     /// </summary>
     /// <param name="val"></param>
-    /// <returns></returns>
     public bool IsDisableDay(DateTime val)
     {
         bool ret = false;
@@ -590,7 +645,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 清除内部缓存方法
+    /// <para lang="zh">清除内部缓存方法</para>
+    /// <para lang="en">Clear Internal Cache Method</para>
     /// </summary>
     public void ClearDisabledDays() => _monthDisabledDaysCache.Clear();
 
@@ -603,7 +659,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 点击上一年按钮时调用此方法
+    /// <para lang="zh">点击上一年按钮时调用此方法</para>
+    /// <para lang="en">Method Called When Previous Year Button Clicked</para>
     /// </summary>
     private async Task OnClickPrevYear()
     {
@@ -623,7 +680,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 点击上一月按钮时调用此方法
+    /// <para lang="zh">点击上一月按钮时调用此方法</para>
+    /// <para lang="en">Method Called When Previous Month Button Clicked</para>
     /// </summary>
     private async Task OnClickPrevMonth()
     {
@@ -641,7 +699,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 点击下一年按钮时调用此方法
+    /// <para lang="zh">点击下一年按钮时调用此方法</para>
+    /// <para lang="en">Method Called When Next Year Button Clicked</para>
     /// </summary>
     private async Task OnClickNextYear()
     {
@@ -661,7 +720,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 点击下一月按钮时调用此方法
+    /// <para lang="zh">点击下一月按钮时调用此方法</para>
+    /// <para lang="en">Method Called When Next Month Button Clicked</para>
     /// </summary>
     private async Task OnClickNextMonth()
     {
@@ -679,7 +739,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// Day 选择时触发此方法
+    /// <para lang="zh">Day 选择时触发此方法</para>
+    /// <para lang="en">Method Triggered When Day Selected</para>
     /// </summary>
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
@@ -743,7 +804,8 @@ public partial class DatePickerBody
     private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
-    /// 设置组件显示视图方法
+    /// <para lang="zh">设置组件显示视图方法</para>
+    /// <para lang="en">Set Component Display View Method</para>
     /// </summary>
     /// <param name="view"></param>
     private async Task SwitchView(DatePickerViewMode view)
@@ -778,7 +840,8 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 设置组件显示视图方法
+    /// <para lang="zh">设置组件显示视图方法</para>
+    /// <para lang="en">Set Component Display View Method</para>
     /// </summary>
     /// <param name="view"></param>
     /// <param name="d"></param>
@@ -798,9 +861,9 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 通过当前时间计算年跨度区间
+    /// <para lang="zh">通过当前时间计算年跨度区间</para>
+    /// <para lang="en">通过当前时间计算年跨度区间</para>
     /// </summary>
-    /// <returns></returns>
     private string GetYearPeriod()
     {
         var start = GetSafeYearDateTime(CurrentDate, 0 - CurrentDate.Year % 20).Year;
@@ -808,23 +871,23 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 获取 年视图下的年份
+    /// <para lang="zh">获取 年视图下的年份</para>
+    /// <para lang="en">获取 年视图下的年份</para>
     /// </summary>
     /// <param name="year"></param>
-    /// <returns></returns>
     private DateTime GetYear(int year) => GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20));
 
     /// <summary>
-    /// 获取 年视图下月份单元格显示文字
+    /// <para lang="zh">获取 年视图下月份单元格显示文字</para>
+    /// <para lang="en">获取 年视图下月份单元格display文字</para>
     /// </summary>
     /// <param name="year"></param>
-    /// <returns></returns>
     private string GetYearText(int year) => GetYear(year).Year.ToString();
 
     /// <summary>
-    /// 获取 年视图下的年份单元格样式
+    /// <para lang="zh">获取 年视图下的年份单元格样式</para>
+    /// <para lang="en">获取 年视图下的年份单元格style</para>
     /// </summary>
-    /// <returns></returns>
     private string? GetYearClassName(int year, bool overflow) => CssBuilder.Default()
         .AddClass("current", GetSafeYearDateTime(SelectValue, year - (SelectValue.Year % 20)).Year == SelectValue.Year)
         .AddClass("today", GetSafeYearDateTime(Value, year - (Value.Year % 20)).Year == DateTime.Today.Year)
@@ -832,37 +895,38 @@ public partial class DatePickerBody
         .Build();
 
     /// <summary>
-    /// 获取 年视图下的月份
+    /// <para lang="zh">获取 年视图下的月份</para>
+    /// <para lang="en">获取 年视图下的月份</para>
     /// </summary>
     /// <param name="month"></param>
-    /// <returns></returns>
     private DateTime GetMonth(int month) => CurrentDate.GetSafeMonthDateTime(month - CurrentDate.Month);
 
     /// <summary>
-    /// 获取 月视图下的月份单元格样式
+    /// <para lang="zh">获取 月视图下的月份单元格样式</para>
+    /// <para lang="en">获取 月视图下的月份单元格style</para>
     /// </summary>
-    /// <returns></returns>
     private string? GetMonthClassName(int month) => CssBuilder.Default()
         .AddClass("current", month == SelectValue.Month)
         .AddClass("today", Value.Year == DateTime.Today.Year && month == DateTime.Today.Month)
         .Build();
 
     /// <summary>
-    /// 获取 日视图下日单元格显示文字
+    /// <para lang="zh">获取 日视图下日单元格显示文字</para>
+    /// <para lang="en">获取 日视图下日单元格display文字</para>
     /// </summary>
     /// <param name="day"></param>
-    /// <returns></returns>
     private static string GetDayText(int day) => day.ToString();
 
     /// <summary>
-    /// 获取 月视图下月份单元格显示文字
+    /// <para lang="zh">获取 月视图下月份单元格显示文字</para>
+    /// <para lang="en">获取 月视图下月份单元格display文字</para>
     /// </summary>
     /// <param name="month"></param>
-    /// <returns></returns>
     private string GetMonthText(int month) => MonthLists[month - 1];
 
     /// <summary>
-    /// 点击 此刻时调用此方法
+    /// <para lang="zh">点击 此刻时调用此方法</para>
+    /// <para lang="en">点击 此刻时调用此方法</para>
     /// </summary>
     private async Task ClickNowButton()
     {
@@ -893,9 +957,9 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 点击 清除按钮调用此方法
+    /// <para lang="zh">点击 清除按钮调用此方法</para>
+    /// <para lang="en">点击 清除button调用此方法</para>
     /// </summary>
-    /// <returns></returns>
     private async Task ClickClearButton()
     {
         // 关闭 TimerPicker
@@ -934,11 +998,11 @@ public partial class DatePickerBody
     private bool Validate() => !IsDisabled(SelectValue);
 
     /// <summary>
-    /// 获得安全的年数据
+    /// <para lang="zh">获得安全的年数据</para>
+    /// <para lang="en">Gets安全的年data</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="year"></param>
-    /// <returns></returns>
     protected static DateTime GetSafeYearDateTime(DateTime dt, int year)
     {
         var @base = year switch
@@ -951,11 +1015,11 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 获得安全的日视图日期
+    /// <para lang="zh">获得安全的日视图日期</para>
+    /// <para lang="en">Gets安全的日视图日期</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="day"></param>
-    /// <returns></returns>
     private static DateTime GetSafeDayDateTime(DateTime dt, int day)
     {
         var @base = day switch
@@ -968,19 +1032,19 @@ public partial class DatePickerBody
     }
 
     /// <summary>
-    /// 判断日视图是否溢出方法
+    /// <para lang="zh">判断日视图是否溢出方法</para>
+    /// <para lang="en">判断日视图whether溢出方法</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="day"></param>
-    /// <returns></returns>
     private static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
 
     /// <summary>
-    /// 判断年视图是否溢出方法
+    /// <para lang="zh">判断年视图是否溢出方法</para>
+    /// <para lang="en">判断年视图whether溢出方法</para>
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="year"></param>
-    /// <returns></returns>
     private static bool IsYearOverflow(DateTime dt, int year)
     {
         var ret = year switch

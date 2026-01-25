@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">Switch 组件</para>
+/// <para lang="en">Switch Component</para>
 /// </summary>
 public partial class Switch
 {
@@ -37,12 +38,14 @@ public partial class Switch
     }
 
     /// <summary>
-    /// 获得 显示文字
+    /// <para lang="zh">获得 显示文字</para>
+    /// <para lang="en">Get Text</para>
     /// </summary>
     private string? Text => Value ? OnText : OffText;
 
     /// <summary>
-    /// 获得 组件最小宽度
+    /// <para lang="zh">获得 组件最小宽度</para>
+    /// <para lang="en">Get Component Minimum Width</para>
     /// </summary>
     private string? SwitchStyleName => CssBuilder.Default()
         .AddClass($"min-width: {Width}px;", Width > 0)
@@ -50,7 +53,8 @@ public partial class Switch
         .Build();
 
     /// <summary>
-    /// 获得 Style 集合
+    /// <para lang="zh">获得 Style 集合</para>
+    /// <para lang="en">Get Style Name</para>
     /// </summary>
     protected override string? StyleName => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)
@@ -58,45 +62,52 @@ public partial class Switch
         .Build();
 
     /// <summary>
-    /// 获得/设置 开颜色
+    /// <para lang="zh">获得/设置 开颜色</para>
+    /// <para lang="en">Gets or sets On Color</para>
     /// </summary>
     [Parameter]
     public Color OnColor { get; set; } = Color.Success;
 
     /// <summary>
-    /// 获得/设置 关颜色
+    /// <para lang="zh">获得/设置 关颜色</para>
+    /// <para lang="en">Gets or sets Off Color</para>
     /// </summary>
     [Parameter]
     public Color OffColor { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件宽度 默认 40
+    /// <para lang="zh">获得/设置 组件宽度 默认 40</para>
+    /// <para lang="en">Gets or sets Component Width. Default 40</para>
     /// </summary>
     [Parameter]
     public override int Width { get; set; } = 40;
 
     /// <summary>
-    /// 获得/设置 控件高度默认 20px
+    /// <para lang="zh">获得/设置 控件高度默认 20px</para>
+    /// <para lang="en">Gets or sets Component Height. Default 20px</para>
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 20;
 
     /// <summary>
-    /// 获得/设置 组件 On 时内置显示文本
+    /// <para lang="zh">获得/设置 组件 On 时内置显示文本</para>
+    /// <para lang="en">Gets or sets On Inner Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OnInnerText { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件 Off 时内置显示文本
+    /// <para lang="zh">获得/设置 组件 Off 时内置显示文本</para>
+    /// <para lang="en">Gets or sets Off Inner Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? OffInnerText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示内置文字 默认 false 显示
+    /// <para lang="zh">获得/设置 是否显示内置文字 默认 false 显示</para>
+    /// <para lang="en">Gets or sets Whether to show inner text. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowInnerText { get; set; }
@@ -106,7 +117,8 @@ public partial class Switch
     private IStringLocalizer<Switch>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -117,7 +129,8 @@ public partial class Switch
     }
 
     /// <summary>
-    /// 点击控件时触发此方法
+    /// <para lang="zh">点击控件时触发此方法</para>
+    /// <para lang="en">Method triggered when clicking the control</para>
     /// </summary>
     private async Task OnClick()
     {

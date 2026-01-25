@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,26 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorRootContent Component
+/// <para lang="zh">BootstrapBlazorRootContent Component</para>
+/// <para lang="en">BootstrapBlazorRootContent Component</para>
 /// </summary>
 public class BootstrapBlazorRootContent : IComponent, IDisposable
 {
     private object? _registeredIdentifier;
 
     /// <summary>
-    /// Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> instance will render
-    /// the content of this instance.
+    /// <para lang="zh">获得/设置 the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> 实例 will render the 内容 of this 实例.</para>
+    /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> instance will render the content of this instance.</para>
     /// </summary>
     [Parameter] public string? RootName { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> instance will render
-    /// the content of this instance.
+    /// <para lang="zh">获得/设置 the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> 实例 will render the 内容 of this 实例.</para>
+    /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootOutlet"/> instance will render the content of this instance.</para>
     /// </summary>
     [Parameter] public object? RootId { get; set; }
 
     /// <summary>
-    /// Gets or sets the content.
+    /// <para lang="zh">获得/设置 the 内容.</para>
+    /// <para lang="en">Gets or sets the content.</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
@@ -46,7 +48,6 @@ public class BootstrapBlazorRootContent : IComponent, IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     Task IComponent.SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,238 +9,285 @@ using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 /// <summary>
-/// 浏览器event事件枚举
+/// <para lang="zh">浏览器event事件枚举</para>
+/// <para lang="en">Browser Event Enum</para>
 /// </summary>
 [JsonConverter(typeof(DOMEventsConverter))]
 public enum DOMEvents
 {
     /// <summary>
-    /// Click 事件枚举
+    /// <para lang="zh">Click 事件枚举</para>
+    /// <para lang="en">Click Event</para>
     /// </summary>
     [Description("click")]
     Click,
     /// <summary>
-    /// Dblclick 事件枚举
+    /// <para lang="zh">Dblclick 事件枚举</para>
+    /// <para lang="en">Dblclick Event</para>
     /// </summary>
     [Description("dblclick")]
     Dblclick,
     /// <summary>
-    /// Mouseup 事件枚举
+    /// <para lang="zh">Mouseup 事件枚举</para>
+    /// <para lang="en">Mouseup Event</para>
     /// </summary>
     [Description("mouseup")]
     Mouseup,
     /// <summary>
-    /// Mousedown 事件枚举
+    /// <para lang="zh">Mousedown 事件枚举</para>
+    /// <para lang="en">Mousedown Event</para>
     /// </summary>
     [Description("mousedown")]
     Mousedown,
     /// <summary>
-    /// Contextmenu 事件枚举
+    /// <para lang="zh">Contextmenu 事件枚举</para>
+    /// <para lang="en">Contextmenu Event</para>
     /// </summary>
     [Description("contextmenu")]
     Contextmenu,
     /// <summary>
-    /// Mousewheel 事件枚举
+    /// <para lang="zh">Mousewheel 事件枚举</para>
+    /// <para lang="en">Mousewheel Event</para>
     /// </summary>
     [Description("mousewheel")]
     Mousewheel,
     /// <summary>
-    /// DOMMouseScroll 事件枚举
+    /// <para lang="zh">DOMMouseScroll 事件枚举</para>
+    /// <para lang="en">DOMMouseScroll Event</para>
     /// </summary>
     [Description("dOMMouseScroll")]
     DOMMouseScroll,
     /// <summary>
-    /// Mouseover 事件枚举
+    /// <para lang="zh">Mouseover 事件枚举</para>
+    /// <para lang="en">Mouseover Event</para>
     /// </summary>
     [Description("mouseover")]
     Mouseover,
     /// <summary>
-    /// Mouseout 事件枚举
+    /// <para lang="zh">Mouseout 事件枚举</para>
+    /// <para lang="en">Mouseout Event</para>
     /// </summary>
     [Description("mouseout")]
     Mouseout,
     /// <summary>
-    /// Mousemove 事件枚举
+    /// <para lang="zh">Mousemove 事件枚举</para>
+    /// <para lang="en">Mousemove Event</para>
     /// </summary>
     [Description("mousemove")]
     Mousemove,
     /// <summary>
-    /// Selectstart 事件枚举
+    /// <para lang="zh">Selectstart 事件枚举</para>
+    /// <para lang="en">Selectstart Event</para>
     /// </summary>
     [Description("selectstart")]
     Selectstart,
     /// <summary>
-    /// Selectend 事件枚举
+    /// <para lang="zh">Selectend 事件枚举</para>
+    /// <para lang="en">Selectend Event</para>
     /// </summary>
     [Description("selectend")]
     Selectend,
     /// <summary>
-    /// Keydown 事件枚举
+    /// <para lang="zh">Keydown 事件枚举</para>
+    /// <para lang="en">Keydown Event</para>
     /// </summary>
     [Description("keydown")]
     Keydown,
     /// <summary>
-    /// Keypress 事件枚举
+    /// <para lang="zh">Keypress 事件枚举</para>
+    /// <para lang="en">Keypress Event</para>
     /// </summary>
     [Description("keypress")]
     Keypress,
     /// <summary>
-    /// Keyup 事件枚举
+    /// <para lang="zh">Keyup 事件枚举</para>
+    /// <para lang="en">Keyup Event</para>
     /// </summary>
     [Description("keyup")]
     Keyup,
     /// <summary>
-    /// Orientationchange 事件枚举
+    /// <para lang="zh">Orientationchange 事件枚举</para>
+    /// <para lang="en">Orientationchange Event</para>
     /// </summary>
     [Description("orientationchange")]
     Orientationchange,
     /// <summary>
-    /// Touchstart 事件枚举
+    /// <para lang="zh">Touchstart 事件枚举</para>
+    /// <para lang="en">Touchstart Event</para>
     /// </summary>
     [Description("touchstart")]
     Touchstart,
     /// <summary>
-    /// Touchmove 事件枚举
+    /// <para lang="zh">Touchmove 事件枚举</para>
+    /// <para lang="en">Touchmove Event</para>
     /// </summary>
     [Description("touchmove")]
     Touchmove,
     /// <summary>
-    /// Touchend 事件枚举
+    /// <para lang="zh">Touchend 事件枚举</para>
+    /// <para lang="en">Touchend Event</para>
     /// </summary>
     [Description("touchend")]
     Touchend,
     /// <summary>
-    /// Touchcancel 事件枚举
+    /// <para lang="zh">Touchcancel 事件枚举</para>
+    /// <para lang="en">Touchcancel Event</para>
     /// </summary>
     [Description("touchcancel")]
     Touchcancel,
     /// <summary>
-    /// Pointerdown 事件枚举
+    /// <para lang="zh">Pointerdown 事件枚举</para>
+    /// <para lang="en">Pointerdown Event</para>
     /// </summary>
     [Description("pointerdown")]
     Pointerdown,
     /// <summary>
-    /// Pointermove 事件枚举
+    /// <para lang="zh">Pointermove 事件枚举</para>
+    /// <para lang="en">Pointermove Event</para>
     /// </summary>
     [Description("pointermove")]
     Pointermove,
     /// <summary>
-    /// Pointerup 事件枚举
+    /// <para lang="zh">Pointerup 事件枚举</para>
+    /// <para lang="en">Pointerup Event</para>
     /// </summary>
     [Description("pointerup")]
     Pointerup,
     /// <summary>
-    /// Pointerleave 事件枚举
+    /// <para lang="zh">Pointerleave 事件枚举</para>
+    /// <para lang="en">Pointerleave Event</para>
     /// </summary>
     [Description("pointerleave")]
     Pointerleave,
     /// <summary>
-    /// Pointercancel 事件枚举
+    /// <para lang="zh">Pointercancel 事件枚举</para>
+    /// <para lang="en">Pointercancel Event</para>
     /// </summary>
     [Description("pointercancel")]
     Pointercancel,
     /// <summary>
-    /// Gesturestart 事件枚举
+    /// <para lang="zh">Gesturestart 事件枚举</para>
+    /// <para lang="en">Gesturestart Event</para>
     /// </summary>
     [Description("gesturestart")]
     Gesturestart,
     /// <summary>
-    /// Gesturechange 事件枚举
+    /// <para lang="zh">Gesturechange 事件枚举</para>
+    /// <para lang="en">Gesturechange Event</para>
     /// </summary>
     [Description("gesturechange")]
     Gesturechange,
     /// <summary>
-    /// Gestureend 事件枚举
+    /// <para lang="zh">Gestureend 事件枚举</para>
+    /// <para lang="en">Gestureend Event</para>
     /// </summary>
     [Description("gestureend")]
     Gestureend,
     /// <summary>
-    /// Focus 事件枚举
+    /// <para lang="zh">Focus 事件枚举</para>
+    /// <para lang="en">Focus Event</para>
     /// </summary>
     [Description("focus")]
     Focus,
     /// <summary>
-    /// Blur 事件枚举
+    /// <para lang="zh">Blur 事件枚举</para>
+    /// <para lang="en">Blur Event</para>
     /// </summary>
     [Description("blur")]
     Blur,
     /// <summary>
-    /// Change 事件枚举
+    /// <para lang="zh">Change 事件枚举</para>
+    /// <para lang="en">Change Event</para>
     /// </summary>
     [Description("change")]
     Change,
     /// <summary>
-    /// Reset 事件枚举
+    /// <para lang="zh">Reset 事件枚举</para>
+    /// <para lang="en">Reset Event</para>
     /// </summary>
     [Description("reset")]
     Reset,
     /// <summary>
-    /// Select 事件枚举
+    /// <para lang="zh">Select 事件枚举</para>
+    /// <para lang="en">Select Event</para>
     /// </summary>
     [Description("select")]
     Select,
     /// <summary>
-    /// Submit 事件枚举
+    /// <para lang="zh">Submit 事件枚举</para>
+    /// <para lang="en">Submit Event</para>
     /// </summary>
     [Description("submit")]
     Submit,
     /// <summary>
-    /// Focusin 事件枚举
+    /// <para lang="zh">Focusin 事件枚举</para>
+    /// <para lang="en">Focusin Event</para>
     /// </summary>
     [Description("focusin")]
     Focusin,
     /// <summary>
-    /// Focusout 事件枚举
+    /// <para lang="zh">Focusout 事件枚举</para>
+    /// <para lang="en">Focusout Event</para>
     /// </summary>
     [Description("focusout")]
     Focusout,
     /// <summary>
-    /// Load 事件枚举
+    /// <para lang="zh">Load 事件枚举</para>
+    /// <para lang="en">Load Event</para>
     /// </summary>
     [Description("load")]
     Load,
     /// <summary>
-    /// Unload 事件枚举
+    /// <para lang="zh">Unload 事件枚举</para>
+    /// <para lang="en">Unload Event</para>
     /// </summary>
     [Description("unload")]
     Unload,
     /// <summary>
-    /// Beforeunload 事件枚举
+    /// <para lang="zh">Beforeunload 事件枚举</para>
+    /// <para lang="en">Beforeunload Event</para>
     /// </summary>
     [Description("beforeunload")]
     Beforeunload,
     /// <summary>
-    /// Resize 事件枚举
+    /// <para lang="zh">Resize 事件枚举</para>
+    /// <para lang="en">Resize Event</para>
     /// </summary>
     [Description("resize")]
     Resize,
     /// <summary>
-    /// Move 事件枚举
+    /// <para lang="zh">Move 事件枚举</para>
+    /// <para lang="en">Move Event</para>
     /// </summary>
     [Description("move")]
     Move,
     /// <summary>
-    /// DOMContentLoaded 事件枚举
+    /// <para lang="zh">DOMContentLoaded 事件枚举</para>
+    /// <para lang="en">DOMContentLoaded Event</para>
     /// </summary>
     [Description("dOMContentLoaded")]
     DOMContentLoaded,
     /// <summary>
-    /// Readystatechange 事件枚举
+    /// <para lang="zh">Readystatechange 事件枚举</para>
+    /// <para lang="en">Readystatechange Event</para>
     /// </summary>
     [Description("readystatechange")]
     Readystatechange,
     /// <summary>
-    /// Error 事件枚举
+    /// <para lang="zh">Error 事件枚举</para>
+    /// <para lang="en">Error Event</para>
     /// </summary>
     [Description("error")]
     Error,
     /// <summary>
-    /// Abort 事件枚举
+    /// <para lang="zh">Abort 事件枚举</para>
+    /// <para lang="en">Abort Event</para>
     /// </summary>
     [Description("abort")]
     Abort,
     /// <summary>
-    /// Scroll 事件枚举
+    /// <para lang="zh">Scroll 事件枚举</para>
+    /// <para lang="en">Scroll Event</para>
     /// </summary>
     [Description("scroll")]
     Scroll

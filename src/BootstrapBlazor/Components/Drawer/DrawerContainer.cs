@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Drawer 抽屉容器组件
+/// <para lang="zh">Drawer 抽屉容器组件</para>
+/// <para lang="en">Drawer Container Component</para>
 /// </summary>
 public class DrawerContainer : ComponentBase, IDisposable
 {
@@ -19,13 +20,15 @@ public class DrawerContainer : ComponentBase, IDisposable
     private DrawerOption? _option;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <para lang="zh">OnInitialized 方法</para>
+    /// <para lang="en">OnInitialized Method</para>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         // 注册 Drawer 弹窗事件
+        // Register Drawer popup event
         DrawerService.Register(this, Show);
     }
 
@@ -114,7 +117,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose Method</para>
     /// </summary>
     /// <param name="disposing"></param>
     private void Dispose(bool disposing)
@@ -126,7 +130,8 @@ public class DrawerContainer : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <para lang="zh">Dispose 方法</para>
+    /// <para lang="en">Dispose Method</para>
     /// </summary>
     public void Dispose()
     {

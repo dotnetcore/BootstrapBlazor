@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,13 +9,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// An input component for editing numeric values.
-/// Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.
+/// <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
+/// <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
 /// </summary>
 public partial class BootstrapInputNumber<TValue>
 {
     /// <summary>
-    /// 获得 按钮样式
+    /// <para lang="zh">获得 按钮样式</para>
+    /// <para lang="en">Get Button Style</para>
     /// </summary>
     protected string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass("btn-outline-secondary", Color == Color.None)
@@ -23,7 +24,8 @@ public partial class BootstrapInputNumber<TValue>
         .Build();
 
     /// <summary>
-    /// 获得 文本框样式
+    /// <para lang="zh">获得 文本框样式</para>
+    /// <para lang="en">Get Text Box Style</para>
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
@@ -36,49 +38,57 @@ public partial class BootstrapInputNumber<TValue>
     private string? StepString { get; set; }
 
     /// <summary>
-    /// 获得/设置 数值增加时回调委托
+    /// <para lang="zh">获得/设置 数值增加时回调委托</para>
+    /// <para lang="en">Gets or sets Callback delegate when value increases</para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnIncrement { get; set; }
 
     /// <summary>
-    /// 获得/设置 数值减少时回调委托
+    /// <para lang="zh">获得/设置 数值减少时回调委托</para>
+    /// <para lang="en">Gets or sets Callback delegate when value decreases</para>
     /// </summary>
     [Parameter]
     public Func<TValue?, Task>? OnDecrement { get; set; }
 
     /// <summary>
-    /// 获得/设置 最小值
+    /// <para lang="zh">获得/设置 最小值</para>
+    /// <para lang="en">Gets or sets Minimum Value</para>
     /// </summary>
     [Parameter]
     public string? Min { get; set; }
 
     /// <summary>
-    /// 获得/设置 最大值
+    /// <para lang="zh">获得/设置 最大值</para>
+    /// <para lang="en">Gets or sets Maximum Value</para>
     /// </summary>
     [Parameter]
     public string? Max { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// <para lang="zh">获得/设置 步长 默认为 null</para>
+    /// <para lang="en">Gets or sets Step. Default null</para>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示加减按钮
+    /// <para lang="zh">获得/设置 是否显示加减按钮</para>
+    /// <para lang="en">Gets or sets Whether to show increment/decrement buttons</para>
     /// </summary>
     [Parameter]
     public bool ShowButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 减小数值图标
+    /// <para lang="zh">获得/设置 减小数值图标</para>
+    /// <para lang="en">Gets or sets Decrement Icon</para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 增加数值图标
+    /// <para lang="zh">获得/设置 增加数值图标</para>
+    /// <para lang="en">Gets or sets Increment Icon</para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
@@ -153,11 +163,11 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
-    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.
+    /// <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
+    /// <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
@@ -170,10 +180,10 @@ public partial class BootstrapInputNumber<TValue>
             : InternalFormat(value));
 
     /// <summary>
-    /// InternalFormat 方法
+    /// <para lang="zh">InternalFormat 方法</para>
+    /// <para lang="en">InternalFormat Method</para>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
     protected virtual string? InternalFormat(TValue? value) => value switch
     {
@@ -190,9 +200,9 @@ public partial class BootstrapInputNumber<TValue>
     private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
     /// <summary>
-    /// 点击减少按钮式时回调此方法
+    /// <para lang="zh">点击减少按钮式时回调此方法</para>
+    /// <para lang="en">Callback method when decrement button is clicked</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
@@ -226,9 +236,9 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// 点击增加按钮式时回调此方法
+    /// <para lang="zh">点击增加按钮式时回调此方法</para>
+    /// <para lang="en">Callback method when increment button is clicked</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
@@ -264,7 +274,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnBlur()
     {
         if (!PreviousParsingAttemptFailed)
@@ -352,7 +361,6 @@ public partial class BootstrapInputNumber<TValue>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         bool ret;

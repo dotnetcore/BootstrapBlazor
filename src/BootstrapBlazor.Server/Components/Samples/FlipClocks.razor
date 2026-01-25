@@ -1,4 +1,4 @@
-﻿@page "/flip-clock"
+@page "/flip-clock"
 @inject IStringLocalizer<FlipClocks> Localizer
 
 <h3>@Localizer["FlipClocksTitle"]</h3>
@@ -105,4 +105,4 @@
                ShowHour="_showHour" ShowMinute="_showMinute" ShowSecond="_showSecond"></FlipClock>
 </DemoBlock>
 
-<AttributeTable Name="FlipClock" />
+<AttributeTable Type="typeof(FlipClock)" />

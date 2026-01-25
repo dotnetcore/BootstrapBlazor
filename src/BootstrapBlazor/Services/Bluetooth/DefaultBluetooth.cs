@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,17 +8,20 @@ namespace BootstrapBlazor.Components;
 sealed class DefaultBluetooth : IBluetooth
 {
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     public bool IsSupport { get; private set; }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     public bool IsAvailable { get; private set; }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     public string? ErrorMessage { get; private set; }
 
@@ -32,7 +35,8 @@ sealed class DefaultBluetooth : IBluetooth
     private readonly DotNetObjectReference<DefaultBluetooth> _interop;
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     public DefaultBluetooth(IJSRuntime jsRuntime)
@@ -51,10 +55,10 @@ sealed class DefaultBluetooth : IBluetooth
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<bool> GetAvailability(CancellationToken token = default)
     {
         _module ??= await LoadModule();
@@ -69,7 +73,8 @@ sealed class DefaultBluetooth : IBluetooth
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     public async Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default)
     {
@@ -89,11 +94,11 @@ sealed class DefaultBluetooth : IBluetooth
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="optionalServices"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default)
     {
         var options = new BluetoothRequestOptions() { AcceptAllDevices = true, OptionalServices = optionalServices };
@@ -101,7 +106,8 @@ sealed class DefaultBluetooth : IBluetooth
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]

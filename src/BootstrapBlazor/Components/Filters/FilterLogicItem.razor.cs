@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,18 +8,21 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// FilterLogicItem 组件用于选择过滤条件的逻辑运算符
+/// <para lang="zh">FilterLogicItem 组件用于选择过滤条件的逻辑运算符</para>
+/// <para lang="en">FilterLogicItem Component used to select logical operator for filter conditions</para>
 /// </summary>
 public partial class FilterLogicItem
 {
     /// <summary>
-    /// 获得/设置 逻辑运算符
+    /// <para lang="zh">获得/设置 逻辑运算符</para>
+    /// <para lang="en">Gets or sets Logical Operator</para>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
 
     /// <summary>
-    /// 获得/设置 逻辑运算符改变回调方法
+    /// <para lang="zh">获得/设置 逻辑运算符改变回调方法</para>
+    /// <para lang="en">Gets or sets Logical Operator Change Callback Method</para>
     /// </summary>
     [Parameter]
     public EventCallback<FilterLogic> LogicChanged { get; set; }

@@ -95,9 +95,4 @@ partial class AutoFills
             TotalCount = items.Count
         };
     }
-
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

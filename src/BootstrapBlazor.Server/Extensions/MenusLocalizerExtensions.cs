@@ -800,6 +800,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["EmbedPdf"],
                     Url = "embed-pdf"
                 },
@@ -1404,6 +1405,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["SweetAlert"],
                     Url = "sweet-alert"
+                },
+                new()
+                {
+                    Text = Localizer["Terms"],
+                    Url = "term"
                 },
                 new()
                 {

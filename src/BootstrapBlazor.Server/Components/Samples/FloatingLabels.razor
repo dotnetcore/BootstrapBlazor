@@ -1,4 +1,4 @@
-﻿@page "/floating-label"
+@page "/floating-label"
 @inject IStringLocalizer<FloatingLabels> Localizer
 
 <h3>@Localizer["FloatingLabelsTitle"]</h3>
@@ -79,4 +79,4 @@
     <FloatingLabel DisplayText="Email" TValue="string" IsSelectAllTextOnFocus="true" IsGroupBox="true" PlaceHolder="user@blazor.zone" />
 </DemoBlock>
 
-<AttributeTable Name="FloatingLabel" />
+<AttributeTable Type="typeof(FloatingLabel<>)" />

@@ -1,4 +1,4 @@
-﻿@page "/pagination"
+@page "/pagination"
 @inject IStringLocalizer<Paginations> Localizer
 
 <h3>@Localizer["PaginationsTitle"]</h3>
@@ -54,4 +54,4 @@
     </Pagination>
 </DemoBlock>
 
-<AttributeTable Name="Pagination" />
+<AttributeTable Type="typeof(Pagination)" />

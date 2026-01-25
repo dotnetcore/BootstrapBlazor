@@ -1,4 +1,4 @@
-﻿@page "/menu"
+@page "/menu"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Menus> Localizer
 
@@ -121,4 +121,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Menu" />
+<AttributeTable Type="typeof(Menu)" />

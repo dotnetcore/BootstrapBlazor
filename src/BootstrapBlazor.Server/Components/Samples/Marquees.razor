@@ -1,4 +1,4 @@
-﻿@page "/marquee"
+@page "/marquee"
 @inject IStringLocalizer<Marquees> Localizer
 
 <h3>@Localizer["MarqueeTitle"]</h3>
@@ -39,3 +39,5 @@
     <Marquee Text="@Text" Color="@TextColor" BackgroundColor="@BackgroundColor"
              Duration="@Duration" Direction="@Direction" FontSize="@FontSize" />
 </DemoBlock>
+
+<AttributeTable Type="typeof(Marquee)"></AttributeTable>

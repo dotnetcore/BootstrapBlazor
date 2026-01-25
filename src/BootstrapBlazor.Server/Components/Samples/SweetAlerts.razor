@@ -1,4 +1,4 @@
-﻿@page "/sweet-alert"
+@page "/sweet-alert"
 @inject IStringLocalizer<SweetAlerts> Localizer
 @inject SwalService SwalService
 
@@ -152,4 +152,4 @@ await SwalService.Show(op);</Pre>
     <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsCloseButtonText"]" Color="Color.Success" OnClick="@ShowCloseSwal" />
 </DemoBlock>
 
-<AttributeTable Name="SweetAlert" />
+<AttributeTable Type="typeof(SweetAlert)" />

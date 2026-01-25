@@ -1,4 +1,4 @@
-﻿@page "/topology"
+@page "/topology"
 @inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<Topologies> Localizer
 @inject FanControllerDataService DataService
@@ -19,4 +19,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Topology" />
+<AttributeTable Type="typeof(Topology)" />

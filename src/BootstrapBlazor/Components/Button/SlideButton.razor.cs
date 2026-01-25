@@ -6,126 +6,144 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SlideButton 组件
+/// <para lang="zh">SlideButton 组件</para>
+/// <para lang="en">SlideButton component</para>
 /// </summary>
 public partial class SlideButton
 {
     /// <summary>
-    /// 获得/设置 数据项模板
+    /// <para lang="zh">获得/设置 数据项模板</para>
+    /// <para lang="en">Gets or sets the data item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? SlideButtonItems { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮模板
+    /// <para lang="zh">获得/设置 按钮模板</para>
+    /// <para lang="en">Gets or sets the button template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 展开按钮项模板
+    /// <para lang="zh">获得/设置 展开按钮项模板</para>
+    /// <para lang="en">Gets or sets the expanded button item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ButtonItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 展开部分模板
+    /// <para lang="zh">获得/设置 展开部分模板</para>
+    /// <para lang="en">Gets or sets the expanded body template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 展开项集合
+    /// <para lang="zh">获得/设置 展开项集合</para>
+    /// <para lang="en">Gets or sets the expanded items collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 展开项 Header 文本
+    /// <para lang="zh">获得/设置 展开项 Header 文本</para>
+    /// <para lang="en">Gets or sets the header text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? HeaderText { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// <para lang="zh">获得/设置 按钮颜色</para>
+    /// <para lang="en">Gets or sets the button color</para>
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 获得/设置 展开项显示位置
+    /// <para lang="zh">获得/设置 展开项显示位置</para>
+    /// <para lang="en">Gets or sets the placement</para>
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗偏移量 默认 8px
+    /// <para lang="zh">获得/设置 弹窗偏移量 默认 8px</para>
+    /// <para lang="en">Gets or sets the offset. Default is 8px</para>
     /// </summary>
     [Parameter]
     public float Offset { get; set; } = 8;
 
     /// <summary>
-    /// 获得/设置 Size 大小
+    /// <para lang="zh">获得/设置 Size 大小</para>
+    /// <para lang="en">Gets or sets the Size</para>
     /// </summary>
     [Parameter]
     public Size Size { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示图标
+    /// <para lang="zh">获得/设置 显示图标</para>
+    /// <para lang="en">Gets or sets the icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示文本
+    /// <para lang="zh">获得/设置 显示文本</para>
+    /// <para lang="en">Gets or sets the text</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用 默认为 false
+    /// <para lang="zh">获得/设置 是否禁用 默认为 false</para>
+    /// <para lang="en">Gets or sets whether it is disabled. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动关闭弹窗 默认为 true
+    /// <para lang="zh">获得/设置 是否自动关闭弹窗 默认为 true</para>
+    /// <para lang="en">Gets or sets whether to auto close. Default is true</para>
     /// </summary>
     [Parameter]
     public bool IsAutoClose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 OnClick 事件
+    /// <para lang="zh">获得/设置 OnClick 事件</para>
+    /// <para lang="en">Gets or sets the OnClick event</para>
     /// </summary>
     [Parameter]
     public EventCallback<SelectedItem> OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标题 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示标题 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets whether to show header. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 部分模板
+    /// <para lang="zh">获得/设置 Header 部分模板</para>
+    /// <para lang="en">Gets or sets the header template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得 按钮样式集合
+    /// <para lang="zh">获得 按钮样式集合</para>
+    /// <para lang="en">Gets the button style collection</para>
     /// </summary>
-    /// <returns></returns>
     private string? ClassString => CssBuilder.Default("slide-button")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得 按钮样式集合
+    /// <para lang="zh">获得 按钮样式集合</para>
+    /// <para lang="en">Gets the button style collection</para>
     /// </summary>
-    /// <returns></returns>
     private string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
@@ -138,7 +156,8 @@ public partial class SlideButton
     private string? IsAutoCloseString => IsAutoClose ? "true" : null;
 
     /// <summary>
-    /// 获得 按钮 disabled 属性
+    /// <para lang="zh">获得 按钮 disabled 属性</para>
+    /// <para lang="en">Gets the button disabled attribute</para>
     /// </summary>
     private string? Disabled => IsDisabled ? "disabled" : null;
 
@@ -166,7 +185,6 @@ public partial class SlideButton
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

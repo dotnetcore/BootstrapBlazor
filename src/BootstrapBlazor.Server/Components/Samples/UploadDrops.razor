@@ -1,4 +1,4 @@
-﻿@page "/upload-drop"
+@page "/upload-drop"
 @inject IOptions<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<UploadDrops> Localizer
 @inject ToastService ToastService
@@ -57,4 +57,4 @@
                 ShowProgress="@_showProgress" ShowUploadFileList="@_showUploadFileList" ShowFooter="@_showFooter"></DropUpload>
 </DemoBlock>
 
-<AttributeTable Name="InputUpload" />
+<AttributeTable Type="typeof(DropUpload)"></AttributeTable>

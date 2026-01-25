@@ -1,4 +1,4 @@
-﻿@page "/switch-button"
+@page "/switch-button"
 @inject IStringLocalizer<SwitchButtons> Localizer
 
 <h3>@Localizer["SwitchButtonsTitle"]</h3>
@@ -25,4 +25,4 @@
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
-<AttributeTable Name="SwitchButton" />
+<AttributeTable Type="typeof(SwitchButton)" />

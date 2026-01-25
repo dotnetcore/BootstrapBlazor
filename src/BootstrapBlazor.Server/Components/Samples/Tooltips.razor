@@ -1,4 +1,4 @@
-﻿@page "/tooltip"
+@page "/tooltip"
 @inject IStringLocalizer<Tooltips> Localizer
 
 <h3>@Localizer["TooltipsTitle"]</h3>
@@ -103,4 +103,4 @@
     <Button Text="Trigger" OnClickWithoutRender="ToggleShow"></Button>
 </DemoBlock>
 
-<AttributeTable Name="Tooltip" />
+<AttributeTable Type="typeof(Tooltip)" />

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 网络状态服务
+/// <para lang="zh">网络状态服务</para>
+/// <para lang="en">Network State Service</para>
 /// </summary>
 class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
 {
@@ -87,9 +88,9 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     }
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke Callback Method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerNetworkStateChanged(NetworkMonitorState state)
     {
@@ -106,7 +107,6 @@ class DefaultNetowrkMonitorService : INetworkMonitorService, IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         if (_module != null)

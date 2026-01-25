@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,17 +8,19 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DialogService extensions method
+/// <para lang="zh">DialogService 扩展方法</para>
+/// <para lang="en">DialogService extensions method</para>
 /// </summary>
 public static class DialogServiceExtensions
 {
     /// <summary>
-    /// Show dialog with generic type.
+    /// <para lang="zh">Show 对话框泛型方法</para>
+    /// <para lang="en">Show dialog with generic type.</para>
     /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
-    /// <param name="parameters">TComponent 组件所需要的参数集合</param>
-    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="title"><para lang="zh">对话框标题，优先级高于 <see cref="DialogOption.Title"/></para><para lang="en">Dialog title, priority higher than <see cref="DialogOption.Title"/></para></param>
+    /// <param name="parameters"><para lang="zh">TComponent 组件所需要的参数集合</para><para lang="en">TComponent parameters</para></param>
+    /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para></param>
     public static Task Show<TComponent>(this DialogService service, string title, IDictionary<string, object?>? parameters = null, Dialog? dialog = null) where TComponent : IComponent
     {
         var option = new DialogOption();
@@ -32,11 +34,12 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出搜索对话框
+    /// <para lang="zh">弹出搜索对话框</para>
+    /// <para lang="en">Show search dialog</para>
     /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="option">SearchDialogOption 配置类实例</param>
-    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="option"><para lang="zh">SearchDialogOption 配置类实例</para><para lang="en">SearchDialogOption instance</para></param>
+    /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para></param>
     public static async Task ShowSearchDialog<TModel>(this DialogService service, SearchDialogOption<TModel> option, Dialog? dialog = null)
     {
         var parameters = new Dictionary<string, object?>
@@ -71,10 +74,11 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出编辑对话框
+    /// <para lang="zh">弹出编辑对话框</para>
+    /// <para lang="en">Show edit dialog</para>
     /// </summary>
-    /// <param name="service"><see cref="DialogService"/> 服务实例</param>
-    /// <param name="option"><see cref="ITableEditDialogOption{TModel}"/> 配置类实例</param>
+    /// <param name="service"><see cref="DialogService"/> <para lang="zh">服务实例</para><para lang="en">Instance</para></param>
+    /// <param name="option"><see cref="ITableEditDialogOption{TModel}"/> <para lang="zh">配置类实例</para><para lang="en">Option Instance</para></param>
     /// <param name="dialog"></param>
     public static async Task ShowEditDialog<TModel>(this DialogService service, EditDialogOption<TModel> option, Dialog? dialog = null)
     {
@@ -83,12 +87,12 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出带结果的对话框
+    /// <para lang="zh">弹出带结果的对话框</para>
+    /// <para lang="en">Show dialog with result</para>
     /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="option">对话框参数</param>
-    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    /// <returns></returns>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="option"><para lang="zh">对话框参数</para><para lang="en">Dialog option</para></param>
+    /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para></param>
     public static async Task<DialogResult> ShowModal<TDialog>(this DialogService service, ResultDialogOption option, Dialog? dialog = null)
         where TDialog : IComponent, IResultDialog
     {
@@ -129,13 +133,14 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出带结果的对话框
+    /// <para lang="zh">弹出带结果的对话框</para>
+    /// <para lang="en">Show dialog with result</para>
     /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
-    /// <param name="content">对话框 <see cref="MarkupString"/> 文本参数</param>
-    /// <param name="option"><see cref="ResultDialogOption"/> 对话框参数实例</param>
-    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="title"><para lang="zh">对话框标题，优先级高于 <see cref="DialogOption.Title"/></para><para lang="en">Dialog title, priority higher than <see cref="DialogOption.Title"/></para></param>
+    /// <param name="content"><para lang="zh">对话框 <see cref="MarkupString"/> 文本参数</para><para lang="en">Dialog <see cref="MarkupString"/> content parameter</para></param>
+    /// <param name="option"><see cref="ResultDialogOption"/> <para lang="zh">对话框参数实例</para><para lang="en">Dialog option instance</para></param>
+    /// <param name="dialog"><para lang="zh">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</para><para lang="en">Specify the dialog component, default is null, use <see cref="BootstrapBlazorRoot"/> built-in dialog component</para></param>
     public static Task<DialogResult> ShowModal(this DialogService service, string title, string content, ResultDialogOption? option = null, Dialog? dialog = null)
     {
         option ??= new();
@@ -175,16 +180,16 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出带保存按钮对话窗方法
+    /// <para lang="zh">弹出带保存按钮对话窗方法</para>
+    /// <para lang="en">Show dialog with save button</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="title">弹窗标题</param>
-    /// <param name="saveCallback">点击保存按钮回调委托方法 返回 true 时关闭弹窗</param>
-    /// <param name="parametersFactory">TComponent 组件所需参数</param>
-    /// <param name="configureOption"><see cref="DialogOption"/> 实例配置回调方法</param>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="title"><para lang="zh">弹窗标题</para><para lang="en">Dialog title</para></param>
+    /// <param name="saveCallback"><para lang="zh">点击保存按钮回调委托方法 返回 true 时关闭弹窗</para><para lang="en">Save button callback delegate, return true to close dialog</para></param>
+    /// <param name="parametersFactory"><para lang="zh">TComponent 组件所需参数</para><para lang="en">TComponent parameters</para></param>
+    /// <param name="configureOption"><para lang="zh"><see cref="DialogOption"/> 实例配置回调方法</para><para lang="en"><see cref="DialogOption"/> configuration callback</para></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowSaveDialog<TComponent>(this DialogService service, string title, Func<Task<bool>>? saveCallback = null, Action<Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -201,7 +206,8 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出带关闭按钮对话窗方法
+    /// <para lang="zh">弹出带关闭按钮对话窗方法</para>
+    /// <para lang="en">Show dialog with close button</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
@@ -209,7 +215,6 @@ public static class DialogServiceExtensions
     /// <param name="parametersFactory"></param>
     /// <param name="configureOption"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowCloseDialog<TComponent>(this DialogService service, string title, Action<Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -224,15 +229,15 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出表单对话窗方法
+    /// <para lang="zh">弹出表单对话窗方法</para>
+    /// <para lang="en">Show validate form dialog</para>
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="title">弹窗标题</param>
-    /// <param name="parametersFactory">TComponent 组件所需参数</param>
-    /// <param name="configureOption"><see cref="DialogOption"/> 实例配置回调方法</param>
+    /// <param name="service"><para lang="zh">DialogService 服务实例</para><para lang="en">DialogService instance</para></param>
+    /// <param name="title"><para lang="zh">弹窗标题</para><para lang="en">Dialog title</para></param>
+    /// <param name="parametersFactory"><para lang="zh">TComponent 组件所需参数</para><para lang="en">TComponent parameters</para></param>
+    /// <param name="configureOption"><para lang="zh"><see cref="DialogOption"/> 实例配置回调方法</para><para lang="en"><see cref="DialogOption"/> configuration callback</para></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
     public static async Task ShowValidateFormDialog<TComponent>(this DialogService service, string title, Func<DialogOption, Dictionary<string, object?>>? parametersFactory = null, Action<DialogOption>? configureOption = null, Dialog? dialog = null) where TComponent : ComponentBase
     {
         var option = new DialogOption()
@@ -247,17 +252,32 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 显示异常信息对话框扩展方法
+    /// <para lang="zh">显示异常信息对话框扩展方法</para>
+    /// <para lang="en">Show error handler dialog</para>
     /// </summary>
     /// <param name="service"></param>
     /// <param name="fragment"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
-    public static async Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    [Obsolete("已弃用，请使用 ShowExceptionDialog 方法。Deprecated, please use ShowExceptionDialog method")]
+    [ExcludeFromCodeCoverage]
+    public static Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    {
+        return ShowExceptionDialog(service, null, fragment, dialog);
+    }
+
+    /// <summary>
+    /// <para lang="zh">显示异常信息对话框扩展方法</para>
+    /// <para lang="en">Show error handler dialog</para>
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="title"></param>
+    /// <param name="fragment"></param>
+    /// <param name="dialog"></param>
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, RenderFragment fragment, Dialog? dialog = null)
     {
         var option = new DialogOption
         {
-            Title = "Error",
+            Title = title ?? "Error",
             IsScrolling = true,
             BodyTemplate = fragment
         };
@@ -265,13 +285,14 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 显示异常信息对话框扩展方法
+    /// <para lang="zh">显示异常信息对话框扩展方法</para>
+    /// <para lang="en">Show exception dialog</para>
     /// </summary>
     /// <param name="service"></param>
+    /// <param name="title"></param>
     /// <param name="exception"></param>
     /// <param name="dialog"></param>
-    /// <returns></returns>
-    public static async Task ShowExceptionDialog(this DialogService service, Exception exception, Dialog? dialog = null)
+    public static async Task ShowExceptionDialog(this DialogService service, string? title, Exception exception, Dialog? dialog = null)
     {
         RenderFragment fragment = builder =>
         {
@@ -280,6 +301,6 @@ public static class DialogServiceExtensions
             builder.AddContent(20, new MarkupString(exception.Message));
             builder.CloseElement();
         };
-        await ShowErrorHandlerDialog(service, fragment, dialog);
+        await ShowExceptionDialog(service, title, fragment, dialog);
     }
 }

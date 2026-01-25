@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,22 +8,26 @@ using Microsoft.Extensions.Caching.Memory;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 默认 IP 地理位置定位器
+/// <para lang="zh">默认 IP 地理位置定位器</para>
+/// <para lang="en">Default IP Geolocation Locator</para>
 /// </summary>
 public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
 {
     /// <summary>
-    /// 获得 Ip 定位结果缓存
+    /// <para lang="zh">获得 Ip 定位结果缓存</para>
+    /// <para lang="en">Get IP Location Cache</para>
     /// </summary>
     protected MemoryCache IpCache { get; } = new(new MemoryCacheOptions());
 
     /// <summary>
-    /// 获得 IpLocator 配置信息
+    /// <para lang="zh">获得 IpLocator 配置信息</para>
+    /// <para lang="en">Get IpLocator Configuration Options</para>
     /// </summary>
     protected IpLocatorOptions Options { get; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     protected DefaultIpLocatorProvider(IOptions<BootstrapBlazorOptions> options)
     {
@@ -32,7 +36,8 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     }
 
     /// <summary>
-    /// 获得 本机地址列表
+    /// <para lang="zh">获得 本机地址列表</para>
+    /// <para lang="en">Get Localhost List</para>
     /// </summary>
     private readonly List<string> _localhostList = [.. new[] { "::1", "127.0.0.1" }];
 
@@ -45,7 +50,6 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     public async Task<string?> Locate(string? ip)
     {
         string? ret = null;
@@ -80,9 +84,9 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     }
 
     /// <summary>
-    /// 内部定位方法
+    /// <para lang="zh">内部定位方法</para>
+    /// <para lang="en">Internal Locate Method</para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     protected abstract Task<string?> LocateByIp(string ip);
 }

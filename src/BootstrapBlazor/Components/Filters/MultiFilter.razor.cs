@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,48 +6,56 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 多选过滤器组件
+/// <para lang="zh">多选过滤器组件</para>
+/// <para lang="en">Multi-Select Filter Component</para>
 /// </summary>
 public partial class MultiFilter
 {
     /// <summary>
-    /// 获得/设置 搜索栏占位符 默认 nul 使用资源文件中值
+    /// <para lang="zh">获得/设置 搜索栏占位符 默认 nul 使用资源文件中值</para>
+    /// <para lang="en">Gets or sets Search Placeholder Default null Use Resource File Value</para>
     /// </summary>
     [Parameter]
     public string? SearchPlaceHolderText { get; set; }
 
     /// <summary>
-    /// 获得/设置 全选按钮文本 默认 nul 使用资源文件中值
+    /// <para lang="zh">获得/设置 全选按钮文本 默认 nul 使用资源文件中值</para>
+    /// <para lang="en">Gets or sets Select All Button Text Default null Use Resource File Value</para>
     /// </summary>
     [Parameter]
     public string? SelectAllText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索栏 默认 true
+    /// <para lang="zh">获得/设置 是否显示搜索栏 默认 true</para>
+    /// <para lang="en">Gets or sets Whether to Show Search Bar Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; } = true;
 
     /// <summary>
-    /// 获得 过滤项集合回调方法 适合动态给定数据源
+    /// <para lang="zh">获得 过滤项集合回调方法 适合动态给定数据源</para>
+    /// <para lang="en">Get Filter Items Callback Method Suitable for Dynamic Data Source</para>
     /// </summary>
     [Parameter]
     public Func<Task<List<SelectedItem>>>? OnGetItemsAsync { get; set; }
 
     /// <summary>
-    /// 获得 是否每次弹窗时均调用 <see cref="OnGetItemsAsync"/> 回调方法，多用于动态填装过滤条件
+    /// <para lang="zh">获得 是否每次弹窗时均调用 <see cref="OnGetItemsAsync"/> 回调方法，多用于动态填装过滤条件</para>
+    /// <para lang="en">Get Whether to Call <see cref="OnGetItemsAsync"/> Callback Method Every Time Popup, Mostly Used for Dynamic Filling Filter Conditions</para>
     /// </summary>
     [Parameter]
     public bool AlwaysTriggerGetItems { get; set; }
 
     /// <summary>
-    /// 获得/设置 Loading 模板
+    /// <para lang="zh">获得/设置 Loading 模板</para>
+    /// <para lang="en">Gets or sets Loading Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the string comparison option used for filtering operations. Default is <see cref="StringComparison.OrdinalIgnoreCase"/>
+    /// <para lang="zh">获得/设置 the string comparison option used for filtering operations. 默认为 <see cref="StringComparison.OrdinalIgnoreCase"/></para>
+    /// <para lang="en">Gets or sets the string comparison option used for filtering operations. Default is <see cref="StringComparison.OrdinalIgnoreCase"/></para>
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -57,7 +65,8 @@ public partial class MultiFilter
     private List<SelectedItem>? _items;
 
     /// <summary>
-    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
@@ -103,7 +112,6 @@ public partial class MultiFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
         if (OnGetItemsAsync != null)
@@ -118,9 +126,9 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// JavaScript 回调方法
+    /// <para lang="zh">JavaScript 回调方法</para>
+    /// <para lang="en">JavaScript Callback Method</para>
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerGetItemsCallback()
     {
@@ -180,10 +188,10 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// 过滤内容搜索
+    /// <para lang="zh">过滤内容搜索</para>
+    /// <para lang="en">Filter Content Search</para>
     /// </summary>
     /// <param name="val"></param>
-    /// <returns></returns>
     private Task OnSearchValueChanged(string? val)
     {
         _searchText = val;
@@ -205,7 +213,8 @@ public partial class MultiFilter
     private List<SelectedItem> GetItems() => _items ?? _source ?? [];
 
     /// <summary>
-    /// 重置过滤条件方法
+    /// <para lang="zh">重置过滤条件方法</para>
+    /// <para lang="en">Reset Filter Conditions Method</para>
     /// </summary>
     public override void Reset()
     {
@@ -222,9 +231,9 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// 生成过滤条件方法
+    /// <para lang="zh">生成过滤条件方法</para>
+    /// <para lang="en">Generate Filter Conditions Method</para>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction { FilterLogic = FilterLogic.Or };
@@ -244,7 +253,6 @@ public partial class MultiFilter
     /// <inheritdoc/>
     /// </summary>
     /// <param name="filter"></param>
-    /// <returns></returns>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         var items = GetItems();

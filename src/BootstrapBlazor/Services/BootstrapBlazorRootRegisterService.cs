@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorRootRegisterService
+/// <para lang="zh">BootstrapBlazorRootRegisterService</para>
+/// <para lang="en">BootstrapBlazorRootRegisterService</para>
 /// </summary>
 public class BootstrapBlazorRootRegisterService
 {
@@ -14,7 +15,8 @@ public class BootstrapBlazorRootRegisterService
     private readonly Dictionary<object, List<BootstrapBlazorRootContent>> _providersByIdentifier = [];
 
     /// <summary>
-    /// Add provider
+    /// <para lang="zh">Add provider</para>
+    /// <para lang="en">Add provider</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="provider"></param>
@@ -30,7 +32,8 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// Remove provider
+    /// <para lang="zh">Remove provider</para>
+    /// <para lang="en">Remove provider</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="provider"></param>
@@ -58,10 +61,10 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// Get all providers by identifier
+    /// <para lang="zh">Get all providers by identifier</para>
+    /// <para lang="en">Get all providers by identifier</para>
     /// </summary>
     /// <param name="identifier"></param>
-    /// <returns></returns>
     public List<BootstrapBlazorRootContent> GetProviders(object identifier)
     {
         _providersByIdentifier.TryGetValue(identifier, out var providers);
@@ -69,7 +72,8 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// Subscribe
+    /// <para lang="zh">Subscribe</para>
+    /// <para lang="en">Subscribe</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="subscriber"></param>
@@ -84,7 +88,8 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// Unsubscribe
+    /// <para lang="zh">Unsubscribe</para>
+    /// <para lang="en">Unsubscribe</para>
     /// </summary>
     /// <param name="identifier"></param>
     public void Unsubscribe(object identifier)
@@ -93,7 +98,8 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// Notify content provider changed
+    /// <para lang="zh">Notify 内容 provider changed</para>
+    /// <para lang="en">Notify content provider changed</para>
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="provider"></param>

@@ -29,28 +29,4 @@ public partial class Tooltips
             await _tooltip.Toggle();
         }
     }
-    protected AttributeItem[] GetAttributes() =>
-    [
-        new() {
-            Name = "Placement",
-            Description = "Location",
-            Type = "Placement",
-            ValueList = "Auto/Top/Left/Bottom/Right",
-            DefaultValue = "Auto"
-        },
-        new() {
-            Name = "FallbackPlacements",
-            Description = "Define fallback placements by providing a list of placements in array (in order of preference)",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new() {
-            Name = "Offset",
-            Description = "offset of the tooltip relative to its target",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
 }

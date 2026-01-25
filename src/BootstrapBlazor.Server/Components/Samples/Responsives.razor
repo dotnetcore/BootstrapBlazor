@@ -1,4 +1,4 @@
-﻿@page "/responsive"
+@page "/responsive"
 @inject IStringLocalizer<Responsives> Localizer
 
 <h3>@Localizer["ResponsiveTitle"]</h3>
@@ -9,4 +9,4 @@
     <Responsive OnBreakPointChanged="OnChanged" />
 </DemoBlock>
 
-<AttributeTable Name="Responsive" />
+<AttributeTable Type="typeof(Responsive)" />

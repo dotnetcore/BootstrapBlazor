@@ -1,4 +1,4 @@
-﻿@page "/tag"
+@page "/tag"
 @inject IStringLocalizer<Tags> Localizer
 
 <h3>@Localizer["TagsTitle"]</h3>
@@ -81,6 +81,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Tag" />
+<AttributeTable Type="typeof(Tag)" />
 
 <EventTable Items="@GetEvents()" />

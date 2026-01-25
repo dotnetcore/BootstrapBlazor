@@ -1,4 +1,4 @@
-﻿@page "/fullscreen-button"
+@page "/fullscreen-button"
 @inject IStringLocalizer<FullScreenButtons> Localizer
 
 <h3>@Localizer["FullScreenButtonTitle"]</h3>
@@ -15,4 +15,4 @@
     <FullScreenButton Icon="fa-solid fa-font-awesome"></FullScreenButton>
 </DemoBlock>
 
-<AttributeTable Name="FullScreenButton" />
+<AttributeTable Type="typeof(FullScreenButton)" />

@@ -164,6 +164,7 @@ public sealed partial class Dropdowns
     }
 
     private Task OnClickAction(string actionName) => ToastService.Information("Custom Action", $"Trigger {actionName}");
+
     /// <summary>
     /// GetEvents
     /// </summary>

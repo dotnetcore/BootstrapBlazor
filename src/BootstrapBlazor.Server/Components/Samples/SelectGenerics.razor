@@ -1,4 +1,4 @@
-﻿@page "/select-generic"
+@page "/select-generic"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
@@ -437,6 +437,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="SelectGeneric" />
+<AttributeTable Type="typeof(SelectGeneric<>)" />
 
 <EventTable Items="@GetEvents()" />

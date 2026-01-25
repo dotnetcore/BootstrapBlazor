@@ -1,4 +1,4 @@
-﻿@page "/upload-input"
+@page "/upload-input"
 @inject IStringLocalizer<UploadInputs> Localizer
 @inject ToastService ToastService
 
@@ -46,4 +46,4 @@
     </ValidateForm>
 </DemoBlock>
 
-<AttributeTable Name="InputUpload" />
+<AttributeTable Type="typeof(InputUpload<>)"></AttributeTable>

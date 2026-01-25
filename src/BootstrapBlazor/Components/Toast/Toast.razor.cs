@@ -6,33 +6,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ToastBox 组件
+/// <para lang="zh">Toast 组件</para>
+/// <para lang="en">Toast Component</para>
 /// </summary>
 public partial class Toast
 {
-    /// <summary>
-    /// 获得/设置 弹出框类型
-    /// </summary>
     private string? AutoHide => Options.IsAutoHide ? null : "false";
 
-    /// <summary>
-    /// 获得/设置 弹出框类型
-    /// </summary>
     private string? ClassString => CssBuilder.Default("toast")
         .AddClass(Options.ClassString)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 进度条样式
-    /// </summary>
     private string? ProgressClass => CssBuilder.Default("toast-progress")
         .AddClass($"bg-{Options.Category.ToDescriptionString()}")
         .Build();
 
-    /// <summary>
-    /// 获得/设置 图标样式
-    /// </summary>
     private string? IconString => CssBuilder.Default()
         .AddClass(Options.SuccessIcon, Options.Category == ToastCategory.Success)
         .AddClass(Options.InformationIcon, Options.Category == ToastCategory.Information)
@@ -50,28 +39,19 @@ public partial class Toast
     private string? StyleString => CssBuilder.Default(Options.StyleString)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 弹出框自动关闭时长
-    /// </summary>
     private string? DelayString => Options.IsAutoHide ? Options.Delay.ToString() : null;
 
-    /// <summary>
-    /// 获得/设置 是否开启动画效果
-    /// </summary>
     private string? AnimationString => Options.Animation ? null : "false";
 
     /// <summary>
-    /// 获得/设置 ToastOption 实例
+    /// <para lang="zh">获得/设置 ToastOption 实例</para>
+    /// <para lang="en">Gets or sets the ToastOption instance</para>
     /// </summary>
     [Parameter]
     [NotNull]
     [EditorRequired]
     public ToastOption? Options { get; set; }
 
-    /// <summary>
-    /// 获得/设置 Toast 实例
-    /// </summary>
-    /// <value></value>
     [CascadingParameter]
     private ToastContainer? ToastContainer { get; set; }
 
@@ -118,11 +98,11 @@ public partial class Toast
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
-    /// 清除 ToastBox 方法
+    /// <para lang="zh">关闭 Toast 方法</para>
+    /// <para lang="en">Closes the Toast</para>
     /// </summary>
     [JSInvokable]
     public async Task Close()

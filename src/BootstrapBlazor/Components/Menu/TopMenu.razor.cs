@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 顶栏菜单
+/// <para lang="zh">顶栏菜单</para>
+/// <para lang="en">Top Menu</para>
 /// </summary>
 public partial class TopMenu
 {
@@ -24,28 +25,32 @@ public partial class TopMenu
         .Build();
 
     /// <summary>
-    /// 获得/设置 组件数据源
+    /// <para lang="zh">获得/设置 DropdownIcon 图标</para>
+    /// <para lang="en">Gets or sets DropdownIcon Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 菜单箭头图标
+    /// <para lang="zh">获得/设置 菜单箭头图标</para>
+    /// <para lang="en">Gets or sets Menu Arrow Icon</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ArrowIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 菜单数据集合
+    /// <para lang="zh">获得/设置 菜单数据集合</para>
+    /// <para lang="en">Gets or sets Menu Data Collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 菜单项点击回调委托
+    /// <para lang="zh">获得/设置 菜单项点击回调委托</para>
+    /// <para lang="en">Gets or sets Menu item click callback delegate</para>
     /// </summary>
     [Parameter]
     public Func<MenuItem, Task>? OnClick { get; set; }
@@ -63,10 +68,10 @@ public partial class TopMenu
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <para lang="zh">SetParametersAsync 方法</para>
+    /// <para lang="en">SetParametersAsync Method</para>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public override Task SetParametersAsync(ParameterView parameters)
     {
         parameters.SetParameterProperties(this);

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,18 +6,21 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SweetAlert component
+/// <para lang="zh">SweetAlert component</para>
+/// <para lang="en">SweetAlert component</para>
 /// </summary>
 public partial class SweetAlert : IAsyncDisposable
 {
     /// <summary>
-    /// Gets or sets the Modal container component instance
+    /// <para lang="zh">获得/设置 the Modal container component 实例</para>
+    /// <para lang="en">Gets or sets the Modal container component instance</para>
     /// </summary>
     [NotNull]
     private Modal? ModalContainer { get; set; }
 
     /// <summary>
-    /// Gets or sets the DialogServices service instance
+    /// <para lang="zh">获得/设置 the DialogServices service 实例</para>
+    /// <para lang="en">Gets or sets the DialogServices service instance</para>
     /// </summary>
     [Inject]
     [NotNull]
@@ -71,7 +74,6 @@ public partial class SweetAlert : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -151,7 +153,8 @@ public partial class SweetAlert : IAsyncDisposable
     private bool disposed;
 
     /// <summary>
-    /// Dispose method
+    /// <para lang="zh">Dispose method</para>
+    /// <para lang="en">Dispose method</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)

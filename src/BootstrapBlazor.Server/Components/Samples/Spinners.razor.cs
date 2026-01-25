@@ -10,8 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Spinners
 {
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

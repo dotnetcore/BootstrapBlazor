@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// <para lang="zh">Stack 组件</para>
+/// <para lang="en">Stack Component</para>
 /// </summary>
 public partial class Stack
 {
@@ -30,37 +31,43 @@ public partial class Stack
        .Build();
 
     /// <summary>
-    /// 获得/设置 内容
+    /// <para lang="zh">获得/设置 内容</para>
+    /// <para lang="en">Gets or sets Content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为行布局 默认 false
+    /// <para lang="zh">获得/设置 是否为行布局 默认 false</para>
+    /// <para lang="en">Gets or sets Is Row Layout. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否反向布局 默认 false
+    /// <para lang="zh">获得/设置 是否反向布局 默认 false</para>
+    /// <para lang="en">Gets or sets Is Reverse Layout. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsReverse { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许折行 默认 false
+    /// <para lang="zh">获得/设置 是否允许折行 默认 false</para>
+    /// <para lang="en">Gets or sets Is Wrap. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 垂直布局模式 默认 StackAlignItems.Stretch
+    /// <para lang="zh">获得/设置 垂直布局模式 默认 StackAlignItems.Stretch</para>
+    /// <para lang="en">Gets or sets Align Items. Default StackAlignItems.Stretch</para>
     /// </summary>
     [Parameter]
     public StackAlignItems AlignItems { get; set; }
 
     /// <summary>
-    /// 获得/设置 水平布局调整 默认 StackJustifyContent.Start
+    /// <para lang="zh">获得/设置 水平布局调整 默认 StackJustifyContent.Start</para>
+    /// <para lang="en">Gets or sets Justify Content. Default StackJustifyContent.Start</para>
     /// </summary>
     [Parameter]
     public StackJustifyContent Justify { get; set; }
@@ -68,7 +75,8 @@ public partial class Stack
     private readonly List<StackItem> _items = [];
 
     /// <summary>
-    /// 添加子项
+    /// <para lang="zh">添加子项</para>
+    /// <para lang="en">Add Item</para>
     /// </summary>
     public void AddItem(StackItem item)
     {
@@ -76,7 +84,8 @@ public partial class Stack
     }
 
     /// <summary>
-    /// 移除子项
+    /// <para lang="zh">移除子项</para>
+    /// <para lang="en">Remove Item</para>
     /// </summary>
     /// <param name="item"></param>
     public void RemoveItem(StackItem item)

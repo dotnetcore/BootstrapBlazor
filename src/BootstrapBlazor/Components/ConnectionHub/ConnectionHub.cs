@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 客户端链接组件
+/// <para lang="zh">客户端链接组件</para>
+/// <para lang="en">Client connection component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true)]
 public class ConnectionHub : BootstrapModuleComponentBase
@@ -38,7 +39,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
         var options = BootstrapBlazorOptions.Value.ConnectionHubOptions;
@@ -57,10 +57,10 @@ public class ConnectionHub : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke callback method</para>
     /// </summary>
     /// <param name="client"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task Callback(ClientInfo client)
     {

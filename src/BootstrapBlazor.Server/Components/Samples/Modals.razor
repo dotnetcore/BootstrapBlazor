@@ -1,4 +1,4 @@
-﻿@page "/modal"
+@page "/modal"
 @inject IStringLocalizer<Modals> Localizer
 
 <h3>@Localizer["ModalsTitle"]</h3>
@@ -272,4 +272,4 @@
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
-<AttributeTable Name="Modal" />
+<AttributeTable Type="typeof(Modal)" />

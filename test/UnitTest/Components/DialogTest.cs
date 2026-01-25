@@ -580,7 +580,7 @@ public class DialogTest : BootstrapBlazorTestBase
         #endregion
 
         #region ShowExceptionDialog Method
-        await cut.InvokeAsync(() => dialog.ShowExceptionDialog(new Exception("Test")));
+        await cut.InvokeAsync(() => dialog.ShowExceptionDialog(null, new Exception("Test")));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
     }

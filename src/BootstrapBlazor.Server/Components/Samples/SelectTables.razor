@@ -1,4 +1,4 @@
-﻿@page "/select-table"
+@page "/select-table"
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
@@ -112,4 +112,4 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="SelectTable" />
+<AttributeTable Type="typeof(SelectTable<>)" />

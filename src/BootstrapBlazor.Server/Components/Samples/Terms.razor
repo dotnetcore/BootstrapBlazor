@@ -1,0 +1,32 @@
+@page "/term"
+@using Microsoft.AspNetCore.Components.Sections
+@inject IStringLocalizer<Terms> Localizer
+
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["SubTitle"]</h4>
+
+<Tips>
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <section ignore>
+        <div>@((MarkupString)Localizer["TermDesc"].Value)</div>
+    </section>
+    <Term @ref="_term" OnReceivedAsync="OnReceivedAsync" />
+    <section ignore>
+        <div class="col-12">
+            <Button OnClickWithoutRender="OnCheck">@Localizer["CheckText"]</Button>
+            <Button OnClickWithoutRender="OnTest">@Localizer["TestText"]</Button>
+            <Button OnClickWithoutRender="OnClean">@Localizer["CleanText"]</Button>
+        </div>
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StreamUsageTitle"]" Introduction="@Localizer["StreamUsageIntro"]" Name="Stream">
+    <Term @ref="_termStream" />
+</DemoBlock>
+
+<AttributeTable Type="typeof(Term)"></AttributeTable>
+
+<AttributeTable Type="typeof(TermOptions)"></AttributeTable>

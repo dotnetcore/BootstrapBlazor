@@ -10,9 +10,5 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Cards
 {
-    /// <summary>
-    /// Card属性
-    /// </summary>
-    /// <returns></returns>
 }
 

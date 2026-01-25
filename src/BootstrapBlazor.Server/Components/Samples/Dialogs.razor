@@ -1,4 +1,4 @@
-﻿@page "/dialog"
+@page "/dialog"
 @inject IStringLocalizer<Dialogs> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -206,4 +206,4 @@ private async Task OnClick()
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Dialog" Title="@Localizer["Attribute"]" />
+<AttributeTable Type="typeof(Dialog)" Title="@Localizer["Attribute"]" />

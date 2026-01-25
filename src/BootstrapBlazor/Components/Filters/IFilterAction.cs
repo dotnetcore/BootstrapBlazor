@@ -6,23 +6,26 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IFilterAction 接口
+/// <para lang="zh">IFilterAction 接口</para>
+/// <para lang="en">IFilterAction Interface</para>
 /// </summary>
 public interface IFilterAction
 {
     /// <summary>
-    /// 重置过滤条件方法
+    /// <para lang="zh">重置过滤条件方法</para>
+    /// <para lang="en">Reset Filter Conditions Method</para>
     /// </summary>
     void Reset();
 
     /// <summary>
-    /// 获得 IFilter 实例中的过滤条件集合
+    /// <para lang="zh">获得 IFilter 实例中的过滤条件集合</para>
+    /// <para lang="en">Get Filter Condition Collection in IFilter Instance</para>
     /// </summary>
-    /// <returns></returns>
     FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <para lang="zh">Override existing filter conditions</para>
+    /// <para lang="en">Override existing filter conditions</para>
     /// </summary>
     Task SetFilterConditionsAsync(FilterKeyValueAction conditions);
 }

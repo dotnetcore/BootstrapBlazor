@@ -1,4 +1,4 @@
-﻿@page "/color-picker"
+@page "/color-picker"
 @inject IStringLocalizer<ColorPickers> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -60,4 +60,4 @@
     <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="_opacityIsSupport" IsDisabled="_opacityIsDisabled"></ColorPicker>
 </DemoBlock>
 
-<AttributeTable Name="ColorPicker" />
+<AttributeTable Type="typeof(ColorPicker)" />

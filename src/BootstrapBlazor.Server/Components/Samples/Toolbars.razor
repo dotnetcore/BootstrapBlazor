@@ -1,4 +1,4 @@
-﻿@page "/toolbar"
+@page "/toolbar"
 @inject IStringLocalizer<Toolbars> Localizer
 
 <h3>@Localizer["ToolbarsTitle"]</h3>
@@ -52,3 +52,5 @@
         </ToolbarButtonGroup>
     </Toolbar>
 </DemoBlock>
+
+<AttributeTable Type="typeof(Toolbar)" />

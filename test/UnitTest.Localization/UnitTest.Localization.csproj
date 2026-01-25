@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Server\Data\Foo.cs" Link="Mics\Foo.cs" />
     <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="Mics\BootstrapBlazorTestBase.cs" />
     <Compile Include="..\UnitTest\Core\TestBase.cs" Link="Mics\TestBase.cs" />
     <Compile Include="..\UnitTest\Extensions\IServiceCollectionExtensions.cs" Link="Mics\IServiceCollectionExtensions.cs" />
@@ -27,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\..\src\BootstrapBlazor.Server\BootstrapBlazor.Server.csproj" />
   </ItemGroup>
 
   <ItemGroup>

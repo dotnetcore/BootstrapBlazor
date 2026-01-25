@@ -1,4 +1,4 @@
-﻿@page "/count-up"
+@page "/count-up"
 @inject IStringLocalizer<CountUps> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -98,6 +98,6 @@
     <ConsoleLogger @ref="_logger" />
 </DemoBlock>
 
-<AttributeTable Name="CountUp" />
+<AttributeTable Type="typeof(CountUp<>)" />
 
-<AttributeTable Items="@GetOptionAttributes()" Title="CountUpOption" />
+<AttributeTable Type="typeof(CountUpOption)" Title="CountUpOption" />

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Popover 弹出窗组件
+/// <para lang="zh">Popover 弹出窗组件</para>
+/// <para lang="en">Popover Component</para>
 /// </summary>
 public partial class Popover
 {
     /// <summary>
-    /// 获得/设置 显示文字，复杂内容可通过 <see cref="Template"/> 自定义
+    /// <para lang="zh">获得/设置 显示文字。复杂内容可通过 <see cref="Template"/> 自定义</para>
+    /// <para lang="en">Gets or sets the display text. Complex content can be customized via <see cref="Template"/></para>
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示阴影 默认 true
+    /// <para lang="zh">获得/设置 是否显示阴影，默认为 true</para>
+    /// <para lang="en">Gets or sets whether to show shadow. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 内容模板 默认 null 设置值后 <see cref="Content"/> 参数失效
+    /// <para lang="zh">获得/设置 内容模板，默认为 null。设置值后 <see cref="Content"/> 参数失效</para>
+    /// <para lang="en">Gets or sets the content template. Default is null. <see cref="Content"/> parameter is invalid if set</para>
     /// </summary>
     [Parameter]
     public RenderFragment? Template { get; set; }
@@ -41,14 +45,12 @@ public partial class Popover
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Content, Template = Template != null });
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);

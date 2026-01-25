@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,92 +8,105 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Pagination 组件
+/// <para lang="zh">Pagination 组件</para>
+/// <para lang="en">Pagination Component</para>
 /// </summary>
 public partial class Pagination
 {
     /// <summary>
-    /// 获得/设置 页码总数
+    /// <para lang="zh">获得 页码总数</para>
+    /// <para lang="en">Gets the total page count</para>
     /// </summary>
     protected int InternalPageCount => Math.Max(1, PageCount);
 
     /// <summary>
-    /// 获得 组件 样式
+    /// <para lang="zh">获得 组件样式</para>
+    /// <para lang="en">Gets the component style</para>
     /// </summary>
     protected string? ClassString => CssBuilder.Default("nav nav-pages")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得 组件 样式
+    /// <para lang="zh">获得 分页器样式</para>
+    /// <para lang="en">Gets the pagination style</para>
     /// </summary>
     protected string? PaginationClassString => CssBuilder.Default("pagination")
         .AddClass($"justify-content-{Alignment.ToDescriptionString()}", Alignment != Alignment.None)
         .Build();
 
     /// <summary>
-    /// 获得/设置 开始页码
+    /// <para lang="zh">获得 开始页码</para>
+    /// <para lang="en">Gets the start page index</para>
     /// </summary>
     protected int StartPageIndex => Math.Max(2, Math.Min(InternalPageCount - MaxPageLinkCount, InternalPageIndex - MaxPageLinkCount / 2));
 
     /// <summary>
-    /// 获得/设置 结束页码
+    /// <para lang="zh">获得 结束页码</para>
+    /// <para lang="en">Gets the end page index</para>
     /// </summary>
     protected int EndPageIndex => Math.Min(InternalPageCount - 1, StartPageIndex + MaxPageLinkCount - 1);
 
     /// <summary>
-    /// 获得/设置 对齐方式 默认 Alignment.Right
+    /// <para lang="zh">获得/设置 对齐方式，默认为 Alignment.Right</para>
+    /// <para lang="en">Gets or sets the alignment. Default is Alignment.Right</para>
     /// </summary>
     [Parameter]
     public Alignment Alignment { get; set; } = Alignment.Right;
 
     /// <summary>
-    /// 获得/设置 上一页图标
+    /// <para lang="zh">获得/设置 上一页图标</para>
+    /// <para lang="en">Gets or sets the previous page icon</para>
     /// </summary>
     [Parameter]
     public string? PrevPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一页图标
+    /// <para lang="zh">获得/设置 上一页省略号图标</para>
+    /// <para lang="en">Gets or sets the previous ellipsis page icon</para>
     /// </summary>
     [Parameter]
     public string? PrevEllipsisPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下一页图标
+    /// <para lang="zh">获得/设置 下一页图标</para>
+    /// <para lang="en">Gets or sets the next page icon</para>
     /// </summary>
     [Parameter]
     public string? NextPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 上一页图标
+    /// <para lang="zh">获得/设置 下一页省略号图标</para>
+    /// <para lang="en">Gets or sets the next ellipsis page icon</para>
     /// </summary>
     [Parameter]
     public string? NextEllipsisPageIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前页码
+    /// <para lang="zh">获得/设置 当前页码</para>
+    /// <para lang="en">Gets or sets Current Page Index</para>
     /// </summary>
     [Parameter]
     public int PageIndex { get; set; } = 1;
 
     /// <summary>
-    /// 获得/设置 页码总数
+    /// <para lang="zh">获得/设置 页码总数</para>
+    /// <para lang="en">Gets or sets Total Page Count</para>
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public int PageCount { get; set; }
 
     /// <summary>
-    /// 获得/设置 Page up/down 页码数量 默认 5
+    /// <para lang="zh">获得/设置 Page up/down 页码数量 默认 5</para>
+    /// <para lang="en">Gets or sets Page up/down link count. Default 5</para>
     /// </summary>
     [Parameter]
     public int MaxPageLinkCount { get; set; } = 5;
 
     /// <summary>
-    /// 点击页码时回调方法 参数是当前页码
+    /// <para lang="zh">点击页码时回调方法 参数是当前页码</para>
+    /// <para lang="en">Callback method when page link is clicked. Parameter is current page index</para>
     /// </summary>
     [Parameter]
     public Func<int, Task>? OnPageLinkClick { get; set; }
@@ -103,38 +116,44 @@ public partial class Pagination
     private IStringLocalizer<Pagination>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示分页信息文字 默认为 null
+    /// <para lang="zh">获得/设置 显示分页信息文字 默认为 null</para>
+    /// <para lang="en">Gets or sets Pagination Info Text. Default null</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? PageInfoText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Goto 导航模板 默认 null
+    /// <para lang="zh">获得/设置 Goto 导航模板 默认 null</para>
+    /// <para lang="en">Gets or sets Goto Navigation Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? GotoTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Goto 跳转导航器 默认 false
+    /// <para lang="zh">获得/设置 是否显示 Goto 跳转导航器 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to show Goto Navigator. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowGotoNavigator { get; set; }
 
     /// <summary>
-    /// 获得/设置 Goto 导航标签显示文字 默认 导航到/Goto
+    /// <para lang="zh">获得/设置 Goto 导航标签显示文字 默认 导航到/Goto</para>
+    /// <para lang="en">Gets or sets Goto Navigator Label Text. Default Goto</para>
     /// </summary>
     [Parameter]
     public string? GotoNavigatorLabelText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 分页信息 默认 true
+    /// <para lang="zh">获得/设置 是否显示 分页信息 默认 true</para>
+    /// <para lang="en">Gets or sets Whether to show Page Info. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowPageInfo { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 分页信息模板 默认 null
+    /// <para lang="zh">获得/设置 分页信息模板 默认 null</para>
+    /// <para lang="en">Gets or sets Page Info Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? PageInfoTemplate { get; set; }
@@ -175,7 +194,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    /// 上一页方法
+    /// <para lang="zh">上一页方法</para>
+    /// <para lang="en">Move Previous Method</para>
     /// </summary>
     protected async Task MovePrev(int index)
     {
@@ -188,7 +208,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    /// 下一页方法
+    /// <para lang="zh">下一页方法</para>
+    /// <para lang="en">Move Next Method</para>
     /// </summary>
     protected async Task MoveNext(int index)
     {
@@ -201,7 +222,8 @@ public partial class Pagination
     }
 
     /// <summary>
-    /// 点击页码时回调方法
+    /// <para lang="zh">点击页码时回调方法</para>
+    /// <para lang="en">Callback method when page link is clicked</para>
     /// </summary>
     /// <param name="pageIndex"></param>
     protected async Task OnPageItemClick(int pageIndex)

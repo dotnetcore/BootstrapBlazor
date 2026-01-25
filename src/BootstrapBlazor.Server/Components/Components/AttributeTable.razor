@@ -1,13 +1,36 @@
-﻿<div class="table-attr">
-    <h4>@Title</h4>
+<div class="table-attr">
+    <p class="table-attr-desc">
+        <span class="code-label">@Title</span>
+        @if (Type != null)
+        {
+            <span class="table-attr-mark">Automatically generated</span>
+        }
+    </p>
 
-    <Table TItem="AttributeItem" Items="Items">
+    <Table TItem="AttributeItem" Items="_items" IsBordered="true" IsStriped="true" ShowFooter="@ShowFooter">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Name">
+                <Template Context="v">
+                    @if (v.Row.IsObsolete)
+                    {
+                        <span class="text-decoration-line-through text-danger me-2">@v.Value</span>
+                        <Badge Color="Color.Danger" IsPill="true">
+                            @Localizer["Obsolete"]
+                        </Badge>
+                    }
+                    else
+                    {
+                        @v.Value
+                    }
+                </Template>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />
-            <TableColumn @bind-Field="@context.Type" />
-            <TableColumn @bind-Field="@context.ValueList" TextWrap="true" />
-            <TableColumn @bind-Field="@context.DefaultValue" />
+            <TableColumn @bind-Field="@context.Type" TextWrap="true" Width="180"></TableColumn>
+            <TableColumn @bind-Field="@context.Version" />
         </TableColumns>
+        <TableFooter>
+            <TableFooterCell Text="@Localizer["Total"]" colspan="3" Align="Alignment.Left" />
+            <TableFooterCell Aggregate="AggregateType.Count" Field="@nameof(AttributeItem.Name)" />
+        </TableFooter>
     </Table>
 </div>

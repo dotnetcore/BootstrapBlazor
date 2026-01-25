@@ -1,4 +1,4 @@
-﻿@page "/drawer"
+@page "/drawer"
 @inject IStringLocalizer<Drawers> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -75,4 +75,4 @@
     <Button OnClickWithoutRender="@DrawerServiceShow" Text="@Localizer["Open"]"></Button>
 </DemoBlock>
 
-<AttributeTable Name="Drawer" />
+<AttributeTable Type="typeof(Drawer)" />

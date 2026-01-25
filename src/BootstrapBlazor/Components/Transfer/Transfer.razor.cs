@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 穿梭框组件
+/// <para lang="zh">Transfer 组件（穿梭框）</para>
+/// <para lang="en">Transfer Component</para>
 /// </summary>
 public partial class Transfer<TValue>
 {
@@ -17,14 +18,16 @@ public partial class Transfer<TValue>
     private IStringLocalizer<Transfer<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮文本样式
+    /// <para lang="zh">获得/设置 左侧按钮样式</para>
+    /// <para lang="en">Gets or sets the left button style</para>
     /// </summary>
     private string? LeftButtonClassName => CssBuilder.Default()
         .AddClass("d-none", string.IsNullOrEmpty(LeftButtonText))
         .Build();
 
     /// <summary>
-    /// 获得/设置 按钮文本样式
+    /// <para lang="zh">获得/设置 右侧按钮样式</para>
+    /// <para lang="en">Gets or sets the right button style</para>
     /// </summary>
     private string? RightButtonClassName => CssBuilder.Default("me-1")
         .AddClass("d-none", string.IsNullOrEmpty(RightButtonText))
@@ -35,17 +38,21 @@ public partial class Transfer<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 左侧数据集合
+    /// <para lang="zh">获得/设置 左侧数据集合</para>
+    /// <para lang="en">Gets or sets the left data collection</para>
     /// </summary>
     private List<SelectedItem> LeftItems { get; } = [];
 
     /// <summary>
-    /// 获得/设置 右侧数据集合
+    /// <para lang="zh">获得/设置 右侧数据集合</para>
+    /// <para lang="en">Gets or sets the right data collection</para>
     /// </summary>
     private List<SelectedItem> RightItems { get; } = [];
 
+
     /// <summary>
-    /// 获得/设置 组件绑定数据项集合
+    /// <para lang="zh">获得/设置 组件绑定数据项集合</para>
+    /// <para lang="en">Gets or sets the component bound data item collection</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -53,158 +60,183 @@ public partial class Transfer<TValue>
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 选中项集合发生改变时回调委托方法
+    /// <para lang="zh">获得/设置 选中项集合发生改变时回调委托方法</para>
+    /// <para lang="en">Gets or sets the callback method when the selected items collection changes</para>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<SelectedItem>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧面板 Header 显示文本
+    /// <para lang="zh">获得/设置 左侧面板 Header 显示文本</para>
+    /// <para lang="en">Gets or sets the left panel header display text</para>
     /// </summary>
     [Parameter]
     public string? LeftPanelText { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧面板 Header 显示文本
+    /// <para lang="zh">获得/设置 右侧面板 Header 显示文本</para>
+    /// <para lang="en">Gets or sets the right panel header display text</para>
     /// </summary>
     [Parameter]
     public string? RightPanelText { get; set; }
 
     /// <summary>
-    /// 获得/设置 向左侧转移图标
+    /// <para lang="zh">获得/设置 向左侧转移图标</para>
+    /// <para lang="en">Gets or sets the left transfer icon</para>
     /// </summary>
     [Parameter]
     public string? LeftIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 向右侧转移图标
+    /// <para lang="zh">获得/设置 向右侧转移图标</para>
+    /// <para lang="en">Gets or sets the right transfer icon</para>
     /// </summary>
     [Parameter]
     public string? RightIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧按钮显示文本
+    /// <para lang="zh">获得/设置 左侧按钮显示文本</para>
+    /// <para lang="en">Gets or sets the left button display text</para>
     /// </summary>
     [Parameter]
     public string? LeftButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧按钮显示文本
+    /// <para lang="zh">获得/设置 右侧按钮显示文本</para>
+    /// <para lang="en">Gets or sets the right button display text</para>
     /// </summary>
     [Parameter]
     public string? RightButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框
+    /// <para lang="zh">获得/设置 是否显示搜索框</para>
+    /// <para lang="en">Gets or sets whether to display the search box</para>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧面板搜索框 placeholder 文字
+    /// <para lang="zh">获得/设置 左侧面板搜索框 placeholder 文字</para>
+    /// <para lang="en">Gets or sets the left panel search box placeholder text</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 Please use LeftPanelSearchPlaceHolderString")]
+    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 (Deprecated, please use LeftPanelSearchPlaceHolderString)")]
     [ExcludeFromCodeCoverage]
     public string? LeftPannelSearchPlaceHolderString { get => LeftPanelSearchPlaceHolderString; set => LeftPanelSearchPlaceHolderString = value; }
 
     /// <summary>
-    /// 获得/设置 左侧面板搜索框 placeholder 文字
+    /// <para lang="zh">获得/设置 左侧面板搜索框 placeholder 文字</para>
+    /// <para lang="en">Gets or sets the left panel search box placeholder text</para>
     /// </summary>
     [Parameter]
     public string? LeftPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧面板搜索框 placeholder 文字
+    /// <para lang="zh">获得/设置 右侧面板搜索框 placeholder 文字</para>
+    /// <para lang="en">Gets or sets the right panel search box placeholder text</para>
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 Please use RightPanelSearchPlaceHolderString")]
+    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 (Deprecated, please use RightPanelSearchPlaceHolderString)")]
     [ExcludeFromCodeCoverage]
     public string? RightPannelSearchPlaceHolderString { get => RightPanelSearchPlaceHolderString; set => RightPanelSearchPlaceHolderString = value; }
 
     /// <summary>
-    /// 获得/设置 右侧面板搜索框 placeholder 文字
+    /// <para lang="zh">获得/设置 右侧面板搜索框 placeholder 文字</para>
+    /// <para lang="en">Gets or sets the right panel search box placeholder text</para>
     /// </summary>
     [Parameter]
     public string? RightPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧面板包含的最大数量, 默认为 0 不限制
+    /// <para lang="zh">获得/设置 右侧面板包含的最大数量，默认为 0 不限制</para>
+    /// <para lang="en">Gets or sets the maximum number of items in the right panel. Default is 0 (no limit).</para>
     /// </summary>
     [Parameter]
     public int Max { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置最大值时错误消息文字
+    /// <para lang="zh">获得/设置 设置最大值时的错误消息文字</para>
+    /// <para lang="en">Gets or sets the error message text when setting the maximum value</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? MaxErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧面板包含的最大数量，默认为 0 不限制
+    /// <para lang="zh">获得/设置 右侧面板包含的最小数量，默认为 0 不限制</para>
+    /// <para lang="en">Gets or sets the minimum number of items in the right panel. Default is 0 (no limit).</para>
     /// </summary>
     [Parameter]
     public int Min { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置最小值时错误消息文字
+    /// <para lang="zh">获得/设置 设置最小值时的错误消息文字</para>
+    /// <para lang="en">Gets or sets the error message text when setting the minimum value</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据样式回调方法 默认为 null
+    /// <para lang="zh">获得/设置 数据样式回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the data style callback method. Default is null.</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧 Panel Header 模板
+    /// <para lang="zh">获得/设置 左侧 Panel Header 模板</para>
+    /// <para lang="en">Gets or sets the left Panel Header template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? LeftHeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧 Panel Item 模板
+    /// <para lang="zh">获得/设置 左侧 Panel Item 模板</para>
+    /// <para lang="en">Gets or sets the left Panel Item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? LeftItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧 Panel Header 模板
+    /// <para lang="zh">获得/设置 右侧 Panel Header 模板</para>
+    /// <para lang="en">Gets or sets the right Panel Header template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? RightHeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧 Panel Item 模板
+    /// <para lang="zh">获得/设置 右侧 Panel Item 模板</para>
+    /// <para lang="en">Gets or sets the right Panel Item template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件高度 默认值 null 未设置
+    /// <para lang="zh">获得/设置 组件高度 默认值 null 未设置</para>
+    /// <para lang="en">Gets or sets the component height. Default is null (not set)</para>
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 候选项是否为换行模式 默认 false 不换行
+    /// <para lang="zh">获得/设置 候选项是否为换行模式 默认 false 不换行</para>
+    /// <para lang="en">Gets or sets whether the items are in wrap mode. Default is false (no wrap)</para>
     /// </summary>
     [Parameter]
     public bool IsWrapItem { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 候选项宽度 默认 null 未设置
+    /// <para lang="zh">获得/设置 候选项宽度 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets the item width. Default is null (not set)</para>
     /// </summary>
     [Parameter]
     public string? ItemWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 候选项文本是否为换行 默认 false 不换行
+    /// <para lang="zh">获得/设置 候选项文本是否为换行 默认 false 不换行</para>
+    /// <para lang="en">Gets or sets whether the item text is wrapped. Default is false (no wrap)</para>
     /// </summary>
     [Parameter]
     public bool IsWrapItemText { get; set; }
@@ -227,7 +259,7 @@ public partial class Transfer<TValue>
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -238,7 +270,7 @@ public partial class Transfer<TValue>
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -257,6 +289,7 @@ public partial class Transfer<TValue>
         RightItems.Clear();
 
         Items ??= [];
+
 
         // 左侧移除
         LeftItems.AddRange(Items);
@@ -302,9 +335,6 @@ public partial class Transfer<TValue>
         }
     }
 
-    /// <summary>
-    /// 选中数据移动方法
-    /// </summary>
     private async Task TransferItems(List<SelectedItem> source, List<SelectedItem> target, bool isLeft)
     {
         if (Items != null)
@@ -344,12 +374,11 @@ public partial class Transfer<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
-    /// <returns></returns>
     protected override bool TryParseValueFromString(string value, out TValue result, out string? validationErrorMessage)
     {
         validationErrorMessage = null;
@@ -374,26 +403,18 @@ public partial class Transfer<TValue>
     }
 
     /// <summary>
-    /// FormatValueAsString 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
-    /// <returns></returns>
     protected override string? FormatValueAsString(TValue? value) => value == null
         ? null
         : Utility.ConvertValueToString(value);
 
-    /// <summary>
-    /// 选项状态改变时回调此方法
-    /// </summary>
     private Task SelectedItemsChanged()
     {
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// 获得按钮是否可用
-    /// </summary>
-    /// <returns></returns>
     private static bool GetButtonState(IEnumerable<SelectedItem> source) => !(source.Any(i => i.Active));
 }

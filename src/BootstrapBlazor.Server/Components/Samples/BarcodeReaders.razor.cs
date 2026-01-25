@@ -57,9 +57,4 @@ public sealed partial class BarcodeReaders
         ImageLogger.Log($"{Localizer["ErrorLog"]} {err}");
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得属性
-    /// </summary>
-    /// <returns></returns>
 }

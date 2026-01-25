@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -19,7 +19,6 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public async Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);
@@ -38,7 +37,6 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// </summary>
     /// <param name="componentType"></param>
     /// <param name="parameters"></param>
-    /// <returns></returns>
     public async Task<string> RenderAsync(Type componentType, IDictionary<string, object?>? parameters = null)
     {
         using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);

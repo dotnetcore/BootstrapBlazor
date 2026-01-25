@@ -1,4 +1,4 @@
-﻿@page "/console"
+@page "/console"
 @using System.Collections.Concurrent
 @implements IDisposable
 
@@ -28,6 +28,6 @@
     <Console Items="@Messages" Height="126" ShowAutoScroll="true" OnClear="@OnClear" />
 </DemoBlock>
 
-<AttributeTable Name="Console" />
+<AttributeTable Type="typeof(BootstrapBlazor.Components.Console)" />
 
-<AttributeTable Items="@GetItemAttributes()" Title="@Localizer["ConsoleMessageItem"]" />
+<AttributeTable Type="typeof(BootstrapBlazor.Components.ConsoleMessageItem)" Title="@Localizer["ConsoleMessageItem"]" />

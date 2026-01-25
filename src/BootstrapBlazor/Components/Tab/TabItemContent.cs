@@ -4,14 +4,14 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.Configuration;
 
 namespace BootstrapBlazor.Components;
 
-class TabItemContent : IComponent, IHandlerException, IDisposable
+class TabItemContent : IComponent
 {
     /// <summary>
-    /// Gets or sets the component content. Default is null
+    /// <para lang="zh">获得/设置 标签项，默认为 null</para>
+    /// <para lang="en">Gets or sets the component content. Default is null</para>
     /// </summary>
     [Parameter, NotNull]
     public TabItem? Item { get; set; }
@@ -19,22 +19,9 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
     [CascadingParameter, NotNull]
     private Tab? TabSet { get; set; }
 
-    [Inject, NotNull]
-    private DialogService? DialogService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ToastService? ToastService { get; set; }
-
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IConfiguration? Configuration { get; set; }
-
-    private IErrorLogger? _logger;
 
     private RenderHandle _renderHandle;
 
@@ -72,57 +59,17 @@ class TabItemContent : IComponent, IHandlerException, IDisposable
         builder.AddAttribute(3, nameof(ErrorLogger.EnableILogger), EnableErrorLoggerILogger);
         builder.AddAttribute(4, nameof(ErrorLogger.ShowToast), ShowErrorLoggerToast);
         builder.AddAttribute(5, nameof(ErrorLogger.ToastTitle), ToastTitle);
-        builder.AddAttribute(6, nameof(ErrorLogger.OnInitializedCallback), new Func<IErrorLogger, Task>(logger =>
-        {
-            _logger = logger;
-            _logger.Register(this);
-            return Task.CompletedTask;
-        }));
-        builder.AddAttribute(7, nameof(ErrorLogger.OnErrorHandleAsync), TabSet.OnErrorHandleAsync);
+        builder.AddAttribute(6, nameof(ErrorLogger.OnErrorHandleAsync), TabSet.OnErrorHandleAsync);
         builder.CloseComponent();
     }
 
     /// <summary>
-    /// Render method
+    /// <para lang="zh">重新呈现内容方法</para>
+    /// <para lang="en">Render method</para>
     /// </summary>
     public void Render()
     {
         _key = Guid.NewGuid();
         RenderContent();
-    }
-
-    private bool _detailedErrorsLoaded;
-    private bool _showDetailedErrors;
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="ex"></param>
-    /// <param name="errorContent"></param>
-    public async Task HandlerExceptionAsync(Exception ex, RenderFragment<Exception> errorContent)
-    {
-        if (!_detailedErrorsLoaded)
-        {
-            _showDetailedErrors = Configuration.GetValue("DetailedErrors", false);
-            _detailedErrorsLoaded = true;
-        }
-
-        var useDialog = _showDetailedErrors || !ShowErrorLoggerToast;
-        if (useDialog)
-        {
-            await DialogService.ShowErrorHandlerDialog(errorContent(ex));
-        }
-        else
-        {
-            await ToastService.Error(ToastTitle, ex.Message);
-        }
-    }
-
-    /// <summary>
-    /// IDispose 方法用于释放资源
-    /// </summary>
-    public void Dispose()
-    {
-        _logger?.UnRegister(this);
-        GC.SuppressFinalize(this);
     }
 }

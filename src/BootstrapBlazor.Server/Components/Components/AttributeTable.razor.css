@@ -1,0 +1,13 @@
+.table-attr {
+    margin-top: 1rem;
+}
+
+.table-attr-desc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-attr-mark {
+    font-size: 85%;
+    color: var(--bs-success);
+}

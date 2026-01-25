@@ -356,10 +356,4 @@ public partial class MultiSelects
             Type = "Func<string, IEnumerable<SelectedItem>>"
         }
     ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// GetAttributes
-    /// </summary>
-    /// <returns></returns>
 }

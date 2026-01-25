@@ -11,56 +11,65 @@ using System.Text.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Table 组件基类
+/// <para lang="zh">Table 组件基类</para>
+/// <para lang="en">Table Component Base Class</para>
 /// </summary>
 [CascadingTypeParameter(nameof(TItem))]
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
-    /// Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false.
+    /// <para lang="zh">获得/设置 a value indicating 是否 automatic search functionality is enabled. 默认 value is false.</para>
+    /// <para lang="en">Gets or sets a value indicating whether automatic search functionality is enabled. Default value is false.</para>
     /// </summary>
     [Parameter]
     public bool AutoSearchOnInput { get; set; }
 
     /// <summary>
-    /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
+    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
+    /// <para lang="en">Gets or sets Not Supported Column Filter Message. Default null (Read from resource file)</para>
     /// </summary>
     [Parameter]
     public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 Loading 模板
+    /// <para lang="zh">获得/设置 Loading 模板</para>
+    /// <para lang="en">Gets or sets Loading Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 列工具栏图标 fa-solid fa-gear
+    /// <para lang="zh">获得/设置 列工具栏图标 fa-solid fa-gear</para>
+    /// <para lang="en">Gets or sets Column Toolbox Icon fa-solid fa-gear</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ColumnToolboxIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认固定列宽度 默认 200 单位 px
+    /// <para lang="zh">获得/设置 默认固定列宽度 默认 200 单位 px</para>
+    /// <para lang="en">Gets or sets Default Fixed Column Width. Default 200 px</para>
     /// </summary>
     [Parameter]
     public int DefaultFixedColumnWidth { get; set; } = 200;
 
     /// <summary>
-    /// 获得/设置 是否使用按钮组显示行内扩展按钮 默认 true
+    /// <para lang="zh">获得/设置 是否使用按钮组显示行内扩展按钮 默认 true</para>
+    /// <para lang="en">Gets or sets Whether to use button group for extend buttons. Default true</para>
     /// </summary>
     [Parameter]
     public bool IsGroupExtendButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 内置虚拟化组件实例
+    /// <para lang="zh">获得/设置 内置虚拟化组件实例</para>
+    /// <para lang="en">Gets or sets Internal Virtualize Component Instance</para>
     /// </summary>
     [NotNull]
     private Virtualize<TItem>? _virtualizeElement = null;
 
     /// <summary>
-    /// 获得 Table 组件样式表
+    /// <para lang="zh">获得 Table 组件样式表</para>
+    /// <para lang="en">Get Table Component CSS Class</para>
     /// </summary>
     private string? ClassName => CssBuilder.Default("table-container")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -72,7 +81,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// 获得 Table 组件样式表
+    /// <para lang="zh">获得 Table 组件样式表</para>
+    /// <para lang="en">Get Table Component CSS Class</para>
     /// </summary>
     private string? TableClassName => CssBuilder.Default("table")
         .AddClass("table-sm", TableSize == TableSize.Compact)
@@ -84,7 +94,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// 获得 wrapper 样式表集合
+    /// <para lang="zh">获得 wrapper 样式表集合</para>
+    /// <para lang="en">Get wrapper CSS Class</para>
     /// </summary>
     protected string? WrapperClassName => CssBuilder.Default()
         .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
@@ -106,11 +117,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool FixedColumn => FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn || FixedLineNoColumn || Columns.Any(c => c.Fixed);
 
     /// <summary>
-    /// 获得 Body 内行样式
+    /// <para lang="zh">获得 Body 内行样式</para>
+    /// <para lang="en">Get Body Row CSS Class</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="css"></param>
-    /// <returns></returns>
     protected string? GetRowClassString(TItem item, string? css = null) => CssBuilder.Default(css)
         .AddClass(SetRowClassFormatter?.Invoke(item))
         .AddClass("active", CheckActive(item))
@@ -121,7 +132,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// 明细行首小图标单元格样式
+    /// <para lang="zh">明细行首小图标单元格样式</para>
+    /// <para lang="en">Detail Row Icon Cell CSS Class</para>
     /// </summary>
     protected string? GetDetailBarClassString(TItem item) => CssBuilder.Default("table-cell is-bar")
         .AddClass("is-load", DetailRows.Contains(item))
@@ -132,19 +144,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// 获得明细行样式
+    /// <para lang="zh">获得明细行样式</para>
+    /// <para lang="en">Get Detail Row CSS Class</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     protected string? GetDetailRowClassString(TItem item) => CssBuilder.Default("is-detail")
         .AddClass("show", ExpandRows.Contains(item))
         .Build();
 
     /// <summary>
-    /// 获得明细行小图标样式
+    /// <para lang="zh">获得明细行小图标样式</para>
+    /// <para lang="en">Get Detail Row Icon CSS Class</para>
     /// </summary>
     /// <param name="item"></param>
-    /// <returns></returns>
     protected string? GetDetailCaretClassString(TItem item) => CssBuilder.Default("node-icon")
         .AddClass(TreeIcon, !ExpandRows.Contains(item))
         .AddClass(TreeExpandIcon, ExpandRows.Contains(item))
@@ -186,32 +198,37 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/>
+    /// <para lang="zh">获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/></para>
+    /// <para lang="en">Gets or sets Scroll Width. Default null (Use <see cref="ScrollOptions.ScrollWidth"/>)</para>
     /// </summary>
     [Parameter]
     public int? ScrollWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/>
+    /// <para lang="zh">获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/></para>
+    /// <para lang="en">Gets or sets Scroll Hover Width. Default null (Use <see cref="ScrollOptions.ScrollHoverWidth"/>)</para>
     /// </summary>
     [Parameter]
     public int? ScrollHoverWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字
+    /// <para lang="zh">获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字</para>
+    /// <para lang="en">Gets or sets Column Resize Tooltip Prefix. Default null (Read from resource file)</para>
     /// </summary>
     [Parameter]
     public string? ColumnWidthTooltipPrefix { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示列宽提示信息，默认 false 显示
+    /// <para lang="zh">获得/设置 是否显示列宽提示信息，默认 false 显示</para>
+    /// <para lang="en">Gets or sets Whether to show column width tooltip. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowColumnWidthTooltip { get; set; }
 
-    ///// <summary>
-    ///// 获得/设置 行 Key 回调方法
-    ///// </summary>
+    /// <summary>
+    /// <para lang="zh">获得/设置 行 Key 回调方法</para>
+    /// <para lang="en">Gets or sets 行 Key callback method</para>
+    /// </summary>
     //[Parameter]
     //public Func<TItem, object?>? OnGetRowKey { get; set; }
 
@@ -226,194 +243,232 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private int ActualScrollHoverWidth => ScrollHoverWidth ?? Options.CurrentValue.ScrollOptions.ScrollHoverWidth;
 
     /// <summary>
-    /// 获得/设置 Table 高度 默认为 null
+    /// <para lang="zh">获得/设置 Table 高度 默认为 null</para>
+    /// <para lang="en">Gets or sets Table Height. Default null</para>
     /// </summary>
-    /// <remarks>开启固定表头功能时生效 <see cref="IsFixedHeader"/></remarks>
+    /// <remarks>
+    /// <para lang="zh">开启固定表头功能时生效 <see cref="IsFixedHeader"/></para>
+    /// <para lang="en">Effective when <see cref="IsFixedHeader"/> is true</para>
+    /// </remarks>
     [Parameter]
     public int? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 固定表头 默认 false
+    /// <para lang="zh">获得/设置 固定表头 默认 false</para>
+    /// <para lang="en">Gets or sets Fixed Header. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsFixedHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 固定 Footer 默认 false
+    /// <para lang="zh">获得/设置 固定 Footer 默认 false</para>
+    /// <para lang="en">Gets or sets Fixed Footer. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsFixedFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 多表头模板
+    /// <para lang="zh">获得/设置 多表头模板</para>
+    /// <para lang="en">Gets or sets Multi Header Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment? MultiHeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 列拷贝 Tooltip 文字
+    /// <para lang="zh">获得/设置 列拷贝 Tooltip 文字</para>
+    /// <para lang="en">Gets or sets Copy Column Tooltip Text</para>
     /// </summary>
     [Parameter]
     public string? CopyColumnTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 列拷贝完毕后 Tooltip 文字
+    /// <para lang="zh">获得/设置 列拷贝完毕后 Tooltip 文字</para>
+    /// <para lang="en">Gets or sets Copy Column Copied Tooltip Text</para>
     /// </summary>
     [Parameter]
     public string? CopyColumnCopiedTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 CopyColumn Tooltip 默认 true
+    /// <para lang="zh">获得/设置 CopyColumn Tooltip 默认 true</para>
+    /// <para lang="en">Gets or sets CopyColumn Tooltip. Default true</para>
     /// </summary>
     [Parameter]
     public bool ShowCopyColumnTooltip { get; set; } = true;
 
     /// <summary>
-    /// 明细行集合用于数据懒加载
+    /// <para lang="zh">明细行集合用于数据懒加载</para>
+    /// <para lang="en">明细行collection用于data懒加载</para>
     /// </summary>
     protected List<TItem> ExpandRows { get; } = [];
 
     /// <summary>
-    /// 获得/设置 组件工作模式为 Excel 模式 默认 false
+    /// <para lang="zh">获得/设置 组件工作模式为 Excel 模式 默认 false</para>
+    /// <para lang="en">Gets or sets Excel Mode. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsExcel { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用 Excel 模式下的键盘导航功能 默认 true
+    /// <para lang="zh">获得/设置 是否启用 Excel 模式下的键盘导航功能 默认 true</para>
+    /// <para lang="en">Gets or sets Enable Keyboard Navigation in Excel Mode. Default true</para>
     /// </summary>
     [Parameter]
     public bool EnableKeyboardNavigationCell { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断
+    /// <para lang="zh">获得/设置 是否显示明细行 默认为 null 为空时使用 <see cref="DetailRowTemplate" /> 进行逻辑判断</para>
+    /// <para lang="en">Gets or sets Whether to show detail row. Default null (Check <see cref="DetailRowTemplate" />)</para>
     /// </summary>
     [Parameter]
     public bool? IsDetails { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏
+    /// <para lang="zh">获得/设置 无数据时是否隐藏表格 Footer 默认为 false 不隐藏</para>
+    /// <para lang="en">Gets or sets Whether to hide footer when no data. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsHideFooterWhenNoData { get; set; }
 
     /// <summary>
-    /// 获得/设置 每行显示组件数量 默认为 2
+    /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
+    /// <para lang="en">Gets or sets Items per row in Edit Dialog. Default 2</para>
     /// </summary>
     [Parameter]
     public int EditDialogItemsPerRow { get; set; } = 2;
 
     /// <summary>
-    /// 获得/设置 设置行内组件布局格式 默认 Inline 布局
+    /// <para lang="zh">获得/设置 设置行内组件布局格式 默认 Inline 布局</para>
+    /// <para lang="en">Gets or sets Row Layout Format. Default Inline</para>
     /// </summary>
     [Parameter]
     public RowType EditDialogRowType { get; set; } = RowType.Inline;
 
     /// <summary>
-    /// 获得/设置 设置 <see cref="EditDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐
+    /// <para lang="zh">获得/设置 设置 <see cref="EditDialogRowType" /> Inline 模式下标签对齐方式 默认 None 等效于 Left 左对齐</para>
+    /// <para lang="en">Gets or sets Label Alignment in Inline Mode. Default None (Left)</para>
     /// </summary>
     [Parameter]
     public Alignment EditDialogLabelAlign { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
+    /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets Whether to disable auto submit form by enter. Default null</para>
     /// </summary>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
-    /// 获得/设置 明细行 Row Header 宽度 默认 24
+    /// <para lang="zh">获得/设置 明细行 Row Header 宽度 默认 24</para>
+    /// <para lang="en">Gets or sets Detail Row Header Width. Default 24</para>
     /// </summary>
     [Parameter]
     public int DetailColumnWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示文字的复选框列宽度 默认 80
+    /// <para lang="zh">获得/设置 显示文字的复选框列宽度 默认 80</para>
+    /// <para lang="en">Gets or sets Show Checkbox Text Column Width. Default 80</para>
     /// </summary>
     [Parameter]
     public int ShowCheckboxTextColumnWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 复选框宽度 默认 36
+    /// <para lang="zh">获得/设置 复选框宽度 默认 36</para>
+    /// <para lang="en">Gets or sets Checkbox Column Width. Default 36</para>
     /// </summary>
     [Parameter]
     public int CheckboxColumnWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 紧凑模式下复选框宽度 默认 28
+    /// <para lang="zh">获得/设置 紧凑模式下复选框宽度 默认 28</para>
+    /// <para lang="en">Gets or sets Compact Checkbox Column Width. Default 28</para>
     /// </summary>
     [Parameter]
     public int CheckboxColumnCompactWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 行号列宽度 默认 60
+    /// <para lang="zh">获得/设置 行号列宽度 默认 60</para>
+    /// <para lang="en">Gets or sets Line No Column Width. Default 60</para>
     /// </summary>
     [Parameter]
     public int LineNoColumnWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 行号内容位置
+    /// <para lang="zh">获得/设置 行号内容位置</para>
+    /// <para lang="en">Gets or sets Line No Column Alignment</para>
     /// </summary>
     [Parameter]
     public Alignment LineNoColumnAlignment { get; set; }
 
     /// <summary>
-    /// 获得/设置 呈现每行之前的回调
+    /// <para lang="zh">获得/设置 呈现每行之前的回调</para>
+    /// <para lang="en">Gets or sets Callback before render row</para>
     /// </summary>
     [Parameter]
     public Action<TItem>? OnBeforeRenderRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 Table 组件渲染完毕回调
+    /// <para lang="zh">获得/设置 Table 组件渲染完毕回调</para>
+    /// <para lang="en">Gets or sets Callback after Table rendered</para>
     /// </summary>
     [Parameter]
     public Func<Table<TItem>, bool, Task>? OnAfterRenderCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动将选中行滚动到可视区域 默认 false
+    /// <para lang="zh">获得/设置 是否自动将选中行滚动到可视区域 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to auto scroll last selected row to view. Default false</para>
     /// </summary>
     [Parameter]
     public bool AutoScrollLastSelectedRowToView { get; set; }
 
     /// <summary>
-    /// 获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center
+    /// <para lang="zh">获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center</para>
+    /// <para lang="en">Gets or sets Alignment for auto scroll selected row. Default ScrollToViewAlign.Center</para>
     /// </summary>
     [Parameter]
     public ScrollToViewAlign AutoScrollVerticalAlign { get; set; } = ScrollToViewAlign.Center;
 
     /// <summary>
-    /// 获得/设置 双击单元格回调委托
+    /// <para lang="zh">获得/设置 双击单元格回调委托</para>
+    /// <para lang="en">Gets or sets Double Click Cell Callback</para>
     /// </summary>
     [Parameter]
     public Func<string, TItem, object?, Task>? OnDoubleClickCellCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 展开收起明细行回调方法 第二个参数 true 时表示展开 false 时表示收起
+    /// <para lang="zh">获得/设置 展开收起明细行回调方法 第二个参数 true 时表示展开 false 时表示收起</para>
+    /// <para lang="en">Gets or sets Callback for toggle detail row. Second param true for expand, false for collapse</para>
     /// </summary>
     [Parameter]
     public Func<TItem, bool, Task>? OnToggleDetailRowCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false
+    /// <para lang="zh">获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false</para>
+    /// <para lang="en">Gets or sets Whether toolbar dropdown button is Popover. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsPopoverToolbarDropdownButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据滚动模式
+    /// <para lang="zh">获得/设置 数据滚动模式</para>
+    /// <para lang="en">Gets or sets Scroll Mode</para>
     /// </summary>
     [Parameter]
     public ScrollMode ScrollMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 虚拟滚动行高 默认为 38
+    /// <para lang="zh">获得/设置 虚拟滚动行高 默认为 38</para>
+    /// <para lang="en">Gets or sets Virtual Scroll Row Height. Default 38</para>
     /// </summary>
-    /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
+    /// <remarks>
+    /// <para lang="zh">需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</para>
+    /// <para lang="en">Effective when <see cref="ScrollMode"/> is Virtual</para>
+    /// </remarks>
     [Parameter]
     public float RowHeight { get; set; } = 38f;
 
     /// <summary>
-    /// Gets or sets the overscan count for virtual scrolling. Default is 10.
+    /// <para lang="zh">获得/设置 the overscan count for virtual scrolling. 默认为 10.</para>
+    /// <para lang="en">Gets or sets the overscan count for virtual scrolling. Default is 10.</para>
     /// </summary>
     /// <remarks>Effective when <see cref="ScrollMode"/> is set to <see cref="ScrollMode.Virtual"/>.</remarks>
     [Parameter]
@@ -424,7 +479,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
+    /// <para lang="zh">获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to use Tracking mode. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsTracking { get; set; }
@@ -456,19 +512,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         : IsDetails.Value && DetailRowTemplate != null;
 
     /// <summary>
-    /// 获得/设置 明细行手风琴效果 默认 false
+    /// <para lang="zh">获得/设置 明细行手风琴效果 默认 false</para>
+    /// <para lang="en">Gets or sets Accordion for detail rows. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
 
     /// <summary>
-    /// 获得/设置 列最小宽度 默认 null 未设置 可通过 <see cref="TableSettings.ColumnMinWidth"/> 统一设置
+    /// <para lang="zh">获得/设置 列最小宽度 默认 null 未设置 可通过 <see cref="TableSettings.ColumnMinWidth"/> 统一设置</para>
+    /// <para lang="en">Gets or sets Column Min Width. Default null</para>
     /// </summary>
     [Parameter]
     public int? ColumnMinWidth { get; set; }
 
     /// <summary>
-    /// 明细行功能中切换行状态时调用此方法
+    /// <para lang="zh">明细行功能中切换行状态时调用此方法</para>
+    /// <para lang="en">Method called when toggling detail row</para>
     /// </summary>
     /// <param name="item"></param>
     public async Task ExpandDetailRow(TItem item)
@@ -494,308 +553,367 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 明细行集合用于数据懒加载
+    /// <para lang="zh">明细行集合用于数据懒加载</para>
+    /// <para lang="en">Detail Rows Collection for Lazy Load</para>
     /// </summary>
     protected List<TItem> DetailRows { get; } = [];
 
     /// <summary>
-    /// 获得 表头集合
+    /// <inheritdoc/>
     /// </summary>
     public List<ITableColumn> Columns { get; } = new(50);
 
     /// <summary>
-    /// 获得/设置 明细行模板 <see cref="IsDetails" />
+    /// <para lang="zh">获得/设置 明细行模板 <see cref="IsDetails" /></para>
+    /// <para lang="en">Gets or sets Detail Row Template <see cref="IsDetails" /></para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? DetailRowTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 行模板
+    /// <para lang="zh">获得/设置 行模板</para>
+    /// <para lang="en">Gets or sets Row Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TableRowContext<TItem>>? RowTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 行内容模板
+    /// <para lang="zh">获得/设置 行内容模板</para>
+    /// <para lang="en">Gets or sets Row Content Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TableRowContext<TItem>>? RowContentTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 TableHeader 实例
+    /// <para lang="zh">获得/设置 TableHeader 实例</para>
+    /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? TableColumns { get; set; }
 
     /// <summary>
-    /// 获得/设置 TableFooter 实例
+    /// <para lang="zh">获得/设置 TableFooter 实例</para>
+    /// <para lang="en">Gets or sets TableFooter Instance</para>
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TItem>>? TableFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 Table Footer 模板
+    /// <para lang="zh">获得/设置 Table Footer 模板</para>
+    /// <para lang="en">Gets or sets Table Footer Template</para>
     /// </summary>
     [Parameter]
     public RenderFragment<IEnumerable<TItem>>? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据集合，适用于无功能仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托
+    /// <para lang="zh">获得/设置 数据集合，适用于无功能仅做数据展示使用，高级功能时请使用 <see cref="OnQueryAsync"/> 回调委托</para>
+    /// <para lang="en">Gets or sets Items. Use <see cref="OnQueryAsync"/> for advanced features</para>
     /// </summary>
     [Parameter]
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据集合回调方法
+    /// <para lang="zh">获得/设置 数据集合回调方法</para>
+    /// <para lang="en">Gets or sets Items Changed Callback</para>
     /// </summary>
     [Parameter]
     public EventCallback<IEnumerable<TItem>> ItemsChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格组件大小 默认为 Normal 正常模式
+    /// <para lang="zh">获得/设置 表格组件大小 默认为 Normal 正常模式</para>
+    /// <para lang="en">Gets or sets Table Size. Default Normal</para>
     /// </summary>
     [Parameter]
     public TableSize TableSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时显示模板 默认 null
+    /// <para lang="zh">获得/设置 无数据时显示模板 默认 null</para>
+    /// <para lang="en">Gets or sets Empty Template. Default null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时显示文本 默认取资源文件 英文 NoData 中文 无数据
+    /// <para lang="zh">获得/设置 无数据时显示文本 默认取资源文件 英文 NoData 中文 无数据</para>
+    /// <para lang="en">Gets or sets Empty Text. Default null (Read from resource file)</para>
     /// </summary>
     [Parameter]
     public string? EmptyText { get; set; }
 
     /// <summary>
-    /// 获得/设置 无数据时显示图片路径 默认 null 未设置
+    /// <para lang="zh">获得/设置 无数据时显示图片路径 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets Empty Image Path. Default null</para>
     /// </summary>
     [Parameter]
     public string? EmptyImage { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示无数据空记录 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示无数据空记录 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show empty record. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowEmpty { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示过滤表头 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示过滤表头 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show filter header. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowFilterHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示过滤表头 默认 false 不显示
+    /// <para lang="zh">获得/设置 是否显示过滤表头 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show multi filter header. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowMultiFilterHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示表脚 默认为 false
+    /// <para lang="zh">获得/设置 是否显示表脚 默认为 false</para>
+    /// <para lang="en">Gets or sets Whether to show footer. Default false</para>
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效
+    /// <para lang="zh">获得/设置 是否允许列宽度调整 默认 false 固定表头时此属性生效</para>
+    /// <para lang="en">Gets or sets Whether to allow resizing column width. Default false (Effective when fixed header)</para>
     /// </summary>
     [Parameter]
     public bool AllowResizing { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头允许折行 默认 false 不折行 此设置为 true 时覆盖 <see cref="ITableColumn.HeaderTextWrap"/> 参数值
+    /// <para lang="zh">获得/设置 是否表头允许折行 默认 false 不折行 此设置为 true 时覆盖 <see cref="ITableColumn.HeaderTextWrap"/> 参数值</para>
+    /// <para lang="en">Gets or sets Whether header text wrap. Default false</para>
     /// </summary>
     [Parameter]
     public bool HeaderTextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否斑马线样式 默认为 false
+    /// <para lang="zh">获得/设置 是否斑马线样式 默认为 false</para>
+    /// <para lang="en">Gets or sets Striped Style. Default false</para>
     /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+    /// <remarks>
+    /// <para lang="zh">此参数在 <see cref="IsExcel"/> 模式下不生效</para>
+    /// <para lang="en">Not effective in <see cref="IsExcel"/> mode</para>
+    /// </remarks>
     [Parameter]
     public bool IsStriped { get; set; }
 
     /// <summary>
-    /// 获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用
+    /// <para lang="zh">获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用</para>
+    /// <para lang="en">Gets or sets Whether to auto query on first render. Default true</para>
     /// </summary>
     [Parameter]
     public bool IsAutoQueryFirstRender { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否带边框样式 默认为 false
+    /// <para lang="zh">获得/设置 是否带边框样式 默认为 false</para>
+    /// <para lang="en">Gets or sets Bordered Style. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsBordered { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动刷新表格 默认为 false
+    /// <para lang="zh">获得/设置 是否自动刷新表格 默认为 false</para>
+    /// <para lang="en">Gets or sets Whether to auto refresh. Default false</para>
     /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+    /// <remarks>
+    /// <para lang="zh">此参数在 <see cref="IsExcel"/> 模式下不生效</para>
+    /// <para lang="en">Not effective in <see cref="IsExcel"/> mode</para>
+    /// </remarks>
     [Parameter]
     public bool IsAutoRefresh { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动刷新时间间隔 默认 2000 毫秒
+    /// <para lang="zh">获得/设置 自动刷新时间间隔 默认 2000 毫秒</para>
+    /// <para lang="en">Gets or sets Auto Refresh Interval. Default 2000 ms</para>
     /// </summary>
     [Parameter]
     public int AutoRefreshInterval { get; set; } = 2000;
 
     /// <summary>
-    /// 获取/设置 表格 thead 样式 <see cref="TableHeaderStyle"/>，默认为浅色<see cref="TableHeaderStyle.None"/>
+    /// <para lang="zh">获取/设置 表格 thead 样式 <see cref="TableHeaderStyle"/>，默认为浅色<see cref="TableHeaderStyle.None"/></para>
+    /// <para lang="en">Gets or sets Table Header Style. Default <see cref="TableHeaderStyle.None"/></para>
     /// </summary>
     [Parameter]
     public TableHeaderStyle HeaderStyle { get; set; } = TableHeaderStyle.None;
 
     /// <summary>
-    /// 获得/设置 单击行回调委托方法
+    /// <para lang="zh">获得/设置 单击行回调委托方法</para>
+    /// <para lang="en">Gets or sets On Click Row Callback</para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnClickRowCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 双击行回调委托方法
+    /// <para lang="zh">获得/设置 双击行回调委托方法</para>
+    /// <para lang="en">Gets or sets On Double Click Row Callback</para>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnDoubleClickRowCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示每行的明细行展开图标
+    /// <para lang="zh">获得/设置 是否显示每行的明细行展开图标</para>
+    /// <para lang="en">Gets or sets Whether to show detail row expand icon</para>
     /// </summary>
-    /// <remarks>此参数在 <see cref="IsExcel"/> 模式下不生效</remarks>
+    /// <remarks>
+    /// <para lang="zh">此参数在 <see cref="IsExcel"/> 模式下不生效</para>
+    /// <para lang="en">Not effective in <see cref="IsExcel"/> mode</para>
+    /// </remarks>
     [Parameter]
     public Func<TItem, bool>? ShowDetailRow { get; set; }
 
     /// <summary>
-    /// 获得/设置 动态数据上下文实例
+    /// <para lang="zh">获得/设置 动态数据上下文实例</para>
+    /// <para lang="en">Gets or sets Dynamic Data Context Instance</para>
     /// </summary>
     [Parameter]
     public IDynamicObjectContext? DynamicContext { get; set; }
 
     /// <summary>
-    /// 获得/设置 未设置排序时 tooltip 显示文字 默认点击升序
+    /// <para lang="zh">获得/设置 未设置排序时 tooltip 显示文字 默认点击升序</para>
+    /// <para lang="en">Gets or sets Unset Sort Tooltip Text. Default Click to Asc</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? UnsetText { get; set; }
 
     /// <summary>
-    /// 获得/设置 升序排序时 tooltip 显示文字 默认点击降序
+    /// <para lang="zh">获得/设置 升序排序时 tooltip 显示文字 默认点击降序</para>
+    /// <para lang="en">Gets or sets Asc Sort Tooltip Text. Default Click to Desc</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SortAscText { get; set; }
 
     /// <summary>
-    /// 获得/设置 降序排序时 tooltip 显示文字 默认取消排序
+    /// <para lang="zh">获得/设置 降序排序时 tooltip 显示文字 默认取消排序</para>
+    /// <para lang="en">Gets or sets Desc Sort Tooltip Text. Default Cancel Sort</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? SortDescText { get; set; }
 
     /// <summary>
-    /// 获得/设置 列创建时回调委托方法
+    /// <para lang="zh">获得/设置 列创建时回调委托方法</para>
+    /// <para lang="en">Gets or sets On Column Creating Callback</para>
     /// </summary>
     [Parameter]
     public Func<List<ITableColumn>, Task>? OnColumnCreating { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
+    /// <para lang="zh">获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序</para>
+    /// <para lang="en">Gets or sets Custom Column Order Callback. Default null</para>
     /// </summary>
-    /// <remarks>如果设置 <see cref="AllowDragColumn"/> 并且设置 <see cref="ClientTableName"/> 开启客户端持久化后本回调不生效</remarks>
+    /// <remarks>
+    /// <para lang="zh">如果设置 <see cref="AllowDragColumn"/> 并且设置 <see cref="ClientTableName"/> 开启客户端持久化后本回调不生效</para>
+    /// <para lang="en">Not effective if <see cref="AllowDragColumn"/> and <see cref="ClientTableName"/> are set</para>
+    /// </remarks>
     [Parameter]
     public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
+    /// <para lang="zh">获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键</para>
+    /// <para lang="en">Gets or sets Data Primary Key Attribute. Default <see cref="KeyAttribute"/></para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
-    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="zh">获得/设置 比较数据是否相同回调方法 默认为 null 提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// <para lang="en">Gets or sets Model Equality Comparer. Default null Ignore <see cref="CustomKeyAttribute"/> if this callback is provided</para>
     /// </summary>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得高级搜索条件回调方法 默认 null
+    /// <para lang="zh">获得/设置 获得高级搜索条件回调方法 默认 null</para>
+    /// <para lang="en">Gets or sets Get Advanced Search Filter Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能
+    /// <para lang="zh">获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能</para>
+    /// <para lang="en">Gets or sets Client Table Name. Default null</para>
     /// </summary>
     [Parameter]
     public string? ClientTableName { get; set; }
 
     /// <summary>
-    /// 获得/设置 左对齐显示文本
+    /// <para lang="zh">获得/设置 左对齐显示文本</para>
+    /// <para lang="en">Gets or sets Align Left Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignLeftText { get; set; }
 
     /// <summary>
-    /// 获得/设置左对齐提示信息文本
+    /// <para lang="zh">获得/设置左对齐提示信息文本</para>
+    /// <para lang="en">Gets or sets Align Left Tooltip Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignLeftTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 居中对齐显示文本
+    /// <para lang="zh">获得/设置 居中对齐显示文本</para>
+    /// <para lang="en">Gets or sets Align Center Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignCenterText { get; set; }
 
     /// <summary>
-    /// 获得/设置 居中对齐提示信息文本
+    /// <para lang="zh">获得/设置 居中对齐提示信息文本</para>
+    /// <para lang="en">Gets or sets Align Center Tooltip Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignCenterTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 右对齐显示文本
+    /// <para lang="zh">获得/设置 右对齐显示文本</para>
+    /// <para lang="en">Gets or sets Align Right Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignRightText { get; set; }
 
     /// <summary>
-    /// 获得/设置 右对齐提示信息文本
+    /// <para lang="zh">获得/设置 右对齐提示信息文本</para>
+    /// <para lang="en">Gets or sets Align Right Tooltip Text</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? AlignRightTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建按钮是否禁用回调方法 默认 null 未设置
+    /// <para lang="zh">获得/设置 新建按钮是否禁用回调方法 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets Disable Add Button Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<List<TItem>, bool>? DisableAddButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除按钮是否禁用回调方法 默认 null 未设置
+    /// <para lang="zh">获得/设置 删除按钮是否禁用回调方法 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets Disable Delete Button Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<List<TItem>, bool>? DisableDeleteButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑按钮是否禁用回调方法 默认 null 未设置
+    /// <para lang="zh">获得/设置 编辑按钮是否禁用回调方法 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets Disable Edit Button Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<List<TItem>, bool>? DisableEditButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 翻页时是否自动滚动到顶部 默认 false
+    /// <para lang="zh">获得/设置 翻页时是否自动滚动到顶部 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to scroll to top when paging. Default false</para>
     /// </summary>
     [Parameter]
     public bool IsAutoScrollTopWhenClickPage { get; set; }
@@ -819,7 +937,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -856,9 +974,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         if (IsTree && Items != null && TreeNodeConverter != null)
@@ -959,19 +1076,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 获得/设置 是否为第一次 Render
+    /// <para lang="zh">获得/设置 是否为第一次 Render</para>
+    /// <para lang="en">Gets or sets Whether it is the first Render</para>
     /// </summary>
     protected bool FirstRender { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 自动刷新 CancellationTokenSource 实例
+    /// <para lang="zh">获得/设置 自动刷新 CancellationTokenSource 实例</para>
+    /// <para lang="en">Gets or sets Auto Refresh CancellationTokenSource Instance</para>
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
     private bool _bindResizeColumn;
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -1016,7 +1135,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -1288,7 +1407,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
         ScreenSize = BreakPoint.None;
@@ -1334,7 +1452,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 设置 列可见方法
+    /// <para lang="zh">设置 列可见方法</para>
+    /// <para lang="en">Set Column Visible Method</para>
     /// </summary>
     /// <param name="columns"></param>
     public void ResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
@@ -1350,9 +1469,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 周期性查询方法
+    /// <para lang="zh">周期性查询方法</para>
+    /// <para lang="en">Periodic Query Method</para>
     /// </summary>
-    /// <returns></returns>
     protected async Task LoopQueryAsync()
     {
         try
@@ -1369,16 +1488,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _firstQuery;
     private bool _autoQuery;
 
-    /// <summary>
-    /// OnQueryAsync 查询结果数据集合
-    /// </summary>
     private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
     private List<TItem>? _rowsCache = null;
 
     /// <summary>
-    /// 获得 当前表格所有 Rows 集合
+    /// <para lang="zh">获得 当前表格所有 Rows 集合</para>
+    /// <para lang="en">Get current table all Rows collection</para>
     /// </summary>
     public List<TItem> Rows
     {
@@ -1392,13 +1509,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    #region 生成 Row 方法
+    #region Generate Row Method
     /// <summary>
-    /// 获得 指定单元格数据方法
+    /// <para lang="zh">获得 指定单元格数据方法</para>
+    /// <para lang="en">Get specified cell data method</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="item"></param>
-    /// <returns></returns>
     protected RenderFragment GetValue(ITableColumn col, TItem item) => builder =>
     {
         if (col.Template != null)
@@ -1486,12 +1603,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 渲染单元格方法
+    /// <para lang="zh">渲染单元格方法</para>
+    /// <para lang="en">Render Cell Method</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="item"></param>
     /// <param name="changedType"></param>
-    /// <returns></returns>
     protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType)
     {
         return col.CanWrite(typeof(TItem), changedType) ? RenderEditTemplate() : RenderTemplate();
@@ -1506,12 +1623,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 渲染 Excel 单元格方法
+    /// <para lang="zh">渲染 Excel 单元格方法</para>
+    /// <para lang="en">Render Excel Cell Method</para>
     /// </summary>
     /// <param name="col"></param>
     /// <param name="item"></param>
     /// <param name="changedType"></param>
-    /// <returns></returns>
     protected RenderFragment RenderExcelCell(ITableColumn col, TItem item, ItemChangedType changedType)
     {
         col.PlaceHolder ??= "";
@@ -1558,12 +1675,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     #region Filter
     /// <summary>
-    /// 获得/设置 表头过滤时回调方法
+    /// <para lang="zh">获得/设置 表头过滤时回调方法</para>
+    /// <para lang="en">Gets or sets Filter Callback</para>
     /// </summary>
     public Func<Task>? OnFilterAsync { get; private set; }
 
     /// <summary>
-    /// 获得 过滤集合
+    /// <para lang="zh">获得 过滤集合</para>
+    /// <para lang="en">Get Filter Collection</para>
     /// </summary>
     public Dictionary<string, IFilterAction> Filters { get; } = [];
     #endregion
@@ -1626,7 +1745,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private int GetLineNo(TItem item) => Rows.IndexOf(item) + 1 + ((ScrollMode == ScrollMode.Virtual && Items == null) ? StartIndex : (PageIndex - 1) * _pageItems);
 
     /// <summary>
-    /// Reset all Columns Filter
+    /// <para lang="zh">重置所有列过滤条件方法</para>
+    /// <para lang="en">Reset all Columns Filter</para>
     /// </summary>
     public async Task ResetFilters()
     {
@@ -1643,7 +1763,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// Reset all Columns Sort
+    /// <para lang="zh">重置所有列排序方法</para>
+    /// <para lang="en">Reset all Columns Sort</para>
     /// </summary>
     public async Task ResetSortAsync()
     {
@@ -1655,16 +1776,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool GetAddButtonStatus() => DisableAddButtonCallback?.Invoke(SelectedRows) ?? false;
 
-    /// <summary>
-    /// 返回 true 时按钮禁用
-    /// </summary>
-    /// <returns></returns>
     private bool GetEditButtonStatus() => ShowAddForm || AddInCell || (DisableEditButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count != 1);
 
-    /// <summary>
-    /// 返回 true 时按钮禁用
-    /// </summary>
-    /// <returns></returns>
     private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || (DisableDeleteButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count == 0);
 
     private async Task InvokeItemsChanged()
@@ -1684,7 +1797,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false
+    /// <para lang="zh">获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false</para>
+    /// <para lang="en">Gets or sets Whether to allow dragging column header to change column order. Default false</para>
     /// </summary>
     [Parameter]
     public bool AllowDragColumn { get; set; }
@@ -1692,19 +1806,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序
+    /// <para lang="zh">获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序</para>
+    /// <para lang="en">Gets or sets Drag Column End Callback. Default null</para>
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置列宽回调方法
+    /// <para lang="zh">获得/设置 设置列宽回调方法</para>
+    /// <para lang="en">Gets or sets Resize Column Callback</para>
     /// </summary>
     [Parameter]
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动调整列宽回调方法
+    /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
+    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 OnAutoFitColumnWidthCallback 替代; Deprecated, please use OnAutoFitColumnWidthCallback instead")]
@@ -1712,19 +1829,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, float, Task<float>>? OnAutoFitContentAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 自动调整列宽回调方法
+    /// <para lang="zh">获得/设置 自动调整列宽回调方法</para>
+    /// <para lang="en">Gets or sets Auto Fit Column Width Callback</para>
     /// </summary>
     [Parameter]
     public Func<string, float, Task<float>>? OnAutoFitColumnWidthCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 列宽自适应时是否包含表头 默认 false
+    /// <para lang="zh">获得/设置 列宽自适应时是否包含表头 默认 false</para>
+    /// <para lang="en">Gets or sets Whether to include header when auto fit column width. Default false</para>
     /// </summary>
     [Parameter]
     public bool FitColumnWidthIncludeHeader { get; set; }
 
     /// <summary>
-    /// 列宽自适应方法
+    /// <para lang="zh">列宽自适应方法</para>
+    /// <para lang="en">Fit All Column Width Method</para>
     /// </summary>
     public async Task FitAllColumnWidth()
     {
@@ -1732,11 +1852,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 重置列方法 由 JavaScript 脚本调用
+    /// <para lang="zh">重置列方法 由 JavaScript 脚本调用</para>
+    /// <para lang="en">Reset Column Method called by JavaScript</para>
     /// </summary>
     /// <param name="originIndex"></param>
     /// <param name="currentIndex"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
@@ -1762,11 +1882,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 设置列宽方法 由 JavaScript 脚本调用
+    /// <para lang="zh">设置列宽方法 由 JavaScript 脚本调用</para>
+    /// <para lang="en">Resize Column Method called by JavaScript</para>
     /// </summary>
     /// <param name="index"></param>
     /// <param name="width"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task ResizeColumnCallback(int index, float width)
     {
@@ -1778,11 +1898,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 列宽自适应回调方法 由 JavaScript 脚本调用
+    /// <para lang="zh">列宽自适应回调方法 由 JavaScript 脚本调用</para>
+    /// <para lang="en">Auto Fit Column Width Callback called by JavaScript</para>
     /// </summary>
-    /// <param name="fieldName">当前列名称</param>
-    /// <param name="calcWidth">当前列宽</param>
-    /// <returns></returns>
+    /// <param name="fieldName"><para lang="zh">当前列名称</para><para lang="en">当前列name</para></param>
+    /// <param name="calcWidth"><para lang="zh">当前列宽</para><para lang="en">当前列宽</para></param>
     [JSInvokable]
     public async Task<float> AutoFitColumnWidthCallback(string fieldName, float calcWidth)
     {
@@ -1795,12 +1915,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
-    /// 是否触摸
+    /// <para lang="zh">是否触摸</para>
+    /// <para lang="en">Is Touch</para>
     /// </summary>
     private bool TouchStart { get; set; }
 
     /// <summary>
-    /// 触摸定时器工作指示
+    /// <para lang="zh">触摸定时器工作指示</para>
+    /// <para lang="en">Touch timer work indicator</para>
     /// </summary>
     private bool IsBusy { get; set; }
 
@@ -1871,7 +1993,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     };
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

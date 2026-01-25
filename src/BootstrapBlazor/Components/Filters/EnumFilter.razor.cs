@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,25 +6,29 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Enum filter component
+/// <para lang="zh">Enum filter component</para>
+/// <para lang="en">Enum filter component</para>
 /// </summary>
 public partial class EnumFilter
 {
     /// <summary>
-    /// 内部使用
+    /// <para lang="zh">内部使用</para>
+    /// <para lang="en">Internal use</para>
     /// </summary>
     [NotNull]
     private Type? EnumType { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关枚举类型
+    /// <para lang="zh">获得/设置 相关枚举类型</para>
+    /// <para lang="en">Gets or sets Related Enum Type</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
 
     /// <summary>
-    /// Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.
+    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
@@ -60,7 +64,6 @@ public partial class EnumFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();

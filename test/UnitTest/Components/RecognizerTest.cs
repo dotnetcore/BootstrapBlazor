@@ -19,7 +19,7 @@ public class RecognizerTest : SpeechTestBase
             MethodName = "Test",
             TargetLanguage = "zh-CN",
             SpeechRecognitionLanguage = "zh-CN",
-            AutoRecoginzerElapsedMilliseconds = 5000,
+            AutoRecognizerElapsedMilliseconds = 5000,
             Callback = new Func<RecognizerStatus, string?, Task>((status, v) =>
             {
                 result = v;
@@ -29,7 +29,7 @@ public class RecognizerTest : SpeechTestBase
         await recognizerService.InvokeAsync(option);
 
         Assert.Equal("MockSpeechProvider", result);
-        Assert.Equal(5000, option.AutoRecoginzerElapsedMilliseconds);
+        Assert.Equal(5000, option.AutoRecognizerElapsedMilliseconds);
     }
 
     [Fact]

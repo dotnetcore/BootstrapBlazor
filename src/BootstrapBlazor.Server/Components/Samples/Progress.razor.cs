@@ -10,8 +10,4 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Progress
 {
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

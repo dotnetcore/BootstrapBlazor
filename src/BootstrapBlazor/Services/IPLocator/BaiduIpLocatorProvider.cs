@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,7 +9,8 @@ using System.Net.Http.Json;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 百度搜索引擎 IP 定位器
+/// <para lang="zh">百度搜索引擎 IP 定位器</para>
+/// <para lang="en">Baidu Search Engine IP Locator</para>
 /// </summary>
 public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> options, ILogger<BaiduIpLocatorProvider> logger) : DefaultIpLocatorProvider(options)
 {
@@ -38,25 +39,25 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     }
 
     /// <summary>
-    /// 获得 HttpClient 实例方法
+    /// <para lang="zh">获得 HttpClient 实例方法</para>
+    /// <para lang="en">Get HttpClient Instance Method</para>
     /// </summary>
-    /// <returns></returns>
     protected virtual HttpClient GetHttpClient() => httpClientFactory.CreateClient();
 
     /// <summary>
-    /// 获得 Url 地址
+    /// <para lang="zh">获得 Url 地址</para>
+    /// <para lang="en">Get URL Address</para>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     protected virtual string GetUrl(string ip) => $"https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={ip}";
 
     /// <summary>
-    /// 请求获得地理位置接口方法
+    /// <para lang="zh">请求获得地理位置接口方法</para>
+    /// <para lang="en">Request Geolocation Interface Method</para>
     /// </summary>
     /// <param name="url"></param>
     /// <param name="client"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
         var result = await client.GetFromJsonAsync<LocationResult>(url, token);
@@ -64,23 +65,27 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     }
 
     /// <summary>
-    /// LocationResult 结构体
+    /// <para lang="zh">LocationResult 结构体</para>
+    /// <para lang="en">LocationResult Structure</para>
     /// </summary>
     [ExcludeFromCodeCoverage]
     class LocationResult
     {
         /// <summary>
-        /// 获得/设置 结果状态返回码 为 0 时通讯正常
+        /// <para lang="zh">获得/设置 结果状态返回码 为 0 时通讯正常</para>
+        /// <para lang="en">Gets or sets Result Status Code, 0 is Normal</para>
         /// </summary>
         public string? Status { get; set; }
 
         /// <summary>
-        /// 获得/设置 定位信息
+        /// <para lang="zh">获得/设置 定位信息</para>
+        /// <para lang="en">Gets or sets Location Info</para>
         /// </summary>
         public List<LocationData>? Data { get; set; }
 
         /// <summary>
         /// <inheritdoc/>
+        /// <para lang="en"><inheritdoc/></para>
         /// </summary>
         /// <returns></returns>
         public override string? ToString()
@@ -98,7 +103,8 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     class LocationData
     {
         /// <summary>
-        /// 获得/设置 定位信息
+        /// <para lang="zh">获得/设置 定位信息</para>
+        /// <para lang="en">Gets or sets 定位信息</para>
         /// </summary>
         public string? Location { get; set; }
     }

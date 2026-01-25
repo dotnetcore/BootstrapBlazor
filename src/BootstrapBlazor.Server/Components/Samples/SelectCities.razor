@@ -1,4 +1,4 @@
-﻿@page "/select-city"
+@page "/select-city"
 @inject IStringLocalizer<SelectCities> Localizer
 
 <h3>@Localizer["CityTitle"]</h3>
@@ -39,3 +39,5 @@
     <SelectCity @bind-Value="@_value" ShowSearch="_showSearch" AutoClose="_autoClose"
                 IsMultiple="_isMultiple" IsDisabled="_isDisabled"></SelectCity>
 </DemoBlock>
+
+<AttributeTable Type="typeof(SelectCity)" />

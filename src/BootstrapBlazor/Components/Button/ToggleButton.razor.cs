@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,24 +6,28 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toggle Button 按钮组件
+/// <para lang="zh">Toggle Button 按钮组件</para>
+/// <para lang="en">Toggle Button component</para>
 /// </summary>
 public partial class ToggleButton
 {
     /// <summary>
-    /// 获得/设置 状态切换回调方法
+    /// <para lang="zh">获得/设置 状态切换回调方法</para>
+    /// <para lang="en">Gets or sets the state toggle callback method</para>
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnToggleAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前状态是否为激活状态 默认 false
+    /// <para lang="zh">获得/设置 当前状态是否为激活状态 默认 false</para>
+    /// <para lang="en">Gets or sets whether the current state is active. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
-    /// 获得/设置 激活状态回调方法
+    /// <para lang="zh">获得/设置 激活状态回调方法</para>
+    /// <para lang="en">Gets or sets the active state callback method</para>
     /// </summary>
     [Parameter]
     public EventCallback<bool> IsActiveChanged { get; set; }
@@ -42,7 +46,8 @@ public partial class ToggleButton
 
         await HandlerClick();
 
-        // 恢复按钮
+        // <para lang="zh">恢复按钮</para>
+        // <para lang="en">Restore button</para>
         if (IsAsync)
         {
             IsDisabled = IsKeepDisabled;

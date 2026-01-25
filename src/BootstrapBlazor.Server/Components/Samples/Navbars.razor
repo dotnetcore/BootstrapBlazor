@@ -1,4 +1,4 @@
-﻿@page "/navbar"
+@page "/navbar"
 @inject IStringLocalizer<Navbars> Localizer
 
 <h3>@Localizer["NavbarTitle"]</h3>
@@ -75,3 +75,5 @@
         <p>渲染 <code>dropdown-item</code> 样式，导航栏中下拉菜单组件内项目</p>
     </section>
 </DemoBlock>
+
+<AttributeTable Type="typeof(Navbar)" />

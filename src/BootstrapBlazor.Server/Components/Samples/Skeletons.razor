@@ -1,4 +1,4 @@
-﻿@page "/skeleton"
+@page "/skeleton"
 @inject IStringLocalizer<Skeletons> Localizer
 
 <h3>@Localizer["SkeletonsTitle"]</h3>
@@ -56,4 +56,10 @@
     <SkeletonTree />
 </DemoBlock>
 
-<AttributeTable Name="Skeleton" />
+<AttributeTable Type="typeof(SkeletonAvatar)" />
+
+<AttributeTable Type="typeof(SkeletonParagraph)" />
+
+<AttributeTable Type="typeof(SkeletonEditor)" />
+
+<AttributeTable Type="typeof(SkeletonTable)" />

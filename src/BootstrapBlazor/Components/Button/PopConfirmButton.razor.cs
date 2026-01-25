@@ -8,7 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// PopConfirmButton 组件
+/// <para lang="zh">PopConfirmButton 组件</para>
+/// <para lang="en">PopConfirmButton component</para>
 /// </summary>
 public partial class PopConfirmButton
 {
@@ -30,7 +31,8 @@ public partial class PopConfirmButton
         .Build();
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// <para lang="zh">获得/设置 按钮颜色</para>
+    /// <para lang="en">Gets or sets the button color</para>
     /// </summary>
     [Parameter]
     public override Color Color { get; set; } = Color.None;
@@ -42,7 +44,8 @@ public partial class PopConfirmButton
     private bool _renderTooltip;
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <para lang="zh">OnParametersSet 方法</para>
+    /// <para lang="en">OnParametersSet method</para>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -58,13 +61,11 @@ public partial class PopConfirmButton
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override Task ShowTooltip() => Task.CompletedTask;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override Task RemoveTooltip() => Task.CompletedTask;
 
     private string? ConfirmString => OnBeforeClick != null ? "true" : null;
@@ -72,7 +73,8 @@ public partial class PopConfirmButton
     private string? TriggerCloseString => OnClose != null ? "true" : null;
 
     /// <summary>
-    /// 显示确认弹窗方法
+    /// <para lang="zh">显示确认弹窗方法</para>
+    /// <para lang="en">Show confirm popup method</para>
     /// </summary>
     private async Task Show()
     {
@@ -89,9 +91,9 @@ public partial class PopConfirmButton
     }
 
     /// <summary>
-    /// 确认回调方法
+    /// <para lang="zh">确认回调方法</para>
+    /// <para lang="en">Confirm callback method</para>
     /// </summary>
-    /// <returns></returns>
     private async Task OnClickConfirm()
     {
         if (IsAsync)

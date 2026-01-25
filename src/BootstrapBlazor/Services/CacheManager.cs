@@ -19,7 +19,8 @@ using System.Collections.Frozen;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 缓存操作类
+/// <para lang="zh">缓存操作类</para>
+/// <para lang="en">Cache Manager Class</para>
 /// </summary>
 internal class CacheManager : ICacheManager
 {
@@ -36,7 +37,8 @@ internal class CacheManager : ICacheManager
     private const string CacheKeyPrefix = "BootstrapBlazor";
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
@@ -49,7 +51,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 获得或者创建指定 Key 缓存项
+    /// <para lang="zh">获得或者创建指定 Key 缓存项</para>
+    /// <para lang="en">Get or create cache item by key</para>
     /// </summary>
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
@@ -60,7 +63,8 @@ internal class CacheManager : ICacheManager
     })!;
 
     /// <summary>
-    /// 获得或者创建指定 Key 缓存项 异步重载方法
+    /// <para lang="zh">获得或者创建指定 Key 缓存项 异步重载方法</para>
+    /// <para lang="en">Get or create cache item by key (Async)</para>
     /// </summary>
     public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
@@ -76,7 +80,6 @@ internal class CacheManager : ICacheManager
     /// <typeparam name="TItem"></typeparam>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    /// <returns></returns>
     public bool TryGetValue<TItem>(object key, [NotNullWhen(true)] out TItem? value)
     {
         var ret = Cache.TryGetValue(key, out var v);
@@ -89,7 +92,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 清除指定 Key 缓存项
+    /// <para lang="zh">清除指定 Key 缓存项</para>
+    /// <para lang="en">Clear cache item by key</para>
     /// </summary>
     /// <param name="key"></param>
     public void Clear(object? key)
@@ -109,12 +113,14 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 设置 App 开始时间
+    /// <para lang="zh">设置 App 开始时间</para>
+    /// <para lang="en">Set App Start Time</para>
     /// </summary>
     public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
 
     /// <summary>
-    /// 设置 App 开始时间
+    /// <para lang="zh">设置 App 开始时间</para>
+    /// <para lang="en">Set App Start Time</para>
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
@@ -126,9 +132,9 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 获取 App 开始时间
+    /// <para lang="zh">获取 App 开始时间</para>
+    /// <para lang="en">Get App Start Time</para>
     /// </summary>
-    /// <returns></returns>
     public DateTimeOffset GetStartTime()
     {
         var ret = DateTimeOffset.MinValue;
@@ -140,7 +146,8 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 获得 缓存数量
+    /// <para lang="zh">获得 缓存数量</para>
+    /// <para lang="en">Get Cache Count</para>
     /// </summary>
     public long Count
     {
@@ -157,7 +164,8 @@ internal class CacheManager : ICacheManager
 
 #if NET9_0_OR_GREATER
     /// <summary>
-    /// 获得 缓存键集合
+    /// <para lang="zh">获得 缓存键集合</para>
+    /// <para lang="en">Get Cache Keys</para>
     /// </summary>
     public IEnumerable<object> Keys
     {
@@ -185,7 +193,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="key"></param>
     /// <param name="entry"></param>
-    /// <returns></returns>
     public bool TryGetCacheEntry(object? key, [NotNullWhen(true)] out ICacheEntry? entry)
     {
         entry = null;
@@ -218,10 +225,10 @@ internal class CacheManager : ICacheManager
 
     #region Assembly
     /// <summary>
-    /// 获得唯一类型名称方法
+    /// <para lang="zh">获得唯一类型名称方法</para>
+    /// <para lang="en">Get Unique Type Name Method</para>
     /// </summary>
     /// <param name="assembly"></param>
-    /// <returns></returns>
     public static string GetUniqueName(Assembly assembly)
     {
         //key不拼接，作为当前静态实例唯一标识，因为GetUniqueName方法会被频繁调用
@@ -255,18 +262,18 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    /// 通过 Type 获得 <see cref="IStringLocalizer"/> 实例
+    /// <para lang="zh">通过 Type 获得 <see cref="IStringLocalizer"/> 实例</para>
+    /// <para lang="en">Get <see cref="IStringLocalizer"/> instance by Type</para>
     /// </summary>
     /// <param name="resourceSource"></param>
-    /// <returns></returns>
     public static IStringLocalizer? CreateLocalizerByType(Type resourceSource) => resourceSource.Assembly.IsDynamic
         ? null
         : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
     /// <summary>
-    /// 获得 <see cref="JsonLocalizationOptions"/> 值
+    /// <para lang="zh">获得 <see cref="JsonLocalizationOptions"/> 值</para>
+    /// <para lang="en">Get <see cref="JsonLocalizationOptions"/> Value</para>
     /// </summary>
-    /// <returns></returns>
     private static JsonLocalizationOptions GetJsonLocalizationOption()
     {
         var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
@@ -274,11 +281,11 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 通过 程序集与类型获得 IStringLocalizer 实例
+    /// <para lang="zh">通过 程序集与类型获得 IStringLocalizer 实例</para>
+    /// <para lang="en">Get IStringLocalizer instance by Assembly and Type Name</para>
     /// </summary>
-    /// <param name="assembly">Assembly 程序集实例</param>
-    /// <param name="typeName">类型名称</param>
-    /// <returns></returns>
+    /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
+    /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName)
     {
         if (assembly.IsDynamic)
@@ -300,22 +307,23 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 获取指定文化本地化资源集合
+    /// <para lang="zh">获取指定文化本地化资源集合</para>
+    /// <para lang="en">Get localized string collection for specified culture</para>
     /// </summary>
-    /// <param name="assembly">Assembly 程序集实例</param>
-    /// <param name="typeName">类型名称</param>
+    /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
+    /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
     public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
-    /// 通过指定程序集获取所有本地化信息键值集合
+    /// <para lang="zh">通过指定程序集获取所有本地化信息键值集合</para>
+    /// <para lang="en">Get all localized string key-value pairs by assembly</para>
     /// </summary>
-    /// <param name="option">JsonLocalizationOptions 实例</param>
-    /// <param name="assembly">Assembly 程序集实例</param>
-    /// <param name="typeName">类型名称</param>
-    /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
-    /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
-    /// <returns></returns>
+    /// <param name="option"><para lang="zh">JsonLocalizationOptions 实例</para><para lang="en">JsonLocalizationOptions instance</para></param>
+    /// <param name="assembly"><para lang="zh">Assembly 程序集实例</para><para lang="en">Assembly 程序集instance</para></param>
+    /// <param name="typeName"><para lang="zh">类型名称</para><para lang="en">typename</para></param>
+    /// <param name="cultureName"><para lang="zh">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</para><para lang="en">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</para></param>
+    /// <param name="forceLoad"><para lang="zh">默认 false 使用缓存值 设置 true 时内部强制重新加载</para><para lang="en">default is false 使用缓存value Sets true 时内部强制重新加载</para></param>
     public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
         if (assembly.IsDynamic)
@@ -357,25 +365,26 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 通过 ILocalizationResolve 接口实现类获得本地化键值集合
+    /// <para lang="zh">通过 ILocalizationResolve 接口实现类获得本地化键值集合</para>
+    /// <para lang="en">Get localized string key-value pairs from ILocalizationResolve implementation</para>
     /// </summary>
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
     public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
     #endregion
 
     #region DisplayName
     /// <summary>
-    /// 获得类型属性的描述信息
+    /// <para lang="zh">获得类型属性的描述信息</para>
+    /// <para lang="en">Get Description of Type Property</para>
     /// </summary>
     /// <param name="modelType"></param>
     /// <param name="fieldName"></param>
-    /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
         string? dn = null;
-        // 显示名称为空时通过资源文件查找 FieldName 项
+        // <para lang="zh">显示名称为空时通过资源文件查找 FieldName 项</para>
+        // <para lang="en">Find FieldName item in resource file when display name is null</para>
         var localizer = modelType.Assembly.IsDynamic ? null : CreateLocalizerByType(modelType);
         var stringLocalizer = localizer?[fieldName];
         if (stringLocalizer is { ResourceNotFound: false })
@@ -399,12 +408,14 @@ internal class CacheManager : ICacheManager
 
     private static string? FindDisplayAttribute(Type modelType, MemberInfo memberInfo)
     {
-        // 回退查找 Display 标签
+        // <para lang="zh">回退查找 Display 标签</para>
+        // <para lang="en">Fallback to find Display Attribute</para>
         var dn = memberInfo.GetCustomAttribute<DisplayAttribute>(true)?.Name
             ?? memberInfo.GetCustomAttribute<DisplayNameAttribute>(true)?.DisplayName
             ?? memberInfo.GetCustomAttribute<DescriptionAttribute>(true)?.Description;
 
-        // 回退查找资源文件通过 dn 查找匹配项 用于支持 Validation
+        // <para lang="zh">回退查找资源文件通过 dn 查找匹配项 用于支持 Validation</para>
+        // <para lang="en">Fallback to find matching item in resource file by dn for Validation</para>
         if (!modelType.Assembly.IsDynamic && !string.IsNullOrEmpty(dn))
         {
             dn = GetLocalizerValueFromResourceManager(dn);
@@ -429,7 +440,8 @@ internal class CacheManager : ICacheManager
             {
                 string? dn = null;
 
-                // 优先读取资源文件配置
+                // <para lang="zh">优先读取资源文件配置</para>
+                // <para lang="en">Prioritize reading resource file configuration</para>
                 var stringLocalizer = localizer?[$"{fieldName}-{itemName}"];
                 if (stringLocalizer is { ResourceNotFound: false })
                 {
@@ -437,7 +449,8 @@ internal class CacheManager : ICacheManager
                 }
                 else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
                 {
-                    // 类资源文件未找到 回落查找标签
+                    // <para lang="zh">类资源文件未找到 回落查找标签</para>
+                    // <para lang="en">Class resource file not found, fallback to find Attribute</para>
                     var attr = propertyInfo.GetCustomAttribute<NullableBoolItemsAttribute>(true);
                     if (attr != null && !modelType.Assembly.IsDynamic)
                     {
@@ -445,7 +458,8 @@ internal class CacheManager : ICacheManager
                     }
                 }
 
-                // 回落读取 NullableBoolItemsAttribute 资源文件配置
+                // <para lang="zh">回落读取 NullableBoolItemsAttribute 资源文件配置</para>
+                // <para lang="en">Fallback to read NullableBoolItemsAttribute resource file configuration</para>
                 return dn ?? FindDisplayTextByItemName(itemName);
             }
 
@@ -459,10 +473,10 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 通过指定 Key 获取资源文件中的键值
+    /// <para lang="zh">通过指定 Key 获取资源文件中的键值</para>
+    /// <para lang="en">Get value from resource file by key</para>
     /// </summary>
     /// <param name="key"></param>
-    /// <returns></returns>
     private static string? GetLocalizerValueFromResourceManager(string key)
     {
         string? dn = null;
@@ -596,13 +610,13 @@ internal class CacheManager : ICacheManager
     }
 
     /// <summary>
-    /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
+    /// <para lang="zh">获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值</para>
+    /// <para lang="en">Get property value of specified model marked with <see cref="KeyAttribute"/></para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="customAttribute"></param>
-    /// <returns></returns>
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null)
     {
         var ret = default(TValue);
@@ -655,11 +669,11 @@ internal class CacheManager : ICacheManager
 
     #region OnValueChanged Lambda
     /// <summary>
-    /// 创建 OnValueChanged 回调委托
+    /// <para lang="zh">创建 OnValueChanged 回调委托</para>
+    /// <para lang="en">Create OnValueChanged Callback Delegate</para>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="fieldType"></param>
-    /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
         var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";

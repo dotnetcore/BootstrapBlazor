@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -9,15 +9,16 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Object 扩展方法
+/// <para lang="zh">Object 扩展方法</para>
+/// <para lang="en">Object extension methods</para>
 /// </summary>
 public static class ObjectExtensions
 {
     /// <summary>
-    /// 转化为带单位的字符串 [% px] => [% px] [int] => [int]px
+    /// <para lang="zh">转化为带单位的字符串 [% px] => [% px] [int] => [int]px</para>
+    /// <para lang="en">Convert to string with unit [% px] => [% px] [int] => [int]px</para>
     /// </summary>
     /// <param name="val"></param>
-    /// <returns></returns>
     public static string ConvertToPercentString(this string? val)
     {
         var ret = "";
@@ -44,10 +45,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 Number 数据类型
+    /// <para lang="zh">检查是否为 Number 数据类型</para>
+    /// <para lang="en">Check if it is a Number data type</para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static bool IsNumber(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
@@ -56,10 +57,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/>
+    /// <para lang="zh">检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/></para>
+    /// <para lang="en">Check if it should be rendered as <see cref="BootstrapInputNumber{TValue}"/></para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static bool IsNumberWithDotSeparator(this Type t)
     {
         var separator = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
@@ -71,10 +72,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 Boolean 数据类型
+    /// <para lang="zh">检查是否为 Boolean 数据类型</para>
+    /// <para lang="en">Check if it is a Boolean data type</para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static bool IsBoolean(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
@@ -82,10 +83,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 DateTime 数据类型
+    /// <para lang="zh">检查是否为 DateTime 数据类型</para>
+    /// <para lang="en">Check if it is a DateTime data type</para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static bool IsDateTime(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
@@ -94,10 +95,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 检查是否为 TimeSpan 数据类型
+    /// <para lang="zh">检查是否为 TimeSpan 数据类型</para>
+    /// <para lang="en">Check if it is a TimeSpan data type</para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static bool IsTimeSpan(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
@@ -106,10 +107,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 通过类型获取类型描述文字
+    /// <para lang="zh">通过类型获取类型描述文字</para>
+    /// <para lang="en">Get type description text by type</para>
     /// </summary>
     /// <param name="t"></param>
-    /// <returns></returns>
     public static string GetTypeDesc(this Type t)
     {
         string? ret;
@@ -134,9 +135,9 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 字符串类型转换为其他数据类型
+    /// <para lang="zh">字符串类型转换为其他数据类型</para>
+    /// <para lang="en">String type converted to other data types</para>
     /// </summary>
-    /// <returns></returns>
     public static bool TryConvertTo(this string? source, Type type, out object? val)
     {
         var ret = true;
@@ -159,12 +160,12 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Tries to convert the string representation of a value to a specified type.
+    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型.</para>
+    /// <para lang="en">Tries to convert the string representation of a value to a specified type.</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="source"></param>
     /// <param name="val"></param>
-    /// <returns></returns>
     public static bool TryConvertTo<TValue>(this string? source, [MaybeNullWhen(false)] out TValue val)
     {
         var ret = false;
@@ -203,10 +204,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Formats the file size into a string with appropriate units
+    /// <para lang="zh">Formats the file size into a string with appropriate units</para>
+    /// <para lang="en">Formats the file size into a string with appropriate units</para>
     /// </summary>
     /// <param name="fileSize"></param>
-    /// <returns></returns>
     public static string ToFileSizeString(this long fileSize) => fileSize switch
     {
         >= 1024 and < 1024 * 1024 => $"{Math.Round(fileSize / 1024D, 0, MidpointRounding.AwayFromZero)} KB",
@@ -221,7 +222,8 @@ public static class ObjectExtensions
         {
             var type = typeof(TModel);
 
-            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            // <para lang="zh">20200608 tian_teng@outlook.com 支持字段和只读属性</para>
+            // <para lang="en">20200608 tian_teng@outlook.com Support fields and read-only properties</para>
             foreach (var f in type.GetFields())
             {
                 var v = f.GetValue(item);
@@ -239,14 +241,15 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Creates an instance of a type and ensures all class-type properties are initialized.
+    /// <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized.</para>
+    /// <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized.</para>
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <returns>An instance of the specified type with initialized properties.</returns>
     public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
-        if(typeof(TItem).IsInterface)
+        if (typeof(TItem).IsInterface)
         {
             return default;
         }
@@ -270,7 +273,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// Ensures that all class-type properties of the instance are initialized.
+    /// <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized.</para>
+    /// <para lang="en">Ensures that all class-type properties of the instance are initialized.</para>
     /// </summary>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <param name="instance">The instance to initialize properties for.</param>

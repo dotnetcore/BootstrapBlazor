@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,17 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Table 大小枚举类型
+/// <para lang="zh">Table 大小枚举类型</para>
+/// <para lang="en">Table size enumeration type</para>
 /// </summary>
 public enum TableSize
 {
     /// <summary>
-    /// 正常模式
+    /// <para lang="zh">正常模式</para>
+    /// <para lang="en">Normal mode</para>
     /// </summary>
     Normal,
 
     /// <summary>
-    /// 紧凑模式
+    /// <para lang="zh">紧凑模式</para>
+    /// <para lang="en">Compact mode</para>
     /// </summary>
     Compact
 }

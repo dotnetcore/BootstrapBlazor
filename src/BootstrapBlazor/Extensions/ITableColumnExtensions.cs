@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,12 +8,14 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IEditItem 扩展方法
+/// <para lang="zh">IEditItem 扩展方法</para>
+/// <para lang="en">IEditItem extension methods</para>
 /// </summary>
 public static class IEditItemExtensions
 {
     /// <summary>
-    /// 继承 class 标签中设置的参数值
+    /// <para lang="zh">继承 class 标签中设置的参数值</para>
+    /// <para lang="en">Inherit the parameter value set in the class tag</para>
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -33,7 +35,8 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    /// 属性赋值方法
+    /// <para lang="zh">属性赋值方法</para>
+    /// <para lang="en">Property assignment method</para>
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -115,11 +118,11 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    /// 将 ITableColumn 集合转化为 IFilterAction 集合
+    /// <para lang="zh">将 ITableColumn 集合转化为 IFilterAction 集合</para>
+    /// <para lang="en">Convert attributes to IFilterAction collection</para>
     /// </summary>
     /// <param name="columns"></param>
     /// <param name="searchText"></param>
-    /// <returns></returns>
     public static List<IFilterAction> ToSearches(this IEnumerable<ITableColumn> columns, string? searchText)
     {
         var searches = new List<IFilterAction>();
@@ -175,12 +178,12 @@ public static class IEditItemExtensions
     }
 
     /// <summary>
-    /// 当前单元格方法
+    /// <para lang="zh">当前单元格方法</para>
+    /// <para lang="en">Render cell method</para>
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="col"></param>
     /// <param name="item"></param>
-    /// <returns></returns>
     public static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);
@@ -197,7 +200,8 @@ public static class IEditItemExtensions
             string? content;
             if (col.Formatter != null)
             {
-                // 格式化回调委托
+                // <para lang="zh">格式化回调委托</para>
+                // <para lang="en">Format callback delegate</para>
                 builder.OpenComponent<TableFormatContent>(40);
                 builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
                 builder.AddAttribute(46, nameof(TableFormatContent.Item), new TableColumnContext<TItem, object?>(item, val));
@@ -207,7 +211,8 @@ public static class IEditItemExtensions
             {
                 if (!string.IsNullOrEmpty(col.FormatString))
                 {
-                    // 格式化字符串
+                    // <para lang="zh">格式化字符串</para>
+                    // <para lang="en">Format string</para>
                     content = Utility.Format(val, col.FormatString);
                 }
                 else if (col.PropertyType.IsDateTime())
@@ -229,7 +234,8 @@ public static class IEditItemExtensions
 
     private static RenderFragment RenderSwitch(this bool value) => builder =>
     {
-        // 自动化处理 bool 值
+        // <para lang="zh">自动化处理 bool 值</para>
+        // <para lang="en">Automated processing of bool values</para>
         builder.OpenComponent(0, typeof(Switch));
         builder.AddAttribute(1, "Value", value);
         builder.AddAttribute(2, "IsDisabled", true);
@@ -320,7 +326,8 @@ public static class IEditItemExtensions
                 var t = ret.GetType();
                 if (t.IsEnum)
                 {
-                    // 如果是枚举这里返回 枚举的描述信息
+                    // <para lang="zh">如果是枚举这里返回 枚举的描述信息</para>
+                    // <para lang="en">If it is an enumeration, return the description information of the enumeration here</para>
                     var itemName = ret.ToString();
                     if (!string.IsNullOrEmpty(itemName))
                     {

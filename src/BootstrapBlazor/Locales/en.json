@@ -99,7 +99,7 @@
   "BootstrapBlazor.Components.EqualToValidator": {
     "ErrorMessage": "Please enter the same value again"
   },
-  "BootstrapBlazor.Components.ErrorLogger": {
+  "BootstrapBlazor.Components.BootstrapBlazorErrorBoundary": {
     "ToastTitle": "Application Error"
   },
   "BootstrapBlazor.Components.GoTop": {
@@ -395,7 +395,7 @@
     "DefaultRequiredErrorMessage": "{0} is required."
   },
   "BootstrapBlazor.Components.NetworkMonitorIndicator": {
-    "NTitle": "Network",
+    "Title": "Network",
     "NetworkType": "NetworkType",
     "Downlink": "Downlink",
     "RTT": "RTT"

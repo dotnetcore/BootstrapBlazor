@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,12 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <inheritdoc/>
+/// <para lang="zh">TableExportContext 组件</para>
+/// <para lang="en">TableExportContext Component</para>
 /// </summary>
 internal class TableExportContext<TItem> : ITableExportContext<TItem>
 {
     /// <summary>
-    /// 获得 Table 实例
+    /// <para lang="zh">获得 Table 实例</para>
+    /// <para lang="en">Gets Table instance</para>
     /// </summary>
     private ITable Table { get; }
 
@@ -38,7 +40,6 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public QueryPageOptions BuildQueryPageOptions() => OptionsBuilder();
 
     private Func<QueryPageOptions> OptionsBuilder { get; }
@@ -46,12 +47,13 @@ internal class TableExportContext<TItem> : ITableExportContext<TItem>
     private Func<Task> ExportCallbackAsync { get; }
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
-    /// <param name="table">ITable 实例</param>
-    /// <param name="rows">行数据集合</param>
-    /// <param name="optionsBuilder">ITable 实例当前条件生成方法</param>
-    /// <param name="exportAsync">ITable 实例内置 Export 方法</param>
+    /// <param name="table"><para lang="zh">ITable 实例</para><para lang="en">ITable instance</para></param>
+    /// <param name="rows"><para lang="zh">行数据集合</para><para lang="en">Row data collection</para></param>
+    /// <param name="optionsBuilder"><para lang="zh">ITable 实例当前条件生成方法</para><para lang="en">ITable instance current condition builder method</para></param>
+    /// <param name="exportAsync"><para lang="zh">ITable 实例内置 Export 方法</para><para lang="en">ITable instance built-in Export method</para></param>
     public TableExportContext(ITable table, IEnumerable<TItem> rows, Func<QueryPageOptions> optionsBuilder, Func<Task> exportAsync)
     {
         Table = table;

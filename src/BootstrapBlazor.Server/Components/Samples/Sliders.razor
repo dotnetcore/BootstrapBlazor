@@ -1,4 +1,4 @@
-﻿@page "/slider"
+@page "/slider"
 
 @inject IStringLocalizer<Sliders> Localizer
 
@@ -102,6 +102,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Slider" />
+<AttributeTable Type="typeof(Slider<>)"></AttributeTable>
 
 <EventTable Items="@GetEvents()"></EventTable>

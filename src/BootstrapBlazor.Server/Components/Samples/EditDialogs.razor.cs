@@ -123,9 +123,4 @@ public sealed partial class EditDialogs
 
         await DialogService.ShowEditDialog(option);
     }
-
-    /// <summary>
-    /// get property method
-    /// </summary>
-    /// <returns></returns>
 }

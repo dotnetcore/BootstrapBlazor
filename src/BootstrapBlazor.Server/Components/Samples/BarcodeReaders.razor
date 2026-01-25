@@ -1,4 +1,4 @@
-﻿@page "/barcode-reader"
+@page "/barcode-reader"
 @inject IStringLocalizer<BarcodeReaders> Localizer
 
 <h4>@Localizer["SubTitle"]</h4>
@@ -33,4 +33,4 @@
     <ConsoleLogger @ref="ImageLogger" />
 </DemoBlock>
 
-<AttributeTable Name="BarcodeReader" />
+<AttributeTable Type="typeof(BarcodeReader)" />

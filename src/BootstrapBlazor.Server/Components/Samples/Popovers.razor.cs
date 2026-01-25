@@ -37,9 +37,4 @@ public sealed partial class Popovers
 
         _templateTitle = Localizer["PopoversTemplateTitleText"];
     }
-
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

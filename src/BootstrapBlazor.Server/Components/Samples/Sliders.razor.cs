@@ -42,6 +42,7 @@ public partial class Sliders
         Logger.Log($"RangeSlider: Bind Value: {value}");
         return Task.CompletedTask;
     }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

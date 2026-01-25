@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,27 +10,22 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JsonLocalizationOptions 扩展方法
+/// <para lang="zh">JsonLocalizationOptions 扩展方法</para>
+/// <para lang="en">JsonLocalizationOptions extension methods</para>
 /// </summary>
 internal static class LocalizationOptionsExtensions
 {
     /// <summary>
-    /// 通过系统 JsonLocalizationOptions 获取当前 Json 格式资源配置集合
+    /// <para lang="zh">通过系统 <see cref="JsonLocalizationOptions"/> 获取当前 Json 格式资源配置集合</para>
+    /// <para lang="en">Get the current Json format resource configuration collection through the system <see cref="JsonLocalizationOptions"/></para>
     /// </summary>
     /// <param name="option"></param>
     /// <param name="assembly"></param>
     /// <param name="cultureName"></param>
-    /// <returns></returns>
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
-        // 创建配置 ConfigurationBuilder
         var builder = new ConfigurationBuilder();
-
-        // 获取程序集中的资源文件
         var assemblies = new List<Assembly>() { assembly };
-
-        // 获得主程序集资源文件
-        // 支持合并操作
         var entryAssembly = GetEntryAssembly();
         if (assembly != entryAssembly)
         {
@@ -44,13 +39,11 @@ internal static class LocalizationOptionsExtensions
 
         var streams = assemblies.SelectMany(i => option.GetResourceStream(i, cultureName)).ToList();
 
-        // 添加 Json 文件流到配置
         foreach (var s in streams)
         {
             builder.AddJsonStream(s);
         }
 
-        // 获得配置外置资源文件
         if (option.AdditionalJsonFiles != null)
         {
             var files = option.AdditionalJsonFiles.Where(f =>
@@ -64,10 +57,8 @@ internal static class LocalizationOptionsExtensions
             }
         }
 
-        // 生成 IConfigurationRoot
         var config = builder.Build();
 
-        // dispose json stream
         foreach (var s in streams)
         {
             s.Dispose();
@@ -84,20 +75,17 @@ internal static class LocalizationOptionsExtensions
         var resourceNames = assembly.GetManifestResourceNames();
         var ret = new List<Stream>();
 
-        // 如果开启回落机制优先增加回落语言
         if (option.EnableFallbackCulture)
         {
             AddStream(option.FallbackCulture);
         }
 
-        // 查找父资源
         var parentName = GetParentCultureName(cultureName).Value;
         if (!string.IsNullOrEmpty(parentName) && !EqualFallbackCulture(parentName))
         {
             AddStream(parentName);
         }
 
-        // 当前文化资源
         if (!EqualFallbackCulture(cultureName))
         {
             AddStream(cultureName);
@@ -118,7 +106,6 @@ internal static class LocalizationOptionsExtensions
             }
         }
 
-        // 开启回落机制并且当前文化信息与回落语言相同
         bool EqualFallbackCulture(string name) => option.EnableFallbackCulture && option.FallbackCulture == name;
     }
 

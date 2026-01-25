@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,13 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 响应监听 组件
+/// <para lang="zh">响应监听 组件</para>
+/// <para lang="en">Responsive Component</para>
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "responsive", JSObjectReference = true)]
 public class Responsive : BootstrapModuleComponentBase
 {
     /// <summary>
-    /// 获得/设置 浏览器断点阈值改变时触发 默认 null
+    /// <para lang="zh">获得/设置 浏览器断点阈值改变时触发的回调方法，默认为 null</para>
+    /// <para lang="en">Gets or sets the callback method triggered when browser breakpoint threshold changes. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
@@ -22,14 +24,13 @@ public class Responsive : BootstrapModuleComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnResize));
 
     /// <summary>
-    /// JSInvoke 回调方法
+    /// <para lang="zh">JSInvoke 回调方法</para>
+    /// <para lang="en">JSInvoke callback method</para>
     /// </summary>
     /// <param name="breakPoint"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task OnResize(BreakPoint breakPoint)
     {

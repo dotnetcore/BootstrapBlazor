@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 蓝牙设备
+/// <para lang="zh">蓝牙设备</para>
+/// <para lang="en">Bluetooth Device</para>
 /// </summary>
 sealed class DefaultBluetoothDevice : IBluetoothDevice
 {
@@ -54,7 +55,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Connect(CancellationToken token = default)
     {
         if (Connected == false)
@@ -68,7 +68,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<bool> Disconnect(CancellationToken token = default)
     {
         var ret = false;
@@ -85,10 +84,10 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<List<IBluetoothService>> GetPrimaryServices(CancellationToken token = default)
     {
         var ret = new List<IBluetoothService>();
@@ -109,7 +108,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// </summary>
     /// <param name="serviceUUID"></param>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<IBluetoothService?> GetPrimaryService(string serviceUUID, CancellationToken token = default)
     {
         IBluetoothService? ret = null;
@@ -129,7 +127,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default)
     {
         BluetoothDeviceInfo? ret = null;
@@ -142,10 +139,10 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default)
     {
         DateTimeOffset? ret = null;
@@ -162,10 +159,10 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <para lang="zh"><inheritdoc /></para>
+    /// <para lang="en"><inheritdoc /></para>
     /// </summary>
     /// <param name="token"></param>
-    /// <returns></returns>
     public async Task<byte?> GetBatteryValue(CancellationToken token = default)
     {
         byte? ret = null;
@@ -185,7 +182,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default)
     {
         byte[]? ret = null;
@@ -198,7 +194,8 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// JavaScript 报错回调方法
+    /// <para lang="zh">JavaScript 报错回调方法</para>
+    /// <para lang="en">JavaScript Error Callback Method</para>
     /// </summary>
     /// <param name="message"></param>
     [JSInvokable]
@@ -218,7 +215,6 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);

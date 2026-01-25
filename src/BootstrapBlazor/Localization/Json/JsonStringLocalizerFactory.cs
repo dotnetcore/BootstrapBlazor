@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -10,7 +10,8 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IStringLocalizerFactory 实现类
+/// <para lang="zh">IStringLocalizerFactory 实现类</para>
+/// <para lang="en">IStringLocalizerFactory implementation class</para>
 /// </summary>
 internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactory
 {
@@ -20,7 +21,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     private string? _typeName;
 
     /// <summary>
-    /// 构造函数
+    /// <para lang="zh">构造函数</para>
+    /// <para lang="en">Constructor</para>
     /// </summary>
     /// <param name="cacheManager"></param>
     /// <param name="localizationMissingItemHandler"></param>
@@ -36,8 +38,10 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         IOptions<LocalizationOptions> localizationOptions,
         ILoggerFactory loggerFactory) : base(localizationOptions, loggerFactory)
     {
-        // 由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了
-        // 为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化
+        // <para lang="zh">由于某些应用场景如 (WTM) Blazor 还未加载时 Localizer 模块先开始工作了</para>
+        // <para lang="en">Because in some application scenarios such as (WTM) Blazor, Localizer module starts working before loading</para>
+        // <para lang="zh">为了保证 CacheManager 内部 Instance 可用这里需要使 ICacheManager 先实例化</para>
+        // <para lang="en">In order to ensure that the internal Instance of CacheManager is available, ICacheManager needs to be instantiated first</para>
         cacheManager.SetStartTime();
 
         jsonLocalizationOptions.Value.FallbackCulture = options.Value.FallbackCulture;
@@ -60,10 +64,10 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     }
 
     /// <summary>
-    /// GetResourcePrefix 方法
+    /// <para lang="zh">GetResourcePrefix 方法</para>
+    /// <para lang="en">GetResourcePrefix method</para>
     /// </summary>
     /// <param name="typeInfo"></param>
-    /// <returns></returns>
     protected override string GetResourcePrefix(TypeInfo typeInfo)
     {
         var typeName = typeInfo.FullName;
@@ -83,11 +87,11 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     }
 
     /// <summary>
-    /// GetResourcePrefix 方法
+    /// <para lang="zh">GetResourcePrefix 方法</para>
+    /// <para lang="en">GetResourcePrefix method</para>
     /// </summary>
     /// <param name="baseResourceName"></param>
     /// <param name="baseNamespace"></param>
-    /// <returns></returns>
     protected override string GetResourcePrefix(string baseResourceName, string baseNamespace)
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
@@ -102,8 +106,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <summary>
     /// Creates a <see cref="ResourceManagerStringLocalizer"/> for the given input
     /// </summary>
-    /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
-    /// <param name="baseName">The base name of the resource to search for</param>
-    /// <returns></returns>
+    /// <param name="assembly"><para lang="zh">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para><para lang="en">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</para></param>
+    /// <param name="baseName"><para lang="zh">The base name of the resource to search for</para><para lang="en">The base name of the resource to search for</para></param>
     protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, _typeName!, baseName, _jsonLocalizationOptions, _loggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, _localizationMissingItemHandler);
 }

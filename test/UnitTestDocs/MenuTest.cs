@@ -27,13 +27,7 @@ public partial class MenuTest
         _serviceProvider = serviceCollection.BuildServiceProvider();
         _serviceProvider.GetRequiredService<ICacheManager>();
         _routerTable = assembly.GetExportedTypes()
-            .Where(t => t.IsDefined(typeof(RouteAttribute)) && IsComponentLayout(t) && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
-
-        bool IsComponentLayout(Type t)
-        {
-            return t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(ComponentLayout)
-                || t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(DockLayout);
-        }
+            .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.IsComponentLayout() && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
     }
 
     [Fact]

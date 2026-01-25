@@ -18,9 +18,4 @@ public partial class AutoRedirects
         Logger.Log("Ready to redirect");
         return Task.FromResult(true);
     }
-
-    /// <summary>
-    /// Get property method
-    /// </summary>
-    /// <returns></returns>
 }

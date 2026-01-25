@@ -1,4 +1,4 @@
-﻿@page "/validate-form"
+@page "/validate-form"
 @inject IStringLocalizer<ValidateForms> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
@@ -416,6 +416,6 @@ private Task OnClickValidate()
     </ValidateForm>
 </DemoBlock>
 
-<AttributeTable Name="ValidateForm" />
+<AttributeTable Type="typeof(ValidateForm)"></AttributeTable>
 
 <MethodTable Items="@GetMethods()" />

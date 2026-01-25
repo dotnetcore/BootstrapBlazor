@@ -1,4 +1,4 @@
-﻿@page "/handwritten"
+@page "/handwritten"
 @inject IStringLocalizer<Handwrittens> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -8,5 +8,3 @@
 <Tips>
     <div>@((MarkupString)Localizer["Tips"].Value)</div>
 </Tips>
-
-<AttributeTable Name="Handwritten" />

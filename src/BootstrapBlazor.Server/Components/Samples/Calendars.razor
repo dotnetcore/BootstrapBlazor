@@ -1,4 +1,4 @@
-﻿@page "/calendar"
+@page "/calendar"
 @inject IStringLocalizer<Calendars> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -151,6 +151,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Name="Calendar" />
+<AttributeTable Type="typeof(BootstrapBlazor.Components.Calendar)" />
 
 <EventTable Items="@GetEvents()" />

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,7 +8,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 时间选择滚轮单元组件
+/// <para lang="zh">时间选择滚轮单元组件</para>
+/// <para lang="en">Time Picker Cell Wheel Component</para>
 /// </summary>
 public partial class TimePickerCell
 {
@@ -16,9 +17,6 @@ public partial class TimePickerCell
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得 当前样式名称
-    /// </summary>
     private string? GetClassName(int index) => CssBuilder.Default("time-spinner-item")
         .AddClass("prev", ViewMode switch
         {
@@ -40,18 +38,12 @@ public partial class TimePickerCell
         })
         .Build();
 
-    /// <summary>
-    /// 获得 滚轮单元数据区间
-    /// </summary>
     private IEnumerable<int> Range => ViewMode switch
     {
         TimePickerCellViewMode.Hour => Enumerable.Range(0, 24),
         _ => Enumerable.Range(0, 60)
     };
 
-    /// <summary>
-    /// 获得 组件单元数据样式
-    /// </summary>
     private string? StyleName => CssBuilder.Default()
         .AddClass($"transform: translateY({CalcTranslateY().ToString(CultureInfo.InvariantCulture)}px);")
         .Build();
@@ -65,31 +57,36 @@ public partial class TimePickerCell
         .Build();
 
     /// <summary>
-    /// 获得/设置 时间选择框视图模式
+    /// <para lang="zh">获得/设置 时间选择框视图模式</para>
+    /// <para lang="en">Gets or sets the time picker view mode</para>
     /// </summary>
     [Parameter]
     public TimePickerCellViewMode ViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值
+    /// <para lang="zh">获得/设置 组件值</para>
+    /// <para lang="en">Gets or sets the component value</para>
     /// </summary>
     [Parameter]
     public TimeSpan Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件值变化时委托方法
+    /// <para lang="zh">获得/设置 组件值变化时的委托方法</para>
+    /// <para lang="en">Gets or sets the delegate method when the component value changes</para>
     /// </summary>
     [Parameter]
     public EventCallback<TimeSpan> ValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 向上箭头图标
+    /// <para lang="zh">获得/设置 向上箭头图标</para>
+    /// <para lang="en">Gets or sets the up arrow icon</para>
     /// </summary>
     [Parameter]
     public string? UpIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 向下箭头图标
+    /// <para lang="zh">获得/设置 向下箭头图标</para>
+    /// <para lang="en">Gets or sets the down arrow icon</para>
     /// </summary>
     [Parameter]
     public string? DownIcon { get; set; }
@@ -112,11 +109,11 @@ public partial class TimePickerCell
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
-    /// 上翻页按钮调用此方法
+    /// <para lang="zh">处理向上翻页按钮的单击事件</para>
+    /// <para lang="en">Handles the up button click event</para>
     /// </summary>
     [JSInvokable]
     public async Task OnClickUp()
@@ -139,13 +136,15 @@ public partial class TimePickerCell
     }
 
     /// <summary>
-    /// 计算单元格高度回调方法
+    /// <para lang="zh">处理单元格高度回调方法</para>
+    /// <para lang="en">Handles the cell height callback method</para>
     /// </summary>
     [JSInvokable]
     public void OnHeightCallback(double height) => _height = height;
 
     /// <summary>
-    /// 下翻页按钮调用此方法
+    /// <para lang="zh">处理向下翻页按钮的单击事件</para>
+    /// <para lang="en">Handles the down button click event</para>
     /// </summary>
     [JSInvokable]
     public async Task OnClickDown()

@@ -1,4 +1,4 @@
-﻿@page "/image-viewer"
+@page "/image-viewer"
 @inject IStringLocalizer<ImageViewers> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -134,4 +134,4 @@
     <ImageViewer Url="@WebsiteOption.Value.GetAssetUrl("images/tutorials/waterfall.png")" IsIntersectionObserver="true" IsAsync="true" style="height: 400px;"></ImageViewer>
 </DemoBlock>
 
-<AttributeTable Name="ImageViewer" />
+<AttributeTable Type="typeof(ImageViewer)"></AttributeTable>

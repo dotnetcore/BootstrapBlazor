@@ -1,4 +1,4 @@
-﻿@page "/dropdown"
+@page "/dropdown"
 @inject IStringLocalizer<Dropdowns> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -213,6 +213,6 @@
     </Dropdown>
 </DemoBlock>
 
-<AttributeTable Name="Dropdown" />
+<AttributeTable Type="typeof(Dropdown<>)" />
 
 <EventTable Items="@GetEvents()" />

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -8,27 +8,28 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Represents a network monitor indicator with customizable tooltip settings.
+/// <para lang="zh">NetworkMonitorIndicator 组件用于显示网络监控指示器，支持自定义弹出窗口设置</para>
+/// <para lang="en">Represents a network monitor indicator with customizable tooltip settings</para>
 /// </summary>
-/// <remarks>This component allows you to configure the text, placement, and trigger behavior of a tooltip that
-/// appears when interacting with the network monitor indicator. The tooltip can be customized to provide additional
-/// information to users.</remarks>
 public partial class NetworkMonitorIndicator : IDisposable
 {
     /// <summary>
-    /// 获得/设置 Popover 弹窗标题 默认为 null
+    /// <para lang="zh">获得/设置 Popover 弹窗标题，默认为 null</para>
+    /// <para lang="en">Gets or sets the Popover popup title. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    /// 获得/设置 Popover 显示位置 默认为 Top
+    /// <para lang="zh">获得/设置 Popover 显示位置，默认为 Top</para>
+    /// <para lang="en">Gets or sets the Popover display position. Default is Top</para>
     /// </summary>
     [Parameter]
     public Placement PopoverPlacement { get; set; } = Placement.Top;
 
     /// <summary>
-    /// 获得/设置 Popover 触发方式 默认为 hover focus
+    /// <para lang="zh">获得/设置 Popover 触发方式，默认为 hover focus</para>
+    /// <para lang="en">Gets or sets the Popover trigger mode. Default is hover focus</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -94,7 +95,6 @@ public partial class NetworkMonitorIndicator : IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

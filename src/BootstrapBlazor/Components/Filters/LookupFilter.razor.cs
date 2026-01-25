@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -6,7 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Lookup 过滤器
+/// <para lang="zh">Lookup 过滤器</para>
+/// <para lang="en">Lookup Filter</para>
 /// </summary>
 public partial class LookupFilter
 {
@@ -35,7 +36,7 @@ public partial class LookupFilter
                 if (service != null)
                 {
                     var items = await _lookup.GetItemsAsync(service, _lookup.LookupServiceKey, _lookup.LookupServiceData);
-                    if(items != null)
+                    if (items != null)
                     {
                         _value = items.FirstOrDefault()?.Value;
                     }
@@ -56,7 +57,6 @@ public partial class LookupFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
         var filter = new FilterKeyValueAction();

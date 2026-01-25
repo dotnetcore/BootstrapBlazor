@@ -1,9 +1,25 @@
 <Project>
 
-  <Target Name="LLMs" AfterTargets="Publish" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
+  <Target Name="LLMs" AfterTargets="Publish">
     <Message Text="LLMs documentation generating ..." Importance="high"></Message>
     <Exec Command="dotnet tool restore"></Exec>
     <Exec Command="dotnet llms-docs --root=$(MSBuildThisFileDirectory) --output=$(PublishDir)"></Exec>
   </Target>
 
+  <Target Name="CopyXmlDocs" AfterTargets="LLMs">
+    <ItemGroup>
+      <XmlDocsToCopy Include="%(Reference.RelativeDir)BootstrapBlazor*.xml" />
+    </ItemGroup>
+    <Message Text="Copying XML docs to output path: $(PublishDir)" Importance="High" />
+    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" Condition="Exists('%(RootDir)%(Directory)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="CopyXmlDocs2" BeforeTargets="Build">
+    <ItemGroup>
+      <XmlDocsToCopy Include="%(Reference.RelativeDir)BootstrapBlazor*.xml" />
+    </ItemGroup>
+    <Message Text="Copying XML docs to output path: $(OutputPath)" Importance="High" />
+    <Copy SourceFiles="@(XmlDocsToCopy)" DestinationFolder="$(OutputPath)" />
+  </Target>
+  
 </Project>

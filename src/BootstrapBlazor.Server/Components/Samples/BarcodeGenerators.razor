@@ -1,4 +1,4 @@
-﻿@page "/barcode-generator"
+@page "/barcode-generator"
 @inject IStringLocalizer<BarcodeGenerators> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -14,6 +14,6 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Name="BarcodeGenerator" />
+<AttributeTable Type="typeof(BarcodeGenerator)" />
 
-<AttributeTable Title="BarcodeGeneratorOption" Items="@GetOptionsAttributes()" />
+<AttributeTable Type="typeof(BarcodeGeneratorOption)" Title="BarcodeGeneratorOption" />

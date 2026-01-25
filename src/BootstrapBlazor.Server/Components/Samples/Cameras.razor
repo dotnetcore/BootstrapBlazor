@@ -1,4 +1,4 @@
-﻿@page "/camera"
+@page "/camera"
 @inject IStringLocalizer<Cameras> Localizer
 
 <h3>@Localizer["Title"]</h3>
@@ -50,4 +50,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Name="Camera" />
+<AttributeTable Type="typeof(Camera)" />

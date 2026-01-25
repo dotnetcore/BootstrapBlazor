@@ -1,4 +1,4 @@
-﻿@page "/auto-fill"
+@page "/auto-fill"
 @inject IStringLocalizer<AutoFills> Localizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -148,4 +148,4 @@
     </section>
 </DemoBlock>
 
-<AttributeTable Name="AutoFill" />
+<AttributeTable Type="typeof(AutoFill<>)" />
