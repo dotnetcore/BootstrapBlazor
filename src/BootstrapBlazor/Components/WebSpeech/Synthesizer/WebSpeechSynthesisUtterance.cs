@@ -14,8 +14,8 @@ namespace BootstrapBlazor.Components;
 public class WebSpeechSynthesisUtterance
 {
     /// <summary>
-    /// <para lang="zh">gets and sets the text that will be synthesized when the utterance is spoken.</para>
-    /// <para lang="en">gets and sets the text that will be synthesized when the utterance is spoken.</para>
+    /// <para lang="zh">gets and sets the text that will be synthesized when the utterance is spoken</para>
+    /// <para lang="en">gets and sets the text that will be synthesized when the utterance is spoken</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Text { get; set; }
@@ -28,29 +28,29 @@ public class WebSpeechSynthesisUtterance
     public string? Lang { get; set; }
 
     /// <summary>
-    /// <para lang="zh">gets and sets the pitch at which the utterance will be spoken at.</para>
-    /// <para lang="en">gets and sets the pitch at which the utterance will be spoken at.</para>
+    /// <para lang="zh">gets and sets the pitch at which the utterance will be spoken at</para>
+    /// <para lang="en">gets and sets the pitch at which the utterance will be spoken at</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? Pitch { get; set; }
 
     /// <summary>
-    /// <para lang="zh">gets and sets the speed at which the utterance will be spoken at.</para>
-    /// <para lang="en">gets and sets the speed at which the utterance will be spoken at.</para>
+    /// <para lang="zh">gets and sets the speed at which the utterance will be spoken at</para>
+    /// <para lang="en">gets and sets the speed at which the utterance will be spoken at</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? Rate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">gets and sets the voice that will be used to speak the utterance.</para>
-    /// <para lang="en">gets and sets the voice that will be used to speak the utterance.</para>
+    /// <para lang="zh">gets and sets the voice that will be used to speak the utterance</para>
+    /// <para lang="en">gets and sets the voice that will be used to speak the utterance</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public WebSpeechSynthesisVoice? Voice { get; set; }
 
     /// <summary>
-    /// <para lang="zh">gets and sets the volume that the utterance will be spoken at.</para>
-    /// <para lang="en">gets and sets the volume that the utterance will be spoken at.</para>
+    /// <para lang="zh">gets and sets the volume that the utterance will be spoken at</para>
+    /// <para lang="en">gets and sets the volume that the utterance will be spoken at</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public float? Volume { get; set; }

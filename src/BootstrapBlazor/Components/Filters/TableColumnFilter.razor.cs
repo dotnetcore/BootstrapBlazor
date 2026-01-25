@@ -3,33 +3,31 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Localization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">TableFilter component</para>
-/// <para lang="en">TableFilter component</para>
+/// <para lang="zh">TableColumnFilter 组件</para>
+/// <para lang="en">TableColumnFilter component</para>
 /// </summary>
 public partial class TableColumnFilter : IFilter
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 active</para>
-    /// <para lang="en">Gets or sets Whether is active</para>
+    /// <para lang="zh">获得/设置 是否激活</para>
+    /// <para lang="en">Gets or sets whether active</para>
     /// </summary>
     [Parameter]
     public bool IsActive { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤图标</para>
-    /// <para lang="en">Gets or sets Filter Icon</para>
+    /// <para lang="en">Gets or sets filter icon</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
+    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 从资源读取</para>
+    /// <para lang="en">Gets or sets not supported filter type message. Default is null and read from resource</para>
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
@@ -37,54 +35,45 @@ public partial class TableColumnFilter : IFilter
     public string? NotSupportedMessage { get => NotSupportedColumnFilterMessage; set => NotSupportedColumnFilterMessage = value; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
+    /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 从资源读取</para>
+    /// <para lang="en">Gets or sets not supported filter type message. Default is null and read from resource</para>
     /// </summary>
     [Parameter]
     public string? NotSupportedColumnFilterMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 相关联 ITableColumn 实例</para>
-    /// <para lang="en">Get Related ITableColumn Instance</para>
+    /// <para lang="zh">获得/设置 关联的 <see cref="ITableColumn"/> 实例</para>
+    /// <para lang="en">Gets or sets the related <see cref="ITableColumn"/> instance</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public ITableColumn? Column { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否为 HeaderRow 模式 默认 false</para>
-    /// <para lang="en">Gets or sets Whether is HeaderRow Mode Default false</para>
+    /// <para lang="zh">获得/设置 是否为表头行模式 默认 false</para>
+    /// <para lang="en">Gets or sets whether header row mode is enabled. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsHeaderRow { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 ITable 实例</para>
-    /// <para lang="en">Gets or sets ITable Instance</para>
+    /// <para lang="zh">获得/设置 <see cref="ITable"/> 实例</para>
+    /// <para lang="en">Gets or sets the <see cref="ITable"/> instance</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public ITable? Table { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得 过滤小图标样式</para>
-    /// <para lang="en">Get Filter Small Icon Style</para>
-    /// </summary>
     private string? FilterClassString => CssBuilder.Default(Icon)
         .AddClass("active", IsActive)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 样式</para>
-    /// <para lang="en">Get Style</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("filter-icon")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤条件 IFilterAction 接口</para>
-    /// <para lang="en">Gets or sets Filter Condition IFilterAction Interface</para>
+    /// <inheritdoc cref="IFilter.FilterAction"/>
     /// </summary>
     [NotNull]
     public IFilterAction? FilterAction { get; set; }
@@ -114,8 +103,8 @@ public partial class TableColumnFilter : IFilter
     }
 
     /// <summary>
-    /// <para lang="zh">Reset filter method</para>
-    /// <para lang="en">Reset filter method</para>
+    /// <para lang="zh">重置过滤方法</para>
+    /// <para lang="en">Resets filter</para>
     /// </summary>
     public async Task Reset()
     {
@@ -124,8 +113,8 @@ public partial class TableColumnFilter : IFilter
     }
 
     /// <summary>
-    /// <para lang="zh">Filter method</para>
-    /// <para lang="en">Filter method</para>
+    /// <para lang="zh">执行过滤方法</para>
+    /// <para lang="en">Executes filter</para>
     /// </summary>
     public async Task OnFilterAsync()
     {

@@ -27,8 +27,6 @@ class ErrorRender : IComponent
     /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public Task SetParametersAsync(ParameterView parameters)
     {
         _ex = parameters.GetValueOrDefault<Exception>("Exception");

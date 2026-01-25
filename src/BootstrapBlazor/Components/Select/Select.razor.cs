@@ -315,8 +315,8 @@ public partial class Select<TValue> : ISelect, ILookup
     });
 
     /// <summary>
-    /// <para lang="zh">Trigger <see cref="OnCollapsed"/> event 回调方法. called by JavaScript.</para>
-    /// <para lang="en">Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript.</para>
+    /// <para lang="zh">Trigger <see cref="OnCollapsed"/> event 回调方法. called by JavaScript</para>
+    /// <para lang="en">Trigger <see cref="OnCollapsed"/> event callback method. called by JavaScript</para>
     /// </summary>
     [JSInvokable]
     public async Task TriggerCollapsed()
@@ -349,8 +349,8 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// <para lang="zh">Confirms the selected item.</para>
-    /// <para lang="en">Confirms the selected item.</para>
+    /// <para lang="zh">Confirms the selected item</para>
+    /// <para lang="en">Confirms the selected item</para>
     /// </summary>
     /// <param name="index">The index of the selected item.</param>
     [JSInvokable]

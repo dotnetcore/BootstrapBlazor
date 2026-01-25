@@ -40,8 +40,8 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public string FallbackCulture { get; set; } = "en";
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the default position for the Toast component globally, default is null. When set, it overrides the site-wide setting.</para>
-    /// <para lang="en">Gets or sets the default position for the Toast component globally, default is null. When set, it overrides the site-wide setting.</para>
+    /// <para lang="zh">获得/设置 the default position for the Toast component globally, default is null. When set, it overrides the site-wide setting</para>
+    /// <para lang="en">Gets or sets the default position for the Toast component globally, default is null. When set, it overrides the site-wide setting</para>
     /// </summary>
     public Placement? ToastPlacement { get; set; }
 
@@ -64,8 +64,8 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public bool ShowErrorLoggerToast { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 a value indicating 是否 error logging using an <see cref="ILogger"/> is enabled, default is true.</para>
-    /// <para lang="en">Gets or sets a value indicating whether error logging using an <see cref="ILogger"/> is enabled, default is true.</para>
+    /// <para lang="zh">获得/设置 a value indicating 是否 error logging using an <see cref="ILogger"/> is enabled, default is true</para>
+    /// <para lang="en">Gets or sets a value indicating whether error logging using an <see cref="ILogger"/> is enabled, default is true</para>
     /// </summary>
     public bool EnableErrorLoggerILogger { get; set; } = true;
 

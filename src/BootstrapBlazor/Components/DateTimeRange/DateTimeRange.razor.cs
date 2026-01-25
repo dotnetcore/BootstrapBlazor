@@ -108,15 +108,15 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否 to automatically close the popup after a date range is selected. 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to automatically close the popup after a date range is selected. Default is false</para>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the selected value. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether show the selected value. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否 show the selected value. 默认为 false</para>
+    /// <para lang="en">Gets or sets whether show the selected value. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowSelectedValue { get; set; }
@@ -295,8 +295,8 @@ public partial class DateTimeRange
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the date value changed event 回调.</para>
-    /// <para lang="en">Gets or sets the date value changed event callback.</para>
+    /// <para lang="zh">获得/设置 the date value changed event 回调</para>
+    /// <para lang="en">Gets or sets the date value changed event callback</para>
     /// </summary>
     [Parameter]
     public Func<DateTime, Task>? OnDateClick { get; set; }

@@ -12,28 +12,28 @@ namespace BootstrapBlazor.Components;
 public interface IAudioDevice
 {
     /// <summary>
-    /// <para lang="zh">获得 the list of audio devices.</para>
-    /// <para lang="en">Gets the list of audio devices.</para>
+    /// <para lang="zh">获得 the list of audio devices</para>
+    /// <para lang="en">Gets the list of audio devices</para>
     /// </summary>
     Task<List<IMediaDeviceInfo>?> GetDevices();
 
     /// <summary>
-    /// <para lang="zh">Opens the audio device with the specified constraints.</para>
-    /// <para lang="en">Opens the audio device with the specified constraints.</para>
+    /// <para lang="zh">Opens the audio device with the specified constraints</para>
+    /// <para lang="en">Opens the audio device with the specified constraints</para>
     /// </summary>
     /// <param name="constraints"></param>
     Task<bool> Open(MediaTrackConstraints constraints);
 
     /// <summary>
-    /// <para lang="zh">Close the audio device with the specified selector.</para>
-    /// <para lang="en">Close the audio device with the specified selector.</para>
+    /// <para lang="zh">Close the audio device with the specified selector</para>
+    /// <para lang="en">Close the audio device with the specified selector</para>
     /// </summary>
     /// <param name="selector"></param>
     Task<bool> Close(string? selector);
 
     /// <summary>
-    /// <para lang="zh">获得 the stream of the audio.</para>
-    /// <para lang="en">Gets the stream of the audio.</para>
+    /// <para lang="zh">获得 the stream of the audio</para>
+    /// <para lang="en">Gets the stream of the audio</para>
     /// </summary>
     Task<Stream?> GetData();
 }

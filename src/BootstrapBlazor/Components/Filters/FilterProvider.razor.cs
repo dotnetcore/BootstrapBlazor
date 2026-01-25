@@ -8,14 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">FilterProvider component</para>
+/// <para lang="zh">FilterProvider 组件</para>
 /// <para lang="en">FilterProvider component</para>
 /// </summary>
 public partial class FilterProvider
 {
     /// <summary>
     /// <para lang="zh">获得/设置 重置按钮文本</para>
-    /// <para lang="en">Gets or sets Reset Button Text</para>
+    /// <para lang="en">Gets or sets reset button text</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -23,7 +23,7 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 过滤按钮文本</para>
-    /// <para lang="en">Gets or sets Filter Button Text</para>
+    /// <para lang="en">Gets or sets filter button text</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -31,42 +31,42 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">获得/设置 增加过滤条件图标</para>
-    /// <para lang="en">Gets or sets Add Filter Condition Icon</para>
+    /// <para lang="en">Gets or sets add filter condition icon</para>
     /// </summary>
     [Parameter]
     public string? PlusIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 减少过滤条件图标</para>
-    /// <para lang="en">Gets or sets Remove Filter Condition Icon</para>
+    /// <para lang="en">Gets or sets remove filter condition icon</para>
     /// </summary>
     [Parameter]
     public string? MinusIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 show the more 按钮. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether show the more button. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否显示更多按钮 默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show the more button. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowMoreButton { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter title. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the filter title. Default is null.</para>
+    /// <para lang="zh">获得/设置 过滤标题 默认为 null</para>
+    /// <para lang="en">Gets or sets the filter title. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the child 内容. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the child content. Default is null.</para>
+    /// <para lang="zh">获得/设置 子内容 默认为 null</para>
+    /// <para lang="en">Gets or sets the child content. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the <see cref="TableColumnFilter"/> 实例 from cascading parameter.</para>
-    /// <para lang="en">Gets or sets the <see cref="TableColumnFilter"/> instance from cascading parameter.</para>
+    /// <para lang="zh">获得/设置 <see cref="TableColumnFilter"/> 级联参数实例</para>
+    /// <para lang="en">Gets or sets the <see cref="TableColumnFilter"/> cascading parameter instance</para>
     /// </summary>
     [CascadingParameter]
     protected TableColumnFilter? TableColumnFilter { get; set; }
@@ -80,20 +80,20 @@ public partial class FilterProvider
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter counter. 默认为 0.</para>
-    /// <para lang="en">Gets or sets the filter counter. Default is 0.</para>
+    /// <para lang="zh">获得/设置 过滤计数 默认为 0</para>
+    /// <para lang="en">Gets or sets the filter counter. Default is 0</para>
     /// </summary>
     protected int Count { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the column field key. 默认为 null.</para>
-    /// <para lang="en">Gets or sets the column field key. Default is null.</para>
+    /// <para lang="zh">获得/设置 列字段键 默认为 null</para>
+    /// <para lang="en">Gets or sets the column field key. Default is null</para>
     /// </summary>
     protected string? FieldKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否 the filter is header row. 默认为 false.</para>
-    /// <para lang="en">Gets or sets whether the filter is header row. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否为表头行 默认为 false</para>
+    /// <para lang="en">Gets or sets whether the filter is header row. Default is false</para>
     /// </summary>
     protected bool IsHeaderRow { get; set; }
 
@@ -115,10 +115,6 @@ public partial class FilterProvider
         IsHeaderRow = TableColumnFilter.IsHeaderRow();
     }
 
-    /// <summary>
-    /// <para lang="zh">点击重置按钮时回调此方法</para>
-    /// <para lang="en">Callback this method when clicking reset button</para>
-    /// </summary>
     private async Task OnClickReset()
     {
         Count = 0;
@@ -131,7 +127,7 @@ public partial class FilterProvider
 
     /// <summary>
     /// <para lang="zh">点击确认时回调此方法</para>
-    /// <para lang="en">Callback this method when clicking confirm</para>
+    /// <para lang="en">Callback this method when clicking confirm button</para>
     /// </summary>
     protected async Task OnClickConfirm()
     {
@@ -141,10 +137,6 @@ public partial class FilterProvider
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">点击增加按钮时回调此方法</para>
-    /// <para lang="en">Callback this method when clicking add button</para>
-    /// </summary>
     private void OnClickPlus()
     {
         if (Count == 0)
@@ -153,10 +145,6 @@ public partial class FilterProvider
         }
     }
 
-    /// <summary>
-    /// <para lang="zh">点击减少按钮时回调此方法</para>
-    /// <para lang="en">Callback this method when clicking remove button</para>
-    /// </summary>
     private void OnClickMinus()
     {
         if (Count == 1)

@@ -12,44 +12,44 @@ namespace BootstrapBlazor.Components;
 public interface IHtml2ImageOptions
 {
     /// <summary>
-    /// <para lang="zh">Width in pixels to be applied to node before rendering.</para>
-    /// <para lang="en">Width in pixels to be applied to node before rendering.</para>
+    /// <para lang="zh">Width in pixels to be applied to node before rendering</para>
+    /// <para lang="en">Width in pixels to be applied to node before rendering</para>
     /// </summary>
     int? Width { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Height in pixels to be applied to node before rendering.</para>
-    /// <para lang="en">Height in pixels to be applied to node before rendering.</para>
+    /// <para lang="zh">Height in pixels to be applied to node before rendering</para>
+    /// <para lang="en">Height in pixels to be applied to node before rendering</para>
     /// </summary>
     int? Height { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A string value for the background 颜色, any valid CSS 颜色 value.</para>
-    /// <para lang="en">A string value for the background color, any valid CSS color value.</para>
+    /// <para lang="zh">A string value for the background 颜色, any valid CSS 颜色 value</para>
+    /// <para lang="en">A string value for the background color, any valid CSS color value</para>
     /// </summary>
     string? BackgroundColor { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Width in pixels to be applied to canvas on export.</para>
-    /// <para lang="en">Width in pixels to be applied to canvas on export.</para>
+    /// <para lang="zh">Width in pixels to be applied to canvas on export</para>
+    /// <para lang="en">Width in pixels to be applied to canvas on export</para>
     /// </summary>
     int? CanvasWidth { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Height in pixels to be applied to canvas on export.</para>
-    /// <para lang="en">Height in pixels to be applied to canvas on export.</para>
+    /// <para lang="zh">Height in pixels to be applied to canvas on export</para>
+    /// <para lang="en">Height in pixels to be applied to canvas on export</para>
     /// </summary>
     int? CanvasHeight { get; set; }
 
     /// <summary>
-    /// <para lang="zh">An array of 样式 properties to be copied to node's 样式 before rendering. For performance-critical scenarios, users may want to specify only the required properties instead of all 样式s.</para>
-    /// <para lang="en">An array of style properties to be copied to node's style before rendering. For performance-critical scenarios, users may want to specify only the required properties instead of all styles.</para>
+    /// <para lang="zh">An array of 样式 properties to be copied to node's 样式 before rendering. For performance-critical scenarios, users may want to specify only the required properties instead of all 样式s</para>
+    /// <para lang="en">An array of style properties to be copied to node's style before rendering. For performance-critical scenarios, users may want to specify only the required properties instead of all styles</para>
     /// </summary>
     string[]? IncludeStyleProperties { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A number between `0` and `1` indicating image quality (e.g. 0.92 => 92%) of the JPEG image.</para>
-    /// <para lang="en">A number between `0` and `1` indicating image quality (e.g. 0.92 => 92%) of the JPEG image.</para>
+    /// <para lang="zh">A number between `0` and `1` indicating image quality (e.g. 0.92 => 92%) of the JPEG image</para>
+    /// <para lang="en">A number between `0` and `1` indicating image quality (e.g. 0.92 => 92%) of the JPEG image</para>
     /// </summary>
     double? Quality { get; set; }
 
@@ -60,8 +60,8 @@ public interface IHtml2ImageOptions
     double? PixelRatio { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A string indicating the image format. default 类型 is image/png; that 类型 is also used if the given 类型 isn't supported.</para>
-    /// <para lang="en">A string indicating the image format. The default type is image/png; that type is also used if the given type isn't supported.</para>
+    /// <para lang="zh">A string indicating the image format. default 类型 is image/png; that 类型 is also used if the given 类型 isn't supported</para>
+    /// <para lang="en">A string indicating the image format. The default type is image/png; that type is also used if the given type isn't supported</para>
     /// </summary>
     string? Type { get; set; }
 }

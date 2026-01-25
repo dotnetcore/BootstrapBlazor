@@ -151,7 +151,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件高度 默认 null 未设置高度 如：50% 100px 10rem 10vh 等</para>
-    /// <para lang="en">Gets or sets Component height. Default null. Not set. e.g. 50% 100px 10rem 10vh etc.</para>
+    /// <para lang="en">Gets or sets Component height. Default null. Not set. e.g. 50% 100px 10rem 10vh etc</para>
     /// </summary>
     [Parameter]
     public string? Height { get; set; }

@@ -60,8 +60,8 @@ public class SelectOption : ComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh">Converts the current 实例 to a <see cref="SelectedItem"/>.</para>
-    /// <para lang="en">Converts the current instance to a <see cref="SelectedItem"/>.</para>
+    /// <para lang="zh">Converts the current 实例 to a <see cref="SelectedItem"/></para>
+    /// <para lang="en">Converts the current instance to a <see cref="SelectedItem"/></para>
     /// </summary>
     private SelectedItem ToSelectedItem() => new()
     {

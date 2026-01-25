@@ -17,7 +17,7 @@ public partial class BootstrapBlazorIcon
     /// </summary>
     /// <remarks>
     /// <para lang="zh">如果是字库图标应该是样式名称如 fa-solid fa-home 如果是 svg sprites 应该为 Id</para>
-    /// <para lang="en">If it is a font icon, it should be a style name such as fa-solid fa-home. If it is svg sprites, it should be the Id.</para>
+    /// <para lang="en">If it is a font icon, it should be a style name such as fa-solid fa-home. If it is svg sprites, it should be the Id</para>
     /// </remarks>
     [Parameter]
     [NotNull]

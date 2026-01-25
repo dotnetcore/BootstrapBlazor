@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">MediaTrackConstraints interface of the Media Capture and Streams API is used to specify constraints on the media tracks that are requested from a media device. It is used in conjunction with the getUserMedia() method to specify the desired properties of the media tracks, such as resolution, frame rate, and aspect ratio.</para>
-/// <para lang="en">The MediaTrackConstraints interface of the Media Capture and Streams API is used to specify constraints on the media tracks that are requested from a media device. It is used in conjunction with the getUserMedia() method to specify the desired properties of the media tracks, such as resolution, frame rate, and aspect ratio.</para>
+/// <para lang="zh">MediaTrackConstraints interface of the Media Capture and Streams API is used to specify constraints on the media tracks that are requested from a media device. It is used in conjunction with the getUserMedia() method to specify the desired properties of the media tracks, such as resolution, frame rate, and aspect ratio</para>
+/// <para lang="en">The MediaTrackConstraints interface of the Media Capture and Streams API is used to specify constraints on the media tracks that are requested from a media device. It is used in conjunction with the getUserMedia() method to specify the desired properties of the media tracks, such as resolution, frame rate, and aspect ratio</para>
 /// </summary>
 public class MediaTrackConstraints
 {

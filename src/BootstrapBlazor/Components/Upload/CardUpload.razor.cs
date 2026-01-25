@@ -54,7 +54,7 @@ public partial class CardUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许预览的回调方法，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, bool>? CanPreviewCallback { get; set; }
@@ -82,7 +82,7 @@ public partial class CardUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示文件尺寸，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to display the file size. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display the file size. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowFileSize { get; set; } = true;
@@ -117,14 +117,14 @@ public partial class CardUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示放大按钮，默认 true</para>
-    /// <para lang="en">Gets or sets whether to display the zoom button. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display the zoom button. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowZoomButton { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示删除按钮，默认 true</para>
-    /// <para lang="en">Gets or sets whether to display the delete button. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is true</para>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ShowDeleteButton 参数。(Deprecated, please use the ShowDeleteButton parameter)")]
@@ -133,7 +133,7 @@ public partial class CardUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 继续上传按钮是否在列表前，默认 false</para>
-    /// <para lang="en">Gets or sets whether the continue upload button is in front of the list. Default is false.</para>
+    /// <para lang="en">Gets or sets whether the continue upload button is in front of the list. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
@@ -154,42 +154,42 @@ public partial class CardUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除前是否显示确认对话框，依赖 ShowDeleteButton 属性为 true 时有效</para>
-    /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true.</para>
+    /// <para lang="en">Gets or sets whether to display a confirmation dialog before deletion. Only takes effect when the ShowDeleteButton property is true</para>
     /// </summary>
     [Parameter]
     public bool ShowDeleteConfirmButton { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮颜色，默认 Color.Danger</para>
-    /// <para lang="en">Gets or sets the color of the confirmation button in the delete confirmation dialog. Default is Color.Danger.</para>
+    /// <para lang="en">Gets or sets the color of the confirmation button in the delete confirmation dialog. Default is Color.Danger</para>
     /// </summary>
     [Parameter]
     public Color DeleteConfirmButtonColor { get; set; } = Color.Danger;
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮图标，默认 null</para>
-    /// <para lang="en">Gets or sets the confirmation button icon in the delete confirmation dialog. Default is null.</para>
+    /// <para lang="en">Gets or sets the confirmation button icon in the delete confirmation dialog. Default is null</para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmButtonIcon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认文本内容，默认 null 使用资源文件中内置文字</para>
-    /// <para lang="en">Gets or sets the confirmation text content in the delete confirmation dialog. Default is null (uses built-in text from resource file).</para>
+    /// <para lang="en">Gets or sets the confirmation text content in the delete confirmation dialog. Default is null (uses built-in text from resource file)</para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中确认按钮显示文字，默认 null</para>
-    /// <para lang="en">Gets or sets the confirmation button display text in the delete confirmation dialog. Default is null.</para>
+    /// <para lang="en">Gets or sets the confirmation button display text in the delete confirmation dialog. Default is null</para>
     /// </summary>
     [Parameter]
     public string? DeleteConfirmButtonText { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 删除确认弹窗中取消按钮显示文字，默认 null</para>
-    /// <para lang="en">Gets or sets the cancel button display text in the delete confirmation dialog. Default is null.</para>
+    /// <para lang="en">Gets or sets the cancel button display text in the delete confirmation dialog. Default is null</para>
     /// </summary>
     [Parameter]
     public string? DeleteCloseButtonText { get; set; }

@@ -13,7 +13,7 @@ public interface IValidateComponent
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否进行验证 默认为 false</para>
-    /// <para lang="en">Gets or sets whether validation is needed. Default is false.</para>
+    /// <para lang="en">Gets or sets whether validation is needed. Default is false</para>
     /// </summary>
     bool IsNeedValidate { get; }
 

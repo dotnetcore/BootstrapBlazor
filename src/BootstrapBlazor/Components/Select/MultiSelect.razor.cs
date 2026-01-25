@@ -123,8 +123,8 @@ public partial class MultiSelect<TValue>
     public Func<IEnumerable<SelectedItem>, Task>? OnSelectedItemsChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the default virtualize items text.</para>
-    /// <para lang="en">Gets or sets the default virtualize items text.</para>
+    /// <para lang="zh">获得/设置 the default virtualize items text</para>
+    /// <para lang="en">Gets or sets the default virtualize items text</para>
     /// </summary>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }

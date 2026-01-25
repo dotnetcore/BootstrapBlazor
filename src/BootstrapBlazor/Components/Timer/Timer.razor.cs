@@ -71,7 +71,7 @@ public partial class Timer
 
     /// <summary>
     /// <para lang="zh">获得/设置 进度条宽度，默认为 6</para>
-    /// <para lang="en">Gets or sets the progress bar width. Default is 6.</para>
+    /// <para lang="en">Gets or sets the progress bar width. Default is 6</para>
     /// </summary>
     [Parameter]
     public override int StrokeWidth { get; set; } = 6;

@@ -21,15 +21,15 @@ public partial class IntersectionObserver
     public bool UseElementViewport { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">Margin around the root. Can have values similar to the CSS margin 属性, e.g. "10px 20px 30px 40px" (top, right, bottom, left). values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. 默认s to all zeros.</para>
-    /// <para lang="en">Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px" (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros.</para>
+    /// <para lang="zh">Margin around the root. Can have values similar to the CSS margin 属性, e.g. "10px 20px 30px 40px" (top, right, bottom, left). values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. 默认s to all zeros</para>
+    /// <para lang="en">Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px" (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros</para>
     /// </summary>
     [Parameter]
     public string? RootMargin { get; set; }
 
     /// <summary>
-    /// <para lang="zh">Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's 回调 should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the 回调 to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. default is 0 (meaning as soon as even one pixel is visible, the 回调 will be run). A value of 1.0 means that the threshold isn't considered passed until every pixel is visible.</para>
-    /// <para lang="en">Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. The default is 0 (meaning as soon as even one pixel is visible, the callback will be run). A value of 1.0 means that the threshold isn't considered passed until every pixel is visible.</para>
+    /// <para lang="zh">Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's 回调 should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the 回调 to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. default is 0 (meaning as soon as even one pixel is visible, the 回调 will be run). A value of 1.0 means that the threshold isn't considered passed until every pixel is visible</para>
+    /// <para lang="en">Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed. If you only want to detect when visibility passes the 50% mark, you can use a value of 0.5. If you want the callback to run every time visibility passes another 25%, you would specify the array [0, 0.25, 0.5, 0.75, 1]. The default is 0 (meaning as soon as even one pixel is visible, the callback will be run). A value of 1.0 means that the threshold isn't considered passed until every pixel is visible</para>
     /// </summary>
     [Parameter]
     public string? Threshold { get; set; }

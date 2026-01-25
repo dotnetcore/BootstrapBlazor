@@ -105,7 +105,7 @@ public partial class AutoComplete
 
     /// <summary>
     /// <para lang="zh">获得 清除图标样式</para>
-    /// <para lang="en">Gets the clear icon class string.</para>
+    /// <para lang="en">Gets the clear icon class string</para>
     /// </summary>
     private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
@@ -176,7 +176,7 @@ public partial class AutoComplete
 
     /// <summary>
     /// <para lang="zh">获得 是否显示清除按钮</para>
-    /// <para lang="en">Gets whether show the clear button.</para>
+    /// <para lang="en">Gets whether show the clear button</para>
     /// </summary>
     private bool GetClearable() => IsClearable && !IsDisabled;
 

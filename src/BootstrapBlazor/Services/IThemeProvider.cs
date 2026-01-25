@@ -12,16 +12,16 @@ namespace BootstrapBlazor.Components;
 public interface IThemeProvider
 {
     /// <summary>
-    /// <para lang="zh">设置 the theme asynchronously.</para>
-    /// <para lang="en">Sets the theme asynchronously.</para>
+    /// <para lang="zh">设置 the theme asynchronously</para>
+    /// <para lang="en">Sets the theme asynchronously</para>
     /// </summary>
     /// <param name="themeName">The name of the theme to set.</param>
     /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
     ValueTask SetThemeAsync(string themeName);
 
     /// <summary>
-    /// <para lang="zh">获得 the current theme asynchronously.</para>
-    /// <para lang="en">Gets the current theme asynchronously.</para>
+    /// <para lang="zh">获得 the current theme asynchronously</para>
+    /// <para lang="en">Gets the current theme asynchronously</para>
     /// </summary>
     /// <returns>A <see cref="ValueTask{TResult}"/> representing the asynchronous operation, with the current theme name as the result.</returns>
     ValueTask<string?> GetThemeAsync();

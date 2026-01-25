@@ -12,8 +12,8 @@ namespace BootstrapBlazor.Components;
 public class OtpOptions
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the secret key used for generating the QR code.</para>
-    /// <para lang="en">Gets or sets the secret key used for generating the QR code.</para>
+    /// <para lang="zh">获得/设置 the secret key used for generating the QR code</para>
+    /// <para lang="en">Gets or sets the secret key used for generating the QR code</para>
     /// </summary>
     public string? SecretKey { get; set; }
 
@@ -36,52 +36,52 @@ public class OtpOptions
     public string? UserName { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the OTP hash mode.</para>
-    /// <para lang="en">Gets or sets the OTP hash mode.</para>
+    /// <para lang="zh">获得/设置 the OTP hash mode</para>
+    /// <para lang="en">Gets or sets the OTP hash mode</para>
     /// </summary>
     public OtpHashMode Algorithm { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the OTP 类型.</para>
-    /// <para lang="en">Gets or sets the OTP type.</para>
+    /// <para lang="zh">获得/设置 the OTP 类型</para>
+    /// <para lang="en">Gets or sets the OTP type</para>
     /// </summary>
     public OtpType Type { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the code length. 默认为 6.</para>
-    /// <para lang="en">Gets or sets the code length. Default is 6.</para>
+    /// <para lang="zh">获得/设置 the code length. 默认为 6</para>
+    /// <para lang="en">Gets or sets the code length. Default is 6</para>
     /// </summary>
     public int Digits { get; set; } = 6;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the period in seconds for TOTP. 默认为 30.</para>
-    /// <para lang="en">Gets or sets the period in seconds for TOTP. Default is 30.</para>
+    /// <para lang="zh">获得/设置 the period in seconds for TOTP. 默认为 30</para>
+    /// <para lang="en">Gets or sets the period in seconds for TOTP. Default is 30</para>
     /// </summary>
     public int Period { get; set; } = 30;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the counter for Hotp. 默认为 0.</para>
-    /// <para lang="en">Gets or sets the counter for Hotp. Default is 0.</para>
+    /// <para lang="zh">获得/设置 the counter for Hotp. 默认为 0</para>
+    /// <para lang="en">Gets or sets the counter for Hotp. Default is 0</para>
     /// </summary>
     public int Counter { get; set; }
 }
 
 /// <summary>
-/// <para lang="zh">Abstract class representing a Time-based One-Time Password (TOTP) 实例.</para>
-/// <para lang="en">Abstract class representing a Time-based One-Time Password (TOTP) instance.</para>
+/// <para lang="zh">Abstract class representing a Time-based One-Time Password (TOTP) 实例</para>
+/// <para lang="en">Abstract class representing a Time-based One-Time Password (TOTP) instance</para>
 /// </summary>
 public abstract class TotpInstanceBase
 {
     /// <summary>
-    /// <para lang="zh">Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp.</para>
-    /// <para lang="en">Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp.</para>
+    /// <para lang="zh">Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp</para>
+    /// <para lang="en">Get the remaining seconds until the next TOTP expiration for the given secret key and timestamp</para>
     /// </summary>
     /// <param name="timestamp"></param>
     public abstract int GetRemainingSeconds(DateTime? timestamp = null);
 
     /// <summary>
-    /// <para lang="zh">Verify the given TOTP code against the expected value using the provided secret key.</para>
-    /// <para lang="en">Verify the given TOTP code against the expected value using the provided secret key.</para>
+    /// <para lang="zh">Verify the given TOTP code against the expected value using the provided secret key</para>
+    /// <para lang="en">Verify the given TOTP code against the expected value using the provided secret key</para>
     /// </summary>
     /// <param name="code"></param>
     /// <param name="timestamp"></param>
@@ -89,8 +89,8 @@ public abstract class TotpInstanceBase
 }
 
 /// <summary>
-/// <para lang="zh">Abstract class representing an HMAC-based One-Time Password (HOTP) 实例.</para>
-/// <para lang="en">Abstract class representing an HMAC-based One-Time Password (HOTP) instance.</para>
+/// <para lang="zh">Abstract class representing an HMAC-based One-Time Password (HOTP) 实例</para>
+/// <para lang="en">Abstract class representing an HMAC-based One-Time Password (HOTP) instance</para>
 /// </summary>
 public abstract class HotpInstanceBase
 {
@@ -104,8 +104,8 @@ public abstract class HotpInstanceBase
 }
 
 /// <summary>
-/// <para lang="zh">Enum representing the OTP hash modes.</para>
-/// <para lang="en">Enum representing the OTP hash modes.</para>
+/// <para lang="zh">Enum representing the OTP hash modes</para>
+/// <para lang="en">Enum representing the OTP hash modes</para>
 /// </summary>
 public enum OtpHashMode
 {
@@ -129,8 +129,8 @@ public enum OtpHashMode
 }
 
 /// <summary>
-/// <para lang="zh">Enum representing the OTP 类型s.</para>
-/// <para lang="en">Enum representing the OTP types.</para>
+/// <para lang="zh">Enum representing the OTP 类型s</para>
+/// <para lang="en">Enum representing the OTP types</para>
 /// </summary>
 public enum OtpType
 {

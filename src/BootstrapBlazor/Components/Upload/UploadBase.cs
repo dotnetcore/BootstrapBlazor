@@ -34,14 +34,14 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">获得/设置 最大上传个数，默认为 null</para>
-    /// <para lang="en">Gets or sets the maximum number of files to upload. Default is null.</para>
+    /// <para lang="en">Gets or sets the maximum number of files to upload. Default is null</para>
     /// </summary>
     [Parameter]
     public int? MaxFileCount { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 所有文件上传完毕回调方法，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method when all files have been uploaded. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method when all files have been uploaded. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<IReadOnlyCollection<UploadFile>, Task>? OnAllFileUploaded { get; set; }
@@ -55,62 +55,62 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示上传进度，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to display the upload progress. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to display the upload progress. Default is false</para>
     /// </summary>
     [Parameter]
     public bool ShowProgress { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 上传接收的文件格式，默认为 null 接收任意格式</para>
-    /// <para lang="en">Gets or sets the accepted file format. Default is null (accepts all formats).</para>
+    /// <para lang="en">Gets or sets the accepted file format. Default is null (accepts all formats)</para>
     /// </summary>
     [Parameter]
     public string? Accept { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 媒体捕获机制的首选面向模式，默认为 null</para>
-    /// <para lang="en">Gets or sets the preferred facing mode for media capture. Default is null.</para>
+    /// <para lang="en">Gets or sets the preferred facing mode for media capture. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Capture { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否上传整个目录，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to upload the entire directory. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to upload the entire directory. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsDirectory { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许多文件上传，默认 false</para>
-    /// <para lang="en">Gets or sets whether to allow multiple file uploads. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to allow multiple file uploads. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsMultiple { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击删除按钮时回调此方法，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method when the delete button is clicked. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method when the delete button is clicked. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 点击浏览按钮时回调此方法，如果多文件上传此回调会触发多次，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method when the browse button is clicked. This may be called multiple times for multiple file uploads. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method when the browse button is clicked. This may be called multiple times for multiple file uploads. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 已上传文件集合，此集合中数据是用户上传文件集合</para>
-    /// <para lang="en">Gets or sets the uploaded file collection. This collection contains the files uploaded by the user.</para>
+    /// <para lang="en">Gets or sets the uploaded file collection. This collection contains the files uploaded by the user</para>
     /// </summary>
     public List<UploadFile> UploadFiles { get; } = [];
 
     /// <summary>
-    /// <para lang="zh">获得 the 集合 of files to be uploaded.</para>
-    /// <para lang="en">Gets the collection of files to be uploaded.</para>
+    /// <para lang="zh">获得 the 集合 of files to be uploaded</para>
+    /// <para lang="en">Gets the collection of files to be uploaded</para>
     /// </summary>
     protected List<UploadFile> Files => GetUploadFiles();
 
@@ -246,8 +246,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">删除文件方法。</para>
-    /// <para lang="en">Delete file method.</para>
+    /// <para lang="zh">删除文件方法</para>
+    /// <para lang="en">Delete file method</para>
     /// </summary>
     /// <param name="item"></param>
     protected virtual async Task<bool> OnFileDelete(UploadFile item)
@@ -297,9 +297,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 
     private List<UploadFile>? _filesCache;
     /// <summary>
-    /// <para lang="zh">获得当前文件集合 <para>Get the files collection.</para>
+    /// <para lang="zh">获得当前文件集合 <para>Get the files collection</para>
     ///</para>
-    /// <para lang="en">Gets当前文件collection <para>Get the files collection.</para>
+    /// <para lang="en">Gets当前文件collection <para>Get the files collection</para>
     ///</para>
     /// </summary>
     protected List<UploadFile> GetUploadFiles()
@@ -323,9 +323,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">检查是否可以继续上传文件 <para>Check whether can upload file.</para>
+    /// <para lang="zh">检查是否可以继续上传文件 <para>Check whether can upload file</para>
     ///</para>
-    /// <para lang="en">检查whether可以继续上传文件 <para>Check whether can upload file.</para>
+    /// <para lang="en">检查whether可以继续上传文件 <para>Check whether can upload file</para>
     ///</para>
     /// </summary>
     protected bool CanUpload()
@@ -361,9 +361,9 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">清空上传列表方法 <para>Clear the upload files collection.</para>
+    /// <para lang="zh">清空上传列表方法 <para>Clear the upload files collection</para>
     ///</para>
-    /// <para lang="en">清空上传列表方法 <para>Clear the upload files collection.</para>
+    /// <para lang="en">清空上传列表方法 <para>Clear the upload files collection</para>
     ///</para>
     /// </summary>
     public virtual void Reset()
@@ -376,8 +376,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// <para lang="zh">append html attribute method.</para>
-    /// <para lang="en">append html attribute method.</para>
+    /// <para lang="zh">append html attribute method</para>
+    /// <para lang="en">append html attribute method</para>
     /// </summary>
     protected IDictionary<string, object> GetUploadAdditionalAttributes()
     {

@@ -57,8 +57,8 @@ public class CountUpOption
     public string Separator { get; set; } = ",";
 
     /// <summary>
-    /// <para lang="zh">小数点符号 默认 点 .</para>
-    /// <para lang="en">Decimal point symbol, Default is dot .</para>
+    /// <para lang="zh">小数点符号 默认 点 </para>
+    /// <para lang="en">Decimal point symbol, Default is dot </para>
     /// </summary>
     public string Decimal { get; set; } = ".";
 

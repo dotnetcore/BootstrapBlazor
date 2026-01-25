@@ -13,21 +13,21 @@ public partial class TabToolbarButton
 {
     /// <summary>
     /// <para lang="zh">获得/设置 按钮图标，默认为 null</para>
-    /// <para lang="en">Gets or sets the button icon string. Default is null.</para>
+    /// <para lang="en">Gets or sets the button icon string. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 按钮单击事件处理程序，默认为 null</para>
-    /// <para lang="en">Gets or sets the button click event handler. Default is null.</para>
+    /// <para lang="en">Gets or sets the button click event handler. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 提示文本，默认为 null</para>
-    /// <para lang="en">Gets or sets the tooltip text. Default is null.</para>
+    /// <para lang="en">Gets or sets the tooltip text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? TooltipText { get; set; }

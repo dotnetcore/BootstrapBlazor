@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BoolFilter component is used for boolean value filtering in table column.</para>
-/// <para lang="en">BoolFilter component is used for boolean value filtering in table column.</para>
+/// <para lang="zh">BoolFilter 组件用于表格列的布尔值过滤</para>
+/// <para lang="en">BoolFilter component is used for boolean value filtering in table column</para>
 /// </summary>
 public partial class BoolFilter
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
-    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
+    /// <para lang="zh">获得/设置过滤候选项，建议使用静态数据以避免性能损失</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss</para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }

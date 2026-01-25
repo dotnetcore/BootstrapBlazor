@@ -43,14 +43,14 @@ public partial class ButtonUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">获得/设置 上传按钮样式，默认 null 使用 Button 默认 Primary 颜色</para>
-    /// <para lang="en">Gets or sets the upload button style. Default is null, uses Button Primary color.</para>
+    /// <para lang="en">Gets or sets the upload button style. Default is null, uses Button Primary color</para>
     /// </summary>
     [Parameter]
     public string? BrowserButtonClass { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示上传列表，默认 true</para>
-    /// <para lang="en">Gets or sets whether to display the upload file list. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display the upload file list. Default is true</para>
     /// </summary>
     [Parameter]
     public bool ShowUploadFileList { get; set; } = true;

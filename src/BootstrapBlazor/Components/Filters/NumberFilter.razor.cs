@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">NumberFilter component</para>
+/// <para lang="zh">NumberFilter 组件</para>
 /// <para lang="en">NumberFilter component</para>
 /// </summary>
 public partial class NumberFilter<TType>
@@ -22,15 +22,14 @@ public partial class NumberFilter<TType>
         .Build();
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
-    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
+    /// <para lang="zh">获得/设置 过滤候选项集合 建议使用静态数据以避免性能损耗</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss</para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -49,8 +48,7 @@ public partial class NumberFilter<TType>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -64,8 +62,7 @@ public partial class NumberFilter<TType>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override FilterKeyValueAction GetFilterConditions()
     {
@@ -94,8 +91,7 @@ public partial class NumberFilter<TType>
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {

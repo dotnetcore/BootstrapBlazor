@@ -43,7 +43,7 @@ public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, ID
 
     /// <summary>
     /// <para lang="zh">释放资源方法</para>
-    /// <para lang="en">Method to release resources.</para>
+    /// <para lang="en">Method to release resources</para>
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)

@@ -13,7 +13,7 @@ public interface ITableToolbarButton<TItem> : IToolbarComponent
 {
     /// <summary>
     /// <para lang="zh">获得/设置 选中一行时启用按钮，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to enable button when one row is selected. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to enable button when one row is selected. Default is false</para>
     /// </summary>
     bool IsEnableWhenSelectedOneRow { get; set; }
 

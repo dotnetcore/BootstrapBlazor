@@ -9,8 +9,8 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
-/// <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/>.</para>
+/// <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
+/// <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
 /// </summary>
 public partial class BootstrapInputNumber<TValue>
 {
@@ -166,8 +166,8 @@ public partial class BootstrapInputNumber<TValue>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
-    /// <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
-    /// <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.</para>
+    /// <para lang="zh">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/></para>
+    /// <para lang="en">Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/></para>
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>

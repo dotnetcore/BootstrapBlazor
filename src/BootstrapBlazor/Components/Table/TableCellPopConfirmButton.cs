@@ -39,7 +39,7 @@ public class TableCellPopConfirmButton : PopConfirmButtonBase, ITableCellButton
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示本按钮，默认为 true 显示</para>
-    /// <para lang="en">Gets or sets whether to display this button. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to display this button. Default is true</para>
     /// </summary>
     /// <remarks>一般是通过 context 进行业务判断是否需要显示功能按钮</remarks>
     [Parameter]

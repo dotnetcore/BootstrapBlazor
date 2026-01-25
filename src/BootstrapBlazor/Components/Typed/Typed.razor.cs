@@ -13,21 +13,21 @@ public partial class Typed
 {
     /// <summary>
     /// <para lang="zh">获得/设置 组件显示文字，默认 null</para>
-    /// <para lang="en">Gets or sets the component display text. Default is null.</para>
+    /// <para lang="en">Gets or sets the component display text. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件配置实例，默认 null</para>
-    /// <para lang="en">Gets or sets the component configuration instance. Default is null.</para>
+    /// <para lang="en">Gets or sets the component configuration instance. Default is null</para>
     /// </summary>
     [Parameter]
     public TypedOptions? Options { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 打字结束回调方法，默认 null</para>
-    /// <para lang="en">Gets or sets the callback method when typing is complete. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method when typing is complete. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCompleteAsync { get; set; }

@@ -22,29 +22,29 @@ public class BluetoothRequestOptions
     public List<BluetoothFilter>? Filters { get; set; }
 
     /// <summary>
-    /// <para lang="zh">An array of filter objects indicating the characteristics of devices that will be excluded from matching. properties of the array elements are the same as for <see cref="Filters"/>.</para>
-    /// <para lang="en">An array of filter objects indicating the characteristics of devices that will be excluded from matching. The properties of the array elements are the same as for <see cref="Filters"/>.</para>
+    /// <para lang="zh">An array of filter objects indicating the characteristics of devices that will be excluded from matching. properties of the array elements are the same as for <see cref="Filters"/></para>
+    /// <para lang="en">An array of filter objects indicating the characteristics of devices that will be excluded from matching. The properties of the array elements are the same as for <see cref="Filters"/></para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<BluetoothFilter>? ExclusionFilters { get; set; }
 
     /// <summary>
-    /// <para lang="zh">An array of optional service identifiers.</para>
-    /// <para lang="en">An array of optional service identifiers.</para>
+    /// <para lang="zh">An array of optional service identifiers</para>
+    /// <para lang="en">An array of optional service identifiers</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<string>? OptionalServices { get; set; }
 
     /// <summary>
-    /// <para lang="zh">An optional array of integer manufacturer codes. This takes the same values as companyIdentifier.</para>
-    /// <para lang="en">An optional array of integer manufacturer codes. This takes the same values as companyIdentifier.</para>
+    /// <para lang="zh">An optional array of integer manufacturer codes. This takes the same values as companyIdentifier</para>
+    /// <para lang="en">An optional array of integer manufacturer codes. This takes the same values as companyIdentifier</para>
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<string>? OptionalManufacturerData { get; set; }
 
     /// <summary>
-    /// <para lang="zh">A boolean value indicating that the requesting script can accept all Bluetooth devices. default is false.</para>
-    /// <para lang="en">A boolean value indicating that the requesting script can accept all Bluetooth devices. The default is false.</para>
+    /// <para lang="zh">A boolean value indicating that the requesting script can accept all Bluetooth devices. default is false</para>
+    /// <para lang="en">A boolean value indicating that the requesting script can accept all Bluetooth devices. The default is false</para>
     /// </summary>
     /// <remarks>This option is appropriate when devices have not advertised enough information for filtering to be useful. When acceptAllDevices is set to true you should omit all filters and exclusionFilters, and you must set optionalServices to be able to use the returned device.</remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

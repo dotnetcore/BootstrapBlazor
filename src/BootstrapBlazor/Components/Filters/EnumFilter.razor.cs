@@ -6,29 +6,25 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Enum filter component</para>
+/// <para lang="zh">枚举过滤组件</para>
 /// <para lang="en">Enum filter component</para>
 /// </summary>
 public partial class EnumFilter
 {
-    /// <summary>
-    /// <para lang="zh">内部使用</para>
-    /// <para lang="en">Internal use</para>
-    /// </summary>
     [NotNull]
     private Type? EnumType { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 相关枚举类型</para>
-    /// <para lang="en">Gets or sets Related Enum Type</para>
+    /// <para lang="en">Gets or sets related enum type</para>
     /// </summary>
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the filter candidate items. It is recommended to use static 数据 to avoid performance loss.</para>
-    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss.</para>
+    /// <para lang="zh">获得/设置 过滤候选项，建议使用静态数据以避免性能损失</para>
+    /// <para lang="en">Gets or sets the filter candidate items. It is recommended to use static data to avoid performance loss</para>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }

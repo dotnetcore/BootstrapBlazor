@@ -6,20 +6,20 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">序列化过滤条件类为 <see cref="IFilterAction"/> 序列化使用</para>
-/// <para lang="en">Serialize Filter Condition Class for <see cref="IFilterAction"/> Serialization</para>
+/// <para lang="zh">序列化过滤条件类用于 <see cref="IFilterAction"/> 序列化</para>
+/// <para lang="en">Serialize filter condition class for <see cref="IFilterAction"/> serialization</para>
 /// </summary>
 public sealed class SerializeFilterAction : IFilterAction
 {
     /// <summary>
     /// <para lang="zh">获得/设置 过滤条件集合</para>
-    /// <para lang="en">Gets or sets Filter Condition Collection</para>
+    /// <para lang="en">Gets or sets filter condition collection</para>
     /// </summary>
     public FilterKeyValueAction? Filter { get; set; }
 
     /// <summary>
     /// <para lang="zh">重置过滤条件方法</para>
-    /// <para lang="en">Reset Filter Conditions Method</para>
+    /// <para lang="en">Resets filter conditions</para>
     /// </summary>
     public void Reset()
     {
@@ -28,7 +28,7 @@ public sealed class SerializeFilterAction : IFilterAction
 
     /// <summary>
     /// <para lang="zh">设置过滤条件方法</para>
-    /// <para lang="en">Set Filter Conditions Method</para>
+    /// <para lang="en">Sets filter conditions</para>
     /// </summary>
     /// <param name="filter"></param>
     public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
@@ -38,8 +38,8 @@ public sealed class SerializeFilterAction : IFilterAction
     }
 
     /// <summary>
-    /// <para lang="zh">获取所有过滤条件集合</para>
-    /// <para lang="en">Get All Filter Conditions Collection</para>
+    /// <para lang="zh">获得 所有过滤条件集合</para>
+    /// <para lang="en">Gets all filter conditions</para>
     /// </summary>
     public FilterKeyValueAction GetFilterConditions() => Filter ?? new();
 }

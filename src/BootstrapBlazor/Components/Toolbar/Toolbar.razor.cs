@@ -13,7 +13,7 @@ public partial class Toolbar
 {
     /// <summary>
     /// <para lang="zh">获得/设置 是否允许换行显示工具栏内容，默认 false</para>
-    /// <para lang="en">Gets or sets whether to allow toolbar content wrapping. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to allow toolbar content wrapping. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsWrap { get; set; }

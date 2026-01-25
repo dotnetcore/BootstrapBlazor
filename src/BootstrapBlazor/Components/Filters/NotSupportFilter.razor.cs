@@ -6,14 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">NotSupportFilter component</para>
+/// <para lang="zh">NotSupportFilter 组件</para>
 /// <para lang="en">NotSupportFilter component</para>
 /// </summary>
 public partial class NotSupportFilter
 {
     /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
-    /// <para lang="en">Gets or sets Not Supported Filter Type Message Default null Read Resource File Content</para>
+    /// <para lang="en">Gets or sets not supported filter type message. Default is null and reads resource content</para>
     /// </summary>
     [Parameter]
     [NotNull]

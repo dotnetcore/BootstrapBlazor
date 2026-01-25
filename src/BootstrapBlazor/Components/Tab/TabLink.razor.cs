@@ -13,35 +13,35 @@ public sealed partial class TabLink
 {
     /// <summary>
     /// <para lang="zh">获得/设置 链接的文本，默认为 null</para>
-    /// <para lang="en">Gets or sets the text of the link. Default is null.</para>
+    /// <para lang="en">Gets or sets the text of the link. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 链接的 URL，默认为 null</para>
-    /// <para lang="en">Gets or sets the URL of the link. Default is null.</para>
+    /// <para lang="en">Gets or sets the URL of the link. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 链接的图标，默认为 null</para>
-    /// <para lang="en">Gets or sets the icon of the link. Default is null.</para>
+    /// <para lang="en">Gets or sets the icon of the link. Default is null</para>
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 标签项是否可关闭的值，默认为 true</para>
-    /// <para lang="en">Gets or sets a value indicating whether the tab item is closable. Default is true.</para>
+    /// <para lang="en">Gets or sets a value indicating whether the tab item is closable. Default is true</para>
     /// </summary>
     [Parameter]
     public bool Closable { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 链接被单击时的回调方法，默认为 null</para>
-    /// <para lang="en">Gets or sets the callback method when the link is clicked. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback method when the link is clicked. Default is null</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClick { get; set; }
@@ -52,7 +52,7 @@ public sealed partial class TabLink
 
     /// <summary>
     /// <para lang="zh">获得/设置 组件的内容，默认为 null</para>
-    /// <para lang="en">Gets or sets the content of the component. Default is null.</para>
+    /// <para lang="en">Gets or sets the content of the component. Default is null</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

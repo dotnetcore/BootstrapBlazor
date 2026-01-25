@@ -193,8 +193,8 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Check item 是否 is image extension method.</para>
-    /// <para lang="en">Check item whether is image extension method.</para>
+    /// <para lang="zh">Check item 是否 is image extension method</para>
+    /// <para lang="en">Check item whether is image extension method</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>
@@ -218,15 +218,15 @@ public static class UploadFileExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Check item 是否 is base64 format image extension method.</para>
-    /// <para lang="en">Check item whether is base64 format image extension method.</para>
+    /// <para lang="zh">Check item 是否 is base64 format image extension method</para>
+    /// <para lang="en">Check item whether is base64 format image extension method</para>
     /// </summary>
     /// <param name="item"></param>
     public static bool IsBase64Format(this UploadFile item) => !string.IsNullOrEmpty(item.PrevUrl) && item.PrevUrl.StartsWith("data:image/", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>
-    /// <para lang="zh">Check the extension 是否 in the allowExtensions list.</para>
-    /// <para lang="en">Check the extension whether in the allowExtensions list.</para>
+    /// <para lang="zh">Check the extension 是否 in the allowExtensions list</para>
+    /// <para lang="en">Check the extension whether in the allowExtensions list</para>
     /// </summary>
     /// <param name="item"></param>
     /// <param name="allowExtensions"></param>

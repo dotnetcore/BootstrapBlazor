@@ -61,37 +61,37 @@ public class ToastOption : PopupOptionBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭按钮，默认 true</para>
-    /// <para lang="en">Gets or sets whether to show the close button. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to show the close button. Default is true</para>
     /// </summary>
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Header，默认 true</para>
-    /// <para lang="en">Gets or sets whether to show the header. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to show the header. Default is true</para>
     /// </summary>
     public bool ShowHeader { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否阻止重复消息，默认 false</para>
-    /// <para lang="en">Gets or sets whether to prevent duplicate messages. Default is false.</para>
+    /// <para lang="en">Gets or sets whether to prevent duplicate messages. Default is false</para>
     /// </summary>
     public bool PreventDuplicates { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Header 模板，默认为 null</para>
-    /// <para lang="en">Gets or sets the header template. Default is null.</para>
+    /// <para lang="en">Gets or sets the header template. Default is null</para>
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否开启动画，默认 true</para>
-    /// <para lang="en">Gets or sets whether to enable animation. Default is true.</para>
+    /// <para lang="en">Gets or sets whether to enable animation. Default is true</para>
     /// </summary>
     public bool Animation { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭当前 Toast 回调委托，默认 null</para>
-    /// <para lang="en">Gets or sets the callback delegate to close the current Toast. Default is null.</para>
+    /// <para lang="en">Gets or sets the callback delegate to close the current Toast. Default is null</para>
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
 

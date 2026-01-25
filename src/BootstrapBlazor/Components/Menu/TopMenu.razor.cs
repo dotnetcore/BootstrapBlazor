@@ -68,8 +68,7 @@ public partial class TopMenu
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     public override Task SetParametersAsync(ParameterView parameters)

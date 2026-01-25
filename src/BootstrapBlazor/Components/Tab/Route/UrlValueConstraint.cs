@@ -9,8 +9,8 @@ using System.Globalization;
 namespace Microsoft.AspNetCore.Components.Routing;
 
 /// <summary>
-/// <para lang="zh">Shared logic for parsing tokens from route values and querystring values.</para>
-/// <para lang="en">Shared logic for parsing tokens from route values and querystring values.</para>
+/// <para lang="zh">Shared logic for parsing tokens from route values and querystring values</para>
+/// <para lang="en">Shared logic for parsing tokens from route values and querystring values</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 internal abstract class UrlValueConstraint

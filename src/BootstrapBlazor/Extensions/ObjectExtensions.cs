@@ -160,8 +160,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型.</para>
-    /// <para lang="en">Tries to convert the string representation of a value to a specified type.</para>
+    /// <para lang="zh">Tries to convert the string representation of a value to a specified 类型</para>
+    /// <para lang="en">Tries to convert the string representation of a value to a specified type</para>
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="source"></param>
@@ -241,8 +241,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized.</para>
-    /// <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized.</para>
+    /// <para lang="zh">Creates an 实例 of a 类型 and ensures all class-类型 properties are initialized</para>
+    /// <para lang="en">Creates an instance of a type and ensures all class-type properties are initialized</para>
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
@@ -273,8 +273,8 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized.</para>
-    /// <para lang="en">Ensures that all class-type properties of the instance are initialized.</para>
+    /// <para lang="zh">Ensures that all class-类型 properties of the 实例 are initialized</para>
+    /// <para lang="en">Ensures that all class-type properties of the instance are initialized</para>
     /// </summary>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <param name="instance">The instance to initialize properties for.</param>

@@ -35,8 +35,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 新建时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值。</para>
-    /// <para lang="en">Gets or sets whether the column is read-only when adding a new item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.</para>
+    /// <para lang="zh">获得/设置 新建时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is read-only when adding a new item. Default is null, using the <see cref="IEditorItem.Readonly"/> value</para>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
@@ -47,8 +47,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值。</para>
-    /// <para lang="en">Gets or sets whether the column is read-only when editing an item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.</para>
+    /// <para lang="zh">获得/设置 编辑时此列是否只读。默认值为 null，使用 <see cref="IEditorItem.Readonly"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is read-only when editing an item. Default is null, using the <see cref="IEditorItem.Readonly"/> value</para>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
 
@@ -59,8 +59,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 新建时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值。</para>
-    /// <para lang="en">Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.</para>
+    /// <para lang="zh">获得/设置 新建时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value</para>
     /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
@@ -71,8 +71,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值。</para>
-    /// <para lang="en">Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.</para>
+    /// <para lang="zh">获得/设置 编辑时此列是否可见。默认值为 null，使用 <see cref="AutoGenerateBaseAttribute.Visible"/> 值</para>
+    /// <para lang="en">Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value</para>
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
 
@@ -96,8 +96,8 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示标签工具提示。通常用于标签文本过长被截断时。默认为 false。</para>
-    /// <para lang="en">Gets or sets whether to show label tooltip. Mostly used when the label text is too long and gets truncated. Default is false.</para>
+    /// <para lang="zh">获得/设置 是否显示标签工具提示。通常用于标签文本过长被截断时。默认为 false</para>
+    /// <para lang="en">Gets or sets whether to show label tooltip. Mostly used when the label text is too long and gets truncated. Default is false</para>
     /// </summary>
     public bool ShowLabelTooltip { get; set; }
 
@@ -108,16 +108,16 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 默认排序顺序。默认为 SortOrder.Unset。</para>
-    /// <para lang="en">Gets or sets the default sort order. Default is SortOrder.Unset.</para>
+    /// <para lang="zh">获得/设置 默认排序顺序。默认为 SortOrder.Unset</para>
+    /// <para lang="en">Gets or sets the default sort order. Default is SortOrder.Unset</para>
     /// </summary>
     public SortOrder DefaultSortOrder { get; set; }
 
     IEnumerable<SelectedItem>? IEditorItem.Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 列宽。</para>
-    /// <para lang="en">Gets or sets the column width.</para>
+    /// <para lang="zh">获得/设置 列宽</para>
+    /// <para lang="en">Gets or sets the column width</para>
     /// </summary>
     public int Width { get; set; }
 

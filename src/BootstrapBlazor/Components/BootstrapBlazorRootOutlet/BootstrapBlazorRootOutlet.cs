@@ -19,7 +19,7 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得可用于订阅所有 <see cref="BootstrapBlazorRootContent"/> 实例的默认标识符</para>
-    /// <para lang="en">Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances.</para>
+    /// <para lang="en">Gets the default identifier that can be used to subscribe to all <see cref="BootstrapBlazorRootContent"/> instances</para>
     /// </summary>
     public static readonly object DefaultIdentifier = new();
 
@@ -28,14 +28,14 @@ public class BootstrapBlazorRootOutlet : IComponent, IDisposable
 
     /// <summary>
     /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="string"/> ID</para>
-    /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    /// <para lang="en">Gets or sets the <see cref="string"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance</para>
     /// </summary>
     [Parameter]
     public string? RootName { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置确定哪些 <see cref="BootstrapBlazorRootContent"/> 实例将为此实例提供内容的 <see cref="object"/> ID</para>
-    /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance.</para>
+    /// <para lang="en">Gets or sets the <see cref="object"/> ID that determines which <see cref="BootstrapBlazorRootContent"/> instances will provide content to this instance</para>
     /// </summary>
     [Parameter]
     public object? RootId { get; set; }

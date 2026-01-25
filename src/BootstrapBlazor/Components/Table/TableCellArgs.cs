@@ -27,13 +27,13 @@ public class TableCellArgs
 
     /// <summary>
     /// <para lang="zh">获得/设置 合并单元格数量，默认为 0</para>
-    /// <para lang="en">Gets or sets colspan count. Default is 0.</para>
+    /// <para lang="en">Gets or sets colspan count. Default is 0</para>
     /// </summary>
     public int Colspan { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 当前单元格样式，默认 null</para>
-    /// <para lang="en">Gets or sets current cell CSS class. Default is null.</para>
+    /// <para lang="en">Gets or sets current cell CSS class. Default is null</para>
     /// </summary>
     public string? Class { get; set; }
 

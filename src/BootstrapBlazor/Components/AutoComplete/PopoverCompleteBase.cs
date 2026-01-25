@@ -102,14 +102,14 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
 
     /// <summary>
     /// <para lang="zh">获得/设置 选择组件是否可清除 默认为 false</para>
-    /// <para lang="en">Gets or sets whether the select component is clearable. Default is false.</para>
+    /// <para lang="en">Gets or sets whether the select component is clearable. Default is false</para>
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 右侧清除图标 默认为 fa-solid fa-angle-up</para>
-    /// <para lang="en">Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.</para>
+    /// <para lang="en">Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up</para>
     /// </summary>
     [Parameter]
     [NotNull]

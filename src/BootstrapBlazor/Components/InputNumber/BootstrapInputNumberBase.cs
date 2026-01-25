@@ -12,8 +12,7 @@ namespace BootstrapBlazor.Components;
 public class BootstrapInputNumberBase<TValue> : BootstrapInputEventBase<TValue>
 {
     /// <summary>
-    /// <para lang="zh">SetParametersAsync 方法</para>
-    /// <para lang="en">SetParametersAsync Method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="parameters"></param>
     public override Task SetParametersAsync(ParameterView parameters)
