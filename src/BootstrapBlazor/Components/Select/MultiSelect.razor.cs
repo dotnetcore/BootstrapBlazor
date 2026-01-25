@@ -284,16 +284,13 @@ public partial class MultiSelect<TValue>
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
-        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
-        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = request.Count, SearchText = SearchText });
 
         _itemsCache = null;
         _totalCount = data.TotalCount;
         var items = data.Items ?? [];
         _result = new ItemsProviderResult<SelectedItem>(items, _totalCount);
         return _result;
-
-        int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
     }
 
     /// <summary>
