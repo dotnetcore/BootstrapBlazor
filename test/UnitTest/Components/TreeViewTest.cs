@@ -1272,16 +1272,22 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsAutoScrollIntoView_Ok()
     {
+        var items = TreeFoo.GetTreeItems();
         ScrollIntoViewOptions? options = null;
         Context.JSInterop.SetupVoid("scroll", invocationMatcher =>
         {
             options = invocationMatcher.Arguments[1] as ScrollIntoViewOptions;
             return true;
-        });
+        }).SetVoidResult();
         var cut = Context.Render<TreeView<TreeFoo>>(pb =>
         {
-            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
+            pb.Add(a => a.Items, items);
             pb.Add(a => a.IsAutoScrollIntoView, true);
+        });
+        Assert.Null(options);
+
+        cut.Render(pb =>
+        {
             pb.Add(a => a.ScrollIntoViewOptions, new ScrollIntoViewOptions()
             {
                 Behavior = ScrollIntoViewBehavior.Smooth,
@@ -1289,6 +1295,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
                 Block = ScrollIntoViewBlock.Center
             });
         });
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items.First()));
         Assert.NotNull(options);
     }
 
