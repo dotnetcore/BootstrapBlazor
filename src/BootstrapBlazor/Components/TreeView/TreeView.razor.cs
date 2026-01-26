@@ -246,6 +246,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool EnableKeyboard { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否将 active 选中节点自动滚动到可视状态</para>
+    /// <para lang="en">Gets or sets whether to automatically scroll the active selected node into the visible state.</para>
+    /// </summary>
+    [Parameter]
+    public bool IsAutoScrollIntoView { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 键盘导航时的滚动至视图选项，默认为 null，使用 { behavior: "smooth", block: "nearest", inline: "start" }</para>
     /// <para lang="en">Gets or sets the scroll into view options for keyboard navigation. Default is null, using { behavior: "smooth", block: "nearest", inline: "start" }</para>
     /// </summary>
