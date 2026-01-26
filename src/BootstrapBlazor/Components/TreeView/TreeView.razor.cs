@@ -357,6 +357,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private string? _searchText;
     private bool _shouldRender = true;
     private bool _init;
+    private bool _scrollIntoView = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -417,6 +418,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 _activeItem ??= Items.FirstOrDefaultActiveItem();
                 _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
                 _init = true;
+                _scrollIntoView = true;
             }
         }
     }
@@ -431,6 +433,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (_keyboardArrowUpDownTrigger)
         {
+            _scrollIntoView = false;
             _keyboardArrowUpDownTrigger = false;
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
@@ -438,6 +441,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (!firstRender && AllowDrag)
         {
             await InvokeVoidAsync("resetTreeViewRow", Id);
+        }
+
+        if (IsAutoScrollIntoView && _scrollIntoView)
+        {
+            _scrollIntoView = false;
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
     }
 
@@ -710,6 +719,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         _activeItem = item;
         _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        _scrollIntoView = true;
         StateHasChanged();
     }
 
