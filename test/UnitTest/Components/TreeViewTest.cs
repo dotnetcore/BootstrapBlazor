@@ -1269,6 +1269,29 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.False(treeDragContext.IsChildren);
     }
 
+    [Fact]
+    public async Task IsAutoScrollIntoView_Ok()
+    {
+        ScrollIntoViewOptions? options = null;
+        Context.JSInterop.SetupVoid("scroll", invocationMatcher =>
+        {
+            options = invocationMatcher.Arguments[1] as ScrollIntoViewOptions;
+            return true;
+        });
+        var cut = Context.Render<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, TreeFoo.GetTreeItems());
+            pb.Add(a => a.IsAutoScrollIntoView, true);
+            pb.Add(a => a.ScrollIntoViewOptions, new ScrollIntoViewOptions()
+            {
+                Behavior = ScrollIntoViewBehavior.Smooth,
+                Inline = ScrollIntoViewInline.Center,
+                Block = ScrollIntoViewBlock.Center
+            });
+        });
+        Assert.NotNull(options);
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
