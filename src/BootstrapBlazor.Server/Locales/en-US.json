@@ -4885,7 +4885,12 @@
     "SortListTitle": "Multi-column sort",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
-    "TablesFilterDescLi2": "Sort a column of data, specify the column to be sorted by specifying the <code>Sortable</code> property of the column, change the collation by multiple clicks"
+    "TablesFilterDescLi2": "Sort a column of data, specify the column to be sorted by specifying the <code>Sortable</code> property of the column, change the collation by multiple clicks",
+    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li><li>Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.</li></ul-demo>",
+    "CustomerFilterItem1": "All",
+    "CustomerFilterItem2": "Greater than 10",
+    "CustomerFilterItem3": "Greater than 50",
+    "CustomerFilterItem4": "Greater than 80"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColHeaderDescription": "In this example, set  <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",

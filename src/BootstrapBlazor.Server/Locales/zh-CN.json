@@ -4885,7 +4885,12 @@
     "SortListTitle": "多列排序",
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
-    "TablesFilterDescLi2": "对某一列数据进行排序，通过指定列的 <code>Sortable</code> 属性来指定需要排序的列，通过多次点击更改排序规则"
+    "TablesFilterDescLi2": "对某一列数据进行排序，通过指定列的 <code>Sortable</code> 属性来指定需要排序的列，通过多次点击更改排序规则",
+    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li><li><code>v9.6.2</code> 版本前，使用 <code>OnFilterValueChanged</code> 触发过滤回调，重构后使用 <code>OnFilterAsync</code> 触发过滤回调方法</li></ul-demo>",
+    "CustomerFilterItem1": "全部",
+    "CustomerFilterItem2": "大于 10",
+    "CustomerFilterItem3": "大于 50",
+    "CustomerFilterItem4": "大于 80"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动，本例中设置 <code>AllowResize=\"true\"</code> 固定列也可以调整宽度",
