@@ -4,8 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace UnitTest.Components;
 
@@ -185,6 +183,21 @@ public class UploadDropTest : BootstrapBlazorTestBase
             ]);
         });
         cut.Contains("fa-format-test");
+    }
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    public void ShowDeleteButton_Ok(bool showDeleteButton, bool result)
+    {
+        var cut = Context.Render<DropUpload>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, [new() { FileName = "1.csv" }]);
+            pb.Add(a => a.ShowUploadFileList, true);
+            pb.Add(a => a.ShowDeleteButton, showDeleteButton);
+        });
+        var exists = cut.Markup.Contains("delete-icon");
+        Assert.Equal(result, exists);
     }
 
     private class MockBrowserFile(string name = "UploadTestFile", string contentType = "text") : IBrowserFile

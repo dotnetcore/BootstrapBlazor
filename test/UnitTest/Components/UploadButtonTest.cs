@@ -350,6 +350,21 @@ public class UploadButtonTest : BootstrapBlazorTestBase
         cut.Contains("accept=\".jpg\"");
     }
 
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    public void ShowDeleteButton_Ok(bool showDeleteButton, bool result)
+    {
+        var cut = Context.Render<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, [new() { FileName = "1.csv" }]);
+            pb.Add(a => a.ShowUploadFileList, true);
+            pb.Add(a => a.ShowDeleteButton, showDeleteButton);
+        });
+        var exists = cut.Markup.Contains("delete-icon");
+        Assert.Equal(result, exists);
+    }
+
     [Fact]
     public void ButtonUpload_OnGetFileFormat_Ok()
     {
