@@ -97,6 +97,13 @@ public partial class UploadPreviewList
     public bool ShowDownloadButton { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示删除按钮，默认 false</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 点击下载按钮回调方法，默认 null</para>
     /// <para lang="en">Gets or sets the callback method for the download button click event. Default is null</para>
     /// </summary>

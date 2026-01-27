@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 
 @if (Items != null)
 {
@@ -32,7 +32,10 @@
                         {
                             <i class="@InvalidStatusIconString"></i>
                         }
-                        <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                        @if (ShowDeleteButton)
+                        {
+                            <i class="@DeleteIconString" @onclick:stopPropagation @onclick="@(e => OnFileDelete(item))"></i>
+                        }
                     </div>
                 }
             </div>
