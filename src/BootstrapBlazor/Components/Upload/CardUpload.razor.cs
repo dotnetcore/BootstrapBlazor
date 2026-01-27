@@ -53,6 +53,13 @@ public partial class CardUpload<TValue>
     private string PreviewerId => $"prev_{Id}";
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示删除按钮，默认 false</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 是否允许预览的回调方法，默认 null</para>
     /// <para lang="en">Gets or sets the callback method to determine whether preview is allowed. Default is null</para>
     /// </summary>

@@ -13,13 +13,6 @@ namespace BootstrapBlazor.Components;
 public class FileListUploadBase<TValue> : UploadBase<TValue>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示删除按钮，默认 false</para>
-    /// <para lang="en">Gets or sets whether to display the delete button. Default is false</para>
-    /// </summary>
-    [Parameter]
-    public bool ShowDeleteButton { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 删除按钮图标</para>
     /// <para lang="en">Gets or sets the delete button icon</para>
     /// </summary>

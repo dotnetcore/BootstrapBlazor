@@ -14,6 +14,13 @@ namespace BootstrapBlazor.Components;
 public partial class DropUpload
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示删除按钮，默认 true</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is true</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 Body 模板，默认 null。设置 BodyTemplate 后 IconTemplate 和 TextTemplate 不生效</para>
     /// <para lang="en">Gets or sets the body template. Default is null. When BodyTemplate is set, IconTemplate and TextTemplate are not effective</para>
     /// </summary>
