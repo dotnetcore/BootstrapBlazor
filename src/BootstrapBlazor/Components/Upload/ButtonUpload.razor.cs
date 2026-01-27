@@ -14,6 +14,13 @@ namespace BootstrapBlazor.Components;
 public partial class ButtonUpload<TValue>
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示删除按钮，默认 true</para>
+    /// <para lang="en">Gets or sets whether to display the delete button. Default is true</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowDeleteButton { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 浏览按钮加载中图标</para>
     /// <para lang="en">Gets or sets the loading icon for the browse button</para>
     /// </summary>

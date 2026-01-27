@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits FileListUploadBase<TValue>
 
@@ -17,7 +17,7 @@
                            OnGetFileFormat="@OnGetFileFormat" OnCancel="OnCancel" CancelIcon="@CancelIcon" LoadingIcon="@LoadingIcon"
                            InvalidStatusIcon="@InvalidStatusIcon" ValidStatusIcon="@ValidStatusIcon"
                            ShowDownloadButton="@ShowDownloadButton" DownloadIcon="@DownloadIcon" OnDownload="@OnDownload"
-                           DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete">
+                           ShowDeleteButton="@ShowDeleteButton" DeleteIcon="@DeleteIcon" OnDelete="@OnFileDelete">
         </UploadPreviewList>
     }
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
