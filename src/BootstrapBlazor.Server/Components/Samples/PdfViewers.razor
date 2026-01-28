@@ -29,10 +29,16 @@
                     </Select>
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel>ShowToolbar</BootstrapInputGroupLabel>
+                    <Switch @bind-Value="_showToolbar"></Switch>
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
-    <PdfViewer Url="./samples/sample.pdf" Height="620px" PageIndex="@_pageIndex"
-               NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded"
+    <PdfViewer Url="./samples/sample.pdf#toolbar=0&navpanes=0" Height="620px" PageIndex="@_pageIndex"
+               NotSupportCallback="NotSupportCallback" OnLoaded="OnLoaded" ShowToolbar="_showToolbar"
                UseGoogleDocs="@_useGoogleDocs"></PdfViewer>
 </DemoBlock>
 
