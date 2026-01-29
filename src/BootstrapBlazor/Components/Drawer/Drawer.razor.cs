@@ -6,15 +6,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Drawer component</para>
+/// <para lang="zh">Drawer 抽屉组件</para>
 /// <para lang="en">Drawer component</para>
 /// </summary>
 public partial class Drawer
 {
-    /// <summary>
-    /// <para lang="zh">获得 组件样式</para>
-    /// <para lang="en">Get Component CSS Style</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("drawer collapse")
         .AddClass("no-bd", !ShowBackdrop)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -26,10 +22,6 @@ public partial class Drawer
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 抽屉 Style 字符串</para>
-    /// <para lang="en">Get Drawer Style String</para>
-    /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
         .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && !IsVertical)
         .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && IsVertical)
@@ -37,10 +29,6 @@ public partial class Drawer
 
     private bool IsVertical => Placement == Placement.Top || Placement == Placement.Bottom;
 
-    /// <summary>
-    /// <para lang="zh">获得 抽屉样式</para>
-    /// <para lang="en">Get Drawer CSS Style</para>
-    /// </summary>
     private string? DrawerClassString => CssBuilder.Default("drawer-body")
         .AddClass("left", Placement != Placement.Right && Placement != Placement.Top && Placement != Placement.Bottom)
         .AddClass("top", Placement == Placement.Top)
