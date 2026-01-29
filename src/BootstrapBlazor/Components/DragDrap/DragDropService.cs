@@ -6,48 +6,52 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">拖拽服务</para>
-/// <para lang="en">Drag Drop Service</para>
+/// <para lang="zh">DragDropService 拖拽服务</para>
+/// <para lang="en">DragDropService component</para>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 internal class DragDropService<T>
 {
     /// <summary>
-    /// <para lang="zh">活动的Item</para>
-    /// <para lang="en">Active Item</para>
+    /// <para lang="zh">获得/设置 活动的Item</para>
+    /// <para lang="en">Gets or sets Active Item</para>
     /// </summary>
     public T? ActiveItem { get; set; }
 
     /// <summary>
-    /// <para lang="zh">悬停的项目</para>
-    /// <para lang="en">Drag Target Item</para>
+    /// <para lang="zh">获得/设置 悬停的项目</para>
+    /// <para lang="en">Gets or sets Drag Target Item</para>
     /// </summary>
     public T? DragTargetItem { get; set; }
 
     /// <summary>
-    /// <para lang="zh">被拖拽的Items</para>
-    /// <para lang="en">Dragged Items</para>
+    /// <para lang="zh">获得/设置 被拖拽的 Items</para>
+    /// <para lang="en">Gets or sets Dragged Items</para>
     /// </summary>
     public List<T>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">活动的Id</para>
-    /// <para lang="en">Active Id</para>
+    /// <para lang="zh">获得/设置 活动的 Id</para>
+    /// <para lang="en">Gets or sets Active Id</para>
     /// </summary>
     public int? ActiveSpacerId { get; set; }
 
     /// <summary>
-    /// <para lang="zh">之前的位置</para>
-    /// <para lang="en">Previous Index</para>
+    /// <para lang="zh">获得/设置 之前的位置</para>
+    /// <para lang="en">Gets or sets Previous Index</para>
     /// </summary>
     public int? OldIndex { get; set; }
 
     /// <summary>
-    /// <para lang="zh">通知刷新</para>
-    /// <para lang="en">Notify StateChanged</para>
+    /// <para lang="zh">获得/设置 通知刷新方法</para>
+    /// <para lang="en">Gets or sets Notify StateChanged</para>
     /// </summary>
     public EventHandler? StateHasChanged { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">重置方法</para>
+    /// <para lang="en">Reset method</para>
+    /// </summary>
     public void Reset()
     {
         if (OldIndex is >= 0 && Items != null && ActiveItem != null)
@@ -57,6 +61,10 @@ internal class DragDropService<T>
         Commit();
     }
 
+    /// <summary>
+    /// <para lang="zh">提交方法</para>
+    /// <para lang="en">Commit method</para>
+    /// </summary>
     public void Commit()
     {
         ActiveItem = default;
