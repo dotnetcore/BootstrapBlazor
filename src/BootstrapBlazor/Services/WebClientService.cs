@@ -180,4 +180,10 @@ public class ClientInfo
     /// <para lang="en">Gets or sets Browser Engine Info</para>
     /// </summary>
     public string? Engine { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 当前已登录用户账号</para>
+    /// <para lang="en">Gets or sets currently logged-in user account</para>
+    /// </summary>
+    public string? UserName { get; set; }
 }

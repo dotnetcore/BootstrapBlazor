@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Authorization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -31,6 +33,11 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [Inject]
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    [Inject]
+    [NotNull]
+    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+
 
     private IIpLocatorProvider? _ipLocatorProvider;
 
@@ -76,6 +83,13 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
                     client.City = await _ipLocatorProvider.Locate(client.Ip);
+                }
+
+                var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                var identity = state.User.Identity;
+                if (identity is { IsAuthenticated: true })
+                {
+                    client.UserName = identity.Name;
                 }
                 ConnectionService.AddOrUpdate(client);
             });
