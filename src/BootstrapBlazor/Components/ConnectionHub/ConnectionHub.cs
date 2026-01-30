@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BootstrapBlazor.Components;
 
@@ -36,7 +37,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
     [Inject]
     [NotNull]
-    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+    private IServiceProvider? Provider { get; set; }
 
 
     private IIpLocatorProvider? _ipLocatorProvider;
@@ -85,11 +86,15 @@ public class ConnectionHub : BootstrapModuleComponentBase
                     client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
 
-                var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                var identity = state.User.Identity;
-                if (identity is { IsAuthenticated: true })
+                var authenticationStateProvider = Provider.GetService<AuthenticationStateProvider>();
+                if (authenticationStateProvider != null)
                 {
-                    client.UserName = identity.Name;
+                    var state = await authenticationStateProvider.GetAuthenticationStateAsync();
+                    var identity = state.User.Identity;
+                    if (identity is { IsAuthenticated: true })
+                    {
+                        client.UserName = identity.Name;
+                    }
                 }
                 ConnectionService.AddOrUpdate(client);
             });
