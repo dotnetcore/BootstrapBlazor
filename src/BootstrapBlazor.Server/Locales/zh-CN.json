@@ -733,12 +733,10 @@
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxDescribe": "用于直接在浏览器使用 fetch 方法与服务器交互，目前只支持输入输出皆为 json，返回值为 json 字符串，可以自行转换处理。",
     "AjaxTitle": "Ajax调用",
-    "GoTo": "执行 goto 方法",
     "GoToButtonText1": "跳转到文档首页",
     "GoToButtonText2": "跳转到自己（刷新页面）",
     "GoToIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "GoToTitle": "页面跳转",
-    "InvokeAsync": "执行 fetch 方法",
     "NormalB": "特别注意：",
     "NormalButtonText1": "登录成功",
     "NormalButtonText2": "登录失败",
@@ -990,9 +988,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
     "BrowserFingerIntro": "通过调用 <code>IBrowserFingerService</code> 服务实例方法 <code>GetFingerCodeAsync</code> 获得客户端浏览器指纹，隐私模式下指纹是一致的",
-    "BrowserFingerTitle": "浏览器指纹",
-    "GetClientHubIdAsync": "获得客户端连接 Id 方法",
-    "GetFingerCodeAsync": "获得指纹方法"
+    "BrowserFingerTitle": "浏览器指纹"
   },
   "BootstrapBlazor.Server.Components.Samples.Buttons": {
     "Block1Intro": "基础的按钮用法。",
@@ -1028,8 +1024,6 @@
     "Description": "常用的操作按钮。",
     "Description1": "通过 <code>OnClick</code> 回调方法中设置自身 <code>IsDisabled</code> 属性，或者调用组件实例方法 <code>SetDisable</code> 均可实现按钮禁用效果",
     "Description2": "由于使用 <code>IsDisabled</code> 属性时，需要显式手动调用 <code>StateHasChanged</code> 方法，会导致按钮所在组件整体刷新，建议使用实例方法 <code>SetDisable</code> 仅对按钮进行刷新",
-    "EventDesc1": "点击按钮时触发此事件",
-    "EventDesc2": "点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
     "ExtraLargeButton": "超大按钮",
     "ExtraSmallButton": "超小按钮",
     "HighlightButton": "高亮按钮",
@@ -1038,7 +1032,6 @@
     "LargeButton": "大按钮",
     "LinkButton": "链接按钮",
     "MediumButton": "中等按钮",
-    "MethodDesc1": "设置按钮是否可用",
     "NoneButtonColor": "None 按钮",
     "NormalButton": "按钮",
     "PrimaryButton": "主要按钮",
@@ -1079,7 +1072,6 @@
     "Study": "自习",
     "SubTitle": "按照日历形式展示数据的容器。当数据是日期或按照日期划分时，例如日程、课表、价格日历等，农历等。目前支持年/月切换。",
     "Title": "Calendar 日历框",
-    "ValueChanged": "值改变时回调委托",
     "ViewModeIntro": "通过设置属性 <code>CalendarViewMode.Week</code>",
     "ViewModeTitle": "按周展示"
   },
@@ -1105,11 +1097,9 @@
   "BootstrapBlazor.Server.Components.Samples.Captchas": {
     "BasicUsageIntro": "进行简单的人机识别",
     "BasicUsageTitle": "基础功能",
-    "GetImageName": "自定义获取背景图文件名称方法",
     "ImageCallbackIntro": "通过 <code>GetImageName</code> 设置自定义方法拼接随机图片全路径名称",
     "ImageCallbackTitle": "指定图床委托方法",
     "ImageTitle": "指定图床路径与名称",
-    "OnValid": "滑块验证码进行验证结果判断后回调此方法",
     "SubTitle": "通过拖动滑块进行人机识别",
     "Title": "Captchas 滑块验证码"
   },
@@ -1186,7 +1176,6 @@
     "Divider1": "双向绑定显示标签",
     "Divider2": "双向绑定不显示标签",
     "Divider3": "自定义 DisplayText",
-    "Event1": "级联选择选项改变时触发此事件",
     "item1": "北京",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
@@ -1300,7 +1289,6 @@
     "PieNormalTitle": "Pie 图"
   },
   "BootstrapBlazor.Server.Components.Samples.CheckboxLists": {
-    "AttributeOnMaxSelectedCountExceed": "选项到达最大值后回调方法",
     "CheckboxListGenericIntro": "通过 <code>CheckboxListGeneric</code> 组件和 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持",
     "CheckboxListGenericTitle": "泛型支持",
     "CheckboxListsTip": "控件用于创建多选的复选框组",
@@ -1311,7 +1299,6 @@
     "EnumIntro": "绑定值为枚举",
     "EnumTip": "当 <code>CheckboxList</code> 绑定一个枚举集合时，<code>Items</code> 不需要指定，<code>Items</code> 会被自动设置成枚举里面所有的值，如果需要绑定部分值时，请自行提供枚举集合 <code>Items</code>",
     "EnumTitle": "双向绑定枚举",
-    "Event1": "复选框状态改变时回调此方法",
     "Foo": "张三,李四",
     "Header": "共",
     "IsButtonIntro": "设置 <code> IsButton=\"true\"</code>，将复选框样式改为按钮样式",
@@ -1361,13 +1348,11 @@
     "ItemTemplateTitle": "项目模板",
     "NormalIntro": "单独使用可以表示两种状态之间的切换，列头或者表头使用时可以表示三种状态之间的切换。组件支持泛型数据绑定，通过 <code>TValue</code> 设置绑定数据类型，通过 <code>State</code> 设置组件状态",
     "NormalTitle": "基础用法",
-    "OnBeforeStateChanged": "选择框状态改变前回调此方法",
     "OnBeforeStateChangedIntro": "通过设置 <code>OnBeforeStateChanged</code> 回调方法，可取消选中逻辑",
     "OnBeforeStateChangedSwalContent": "是否更改选中状态",
     "OnBeforeStateChangedSwalTitle": "弹窗确认",
     "OnBeforeStateChangedText": "弹窗确认",
     "OnBeforeStateChangedTitle": "选中前回调方法",
-    "OnStateChanged": "选择框状态改变时回调此方法",
     "OnStateChangedIntro": "绑定组件内变量，数据自动同步，绑定数据类型为 <code>boolean</code> 类型时自动翻转值",
     "OnStateChangedTitle": "双向绑定 boolean 数据",
     "ShowAfterLabelDescription": "设置 <code>DisplayText</code> 属性，或者通过双向绑定均可以显示文本信息",
@@ -1375,7 +1360,6 @@
     "ShowAfterLabelTitle": "Label 文字",
     "ShowLabelIntro": "通过设置 <code>Color</code> 属性改变组件背景色",
     "ShowLabelTitle": "颜色",
-    "StateChanged": "State 状态改变回调方法",
     "StatusText1": "选中",
     "StatusText2": "未选",
     "StatusText3": "不确定",
@@ -1446,9 +1430,6 @@
     "Title": "获取客户端连接信息"
   },
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
-    "ClipboardCopyMethod": "拷贝文本到剪切板方法",
-    "ClipboardGetMethod": "读取剪切板内容方法",
-    "ClipboardGetTextMethod": "读取剪切板文本内容方法",
     "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
     "ClipboardTitle": "ClipboardService"
   },
@@ -1612,8 +1593,6 @@
     "DisableToday": "禁用今天",
     "DisableWeekend": "禁用周末",
     "DisplayText": "选择时间",
-    "Event1": "确认按钮回调委托",
-    "Event2": "组件值改变时回调委托供双向绑定使用",
     "Feature": "功能体验区",
     "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>",
     "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
@@ -1634,7 +1613,6 @@
     "NullValueIntro": "多用于条件选择",
     "NullValueTip": "绑定值为可为空类型 <code>DateTime?</code> 时自动出现 <b>清空</b> 按钮",
     "NullValueTitle": "允许空时间",
-    "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
     "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\"</code> 不显示组件图标节约空间",
     "ShowIconTitle": "是否显示组件图标",
     "ShowLabelIntro": "作为表单组件时，显示组件前方标签",
@@ -2009,14 +1987,6 @@
     "Description": "用于拖拽使用",
     "EventIntro": "当拖入数量超限时<code>OnItemDropRejectedByMaxItemLimit</code>，当拖拽被禁止时<code>OnItemDropRejected</code>，返回底下的Item<code>OnReplacedItemDrop</code>,返回放下的Item<code>OnItemDrop</code>",
     "EventTitle": "各种事件",
-    "M1": "是否运行拖放",
-    "M2": "节点是否允许被拖拽",
-    "M3": "复制一个新的 Item 到目标位置",
-    "M4": "针对 Item 添加特殊的 css class",
-    "M5": "Item 释放时的事件",
-    "M6": "Item 释放被拒绝时的事件",
-    "M7": "当 Item 在另一个 Item 上，不是空白处被释放时的事件",
-    "M8": "Item 因为 Dropzone 内最大数量超限被拒绝时的事件",
     "NormalIntro": "简单拖拽",
     "NormalTitle": "基本用法",
     "Title": "DragDrop 拖拽"
@@ -2090,9 +2060,6 @@
     "DropdownItemsTemplateTitle": "下拉框模板",
     "DropdownItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义下拉项显示内容，本例中通过自定义模板使用 <code>Tooltip</code> 组件增加鼠标悬浮是显示提示功能",
     "DropdownItemTemplateTitle": "下拉项模板",
-    "EventDesc1": "点击按钮时触发此事件",
-    "EventDesc2": "点击按钮时触发此事件并且不刷新当前组件，用于提高性能时使用",
-    "EventOnSelectedItemChanged": "下拉框值发生改变时触发",
     "FixedButtonTextIntro": "通过设置 <code>FixedButtonText</code> 来设置固定按钮的初始文字",
     "FixedButtonTextTitle": "设置固定按钮文字",
     "IsAsyncIntro": "通过设置 <code>IsAsync</code> 属性按钮是否为 <b>异步请求按钮</b>，默认为 <code>false</code>，<b>注意</b> 需要设置 <code>ShowSplit=\"true\"</code> 时才生效",
@@ -2779,17 +2746,13 @@
     "IsDisabledTitle": "禁用"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
-    "EvalAttr": "调用 Eval 方法",
     "EvalIntro": "通过 <code>Eval</code> 函数，在当前作用域内动态运行 <code>JavaScript</code> 代码。",
     "EvalTitle": "Eval",
-    "FunctionAttr": "调用 Function 方法",
     "FunctionIntro": "通过 <code>Function</code> 函数，在全局作用域内动态运行 <code>JavaScript</code> 代码。",
     "FunctionTitle": "Function",
-    "IsMobileAttr": "判断当前设备是否为移动设备",
     "IsMobileIntro": "通过正则表达式判断 <code>userAgent</code>，表示当前设备是否为移动设备",
     "IsMobileTitle": "IsMobile",
     "JSTips": "使用前，先按照以下代码导入模块。",
-    "OpenUrlAttr": "在特定窗口打开连接",
     "OpenUrlIntro": "在特定窗口打开连接",
     "OpenUrlTips": "默认为:",
     "OpenUrlTitle": "OpenUrl"
@@ -2994,8 +2957,7 @@
     "ListViewsTitle": "ListView 列表视图",
     "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
     "PaginationTitle": "分页显示",
-    "ProductListText": "产品列表",
-    "QueryAsync": "手工查询数据方法"
+    "ProductListText": "产品列表"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
@@ -3342,8 +3304,6 @@
     "MultiSelectSearchIntro": "通过设置 <code>ShowSearch</code> 值开启搜索功能",
     "MultiSelectSearchLog": "搜索文字",
     "MultiSelectSearchTitle": "搜索功能",
-    "MultiSelectsEvent_OnSearchTextChanged": "搜索文本发生变化时回调此方法",
-    "MultiSelectsEvent_OnSelectedItemsChanged": "下拉框选项改变时触发此事件",
     "MultiSelectsTitle": "MultiSelect 多项选择器",
     "MultiSelectVeryLongTextDisplayText": "超长文字",
     "MultiSelectVeryLongTextIntro": "候选项文字特别长",
@@ -3659,7 +3619,6 @@
     "RadiosLog3": "组件 Value 值:",
     "RadiosNormalIntro": "由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器",
     "RadiosNormalTitle": "基础用法",
-    "RadiosOnSelectedChangedEvent": "复选框状态改变时回调此方法",
     "RadiosTitle": "Radio 单选框",
     "RadiosVerticalIntro": "通过设置 <code>IsVertical</code> 使组件内部竖向排列",
     "RadiosVerticalTitle": "竖向排列"
@@ -3669,7 +3628,6 @@
     "RatesDescription": "评分组件",
     "RatesDisableIntro": "通过设置 <code>IsDisable</code> 属性值禁用组件",
     "RatesDisableTitle": "禁用",
-    "RatesEvent1": "值改变时回调委托",
     "RatesGrin": "惊喜",
     "RatesIconIntro": "通过设置 <code>ItemTemplate</code> 模板，配合自定义样式 <code>custom-rate</code>实现复杂功能",
     "RatesIconTitle": "模板",
@@ -3792,7 +3750,7 @@
     "RowSpanTips5": "行显示 2 个，第一个组件 <code>ColSpan</code> 设置为 3",
     "RowSpanTips6": "行显示一个组件",
     "RowSpanTitle": "跨列功能",
-    "RowsTitle": "Row布局组件"
+    "RowsTitle": "Row 布局组件"
   },
   "BootstrapBlazor.Server.Components.Samples.Scrolls": {
     "ScrollDescription": "给高度或者宽度超标的组件增加滚动条",
@@ -3957,9 +3915,6 @@
     "SelectsNullableDescription": "选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code>",
     "SelectsNullableIntro": "<code>Select</code> 组件绑定 <code>int?</code> 类型示例",
     "SelectsNullableTitle": "绑定可为空类型",
-    "SelectsOnBeforeSelectedItemChange": "下拉框选项改变前触发此事件",
-    "SelectsOnInputChangedCallback": "编辑模式下输入文本转换为对应 Value 回调方法",
-    "SelectsOnSelectedItemChanged": "下拉框选项改变时触发此事件",
     "SelectsOption1": "请选择 ...",
     "SelectsOption2": "北京",
     "SelectsOption3": "上海",
@@ -4093,8 +4048,7 @@
     "SlidersNormalTitle": "基础用法",
     "SlidersRangeIntro": "通过设置绑定值标签 <code>RangeAttribute</code> 自动生成 <code>min</code> <code>max</code>",
     "SlidersRangeTitle": "Range 标签",
-    "SlidersTitle": "Slider 滑块",
-    "SlidersValueChanged": "ValueChanged 回调方法"
+    "SlidersTitle": "Slider 滑块"
   },
   "BootstrapBlazor.Server.Components.Samples.SmilesDrawers": {
     "SmilesDrawerDescription": "SmilesDrawer 是一个开源的化学信息学工具包，用于分子建模和化学信息学",
@@ -4432,7 +4386,6 @@
     "SwitchesDescription": "提供最普通的开关应用",
     "SwitchesDisableIntro": "通过设置 <code>IsDisabled</code> 属性控制组件不可用状态",
     "SwitchesDisableTitle": "禁用状态",
-    "SwitchesEventValueChanged": "获取选择改变的值",
     "SwitchesInnerTextDescription": "通过设置 <code>OnInnerText</code> <code>OffInnerText</code> 属性更改内置文字，默认情况下建议使用一个汉字，可自定义组件宽度来增加内置文字数量",
     "SwitchesInnerTextIntro": "通过设置 <code>ShowInnerText</code> 属性控制组件显示内置文字",
     "SwitchesInnerTextLabelText1": "默认文字：",
@@ -4892,11 +4845,7 @@
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
     "TablesFilterDescLi2": "对某一列数据进行排序，通过指定列的 <code>Sortable</code> 属性来指定需要排序的列，通过多次点击更改排序规则",
-    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li><li><code>v9.6.2</code> 版本前，使用 <code>OnFilterValueChanged</code> 触发过滤回调，重构后使用 <code>OnFilterAsync</code> 触发过滤回调方法</li></ul-demo>",
-    "CustomerFilterItem1": "全部",
-    "CustomerFilterItem2": "大于 10",
-    "CustomerFilterItem3": "大于 50",
-    "CustomerFilterItem4": "大于 80"
+    "TablesFilterTemplateDescription": "<p><code>FilterTemplate</code> 类型为 <code>RenderFragment</code> <span>其值为自定义组件，组件必须继承</span> <code>FilterBase</code> 本例中最后一列 <b>数量列</b> 通过筛选模板使用自定义组件 <code>CustomerFilter</code>  <a href=\"{0}\" target=\"_blank\">[传送门] CustomerFilter 组件源码</a></p><p class=\"code-label\">注意事项：</p><ul class=\"ul-demo\"><li>自定义过滤组件使用 <code>FilterProvider</code> 包裹，<code>FilterProvider</code>必须在 <code>FilterTemplate</code> 节点下</li><li>通过 <code>FilterProvider</code> 组件的参数可微调过滤器；例如通过设置 <code>ShowMoreButton</code> 控制是否显示 <b>+ -</b> 符号</li><li><code>v9.6.2</code> 版本前，使用 <code>OnFilterValueChanged</code> 触发过滤回调，重构后使用 <code>OnFilterAsync</code> 触发过滤回调方法</li></ul-demo>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动，本例中设置 <code>AllowResize=\"true\"</code> 固定列也可以调整宽度",
@@ -5195,7 +5144,6 @@
     "BlockHeaderTemplateDesc": "在 <code>HeaderTemplate</code> 中使用 <code>Badge</code> 设置挂件",
     "BlockHeaderTemplateHeaderText": "待办事宜",
     "DividerText": "Tab 分割线",
-    "MethodTitle": "Method 方法",
     "RemoveButtonText": "移除",
     "ShowTabInHeaderDesc": "<code>Layout</code> 组件中开启多标签功能后，可以通过设置 <code>ShowTabInHeader=\"true\"</code> 将 <code>Tab</code> 标签头渲染到 <code>Layout</code> Header 模板中，效果可以通过 <a href=\"template\" target=\"_blank\">项目模板</a> 新建工程查看",
     "TabItem1Content": "我是用户管理",
@@ -5214,15 +5162,6 @@
     "TabItem7Text": "定时任务管理",
     "TabItem8Text": "计数组件",
     "TabItem9Text": "天气预报",
-    "TabMethod1AddTab": "添加 TabItem 到 Tab 中，可指定新增Tab的位置",
-    "TabMethod2RemoveTab": "移除 TabItem",
-    "TabMethod3ActiveTab": "设置指定 TabItem 为激活状态",
-    "TabMethod4ClickPrevTab": "切换到上一个标签方法",
-    "TabMethod5ClickNextTab": "切换到下一个标签方法",
-    "TabMethod6CloseCurrentTab": "关闭当前标签页方法",
-    "TabMethod7CloseOtherTabs": "关闭其他标签页方法",
-    "TabMethod8CloseAllTabs": "关闭所有标签页方法",
-    "TabMethod9GetActiveTab": "获得当前标签页方法",
     "TabsAddTabItemIntro": "通过调用组件 api 动态添加/删除 <code>TabItem</code>",
     "TabsAddTabItemTitle": "自定义增加标签页触发器",
     "TabsAppDescription": "通过 <b>添加</b> <b>删除</b> 按钮动态调整 <code>TabItem</code> 数量，使其超出容器数量查看，左右移动效果；<b>用户管理</b> 设置为不可关闭；功能按钮无法关闭这个标签页。组件默认是循环切换标签页的，可以通过 <code>IsLoopSwitchTabItem=\"false\"</code> 关闭这个功能",
@@ -5305,7 +5244,6 @@
     "TagsIconTitle": "带 Icon",
     "TagsNormalIntro": "页面中的非浮层元素，不会自动消失。",
     "TagsNormalTitle": "基础用法",
-    "TagsOnDismiss": "关闭标签回调方法",
     "TagsSubTitle": "用于标记和选择。",
     "TagsTitle": "Tag 标签"
   },
@@ -5500,8 +5438,7 @@
     "TogglesOffText": "关闭",
     "TogglesOnText": "开启",
     "TogglesSubTitle": "提供最普通的开关应用，值为 <code>true</code> <code>false</code>",
-    "TogglesTitle": "Toggle 开关",
-    "ValueChanged": "获取选择改变的值"
+    "TogglesTitle": "Toggle 开关"
   },
   "BootstrapBlazor.Server.Components.Samples.Toolbars": {
     "NormalTitle": "基本用法",
@@ -5542,8 +5479,6 @@
     "Data": "数据",
     "LeftButtonText": "到左边",
     "LeftPanelText": "左侧列表",
-    "OnSelectedItemsChanged": "组件绑定数据项集合选项变化时回调方法",
-    "OnSetItemClass": "设置 Item 样式回调方法",
     "PlaceHolder": "请输入",
     "RightButtonText": "到右边",
     "RightPanelText": "右侧列表",
@@ -5801,8 +5736,6 @@
     "OnValidSubmitLog": "OnValidSubmit 回调委托: 验证通过",
     "OnValidSubmitStartingLog": "OnValidSubmit 回调委托: Starting ...",
     "ResetButtonText": "重置组件",
-    "SetError": "设置验证失败方法",
-    "Validate": "表单认证方法",
     "ValidateButtonText": "保存",
     "ValidateFormComplexValidationDescription": "本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示",
     "ValidateFormComplexValidationIntro": "支持任意复杂类型的绑定与验证",
@@ -6000,21 +5933,5 @@
     "NullItemText": "未设置",
     "ReadonlyColumn": "只读列",
     "True": "通过"
-  },
-  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
-    "Title": "Reconnector 组件",
-    "ReconnectingTitle": "正在尝试重新连接服务器",
-    "ReconnectingDescription": "服务器正在更新新版本，稍等一会儿即可提供服务，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
-    "ReconnectButton": "重新连接",
-    "ReconnectFailedTitle": "与服务器连接失败",
-    "ReconnectFailedDescription": "请确认网络是否正常，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
-    "ReloadButton": "重新加载",
-    "ReconnectRejectedTitle": "服务器拒绝连接",
-    "ReconnectRejectedDescription": "所有的连接尝试都被拒绝了，这很有可能是由于网络问题或者服务器问题引起的，请扫描左侧二维码加群与管理员联系",
-    "UILibraryTitle": "Bootstrap Blazor UI 组件库",
-    "UILibraryDescription1": "一套基于 <b>Bootstrap</b> 样式的企业级 <b>Blazor UI</b> 组件库，支持 Server 与 WebAssembly",
-    "UILibraryDescription2": "适配移动端支持各种主流浏览器以及移动端，适配 <b>ABP</b>，同时支持 <b>{0}</b>",
-    "TemplateLink": "项目模板",
-    "TemplateText": "已提供项目模板方便快速上手"
   }
 }

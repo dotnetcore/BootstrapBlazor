@@ -120,6 +120,16 @@ public class JsonTest
             return true;
         }
 
+        if (content.Contains($"Localizer[\"{key}\","))
+        {
+            return true;
+        }
+
+        if (content.Contains($"Localizer[nameof({key}),"))
+        {
+            return true;
+        }
+
         return false;
     }
 
