@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -42,10 +42,10 @@ public partial class TablesSelection
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Items = Foo.GenerateFoo(LocalizerFoo);
+        Items = Foo.GenerateFoo(FooLocalizer);
         SelectedItems = Items.Take(4).ToList();
 
-        _scrollItems.AddRange(Foo.GenerateFoo(LocalizerFoo, 20));
+        _scrollItems.AddRange(Foo.GenerateFoo(FooLocalizer, 20));
     }
 
     private void OnClick()

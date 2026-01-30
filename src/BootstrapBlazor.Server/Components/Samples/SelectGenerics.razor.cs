@@ -39,7 +39,7 @@ public sealed partial class SelectGenerics
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     private bool _showSearch;
 
@@ -58,7 +58,7 @@ public sealed partial class SelectGenerics
         TimeZoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem<string>(i.Id, i.DisplayName));
         TimeZoneId = TimeZoneInfo.Local.Id;
         TimeZoneValue = TimeZoneInfo.Local.BaseUtcOffset;
-        Foos = Foo.GenerateFoo(LocalizerFoo);
+        Foos = Foo.GenerateFoo(FooLocalizer);
     }
 
     private async Task<QueryData<SelectedItem<Foo>>> OnQueryAsync(VirtualizeQueryOption option)

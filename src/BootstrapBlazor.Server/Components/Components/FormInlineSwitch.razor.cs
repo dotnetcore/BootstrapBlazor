@@ -20,7 +20,7 @@ public partial class FormInlineSwitch
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Rows>? LocalizerRows { get; set; }
+    private IStringLocalizer<Rows>? RowsLocalizer { get; set; }
 
     /// <summary>
     /// 
@@ -59,6 +59,6 @@ public partial class FormInlineSwitch
     {
         base.OnInitialized();
 
-        Items = Enum.GetNames<RowType>().Select(i => new SelectedItem(i, LocalizerRows[i]));
+        Items = Enum.GetNames<RowType>().Select(i => new SelectedItem(i, RowsLocalizer[i]));
     }
 }

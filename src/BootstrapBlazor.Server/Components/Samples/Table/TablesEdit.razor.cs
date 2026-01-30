@@ -52,11 +52,11 @@ public partial class TablesEdit
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = Foo.GenerateFoo(LocalizerFoo, 4);
-        EditItems = Foo.GenerateFoo(LocalizerFoo, 4);
-        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
-        CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
-        BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
+        Items = Foo.GenerateFoo(FooLocalizer, 4);
+        EditItems = Foo.GenerateFoo(FooLocalizer, 4);
+        Hobbies = Foo.GenerateHobbies(FooLocalizer);
+        CustomerDataService = new FooDataService<Foo>(FooLocalizer);
+        BindItems = Foo.GenerateFoo(FooLocalizer).Take(5).ToList();
         PlaceHolderString ??= Localizer["TablesEditShowSearchPlaceHolderString"];
     }
 

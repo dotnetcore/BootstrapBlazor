@@ -12,7 +12,7 @@ public partial class MultiSelects
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -193,7 +193,7 @@ public partial class MultiSelects
         Items8 = GenerateItems();
         TemplateItems = GenerateItems();
         EditableItems = GenerateItems();
-        FooItems = [.. Foo.GenerateFoo(LocalizerFoo).Select(i => new SelectedItem<Foo>(i, i.Name!))];
+        FooItems = [.. Foo.GenerateFoo(FooLocalizer).Select(i => new SelectedItem<Foo>(i, i.Name!))];
 
         // 初始化数据
         DataSource =
@@ -219,7 +219,7 @@ public partial class MultiSelects
         LongItems = GenerateDataSource(LongDataSource);
 
         Items = GenerateDataSource(DataSource);
-        Foos = Foo.GenerateFoo(LocalizerFoo);
+        Foos = Foo.GenerateFoo(FooLocalizer);
         _virtualItemValue1 = $"{Foos[79].Id}, {Foos[78].Id}";
         _virtualItemValue2 = $"{Foos[45].Id}, {Foos[46].Id}";
         _virtualItemText1 = $"{Foos[79].Name}, {Foos[78].Name}";

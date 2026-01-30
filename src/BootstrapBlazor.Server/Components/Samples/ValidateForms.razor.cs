@@ -59,10 +59,10 @@ public partial class ValidateForms
         ValidataModel = new CustomValidataModel { Name = "", Telephone1 = "123456789", Telephone2 = "123456789" };
 
         // 初始化参数
-        Hobbies2 = Foo.GenerateHobbies(LocalizerFoo);
-        Hobbies3 = Foo.GenerateHobbies(LocalizerFoo);
-        Hobbies4 = Foo.GenerateHobbies(LocalizerFoo);
-        Hobbies7 = Foo.GenerateHobbies(LocalizerFoo);
+        Hobbies2 = Foo.GenerateHobbies(FooLocalizer);
+        Hobbies3 = Foo.GenerateHobbies(FooLocalizer);
+        Hobbies4 = Foo.GenerateHobbies(FooLocalizer);
+        Hobbies7 = Foo.GenerateHobbies(FooLocalizer);
 
         ComplexModel = new ComplexFoo()
         {

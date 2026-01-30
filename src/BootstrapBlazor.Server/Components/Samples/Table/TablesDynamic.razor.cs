@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -51,25 +51,25 @@ public partial class TablesDynamic
             {
                 context.AddRequiredAttribute(nameof(Foo.DateTime));
                 // 使用 AutoGenerateColumnAttribute 设置显示名称示例
-                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), LocalizerFoo[nameof(Foo.DateTime)].Value) });
+                context.AddAutoGenerateColumnAttribute(nameof(Foo.DateTime), new KeyValuePair<string, object?>[] { new(nameof(AutoGenerateColumnAttribute.Text), FooLocalizer[nameof(Foo.DateTime)].Value) });
             }
             else if (propertyName == nameof(Foo.Name))
             {
-                context.AddRequiredAttribute(nameof(Foo.Name), LocalizerFoo["Name.Required"]);
+                context.AddRequiredAttribute(nameof(Foo.Name), FooLocalizer["Name.Required"]);
                 // 使用 Text 设置显示名称示例
-                col.Text = LocalizerFoo[nameof(Foo.Name)];
+                col.Text = FooLocalizer[nameof(Foo.Name)];
             }
             else if (propertyName == nameof(Foo.Count))
             {
                 context.AddRequiredAttribute(nameof(Foo.Count));
                 // 使用 DisplayNameAttribute 设置显示名称示例
-                context.AddDisplayNameAttribute(nameof(Foo.Count), LocalizerFoo[nameof(Foo.Count)].Value);
+                context.AddDisplayNameAttribute(nameof(Foo.Count), FooLocalizer[nameof(Foo.Count)].Value);
             }
             else if (propertyName == nameof(Foo.Complete))
             {
                 col.Filterable = true;
                 // 使用 DisplayAttribute 设置显示名称示例
-                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] { new(nameof(DisplayAttribute.Name), LocalizerFoo[nameof(Foo.Complete)].Value) });
+                context.AddDisplayAttribute(nameof(Foo.Complete), new KeyValuePair<string, object?>[] { new(nameof(DisplayAttribute.Name), FooLocalizer[nameof(Foo.Complete)].Value) });
             }
             else if (propertyName == nameof(Foo.Id))
             {
@@ -121,7 +121,7 @@ public partial class TablesDynamic
             UserData.Columns[0]
         ];
         UserData.Columns[0].AutoIncrement = true;
-        Foo.GenerateFoo(LocalizerFoo, 10).ForEach(f =>
+        Foo.GenerateFoo(FooLocalizer, 10).ForEach(f =>
         {
             UserData.Rows.Add(f.Id, f.DateTime, f.Name, f.Count);
         });
@@ -135,7 +135,7 @@ public partial class TablesDynamic
             UserData.Columns.Add(nameof(Foo.Complete), typeof(bool));
 
             // 更新数据
-            var fs = Foo.GenerateFoo(LocalizerFoo, 10);
+            var fs = Foo.GenerateFoo(FooLocalizer, 10);
             for (var i = 0; i < fs.Count; i++)
             {
                 UserData.Rows[i][nameof(Foo.Complete)] = fs[i].Complete;
@@ -176,7 +176,7 @@ public partial class TablesDynamic
         PageDataTable.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
         PageDataTable.Columns.Add(nameof(Foo.Name), typeof(string));
         PageDataTable.Columns.Add(nameof(Foo.Count), typeof(int));
-        PageFoos = Foo.GenerateFoo(LocalizerFoo, 80);
+        PageFoos = Foo.GenerateFoo(FooLocalizer, 80);
         TotalCount = PageFoos.Count;
         PageIndex = 1;
         PageItems = 2;

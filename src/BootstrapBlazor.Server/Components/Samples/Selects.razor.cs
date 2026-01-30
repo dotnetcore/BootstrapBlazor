@@ -41,7 +41,7 @@ public sealed partial class Selects
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     private bool _showSearch = true;
     private bool _showPopoverSearch = true;
@@ -65,7 +65,7 @@ public sealed partial class Selects
         TimeZoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem(i.Id, i.DisplayName));
         TimeZoneId = TimeZoneInfo.Local.Id;
         TimeZoneValue = TimeZoneInfo.Local.BaseUtcOffset;
-        Foos = Foo.GenerateFoo(LocalizerFoo);
+        Foos = Foo.GenerateFoo(FooLocalizer);
     }
 
     private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)

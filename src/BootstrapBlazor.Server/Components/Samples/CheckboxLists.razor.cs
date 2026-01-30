@@ -95,8 +95,8 @@ public partial class CheckboxLists
         };
 
         Dummy = new Foo() { Name = Localizer["Foo"] };
-        Model = Foo.Generate(LocalizerFoo);
-        FooItems = Foo.GenerateHobbies(LocalizerFoo);
+        Model = Foo.Generate(FooLocalizer);
+        FooItems = Foo.GenerateHobbies(FooLocalizer);
     }
 
     /// <summary>
@@ -109,9 +109,9 @@ public partial class CheckboxLists
 
         GenericItems = new List<SelectedItem<Foo>>()
         {
-            new() { Text = Localizer["item1"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "001"] } },
-            new() { Text = Localizer["item2"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "002"] } },
-            new() { Text = Localizer["item3"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "003"] } },
+            new() { Text = Localizer["item1"], Value = new Foo() { Name = FooLocalizer["Foo.Name", "001"] } },
+            new() { Text = Localizer["item2"], Value = new Foo() { Name = FooLocalizer["Foo.Name", "002"] } },
+            new() { Text = Localizer["item3"], Value = new Foo() { Name = FooLocalizer["Foo.Name", "003"] } },
         };
     }
 
@@ -155,7 +155,7 @@ public partial class CheckboxLists
 
     [Inject]
     [NotNull]
-    IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }

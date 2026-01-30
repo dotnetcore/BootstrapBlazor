@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -25,12 +25,12 @@ public partial class TablesWrap
     {
         base.OnInitialized();
 
-        CellItems = Foo.GenerateFoo(LocalizerFoo, 4);
+        CellItems = Foo.GenerateFoo(FooLocalizer, 4);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        var items = Foo.GenerateFoo(LocalizerFoo);
+        var items = Foo.GenerateFoo(FooLocalizer);
         // 设置记录总数
         var total = items.Count;
         // 内存分页

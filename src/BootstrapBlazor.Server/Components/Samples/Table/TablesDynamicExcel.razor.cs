@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -57,7 +57,7 @@ public partial class TablesDynamicExcel
         UserData.Columns.Add(nameof(Foo.Education), typeof(string));
         UserData.Columns.Add(nameof(Foo.Count), typeof(int));
 
-        Foo.GenerateFoo(LocalizerFoo, 10).ForEach(f =>
+        Foo.GenerateFoo(FooLocalizer, 10).ForEach(f =>
         {
             UserData.Rows.Add(f.DateTime, f.Name, f.Complete, f.Education, f.Count);
         });
@@ -71,7 +71,7 @@ public partial class TablesDynamicExcel
             if (col.GetFieldName() == nameof(Foo.Education))
             {
                 col.ComponentType = typeof(Select<string>);
-                col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", LocalizerFoo["NullItemText"].Value));
+                col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", FooLocalizer["NullItemText"].Value));
             }
             if (col.GetFieldName() == nameof(Foo.Complete))
             {
@@ -109,7 +109,7 @@ public partial class TablesDynamicExcel
         KeyboardData.Columns.Add("Column 5", typeof(string));
 
         var index = 0;
-        Foo.GenerateFoo(LocalizerFoo, 9).ForEach(f =>
+        Foo.GenerateFoo(FooLocalizer, 9).ForEach(f =>
         {
             index++;
             KeyboardData.Rows.Add($"Cell {index}1", $"Cell {index}2", $"Cell {index}3", $"Cell {index}4", $"Cell {index}5");
