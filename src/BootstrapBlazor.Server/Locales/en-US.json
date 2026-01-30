@@ -3750,7 +3750,9 @@
     "RowSpanTips5": "Row shows 2, the first component <code>ColSpan</code> is set to 3",
     "RowSpanTips6": "A component in a row",
     "RowSpanTitle": "Cross-column",
-    "RowsTitle": "Row"
+    "RowsTitle": "Row",
+    "Normal": "Normal",
+    "Inline": "Inline"
   },
   "BootstrapBlazor.Server.Components.Samples.Scrolls": {
     "ScrollDescription": "Add scroll bars to components whose height or width exceeds the standard",
