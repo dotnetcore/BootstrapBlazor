@@ -3,8 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
+using System.Security.Claims;
 
 namespace UnitTest.Services;
 
@@ -16,6 +18,9 @@ public class ConnectionHubTest
         var context = new BunitContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
         context.Services.AddBootstrapBlazor();
+
+        var authorizationContext = new MockAuthenticationStateProvider();
+        context.Services.AddScoped<AuthenticationStateProvider>(p => authorizationContext);
 
         var options = context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
         options.Value.ConnectionHubOptions = new()
@@ -36,6 +41,7 @@ public class ConnectionHubTest
                 await Task.Delay(100);
                 client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
             });
+
             await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
         });
         Assert.Equal(1, service.Count);
@@ -49,12 +55,15 @@ public class ConnectionHubTest
 
         // 触发 Beat 时间
         await Task.Delay(200);
+        authorizationContext.SetAuthorized("mock_user");
         await cut.InvokeAsync(async () =>
         {
             await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
         });
         Assert.True(service.TryGetValue("test_id", out var item));
         Assert.NotNull(item?.ClientInfo);
+        Assert.Equal("mock_user", item.ClientInfo.UserName);
+
         Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
         cut.Dispose();
 
@@ -154,5 +163,25 @@ public class ConnectionHubTest
 
         var d = service as IDisposable;
         d?.Dispose();
+    }
+
+    class MockAuthenticationStateProvider : AuthenticationStateProvider
+    {
+        ClaimsPrincipal _claim = new();
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        {
+            await Task.Yield();
+
+            var state = new AuthenticationState(_claim);
+            return state;
+        }
+
+        public void SetAuthorized(string userName)
+        {
+            _claim = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new(ClaimTypes.Name, userName),
+            }, "mock"));
+        }
     }
 }
