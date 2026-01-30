@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -169,24 +169,4 @@ public partial class CheckboxLists
     {
         public string? Icon { get; init; }
     }
-
-    /// <summary>
-    /// Get event method
-    /// </summary>
-    /// <returns></returns>
-    private EventItem[] GetEvents() =>
-    [
-        new()
-        {
-            Name = "OnSelectedChanged",
-            Description = Localizer["Event1"],
-            Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
-        },
-        new()
-        {
-            Name = nameof(CheckboxList<string>.OnMaxSelectedCountExceed),
-            Description = Localizer["AttributeOnMaxSelectedCountExceed"],
-            Type = "Func<Task>"
-        }
-    ];
 }

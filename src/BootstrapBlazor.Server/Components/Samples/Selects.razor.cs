@@ -267,36 +267,4 @@ public sealed partial class Selects
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private EventItem[] GetEvents() =>
-    [
-        new()
-        {
-            Name = "OnSelectedItemChanged",
-            Description = Localizer["SelectsOnSelectedItemChanged"],
-            Type = "Func<SelectedItem, Task>"
-        },
-        new()
-        {
-            Name = "OnBeforeSelectedItemChange",
-            Description = Localizer["SelectsOnBeforeSelectedItemChange"],
-            Type = "Func<SelectedItem, Task<bool>>"
-        },
-        new()
-        {
-            Name = "OnInputChangedCallback",
-            Description = Localizer["SelectsOnInputChangedCallback"],
-            Type = "Func<string, Task>"
-        },
-        new()
-        {
-            Name = "TextConvertToValueCallback",
-            Description = Localizer["SelectsTextConvertToValueCallback"],
-            Type = "Func<string, Task<TValue>>"
-        }
-    ];
 }

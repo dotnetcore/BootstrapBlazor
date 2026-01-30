@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -261,7 +261,7 @@ public sealed partial class SelectGenerics
         if (item == null)
         {
             var id = _genericItems.Count + 1;
-            foo = new Foo() { Id = id,  Address = $"New Address - {id}" };
+            foo = new Foo() { Id = id, Address = $"New Address - {id}" };
             var fooItem = new SelectedItem<Foo> { Text = v, Value = foo };
             _genericItems.Add(fooItem);
         }
@@ -271,36 +271,4 @@ public sealed partial class SelectGenerics
         }
         return foo!;
     }
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private EventItem[] GetEvents() =>
-    [
-        new()
-        {
-            Name = "OnSelectedItemChanged",
-            Description = Localizer["SelectsOnSelectedItemChanged"],
-            Type = "Func<SelectedItem, Task>"
-        },
-        new()
-        {
-            Name = "OnBeforeSelectedItemChange",
-            Description = Localizer["SelectsOnBeforeSelectedItemChange"],
-            Type = "Func<SelectedItem, Task<bool>>"
-        },
-        new()
-        {
-            Name = "OnInputChangedCallback",
-            Description = Localizer["SelectsOnInputChangedCallback"],
-            Type = "Func<string, Task>"
-        },
-        new()
-        {
-            Name = "TextConvertToValueCallback",
-            Description = Localizer["SelectsTextConvertToValueCallback"],
-            Type = "Func<string, Task<TValue>>"
-        }
-    ];
 }
