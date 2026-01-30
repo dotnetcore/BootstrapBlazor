@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -34,7 +34,7 @@ public partial class Html2Pdfs
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -59,7 +59,7 @@ public partial class Html2Pdfs
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(LocalizerFoo);
+        Items = Foo.GenerateFoo(FooLocalizer);
 
         _exportIcon = IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
     }

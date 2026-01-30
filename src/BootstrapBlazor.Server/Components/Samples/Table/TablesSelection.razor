@@ -1,8 +1,8 @@
-﻿@page "/table/selection"
+@page "/table/selection"
 @inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesSelection> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["TablesSelectionTitle"] - @NavMenuLocalizer["TableSelection"]</h3>
 <h4>@((MarkupString)Localizer["TablesSelectionDescription"].Value)</h4>

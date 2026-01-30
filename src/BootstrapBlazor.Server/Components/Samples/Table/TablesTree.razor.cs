@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -21,13 +21,13 @@ public partial class TablesTree
         base.OnInitialized();
 
         // 模拟数据从数据库中获得
-        TreeItems = TreeFoo.GenerateFoos(LocalizerFoo, 3);
+        TreeItems = TreeFoo.GenerateFoos(FooLocalizer, 3);
 
         // 插入 Id 为 1 的子项
-        TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
+        TreeItems.AddRange(TreeFoo.GenerateFoos(FooLocalizer, 2, 1, 100));
 
         // 插入 Id 为 101 的子项
-        TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
+        TreeItems.AddRange(TreeFoo.GenerateFoos(FooLocalizer, 3, 101, 1010));
     }
 
     private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
@@ -61,13 +61,13 @@ public partial class TablesTree
 
     private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
     {
-        var items = TreeFoo.GenerateFoos(LocalizerFoo, 4);
+        var items = TreeFoo.GenerateFoos(FooLocalizer, 4);
 
         // 插入 Id 为 1 的子项
-        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
+        items.AddRange(TreeFoo.GenerateFoos(FooLocalizer, 2, 1, 100));
 
         // 插入 Id 为 101 的子项
-        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
+        items.AddRange(TreeFoo.GenerateFoos(FooLocalizer, 3, 101, 1010));
 
         var data = new QueryData<TreeFoo>()
         {
@@ -103,7 +103,7 @@ public partial class TablesTree
         // 模拟从数据库中查询
         await Task.Delay(1000);
         entry.SlidingExpiration = TimeSpan.FromMinutes(10);
-        return TreeFoo.GenerateFoos(LocalizerFoo, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
+        return TreeFoo.GenerateFoos(FooLocalizer, 2, foo.Id, foo.Id * 100).Select(i => new TableTreeNode<TreeFoo>(i));
     });
 
     /// <summary>

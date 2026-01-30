@@ -1,6 +1,6 @@
 @page "/input-group"
 @inject IStringLocalizer<InputGroups> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptions<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["InputGroupsTitle"]</h3>
@@ -157,7 +157,7 @@
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="CheckboxList" />
-                <CheckboxList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" />
+                <CheckboxList TValue="string" Items="Foo.GenerateHobbies(FooLocalizer)" />
             </BootstrapInputGroup>
         </div>
     </div>
@@ -168,13 +168,13 @@
         <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="RadioList" />
-                <RadioList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)"></RadioList>
+                <RadioList TValue="string" Items="Foo.GenerateHobbies(FooLocalizer)"></RadioList>
             </BootstrapInputGroup>
         </div>
         <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="RadioList" />
-                <RadioList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" IsButton="true"></RadioList>
+                <RadioList TValue="string" Items="Foo.GenerateHobbies(FooLocalizer)" IsButton="true"></RadioList>
             </BootstrapInputGroup>
         </div>
     </div>
@@ -219,7 +219,7 @@
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="Dropdown" />
-                <Dropdown TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" Color="Color.Success" />
+                <Dropdown TValue="string" Items="Foo.GenerateHobbies(FooLocalizer)" Color="Color.Success" />
             </BootstrapInputGroup>
         </div>
     </div>

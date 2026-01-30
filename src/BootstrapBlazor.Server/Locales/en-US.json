@@ -27,6 +27,12 @@
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："
   },
+  "BootstrapBlazor.Server.Components.Components.CustomerFilter": {
+    "CustomerFilterItem1": "All",
+    "CustomerFilterItem2": "Greater than 10",
+    "CustomerFilterItem3": "Greater than 50",
+    "CustomerFilterItem4": "Greater than 80"
+  },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentButtonText": "Approval",
     "CustomPopConfirmContentText": "Custom content"
@@ -39,8 +45,9 @@
     "ButtonText": "SetTitle",
     "Info": "Reset the title of this <code>TabItem</code> by click the button"
   },
-  "BootstrapBlazor.Server.Components.Components.EventTable": {
-    "Title": "Event"
+  "BootstrapBlazor.Server.Components.Components.FormInlineSwitch": {
+    "Inline": "Inline",
+    "Normal": "Normal"
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
     "ArrowKeyText": "to Navigate",
@@ -727,12 +734,10 @@
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxDescribe": "The ajax method used to use js directly in the browser to interact with the server currently only supports both input and output as json, and the return value is a json string, which can be converted and processed by itself.",
     "AjaxTitle": "Ajax call",
-    "GoTo": "Execute goto",
     "GoToButtonText1": "Jump to the first page of the document",
     "GoToButtonText2": "Jump to yourself (refresh page)",
     "GoToIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
     "GoToTitle": "Page jump",
-    "InvokeAsync": "Execute fetch",
     "NormalB": "Special attention:",
     "NormalButtonText1": "Login successful",
     "NormalButtonText2": "Login failed",
@@ -984,9 +989,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
     "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
-    "BrowserFingerTitle": "Browser fingerprint",
-    "GetClientHubIdAsync": "Method for obtaining client hub Id",
-    "GetFingerCodeAsync": "Method for obtaining fingerprints"
+    "BrowserFingerTitle": "Browser fingerprint"
   },
   "BootstrapBlazor.Server.Components.Samples.Buttons": {
     "Block1Intro": "The underlying button usage.",
@@ -1022,8 +1025,6 @@
     "Description": "Common action buttons.",
     "Description1": "Button disable effects can be achieved by setting its own <code>IsDisabled</code> property in the <code>OnClick</code> callback method, or by calling the component instance method <code>SetDisable</code>",
     "Description2": "Because using the <code>IsDisabled</code> property requires an explicit manual call to the <code>StateHasChanged</code> method, which causes the component where the button is located to refresh as a whole, it is recommended that you use the instance method <code>SetDisable</code> refresh the button only",
-    "EventDesc1": "This event is triggered when the button is clicked",
-    "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
     "ExtraLargeButton": "ExtraLarge",
     "ExtraSmallButton": "ExtraSmall",
     "HighlightButton": "Highlight",
@@ -1032,7 +1033,6 @@
     "LargeButton": "Large",
     "LinkButton": "Link",
     "MediumButton": "Medium",
-    "MethodDesc1": "set whether the button is available",
     "NoneButtonColor": "None",
     "NormalButton": "Button",
     "PrimaryButton": "Primary",
@@ -1073,7 +1073,6 @@
     "Study": "Study",
     "SubTitle": "Containers that display data as calendars. When the data is date or by date, such as schedule, schedule, price calendar, etc., lunar calendar, etc. Year/month switching is currently supported.",
     "Title": "Calendar",
-    "ValueChanged": "Call back the delegate when the value changes",
     "ViewModeIntro": "By setting the property <code>CalendarViewMode.Week</code>",
     "ViewModeTitle": "Show by week"
   },
@@ -1099,11 +1098,9 @@
   "BootstrapBlazor.Server.Components.Samples.Captchas": {
     "BasicUsageIntro": "Simple human-machine identification",
     "BasicUsageTitle": "Basic usage",
-    "GetImageName": "Custom method for getting the name of the background map file",
     "ImageCallbackIntro": "Set a custom method to stitch the full path name of a random picture by <code>GetImageName</code>",
     "ImageCallbackTitle": "Specify the graph bed delegate method",
     "ImageTitle": "Specify the path and name of the graph bed",
-    "OnValid": "The slider verification code calls back this method after the validation results are determined",
     "SubTitle": "Human-machine recognition by dragging the slider",
     "Title": "Captchas"
   },
@@ -1180,7 +1177,6 @@
     "Divider1": "Bidirectional binding displays labels",
     "Divider2": "Bidirectional bindings do not display labels",
     "Divider3": "Customize DisplayText",
-    "Event1": "This event is triggered when the cascading selection option changes",
     "item1": "Melbourne",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
@@ -1294,7 +1290,6 @@
     "PieNormalTitle": "Pie diagram"
   },
   "BootstrapBlazor.Server.Components.Samples.CheckboxLists": {
-    "AttributeOnMaxSelectedCountExceed": "Select the callback method when the maximum number of nodes is reached",
     "CheckboxListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>",
     "CheckboxListGenericTitle": "Generic List",
     "CheckboxListsTip": "The control is used to create a multi-select check box group",
@@ -1305,7 +1300,6 @@
     "EnumIntro": "The binding value is enumeration",
     "EnumTip": "When <code>CheckboxList</code> binds an enumeration set, <code>Items</code> does not need to be specified, <code>Items</code> will be automatically set to all values in the enumeration. If you need to bind some values, please provide the enumeration set <code>Items</code>",
     "EnumTitle": "Bidirectional binding enumeration",
-    "Event1": "Call back this method when the state of the check box changes",
     "Foo": "Pat,Argo",
     "Header": "common",
     "IsButtonIntro": "Set <code>IsButton=\"true\"</code> to change the checkbox style to a button style",
@@ -1355,13 +1349,11 @@
     "ItemTemplateTitle": "ItemTemplate",
     "NormalIntro": "Using alone can represent a switch between two states, and column head or header can represent a switch between three states when used. Components support generic data binding, setting the binding data type the <code>TValue</code>, and setting the component state by <code>State</code>",
     "NormalTitle": "Basic usage",
-    "OnBeforeStateChanged": "This method is called back before the selection box status changes",
     "OnBeforeStateChangedIntro": "By setting the <code>OnBeforeStateChanged</code> callback method, you can cancel the state change logic",
     "OnBeforeStateChangedSwalContent": "Whether the current checkbox is selected",
     "OnBeforeStateChangedSwalTitle": "Confirm Select",
     "OnBeforeStateChangedText": "Confirm",
     "OnBeforeStateChangedTitle": "OnBeforeStateChanged",
-    "OnStateChanged": "This method is called back when the selection box state changes",
     "OnStateChangedIntro": "Binding variables within a component, data automatically synchronized, binding data types <code>boolean</code> type when the value is automatically flipped",
     "OnStateChangedTitle": "Two-way binding boolean",
     "ShowAfterLabelDescription": "Set <code>DisplayText</code> property, or display text messages through bidirectional binding",
@@ -1369,7 +1361,6 @@
     "ShowAfterLabelTitle": "Label text",
     "ShowLabelIntro": "Change the component background color by setting the <code>Color</code> property",
     "ShowLabelTitle": "Color",
-    "StateChanged": "The state changes the callback method",
     "StatusText1": "Selected",
     "StatusText2": "Not selected",
     "StatusText3": "Indeterminate",
@@ -1440,9 +1431,6 @@
     "Title": "Get client connection information"
   },
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
-    "ClipboardCopyMethod": "Copy text to the clipboard method",
-    "ClipboardGetMethod": "Method for reading clipboard content",
-    "ClipboardGetTextMethod": "Method for reading clipboard text content",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
     "ClipboardTitle": "ClipboardService"
   },
@@ -1606,8 +1594,6 @@
     "DisableToday": "Disable today",
     "DisableWeekend": "Disable weekend",
     "DisplayText": "Select the time",
-    "Event1": "Confirm that the button calls back the delegate",
-    "Event2": "Callback delegates are used for bidirectional binding when component values change",
     "Feature": "Feature",
     "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>",
     "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>",
@@ -1628,7 +1614,6 @@
     "NullValueIntro": "More for conditional selection",
     "NullValueTip": "The <b>empty</b>button automatically appears when the binding value is <code>DateTime?</code> for an empty type",
     "NullValueTitle": "Allow empty time",
-    "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
     "ShowIconIntro": "Save space by setting <code>ShowIcon=\"false\"</code> to not display component icons",
     "ShowIconTitle": "Whether show the component icon",
     "ShowLabelIntro": "When you are a form component, the label in front of the component is displayed",
@@ -2003,14 +1988,6 @@
     "Description": "For drag and drop",
     "EventIntro": "When the dragging quantity exceeds the limit <code>OnItemDropRejectedByMaxItemLimit</code>, when dragging is prohibited <code>OnItemDropRejected</code>, return to the bottom Item<code>OnReplacedItemDrop</code>, return the dropped Item<code> OnItemDrop</code>",
     "EventTitle": "Various events",
-    "M1": "Whether to run drag and drop",
-    "M2": "Whether the node is allowed to be dragged",
-    "M3": "Copy a new Item to the target location",
-    "M4": "Add special css class for Item",
-    "M5": "Event when Item is released",
-    "M6": "Event when Item release is rejected",
-    "M7": "Event when Item is released on another Item, not blank space",
-    "M8": "Event when an Item is rejected because the maximum number in the Dropzone exceeds the limit",
     "NormalIntro": "simple drag and drop",
     "NormalTitle": "Basic usage",
     "Title": "DragDrop"
@@ -2084,9 +2061,6 @@
     "DropdownItemsTemplateTitle": "Items Template",
     "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered.",
     "DropdownItemTemplateTitle": "Item Template",
-    "EventDesc1": "This event is triggered when the button is clicked",
-    "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
-    "EventOnSelectedItemChanged": "Triggered when the value of the drop-down box changes",
     "FixedButtonTextIntro": "Set the <code>FixedButtonText</code> value for fixed button text",
     "FixedButtonTextTitle": "Set the fixed button text",
     "IsAsyncIntro": "By setting whether the <code>isAsync</code> property button is <b>asynchronous request button by setting whether the is</b> <code>false</code> by default",
@@ -2773,17 +2747,13 @@
     "IsDisabledTitle": "IsDisabled"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
-    "EvalAttr": "Call Eval method",
     "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",
     "EvalTitle": "JS Eval",
-    "FunctionAttr": "Call Function method",
     "FunctionIntro": "Dynamically run Java Script code within the global scope through the Function function.",
     "FunctionTitle": "JS Function",
-    "IsMobileAttr": "Determine whether the current device is a mobile device",
     "IsMobileIntro": "Determine userAgent through regular expressions, indicating whether the current device is a mobile device",
     "IsMobileTitle": "GetIsMobileDevice",
     "JSTips": "Before use, import the module according to the following code",
-    "OpenUrlAttr": "Open a url in a specific window",
     "OpenUrlIntro": "Open url in a Window",
     "OpenUrlTips": "Default to:",
     "OpenUrlTitle": "OpenUrl"
@@ -2988,8 +2958,7 @@
     "ListViewsTitle": "ListView",
     "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
     "PaginationTitle": "Paginated display",
-    "ProductListText": "The list of products",
-    "QueryAsync": "Manually query data methods"
+    "ProductListText": "The list of products"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
@@ -3336,8 +3305,6 @@
     "MultiSelectSearchIntro": "Turn on search by setting the <code>ShowSearch</code> value",
     "MultiSelectSearchLog": "Search for text",
     "MultiSelectSearchTitle": "Search function",
-    "MultiSelectsEvent_OnSearchTextChanged": "Call back this method when the search text changes",
-    "MultiSelectsEvent_OnSelectedItemsChanged": "This event is triggered when the drop-down option changes",
     "MultiSelectsTitle": "MultiSelect",
     "MultiSelectVeryLongTextDisplayText": "Extra long text",
     "MultiSelectVeryLongTextIntro": "The candidate text is particularly long",
@@ -3653,7 +3620,6 @@
     "RadiosLog3": "Component value:",
     "RadiosNormalIntro": "Select selectors are recommended because the options are visible by default and should not be too many",
     "RadiosNormalTitle": "Basic usage",
-    "RadiosOnSelectedChangedEvent": "Call back this method when the check box state changes",
     "RadiosTitle": "Radio",
     "RadiosVerticalIntro": "Make the components vertically arranged internally by setting the <code>IsVertical</code>",
     "RadiosVerticalTitle": "Vertical arrangement"
@@ -3663,7 +3629,6 @@
     "RatesDescription": "Scoring components",
     "RatesDisableIntro": "Disable components by setting <code>IsDisable</code> property to <code>true</code>",
     "RatesDisableTitle": "Disable",
-    "RatesEvent1": "Call back the delegate when the value changes",
     "RatesGrin": "Grin",
     "RatesIconIntro": "Set <code>ItemTemplate</code> and <code>custom-rate</code> custom the UI",
     "RatesIconTitle": "Item Template",
@@ -3951,9 +3916,6 @@
     "SelectsNullableDescription": "When the first option is selected, the binding value <code>SelectIntItem</code> to <code>null</code>",
     "SelectsNullableIntro": "<code>an example of the Select</code> component binding <code>int?</code> type",
     "SelectsNullableTitle": "The binding can be an empty type",
-    "SelectsOnBeforeSelectedItemChange": "This event is triggered before the drop-down option changes",
-    "SelectsOnInputChangedCallback": "Callback method for converting input text into corresponding Value in edit mode",
-    "SelectsOnSelectedItemChanged": "This event is triggered when the drop-down option changes",
     "SelectsOption1": "Please select ...",
     "SelectsOption2": "Beijing",
     "SelectsOption3": "Shanghai",
@@ -4087,8 +4049,7 @@
     "SlidersNormalTitle": "Basic usage",
     "SlidersRangeIntro": "Auto generate <code>min</code> <code>max</code> by set <code>RangeAttribute</code>",
     "SlidersRangeTitle": "Range",
-    "SlidersTitle": "Slider",
-    "SlidersValueChanged": "ValueChanged callback method"
+    "SlidersTitle": "Slider"
   },
   "BootstrapBlazor.Server.Components.Samples.SmilesDrawers": {
     "SmilesDrawerDescription": "A small, highly performant JavaScript component for parsing and drawing SMILES strings",
@@ -4426,7 +4387,6 @@
     "SwitchesDescription": "The most common switching applications are available",
     "SwitchesDisableIntro": "Control the unavailable state of the component by setting the <code>IsDisabled</code> property",
     "SwitchesDisableTitle": "Disable the state",
-    "SwitchesEventValueChanged": "Gets the value of the selection change",
     "SwitchesInnerTextDescription": "By setting the <code>onInnerText</code> <code>OffInnerText</code> property to change the built-in text, a Chinese character is recommended by default to customize the component width to increase the amount of built-in text",
     "SwitchesInnerTextIntro": "By setting <code>ShowInnerText</code> property control component displays built-in text",
     "SwitchesInnerTextLabelText1": "Default text:",
@@ -4886,11 +4846,7 @@
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
     "TablesFilterDescLi2": "Sort a column of data, specify the column to be sorted by specifying the <code>Sortable</code> property of the column, change the collation by multiple clicks",
-    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li><li>Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.</li></ul-demo>",
-    "CustomerFilterItem1": "All",
-    "CustomerFilterItem2": "Greater than 10",
-    "CustomerFilterItem3": "Greater than 50",
-    "CustomerFilterItem4": "Greater than 80"
+    "TablesFilterTemplateDescription": "<p><code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a></p><p class=\"code-label\">Notes:</p><ul class=\"ul-demo\"><li>Custom filter components are wrapped with <code>FilterProvider</code>, and <code>FilterProvider</code> must be under the <code>FilterTemplate</code> node</li><li>Filters can be fine-tuned through the parameters of the <code>FilterProvider</code> component; for example, by setting <code>ShowMoreButton</code> to control whether the <b>+ -</b> symbol is displayed</li><li>Before <code>v9.6.2</code>, use <code>OnFilterValueChanged</code> to trigger the filter callback. After refactoring, use <code>OnFilterAsync</code> to trigger the filter callback method.</li></ul-demo>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColHeaderDescription": "In this example, set  <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
@@ -5189,7 +5145,6 @@
     "BlockHeaderTemplateDesc": "Use <code>Badge</code> in the <code>HeaderTemplate</code>",
     "BlockHeaderTemplateHeaderText": "Todo List",
     "DividerText": "Split Line",
-    "MethodTitle": "Method",
     "RemoveButtonText": "Rmove",
     "ShowTabInHeaderDesc": "After enabling the multi-tab function in the <code>Layout</code> component, you can render the <code>Tab</code> tag header into the <code>Layout</code> Header template by setting <code>ShowTabInHeader=\"true\"</code>. The effect can be viewed by creating a new project in the <a href=\"template\" target=\"_blank\">Project Template</a>",
     "TabItem1Content": "I am a user manager",
@@ -5208,15 +5163,6 @@
     "TabItem7Text": "Timed task",
     "TabItem8Text": "Count",
     "TabItem9Text": "Weather forecast",
-    "TabMethod1AddTab": "Add TabItem to Tab, can set new Tab position if necessary",
-    "TabMethod2RemoveTab": "Remove TabItem",
-    "TabMethod3ActiveTab": "The setting specifies tabItem as active",
-    "TabMethod4ClickPrevTab": "Switch to the previous label method",
-    "TabMethod5ClickNextTab": "Switch to the next label method",
-    "TabMethod6CloseCurrentTab": "Close the current tab method",
-    "TabMethod7CloseOtherTabs": "Close other tab methods",
-    "TabMethod8CloseAllTabs": "Close all tab methods",
-    "TabMethod9GetActiveTab": "Get current tab methods",
     "TabsAddTabItemIntro": "Dynamically add/remove <code>TabItem</code> by calling the component api",
     "TabsAddTabItemTitle": "Custom add tab triggers",
     "TabsAppDescription": "Dynamically adjust the number of <code>TabItem</code> by <b>adding</b>, <b>delete</b>buttons to view the left and right effects beyond the number of containers, <b>user management</b> is set to not close, and the feature button cannot close this tab. The component switches tabs in a loop by default. You can disable this feature by <code>IsLoopSwitchTabItem=\"false\"</code>",
@@ -5299,7 +5245,6 @@
     "TagsIconTitle": "With Icon",
     "TagsNormalIntro": "Non floating elements in the page will not disappear automatically.",
     "TagsNormalTitle": "Basic usage",
-    "TagsOnDismiss": "Close label callback method",
     "TagsSubTitle": "Used for marking and selection.",
     "TagsTitle": "Tag"
   },
@@ -5494,8 +5439,7 @@
     "TogglesOffText": "Off",
     "TogglesOnText": "On",
     "TogglesSubTitle": "The most common switching application is available with a value of <code>true</code> <code>false</code>",
-    "TogglesTitle": "Toggle",
-    "ValueChanged": "Gets the value of the selection change"
+    "TogglesTitle": "Toggle"
   },
   "BootstrapBlazor.Server.Components.Samples.Toolbars": {
     "NormalTitle": "Normal",
@@ -5536,8 +5480,6 @@
     "Data": "Data",
     "LeftButtonText": "To the left",
     "LeftPanelText": "The list on the left",
-    "OnSelectedItemsChanged": "The callback method when the component binding data item collection options change",
-    "OnSetItemClass": "Set the Item style callback method",
     "PlaceHolder": "Please enter",
     "RightButtonText": "To the Right",
     "RightPanelText": "The list on the right",
@@ -5795,8 +5737,6 @@
     "OnValidSubmitLog": "OnValidSubmit callback delegate: Verification passed",
     "OnValidSubmitStartingLog": "OnValidSubmit callback delegate: Starting ...",
     "ResetButtonText": "Reset",
-    "SetError": "Set up a validation failure method",
-    "Validate": "Trigger form validate",
     "ValidateButtonText": "Save",
     "ValidateFormComplexValidationDescription": "The second binding in this example is a super-complex type <code>ComplexModel.Dummy.Dummy2.Name</code> Empty the value, click <b>submit the form</b>validate the data. After the second text box verifies compliance, the error prompt is displayed again by calling the <code>SetError</code>",
     "ValidateFormComplexValidationIntro": "Supports any complex type of binding and validation",
@@ -5994,21 +5934,5 @@
     "NullItemText": "Not Set",
     "ReadonlyColumn": "Readonly Column",
     "True": "Pass"
-  },
-  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
-    "Title": "Reconnector Component",
-    "ReconnectingTitle": "Attempting to reconnect to the server",
-    "ReconnectingDescription": "The server is updating to a new version, please wait a moment for service to be available, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
-    "ReconnectButton": "Reconnect",
-    "ReconnectFailedTitle": "Failed to connect to server",
-    "ReconnectFailedDescription": "Please confirm that your network is working properly, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
-    "ReloadButton": "Reload",
-    "ReconnectRejectedTitle": "Server rejected connection",
-    "ReconnectRejectedDescription": "All connection attempts have been rejected, which is most likely caused by network or server issues. Please scan the QR code on the left to join the group and contact the administrator",
-    "UILibraryTitle": "Bootstrap Blazor UI Component Library",
-    "UILibraryDescription1": "An enterprise-level <b>Blazor UI</b> component library based on <b>Bootstrap</b> styles, supporting both Server and WebAssembly",
-    "UILibraryDescription2": "Mobile-responsive, supports all major browsers and mobile devices, compatible with <b>ABP</b>, and supports <b>{0}</b>",
-    "TemplateLink": "Project Templates",
-    "TemplateText": "Project templates are provided for quick start"
   }
 }

@@ -73,7 +73,7 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> TemplateItems { get; } = TreeFoo.GetTemplateItems();
 
-    private Foo Model => Foo.Generate(LocalizerFoo);
+    private Foo Model => Foo.Generate(FooLocalizer);
 
     private bool _showSearch;
 

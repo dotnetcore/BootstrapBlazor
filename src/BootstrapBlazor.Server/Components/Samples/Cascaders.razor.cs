@@ -74,20 +74,6 @@ public sealed partial class Cascaders
         _items[2].AddItem(new CascaderItem("item3_child2", Localizer["item3_child2"]));
     }
 
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private EventItem[] GetEvents() =>
-    [
-        new()
-        {
-            Name = nameof(Cascader<string>.OnSelectedItemChanged),
-            Description = Localizer["Event1"],
-            Type ="Func<CascaderItem[], Task>"
-        }
-    ];
-
     private async Task OnValidate()
     {
         await ValidateForm1.ValidateAsync();

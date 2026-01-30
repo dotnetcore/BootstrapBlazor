@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -45,9 +45,9 @@ public partial class TablesDialog
         ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
         {
             Id = i,
-            Name = LocalizerFoo["Foo.Name", $"{i:d4}"],
+            Name = FooLocalizer["Foo.Name", $"{i:d4}"],
             DateTime = DateTime.Now.AddDays(i - 1),
-            Address = LocalizerFoo["Foo.Address", $"{random.Next(1000, 2000)}"],
+            Address = FooLocalizer["Foo.Address", $"{random.Next(1000, 2000)}"],
             Count = random.Next(1, 100),
             Complete = random.Next(1, 100) > 50,
             Education = EnumEducation.Primary,

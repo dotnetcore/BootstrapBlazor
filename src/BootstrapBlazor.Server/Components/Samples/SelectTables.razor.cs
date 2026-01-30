@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -12,7 +12,7 @@ public partial class SelectTables
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -47,8 +47,8 @@ public partial class SelectTables
     {
         base.OnInitialized();
 
-        _items = Foo.GenerateFoo(LocalizerFoo);
-        _filterItems = Foo.GenerateFoo(LocalizerFoo);
+        _items = Foo.GenerateFoo(FooLocalizer);
+        _filterItems = Foo.GenerateFoo(FooLocalizer);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -71,7 +71,7 @@ public partial class SelectTables
         }
 
         var count = items.Count();
-        if(options.IsPage)
+        if (options.IsPage)
         {
             items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
         }
