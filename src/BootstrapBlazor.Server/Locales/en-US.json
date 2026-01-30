@@ -27,6 +27,12 @@
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："
   },
+  "BootstrapBlazor.Server.Components.Components.CustomerFilter": {
+    "CustomerFilterItem1": "All",
+    "CustomerFilterItem2": "Greater than 10",
+    "CustomerFilterItem3": "Greater than 50",
+    "CustomerFilterItem4": "Greater than 80"
+  },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentButtonText": "Approval",
     "CustomPopConfirmContentText": "Custom content"

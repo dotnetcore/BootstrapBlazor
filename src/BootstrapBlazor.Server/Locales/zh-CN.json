@@ -27,6 +27,12 @@
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "语言："
   },
+  "BootstrapBlazor.Server.Components.Components.CustomerFilter": {
+    "CustomerFilterItem1": "全部",
+    "CustomerFilterItem2": "大于 10",
+    "CustomerFilterItem3": "大于 50",
+    "CustomerFilterItem4": "大于 80"
+  },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentButtonText": "审批",
     "CustomPopConfirmContentText": "自定义弹窗内容"
