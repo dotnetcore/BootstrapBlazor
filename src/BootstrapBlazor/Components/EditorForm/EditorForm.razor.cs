@@ -150,6 +150,13 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     public bool AutoGenerateAllItem { get; set; } = true;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 忽略项目集合 默认 null 未设置</para>
+    /// <para lang="en">Gets or sets the ignore items collection. Default is null</para>
+    /// </summary>
+    [Parameter]
+    public List<string>? IgnoreItems { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 级联上下文绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板不生效</para>
     /// <para lang="en">Gets or sets Context Field Items Collection. <see cref="FieldItems"/> template will not be effective if set</para>
     /// </summary>
