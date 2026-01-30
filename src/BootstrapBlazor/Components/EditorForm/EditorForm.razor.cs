@@ -286,7 +286,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         var items = new List<IEditorItem>();
         if (Items != null)
         {
-            items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
+            items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()) && FilterIgnoreItem(i)));
             return items;
         }
 
@@ -297,8 +297,13 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
             : _editorItems.Where(i => !i.GetIgnore()
                 && !string.IsNullOrEmpty(i.GetFieldName())
                 && i.IsVisible(ItemChangedType, IsSearch.Value));
-        items.AddRange(columns);
+        items.AddRange(columns.Where(i => FilterIgnoreItem(i)));
         return items;
+    }
+
+    private bool FilterIgnoreItem(IEditorItem item)
+    {
+        return IgnoreItems?.Find(i => i.Equals(item.GetFieldName(), StringComparison.OrdinalIgnoreCase)) == null;
     }
 
     private List<ITableColumn> AutoGenerateColumns()
