@@ -45,9 +45,6 @@
     "ButtonText": "SetTitle",
     "Info": "Reset the title of this <code>TabItem</code> by click the button"
   },
-  "BootstrapBlazor.Server.Components.Components.EventTable": {
-    "Title": "Event"
-  },
   "BootstrapBlazor.Server.Components.Components.FormInlineSwitch": {
     "Inline": "Inline",
     "Normal": "Normal"

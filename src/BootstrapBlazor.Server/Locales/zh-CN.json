@@ -45,9 +45,6 @@
     "ButtonText": "更改标题",
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒"
   },
-  "BootstrapBlazor.Server.Components.Components.EventTable": {
-    "Title": "事件 Event"
-  },
   "BootstrapBlazor.Server.Components.Components.FormInlineSwitch": {
     "Inline": "行内",
     "Normal": "正常"
