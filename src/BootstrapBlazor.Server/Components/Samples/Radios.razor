@@ -1,6 +1,6 @@
 @page "/radio"
 @inject IStringLocalizer<Radios> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["RadiosTitle"]</h3>
 
@@ -137,6 +137,3 @@
 </DemoBlock>
 
 <AttributeTable Type="typeof(RadioList<>)" />
-
-<EventTable Items="@GetEvents()" />
-

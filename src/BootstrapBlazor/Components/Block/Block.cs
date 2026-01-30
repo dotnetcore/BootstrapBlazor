@@ -131,8 +131,7 @@ public class Block : BootstrapComponentBase
     }
 
     /// <summary>
-    /// <para lang="zh">BuildRenderTree 方法</para>
-    /// <para lang="en">BuildRenderTree method</para>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)

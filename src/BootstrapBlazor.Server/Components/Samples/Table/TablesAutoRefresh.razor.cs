@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -32,10 +32,10 @@ public partial class TablesAutoRefresh
     private Task<QueryData<Foo>> GenerateFoos(QueryPageOptions options, List<Foo> foos)
     {
         // 设置记录总数
-        var foo = Foo.Generate(LocalizerFoo);
+        var foo = Foo.Generate(FooLocalizer);
         foo.Id = _id++;
-        foo.Name = LocalizerFoo["Foo.Name", foo.Id.ToString("D4")];
-        foo.Address = LocalizerFoo["Foo.Address", $"{random.Next(1000, 2000)}"];
+        foo.Name = FooLocalizer["Foo.Name", foo.Id.ToString("D4")];
+        foo.Address = FooLocalizer["Foo.Address", $"{random.Next(1000, 2000)}"];
         foos.Insert(0, foo);
         if (foos.Count > 10)
         {

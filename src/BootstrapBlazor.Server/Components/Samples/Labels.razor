@@ -1,8 +1,8 @@
-﻿@page "/label"
+@page "/label"
 @layout ComponentLayout
 @inject IStringLocalizer<Labels> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
-@inject IStringLocalizer<ValidateForms> LocalizerForm
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IStringLocalizer<ValidateForms> FormLocalizer
 
 <h3>@Localizer["LabelsTitle"]</h3>
 
@@ -41,7 +41,7 @@
                 <BootstrapInput TValue="string" ShowLabel="true" DisplayText="" />
             </div>
             <div class="col-sm-12 col-md-3">
-                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Name)]" />
+                <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@FooLocalizer[nameof(Foo.Name)]" />
             </div>
             <div class="col-sm-12 col-md-3">
                 <BootstrapInput TValue="string" ShowLabel="true" DisplayText="@null" />
@@ -60,7 +60,7 @@
                 <BootstrapInput @bind-Value="Dummy1.Name" />
             </div>
             <div class="col-sm-12 col-md-3">
-                <BootstrapInput @bind-Value="Dummy1.Name" ShowLabel="true" DisplayText="@LocalizerFoo[nameof(Foo.Address)]" />
+                <BootstrapInput @bind-Value="Dummy1.Name" ShowLabel="true" DisplayText="@FooLocalizer[nameof(Foo.Address)]" />
             </div>
             <div class="col-sm-12 col-md-3">
                 <BootstrapInput @bind-Value="Dummy1.Name" ShowLabel="true" DisplayText="" />
@@ -77,7 +77,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy2" ShowLabel="false" RowType="RowType.Inline" ItemsPerRow="2">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -87,7 +87,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy2" RowType="RowType.Inline" ItemsPerRow="2">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -97,7 +97,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy2" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Right">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -107,7 +107,7 @@
     <GroupBox>
         <EditorForm Model="@Dummy2" ShowLabel="true" RowType="RowType.Inline" ItemsPerRow="2" LabelAlign="Alignment.Center">
             <FieldItems>
-                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                 </EditorItem>
             </FieldItems>
         </EditorForm>
@@ -121,7 +121,7 @@
         <ValidateForm Model="@Dummy3">
             <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>
@@ -133,7 +133,7 @@
         <ValidateForm Model="@Dummy3" ShowLabel="false">
             <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(FooLocalizer)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>
@@ -205,8 +205,8 @@
 
 <DemoBlock Title="@Localizer["LabelsRowLabelWidthTitle"]" Introduction="@Localizer["LabelsRowLabelWidthIntro"]" Name="RowLabelWidth">
     <section ignore>
-        <p>@((MarkupString)LocalizerForm["ValidateFormNormalFormLabelWidth"].Value)</p>
-        <p>@((MarkupString)LocalizerForm["LongDisplayDescription"].Value)</p>
+        <p>@((MarkupString)FormLocalizer["ValidateFormNormalFormLabelWidth"].Value)</p>
+        <p>@((MarkupString)FormLocalizer["LongDisplayDescription"].Value)</p>
         <Pre>:root {
     --bb-row-label-width: 120px;
 }</Pre>
@@ -215,12 +215,12 @@
     <ValidateForm Model="@Dummy4">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy4.Name" DisplayText="@LocalizerForm["LongDisplayText"]" />
+                <BootstrapInput @bind-Value="@Dummy4.Name" DisplayText="@FormLocalizer["LongDisplayText"]" />
             </div>
         </div>
         <div class="row g-3 form-inline mt-0">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Dummy4.Address" DisplayText="@LocalizerForm["LongDisplayText"]" ShowLabelTooltip="true" />
+                <BootstrapInput @bind-Value="@Dummy4.Address" DisplayText="@FormLocalizer["LongDisplayText"]" ShowLabelTooltip="true" />
             </div>
         </div>
     </ValidateForm>
@@ -267,7 +267,7 @@
         <BootstrapLabelSetting LabelWidth="220">
             <div class="row form-inline g-3 mt-0">
                 <div class="col-12 col-sm-6">
-                    <BootstrapLabel LabelWidth="180" Value="@LocalizerForm["LongDisplayText"]"></BootstrapLabel>
+                    <BootstrapLabel LabelWidth="180" Value="@FormLocalizer["LongDisplayText"]"></BootstrapLabel>
                     <BootstrapInput @bind-Value="Dummy4.Name" ShowLabel="false" />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -44,7 +44,7 @@ partial class AutoFills
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     private bool _isClearable = true;
 
@@ -53,19 +53,19 @@ partial class AutoFills
     {
         base.OnInitialized();
 
-        Items1 = Foo.GenerateFoo(LocalizerFoo);
+        Items1 = Foo.GenerateFoo(FooLocalizer);
         Model1 = Items1.First();
 
-        Items2 = Foo.GenerateFoo(LocalizerFoo);
+        Items2 = Foo.GenerateFoo(FooLocalizer);
         Model2 = Items2.First();
 
-        Items3 = Foo.GenerateFoo(LocalizerFoo);
+        Items3 = Foo.GenerateFoo(FooLocalizer);
         Model3 = Items3.First();
 
-        Items4 = Foo.GenerateFoo(LocalizerFoo);
+        Items4 = Foo.GenerateFoo(FooLocalizer);
         Model4 = Items3.First();
 
-        Items5 = Foo.GenerateFoo(LocalizerFoo);
+        Items5 = Foo.GenerateFoo(FooLocalizer);
         Model5 = Items3.First();
     }
 
@@ -84,7 +84,7 @@ partial class AutoFills
     private async Task<QueryData<Foo>> OnQueryAsync(VirtualizeQueryOption option)
     {
         await Task.Delay(200);
-        var items = Foo.GenerateFoo(LocalizerFoo);
+        var items = Foo.GenerateFoo(FooLocalizer);
         if (!string.IsNullOrEmpty(option.SearchText))
         {
             items = [.. items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase))];
