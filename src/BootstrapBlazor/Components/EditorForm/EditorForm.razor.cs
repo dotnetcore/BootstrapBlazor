@@ -280,48 +280,49 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         if (Items != null)
         {
             items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
+            return items;
         }
-        else
-        {
-            // 如果 EditorItems 有值表示 用户自定义列
-            // If EditorItems has value, it means user defined columns
-            if (AutoGenerateAllItem)
-            {
-                // 获取绑定模型所有属性
-                // Get all properties of binding model
-                var columns = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
 
-                // 通过设定的 FieldItems 模板获取项进行渲染
-                // Render items by setting FieldItems template
-                foreach (var el in _editorItems)
-                {
-                    var item = columns.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-                    if (item != null)
-                    {
-                        // 过滤掉不编辑与不可见的列
-                        // Filter out non-editable and invisible columns
-                        if (el.GetIgnore() || !el.IsVisible(ItemChangedType, IsSearch.Value) || string.IsNullOrEmpty(el.GetFieldName()))
-                        {
-                            columns.Remove(item);
-                        }
-                        else
-                        {
-                            // 设置只读属性与列模板
-                            // Set Readonly property and column template
-                            item.CopyValue(el);
-                        }
-                    }
-                }
-                items.AddRange(columns);
-            }
-            else
+        // 如果 EditorItems 有值表示 用户自定义列
+        // If EditorItems has value, it means user defined columns
+        var columns = AutoGenerateAllItem
+            ? AutoGenerateColumns()
+            : _editorItems.Where(i => !i.GetIgnore()
+                && !string.IsNullOrEmpty(i.GetFieldName())
+                && i.IsVisible(ItemChangedType, IsSearch.Value));
+        items.AddRange(columns);
+        return items;
+    }
+
+    private List<ITableColumn> AutoGenerateColumns()
+    {
+        // 获取绑定模型所有属性
+        // Get all properties of binding model
+        var columns = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
+
+        // 通过设定的 FieldItems 模板获取项进行渲染
+        // Render items by setting FieldItems template
+        foreach (var el in _editorItems)
+        {
+            var item = columns.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+            if (item != null)
             {
-                items.AddRange(_editorItems.Where(i => !i.GetIgnore()
-                    && !string.IsNullOrEmpty(i.GetFieldName())
-                    && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                // 过滤掉不编辑与不可见的列
+                // Filter out non-editable and invisible columns
+                if (el.GetIgnore() || !el.IsVisible(ItemChangedType, IsSearch.Value) || string.IsNullOrEmpty(el.GetFieldName()))
+                {
+                    columns.Remove(item);
+                }
+                else
+                {
+                    // 设置只读属性与列模板
+                    // Set Readonly property and column template
+                    item.CopyValue(el);
+                }
             }
         }
-        return items;
+
+        return columns;
     }
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
