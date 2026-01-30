@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Server.Components.Samples;
-
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
@@ -20,7 +18,7 @@ public partial class FormInlineSwitch
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Rows>? RowsLocalizer { get; set; }
+    private IStringLocalizer<FormInlineSwitch>? Localizer { get; set; }
 
     /// <summary>
     /// 
@@ -59,6 +57,6 @@ public partial class FormInlineSwitch
     {
         base.OnInitialized();
 
-        Items = Enum.GetNames<RowType>().Select(i => new SelectedItem(i, RowsLocalizer[i]));
+        Items = Enum.GetNames<RowType>().Select(i => new SelectedItem(i, Localizer[i]));
     }
 }
