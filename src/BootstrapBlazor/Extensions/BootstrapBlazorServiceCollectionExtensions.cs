@@ -179,7 +179,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="locatorAction"></param>
-    [Obsolete("已弃用 请删除即可")]
+    [Obsolete("已弃用 直接删除即可。Deprecated. Delete it directly.")]
     [ExcludeFromCodeCoverage]
     public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
     {
