@@ -2129,7 +2129,7 @@
     "EditorFormTips3": "Complex edit columns, set up <code>EditTemplate</code> templates, and edit custom components",
     "EditorFormTips4": "The buttons in the form can be set up multiplely, just set the buttons <code>Buttons</code> template",
     "GroupBoxTitle": "An example of a form",
-    "IgnoreItemsDescription": "This attribute has the same priority as `<editorItem>`, and if it is set to ignore anywhere else, it will not be rendered.",
+    "IgnoreItemsDescription": "This attribute has the same priority as <code>IEditorItem</code>, and if it is set to ignore anywhere else, it will not be rendered.",
     "IgnoreItemsIntro": "By setting the <code>IgnoreItems</code> value, you can notify the component not to render the specified column in the collection.",
     "IgnoreItemsSwitchButtonText": "Switch",
     "IgnoreItemsTitle": "IgnoreItems",
