@@ -149,6 +149,30 @@
     </GroupBox>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["GroupTitle"]" Introduction="@Localizer["GroupIntro"]" Name="Group">
+    <section ignore>
+        <p>@((MarkupString)Localizer["GroupDescription"].Value)</p>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="GroupType"></BootstrapInputGroupLabel>
+            <Segmented @bind-Value="_groupType">
+                <SegmentedItem Text="GroupBox" Value="EditorFormGroupType.GroupBox" />
+                <SegmentedItem Text="RowHeader" Value="EditorFormGroupType.RowHeader" />
+            </Segmented>
+        </BootstrapInputGroup>
+    </section>
+    <EditorForm Model="@Model" GroupType="_groupType">
+        <FieldItems>
+            <EditorItem @bind-Field="@context.Name" GroupOrder="1" GroupName="Group 1"></EditorItem>
+            <EditorItem @bind-Field="@context.Address" GroupOrder="1" GroupName="Group 1"></EditorItem>
+            <EditorItem @bind-Field="@context.DateTime" GroupOrder="2" GroupName="Group 1"></EditorItem>
+            <EditorItem @bind-Field="@context.Count" GroupOrder="2" GroupName="Group 1"></EditorItem>
+            <EditorItem @bind-Field="@context.Education" GroupOrder="3" GroupName="Group 2"></EditorItem>
+            <EditorItem @bind-Field="@context.Complete" GroupOrder="3" GroupName="Group 2"></EditorItem>
+            <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" GroupOrder="4" GroupName="Group 3"></EditorItem>
+        </FieldItems>
+    </EditorForm>
+</DemoBlock>
+
 <AttributeTable Type="typeof(EditorForm<>)" />
 
 <AttributeTable Type="typeof(EditorItem<,>)"></AttributeTable>

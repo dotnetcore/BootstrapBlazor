@@ -2152,7 +2152,10 @@
     "ValidateFormIntro": "通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能",
     "ValidateFormTips1": "组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据",
     "ValidateFormTips2": "通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读",
-    "ValidateFormTitle": "开启数据验证"
+    "ValidateFormTitle": "开启数据验证",
+    "GroupTitle": "分组功能",
+    "GroupIntro": "通过设置 <code>GroupType</code> 值控制分组形式",
+    "GroupDescription": "通过设置 <code>EditorItem</code> 组件参数 <code>GroupName</code> 开启分组功能，通过 <code>GroupOrder</code> 控制顺序 "
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",

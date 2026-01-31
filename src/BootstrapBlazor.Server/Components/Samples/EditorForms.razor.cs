@@ -26,6 +26,7 @@ public sealed partial class EditorForms
     private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
     private List<string> _ignoreItems = [];
+    private EditorFormGroupType _groupType = EditorFormGroupType.GroupBox;
 
     private Task OnSwitchIgnoreItems()
     {

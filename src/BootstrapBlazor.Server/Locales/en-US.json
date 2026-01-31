@@ -2152,7 +2152,10 @@
     "ValidateFormIntro": "Data compliance checks are implemented through nested <code>ValidateForm</code> components",
     "ValidateFormTips1": "The component is built into the <code>ValidateForm</code> to turn on data compliance checks, and <b>hobby</b>fields use the <code>EditTemplate</code> template to customize the component to render the data",
     "ValidateFormTips2": "Make the <code>birthday</code> field read-only by setting the <code>Readonly</code> property",
-    "ValidateFormTitle": "Turn on data validation"
+    "ValidateFormTitle": "Turn on data validation",
+    "GroupTitle": "Group",
+    "GroupIntro": "The grouping format can be controlled by setting the <code>groupType</code> value.",
+    "GroupDescription": "Grouping is enabled by setting the <code>GroupName</code> parameter of the <code>EditorItem</code> component, and the order is controlled by <code>GroupOrder</code>."
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "Insert Html",
