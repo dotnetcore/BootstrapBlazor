@@ -97,7 +97,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.QQGroup": {
     "Group": "QQ Group",
-    "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {

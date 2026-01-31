@@ -97,7 +97,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.QQGroup": {
     "Group": "QQ群",
-    "Status": "满",
     "Welcome": "欢迎加群讨论"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
