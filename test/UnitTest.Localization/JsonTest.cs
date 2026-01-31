@@ -4,9 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components;
-using BootstrapBlazor.Server.Extensions;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 using System.Text.Json;
 
 namespace UnitTest.Localization;
@@ -26,13 +24,13 @@ public class JsonTest
         }
 
         var configuration = CreateConfiguration(localizerFile);
-        var routerTable = CreateRouterTable();
+        var components = GetComponents();
 
-        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Components/Samples/");
-        foreach (var router in routerTable)
+        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Components/");
+        foreach (var router in components)
         {
             var sectionName = router.FullName;
-            if (string.IsNullOrEmpty(sectionName))
+            if (string.IsNullOrEmpty(sectionName) || sectionName == "BootstrapBlazor.Server.Components.Pages.Online")
             {
                 continue;
             }
@@ -43,7 +41,7 @@ public class JsonTest
                 continue;
             }
 
-            var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.Samples.", "").Replace(".", "/");
+            var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.", "").Replace(".", "/");
             if (string.IsNullOrEmpty(typeName))
             {
                 continue;
@@ -69,12 +67,35 @@ public class JsonTest
                         continue;
                     }
 
+                    if (sectionName == "BootstrapBlazor.Server.Components.Layout.NavMenu")
+                    {
+                        found = FindLocalizerByContent(GetNavMenuLocalizerContent(rootPath), key);
+                        if (found)
+                        {
+                            continue;
+                        }
+                    }
+
                     c.Value = null;
                 }
             }
         }
 
         SaveConfiguration(configuration, localizerFile);
+    }
+
+    private static string _navMenuLocalizerContent = "";
+
+    private static string GetNavMenuLocalizerContent(string rootPath)
+    {
+        if (!string.IsNullOrEmpty(_navMenuLocalizerContent))
+        {
+            return _navMenuLocalizerContent;
+        }
+
+        var fileName = Path.Combine(rootPath, "..", "Extensions", "MenusLocalizerExtensions.cs");
+        _navMenuLocalizerContent = File.ReadAllText(fileName);
+        return _navMenuLocalizerContent;
     }
 
     private static void SaveConfiguration(IConfiguration configuration, string outputFile)
@@ -85,14 +106,12 @@ public class JsonTest
         outputStream.Write(new byte[] { 0x0D, 0x0A });
     }
 
-    private static List<Type> CreateRouterTable()
+    private static List<Type> GetComponents()
     {
         var assembly = typeof(App).Assembly;
         return assembly.GetExportedTypes()
-                       .Where(t => t.IsDefined(typeof(RouteAttribute)) &&
-                                   t.IsComponentLayout() &&
-                                   (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false)
-                       ).ToList();
+                       .Where(t => (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.") ?? false))
+                       .ToList();
     }
 
     private static IConfigurationRoot CreateConfiguration(string localizerFile)
@@ -104,7 +123,17 @@ public class JsonTest
 
     private static bool FindLocalizerByKey(string fileName, string key)
     {
+        if (!File.Exists(fileName))
+        {
+            return false;
+        }
+
         var content = File.ReadAllText(fileName);
+        return FindLocalizerByContent(content, key);
+    }
+
+    private static bool FindLocalizerByContent(string content, string key)
+    {
         if (string.IsNullOrEmpty(content))
         {
             return false;
