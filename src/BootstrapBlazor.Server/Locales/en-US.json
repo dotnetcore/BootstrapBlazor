@@ -20,9 +20,27 @@
     "Type": "Type"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "AutoGenerateColumns": "Automatically generated",
     "Obsolete": "Obsolete",
     "Total": "Total"
+  },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "Settings"
+  },
+  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
+    "ReconnectButton": "Reconnect",
+    "ReconnectFailedDescription": "Please confirm that your network is working properly, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectFailedTitle": "Failed to connect to server",
+    "ReconnectingDescription": "The server is updating to a new version, please wait a moment for service to be available, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectingTitle": "Attempting to reconnect to the server",
+    "ReconnectRejectedDescription": "All connection attempts have been rejected, which is most likely caused by network or server issues. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectRejectedTitle": "Server rejected connection",
+    "ReloadButton": "Reload",
+    "TemplateLink": "Project Templates",
+    "TemplateText": "Project templates are provided for quick start",
+    "Title": "Reconnector Component",
+    "UILibraryDescription1": "An enterprise-level <b>Blazor UI</b> component library based on <b>Bootstrap</b> styles, supporting both Server and WebAssembly",
+    "UILibraryDescription2": "Mobile-responsive, supports all major browsers and mobile devices, compatible with <b>ABP</b>, and supports <b>{0}</b>",
+    "UILibraryTitle": "Bootstrap Blazor UI Component Library"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："
@@ -79,7 +97,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.QQGroup": {
     "Group": "QQ Group",
-    "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
@@ -108,24 +125,14 @@
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "CancelText": "Cancel",
-    "ChatTooltip": "Azure OpenAI",
-    "DarkMode": "Dark Mode",
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
-    "InstallText": "Install",
-    "LightMode": "Light Mode",
-    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
-    "Title": "View update log"
+    "InstallText": "Install"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "Example": "Example",
-    "Group": "Community",
     "IconTheme": "Icon",
     "Title": "Enterprise-level component library based on Bootstrap and Blazor",
-    "Video": "Video",
-    "ViewC#Code": "View C# Code",
-    "ViewExample": "View Example",
-    "ViewRazorCode": "View Razor Code"
+    "Video": "Video"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "Community",
@@ -183,13 +190,11 @@
     "CherryMarkdown": "Cherry-Markdown",
     "Circle": "Circle",
     "Client": "WebClientService",
-    "ClientBlazor": "Client-side Blazor",
     "Clipboard": "Clipboard Service",
     "ClockPicker": "ClockPicker",
     "CodeEditor": "CodeEditor",
     "Collapse": "Collapse",
     "ColorPicker": "ColorPicker",
-    "Components": "Components",
     "ConnectionService": "ConnectionService",
     "Console": "Console",
     "ContextMenu": "ContextMenu",
@@ -215,7 +220,6 @@
     "DockViewNest": "DockView Nest",
     "DockViewRow": "DockView Row",
     "DockViewStack": "DockView Stack",
-    "DockViewTitle": "DockView Title",
     "DockViewV2Column": "DockViewV2 Column",
     "DockViewV2Complex": "DockViewV2 Complex",
     "DockViewV2Group": "DockViewV2 Group",
@@ -302,7 +306,6 @@
     "Marquee": "Marquee",
     "Mask": "MaskService",
     "MaterialIcon": "Material Icons",
-    "MauiBlazor": "Maui Blazor",
     "Meet": "Meet",
     "Menu": "Menu",
     "MenuAccordion": "Accordion",
@@ -363,7 +366,6 @@
     "SelectTree": "Select-Tree",
     "SerialPortComponents": "SerialPort Services",
     "SerialPortFactory": "ISerialPortFactory",
-    "ServerBlazor": "Server-side Blazor",
     "Services": "Services",
     "ShieldBadge": "ShieldBadge",
     "SignaturePad": "SignaturePad",
@@ -377,7 +379,6 @@
     "SocketDataEntity": "DataEntity",
     "SocketManualReceive": "Manual Receive",
     "SortableList": "SortableList",
-    "Speech": "Speech",
     "SpeechComponents": "Speech",
     "SpeechIntro": "Introduction",
     "SpeechWave": "SpeechWave",
@@ -392,14 +393,11 @@
     "SwitchButton": "Switch Button",
     "Synthesizer": "Synthesizer",
     "Tab": "Tab",
-    "Table": "Table",
     "TableAttribute": "Attribute",
     "TableAutoRefresh": "AutoRefresh",
     "TableBase": "Base",
     "TableCell": "Cell",
     "TableColumn": "Column",
-    "TableColumnAlign": "Column Alignment",
-    "TableColumnCopy": "Column Replication",
     "TableColumnDrag": "Column Dragging",
     "TableColumnList": "Columns Show/Hide",
     "TableColumnResizing": "Column Width",
@@ -448,12 +446,10 @@
     "TotpService": "ITotpService",
     "Transfer": "Transfer",
     "Transition": "Transition",
-    "Tree": "Tree",
     "TreeView": "TreeView",
     "Typed": "Typed",
     "UniverIcon": "Univer Icons",
     "UniverSheet": "UniverSheet",
-    "Upload": "Upload",
     "Utility": "Utility",
     "ValidateForm": "ValidateForm",
     "Vditor": "Vditor Markdown",
@@ -461,12 +457,16 @@
     "VideoPlayer": "VideoPlayer",
     "Waterfall": "Waterfall",
     "Watermark": "Watermark",
-    "WebAppBlazor": "WebApp Blazor",
     "WebSerial": "ISerialService",
     "WebSpeech": "Web Speech Api",
     "WinBox": "WinBox",
     "ZIndex": "Layout",
     "ZipArchive": "IZipArchiveService"
+  },
+  "BootstrapBlazor.Server.Components.Layout.TutorialsNavMenu": {
+    "MemorialMode": "Memorial",
+    "MFA": "MFA",
+    "OnlineSheet": "UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Amount": "pixel",
@@ -505,7 +505,6 @@
     "ChatNormalTitle": "Azure OpenAI",
     "ChatsDescription": "Azure OpenAI service is a chatbot based on Azure cloud service, which can interact with users through dialogue",
     "ChatsTitle": "Azure OpenAI",
-    "ChatUserMessageTitle": "Hello {0}",
     "ChatUserTitle": "Chat session"
   },
   "BootstrapBlazor.Server.Components.Pages.Globalization": {
@@ -717,9 +716,6 @@
     "DashboardSummary": "Dashboard",
     "DrawingSummary": "Drawing",
     "LoginSummary": "Login&Register",
-    "MemorialMode": "Memorial",
-    "MFA": "MFA",
-    "OnlineSheet": "UniverSheet",
     "TranslateSummary": "Translate",
     "WaterfallSummary": "Waterfall"
   },
@@ -2133,6 +2129,10 @@
     "EditorFormTips3": "Complex edit columns, set up <code>EditTemplate</code> templates, and edit custom components",
     "EditorFormTips4": "The buttons in the form can be set up multiplely, just set the buttons <code>Buttons</code> template",
     "GroupBoxTitle": "An example of a form",
+    "IgnoreItemsDescription": "This attribute has the same priority as the <code>Ignore</code> parameter in <code>EditorItem</code>. If it is set to ignore anywhere, it will not be rendered.",
+    "IgnoreItemsIntro": "By setting the <code>IgnoreItems</code> value, you can notify the component not to render the specified column in the collection.",
+    "IgnoreItemsSwitchButtonText": "Switch",
+    "IgnoreItemsTitle": "IgnoreItems",
     "IsDisplayIntro": "Make the entire form non-editable by setting <code>IsDisplay=\"true\"</code>",
     "IsDisplayTitle": "Readonly Form",
     "ItemsPerRowDescription": "This example sets <code>ItemsPerRow=3</code> show 3 components per row",
@@ -2152,11 +2152,7 @@
     "ValidateFormIntro": "Data compliance checks are implemented through nested <code>ValidateForm</code> components",
     "ValidateFormTips1": "The component is built into the <code>ValidateForm</code> to turn on data compliance checks, and <b>hobby</b>fields use the <code>EditTemplate</code> template to customize the component to render the data",
     "ValidateFormTips2": "Make the <code>birthday</code> field read-only by setting the <code>Readonly</code> property",
-    "ValidateFormTitle": "Turn on data validation",
-    "IgnoreItemsTitle": "IgnoreItems",
-    "IgnoreItemsIntro": "By setting the <code>IgnoreItems</code> value, you can notify the component not to render the specified column in the collection.",
-    "IgnoreItemsDescription": "This attribute has the same priority as `<editorItem>`, and if it is set to ignore anywhere else, it will not be rendered.",
-    "IgnoreItemsSwitchButtonText": "Switch"
+    "ValidateFormTitle": "Turn on data validation"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "Insert Html",
@@ -2470,7 +2466,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconDescription": "Semantic vector graphics.",
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
@@ -2484,7 +2479,6 @@
     "Title": "Bootstrap Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
-    "CopiedTooltipText": "Copied",
     "ElementIconDescription": "Free, high quality, open source icon library",
     "ElementIconTitle": "Element-plus Icons",
     "Icons": "For icon list, please visit <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[portal]</a>",
@@ -2494,12 +2488,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "BaseUsageText": "<code>BootstrapBlazor</code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
-    "SwitchButtonTextOff": "Click to copy",
-    "SwitchButtonTextOn": "Show Copy Dialog",
     "Title": "Font Awesome Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
@@ -2510,7 +2501,6 @@
     "Title": "Fluent System Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
-    "CopiedTooltipText": "Copied",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>",
@@ -2526,7 +2516,6 @@
     "Title": "MaterialDesign Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[portal]</a>",
     "OctIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
     "OctIconTitle": "Oct Svg Icon Lib",
@@ -2535,7 +2524,6 @@
     "P3": "Please copy the following code segement"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[portal]</a>",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
@@ -4447,7 +4435,6 @@
     "TableAttributeIntroLI3": "Write <code>AutoGenerateClassAttribute</code> and write <code>AutoGenerateColumnAttribute</code> to merge the two parameter values and take the value of <code>AutoGenerateColumnAttribute</code>",
     "TableAttributeIntroLI4": "When setting the TableColumn parameter value, the TableColumn parameter value is the final value.",
     "TableAttributeQA1": "I wrote <code>AutoGenerateClassAttribute</code> and <code>AutoGenerateColumnAttribute</code> to combine the two parameter values and give an example",
-    "TableAttributeQAP1": "Because <code>AutoGenerateClassAttribute</code> sets <code>Filterable</code> to <code>true</code>, and <code>AutoGenerateColumn</code> keeps <code>Filterable</code> to its default value of <code>false</code>, the final <code>UI</code> uses <code>true</code>",
     "TableAttributeQAP2": "Since <code>AutoGenerateClassAttribute</code> is not set, <code>Sortable</code> remains at the default value of <code>false</code>, and <code>AutoGenerateColumn</code> sets the <code>Sortable</code> value to <code>true</code>, the final <code>UI</code> uses <code>true</code>",
     "TableAttributeQAP3": "In the latest version, some parameter values ​​such as <code>Filterable</code> of <code>TableColumn</code> are changed to <b>nullable data type</b>, and their default value is changed from <code>false</code> to <code>null</code>. Therefore, as long as the value of the <code>Filterable</code> parameter of <code>TableColumn</code> is not null, the <code>TableColumn</code> value is used as the final <code>UI</code> value.",
     "TableAttributeTitle": "AutoGenerateClassAttribute/AutoGenerateColumnAttribute"
@@ -5604,7 +5591,7 @@
     "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
     "TreeViewVirtualizeTitle": "Virtualize"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator.BarCodeGenerator": {
     "EmailDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below, then open the <code>Email</code> app to send an email.",
     "Preview": "Preview",
     "SelectType": "Select content type",
@@ -5612,7 +5599,7 @@
     "UrlDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and open the current address",
     "WiFiDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below to automatically join the <code>WiFi</code> network."
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
     "ToastOnReadyTitle": "Collaboration Notification"
   },

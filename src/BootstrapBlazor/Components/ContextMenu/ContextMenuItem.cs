@@ -51,6 +51,14 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     [Parameter]
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示，默认为 true 显示</para>
+    /// <para lang="en">Gets or sets whether to display. Default is true</para>
+    /// </summary>
+    /// <remarks>一般是通过业务逻辑判断是否显示</remarks>
+    [Parameter]
+    public bool IsShow { get; set; } = true;
+
     [CascadingParameter]
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }

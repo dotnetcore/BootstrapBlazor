@@ -57,6 +57,10 @@ public partial class FormInlineSwitch
     {
         base.OnInitialized();
 
-        Items = Enum.GetNames<RowType>().Select(i => new SelectedItem(i, Localizer[i]));
+        Items = new List<SelectedItem>
+        {
+            new SelectedItem("Normal", Localizer["Normal"]),
+            new SelectedItem("Inline", Localizer["Inline"]),
+        };
     }
 }

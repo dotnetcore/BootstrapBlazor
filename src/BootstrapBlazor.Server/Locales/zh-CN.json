@@ -20,9 +20,27 @@
     "Type": "类型"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "AutoGenerateColumns": "自动生成",
     "Obsolete": "已弃用",
     "Total": "合计"
+  },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "条码设置"
+  },
+  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
+    "ReconnectButton": "重新连接",
+    "ReconnectFailedDescription": "请确认网络是否正常，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReconnectFailedTitle": "与服务器连接失败",
+    "ReconnectingDescription": "服务器正在更新新版本，稍等一会儿即可提供服务，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReconnectingTitle": "正在尝试重新连接服务器",
+    "ReconnectRejectedDescription": "所有的连接尝试都被拒绝了，这很有可能是由于网络问题或者服务器问题引起的，请扫描左侧二维码加群与管理员联系",
+    "ReconnectRejectedTitle": "服务器拒绝连接",
+    "ReloadButton": "重新加载",
+    "TemplateLink": "项目模板",
+    "TemplateText": "已提供项目模板方便快速上手",
+    "Title": "Reconnector 组件",
+    "UILibraryDescription1": "一套基于 <b>Bootstrap</b> 样式的企业级 <b>Blazor UI</b> 组件库，支持 Server 与 WebAssembly",
+    "UILibraryDescription2": "适配移动端支持各种主流浏览器以及移动端，适配 <b>ABP</b>，同时支持 <b>{0}</b>",
+    "UILibraryTitle": "Bootstrap Blazor UI 组件库"
   },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "语言："
@@ -79,7 +97,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.QQGroup": {
     "Group": "QQ群",
-    "Status": "满",
     "Welcome": "欢迎加群讨论"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
@@ -108,24 +125,14 @@
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "CancelText": "取消",
-    "ChatTooltip": "Azure OpenAI",
-    "DarkMode": "暗黑模式",
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
-    "InstallText": "安装",
-    "LightMode": "明亮模式",
-    "SiteTitle": "Bootstrap Blazor - 组件库",
-    "Title": "点击查看更新日志"
+    "InstallText": "安装"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "Example": "示例",
-    "Group": "交流群",
     "IconTheme": "图标主题",
     "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
-    "Video": "相关视频",
-    "ViewC#Code": "查看 C# 代码",
-    "ViewExample": "查看示例",
-    "ViewRazorCode": "查看 Razor 代码"
+    "Video": "相关视频"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "社区",
@@ -183,13 +190,11 @@
     "CherryMarkdown": "腾讯文本框 Markdown",
     "Circle": "进度环 Circle",
     "Client": "客户信息服务 Client",
-    "ClientBlazor": "客户端模式",
     "Clipboard": "剪切板服务 Clipboard",
     "ClockPicker": "时间选择器 ClockPicker",
     "CodeEditor": "代码编辑器 CodeEditor",
     "Collapse": "折叠 Collapse",
     "ColorPicker": "颜色拾取器 ColorPicker",
-    "Components": "组件总览",
     "ConnectionService": "在线连接服务 ConnectionService",
     "Console": "控制台 Console",
     "ContextMenu": "右键菜单 ContextMenu",
@@ -215,7 +220,6 @@
     "DockViewNest": "DockView 嵌套布局",
     "DockViewRow": "DockView 行布局",
     "DockViewStack": "DockView 堆栈布局",
-    "DockViewTitle": "DockView 设置标题",
     "DockViewV2Column": "DockViewV2 列布局",
     "DockViewV2Complex": "DockViewV2 组合布局",
     "DockViewV2Group": "DockViewV2 组布局",
@@ -302,7 +306,6 @@
     "Marquee": "文字滚动 Marquee",
     "Mask": "遮罩服务 MaskService",
     "MaterialIcon": "Material Icons",
-    "MauiBlazor": "MAUI Blazor 模式",
     "Meet": "视频会议组件 Meet",
     "Menu": "菜单 Menu",
     "MenuAccordion": "手风琴效果",
@@ -363,7 +366,6 @@
     "SelectTree": "树状选择器 SelectTree",
     "SerialPortComponents": "串行通信协议 SerialPort",
     "SerialPortFactory": "通信服务 ISerialPortFactory",
-    "ServerBlazor": "服务器端模式",
     "Services": "内置服务",
     "ShieldBadge": "徽章组件 ShieldBadge",
     "SignaturePad": "手写签名 SignaturePad",
@@ -377,7 +379,6 @@
     "SocketDataEntity": "通信数据转实体类",
     "SocketManualReceive": "手动接收数据",
     "SortableList": "拖拽组件 SortableList",
-    "Speech": "语音识别 Speech",
     "SpeechComponents": "语音组件",
     "SpeechIntro": "简介",
     "SpeechWave": "语音波形图 SpeechWave",
@@ -392,14 +393,11 @@
     "SwitchButton": "状态切换按钮 SwitchButton",
     "Synthesizer": "语音合成 Synthesizer",
     "Tab": "标签页 Tab",
-    "Table": "表格组件",
     "TableAttribute": "特性标签",
     "TableAutoRefresh": "自动刷新",
     "TableBase": "基本功能",
     "TableCell": "单元格",
     "TableColumn": "列设置",
-    "TableColumnAlign": "列对齐",
-    "TableColumnCopy": "列复制",
     "TableColumnDrag": "列拖动",
     "TableColumnList": "列显示/隐藏",
     "TableColumnResizing": "列宽设置",
@@ -448,12 +446,10 @@
     "TotpService": "时间密码验证服务 ITotpService",
     "Transfer": "穿梭框 Transfer",
     "Transition": "过渡效果 Transition",
-    "Tree": "树形组件 Tree",
     "TreeView": "树形组件 TreeView",
     "Typed": "打字机效果 Typed",
     "UniverIcon": "Univer Icons",
     "UniverSheet": "表格组件 UniverSheet",
-    "Upload": "上传组件 Upload",
     "Utility": "实用工具",
     "ValidateForm": "验证表单 ValidateForm",
     "Vditor": "富文本框 Vditor Markdown",
@@ -461,12 +457,16 @@
     "VideoPlayer": "视频播放器 VideoPlayer",
     "Waterfall": "瀑布流 Waterfall",
     "Watermark": "水印组件 Watermark",
-    "WebAppBlazor": "WebApp 模式",
     "WebSerial": "串口服务 ISerialService",
     "WebSpeech": "Web Speech Api",
     "WinBox": "窗口 WinBox",
     "ZIndex": "组件层次",
     "ZipArchive": "压缩归档服务 IZipArchiveService"
+  },
+  "BootstrapBlazor.Server.Components.Layout.TutorialsNavMenu": {
+    "MemorialMode": "追悼模式",
+    "MFA": "多因子认证 MFA",
+    "OnlineSheet": "在线表格 UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Amount": "像素",
@@ -505,7 +505,6 @@
     "ChatNormalTitle": "Azure OpenAI 服务",
     "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
     "ChatsTitle": "Azure OpenAI 服务",
-    "ChatUserMessageTitle": "你好 {0}",
     "ChatUserTitle": "聊天场景"
   },
   "BootstrapBlazor.Server.Components.Pages.Globalization": {
@@ -717,9 +716,6 @@
     "DashboardSummary": "仪表盘 Dashboard",
     "DrawingSummary": "画图 Drawing",
     "LoginSummary": "登陆注册 Login&Register",
-    "MemorialMode": "追悼模式",
-    "MFA": "多因子认证 MFA",
-    "OnlineSheet": "在线表格 UniverSheet",
     "TranslateSummary": "翻译工具 Translate",
     "WaterfallSummary": "瀑布流图片 Waterfall"
   },
@@ -2133,6 +2129,10 @@
     "EditorFormTips3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
     "EditorFormTips4": "表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可",
     "GroupBoxTitle": "表单示例",
+    "IgnoreItemsDescription": "此属性的优先级与 <code>EditorItem</code> 参数 <code>Ignore</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
+    "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
+    "IgnoreItemsSwitchButtonText": "切换",
+    "IgnoreItemsTitle": "IgnoreItems 忽略集合",
     "IsDisplayIntro": "通过设置 <code>IsDisplay=\"true\"</code> 使整个表单不可编辑",
     "IsDisplayTitle": "只读表单",
     "ItemsPerRowDescription": "本示例设置 <code>ItemsPerRow=3</code> 每行显示 3 个组件",
@@ -2152,11 +2152,7 @@
     "ValidateFormIntro": "通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能",
     "ValidateFormTips1": "组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据",
     "ValidateFormTips2": "通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读",
-    "ValidateFormTitle": "开启数据验证",
-    "IgnoreItemsTitle": "IgnoreItems 忽略集合",
-    "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
-    "IgnoreItemsDescription": "此属性的优先级与在 <code>IEditorItem</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
-    "IgnoreItemsSwitchButtonText": "切换"
+    "ValidateFormTitle": "开启数据验证"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",
@@ -2470,7 +2466,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconDescription": "语义化的矢量图形",
     "AntDesignIconTitle": "蚂蚁图标库",
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
@@ -2484,7 +2479,6 @@
     "Title": "Bootstrap Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "ElementIconDescription": "饿了么免费开源图标库",
     "ElementIconTitle": "饿了么图标库",
     "Icons": "图标列表请通过 <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[传送门]</a> 查看",
@@ -2494,12 +2488,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
-    "SwitchButtonTextOff": "点击拷贝",
-    "SwitchButtonTextOn": "显示高级拷贝",
     "Title": "Font Awesome Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
@@ -2510,7 +2501,6 @@
     "Title": "Fluent System Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
-    "CopiedTooltipText": "拷贝成功",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "IconParkTitle": "字节跳动图标库",
     "Icons": "图标列表请通过 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[传送门]</a> 查看",
@@ -2526,7 +2516,6 @@
     "Title": "MaterialDesign Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看",
     "OctIconDescription": "Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.",
     "OctIconTitle": "Github 图标库",
@@ -2535,7 +2524,6 @@
     "P3": "请拷贝下方样式即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
@@ -4447,7 +4435,6 @@
     "TableAttributeIntroLI3": "写了 <code>AutoGenerateClassAttribute</code> 并且写了 <code>AutoGenerateColumnAttribute</code> 合并两者参数值取 <code>AutoGenerateColumnAttribute</code> 值",
     "TableAttributeIntroLI4": "写了 <code>TableColumn</code> <code>参数值时以 TableColumn</code> 参数值为最终值",
     "TableAttributeQA1": "写了 <code>AutoGenerateClassAttribute</code> 并且写了 <code>AutoGenerateColumnAttribute</code> 合并两者参数值取值举例说明",
-    "TableAttributeQAP1": "由于 <code>AutoGenerateClassAttribute</code> 设置 <code>Filterable</code> 值为 <code>true</code>，而 <code>AutoGenerateColumn</code> 保持 <code>Filterable</code> 默认值 <code>false</code> 最终 <code>UI</code> 使用 <code>true</code>",
     "TableAttributeQAP2": "由于 <code>AutoGenerateClassAttribute</code> 未设置 <code>Sortable</code> 保持默认值 <code>false</code>，而 <code>AutoGenerateColumn</code> 设置 <code>Sortable</code> 值为 <code>true</code> 最终 <code>UI</code> 使用 <code>true</code>",
     "TableAttributeQAP3": "最新版本 <code>TableColumn</code> 的 <code>Filterable</code> 等一些参数值均更改为 <b>可为空数据类型</b>，其默认值由原来的 <code>false</code> 更改为 <code>null</code>，可由此判断，只要 <code>TableColumn</code> 的参数 <code>Filterable</code> 值不为空，即以 <code>TableColumn</code> 值为最终 <code>UI</code> 值",
     "TableAttributeTitle": "特性标签 AutoGenerateClassAttribute/AutoGenerateColumnAttribute"
@@ -5604,7 +5591,7 @@
     "TreeViewVirtualizeIntro": "通过设置 <code>IsVirtualize=\"true\"</code> 开启虚拟滚动，支持大数据",
     "TreeViewVirtualizeTitle": "虚拟滚动"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator.BarCodeGenerator": {
     "EmailDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Email</code> 应用发送邮件",
     "Preview": "预览",
     "SelectType": "选择一个类型",
@@ -5612,7 +5599,7 @@
     "UrlDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Safari</code> 浏览器并且打开当前地址",
     "WiFiDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，自动加入 <code>WiFi</code> 网络"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容",
     "ToastOnReadyTitle": "在线表格协作通知"
   },

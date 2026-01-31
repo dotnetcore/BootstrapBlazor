@@ -1,9 +1,9 @@
-﻿@inject IStringLocalizer<BarcodeGenerateSettings> Localizer
+@inject IStringLocalizer<BarcodeGenerateSettings> Localizer
 
 <GroupBox Title="@Localizer["BarcodeGeneratorGroupBoxText"]">
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
-            <BootstrapInput Value="Value" ShowLabel="true" UseInputEvent="true" OnValueChanged="OnValueChanged" />
+            <BootstrapInput Value="Value" DisplayText="Value" ShowLabel="true" UseInputEvent="true" OnValueChanged="OnValueChanged" />
         </div>
         <div class="col-12 col-sm-6">
             <Select @bind-Value="Format" OnValueChanged="OnFormatChanged" ShowLabel="true" />
