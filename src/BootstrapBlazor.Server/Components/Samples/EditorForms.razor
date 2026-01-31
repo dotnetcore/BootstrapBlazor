@@ -138,6 +138,17 @@
     </EditorForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IgnoreItemsTitle"]" Introduction="@Localizer["IgnoreItemsIntro"]" Name="IgnoreItems">
+    <section ignore>
+        <div>@((MarkupString)Localizer["IgnoreItemsDescription"].Value)</div>
+        <Button OnClick="OnSwitchIgnoreItems" Text="@Localizer["IgnoreItemsSwitchButtonText"]" class="mt-3"></Button>
+    </section>
+    <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
+        <EditorForm Model="@Model" AutoGenerateAllItem="true" IgnoreItems="@_ignoreItems">
+        </EditorForm>
+    </GroupBox>
+</DemoBlock>
+
 <AttributeTable Type="typeof(EditorForm<>)" />
 
-<AttributeTable Title="@Localizer["EditorFormAttributeTitle"]" Type="typeof(EditorItem<,>)"></AttributeTable>
+<AttributeTable Type="typeof(EditorItem<,>)"></AttributeTable>
