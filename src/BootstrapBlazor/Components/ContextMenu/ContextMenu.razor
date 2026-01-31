@@ -1,4 +1,4 @@
-@namespace BootstrapBlazor.Components
+﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
@@ -7,7 +7,7 @@
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        @foreach (var context in GetContextMenuItems())
+        @foreach (var context in _contextMenuItems)
         {
             if (context is ContextMenuDivider)
             {

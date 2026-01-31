@@ -11,8 +11,5 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public interface IContextMenuItem
 {
-    /// <summary>
-    /// 菜单项显示顺序。
-    /// </summary>
-    public int Order { get; }
+
 }
