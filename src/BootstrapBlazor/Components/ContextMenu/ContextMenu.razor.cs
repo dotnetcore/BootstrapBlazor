@@ -64,12 +64,12 @@ public partial class ContextMenu
         if (TrimStartAndEndDivider)
         {
             //确保第一项不是分割线。
-            while (tempItems.Count > 0 && tempItems.First() is ContextMenuDivider)
+            while (tempItems.FirstOrDefault() is ContextMenuDivider)
             {
                 tempItems.RemoveAt(0);
             }
             //确保最后一项不是分割线。
-            while (tempItems.Count > 0 && tempItems.Last() is ContextMenuDivider)
+            while (tempItems.LastOrDefault() is ContextMenuDivider)
             {
                 tempItems.RemoveAt(tempItems.Count - 1);
             }
