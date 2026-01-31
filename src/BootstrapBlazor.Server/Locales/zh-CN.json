@@ -2129,6 +2129,9 @@
     "EditorFormTips3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
     "EditorFormTips4": "表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可",
     "GroupBoxTitle": "表单示例",
+    "GroupDescription": "通过设置 <code>EditorItem</code> 组件参数 <code>GroupName</code> 开启分组功能，通过 <code>GroupOrder</code> 控制顺序 ",
+    "GroupIntro": "通过设置 <code>GroupType</code> 值控制分组形式",
+    "GroupTitle": "分组功能",
     "IgnoreItemsDescription": "此属性的优先级与 <code>EditorItem</code> 参数 <code>Ignore</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
     "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
     "IgnoreItemsSwitchButtonText": "切换",
@@ -2152,10 +2155,7 @@
     "ValidateFormIntro": "通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能",
     "ValidateFormTips1": "组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据",
     "ValidateFormTips2": "通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读",
-    "ValidateFormTitle": "开启数据验证",
-    "GroupTitle": "分组功能",
-    "GroupIntro": "通过设置 <code>GroupType</code> 值控制分组形式",
-    "GroupDescription": "通过设置 <code>EditorItem</code> 组件参数 <code>GroupName</code> 开启分组功能，通过 <code>GroupOrder</code> 控制顺序 "
+    "ValidateFormTitle": "开启数据验证"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",
