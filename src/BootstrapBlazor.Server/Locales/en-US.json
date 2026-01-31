@@ -2466,7 +2466,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconDescription": "Semantic vector graphics.",
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
@@ -2480,7 +2479,6 @@
     "Title": "Bootstrap Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
-    "CopiedTooltipText": "Copied",
     "ElementIconDescription": "Free, high quality, open source icon library",
     "ElementIconTitle": "Element-plus Icons",
     "Icons": "For icon list, please visit <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[portal]</a>",
@@ -2490,7 +2488,6 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "BaseUsageText": "<code>BootstrapBlazor</code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
@@ -2506,7 +2503,6 @@
     "Title": "Fluent System Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
-    "CopiedTooltipText": "Copied",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>",
@@ -2522,7 +2518,6 @@
     "Title": "MaterialDesign Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[portal]</a>",
     "OctIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
     "OctIconTitle": "Oct Svg Icon Lib",
@@ -2531,7 +2526,6 @@
     "P3": "Please copy the following code segement"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
-    "CopiedTooltipText": "Copied",
     "Icons": "For icon list, please visit <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[portal]</a>",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",

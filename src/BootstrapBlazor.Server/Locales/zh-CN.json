@@ -2466,7 +2466,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconDescription": "语义化的矢量图形",
     "AntDesignIconTitle": "蚂蚁图标库",
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
@@ -2480,7 +2479,6 @@
     "Title": "Bootstrap Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "ElementIconDescription": "饿了么免费开源图标库",
     "ElementIconTitle": "饿了么图标库",
     "Icons": "图标列表请通过 <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[传送门]</a> 查看",
@@ -2490,7 +2488,6 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
@@ -2506,7 +2503,6 @@
     "Title": "Fluent System Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
-    "CopiedTooltipText": "拷贝成功",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "IconParkTitle": "字节跳动图标库",
     "Icons": "图标列表请通过 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[传送门]</a> 查看",
@@ -2522,7 +2518,6 @@
     "Title": "MaterialDesign Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看",
     "OctIconDescription": "Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.",
     "OctIconTitle": "Github 图标库",
@@ -2531,7 +2526,6 @@
     "P3": "请拷贝下方样式即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
-    "CopiedTooltipText": "拷贝成功",
     "Icons": "图标列表请通过 <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
