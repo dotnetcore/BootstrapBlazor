@@ -88,6 +88,26 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IgnoreItems_Ok()
+    {
+        var ignoreItems = new List<string> { nameof(Foo.Hobby) };
+        var foo = new Foo();
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.AutoGenerateAllItem, true);
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.IgnoreItems, ignoreItems);
+        });
+        cut.DoesNotContain("爱好");
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.IgnoreItems, []);
+        });
+        cut.Contains("爱好");
+    }
+
+    [Fact]
     public void IsDisplay_Ok()
     {
         var foo = new Foo();
