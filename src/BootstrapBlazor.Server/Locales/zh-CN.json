@@ -5631,7 +5631,7 @@
     "UrlDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Safari</code> 浏览器并且打开当前地址",
     "WiFiDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，自动加入 <code>WiFi</code> 网络"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "4 秒后表格更新其他写作人员更改内容",
     "ToastOnReadyTitle": "在线表格协作通知"
   },

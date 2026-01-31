@@ -5631,7 +5631,7 @@
     "UrlDesc": "Use your iPhone's camera or the QR code scanning function to scan the QR code below, then open the <code>Safari</code> browser and open the current address",
     "WiFiDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below to automatically join the <code>WiFi</code> network."
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet.OnlineSheet": {
     "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content",
     "ToastOnReadyTitle": "Collaboration Notification"
   },
