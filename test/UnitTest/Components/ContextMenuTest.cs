@@ -107,6 +107,36 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         Assert.True(clicked);
     }
 
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    public void IsShow_Ok(bool show, bool expected)
+    {
+        var cut = Context.Render<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<ContextMenu>(pb =>
+            {
+                pb.AddChildContent<ContextMenuItem>(pb =>
+                {
+                    pb.Add(a => a.Icon, "fa fa-test");
+                    pb.Add(a => a.Text, "Test1");
+                    pb.Add(a => a.IsShow, show);
+                });
+                pb.AddChildContent<ContextMenuDivider>(pb =>
+                {
+                    pb.Add(a => a.IsShow, show);
+                });
+                pb.AddChildContent<ContextMenuItem>(pb =>
+                {
+                    pb.Add(a => a.Icon, "fa fa-test");
+                    pb.Add(a => a.Text, "Test2");
+                });
+            });
+        });
+        var actual = cut.Markup.Contains("Test1");
+        Assert.Equal(expected, actual);
+    }
+
     [Fact]
     public async Task ContextMenu_TouchWithTimeout_Ok()
     {
