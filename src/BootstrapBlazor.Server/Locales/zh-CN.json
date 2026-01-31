@@ -2128,7 +2128,6 @@
     "AutoGenerateIntro": "通过设置属性 <code>AutoGenerateAllItem</code> 值为 <code>false</code>，禁止自动生成属性，通过设置 <code>FieldItems</code> 内部集合来控制显示属性",
     "AutoGenerateTitle": "默认不自动生成",
     "Description": "通过绑定数据模型自动呈现编辑表单",
-    "EditorFormAttributeTitle": "EditorItem 属性",
     "EditorFormTips1": "绑定模型默认自动生成全部属性，可以通过设置 <code>AutoGenerateAllItem</code> 更改为不自动生成",
     "EditorFormTips2": "如不需要编辑列，设置 <code>Editable</code> 即可，默认值为 <code>true</code> 生成编辑组件",
     "EditorFormTips3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
@@ -2153,7 +2152,11 @@
     "ValidateFormIntro": "通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能",
     "ValidateFormTips1": "组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据",
     "ValidateFormTips2": "通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读",
-    "ValidateFormTitle": "开启数据验证"
+    "ValidateFormTitle": "开启数据验证",
+    "IgnoreItemsTitle": "IgnoreItems 忽略集合",
+    "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
+    "IgnoreItemsDescription": "此属性的优先级与在 <code>IEditorItem</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
+    "IgnoreItemsSwitchButtonText": "切换"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",
