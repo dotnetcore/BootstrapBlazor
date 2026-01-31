@@ -327,4 +327,66 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         Assert.Equal("divider", children[1].ClassName);
         Assert.Equal("dropdown-item", children[2].ClassName);
     }
+
+    [Fact]
+    public void ContextMenu_TrimStartAndEndDivider_Ok()
+    {
+        var cut = Context.Render<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<ContextMenu>(pb =>
+            {
+                pb.Add(x => x.TrimStartAndEndDivider, true);
+                pb.AddChildContent<ContextMenuDivider>();
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(a => a.Text, "Item1");
+                });
+                pb.AddChildContent<ContextMenuDivider>();
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(a => a.Text, "Item2");
+                });
+                pb.AddChildContent<ContextMenuDivider>();
+            });
+        });
+
+        var menu = cut.Find(".dropdown-menu");
+        var children = menu.Children;
+        Assert.Equal(3, children.Length);
+        Assert.Equal("dropdown-item", children[0].ClassName);
+        Assert.Equal("divider", children[1].ClassName);
+        Assert.Equal("dropdown-item", children[2].ClassName);
+    }
+
+    [Fact]
+    public void ContextMenuItem_Order_Ok()
+    {
+        var cut = Context.Render<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<ContextMenu>(pb =>
+            {
+                pb.AddChildContent<ContextMenuDivider>(builder =>
+                {
+                    builder.Add(x => x.Order, 1);
+                });
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(x => x.Order, 0);
+                    builder.Add(a => a.Text, "Item1");
+                });
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(x => x.Order, 2);
+                    builder.Add(a => a.Text, "Item2");
+                });
+            });
+        });
+
+        var menu = cut.Find(".dropdown-menu");
+        var children = menu.Children;
+        Assert.Equal(3, children.Length);
+        Assert.Equal("dropdown-item", children[0].ClassName);
+        Assert.Equal("divider", children[1].ClassName);
+        Assert.Equal("dropdown-item", children[2].ClassName);
+    }
 }

@@ -34,6 +34,12 @@ public partial class ContextMenu
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否裁剪开始及结尾处的 <see cref="ContextMenuDivider"/> 项
+    /// </summary>
+    [Parameter]
+    public bool TrimStartAndEndDivider { get; set; } = false;
+
     [CascadingParameter]
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
@@ -46,6 +52,30 @@ public partial class ContextMenu
     private string ZoneId => ContextMenuZone.Id;
 
     private readonly List<IContextMenuItem> _contextMenuItems = [];
+
+    /// <summary>
+    /// 获取实际需要渲染的菜单项。
+    /// </summary>
+    /// <returns></returns>
+    private List<IContextMenuItem> GetContextMenuItems()
+    {
+        var tempItems = _contextMenuItems.OrderBy(x => x.Order).ToList();
+
+        if (TrimStartAndEndDivider)
+        {
+            //确保第一项不是分割线。
+            while (tempItems.Count > 0 && tempItems.First() is ContextMenuDivider)
+            {
+                tempItems.RemoveAt(0);
+            }
+            //确保最后一项不是分割线。
+            while (tempItems.Count > 0 && tempItems.Last() is ContextMenuDivider)
+            {
+                tempItems.RemoveAt(tempItems.Count - 1);
+            }
+        }
+        return tempItems;
+    }
 
     private static string? GetItemClassString(bool disabled) => CssBuilder.Default("dropdown-item")
         .AddClass("disabled", disabled)

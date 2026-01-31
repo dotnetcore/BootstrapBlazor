@@ -19,6 +19,12 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 显示顺序</para>
+    /// </summary>
+    [Parameter]
+    public int Order { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 图标</para>
     /// <para lang="en">The CSS class name that represents an icon (if any)</para>
     /// </summary>

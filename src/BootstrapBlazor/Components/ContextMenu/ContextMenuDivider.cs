@@ -18,6 +18,12 @@ public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
     private ContextMenu? ContextMenu { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 显示顺序</para>
+    /// </summary>
+    [Parameter]
+    public int Order { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
