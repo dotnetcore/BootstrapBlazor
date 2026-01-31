@@ -2491,8 +2491,6 @@
     "Icons": "For icon list, please visit <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
-    "SwitchButtonTextOff": "Click to copy",
-    "SwitchButtonTextOn": "Show Copy Dialog",
     "Title": "Font Awesome Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {

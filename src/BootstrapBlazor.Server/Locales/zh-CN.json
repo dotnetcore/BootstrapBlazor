@@ -2491,8 +2491,6 @@
     "Icons": "图标列表请通过 <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
-    "SwitchButtonTextOff": "点击拷贝",
-    "SwitchButtonTextOn": "显示高级拷贝",
     "Title": "Font Awesome Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FluentSystemIcons": {
