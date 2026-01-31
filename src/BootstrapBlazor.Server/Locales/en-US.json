@@ -126,14 +126,9 @@
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "CancelText": "Cancel",
-    "ChatTooltip": "Azure OpenAI",
-    "DarkMode": "Dark Mode",
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
-    "InstallText": "Install",
-    "LightMode": "Light Mode",
-    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
-    "Title": "View update log"
+    "InstallText": "Install"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
     "Example": "Example",

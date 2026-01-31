@@ -126,14 +126,9 @@
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "CancelText": "取消",
-    "ChatTooltip": "Azure OpenAI",
-    "DarkMode": "暗黑模式",
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
-    "InstallText": "安装",
-    "LightMode": "明亮模式",
-    "SiteTitle": "Bootstrap Blazor - 组件库",
-    "Title": "点击查看更新日志"
+    "InstallText": "安装"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
     "Example": "示例",
