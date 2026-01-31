@@ -919,6 +919,9 @@
     "BarcodeGeneratorNormalText": "条码生成器",
     "Title": "BarcodeGenerator 条码生成器"
   },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "条码设置"
+  },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Attention": "特别注意：",
     "BasicUsageIntro": "通过摄像头进行扫码识别",

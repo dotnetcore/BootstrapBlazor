@@ -919,6 +919,9 @@
     "BarcodeGeneratorNormalText": "Barcode Generator",
     "Title": "Barcode generator"
   },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "Settings"
+  },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Attention": "Pay special attention to:",
     "BasicUsageIntro": "The code is identified by the camera",
