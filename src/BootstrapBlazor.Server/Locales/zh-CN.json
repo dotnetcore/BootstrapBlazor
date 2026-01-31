@@ -24,6 +24,22 @@
     "Obsolete": "已弃用",
     "Total": "合计"
   },
+  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
+    "ReconnectButton": "重新连接",
+    "ReconnectFailedDescription": "请确认网络是否正常，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReconnectFailedTitle": "与服务器连接失败",
+    "ReconnectingDescription": "服务器正在更新新版本，稍等一会儿即可提供服务，或者 <kbd>F12</kbd> 打开 <b>Developer tools</b> 查看 <b>控制台</b> 是否有错误输出，请扫描左侧二维码加群与管理员联系",
+    "ReconnectingTitle": "正在尝试重新连接服务器",
+    "ReconnectRejectedDescription": "所有的连接尝试都被拒绝了，这很有可能是由于网络问题或者服务器问题引起的，请扫描左侧二维码加群与管理员联系",
+    "ReconnectRejectedTitle": "服务器拒绝连接",
+    "ReloadButton": "重新加载",
+    "TemplateLink": "项目模板",
+    "TemplateText": "已提供项目模板方便快速上手",
+    "Title": "Reconnector 组件",
+    "UILibraryDescription1": "一套基于 <b>Bootstrap</b> 样式的企业级 <b>Blazor UI</b> 组件库，支持 Server 与 WebAssembly",
+    "UILibraryDescription2": "适配移动端支持各种主流浏览器以及移动端，适配 <b>ABP</b>，同时支持 <b>{0}</b>",
+    "UILibraryTitle": "Bootstrap Blazor UI 组件库"
+  },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "语言："
   },
@@ -2133,6 +2149,10 @@
     "EditorFormTips3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
     "EditorFormTips4": "表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可",
     "GroupBoxTitle": "表单示例",
+    "IgnoreItemsDescription": "此属性的优先级与在 <code>IEditorItem</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
+    "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
+    "IgnoreItemsSwitchButtonText": "切换",
+    "IgnoreItemsTitle": "IgnoreItems 忽略集合",
     "IsDisplayIntro": "通过设置 <code>IsDisplay=\"true\"</code> 使整个表单不可编辑",
     "IsDisplayTitle": "只读表单",
     "ItemsPerRowDescription": "本示例设置 <code>ItemsPerRow=3</code> 每行显示 3 个组件",
@@ -2152,11 +2172,7 @@
     "ValidateFormIntro": "通过嵌套 <code>ValidateForm</code> 组件实现数据合规检查功能",
     "ValidateFormTips1": "组件内置到 <code>ValidateForm</code> 内开启数据合规检查功能，<b>爱好</b> 字段使用 <code>EditTemplate</code> 模板自定义组件呈现数据",
     "ValidateFormTips2": "通过设置 <code>Readonly</code> 属性，使 <code>生日</code> 字段为只读",
-    "ValidateFormTitle": "开启数据验证",
-    "IgnoreItemsTitle": "IgnoreItems 忽略集合",
-    "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
-    "IgnoreItemsDescription": "此属性的优先级与在 <code>IEditorItem</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
-    "IgnoreItemsSwitchButtonText": "切换"
+    "ValidateFormTitle": "开启数据验证"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "插入一段 Html",

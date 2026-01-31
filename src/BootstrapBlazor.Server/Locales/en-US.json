@@ -24,6 +24,22 @@
     "Obsolete": "Obsolete",
     "Total": "Total"
   },
+  "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
+    "ReconnectButton": "Reconnect",
+    "ReconnectFailedDescription": "Please confirm that your network is working properly, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectFailedTitle": "Failed to connect to server",
+    "ReconnectingDescription": "The server is updating to a new version, please wait a moment for service to be available, or press <kbd>F12</kbd> to open <b>Developer tools</b> and check the <b>console</b> for any error output. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectingTitle": "Attempting to reconnect to the server",
+    "ReconnectRejectedDescription": "All connection attempts have been rejected, which is most likely caused by network or server issues. Please scan the QR code on the left to join the group and contact the administrator",
+    "ReconnectRejectedTitle": "Server rejected connection",
+    "ReloadButton": "Reload",
+    "TemplateLink": "Project Templates",
+    "TemplateText": "Project templates are provided for quick start",
+    "Title": "Reconnector Component",
+    "UILibraryDescription1": "An enterprise-level <b>Blazor UI</b> component library based on <b>Bootstrap</b> styles, supporting both Server and WebAssembly",
+    "UILibraryDescription2": "Mobile-responsive, supports all major browsers and mobile devices, compatible with <b>ABP</b>, and supports <b>{0}</b>",
+    "UILibraryTitle": "Bootstrap Blazor UI Component Library"
+  },
   "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："
   },
@@ -2133,6 +2149,10 @@
     "EditorFormTips3": "Complex edit columns, set up <code>EditTemplate</code> templates, and edit custom components",
     "EditorFormTips4": "The buttons in the form can be set up multiplely, just set the buttons <code>Buttons</code> template",
     "GroupBoxTitle": "An example of a form",
+    "IgnoreItemsDescription": "This attribute has the same priority as `<editorItem>`, and if it is set to ignore anywhere else, it will not be rendered.",
+    "IgnoreItemsIntro": "By setting the <code>IgnoreItems</code> value, you can notify the component not to render the specified column in the collection.",
+    "IgnoreItemsSwitchButtonText": "Switch",
+    "IgnoreItemsTitle": "IgnoreItems",
     "IsDisplayIntro": "Make the entire form non-editable by setting <code>IsDisplay=\"true\"</code>",
     "IsDisplayTitle": "Readonly Form",
     "ItemsPerRowDescription": "This example sets <code>ItemsPerRow=3</code> show 3 components per row",
@@ -2152,11 +2172,7 @@
     "ValidateFormIntro": "Data compliance checks are implemented through nested <code>ValidateForm</code> components",
     "ValidateFormTips1": "The component is built into the <code>ValidateForm</code> to turn on data compliance checks, and <b>hobby</b>fields use the <code>EditTemplate</code> template to customize the component to render the data",
     "ValidateFormTips2": "Make the <code>birthday</code> field read-only by setting the <code>Readonly</code> property",
-    "ValidateFormTitle": "Turn on data validation",
-    "IgnoreItemsTitle": "IgnoreItems",
-    "IgnoreItemsIntro": "By setting the <code>IgnoreItems</code> value, you can notify the component not to render the specified column in the collection.",
-    "IgnoreItemsDescription": "This attribute has the same priority as `<editorItem>`, and if it is set to ignore anywhere else, it will not be rendered.",
-    "IgnoreItemsSwitchButtonText": "Switch"
+    "ValidateFormTitle": "Turn on data validation"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "DoMethodAsyncButton1": "Insert Html",
