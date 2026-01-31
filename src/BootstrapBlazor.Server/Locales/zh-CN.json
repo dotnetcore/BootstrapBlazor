@@ -20,9 +20,11 @@
     "Type": "类型"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "AutoGenerateColumns": "自动生成",
     "Obsolete": "已弃用",
     "Total": "合计"
+  },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "条码设置"
   },
   "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
     "ReconnectButton": "重新连接",
@@ -918,9 +920,6 @@
     "BarcodeGeneratorNormalIntro": "通过给定 <code>Value</code> 值渲染成相对应格式的一维条码",
     "BarcodeGeneratorNormalText": "条码生成器",
     "Title": "BarcodeGenerator 条码生成器"
-  },
-  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
-    "BarcodeGeneratorGroupBoxText": "条码设置"
   },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Attention": "特别注意：",

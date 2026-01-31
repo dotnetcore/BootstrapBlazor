@@ -20,9 +20,11 @@
     "Type": "Type"
   },
   "BootstrapBlazor.Server.Components.Components.AttributeTable": {
-    "AutoGenerateColumns": "Automatically generated",
     "Obsolete": "Obsolete",
     "Total": "Total"
+  },
+  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
+    "BarcodeGeneratorGroupBoxText": "Settings"
   },
   "BootstrapBlazor.Server.Components.Components.BlazorReconnector": {
     "ReconnectButton": "Reconnect",
@@ -918,9 +920,6 @@
     "BarcodeGeneratorNormalIntro": "Renders a one-dimensional barcode in the corresponding format by giving the <code>Value</code> value",
     "BarcodeGeneratorNormalText": "Barcode Generator",
     "Title": "Barcode generator"
-  },
-  "BootstrapBlazor.Server.Components.Components.BarcodeGenerateSettings": {
-    "BarcodeGeneratorGroupBoxText": "Settings"
   },
   "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Attention": "Pay special attention to:",
