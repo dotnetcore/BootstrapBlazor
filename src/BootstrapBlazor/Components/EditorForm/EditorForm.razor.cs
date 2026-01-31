@@ -193,6 +193,10 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     [Parameter]
     public bool IsRenderWhenValueChanged { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 分组类型 默认 <see cref="EditorFormGroupType.GroupBox"/></para>
+    /// <para lang="en">Gets or sets group type. Default is <see cref="EditorFormGroupType.GroupBox"/></para>
+    /// </summary>
     [Parameter]
     public EditorFormGroupType GroupType { get; set; }
 
