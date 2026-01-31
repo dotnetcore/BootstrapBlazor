@@ -16,6 +16,7 @@ namespace BootstrapBlazor.Components;
 public partial class EditorForm<TModel> : IShowLabel, IDisposable
 {
     private string? ClassString => CssBuilder.Default("bb-editor")
+        .AddClass("bb-editor-group-row-header", GroupType == EditorFormGroupType.RowHeader)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -191,6 +192,9 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     /// </summary>
     [Parameter]
     public bool IsRenderWhenValueChanged { get; set; }
+
+    [Parameter]
+    public EditorFormGroupType GroupType { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值</para>
