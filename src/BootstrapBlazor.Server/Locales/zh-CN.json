@@ -2129,7 +2129,7 @@
     "EditorFormTips3": "复杂编辑列，设置 <code>EditTemplate</code> 模板，进行自定义组件进行编辑",
     "EditorFormTips4": "表单内按钮可以设置多个，设置 <code>Buttons</code> 模板即可",
     "GroupBoxTitle": "表单示例",
-    "IgnoreItemsDescription": "此属性的优先级与在 <code>IEditorItem</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
+    "IgnoreItemsDescription": "此属性的优先级与 <code>EditorItem</code> 参数 <code>Ignore</code> 相同，任何一个地方设置了忽略，最终都不会渲染",
     "IgnoreItemsIntro": "通过设置 <code>IgnoreItems</code> 值通知组件不渲染集合中的指定列",
     "IgnoreItemsSwitchButtonText": "切换",
     "IgnoreItemsTitle": "IgnoreItems 忽略集合",
