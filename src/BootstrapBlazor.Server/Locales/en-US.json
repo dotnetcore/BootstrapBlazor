@@ -5623,7 +5623,7 @@
     "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
     "TreeViewVirtualizeTitle": "Virtualize"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator.BarCodeGenerator": {
     "EmailDesc": "Use your iPhone's camera or the QR code scanner to scan the QR code below, then open the <code>Email</code> app to send an email.",
     "Preview": "Preview",
     "SelectType": "Select content type",

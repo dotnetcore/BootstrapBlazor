@@ -5623,7 +5623,7 @@
     "TreeViewVirtualizeIntro": "通过设置 <code>IsVirtualize=\"true\"</code> 开启虚拟滚动，支持大数据",
     "TreeViewVirtualizeTitle": "虚拟滚动"
   },
-  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.BarCodeGenerator.BarCodeGenerator": {
     "EmailDesc": "使用 <code>iPhone</code> 手机相机或者扫描二维码功能扫描下方二维码后，打开 <code>Email</code> 应用发送邮件",
     "Preview": "预览",
     "SelectType": "选择一个类型",
