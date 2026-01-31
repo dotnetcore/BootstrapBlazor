@@ -131,14 +131,9 @@
     "InstallText": "Install"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "Example": "Example",
-    "Group": "Community",
     "IconTheme": "Icon",
     "Title": "Enterprise-level component library based on Bootstrap and Blazor",
-    "Video": "Video",
-    "ViewC#Code": "View C# Code",
-    "ViewExample": "View Example",
-    "ViewRazorCode": "View Razor Code"
+    "Video": "Video"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "Community",

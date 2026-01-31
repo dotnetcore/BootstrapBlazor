@@ -131,14 +131,9 @@
     "InstallText": "安装"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
-    "Example": "示例",
-    "Group": "交流群",
     "IconTheme": "图标主题",
     "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
-    "Video": "相关视频",
-    "ViewC#Code": "查看 C# 代码",
-    "ViewExample": "查看示例",
-    "ViewRazorCode": "查看 Razor 代码"
+    "Video": "相关视频"
   },
   "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "Community": "社区",
