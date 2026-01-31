@@ -13,6 +13,13 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
+    /// <summary>
+    /// <inheritdoc cref="IContextMenuItem.IsShow"/>
+    /// </summary>
+    /// <remarks>一般是通过业务逻辑判断是否显示</remarks>
+    [Parameter]
+    public bool IsShow { get; set; } = true;
+
     [CascadingParameter]
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
