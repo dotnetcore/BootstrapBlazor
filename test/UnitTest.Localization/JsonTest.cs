@@ -16,6 +16,7 @@ public class JsonTest
     [InlineData("en-US.json")]
     public void Update_Localizer_Ok(string localeFileName)
     {
+        // 拼接资源文件
         var localizerFile = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Locales/", localeFileName);
 
         if (!File.Exists(localizerFile))
@@ -26,6 +27,7 @@ public class JsonTest
         var configuration = CreateConfiguration(localizerFile);
         var components = GetComponents();
 
+        // 设置根路径
         var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server/Components/");
         foreach (var router in components)
         {
