@@ -1,4 +1,4 @@
-﻿.bb-editor {
+.bb-editor {
     position: relative;
 
     .ef-loading {
@@ -8,5 +8,44 @@
         right: 0;
         bottom: 0;
         background-color: var(--bs-body-bg);
+    }
+
+    &.bb-editor-group-row-header {
+        .groupbox {
+            --bb-groupbox-padding: 0;
+            --bb-groupbox-legend-top: 0;
+            --bb-groupbox-legend-left: 0;
+            --bb-groupbox-divider-color: var(--bs-border-color);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            border: 0;
+
+            .legend {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                position: relative;
+                color: var(--bb-groupbox-divider-color);
+            }
+
+            .row {
+                margin-inline-start: 1rem;
+                flex: 1;
+                width: 1%;
+                min-width: 0;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    width: 1px;
+                    background-color: var(--bb-groupbox-divider-color);
+                    position: absolute;
+                    top: 1rem;
+                    bottom: 0;
+                    left: -0.5rem;
+                }
+            }
+        }
     }
 }

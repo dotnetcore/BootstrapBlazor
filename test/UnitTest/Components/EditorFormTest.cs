@@ -178,6 +178,25 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GroupType_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.Render<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.GroupType, EditorFormGroupType.GroupBox);
+        });
+
+        cut.DoesNotContain("bb-editor-group-row-header");
+
+        cut.Render(pb =>
+        {
+            pb.Add(a => a.GroupType, EditorFormGroupType.RowHeader);
+        });
+        cut.Contains("bb-editor-group-row-header");
+    }
+
+    [Fact]
     public void Alignment_Right()
     {
         var foo = new Foo();
