@@ -2798,8 +2798,8 @@
     "LabelsWidthDescription": "组件 <code>ValidateForm</code> <code>EditorForm</code> <code>BootstrapLabelSetting</code> <code>ValidateForm</code> 均可以设置标签宽度值，组件采用 <b>就近原则</b> 来确定最终值",
     "LabelsWidthIntro": "通过设置变量 <code>LabelWidth</code> 控制标签宽度",
     "LabelsWidthTitle": "参数设置标签宽度",
-    "ValidateFormAlignCenter": "<b>居中对齐</b><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>",
-    "ValidateFormAlignRight": "<b>右对齐</b><div>通过设置样式 <code>form-inline-end</code> 标签右对齐</div>"
+    "ValidateFormAlignCenter": "<p><b>居中对齐</b></p><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>",
+    "ValidateFormAlignRight": "<p><b>右对齐</b></p><div>通过设置样式 <code>form-inline-end</code> 标签右对齐</div>"
   },
   "BootstrapBlazor.Server.Components.Samples.LayoutPages": {
     "H1": "整页面级别组件",
