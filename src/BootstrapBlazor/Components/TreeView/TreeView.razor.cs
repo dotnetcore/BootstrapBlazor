@@ -196,13 +196,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public Func<TreeViewItem<TItem>, Task<IEnumerable<TreeViewItem<TItem>>>>? OnExpandNodeAsync { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IModelEqualityComparer{TItem}.CustomKeyAttribute"/>
     /// </summary>
     [Parameter]
     public Type CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IModelEqualityComparer{TItem}.ModelEqualityComparer"/>
     /// </summary>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
