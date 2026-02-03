@@ -76,7 +76,7 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     /// <summary>
     /// <inheritdoc cref="ITableEditDialogOption{TModel}.LabelWidth"/>
     /// </summary>
-    public int? LabelWidth { get; set; } = 120;
+    public int? LabelWidth { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="ITableEditDialogOption{TModel}.Items"/>

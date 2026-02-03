@@ -355,7 +355,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets Edit Dialog Label Width. Default is null use css variable default 120</para>
     /// </summary>
     [Parameter]
-    public int? EditDialogLabelWidth { get; set; } = 120;
+    public int? EditDialogLabelWidth { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
