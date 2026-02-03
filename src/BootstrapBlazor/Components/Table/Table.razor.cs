@@ -351,8 +351,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Alignment EditDialogLabelAlign { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑弹窗标签宽度 默认为 120 </para>
-    /// <para lang="en">Gets or sets Edit Dialog Label Width. Default is 120</para>
+    /// <para lang="zh">获得/设置 编辑弹窗标签宽度 默认为 null 使用样式默认值 120</para>
+    /// <para lang="en">Gets or sets Edit Dialog Label Width. Default is null use css variable default 120</para>
     /// </summary>
     [Parameter]
     public int? EditDialogLabelWidth { get; set; } = 120;
