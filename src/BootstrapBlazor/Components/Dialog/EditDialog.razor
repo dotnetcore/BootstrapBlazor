@@ -3,7 +3,8 @@
 @inherits DialogBase<TModel>
 @attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
-<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
+<ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" LabelWidth="@LabelWidth"
+              DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     <CascadingValue Value="ItemChangedType" IsFixed="true">
         @if (BodyTemplate != null)
         {
@@ -16,9 +17,10 @@
         }
         else
         {
-            <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType"
-                        LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
-                        IsRenderWhenValueChanged="true">
+            <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType"
+                        ItemsPerRow="ItemsPerRow" RowType="RowType"
+                        LabelAlign="LabelAlign" ShowLabel="ShowLabel"
+                        ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop" IsRenderWhenValueChanged="true">
                 <Buttons>
                     @RenderFooter
                 </Buttons>

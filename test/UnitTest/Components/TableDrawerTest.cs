@@ -275,4 +275,13 @@ public class TableDrawerTest : TableDialogTestBase
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
     }
+
+    [Fact]
+    public void TableEditDrawerOption_Ok()
+    {
+        var option = new TableEditDrawerOption<Foo>();
+        option.ShowLabel = false;
+
+        Assert.False(option.ShowLabel);
+    }
 }
