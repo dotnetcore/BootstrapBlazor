@@ -953,6 +953,7 @@ public partial class Table<TItem>
         option.ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop;
         option.DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter;
         option.IsTracking = IsTracking;
+        option.LabelWidth = EditDialogLabelWidth;
         option.DialogFooterTemplate = EditFooterTemplate;
 
         BeforeShowEditDialogCallback?.Invoke(option);

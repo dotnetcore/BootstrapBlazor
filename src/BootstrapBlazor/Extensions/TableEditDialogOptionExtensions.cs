@@ -36,6 +36,7 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.SaveButtonIcon)] = option.SaveButtonIcon,
         [nameof(EditDialog<TModel>.Model)] = option.Model,
         [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
+        [nameof(EditDialog<TModel>.LabelWidth)] = option.LabelWidth,
         [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
         [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate,
         [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>

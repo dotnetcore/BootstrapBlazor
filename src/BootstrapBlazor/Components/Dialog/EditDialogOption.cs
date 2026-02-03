@@ -84,6 +84,12 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 标签宽度 默认为 120 </para>
+    /// <para lang="en">Gets or sets Label Width. Default is 120</para>
+    /// </summary>
+    public int? LabelWidth { get; set; } = 120;
+
+    /// <summary>
     /// <para lang="zh">获得 编辑项集合</para>
     /// <para lang="en">Get Items</para>
     /// </summary>

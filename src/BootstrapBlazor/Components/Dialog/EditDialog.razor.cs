@@ -88,6 +88,13 @@ public partial class EditDialog<TModel>
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 标签宽度 默认为 120 </para>
+    /// <para lang="en">Gets or sets Label Width. Default is 120</para>
+    /// </summary>
+    [Parameter]
+    public int? LabelWidth { get; set; } = 120;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 DialogFooterTemplate 实例</para>
     /// <para lang="en">Gets or sets DialogFooterTemplate Instance</para>
     /// </summary>

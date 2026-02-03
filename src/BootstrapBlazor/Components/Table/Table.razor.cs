@@ -330,7 +330,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool IsHideFooterWhenNoData { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
+    /// <para lang="zh">获得/设置 编辑弹窗每行显示组件数量 默认为 2</para>
     /// <para lang="en">Gets or sets Items per row in Edit Dialog. Default 2</para>
     /// </summary>
     [Parameter]
@@ -349,6 +349,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public Alignment EditDialogLabelAlign { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 编辑弹窗标签宽度 默认为 120 </para>
+    /// <para lang="en">Gets or sets Edit Dialog Label Width. Default is 120</para>
+    /// </summary>
+    [Parameter]
+    public int? EditDialogLabelWidth { get; set; } = 120;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>

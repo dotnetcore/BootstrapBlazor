@@ -83,6 +83,12 @@ public class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 标签宽度 默认为 120 </para>
+    /// <para lang="en">Gets or sets label width. Default is 120</para>
+    /// </summary>
+    public int? LabelWidth { get; set; } = 120;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 关闭按钮图标，默认为 null 使用当前主题图标</para>
     /// <para lang="en">Gets or sets close button icon. Default is null (use current theme icon)</para>
     /// </summary>
