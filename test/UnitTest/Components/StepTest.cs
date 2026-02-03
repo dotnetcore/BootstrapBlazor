@@ -163,6 +163,8 @@ public class StepTest : BootstrapBlazorTestBase
             });
         });
         var step = cut.Instance;
+        await cut.InvokeAsync(() => step.SetStepIndex(1));
+        Assert.False(finished);
         await cut.InvokeAsync(() => step.SetStepIndex(3));
         Assert.True(finished);
     }
