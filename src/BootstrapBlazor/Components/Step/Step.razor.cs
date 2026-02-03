@@ -156,6 +156,21 @@ public partial class Step
     }
 
     /// <summary>
+    /// <para lang="zh">设置当前步骤索引 <see cref="StepIndex"/> 值</para>
+    /// <para lang="en">Set current step index <see cref="StepIndex"/> value</para>
+    /// </summary>
+    /// <param name="index"></param>
+    public async Task SetStepIndex(int index)
+    {
+        _currentStepIndex = Math.Max(0, Math.Min(Items.Count, index));
+        if (IsFinished && OnFinishedCallback != null)
+        {
+            await OnFinishedCallback();
+        }
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// <para lang="zh">重置步骤方法</para>
     /// <para lang="en">Reset Step Method</para>
     /// </summary>

@@ -128,7 +128,7 @@ public class StepTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void FinishedTemplate_Ok()
+    public async Task FinishedTemplate_Ok()
     {
         bool finished = false;
         var cut = Context.Render<Step>(pb =>
@@ -143,8 +143,29 @@ public class StepTest : BootstrapBlazorTestBase
             });
         });
         var step = cut.Instance;
-        cut.InvokeAsync(() => step.Next());
-        cut.WaitForAssertion(() => cut.Contains("Finished-Template"));
+        await cut.InvokeAsync(() => step.Next());
+        cut.Contains("Finished-Template");
+        Assert.True(finished);
+    }
+
+    [Fact]
+    public async Task SetStepIndex()
+    {
+        bool finished = false;
+        var cut = Context.Render<Step>(pb =>
+        {
+            pb.Add(a => a.Items, GetStepItems);
+            pb.Add(a => a.StepIndex, 2);
+            pb.Add(a => a.OnFinishedCallback, () =>
+            {
+                finished = true;
+                return Task.CompletedTask;
+            });
+        });
+        var step = cut.Instance;
+        await cut.InvokeAsync(() => step.SetStepIndex(1));
+        Assert.False(finished);
+        await cut.InvokeAsync(() => step.SetStepIndex(3));
         Assert.True(finished);
     }
 
