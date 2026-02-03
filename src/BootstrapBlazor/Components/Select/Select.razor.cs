@@ -491,10 +491,14 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetItemByRows()
     {
+        // 修复：使用完整的未过滤列表来查找当前选中项
+        // 避免在用户搜索时被外部 StateHasChanged 影响导致值被错误修改
+        var allItems = GetRowsByItems();
+        
         var item = GetItemWithEnumValue()
-            ?? Rows.Find(i => i.Value == CurrentValueAsString)
-            ?? Rows.Find(i => i.Active)
-            ?? Rows.Find(i => !i.IsDisabled);
+            ?? allItems.Find(i => i.Value == CurrentValueAsString)
+            ?? allItems.Find(i => i.Active)
+            ?? allItems.Find(i => !i.IsDisabled);
         return item;
     }
 }
