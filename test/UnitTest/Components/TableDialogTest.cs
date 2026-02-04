@@ -37,6 +37,7 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.EditDialogItemsPerRow, 2);
                 pb.Add(a => a.EditDialogRowType, RowType.Inline);
                 pb.Add(a => a.EditDialogLabelAlign, Alignment.Center);
+                pb.Add(a => a.EditDialogLabelWidth, 200);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -75,6 +76,7 @@ public class TableDialogTest : TableDialogTestBase
         cut.Contains("modal-lg");
         cut.DoesNotContain("btn-maximize");
         cut.Contains("is-draggable");
+        cut.Contains("--bb-row-label-width: 200px;");
 
         // 编辑弹窗逻辑
         var form = cut.Find(".modal-body form");

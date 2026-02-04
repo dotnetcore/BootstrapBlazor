@@ -54,9 +54,7 @@ public partial class EditDialog<TModel>
     /// <para lang="en">Gets or sets Save Callback Delegate. Return false to keep edit dialog, true to close it</para>
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
@@ -86,6 +84,13 @@ public partial class EditDialog<TModel>
     /// </summary>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 标签宽度 默认为 120 </para>
+    /// <para lang="en">Gets or sets Label Width. Default is 120</para>
+    /// </summary>
+    [Parameter]
+    public int? LabelWidth { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 DialogFooterTemplate 实例</para>

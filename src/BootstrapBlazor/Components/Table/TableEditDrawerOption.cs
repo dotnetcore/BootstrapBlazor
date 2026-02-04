@@ -14,125 +14,102 @@ namespace BootstrapBlazor.Components;
 public class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
 {
     /// <summary>
-    /// <para lang="zh">构造函数</para>
-    /// <para lang="en">Constructor</para>
-    /// </summary>
-    public TableEditDrawerOption()
-    {
-        ShowLabel = true;
-    }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to use Tracking mode to directly update edited items. Default is false</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.IsTracking"/>
     /// </summary>
     public bool IsTracking { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示标签，默认为 true</para>
-    /// <para lang="en">Gets or sets whether to display label. Default is true</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowLabel"/>
     /// </summary>
-    public bool ShowLabel { get; set; }
+    public bool ShowLabel { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 实体类编辑模式 Add 还是 Update</para>
-    /// <para lang="en">Gets or sets entity class edit mode, Add or Update</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ItemChangedType"/>
     /// </summary>
     public ItemChangedType ItemChangedType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 每行显示组件数量，默认为 null</para>
-    /// <para lang="en">Gets or sets the number of components displayed per row. Default is null</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ItemsPerRow"/>
     /// </summary>
     public int? ItemsPerRow { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 设置行内组件布局格式，默认为 Row 布局</para>
-    /// <para lang="en">Gets or sets the layout format of inline components. Default is Row layout</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.RowType"/>
     /// </summary>
     public RowType RowType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 在 RowType Inline 模式下标签对齐方式，默认为 None（等效于 Left 左对齐）</para>
-    /// <para lang="en">Gets or sets the label alignment in RowType Inline mode. Default is None (equivalent to Left)</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.LabelAlign"/>
     /// </summary>
     public Alignment LabelAlign { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 查询时是否显示正在加载中动画，默认为 false</para>
-    /// <para lang="en">Gets or sets whether to display loading animation when querying. Default is false</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowLoading"/>
     /// </summary>
     public bool ShowLoading { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 未分组编辑项布局位置，默认为 false 在尾部</para>
-    /// <para lang="en">Gets or sets the layout position of ungrouped edit items. Default is false (at the end)</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowUnsetGroupItemsOnTop"/>
     /// </summary>
     public bool ShowUnsetGroupItemsOnTop { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 编辑框模型</para>
-    /// <para lang="en">Gets or sets edit form model</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.Model"/>
     /// </summary>
     public TModel? Model { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能，默认为 null 未设置</para>
-    /// <para lang="en">Gets or sets whether to disable auto submit form by Enter key. Default is null</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.DisableAutoSubmitFormByEnter"/>
     /// </summary>
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭按钮图标，默认为 null 使用当前主题图标</para>
-    /// <para lang="en">Gets or sets close button icon. Default is null (use current theme icon)</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.LabelWidth"/>
+    /// </summary>
+    public int? LabelWidth { get; set; } = 120;
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.CloseButtonIcon"/>
     /// </summary>
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭按钮文本</para>
-    /// <para lang="en">Gets or sets close button text</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.CloseButtonText"/>
     /// </summary>
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 保存按钮图标，默认为 null 使用当前主题图标</para>
-    /// <para lang="en">Gets or sets save button icon. Default is null (use current theme icon)</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.SaveButtonIcon"/>
     /// </summary>
     public string? SaveButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 保存按钮文本</para>
-    /// <para lang="en">Gets or sets save button text</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.SaveButtonText"/>
     /// </summary>
     public string? SaveButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 EditDialog Body 模板</para>
-    /// <para lang="en">Gets or sets EditDialog Body template</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.DialogBodyTemplate"/>
     /// </summary>
     public RenderFragment<TModel>? DialogBodyTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 EditDialog Footer 模板</para>
-    /// <para lang="en">Gets or sets EditDialog Footer template</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.DialogFooterTemplate"/>
     /// </summary>
     public RenderFragment<TModel>? DialogFooterTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得 编辑项集合</para>
-    /// <para lang="en">Gets edit items collection</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.Items"/>
     /// </summary>
     public IEnumerable<IEditorItem>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭弹窗回调方法</para>
-    /// <para lang="en">Gets or sets close dialog callback method</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.OnCloseAsync"/>
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 保存回调委托</para>
-    /// <para lang="en">Gets or sets save callback delegate</para>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.OnEditAsync"/>
     /// </summary>
     public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
 }
