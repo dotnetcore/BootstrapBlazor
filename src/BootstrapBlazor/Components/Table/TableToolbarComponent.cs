@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent, IDisposable
 {
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IToolbarComponent.IsShow"/>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;

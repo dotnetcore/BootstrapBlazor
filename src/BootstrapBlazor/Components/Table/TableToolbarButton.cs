@@ -20,19 +20,19 @@ public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     public Func<IEnumerable<TItem>, Task>? OnClickCallback { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITableToolbarButton{TItem}.IsEnableWhenSelectedOneRow"/>
     /// </summary>
     [Parameter]
     public bool IsEnableWhenSelectedOneRow { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ITableToolbarButton{TItem}.IsDisabledCallback"/>
     /// </summary>
     [Parameter]
     public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IToolbarComponent.IsShow"/>
     /// </summary>
     [Parameter]
     public bool IsShow { get; set; } = true;
