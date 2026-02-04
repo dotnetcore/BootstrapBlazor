@@ -1,4 +1,28 @@
-﻿import EventHandler from "../../modules/event-handler.js"
+import EventHandler from "../../modules/event-handler.js"
+
+
+export function init(id, invoke, method) {
+    const el = document.getElementById(id)
+    EventHandler.on(el, 'focus', e => {
+        const isString = e.target.getAttribute('type') === 'text';
+        const isNumber = e.target.classList('class').contains("input-number")
+        if (isString && isNumber) {
+            let value = e.target.value;
+            e.target.setAttribute('type', 'number');
+            e.target.value = value.split(',').join('');
+            invoke.invokeMethodAsync(method, true);
+        }
+    });
+    EventHandler.on(el, 'blur', e => {
+        const isString = e.target.getAttribute('type') === 'number';
+        const isNumber = e.target.classList('class').contains("input-number")
+        if (isString && isNumber) {
+            e.target.setAttribute('type', 'text');
+            invoke.invokeMethodAsync(method, false);
+        }
+
+    });
+}
 
 export function focus(id) {
     const el = document.getElementById(id)
