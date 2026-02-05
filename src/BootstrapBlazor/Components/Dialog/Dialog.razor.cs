@@ -17,11 +17,7 @@ public partial class Dialog : IDisposable
 
     [NotNull]
     private Modal? _modal = null;
-
-    [NotNull]
     private Func<Task>? _onShownAsync = null;
-
-    [NotNull]
     private Func<Task>? _onCloseAsync = null;
 
     private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop, Func<Task>? OnCloseCallback)> DialogParameters = [];
