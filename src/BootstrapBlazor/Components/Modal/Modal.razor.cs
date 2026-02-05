@@ -84,6 +84,13 @@ public partial class Modal
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
+    /// <para lang="zh">关闭之前回调方法 返回 true 时关闭弹窗 返回 false 时阻止关闭弹窗</para>
+    /// <para lang="en">Callback Method Before Closing. Return true to close, false to prevent closing</para>
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnClosing { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得后台关闭弹出窗口的设置</para>
     /// <para lang="en">Gets the background close popup setting</para>
     /// </summary>
@@ -191,6 +198,21 @@ public partial class Modal
     }
 
     /// <summary>
+    /// <para lang="zh">弹出窗口关闭前回调方法，由 JSInvoke 调用</para>
+    /// <para lang="en">Callback method when the popup before close, called by JSInvoke</para>
+    /// </summary>
+    [JSInvokable]
+    public async Task<bool> BeforeCloseCallback()
+    {
+        var result = true;
+        if (OnClosing != null)
+        {
+            result = await OnClosing();
+        }
+        return result;
+    }
+
+    /// <summary>
     /// <para lang="zh">切换弹出窗口状态的方法</para>
     /// <para lang="en">Method to toggle the popup state</para>
     /// </summary>
@@ -214,7 +236,14 @@ public partial class Modal
     /// <para lang="zh">关闭当前弹出窗口的方法</para>
     /// <para lang="en">Method to close the current popup</para>
     /// </summary>
-    public Task Close() => InvokeVoidAsync("execute", Id, "hide");
+    public async Task Close()
+    {
+        var result = await BeforeCloseCallback();
+        if (result)
+        {
+            await InvokeVoidAsync("execute", Id, "hide");
+        }
+    }
 
     /// <summary>
     /// <para lang="zh">设置标题文本的方法</para>
