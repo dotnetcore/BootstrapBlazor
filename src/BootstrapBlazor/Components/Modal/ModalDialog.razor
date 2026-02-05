@@ -22,7 +22,8 @@
                     }
                     @if (ShowPrintButtonInHeader)
                     {
-                        <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
+                        <PrintButton Color="PrintButtonColor" Text="@PrintButtonText" Icon="@PrintButtonIcon"
+                                     class="btn-print"></PrintButton>
                     }
                     @if (ShowExportPdfButtonInHeader)
                     {
@@ -32,11 +33,13 @@
                     }
                     @if (ShowMaximizeButton)
                     {
-                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIconString"></Button>
+                        <Button Color="Color.None" OnClick="@OnToggleMaximize" Icon="@MaximizeIconString"
+                                class="btn-maximize" aria-label="@MaximizeAriaLabel"></Button>
                     }
                     @if (ShowHeaderCloseButton)
                     {
-                        <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickCloseAsync"></Button>
+                        <Button Color="Color.None" class="btn-close" aria-label="Close"
+                                OnClickWithoutRender="@OnClickCloseAsync"></Button>
                     }
                 </div>
             </div>
@@ -58,11 +61,13 @@
                             }
                             @if (ShowCloseButton)
                             {
-                                <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="@CloseButtonIcon" OnClickWithoutRender="OnClickCloseAsync"></Button>
+                                <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="@CloseButtonIcon"
+                                        OnClickWithoutRender="OnClickCloseAsync"></Button>
                             }
                             @if (ShowPrintButton)
                             {
-                                <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
+                                <PrintButton Color="PrintButtonColor" Text="@PrintButtonText" Icon="@PrintButtonIcon"
+                                             class="btn-print"></PrintButton>
                             }
                             @if (ShowExportPdfButton)
                             {
@@ -72,7 +77,8 @@
                             }
                             @if (ShowSaveButton)
                             {
-                                <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveButtonIcon" IsAsync="true" OnClickWithoutRender="OnClickSave"></Button>
+                                <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveButtonIcon"
+                                        IsAsync="true" OnClickWithoutRender="OnClickSave"></Button>
                             }
                             @if (FooterTemplate != null)
                             {
