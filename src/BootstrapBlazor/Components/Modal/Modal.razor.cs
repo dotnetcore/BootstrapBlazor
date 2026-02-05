@@ -88,7 +88,7 @@ public partial class Modal
     /// <para lang="en">Callback Method Before Closing. Return true to close, false to prevent closing</para>
     /// </summary>
     [Parameter]
-    public Func<Task<bool>>? OnClosing { get; set; }
+    public Func<Task<bool>>? OnClosingAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得后台关闭弹出窗口的设置</para>
@@ -205,9 +205,9 @@ public partial class Modal
     public async Task<bool> BeforeCloseCallback()
     {
         var result = true;
-        if (OnClosing != null)
+        if (OnClosingAsync != null)
         {
-            result = await OnClosing();
+            result = await OnClosingAsync();
         }
         return result;
     }
@@ -275,5 +275,34 @@ public partial class Modal
     public void UnRegisterShownCallback(IComponent component)
     {
         _shownCallbackCache.TryRemove(component, out _);
+    }
+
+    /// <summary>
+    /// <para lang="zh">注册弹出窗口关闭前调用的回调方法，允许自定义逻辑来决定是否继续关闭操作</para>
+    /// <para lang="en">Registers a callback that is invoked asynchronously when a closing event is triggered, allowing custom logic to determine whether the closing operation should proceed.</para>
+    /// </summary>
+    /// <param name="onClosingCallback">
+    /// <para lang="zh">返回包含布尔值的任务的函数。当关闭事件发生时执行该回调，返回 <see langword="true"/> 允许继续关闭操作，返回 <see langword="false"/> 取消关闭操作</para>
+    /// <para lang="en">A function that returns a task containing a Boolean value. The callback is executed when the closing event
+    /// occurs, and should return <see langword="true"/> to allow the closing operation to continue, or <see
+    /// langword="false"/> to cancel it.</para>
+    /// </param>
+    public void RegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
+    {
+        OnClosingAsync += onClosingCallback;
+    }
+
+    /// <summary>
+    /// <para lang="zh">注销弹出窗口关闭前调用的回调方法</para>
+    /// <para lang="en">Unregisters a previously registered callback that is invoked when a closing event occurs.</para>
+    /// </summary>
+    /// <param name="onClosingCallback">
+    /// <para lang="zh">要从关闭事件中移除的回调函数。该函数应返回一个布尔值的任务，指示是否继续关闭操作</para>
+    /// <para lang="en">The callback function to remove from the closing event. The function should return a task that evaluates to a
+    /// Boolean value indicating whether the closing operation should proceed.</para>
+    /// </param>
+    public void UnRegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
+    {
+        OnClosingAsync -= onClosingCallback;
     }
 }
