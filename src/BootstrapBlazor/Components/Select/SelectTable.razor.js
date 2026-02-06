@@ -60,6 +60,11 @@ export function init(id, invoke) {
         e.preventDefault();
         e.stopPropagation();
 
+        const disabled = el.classList.contains('disabled');
+        if (disabled) {
+            return;
+        }
+
         const index = e.delegateTarget.getAttribute('data-bb-index');
         if (index) {
             const value = parseInt(index);

@@ -16,6 +16,11 @@
             background-color: var(--bs-secondary-bg);
             cursor: not-allowed;
         }
+
+        .multi-select-items {
+            background-color: var(--bs-secondary-bg);
+            cursor: not-allowed;
+        }
     }
 
     &:not(.disabled) .multi-select-items .multi-select-close:hover {
