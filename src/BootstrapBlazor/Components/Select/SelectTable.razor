@@ -14,8 +14,8 @@
         {
             @if (IsMultipleSelect)
             {
-                <div class="@MultiItemsClassString" id="@InputId">
-                    @foreach (var item in _selectedItems)
+                <div class="@MultiItemsClassString" id="@InputId" style="@MultiItemsStyleString">
+                    @foreach (var item in SelectedItems)
                     {
                         <div class="multi-select-item-group">
                             <span class="multi-select-close" data-bb-index="@GetIndexString(item)">
@@ -24,7 +24,7 @@
                             <span class="multi-select-item">@GetText(item)</span>
                         </div>
                     }
-                    @if (_selectedItems.Count == 0)
+                    @if (SelectedItems.Count == 0)
                     {
                         <div class="multi-select-item-ph">
                             @PlaceHolder
@@ -72,7 +72,7 @@
                    CustomerSearchModel="CustomerSearchModel" CustomerSearchTemplate="CustomerSearchTemplate"
                    IsPagination="IsPagination" PageItemsSource="PageItemsSource" ShowGotoNavigator="false" MaxPageLinkCount="3"
                    OnClickRowCallback="OnClickRowCallback" OnQueryAsync="OnQueryAsync"
-                   IsMultipleSelect="IsMultipleSelect" @bind-SelectedRows="_selectedItems"
+                   IsMultipleSelect="IsMultipleSelect" @bind-SelectedRows="SelectedItems"
                    ShowEmpty="ShowEmpty" EmptyTemplate="EmptyTemplate"></Table>
         </div>
     </RenderTemplate>

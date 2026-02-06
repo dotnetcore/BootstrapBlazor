@@ -38,6 +38,9 @@ export function init(id, invoke) {
                 dropdown.style.removeProperty('visibility');
                 dropdown.style.removeProperty('position');
             }
+        },
+        hideCallback: async () => {
+            await invoke.invokeMethodAsync("TriggerUpdateSelecedItems");
         }
     });
 

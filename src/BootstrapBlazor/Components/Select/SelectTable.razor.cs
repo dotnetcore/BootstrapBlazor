@@ -23,6 +23,20 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public bool IsMultipleSelect { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下已选择项集合 默认 null</para>
+    /// <para lang="en">Gets or sets the selected items collection in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public List<TItem> SelectedItems { get; set; } = [];
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下已选择项集合变化回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when selected items collection changes in multiple selection mode</para>
+    /// </summary>
+    [Parameter]
+    public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 TableHeader 实例</para>
     /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// </summary>
@@ -98,6 +112,13 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下选中项最大宽度 默认 null 未设置使用样式内置默认值 6 个汉字</para>
+    /// <para lang="en">Gets or sets the maximum width of selected item in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public int? MultiSelectedItemMaxWidth { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
     /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
@@ -127,6 +148,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private string? MultiItemsClassString => CssBuilder.Default("multi-select-items")
         .AddClass(InputClassName)
+        .Build();
+
+    private string? MultiItemsStyleString => CssBuilder.Default()
+        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth}", MultiSelectedItemMaxWidth.HasValue)
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")
@@ -258,7 +283,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private Table<TItem> _table = default!;
     private string? _closeButtonIcon;
-    private List<TItem> _selectedItems = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -287,6 +311,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
             throw new InvalidOperationException("Please set GetTextCallback value");
         }
 
+        SelectedItems ??= [];
+
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
@@ -295,7 +321,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private string? GetText(TItem item) => item == default ? null : GetTextCallback(item);
 
-    private string GetIndexString(TItem item) => _selectedItems.IndexOf(item).ToString();
+    private string GetIndexString(TItem item) => SelectedItems.IndexOf(item).ToString();
 
     private async Task OnClickRowCallback(TItem item)
     {
@@ -305,7 +331,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private async Task OnClearValue()
     {
-        _selectedItems.Clear();
+        SelectedItems.Clear();
 
         if (OnClearAsync != null)
         {
@@ -327,13 +353,27 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     /// <param name="index"></param>
     [JSInvokable]
-    public void TriggerRemoveItem(int index)
+    public async Task TriggerRemoveItem(int index)
     {
-        if (index >= 0 && index < _selectedItems.Count)
+        if (index >= 0 && index < SelectedItems.Count)
         {
-            var item = _selectedItems[index];
-            _selectedItems.Remove(item);
-            StateHasChanged();
+            var item = SelectedItems[index];
+            SelectedItems.Remove(item);
+
+            await TriggerUpdateSelecedItems();
+        }
+    }
+
+    /// <summary>
+    /// <para lang="zh">更新 <see cref="SelectedItems"/> 参数方法 由 Javascript 调用</para>
+    /// <para lang="en"></para>
+    /// </summary>
+    [JSInvokable]
+    public async Task TriggerUpdateSelecedItems()
+    {
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
     }
 }
