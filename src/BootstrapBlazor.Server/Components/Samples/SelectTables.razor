@@ -117,9 +117,9 @@
 <DemoBlock Title="@Localizer["IsMultipleSelectTitle"]" Introduction="@Localizer["IsMultipleSelectIntro"]" Name="IsMultipleSelect">
     <section ignore>
         <ul class="ul-demo">
-            <li>通过 <code>MultiSelectedItemsMaxHeight</code> 参数设置组件最大行高</li>
-            <li>通过 <code>MultiSelectedItemsMaxDisplayCount</code> 参数设置选中项显示总数量</li>
-            <li>通过 <code>@@bind-SelectedItems="SelectedItems"</code> 参数设置选中项集合，多选模式下不要使用 <code>Value</code></li>
+            <li>@((MarkupString)Localizer["IsMultipleDesc1"].Value)</li>
+            <li>@((MarkupString)Localizer["IsMultipleDesc2"].Value)</li>
+            <li>@((MarkupString)Localizer["IsMultipleDesc3"].Value)</li>
         </ul>
     </section>
     <SelectTable TItem="Foo" @bind-SelectedItems="@_selectedFoos" OnQueryAsync="OnQueryAsync"

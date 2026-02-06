@@ -3948,7 +3948,12 @@
     "TemplateTitle": "显示模板",
     "Title": "TableSelect 表格选择器",
     "ValidateFormIntro": "下拉框未选择时，点击提交按钮时拦截。",
-    "ValidateFormTitle": "客户端验证"
+    "ValidateFormTitle": "客户端验证",
+    "IsMultipleSelectTitle": "多选",
+    "IsMultipleSelectIntro": "通过 <code>IsMultipleSelect=\"true\"</code> 参数开启多选",
+    "IsMultipleDesc1": "通过 <code>MultiSelectedItemsMaxHeight</code> 参数设置组件最大行高",
+    "IsMultipleDesc2": "通过 <code>MultiSelectedItemsMaxDisplayCount</code> 参数设置选中项显示总数量",
+    "IsMultipleDesc3": "通过 <code>@bind-SelectedItems=\"SelectedItems\"</code> 参数设置选中项集合，多选模式下不要使用 <code>Value</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} 是必填项"

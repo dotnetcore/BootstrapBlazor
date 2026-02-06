@@ -2053,7 +2053,7 @@
     "DropdownCascadeItem6": "Haidian",
     "DropdownCascadeItem7": "Jingan",
     "DropdownCascadeItem8": "Huangpu",
-    "DropdownItemsTemplateIntro": "You can customize all the content of the dropdown list by setting `<itemsTemplate>`. In this example, we use the `<DropdownItem>` component and `<DropdownDivider>` component to customize the dropdown list component.",
+    "DropdownItemsTemplateIntro": "You can customize all the content of the dropdown list by setting <itemsTemplate>`. In this example, we use the <DropdownItem>` component and <DropdownDivider>` component to customize the dropdown list component.",
     "DropdownItemsTemplateTitle": "Items Template",
     "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered.",
     "DropdownItemTemplateTitle": "Item Template",
@@ -2766,13 +2766,13 @@
     "LabelsNormalDescription": "When two-way binding is not used",
     "LabelsNormalDescription2": "When using two-way binding",
     "LabelsNormalGroupBox1Tips1": "No settings in the first text box, no label",
-    "LabelsNormalGroupBox1Tips2": "The second text box setting <code>ShowLabel='true' DisplayText=``</code> displays a placeholder label without content",
+    "LabelsNormalGroupBox1Tips2": "The second text box setting <code>ShowLabel='true' DisplayText=`</code> displays a placeholder label without content",
     "LabelsNormalGroupBox1Tips3": "The third text box setting <code>ShowLabel='true' DisplayText='Name'</code> shows the set content label",
     "LabelsNormalGroupBox1Tips4": "The fourth text box setting <code>ShowLabel='true' DisplayText='@null'</code> displays a placeholder label without content",
     "LabelsNormalGroupBox1Title": "No two-way binding",
     "LabelsNormalGroupBox2Tips1": "The first text box is set to <code>@bind-Value='Dummy.Name'</code>, no label is displayed",
     "LabelsNormalGroupBox2Tips2": "The second text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@Localizer[nameof(Foo.Address)]'</code> Display the contents of the setting",
-    "LabelsNormalGroupBox2Tips3": "The third text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText=``</code> Show no content placeholder label",
+    "LabelsNormalGroupBox2Tips3": "The third text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText=`</code> Show no content placeholder label",
     "LabelsNormalGroupBox2Tips4": "The fourth text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> Display the label content under the resource file mechanism<code>Label</code> code>",
     "LabelsNormalGroupBox2Title": "Two-way binding",
     "LabelsNormalIntro": "Suitable for data entry",
@@ -3948,7 +3948,12 @@
     "TemplateTitle": "Value Template",
     "Title": "Table Select",
     "ValidateFormIntro": "Intercept data when the value is empty",
-    "ValidateFormTitle": "ValidateForm"
+    "ValidateFormTitle": "ValidateForm",
+    "IsMultipleSelectTitle": "Multiple Select",
+    "IsMultipleSelectIntro": "Enable multi-selection using the parameter <code>IsMultipleSelect=\"true\"</code>.",
+    "IsMultipleDesc1": "Set the maximum row height of the component using the <code>MultiSelectedItemsMaxHeight</code> parameter.",
+    "IsMultipleDesc2": "The <code>MultiSelectedItemsMaxDisplayCount</code> parameter sets the total number of selected items to be displayed.",
+    "IsMultipleDesc3": "Set the selected item set using the <code>@bind-SelectedItems=\"SelectedItems\"</code> parameter. Do not use <code>Value</code> in multi-select mode."
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
@@ -5670,7 +5675,7 @@
   "BootstrapBlazor.Server.Components.Samples.UploadCards": {
     "ButtonUploadIntro": "Use <code>DefaultFileList</code> to set up uploaded content",
     "ButtonUploadTitle": "Basic usage",
-    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the `<code>ActionButtonTemplate</code>` parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the `<code>BeforeActionButtonTemplate</code>` parameter (insert it before the default button).",
+    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the <code>ActionButtonTemplate</code>` parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the <code>BeforeActionButtonTemplate</code>` parameter (insert it before the default button).",
     "UploadActionButtonTemplateTitle": "Custom action button",
     "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path",
     "UploadBase64Title": "Base64 format",
