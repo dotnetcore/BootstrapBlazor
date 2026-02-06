@@ -9,7 +9,31 @@
     <section ignore>
         @((MarkupString)Localizer["NormalDesc"].Value)
     </section>
-    <SelectTable TItem="Foo" @bind-Value="@_foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" TableMinWidth="300" IsClearable>
+    <SelectTable TItem="Foo" @bind-SelectedItems="@_selectedFoos" OnQueryAsync="OnQueryAsync"
+                 GetTextCallback="@GetTextCallback" TableMinWidth="300"
+                 IsMultipleSelect IsClearable>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name"></TableColumn>
+            <TableColumn @bind-Field="@context.Address"></TableColumn>
+        </TableColumns>
+    </SelectTable>
+    <section ignore>
+        <div>
+            @foreach (var item in _selectedFoos)
+            {
+                <span>@item.Name</span>
+            }
+        </div>
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <section ignore>
+        @((MarkupString)Localizer["NormalDesc"].Value)
+    </section>
+    <SelectTable TItem="Foo" @bind-Value="@_foo" OnQueryAsync="OnQueryAsync"
+                 GetTextCallback="@GetTextCallback" TableMinWidth="300"
+                 IsClearable>
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
@@ -46,7 +70,7 @@
                 <div class="select-custom-header">
                     <div class="id">@context.Id</div>
                     <div class="name">@context.Name</div>
-                    <Light Color="@(context.Complete ? Color.Success : Color.Warning)"></Light>
+                    <Light Color="@(context.Complete? Color.Success: Color.Warning)"></Light>
                 </div>
                 <Divider />
                 <div class="select-custom-body">
