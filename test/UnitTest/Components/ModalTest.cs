@@ -172,6 +172,51 @@ public class ModalTest : BootstrapBlazorTestBase
         Assert.True(component.Instance.Pass);
     }
 
+    [Fact]
+    public async Task OnClosingAsync_Ok()
+    {
+        var closing = false;
+        var cut = Context.Render<Modal>(builder =>
+        {
+            builder.Add(a => a.OnClosingAsync, async () =>
+            {
+                closing = true;
+                await Task.Yield();
+                return true;
+            });
+            builder.AddChildContent<ModalDialog>(pb =>
+            {
+
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.Close());
+        Assert.True(closing);
+    }
+
+    [Fact]
+    public async Task RegisterOnClosingAsync_Ok()
+    {
+        var closing = false;
+        var cut = Context.Render<Modal>(builder =>
+        {
+            builder.AddChildContent<ModalDialog>(pb =>
+            {
+
+            });
+        });
+
+        var closingHandler = async () =>
+        {
+            closing = true;
+            await Task.Yield();
+            return true;
+        };
+        cut.Instance.RegisterOnClosingCallback(closingHandler);
+        await cut.InvokeAsync(() => cut.Instance.Close());
+        cut.Instance.UnRegisterOnClosingCallback(closingHandler);
+        Assert.True(closing);
+    }
+
     private class MockComponent : ComponentBase
     {
         public bool Value { get; set; }

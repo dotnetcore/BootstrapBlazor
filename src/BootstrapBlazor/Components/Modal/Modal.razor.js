@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, shownCallback, closeCallback) {
@@ -73,15 +73,22 @@ export function init(id, invoke, shownCallback, closeCallback) {
         }
     }
 
+    modal.close = async () => {
+        const close = await invoke.invokeMethodAsync("BeforeCloseCallback");
+        if (close) {
+            modal.hide();
+        }
+    }
+
     modal.handlerKeyboardAndBackdrop = () => {
         if (!modal.hook_keyboard_backdrop) {
             modal.hook_keyboard_backdrop = true;
 
-            modal.handlerEscape = e => {
+            modal.handlerEscape = async e => {
                 if (e.key === 'Escape') {
                     const keyboard = el.getAttribute('data-bs-keyboard')
                     if (keyboard === 'true') {
-                        modal.hide()
+                        modal.close();
                     }
                 }
             }
@@ -91,7 +98,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
                 if (e.target.closest('.modal-dialog') === null) {
                     const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
-                        modal.hide()
+                        modal.close();
                     }
                 }
             })
