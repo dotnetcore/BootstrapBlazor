@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .select,
 .popover-dropdown {
@@ -11,6 +11,7 @@
     --bb-select-padding: #{$bb-select-padding};
     --bb-select-append-width: #{$bb-select-append-width};
     --bb-select-append-color: #{$bb-select-append-color};
+    --bb-select-append-right: 0;
 }
 
 .select:not(.cascade) .dropdown-menu {
@@ -105,7 +106,7 @@
     position: absolute;
     height: 100%;
     width: var(--bb-select-append-width);
-    right: 0;
+    right: var(--bb-select-append-right);
     top: 0;
     color: var(--bb-select-append-color);
     pointer-events: none;
@@ -129,7 +130,7 @@
         position: absolute;
         height: 100%;
         width: var(--bb-select-append-width);
-        right: 0;
+        right: var(--bb-select-append-right);
         top: 0;
         color: var(--bb-select-append-color);
         align-items: center;

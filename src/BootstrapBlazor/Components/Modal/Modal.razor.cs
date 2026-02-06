@@ -84,6 +84,13 @@ public partial class Modal
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
+    /// <para lang="zh">关闭之前回调方法 返回 true 时关闭弹窗 返回 false 时阻止关闭弹窗</para>
+    /// <para lang="en">Callback Method Before Closing. Return true to close, false to prevent closing</para>
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnClosingAsync { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得后台关闭弹出窗口的设置</para>
     /// <para lang="en">Gets the background close popup setting</para>
     /// </summary>
@@ -191,6 +198,21 @@ public partial class Modal
     }
 
     /// <summary>
+    /// <para lang="zh">弹出窗口关闭前回调方法，由 JSInvoke 调用</para>
+    /// <para lang="en">Callback method when the popup before close, called by JSInvoke</para>
+    /// </summary>
+    [JSInvokable]
+    public async Task<bool> BeforeCloseCallback()
+    {
+        var result = true;
+        if (OnClosingAsync != null)
+        {
+            result = await OnClosingAsync();
+        }
+        return result;
+    }
+
+    /// <summary>
     /// <para lang="zh">切换弹出窗口状态的方法</para>
     /// <para lang="en">Method to toggle the popup state</para>
     /// </summary>
@@ -214,7 +236,14 @@ public partial class Modal
     /// <para lang="zh">关闭当前弹出窗口的方法</para>
     /// <para lang="en">Method to close the current popup</para>
     /// </summary>
-    public Task Close() => InvokeVoidAsync("execute", Id, "hide");
+    public async Task Close()
+    {
+        var result = await BeforeCloseCallback();
+        if (result)
+        {
+            await InvokeVoidAsync("execute", Id, "hide");
+        }
+    }
 
     /// <summary>
     /// <para lang="zh">设置标题文本的方法</para>
@@ -246,5 +275,34 @@ public partial class Modal
     public void UnRegisterShownCallback(IComponent component)
     {
         _shownCallbackCache.TryRemove(component, out _);
+    }
+
+    /// <summary>
+    /// <para lang="zh">注册弹出窗口关闭前调用的回调方法，允许自定义逻辑来决定是否继续关闭操作</para>
+    /// <para lang="en">Registers a callback that is invoked asynchronously when a closing event is triggered, allowing custom logic to determine whether the closing operation should proceed.</para>
+    /// </summary>
+    /// <param name="onClosingCallback">
+    /// <para lang="zh">返回包含布尔值的任务的函数。当关闭事件发生时执行该回调，返回 <see langword="true"/> 允许继续关闭操作，返回 <see langword="false"/> 取消关闭操作</para>
+    /// <para lang="en">A function that returns a task containing a Boolean value. The callback is executed when the closing event
+    /// occurs, and should return <see langword="true"/> to allow the closing operation to continue, or <see
+    /// langword="false"/> to cancel it.</para>
+    /// </param>
+    public void RegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
+    {
+        OnClosingAsync += onClosingCallback;
+    }
+
+    /// <summary>
+    /// <para lang="zh">注销弹出窗口关闭前调用的回调方法</para>
+    /// <para lang="en">Unregisters a previously registered callback that is invoked when a closing event occurs.</para>
+    /// </summary>
+    /// <param name="onClosingCallback">
+    /// <para lang="zh">要从关闭事件中移除的回调函数。该函数应返回一个布尔值的任务，指示是否继续关闭操作</para>
+    /// <para lang="en">The callback function to remove from the closing event. The function should return a task that evaluates to a
+    /// Boolean value indicating whether the closing operation should proceed.</para>
+    /// </param>
+    public void UnRegisterOnClosingCallback(Func<Task<bool>> onClosingCallback)
+    {
+        OnClosingAsync -= onClosingCallback;
     }
 }

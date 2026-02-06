@@ -16,6 +16,41 @@ namespace BootstrapBlazor.Components;
 public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否为多选模式，默认值为 false</para>
+    /// <para lang="en">Gets or sets Multiple Selection Mode. Default false</para>
+    /// </summary>
+    [Parameter]
+    public bool IsMultipleSelect { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下组件最大高度，默认值为 null 使用样式默认值 65px</para>
+    /// <para lang="en">Gets or sets Maximum height in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public string? MultiSelectedItemsMaxHeight { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下组件显示最大数量，超过数量用数字显示，默认值为 8 </para>
+    /// <para lang="en">Gets or sets the maximum number of components is displayed in multiple selection mode; any quantity exceeding this is displayed as a number. Default value is 8</para>
+    /// </summary>
+    [Parameter]
+    public int MultiSelectedItemsMaxDisplayCount { get; set; } = 8;
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下已选择项集合 默认 null</para>
+    /// <para lang="en">Gets or sets the selected items collection in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public List<TItem> SelectedItems { get; set; } = [];
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下已选择项集合变化回调方法</para>
+    /// <para lang="en">Gets or sets the callback method when selected items collection changes in multiple selection mode</para>
+    /// </summary>
+    [Parameter]
+    public EventCallback<List<TItem>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 TableHeader 实例</para>
     /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// </summary>
@@ -91,6 +126,13 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public RenderFragment? EmptyTemplate { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下选中项最大宽度 默认 null 未设置使用样式内置默认值 6 个汉字</para>
+    /// <para lang="en">Gets or sets the maximum width of selected item in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public int? MultiSelectedItemMaxWidth { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
     /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
@@ -116,6 +158,15 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
         .AddClass(FieldClass, IsNeedValidate)
         .AddClass(ValidCss)
+        .Build();
+
+    private string? MultiItemsClassString => CssBuilder.Default("multi-select-items")
+        .AddClass(InputClassName)
+        .Build();
+
+    private string? MultiItemsStyleString => CssBuilder.Default()
+        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", MultiSelectedItemMaxWidth.HasValue)
+        .AddClass($"--bb-select-max-height: {MultiSelectedItemsMaxHeight};", !string.IsNullOrEmpty(MultiSelectedItemsMaxHeight))
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")
@@ -246,6 +297,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .Build();
 
     private Table<TItem> _table = default!;
+    private string? _closeButtonIcon;
 
     /// <summary>
     /// <inheritdoc/>
@@ -274,12 +326,19 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
             throw new InvalidOperationException("Please set GetTextCallback value");
         }
 
+        SelectedItems ??= [];
+
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
+        _closeButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectCloseIcon);
     }
 
-    private string? GetText() => Value == default ? null : GetTextCallback(Value);
+    private string? GetText(TItem item) => item == default ? null : GetTextCallback(item);
+
+    private string GetIndexString(TItem item) => SelectedItems.IndexOf(item).ToString();
+
+    private string GetCountText() => $"+ {SelectedItems.Count - MultiSelectedItemsMaxDisplayCount}";
 
     private async Task OnClickRowCallback(TItem item)
     {
@@ -289,6 +348,9 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private async Task OnClearValue()
     {
+        SelectedItems.Clear();
+        await TriggerUpdateSelecedItems();
+
         if (OnClearAsync != null)
         {
             await OnClearAsync();
@@ -302,4 +364,40 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="en">Query Method</para>
     /// </summary>
     public Task QueryAsync() => _table.QueryAsync();
+
+    /// <summary>
+    /// <para lang="zh">触发删除选项方法 由 Javascript 调用</para>
+    /// <para lang="en">Trigger remove item method, called by Javascript</para>
+    /// </summary>
+    /// <param name="index">
+    /// <para lang="zh">要删除的选项索引</para>
+    /// <para lang="en">The index of the item to remove</para>
+    /// </param>
+    [JSInvokable]
+    public async Task TriggerRemoveItem(int index)
+    {
+        if (index >= 0 && index < SelectedItems.Count)
+        {
+            var item = SelectedItems[index];
+            SelectedItems.Remove(item);
+
+            await TriggerUpdateSelecedItems();
+        }
+    }
+
+    /// <summary>
+    /// <para lang="zh">更新 <see cref="SelectedItems"/> 参数方法 由 Javascript 调用</para>
+    /// <para lang="en">Update <see cref="SelectedItems"/> parameter method, called by Javascript</para>
+    /// </summary>
+    [JSInvokable]
+    public async Task TriggerUpdateSelecedItems()
+    {
+        if (IsMultipleSelect)
+        {
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+        }
+    }
 }

@@ -34,6 +34,8 @@ public partial class SelectTables
 
     private readonly SelectTableMode Model = new();
 
+    private List<Foo> _selectedFoos = [];
+
     private static string? GetTextCallback(Foo foo) => foo.Name;
 
     private List<Foo> _items = default!;
