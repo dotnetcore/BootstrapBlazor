@@ -302,4 +302,20 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="en">Query Method</para>
     /// </summary>
     public Task QueryAsync() => _table.QueryAsync();
+
+    /// <summary>
+    /// <para lang="zh">触发删除选项方法 由 Javascript 调用</para>
+    /// <para lang="en"></para>
+    /// </summary>
+    /// <param name="index"></param>
+    [JSInvokable]
+    public void TriggerRemoveItem(int index)
+    {
+        if (index >= 0 && index < _selectedItems.Count)
+        {
+            var item = _selectedItems[index];
+            _selectedItems.Remove(item);
+            StateHasChanged();
+        }
+    }
 }

@@ -1,8 +1,9 @@
-﻿import { getWidth } from "../../modules/utility.js"
+import { getWidth } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
     if (el == null) {
         return
@@ -50,7 +51,20 @@ export function init(id) {
         observer
     }
 
-    Data.set(id, selectTable)
+    Data.set(id, selectTable);
+
+    EventHandler.on(el, 'click', '.multi-select-close', e => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const index = e.delegateTarget.getAttribute('data-bb-index');
+        if (index) {
+            const value = parseInt(index);
+            if (value > -1) {
+                invoke.invokeMethodAsync("TriggerRemoveItem", value);
+            }
+        }
+    });
 }
 
 export function close(id) {
@@ -66,5 +80,6 @@ export function dispose(id) {
     if (data) {
         data.observer.disconnect();
         Popover.dispose(data.popover)
+        EventHandler.off(data.el, 'click');
     }
 }
