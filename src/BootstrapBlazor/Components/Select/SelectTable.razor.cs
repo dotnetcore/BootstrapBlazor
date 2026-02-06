@@ -349,9 +349,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">触发删除选项方法 由 Javascript 调用</para>
-    /// <para lang="en"></para>
+    /// <para lang="en">Trigger remove item method, called by Javascript</para>
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">
+    /// <para lang="zh">要删除的选项索引</para>
+    /// <para lang="en">The index of the item to remove</para>
+    /// </param>
     [JSInvokable]
     public async Task TriggerRemoveItem(int index)
     {
@@ -366,7 +369,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     /// <summary>
     /// <para lang="zh">更新 <see cref="SelectedItems"/> 参数方法 由 Javascript 调用</para>
-    /// <para lang="en"></para>
+    /// <para lang="en">Update <see cref="SelectedItems"/> parameter method, called by Javascript</para>
     /// </summary>
     [JSInvokable]
     public async Task TriggerUpdateSelecedItems()
