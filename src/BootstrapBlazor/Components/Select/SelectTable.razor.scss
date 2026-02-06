@@ -28,18 +28,20 @@
         display: flex;
         flex-wrap: wrap;
         gap: var(--bb-select-table-item-gap);
-        overflow: auto;
+        max-height: var(--bb-select-max-height);
+        overflow: hidden;
+
+        .multi-select-item-group-count,
+        .multi-select-item-group span {
+            border: solid 1px var(--bs-border-color);
+            border-radius: var(--bs-border-radius);
+            background-color: var(--bb-select-table-item-bg-color);
+            padding: var(--bb-select-table-item-padding);
+        }
 
         .multi-select-item-group {
             display: inline-flex;
             position: relative;
-
-            span {
-                border: solid 1px var(--bs-border-color);
-                border-radius: var(--bs-border-radius);
-                background-color: var(--bb-select-table-item-bg-color);
-                padding: var(--bb-select-table-item-padding);
-            }
 
             .multi-select-close {
                 border-top-right-radius: 0;

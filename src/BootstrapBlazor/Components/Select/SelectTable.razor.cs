@@ -27,7 +27,14 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="en">Gets or sets Maximum height in multiple selection mode. Default null</para>
     /// </summary>
     [Parameter]
-    public string? MaxHeight { get; set; }
+    public string? MultiSelectedItemsMaxHeight { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下组件显示最大数量，超过数量用数字显示，默认值为 8 </para>
+    /// <para lang="en">Gets or sets the maximum number of components is displayed in multiple selection mode; any quantity exceeding this is displayed as a number. Default value is 8</para>
+    /// </summary>
+    [Parameter]
+    public int MultiSelectedItemsMaxDisplayCount { get; set; } = 8;
 
     /// <summary>
     /// <para lang="zh">获得/设置 多选模式下已选择项集合 默认 null</para>
@@ -159,7 +166,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private string? MultiItemsStyleString => CssBuilder.Default()
         .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", MultiSelectedItemMaxWidth.HasValue)
-        .AddClass($"--bb-select-max-height: {MaxHeight};", !string.IsNullOrEmpty(MaxHeight))
+        .AddClass($"--bb-select-max-height: {MultiSelectedItemsMaxHeight};", !string.IsNullOrEmpty(MultiSelectedItemsMaxHeight))
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")
@@ -330,6 +337,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private string? GetText(TItem item) => item == default ? null : GetTextCallback(item);
 
     private string GetIndexString(TItem item) => SelectedItems.IndexOf(item).ToString();
+
+    private string GetCountText() => $"+ {SelectedItems.Count - MultiSelectedItemsMaxDisplayCount}";
 
     private async Task OnClickRowCallback(TItem item)
     {

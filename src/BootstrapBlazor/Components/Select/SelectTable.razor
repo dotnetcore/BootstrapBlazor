@@ -16,7 +16,13 @@
             @if (IsMultipleSelect)
             {
                 <div class="@MultiItemsClassString" id="@InputId" style="@MultiItemsStyleString">
-                    @foreach (var item in SelectedItems)
+                    @if (SelectedItems.Count > MultiSelectedItemsMaxDisplayCount)
+                    {
+                        <div class="multi-select-item-group-count">
+                            @GetCountText()
+                        </div>
+                    }
+                    @foreach (var item in SelectedItems.Take(MultiSelectedItemsMaxDisplayCount))
                     {
                         <div class="multi-select-item-group">
                             <span class="multi-select-close" data-bb-index="@GetIndexString(item)">
