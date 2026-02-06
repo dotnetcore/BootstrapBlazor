@@ -12,7 +12,6 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">An input component for editing numeric values. Supported numeric 类型s are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
 /// <para lang="en">An input component for editing numeric values. Supported numeric types are <see cref="int"/>, <see cref="long"/>, <see cref="short"/>, <see cref="float"/>, <see cref="double"/>, <see cref="decimal"/></para>
 /// </summary>
-[BootstrapModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true)]
 public partial class BootstrapInputNumber<TValue>
 {
     /// <summary>
@@ -30,7 +29,6 @@ public partial class BootstrapInputNumber<TValue>
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-control")
         .AddClass(CssClass).AddClass(ValidCss)
-        .AddClass("input-number")
         .AddClass("input-number-fix", ShowButton)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -122,34 +120,6 @@ public partial class BootstrapInputNumber<TValue>
         {
             _lastInputValueString ??= Value?.ToString();
         }
-
-
-    }
-
-    /// <summary>
-    /// 
-    /// <inheritdoc/>
-    /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerFormatValue));
-
-    /// <summary>
-    /// <para lang="zh">Trigger value changed event 回调. Trigger by JavaScript</para>
-    /// <para lang="en">Trigger value changed event callback. Trigger by JavaScript</para>
-    /// </summary>
-    /// <param name="focus"></param>
-    [JSInvokable]
-    public Task TriggerFormatValue(bool focus)
-    {
-        if (focus)
-        {
-            CurrentValueAsString = InternalFormat(Value) ?? "";
-        }
-        else
-        {
-            CurrentValueAsString = GetFormatString(Value) ?? "";
-        }
-        StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>
