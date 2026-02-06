@@ -24,6 +24,7 @@
 
     .multi-select-items {
         --bb-select-padding: 3px 0.375rem;
+        --bb-select-max-height: 65px;
         display: flex;
         flex-wrap: wrap;
         gap: var(--bb-select-table-item-gap);

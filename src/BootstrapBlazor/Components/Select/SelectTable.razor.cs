@@ -23,6 +23,13 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public bool IsMultipleSelect { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下组件最大高度，默认值为 null 使用样式默认值 65px</para>
+    /// <para lang="en">Gets or sets Maximum height in multiple selection mode. Default null</para>
+    /// </summary>
+    [Parameter]
+    public string? MaxHeight { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 多选模式下已选择项集合 默认 null</para>
     /// <para lang="en">Gets or sets the selected items collection in multiple selection mode. Default null</para>
     /// </summary>
@@ -151,7 +158,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .Build();
 
     private string? MultiItemsStyleString => CssBuilder.Default()
-        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth}", MultiSelectedItemMaxWidth.HasValue)
+        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", MultiSelectedItemMaxWidth.HasValue)
+        .AddClass($"--bb-select-max-height: {MaxHeight};", !string.IsNullOrEmpty(MaxHeight))
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")
@@ -332,6 +340,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private async Task OnClearValue()
     {
         SelectedItems.Clear();
+        await TriggerUpdateSelecedItems();
 
         if (OnClearAsync != null)
         {
@@ -374,9 +383,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     [JSInvokable]
     public async Task TriggerUpdateSelecedItems()
     {
-        if (SelectedItemsChanged.HasDelegate)
+        if (IsMultipleSelect)
         {
-            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
         }
     }
 }
