@@ -365,6 +365,17 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     public Task QueryAsync() => _table.QueryAsync();
 
+    private IEnumerable<TItem> GetDisplayItems()
+    {
+        IEnumerable<TItem> items = SelectedItems;
+
+        if (MultiSelectedItemsMaxDisplayCount > 0)
+        {
+            items = SelectedItems.Take(MultiSelectedItemsMaxDisplayCount);
+        }
+        return items;
+    }
+
     /// <summary>
     /// <para lang="zh">触发删除选项方法 由 Javascript 调用</para>
     /// <para lang="en">Trigger remove item method, called by Javascript</para>
