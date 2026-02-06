@@ -130,7 +130,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="en">Gets or sets the maximum width of selected item in multiple selection mode. Default null</para>
     /// </summary>
     [Parameter]
-    public int? MultiSelectedItemMaxWidth { get; set; }
+    public string? MultiSelectedItemMaxWidth { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
@@ -165,7 +165,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .Build();
 
     private string? MultiItemsStyleString => CssBuilder.Default()
-        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", MultiSelectedItemMaxWidth.HasValue)
+        .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", !string.IsNullOrEmpty(MultiSelectedItemMaxWidth))
         .AddClass($"--bb-select-max-height: {MultiSelectedItemsMaxHeight};", !string.IsNullOrEmpty(MultiSelectedItemsMaxHeight))
         .Build();
 
