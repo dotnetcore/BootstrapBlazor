@@ -4126,7 +4126,7 @@
     "SpeechDescription2": "When using this component, you need to reference its component package",
     "SpeechGroupBoxHeaderText": "command panel",
     "SpeechGroupBoxTitle": "Command output area",
-    "SpeechLi1": "Click <b>start</b> After pressing the button, speak to the computer <b><i>'Please turn on the light for me'</i></b>",
+    "SpeechLi1": "Click <b>start</b> After pressing the button, speak to the computer <b><i>Please turn on the light for me</i></b>",
     "SpeechLi2": "After the computer receives the command, it will ask <b><i>Are you sure you want to turn on the light? Please confirm!</i></b>",
     "SpeechLi3": "You speak to the computer： <b><i>confirm</i></b>",
     "SpeechLi4": "The computer executes the command and enters it in the text box below <b><i>has been opened for you</i></b> text",
@@ -5675,7 +5675,7 @@
   "BootstrapBlazor.Server.Components.Samples.UploadCards": {
     "ButtonUploadIntro": "Use <code>DefaultFileList</code> to set up uploaded content",
     "ButtonUploadTitle": "Basic usage",
-    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the <code>ActionButtonTemplate</code>` parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the <code>BeforeActionButtonTemplate</code>` parameter (insert it before the default button).",
+    "UploadActionButtonTemplateIntro": "Customize the action buttons on the card by setting the <code>ActionButtonTemplate</code> parameter (appending it to the end of the default button), and customize the action buttons on the card by setting the <code>BeforeActionButtonTemplate</code> parameter (insert it before the default button).",
     "UploadActionButtonTemplateTitle": "Custom action button",
     "UploadBase64Intro": "By setting the <code>PrevUrl</code> parameter value of the <code>UploadFile</code> instance, use the image content string in the <code>data:image/xxx;base64,XXXXX</code> format as the preview file path",
     "UploadBase64Title": "Base64 format",
