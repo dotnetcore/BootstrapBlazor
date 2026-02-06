@@ -1,4 +1,4 @@
-﻿::deep .divider {
+::deep .divider {
     --bb-divider-margin: 1rem 0;
     --bb-divider-bg: #c0c4cc;
 }
@@ -54,3 +54,11 @@
     ::deep .select-custom-detail > div {
         margin-bottom: .5rem;
     }
+
+.select-table-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow: auto;
+    max-height: 120px;
+}

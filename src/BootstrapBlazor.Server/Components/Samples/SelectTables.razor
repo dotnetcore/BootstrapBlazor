@@ -9,28 +9,6 @@
     <section ignore>
         @((MarkupString)Localizer["NormalDesc"].Value)
     </section>
-    <SelectTable TItem="Foo" @bind-SelectedItems="@_selectedFoos" OnQueryAsync="OnQueryAsync"
-                 GetTextCallback="@GetTextCallback" TableMinWidth="300"
-                 IsMultipleSelect IsClearable>
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name"></TableColumn>
-            <TableColumn @bind-Field="@context.Address"></TableColumn>
-        </TableColumns>
-    </SelectTable>
-    <section ignore>
-        <div>
-            @foreach (var item in _selectedFoos)
-            {
-                <span>@item.Name</span>
-            }
-        </div>
-    </section>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <section ignore>
-        @((MarkupString)Localizer["NormalDesc"].Value)
-    </section>
     <SelectTable TItem="Foo" @bind-Value="@_foo" OnQueryAsync="OnQueryAsync"
                  GetTextCallback="@GetTextCallback" TableMinWidth="300"
                  IsClearable>
@@ -134,6 +112,32 @@
             </SelectTable>
         </div>
     </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IsMultipleSelectTitle"]" Introduction="@Localizer["IsMultipleSelectIntro"]" Name="IsMultipleSelect">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>通过 <code>MultiSelectedItemsMaxHeight</code> 参数设置组件最大行高</li>
+            <li>通过 <code>MultiSelectedItemsMaxDisplayCount</code> 参数设置选中项显示总数量</li>
+            <li>通过 <code>@@bind-SelectedItems="SelectedItems"</code> 参数设置选中项集合，多选模式下不要使用 <code>Value</code></li>
+        </ul>
+    </section>
+    <SelectTable TItem="Foo" @bind-SelectedItems="@_selectedFoos" OnQueryAsync="OnQueryAsync"
+                 GetTextCallback="@GetTextCallback" TableMinWidth="300"
+                 IsMultipleSelect IsClearable>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name"></TableColumn>
+            <TableColumn @bind-Field="@context.Address"></TableColumn>
+        </TableColumns>
+    </SelectTable>
+    <section ignore>
+        <div class="select-table-list">
+            @foreach (var item in _selectedFoos)
+            {
+                <div>@item.Name</div>
+            }
+        </div>
+    </section>
 </DemoBlock>
 
 <AttributeTable Type="typeof(SelectTable<>)" />
