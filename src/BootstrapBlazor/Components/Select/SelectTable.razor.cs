@@ -16,6 +16,13 @@ namespace BootstrapBlazor.Components;
 public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
 {
     /// <summary>
+    /// <para lang="zh">获得/设置 是否为多选模式，默认值为 false</para>
+    /// <para lang="en">Gets or sets Multiple Selection Mode. Default false</para>
+    /// </summary>
+    [Parameter]
+    public bool IsMultipleSelect { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 TableHeader 实例</para>
     /// <para lang="en">Gets or sets TableHeader Instance</para>
     /// </summary>
@@ -116,6 +123,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
         .AddClass(FieldClass, IsNeedValidate)
         .AddClass(ValidCss)
+        .Build();
+
+    private string? MultiItemsClassString => CssBuilder.Default("multi-select-items")
+        .AddClass(InputClassName)
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")
@@ -246,6 +257,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .Build();
 
     private Table<TItem> _table = default!;
+    private string? _closeButtonIcon;
+    private List<TItem> _selectedItems = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -277,9 +290,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
+        _closeButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectCloseIcon);
     }
 
-    private string? GetText() => Value == default ? null : GetTextCallback(Value);
+    private string? GetText(TItem item) => item == default ? null : GetTextCallback(item);
+
+    private string GetIndexString(TItem item) => _selectedItems.IndexOf(item).ToString();
 
     private async Task OnClickRowCallback(TItem item)
     {
@@ -289,6 +305,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private async Task OnClearValue()
     {
+        _selectedItems.Clear();
+
         if (OnClearAsync != null)
         {
             await OnClearAsync();
