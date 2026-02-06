@@ -2053,7 +2053,7 @@
     "DropdownCascadeItem6": "Haidian",
     "DropdownCascadeItem7": "Jingan",
     "DropdownCascadeItem8": "Huangpu",
-    "DropdownItemsTemplateIntro": "You can customize all the content of the dropdown list by setting <itemsTemplate>`. In this example, we use the <DropdownItem>` component and <DropdownDivider>` component to customize the dropdown list component.",
+    "DropdownItemsTemplateIntro": "You can customize all the content of the dropdown list by setting <code>ItemsTemplate</code>. In this example, we use the <code>DropdownItem</code> component and <code>DropdownDivider</code> component to customize the dropdown list component.",
     "DropdownItemsTemplateTitle": "Items Template",
     "DropdownItemTemplateIntro": "By setting <code>ItemTemplate</code>, you can customize the content displayed in the drop-down item. In this example, the <code>Tooltip</code> component is used to add a tooltip function when the mouse is hovered.",
     "DropdownItemTemplateTitle": "Item Template",
