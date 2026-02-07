@@ -37,6 +37,13 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public int MultiSelectedItemsMaxDisplayCount { get; set; } = 8;
 
     /// <summary>
+    /// <para lang="zh">获得/设置 多选模式下组件显示最大数量标签颜色，默认值 <see cref="Color.None"/> 未设置</para>
+    /// <para lang="en">Gets or sets the color of maximum number of components is displayed in multiple selection mode. Default value is <see cref="Color.None"/></para>
+    /// </summary>
+    [Parameter]
+    public Color MultiSelectedItemsMaxDisplayCountColor { get; set; } = Color.None;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 多选模式下已选择项集合 默认 null</para>
     /// <para lang="en">Gets or sets the selected items collection in multiple selection mode. Default null</para>
     /// </summary>
@@ -167,6 +174,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private string? MultiItemsStyleString => CssBuilder.Default()
         .AddClass($"--bb-select-table-item-width: {MultiSelectedItemMaxWidth};", !string.IsNullOrEmpty(MultiSelectedItemMaxWidth))
         .AddClass($"--bb-select-max-height: {MultiSelectedItemsMaxHeight};", !string.IsNullOrEmpty(MultiSelectedItemsMaxHeight))
+        .Build();
+
+    private string? MultiSelectedItemCountClassString => CssBuilder.Default("multi-select-item-group-count")
+        .AddClass($"bg-{MultiSelectedItemsMaxDisplayCountColor.ToDescriptionString()}", MultiSelectedItemsMaxDisplayCountColor != Color.None)
         .Build();
 
     private string? AppendClassString => CssBuilder.Default("form-select-append")

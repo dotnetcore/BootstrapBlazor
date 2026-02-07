@@ -27,7 +27,7 @@
                     }
                     @if (SelectedItems.Count > MultiSelectedItemsMaxDisplayCount)
                     {
-                        <div class="multi-select-item-group-count">
+                        <div class="@MultiSelectedItemCountClassString">
                             @GetCountText()
                         </div>
                     }

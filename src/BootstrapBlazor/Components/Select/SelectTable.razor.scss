@@ -4,6 +4,7 @@
     --bb-select-table-item-hover-bg-color: rgba(var(--bs-body-color-rgb), .3);
     --bb-select-table-item-padding: 2px 6px;
     --bb-select-table-item-gap: 3px;
+    --bb-select-table-item-count-bg-color: var(--bb-select-table-item-bg-color);
 
     .dropdown-toggle {
         .is-display {
@@ -40,13 +41,20 @@
         .multi-select-item-group span {
             border: solid 1px var(--bs-border-color);
             border-radius: var(--bs-border-radius);
-            background-color: var(--bb-select-table-item-bg-color);
             padding: var(--bb-select-table-item-padding);
+        }
+
+        .multi-select-item-group-count {
+            background-color: var(--bb-select-table-item-count-bg-color);
         }
 
         .multi-select-item-group {
             display: inline-flex;
             position: relative;
+
+            span {
+                background-color: var(--bb-select-table-item-bg-color);
+            }
 
             .multi-select-close {
                 border-top-right-radius: 0;
