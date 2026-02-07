@@ -132,6 +132,11 @@ public class DynamicElement : BootstrapComponentBase
 
         builder.AddContent(8, ChildContent);
 
+        if (Key != null)
+        {
+            builder.SetKey(Key);
+        }
+
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
             builder.CloseElement();

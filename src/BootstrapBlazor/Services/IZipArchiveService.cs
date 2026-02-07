@@ -83,3 +83,24 @@ public interface IZipArchiveService
     /// <param name="encoding"><para lang="zh">编码方式 默认 null 内部使用 UTF-8</para><para lang="en">Encoding, default null, internal use UTF-8</para></param>
     ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null);
 }
+
+/// <summary>
+/// 归档项实体类
+/// </summary>
+public readonly record struct ArchiveEntry
+{
+    /// <summary>
+    /// 获得 物理文件
+    /// </summary>
+    public string SourceFileName { get; init; }
+
+    /// <summary>
+    /// 获得 归档项
+    /// </summary>
+    public string EntryName { get; init; }
+
+    /// <summary>
+    /// 获得 压缩配置
+    /// </summary>
+    public CompressionLevel? CompressionLevel { get; init; }
+}
