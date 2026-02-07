@@ -10,13 +10,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">动态元素组件</para>
-/// <para lang="en">动态元素component</para>
+/// <para lang="en">Dynamic element component</para>
 /// </summary>
 public class DynamicElement : BootstrapComponentBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 TagName 属性 默认为 div</para>
-    /// <para lang="en">Gets or sets TagName property Default is为 div</para>
+    /// <para lang="en">Gets or sets the TagName property. Default is div</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -24,70 +24,70 @@ public class DynamicElement : BootstrapComponentBase
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 Click 事件 默认 true</para>
-    /// <para lang="en">Gets or sets whether触发 Click 事件 Default is true</para>
+    /// <para lang="en">Gets or sets whether to trigger Click event. Default is true</para>
     /// </summary>
     [Parameter]
     public bool TriggerClick { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否阻止默认行为 默认 false</para>
-    /// <para lang="en">Gets or sets whether阻止Default is行为 Default is false</para>
+    /// <para lang="en">Gets or sets whether to prevent default behavior. Default is false</para>
     /// </summary>
     [Parameter]
     public bool PreventDefault { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否事件冒泡 默认为 false</para>
-    /// <para lang="en">Gets or sets whether事件冒泡 Default is为 false</para>
+    /// <para lang="en">Gets or sets whether to stop event propagation. Default is false</para>
     /// </summary>
     [Parameter]
     public bool StopPropagation { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 Click 回调委托</para>
-    /// <para lang="en">Gets or sets Click 回调delegate</para>
+    /// <para lang="en">Gets or sets the Click callback delegate</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClick { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 DoubleClick 事件 默认 true</para>
-    /// <para lang="en">Gets or sets whether触发 DoubleClick 事件 Default is true</para>
+    /// <para lang="en">Gets or sets whether to trigger DoubleClick event. Default is true</para>
     /// </summary>
     [Parameter]
     public bool TriggerDoubleClick { get; set; } = true;
 
     /// <summary>
     /// <para lang="zh">获得/设置 DoubleClick 回调委托</para>
-    /// <para lang="en">Gets or sets DoubleClick 回调delegate</para>
+    /// <para lang="en">Gets or sets the DoubleClick callback delegate</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnDoubleClick { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 OnContextMenu 回调委托</para>
-    /// <para lang="en">Gets or sets OnContextMenu 回调delegate</para>
+    /// <para lang="en">Gets or sets the OnContextMenu callback delegate</para>
     /// </summary>
     [Parameter]
     public Func<MouseEventArgs, Task>? OnContextMenu { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否触发 OnContextMenu 事件 默认 false</para>
-    /// <para lang="en">Gets or sets whether触发 OnContextMenu 事件 Default is false</para>
+    /// <para lang="en">Gets or sets whether to trigger OnContextMenu event. Default is false</para>
     /// </summary>
     [Parameter]
     public bool TriggerContextMenu { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 内容组件</para>
-    /// <para lang="en">Gets or sets contentcomponent</para>
+    /// <para lang="en">Gets or sets the child content</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否生成指定 Tag 元素 默认 true 生成</para>
-    /// <para lang="en">Gets or sets whether生成指定 Tag 元素 Default is true 生成</para>
+    /// <para lang="en">Gets or sets whether to generate the specified Tag element. Default is true</para>
     /// </summary>
     [Parameter]
     public bool GenerateElement { get; set; } = true;
@@ -122,26 +122,24 @@ public class DynamicElement : BootstrapComponentBase
         if (IsTriggerClick())
         {
             builder.AddAttribute(2, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerClick));
+            builder.AddEventPreventDefaultAttribute(3, "onclick", PreventDefault);
+            builder.AddEventStopPropagationAttribute(4, "onclick", StopPropagation);
         }
 
         if (IsTriggerDoubleClick())
         {
-            builder.AddAttribute(3, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerDoubleClick));
-        }
-
-        if (IsTriggerClick() || IsTriggerDoubleClick())
-        {
-            builder.AddEventPreventDefaultAttribute(4, "onclick", PreventDefault);
-            builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
+            builder.AddAttribute(5, "ondblclick", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerDoubleClick));
+            builder.AddEventPreventDefaultAttribute(6, "ondblclick", PreventDefault);
+            builder.AddEventStopPropagationAttribute(7, "ondblclick", StopPropagation);
         }
 
         if (IsTriggerContextMenu())
         {
-            builder.AddAttribute(6, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerContextMenu));
-            builder.AddEventPreventDefaultAttribute(7, "oncontextmenu", true);
+            builder.AddAttribute(8, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnTriggerContextMenu));
+            builder.AddEventPreventDefaultAttribute(9, "oncontextmenu", true);
         }
 
-        builder.AddContent(8, ChildContent);
+        builder.AddContent(10, ChildContent);
 
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
