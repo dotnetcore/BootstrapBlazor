@@ -121,11 +121,12 @@
             <li>@((MarkupString)Localizer["IsMultipleDesc2"].Value)</li>
             <li>@((MarkupString)Localizer["IsMultipleDesc3"].Value)</li>
             <li>@((MarkupString)Localizer["IsMultipleDesc4"].Value)</li>
+            <li>@((MarkupString)Localizer["IsMultipleDesc5"].Value)</li>
         </ul>
     </section>
     <SelectTable TItem="Foo" @bind-SelectedItems="@_selectedFoos" OnQueryAsync="OnQueryAsync"
                  GetTextCallback="@GetTextCallback" TableMinWidth="300"
-                 IsMultipleSelect IsClearable>
+                 IsMultipleSelect IsClearable MultiSelectedItemsMaxDisplayCountColor="Color.Warning">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
