@@ -108,6 +108,11 @@ public class DynamicElement : BootstrapComponentBase
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
             builder.OpenElement(0, TagName);
+
+            if (Key != null)
+            {
+                builder.SetKey(Key);
+            }
             if (AdditionalAttributes != null)
             {
                 builder.AddMultipleAttributes(1, AdditionalAttributes);
@@ -137,11 +142,6 @@ public class DynamicElement : BootstrapComponentBase
         }
 
         builder.AddContent(8, ChildContent);
-
-        if (Key != null)
-        {
-            builder.SetKey(Key);
-        }
 
         if (GenerateElement || IsTriggerClick() || IsTriggerDoubleClick())
         {
