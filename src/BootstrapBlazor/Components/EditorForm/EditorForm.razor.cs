@@ -294,7 +294,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         var items = new List<IEditorItem>();
         if (Items != null)
         {
-            items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()) && FilterIgnoreItem(i)));
+            items.AddRange(Items.Where(i => _editorItems.Find(item => i.GetFieldName() == item.GetFieldName()) == null && FilterEditorItem(i)));
+            items.AddRange(_editorItems.Where(FilterEditorItem));
             return items;
         }
 
@@ -308,6 +309,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         items.AddRange(columns.Where(i => FilterIgnoreItem(i)));
         return items;
     }
+
+    private bool FilterEditorItem(IEditorItem i) => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()) && FilterIgnoreItem(i);
 
     private bool FilterIgnoreItem(IEditorItem item)
     {
