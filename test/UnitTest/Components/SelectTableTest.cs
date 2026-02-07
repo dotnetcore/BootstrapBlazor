@@ -606,6 +606,86 @@ public class SelectTableTest : BootstrapBlazorTestBase
         cut.Contains("<div class=\"empty\"><div class=\"empty-telemplate\">empty-template</div></div>");
     }
 
+    [Fact]
+    public async Task IsMultipleSelect_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var selectedItems = new List<Foo>()
+        {
+            items[0], items[1], items[2], items[3]
+        };
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = items,
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.SelectedItems, selectedItems);
+                pb.Add(a => a.MultiSelectedItemsMaxHeight, "30px");
+                pb.Add(a => a.MultiSelectedItemsMaxDisplayCount, 2);
+                pb.Add(a => a.MultiSelectedItemsMaxDisplayCountColor, Color.Warning);
+                pb.Add(a => a.SelectedItemsChanged, EventCallback.Factory.Create<List<Foo>>(this, items => selectedItems = items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("multi-select-items");
+        cut.Contains("multi-select-item-group-count bg-warning");
+        cut.Contains("+ 2");
+        cut.Contains("--bb-select-max-height: 30px;");
+        cut.DoesNotContain("--bb-select-table-item-width: ");
+
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        Assert.NotNull(table);
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.MultiSelectedItemMaxWidth, "120px");
+        });
+        cut.Contains("--bb-select-table-item-width: 120px;");
+
+        await cut.InvokeAsync(() => table.Instance.TriggerRemoveItem(0));
+        Assert.Equal(3, selectedItems.Count);
+
+        await cut.InvokeAsync(() => table.Instance.TriggerRemoveItem(0));
+        Assert.Equal(2, selectedItems.Count);
+
+        cut.Render();
+        cut.DoesNotContain("multi-select-item-group-count");
+        cut.DoesNotContain("bg-warning");
+
+        await cut.InvokeAsync(() => table.Instance.TriggerRemoveItem(-1));
+        Assert.Equal(2, selectedItems.Count);
+
+        await cut.InvokeAsync(() => table.Instance.TriggerRemoveItem(2));
+        Assert.Equal(2, selectedItems.Count);
+        cut.DoesNotContain("multi-select-item-ph");
+
+        table.Render(pb =>
+        {
+            pb.Add(a => a.SelectedItems, null);
+        });
+        cut.Contains("multi-select-item-ph");
+    }
+
     private static Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
     {
         _filterItems = _filterItems.Where(options.ToFilterFunc<Foo>());

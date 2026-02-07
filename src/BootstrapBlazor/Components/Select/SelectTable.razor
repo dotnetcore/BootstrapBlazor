@@ -1,4 +1,4 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits PopoverDropdownBase<TItem>
 @attribute [BootstrapModuleAutoLoader("Select/SelectTable.razor.js", JSObjectReference = true)]
@@ -7,11 +7,43 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" data-bb-min-width="@TableMinWidth" class="@ClassName">
-    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
+<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" data-bb-min-width="@TableMinWidth"
+     class="@ClassName">
+    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" aria-expanded="false"
+         data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         @if (Template == null)
         {
-            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
+            @if (IsMultipleSelect)
+            {
+                <div class="@MultiItemsClassString" id="@InputId" style="@MultiItemsStyleString">
+                    @foreach (var item in GetDisplayItems())
+                    {
+                        <div class="multi-select-item-group">
+                            <span class="multi-select-close" data-bb-index="@GetIndexString(item)">
+                                <i class="@_closeButtonIcon"></i>
+                            </span>
+                            <span class="multi-select-item">@GetText(item)</span>
+                        </div>
+                    }
+                    @if (SelectedItems.Count > MultiSelectedItemsMaxDisplayCount)
+                    {
+                        <div class="@MultiSelectedItemCountClassString">
+                            @GetCountText()
+                        </div>
+                    }
+                    @if (SelectedItems.Count == 0)
+                    {
+                        <div class="multi-select-item-ph">
+                            @PlaceHolder
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder"
+                       class="@InputClassName" value="@GetText(Value)" />
+            }
         }
         else
         {
@@ -47,6 +79,7 @@
                    CustomerSearchModel="CustomerSearchModel" CustomerSearchTemplate="CustomerSearchTemplate"
                    IsPagination="IsPagination" PageItemsSource="PageItemsSource" ShowGotoNavigator="false" MaxPageLinkCount="3"
                    OnClickRowCallback="OnClickRowCallback" OnQueryAsync="OnQueryAsync"
+                   IsMultipleSelect="IsMultipleSelect" @bind-SelectedRows="SelectedItems"
                    ShowEmpty="ShowEmpty" EmptyTemplate="EmptyTemplate"></Table>
         </div>
     </RenderTemplate>
