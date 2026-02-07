@@ -634,6 +634,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.SelectedItems, selectedItems);
                 pb.Add(a => a.MultiSelectedItemsMaxHeight, "30px");
                 pb.Add(a => a.MultiSelectedItemsMaxDisplayCount, 2);
+                pb.Add(a => a.MultiSelectedItemsMaxDisplayCountColor, Color.Warning);
                 pb.Add(a => a.SelectedItemsChanged, EventCallback.Factory.Create<List<Foo>>(this, items => selectedItems = items));
                 pb.Add(a => a.GetTextCallback, foo => foo.Name);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -647,7 +648,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("multi-select-items");
-        cut.Contains("multi-select-item-group-count");
+        cut.Contains("multi-select-item-group-count bg-warning");
         cut.Contains("+ 2");
         cut.Contains("--bb-select-max-height: 30px;");
         cut.DoesNotContain("--bb-select-table-item-width: ");
@@ -669,6 +670,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
 
         cut.Render();
         cut.DoesNotContain("multi-select-item-group-count");
+        cut.DoesNotContain("bg-warning");
 
         await cut.InvokeAsync(() => table.Instance.TriggerRemoveItem(-1));
         Assert.Equal(2, selectedItems.Count);
