@@ -93,8 +93,14 @@ public class DynamicElement : BootstrapComponentBase
     public bool GenerateElement { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">BuildRenderTree 方法</para>
-    /// <para lang="en">BuildRenderTree 方法</para>
+    /// <para lang="zh">获得/设置 元素唯一标识 Key 默认 null</para>
+    /// <para lang="en">Gets or sets the unique key of the element. Default null</para>
+    /// </summary>
+    [Parameter]
+    public object? Key { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
