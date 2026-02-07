@@ -67,17 +67,19 @@ class DefaultZipArchiveService : IZipArchiveService
                 await using var content = await options.ReadStreamAsync(f.SourceFileName);
                 await using var entryStream = entry.Open();
                 await content.CopyToAsync(entryStream);
+                entryStream.Close();
             }
             else if (Directory.Exists(f.SourceFileName))
             {
                 var entryName = f.EntryName;
-
-                if (!entryName.EndsWith('/'))
+                if (!string.IsNullOrEmpty(entryName))
                 {
-                    entryName = $"{entryName}/";
+                    if (!entryName.EndsWith(Path.DirectorySeparatorChar))
+                    {
+                        entryName = $"{entryName}{Path.DirectorySeparatorChar}";
+                    }
+                    archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
                 }
-
-                archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
             }
             else if (File.Exists(f.SourceFileName))
             {
