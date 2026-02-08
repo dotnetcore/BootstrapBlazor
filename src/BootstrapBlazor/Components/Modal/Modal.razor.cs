@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Modal 组件</para>
 /// <para lang="en">Modal component</para>
 /// </summary>
-public partial class Modal : IClosable
+public partial class Modal : ICloseable
 {
     [Inject]
     [NotNull]
@@ -77,13 +77,13 @@ public partial class Modal : IClosable
     public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
+    /// <inheritdoc cref="ICloseable.OnCloseAsync"/>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
+    /// <inheritdoc cref="ICloseable.OnClosingAsync"/>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnClosingAsync { get; set; }

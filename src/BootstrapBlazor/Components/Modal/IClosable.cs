@@ -7,9 +7,9 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">可关闭接口</para>
-/// <para lang="en">the closable inerface</para>
+/// <para lang="en">the closable interface</para>
 /// </summary>
-public interface IClosable
+public interface ICloseable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 弹出窗口关闭时的回调委托</para>
