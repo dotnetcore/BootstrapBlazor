@@ -9,13 +9,13 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">PropertyInfo 扩展方法</para>
-/// <para lang="en">PropertyInfo 扩展方法</para>
+/// <para lang="en">PropertyInfo extension methods</para>
 /// </summary>
 public static class PropertyInfoExtensions
 {
     /// <summary>
     /// <para lang="zh">判断属性是否为静态属性</para>
-    /// <para lang="en">判断propertywhether为静态property</para>
+    /// <para lang="en">Determines whether the property is static</para>
     /// </summary>
     /// <param name="p"></param>
     public static bool IsStatic(this PropertyInfo p)
@@ -25,17 +25,12 @@ public static class PropertyInfoExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">判断属性是否只读扩展方法</para>
-    /// <para lang="en">判断propertywhether只读扩展方法</para>
+    /// <para lang="zh">判断属性是否可以写入扩展方法</para>
+    /// <para lang="en">Determines whether the property can be written to extension method</para>
     /// </summary>
     /// <param name="p"></param>
     public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
 
-    /// <summary>
-    /// <para lang="zh">判断是否为 Init 扩展方法</para>
-    /// <para lang="en">判断whether为 Init 扩展方法</para>
-    /// </summary>
-    /// <param name="p"></param>
     private static bool IsInit(this PropertyInfo p)
     {
         var isInit = false;
@@ -50,4 +45,14 @@ public static class PropertyInfoExtensions
         }
         return isInit;
     }
+
+    /// <summary>
+    /// <para lang="zh">判断属性是否有指定类型的 Parameter 特性</para>
+    /// <para lang="en">Determines whether the property has a Parameter attribute of the specified type</para>
+    /// </summary>
+    /// <param name="modelProperty"></param>
+    /// <param name="type"></param>
+    public static bool HasParameterAttribute(this PropertyInfo? modelProperty, Type type) => modelProperty != null
+        && modelProperty.IsDefined(typeof(ParameterAttribute), true)
+        && modelProperty.PropertyType == type;
 }
