@@ -13,8 +13,6 @@ public class TestBase : IDisposable
     {
         Context = new BunitContext();
         Context.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        Context.Services.AddMockEnvironment();
     }
 
     public void Dispose()

@@ -4,8 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -26,12 +24,6 @@ internal static class IServiceCollectionExtensions
         }
         var config = builder.Build();
         services.AddSingleton<IConfiguration>(config);
-        return services;
-    }
-
-    public static IServiceCollection AddMockEnvironment(this IServiceCollection services)
-    {
-        services.AddSingleton<IHostEnvironment, MockEnvironment>();
         return services;
     }
 
@@ -60,16 +52,5 @@ internal static class IServiceCollectionExtensions
         {
 
         }
-    }
-
-    class MockEnvironment : IHostEnvironment
-    {
-        public string EnvironmentName { get; set; } = "Development";
-
-        public string ApplicationName { get; set; } = "Test";
-
-        public string ContentRootPath { get; set; } = "UnitTest";
-
-        public IFileProvider ContentRootFileProvider { get; set; } = null!;
     }
 }
