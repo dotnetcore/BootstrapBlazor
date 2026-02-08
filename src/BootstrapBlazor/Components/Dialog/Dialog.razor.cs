@@ -88,7 +88,7 @@ public partial class Dialog : IDisposable
             }
         };
 
-        _onClosingAsync = options.OnClosingAsync;
+        _onClosingAsync = option.OnClosingAsync;
 
         _isKeyboard = option.IsKeyboard;
         _isBackdrop = option.IsBackdrop;
