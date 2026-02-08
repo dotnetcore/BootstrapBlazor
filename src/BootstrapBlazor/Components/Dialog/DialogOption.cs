@@ -194,13 +194,11 @@ public class DialogOption : ICloseable
     /// <summary>
     /// <inheritdoc cref="ICloseable.OnCloseAsync"/>
     /// </summary>
-    [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="ICloseable.OnClosingAsync"/>
     /// </summary>
-    [Parameter]
     public Func<Task<bool>>? OnClosingAsync { get; set; }
 
     /// <summary>
