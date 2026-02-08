@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 class DefaultZipArchiveService : IZipArchiveService
 {
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IZipArchiveService.ArchiveAsync(IEnumerable{string}, ArchiveOptions?)"/>
     /// </summary>
     public Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(files.Select(f => new ArchiveEntry()
     {
@@ -20,7 +20,7 @@ class DefaultZipArchiveService : IZipArchiveService
     }), options);
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IZipArchiveService.ArchiveAsync(string, IEnumerable{string}, ArchiveOptions?)"/>
     /// </summary>
     public Task ArchiveAsync(string archiveFile, IEnumerable<string> files, ArchiveOptions? options = null) => ArchiveAsync(archiveFile, files.Select(f => new ArchiveEntry()
     {
@@ -29,7 +29,7 @@ class DefaultZipArchiveService : IZipArchiveService
     }), options);
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IZipArchiveService.ArchiveAsync(IEnumerable{ArchiveEntry}, ArchiveOptions?)"/>
     /// </summary>
     public async Task<Stream> ArchiveAsync(IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
@@ -42,7 +42,7 @@ class DefaultZipArchiveService : IZipArchiveService
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IZipArchiveService.ArchiveAsync(string, IEnumerable{ArchiveEntry}, ArchiveOptions?)"/>
     /// </summary>
     public async Task ArchiveAsync(string archiveFile, IEnumerable<ArchiveEntry> entries, ArchiveOptions? options = null)
     {
@@ -71,15 +71,12 @@ class DefaultZipArchiveService : IZipArchiveService
             }
             else if (Directory.Exists(f.SourceFileName))
             {
-                var entryName = f.EntryName;
-                if (!string.IsNullOrEmpty(entryName))
+                var entryName = f.EntryName.Replace("\\", "/");
+                if (!entryName.EndsWith("/"))
                 {
-                    if (!entryName.EndsWith(Path.DirectorySeparatorChar))
-                    {
-                        entryName = $"{entryName}{Path.DirectorySeparatorChar}";
-                    }
-                    archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
+                    entryName = $"{entryName}/";
                 }
+                archive.CreateEntry(entryName, f.CompressionLevel ?? options.CompressionLevel);
             }
             else if (File.Exists(f.SourceFileName))
             {
