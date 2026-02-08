@@ -70,8 +70,8 @@ class DefaultZipArchiveService : IZipArchiveService
             }
             else if (Directory.Exists(f.SourceFileName))
             {
-                var entryName = f.EntryName.Replace("\\", "/");
-                if (!entryName.EndsWith("/"))
+                var entryName = f.EntryName.Replace('\\', '/');
+                if (!entryName.EndsWith('/'))
                 {
                     entryName = $"{entryName}/";
                 }
