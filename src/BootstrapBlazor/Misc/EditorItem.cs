@@ -84,7 +84,6 @@ public class EditorItem<TModel>(string fieldName, Type fieldType, string? fieldT
     /// <summary>
     /// <inheritdoc cref="IEditorItem.EditTemplate"/>
     /// </summary>
-    [Parameter]
     public RenderFragment<TModel>? EditTemplate { get; set; }
 
     RenderFragment<object>? IEditorItem.EditTemplate
