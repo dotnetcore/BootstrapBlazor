@@ -53,4 +53,28 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
         }
         builder.CloseComponent();
     };
+
+    /// <summary>
+    /// <para lang="zh">创建组件实例并渲染 Model 参数</para>
+    /// <para lang="en">Create component instance and render</para>
+    /// </summary>
+    public RenderFragment<TModel> RenderEditTemplate<TModel>(string? modelParameterName = null) => model => builder =>
+    {
+        var index = 0;
+        builder.OpenComponent(index++, componentType);
+        if (parameters != null)
+        {
+            modelParameterName ??= "Model";
+            var modelProperty = componentType.GetPropertyByName(modelParameterName);
+            if (modelProperty.HasParameterAttribute(typeof(TModel)))
+            {
+                builder.AddAttribute(index++, modelParameterName, model);
+            }
+            foreach (var p in parameters)
+            {
+                builder.AddAttribute(index++, p.Key, p.Value);
+            }
+        }
+        builder.CloseComponent();
+    };
 }
