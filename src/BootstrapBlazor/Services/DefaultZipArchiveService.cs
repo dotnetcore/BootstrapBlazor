@@ -67,7 +67,6 @@ class DefaultZipArchiveService : IZipArchiveService
                 await using var content = await options.ReadStreamAsync(f.SourceFileName);
                 await using var entryStream = entry.Open();
                 await content.CopyToAsync(entryStream);
-                entryStream.Close();
             }
             else if (Directory.Exists(f.SourceFileName))
             {
