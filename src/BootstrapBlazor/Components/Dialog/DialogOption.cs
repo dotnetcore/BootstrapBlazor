@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Dialog 对话框组件</para>
 /// <para lang="en">Dialog component</para>
 /// </summary>
-public class DialogOption
+public class DialogOption : IClosable
 {
     /// <summary>
     /// <para lang="zh">获得/设置 关联的 Modal 实例</para>
@@ -192,10 +192,16 @@ public class DialogOption
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 关闭对话框回调方法</para>
-    /// <para lang="en">Gets or sets the callback method for closing the dialog</para>
+    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
     /// </summary>
+    [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnClosingAsync { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否自动关闭对话框（保存成功后） 默认值为 true</para>

@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">Modal 组件</para>
 /// <para lang="en">Modal component</para>
 /// </summary>
-public partial class Modal
+public partial class Modal : IClosable
 {
     [Inject]
     [NotNull]
@@ -77,15 +77,13 @@ public partial class Modal
     public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 弹出窗口关闭时的回调委托</para>
-    /// <para lang="en">Gets or sets the callback delegate when the popup is closed</para>
+    /// <inheritdoc cref="IClosable.OnCloseAsync"/>
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// <para lang="zh">关闭之前回调方法 返回 true 时关闭弹窗 返回 false 时阻止关闭弹窗</para>
-    /// <para lang="en">Callback Method Before Closing. Return true to close, false to prevent closing</para>
+    /// <inheritdoc cref="IClosable.OnClosingAsync"/>
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnClosingAsync { get; set; }

@@ -19,6 +19,7 @@ public partial class Dialog : IDisposable
     private Modal? _modal = null;
     private Func<Task>? _onShownAsync = null;
     private Func<Task>? _onCloseAsync = null;
+    private Func<Task<bool>>? _onClosingAsync = null;
 
     private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop, Func<Task>? OnCloseCallback)> DialogParameters = [];
     private Dictionary<string, object>? _currentParameter;
@@ -86,6 +87,8 @@ public partial class Dialog : IDisposable
                 StateHasChanged();
             }
         };
+
+        _onClosingAsync = options.OnClosingAsync;
 
         _isKeyboard = option.IsKeyboard;
         _isBackdrop = option.IsBackdrop;
