@@ -127,7 +127,12 @@
     "CancelText": "Cancel",
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
-    "InstallText": "Install"
+    "InstallText": "Install",
+    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library"
+  },
+  "BootstrapBlazor.Server.Components.Layout.MainLayout": {
+    "ChatTooltip": "Azure OpenAI",
+    "UpdateTooltip": "View update log"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
     "IconTheme": "Icon",

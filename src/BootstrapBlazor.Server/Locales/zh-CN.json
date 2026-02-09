@@ -127,7 +127,12 @@
     "CancelText": "取消",
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
-    "InstallText": "安装"
+    "InstallText": "安装",
+    "SiteTitle": "Bootstrap Blazor - 组件库"
+  },
+  "BootstrapBlazor.Server.Components.Layout.MainLayout": {
+    "ChatTooltip": "Azure OpenAI",
+    "UpdateTooltip": "点击查看更新日志"
   },
   "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
     "IconTheme": "图标主题",
