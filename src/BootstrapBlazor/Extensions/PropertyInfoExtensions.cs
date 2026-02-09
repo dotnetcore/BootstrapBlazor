@@ -52,7 +52,23 @@ public static class PropertyInfoExtensions
     /// </summary>
     /// <param name="modelProperty"></param>
     /// <param name="type"></param>
-    public static bool HasParameterAttribute(this PropertyInfo? modelProperty, Type type) => modelProperty != null
-        && modelProperty.IsDefined(typeof(ParameterAttribute), true)
-        && modelProperty.PropertyType == type;
+    public static bool HasParameterAttribute(this PropertyInfo? modelProperty, Type type)
+    {
+        if (modelProperty is null)
+        {
+            return false;
+        }
+
+        // 必须带有 Parameter 特性
+        if (!modelProperty.IsDefined(typeof(ParameterAttribute), inherit: true))
+        {
+            return false;
+        }
+
+        // 处理可空类型，并使用可赋值性检查类型兼容性
+        var propertyType = Nullable.GetUnderlyingType(modelProperty.PropertyType) ?? modelProperty.PropertyType;
+        var targetType = Nullable.GetUnderlyingType(type) ?? type;
+
+        return targetType.IsAssignableFrom(propertyType);
+    }
 }

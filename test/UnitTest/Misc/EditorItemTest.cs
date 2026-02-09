@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace UnitTest.Misc;
 
 public class EditorItemTest
@@ -117,10 +119,10 @@ public class EditorItemTest
         Assert.Null(item.EditTemplate);
         Assert.Null(editorItem.EditTemplate);
 
-        item.EditTemplate = foo => builder =>
+        item.EditTemplate = BootstrapDynamicComponent.CreateComponent<MockEditor>(new Dictionary<string, object?>()
         {
-            builder.AddContent(0, foo.Name);
-        };
+            { "Parameter1", "Test" }
+        }).RenderEditTemplate<Foo>();
         Assert.NotNull(item.EditTemplate);
         Assert.NotNull(editorItem.EditTemplate);
 
@@ -133,5 +135,19 @@ public class EditorItemTest
 
         editorItem.EditTemplate = null;
         Assert.NotNull(item.EditTemplate);
+    }
+
+    class MockEditor : ComponentBase
+    {
+        [Parameter]
+        public Foo? Model { get; set; }
+
+        [Parameter]
+        public string? Parameter1 { get; set; }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.AddContent(0, Model?.Name);
+        }
     }
 }
