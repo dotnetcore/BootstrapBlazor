@@ -583,6 +583,22 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => dialog.ShowExceptionDialog(null, new Exception("Test")));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
+
+        // OnClosing
+        var closing = false;
+        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        {
+            OnClosingAsync = () =>
+            {
+                closing = true;
+                return Task.FromResult(false);
+            }
+        }));
+
+        // 由于返回 false 所以关窗方法被阻止
+        await cut.InvokeAsync(() => modal.Instance.Close());
+        Assert.True(closing);
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     private class MockValidateFormDialog : ComponentBase

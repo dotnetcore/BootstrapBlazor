@@ -26,7 +26,7 @@ public static class PropertyInfoExtensions
 
     /// <summary>
     /// <para lang="zh">判断属性是否可以写入扩展方法</para>
-    /// <para lang="en">Determines whether the property can be written to extension method</para>
+    /// <para lang="en">Determines whether the property can be written to</para>
     /// </summary>
     /// <param name="p"></param>
     public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
