@@ -13,16 +13,12 @@ public class TestBase : IDisposable
     {
         Context = new BunitContext();
         Context.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        Context.Services.AddMockEnvironment();
     }
 
     public void Dispose()
     {
-#pragma warning disable CA2012
         // 由于 bUnit 2.0 继承了 IAsyncDisposable 接口，因此此处调用 DisposeAsync 方法
-        Context.DisposeAsync();
-#pragma warning restore CA2012
+        Context.DisposeAsync().AsTask().Wait();
         GC.SuppressFinalize(this);
     }
 }

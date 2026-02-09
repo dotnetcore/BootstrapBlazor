@@ -304,6 +304,17 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HasParameterAttribute_Ok()
+    {
+        var instance = new MockObject();
+        var pi = instance.GetType().GetProperty("Mock");
+        Assert.False(pi.HasParameterAttribute(typeof(Foo)));
+
+        pi = instance.GetType().GetProperty(nameof(instance.Foo));
+        Assert.False(pi.HasParameterAttribute(typeof(Foo)));
+    }
+
+    [Fact]
     public void CreateInstance_Ok()
     {
         var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstance<MockComplexObject>(true));
