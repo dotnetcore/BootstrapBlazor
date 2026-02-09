@@ -62,14 +62,14 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     {
         var index = 0;
         builder.OpenComponent(index++, componentType);
+        modelParameterName ??= "Model";
+        var modelProperty = componentType.GetPropertyByName(modelParameterName);
+        if (modelProperty.HasParameterAttribute(typeof(TModel)))
+        {
+            builder.AddAttribute(index++, modelParameterName, model);
+        }
         if (parameters != null)
         {
-            modelParameterName ??= "Model";
-            var modelProperty = componentType.GetPropertyByName(modelParameterName);
-            if (modelProperty.HasParameterAttribute(typeof(TModel)))
-            {
-                builder.AddAttribute(index++, modelParameterName, model);
-            }
             foreach (var p in parameters)
             {
                 builder.AddAttribute(index++, p.Key, p.Value);
