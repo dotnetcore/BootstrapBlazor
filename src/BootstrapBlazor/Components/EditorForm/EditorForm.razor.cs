@@ -294,7 +294,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         var items = new List<IEditorItem>();
         if (Items != null)
         {
-            items.AddRange(Items.Where(i => _editorItems.Find(item => i.GetFieldName() == item.GetFieldName()) == null && FilterEditorItem(i)));
+            var editorFieldNames = new HashSet<string?>(_editorItems.Select(item => item.GetFieldName()));
+            items.AddRange(Items.Where(i => !editorFieldNames.Contains(i.GetFieldName()) && FilterEditorItem(i)));
             items.AddRange(_editorItems.Where(FilterEditorItem));
             return items;
         }
