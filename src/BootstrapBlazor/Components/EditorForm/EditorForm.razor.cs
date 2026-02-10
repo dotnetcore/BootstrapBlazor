@@ -85,8 +85,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     public int? LabelWidth { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 列模板 设置 <see cref="Items"/> 时本参数不生效</para>
-    /// <para lang="en">Gets or sets Field Items Template. Not effective when <see cref="Items"/> is set</para>
+    /// <para lang="zh">获得/设置 绑定属性集合模板 设置 <see cref="Items"/> 时本参数优先级高</para>
+    /// <para lang="en">Gets or sets the field items collection template.</para>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? FieldItems { get; set; }
@@ -158,8 +158,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     public List<string>? IgnoreItems { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 级联上下文绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板不生效</para>
-    /// <para lang="en">Gets or sets Context Field Items Collection. <see cref="FieldItems"/> template will not be effective if set</para>
+    /// <para lang="zh">获得/设置 绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板优先级更高</para>
+    /// <para lang="en">Gets or sets the items collection.</para>
     /// </summary>
     [Parameter]
     public IEnumerable<IEditorItem>? Items { get; set; }
@@ -294,7 +294,9 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         var items = new List<IEditorItem>();
         if (Items != null)
         {
-            items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()) && FilterIgnoreItem(i)));
+            var editorFieldNames = new HashSet<string?>(_editorItems.Select(item => item.GetFieldName()));
+            items.AddRange(Items.Where(i => !editorFieldNames.Contains(i.GetFieldName()) && FilterEditorItem(i)));
+            items.AddRange(_editorItems.Where(FilterEditorItem));
             return items;
         }
 
@@ -308,6 +310,8 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
         items.AddRange(columns.Where(i => FilterIgnoreItem(i)));
         return items;
     }
+
+    private bool FilterEditorItem(IEditorItem i) => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()) && FilterIgnoreItem(i);
 
     private bool FilterIgnoreItem(IEditorItem item)
     {
