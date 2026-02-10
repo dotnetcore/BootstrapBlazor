@@ -5008,6 +5008,7 @@
     "TablesSearchTitle": "Table 表格"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
+    "TablesSelectionCountText": "选中的行数：{0}",
     "TablesSelectionDescription": "通过设置 <code>SelectedRows</code> 设置表格行状态，通过选中样式可以设置高亮",
     "TablesSelectionKeepInfo": "保持选中行状态：",
     "TablesSelectionKeepOffText": "不保持",
