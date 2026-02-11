@@ -144,6 +144,10 @@
     "FooterLi1": "滑块验证码",
     "FriendLink": "友情链接"
   },
+  "BootstrapBlazor.Server.Components.Layout.MainLayout": {
+    "ChatTooltip": "Azure OpenAI",
+    "UpdateTooltip": "点击查看更新日志"
+  },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
     "Affix": "固钉组件 Affix",
     "Ajax": "数据传输 Ajax",

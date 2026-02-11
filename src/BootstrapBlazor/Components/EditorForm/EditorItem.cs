@@ -29,18 +29,17 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public EventCallback<TValue> FieldChanged { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 属性类型</para>
-    /// <para lang="en">Gets or sets the property type</para>
-    /// </summary>
-    [NotNull]
-    public Type? PropertyType { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 ValueExpression 表达式</para>
     /// <para lang="en">Gets or sets the value expression</para>
     /// </summary>
     [Parameter]
     public Expression<Func<TValue>>? FieldExpression { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="IEditorItem.PropertyType"/>
+    /// </summary>
+    [NotNull]
+    public Type? PropertyType { get; set; }
 
     /// <summary>
     /// <inheritdoc cref="IEditorItem.Editable"/>
@@ -51,70 +50,61 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public bool Editable { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否忽略显示</para>
-    /// <para lang="en">Gets or sets whether the field is ignored</para>
+    /// <inheritdoc cref="IEditorItem.Ignore"/>
     /// </summary>
     [Parameter]
     public bool? Ignore { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IEditorItem.Readonly"/>
     /// </summary>
     [Parameter]
     public bool? Readonly { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否必填</para>
-    /// <para lang="en">Gets or sets whether the field is required</para>
+    /// <inheritdoc cref="IEditorItem.Required"/>
     /// </summary>
     [Parameter]
     public bool? Required { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 必填错误信息</para>
-    /// <para lang="en">Gets or sets the required error message</para>
+    /// <inheritdoc cref="IEditorItem.RequiredErrorMessage"/>
     /// </summary>
     [Parameter]
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否跳过校验</para>
-    /// <para lang="en">Gets or sets whether to skip validation</para>
+    /// <inheritdoc cref="IEditorItem.SkipValidate"/>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示标签提示</para>
-    /// <para lang="en">Gets or sets whether to show the label tooltip</para>
+    /// <inheritdoc cref="IEditorItem.ShowLabelTooltip"/>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 显示文本</para>
-    /// <para lang="en">Gets or sets the display text</para>
+    /// <inheritdoc cref="IEditorItem.Text"/>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 步长</para>
-    /// <para lang="en">Gets or sets the step value</para>
+    /// <inheritdoc cref="IEditorItem.Step"/>
     /// </summary>
     [Parameter]
     public string? Step { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 行数</para>
-    /// <para lang="en">Gets or sets the row count</para>
+    /// <inheritdoc cref="IEditorItem.Rows"/>
     /// </summary>
     [Parameter]
     public int Rows { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 列数</para>
-    /// <para lang="en">Gets or sets the column count</para>
+    /// <inheritdoc cref="IEditorItem.Cols"/>
     /// </summary>
     [Parameter]
     public int Cols { get; set; }
@@ -141,57 +131,49 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件类型</para>
-    /// <para lang="en">Gets or sets the component type</para>
+    /// <inheritdoc cref="IEditorItem.ComponentType"/>
     /// </summary>
     [Parameter]
     public Type? ComponentType { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 组件参数集合</para>
-    /// <para lang="en">Gets or sets the component parameters</para>
+    /// <inheritdoc cref="IEditorItem.ComponentParameters"/>
     /// </summary>
     [Parameter]
     public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 占位符</para>
-    /// <para lang="en">Gets or sets the placeholder text</para>
+    /// <inheritdoc cref="IEditorItem.PlaceHolder"/>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 显示顺序</para>
-    /// <para lang="en">Gets or sets the display order</para>
+    /// <inheritdoc cref="IEditorItem.Order"/>
     /// </summary>
     [Parameter]
     public int Order { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 绑定数据集合</para>
-    /// <para lang="en">Gets or sets the bound data items</para>
+    /// <inheritdoc cref="IEditorItem.Items"/>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Lookup 数据集合</para>
-    /// <para lang="en">Gets or sets the lookup data items</para>
+    /// <inheritdoc cref="ILookup.Lookup"/>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选择时是否显示搜索</para>
-    /// <para lang="en">Gets or sets whether to show search when selecting</para>
+    /// <inheritdoc cref="IEditorItem.ShowSearchWhenSelect"/>
     /// </summary>
     [Parameter]
     public bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 选择时是否固定搜索</para>
-    /// <para lang="en">Gets or sets whether the search is fixed when selecting</para>
+    /// <inheritdoc cref="IEditorItem.IsFixedSearchWhenSelect"/>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请删除；Deprecated, please delete")]
@@ -199,63 +181,55 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示为气泡</para>
-    /// <para lang="en">Gets or sets whether to show as a popover</para>
+    /// <inheritdoc cref="IEditorItem.IsPopover"/>
     /// </summary>
     [Parameter]
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Lookup 比较方式</para>
-    /// <para lang="en">Gets or sets the lookup string comparison</para>
+    /// <inheritdoc cref="ILookup.LookupStringComparison"/>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Lookup 服务键</para>
-    /// <para lang="en">Gets or sets the lookup service key</para>
+    /// <inheritdoc cref="ILookup.LookupServiceKey"/>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Lookup 服务数据</para>
-    /// <para lang="en">Gets or sets the lookup service data</para>
+    /// <inheritdoc cref="ILookup.LookupServiceData"/>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Lookup 服务实例</para>
-    /// <para lang="en">Gets or sets the lookup service instance</para>
+    /// <inheritdoc cref="ILookup.LookupService"/>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 校验规则集合</para>
-    /// <para lang="en">Gets or sets the validation rules</para>
+    /// <inheritdoc cref="IEditorItem.ValidateRules"/>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }
 
-    [CascadingParameter]
-    private List<IEditorItem>? EditorItems { get; set; }
-
     /// <summary>
-    /// <para lang="zh">获得/设置 分组名称</para>
-    /// <para lang="en">Gets or sets the group name</para>
+    /// <inheritdoc cref="IEditorItem.GroupName"/>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 分组顺序</para>
-    /// <para lang="en">Gets or sets the group order</para>
+    /// <inheritdoc cref="IEditorItem.GroupOrder"/>
     /// </summary>
     [Parameter]
     public int GroupOrder { get; set; }
+
+    [CascadingParameter]
+    private List<IEditorItem>? EditorItems { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -276,14 +250,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     private FieldIdentifier? _fieldIdentifier;
 
     /// <summary>
-    /// <para lang="zh">获得显示名称</para>
-    /// <para lang="en">Gets the display name</para>
+    /// <inheritdoc cref="IEditorItem.GetDisplayName"/>
     /// </summary>
     public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? string.Empty;
 
     /// <summary>
-    /// <para lang="zh">获得字段名称</para>
-    /// <para lang="en">Gets the field name</para>
+    /// <inheritdoc cref="IEditorItem.GetFieldName"/>
     /// </summary>
     public string GetFieldName() => _fieldIdentifier?.FieldName ?? string.Empty;
 }
