@@ -175,9 +175,21 @@ public partial class FlipClock
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, OnCompleted = nameof(OnCompleted), ViewMode = ViewMode.ToString(), StartValue = GetTicks() });
+    protected override Task InvokeInitAsync() => Reset();
 
     private double GetTicks() => StartValue?.TotalMilliseconds ?? 0;
+
+    /// <summary>
+    /// <para lang="zh">重置方法</para>
+    /// <para lang="en">Reset method</para>
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        OnCompleted = nameof(OnCompleted),
+        ViewMode = ViewMode.ToString(),
+        StartValue = GetTicks()
+    });
 
     /// <summary>
     /// <para lang="zh">倒计时结束回调方法由 JSInvoke 调用</para>
