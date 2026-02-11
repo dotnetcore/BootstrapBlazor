@@ -41,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.1" />
