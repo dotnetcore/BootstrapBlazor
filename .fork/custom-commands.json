@@ -32,6 +32,20 @@
   },
   {
     "action" : {
+      "script" : "git stash save --message \"Pull autostash\"\ngit pull --rebase=true origin --prune\ngit pull --rebase=true gitee.com\ngit pull --rebase=true gitcode.com",
+      "showOutput" : false,
+      "type" : "sh",
+      "waitForExit" : true
+    },
+    "name" : "Pull All",
+    "refTargets" : [
+      "localbranch",
+      "remotebranch"
+    ],
+    "target" : "ref"
+  },
+  {
+    "action" : {
       "script" : "git push origin refs/heads/${ref} --verbose\ngit push gitcode.com refs/heads/${ref} --verbose\ngit push gitee.com refs/heads/${ref} --verbose",
       "showOutput" : false,
       "type" : "sh",

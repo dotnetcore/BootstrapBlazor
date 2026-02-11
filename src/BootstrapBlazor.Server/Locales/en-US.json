@@ -5012,6 +5012,7 @@
     "TablesSearchTitle": "Table Search"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
+    "TablesSelectionCountText": "Count：{0}",
     "TablesSelectionDescription": "Set the table row state by setting <code>SelectedRows</code>, and set the highlight by selecting the style",
     "TablesSelectionKeepInfo": "Keep State:",
     "TablesSelectionKeepOffText": "No keep",

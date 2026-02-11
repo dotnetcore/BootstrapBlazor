@@ -105,7 +105,8 @@ public partial class Table<TItem>
     /// <param name="val"></param>
     protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
     {
-        SelectedRows.RemoveAll(Rows.Intersect(SelectedRows).Contains);
+        var items = Rows.Intersect(SelectedRows);
+        SelectedRows.RemoveAll(i => items.Any(item => Equals(item, i)));
         if (state == CheckboxState.Checked)
         {
             SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));

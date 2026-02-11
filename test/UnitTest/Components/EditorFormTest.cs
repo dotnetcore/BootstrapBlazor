@@ -68,7 +68,28 @@ public class EditorFormTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, new List<IEditorItem>
             {
                 new InternalTableColumn("Id", typeof(int)) { Ignore = true },
+                new InternalTableColumn("Name", typeof(string)),
                 new TableTemplateColumn<Foo>()
+            });
+
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Required), true);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.RequiredErrorMessage), "Test");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Readonly), true);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.SkipValidate), false);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ComponentType), typeof(BootstrapInput<string>));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.ComponentParameters), new KeyValuePair<string, object>[]
+                {
+                        new("type", "text")
+                });
+                builder.CloseComponent();
             });
         });
     }
