@@ -144,6 +144,10 @@
     "FooterLi1": "Slider verification code",
     "FriendLink": "Links"
   },
+  "BootstrapBlazor.Server.Components.Layout.MainLayout": {
+    "ChatTooltip": "Azure OpenAI",
+    "UpdateTooltip": "View update log"
+  },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
     "Affix": "Affix",
     "Ajax": "Ajax",

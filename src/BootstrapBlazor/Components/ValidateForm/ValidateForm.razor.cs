@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">ValidateForm 组件类</para>
-/// <para lang="en">ValidateForm component类</para>
+/// <para lang="en">ValidateForm component</para>
 /// </summary>
 public partial class ValidateForm
 {
@@ -100,7 +100,7 @@ public partial class ValidateForm
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置</para>
-    /// <para lang="en">Gets or sets whether禁用表单内回车自动提交功能 Default is null 未Sets</para>
+    /// <para lang="en">Gets or sets whether to disable auto-submit form by enter key. Default is null</para>
     /// </summary>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
@@ -124,10 +124,6 @@ public partial class ValidateForm
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">验证组件缓存</para>
-    /// <para lang="en">验证component缓存</para>
-    /// </summary>
     private readonly ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
 
     private readonly ConcurrentDictionary<IValidateComponent, List<ValidationResult>> _validateResults = new();
@@ -195,7 +191,7 @@ public partial class ValidateForm
     /// <para lang="en">Sets the error message for the specified field</para>
     /// </summary>
     /// <param name="expression"></param>
-    /// <param name="errorMessage"><para lang="zh">错误描述信息，可为空，为空时查找资源文件</para><para lang="en">错误描述info，可为空，为空时查找资源文件</para></param>
+    /// <param name="errorMessage"><para lang="zh">错误描述信息，可为空，为空时查找资源文件</para><para lang="en">Error description info, can be empty, searches resource file when empty</para></param>
     public async Task SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
     {
         switch (expression.Body)
@@ -435,22 +431,18 @@ public partial class ValidateForm
                     if (!find && !string.IsNullOrEmpty(rule.ErrorMessage)
                         && LocalizerFactory.Create(context.ObjectType).TryGetLocalizerString(rule.ErrorMessage, out var msg))
                     {
-                        // 通过设置 ErrorMessage 检索
                         rule.ErrorMessage = msg;
                         find = true;
                     }
 
                     if (!find && LocalizerFactory.Create(rule.GetType()).TryGetLocalizerString(nameof(rule.ErrorMessage), out msg))
                     {
-                        // 通过 Attribute 检索
                         rule.ErrorMessage = msg;
                         find = true;
                     }
 
                     if (!find)
                     {
-                        // 通过 字段.规则名称 检索
-                        // 查找 resource 资源文件中的 ErrorMessage
                         var ruleNameSpan = rule.GetType().Name.AsSpan();
                         var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
                         var ruleName = index == -1 ? ruleNameSpan[..] : ruleNameSpan[..index];
@@ -482,11 +474,9 @@ public partial class ValidateForm
     /// <param name="results"></param>
     private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
-        // 获得所有可写属性
         var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.IsCanWrite() && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
         {
-            // 设置其关联属性字段
             var propertyValue = Utility.GetPropertyValue(context.ObjectInstance, pi.Name);
             var fieldIdentifier = new FieldIdentifier(context.ObjectInstance, pi.Name);
             context.DisplayName = fieldIdentifier.GetDisplayName();
@@ -496,7 +486,6 @@ public partial class ValidateForm
             {
                 var validator = v.ValidateComponent;
 
-                // 检查当前值是否为 Class 即复杂类型 x.y.z 形式的属性值
                 if (validator.IsComplexValue(propertyValue) && propertyValue != null)
                 {
                     var fieldContext = new ValidationContext(propertyValue, context, null);
@@ -504,14 +493,11 @@ public partial class ValidateForm
                 }
                 else
                 {
-                    // 验证 DataAnnotations
                     var messages = new List<ValidationResult>();
                     if (validator.IsNeedValidate)
                     {
-                        // 组件进行验证
                         await ValidateAsync(validator, context, messages, pi, propertyValue);
 
-                        // 客户端提示
                         await validator.ToggleMessage(messages);
                     }
                     results.AddRange(messages);
@@ -528,21 +514,17 @@ public partial class ValidateForm
 
     private async Task ValidateAsync(IValidateComponent validator, ValidationContext context, List<ValidationResult> messages, PropertyInfo pi, object? propertyValue)
     {
-        // 单独处理 Upload 组件
         if (validator is IUpload uploader)
         {
             if (uploader.UploadFiles.Count > 0)
             {
-                // 处理多个上传文件
                 uploader.UploadFiles.ForEach(file =>
                 {
-                    // 优先检查 File 流，不需要检查 FileName
                     ValidateDataAnnotations(file.File, context, messages, pi, file.ValidateId);
                 });
             }
             else
             {
-                // 未选择文件
                 if (propertyValue is string)
                 {
 
@@ -559,13 +541,11 @@ public partial class ValidateForm
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
-                // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
             }
 
             if (messages.Count == 0)
             {
-                // 联动字段验证 IValidateCollection
                 IValidateCollection? validate;
                 if (context.ObjectInstance is IValidateCollection v)
                 {
@@ -612,7 +592,6 @@ public partial class ValidateForm
         }
 
         var valid = true;
-        // 由于可能有异步验证，需要等待异步验证结束
         if (_tcs != null)
         {
             valid = await _tcs.Task;
@@ -691,14 +670,14 @@ public partial class ValidateForm
     }
 
     /// <summary>
-    /// <para lang="zh">获取 当前表单值改变的属性集合</para>
-    /// <para lang="en">Get the set of attributes whose current form values ​​have changed</para>
+    /// <para lang="zh">获得 当前表单值改变的属性集合</para>
+    /// <para lang="en">Gets the collection of properties whose values have changed in the current form</para>
     /// </summary>
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChangedFields { get; } = new();
 
     /// <summary>
-    /// <para lang="zh">获取 当前表单值改变的属性集合</para>
-    /// <para lang="en">Get the set of attributes whose current form values ​​have changed</para>
+    /// <para lang="zh">获得 当前表单值改变的属性集合</para>
+    /// <para lang="en">Gets the collection of properties whose values have changed in the current form</para>
     /// </summary>
     [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated Please use ValueChangedFields instead. wrong typo")]
     [ExcludeFromCodeCoverage]
