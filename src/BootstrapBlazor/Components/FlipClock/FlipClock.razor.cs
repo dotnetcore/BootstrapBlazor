@@ -151,7 +151,7 @@ public partial class FlipClock
     /// <para lang="en">Gets or sets Start Time for Countdown or Count <see cref="FlipClockViewMode.Count"/> Default Effective in <see cref="FlipClockViewMode.CountDown" /> Mode</para>
     /// </summary>
     [Parameter]
-    public TimeSpan? StartValue { get; set; }
+    public TimeSpan StartValue { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-flip-clock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -175,21 +175,26 @@ public partial class FlipClock
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => Reset();
-
-    private double GetTicks() => StartValue?.TotalMilliseconds ?? 0;
+    protected override Task InvokeInitAsync() => Reset(StartValue);
 
     /// <summary>
     /// <para lang="zh">重置方法</para>
     /// <para lang="en">Reset method</para>
     /// </summary>
     /// <returns></returns>
-    public Task Reset() => InvokeVoidAsync("init", Id, Interop, new
+    public Task Reset(TimeSpan? value = null)
     {
-        OnCompleted = nameof(OnCompleted),
-        ViewMode = ViewMode.ToString(),
-        StartValue = GetTicks()
-    });
+        if (value == null)
+        {
+            value = TimeSpan.Zero;
+        }
+        return InvokeVoidAsync("init", Id, Interop, new
+        {
+            OnCompleted = nameof(OnCompleted),
+            ViewMode = ViewMode.ToString(),
+            StartValue = value.Value.TotalMilliseconds
+        });
+    }
 
     /// <summary>
     /// <para lang="zh">倒计时结束回调方法由 JSInvoke 调用</para>
