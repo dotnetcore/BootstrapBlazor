@@ -1,6 +1,6 @@
 export { getResponsive } from '../../modules/responsive.js'
 import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js'
-import  browser from '../../modules/browser.min.mjs'
+import browser from '../../modules/browser.min.mjs'
 import Data from '../../modules/data.js'
 import EventHandler from '../../modules/event-handler.js'
 import Popover from "../../modules/base-popover.js"
@@ -1006,23 +1006,22 @@ export function resetColumnList(id) {
     if (table) {
         const { toolbar } = table;
         if (toolbar) {
-            console.log(table);
             const dropdown = toolbar.querySelector('.dropdown-column');
-            console.log(dropdown);
-
             if (dropdown) {
-                const button = dropdown.querySelector('.dropdown-toggle')
+                const button = dropdown.querySelector('.dropdown-toggle');
+                const dropdownToggle = bootstrap.Dropdown.getInstance(button);
+                if (dropdownToggle) {
+                    dropdownToggle.dispose();
+                }
+                const p = table.popovers.find(i => i.el === dropdown);
+                if (p) {
+                    table.popovers = table.popovers.filter(i => i !== p);
+                    Popover.dispose(p);
+                }
                 if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
                     table.popovers.push(Popover.init(dropdown, {
                         isDisabled: () => false
                     }));
-                }
-                else {
-                    const p = table.popovers.find(i => i.el === dropdown);
-                    if (p) {
-                        Popover.dispose(p);
-                        table.popovers = table.popovers.filter(i => i !== p);
-                    }
                 }
             }
         }
