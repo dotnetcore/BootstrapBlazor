@@ -69,11 +69,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // <para lang="en">IP Locator Service</para>
         services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
-        services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
 #if NET8_0_OR_GREATER
         services.AddKeyedSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>(nameof(BaiduIpLocatorProvider));
-        services.AddKeyedSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>(nameof(BaiduIpLocatorProviderV2));
 #endif
 
         // <para lang="zh">节日服务</para>
