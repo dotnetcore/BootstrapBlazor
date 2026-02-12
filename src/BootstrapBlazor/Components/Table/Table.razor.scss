@@ -1,3 +1,7 @@
+.dropdown-menu-popover {
+  --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
+}
+
 .table-container {
     --bb-table-td-padding-x: .5rem;
     --bb-table-td-padding-y: .5rem;
@@ -307,7 +311,8 @@
     margin-block-end: .5rem;
 }
 
-.table-toolbar .dropdown-column .dropdown-menu {
+.table-toolbar .dropdown-column .dropdown-menu,
+.dropdown-menu-popover {
 
     &:not(.dropdown-menu-controls) {
         max-height: var(--bb-table-columnlist-max-height);
