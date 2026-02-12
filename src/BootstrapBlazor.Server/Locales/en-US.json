@@ -2982,9 +2982,10 @@
     "LocatorsNormalTips2": "The <code>Startup</code> file add the following phrase to the  <code>ConfigureServices</code> method",
     "LocatorsNormalTips3": "Shandong, China Unicom",
     "LocatorsNormalTips4": "Shushan District Hefei, Anhui China Telecom",
+    "LocatorsNormalTips5": "Bao'an District, Shenzhen, Guangdong China Telecom",
     "LocatorsNormalTipsTitle": "Some geographic location query interfaces may return character sets from other character sets such as<code>gbk</code>, and the program may report an error",
     "LocatorsNormalTitle": "Basic usage",
-    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>",
+    "LocatorsProviderDesc": "<p>The component library built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code><p><p>The component library has a built-in paid online geolocation locator <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget package</a> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a>. Supports IPv6 format.</p>",
     "LocatorsSubTitle": "More for system log tracking and analysis",
     "LocatorsTitle": "Get the IP geographic location"
   },

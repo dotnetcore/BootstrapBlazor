@@ -36,40 +36,19 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         // 关闭缓存
         option.Value.IpLocatorOptions.EnableCache = false;
         option.Value.IpLocatorOptions.SlidingExpiration = TimeSpan.FromMinutes(5);
-        option.Value.IpLocatorOptions.ProviderName = nameof(BaiduIpLocatorProviderV2);
+        option.Value.IpLocatorOptions.ProviderName = nameof(BaiduIpLocatorProvider);
         await provider.Locate("223.91.188.112");
         Assert.Equal("美国", result);
-    }
-
-    [Fact]
-    public async Task BaiduIpLocatorProviderV2_Ok()
-    {
-        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
-        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        var logger = Context.Services.GetRequiredService<ILogger<MockProviderV2>>();
-        var provider = new MockProviderV2(factory, option, logger);
-
-        var result = await provider.Locate("127.0.0.1");
-        Assert.Equal("localhost", result);
-
-        result = await provider.Locate("");
-        Assert.Equal("localhost", result);
-
-        // 河南省漯河市 移动
-        result = await provider.Locate("223.91.188.112");
-        Assert.Equal("省份城市区县 测试", result);
     }
 
     [Fact]
     public void Factory_Ok()
     {
         var factory = Context.Services.GetRequiredService<IIpLocatorFactory>();
-        Assert.NotNull(factory.Create("BaiduIpLocatorProviderV2"));
         Assert.NotNull(factory.Create("BaiduIpLocatorProvider"));
         Assert.NotNull(factory.Create());
 
         Assert.NotNull(Context.Services.GetKeyedService<IIpLocatorProvider>("BaiduIpLocatorProvider"));
-        Assert.NotNull(Context.Services.GetKeyedService<IIpLocatorProvider>("BaiduIpLocatorProviderV2"));
     }
 
     [Fact]
@@ -89,8 +68,8 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         var result = await provider.Locate("223.91.188.112");
         Assert.Null(result);
 
-        var cancelPprovider = new MockProviderFetchCancelError(factory, option, logger);
-        result = await cancelPprovider.Locate("223.91.188.112");
+        var cancelProvider = new MockProviderFetchCancelError(factory, option, logger);
+        result = await cancelProvider.Locate("223.91.188.112");
         Assert.Null(result);
     }
 
@@ -103,11 +82,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         var logger = Context.Services.GetRequiredService<ILogger<MockBaiduProvider>>();
         var provider = new MockBaiduProvider(factory, option, logger);
         var result = await provider.Locate("223.91.188.112");
-        Assert.Null(result);
-
-        var loggerV2 = Context.Services.GetRequiredService<ILogger<MockBaiduProviderV2>>();
-        var providerV2 = new MockBaiduProviderV2(factory, option, loggerV2);
-        result = await providerV2.Locate("223.91.188.112");
         Assert.Null(result);
     }
 
@@ -130,29 +104,11 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         }
     }
 
-    class MockBaiduProviderV2(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockBaiduProviderV2> logger) : BaiduIpLocatorProviderV2(httpClientFactory, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpNullMessageHandler(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
     class MockProvider(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
     {
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
         {
             client = new HttpClient(new MockHttpSuccessMessageHandler(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
-    class MockProviderV2(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProviderV2> logger) : BaiduIpLocatorProviderV2(httpClientFactory, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpSuccessMessageHandlerV2(), true);
             return base.Fetch(url, client, token);
         }
     }
