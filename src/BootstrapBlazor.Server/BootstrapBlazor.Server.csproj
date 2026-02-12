@@ -49,7 +49,7 @@
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="10.0.0" />

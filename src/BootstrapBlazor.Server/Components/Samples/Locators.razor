@@ -1,4 +1,4 @@
-﻿@page "/locator"
+@page "/locator"
 
 <h3>@Localizer["LocatorsTitle"]</h3>
 
@@ -38,6 +38,7 @@ Location = await provider.Locate(Ip);</Pre>
 <p>@Localizer["LocatorsNormalIpTitle"]</p>
 <p><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</p>
 <p><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</p>
+<p><code>240e:3b7:3272:d8d0:db09:c067:8d59:539e</code> @Localizer["LocatorsNormalTips5"]</p>
 
 <DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
     <section ignore>
@@ -45,7 +46,8 @@ Location = await provider.Locate(Ip);</Pre>
     </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">
-            <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged" ShowLabel="true" DisplayText="LocatorProvider">
+            <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged"
+                    ShowLabel="true" DisplayText="LocatorProvider">
             </Select>
         </div>
         <div class="col-12 col-sm-6">
