@@ -2984,7 +2984,7 @@
     "LocatorsNormalTips4": "安徽省合肥市蜀山区 中国电信",
     "LocatorsNormalTipsTitle": "某些地理位置查询接口返回字符集可能是其他字符集如 <code>gbk</code>，程序会报错；",
     "LocatorsNormalTitle": "普通用法",
-    "LocatorsProviderDesc": "<p>组件库内置两个免费在线地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>组件库内置一个收费在线地理位置定位器 <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget 包</a> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>",
+    "LocatorsProviderDesc": "<p>组件库内置免费一个在线地理位置定位器 <code>BaiduIpLocatorProvider</code><p><p>组件库内置一个收费在线地理位置定位器 <code>BootstrapBlazor.JuHeIpLocatorProvider</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.JuHeIpLocatorProvider\" target=\"_blank\">Nuget 包</a> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>",
     "LocatorsSubTitle": "多用于系统日志跟踪与分析",
     "LocatorsTitle": "获取 IP 地理位置"
   },
