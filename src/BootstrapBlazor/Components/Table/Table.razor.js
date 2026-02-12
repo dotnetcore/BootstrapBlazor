@@ -5,7 +5,7 @@ import Data from '../../modules/data.js'
 import EventHandler from '../../modules/event-handler.js'
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke, options) {
+export async function init(id, invoke, options) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -18,7 +18,7 @@ export function init(id, invoke, options) {
     }
     Data.set(id, table)
 
-    reset(id)
+    await reset(id)
 }
 
 export function saveColumnList(tableName, columns) {
@@ -120,7 +120,6 @@ export async function reset(id) {
     }
 
     table.pages = [...table.el.children].find(i => i.classList.contains('nav-pages'));
-
 
     setColumnToolboxListener(table);
 
@@ -824,8 +823,7 @@ const calcCellWidth = cell => {
     document.body.appendChild(div);
 
     const cellStyle = getComputedStyle(cell);
-    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
-    return width;
+    return div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right')) + parseFloat(cellStyle.getPropertyValue('border-left-width')) + parseFloat(cellStyle.getPropertyValue('border-right-width')) + 1;
 }
 
 const closeAllTips = (columns, self) => {

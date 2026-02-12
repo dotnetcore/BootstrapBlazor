@@ -74,7 +74,7 @@ const Popover = {
         popover.triggerHideCallback = () => {
             if (popover.hideCallback) {
                 popover.hideCallback();
-            };
+            }
         }
 
         if (popover.isPopover) {
