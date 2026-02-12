@@ -27,6 +27,9 @@ public partial class TablesColumnList
     [NotNull]
     private Table<Foo>? TableColumnVisible { get; set; }
 
+    private bool _isPopoverToolbarDropdownButton = true;
+    private bool _showColumnListControls = true;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
