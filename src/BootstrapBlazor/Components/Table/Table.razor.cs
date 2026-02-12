@@ -941,7 +941,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? DropdownListClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
         .AddClass("dropdown-menu-controls", ShowColumnListControls)
+        .AddClass("dropdown-menu-popover", IsPopoverToolbarDropdownButton)
         .Build();
+
+    private bool _lastIsPopoverToolbarDropdownButtonValue = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -1151,6 +1154,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (firstRender)
         {
+            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             await ProcessFirstRender();
         }
 
@@ -1206,6 +1210,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             _shouldScrollTop = false;
             await InvokeVoidAsync("scrollTo", Id);
+        }
+
+        // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
+        if(_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
+        {
+            _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
+            await InvokeVoidAsync("resetColumnList", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行

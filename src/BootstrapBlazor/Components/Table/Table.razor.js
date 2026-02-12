@@ -1001,6 +1001,34 @@ const setToolbarDropdown = (table, toolbar) => {
     })
 }
 
+export function resetColumnList(id) {
+    const table = Data.get(id);
+    if (table) {
+        const { toolbar } = table;
+        if (toolbar) {
+            console.log(table);
+            const dropdown = toolbar.querySelector('.dropdown-column');
+            console.log(dropdown);
+
+            if (dropdown) {
+                const button = dropdown.querySelector('.dropdown-toggle')
+                if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
+                    table.popovers.push(Popover.init(dropdown, {
+                        isDisabled: () => false
+                    }));
+                }
+                else {
+                    const p = table.popovers.find(i => i.el === dropdown);
+                    if (p) {
+                        Popover.dispose(p);
+                        table.popovers = table.popovers.filter(i => i !== p);
+                    }
+                }
+            }
+        }
+    }
+}
+
 const saveColumnWidth = table => {
     const cols = table.columns
     const tableWidth = table.tables[0].offsetWidth
