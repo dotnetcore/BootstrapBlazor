@@ -102,10 +102,7 @@ public class FlipClockTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.OnCompleted());
         Assert.True(completed);
 
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.StartValue, null);
-        });
+        await cut.InvokeAsync(() => cut.Instance.Reset());
     }
 
     [Theory]
