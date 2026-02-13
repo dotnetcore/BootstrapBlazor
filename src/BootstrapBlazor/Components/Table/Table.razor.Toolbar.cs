@@ -10,20 +10,6 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem>
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示工具栏 默认 false 不显示</para>
-    /// <para lang="en">Gets or sets Whether to show toolbar. Default false</para>
-    /// </summary>
-    [Parameter]
-    public bool ShowToolbar { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 the 模板 of table toolbar. 默认为 null</para>
-    /// <para lang="en">Gets or sets the template of table toolbar. Default is null</para>
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ToolbarTemplate { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值</para>
     /// <para lang="en">Gets or sets Whether to show skeleton when first loading. Default false. Use <see cref="ShowLoadingInFirstRender" /> parameter value</para>
     /// </summary>
@@ -380,37 +366,43 @@ public partial class Table<TItem>
     public bool ShowToastAfterSaveOrDeleteModel { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
-    /// <para lang="en">Table toolbar left button template, content appears before default buttons</para>
+    /// <para lang="zh">获得/设置 是否显示工具栏 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show toolbar. Default false</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏模板</para>
+    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears before the default buttons</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
+    /// <para lang="en">Gets or sets the table toolbar left-side button template, content appears before the default buttons</para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableToolbarBeforeTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
-    /// <para lang="en">Table toolbar left button template, content appears after default buttons</para>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
+    /// <para lang="en">Gets or sets the table toolbar left-side button template, content appears after the default buttons</para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableToolbarTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏右侧按钮模板，模板中内容出现在默认按钮前面</para>
-    /// <para lang="en">Table toolbar right button template, content appears before default buttons</para>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏右侧按钮模板，模板中内容出现在默认按钮前面</para>
+    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears before the default buttons</para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableExtensionToolbarBeforeTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
-    /// <para lang="en">Table toolbar right button template, content appears after default buttons</para>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
+    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears after the default buttons</para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableExtensionToolbarTemplate { get; set; }
