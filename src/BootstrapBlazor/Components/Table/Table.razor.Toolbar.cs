@@ -374,7 +374,7 @@ public partial class Table<TItem>
 
     /// <summary>
     /// <para lang="zh">获得/设置 表格 Toolbar 工具栏模板</para>
-    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears before the default buttons</para>
+    /// <para lang="en">Gets or sets the table toolbar template, content appears center of toolbar</para>
     /// </summary>
     [Parameter]
     public RenderFragment? ToolbarTemplate { get; set; }
