@@ -140,24 +140,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? MultiSelectedItemMaxWidth { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
-    /// <para lang="en">Table toolbar left button template, content appears before default buttons</para>
-    /// </summary>
-    [Parameter]
-    public RenderFragment? TableToolbarBeforeTemplate { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 表格 Toolbar 按钮模板</para>
-    /// <para lang="en">Gets or sets Table Toolbar Button Template</para>
-    /// <para lang="zh">表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
-    /// <para lang="en">Table toolbar left button template, content appears after default buttons</para>
-    /// </summary>
-    [Parameter]
-    public RenderFragment? TableToolbarTemplate { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
     /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
