@@ -747,7 +747,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowColumnList, true);
-                pb.Add(a => a.IsPopoverToolbarDropdownButton, true);
+                pb.Add(a => a.IsPopoverToolbarDropdownButton, false);
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.ShowColumnWidthTooltip, true);
                 pb.Add(a => a.ColumnWidthTooltipPrefix, "test");
@@ -775,6 +775,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("Test_Column_List");
+        cut.DoesNotContain("dropdown-menu-popover");
 
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.OnToggleClick);
@@ -782,6 +783,13 @@ public class TableTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.Render(pb =>
+        {
+            pb.Add(a => a.IsPopoverToolbarDropdownButton, true);
+        });
+        table.Contains("dropdown-menu-popover");
     }
 
     [Fact]
