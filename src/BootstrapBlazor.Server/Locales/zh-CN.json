@@ -4559,6 +4559,7 @@
     "ShownWithBreakPointP4": "由于 <code>Table</code> 组件默认是支持移动端适配，所以小屏幕时采用的是卡片式模式，本例中显式设置使用 <code>RenderMode=\"TableRenderMode.Table\"</code> 模式",
     "ShownWithBreakPointTitle": "根据屏幕宽度自动显示/隐藏列",
     "TablesColumnDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
+    "IsPopoverToolbarDropdownButtonDesc": "通过设置 <code>IsPopoverToolbarDropdownButton</code> 属性，工具栏列下拉框显示为气泡弹窗形式",
     "TablesColumnTitle": "Table 表格",
     "VisibleIntro": "通过指定 <code>ShowColumnList</code> 属性设置列是否显示",
     "VisibleP1": "<code>ShowColumnList</code> 默认值为 false，显式指定为 true 后工具栏出现相应列调整按钮",
