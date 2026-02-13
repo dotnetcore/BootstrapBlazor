@@ -1213,7 +1213,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         // 如果 ColumnList 显示状态改变重置 ColumnList 渲染模式
-        if(_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
+        if (_lastIsPopoverToolbarDropdownButtonValue != IsPopoverToolbarDropdownButton)
         {
             _lastIsPopoverToolbarDropdownButtonValue = IsPopoverToolbarDropdownButton;
             await InvokeVoidAsync("resetColumnList", Id);
