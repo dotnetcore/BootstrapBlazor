@@ -40,7 +40,7 @@ export function init(id, invoke) {
             }
         },
         hideCallback: async () => {
-            await invoke.invokeMethodAsync("TriggerUpdateSelecedItems");
+            await invoke.invokeMethodAsync("TriggerUpdateSelectedItems");
         }
     });
 

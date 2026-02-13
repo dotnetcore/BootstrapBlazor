@@ -360,7 +360,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     private async Task OnClearValue()
     {
         SelectedItems.Clear();
-        await TriggerUpdateSelecedItems();
+        await TriggerUpdateSelectedItems();
 
         if (OnClearAsync != null)
         {
@@ -403,7 +403,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
             var item = SelectedItems[index];
             SelectedItems.Remove(item);
 
-            await TriggerUpdateSelecedItems();
+            await TriggerUpdateSelectedItems();
         }
     }
 
@@ -412,7 +412,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <para lang="en">Update <see cref="SelectedItems"/> parameter method, called by Javascript</para>
     /// </summary>
     [JSInvokable]
-    public async Task TriggerUpdateSelecedItems()
+    public async Task TriggerUpdateSelectedItems()
     {
         if (IsMultipleSelect)
         {
