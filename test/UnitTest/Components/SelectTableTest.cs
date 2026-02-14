@@ -686,6 +686,59 @@ public class SelectTableTest : BootstrapBlazorTestBase
         cut.Contains("multi-select-item-ph");
     }
 
+    [Fact]
+    public void ToolbarTemplate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = items,
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ToolbarTemplate, builder =>
+                {
+                    builder.AddContent(0, "toolbar-template");
+                });
+                pb.Add(a => a.TableExtensionToolbarTemplate, builder =>
+                {
+                    builder.AddContent(0, "toolbar-extension-template");
+                });
+            });
+        });
+
+        cut.Contains("toolbar-template");
+        cut.Contains("toolbar-extension-template");
+
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        table.Render(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, false);
+        });
+        cut.DoesNotContain("toolbar-template");
+        cut.DoesNotContain("toolbar-extension-template");
+    }
+
     private static Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
     {
         _filterItems = _filterItems.Where(options.ToFilterFunc<Foo>());
