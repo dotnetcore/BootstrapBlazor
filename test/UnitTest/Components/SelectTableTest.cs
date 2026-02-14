@@ -720,10 +720,6 @@ public class SelectTableTest : BootstrapBlazorTestBase
                 {
                     builder.AddContent(0, "toolbar-template");
                 });
-                pb.Add(a => a.TableExtensionToolbarBeforeTemplate, builder =>
-                {
-                    builder.AddContent(0, "toolbar-extension-before-template");
-                });
                 pb.Add(a => a.TableExtensionToolbarTemplate, builder =>
                 {
                     builder.AddContent(0, "toolbar-extension-template");
@@ -732,7 +728,6 @@ public class SelectTableTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("toolbar-template");
-        cut.Contains("toolbar-extension-before-template");
         cut.Contains("toolbar-extension-template");
 
         var table = cut.FindComponent<SelectTable<Foo>>();
@@ -741,7 +736,6 @@ public class SelectTableTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowToolbar, false);
         });
         cut.DoesNotContain("toolbar-template");
-        cut.DoesNotContain("toolbar-extension-before-template");
         cut.DoesNotContain("toolbar-extension-template");
     }
 
