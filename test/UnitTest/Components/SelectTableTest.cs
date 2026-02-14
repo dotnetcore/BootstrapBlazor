@@ -603,7 +603,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.Contains("<div class=\"empty\"><div class=\"empty-telemplate\">empty-template</div></div>");
+        cut.Contains("<div class=\"empty\"><div class=\"empty-template\">empty-template</div></div>");
     }
 
     [Fact]
