@@ -140,6 +140,41 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? MultiSelectedItemMaxWidth { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示工具栏 默认 false 不显示</para>
+    /// <para lang="en">Gets or sets Whether to show toolbar. Default false</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏模板</para>
+    /// <para lang="en">Gets or sets the table toolbar template, content appears center of toolbar</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏右侧按钮模板，模板中内容出现在默认按钮前面</para>
+    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears before the default buttons</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TableExtensionToolbarBeforeTemplate { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 表格 Toolbar 工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
+    /// <para lang="en">Gets or sets the table toolbar right-side button template, content appears after the default buttons</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TableExtensionToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示刷新按钮 默认为 true</para>
+    /// <para lang="en">Gets or sets Whether to show Refresh Button. Default true</para>
+    /// </summary>
+    [Parameter]
+    public bool ShowRefresh { get; set; } = true;
+
+    /// <summary>
     /// <para lang="zh">获得/设置 IIconTheme 服务实例</para>
     /// <para lang="en">Gets or sets IIconTheme Service Instance</para>
     /// </summary>
