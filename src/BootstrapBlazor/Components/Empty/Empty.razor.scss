@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .empty {
     --bb-empty-image-margin: #{$bb-empty-image-margin};
@@ -9,7 +9,7 @@
         margin: var(--bb-empty-image-margin);
     }
 
-    .empty-telemplate {
+    .empty-template {
         margin: var(--bb-empty-template-margin);
     }
 }
