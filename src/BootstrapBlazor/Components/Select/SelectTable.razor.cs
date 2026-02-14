@@ -88,8 +88,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public bool ShowAppendArrow { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值</para>
-    /// <para lang="en">Gets or sets Dropdown Table Min Width. Default null (use style default)</para>
+    /// <para lang="zh">获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值 602px</para>
+    /// <para lang="en">Gets or sets Dropdown Table Min Width. Default null (use style default 602px)</para>
     /// </summary>
     [Parameter]
     public int? TableMinWidth { get; set; }
