@@ -321,18 +321,6 @@ public partial class Table<TItem>
         await SearchClick();
     }
 
-    private async Task OnSearchKeyUp(KeyboardEventArgs args)
-    {
-        if (args.Key == "Enter")
-        {
-            await SearchClick();
-        }
-        else if (args.Key == "Escape")
-        {
-            await ClearSearchClick();
-        }
-    }
-
     /// <summary>
     /// <para lang="zh">点击重置搜索按钮时调用此方法</para>
     /// <para lang="en">Method called when the reset search button is clicked</para>
