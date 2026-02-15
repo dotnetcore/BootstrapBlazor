@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -163,9 +162,20 @@ public partial class Table<TItem>
             Utility.Reset(SearchModel, CreateSearchModel());
         }
 
-        PageIndex = 1;
-        await QueryAsync();
+        await SearchClick();
         await ToggleLoading(false);
+    }
+
+    private async Task OnEnterAsync(string? v)
+    {
+        SearchText = v;
+        await SearchClick();
+    }
+
+    private async Task OnEscAsync(string? v)
+    {
+        SearchText = null;
+        await ResetSearchClick();
     }
 
     /// <summary>
@@ -304,28 +314,9 @@ public partial class Table<TItem>
     /// </summary>
     protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
-    private async Task OnSearchTextValueChanged(string? value)
-    {
-        SearchText = value;
-
-        await SearchClick();
-    }
-
-    private async Task OnSearchKeyUp(KeyboardEventArgs args)
-    {
-        if (args.Key == "Enter")
-        {
-            await SearchClick();
-        }
-        else if (args.Key == "Escape")
-        {
-            await ClearSearchClick();
-        }
-    }
-
     /// <summary>
-    /// <para lang="zh">重置搜索按钮调用此方法</para>
-    /// <para lang="en">Reset Search Button Click Method</para>
+    /// <para lang="zh">点击重置搜索按钮时调用此方法</para>
+    /// <para lang="en">Method called when the reset search button is clicked</para>
     /// </summary>
     protected async Task ClearSearchClick()
     {
