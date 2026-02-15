@@ -314,13 +314,6 @@ public partial class Table<TItem>
     /// </summary>
     protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
-    private async Task OnSearchTextValueChanged(string? value)
-    {
-        SearchText = value;
-
-        await SearchClick();
-    }
-
     /// <summary>
     /// <para lang="zh">点击重置搜索按钮时调用此方法</para>
     /// <para lang="en">Method called when the reset search button is clicked</para>
