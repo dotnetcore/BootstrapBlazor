@@ -162,8 +162,7 @@ public partial class Table<TItem>
             Utility.Reset(SearchModel, CreateSearchModel());
         }
 
-        PageIndex = 1;
-        await QueryAsync();
+        await SearchClick();
         await ToggleLoading(false);
     }
 
