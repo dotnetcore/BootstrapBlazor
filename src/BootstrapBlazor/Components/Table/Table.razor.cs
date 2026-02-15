@@ -22,6 +22,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <para lang="en">Gets or sets whether to auto search on fuzzy search bar input. Default false</para>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，直接删除即可。Deprecated, please remove this parameter directly.")]
+    [ExcludeFromCodeCoverage]
     public bool AutoSearchOnInput { get; set; }
 
     /// <summary>

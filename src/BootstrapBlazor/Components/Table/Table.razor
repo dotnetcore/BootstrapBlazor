@@ -197,18 +197,18 @@
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
                                         <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
-                                                        Value="@SearchText" SkipValidate="true"
+                                                        @bind-Value="@SearchText" SkipValidate="true"
                                                         OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync"
-                                                        ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                                        ShowLabel="false">
                                         </BootstrapInput>
                                     </Tooltip>
                                 }
                                 else
                                 {
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
-                                                    Value="@SearchText" SkipValidate="true"
+                                                    @bind-Value="@SearchText" SkipValidate="true"
                                                     OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync"
-                                                    ShowLabel="false" UseInputEvent="AutoSearchOnInput">
+                                                    ShowLabel="false">
                                     </BootstrapInput>
                                 }
                             }
@@ -1050,18 +1050,18 @@
                         {
                             <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
                                 <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
-                                                Value="@SearchText"
+                                                @bind-Value="@SearchText"
                                                 OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync"
-                                                ShowLabel="false" SkipValidate="true" UseInputEvent="AutoSearchOnInput">
+                                                ShowLabel="false" SkipValidate="true">
                                 </BootstrapInput>
                             </Tooltip>
                         }
                         else
                         {
                             <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText"
-                                            Value="@SearchText"
+                                            @bind-Value="@SearchText"
                                             OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync"
-                                            ShowLabel="false" SkipValidate="true" UseInputEvent="AutoSearchOnInput">
+                                            ShowLabel="false" SkipValidate="true">
                             </BootstrapInput>
                         }
                     }

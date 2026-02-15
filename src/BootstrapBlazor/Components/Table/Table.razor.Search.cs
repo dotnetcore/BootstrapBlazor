@@ -168,7 +168,6 @@ public partial class Table<TItem>
 
     private async Task OnEnterAsync(string? v)
     {
-        SearchText = v;
         await SearchClick();
     }
 
