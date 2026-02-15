@@ -168,7 +168,6 @@ public partial class Table<TItem>
 
     private async Task OnEnterAsync(string? v)
     {
-        SearchText = v;
         await SearchClick();
     }
 
@@ -313,16 +312,6 @@ public partial class Table<TItem>
     /// <para lang="en">Assemble IFilterAction collection using <see cref="ITableColumn.Searchable"/> columns and <see cref="SearchText"/></para>
     /// </summary>
     protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
-
-    private async Task OnSearchTextValueChanged(string? value)
-    {
-        SearchText = value;
-
-        if (AutoSearchOnValueChanged)
-        {
-            await SearchClick();
-        }
-    }
 
     /// <summary>
     /// <para lang="zh">点击重置搜索按钮时调用此方法</para>

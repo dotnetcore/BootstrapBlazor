@@ -18,20 +18,6 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 模糊搜索栏输入时是否自动搜索 默认值 false</para>
-    /// <para lang="en">Gets or sets whether to auto search on fuzzy search bar input. Default false</para>
-    /// </summary>
-    [Parameter]
-    public bool AutoSearchOnInput { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 模糊搜索栏文本更新后是否自动搜索 默认值 false</para>
-    /// <para lang="en">Gets or sets whether to auto search when fuzzy search bar value changed. Default false</para>
-    /// </summary>
-    [Parameter]
-    public bool AutoSearchOnValueChanged { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容</para>
     /// <para lang="en">Gets or sets Not Supported Column Filter Message. Default null (Read from resource file)</para>
     /// </summary>
