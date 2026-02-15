@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -166,6 +165,18 @@ public partial class Table<TItem>
         PageIndex = 1;
         await QueryAsync();
         await ToggleLoading(false);
+    }
+
+    private async Task OnEnterAsync(string? v)
+    {
+        SearchText = v;
+        await SearchClick();
+    }
+
+    private async Task OnEscAsync(string? v)
+    {
+        SearchText = null;
+        await ResetSearchClick();
     }
 
     /// <summary>
