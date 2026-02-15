@@ -324,8 +324,8 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// <para lang="zh">重置搜索按钮调用此方法</para>
-    /// <para lang="en">Reset Search Button Click Method</para>
+    /// <para lang="zh">点击重置搜索按钮时调用此方法</para>
+    /// <para lang="en">Method called when the reset search button is clicked</para>
     /// </summary>
     protected async Task ClearSearchClick()
     {
