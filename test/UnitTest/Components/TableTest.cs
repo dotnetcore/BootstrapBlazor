@@ -408,10 +408,10 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var searchBox = cut.Find(".table-toolbar-search");
-        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
-        await cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
-        await cut.InvokeAsync(() => searchBox.Change("0"));
+        var searchBox = cut.FindComponents<BootstrapInput<string?>>().FirstOrDefault(i => i.Markup.Contains("table-toolbar-search"));
+        Assert.NotNull(searchBox);
+        await cut.InvokeAsync(() => searchBox.Instance.EnterCallback());
+        await cut.InvokeAsync(() => searchBox.Instance.EscCallback());
         Assert.True(resetSearch);
     }
 
