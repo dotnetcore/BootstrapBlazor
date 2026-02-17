@@ -60,7 +60,7 @@
     <PackageReference Include="BootstrapBlazor.Middleware" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.OctIcon" Version="10.0.1" />
+    <PackageReference Include="BootstrapBlazor.OctIcon" Version="10.0.2" />
     <PackageReference Include="BootstrapBlazor.OfficeViewer" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.OpcDa" Version="10.0.0" />
