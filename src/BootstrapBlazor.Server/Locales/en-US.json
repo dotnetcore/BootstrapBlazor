@@ -373,6 +373,7 @@
     "Services": "Services",
     "ShieldBadge": "ShieldBadge",
     "SignaturePad": "SignaturePad",
+    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
     "Skeleton": "Skeleton",
     "SlideButton": "SlideButton",
     "Slider": "Slider",
@@ -4544,6 +4545,7 @@
     "TablesColumnTitle": "Table Column"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnList": {
+    "IsPopoverToolbarDropdownButtonDesc": "The <code>IsPopoverToolbarDropdownButton</code> parameter controls whether the column list is displayed as a popover or a dropdown menu. The default value is <code>false</code>, which means it is displayed as a dropdown menu. When set to <code>true</code>, it is displayed as a popover.",
     "ResetVisibleColumnsButtonText": "Set Columns",
     "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
     "ShowColumnListControlsDesc": "The <code>ShowColumnListControls</code> setting controls whether the column dropdown list displays control buttons. The built-in control buttons are <code>All</code> and <code>Invert</code>.",
@@ -4559,7 +4561,6 @@
     "ShownWithBreakPointP4": "Because the <code>Table</code> component supports mobile adaptation by default, the card mode is used for small screens. In this example, the explicit setting uses <code>RenderMode=\"TableRenderMode. Table\"</code> mode",
     "ShownWithBreakPointTitle": "Automatically show/hide columns based on screen width",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
-    "IsPopoverToolbarDropdownButtonDesc": "The <code>IsPopoverToolbarDropdownButton</code> parameter controls whether the column list is displayed as a popover or a dropdown menu. The default value is <code>false</code>, which means it is displayed as a dropdown menu. When set to <code>true</code>, it is displayed as a popover.",
     "TablesColumnTitle": "Table Column",
     "VisibleIntro": "Set whether the column is displayed by specifying the <code>ShowColumnList</code> attribute",
     "VisibleP1": "<code>ShowColumnList</code> The default value is false, and if it is explicitly specified as true, the corresponding column adjustment button will appear in the toolbar",
