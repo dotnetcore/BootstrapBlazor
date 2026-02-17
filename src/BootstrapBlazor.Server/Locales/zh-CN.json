@@ -599,6 +599,7 @@
   "BootstrapBlazor.Server.Components.Pages.Localization": {
     "AdditionalJsonFile": "额外本地化语言 <code>json</code> 文件",
     "ES": "西班牙语（es）",
+    "IT": "意大利（it-IT）",
     "LocalizationFileDesc": "组件内置本地化资源文件为 <code>en</code> <code>zh</code> 由网友提供的其他本地化资源文件 <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> 放置在项目文件夹 <code>localization</code> 内，可自行下载通过注入服务引入到项目中",
     "N1": "本地化在组件中的工作原理",
     "N10": "组件内置本地化语言回退机制，如请求文化为",
@@ -666,16 +667,15 @@
     "P1": "本地化是为给定语言和地区定制应用程序的过程.",
     "P2": "组件允许您将其 UI 元素转换为所需的语言。这包括按钮、过滤器操作符属性等文本。组件内部默认使用当前请求",
     "P3": "文化语言，本文将向您展示如何在应用程序中使用此功能",
+    "RU": "俄语（ru-RU）",
     "T1": "阅读以下知识点前请先查看",
     "T2": "微软官方文档",
     "T3": "由于",
     "T4": "模式无法获取系统语言文化信息，默认文化信息为",
+    "TH": "泰语（th-TH）",
     "Title": "本地化",
     "TW": "中國台灣（zh-TW）",
-    "RU": "俄语（ru-RU）",
-    "TH": "泰语（th-TH）",
-    "UK": "乌克兰语（uk-UA）",
-    "IT": "意大利（it-IT）"
+    "UK": "乌克兰语（uk-UA）"
   },
   "BootstrapBlazor.Server.Components.Pages.Online": {
     "Browser": "浏览器",
