@@ -661,7 +661,7 @@
     "N63": "Ignore the loss of localized key-value culture information",
     "N7": "English (en)",
     "N8": "German (de)",
-    "N9": "Portuguese (pu)",
+    "N9": "Portuguese (pt)",
     "P1": "Localization is the process of customizing an application for a given language and region.",
     "P2": "A component allows you to translate its UI elements into the desired language. This includes text for buttons, filter operator properties, etc. The component uses the current request by default",
     "P3": "Culture language, this article will show you how to use this feature in your app",
