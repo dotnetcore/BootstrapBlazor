@@ -671,7 +671,11 @@
     "T3": "由于",
     "T4": "模式无法获取系统语言文化信息，默认文化信息为",
     "Title": "本地化",
-    "TW": "中國台灣（zh-TW）"
+    "TW": "中國台灣（zh-TW）",
+    "RU": "俄语（ru-RU）",
+    "TH": "泰语（th-TH）",
+    "UK": "乌克兰语（uk-UA）",
+    "IT": "意大利（it-IT）"
   },
   "BootstrapBlazor.Server.Components.Pages.Online": {
     "Browser": "浏览器",

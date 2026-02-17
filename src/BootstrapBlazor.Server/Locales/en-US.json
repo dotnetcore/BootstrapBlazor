@@ -671,7 +671,11 @@
     "T3": "because",
     "T4": "The mode cannot obtain the system language and culture information, the default culture information is",
     "Title": "Localization",
-    "TW": "中國台灣 (zh-TW)"
+    "TW": "中國台灣 (zh-TW)",
+    "RU": "Russian（ru-RU）",
+    "TH": "Thai（th-TH）",
+    "UK": "Ukrainian（uk-UA）",
+    "IT": "Italian（it-IT）"
   },
   "BootstrapBlazor.Server.Components.Pages.Online": {
     "Browser": "Browser",
