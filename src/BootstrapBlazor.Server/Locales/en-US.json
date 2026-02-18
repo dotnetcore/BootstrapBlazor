@@ -373,6 +373,7 @@
     "Services": "Services",
     "ShieldBadge": "ShieldBadge",
     "SignaturePad": "SignaturePad",
+    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
     "Skeleton": "Skeleton",
     "SlideButton": "SlideButton",
     "Slider": "Slider",
@@ -598,6 +599,7 @@
   "BootstrapBlazor.Server.Components.Pages.Localization": {
     "AdditionalJsonFile": "Additional <code>json</code> localization file",
     "ES": "Spanish (es)",
+    "IT": "Italian（it-IT）",
     "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service",
     "N1": "How localization works in components",
     "N10": "The component has a built-in localization language fallback mechanism. For example, the request culture is",
@@ -661,16 +663,19 @@
     "N63": "Ignore the loss of localized key-value culture information",
     "N7": "English (en)",
     "N8": "German (de)",
-    "N9": "Portuguese (pu)",
+    "N9": "Portuguese (pt)",
     "P1": "Localization is the process of customizing an application for a given language and region.",
     "P2": "A component allows you to translate its UI elements into the desired language. This includes text for buttons, filter operator properties, etc. The component uses the current request by default",
     "P3": "Culture language, this article will show you how to use this feature in your app",
+    "RU": "Russian（ru-RU）",
     "T1": "Please check before reading the following knowledge points",
     "T2": "Microsoft Official Documentation",
     "T3": "because",
     "T4": "The mode cannot obtain the system language and culture information, the default culture information is",
+    "TH": "Thai（th-TH）",
     "Title": "Localization",
-    "TW": "中國台灣 (zh-TW)"
+    "TW": "中國台灣 (zh-TW)",
+    "UK": "Ukrainian（uk-UA）"
   },
   "BootstrapBlazor.Server.Components.Pages.Online": {
     "Browser": "Browser",
@@ -4544,6 +4549,7 @@
     "TablesColumnTitle": "Table Column"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnList": {
+    "IsPopoverToolbarDropdownButtonDesc": "The <code>IsPopoverToolbarDropdownButton</code> parameter controls whether the column list is displayed as a popover or a dropdown menu. The default value is <code>false</code>, which means it is displayed as a dropdown menu. When set to <code>true</code>, it is displayed as a popover.",
     "ResetVisibleColumnsButtonText": "Set Columns",
     "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
     "ShowColumnListControlsDesc": "The <code>ShowColumnListControls</code> setting controls whether the column dropdown list displays control buttons. The built-in control buttons are <code>All</code> and <code>Invert</code>.",
@@ -4559,7 +4565,6 @@
     "ShownWithBreakPointP4": "Because the <code>Table</code> component supports mobile adaptation by default, the card mode is used for small screens. In this example, the explicit setting uses <code>RenderMode=\"TableRenderMode. Table\"</code> mode",
     "ShownWithBreakPointTitle": "Automatically show/hide columns based on screen width",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
-    "IsPopoverToolbarDropdownButtonDesc": "The <code>IsPopoverToolbarDropdownButton</code> parameter controls whether the column list is displayed as a popover or a dropdown menu. The default value is <code>false</code>, which means it is displayed as a dropdown menu. When set to <code>true</code>, it is displayed as a popover.",
     "TablesColumnTitle": "Table Column",
     "VisibleIntro": "Set whether the column is displayed by specifying the <code>ShowColumnList</code> attribute",
     "VisibleP1": "<code>ShowColumnList</code> The default value is false, and if it is explicitly specified as true, the corresponding column adjustment button will appear in the toolbar",
