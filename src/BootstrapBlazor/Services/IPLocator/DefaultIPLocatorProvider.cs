@@ -46,7 +46,6 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// </summary>
     public string? Key { get; set; }
 
-
     /// <summary>
     /// <inheritdoc cref="IIpLocatorProvider.LastError"/>
     /// </summary>
