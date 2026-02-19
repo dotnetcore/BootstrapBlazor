@@ -42,7 +42,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     private readonly List<string> _localhostList = [.. new[] { "::1", "127.0.0.1" }];
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IIpLocatorProvider.Key"/>
     /// </summary>
     public string? Key { get; set; }
 
