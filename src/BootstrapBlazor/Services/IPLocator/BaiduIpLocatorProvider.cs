@@ -60,8 +60,25 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
     /// <param name="token"></param>
     protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
-        var result = await client.GetFromJsonAsync<LocationResult>(url, token);
-        return result?.ToString();
+        string? ret = null;
+        try
+        {
+            var result = await client.GetFromJsonAsync<LocationResult>(url, token);
+            if (result is { Status: "0" })
+            {
+                var location = result.Data.FirstOrDefault();
+                if (location != null)
+                {
+                    ret = location.Location;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            LastError = ex.Message;
+        }
+
+        return ret;
     }
 
     /// <summary>
@@ -81,22 +98,7 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
         /// <para lang="zh">获得/设置 定位信息</para>
         /// <para lang="en">Gets or sets Location Info</para>
         /// </summary>
-        public List<LocationData>? Data { get; set; }
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// <para lang="en"><inheritdoc/></para>
-        /// </summary>
-        /// <returns></returns>
-        public override string? ToString()
-        {
-            string? ret = null;
-            if (Status == "0")
-            {
-                ret = Data?.FirstOrDefault()?.Location;
-            }
-            return ret;
-        }
+        public List<LocationData> Data { get; set; } = [];
     }
 
     [ExcludeFromCodeCoverage]
