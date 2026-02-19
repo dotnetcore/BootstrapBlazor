@@ -46,6 +46,12 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// </summary>
     public string? Key { get; set; }
 
+
+    /// <summary>
+    /// <inheritdoc cref="IIpLocatorProvider.LastError"/>
+    /// </summary>
+    public string? LastError { get; protected set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -53,6 +59,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     public async Task<string?> Locate(string? ip)
     {
         string? ret = null;
+        LastError = null;
 
         // 解析本机地址
         if (string.IsNullOrEmpty(ip) || _localhostList.Any(p => p == ip))
