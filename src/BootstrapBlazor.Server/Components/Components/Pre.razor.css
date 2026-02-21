@@ -1,4 +1,4 @@
-﻿.pre-code {
+.pre-code {
     position: relative;
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
@@ -22,7 +22,6 @@
     .pre-code > pre {
         color: #e83e8c;
         margin-bottom: 0;
-        max-height: 260px;
     }
 
 ::deep .btn-group {
