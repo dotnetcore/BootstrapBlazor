@@ -4609,7 +4609,7 @@
     "TableColumnTitle": "自定义列数据模板",
     "TablesColumnDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
     "TablesColumnTitle": "Table 表格",
-    "TableTemplateTips": "特别注意：在使用 <b>列模板</b> 时，实际的应用场景经常遇到几列或者多列需要联动的情况，此时直接将联动的组件放置到 <code>EditTemplate</code> 内时是无法完成联动的，正确的做法是将需要联动小组件独立成一个组件，在此组件内部完成联动",
+    "TableTemplateTips": "特别注意：在使用 <b>列模板</b> 时，实际的应用场景经常遇到几列或者多列需要联动的情况，此时直接将联动的组件放置到 <code>EditTemplate</code> 内时可能无法完成联动的，推荐的做法是将需要联动的属性独立成一个组件，在此组件内部完成联动",
     "TemplateIntro": "通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮",
     "TemplateTitle": "自定义列模板"
   },

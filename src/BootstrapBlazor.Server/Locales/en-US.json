@@ -4609,7 +4609,7 @@
     "TableColumnTitle": "Custom Column Data Template",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "TablesColumnTitle": "Table Column",
-    "TableTemplateTips": "Special attention: When using the <b>Template</b>, practical application scenarios often encounter situations where several or more columns need to be linked. In this case, directly placing the linked components into the <code>EditTemplate</code> cannot complete the linkage. The correct approach is to separate the small components that need to be linked into a separate component and complete the linkage within this component",
+    "TableTemplateTips": "Special Note: When using column templates, real-world applications often encounter situations where several or more columns need to be linked. In such cases, directly placing the linked component within an <code>EditTemplate</code> may not achieve the desired linkage. The recommended approach is to create a separate component for the attributes that need to be linked and implement the linkage within that component.",
     "TemplateIntro": "By specifying <code>Template</code> set the last column to display as a custom button",
     "TemplateTitle": "Custom Column Template"
   },
