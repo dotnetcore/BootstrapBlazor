@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.HikVision" Version="10.0.10" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.4" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="10.0.5" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.1" />
