@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -48,10 +48,12 @@ internal class MockDisconnectServerService(ILogger<MockDisconnectServerService> 
                 await stream.WriteAsync(Encoding.UTF8.GetBytes(DateTime.Now.ToString("yyyyMMddHHmmss")), stoppingToken);
                 await Task.Delay(2000, stoppingToken);
 
-                // 主动关闭连接
+                // 主动关闭连接（关闭后 stream 已释放，必须退出循环）
                 client.Close();
+                break;
             }
             catch (OperationCanceledException) { break; }
+            catch (ObjectDisposedException) { break; }
             catch (IOException) { break; }
             catch (SocketException) { break; }
             catch (Exception ex)
