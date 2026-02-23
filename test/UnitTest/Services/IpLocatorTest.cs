@@ -39,6 +39,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         option.Value.IpLocatorOptions.ProviderName = nameof(BaiduIpLocatorProvider);
         await provider.Locate("223.91.188.112");
         Assert.Equal("美国", result);
+        Assert.Null(provider.LastError);
     }
 
     [Fact]
