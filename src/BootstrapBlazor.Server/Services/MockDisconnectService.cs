@@ -55,6 +55,7 @@ internal class MockDisconnectServerService(ILogger<MockDisconnectServerService> 
             catch (OperationCanceledException) { break; }
             catch (IOException) { break; }
             catch (SocketException) { break; }
+            catch (ObjectDisposedException) { break; }
             catch (Exception ex)
             {
                 logger.LogError(ex, "MockDisconnectServerService encountered an error while sending data.");
