@@ -71,6 +71,11 @@ public partial class Locators
         {
             var provider = IpLocatorFactory.Create(ProviderName);
             Location = await provider.Locate(Ip);
+
+            if (!string.IsNullOrEmpty(provider.LastError))
+            {
+                Location = provider.LastError;
+            }
         }
     }
 
