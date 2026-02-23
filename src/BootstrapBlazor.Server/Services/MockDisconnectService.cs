@@ -48,8 +48,9 @@ internal class MockDisconnectServerService(ILogger<MockDisconnectServerService> 
                 await stream.WriteAsync(Encoding.UTF8.GetBytes(DateTime.Now.ToString("yyyyMMddHHmmss")), stoppingToken);
                 await Task.Delay(2000, stoppingToken);
 
-                // 主动关闭连接
+                // 主动关闭连接（关闭后 stream 已释放，必须退出循环）
                 client.Close();
+                break;
             }
             catch (OperationCanceledException) { break; }
             catch (IOException) { break; }
