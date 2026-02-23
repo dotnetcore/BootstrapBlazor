@@ -53,7 +53,6 @@ internal class MockDisconnectServerService(ILogger<MockDisconnectServerService> 
                 break;
             }
             catch (OperationCanceledException) { break; }
-            catch (ObjectDisposedException) { break; }
             catch (IOException) { break; }
             catch (SocketException) { break; }
             catch (Exception ex)
