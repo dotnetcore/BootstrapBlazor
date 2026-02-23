@@ -86,6 +86,19 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         Assert.Null(result);
     }
 
+    [Fact]
+    public async Task Fetch_Exception()
+    {
+        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
+        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        option.Value.IpLocatorOptions.EnableCache = false;
+        var logger = Context.Services.GetRequiredService<ILogger<MockErrorProvider>>();
+        var provider = new MockErrorProvider(factory, option, logger);
+        var result = await provider.Locate("223.91.188.112");
+        Assert.Null(result);
+        Assert.NotNull(provider.LastError);
+    }
+
     class MockProviderFetchError(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProviderFetchError> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
     {
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token) => throw new InvalidOperationException();
@@ -114,6 +127,23 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         }
     }
 
+    class MockErrorProvider(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockErrorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
+    {
+        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
+        {
+            client = new HttpClient(new MockHttpExceptionMessageHandler(), true);
+            return base.Fetch(url, client, token);
+        }
+    }
+
+    class MockHttpExceptionMessageHandler : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            throw new Exception("error test");
+        }
+    }
+
     class MockHttpNullMessageHandler : HttpMessageHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -132,39 +162,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent("{\"status\":\"0\",\"t\":\"\",\"set_cache_time\":\"\",\"data\":[{\"ExtendedLocation\":\"\",\"OriginQuery\":\"20.205.243.166\",\"appinfo\":\"\",\"disp_type\":0,\"fetchkey\":\"20.205.243.166\",\"location\":\"美国\",\"origip\":\"20.205.243.166\",\"origipquery\":\"20.205.243.166\",\"resourceid\":\"6006\",\"role_id\":0,\"shareImage\":1,\"showLikeShare\":1,\"showlamp\":\"1\",\"titlecont\":\"IP地址查询\",\"tplt\":\"ip\"}]}")
-            });
-        }
-    }
-
-    class MockHttpSuccessMessageHandlerV2 : HttpMessageHandler
-    {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent("{\"code\":\"Success\",\"data\": {\"country\": \"中国\", \"prov\":\"省份\", \"city\":\"城市\", \"district\":\"区县\", \"isp\": \"测试\"}}")
-            });
-        }
-    }
-
-    class MockHttpSuccessMessageHandlerJuHe : HttpMessageHandler
-    {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent("{\"reason\": \"查询成功\", \"error_code\": 0, \"result\": {\"country\": \"中国\", \"prov\":\"省份\", \"city\":\"城市\", \"district\":\"区县\", \"isp\": \"测试\"}}")
-            });
-        }
-    }
-
-    class MockHttpFailedMessageHandlerJuHe : HttpMessageHandler
-    {
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent("{\"reason\": \"错误的请求KEY\", \"error_code\": 10001, \"result\": null}")
             });
         }
     }
