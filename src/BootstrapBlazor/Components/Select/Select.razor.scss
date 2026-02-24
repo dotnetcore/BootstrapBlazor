@@ -125,7 +125,7 @@
 
 .select,
 .auto-complete {
-    --bb-select-append-right: 0;
+    --bb-select-append-right: #{$bb-select-append-right};
 
     .clear-icon {
         position: absolute;
