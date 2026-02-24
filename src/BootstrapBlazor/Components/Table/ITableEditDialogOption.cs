@@ -134,6 +134,12 @@ public interface ITableEditDialogOption<TModel>
     RenderFragment<TModel>? DialogFooterTemplate { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 使用全局配置设置值 <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// </summary>
+    bool? ShowConfirmCloseSwal { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>
     /// <para lang="en">Gets or sets Close Confirm Dialog Title</para>
     /// </summary>
