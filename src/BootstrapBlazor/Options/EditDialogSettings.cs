@@ -12,8 +12,8 @@ namespace BootstrapBlazor.Components;
 public class EditDialogSettings
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 使用全局配置设置值 <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
-    /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 未配置</para>
+    /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null</para>
     /// </summary>
     public bool? ShowConfirmCloseSwal { get; set; }
 }
