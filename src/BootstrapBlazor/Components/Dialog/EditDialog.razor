@@ -4,6 +4,7 @@
 @attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" LabelWidth="@LabelWidth"
+              OnFieldValueChanged="OnFieldValueChanged"
               DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     <CascadingValue Value="ItemChangedType" IsFixed="true">
         @if (BodyTemplate != null)

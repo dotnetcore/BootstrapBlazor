@@ -65,8 +65,8 @@ public partial class EditDialog<TModel>
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 获得/设置 重置按钮文本</para>
-    /// <para lang="en">Gets or sets Reset Button Text</para>
+    /// <para lang="zh">获得/设置 关闭按钮文本</para>
+    /// <para lang="en">Gets or sets Close Button Text</para>
     /// </summary>
     [Parameter]
     public string? CloseButtonText { get; set; }
@@ -99,8 +99,18 @@ public partial class EditDialog<TModel>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 使用全局配置设置值 <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// </summary>
+    [Parameter]
+    public bool? ShowConfirmCloseSwal { get; set; }
+
     [CascadingParameter]
     private Func<Task>? CloseAsync { get; set; }
+
+    [CascadingParameter]
+    private Modal? Modal { get; set; }
 
     [Inject]
     [NotNull]
@@ -108,7 +118,26 @@ public partial class EditDialog<TModel>
 
     [Inject]
     [NotNull]
+    private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    [Inject, NotNull]
+    private SwalService? SwalService { get; set; }
+
+    [Inject]
+    [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private bool _hasFieldValueChanged;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Modal?.RegisterOnClosingCallback(OnClosingCallback);
+    }
 
     /// <summary>
     /// <para lang="zh">OnParametersSet 方法</para>
@@ -125,6 +154,23 @@ public partial class EditDialog<TModel>
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
     }
 
+    private async Task<bool> OnClosingCallback()
+    {
+        var ret = true;
+        if (BootstrapBlazorOptions.Value.GetEditDialogShowConfirmSwal(ShowConfirmCloseSwal, _hasFieldValueChanged))
+        {
+            var op = new SwalOption()
+            {
+                Title = Localizer["CloseConfirmTitle"],
+                Content = Localizer["CloseConfirmContent"],
+                Category = SwalCategory.Question,
+            };
+            ret = await SwalService.ShowModal(op);
+        }
+
+        return ret;
+    }
+
     private async Task OnValidSubmitAsync(EditContext context)
     {
         if (OnSaveAsync != null)
@@ -133,11 +179,21 @@ public partial class EditDialog<TModel>
             var save = await OnSaveAsync(context);
             await ToggleLoading(false);
 
+            if (save)
+            {
+                _hasFieldValueChanged = false;
+            }
+
             if (save && CloseAsync != null)
             {
                 await CloseAsync();
             }
         }
+    }
+
+    private void OnFieldValueChanged(string fieldName, object? value)
+    {
+        _hasFieldValueChanged = true;
     }
 
     /// <summary>
@@ -178,4 +234,18 @@ public partial class EditDialog<TModel>
             builder.CloseComponent();
         }
     };
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Modal?.UnRegisterOnClosingCallback(OnClosingCallback);
+        }
+
+        await base.DisposeAsync(disposing);
+    }
 }
