@@ -46,5 +46,5 @@ public static class BootstrapBlazorOptionsExtensions
     /// <param name="options">The BootstrapBlazorOptions instance</param>
     /// <param name="value">The default value</param>
     /// <param name="modified">Indicates whether the value has been modified</param>
-    public static bool GetEditDialogShowConfirmSwal(this BootstrapBlazorOptions options, bool? value, bool modified) => (value ?? options.EditDialogSettings.ShowConfirmCloseSwal ?? false) && modified;
+    public static bool GetEditDialogShowConfirmSwal(this BootstrapBlazorOptions options, bool? value, bool modified) => (value ?? options.EditDialogSettings.ShowCloseConfirm ?? false) && modified;
 }

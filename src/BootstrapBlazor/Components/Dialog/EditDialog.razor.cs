@@ -118,7 +118,7 @@ public partial class EditDialog<TModel>
     /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
     /// </summary>
     [Parameter]
-    public bool? ShowConfirmCloseSwal { get; set; }
+    public bool? ShowCloseConfirm { get; set; }
 
     [CascadingParameter]
     private Func<Task>? CloseAsync { get; set; }
@@ -174,7 +174,7 @@ public partial class EditDialog<TModel>
     private async Task<bool> OnClosingCallback()
     {
         var ret = true;
-        if (BootstrapBlazorOptions.Value.GetEditDialogShowConfirmSwal(ShowConfirmCloseSwal, _hasFieldValueChanged))
+        if (BootstrapBlazorOptions.Value.GetEditDialogShowConfirmSwal(ShowCloseConfirm, _hasFieldValueChanged))
         {
             var op = new SwalOption()
             {

@@ -34,7 +34,7 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.CloseButtonIcon)] = option.CloseButtonIcon,
         [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
         [nameof(EditDialog<TModel>.SaveButtonIcon)] = option.SaveButtonIcon,
-        [nameof(EditDialog<TModel>.ShowConfirmCloseSwal)] = option.ShowConfirmCloseSwal,
+        [nameof(EditDialog<TModel>.ShowCloseConfirm)] = option.ShowConfirmCloseSwal,
         [nameof(EditDialog<TModel>.CloseConfirmTitle)] = option.CloseConfirmTitle,
         [nameof(EditDialog<TModel>.CloseConfirmContent)] = option.CloseConfirmContent,
         [nameof(EditDialog<TModel>.Model)] = option.Model,

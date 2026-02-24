@@ -325,7 +325,7 @@ public class TableDialogTest : TableDialogTestBase
         var table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
         {
-            pb.Add(a => a.ShowConfirmCloseSwal, true);
+            pb.Add(a => a.ShowCloseConfirm, true);
         });
         var add = cut.Find(".table-toolbar button");
         await cut.InvokeAsync(() => add.Click());

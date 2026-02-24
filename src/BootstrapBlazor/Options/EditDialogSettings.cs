@@ -15,5 +15,5 @@ public class EditDialogSettings
     /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 未配置</para>
     /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null</para>
     /// </summary>
-    public bool? ShowConfirmCloseSwal { get; set; }
+    public bool? ShowCloseConfirm { get; set; }
 }

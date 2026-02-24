@@ -253,7 +253,7 @@ public partial class Table<TItem>
     /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
     /// </summary>
     [Parameter]
-    public bool? ShowConfirmCloseSwal { get; set; }
+    public bool? ShowCloseConfirm { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>

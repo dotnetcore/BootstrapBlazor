@@ -969,7 +969,7 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             FullScreenSize = EditDialogFullScreenSize,
-            ShowConfirmCloseSwal = ShowConfirmCloseSwal,
+            ShowConfirmCloseSwal = ShowCloseConfirm,
             CloseConfirmTitle = CloseConfirmTitle,
             CloseConfirmContent = CloseConfirmContent,
             OnCloseAsync = async () =>
@@ -1000,7 +1000,7 @@ public partial class Table<TItem>
         var saved = false;
         var editOption = new TableEditDrawerOption<TItem>()
         {
-            ShowConfirmCloseSwal = ShowConfirmCloseSwal,
+            ShowConfirmCloseSwal = ShowCloseConfirm,
             CloseConfirmTitle = CloseConfirmTitle,
             CloseConfirmContent = CloseConfirmContent,
             OnCloseAsync = async () =>
