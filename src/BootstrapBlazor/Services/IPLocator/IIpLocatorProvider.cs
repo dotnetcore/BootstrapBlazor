@@ -23,4 +23,10 @@ public interface IIpLocatorProvider
     /// </summary>
     /// <param name="ip"></param>
     Task<string?> Locate(string? ip);
+
+    /// <summary>
+    /// <para lang="zh">获得 上次错误描述信息</para>
+    /// <para lang="en">Get the previous error detail</para>
+    /// </summary>
+    string? LastError { get; }
 }
