@@ -50,6 +50,20 @@ public partial class EditDialog<TModel>
     public string? SaveButtonText { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Title</para>
+    /// </summary>
+    [Parameter]
+    public string? CloseConfirmTitle { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗内容</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Content</para>
+    /// </summary>
+    [Parameter]
+    public string? CloseConfirmContent { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗</para>
     /// <para lang="en">Gets or sets Save Callback Delegate. Return false to keep edit dialog, true to close it</para>
     /// </summary>
@@ -152,6 +166,9 @@ public partial class EditDialog<TModel>
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
+
+        CloseConfirmTitle ??= Localizer[nameof(CloseConfirmTitle)];
+        CloseConfirmContent ??= Localizer[nameof(CloseConfirmContent)];
     }
 
     private async Task<bool> OnClosingCallback()
@@ -161,8 +178,8 @@ public partial class EditDialog<TModel>
         {
             var op = new SwalOption()
             {
-                Title = Localizer["CloseConfirmTitle"],
-                Content = Localizer["CloseConfirmContent"],
+                Title = CloseConfirmTitle,
+                Content = CloseConfirmContent,
                 Category = SwalCategory.Question,
             };
             ret = await SwalService.ShowModal(op);
