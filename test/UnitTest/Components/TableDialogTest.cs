@@ -379,20 +379,20 @@ public class TableDialogTest : TableDialogTestBase
     {
         Title = "test-dialog-table",
         Component = BootstrapDynamicComponent.CreateComponent<Table<Foo>>(new Dictionary<string, object?>()
-            {
-                {"RenderMode",  TableRenderMode.Table},
-                {"Items", items},
-                {"EditDialog", dialog},
-                {"IsMultipleSelect", true},
-                {"ShowToolbar", true },
-                {"TableColumns", new RenderFragment<Foo>(foo => builder =>
-                    {
-                        builder.OpenComponent<TableColumn<Foo, string>>(0);
-                        builder.AddAttribute(1, "Field", "Name");
-                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                        builder.CloseComponent();
-                    })
-                }
-            })
+        {
+            {"RenderMode",  TableRenderMode.Table},
+            {"Items", items},
+            {"EditDialog", dialog},
+            {"IsMultipleSelect", true},
+            {"ShowToolbar", true },
+            {"TableColumns", new RenderFragment<Foo>(foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                })
+            }
+        })
     });
 }
