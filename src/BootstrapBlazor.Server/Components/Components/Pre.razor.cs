@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the Apache 2.0 License
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
@@ -53,6 +53,12 @@ public partial class Pre
     [Parameter]
     public bool ShowToolbar { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组件高度 默认 null 不设置高度
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Pre>? Localizer { get; set; }
@@ -66,6 +72,12 @@ public partial class Pre
     private string? MinusTooltipTitle { get; set; }
 
     private string? CopiedText { get; set; }
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddClass("max-height: 260px;", string.IsNullOrEmpty(Height))
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>

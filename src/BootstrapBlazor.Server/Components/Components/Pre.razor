@@ -1,4 +1,4 @@
-﻿@inherits WebSiteModuleComponentBase
+@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/Pre.razor.js")]
 @inject IOptions<WebsiteOptions> WebsiteOption
 
@@ -6,7 +6,7 @@
     <p class="loading">@LoadingText</p>
     @if (Loaded)
     {
-        <pre class="scroll"><code>@ChildContent</code></pre>
+        <pre class="scroll" style="@StyleString"><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
             @if (ShowToolbar)
