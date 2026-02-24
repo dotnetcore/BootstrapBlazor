@@ -40,6 +40,8 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.EditDialogLabelWidth, 200);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.CloseConfirmTitle, "close-confirm-title");
+                pb.Add(a => a.CloseConfirmContent, "close-confirm-content");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
