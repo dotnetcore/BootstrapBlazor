@@ -249,6 +249,20 @@ public partial class Table<TItem>
     public IDataService<TItem>? DataService { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Title</para>
+    /// </summary>
+    [Parameter]
+    public string? CloseConfirmTitle { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗内容</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Content</para>
+    /// </summary>
+    [Parameter]
+    public string? CloseConfirmContent { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 注入数据服务</para>
     /// <para lang="en">Gets or sets Injected Data Service</para>
     /// </summary>

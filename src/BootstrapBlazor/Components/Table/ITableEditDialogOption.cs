@@ -132,4 +132,16 @@ public interface ITableEditDialogOption<TModel>
     /// <para lang="en">Gets or sets EditDialog Footer template</para>
     /// </summary>
     RenderFragment<TModel>? DialogFooterTemplate { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Title</para>
+    /// </summary>
+    string? CloseConfirmTitle { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 关闭确认弹窗内容</para>
+    /// <para lang="en">Gets or sets Close Confirm Dialog Content</para>
+    /// </summary>
+    string? CloseConfirmContent { get; set; }
 }

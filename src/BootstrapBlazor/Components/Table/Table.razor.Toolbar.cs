@@ -969,6 +969,8 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             FullScreenSize = EditDialogFullScreenSize,
+            CloseConfirmTitle = CloseConfirmTitle,
+            CloseConfirmContent = CloseConfirmContent,
             OnCloseAsync = async () =>
             {
                 if (triggerFromSave == false && OnAfterCancelSaveAsync != null)
