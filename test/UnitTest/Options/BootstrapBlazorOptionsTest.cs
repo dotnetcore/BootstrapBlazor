@@ -134,4 +134,33 @@ public class BootstrapBlazorOptionsTest
 
         Assert.True(options.ModalSettings.IsFade);
     }
+
+    [Fact]
+    public void GetEditDialogShowConfirmSwal_Ok()
+    {
+        var options = new BootstrapBlazorOptions();
+        options.EditDialogSettings.ShowConfirmCloseSwal = null;
+        Assert.False(options.GetEditDialogShowConfirmSwal(null, false));
+        Assert.False(options.GetEditDialogShowConfirmSwal(null, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(true, false));
+        Assert.True(options.GetEditDialogShowConfirmSwal(true, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, false));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, true));
+
+        options.EditDialogSettings.ShowConfirmCloseSwal = false;
+        Assert.False(options.GetEditDialogShowConfirmSwal(null, false));
+        Assert.False(options.GetEditDialogShowConfirmSwal(null, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(true, false));
+        Assert.True(options.GetEditDialogShowConfirmSwal(true, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, false));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, true));
+
+        options.EditDialogSettings.ShowConfirmCloseSwal = true;
+        Assert.False(options.GetEditDialogShowConfirmSwal(null, false));
+        Assert.True(options.GetEditDialogShowConfirmSwal(null, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(true, false));
+        Assert.True(options.GetEditDialogShowConfirmSwal(true, true));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, false));
+        Assert.False(options.GetEditDialogShowConfirmSwal(false, true));
+    }
 }
