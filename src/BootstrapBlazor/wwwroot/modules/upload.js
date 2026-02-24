@@ -62,15 +62,20 @@ export function init(id) {
         const event = new Event('change', { bubbles: true })
         inputFile.dispatchEvent(event)
     })
-
     const getIndex = target => {
         let index = 0;
         let button = target;
+        let className = ".upload-item-body-image";
         if (button.tagName === 'IMG') {
+            button = button.closest('.upload-item').querySelector('.upload-item-body-image');
+            className = ".upload-item-body-image";
+        }
+        if (button.tagName === 'BUTTON') {
             button = button.closest('.upload-item').querySelector('.btn-zoom');
+            className = ".btn-zoom"; 
         }
         if (button) {
-            const buttons = [...el.querySelectorAll('.btn-zoom')]
+            const buttons = [...el.querySelectorAll(className)]
             index = buttons.indexOf(button);
         }
         return index;
