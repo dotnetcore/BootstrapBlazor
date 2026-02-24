@@ -999,6 +999,8 @@ public partial class Table<TItem>
         var saved = false;
         var editOption = new TableEditDrawerOption<TItem>()
         {
+            CloseConfirmTitle = CloseConfirmTitle,
+            CloseConfirmContent = CloseConfirmContent,
             OnCloseAsync = async () =>
             {
                 if (OnAfterCancelSaveAsync != null)
