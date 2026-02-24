@@ -323,12 +323,34 @@ public class TableDialogTest : TableDialogTestBase
 
         // 点击表格新建按钮
         var table = cut.FindComponent<Table<Foo>>();
+        table.Render(pb =>
+        {
+            pb.Add(a => a.ShowConfirmCloseSwal, true);
+        });
         var add = cut.Find(".table-toolbar button");
         await cut.InvokeAsync(() => add.Click());
 
         // 检查 dialog 是否显示
         var editDialog = cut.FindComponents<Dialog>().FirstOrDefault(i => i.Instance == dialog);
         Assert.NotNull(editDialog);
+
+        // 更新变化值
+        IRenderedComponent<ValidateForm> renderedComponent = cut.FindComponent<ValidateForm>();
+        var editForm = renderedComponent;
+        editForm.Instance.OnFieldValueChanged("Name", "Test_Name");
+
+        var modal = cut.FindComponent<Modal>();
+        // 弹出确认窗
+        _ = Task.Run(async () => await cut.InvokeAsync(() => modal.Instance.BeforeCloseCallback()));
+
+        // 模拟点击确认按钮
+        cut.WaitForAssertion(() => cut.Find(".swal2-actions"));
+        var closeButton = cut.Find(".swal2-actions .btn-danger");
+        await cut.InvokeAsync(() => closeButton.Click());
+
+        // 关闭 Swal 确认弹窗
+        var swalModal = cut.FindComponents<Modal>().Last();
+        await cut.InvokeAsync(() => swalModal.Instance.CloseCallback());
     }
 
     [Fact]
