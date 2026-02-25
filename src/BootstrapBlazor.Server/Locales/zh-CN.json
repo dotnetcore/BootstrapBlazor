@@ -2277,7 +2277,7 @@
     "ToolTip2": "这是 plugin2 提示"
   },
   "BootstrapBlazor.Server.Components.Samples.EmbedPdfs": {
-    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持",
+    "PdfDescription": "EmbedPDF 是一个开源的 JavaScript PDF 阅读器，基于 PDFium，在浏览器端直接渲染，无需后端支持，难易度：难",
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址",
     "PdfReaderNormalText": "基础用法",
     "PdfTitle": "EmbedPDF PDF 文档阅读器"
@@ -3493,7 +3493,7 @@
     "PaginationsTitle": "Pagination 分页"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
-    "PdfDescription": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器",
+    "PdfDescription": "在网页中直接嵌入和显示 PDF 文档，无需依赖用户本地安装的 PDF 阅读器，难易度：中等",
     "PdfReaderDownloadFileNameDesc": "可以通过设置参数 <code>DownloadFileName</code> 值，用于设置下载文件名",
     "PdfReaderFAIconDesc": "<code>PdfReader</code> 组件图标依赖 <code>BootstrapBlazor.FontAwesome</code> 包，需要引用如下样式，否则工具栏图标无法显示",
     "PdfReaderNormalIntro": "通过 <code>Url</code> 参数设置 pdf 文件地址，或者使用 <code>OnGetStreamAsync</code> 参数指定用于渲染的文件流",
@@ -3502,7 +3502,7 @@
     "PdfTitle": "PDF Reader PDF 文档阅读器"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfViewers": {
-    "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容",
+    "PdfViewerDescription": "在组件中打开 Pdf 文件阅读其内容，难易度：容易",
     "PdfViewerNormalIntro": "通过设置 <code>Url</code> 参数加载 Pdf 文件，设置 <code>UseGoogleDocs</code> 使用 docs.google.com 预览",
     "PdfViewerNormalTitle": "基础用法",
     "PdfViewerTitle": "PDFViewer PDF 阅读器",
