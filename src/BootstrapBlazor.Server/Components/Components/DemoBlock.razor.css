@@ -1,4 +1,4 @@
-﻿.card {
+.card {
     transition: box-shadow .3s linear;
 }
 
@@ -46,6 +46,10 @@
     .card-footer-code ::deep .pre-code {
         margin: .5rem;
         width: calc(100% - 1rem);
+    }
+
+    .card-footer-code ::deep pre {
+        max-height: 260px;
     }
 
 .card-footer-control {

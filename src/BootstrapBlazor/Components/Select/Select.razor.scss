@@ -11,7 +11,6 @@
     --bb-select-padding: #{$bb-select-padding};
     --bb-select-append-width: #{$bb-select-append-width};
     --bb-select-append-color: #{$bb-select-append-color};
-    --bb-select-append-right: 0;
 }
 
 .select:not(.cascade) .dropdown-menu {
@@ -126,6 +125,8 @@
 
 .select,
 .auto-complete {
+    --bb-select-append-right: #{$bb-select-append-right};
+
     .clear-icon {
         position: absolute;
         height: 100%;

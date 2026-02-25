@@ -20,6 +20,8 @@ public class TableDrawerTest : TableDialogTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.CloseConfirmTitle, "close-confirm-title");
+                pb.Add(a => a.CloseConfirmContent, "close-confirm-content");
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.EditMode, EditMode.Drawer);
                 pb.Add(a => a.OnBeforeShowDrawer, new Func<DrawerOption, Task>(op =>
