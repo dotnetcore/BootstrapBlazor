@@ -541,9 +541,15 @@ const resetTableWidth = table => {
         if (group) {
             let width = 0;
             [...group.children].forEach(col => {
-                width += parseInt(col.style.width)
+                let colWidth = parseInt(col.style.width);
+                if (isNaN(colWidth)) {
+                    colWidth = 100;
+                }
+                width += colWidth;
             })
-            t.style.width = `${width}px`
+            t.style.width = `${width}px`;
+
+            saveColumnWidth(table);
         }
     })
 }
