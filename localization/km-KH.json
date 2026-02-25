@@ -262,8 +262,8 @@
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "បិទ",
     "SaveButtonText": "រក្សាទុក",
-    "CloseConfirmTitle": "Warning",
-    "CloseConfirmContent": "The form has been changed. Are you sure you want to close it?"
+    "CloseConfirmTitle": "ការព្រមាន",
+    "CloseConfirmContent": "ទម្រង់​បែបបទ​ត្រូវ​បាន​ផ្លាស់ប្ដូរ។ តើ​អ្នក​ប្រាកដ​ជា​បន្ត​បិទ​វា​ឬ?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "សម្អាត",

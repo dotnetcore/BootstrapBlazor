@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Fechar",
-    "SaveButtonText": "Salvar"
+    "SaveButtonText": "Salvar",
+    "CloseConfirmTitle": "Atenção",
+    "CloseConfirmContent": "O formulário foi alterado. Tem certeza de que deseja fechá-lo?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Limpar",
