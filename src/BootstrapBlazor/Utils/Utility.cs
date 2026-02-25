@@ -415,7 +415,7 @@ public static class Utility
         }
         else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
-            builder.RenderTextarea(item, fieldValue, displayName);
+            builder.RenderTextArea(item, fieldValue, displayName);
         }
         else
         {
@@ -423,7 +423,7 @@ public static class Utility
         }
     }
 
-    private static void RenderTextarea(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
+    private static void RenderTextArea(this RenderTreeBuilder builder, IEditorItem item, object? fieldValue, string? displayName)
     {
         builder.OpenComponent(0, typeof(Textarea));
         builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
