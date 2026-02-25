@@ -13,7 +13,7 @@ public partial class BootstrapLabel
 {
     /// <summary>
     /// <para lang="zh">获得/设置 组件值 显示文本 默认 null</para>
-    /// <para lang="en">Gets or sets component值 display文本 Default is null</para>
+    /// <para lang="en">Gets or sets the component value display text. Default is null</para>
     /// </summary>
     [Parameter]
     [NotNull]
@@ -21,14 +21,14 @@ public partial class BootstrapLabel
 
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示</para>
-    /// <para lang="en">Gets or sets whetherdisplay Tooltip 多用于标签文字过长导致裁减时使用 Default is false 不display</para>
+    /// <para lang="en">Gets or sets whether to display a tooltip for the label, often used when the label text is too long and gets truncated. Default is false</para>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值</para>
-    /// <para lang="en">Gets or sets 标签width Default is null 未Sets使用全局Sets <code>--bb-row-label-width</code> 值</para>
+    /// <para lang="en">Gets or sets the label width. Default is null, uses the global setting <code>--bb-row-label-width</code> value</para>
     /// </summary>
     [Parameter]
     public int? LabelWidth { get; set; }
