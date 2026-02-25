@@ -62,24 +62,21 @@ export function init(id) {
         const event = new Event('change', { bubbles: true })
         inputFile.dispatchEvent(event)
     })
-
     const getIndex = target => {
         let index = 0;
-        let button = target;
-        if (button.tagName === 'IMG') {
-            button = button.closest('.upload-item').querySelector('.btn-zoom');
-        }
-        if (button) {
-            const buttons = [...el.querySelectorAll('.btn-zoom')]
-            index = buttons.indexOf(button);
-        }
+        let item = target.closest('.upload-item');
+        const items = [...el.querySelectorAll('.upload-item')]
+        index = items.indexOf(item);
         return index;
     };
 
     EventHandler.on(el, 'click', '.btn-zoom, .upload-item-body-image', e => {
-        const prev = Data.get(el.getAttribute('data-bb-previewer-id'));
-        prev.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src));
-        prev.viewer.show(getIndex(e.delegateTarget));
+        const zoom = e.delegateTarget.closest('.upload-item').classList.contains('is-preview');
+        if (zoom) {
+            const prev = Data.get(el.getAttribute('data-bb-previewer-id'));
+            prev.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src));
+            prev.viewer.show(getIndex(e.delegateTarget));
+        }
     })
 }
 
