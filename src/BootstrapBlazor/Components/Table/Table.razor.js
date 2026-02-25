@@ -432,7 +432,7 @@ const setExcelKeyboardListener = table => {
     }
 
     const setFocus = target => {
-        const handler = setTimeout(function () {
+        const handler = setTimeout(function() {
             clearTimeout(handler);
             if (target.focus) {
                 target.focus();
