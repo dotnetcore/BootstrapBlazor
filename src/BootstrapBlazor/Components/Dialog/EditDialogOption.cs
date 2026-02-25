@@ -97,4 +97,19 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     /// <inheritdoc cref="ITableEditDialogOption{TModel}.OnEditAsync"/>
     /// </summary>
     public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.ShowConfirmCloseSwal"/>
+    /// </summary>
+    public bool? ShowConfirmCloseSwal { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.CloseConfirmTitle"/>
+    /// </summary>
+    public string? CloseConfirmTitle { get; set; }
+
+    /// <summary>
+    /// <inheritdoc cref="ITableEditDialogOption{TModel}.CloseConfirmContent"/>
+    /// </summary>
+    public string? CloseConfirmContent { get; set; }
 }

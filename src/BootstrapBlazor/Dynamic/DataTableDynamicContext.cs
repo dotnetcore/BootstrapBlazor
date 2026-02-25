@@ -96,14 +96,14 @@ public class DataTableDynamicContext : DynamicObjectContext
             ret = false;
         }
 
-        // 隐藏列优先 移除隐藏列
+        // 隐藏列存在时隐藏列
         if (ret && hiddenColumns != null && hiddenColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
         {
             col.Visible = false;
         }
 
-        // 显示列不存在时 不显示
-        if (ret && shownColumns != null && !shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
+        // 显示列存在时显示列
+        if (ret && shownColumns != null && shownColumns.Any(c => c.Equals(columnName, StringComparison.OrdinalIgnoreCase)))
         {
             col.Visible = true;
         }

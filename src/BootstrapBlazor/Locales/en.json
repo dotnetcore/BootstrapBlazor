@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
-    "SaveButtonText": "Save"
+    "SaveButtonText": "Save",
+    "CloseConfirmTitle": "Warning",
+    "CloseConfirmContent": "The form has been changed. Are you sure you continue to close it?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Clear",

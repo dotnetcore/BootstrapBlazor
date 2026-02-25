@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Abbrechen",
-    "SaveButtonText": "Speichern"
+    "SaveButtonText": "Speichern",
+    "CloseConfirmTitle": "Bitte beachten",
+    "CloseConfirmContent": "Das Formular wurde geändert. Möchten Sie es wirklich schließen?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Leeren",
