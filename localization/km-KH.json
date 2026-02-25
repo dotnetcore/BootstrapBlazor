@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "បិទ",
-    "SaveButtonText": "រក្សាទុក"
+    "SaveButtonText": "រក្សាទុក",
+    "CloseConfirmTitle": "Warning",
+    "CloseConfirmContent": "The form has been changed. Are you sure you want to close it?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "សម្អាត",
