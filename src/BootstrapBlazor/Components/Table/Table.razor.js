@@ -23,7 +23,7 @@ export async function init(id, invoke, options) {
 
 export function saveColumnList(tableName, columns) {
     const key = `bb-table-column-visiable-${tableName}`
-    return localStorage.setItem(key, JSON.stringify(columns));
+    localStorage.setItem(key, JSON.stringify(columns));
 }
 
 export function reloadColumnList(tableName) {
