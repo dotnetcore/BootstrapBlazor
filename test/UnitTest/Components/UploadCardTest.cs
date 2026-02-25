@@ -39,6 +39,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         cut.Contains("bb-previewer collapse active");
         cut.Contains("aria-label=\"zoom\"");
         cut.Contains("aria-label=\"delete\"");
+        cut.Contains("is-preview");
 
         cut.Render(pb =>
         {
@@ -129,6 +130,7 @@ public class UploadCardTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("aria-label=\"zoom\"");
         cut.DoesNotContain("aria-label=\"delete\"");
+        cut.DoesNotContain("is-preview");
     }
 
     [Fact]

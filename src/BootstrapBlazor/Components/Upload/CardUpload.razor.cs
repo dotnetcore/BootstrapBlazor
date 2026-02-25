@@ -18,9 +18,9 @@ public partial class CardUpload<TValue>
         .Build();
 
     private string? GetItemClassString(UploadFile item) => CssBuilder.Default(ItemClassString)
+        .AddClass("is-preview", ShowZoomButton)
         .AddClass("is-valid", item is { Uploaded: true, Code: 0 })
         .AddClass("is-invalid", item.Code != 0)
-        .AddClass("is-preview", ShowZoomButton)
         .Build();
 
     private string? ItemClassString => CssBuilder.Default("upload-item")
