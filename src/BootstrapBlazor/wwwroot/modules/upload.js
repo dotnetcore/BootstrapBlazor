@@ -64,27 +64,19 @@ export function init(id) {
     })
     const getIndex = target => {
         let index = 0;
-        let button = target;
-        let className = ".upload-item-body-image";
-        if (button.tagName === 'IMG') {
-            button = button.closest('.upload-item').querySelector('.upload-item-body-image');
-            className = ".upload-item-body-image";
-        }
-        if (button.tagName === 'BUTTON') {
-            button = button.closest('.upload-item').querySelector('.btn-zoom');
-            className = ".btn-zoom"; 
-        }
-        if (button) {
-            const buttons = [...el.querySelectorAll(className)]
-            index = buttons.indexOf(button);
-        }
+        let item = target.closest('.upload-item');
+        const items = [...el.querySelectorAll('.upload-item')]
+        index = items.indexOf(item);
         return index;
     };
 
     EventHandler.on(el, 'click', '.btn-zoom, .upload-item-body-image', e => {
-        const prev = Data.get(el.getAttribute('data-bb-previewer-id'));
-        prev.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src));
-        prev.viewer.show(getIndex(e.delegateTarget));
+        const zoom = e.delegateTarget.closest('.upload-item').classList.contains('is-preview');
+        if (zoom) {
+            const prev = Data.get(el.getAttribute('data-bb-previewer-id'));
+            prev.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src));
+            prev.viewer.show(getIndex(e.delegateTarget));
+        }
     })
 }
 
