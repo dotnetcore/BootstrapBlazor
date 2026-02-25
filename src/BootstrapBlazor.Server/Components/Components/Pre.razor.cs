@@ -75,7 +75,6 @@ public partial class Pre
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
-        .AddClass("max-height: 260px;", string.IsNullOrEmpty(Height))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
