@@ -23,7 +23,7 @@ export async function init(id, invoke, options) {
 
 export function saveColumnList(tableName, columns) {
     const key = `bb-table-column-visiable-${tableName}`
-    return localStorage.setItem(key, JSON.stringify(columns));
+    localStorage.setItem(key, JSON.stringify(columns));
 }
 
 export function reloadColumnList(tableName) {
@@ -432,7 +432,7 @@ const setExcelKeyboardListener = table => {
     }
 
     const setFocus = target => {
-        const handler = setTimeout(function () {
+        const handler = setTimeout(function() {
             clearTimeout(handler);
             if (target.focus) {
                 target.focus();
@@ -541,9 +541,15 @@ const resetTableWidth = table => {
         if (group) {
             let width = 0;
             [...group.children].forEach(col => {
-                width += parseInt(col.style.width)
+                let colWidth = parseInt(col.style.width);
+                if (isNaN(colWidth)) {
+                    colWidth = 100;
+                }
+                width += colWidth;
             })
-            t.style.width = `${width}px`
+            t.style.width = `${width}px`;
+
+            saveColumnWidth(table);
         }
     })
 }
