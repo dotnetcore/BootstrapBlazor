@@ -40,6 +40,8 @@ public class TableDialogTest : TableDialogTestBase
                 pb.Add(a => a.EditDialogLabelWidth, 200);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.CloseConfirmTitle, "close-confirm-title");
+                pb.Add(a => a.CloseConfirmContent, "close-confirm-content");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -321,12 +323,34 @@ public class TableDialogTest : TableDialogTestBase
 
         // 点击表格新建按钮
         var table = cut.FindComponent<Table<Foo>>();
+        table.Render(pb =>
+        {
+            pb.Add(a => a.ShowCloseConfirm, true);
+        });
         var add = cut.Find(".table-toolbar button");
         await cut.InvokeAsync(() => add.Click());
 
         // 检查 dialog 是否显示
         var editDialog = cut.FindComponents<Dialog>().FirstOrDefault(i => i.Instance == dialog);
         Assert.NotNull(editDialog);
+
+        // 更新变化值
+        IRenderedComponent<ValidateForm> renderedComponent = cut.FindComponent<ValidateForm>();
+        var editForm = renderedComponent;
+        editForm.Instance.OnFieldValueChanged("Name", "Test_Name");
+
+        var modal = cut.FindComponent<Modal>();
+        // 弹出确认窗
+        _ = Task.Run(async () => await cut.InvokeAsync(() => modal.Instance.BeforeCloseCallback()));
+
+        // 模拟点击确认按钮
+        cut.WaitForAssertion(() => cut.Find(".swal2-actions"));
+        var closeButton = cut.Find(".swal2-actions .btn-danger");
+        await cut.InvokeAsync(() => closeButton.Click());
+
+        // 关闭 Swal 确认弹窗
+        var swalModal = cut.FindComponents<Modal>().Last();
+        await cut.InvokeAsync(() => swalModal.Instance.CloseCallback());
     }
 
     [Fact]
@@ -379,20 +403,20 @@ public class TableDialogTest : TableDialogTestBase
     {
         Title = "test-dialog-table",
         Component = BootstrapDynamicComponent.CreateComponent<Table<Foo>>(new Dictionary<string, object?>()
-            {
-                {"RenderMode",  TableRenderMode.Table},
-                {"Items", items},
-                {"EditDialog", dialog},
-                {"IsMultipleSelect", true},
-                {"ShowToolbar", true },
-                {"TableColumns", new RenderFragment<Foo>(foo => builder =>
-                    {
-                        builder.OpenComponent<TableColumn<Foo, string>>(0);
-                        builder.AddAttribute(1, "Field", "Name");
-                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                        builder.CloseComponent();
-                    })
-                }
-            })
+        {
+            {"RenderMode",  TableRenderMode.Table},
+            {"Items", items},
+            {"EditDialog", dialog},
+            {"IsMultipleSelect", true},
+            {"ShowToolbar", true },
+            {"TableColumns", new RenderFragment<Foo>(foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                })
+            }
+        })
     });
 }
