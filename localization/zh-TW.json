@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "關閉",
-    "SaveButtonText": "儲存"
+    "SaveButtonText": "儲存",
+    "CloseConfirmTitle": "請注意",
+    "CloseConfirmContent": "表單內容已更改，確定要關閉嗎？"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "重設",

@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Закрыть",
-    "SaveButtonText": "Сохранить"
+    "SaveButtonText": "Сохранить",
+    "CloseConfirmTitle": "Внимание",
+    "CloseConfirmContent": "Форма была изменена. Вы уверены, что хотите закрыть её?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Очистить",

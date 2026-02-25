@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "ปิด",
-    "SaveButtonText": "บันทึก"
+    "SaveButtonText": "บันทึก",
+    "CloseConfirmTitle": "โปรดทราบ",
+    "CloseConfirmContent": "แบบฟอร์มมีการเปลี่ยนแปลง คุณแน่ใจหรือไม่ว่าต้องการปิด?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "ล้าง",

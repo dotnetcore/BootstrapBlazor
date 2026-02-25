@@ -261,7 +261,9 @@
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Chiudi",
-    "SaveButtonText": "Salva"
+    "SaveButtonText": "Salva",
+    "CloseConfirmTitle": "Avviso",
+    "CloseConfirmContent": "Il modulo è stato modificato. Sei sicuro di volerlo chiudere?"
   },
   "BootstrapBlazor.Components.TableColumnFilter": {
     "ClearButtonText": "Pulisci",
