@@ -179,8 +179,11 @@
     width: var(--bb-upload-card-width);
     height: var(--bb-upload-card-height);
     position: relative;
-    cursor: pointer;
     overflow: hidden;
+
+    &.is-preview img {
+        cursor: pointer;
+    }
 }
 
 .upload .upload-body.is-card .upload-item .upload-item-actions {
