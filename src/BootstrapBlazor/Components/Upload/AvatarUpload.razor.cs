@@ -109,10 +109,6 @@ public partial class AvatarUpload<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 预览框样式字符串</para>
-    /// <para lang="en">Gets the preview item style string</para>
-    /// </summary>
     private string? ItemStyleString => CssBuilder.Default()
         .AddClass($"width: {Width}px;", Width > 0)
         .AddClass($"height: {Height}px;", Height > 0 && !IsCircle)
@@ -164,7 +160,7 @@ public partial class AvatarUpload<TValue>
 
     /// <summary>
     /// <para lang="zh">预览当前头像方法</para>
-    /// <para lang="en">预览当前头像方法</para>
+    /// <para lang="en">Previews the current avatar</para>
     /// </summary>
     public async Task Preview()
     {
