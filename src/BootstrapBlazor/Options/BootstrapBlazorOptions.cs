@@ -120,6 +120,7 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// <summary>
     /// <para lang="zh">获得/设置 <see cref="EditDialogSettings"/> 配置实例</para>
     /// <para lang="en">Gets or sets the <see cref="EditDialogSettings"/> configuration instance</para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     public EditDialogSettings EditDialogSettings { get; set; } = new();
 
