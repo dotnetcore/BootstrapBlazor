@@ -142,6 +142,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示工具栏 默认 false 不显示</para>
     /// <para lang="en">Gets or sets Whether to show toolbar. Default false</para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     [Parameter]
     public bool ShowToolbar { get; set; }
