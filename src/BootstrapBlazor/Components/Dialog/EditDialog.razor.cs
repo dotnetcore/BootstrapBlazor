@@ -45,6 +45,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 保存按钮文本</para>
     /// <para lang="en">Gets or sets Save Button Text</para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     [Parameter]
     public string? SaveButtonText { get; set; }
@@ -52,6 +53,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭确认弹窗标题</para>
     /// <para lang="en">Gets or sets Close Confirm Dialog Title</para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     [Parameter]
     public string? CloseConfirmTitle { get; set; }
@@ -59,6 +61,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 关闭确认弹窗内容</para>
     /// <para lang="en">Gets or sets Close Confirm Dialog Content</para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     [Parameter]
     public string? CloseConfirmContent { get; set; }
@@ -116,6 +119,7 @@ public partial class EditDialog<TModel>
     /// <summary>
     /// <para lang="zh">获得/设置 是否显示关闭弹窗确认弹窗。默认为 null 使用全局配置设置值 <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
     /// <para lang="en">Gets or sets whether to show the close confirm dialog. Default is null to use global configuration <see cref="BootstrapBlazorOptions.EditDialogSettings"/></para>
+    /// <para><version>10.3.3</version></para>
     /// </summary>
     [Parameter]
     public bool? ShowCloseConfirm { get; set; }
