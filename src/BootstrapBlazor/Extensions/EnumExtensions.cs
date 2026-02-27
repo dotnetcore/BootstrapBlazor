@@ -9,21 +9,21 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">枚举类型扩展方法</para>
-/// <para lang="en">Enum Extensions</para>
+/// <para lang="zh">Enum 枚举扩展方法</para>
+/// <para lang="en">Enum extensions</para>
 /// </summary>
 public static class EnumExtensions
 {
     /// <summary>
-    /// <para lang="zh">获取 DescriptionAttribute 标签方法</para>
-    /// <para lang="en">Get DescriptionAttribute method</para>
+    /// <para lang="zh">获得 枚举值的 <see cref="DescriptionAttribute"/> 标签值</para>
+    /// <para lang="en">Gets the <see cref="DescriptionAttribute"/> value of the enum value</para>
     /// </summary>
     /// <param name="val"></param>
     public static string ToDescriptionString<TEnum>(this TEnum val) where TEnum : Enum => typeof(TEnum).ToDescriptionString(val.ToString());
 
     /// <summary>
-    /// <para lang="zh">通过字段名称获取 DescriptionAttribute 标签值</para>
-    /// <para lang="en">Get DescriptionAttribute value by field name</para>
+    /// <para lang="zh">获得 指定字段的 <see cref="DescriptionAttribute"/> 标签值</para>
+    /// <para lang="en">Gets the <see cref="DescriptionAttribute"/> value by field name</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="fieldName"></param>
@@ -40,16 +40,16 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">通过字段名称获取 DisplayAttribute/DescriptionAttribute 标签值</para>
-    /// <para lang="en">Get DisplayAttribute/DescriptionAttribute value by field name</para>
+    /// <para lang="zh">获得 枚举值的显示名称</para>
+    /// <para lang="en">Gets the display name of the enum value</para>
     /// </summary>
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="enum"></param>
     public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName<TEnum>(@enum.ToString());
 
     /// <summary>
-    /// <para lang="zh">获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称</para>
-    /// <para lang="en">获取指定enumtype的enum值collection，Default is通过 DisplayAttribute DescriptionAttribute 标签display DisplayName 支持资源文件 回退机制display字段名称</para>
+    /// <para lang="zh">获得 指定枚举类型的枚举值集合</para>
+    /// <para lang="en">Gets the enum value collection for the specified enum type</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>
@@ -70,8 +70,8 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称</para>
-    /// <para lang="en">获取指定enumtype的enum值collection，Default is通过 DisplayAttribute DescriptionAttribute 标签display DisplayName 支持资源文件 回退机制display字段名称</para>
+    /// <para lang="zh">获得 指定枚举类型的枚举值集合</para>
+    /// <para lang="en">Gets the enum value collection for the specified enum type</para>
     /// </summary>
     /// <param name="type"></param>
     /// <param name="additionalItem"></param>
@@ -97,8 +97,8 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">判断类型是否为枚举类型</para>
-    /// <para lang="en">Determine whether the type is an enumeration type</para>
+    /// <para lang="zh">获得 类型是否为枚举类型</para>
+    /// <para lang="en">Gets whether the type is an enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
     public static bool IsEnum(this Type? type)
@@ -113,8 +113,8 @@ public static class EnumExtensions
     }
 
     /// <summary>
-    /// <para lang="zh">判断类型是否为 Flag 枚举类型</para>
-    /// <para lang="en">Determine whether the type is a Flag enumeration type</para>
+    /// <para lang="zh">获得 类型是否为 <see cref="FlagsAttribute"/> 枚举类型</para>
+    /// <para lang="en">Gets whether the type is a <see cref="FlagsAttribute"/> enumeration type</para>
     /// </summary>
     /// <param name="type"></param>
     public static bool IsFlagEnum(this Type? type) => type != null && IsEnum(type) && type.GetCustomAttribute<FlagsAttribute>() != null;
