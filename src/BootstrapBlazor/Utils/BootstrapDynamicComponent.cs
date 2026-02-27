@@ -10,7 +10,10 @@ namespace BootstrapBlazor.Components;
 /// <para lang="en">Dynamic component class</para>
 /// </summary>
 /// <param name="componentType"></param>
-/// <param name="parameters"><para lang="zh">TCom 组件所需要的参数集合</para><para lang="en">TCom component所需要的参数collection</para></param>
+/// <param name="parameters">
+///  <para lang="zh">TCom 组件所需要的参数集合</para>
+///  <para lang="en">TCom component所需要的参数collection</para>
+/// </param>
 public class BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
 {
     /// <summary>
@@ -18,7 +21,10 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     /// <para lang="en">Create custom component method</para>
     /// </summary>
     /// <typeparam name="TCom"></typeparam>
-    /// <param name="parameters"><para lang="zh">TCom 组件所需要的参数集合</para><para lang="en">TCom component所需要的参数collection</para></param>
+    /// <param name="parameters">
+    ///  <para lang="zh">TCom 组件所需要的参数集合</para>
+    ///  <para lang="en">TCom component所需要的参数collection</para>
+    /// </param>
     public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?>? parameters = null) where TCom : IComponent => CreateComponent(typeof(TCom), parameters);
 
     /// <summary>
@@ -33,7 +39,10 @@ public class BootstrapDynamicComponent(Type componentType, IDictionary<string, o
     /// <para lang="en">Create custom component method</para>
     /// </summary>
     /// <param name="type"></param>
-    /// <param name="parameters"></param>
+    /// <param name="parameters">
+    ///  <para lang="zh">组件所需要的参数集合</para>
+    ///  <para lang="en">Parameters required by the component</para>
+    /// </param>
     public static BootstrapDynamicComponent CreateComponent(Type type, IDictionary<string, object?>? parameters = null) => new(type, parameters);
 
     /// <summary>

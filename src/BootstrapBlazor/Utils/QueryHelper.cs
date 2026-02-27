@@ -10,57 +10,87 @@ using System.Text.Encodings.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">Provides methods for parsing and manipulating query strings</para>
+/// <para lang="zh">提供解析和操作查询字符串的方法</para>
 /// <para lang="en">Provides methods for parsing and manipulating query strings</para>
 /// </summary>
 [ExcludeFromCodeCoverage]
 public static class QueryHelper
 {
     /// <summary>
-    /// <para lang="zh">Append the given query key and value to the URI</para>
+    /// <para lang="zh">将给定的查询键和值附加到 URI</para>
     /// <para lang="en">Append the given query key and value to the URI</para>
     /// </summary>
-    /// <param name="uri">The base URI.</param>
-    /// <param name="name">The name of the query key.</param>
-    /// <param name="value">The query value.</param>
-    /// <returns>The combined result.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="name"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="value"/> is <c>null</c>.</exception>
+    /// <param name="uri">
+    ///  <para lang="zh">基础 URI</para>
+    ///  <para lang="en">The base URI.</para>
+    /// </param>
+    /// <param name="name">
+    ///  <para lang="zh">查询键的名称</para>
+    ///  <para lang="en">The name of the query key.</para>
+    /// </param>
+    /// <param name="value">
+    ///  <para lang="zh">查询值</para>
+    ///  <para lang="en">The query value.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">组合后的结果</para>
+    ///  <para lang="en">The combined result.</para>
+    /// </returns>
     public static string AddQueryString(string uri, string name, string value) => AddQueryString(
             uri, new[] { new KeyValuePair<string, string?>(name, value) });
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI</para>
+    /// <para lang="zh">将给定的查询键和值附加到 URI</para>
     /// <para lang="en">Append the given query keys and values to the URI</para>
     /// </summary>
-    /// <param name="uri">The base URI.</param>
-    /// <param name="queryString">A dictionary of query keys and values to append.</param>
-    /// <returns>The combined result.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
+    /// <param name="uri">
+    ///  <para lang="zh">基础 URI</para>
+    ///  <para lang="en">The base URI.</para>
+    /// </param>
+    /// <param name="queryString">
+    ///  <para lang="zh">要附加的查询键和值的字典</para>
+    ///  <para lang="en">A dictionary of query keys and values to append.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">组合后的结果</para>
+    ///  <para lang="en">The combined result.</para>
+    /// </returns>
     public static string AddQueryString(string uri, IDictionary<string, string?> queryString) => AddQueryString(uri, (IEnumerable<KeyValuePair<string, string?>>)queryString);
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI</para>
+    /// <para lang="zh">将给定的查询键和值附加到 URI</para>
     /// <para lang="en">Append the given query keys and values to the URI</para>
     /// </summary>
-    /// <param name="uri">The base URI.</param>
-    /// <param name="queryString">A collection of query names and values to append.</param>
-    /// <returns>The combined result.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
+    /// <param name="uri">
+    ///  <para lang="zh">基础 URI</para>
+    ///  <para lang="en">The base URI.</para>
+    /// </param>
+    /// <param name="queryString">
+    ///  <para lang="zh">要附加的查询键和值的集合</para>
+    ///  <para lang="en">A collection of query names and values to append.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">组合后的结果</para>
+    ///  <para lang="en">The combined result.</para>
+    /// </returns>
     public static string AddQueryString(string uri, IEnumerable<KeyValuePair<string, StringValues>> queryString) => AddQueryString(uri, queryString.SelectMany(kvp => kvp.Value, (kvp, v) => KeyValuePair.Create<string, string?>(kvp.Key, v)));
 
     /// <summary>
-    /// <para lang="zh">Append the given query keys and values to the URI</para>
+    /// <para lang="zh">将给定的查询键和值附加到 URI</para>
     /// <para lang="en">Append the given query keys and values to the URI</para>
     /// </summary>
-    /// <param name="uri">The base URI.</param>
-    /// <param name="queryString">A collection of name value query pairs to append.</param>
-    /// <returns>The combined result.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
+    /// <param name="uri">
+    ///  <para lang="zh">基础 URI</para>
+    ///  <para lang="en">The base URI.</para>
+    /// </param>
+    /// <param name="queryString">
+    ///  <para lang="zh">要附加的查询键和值的集合</para>
+    ///  <para lang="en">A collection of name value query pairs to append.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">组合后的结果</para>
+    ///  <para lang="en">The combined result.</para>
+    /// </returns>
     public static string AddQueryString(string uri, IEnumerable<KeyValuePair<string, string?>> queryString)
     {
         var anchorIndex = uri.IndexOf('#');
@@ -97,19 +127,31 @@ public static class QueryHelper
     }
 
     /// <summary>
-    /// <para lang="zh">Parse a query string into its component key and value parts</para>
+    /// <para lang="zh">将查询字符串解析为其组成的键和值部分</para>
     /// <para lang="en">Parse a query string into its component key and value parts</para>
     /// </summary>
-    /// <param name="queryString">The raw query string value, with or without the leading '?'.</param>
-    /// <returns>A collection of parsed keys and values.</returns>
+    /// <param name="queryString">
+    ///  <para lang="zh">原始查询字符串值，可以带或不带前导 '?'</para>
+    ///  <para lang="en">The raw query string value, with or without the leading '?'.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">解析后的键值集合</para>
+    ///  <para lang="en">A collection of parsed keys and values.</para>
+    /// </returns>
     public static Dictionary<string, StringValues> ParseQuery(string? queryString) => ParseNullableQuery(queryString) ?? [];
 
     /// <summary>
-    /// <para lang="zh">Parse a query string into its component key and value parts</para>
+    /// <para lang="zh">将查询字符串解析为其组成的键和值部分</para>
     /// <para lang="en">Parse a query string into its component key and value parts</para>
     /// </summary>
-    /// <param name="queryString">The raw query string value, with or without the leading '?'.</param>
-    /// <returns>A collection of parsed keys and values, null if there are no entries.</returns>
+    /// <param name="queryString">
+    ///  <para lang="zh">原始查询字符串值，可以带或不带前导 '?'</para>
+    ///  <para lang="en">The raw query string value, with or without the leading '?'.</para>
+    /// </param>
+    /// <returns>
+    ///  <para lang="zh">解析后的键值集合，如果没有条目则为 null</para>
+    ///  <para lang="en">A collection of parsed keys and values, null if there are no entries.</para>
+    /// </returns>
     public static Dictionary<string, StringValues>? ParseNullableQuery(string? queryString)
     {
         Dictionary<string, StringValues>? ret = null;
