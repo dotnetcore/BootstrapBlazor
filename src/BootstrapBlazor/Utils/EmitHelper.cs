@@ -18,10 +18,19 @@ public static class EmitHelper
     /// <para lang="zh">通过 ITableColumn 创建动态类</para>
     /// <para lang="en">Create dynamic class by ITableColumn</para>
     /// </summary>
-    /// <param name="typeName"><para lang="zh">动态类名称</para><para lang="en">动态类name</para></param>
-    /// <param name="cols"><para lang="zh">ITableColumn 集合</para><para lang="en">ITableColumn collection</para></param>
-    /// <param name="parent"><para lang="zh">父类类型</para><para lang="en">父类type</para></param>
-    /// <param name="creatingCallback"><para lang="zh">回调委托</para><para lang="en">回调delegate</para></param>
+    /// <param name="typeName">
+    ///  <para lang="zh">动态类名称</para>
+    ///  <para lang="en">Dynamic class name</para></param>
+    /// <param name="cols">
+    ///  <para lang="zh">ITableColumn 集合</para>
+    ///  <para lang="en">ITableColumn collection</para></param>
+    /// <param name="parent">
+    ///  <para lang="zh">父类类型</para>
+    ///  <para lang="en">Parent class type</para></param>
+    /// <param name="creatingCallback">
+    ///  <para lang="zh">回调委托</para>
+    ///  <para lang="en">Callback delegate</para>
+    /// </param>
     public static Type? CreateTypeByName(string typeName, IEnumerable<ITableColumn> cols, Type? parent = null, Func<ITableColumn, IEnumerable<CustomAttributeBuilder>>? creatingCallback = null)
     {
         var typeBuilder = CreateTypeBuilderByName(typeName, parent);

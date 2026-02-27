@@ -247,8 +247,7 @@ public partial class EditorForm<TModel> : IShowLabel, IDisposable
     }
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
