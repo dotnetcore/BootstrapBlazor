@@ -1,0 +1,63 @@
+@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="this" IsFixed="true">
+        <div class="form-body">
+            @if (ShowUnsetGroupItemsOnTop)
+            {
+                if (UnsetGroupItems.Any())
+                {
+                    @RenderUnsetGroupItems
+                }
+                @foreach (var g in GroupItems)
+                {
+                    @RenderGroupItems(g)
+                }
+            }
+            else
+            {
+                @foreach (var g in GroupItems)
+                {
+                    @RenderGroupItems(g)
+                }
+                if (UnsetGroupItems.Any())
+                {
+                    @RenderUnsetGroupItems
+                }
+            }
+        </div>
+
+        @if (Buttons != null)
+        {
+            <div class="bb-editor-footer form-footer">
+                @Buttons
+            </div>
+        }
+    </CascadingValue>
+</div>
+
+@code
+{
+    RenderFragment RenderUnsetGroupItems =>
+    @<div class="@FormClassString" style="@FormStyleString">
+        @foreach (var item in UnsetGroupItems)
+        {
+            <div class="@GetCssString(item)">
+                @AutoGenerateTemplate(item)
+            </div>
+        }
+    </div>;
+
+    RenderFragment<KeyValuePair<string, IOrderedEnumerable<ISearchItem>>> RenderGroupItems => g =>
+    @<GroupBox Title="@g.Key">
+        <div class="@FormClassString" style="@FormStyleString">
+            @foreach (var item in g.Value)
+            {
+                <div class="@GetCssString(item)">
+                    @AutoGenerateTemplate(item)
+                </div>
+            }
+        </div>
+    </GroupBox>;
+}
