@@ -120,20 +120,17 @@ public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
     }
 
     /// <summary>
-    /// <para lang="zh">重置过滤条件方法</para>
-    /// <para lang="en">Reset Filter Conditions Method</para>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public abstract void Reset();
 
     /// <summary>
-    /// <para lang="zh">获得过滤窗口的所有条件的方法</para>
-    /// <para lang="en">Gets all filter conditions</para>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
     /// </summary>
     public abstract FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
-    /// <para lang="zh">设置过滤集合的方法</para>
-    /// <para lang="en">Sets the filter collection</para>
+    /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     /// <param name="filter"></param>
     public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterAsync();

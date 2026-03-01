@@ -30,18 +30,18 @@ public partial class NotSupportFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public override FilterKeyValueAction GetFilterConditions()
-    {
-        return new();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public override void Reset()
     {
 
+    }
+
+    /// <summary>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
+    /// </summary>
+    public override FilterKeyValueAction GetFilterConditions()
+    {
+        return new();
     }
 }
