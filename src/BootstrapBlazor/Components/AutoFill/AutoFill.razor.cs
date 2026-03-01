@@ -169,18 +169,10 @@ public partial class AutoFill<TValue>
 
     private string? _lastClientValue;
 
-    /// <summary>
-    /// <para lang="zh">获得 组件样式</para>
-    /// <para lang="en">Gets the component style</para>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-clearable", IsClearable)
         .Build();
 
-    /// <summary>
-    /// <para lang="zh">获得 清除图标样式</para>
-    /// <para lang="en">Gets the clear icon class string</para>
-    /// </summary>
     private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -251,17 +243,8 @@ public partial class AutoFill<TValue>
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
-    /// <summary>
-    /// <para lang="zh">获得 是否显示清除按钮</para>
-    /// <para lang="en">Gets whether show the clear button</para>
-    /// </summary>
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
-    /// <summary>
-    /// <para lang="zh">点击候选项目时回调方法</para>
-    /// <para lang="en">Callback method when a candidate item is clicked</para>
-    /// </summary>
-    /// <param name="val"><para lang="zh">点击项的值</para><para lang="en">The value of the clicked item</para></param>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
