@@ -108,13 +108,13 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected string Type { get; set; } = "text";
 
     /// <summary>
-    /// <para lang="zh">方法以聚焦元素</para>
+    /// <para lang="zh">聚焦元素方法</para>
     /// <para lang="en">Method to focus the element</para>
     /// </summary>
     public async Task FocusAsync() => await InvokeVoidAsync("focus", GetInputId());
 
     /// <summary>
-    /// <para lang="zh">方法以选择所有文本</para>
+    /// <para lang="zh">选择所有文本方法</para>
     /// <para lang="en">Method to select all text</para>
     /// </summary>
     public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
