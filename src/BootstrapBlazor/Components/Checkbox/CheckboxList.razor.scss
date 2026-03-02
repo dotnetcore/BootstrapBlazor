@@ -1,4 +1,4 @@
-﻿@use "../../wwwroot/scss/variables" as *;
+@use "../../wwwroot/scss/variables" as *;
 
 .checkbox-list {
     --bb-checkbox-item-width: #{$bb-checkbox-item-width};
@@ -12,10 +12,6 @@
 
     &.is-vertical {
         flex-direction: column;
-    }
-
-    &.form-control.no-border:not(.is-valid):not(.is-invalid) {
-        border-color: transparent;
     }
 
     &.form-control:not(.is-invalid):focus {

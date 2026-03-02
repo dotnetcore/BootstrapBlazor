@@ -1,4 +1,4 @@
-﻿.bb-clearable-input {
+.bb-clearable-input {
     display: inline-flex;
     align-items: center;
     flex-grow: 1;
@@ -25,5 +25,11 @@
 
     &:hover .form-control-clear-icon {
         display: block;
+    }
+}
+
+.form-control {
+    &.no-border:not(.is-valid):not(.is-invalid) {
+        border-color: transparent;
     }
 }
