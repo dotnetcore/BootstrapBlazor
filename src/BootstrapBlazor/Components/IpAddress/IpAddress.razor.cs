@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">BootstrapInputTextBase 组件</para>
-/// <para lang="en">BootstrapInputTextBase component</para>
+/// <para lang="zh">IpAddress 组件</para>
+/// <para lang="en">IpAddress component</para>
 /// </summary>
 public partial class IpAddress
 {
@@ -21,7 +21,7 @@ public partial class IpAddress
 
     /// <summary>
     /// <para lang="zh">获得 class 样式集合</para>
-    /// <para lang="en">Gets class stylecollection</para>
+    /// <para lang="en">Get class style collection</para>
     /// </summary>
     protected string? ClassName => CssBuilder.Default("bb-ip form-control")
         .AddClass("disabled", IsDisabled)
@@ -116,7 +116,7 @@ public partial class IpAddress
 
     /// <summary>
     /// <para lang="zh">更新 值方法供 JS 调用</para>
-    /// <para lang="en">更新 值方法供 JS 调用</para>
+    /// <para lang="en">Update value method for JS invocation</para>
     /// </summary>
     /// <param name="v1"></param>
     /// <param name="v2"></param>
