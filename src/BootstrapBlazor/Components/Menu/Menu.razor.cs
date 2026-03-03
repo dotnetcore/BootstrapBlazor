@@ -48,8 +48,8 @@ public partial class Menu
     /// <para lang="en">Gets or sets Whether it is accordion effect. Default false</para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">启用此功能时 <see cref="IsExpandAll" /> 参数不生效</para>
-    /// <para lang="en"><see cref="IsExpandAll" /> parameter does not take effect when this feature is enabled</para>
+    ///  <para lang="zh">启用此功能时 <see cref="IsExpandAll" /> 参数不生效</para>
+    ///  <para lang="en"><see cref="IsExpandAll" /> parameter does not take effect when this feature is enabled</para>
     /// </remarks>
     [Parameter]
     public bool IsAccordion { get; set; }
@@ -59,8 +59,8 @@ public partial class Menu
     /// <para lang="en">Gets or sets Whether to expand all. Default false</para>
     /// </summary>
     /// <remarks>
-    /// <para lang="zh">手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</para>
-    /// <para lang="en">This parameter does not take effect when accordion effect <see cref="IsAccordion" /> is enabled</para>
+    ///  <para lang="zh">手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</para>
+    ///  <para lang="en">This parameter does not take effect when accordion effect <see cref="IsAccordion" /> is enabled</para>
     /// </remarks>
     [Parameter]
     public bool IsExpandAll { get; set; }
@@ -76,7 +76,6 @@ public partial class Menu
     /// <para lang="zh">获得/设置 侧栏垂直模式 默认 false</para>
     /// <para lang="en">Gets or sets Sidebar vertical mode. Default false</para>
     /// </summary>
-    /// <value></value>
     [Parameter]
     public bool IsVertical { get; set; }
 
