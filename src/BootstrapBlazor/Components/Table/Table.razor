@@ -1104,13 +1104,19 @@
                 {
                     @SearchTemplate(SearchModel)
                 }
-                else
+                else if (SearchModel != null)
                 {
                     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
                         <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow"
                                     RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign" ShowLabel="true">
                         </EditorForm>
                     </CascadingValue>
+                }
+                else
+                {
+                    <div class="">
+                        custom search
+                    </div>
                 }
             </BodyTemplate>
         </Card>;
