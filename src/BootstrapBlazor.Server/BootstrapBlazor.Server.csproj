@@ -51,7 +51,7 @@
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.1.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="10.0.0" />
