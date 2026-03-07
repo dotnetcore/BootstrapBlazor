@@ -1,3 +1,8 @@
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -43,8 +48,8 @@ public interface ISearchMetaData
     FilterKeyValueAction? GetFilter(string fieldName);
 
     /// <summary>
-    /// <para lang="zh">获得/设置 获取过滤器实例回调，由 <see cref="GetFilter(string)"/> 方法调用</para>
-    /// <para lang="en">Gets or sets the callback to get the filter instance, called by the <see cref="GetFilter(string)"/></para>
+    /// <para lang="zh">获得/设置 获取过滤器实例回调，由 <see cref="GetFilter(string)"/> 方法调用，设置此回调可以自定义过滤器实例的获取逻辑</para>
+    /// <para lang="en">Gets or sets the callback to get the filter instance, called by the <see cref="GetFilter(string)"/> method. Setting this callback allows customizing the logic for obtaining the filter instance.</para>
     /// </summary>
     Func<object?, FilterKeyValueAction>? GetFilterCallback { get; set; }
 }
