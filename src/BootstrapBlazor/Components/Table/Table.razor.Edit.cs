@@ -553,6 +553,7 @@ public partial class Table<TItem>
             var queryOption = BuildQueryPageOptions();
             // Set whether it is the first query
             queryOption.IsFirstQuery = _firstQuery;
+            queryOption.IsTriggerByPagination = triggerByPagination;
 
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
