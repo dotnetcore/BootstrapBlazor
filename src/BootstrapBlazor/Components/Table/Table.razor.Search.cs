@@ -115,6 +115,20 @@ public partial class Table<TItem>
     public SearchMode SearchMode { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false</para>
+    /// <para lang="en">Gets or sets Whether to use search form. Default false</para>
+    /// </summary>
+    [Parameter]
+    public bool UseSearchForm { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单项集合</para>
+    /// <para lang="en">Gets or sets Search Form Items collection</para>
+    /// </summary>
+    [Parameter]
+    public IEnumerable<ISearchItem>? SearchItems { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
     /// <para lang="en">Gets or sets Items per row. Default 2</para>
     /// </summary>
@@ -142,6 +156,24 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
+    private FilterKeyValueAction? _searchFilter;
+    private IEnumerable<ISearchItem>? _searchItems;
+
+    private IEnumerable<ISearchItem> SearchFormItems
+    {
+        get
+        {
+            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem()).ToList();
+            return _searchItems;
+        }
+    }
+
+    private Task OnSearchFormFilterChanged(FilterKeyValueAction action)
+    {
+        _searchFilter = action;
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// <para lang="zh">重置查询方法</para>
     /// <para lang="en">Reset Search Method</para>
@@ -162,6 +194,7 @@ public partial class Table<TItem>
             Utility.Reset(SearchModel, CreateSearchModel());
         }
 
+        _searchItems = null;
         await SearchClick();
         await ToggleLoading(false);
     }
@@ -281,7 +314,7 @@ public partial class Table<TItem>
     protected List<IFilterAction> GetAdvanceSearches()
     {
         var searches = new List<IFilterAction>();
-        if (ShowAdvancedSearch && CustomerSearchModel == null)
+        if (ShowAdvancedSearch && CustomerSearchModel == null && UseSearchForm == false)
         {
             var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
             {
@@ -311,7 +344,9 @@ public partial class Table<TItem>
     /// <para lang="zh">通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合</para>
     /// <para lang="en">Assemble IFilterAction collection using <see cref="ITableColumn.Searchable"/> columns and <see cref="SearchText"/></para>
     /// </summary>
-    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
+    protected List<IFilterAction> GetSearches() => UseSearchForm
+        ? _searchFilter.ToSearches()
+        : Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
     /// <summary>
     /// <para lang="zh">点击重置搜索按钮时调用此方法</para>

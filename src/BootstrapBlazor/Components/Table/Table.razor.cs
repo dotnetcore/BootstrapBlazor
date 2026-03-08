@@ -1144,6 +1144,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             // resize column width;
             ResetColumnWidth(Columns);
         }
+
+        // 重置搜索表单条件
+        _searchItems = null;
     }
 
     /// <summary>

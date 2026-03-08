@@ -1096,7 +1096,13 @@
                 </div>
             </HeaderTemplate>
             <BodyTemplate>
-                @if (CustomerSearchModel != null && CustomerSearchTemplate != null)
+                @if (UseSearchForm)
+                {
+                    <SearchForm Items="SearchFormItems"
+                                Filter="_searchFilter" OnFilterChanged="OnSearchFormFilterChanged">
+                    </SearchForm>
+                }
+                else if (CustomerSearchModel != null && CustomerSearchTemplate != null)
                 {
                     @CustomerSearchTemplate(CustomerSearchModel)
                 }
@@ -1104,19 +1110,13 @@
                 {
                     @SearchTemplate(SearchModel)
                 }
-                else if (SearchModel != null)
+                else
                 {
                     <CascadingValue Value="true" IsFixed="true" Name="IsSearch">
                         <EditorForm Model="SearchModel" Items="GetSearchColumns()" ItemsPerRow="SearchDialogItemsPerRow"
                                     RowType="SearchDialogRowType" LabelAlign="SearchDialogLabelAlign" ShowLabel="true">
                         </EditorForm>
                     </CascadingValue>
-                }
-                else
-                {
-                    <div class="">
-                        custom search
-                    </div>
                 }
             </BodyTemplate>
         </Card>;
