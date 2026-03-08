@@ -904,7 +904,7 @@ public static class Utility
     {
         var fieldType = item.PropertyType;
         Type? ret = null;
-        var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
+        var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         if (type.IsEnum || item.IsLookup())
         {
             ret = typeof(Select<>).MakeGenericType(fieldType);
