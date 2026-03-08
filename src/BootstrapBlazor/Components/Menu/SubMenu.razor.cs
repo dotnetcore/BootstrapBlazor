@@ -8,8 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"></para>
-/// <para lang="en"></para>
+/// <para lang="zh">子菜单组件内部使用不推荐直接使用此组件</para>
+/// <para lang="en">SubMenu component for internal use only. Direct usage is not recommended.</para>
 /// </summary>
 public sealed partial class SubMenu
 {
@@ -67,11 +67,6 @@ public sealed partial class SubMenu
     [NotNull]
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
-    /// <summary>
-    /// <para lang="zh">获得 样式字符串</para>
-    /// <para lang="en">Get Style String</para>
-    /// </summary>
-    /// <param name="item"></param>
     private static string? GetClassString(MenuItem item) => CssBuilder.Default()
         .AddClass("active", !item.IsDisabled && item.IsActive)
         .AddClass("disabled", item.IsDisabled)

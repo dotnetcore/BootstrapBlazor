@@ -33,8 +33,7 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
     public FilterAction Action { get; set; } = action;
 
     /// <summary>
-    /// <para lang="zh">重置过滤条件方法</para>
-    /// <para lang="en">Resets filter conditions</para>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public void Reset()
     {
@@ -42,8 +41,17 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
     }
 
     /// <summary>
-    /// <para lang="zh">设置过滤条件方法</para>
-    /// <para lang="en">Sets filter conditions</para>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
+    /// </summary>
+    public virtual FilterKeyValueAction GetFilterConditions() => new()
+    {
+        FieldKey = Name,
+        FieldValue = Value,
+        FilterAction = Action,
+    };
+
+    /// <summary>
+    /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     /// <param name="filter"></param>
     public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
@@ -55,15 +63,4 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
         }
         return Task.CompletedTask;
     }
-
-    /// <summary>
-    /// <para lang="zh">获得 所有过滤条件集合</para>
-    /// <para lang="en">Gets all filter conditions</para>
-    /// </summary>
-    public virtual FilterKeyValueAction GetFilterConditions() => new()
-    {
-        FieldKey = Name,
-        FieldValue = Value,
-        FilterAction = Action,
-    };
 }

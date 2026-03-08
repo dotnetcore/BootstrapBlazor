@@ -208,8 +208,7 @@ public partial class MultiFilter
     private List<SelectedItem> GetItems() => _items ?? _source ?? [];
 
     /// <summary>
-    /// <para lang="zh">重置过滤条件方法</para>
-    /// <para lang="en">Reset Filter Conditions Method</para>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public override void Reset()
     {
@@ -226,8 +225,7 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// <para lang="zh">生成过滤条件方法</para>
-    /// <para lang="en">Generate Filter Conditions Method</para>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
     /// </summary>
     public override FilterKeyValueAction GetFilterConditions()
     {
@@ -245,7 +243,7 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     /// <param name="filter"></param>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)

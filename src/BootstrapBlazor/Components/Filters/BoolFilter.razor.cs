@@ -21,8 +21,7 @@ public partial class BoolFilter
     private string _value = "";
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -37,8 +36,7 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public override void Reset()
     {
@@ -47,8 +45,7 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
     /// </summary>
     public override FilterKeyValueAction GetFilterConditions()
     {
@@ -66,8 +63,7 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// <para lang="zh"><inheritdoc/></para>
-    /// <para lang="en"><inheritdoc/></para>
+    /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {

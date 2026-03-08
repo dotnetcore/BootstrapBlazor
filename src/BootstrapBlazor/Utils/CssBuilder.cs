@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 public class CssBuilder
 {
     private readonly StringBuilder _builder = new();
-    private bool _hasConent;
+    private bool _hasContent;
 
     /// <summary>
     /// <para lang="zh">创建一个 CssBuilder 实例，用于定义组件中使用的条件 CSS 类。调用 Build() 返回完整的 CSS 类字符串</para>
@@ -40,7 +40,7 @@ public class CssBuilder
         if (!string.IsNullOrEmpty(value))
         {
             _builder.Append(value);
-            _hasConent = true;
+            _hasContent = true;
         }
     }
 
@@ -60,13 +60,13 @@ public class CssBuilder
     {
         if (!string.IsNullOrEmpty(value))
         {
-            if (_hasConent)
+            if (_hasContent)
             {
                 _builder.Append(' ');
             }
             else
             {
-                _hasConent = true;
+                _hasContent = true;
             }
             _builder.Append(value);
         }
@@ -233,5 +233,5 @@ public class CssBuilder
     ///  <para lang="zh">完成的 CSS 类字符串</para>
     ///  <para lang="en">Completed CSS Classes as a string</para>
     /// </returns>
-    public string? Build() => _hasConent ? _builder.ToString() : null;
+    public string? Build() => _hasContent ? _builder.ToString() : null;
 }

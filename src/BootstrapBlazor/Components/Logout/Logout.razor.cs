@@ -81,7 +81,7 @@ public partial class Logout
     public RenderFragment? LinkTemplate { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 the avatar border radius. 默认为 null</para>
+    /// <para lang="zh">获得/设置 组件头像边框圆角 默认 null 未设置</para>
     /// <para lang="en">Gets or sets the avatar border radius. Default is null</para>
     /// </summary>
     [Parameter]

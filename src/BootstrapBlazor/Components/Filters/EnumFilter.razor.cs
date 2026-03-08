@@ -47,7 +47,7 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IFilterAction.Reset"/>
     /// </summary>
     public override void Reset()
     {
@@ -58,7 +58,7 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IFilterAction.GetFilterConditions"/>
     /// </summary>
     public override FilterKeyValueAction GetFilterConditions()
     {
@@ -87,7 +87,7 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IFilterAction.SetFilterConditionsAsync(FilterKeyValueAction)"/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {

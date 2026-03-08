@@ -520,8 +520,8 @@ public partial class Layout : ITabHeader
     public IEnumerable<string>? ExcludeUrls { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
-    /// <para lang="en">Gets or sets Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
+    /// <para lang="zh">获得/设置 额外的程序集集合，这些程序集将被搜索以匹配 URI 的组件</para>
+    /// <para lang="en">Gets or sets a collection of additional assemblies that should be searched for components that can match URIs</para>
     /// </summary>
     [Parameter]
     public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
