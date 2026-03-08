@@ -14,6 +14,89 @@ namespace BootstrapBlazor.Components;
 public static class IEditItemExtensions
 {
     /// <summary>
+    /// <para lang="zh">将 ITableColumn 转换为 ISearchItem</para>
+    /// <para lang="en">Convert ITableColumn to ISearchItem</para>
+    /// </summary>
+    /// <param name="column"></param>
+    /// <returns></returns>
+    public static ISearchItem ParseSearchItem(this ITableColumn column)
+    {
+        var item = new SearchItem(column.GetFieldName(), column.PropertyType, column.GetDisplayName())
+        {
+            Cols = column.Cols,
+            ShowLabelTooltip = column.ShowLabelTooltip,
+            GroupName = column.GroupName,
+            GroupOrder = column.GroupOrder,
+            Order = column.Order,
+            MetaData = column.BuildSearchMetaData()
+        };
+
+        return item;
+    }
+
+    private static ISearchMetaData BuildSearchMetaData(this ITableColumn column)
+    {
+        ISearchMetaData? metaData = null;
+        var fieldType = column.PropertyType;
+        var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+        if (Utility.IsCheckboxList(type))
+        {
+            metaData = new CheckboxListSearchMetaData()
+            {
+                Items = column.Items
+            };
+        }
+        else if (column.IsLookup())
+        {
+            metaData = new SelectSearchMetaData()
+            {
+                Items = column.Items
+            };
+        }
+        else if (type.IsEnum)
+        {
+            metaData = new SelectSearchMetaData()
+            {
+                Items = type.ToSelectList(new SelectedItem() { Value = "", Text = "全选" }),
+            };
+        }
+        else if (fieldType.IsNumberWithDotSeparator())
+        {
+            metaData = new NumberSearchMetaData()
+            {
+                StartValueLabelText = "开始数量",
+                EndValueLabelText = "截止数量",
+                ValueType = type
+            };
+        }
+        else if (fieldType.IsBoolean())
+        {
+            metaData = new SelectSearchMetaData()
+            {
+                Items = new List<SelectedItem>()
+                {
+                    new SelectedItem() { Value = "", Text = "全部" },
+                    new SelectedItem() { Value = "True", Text = "完成" },
+                    new SelectedItem() { Value = "False", Text = "未完成" }
+                }
+            };
+        }
+        else if (fieldType.IsDateTime())
+        {
+            metaData = new DateTimeRangeSearchMetaData()
+            {
+
+            };
+        }
+        else
+        {
+            metaData = new StringSearchMetaData();
+        }
+
+        return metaData;
+    }
+
+    /// <summary>
     /// <para lang="zh">继承 class 标签中设置的参数值</para>
     /// <para lang="en">Inherit the parameter value set in the class tag</para>
     /// </summary>
@@ -195,40 +278,39 @@ public static class IEditItemExtensions
         {
             builder.AddContent(20, v1.RenderSwitch());
         }
+        else if (col.Formatter != null)
+        {
+            // <para lang="zh">格式化回调委托</para>
+            // <para lang="en">Format callback delegate</para>
+            builder.OpenComponent<TableFormatContent>(40);
+            builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
+            builder.AddAttribute(46, nameof(TableFormatContent.Item),
+                new TableColumnContext<TItem, object?>(item, val));
+            builder.CloseComponent();
+        }
         else
         {
             string? content;
-            if (col.Formatter != null)
+            if (!string.IsNullOrEmpty(col.FormatString))
             {
-                // <para lang="zh">格式化回调委托</para>
-                // <para lang="en">Format callback delegate</para>
-                builder.OpenComponent<TableFormatContent>(40);
-                builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
-                builder.AddAttribute(46, nameof(TableFormatContent.Item), new TableColumnContext<TItem, object?>(item, val));
-                builder.CloseComponent();
+                // <para lang="zh">格式化字符串</para>
+                // <para lang="en">Format string</para>
+                content = Utility.Format(val, col.FormatString);
+            }
+            else if (col.PropertyType.IsDateTime())
+            {
+                content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+            }
+            else if (val is IEnumerable<object> v)
+            {
+                content = string.Join(",", v);
             }
             else
             {
-                if (!string.IsNullOrEmpty(col.FormatString))
-                {
-                    // <para lang="zh">格式化字符串</para>
-                    // <para lang="en">Format string</para>
-                    content = Utility.Format(val, col.FormatString);
-                }
-                else if (col.PropertyType.IsDateTime())
-                {
-                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-                }
-                else if (val is IEnumerable<object> v)
-                {
-                    content = string.Join(",", v);
-                }
-                else
-                {
-                    content = val?.ToString();
-                }
-                builder.AddContent(30, col.RenderLookupContent(content, item));
+                content = val?.ToString();
             }
+
+            builder.AddContent(30, col.RenderLookupContent(content, item));
         }
     };
 
