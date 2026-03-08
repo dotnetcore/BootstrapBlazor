@@ -16,7 +16,6 @@ public partial class SearchForm : IShowLabel, IDisposable
     /// <para lang="en">Gets or sets the filter instance</para>
     /// </summary>
     [Parameter]
-    [EditorRequired]
     [NotNull]
     public FilterKeyValueAction? Filter { get; set; }
 
@@ -84,7 +83,7 @@ public partial class SearchForm : IShowLabel, IDisposable
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板优先级更高</para>
+    /// <para lang="zh">获得/设置 绑定字段信息集合</para>
     /// <para lang="en">Gets or sets the items collection.</para>
     /// </summary>
     [Parameter]
