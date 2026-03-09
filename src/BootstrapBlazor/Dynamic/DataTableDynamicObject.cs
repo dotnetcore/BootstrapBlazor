@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">DataTable 动态类实例</para>
-/// <para lang="en">DataTable 动态类instance</para>
+/// <para lang="en">DataTable dynamic class instance</para>
 /// </summary>
 public class DataTableDynamicObject : DynamicObject
 {
@@ -45,8 +45,6 @@ public class DataTableDynamicObject : DynamicObject
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="propertyName"></param>
-    /// <param name="value"></param>
     public override void SetValue(string propertyName, object? value)
     {
         base.SetValue(propertyName, value);
