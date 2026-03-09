@@ -10,8 +10,8 @@ using System.Reflection.Emit;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh"><see cref="IDynamicObjectContext"/> 实现类</para>
-/// <para lang="en"><see cref="IDynamicObjectContext"/> implementation class</para>
+/// <para lang="zh"><see cref="IDynamicObjectContext"/> 实现类基类</para>
+/// <para lang="en"><see cref="IDynamicObjectContext"/> base class</para>
 /// </summary>
 public abstract class DynamicObjectContext : IDynamicObjectContext
 {
