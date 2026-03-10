@@ -134,6 +134,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .Build();
 
     /// <summary>
+    /// <para lang="zh">获得 Body 内行内联样式</para>
+    /// <para lang="en">Get Body Row Inline Style</para>
+    /// </summary>
+    protected string? GetRowStyleString(TItem item) => CssBuilder.Default()
+        .AddClass(SetRowStyleFormatter?.Invoke(item))
+        .Build();
+
+    /// <summary>
     /// <para lang="zh">明细行首小图标单元格样式</para>
     /// <para lang="en">Detail Row Icon Cell CSS Class</para>
     /// </summary>
