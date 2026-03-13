@@ -34,11 +34,11 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.2" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="10.0.3" />
     <PackageReference Include="BootstrapBlazor.Dom2Image" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="10.0.2" />
+    <PackageReference Include="BootstrapBlazor.EmbedPDF" Version="10.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.FluentSystemIcon" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="10.0.1" />
@@ -51,7 +51,7 @@
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="10.0.1" />
     <PackageReference Include="BootstrapBlazor.JitsiMeet" Version="10.0.0" />
-    <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.0.0" />
+    <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="10.1.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="10.0.0" />
@@ -75,7 +75,7 @@
     <PackageReference Include="BootstrapBlazor.Splitting" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="10.0.2" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="10.0.1" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="10.0.2" />
     <PackageReference Include="BootstrapBlazor.Tasks.Dashboard" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Term" Version="10.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="10.0.0" />

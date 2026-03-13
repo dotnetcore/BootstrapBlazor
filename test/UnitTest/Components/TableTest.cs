@@ -5405,6 +5405,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowLoading, false);
                 pb.Add(a => a.RenderModeResponsiveWidth, BreakPoint.Medium);
                 pb.Add(a => a.SetRowClassFormatter, foo => "test_row_class");
+                pb.Add(a => a.SetRowStyleFormatter, foo => "height: 36px;");
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5415,6 +5416,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("test_row_class");
+        cut.Contains("height: 36px;");
     }
 
     [Fact]

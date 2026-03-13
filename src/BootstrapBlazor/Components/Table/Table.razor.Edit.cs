@@ -102,6 +102,13 @@ public partial class Table<TItem>
     public Func<TItem, string?>? SetRowClassFormatter { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 行样式格式回调委托</para>
+    /// <para lang="en">Gets or sets Row Style Formatter Callback</para>
+    /// </summary>
+    [Parameter]
+    public Func<TItem, string?>? SetRowStyleFormatter { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 取消保存后回调委托方法</para>
     /// <para lang="en">Gets or sets After Cancel Save Callback</para>
     /// </summary>
@@ -553,6 +560,7 @@ public partial class Table<TItem>
             var queryOption = BuildQueryPageOptions();
             // Set whether it is the first query
             queryOption.IsFirstQuery = _firstQuery;
+            queryOption.IsTriggerByPagination = triggerByPagination;
 
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
