@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">动态类型实体类 <see cref="IDynamicObject" /> 实例</para>
-/// <para lang="en">动态type实体类 <see cref="IDynamicObject" /> instance</para>
+/// <para lang="zh"><see cref="IDynamicObject"/> 实现类</para>
+/// <para lang="en"><see cref="IDynamicObject"/> implementation class</para>
 /// </summary>
 public class DynamicObject : IDynamicObject
 {
@@ -19,14 +19,14 @@ public class DynamicObject : IDynamicObject
 
     /// <summary>
     /// <para lang="zh">获得指定属性值方法</para>
-    /// <para lang="en">Gets指定property值方法</para>
+    /// <para lang="en">Gets the value of a specified property</para>
     /// </summary>
     /// <param name="propertyName"></param>
     public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>
     /// <para lang="zh">给指定属性设置值方法</para>
-    /// <para lang="en">给指定propertySets值方法</para>
+    /// <para lang="en">Sets the value of a specified property</para>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>
