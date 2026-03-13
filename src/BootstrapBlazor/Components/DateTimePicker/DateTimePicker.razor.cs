@@ -288,14 +288,6 @@ public partial class DateTimePicker<TValue>
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否选择今天 默认 false</para>
-    /// <para lang="en">Gets or sets Whether to Select Today. Default is false</para>
-    /// </summary>
-    /// <remarks>当 Value 值为 null 且组件设置了 <see cref="DateTimePicker{TValue}.MinValue"/> 的值时，当前选中时间为当天， <see cref="DateTimePicker{TValue}.MinValue"/> 不为空类型时此参数生效</remarks>
-    [Parameter]
-    public bool SelectToday { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获取/设置 获得自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭</para>
     /// <para lang="en">Gets or sets Callback Method to Get Custom Disabled Days. Default is null. Internal Default Enable Data Cache. Can be Closed via <see cref="EnableDisabledDaysCache"/> Parameter</para>
     /// </summary>
@@ -381,7 +373,7 @@ public partial class DateTimePicker<TValue>
         }
         else
         {
-            SelectedValue = Value == null ? ((SelectToday ? DateTime.Today : MinValue) ?? DateTime.MinValue) : (DateTime)(object)Value;
+            SelectedValue = Value == null ? (MinValue ?? DateTime.MinValue) : (DateTime)(object)Value;
         }
 
         if (MinValue > SelectedValue)
