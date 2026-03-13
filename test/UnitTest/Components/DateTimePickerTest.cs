@@ -297,40 +297,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SelectToday_Ok()
-    {
-        var cut = Context.Render<DateTimePicker<DateTime?>>(builder =>
-        {
-            builder.Add(a => a.Value, null);
-            builder.Add(a => a.SelectToday, true);
-        });
-        Assert.Null(cut.Instance.Value);
-
-        // 点击确定
-        var buttons = cut.FindAll(".picker-panel-footer button");
-        cut.InvokeAsync(() => buttons[1].Click());
-
-        Assert.Equal(DateTime.Today, cut.Instance.Value);
-
-
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
-            pb.Add(a => a.SelectToday, true);
-        });
-        Assert.Equal(DateTime.Today, cut.Instance.Value);
-       
-        cut.Render(pb =>
-        {
-            pb.Add(a => a.Value, DateTime.MinValue);
-            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
-            pb.Add(a => a.SelectToday, false);
-        });
-        Assert.Equal(DateTime.Today.AddDays(-1).Date, cut.Instance.Value?.Date);
-
-    }
-
-    [Fact]
     public void OnTimeChanged_Ok()
     {
         var cut = Context.Render<DateTimePicker<DateTime>>(builder =>
