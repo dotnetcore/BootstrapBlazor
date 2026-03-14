@@ -51,7 +51,7 @@ public interface ITableColumn : IEditorItem
     /// <para lang="zh">获得/设置 搜索元数据</para>
     /// <para lang="en">Gets or sets the search metadata</para>
     /// </summary>
-    ISearchFormItemMetaData? SearchMetaData { get; set; }
+    ISearchFormItemMetaData? SearchFormItemMetaData { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 列宽</para>
