@@ -9,20 +9,20 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// <para lang="zh">逻辑运算符</para>
-/// <para lang="en">逻辑运算符</para>
+/// <para lang="en">Logical operators</para>
 /// </summary>
 public enum FilterLogic
 {
     /// <summary>
     /// <para lang="zh">并且</para>
-    /// <para lang="en">并且</para>
+    /// <para lang="en">And</para>
     /// </summary>
     [Description("并且")]
     And,
 
     /// <summary>
     /// <para lang="zh">或者</para>
-    /// <para lang="en">或者</para>
+    /// <para lang="en">Or</para>
     /// </summary>
     [Description("或者")]
     Or
