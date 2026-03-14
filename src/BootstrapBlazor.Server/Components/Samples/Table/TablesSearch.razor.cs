@@ -179,8 +179,8 @@ public partial class TablesSearch
             TotalCount = total,
             IsSorted = isSorted,
             IsFiltered = options.Filters.Count > 0,
-            IsSearch = options.CustomerSearches.Count > 0 || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText),
+            IsSearch = options.CustomerSearches.Count > 0 || !string.IsNullOrEmpty(options.SearchText) || options.Searches.Count > 0,
+            IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText) || options.Searches.Count > 0,
         });
     }
 }
