@@ -16,5 +16,5 @@ public class SelectSearchMetaData : StringSearchMetaData
     /// <para lang="en">Gets or sets the collection of select items</para>
     /// </summary>
     /// <returns></returns>
-    public List<SelectedItem>? Items { get; set; }
+    public IEnumerable<SelectedItem>? Items { get; set; }
 }
