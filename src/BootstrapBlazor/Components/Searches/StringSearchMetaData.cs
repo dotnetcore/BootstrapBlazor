@@ -18,7 +18,7 @@ public class StringSearchMetaData : SearchMetaDataBase
     public string? Value { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchMetaData.GetFilter(string)"/>
+    /// <inheritdoc cref="ISearchFormItemMetaData.GetFilter(string)"/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {

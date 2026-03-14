@@ -62,5 +62,5 @@ public class SearchItem(string fieldName, Type fieldType, string? fieldText = nu
     /// <summary>
     /// <inheritdoc cref="ISearchItem.MetaData"/>
     /// </summary>
-    public ISearchMetaData? MetaData { get; set; }
+    public ISearchFormItemMetaData? MetaData { get; set; }
 }

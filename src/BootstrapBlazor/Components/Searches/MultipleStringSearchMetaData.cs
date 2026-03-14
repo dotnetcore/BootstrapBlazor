@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public class MultipleStringSearchMetaData : StringSearchMetaData
 {
     /// <summary>
-    /// <inheritdoc cref="ISearchMetaData.GetFilter(string)"/>
+    /// <inheritdoc cref="ISearchFormItemMetaData.GetFilter(string)"/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {

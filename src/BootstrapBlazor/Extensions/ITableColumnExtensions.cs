@@ -34,9 +34,9 @@ public static class IEditItemExtensions
         return item;
     }
 
-    private static ISearchMetaData BuildSearchMetaData(this ITableColumn column)
+    private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column)
     {
-        ISearchMetaData? metaData = null;
+        ISearchFormItemMetaData? metaData = null;
         var fieldType = column.PropertyType;
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         if (Utility.IsCheckboxList(type))
