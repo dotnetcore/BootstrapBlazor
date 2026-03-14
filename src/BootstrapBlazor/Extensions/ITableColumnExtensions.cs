@@ -36,6 +36,11 @@ public static class IEditItemExtensions
 
     private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column)
     {
+        if (column.SearchFormItemMetaData is not null)
+        {
+            return column.SearchFormItemMetaData;
+        }
+
         ISearchFormItemMetaData? metaData = null;
         var fieldType = column.PropertyType;
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
