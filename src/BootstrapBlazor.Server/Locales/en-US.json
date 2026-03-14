@@ -5076,7 +5076,10 @@
     "SelectedItemValue1": "Name1",
     "SelectedItemValue2": "Name2",
     "TablesSearchDesc": "Commonly used for single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex can be realized through the advanced usage of <code>Template</code> business needs functions",
-    "TablesSearchTitle": "Table Search"
+    "TablesSearchTitle": "Table Search",
+    "SearchFormTitle": "Search Form",
+    "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
+    "SearchFormDesc": ""
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "Count：{0}",
