@@ -161,7 +161,9 @@
 <DemoBlock Title="@Localizer["SearchFormTitle"]"
            Introduction="@Localizer["SearchFormIntro"]"
            Name="SearchForm">
-    <section ignore>@((MarkupString)Localizer["SearchFormDesc"].Value)</section>
+    <section ignore>
+        <div>@((MarkupString)Localizer["SearchFormDesc"].Value)</div>
+    </section>
     <Table TItem="Foo"
             IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
             IsStriped="true" IsBordered="true"
@@ -170,7 +172,7 @@
             OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Searchable="true" />
-            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" SearchMetaData="NameMetaData" />
             <TableColumn @bind-Field="@context.Address" Searchable="true" />
             <TableColumn @bind-Field="@context.Count" Searchable="true" />
             <TableColumn @bind-Field="@context.Education" Searchable="true" />
