@@ -105,7 +105,7 @@ public partial class SearchForm : IShowLabel
     [Parameter]
     public EditorFormGroupType GroupType { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-editor")
+    private string? ClassString => CssBuilder.Default("bb-editor bb-search-form")
         .AddClass("bb-editor-group-row-header", GroupType == EditorFormGroupType.RowHeader)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
