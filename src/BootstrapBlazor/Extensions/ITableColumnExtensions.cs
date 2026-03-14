@@ -36,6 +36,7 @@ public static class IEditItemExtensions
 
     private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column)
     {
+        // 自定义搜索项逻辑
         if (column.SearchFormItemMetaData is not null)
         {
             return column.SearchFormItemMetaData;
@@ -44,7 +45,7 @@ public static class IEditItemExtensions
         ISearchFormItemMetaData? metaData = null;
         var fieldType = column.PropertyType;
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-        if (Utility.IsCheckboxList(type))
+        if (Utility.IsCheckboxList(type, column.ComponentType))
         {
             metaData = new CheckboxListSearchMetaData()
             {
@@ -60,6 +61,7 @@ public static class IEditItemExtensions
         }
         else if (type.IsEnum)
         {
+            // TODO: 缺少本地化工作
             metaData = new SelectSearchMetaData()
             {
                 Items = type.ToSelectList(new SelectedItem() { Value = "", Text = "全选" }),
@@ -67,6 +69,7 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsNumberWithDotSeparator())
         {
+            // TODO: 缺少本地化工作
             metaData = new NumberSearchMetaData()
             {
                 StartValueLabelText = "开始数量",
@@ -76,6 +79,7 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsBoolean())
         {
+            // TODO: 缺少本地化工作
             metaData = new SelectSearchMetaData()
             {
                 Items = new List<SelectedItem>()
@@ -88,10 +92,8 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsDateTime())
         {
-            metaData = new DateTimeRangeSearchMetaData()
-            {
-
-            };
+            // TODO: 缺少默认值设置
+            metaData = new DateTimeRangeSearchMetaData();
         }
         else
         {
