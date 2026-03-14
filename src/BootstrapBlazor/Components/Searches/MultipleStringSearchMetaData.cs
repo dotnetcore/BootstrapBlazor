@@ -28,18 +28,12 @@ public class MultipleStringSearchMetaData : StringSearchMetaData
         }
 
         var valueList = Value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(v => v.Trim()).ToList();
-        if (valueList.Count == 0)
-        {
-            return null;
-        }
-
         if (valueList.Count == 1)
         {
             return new FilterKeyValueAction()
             {
                 FieldKey = fieldName,
                 FieldValue = valueList[0],
-                FilterLogic = FilterLogic.Or,
                 FilterAction = FilterAction.Contains
             };
         }

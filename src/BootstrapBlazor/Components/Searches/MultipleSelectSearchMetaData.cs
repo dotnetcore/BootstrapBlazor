@@ -28,11 +28,6 @@ public class MultipleSelectSearchMetaData : SelectSearchMetaData
         }
 
         var valueList = Value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(v => v.Trim()).ToList();
-        if (valueList.Count == 0)
-        {
-            return null;
-        }
-
         if (valueList.Count == 1)
         {
             return new FilterKeyValueAction()
