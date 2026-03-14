@@ -5076,7 +5076,9 @@
     "SelectedItemValue1": "姓名1",
     "SelectedItemValue2": "姓名2",
     "TablesSearchDesc": "常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能",
-    "TablesSearchTitle": "Table 表格"
+    "TablesSearchTitle": "Table 表格",
+    "SearchFormTitle": "搜索表单",
+    "SearchFormIntro": ""
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "选中的行数：{0}",
