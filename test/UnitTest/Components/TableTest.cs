@@ -547,6 +547,53 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void UseSearchForm_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchMode, SearchMode.Top);
+                pb.Add(a => a.UseSearchForm, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
+                    builder.AddAttribute(1, "Field", "DateTime");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.CloseComponent();
+
+                    //builder.OpenComponent<TableColumn<Foo, int>>(10);
+                    //builder.AddAttribute(11, "Field", "Count");
+                    //builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    //builder.CloseComponent();
+
+                    //builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(0);
+                    //builder.AddAttribute(1, "Field", nameof(Foo.Education));
+                    //builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Education), typeof(EnumEducation?)));
+                    //builder.CloseComponent();
+
+                    //builder.OpenComponent<TableColumn<Foo, bool>>(0);
+                    //builder.AddAttribute(1, "Field", nameof(Foo.Complete));
+                    //builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(string)));
+                    //builder.CloseComponent();
+                });
+            });
+        });
+
+        //cut.Contains("<input");
+    }
+
+    [Fact]
     public void ShowToolbar_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
