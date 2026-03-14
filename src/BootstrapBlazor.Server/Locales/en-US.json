@@ -5079,7 +5079,7 @@
     "TablesSearchTitle": "Table Search",
     "SearchFormTitle": "Search Form",
     "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
-    "SearchFormDesc": ""
+    "SearchFormDesc": "When <code>UseSearchForm</code> is enabled and <code>SearchItems</code> is not provided, it will default to using <code>TableColumn</code> with <code>Searchable=\"true\"</code>. You can customize the metadata through the <code>SearchMetaData</code> property in <code>TableColumn</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "Count：{0}",

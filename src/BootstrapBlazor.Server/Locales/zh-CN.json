@@ -5079,7 +5079,7 @@
     "TablesSearchTitle": "Table 表格",
     "SearchFormTitle": "搜索表单",
     "SearchFormIntro": "通过设置 <code>UseSearchForm=\"true\"</code> 开启搜索表单功能，通过 <code>SearchItems</code> 配置搜索表单内搜索项，适用于自定义复杂搜索条件的场景",
-    "SearchFormDesc": ""
+    "SearchFormDesc": "使用 <code>UseSearchForm</code> 开启搜索表单时未提供 <code>SearchItems</code> 默认尝试使用设置 <code>Searchable=\"true\"</code> 的 <code>TableColumn</code> 进行构建，可以通过 <code>TableColumn</code> 中的 <code>SearchMetaData</code> 属性定制化元数据"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "选中的行数：{0}",
