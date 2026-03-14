@@ -14,29 +14,29 @@ namespace BootstrapBlazor.Components;
 public enum Direction
 {
     /// <summary>
-    /// <para lang="zh"></para>
-    /// <para lang="en"></para>
+    /// <para lang="zh">向下</para>
+    /// <para lang="en">Down</para>
     /// </summary>
     [Description("dropdown")]
     Dropdown,
 
     /// <summary>
-    /// <para lang="zh">Dropup</para>
-    /// <para lang="en">Dropup</para>
+    /// <para lang="zh">向上</para>
+    /// <para lang="en">Up</para>
     /// </summary>
     [Description("dropup")]
     Dropup,
 
     /// <summary>
-    /// <para lang="zh">Dropleft</para>
-    /// <para lang="en">Dropleft</para>
+    /// <para lang="zh">向左</para>
+    /// <para lang="en">Left</para>
     /// </summary>
     [Description("dropstart")]
     Dropleft,
 
     /// <summary>
-    /// <para lang="zh">Dropright</para>
-    /// <para lang="en">Dropright</para>
+    /// <para lang="zh">向右</para>
+    /// <para lang="en">Right</para>
     /// </summary>
     [Description("dropend")]
     Dropright
