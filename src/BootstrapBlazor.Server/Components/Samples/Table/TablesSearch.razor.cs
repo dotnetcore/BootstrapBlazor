@@ -40,6 +40,12 @@ public partial class TablesSearch
         set => SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
     }
 
+    private ISearchFormItemMetaData _stringSearchFormItemMetaData = new StringSearchMetaData()
+    {
+        PlaceHolder = "请输入名称搜索（支持模糊匹配）",
+        FilterAction = FilterAction.Contains,
+    };
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
