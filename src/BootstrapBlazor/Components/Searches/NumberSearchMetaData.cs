@@ -41,6 +41,11 @@ public class NumberSearchMetaData : SearchMetaDataBase
     /// </summary>
     public Type? ValueType { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {
         // 如果用户设置了 GetFilterCallback 回调，则调用该回调获取过滤器实例
