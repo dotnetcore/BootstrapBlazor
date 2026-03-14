@@ -12,13 +12,13 @@ namespace BootstrapBlazor.Components;
 public enum DateTimeRangeRenderMode
 {
     /// <summary>
-    /// <para lang="zh">Single Component Mode</para>
-    /// <para lang="en">Single Component Mode</para>
+    /// <para lang="zh">单面板模式</para>
+    /// <para lang="en">Single Panel Mode</para>
     /// </summary>
     Single,
 
     /// <summary>
-    /// <para lang="zh">Double Panel Mode</para>
+    /// <para lang="zh">双面板模式</para>
     /// <para lang="en">Double Panel Mode</para>
     /// </summary>
     Double
