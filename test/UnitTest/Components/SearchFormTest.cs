@@ -11,7 +11,6 @@ public class SearchFormTest : BootstrapBlazorTestBase
     public async Task Filter_Ok()
     {
         var filterKeyValueAction = new FilterKeyValueAction();
-        var foo = new Foo();
         var stringSearchMetaData = new StringSearchMetaData()
         {
             PlaceHolder = "placeholder-val",
@@ -61,7 +60,6 @@ public class SearchFormTest : BootstrapBlazorTestBase
     [Fact]
     public void LabelAlign_Ok()
     {
-        var foo = new Foo();
         var stringSearchMetaData = new StringSearchMetaData()
         {
             PlaceHolder = "placeholder-val",
@@ -97,7 +95,6 @@ public class SearchFormTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowUnsetGroupItemsOnTop_Ok()
     {
-        var foo = new Foo();
         var cut = Context.Render<SearchForm>(pb =>
         {
             pb.Add(a => a.ShowUnsetGroupItemsOnTop, true);
@@ -130,5 +127,42 @@ public class SearchFormTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("bb-editor-footer form-footer");
+    }
+
+    [Fact]
+    public void MetaData_Ok()
+    {
+        var filterKeyValueAction = new FilterKeyValueAction();
+        var cut = Context.Render<SearchForm>(pb =>
+        {
+            pb.Add(a => a.Filter, filterKeyValueAction);
+            pb.Add(a => a.Items, new List<ISearchItem>()
+            {
+                new SearchItem(nameof(Foo.Count), typeof(string), nameof(Foo.Count))
+                {
+                    MetaData = new NumberSearchMetaData()
+                },
+                new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
+                {
+                    MetaData = new DateTimeSearchMetaData()
+                },
+                new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
+                {
+                    MetaData = new DateTimeRangeSearchMetaData()
+                },
+                new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
+                {
+                    MetaData = new SelectSearchMetaData()
+                },
+                new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
+                {
+                    MetaData = new MultipleSelectSearchMetaData()
+                },
+                new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
+                {
+                    MetaData = new CheckboxListSearchMetaData()
+                }
+            });
+        });
     }
 }
