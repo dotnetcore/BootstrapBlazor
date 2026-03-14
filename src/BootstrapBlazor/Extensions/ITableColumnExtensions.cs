@@ -90,7 +90,7 @@ public static class IEditItemExtensions
         }
         else
         {
-            metaData = new StringSearchMetaData();
+            metaData = new StringSearchMetaData() { FilterAction = FilterAction.Contains };
         }
 
         return metaData;
