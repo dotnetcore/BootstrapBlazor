@@ -275,4 +275,88 @@ public class SearchFormItemMetaDataTest
         Assert.Equal(FilterAction.LessThanOrEqual, action.Filters[1].FilterAction);
         Assert.Equal(FilterLogic.And, action.FilterLogic);
     }
+
+    [Fact]
+    public async Task DateTimeSearchFormItemMetaData_Ok()
+    {
+        var meta = new DateTimeSearchMetaData();
+
+        var valueChanged = false;
+        meta.ValueChanged = () =>
+        {
+            valueChanged = true;
+            return Task.CompletedTask;
+        };
+        await meta.ValueChangedHandler(DateTime.Today);
+        Assert.Equal(DateTime.Today, meta.Value);
+        Assert.True(valueChanged);
+
+        meta.Value = null;
+        var action = meta.GetFilter("fieldKey");
+        Assert.Null(action);
+
+        meta.GetFilterCallback = v =>
+        {
+            return new FilterKeyValueAction()
+            {
+                FieldKey = "fieldKey",
+                FieldValue = DateTime.Today,
+                FilterLogic = FilterLogic.And,
+                FilterAction = FilterAction.Equal
+            };
+        };
+        action = meta.GetFilter("fieldKey");
+        Assert.NotNull(action);
+
+        meta.GetFilterCallback = null;
+        meta.Value = DateTime.Today;
+        action = meta.GetFilter("fieldKey");
+        Assert.NotNull(action);
+        Assert.Equal(FilterLogic.And, action.FilterLogic);
+    }
+
+    [Fact]
+    public async Task DateTimeRangeSearchFormItemMetaData_Ok()
+    {
+        var meta = new DateTimeRangeSearchMetaData();
+
+        var valueChanged = false;
+        meta.ValueChanged = () =>
+        {
+            valueChanged = true;
+            return Task.CompletedTask;
+        };
+        await meta.ValueChangedHandler(new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today });
+        Assert.NotNull(meta.Value);
+        Assert.Equal(DateTime.Today, meta.Value.Start);
+        Assert.True(valueChanged);
+
+        meta.Value = null;
+        var action = meta.GetFilter("fieldKey");
+        Assert.Null(action);
+
+        meta.GetFilterCallback = v =>
+        {
+            return new FilterKeyValueAction()
+            {
+                FieldKey = "fieldKey",
+                FieldValue = DateTime.Today,
+                FilterLogic = FilterLogic.And,
+                FilterAction = FilterAction.Equal
+            };
+        };
+        action = meta.GetFilter("fieldKey");
+        Assert.NotNull(action);
+
+        meta.GetFilterCallback = null;
+        meta.Value = new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today };
+        action = meta.GetFilter("fieldKey");
+        Assert.NotNull(action);
+        Assert.Equal(2, action.Filters.Count);
+        Assert.Equal(DateTime.Today, action.Filters[0].FieldValue);
+        Assert.Equal(FilterAction.GreaterThanOrEqual, action.Filters[0].FilterAction);
+        Assert.Equal(DateTime.Today, action.Filters[1].FieldValue);
+        Assert.Equal(FilterAction.LessThanOrEqual, action.Filters[1].FilterAction);
+        Assert.Equal(FilterLogic.And, action.FilterLogic);
+    }
 }
