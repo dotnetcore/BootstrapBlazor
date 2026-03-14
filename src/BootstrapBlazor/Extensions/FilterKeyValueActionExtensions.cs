@@ -20,21 +20,10 @@ public static class FilterKeyValueActionExtensions
         public List<IFilterAction> ToSearches()
         {
             var ret = new List<IFilterAction>();
-            //if (action != null)
-            //{
-            //    foreach (var item in action.Filters)
-            //    {
-            //        if (!string.IsNullOrEmpty(item.FieldKey))
-            //        {
-            //            ret.Add(new SearchFilterAction(item.FieldKey, item.FieldValue, item.FilterAction));
-            //        }
-
-            //        if (item.HasFilters())
-            //        {
-            //            ret.AddRange(item.Filters.ToSearches());
-            //        }
-            //    }
-            //}
+            if (action != null)
+            {
+                ret.Add(new SerializeFilterAction() { Filter = action });
+            }
 
             return ret;
         }
