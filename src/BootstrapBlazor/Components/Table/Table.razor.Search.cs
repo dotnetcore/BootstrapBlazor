@@ -163,6 +163,7 @@ public partial class Table<TItem>
     {
         get
         {
+            // TODO: 增加多语言支持
             _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem()).ToList();
             return _searchItems;
         }

@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">QueryPageOptions json converter</para>
+/// <para lang="zh">QueryPageOptions 类序列化转换器</para>
 /// <para lang="en">QueryPageOptions json converter</para>
 /// </summary>
 public sealed class JsonQueryPageOptionsConverter : JsonConverter<QueryPageOptions>
