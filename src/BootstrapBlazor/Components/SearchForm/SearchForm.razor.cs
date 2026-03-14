@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">搜索表单类</para>
 /// <para lang="en">Search Form Component</para>
 /// </summary>
-public partial class SearchForm : IShowLabel, IDisposable
+public partial class SearchForm : IShowLabel
 {
     /// <summary>
     /// <para lang="zh">获得/设置 过滤器实例</para>
@@ -137,17 +137,13 @@ public partial class SearchForm : IShowLabel, IDisposable
         Items ??= [];
     }
 
-    private RenderFragment AutoGenerateTemplate(ISearchItem item)
+    /// <summary>
+    /// <para lang="zh">获得当前搜索表单过滤结果</para>
+    /// <para lang="en">Gets the current search form filter result</para> 
+    /// </summary>
+    public FilterKeyValueAction GetFilterKeyValueAction()
     {
-        item.ShowLabel ??= ShowLabel;
-        item.ShowLabelTooltip ??= ShowLabelTooltip;
-        item.MetaData?.ValueChanged ??= BuildFilter;
-        return item.CreateRenderFragment();
-    }
-
-    private async Task BuildFilter()
-    {
-        Filter = new FilterKeyValueAction()
+        var action = new FilterKeyValueAction()
         {
             Filters = []
         };
@@ -157,18 +153,32 @@ public partial class SearchForm : IShowLabel, IDisposable
             var filter = item.GetFilter();
             if (filter != null)
             {
-                Filter.Filters.Add(filter);
+                action.Filters.Add(filter);
             }
         }
 
-        if (FilterChanged.HasDelegate)
+        return action;
+    }
+
+    private RenderFragment AutoGenerateTemplate(ISearchItem item)
+    {
+        item.ShowLabel ??= ShowLabel;
+        item.ShowLabelTooltip ??= ShowLabelTooltip;
+        item.MetaData?.ValueChanged ??= async () =>
         {
-            await FilterChanged.InvokeAsync(Filter);
-        }
-        if (OnFilterChanged != null)
-        {
-            await OnFilterChanged.Invoke(Filter);
-        }
+            var action = GetFilterKeyValueAction();
+
+            if (FilterChanged.HasDelegate)
+            {
+                await FilterChanged.InvokeAsync(action);
+            }
+            if (OnFilterChanged != null)
+            {
+                await OnFilterChanged.Invoke(action);
+            }
+        };
+
+        return item.CreateRenderFragment();
     }
 
     private string? GetCssString(ISearchItem item)
@@ -179,17 +189,10 @@ public partial class SearchForm : IShowLabel, IDisposable
         {
             mdCols = Math.Max(0, Math.Min(12, Math.Ceiling(12d / ItemsPerRow.Value)));
         }
+
         return CssBuilder.Default("col-12")
             .AddClass($"col-sm-{cols}", cols > 0)
             .AddClass($"col-sm-6 col-md-{mdCols}", mdCols > 0 && cols == 0 && !Utility.IsCheckboxList(item.PropertyType))
             .Build();
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public void Dispose()
-    {
-        GC.SuppressFinalize(this);
     }
 }
