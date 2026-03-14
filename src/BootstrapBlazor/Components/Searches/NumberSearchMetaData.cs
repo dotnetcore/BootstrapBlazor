@@ -68,7 +68,7 @@ public class NumberSearchMetaData : SearchMetaDataBase
                 filter.Filters.Add(new FilterKeyValueAction()
                 {
                     FieldKey = fieldName,
-                    FieldValue = StartValue,
+                    FieldValue = v,
                     FilterLogic = FilterLogic,
                     FilterAction = FilterAction.GreaterThanOrEqual
                 });
@@ -86,7 +86,7 @@ public class NumberSearchMetaData : SearchMetaDataBase
                 filter.Filters.Add(new FilterKeyValueAction()
                 {
                     FieldKey = fieldName,
-                    FieldValue = EndValue,
+                    FieldValue = v,
                     FilterLogic = FilterLogic,
                     FilterAction = FilterAction.LessThanOrEqual
                 });
