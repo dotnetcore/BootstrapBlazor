@@ -18,12 +18,6 @@ public class DateTimeRangeSearchMetaData : SearchMetaDataBase
     public DateTimeRangeValue? Value { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 搜索值类型名称 用于将输入的字符串转换为指定类型进行比较</para>
-    /// <para lang="en">Gets or sets the search value type name, used to convert the input string to the specified type for comparison</para>
-    /// </summary>
-    public Type? ValueType { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
