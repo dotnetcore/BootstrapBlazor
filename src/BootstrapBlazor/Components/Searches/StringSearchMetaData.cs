@@ -49,14 +49,7 @@ public class StringSearchMetaData : SearchMetaDataBase
     /// <param name="value"></param>
     public async Task ValueChangedHandler(string? value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            Value = null;
-        }
-        else
-        {
-            Value = value;
-        }
+        Value = string.IsNullOrEmpty(value) ? null : value;
 
         if (ValueChanged != null)
         {
