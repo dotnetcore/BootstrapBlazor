@@ -16,6 +16,7 @@ public partial class SearchForm : IShowLabel
     /// <para lang="en">Gets or sets the filter instance</para>
     /// </summary>
     [Parameter]
+    [EditorRequired]
     [NotNull]
     public FilterKeyValueAction? Filter { get; set; }
 
