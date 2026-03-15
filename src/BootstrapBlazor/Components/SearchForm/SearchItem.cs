@@ -63,4 +63,10 @@ public class SearchItem(string fieldName, Type fieldType, string? fieldText = nu
     /// <inheritdoc cref="ISearchItem.MetaData"/>
     /// </summary>
     public ISearchFormItemMetaData? MetaData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public FilterKeyValueAction? GetFilter() => MetaData?.GetFilter(FieldName);
 }
