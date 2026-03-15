@@ -1093,6 +1093,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
 
         SearchModel ??= CreateSearchModel();
+
+        // 初始化 SearchForm 多语言配置
     }
 
     /// <summary>

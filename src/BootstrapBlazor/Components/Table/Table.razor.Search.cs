@@ -129,6 +129,13 @@ public partial class Table<TItem>
     public IEnumerable<ISearchItem>? SearchItems { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
+
+    /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
     /// <para lang="en">Gets or sets Items per row. Default 2</para>
     /// </summary>
@@ -163,8 +170,19 @@ public partial class Table<TItem>
     {
         get
         {
-            // TODO: 增加多语言支持
-            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem()).ToList();
+            if (SearchFormLocalizerOptions is null)
+            {
+                SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
+                {
+                    SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+                    BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+                    BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+                    BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+                    NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+                    NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+                };
+            }
+            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
             return _searchItems;
         }
     }
