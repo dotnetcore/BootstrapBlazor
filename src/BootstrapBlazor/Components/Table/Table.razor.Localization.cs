@@ -416,6 +416,10 @@ public partial class Table<TItem>
     [NotNull]
     private IStringLocalizer<Table<TItem>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SearchFormLocalizerOptions>? SearchFormLocalizer { get; set; }
+
     private void OnInitLocalization()
     {
         AddButtonText ??= Localizer[nameof(AddButtonText)];

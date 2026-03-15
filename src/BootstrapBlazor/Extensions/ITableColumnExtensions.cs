@@ -18,8 +18,9 @@ public static class IEditItemExtensions
     /// <para lang="en">Convert ITableColumn to ISearchItem</para>
     /// </summary>
     /// <param name="column"></param>
+    /// <param name="options"></param>
     /// <returns></returns>
-    public static ISearchItem ParseSearchItem(this ITableColumn column)
+    public static ISearchItem ParseSearchItem(this ITableColumn column, SearchFormLocalizerOptions options)
     {
         var item = new SearchItem(column.GetFieldName(), column.PropertyType, column.GetDisplayName())
         {
@@ -28,13 +29,13 @@ public static class IEditItemExtensions
             GroupName = column.GroupName,
             GroupOrder = column.GroupOrder,
             Order = column.Order,
-            MetaData = column.BuildSearchMetaData()
+            MetaData = column.BuildSearchMetaData(options)
         };
 
         return item;
     }
 
-    private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column)
+    private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column, SearchFormLocalizerOptions options)
     {
         // 自定义搜索项逻辑
         if (column.SearchFormItemMetaData is not null)
@@ -61,38 +62,34 @@ public static class IEditItemExtensions
         }
         else if (type.IsEnum)
         {
-            // TODO: 缺少本地化工作
             metaData = new SelectSearchMetaData()
             {
-                Items = type.ToSelectList(new SelectedItem() { Value = "", Text = "全选" }),
+                Items = type.ToSelectList(new SelectedItem() { Value = "", Text = options.SelectAllText }),
             };
         }
         else if (fieldType.IsNumberWithDotSeparator())
         {
-            // TODO: 缺少本地化工作
             metaData = new NumberSearchMetaData()
             {
-                StartValueLabelText = "开始数量",
-                EndValueLabelText = "截止数量",
+                StartValueLabelText = options.NumberStartValueLabelText,
+                EndValueLabelText = options.NumberEndValueLabelText,
                 ValueType = type
             };
         }
         else if (fieldType.IsBoolean())
         {
-            // TODO: 缺少本地化工作
             metaData = new SelectSearchMetaData()
             {
                 Items = new List<SelectedItem>()
                 {
-                    new SelectedItem() { Value = "", Text = "全部" },
-                    new SelectedItem() { Value = "True", Text = "完成" },
-                    new SelectedItem() { Value = "False", Text = "未完成" }
+                    new SelectedItem() { Value = "", Text = options.BooleanAllText },
+                    new SelectedItem() { Value = "True", Text = options.BooleanTrueText },
+                    new SelectedItem() { Value = "False", Text = options.BooleanFalseText }
                 }
             };
         }
         else if (fieldType.IsDateTime())
         {
-            // TODO: 缺少默认值设置
             metaData = new DateTimeRangeSearchMetaData();
         }
         else

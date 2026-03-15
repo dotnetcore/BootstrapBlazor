@@ -94,8 +94,8 @@ public partial class Table<TItem>
     public bool ShowSearchButton { get; set; } = true;
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否显示高级搜索按钮，默认值为 true</para>
-    /// <para lang="en">Gets or sets Whether to show advanced search button. Default true. <see cref="ShowSearch" /></para>
+    /// <para lang="zh">获得/设置 是否显示高级搜索按钮，默认值为 true 设置 <see cref="SearchMode.Popup" /> 时生效</para>
+    /// <para lang="en">Gets or sets Whether to show advanced search button. Default true. Effective when <see cref="SearchMode"/> is set to Popup</para>
     /// </summary>
     [Parameter]
     public bool ShowAdvancedSearch { get; set; } = true;
@@ -127,6 +127,13 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public IEnumerable<ISearchItem>? SearchItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 2</para>
@@ -163,8 +170,19 @@ public partial class Table<TItem>
     {
         get
         {
-            // TODO: 增加多语言支持
-            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem()).ToList();
+            if (SearchFormLocalizerOptions is null)
+            {
+                SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
+                {
+                    SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+                    BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+                    BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+                    BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+                    NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+                    NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+                };
+            }
+            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
             return _searchItems;
         }
     }
@@ -315,7 +333,7 @@ public partial class Table<TItem>
     protected List<IFilterAction> GetAdvanceSearches()
     {
         var searches = new List<IFilterAction>();
-        if (ShowAdvancedSearch && CustomerSearchModel == null && UseSearchForm == false)
+        if (ShowAdvancedSearch && SearchMode == SearchMode.Popup && CustomerSearchModel == null)
         {
             var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
             {

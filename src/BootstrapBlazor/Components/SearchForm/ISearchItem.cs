@@ -68,7 +68,7 @@ public interface ISearchItem
     /// <para lang="zh">获得/设置 搜索元数据</para>
     /// <para lang="en">Gets or sets the search metadata</para>
     /// </summary>
-    public ISearchFormItemMetaData? MetaData { get; set; }
+    ISearchFormItemMetaData? MetaData { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得 过滤器实例</para>
@@ -78,5 +78,5 @@ public interface ISearchItem
     ///   <para lang="zh">过滤器实例</para>
     ///   <para lang="en">Filter instance</para>
     /// </returns>
-    public FilterKeyValueAction? GetFilter() => MetaData?.GetFilter(FieldName);
+    FilterKeyValueAction? GetFilter();
 }

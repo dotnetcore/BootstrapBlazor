@@ -5063,6 +5063,9 @@
     "DisplayText4": "Display Search",
     "EditModelTitle": "Edit Test Data Window",
     "NamePlaceholder": "Please enter your name within 50 characters",
+    "SearchFormDesc": "When <code>UseSearchForm</code> is enabled and <code>SearchItems</code> is not provided, it will default to using <code>TableColumn</code> with <code>Searchable=\"true\"</code>. You can customize the metadata through the <code>SearchFormItemMetaData</code> property in <code>TableColumn</code>",
+    "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
+    "SearchFormTitle": "Search Form",
     "SearchTableGroupBoxText": "Search Criteria",
     "SearchTableIntro": "Set <code>ShowSearch</code> to display the query component, customize the search UI by setting the <code>SearchTemplate</code> template",
     "SearchTableLi1": "Enable no data display function by setting <code>ShowEmpty=\"true\"</code>",
@@ -5076,10 +5079,7 @@
     "SelectedItemValue1": "Name1",
     "SelectedItemValue2": "Name2",
     "TablesSearchDesc": "Commonly used for single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex can be realized through the advanced usage of <code>Template</code> business needs functions",
-    "TablesSearchTitle": "Table Search",
-    "SearchFormTitle": "Search Form",
-    "SearchFormIntro": "Enable the search form feature by setting <code>UseSearchForm=\"true\"</code>, and configure the search items within the form using <code>SearchItems</code>, suitable for scenarios with custom complex search conditions",
-    "SearchFormDesc": "When <code>UseSearchForm</code> is enabled and <code>SearchItems</code> is not provided, it will default to using <code>TableColumn</code> with <code>Searchable=\"true\"</code>. You can customize the metadata through the <code>SearchFormItemMetaData</code> property in <code>TableColumn</code>"
+    "TablesSearchTitle": "Table Search"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "Count：{0}",

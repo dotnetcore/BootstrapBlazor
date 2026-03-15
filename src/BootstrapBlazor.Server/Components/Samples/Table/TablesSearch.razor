@@ -165,11 +165,11 @@
         <div>@((MarkupString)Localizer["SearchFormDesc"].Value)</div>
     </section>
     <Table TItem="Foo"
-            IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
-            IsStriped="true" IsBordered="true"
-            ShowSearch="true" UseSearchForm="true"
-            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
-            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+           IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
+           IsStriped="true" IsBordered="true"
+           ShowSearch="true" UseSearchForm="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Searchable="true" />
             <TableColumn @bind-Field="@context.Name" Searchable="true" SearchFormItemMetaData="_nameSearchFormItemMetaData" />

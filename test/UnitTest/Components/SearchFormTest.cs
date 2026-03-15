@@ -165,4 +165,16 @@ public class SearchFormTest : BootstrapBlazorTestBase
             });
         });
     }
+
+    [Fact]
+    public void GetFilter_Ok()
+    {
+        var item = new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education));
+        var action = item.GetFilter();
+        Assert.Null(action);
+
+        item.MetaData = new StringSearchMetaData() { Value = "test" };
+        action = item.GetFilter();
+        Assert.NotNull(action);
+    }
 }
