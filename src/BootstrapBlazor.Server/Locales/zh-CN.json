@@ -5063,6 +5063,9 @@
     "DisplayText4": "显示搜索",
     "EditModelTitle": "编辑测试数据窗口",
     "NamePlaceholder": "请输入姓名，50字以内",
+    "SearchFormDesc": "使用 <code>UseSearchForm</code> 开启搜索表单时未提供 <code>SearchItems</code> 默认尝试使用设置 <code>Searchable=\"true\"</code> 的 <code>TableColumn</code> 进行构建，可以通过 <code>TableColumn</code> 中的 <code>SearchFormItemMetaData</code> 属性定制化元数据",
+    "SearchFormIntro": "通过设置 <code>UseSearchForm=\"true\"</code> 开启搜索表单功能，通过 <code>SearchItems</code> 配置搜索表单内搜索项，适用于自定义复杂搜索条件的场景",
+    "SearchFormTitle": "搜索表单",
     "SearchTableGroupBoxText": "搜索条件",
     "SearchTableIntro": "设置 <code>ShowSearch</code> 显示查询组件，通过设置 <code>SearchTemplate</code> 模板自定义搜索 UI",
     "SearchTableLi1": "通过设置 <code>ShowEmpty=\"true\"</code> 开启无数据显示功能",
@@ -5076,10 +5079,7 @@
     "SelectedItemValue1": "姓名1",
     "SelectedItemValue2": "姓名2",
     "TablesSearchDesc": "常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能",
-    "TablesSearchTitle": "Table 表格",
-    "SearchFormTitle": "搜索表单",
-    "SearchFormIntro": "通过设置 <code>UseSearchForm=\"true\"</code> 开启搜索表单功能，通过 <code>SearchItems</code> 配置搜索表单内搜索项，适用于自定义复杂搜索条件的场景",
-    "SearchFormDesc": "使用 <code>UseSearchForm</code> 开启搜索表单时未提供 <code>SearchItems</code> 默认尝试使用设置 <code>Searchable=\"true\"</code> 的 <code>TableColumn</code> 进行构建，可以通过 <code>TableColumn</code> 中的 <code>SearchFormItemMetaData</code> 属性定制化元数据"
+    "TablesSearchTitle": "Table 表格"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionCountText": "选中的行数：{0}",

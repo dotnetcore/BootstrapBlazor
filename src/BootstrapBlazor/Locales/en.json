@@ -407,5 +407,13 @@
   },
   "BootstrapBlazor.Components.CardUpload": {
     "DeleteConfirmContent": "Are you sure you want to delete the current data?"
+  },
+  "BootstrapBlazor.Components.SearchFormLocalizerOptions": {
+    "SelectAllText": "All",
+    "BooleanAllText": "All",
+    "BooleanTrueText": "True",
+    "BooleanFalseText": "False",
+    "NumberStartValueLabelText": "Start",
+    "NumberEndValueLabelText": "End"
   }
 }
