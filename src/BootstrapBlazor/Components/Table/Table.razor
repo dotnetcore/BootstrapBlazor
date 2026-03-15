@@ -1098,7 +1098,13 @@
                 </div>
             </HeaderTemplate>
             <BodyTemplate>
-                @if (CustomerSearchModel != null && CustomerSearchTemplate != null)
+                @if (UseSearchForm)
+                {
+                    <SearchForm Items="SearchFormItems"
+                                Filter="_searchFilter" OnFilterChanged="OnSearchFormFilterChanged">
+                    </SearchForm>
+                }
+                else if (CustomerSearchModel != null && CustomerSearchTemplate != null)
                 {
                     @CustomerSearchTemplate(CustomerSearchModel)
                 }

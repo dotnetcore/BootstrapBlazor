@@ -196,6 +196,8 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
+
+        cut.Contains("bb-editor-footer form-footer");
     }
 
     [Fact]

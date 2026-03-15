@@ -40,6 +40,18 @@ public partial class TablesSearch
         set => SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
     }
 
+    private ISearchFormItemMetaData _nameSearchFormItemMetaData = new StringSearchMetaData()
+    {
+        PlaceHolder = "请输入名称搜索（支持模糊匹配）",
+        FilterAction = FilterAction.Contains,
+    };
+
+    private ISearchFormItemMetaData _addressSearchFormItemMetaData = new StringSearchMetaData()
+    {
+        PlaceHolder = "请输入地址搜索（支持模糊匹配）",
+        FilterAction = FilterAction.Contains,
+    };
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -179,8 +191,8 @@ public partial class TablesSearch
             TotalCount = total,
             IsSorted = isSorted,
             IsFiltered = options.Filters.Count > 0,
-            IsSearch = options.CustomerSearches.Count > 0 || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText),
+            IsSearch = options.CustomerSearches.Count > 0 || !string.IsNullOrEmpty(options.SearchText) || options.Searches.Count > 0,
+            IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText) || options.Searches.Count > 0,
         });
     }
 }

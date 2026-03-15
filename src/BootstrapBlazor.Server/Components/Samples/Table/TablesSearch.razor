@@ -157,3 +157,25 @@
         </CustomerSearchTemplate>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchFormTitle"]"
+           Introduction="@Localizer["SearchFormIntro"]"
+           Name="SearchForm">
+    <section ignore>
+        <div>@((MarkupString)Localizer["SearchFormDesc"].Value)</div>
+    </section>
+    <Table TItem="Foo"
+            IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
+            IsStriped="true" IsBordered="true"
+            ShowSearch="true" UseSearchForm="true"
+            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Searchable="true" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" SearchFormItemMetaData="_nameSearchFormItemMetaData" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" SearchFormItemMetaData="_addressSearchFormItemMetaData" />
+            <TableColumn @bind-Field="@context.Count" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" Searchable="true" />
+        </TableColumns>
+    </Table>
+</DemoBlock>

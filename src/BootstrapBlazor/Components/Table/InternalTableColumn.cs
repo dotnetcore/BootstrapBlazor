@@ -35,6 +35,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool? Searchable { get; set; }
 
     /// <summary>
+    /// <inheritdoc cref="ITableColumn.SearchFormItemMetaData"/>
+    /// </summary>
+    public ISearchFormItemMetaData? SearchFormItemMetaData { get; set; }
+
+    /// <summary>
     /// <inheritdoc cref="ITableColumn.Width"/>
     /// </summary>
     public int? Width { get; set; }
