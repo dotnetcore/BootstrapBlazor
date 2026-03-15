@@ -172,8 +172,8 @@
             OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Searchable="true" />
-            <TableColumn @bind-Field="@context.Name" Searchable="true" SearchFormItemMetaData="_stringSearchFormItemMetaData" />
-            <TableColumn @bind-Field="@context.Address" Searchable="true" SearchFormItemMetaData="_stringSearchFormItemMetaData" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" SearchFormItemMetaData="_nameSearchFormItemMetaData" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" SearchFormItemMetaData="_addressSearchFormItemMetaData" />
             <TableColumn @bind-Field="@context.Count" Searchable="true" />
             <TableColumn @bind-Field="@context.Education" Searchable="true" />
         </TableColumns>
