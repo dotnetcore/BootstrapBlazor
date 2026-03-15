@@ -472,6 +472,34 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task GetAdvanceSearches_OK()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var searchModel = new Foo() { Name = "test" };
+        var cut = Context.Render<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchModel, searchModel);
+                pb.Add(a => a.CustomerSearchTemplate, foo => builder => builder.AddContent(0, "test_CustomerSearchTemplate"));
+                pb.Add(a => a.ShowAdvancedSearch, true);
+                pb.Add(a => a.SearchMode, SearchMode.Popup);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
+    [Fact]
     public async Task ShowTopSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
