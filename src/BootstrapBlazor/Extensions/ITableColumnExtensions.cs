@@ -202,6 +202,7 @@ public static class IEditItemExtensions
         if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
         if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
         if (col.IgnoreWhenExport.HasValue) dest.IgnoreWhenExport = col.IgnoreWhenExport;
+        if (col.SearchFormItemMetaData != null) dest.SearchFormItemMetaData = col.SearchFormItemMetaData;
     }
 
     /// <summary>
