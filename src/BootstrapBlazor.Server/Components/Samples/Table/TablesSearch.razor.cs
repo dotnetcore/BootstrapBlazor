@@ -159,11 +159,12 @@ public partial class TablesSearch
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         // 使用内置扩展方法 ToFilter 获得过滤条件
-        // 目前 ToFilterFunc 无法解决大小写敏感问题
+        // 解决大小写敏感问题使用参数 StringComparison.OrdinalIgnoreCase
+        // 注意 EFCore 不支持 StringComparison.OrdinalIgnoreCase 需要使用 EF.Functions.Like 进行模糊搜索
         var items = Items.Where(options.ToFilterFunc<Foo>());
         if (!string.IsNullOrEmpty(options.SearchText))
         {
-            // 使用 Linq 处理
+            // 使用 Linq 处理 处理模糊搜索 处理大小写敏感问题使用参数 StringComparison.OrdinalIgnoreCase
             items = Items.Where(i =>
                 (!string.IsNullOrEmpty(i.Name) && i.Name.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase))
                 || (!string.IsNullOrEmpty(i.Address) && i.Address.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase)));
