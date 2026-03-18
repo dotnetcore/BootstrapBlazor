@@ -75,6 +75,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
                 {
                     Text = "Name-Updated",
                     GroupName = "Group1",
+                    GroupOrder = 1,
                     MetaData = stringSearchMetaData
                 },
                 new SearchItem(nameof(Foo.Address), typeof(string), "Address")
