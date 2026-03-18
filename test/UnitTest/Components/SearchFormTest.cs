@@ -73,6 +73,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
             {
                 new SearchItem(nameof(Foo.Name), typeof(string), "Name")
                 {
+                    Text = "Name-Updated",
                     GroupName = "Group1",
                     MetaData = stringSearchMetaData
                 },
