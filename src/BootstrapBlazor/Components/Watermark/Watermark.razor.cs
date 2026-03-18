@@ -16,7 +16,6 @@ public partial class Watermark
     /// <para lang="en">Gets or sets componentcontent</para>
     /// </summary>
     [Parameter]
-    [EditorRequired]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
