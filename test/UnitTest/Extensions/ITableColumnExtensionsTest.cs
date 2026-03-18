@@ -23,7 +23,7 @@ public class ITableColumnExtensionsTest
             Sortable = true,
             TextEllipsis = true,
             ShowCopyColumn = true,
-            Visible = false,
+            Visible = false
         };
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
