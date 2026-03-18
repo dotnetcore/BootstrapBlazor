@@ -55,6 +55,9 @@ public class SearchFormTest : BootstrapBlazorTestBase
         await stringSearchMetaData.ValueChangedHandler("test1");
         Assert.Single(filterKeyValueAction.Filters);
         Assert.Equal("test1", filterKeyValueAction.Filters[0].FieldValue);
+
+        var searchForm = cut.Instance;
+        Assert.NotNull(searchForm.Filter);
     }
 
     [Fact]
