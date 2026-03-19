@@ -23,7 +23,7 @@ public class ITableColumnExtensionsTest
             Sortable = true,
             TextEllipsis = true,
             ShowCopyColumn = true,
-            Visible = false,
+            Visible = false
         };
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
@@ -113,7 +113,9 @@ public class ITableColumnExtensionsTest
             Required = true,
             RequiredErrorMessage = "test",
             IsRequiredWhenAdd = true,
-            IsRequiredWhenEdit = true
+            IsRequiredWhenEdit = true,
+
+            SearchFormItemMetaData = new StringSearchMetaData()
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
@@ -183,6 +185,8 @@ public class ITableColumnExtensionsTest
         Assert.NotNull(col.LookupService);
         Assert.Equal("test-key", col.LookupServiceKey);
         Assert.Equal(true, col.LookupServiceData);
+
+        Assert.NotNull(col.SearchFormItemMetaData);
     }
 
     [Fact]

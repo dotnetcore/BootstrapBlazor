@@ -182,9 +182,26 @@ public partial class Table<TItem>
                     NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
                 };
             }
-            _searchItems ??= SearchItems ?? GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
+            _searchItems ??= GetSearchItems(SearchFormLocalizerOptions.Value);
             return _searchItems;
         }
+    }
+
+    private IEnumerable<ISearchItem> GetSearchItems(SearchFormLocalizerOptions options)
+    {
+        if (SearchItems != null)
+        {
+            // TODO: 增加内部创建默认 ISearchItemMetaData 逻辑，减少用户使用成本
+            //foreach (var item in SearchItems)
+            //{
+            //    // 创建默认 ISearchItemMetaData
+            //    item.MetaData ??= column.BuildSearchMetaData(options);
+            //}
+
+            return SearchItems;
+        }
+
+        return GetSearchColumns().Select(i => i.ParseSearchItem(options)).ToList();
     }
 
     private Task OnSearchFormFilterChanged(FilterKeyValueAction action)

@@ -55,6 +55,9 @@ public class SearchFormTest : BootstrapBlazorTestBase
         await stringSearchMetaData.ValueChangedHandler("test1");
         Assert.Single(filterKeyValueAction.Filters);
         Assert.Equal("test1", filterKeyValueAction.Filters[0].FieldValue);
+
+        var searchForm = cut.Instance;
+        Assert.NotNull(searchForm.Filter);
     }
 
     [Fact]
@@ -73,7 +76,9 @@ public class SearchFormTest : BootstrapBlazorTestBase
             {
                 new SearchItem(nameof(Foo.Name), typeof(string), "Name")
                 {
+                    Text = "Name-Updated",
                     GroupName = "Group1",
+                    GroupOrder = 1,
                     MetaData = stringSearchMetaData
                 },
                 new SearchItem(nameof(Foo.Address), typeof(string), "Address")
@@ -93,7 +98,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowUnsetGroupItemsOnTop_Ok()
+    public void Group_Ok()
     {
         var cut = Context.Render<SearchForm>(pb =>
         {
@@ -103,6 +108,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
                 new SearchItem(nameof(Foo.Name), typeof(string), "Name")
                 {
                     GroupName = "Group1",
+                    GroupOrder= 1,
                     MetaData = new StringSearchMetaData()
                 },
                 new SearchItem(nameof(Foo.Address), typeof(string), "Address")
@@ -111,6 +117,12 @@ public class SearchFormTest : BootstrapBlazorTestBase
                 }
             });
         });
+
+        // 查找标签一共有两个第一个应该是 Address 第二个应该是 Name
+        var labels = cut.FindAll(".bb-search-form label");
+        Assert.Equal(2, labels.Count);
+        Assert.Equal("Address", labels[0].TextContent);
+        Assert.Equal("Name", labels[1].TextContent);
     }
 
     [Fact]

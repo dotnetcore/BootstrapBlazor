@@ -121,12 +121,12 @@ public partial class SearchForm : IShowLabel
         .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
         .Build();
 
-    private IEnumerable<ISearchItem> UnsetGroupItems => Items.Where(i => string.IsNullOrEmpty(i.GroupName));
+    private IEnumerable<ISearchItem> UnsetGroupItems => Items.Where(i => string.IsNullOrEmpty(i.GroupName)).OrderBy(i => i.Order);
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<ISearchItem>>> GroupItems => Items
         .Where(i => !string.IsNullOrEmpty(i.GroupName))
         .GroupBy(i => i.GroupName).OrderBy(i => i.Key)
-        .Select(i => new KeyValuePair<string, IOrderedEnumerable<ISearchItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
+        .Select(i => new KeyValuePair<string, IOrderedEnumerable<ISearchItem>>(i.First().GroupName!, i.OrderBy(x => x.GroupOrder)));
 
     /// <summary>
     /// <inheritdoc/>
