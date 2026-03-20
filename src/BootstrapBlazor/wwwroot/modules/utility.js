@@ -1,4 +1,4 @@
-﻿import EventHandler from "./event-handler.js"
+import EventHandler from "./event-handler.js"
 
 const vibrate = () => {
     if ('vibrate' in window.navigator) {
@@ -420,14 +420,14 @@ const drag = (element, start, move, end) => {
     element.addEventListener('touchstart', handleDragStart)
 }
 
-const getDescribedElement = (element, selector = 'aria-describedby') => {
+const getDescribedElement = (element, selector = 'aria-describedby', all = false) => {
     if (isElement(element)) {
         let id = element.getAttribute(selector)
         if (id) {
             if (id.indexOf('.') === -1) {
                 id = `#${id}`
             }
-            return document.querySelector(id)
+            return all ? document.querySelectorAll(id) : document.querySelector(id)
         }
     }
     return null
