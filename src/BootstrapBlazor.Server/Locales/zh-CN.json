@@ -5061,6 +5061,7 @@
     "DisplayText2": "模糊搜索",
     "DisplayText3": "显示清空",
     "DisplayText4": "显示搜索",
+    "DisplayText5": "搜索表单",
     "EditModelTitle": "编辑测试数据窗口",
     "NamePlaceholder": "请输入姓名，50字以内",
     "SearchFormDesc": "使用 <code>UseSearchForm</code> 开启搜索表单时未提供 <code>SearchItems</code> 默认尝试使用设置 <code>Searchable=\"true\"</code> 的 <code>TableColumn</code> 进行构建，可以通过 <code>TableColumn</code> 中的 <code>SearchFormItemMetaData</code> 属性定制化元数据",

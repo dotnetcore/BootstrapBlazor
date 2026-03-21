@@ -65,18 +65,21 @@
     items = items.Where(options.Searches.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
 }</Pre>
         <GroupBox Title="@Localizer["AutoGenerateSearchGroupBoxTitle"]" class="mb-3">
-            <div class="row g-3 form-inline">
-                <div class="col-12 col-sm-3">
+            <div class="bb-grid">
+                <div class="bb-grid-item">
                     <Switch DisplayText="@Localizer["DisplayText1"]" ShowLabel="true" @bind-Value="SearchModeFlag" />
                 </div>
-                <div class="col-12 col-sm-3">
+                    <div class="bb-grid-item">
                     <Switch DisplayText="@Localizer["DisplayText2"]" ShowLabel="true" @bind-Value="ShowSearchText" />
                 </div>
-                <div class="col-12 col-sm-3">
+                    <div class="bb-grid-item">
                     <Switch DisplayText="@Localizer["DisplayText3"]" ShowLabel="true" @bind-Value="ShowResetButton" />
                 </div>
-                <div class="col-12 col-sm-3">
+                <div class="bb-grid-item">
                     <Switch DisplayText="@Localizer["DisplayText4"]" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
+                </div>
+                <div class="bb-grid-item">
+                    <Switch DisplayText="@Localizer["DisplayText5"]" ShowLabel="true" @bind-Value="UseSearchForm" />
                 </div>
             </div>
         </GroupBox>
@@ -87,6 +90,7 @@
            ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
            ShowSearch="true" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton" ShowSearchText="ShowSearchText"
            AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+           UseSearchForm="UseSearchForm" SearchItems="_searchItems"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />

@@ -34,6 +34,10 @@ public partial class TablesSearch
 
     private SearchMode SearchModeValue { get; set; }
 
+    private bool UseSearchForm { get; set; }
+
+    private List<ISearchItem> _searchItems = [];
+
     private bool SearchModeFlag
     {
         get => SearchModeValue == SearchMode.Popup;
@@ -58,6 +62,7 @@ public partial class TablesSearch
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         Items = Foo.GenerateFoo(FooLocalizer);
         SearchItems = new List<SelectedItem>()
         {
@@ -77,6 +82,11 @@ public partial class TablesSearch
                 Value = Localizer["SelectedItemValue2"].Value
             },
         };
+
+        _searchItems = [
+            new SearchItem(nameof(Foo.Name), typeof(string), FooLocalizer[nameof(Foo.Name)]),
+            new SearchItem(nameof(Foo.DateTime), typeof(DateTime), FooLocalizer[nameof(Foo.DateTime)])
+        ];
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });

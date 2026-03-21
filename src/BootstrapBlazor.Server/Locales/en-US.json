@@ -5061,6 +5061,7 @@
     "DisplayText2": "Fuzzy Search",
     "DisplayText3": "Display reset",
     "DisplayText4": "Display Search",
+    "DisplayText5": "SearchForm",
     "EditModelTitle": "Edit Test Data Window",
     "NamePlaceholder": "Please enter your name within 50 characters",
     "SearchFormDesc": "When <code>UseSearchForm</code> is enabled and <code>SearchItems</code> is not provided, it will default to using <code>TableColumn</code> with <code>Searchable=\"true\"</code>. You can customize the metadata through the <code>SearchFormItemMetaData</code> property in <code>TableColumn</code>",
