@@ -92,4 +92,22 @@ public class SearchDialogOption<TModel> : DialogOption
     /// <para lang="en">Gets or sets Search Callback Delegate</para>
     /// </summary>
     public Func<Task>? OnSearchClick { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否使用 SearchForm 组件进行搜索条件编辑 默认 false 不使用</para>
+    /// <para lang="en">Gets or sets Whether to use SearchForm component for editing search conditions. Default is false</para>
+    /// </summary>
+    public bool UseSearchForm { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单项集合</para>
+    /// <para lang="en">Gets or sets Search Form Items collection</para>
+    /// </summary>
+    public List<ISearchItem>? SearchItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
+    /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
+    /// </summary>
+    public Func<FilterKeyValueAction, Task>? OnFilterChanged { get; set; }
 }

@@ -59,6 +59,27 @@ public partial class SearchDialog<TModel>
     [Parameter]
     public string? SearchIcon { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否使用 SearchForm 组件进行搜索条件编辑 默认 false 不使用</para>
+    /// <para lang="en">Gets or sets Whether to use SearchForm component for editing search conditions. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool UseSearchForm { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单项集合</para>
+    /// <para lang="en">Gets or sets Search Form Items collection</para>
+    /// </summary>
+    [Parameter]
+    public List<ISearchItem>? SearchItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
+    /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
+    /// </summary>
+    [Parameter]
+    public Func<FilterKeyValueAction, Task>? OnChanged { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SearchDialog<TModel>>? Localizer { get; set; }
@@ -68,8 +89,7 @@ public partial class SearchDialog<TModel>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -80,5 +100,13 @@ public partial class SearchDialog<TModel>
 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogClearIcon);
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogSearchIcon);
+    }
+
+    private async Task OnSearchFormFilterChanged(FilterKeyValueAction action)
+    {
+        if (OnChanged != null)
+        {
+            await OnChanged(action);
+        }
     }
 }

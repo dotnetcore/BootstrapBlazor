@@ -1,8 +1,18 @@
-﻿@namespace BootstrapBlazor.Components
+@namespace BootstrapBlazor.Components
 @typeparam TModel
 @inherits DialogBase<TModel>
 
-@if (BodyTemplate != null)
+@if (UseSearchForm)
+{
+    <SearchForm Items="SearchItems" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop"
+                OnChanged="OnSearchFormFilterChanged">
+    </SearchForm>
+    <div class="form-footer">
+        <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
+        <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+    </div>
+}
+else if(BodyTemplate != null)
 {
     <div class="form-body">
         @BodyTemplate.Invoke(Model)
