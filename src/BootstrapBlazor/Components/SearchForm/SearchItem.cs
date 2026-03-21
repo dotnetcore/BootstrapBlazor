@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">EditorItem 搜索表单渲染项实体类</para>
-/// <para lang="en">EditorItem form field class</para>
+/// <para lang="zh">SearchItem 搜索表单渲染项实体类</para>
+/// <para lang="en">SearchItem form field class</para>
 /// </summary>
 /// <param name="fieldName"></param>
 /// <param name="fieldType"></param>
@@ -67,6 +67,10 @@ public class SearchItem(string fieldName, Type fieldType, string? fieldText = nu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     public FilterKeyValueAction? GetFilter() => MetaData?.GetFilter(FieldName);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Reset() => MetaData?.Reset();
 }

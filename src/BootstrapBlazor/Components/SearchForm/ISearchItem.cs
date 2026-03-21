@@ -79,4 +79,10 @@ public interface ISearchItem
     ///   <para lang="en">Filter instance</para>
     /// </returns>
     FilterKeyValueAction? GetFilter();
+
+    /// <summary>
+    /// <para lang="zh">重置对象搜索值</para>
+    /// <para lang="en">Resets the object search values</para>
+    /// </summary>
+    void Reset();
 }

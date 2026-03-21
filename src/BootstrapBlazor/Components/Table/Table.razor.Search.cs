@@ -228,7 +228,7 @@ public partial class Table<TItem>
             {
                 foreach (var item in _searchItems)
                 {
-                    item.MetaData?.Reset();
+                    item.Reset();
                 }
             }
             _searchItems = null;
