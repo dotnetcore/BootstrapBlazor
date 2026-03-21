@@ -6,8 +6,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
-/// <para lang="en">JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/></para>
+/// <para lang="zh">表示该类不继承 JSModuleAutoLoaderAttribute 的特性</para>
+/// <para lang="en">Indicates that this class does not inherit the JSModuleAutoLoaderAttribute</para>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class JSModuleNotInheritedAttribute : Attribute
