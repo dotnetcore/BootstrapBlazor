@@ -173,6 +173,11 @@ public partial class EditDialog<TModel>
 
         CloseConfirmTitle ??= Localizer[nameof(CloseConfirmTitle)];
         CloseConfirmContent ??= Localizer[nameof(CloseConfirmContent)];
+
+        if (BodyTemplate == null)
+        {
+            Items ??= GetItemsByColumns();
+        }
     }
 
     private async Task<bool> OnClosingCallback()

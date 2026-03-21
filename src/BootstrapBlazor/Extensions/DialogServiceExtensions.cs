@@ -46,7 +46,7 @@ public static class DialogServiceExtensions
         {
             [nameof(SearchDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
             [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
-            [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.GetSearchable()),
+            [nameof(SearchDialog<TModel>.Items)] = option.Items,
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
                 if (option.OnResetSearchClick != null)

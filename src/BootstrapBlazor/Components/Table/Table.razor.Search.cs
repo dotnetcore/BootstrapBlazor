@@ -340,7 +340,6 @@ public partial class Table<TItem>
             ItemsPerRow = SearchDialogItemsPerRow,
             LabelAlign = SearchDialogLabelAlign,
             Size = SearchDialogSize,
-            Items = Columns.Where(i => i.GetSearchable()),
             IsDraggable = SearchDialogIsDraggable,
             ShowMaximizeButton = SearchDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,

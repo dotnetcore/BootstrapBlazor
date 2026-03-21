@@ -100,6 +100,18 @@ public partial class SearchDialog<TModel>
 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogClearIcon);
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogSearchIcon);
+
+        if (UseSearchForm)
+        {
+            return;
+        }
+
+        if (BodyTemplate != null)
+        {
+            return;
+        }
+
+        Items ??= GetItemsByColumns();
     }
 
     private async Task OnSearchFormFilterChanged(FilterKeyValueAction action)

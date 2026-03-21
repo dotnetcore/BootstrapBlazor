@@ -67,4 +67,11 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">通过模型标签获得所有搜索列集合</para>
+    /// <para lang="en">Gets all searchable columns by model attributes</para>
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerable<IEditorItem> GetItemsByColumns() => Utility.GenerateColumns<TModel>(item => item.GetSearchable());
 }

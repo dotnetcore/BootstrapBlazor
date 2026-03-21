@@ -580,7 +580,7 @@ public static class Utility
     ///  <para lang="zh">筛选条件</para>
     ///  <para lang="en">Filter condition</para>
     /// </param>
-    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => GetTableColumns<TModel>().Where(predicate);
+    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => GetTableColumns<TModel>().Where(predicate).ToList();
 
     /// <summary>
     /// <para lang="zh">RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件</para>
