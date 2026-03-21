@@ -13,39 +13,95 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public static class ISearchItemExtensions
 {
-    /// <summary>
-    /// <para lang="zh">创建 搜索项的 RenderFragment 实例</para>
-    /// <para lang="en">Creates a RenderFragment instance for the search item</para>
-    /// </summary>
-    /// <param name="item"></param>
-    public static RenderFragment CreateRenderFragment(this ISearchItem item) => builder =>
+    extension(ISearchItem item)
     {
-        var metaData = item.MetaData;
-        switch (metaData)
+        /// <summary>
+        /// <para lang="zh">通过 <see cref="ISearchItem.PropertyType"/> 数据类型推断 <see cref="ISearchFormItemMetaData" /> 实例</para>
+        /// <para lang="en"></para>
+        /// </summary>
+        /// <param name="options"></param>
+        public ISearchFormItemMetaData? BuildSearchMetaData(SearchFormLocalizerOptions options)
         {
-            case NumberSearchMetaData numberSearchMetaData:
-                builder.AddNumberSearchComponent(item, numberSearchMetaData);
-                break;
-            case DateTimeSearchMetaData datetimeSearchMetaData:
-                builder.AddDateTimeSearchComponent(item, datetimeSearchMetaData);
-                break;
-            case DateTimeRangeSearchMetaData datetimeRangeSearchMetaData:
-                builder.AddDateTimeRangeSearchComponent(item, datetimeRangeSearchMetaData);
-                break;
-            case CheckboxListSearchMetaData checkboxListSearchMetaData:
-                builder.AddCheckboxListSearchComponent(item, checkboxListSearchMetaData);
-                break;
-            case MultipleSelectSearchMetaData multipleSelectSearchMetaData:
-                builder.AddMultipleSelectSearchComponent(item, multipleSelectSearchMetaData);
-                break;
-            case SelectSearchMetaData selectSearchMetaData:
-                builder.AddSelectSearchComponent(item, selectSearchMetaData);
-                break;
-            case StringSearchMetaData stringSearchMetaData:
-                builder.AddStringSearchComponent(item, stringSearchMetaData);
-                break;
+            if (item.PropertyType is null)
+            {
+                return null;
+            }
+
+            var fieldType = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
+            ISearchFormItemMetaData? metaData = null;
+            if (fieldType.IsEnum)
+            {
+                metaData = new SelectSearchMetaData()
+                {
+                    Items = fieldType.ToSelectList(new SelectedItem() { Value = "", Text = options.SelectAllText }),
+                };
+            }
+            else if (fieldType.IsNumberWithDotSeparator())
+            {
+                metaData = new NumberSearchMetaData()
+                {
+                    StartValueLabelText = options.NumberStartValueLabelText,
+                    EndValueLabelText = options.NumberEndValueLabelText,
+                    ValueType = fieldType
+                };
+            }
+            else if (fieldType.IsBoolean())
+            {
+                metaData = new SelectSearchMetaData()
+                {
+                    Items = new List<SelectedItem>()
+                {
+                    new SelectedItem() { Value = "", Text = options.BooleanAllText },
+                    new SelectedItem() { Value = "True", Text = options.BooleanTrueText },
+                    new SelectedItem() { Value = "False", Text = options.BooleanFalseText }
+                }
+                };
+            }
+            else if (fieldType.IsDateTime())
+            {
+                metaData = new DateTimeRangeSearchMetaData();
+            }
+            else
+            {
+                metaData = new StringSearchMetaData() { FilterAction = FilterAction.Contains };
+            }
+
+            return metaData;
         }
-    };
+
+        /// <summary>
+        /// <para lang="zh">创建 搜索项的 RenderFragment 实例</para>
+        /// <para lang="en">Creates a RenderFragment instance for the search item</para>
+        /// </summary>
+        public RenderFragment CreateRenderFragment() => builder =>
+        {
+            var metaData = item.MetaData;
+            switch (metaData)
+            {
+                case NumberSearchMetaData numberSearchMetaData:
+                    builder.AddNumberSearchComponent(item, numberSearchMetaData);
+                    break;
+                case DateTimeSearchMetaData datetimeSearchMetaData:
+                    builder.AddDateTimeSearchComponent(item, datetimeSearchMetaData);
+                    break;
+                case DateTimeRangeSearchMetaData datetimeRangeSearchMetaData:
+                    builder.AddDateTimeRangeSearchComponent(item, datetimeRangeSearchMetaData);
+                    break;
+                case CheckboxListSearchMetaData checkboxListSearchMetaData:
+                    builder.AddCheckboxListSearchComponent(item, checkboxListSearchMetaData);
+                    break;
+                case MultipleSelectSearchMetaData multipleSelectSearchMetaData:
+                    builder.AddMultipleSelectSearchComponent(item, multipleSelectSearchMetaData);
+                    break;
+                case SelectSearchMetaData selectSearchMetaData:
+                    builder.AddSelectSearchComponent(item, selectSearchMetaData);
+                    break;
+                case StringSearchMetaData stringSearchMetaData:
+                    builder.AddStringSearchComponent(item, stringSearchMetaData);
+                    break;
+            }
+        };
+    }
 
     extension(RenderTreeBuilder builder)
     {
