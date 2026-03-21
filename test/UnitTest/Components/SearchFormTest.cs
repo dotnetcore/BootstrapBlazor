@@ -19,16 +19,11 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var searchItem = new SearchItem(nameof(Foo.Name), typeof(string), "Name") { Cols = 6 };
         var cut = Context.Render<SearchForm>(pb =>
         {
-            pb.Add(a => a.Filter, filterKeyValueAction);
-            pb.Add(a => a.OnFilterChanged, action =>
+            pb.Add(a => a.OnChanged, action =>
             {
                 filterKeyValueAction = action;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.FilterChanged, EventCallback.Factory.Create<FilterKeyValueAction>(this, v =>
-            {
-                filterKeyValueAction = v;
-            }));
             pb.Add(a => a.ItemsPerRow, 4);
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.LabelAlign, Alignment.Right);
@@ -55,9 +50,6 @@ public class SearchFormTest : BootstrapBlazorTestBase
         await stringSearchMetaData.ValueChangedHandler("test1");
         Assert.Single(filterKeyValueAction.Filters);
         Assert.Equal("test1", filterKeyValueAction.Filters[0].FieldValue);
-
-        var searchForm = cut.Instance;
-        Assert.NotNull(searchForm.Filter);
     }
 
     [Fact]
@@ -144,10 +136,8 @@ public class SearchFormTest : BootstrapBlazorTestBase
     [Fact]
     public void MetaData_Ok()
     {
-        var filterKeyValueAction = new FilterKeyValueAction();
         var cut = Context.Render<SearchForm>(pb =>
         {
-            pb.Add(a => a.Filter, filterKeyValueAction);
             pb.Add(a => a.Items, new List<ISearchItem>()
             {
                 new SearchItem(nameof(Foo.Count), typeof(string), nameof(Foo.Count))
