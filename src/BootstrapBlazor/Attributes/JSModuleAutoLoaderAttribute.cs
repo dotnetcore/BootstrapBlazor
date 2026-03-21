@@ -9,7 +9,10 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">JSModuleAutoLoaderAttribute 类</para>
 /// <para lang="en">JSModuleAutoLoaderAttribute class</para>
 /// </summary>
-/// <param name="path"><para lang="zh">JavaScript 模块的路径</para><para lang="en">The path to the JavaScript module</para></param>
+/// <param name="path">
+///   <para lang="zh">JavaScript 模块的路径</para>
+///   <para lang="en">The path to the JavaScript module</para>
+/// </param>
 [AttributeUsage(AttributeTargets.Class)]
 public class JSModuleAutoLoaderAttribute(string? path = null) : Attribute
 {
