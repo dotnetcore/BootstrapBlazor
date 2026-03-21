@@ -165,6 +165,11 @@ public partial class EditDialog<TModel>
     {
         base.OnParametersSet();
 
+        if (Model == null)
+        {
+            throw new InvalidOperationException($"参数 {nameof(Model)} 未赋值; {nameof(Model)} can not be null.");
+        }
+
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
 
