@@ -67,18 +67,4 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (Model == null)
-        {
-            throw new InvalidOperationException("Model value not set to null");
-        }
-    }
 }
