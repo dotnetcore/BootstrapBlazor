@@ -298,13 +298,13 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task ShowSearchDialog()
     {
-        if (CustomerSearchModel != null && CustomerSearchTemplate != null)
-        {
-            await DialogService.ShowSearchDialog(CreateCustomerModelDialog());
-        }
-        else if (UseSearchForm)
+        if (UseSearchForm)
         {
             await DialogService.ShowSearchDialog(CreateSearchFormDialog());
+        }
+        else if (CustomerSearchModel != null && CustomerSearchTemplate != null)
+        {
+            await DialogService.ShowSearchDialog(CreateCustomerModelDialog());
         }
         else
         {
