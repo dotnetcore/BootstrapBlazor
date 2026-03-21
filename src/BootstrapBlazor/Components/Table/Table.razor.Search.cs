@@ -115,8 +115,8 @@ public partial class Table<TItem>
     public SearchMode SearchMode { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false</para>
-    /// <para lang="en">Gets or sets Whether to use search form. Default false</para>
+    /// <para lang="zh">获得/设置 是否使用搜索表单 默认为 false 开启本功能后 CustomerSearchTemplate 与 SearchTemplate 均不生效</para>
+    /// <para lang="en">Gets or sets Whether to use search form. Default false. When enabled, both CustomerSearchTemplate and SearchTemplate are disabled</para>
     /// </summary>
     [Parameter]
     public bool UseSearchForm { get; set; }
@@ -164,44 +164,46 @@ public partial class Table<TItem>
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
     private FilterKeyValueAction? _searchFilter;
-    private IEnumerable<ISearchItem>? _searchItems;
+    private List<ISearchItem>? _searchItems;
+    private FilterKeyValueAction? _advanceSearchFilter;
 
-    private IEnumerable<ISearchItem> SearchFormItems
+    private List<ISearchItem> SearchFormItems
     {
         get
         {
-            if (SearchFormLocalizerOptions is null)
-            {
-                SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
-                {
-                    SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
-                    BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
-                    BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
-                    BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
-                    NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
-                    NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
-                };
-            }
-            _searchItems ??= GetSearchItems(SearchFormLocalizerOptions.Value);
+            _searchItems ??= GetSearchFormItems();
             return _searchItems;
         }
     }
 
-    private IEnumerable<ISearchItem> GetSearchItems(SearchFormLocalizerOptions options)
+    private List<ISearchItem> GetSearchFormItems()
     {
-        if (SearchItems != null)
+        if (SearchFormLocalizerOptions is null)
         {
-            // TODO: 增加内部创建默认 ISearchItemMetaData 逻辑，减少用户使用成本
-            //foreach (var item in SearchItems)
-            //{
-            //    // 创建默认 ISearchItemMetaData
-            //    item.MetaData ??= column.BuildSearchMetaData(options);
-            //}
-
-            return SearchItems;
+            SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
+            {
+                SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+                BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+                BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+                BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+                NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+                NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+            };
         }
 
-        return GetSearchColumns().Select(i => i.ParseSearchItem(options)).ToList();
+        if (SearchItems != null)
+        {
+            // 增加内部创建默认 ISearchItemMetaData 逻辑，减少用户使用成本
+            foreach (var item in SearchItems)
+            {
+                // 创建默认 ISearchItemMetaData
+                item.MetaData ??= item.BuildSearchMetaData(SearchFormLocalizerOptions.Value);
+            }
+
+            return SearchItems.ToList();
+        }
+
+        return GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
     }
 
     private Task OnSearchFormFilterChanged(FilterKeyValueAction action)
@@ -217,7 +219,21 @@ public partial class Table<TItem>
     protected async Task ResetSearchClick()
     {
         await ToggleLoading(true);
-        if (CustomerSearchModel != null)
+        if (UseSearchForm)
+        {
+            _searchFilter = null;
+            _advanceSearchFilter = null;
+
+            if (_searchItems != null)
+            {
+                foreach (var item in _searchItems)
+                {
+                    item.MetaData?.Reset();
+                }
+            }
+            _searchItems = null;
+        }
+        else if (CustomerSearchModel != null)
         {
             CustomerSearchModel.Reset();
         }
@@ -230,7 +246,6 @@ public partial class Table<TItem>
             Utility.Reset(SearchModel, CreateSearchModel());
         }
 
-        _searchItems = null;
         await SearchClick();
         await ToggleLoading(false);
     }
@@ -287,10 +302,56 @@ public partial class Table<TItem>
         {
             await DialogService.ShowSearchDialog(CreateCustomerModelDialog());
         }
+        else if (UseSearchForm)
+        {
+            await DialogService.ShowSearchDialog(CreateSearchFormDialog());
+        }
         else
         {
             await DialogService.ShowSearchDialog(CreateModelDialog());
         }
+
+        SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()
+        {
+            IsScrolling = ScrollingDialogContent,
+            Title = SearchModalTitle,
+            Model = CustomerSearchModel,
+            DialogBodyTemplate = CustomerSearchTemplate,
+            OnResetSearchClick = ResetSearchClick,
+            OnSearchClick = SearchClick,
+            RowType = SearchDialogRowType,
+            ItemsPerRow = SearchDialogItemsPerRow,
+            Size = SearchDialogSize,
+            LabelAlign = SearchDialogLabelAlign,
+            IsDraggable = SearchDialogIsDraggable,
+            ShowMaximizeButton = SearchDialogShowMaximizeButton,
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop
+        };
+
+        SearchDialogOption<TItem> CreateSearchFormDialog() => new()
+        {
+            Class = "modal-dialog-table modal-dialog-search-form",
+            IsScrolling = ScrollingDialogContent,
+            Title = SearchModalTitle,
+            DialogBodyTemplate = SearchTemplate,
+            OnResetSearchClick = ResetSearchClick,
+            OnSearchClick = SearchClick,
+            RowType = SearchDialogRowType,
+            ItemsPerRow = SearchDialogItemsPerRow,
+            LabelAlign = SearchDialogLabelAlign,
+            Size = SearchDialogSize,
+            Items = Columns.Where(i => i.GetSearchable()),
+            IsDraggable = SearchDialogIsDraggable,
+            ShowMaximizeButton = SearchDialogShowMaximizeButton,
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            UseSearchForm = true,
+            SearchItems = SearchFormItems,
+            OnFilterChanged = action =>
+            {
+                _advanceSearchFilter = action;
+                return Task.CompletedTask;
+            }
+        };
 
         SearchDialogOption<TItem> CreateModelDialog() => new()
         {
@@ -309,22 +370,6 @@ public partial class Table<TItem>
             IsDraggable = SearchDialogIsDraggable,
             ShowMaximizeButton = SearchDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop
-        };
-
-        SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()
-        {
-            IsScrolling = ScrollingDialogContent,
-            Title = SearchModalTitle,
-            Model = CustomerSearchModel,
-            DialogBodyTemplate = CustomerSearchTemplate,
-            OnResetSearchClick = ResetSearchClick,
-            OnSearchClick = SearchClick,
-            RowType = SearchDialogRowType,
-            ItemsPerRow = SearchDialogItemsPerRow,
-            Size = SearchDialogSize,
-            LabelAlign = SearchDialogLabelAlign,
-            IsDraggable = SearchDialogIsDraggable,
-            ShowMaximizeButton = SearchDialogShowMaximizeButton
         };
     }
 
@@ -349,6 +394,11 @@ public partial class Table<TItem>
     /// </summary>
     protected List<IFilterAction> GetAdvanceSearches()
     {
+        if (UseSearchForm)
+        {
+            return _advanceSearchFilter.ToSearches();
+        }
+
         var searches = new List<IFilterAction>();
         if (ShowAdvancedSearch && SearchMode == SearchMode.Popup && CustomerSearchModel == null)
         {
