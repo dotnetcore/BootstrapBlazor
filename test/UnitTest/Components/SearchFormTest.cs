@@ -179,4 +179,59 @@ public class SearchFormTest : BootstrapBlazorTestBase
         action = item.GetFilter();
         Assert.NotNull(action);
     }
+
+    [Fact]
+    public void BuildSearchMetaData_PropertyType_Null_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", null!);
+
+        // PropertyType 为 null 返回 null
+        Assert.Null(item.BuildSearchMetaData(options));
+    }
+
+    [Fact]
+    public void BuildSearchMetaData_Enum_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", typeof(EnumEducation));
+
+        Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+    }
+
+    [Fact]
+    public void BuildSearchMetaData_Number_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", typeof(int));
+
+        Assert.IsType<NumberSearchMetaData>(item.BuildSearchMetaData(options));
+    }
+
+    [Fact]
+    public void BuildSearchMetaData_Bool_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", typeof(bool));
+
+        Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+    }
+
+    [Fact]
+    public void BuildSearchMetaData_DateTime_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", typeof(DateTime));
+
+        Assert.IsType<DateTimeRangeSearchMetaData>(item.BuildSearchMetaData(options));
+    }
+
+    [Fact]
+    public void Reset_Ok()
+    {
+        var item = new SearchItem("Name", typeof(string));
+
+        // Metadata 为空时不报错
+        item.Reset();
+    }
 }
