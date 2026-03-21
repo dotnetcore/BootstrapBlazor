@@ -135,8 +135,6 @@ public class NumberSearchMetaData : SearchMetaDataBase
     /// </summary>
     public override void Reset()
     {
-        base.Reset();
-
         StartValue = null;
         EndValue = null;
     }

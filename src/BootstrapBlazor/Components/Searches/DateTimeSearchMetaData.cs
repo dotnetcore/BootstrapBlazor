@@ -62,8 +62,6 @@ public class DateTimeSearchMetaData : SearchMetaDataBase
     /// </summary>
     public override void Reset()
     {
-        base.Reset();
-
         Value = null;
     }
 }

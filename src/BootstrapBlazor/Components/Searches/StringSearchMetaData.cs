@@ -62,8 +62,6 @@ public class StringSearchMetaData : SearchMetaDataBase
     /// </summary>
     public override void Reset()
     {
-        base.Reset();
-
         Value = null;
     }
 }

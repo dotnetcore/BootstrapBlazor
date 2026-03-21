@@ -74,5 +74,5 @@ public abstract class SearchMetaDataBase : ISearchFormItemMetaData
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual void Reset() { }
+    public abstract void Reset();
 }

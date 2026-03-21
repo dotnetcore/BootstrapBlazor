@@ -78,8 +78,6 @@ public class DateTimeRangeSearchMetaData : SearchMetaDataBase
     /// </summary>
     public override void Reset()
     {
-        base.Reset();
-
         Value = null;
     }
 }
