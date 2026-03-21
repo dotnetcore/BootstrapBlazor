@@ -12,27 +12,11 @@ namespace BootstrapBlazor.Components;
 public partial class SearchForm : IShowLabel
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤器实例</para>
-    /// <para lang="en">Gets or sets the filter instance</para>
-    /// </summary>
-    [Parameter]
-    [EditorRequired]
-    [NotNull]
-    public FilterKeyValueAction? Filter { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 过滤器改变回调事件</para>
-    /// <para lang="en">Gets or sets the filter changed callback event</para>
-    /// </summary>
-    [Parameter]
-    public EventCallback<FilterKeyValueAction> FilterChanged { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
     /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
     /// </summary>
     [Parameter]
-    public Func<FilterKeyValueAction, Task>? OnFilterChanged { get; set; }
+    public Func<FilterKeyValueAction, Task>? OnChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 null</para>
@@ -169,13 +153,9 @@ public partial class SearchForm : IShowLabel
         {
             var action = GetFilterKeyValueAction();
 
-            if (FilterChanged.HasDelegate)
+            if (OnChanged != null)
             {
-                await FilterChanged.InvokeAsync(action);
-            }
-            if (OnFilterChanged != null)
-            {
-                await OnFilterChanged.Invoke(action);
+                await OnChanged.Invoke(action);
             }
         };
 
