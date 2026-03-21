@@ -52,4 +52,10 @@ public interface ISearchFormItemMetaData
     /// <para lang="en">Gets or sets the callback to get the filter instance, called by the <see cref="GetFilter(string)"/> method. Setting this callback allows customizing the logic for obtaining the filter instance.</para>
     /// </summary>
     Func<object?, FilterKeyValueAction>? GetFilterCallback { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">重置方法</para>
+    /// <para lang="en">Reset method</para>
+    /// </summary>
+    void Reset();
 }

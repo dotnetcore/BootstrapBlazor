@@ -129,4 +129,15 @@ public class NumberSearchMetaData : SearchMetaDataBase
             await ValueChanged();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        base.Reset();
+
+        StartValue = null;
+        EndValue = null;
+    }
 }

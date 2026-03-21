@@ -56,4 +56,14 @@ public class StringSearchMetaData : SearchMetaDataBase
             await ValueChanged();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        base.Reset();
+
+        Value = null;
+    }
 }

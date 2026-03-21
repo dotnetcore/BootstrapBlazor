@@ -72,4 +72,14 @@ public class DateTimeRangeSearchMetaData : SearchMetaDataBase
             await ValueChanged();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        base.Reset();
+
+        Value = null;
+    }
 }
