@@ -50,11 +50,11 @@ public static class ISearchItemExtensions
                 metaData = new SelectSearchMetaData()
                 {
                     Items = new List<SelectedItem>()
-                {
-                    new SelectedItem() { Value = "", Text = options.BooleanAllText },
-                    new SelectedItem() { Value = "True", Text = options.BooleanTrueText },
-                    new SelectedItem() { Value = "False", Text = options.BooleanFalseText }
-                }
+                    {
+                        new SelectedItem() { Value = "", Text = options.BooleanAllText },
+                        new SelectedItem() { Value = "True", Text = options.BooleanTrueText },
+                        new SelectedItem() { Value = "False", Text = options.BooleanFalseText }
+                    }
                 };
             }
             else if (fieldType.IsDateTime())
