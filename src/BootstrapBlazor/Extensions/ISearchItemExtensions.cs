@@ -220,4 +220,35 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
     }
+
+    extension(IEnumerable<ISearchItem>? items)
+    {
+        /// <summary>
+        /// <para lang="zh">将 ISearchItem 集合转换为 FilterKeyValueAction 实例</para>
+        /// <para lang="en">Converts a collection of ISearchItem to an instance of FilterKeyValueAction</para>
+        /// </summary>
+        public FilterKeyValueAction ToFilter()
+        {
+            var action = new FilterKeyValueAction()
+            {
+                Filters = []
+            };
+
+            if (items == null)
+            {
+                return action;
+            }
+
+            foreach (var item in items)
+            {
+                var filter = item.GetFilter();
+                if (filter != null)
+                {
+                    action.Filters.Add(filter);
+                }
+            }
+
+            return action;
+        }
+    }
 }
