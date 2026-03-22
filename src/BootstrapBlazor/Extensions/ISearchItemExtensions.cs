@@ -20,13 +20,8 @@ public static class ISearchItemExtensions
         /// <para lang="en"></para>
         /// </summary>
         /// <param name="options"></param>
-        public ISearchFormItemMetaData? BuildSearchMetaData(SearchFormLocalizerOptions options)
+        public ISearchFormItemMetaData BuildSearchMetaData(SearchFormLocalizerOptions options)
         {
-            if (item.PropertyType is null)
-            {
-                return null;
-            }
-
             var fieldType = Nullable.GetUnderlyingType(item.PropertyType) ?? item.PropertyType;
             ISearchFormItemMetaData? metaData = null;
             if (fieldType.IsEnum)

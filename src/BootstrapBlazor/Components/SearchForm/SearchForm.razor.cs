@@ -140,7 +140,7 @@ public partial class SearchForm : IShowLabel
         item.ShowLabel ??= ShowLabel ?? true;
         item.ShowLabelTooltip ??= ShowLabelTooltip;
         item.MetaData ??= item.BuildSearchMetaData(GetSearchOptions());
-        item.MetaData?.ValueChanged ??= async () =>
+        item.MetaData.ValueChanged ??= async () =>
         {
             if (OnChanged != null)
             {
