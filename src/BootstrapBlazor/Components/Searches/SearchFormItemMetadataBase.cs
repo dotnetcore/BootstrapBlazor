@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">搜索元数据基类</para>
 /// <para lang="en">Search meta data base class</para>
 /// </summary>
-public abstract class SearchMetadataBase : ISearchFormItemMetadata
+public abstract class SearchFormItemMetadataBase : ISearchFormItemMetadata
 {
     /// <summary>
     /// <para lang="zh">获得/设置 占位符文本</para>

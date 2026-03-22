@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">时间搜索元数据类</para>
 /// <para lang="en">DateTime search meta data class</para>
 /// </summary>
-public class DateTimeSearchMetadata : SearchMetadataBase
+public class DateTimeSearchMetadata : SearchFormItemMetadataBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>
