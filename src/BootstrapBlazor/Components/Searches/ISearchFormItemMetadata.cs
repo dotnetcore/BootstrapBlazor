@@ -34,6 +34,13 @@ public interface ISearchFormItemMetadata
     FilterAction FilterAction { get; set; }
 
     /// <summary>
+    /// <para lang="zh">获得/设置 自定义渲染内容</para>
+    /// <para lang="en">Gets or sets custom render content</para>
+    /// </summary>
+    [JsonIgnore]
+    RenderFragment? RenderFragment { get; set; }
+
+    /// <summary>
     /// <para lang="zh">根据字段名称获取过滤器实例</para>
     /// <para lang="en">Gets the filter instance based on the field name</para> 
     /// </summary>
