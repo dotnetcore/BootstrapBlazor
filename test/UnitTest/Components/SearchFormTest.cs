@@ -53,6 +53,35 @@ public class SearchFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SearchFormLocalizerOptions_Ok()
+    {
+        var searchFormLocalizerOptions = new SearchFormLocalizerOptions()
+        {
+            NumberStartValueLabelText = "Start-Text",
+            NumberEndValueLabelText = "End-Text"
+        };
+        var cut = Context.Render<SearchForm>(pb =>
+        {
+            pb.Add(a => a.SearchFormLocalizerOptions, searchFormLocalizerOptions);
+            pb.Add(a => a.Items, new List<ISearchItem>()
+            {
+                new SearchItem(nameof(Foo.Count), typeof(int), nameof(Foo.Count))
+            });
+        });
+
+        cut.Contains("Start-Text");
+        cut.Contains("End-Text");
+    }
+
+    [Fact]
+    public void ToFilter_Ok()
+    {
+        List<ISearchItem>? items = null;
+        var filter = items.ToFilter();
+        Assert.NotNull(filter);
+    }
+
+    [Fact]
     public void LabelAlign_Ok()
     {
         var stringSearchMetaData = new StringSearchMetaData()
@@ -181,22 +210,13 @@ public class SearchFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void BuildSearchMetaData_PropertyType_Null_Ok()
-    {
-        var options = new SearchFormLocalizerOptions();
-        var item = new SearchItem("Name", null!);
-
-        // PropertyType 为 null 返回 null
-        Assert.Null(item.BuildSearchMetaData(options));
-    }
-
-    [Fact]
     public void BuildSearchMetaData_Enum_Ok()
     {
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(EnumEducation));
 
-        Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+        item.MetaData = item.BuildSearchMetaData(options);
+        Assert.IsType<SelectSearchMetaData>(item.MetaData);
         item.Reset();
     }
 
@@ -206,7 +226,8 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(int));
 
-        Assert.IsType<NumberSearchMetaData>(item.BuildSearchMetaData(options));
+        item.MetaData = item.BuildSearchMetaData(options);
+        Assert.IsType<NumberSearchMetaData>(item.MetaData);
         item.Reset();
     }
 
@@ -216,17 +237,28 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(bool));
 
-        Assert.IsType<SelectSearchMetaData>(item.BuildSearchMetaData(options));
+        item.MetaData = item.BuildSearchMetaData(options);
+        Assert.IsType<SelectSearchMetaData>(item.MetaData);
+        item.Reset();
+    }
+
+    [Fact]
+    public void BuildSearchMetaData_DateTimeRange_Ok()
+    {
+        var options = new SearchFormLocalizerOptions();
+        var item = new SearchItem("Name", typeof(DateTime));
+
+        item.MetaData = item.BuildSearchMetaData(options);
+        Assert.IsType<DateTimeRangeSearchMetaData>(item.MetaData);
         item.Reset();
     }
 
     [Fact]
     public void BuildSearchMetaData_DateTime_Ok()
     {
-        var options = new SearchFormLocalizerOptions();
-        var item = new SearchItem("Name", typeof(DateTime));
+        var item = new SearchItem("Name", typeof(DateTime)) { MetaData = new DateTimeSearchMetaData() };
 
-        Assert.IsType<DateTimeRangeSearchMetaData>(item.BuildSearchMetaData(options));
+        Assert.IsType<DateTimeSearchMetaData>(item.MetaData);
         item.Reset();
     }
 
