@@ -115,7 +115,7 @@ public class ITableColumnExtensionsTest
             IsRequiredWhenAdd = true,
             IsRequiredWhenEdit = true,
 
-            SearchFormItemMetaData = new StringSearchMetadata1()
+            SearchFormItemMetadata = new StringSearchMetadata()
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
@@ -186,7 +186,7 @@ public class ITableColumnExtensionsTest
         Assert.Equal("test-key", col.LookupServiceKey);
         Assert.Equal(true, col.LookupServiceData);
 
-        Assert.NotNull(col.SearchFormItemMetaData);
+        Assert.NotNull(col.SearchFormItemMetadata);
     }
 
     [Fact]

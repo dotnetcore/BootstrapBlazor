@@ -5,13 +5,13 @@
 
 namespace UnitTest.Components;
 
-public class SearchFormItemMetaDataTest
+public class SearchFormItemMetadataTest1
 {
     [Fact]
-    public async Task StringSearchFormItemMetaData_Ok()
+    public async Task StringSearchFormItemMetadata_Ok()
     {
         var valueChanged = false;
-        var meta = new StringSearchMetadata1()
+        var meta = new StringSearchMetadata()
         {
             FilterAction = FilterAction.Contains,
             FilterLogic = FilterLogic.And,
@@ -67,7 +67,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public void MultipleStringSearchFormItemMetaData_Ok()
+    public void MultipleStringSearchFormItemMetadata_Ok()
     {
         var meta = new MultipleStringSearchMetadata();
         var action = meta.GetFilter("fieldKey");
@@ -103,7 +103,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public void SelectSearchFormItemMetaData_Ok()
+    public void SelectSearchFormItemMetadata_Ok()
     {
         var meta = new SelectSearchMetadata()
         {
@@ -125,7 +125,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public void MultipleSelectSearchFormItemMetaData_Ok()
+    public void MultipleSelectSearchFormItemMetadata_Ok()
     {
         var meta = new MultipleSelectSearchMetadata()
         {
@@ -168,7 +168,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public async Task NumberSearchFormItemMetaData_Ok()
+    public async Task NumberSearchFormItemMetadata_Ok()
     {
         var meta = new NumberSearchMetadata()
         {
@@ -256,7 +256,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public void NumberSearchFormItemMetaData_ValueType()
+    public void NumberSearchFormItemMetadata_ValueType()
     {
         var meta = new NumberSearchMetadata()
         {
@@ -277,7 +277,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public async Task DateTimeSearchFormItemMetaData_Ok()
+    public async Task DateTimeSearchFormItemMetadata_Ok()
     {
         var meta = new DateTimeSearchMetadata();
 
@@ -316,7 +316,7 @@ public class SearchFormItemMetaDataTest
     }
 
     [Fact]
-    public async Task DateTimeRangeSearchFormItemMetaData_Ok()
+    public async Task DateTimeRangeSearchFormItemMetadata_Ok()
     {
         var meta = new DateTimeRangeSearchMetadata();
 

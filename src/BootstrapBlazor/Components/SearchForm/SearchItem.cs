@@ -60,17 +60,17 @@ public class SearchItem(string fieldName, Type fieldType, string? fieldText = nu
     public int Cols { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchItem.MetaData"/>
+    /// <inheritdoc cref="ISearchItem.Metadata"/>
     /// </summary>
-    public ISearchFormItemMetadata? MetaData { get; set; }
+    public ISearchFormItemMetadata? Metadata { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public FilterKeyValueAction? GetFilter() => MetaData?.GetFilter(FieldName);
+    public FilterKeyValueAction? GetFilter() => Metadata?.GetFilter(FieldName);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Reset() => MetaData?.Reset();
+    public void Reset() => Metadata?.Reset();
 }

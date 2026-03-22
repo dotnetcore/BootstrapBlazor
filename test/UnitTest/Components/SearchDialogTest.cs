@@ -22,7 +22,7 @@ public class SearchDialogTest : BootstrapBlazorTestBase
                 new SearchItem("Name", typeof(string), "姓名"),
                 new SearchItem("Address", typeof(string), "地址")
                 {
-                    MetaData = new StringSearchMetadata1()
+                    Metadata = new StringSearchMetadata()
                 }
             });
             pb.Add(a => a.OnChanged, action =>

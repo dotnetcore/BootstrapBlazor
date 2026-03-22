@@ -154,7 +154,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public ISearchFormItemMetadata? SearchFormItemMetaData { get; set; }
+    public ISearchFormItemMetadata? SearchFormItemMetadata { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

@@ -29,18 +29,18 @@ public static class IEditItemExtensions
             GroupName = column.GroupName,
             GroupOrder = column.GroupOrder,
             Order = column.Order,
-            MetaData = column.BuildSearchMetaData(options)
+            Metadata = column.BuildSearchMetadata(options)
         };
 
         return item;
     }
 
-    private static ISearchFormItemMetadata BuildSearchMetaData(this ITableColumn column, SearchFormLocalizerOptions options)
+    private static ISearchFormItemMetadata BuildSearchMetadata(this ITableColumn column, SearchFormLocalizerOptions options)
     {
         // 自定义搜索项逻辑
-        if (column.SearchFormItemMetaData is not null)
+        if (column.SearchFormItemMetadata is not null)
         {
-            return column.SearchFormItemMetaData;
+            return column.SearchFormItemMetadata;
         }
 
         ISearchFormItemMetadata? metaData = null;
@@ -94,7 +94,7 @@ public static class IEditItemExtensions
         }
         else
         {
-            metaData = new StringSearchMetadata1() { FilterAction = FilterAction.Contains };
+            metaData = new StringSearchMetadata() { FilterAction = FilterAction.Contains };
         }
 
         return metaData;
@@ -202,7 +202,7 @@ public static class IEditItemExtensions
         if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
         if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
         if (col.IgnoreWhenExport.HasValue) dest.IgnoreWhenExport = col.IgnoreWhenExport;
-        if (col.SearchFormItemMetaData != null) dest.SearchFormItemMetaData = col.SearchFormItemMetaData;
+        if (col.SearchFormItemMetadata != null) dest.SearchFormItemMetadata = col.SearchFormItemMetadata;
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
     public async Task Filter_Ok()
     {
         var filterKeyValueAction = new FilterKeyValueAction();
-        var stringSearchMetaData = new StringSearchMetadata1()
+        var stringSearchMetadata = new StringSearchMetadata()
         {
             PlaceHolder = "placeholder-val",
             Value = "foo-name-value"
@@ -41,13 +41,13 @@ public class SearchFormTest : BootstrapBlazorTestBase
         cut.Contains("col-sm-6");
         cut.Contains("form-inline-end");
 
-        searchItem.MetaData = stringSearchMetaData;
+        searchItem.Metadata = stringSearchMetadata;
         cut.Render();
         cut.Contains("placeholder-val");
         cut.Contains("foo-name-value");
 
         // 改变搜索项值
-        await stringSearchMetaData.ValueChangedHandler("test1");
+        await stringSearchMetadata.ValueChangedHandler("test1");
         Assert.Single(filterKeyValueAction.Filters);
         Assert.Equal("test1", filterKeyValueAction.Filters[0].FieldValue);
     }
@@ -84,7 +84,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
     [Fact]
     public void LabelAlign_Ok()
     {
-        var stringSearchMetaData = new StringSearchMetadata1()
+        var stringSearchMetadata = new StringSearchMetadata()
         {
             PlaceHolder = "placeholder-val",
             Value = "foo-name-value"
@@ -100,11 +100,11 @@ public class SearchFormTest : BootstrapBlazorTestBase
                     Text = "Name-Updated",
                     GroupName = "Group1",
                     GroupOrder = 1,
-                    MetaData = stringSearchMetaData
+                    Metadata = stringSearchMetadata
                 },
                 new SearchItem(nameof(Foo.Address), typeof(string), "Address")
                 {
-                    MetaData = stringSearchMetaData
+                    Metadata = stringSearchMetadata
                 }
             });
         });
@@ -130,11 +130,11 @@ public class SearchFormTest : BootstrapBlazorTestBase
                 {
                     GroupName = "Group1",
                     GroupOrder= 1,
-                    MetaData = new StringSearchMetadata1()
+                    Metadata = new StringSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Address), typeof(string), "Address")
                 {
-                    MetaData = new StringSearchMetadata1()
+                    Metadata = new StringSearchMetadata()
                 }
             });
         });
@@ -163,7 +163,7 @@ public class SearchFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void MetaData_Ok()
+    public void Metadata_Ok()
     {
         var cut = Context.Render<SearchForm>(pb =>
         {
@@ -171,27 +171,27 @@ public class SearchFormTest : BootstrapBlazorTestBase
             {
                 new SearchItem(nameof(Foo.Count), typeof(string), nameof(Foo.Count))
                 {
-                    MetaData = new NumberSearchMetadata()
+                    Metadata = new NumberSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
                 {
-                    MetaData = new DateTimeSearchMetadata()
+                    Metadata = new DateTimeSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.DateTime), typeof(string), nameof(Foo.DateTime))
                 {
-                    MetaData = new DateTimeRangeSearchMetadata()
+                    Metadata = new DateTimeRangeSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new SelectSearchMetadata()
+                    Metadata = new SelectSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new MultipleSelectSearchMetadata()
+                    Metadata = new MultipleSelectSearchMetadata()
                 },
                 new SearchItem(nameof(Foo.Education), typeof(string), nameof(Foo.Education))
                 {
-                    MetaData = new CheckboxListSearchMetadata()
+                    Metadata = new CheckboxListSearchMetadata()
                 }
             });
         });
@@ -204,61 +204,61 @@ public class SearchFormTest : BootstrapBlazorTestBase
         var action = item.GetFilter();
         Assert.Null(action);
 
-        item.MetaData = new StringSearchMetadata1() { Value = "test" };
+        item.Metadata = new StringSearchMetadata() { Value = "test" };
         action = item.GetFilter();
         Assert.NotNull(action);
     }
 
     [Fact]
-    public void BuildSearchMetaData_Enum_Ok()
+    public void BuildSearchMetadata_Enum_Ok()
     {
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(EnumEducation));
 
-        item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<SelectSearchMetadata>(item.MetaData);
+        item.Metadata = item.BuildSearchMetadata(options);
+        Assert.IsType<SelectSearchMetadata>(item.Metadata);
         item.Reset();
     }
 
     [Fact]
-    public void BuildSearchMetaData_Number_Ok()
+    public void BuildSearchMetadata_Number_Ok()
     {
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(int));
 
-        item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<NumberSearchMetadata>(item.MetaData);
+        item.Metadata = item.BuildSearchMetadata(options);
+        Assert.IsType<NumberSearchMetadata>(item.Metadata);
         item.Reset();
     }
 
     [Fact]
-    public void BuildSearchMetaData_Bool_Ok()
+    public void BuildSearchMetadata_Bool_Ok()
     {
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(bool));
 
-        item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<SelectSearchMetadata>(item.MetaData);
+        item.Metadata = item.BuildSearchMetadata(options);
+        Assert.IsType<SelectSearchMetadata>(item.Metadata);
         item.Reset();
     }
 
     [Fact]
-    public void BuildSearchMetaData_DateTimeRange_Ok()
+    public void BuildSearchMetadata_DateTimeRange_Ok()
     {
         var options = new SearchFormLocalizerOptions();
         var item = new SearchItem("Name", typeof(DateTime));
 
-        item.MetaData = item.BuildSearchMetadata(options);
-        Assert.IsType<DateTimeRangeSearchMetadata>(item.MetaData);
+        item.Metadata = item.BuildSearchMetadata(options);
+        Assert.IsType<DateTimeRangeSearchMetadata>(item.Metadata);
         item.Reset();
     }
 
     [Fact]
-    public void BuildSearchMetaData_DateTime_Ok()
+    public void BuildSearchMetadata_DateTime_Ok()
     {
-        var item = new SearchItem("Name", typeof(DateTime)) { MetaData = new DateTimeSearchMetadata() };
+        var item = new SearchItem("Name", typeof(DateTime)) { Metadata = new DateTimeSearchMetadata() };
 
-        Assert.IsType<DateTimeSearchMetadata>(item.MetaData);
+        Assert.IsType<DateTimeSearchMetadata>(item.Metadata);
         item.Reset();
     }
 

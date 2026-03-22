@@ -58,7 +58,7 @@ public static class ISearchItemExtensions
             }
             else
             {
-                metaData = new StringSearchMetadata1() { FilterAction = FilterAction.Contains };
+                metaData = new StringSearchMetadata() { FilterAction = FilterAction.Contains };
             }
 
             return metaData;
@@ -70,29 +70,29 @@ public static class ISearchItemExtensions
         /// </summary>
         public RenderFragment CreateSearchItemComponentByMetadata() => builder =>
         {
-            var metaData = item.MetaData;
+            var metaData = item.Metadata;
             switch (metaData)
             {
-                case NumberSearchMetadata numberSearchMetaData:
-                    builder.AddNumberSearchComponent(item, numberSearchMetaData);
+                case NumberSearchMetadata numberSearchMetadata:
+                    builder.AddNumberSearchComponent(item, numberSearchMetadata);
                     break;
-                case DateTimeSearchMetadata datetimeSearchMetaData:
-                    builder.AddDateTimeSearchComponent(item, datetimeSearchMetaData);
+                case DateTimeSearchMetadata datetimeSearchMetadata:
+                    builder.AddDateTimeSearchComponent(item, datetimeSearchMetadata);
                     break;
-                case DateTimeRangeSearchMetadata datetimeRangeSearchMetaData:
-                    builder.AddDateTimeRangeSearchComponent(item, datetimeRangeSearchMetaData);
+                case DateTimeRangeSearchMetadata datetimeRangeSearchMetadata:
+                    builder.AddDateTimeRangeSearchComponent(item, datetimeRangeSearchMetadata);
                     break;
-                case CheckboxListSearchMetadata checkboxListSearchMetaData:
-                    builder.AddCheckboxListSearchComponent(item, checkboxListSearchMetaData);
+                case CheckboxListSearchMetadata checkboxListSearchMetadata:
+                    builder.AddCheckboxListSearchComponent(item, checkboxListSearchMetadata);
                     break;
-                case MultipleSelectSearchMetadata multipleSelectSearchMetaData:
-                    builder.AddMultipleSelectSearchComponent(item, multipleSelectSearchMetaData);
+                case MultipleSelectSearchMetadata multipleSelectSearchMetadata:
+                    builder.AddMultipleSelectSearchComponent(item, multipleSelectSearchMetadata);
                     break;
-                case SelectSearchMetadata selectSearchMetaData:
-                    builder.AddSelectSearchComponent(item, selectSearchMetaData);
+                case SelectSearchMetadata selectSearchMetadata:
+                    builder.AddSelectSearchComponent(item, selectSearchMetadata);
                     break;
-                case StringSearchMetadata1 stringSearchMetaData:
-                    builder.AddStringSearchComponent(item, stringSearchMetaData);
+                case StringSearchMetadata stringSearchMetadata:
+                    builder.AddStringSearchComponent(item, stringSearchMetadata);
                     break;
             }
         };
@@ -100,20 +100,20 @@ public static class ISearchItemExtensions
 
     extension(RenderTreeBuilder builder)
     {
-        private void AddStringSearchComponent(ISearchItem item, StringSearchMetadata1 stringSearchMetaData)
+        private void AddStringSearchComponent(ISearchItem item, StringSearchMetadata stringSearchMetadata)
         {
             builder.OpenComponent<BootstrapInput<string>>(0);
-            builder.AddAttribute(10, nameof(BootstrapInput<>.Value), stringSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(BootstrapInput<>.OnValueChanged), stringSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(BootstrapInput<>.Value), stringSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(BootstrapInput<>.OnValueChanged), stringSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(BootstrapInput<>.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(BootstrapInput<>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(BootstrapInput<>.DisplayText), item.Text);
             builder.AddAttribute(60, nameof(BootstrapInput<>.SkipValidate), true);
-            builder.AddAttribute(70, nameof(BootstrapInput<>.PlaceHolder), stringSearchMetaData.PlaceHolder);
+            builder.AddAttribute(70, nameof(BootstrapInput<>.PlaceHolder), stringSearchMetadata.PlaceHolder);
             builder.CloseComponent();
         }
 
-        private void AddNumberSearchComponent(ISearchItem item, NumberSearchMetadata numberSearchMetaData)
+        private void AddNumberSearchComponent(ISearchItem item, NumberSearchMetadata numberSearchMetadata)
         {
             if (item.ShowLabel ?? true)
             {
@@ -127,74 +127,74 @@ public static class ISearchItemExtensions
             builder.AddAttribute(1, nameof(BootstrapInputGroup.ChildContent), new RenderFragment(builder =>
             {
                 builder.OpenComponent<BootstrapInputGroupLabel>(10);
-                builder.AddAttribute(11, nameof(BootstrapInputGroupLabel.DisplayText), numberSearchMetaData.StartValueLabelText);
+                builder.AddAttribute(11, nameof(BootstrapInputGroupLabel.DisplayText), numberSearchMetadata.StartValueLabelText);
                 builder.CloseComponent();
 
                 builder.OpenComponent<BootstrapInput<string>>(20);
-                builder.AddAttribute(21, nameof(BootstrapInput<>.Value), numberSearchMetaData.StartValue);
-                builder.AddAttribute(22, nameof(BootstrapInput<>.OnValueChanged), numberSearchMetaData.StartValueChangedHandler);
+                builder.AddAttribute(21, nameof(BootstrapInput<>.Value), numberSearchMetadata.StartValue);
+                builder.AddAttribute(22, nameof(BootstrapInput<>.OnValueChanged), numberSearchMetadata.StartValueChangedHandler);
                 builder.AddAttribute(23, nameof(BootstrapInput<>.SkipValidate), true);
                 builder.CloseComponent();
 
                 builder.OpenComponent<BootstrapInputGroupLabel>(30);
-                builder.AddAttribute(31, nameof(BootstrapInputGroupLabel.DisplayText), numberSearchMetaData.EndValueLabelText);
+                builder.AddAttribute(31, nameof(BootstrapInputGroupLabel.DisplayText), numberSearchMetadata.EndValueLabelText);
                 builder.CloseComponent();
 
                 builder.OpenComponent<BootstrapInput<string>>(40);
-                builder.AddAttribute(41, nameof(BootstrapInput<>.Value), numberSearchMetaData.EndValue);
-                builder.AddAttribute(42, nameof(BootstrapInput<>.OnValueChanged), numberSearchMetaData.EndValueChangedHandler);
+                builder.AddAttribute(41, nameof(BootstrapInput<>.Value), numberSearchMetadata.EndValue);
+                builder.AddAttribute(42, nameof(BootstrapInput<>.OnValueChanged), numberSearchMetadata.EndValueChangedHandler);
                 builder.AddAttribute(43, nameof(BootstrapInput<>.SkipValidate), true);
                 builder.CloseComponent();
             }));
             builder.CloseComponent();
         }
 
-        private void AddSelectSearchComponent(ISearchItem item, SelectSearchMetadata selectSearchMetaData)
+        private void AddSelectSearchComponent(ISearchItem item, SelectSearchMetadata selectSearchMetadata)
         {
             builder.OpenComponent<Select<string>>(0);
-            builder.AddAttribute(10, nameof(Select<>.Value), selectSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(Select<>.OnValueChanged), selectSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(Select<>.Value), selectSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(Select<>.OnValueChanged), selectSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(Select<>.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(Select<>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(Select<>.DisplayText), item.Text);
-            builder.AddAttribute(60, nameof(Select<>.Items), selectSearchMetaData.Items);
-            builder.AddAttribute(70, nameof(Select<>.PlaceHolder), selectSearchMetaData.PlaceHolder);
+            builder.AddAttribute(60, nameof(Select<>.Items), selectSearchMetadata.Items);
+            builder.AddAttribute(70, nameof(Select<>.PlaceHolder), selectSearchMetadata.PlaceHolder);
             builder.AddAttribute(80, nameof(Select<>.SkipValidate), true);
             builder.CloseComponent();
         }
 
-        private void AddMultipleSelectSearchComponent(ISearchItem item, MultipleSelectSearchMetadata multipleSelectSearchMetaData)
+        private void AddMultipleSelectSearchComponent(ISearchItem item, MultipleSelectSearchMetadata multipleSelectSearchMetadata)
         {
             builder.OpenComponent<MultiSelect<string>>(0);
-            builder.AddAttribute(10, nameof(MultiSelect<>.Value), multipleSelectSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(MultiSelect<>.OnValueChanged), multipleSelectSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(MultiSelect<>.Value), multipleSelectSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(MultiSelect<>.OnValueChanged), multipleSelectSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(MultiSelect<>.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(MultiSelect<>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(MultiSelect<>.DisplayText), item.Text);
-            builder.AddAttribute(60, nameof(MultiSelect<>.Items), multipleSelectSearchMetaData.Items);
-            builder.AddAttribute(70, nameof(MultiSelect<>.PlaceHolder), multipleSelectSearchMetaData.PlaceHolder);
+            builder.AddAttribute(60, nameof(MultiSelect<>.Items), multipleSelectSearchMetadata.Items);
+            builder.AddAttribute(70, nameof(MultiSelect<>.PlaceHolder), multipleSelectSearchMetadata.PlaceHolder);
             builder.AddAttribute(80, nameof(MultiSelect<>.SkipValidate), true);
             builder.CloseComponent();
         }
 
-        private void AddCheckboxListSearchComponent(ISearchItem item, CheckboxListSearchMetadata checkboxListSearchMetaData)
+        private void AddCheckboxListSearchComponent(ISearchItem item, CheckboxListSearchMetadata checkboxListSearchMetadata)
         {
             builder.OpenComponent<CheckboxList<string>>(0);
-            builder.AddAttribute(10, nameof(CheckboxList<>.Value), checkboxListSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(CheckboxList<>.OnValueChanged), checkboxListSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(CheckboxList<>.Value), checkboxListSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(CheckboxList<>.OnValueChanged), checkboxListSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(CheckboxList<>.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(CheckboxList<>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(CheckboxList<>.DisplayText), item.Text);
-            builder.AddAttribute(60, nameof(CheckboxList<>.Items), checkboxListSearchMetaData.Items);
+            builder.AddAttribute(60, nameof(CheckboxList<>.Items), checkboxListSearchMetadata.Items);
             builder.AddAttribute(70, nameof(CheckboxList<>.SkipValidate), true);
             builder.CloseComponent();
         }
 
-        private void AddDateTimeRangeSearchComponent(ISearchItem item, DateTimeRangeSearchMetadata datetimeRangeSearchMetaData)
+        private void AddDateTimeRangeSearchComponent(ISearchItem item, DateTimeRangeSearchMetadata datetimeRangeSearchMetadata)
         {
             builder.OpenComponent<DateTimeRange>(0);
-            builder.AddAttribute(10, nameof(DateTimeRange.Value), datetimeRangeSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(DateTimeRange.OnValueChanged), datetimeRangeSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(DateTimeRange.Value), datetimeRangeSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(DateTimeRange.OnValueChanged), datetimeRangeSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(DateTimeRange.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(DateTimeRange.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(DateTimeRange.DisplayText), item.Text);
@@ -202,16 +202,16 @@ public static class ISearchItemExtensions
             builder.CloseComponent();
         }
 
-        private void AddDateTimeSearchComponent(ISearchItem item, DateTimeSearchMetadata datetimeSearchMetaData)
+        private void AddDateTimeSearchComponent(ISearchItem item, DateTimeSearchMetadata datetimeSearchMetadata)
         {
             builder.OpenComponent<DateTimePicker<DateTime?>>(0);
-            builder.AddAttribute(10, nameof(DateTimePicker<>.Value), datetimeSearchMetaData.Value);
-            builder.AddAttribute(20, nameof(DateTimePicker<>.OnValueChanged), datetimeSearchMetaData.ValueChangedHandler);
+            builder.AddAttribute(10, nameof(DateTimePicker<>.Value), datetimeSearchMetadata.Value);
+            builder.AddAttribute(20, nameof(DateTimePicker<>.OnValueChanged), datetimeSearchMetadata.ValueChangedHandler);
             builder.AddAttribute(30, nameof(DateTimePicker<>.ShowLabel), item.ShowLabel ?? true);
             builder.AddAttribute(40, nameof(DateTimePicker<>.ShowLabelTooltip), item.ShowLabelTooltip);
             builder.AddAttribute(50, nameof(DateTimePicker<>.DisplayText), item.Text);
             builder.AddAttribute(60, nameof(DateTimePicker<>.SkipValidate), true);
-            builder.AddAttribute(70, nameof(DateTimePicker<>.DatePlaceHolderText), datetimeSearchMetaData.PlaceHolder);
+            builder.AddAttribute(70, nameof(DateTimePicker<>.DatePlaceHolderText), datetimeSearchMetadata.PlaceHolder);
             builder.CloseComponent();
         }
     }

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">多个字符串搜索元数据类</para>
 /// <para lang="en">Multiple string search meta data class</para>
 /// </summary>
-public class MultipleStringSearchMetadata : StringSearchMetadata1
+public class MultipleStringSearchMetadata : StringSearchMetadata
 {
     /// <summary>
     /// <inheritdoc cref="ISearchFormItemMetadata.GetFilter(string)"/>
