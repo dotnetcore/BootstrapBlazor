@@ -414,7 +414,8 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => closeButton.Click());
 
         // 关闭 Swal 确认弹窗
-        var swalModal = cut.FindComponents<Modal>().Last();
+        var count = cut.FindComponents<Modal>().Count;
+        var swalModal = cut.FindComponents<Modal>()[count - 1];
         await cut.InvokeAsync(() => swalModal.Instance.CloseCallback());
     }
 
