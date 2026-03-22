@@ -42,11 +42,6 @@ public abstract class SearchFormItemMetadataBase : ISearchFormItemMetadata
     public Func<object?, FilterKeyValueAction>? GetFilterCallback { get; set; }
 
     /// <summary>
-    /// <inheritdoc cref="ISearchFormItemMetadata.RenderContent"/>
-    /// </summary>
-    public RenderFragment? RenderContent() => null;
-
-    /// <summary>
     /// <inheritdoc cref="ISearchFormItemMetadata.GetFilter(string)"/>
     /// </summary>
     public abstract FilterKeyValueAction? GetFilter(string fieldName);
@@ -80,4 +75,10 @@ public abstract class SearchFormItemMetadataBase : ISearchFormItemMetadata
     /// <inheritdoc cref="ISearchFormItemMetadata.Reset"/>
     /// </summary>
     public abstract void Reset();
+
+    /// <summary>
+    /// <inheritdoc cref="ISearchFormItemMetadata.RenderContent"/>
+    /// </summary>
+    /// <returns></returns>
+    public virtual RenderFragment? RenderContent() => null;
 }

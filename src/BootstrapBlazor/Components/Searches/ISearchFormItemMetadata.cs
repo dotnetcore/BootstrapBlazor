@@ -34,12 +34,6 @@ public interface ISearchFormItemMetadata
     FilterAction FilterAction { get; set; }
 
     /// <summary>
-    /// <para lang="zh">获得/设置 自定义渲染内容方法</para>
-    /// <para lang="en">Gets or sets custom render content</para>
-    /// </summary>
-    RenderFragment? RenderContent();
-
-    /// <summary>
     /// <para lang="zh">根据字段名称获取过滤器实例</para>
     /// <para lang="en">Gets the filter instance based on the field name</para> 
     /// </summary>
@@ -64,4 +58,11 @@ public interface ISearchFormItemMetadata
     /// <para lang="en">Reset method</para>
     /// </summary>
     void Reset();
+
+    /// <summary>
+    /// <para lang="zh">渲染自定义内容方法</para>
+    /// <para lang="en">Render custom content method</para>
+    /// </summary>
+    /// <returns></returns>
+    RenderFragment? RenderContent();
 }
