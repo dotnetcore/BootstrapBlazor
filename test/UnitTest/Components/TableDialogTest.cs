@@ -256,9 +256,10 @@ public class TableDialogTest : TableDialogTestBase
         var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         var queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table.Render(pb =>
         {
@@ -271,9 +272,10 @@ public class TableDialogTest : TableDialogTestBase
         searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
@@ -291,9 +293,38 @@ public class TableDialogTest : TableDialogTestBase
         searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 开启 UseSearchForm 优先级最高
+        table.Render(pb =>
+        {
+            pb.Add(a => a.UseSearchForm, true);
+            pb.Add(a => a.SearchItems, new List<ISearchItem>()
+            {
+                new SearchItem("Name", typeof(string), "Name"),
+                new SearchItem("Address", typeof(string), "Address")
+                {
+                    MetaData = new StringSearchMetaData() { PlaceHolder = "Address-Placeholder" }
+                }
+            });
+        });
+        // 弹出高级搜索弹窗内部使用 SearchForm 组件，测试 SearchForm 组件的功能
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
+
+        // 查找重置搜索按钮关闭弹窗
+        var searchDialog = cut.FindComponent<SearchDialog<Foo>>();
+        Assert.NotNull(searchDialog);
+        searchDialog.Contains("Address-Placeholder");
+
+        // 测试点击重置按钮
+        var resetButton = cut.Find(".fa-trash-can");
+        await cut.InvokeAsync(() => resetButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
 
     [Fact]
