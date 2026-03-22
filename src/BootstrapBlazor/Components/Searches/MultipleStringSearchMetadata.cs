@@ -6,13 +6,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">多选类型搜索元数据类</para>
-/// <para lang="en">Multiple select type search metadata class</para>
+/// <para lang="zh">多个字符串搜索元数据类</para>
+/// <para lang="en">Multiple string search meta data class</para>
 /// </summary>
-public class MultipleSelectSearchMetaData : SelectSearchMetaData
+public class MultipleStringSearchMetadata : StringSearchMetadata
 {
     /// <summary>
-    /// <inheritdoc cref="SearchMetaDataBase.GetFilter(string)"/>
+    /// <inheritdoc cref="ISearchFormItemMetadata.GetFilter(string)"/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {
@@ -34,8 +34,7 @@ public class MultipleSelectSearchMetaData : SelectSearchMetaData
             {
                 FieldKey = fieldName,
                 FieldValue = valueList[0],
-                FilterLogic = FilterLogic.Or,
-                FilterAction = FilterAction
+                FilterAction = FilterAction.Contains
             };
         }
 
@@ -47,7 +46,7 @@ public class MultipleSelectSearchMetaData : SelectSearchMetaData
                 FieldKey = fieldName,
                 FieldValue = value,
                 FilterLogic = FilterLogic.Or,
-                FilterAction = FilterAction
+                FilterAction = FilterAction.Contains
             });
         }
 

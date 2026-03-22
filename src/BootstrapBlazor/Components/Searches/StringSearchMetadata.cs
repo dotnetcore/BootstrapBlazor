@@ -6,19 +6,19 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <para lang="zh">时间搜索元数据类</para>
-/// <para lang="en">DateTime search meta data class</para>
+/// <para lang="zh">字符串搜索元数据类</para>
+/// <para lang="en">String search meta data class</para>
 /// </summary>
-public class DateTimeSearchMetaData : SearchMetaDataBase
+public class StringSearchMetadata : SearchMetadataBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>
-    /// <para lang="en">Gets or sets the search start value</para>
+    /// <para lang="en">Gets or sets the search value</para>
     /// </summary>
-    public DateTime? Value { get; set; }
+    public string? Value { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ISearchFormItemMetadata.GetFilter(string)"/>
     /// </summary>
     public override FilterKeyValueAction? GetFilter(string fieldName)
     {
@@ -28,7 +28,7 @@ public class DateTimeSearchMetaData : SearchMetaDataBase
             return GetFilterCallback(Value);
         }
 
-        if (Value == null)
+        if (string.IsNullOrEmpty(Value))
         {
             return null;
         }
@@ -47,13 +47,21 @@ public class DateTimeSearchMetaData : SearchMetaDataBase
     /// <para lang="en">Search value changed event handler</para>
     /// </summary>
     /// <param name="value"></param>
-    public async Task ValueChangedHandler(DateTime? value)
+    public async Task ValueChangedHandler(string? value)
     {
-        Value = value;
+        Value = string.IsNullOrEmpty(value) ? null : value;
 
         if (ValueChanged != null)
         {
             await ValueChanged();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        Value = null;
     }
 }

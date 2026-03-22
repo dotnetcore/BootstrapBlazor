@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,27 +14,11 @@ namespace BootstrapBlazor.Components;
 public partial class SearchForm : IShowLabel
 {
     /// <summary>
-    /// <para lang="zh">获得/设置 过滤器实例</para>
-    /// <para lang="en">Gets or sets the filter instance</para>
-    /// </summary>
-    [Parameter]
-    [EditorRequired]
-    [NotNull]
-    public FilterKeyValueAction? Filter { get; set; }
-
-    /// <summary>
-    /// <para lang="zh">获得/设置 过滤器改变回调事件</para>
-    /// <para lang="en">Gets or sets the filter changed callback event</para>
-    /// </summary>
-    [Parameter]
-    public EventCallback<FilterKeyValueAction> FilterChanged { get; set; }
-
-    /// <summary>
     /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
     /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
     /// </summary>
     [Parameter]
-    public Func<FilterKeyValueAction, Task>? OnFilterChanged { get; set; }
+    public Func<FilterKeyValueAction, Task>? OnChanged { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得/设置 每行显示组件数量 默认为 null</para>
@@ -106,6 +92,17 @@ public partial class SearchForm : IShowLabel
     [Parameter]
     public EditorFormGroupType GroupType { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SearchFormLocalizerOptions>? SearchFormLocalizer { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-editor bb-search-form")
         .AddClass("bb-editor-group-row-header", GroupType == EditorFormGroupType.RowHeader)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -138,48 +135,38 @@ public partial class SearchForm : IShowLabel
         Items ??= [];
     }
 
-    /// <summary>
-    /// <para lang="zh">获得当前搜索表单过滤结果</para>
-    /// <para lang="en">Gets the current search form filter result</para> 
-    /// </summary>
-    public FilterKeyValueAction GetFilterKeyValueAction()
-    {
-        var action = new FilterKeyValueAction()
-        {
-            Filters = []
-        };
-
-        foreach (var item in Items)
-        {
-            var filter = item.GetFilter();
-            if (filter != null)
-            {
-                action.Filters.Add(filter);
-            }
-        }
-
-        return action;
-    }
-
     private RenderFragment AutoGenerateTemplate(ISearchItem item)
     {
-        item.ShowLabel ??= ShowLabel;
+        item.ShowLabel ??= ShowLabel ?? true;
         item.ShowLabelTooltip ??= ShowLabelTooltip;
-        item.MetaData?.ValueChanged ??= async () =>
+        item.Metadata ??= item.BuildSearchMetadata(GetSearchOptions());
+        item.Metadata.ValueChanged ??= async () =>
         {
-            var action = GetFilterKeyValueAction();
-
-            if (FilterChanged.HasDelegate)
+            if (OnChanged != null)
             {
-                await FilterChanged.InvokeAsync(action);
-            }
-            if (OnFilterChanged != null)
-            {
-                await OnFilterChanged.Invoke(action);
+                var filter = Items.ToFilter();
+                await OnChanged.Invoke(filter);
             }
         };
 
-        return item.CreateRenderFragment();
+        return item.CreateSearchItemComponentByMetadata();
+    }
+
+    private SearchFormLocalizerOptions? _options;
+
+    private SearchFormLocalizerOptions GetSearchOptions()
+    {
+        _options ??= SearchFormLocalizerOptions ?? new SearchFormLocalizerOptions()
+        {
+            SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+            BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+            BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+            BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+            NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+            NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+        };
+
+        return _options.Value;
     }
 
     private string? GetCssString(ISearchItem item)

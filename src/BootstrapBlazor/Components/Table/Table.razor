@@ -1101,7 +1101,7 @@
                 @if (UseSearchForm)
                 {
                     <SearchForm Items="SearchFormItems"
-                                Filter="_searchFilter" OnFilterChanged="OnSearchFormFilterChanged">
+                                OnChanged="OnSearchFormFilterChanged">
                     </SearchForm>
                 }
                 else if (CustomerSearchModel != null && CustomerSearchTemplate != null)

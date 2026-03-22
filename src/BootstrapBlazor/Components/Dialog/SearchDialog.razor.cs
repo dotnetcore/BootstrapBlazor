@@ -59,6 +59,34 @@ public partial class SearchDialog<TModel>
     [Parameter]
     public string? SearchIcon { get; set; }
 
+    /// <summary>
+    /// <para lang="zh">获得/设置 是否使用 SearchForm 组件进行搜索条件编辑 默认 false 不使用</para>
+    /// <para lang="en">Gets or sets Whether to use SearchForm component for editing search conditions. Default is false</para>
+    /// </summary>
+    [Parameter]
+    public bool UseSearchForm { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单项集合</para>
+    /// <para lang="en">Gets or sets Search Form Items collection</para>
+    /// </summary>
+    [Parameter]
+    public List<ISearchItem>? SearchItems { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 过滤器改变回调事件 Func 版本</para>
+    /// <para lang="en">Gets or sets the filter changed callback event Func version</para>
+    /// </summary>
+    [Parameter]
+    public Func<FilterKeyValueAction, Task>? OnChanged { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">获得/设置 搜索表单本地化配置项</para>
+    /// <para lang="en">Gets or sets Search Form Localization Options</para>
+    /// </summary>
+    [Parameter]
+    public SearchFormLocalizerOptions? SearchFormLocalizerOptions { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SearchDialog<TModel>>? Localizer { get; set; }
@@ -68,8 +96,7 @@ public partial class SearchDialog<TModel>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// <para lang="zh">OnParametersSet 方法</para>
-    /// <para lang="en">OnParametersSet Method</para>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -80,5 +107,42 @@ public partial class SearchDialog<TModel>
 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogClearIcon);
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchDialogSearchIcon);
+
+        if (UseSearchForm)
+        {
+            return;
+        }
+
+        if (BodyTemplate != null)
+        {
+            return;
+        }
+
+        Items ??= GetItemsByColumns();
     }
+
+    private async Task OnSearchFormFilterChanged(FilterKeyValueAction action)
+    {
+        // 通知父组件过滤器改变事件，此时并没有触发 OnSearchClick 搜索事件，父组件可以在 OnChanged 事件中获取当前过滤器状态并决定是否触发搜索事件
+        if (OnChanged != null)
+        {
+            await OnChanged(action);
+        }
+    }
+
+    private RenderFragment RenderButtons => builder =>
+    {
+        builder.OpenComponent<DialogCloseButton>(0);
+        builder.AddAttribute(10, nameof(DialogCloseButton.Icon), ClearIcon);
+        builder.AddAttribute(20, nameof(DialogCloseButton.Text), ResetButtonText);
+        builder.AddAttribute(30, nameof(DialogCloseButton.OnClickWithoutRender), OnResetSearchClick);
+        builder.CloseComponent();
+
+        builder.OpenComponent<DialogCloseButton>(100);
+        builder.AddAttribute(101, nameof(DialogCloseButton.Color), Color.Primary);
+        builder.AddAttribute(110, nameof(DialogCloseButton.Icon), SearchIcon);
+        builder.AddAttribute(120, nameof(DialogCloseButton.Text), QueryButtonText);
+        builder.AddAttribute(130, nameof(DialogCloseButton.OnClickWithoutRender), OnSearchClick);
+        builder.CloseComponent();
+    };
 }

@@ -46,7 +46,7 @@ public static class DialogServiceExtensions
         {
             [nameof(SearchDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
             [nameof(SearchDialog<TModel>.ShowLabel)] = option.ShowLabel,
-            [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.GetSearchable()),
+            [nameof(SearchDialog<TModel>.Items)] = option.Items,
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
                 if (option.OnResetSearchClick != null)
@@ -67,7 +67,11 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.ResetButtonText)] = option.ResetButtonText,
             [nameof(SearchDialog<TModel>.QueryButtonText)] = option.QueryButtonText,
             [nameof(SearchDialog<TModel>.Model)] = option.Model,
-            [nameof(SearchDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
+            [nameof(SearchDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
+            [nameof(SearchDialog<TModel>.UseSearchForm)] = option.UseSearchForm,
+            [nameof(SearchDialog<TModel>.SearchItems)] = option.SearchItems,
+            [nameof(SearchDialog<TModel>.OnChanged)] = option.OnFilterChanged,
+            [nameof(SearchDialog<TModel>.SearchFormLocalizerOptions)] = option.SearchFormLocalizerOptions
         };
         option.Component = BootstrapDynamicComponent.CreateComponent<SearchDialog<TModel>>(parameters);
         await service.Show(option, dialog);

@@ -69,16 +69,9 @@ public abstract class DialogBase<TModel> : BootstrapModuleComponentBase
     public bool ShowUnsetGroupItemsOnTop { get; set; }
 
     /// <summary>
-    /// <para lang="zh">OnInitialized 方法</para>
-    /// <para lang="en">OnInitialized Method</para>
+    /// <para lang="zh">通过模型标签获得所有搜索列集合</para>
+    /// <para lang="en">Gets all searchable columns by model attributes</para>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (Model == null)
-        {
-            throw new InvalidOperationException("Model value not set to null");
-        }
-    }
+    /// <returns></returns>
+    protected IEnumerable<IEditorItem> GetItemsByColumns() => Utility.GenerateColumns<TModel>(item => item.GetSearchable());
 }

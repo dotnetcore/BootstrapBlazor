@@ -256,9 +256,10 @@ public class TableDialogTest : TableDialogTestBase
         var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         var queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table.Render(pb =>
         {
@@ -271,9 +272,10 @@ public class TableDialogTest : TableDialogTestBase
         searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         table = cut.FindComponent<Table<Foo>>();
         table.Render(pb =>
@@ -291,9 +293,72 @@ public class TableDialogTest : TableDialogTestBase
         searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
 
-        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 开启 UseSearchForm 优先级最高
+        FilterKeyValueAction? filter = null;
+        table.Render(pb =>
+        {
+            pb.Add(a => a.UseSearchForm, true);
+            pb.Add(a => a.SearchItems, new List<ISearchItem>()
+            {
+                new SearchItem("Name", typeof(string), "Name"),
+                new SearchItem("Address", typeof(string), "Address")
+                {
+                    Metadata = new StringSearchMetadata() { PlaceHolder = "Address-Placeholder" }
+                }
+            });
+            pb.Add(a => a.OnQueryAsync, options =>
+            {
+                filter = options.ToFilter();
+                return Task.FromResult(new QueryData<Foo>()
+                {
+                    Items = items,
+                    TotalCount = items.Count,
+                    IsAdvanceSearch = true,
+                    IsSearch = true,
+                    IsFiltered = true,
+                    IsSorted = true
+                });
+            });
+        });
+        // 弹出高级搜索弹窗内部使用 SearchForm 组件，测试 SearchForm 组件的功能
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
+
+        // 查找高级搜索弹窗组件
+        var searchDialog = cut.FindComponent<SearchDialog<Foo>>();
+        Assert.NotNull(searchDialog);
+        searchDialog.Contains("Address-Placeholder");
+
+        // 更新搜索条件值
+        var searchItem = searchDialog.FindComponent<BootstrapInput<string>>();
+        Assert.NotNull(searchItem.Instance.OnValueChanged);
+        await cut.InvokeAsync(() => searchItem.Instance.OnValueChanged("Test_Name"));
+
+        // 测试点击搜索按钮
+        searchButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => searchButton.Click());
+        // 关闭弹窗
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.NotNull(filter);
+        Assert.Single(filter.Filters);
+
+        // 测试点击重置按钮
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+        await cut.WaitForAssertionAsync(() => cut.Find(".fa-magnifying-glass"));
+
+        var resetButton = cut.Find(".fa-trash-can");
+        await cut.InvokeAsync(() => resetButton.Click());
+        // 关闭弹窗
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.NotNull(filter);
+        Assert.Empty(filter.Filters);
     }
 
     [Fact]
@@ -349,7 +414,8 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => closeButton.Click());
 
         // 关闭 Swal 确认弹窗
-        var swalModal = cut.FindComponents<Modal>().Last();
+        var count = cut.FindComponents<Modal>().Count;
+        var swalModal = cut.FindComponents<Modal>()[count - 1];
         await cut.InvokeAsync(() => swalModal.Instance.CloseCallback());
     }
 

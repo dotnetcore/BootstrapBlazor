@@ -165,6 +165,11 @@ public partial class EditDialog<TModel>
     {
         base.OnParametersSet();
 
+        if (Model == null)
+        {
+            throw new InvalidOperationException($"参数 {nameof(Model)} 未赋值; {nameof(Model)} can not be null.");
+        }
+
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
 
@@ -173,6 +178,11 @@ public partial class EditDialog<TModel>
 
         CloseConfirmTitle ??= Localizer[nameof(CloseConfirmTitle)];
         CloseConfirmContent ??= Localizer[nameof(CloseConfirmContent)];
+
+        if (BodyTemplate == null)
+        {
+            Items ??= GetItemsByColumns();
+        }
     }
 
     private async Task<bool> OnClosingCallback()

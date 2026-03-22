@@ -29,47 +29,47 @@ public static class IEditItemExtensions
             GroupName = column.GroupName,
             GroupOrder = column.GroupOrder,
             Order = column.Order,
-            MetaData = column.BuildSearchMetaData(options)
+            Metadata = column.BuildSearchMetadata(options)
         };
 
         return item;
     }
 
-    private static ISearchFormItemMetaData BuildSearchMetaData(this ITableColumn column, SearchFormLocalizerOptions options)
+    private static ISearchFormItemMetadata BuildSearchMetadata(this ITableColumn column, SearchFormLocalizerOptions options)
     {
         // 自定义搜索项逻辑
-        if (column.SearchFormItemMetaData is not null)
+        if (column.SearchFormItemMetadata is not null)
         {
-            return column.SearchFormItemMetaData;
+            return column.SearchFormItemMetadata;
         }
 
-        ISearchFormItemMetaData? metaData = null;
+        ISearchFormItemMetadata? metaData = null;
         var fieldType = column.PropertyType;
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         if (Utility.IsCheckboxList(type, column.ComponentType))
         {
-            metaData = new CheckboxListSearchMetaData()
+            metaData = new CheckboxListSearchMetadata()
             {
                 Items = column.Items
             };
         }
         else if (column.IsLookup())
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata()
             {
                 Items = column.Items
             };
         }
         else if (type.IsEnum)
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata()
             {
                 Items = type.ToSelectList(new SelectedItem() { Value = "", Text = options.SelectAllText }),
             };
         }
         else if (fieldType.IsNumberWithDotSeparator())
         {
-            metaData = new NumberSearchMetaData()
+            metaData = new NumberSearchMetadata()
             {
                 StartValueLabelText = options.NumberStartValueLabelText,
                 EndValueLabelText = options.NumberEndValueLabelText,
@@ -78,7 +78,7 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsBoolean())
         {
-            metaData = new SelectSearchMetaData()
+            metaData = new SelectSearchMetadata()
             {
                 Items = new List<SelectedItem>()
                 {
@@ -90,11 +90,11 @@ public static class IEditItemExtensions
         }
         else if (fieldType.IsDateTime())
         {
-            metaData = new DateTimeRangeSearchMetaData();
+            metaData = new DateTimeRangeSearchMetadata();
         }
         else
         {
-            metaData = new StringSearchMetaData() { FilterAction = FilterAction.Contains };
+            metaData = new StringSearchMetadata() { FilterAction = FilterAction.Contains };
         }
 
         return metaData;
@@ -202,7 +202,7 @@ public static class IEditItemExtensions
         if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
         if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
         if (col.IgnoreWhenExport.HasValue) dest.IgnoreWhenExport = col.IgnoreWhenExport;
-        if (col.SearchFormItemMetaData != null) dest.SearchFormItemMetaData = col.SearchFormItemMetaData;
+        if (col.SearchFormItemMetadata != null) dest.SearchFormItemMetadata = col.SearchFormItemMetadata;
     }
 
     /// <summary>

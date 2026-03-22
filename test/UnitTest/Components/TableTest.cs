@@ -641,7 +641,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, "Field", true);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Complete), typeof(bool)));
                     builder.AddAttribute(3, nameof(ITableColumn.Searchable), true);
-                    builder.AddAttribute(3, nameof(ITableColumn.SearchFormItemMetaData), new StringSearchMetaData());
+                    builder.AddAttribute(3, nameof(ITableColumn.SearchFormItemMetadata), new StringSearchMetadata());
                     builder.CloseComponent();
                 });
             });
@@ -679,7 +679,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.UseSearchForm, true);
                 pb.Add(a => a.SearchItems, new List<SearchItem>()
                 {
-                    new SearchItem("Name", typeof(string), "名称") { MetaData = new StringSearchMetaData() }
+                    new SearchItem("Name", typeof(string), "名称") { Metadata = new StringSearchMetadata() }
                 });
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));

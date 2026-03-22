@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">搜索元数据接口</para>
 /// <para lang="en">Search metadata interface</para>
 /// </summary>
-public interface ISearchFormItemMetaData
+public interface ISearchFormItemMetadata
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值变化回调</para>
@@ -52,4 +52,10 @@ public interface ISearchFormItemMetaData
     /// <para lang="en">Gets or sets the callback to get the filter instance, called by the <see cref="GetFilter(string)"/> method. Setting this callback allows customizing the logic for obtaining the filter instance.</para>
     /// </summary>
     Func<object?, FilterKeyValueAction>? GetFilterCallback { get; set; }
+
+    /// <summary>
+    /// <para lang="zh">重置方法</para>
+    /// <para lang="en">Reset method</para>
+    /// </summary>
+    void Reset();
 }

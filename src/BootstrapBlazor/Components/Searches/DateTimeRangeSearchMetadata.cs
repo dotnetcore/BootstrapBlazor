@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <para lang="zh">时间区间搜索元数据类</para>
 /// <para lang="en">DateTime range search meta data class</para>
 /// </summary>
-public class DateTimeRangeSearchMetaData : SearchMetaDataBase
+public class DateTimeRangeSearchMetadata : SearchMetadataBase
 {
     /// <summary>
     /// <para lang="zh">获得/设置 搜索值</para>
@@ -71,5 +71,13 @@ public class DateTimeRangeSearchMetaData : SearchMetaDataBase
         {
             await ValueChanged();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override void Reset()
+    {
+        Value = null;
     }
 }

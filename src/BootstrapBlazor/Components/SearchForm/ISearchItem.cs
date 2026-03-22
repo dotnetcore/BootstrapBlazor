@@ -68,7 +68,7 @@ public interface ISearchItem
     /// <para lang="zh">获得/设置 搜索元数据</para>
     /// <para lang="en">Gets or sets the search metadata</para>
     /// </summary>
-    ISearchFormItemMetaData? MetaData { get; set; }
+    ISearchFormItemMetadata? Metadata { get; set; }
 
     /// <summary>
     /// <para lang="zh">获得 过滤器实例</para>
@@ -79,4 +79,10 @@ public interface ISearchItem
     ///   <para lang="en">Filter instance</para>
     /// </returns>
     FilterKeyValueAction? GetFilter();
+
+    /// <summary>
+    /// <para lang="zh">重置对象搜索值</para>
+    /// <para lang="en">Resets the object search values</para>
+    /// </summary>
+    void Reset();
 }
