@@ -178,6 +178,11 @@ public partial class Table<TItem>
 
     private List<ISearchItem> GetSearchFormItems()
     {
+        if (SearchItems != null)
+        {
+            return SearchItems.ToList();
+        }
+
         if (SearchFormLocalizerOptions is null)
         {
             SearchFormLocalizerOptions = new SearchFormLocalizerOptions()
@@ -190,19 +195,6 @@ public partial class Table<TItem>
                 NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
             };
         }
-
-        if (SearchItems != null)
-        {
-            // 增加内部创建默认 ISearchItemMetaData 逻辑，减少用户使用成本
-            foreach (var item in SearchItems)
-            {
-                // 创建默认 ISearchItemMetaData
-                item.MetaData ??= item.BuildSearchMetaData(SearchFormLocalizerOptions.Value);
-            }
-
-            return SearchItems.ToList();
-        }
-
         return GetSearchColumns().Select(i => i.ParseSearchItem(SearchFormLocalizerOptions.Value)).ToList();
     }
 
