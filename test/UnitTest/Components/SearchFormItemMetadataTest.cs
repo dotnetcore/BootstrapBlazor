@@ -5,7 +5,7 @@
 
 namespace UnitTest.Components;
 
-public class SearchFormItemMetadataTest1
+public class SearchFormItemMetadataTest
 {
     [Fact]
     public async Task StringSearchFormItemMetadata_Ok()
