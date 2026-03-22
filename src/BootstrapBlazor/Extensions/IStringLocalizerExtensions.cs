@@ -35,4 +35,14 @@ internal static class IStringLocalizerExtensions
         }
         return ret;
     }
+
+    public static SearchFormLocalizerOptions GetSearchFormLocalizerOptions(this IStringLocalizer<SearchFormLocalizerOptions> localizer) => new SearchFormLocalizerOptions()
+    {
+        SelectAllText = localizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
+        BooleanAllText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
+        BooleanTrueText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
+        BooleanFalseText = localizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
+        NumberStartValueLabelText = localizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
+        NumberEndValueLabelText = localizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
+    };
 }

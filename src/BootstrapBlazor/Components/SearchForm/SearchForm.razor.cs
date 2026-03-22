@@ -145,7 +145,7 @@ public partial class SearchForm : IShowLabel
             if (OnChanged != null)
             {
                 var filter = Items.ToFilter();
-                await OnChanged.Invoke(filter);
+                await OnChanged(filter);
             }
         };
 
@@ -156,15 +156,7 @@ public partial class SearchForm : IShowLabel
 
     private SearchFormLocalizerOptions GetSearchOptions()
     {
-        _options ??= SearchFormLocalizerOptions ?? new SearchFormLocalizerOptions()
-        {
-            SelectAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.SelectAllText)],
-            BooleanAllText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanAllText)],
-            BooleanTrueText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanTrueText)],
-            BooleanFalseText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.BooleanFalseText)],
-            NumberStartValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberStartValueLabelText)],
-            NumberEndValueLabelText = SearchFormLocalizer[nameof(Components.SearchFormLocalizerOptions.NumberEndValueLabelText)]
-        };
+        _options ??= SearchFormLocalizerOptions ?? SearchFormLocalizer.GetSearchFormLocalizerOptions();
 
         return _options.Value;
     }
