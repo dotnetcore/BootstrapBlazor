@@ -270,4 +270,40 @@ public class SearchFormTest : BootstrapBlazorTestBase
         // Metadata 为空时不报错
         item.Reset();
     }
+
+    [Fact]
+    public async Task CustomMetadata_Ok()
+    {
+        var filterKeyValueAction = new FilterKeyValueAction();
+        var cut = Context.Render<SearchForm>(pb =>
+        {
+            pb.Add(a => a.OnChanged, action =>
+            {
+                filterKeyValueAction = action;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Items, new List<ISearchItem>()
+            {
+                new SearchItem(nameof(Foo.Name), typeof(string), "Name")
+                {
+                    Metadata = new CustomeMetadata() { Value = "foo-name-value" }
+                }
+            });
+        });
+
+        cut.Contains("value=\"foo-name-value\"");
+    }
+
+    class CustomeMetadata : StringSearchMetadata
+    {
+        public override RenderFragment? RenderContent() => builder =>
+        {
+            builder.OpenComponent<BootstrapInput<string>>(0);
+            builder.AddAttribute(10, nameof(BootstrapInput<>.Value), Value);
+            builder.AddAttribute(20, nameof(BootstrapInput<>.OnValueChanged), ValueChangedHandler);
+            builder.AddAttribute(30, nameof(BootstrapInput<>.ShowLabel), true);
+            builder.AddAttribute(60, nameof(BootstrapInput<>.SkipValidate), true);
+            builder.CloseComponent();
+        };
+    }
 }
